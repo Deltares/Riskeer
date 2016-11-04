@@ -26,6 +26,7 @@ using System.Data;
 using System.Data.SQLite;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
+using Ringtoets.Common.IO.Properties;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
 
@@ -77,6 +78,7 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// <item>Unable to open database file.</item>
+        /// <item>The opened database doesn't have the expected schema.</item>
         /// </list>
         /// </exception>
         public HydraRingSettingsDatabaseReader(string databaseFilePath)
@@ -119,6 +121,8 @@ namespace Ringtoets.Common.IO.HydraRing
             excludedLocationsQuery = string.Format(
                 "SELECT {0} FROM ExcludedLocations",
                 locationIdColumn);
+
+            ValidateSchema();
         }
 
         /// <summary>
@@ -213,6 +217,32 @@ namespace Ringtoets.Common.IO.HydraRing
             }
         }
 
+        /// <summary>
+        /// Verifies that the schema of the opened settings database is valid.
+        /// </summary>
+        /// <exception cref="CriticalFileReadException">Thrown when the
+        /// opened database doesn't have the expected schema.</exception>
+        private void ValidateSchema()
+        {
+            if (!ContainsRequiredTables(GetColumnDefinitions(Connection)))
+            {
+                CloseConnection();
+                throw new CriticalFileReadException("De rekeninstellingen database heeft niet het juiste schema.");
+            }
+        }
+
+        private bool ContainsRequiredTables(List<Tuple<string, string>> definitions)
+        {
+            foreach (var tableDefinition in GetValidSchema())
+            {
+                if (!definitions.Contains(tableDefinition))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private SQLiteDataReader CreateDesignTablesDataReader(long locationId, HydraRingFailureMechanismType calculationType)
         {
             var locationParameter = new SQLiteParameter
@@ -290,6 +320,34 @@ namespace Ringtoets.Common.IO.HydraRing
         private SQLiteDataReader CreateExcludedLocationsDataReader()
         {
             return CreateDataReader(excludedLocationsQuery);
+        }
+
+        private List<Tuple<string, string>> GetValidSchema()
+        {
+            using (var validSchemaConnection = new SQLiteConnection("Data Source=:memory:"))
+            using (var command = validSchemaConnection.CreateCommand())
+            {
+                validSchemaConnection.Open();
+                command.CommandText = Resources.settings_schema;
+                command.ExecuteNonQuery();
+                return GetColumnDefinitions(validSchemaConnection);
+            }
+        }
+
+        private static List<Tuple<string, string>> GetColumnDefinitions(SQLiteConnection connection)
+        {
+            var columns = connection.GetSchema("COLUMNS");
+
+            var definitions = new List<Tuple<string, string>>();
+            for (int i = 0; i < columns.Rows.Count; i++)
+            {
+                var dataRow = columns.Rows[i];
+                definitions.Add(Tuple.Create(
+                    ((string) dataRow["TABLE_NAME"]).ToLower(),
+                    ((string) dataRow["COLUMN_NAME"]).ToLower()
+                                    ));
+            }
+            return definitions;
         }
     }
 }

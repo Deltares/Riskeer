@@ -528,11 +528,12 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bijbehorende rekeninstellingen bestand is niet gevonden in dezelfde map als het HRD bestand..
+        ///   Looks up a localized string similar to Kon het rekeninstellingen bestand niet openen. {0}.
         /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_Config_sqlite_Not_found {
+        public static string HydraulicBoundaryDatabaseImporter_Cannot_open_hydaulic_calculation_settings_file_0_ {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Config_sqlite_Not_found", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Cannot_open_hydaulic_calculation_settings_file_" +
+                        "0_", resourceCulture);
             }
         }
         
@@ -962,6 +963,24 @@ namespace Ringtoets.Common.IO.Properties {
         public static string ReferenceLineWriter_CreateMapLineData_Traject_id {
             get {
                 return ResourceManager.GetString("ReferenceLineWriter_CreateMapLineData_Traject_id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BEGIN TRANSACTION;
+        ///CREATE TABLE TimeIntegrationSettings (LocationID INTEGER NOT NULL, CalculationTypeID INTEGER NOT NULL REFERENCES CalculationTypes (CalculationTypeID) ON UPDATE CASCADE, TimeIntegrationSchemeID INTEGER NOT NULL);
+        ///CREATE TABLE &quot;NumericsSettings&quot; (
+        ///	`LocationID`	INTEGER NOT NULL,
+        ///	`MechanismID`	INTEGER NOT NULL,
+        ///	`SubMechanismID`	INTEGER NOT NULL,
+        ///	`CalculationMethod`	INTEGER NOT NULL,
+        ///	`FORM_StartMethod`	INTEGER NOT NULL,
+        ///	`FORM_NIterations`	INTEGER NOT NULL,
+        ///	`FORM_RelaxationFactor`	REAL N [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string settings_schema {
+            get {
+                return ResourceManager.GetString("settings_schema", resourceCulture);
             }
         }
         

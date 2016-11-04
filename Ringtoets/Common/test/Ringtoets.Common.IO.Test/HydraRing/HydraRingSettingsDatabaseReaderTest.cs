@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -34,22 +35,41 @@ namespace Ringtoets.Common.IO.Test.HydraRing
     [TestFixture]
     public class HydraRingSettingsDatabaseReaderTest
     {
-        private static readonly string completeDatabaseDataPath = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.Common.IO,
-            Path.Combine("HydraRingSettingsDatabaseReader", "7_67.config.sqlite"));
+        private const string testDataSubDirectory = "HydraRingSettingsDatabaseReader";
 
-        private static readonly string emptyDatabaseDataPath = TestHelper.GetTestDataPath(
+        private static readonly string completeDatabasePath = TestHelper.GetTestDataPath(
             TestDataPath.Ringtoets.Common.IO,
-            Path.Combine("HydraRingSettingsDatabaseReader", "7_67-empty.config.sqlite"));
+            Path.Combine(testDataSubDirectory, "7_67.config.sqlite"));
+
+        private static readonly string emptyDatabasePath = TestHelper.GetTestDataPath(
+            TestDataPath.Ringtoets.Common.IO,
+            Path.Combine(testDataSubDirectory, "7_67-empty.config.sqlite"));
+
+        private static readonly string invalidSchemaDatabasePath = TestHelper.GetTestDataPath(
+            TestDataPath.Ringtoets.Common.IO,
+            Path.Combine(testDataSubDirectory, "invalid-settings-schema.config.sqlite"));
 
         [Test]
-        public void Constructor_Always_ReturnsNewReader()
+        public void Constructor_DatabaseWithValidSchema_ReturnsNewReader()
         {
             // Call
-            var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath);
+            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
+            {
+                // Assert
+                Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(reader);
+            }
+        }
+
+        [Test]
+        public void Validate_InvalidSchema_ReturnsFalseFileNotLocked()
+        {
+            // Call
+            TestDelegate test = () => new HydraRingSettingsDatabaseReader(invalidSchemaDatabasePath);
 
             // Assert
-            Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(reader);
+            var message = Assert.Throws<CriticalFileReadException>(test).Message;
+            Assert.AreEqual("De rekeninstellingen database heeft niet het juiste schema.", message);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(invalidSchemaDatabasePath));
         }
 
         [Test]
@@ -59,7 +79,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ReadDesignTableSetting_InvalidFailureMechanismType_ThrowsInvalidEnumArgumentException(HydraRingFailureMechanismType calculationType)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
             {
                 // Call
                 TestDelegate test = () => reader.ReadDesignTableSetting(123, calculationType);
@@ -78,7 +98,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             long locationId, HydraRingFailureMechanismType calculationType, double expectedMin, double expectedMax)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
             {
                 // Call
                 DesignTablesSetting setting = reader.ReadDesignTableSetting(locationId, calculationType);
@@ -95,7 +115,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ReadDesignTableSetting_ValidLocationIdAndFailureMechanismTypeNotInDatabase_ReturnNull(long locationId, HydraRingFailureMechanismType calculationType)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
             {
                 // Call
                 DesignTablesSetting setting = reader.ReadDesignTableSetting(locationId, calculationType);
@@ -109,7 +129,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ReadDesignTableSetting_EmptyTable_ReturnNull()
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabasePath))
             {
                 // Call
                 DesignTablesSetting setting = reader.ReadDesignTableSetting(700131, 0);
@@ -126,7 +146,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ReadTimeIntegrationSetting_InvalidFailureMechanismType_ThrowsInvalidEnumArgumentException(HydraRingFailureMechanismType calculationType)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
             {
                 // Call
                 TestDelegate test = () => reader.ReadTimeIntegrationSetting(123, calculationType);
@@ -145,7 +165,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             long locationId, HydraRingFailureMechanismType calculationType, int expectedTimeIntegrationScheme)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
             {
                 // Call
                 TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
@@ -161,7 +181,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ReadTimeIntegrationSetting_ValidLocationIdAndFailureMechanismTypeNotInDatabase_ReturnNull(long locationId, HydraRingFailureMechanismType calculationType)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
             {
                 // Call
                 TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
@@ -175,7 +195,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ReadTimeIntegrationSetting_EmptyTable_ReturnNull()
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabasePath))
             {
                 // Call
                 TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(700131, 0);
@@ -209,7 +229,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             int expectedNiNumberSteps)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
             {
                 // Call
                 NumericsSetting setting = reader.ReadNumericsSetting(locationId, mechanismId, subMechanismId);
@@ -240,7 +260,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             long locationId, int mechanismId, int subMechanismId)
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
             {
                 // Call
                 NumericsSetting setting = reader.ReadNumericsSetting(locationId, mechanismId, subMechanismId);
@@ -254,7 +274,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ReadNumericsSetting_EmptyTable_ReturnNull()
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabasePath))
             {
                 // Call
                 NumericsSetting setting = reader.ReadNumericsSetting(700135, 101, 102);
@@ -268,7 +288,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ReadExcludedLocations_TableWithRows_ReturnsAllLocationIdsInTable()
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(completeDatabasePath))
             {
                 // Call
                 IEnumerable<long> locations = reader.ReadExcludedLocations();
@@ -288,7 +308,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ReadExcludedLocations_EmptyTable_ReturnsEmptyList()
         {
             // Setup
-            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabaseDataPath))
+            using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabasePath))
             {
                 // Call
                 IEnumerable<long> locations = reader.ReadExcludedLocations();

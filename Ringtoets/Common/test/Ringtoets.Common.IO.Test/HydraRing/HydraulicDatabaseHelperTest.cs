@@ -102,6 +102,19 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
+        public void ValidatePathForCalculation_ExistingFileWithoutSettings_ReturnsMessageWithError()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "withoutSettings", "empty.sqlite");
+
+            // Call
+            var result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
+
+            // Assert
+            StringAssert.StartsWith(string.Format("Fout bij het lezen van bestand '{0}':", validFilePath), result);
+        }
+
+        [Test]
         public void ValidatePathForCalculation_InvalidFilePath_ReturnsMessageWithError()
         {
             // Setup
@@ -161,7 +174,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var database = new HydraulicBoundaryDatabase()
+            var database = new HydraulicBoundaryDatabase
             {
                 Version = "Dutch coast South19-11-2015 12:0013"
             };
@@ -178,7 +191,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var database = new HydraulicBoundaryDatabase()
+            var database = new HydraulicBoundaryDatabase
             {
                 Version = "Dutch coast South19-11-2015 12:0113"
             };

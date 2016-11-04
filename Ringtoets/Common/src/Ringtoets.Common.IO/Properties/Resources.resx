@@ -485,7 +485,10 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Klik op details voor meer informatie.
 {0}</value>
   </data>
-  <data name="HydraulicBoundaryDatabaseImporter_Config_sqlite_Not_found" xml:space="preserve">
-    <value>Het bijbehorende rekeninstellingen bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
+  <data name="settings_schema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\settings-schema.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_Cannot_open_hydaulic_calculation_settings_file_0_" xml:space="preserve">
+    <value>Kon het rekeninstellingen bestand niet openen. {0}</value>
   </data>
 </root>

@@ -132,9 +132,10 @@ namespace Ringtoets.Common.IO.FileImporters
                 new TimeIntegrationSettingsProvider(settingsDatabaseFileName).Dispose();
                 new NumericsSettingsProvider(settingsDatabaseFileName).Dispose();
             }
-            catch (CriticalFileReadException)
+            catch (CriticalFileReadException e)
             {
-                var message = new FileReaderErrorMessageBuilder(filePath).Build(Resources.HydraulicBoundaryDatabaseImporter_Config_sqlite_Not_found);
+                var errorMessage = string.Format(Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydaulic_calculation_settings_file_0_, e.Message);
+                var message = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
                 throw new CriticalFileReadException(message);
             }
         }

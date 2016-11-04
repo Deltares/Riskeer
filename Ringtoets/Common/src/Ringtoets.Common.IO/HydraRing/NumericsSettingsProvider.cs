@@ -29,7 +29,8 @@ using Ringtoets.HydraRing.Calculation.Providers;
 namespace Ringtoets.Common.IO.HydraRing
 {
     /// <summary>
-    /// Provider of <see cref="NumericsSetting"/>.
+    /// Provider of <see cref="NumericsSetting"/> by reading from the settings database or by resorting
+    /// to defaults if no settings could be found.
     /// </summary>
     public class NumericsSettingsProvider : IDisposable
     {
@@ -45,6 +46,7 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// <item>Unable to open database file.</item>
+        /// <item>The opened database doesn't have the expected schema.</item>
         /// </list>
         /// </exception>
         public NumericsSettingsProvider(string databaseFilePath)

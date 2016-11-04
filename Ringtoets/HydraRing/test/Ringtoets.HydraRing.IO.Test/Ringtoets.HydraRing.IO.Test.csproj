@@ -58,7 +58,7 @@
     </Compile>
     <Compile Include="Exceptions\HydraulicBoundaryDatabaseReadExceptionTest.cs" />
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundaryDatabaseQueryBuilderTest.cs" />
-    <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundaryDatabaseReaderTest.cs" />
+    <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundarySqLiteDatabaseReaderTest.cs" />
     <Compile Include="HydraulicBoundaryLocationsWriterTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabaseContext\HydraulicLocationConfigurationDatabaseQueryBuilderTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabaseContext\HydraulicLocationConfigurationSqLiteDatabaseReaderTest.cs" />

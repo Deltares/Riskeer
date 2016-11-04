@@ -35,7 +35,7 @@ using UtilsResources = Core.Common.Utils.Properties.Resources;
 namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseReaderTest
+    public class HydraulicBoundarySqLiteDatabaseReaderTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
 
