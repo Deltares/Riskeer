@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.MacrostabilityInwards;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;

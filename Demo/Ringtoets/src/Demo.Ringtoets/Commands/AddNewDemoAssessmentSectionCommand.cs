@@ -120,7 +120,7 @@ namespace Demo.Ringtoets.Commands
                                                                                    true,
                                                                                    "traject_6-3_vakken.shp",
                                                                                    "traject_6-3_vakken.dbf",
-                                                                                   "traject_6-3_vakken.prj", 
+                                                                                   "traject_6-3_vakken.prj",
                                                                                    "traject_6-3_vakken.shx"))
             {
                 IFailureMechanism[] failureMechanisms = demoAssessmentSection.GetFailureMechanisms().ToArray();

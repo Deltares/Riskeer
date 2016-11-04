@@ -392,14 +392,14 @@ namespace Ringtoets.Common.Service.Test
             var norm = 30;
 
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
-                                                                   validFilePath,
-                                                                   string.Empty,
-                                                                   norm,
-                                                                   calculationMessageProviderMock);
+                                                             validFilePath,
+                                                             string.Empty,
+                                                             norm,
+                                                             calculationMessageProviderMock);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 calculator.EndInFailure = true;
 
                 // Call
@@ -444,14 +444,14 @@ namespace Ringtoets.Common.Service.Test
             var norm = 30;
 
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
-                                                                   validFilePath,
-                                                                   string.Empty,
-                                                                   norm,
-                                                                   calculationMessageProviderMock);
+                                                             validFilePath,
+                                                             string.Empty,
+                                                             norm,
+                                                             calculationMessageProviderMock);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occurred";
 

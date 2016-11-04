@@ -95,6 +95,27 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             StormDurationPropertyIndex = stormDurationPropertyIndex
         }) {}
 
+        #region Hydraulic data
+
+        [DynamicVisible]
+        [PropertyOrder(insideWaterLevelPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_InsideWaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_InsideWaterLevel_Description")]
+        public NormalDistributionProperties InsideWaterLevel
+        {
+            get
+            {
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.InsideWaterLevel
+                };
+            }
+        }
+
+        #endregion
+
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
@@ -154,27 +175,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             StructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
         }
-
-        #region Hydraulic data
-
-        [DynamicVisible]
-        [PropertyOrder(insideWaterLevelPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_InsideWaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_InsideWaterLevel_Description")]
-        public NormalDistributionProperties InsideWaterLevel
-        {
-            get
-            {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
-                {
-                    Data = data.WrappedData.InsideWaterLevel
-                };
-            }
-        }
-
-        #endregion
 
         #region Model factors
 

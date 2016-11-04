@@ -93,8 +93,8 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             string validPath = "empty.rtd";
             var tempFile = Path.Combine(testDataPath, validPath);
-            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}", 
-                tempFile, @"Het bestand is geen geldig Ringtoets bestand.");
+            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}",
+                                                   tempFile, @"Het bestand is geen geldig Ringtoets bestand.");
 
             // Call
             TestDelegate test = () => new StorageSqLite().LoadProject(tempFile);

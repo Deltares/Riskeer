@@ -24,7 +24,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Service.Properties;
-using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.Revetment.Service;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
@@ -89,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                 }
             }
             finally
-            {                
+            {
                 CalculationServiceHelper.LogCalculationEndTime(calculationName);
             }
         }

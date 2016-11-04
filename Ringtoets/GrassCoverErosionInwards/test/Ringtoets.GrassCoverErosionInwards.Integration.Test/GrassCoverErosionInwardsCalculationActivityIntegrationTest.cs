@@ -527,10 +527,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.LastErrorContent = "An error occurred";
                 calculator.EndInFailure = true;
-                
+
                 var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
@@ -572,7 +572,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.EndInFailure = true;
 
                 var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
@@ -616,7 +616,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occurred";
 
@@ -624,7 +624,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 // Call
                 Action call = () => { activity.Run(); };
-
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -642,6 +641,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
         }
+
         [Test]
         public void Run_DikeHeightCalculationFailedWithExceptionAndLastErrorPresent_LogError()
         {
@@ -662,7 +662,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.LastErrorContent = "An error occurred";
                 calculator.EndInFailure = true;
 
@@ -670,7 +670,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 // Call
                 Action call = () => { activity.Run(); };
-
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -709,7 +708,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.EndInFailure = true;
 
                 var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
@@ -754,7 +753,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occurred";
 
@@ -762,7 +761,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 // Call
                 Action call = () => { activity.Run(); };
-
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>

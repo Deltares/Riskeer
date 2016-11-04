@@ -310,7 +310,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = true;
 
                 // Call
@@ -339,7 +339,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occurred";
 

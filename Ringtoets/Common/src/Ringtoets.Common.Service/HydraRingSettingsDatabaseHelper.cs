@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Service
     /// Helper class for providing a convenient method for obtaining and updating Hydra-Ring settings per location from the settings database 
     /// based on <see cref="HydraRingCalculationInput"/>.
     /// </summary>
-    public static class HydraRingSettingsDatabaseHelper 
+    public static class HydraRingSettingsDatabaseHelper
     {
         /// <summary>
         /// Obtains the Hydra-Ring settings based on the location and the failure mechanism obtained from the <paramref name="calculationInput"/>
@@ -58,19 +58,19 @@ namespace Ringtoets.Common.Service
             using (var designTablesSettingsProviders = new DesignTablesSettingsProvider(settingsDatabaseFileName))
             {
                 calculationInput.DesignTablesSetting = designTablesSettingsProviders.GetDesignTablesSetting(
-                    locationId, 
+                    locationId,
                     calculationInput.FailureMechanismType);
             }
             using (var numericsSettingsProvider = new NumericsSettingsProvider(settingsDatabaseFileName))
             {
                 calculationInput.NumericsSettings = numericsSettingsProvider.GetNumericsSettings(
-                    locationId, 
+                    locationId,
                     calculationInput.FailureMechanismType);
             }
             using (var timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(settingsDatabaseFileName))
             {
                 calculationInput.TimeIntegrationSetting = timeIntegrationSettingsProvider.GetTimeIntegrationSetting(
-                    locationId, 
+                    locationId,
                     calculationInput.FailureMechanismType);
             }
         }

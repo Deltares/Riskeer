@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Service.Test
 
             // Assert
             Assert.Throws<ArgumentException>(test);
-        } 
+        }
 
         [Test]
         public void AssignSettingsFromDatabase_FileWithoutSettingsDatabase_ThrowsCriticalFileReadException()
@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Service.Test
 
             // Assert
             Assert.Throws<CriticalFileReadException>(test);
-        } 
+        }
 
         [Test]
         public void AssignSettingsFromDatabase_FileWithEmptySettingsDatabase_DefaultsSettingsAdded()
@@ -61,16 +61,17 @@ namespace Ringtoets.Common.Service.Test
             var input = new TestHydraRingCalculationInput();
 
             // Call
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, Path.Combine(testDataPath,"hrd.sqlite"));
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, Path.Combine(testDataPath, "hrd.sqlite"));
 
             // Assert
             Assert.NotNull(input.DesignTablesSetting);
             Assert.NotNull(input.NumericsSettings);
             Assert.NotNull(input.TimeIntegrationSetting);
-        } 
+        }
     }
 
-    public class TestHydraRingCalculationInput : HydraRingCalculationInput {
+    public class TestHydraRingCalculationInput : HydraRingCalculationInput
+    {
         public TestHydraRingCalculationInput() : base(2) {}
 
         public override HydraRingFailureMechanismType FailureMechanismType

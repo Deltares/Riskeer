@@ -302,7 +302,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            
+
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);

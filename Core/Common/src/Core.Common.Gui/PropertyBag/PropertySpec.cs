@@ -103,8 +103,8 @@ namespace Core.Common.Gui.PropertyBag
         /// <exception cref="InvalidOperationException">Calling this method while property
         /// has no setter.</exception>
         /// <exception cref="TargetInvocationException">Calling the method resulted in an exception.</exception>
-        /// <exception cref="TargetException"><paramref name="instance"/> is <c>null</c> or the
-        /// method is not defined on <paramref name="instance"/>.</exception>
+        /// <exception cref="TargetException">Thrown when <paramref name="instance"/> is <c>null</c> 
+        /// or the method is not defined on <paramref name="instance"/>.</exception>
         public void SetValue(object instance, object newValue)
         {
             var setMethodInfo = propertyInfo.GetSetMethod();
@@ -132,8 +132,8 @@ namespace Core.Common.Gui.PropertyBag
         /// <item>An error occurred while setting the property value. The <see cref="Exception.InnerException"/>
         /// property indicates the reason for the error.</item>
         /// </list></exception>
-        /// <exception cref="InvalidOperationException">Calling this method while property
-        /// has no getter.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when calling this method while 
+        /// property has no getter.</exception>
         public object GetValue(object instance)
         {
             var getMethodInfo = propertyInfo.GetGetMethod();

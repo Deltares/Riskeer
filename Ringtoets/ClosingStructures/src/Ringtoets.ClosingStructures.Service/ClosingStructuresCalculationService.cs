@@ -174,8 +174,8 @@ namespace Ringtoets.ClosingStructures.Service
 
         private static StructuresClosureCalculationInput CreateStructuresClosureCalculationInput(
             StructuresCalculation<ClosingStructuresInput> calculation,
-            ClosingStructuresFailureMechanism failureMechanism, 
-            FailureMechanismSection failureMechanismSection, 
+            ClosingStructuresFailureMechanism failureMechanism,
+            FailureMechanismSection failureMechanismSection,
             string hydraulicBoundaryDatabaseFilePath)
         {
             StructuresClosureCalculationInput input;
@@ -272,9 +272,9 @@ namespace Ringtoets.ClosingStructures.Service
         }
 
         private static StructuresClosureFloodedCulvertCalculationInput CreateFloodedCulvertCalculationInput(
-            StructuresCalculation<ClosingStructuresInput> calculation, 
-            FailureMechanismSection failureMechanismSection, 
-            GeneralClosingStructuresInput generalInput, 
+            StructuresCalculation<ClosingStructuresInput> calculation,
+            FailureMechanismSection failureMechanismSection,
+            GeneralClosingStructuresInput generalInput,
             string hydraulicBoundaryDatabaseFilePath)
         {
             var structuresClosureFloodedCulvertCalculationInput = new StructuresClosureFloodedCulvertCalculationInput(

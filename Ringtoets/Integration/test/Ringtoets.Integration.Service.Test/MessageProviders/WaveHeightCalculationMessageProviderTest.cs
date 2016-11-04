@@ -21,7 +21,6 @@
 
 using NUnit.Framework;
 using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.Common.Service.Properties;
 using Ringtoets.Integration.Service.MessageProviders;
 
 namespace Ringtoets.Integration.Service.Test.MessageProviders

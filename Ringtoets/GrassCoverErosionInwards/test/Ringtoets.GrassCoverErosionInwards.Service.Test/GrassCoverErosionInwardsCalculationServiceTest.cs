@@ -262,7 +262,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            
+
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
@@ -392,7 +392,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
-            
+
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
@@ -446,7 +446,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
-            
+
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
@@ -515,7 +515,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
-            
+
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
@@ -727,7 +727,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.LastErrorContent = "An error occurred";
                 calculator.EndInFailure = true;
 
@@ -739,11 +739,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     try
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
-                                                                           failureMechanismSection,
-                                                                           failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution,
-                                                                           validFile);
+                                                                                   assessmentSectionStub,
+                                                                                   failureMechanismSection,
+                                                                                   failureMechanism.GeneralInput,
+                                                                                   failureMechanism.Contribution,
+                                                                                   validFile);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -794,7 +794,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -805,11 +805,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     try
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
-                                                                           failureMechanismSection,
-                                                                           failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution,
-                                                                           validFile);
+                                                                                   assessmentSectionStub,
+                                                                                   failureMechanismSection,
+                                                                                   failureMechanism.GeneralInput,
+                                                                                   failureMechanism.Contribution,
+                                                                                   validFile);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -860,7 +860,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occurred";
 
@@ -873,11 +873,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     try
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
-                                                                           failureMechanismSection,
-                                                                           failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution,
-                                                                           validFile);
+                                                                                   assessmentSectionStub,
+                                                                                   failureMechanismSection,
+                                                                                   failureMechanism.GeneralInput,
+                                                                                   failureMechanism.Contribution,
+                                                                                   validFile);
                     }
                     catch (HydraRingFileParserException e)
                     {
@@ -901,7 +901,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Assert.AreEqual(calculator.LastErrorContent, exceptionMessage);
             }
         }
-        
+
         [Test]
         public void Calculate_DikeHeightCalculationFailedWithExceptionAndLastErrorPresent_LogError()
         {
@@ -931,7 +931,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.LastErrorContent = "An error occurred";
                 calculator.EndInFailure = true;
 
@@ -999,7 +999,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -1010,11 +1010,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     try
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
-                                                                           failureMechanismSection,
-                                                                           failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution,
-                                                                           validFile);
+                                                                                   assessmentSectionStub,
+                                                                                   failureMechanismSection,
+                                                                                   failureMechanism.GeneralInput,
+                                                                                   failureMechanism.Contribution,
+                                                                                   validFile);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -1066,7 +1066,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occurred";
 
@@ -1078,11 +1078,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     try
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
-                                                                           failureMechanismSection,
-                                                                           failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution,
-                                                                           validFile);
+                                                                                   assessmentSectionStub,
+                                                                                   failureMechanismSection,
+                                                                                   failureMechanism.GeneralInput,
+                                                                                   failureMechanism.Contribution,
+                                                                                   validFile);
                     }
                     catch (HydraRingFileParserException)
                     {

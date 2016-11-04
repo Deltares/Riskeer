@@ -153,7 +153,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             var locations = new List<HydraulicBoundaryLocation>
             {
-                new HydraulicBoundaryLocation(1, "1", 1.0, 1.0), 
+                new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
                 new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
                     WaveHeight = (RoundedDouble) 1.23

@@ -131,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath); 
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
