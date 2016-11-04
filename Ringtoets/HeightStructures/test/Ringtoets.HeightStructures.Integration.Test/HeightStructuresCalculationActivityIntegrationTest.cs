@@ -45,8 +45,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
     [TestFixture]
     public class HeightStructuresCalculationActivityIntegrationTest
     {
-        private readonly static string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-        private readonly static string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Run_CalculationInvalidInput_LogValidationStartAndEndWithError()
@@ -304,7 +304,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
@@ -380,6 +379,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                calculator.EndInFailure = true;
+
                 activity.Run();
             }
 
