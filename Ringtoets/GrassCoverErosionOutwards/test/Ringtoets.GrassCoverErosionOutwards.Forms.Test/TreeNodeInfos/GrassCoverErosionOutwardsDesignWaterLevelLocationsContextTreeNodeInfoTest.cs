@@ -475,7 +475,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
         [Test]
         [RequiresSTA]
-        public void GivenHydraulicBoundaryLocationThatFails_CalculatingDesignWaterLevelFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
+        public void GivenHydraulicBoundaryLocationSucceeds_CalculatingDesignWaterLevelFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given
             var guiMock = mockRepository.DynamicMock<IGui>();
@@ -517,14 +517,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig())
                     {
-                        ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator.EndInFailure = true;
-
                         // When
-                        contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
+                        Action call = () => contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
 
                         // Then
-                        Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
-                        Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+                        TestHelper.AssertLogMessages(call, messages =>
+                        {
+                            var msgs = messages.ToArray();
+                            Assert.AreEqual(7, msgs.Length);
+                            StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie '{0}'' gestart om: ", location.Name), msgs[0]);
+                            StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie '{0}'' beëindigd om: ", location.Name), msgs[1]);
+                            StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie '{0}'' gestart om: ", location.Name), msgs[2]);
+                            Assert.AreEqual(string.Format("Waterstand bij doorsnede-eis berekening voor locatie '{0}' is niet geconvergeerd.", location.Name), msgs[3]);
+                            StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                            StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie '{0}'' beëindigd om: ", location.Name), msgs[5]);
+                            StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is gelukt.", location.Name), msgs[6]);
+                        });
+                        Assert.AreEqual(0, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
                     }
                 }
             }
