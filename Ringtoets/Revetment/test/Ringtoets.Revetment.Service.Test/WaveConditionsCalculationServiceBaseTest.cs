@@ -365,6 +365,37 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
+        public void Validate_StructureNormalOrientationInvalid_ReturnsFalse()
+        {
+            // Setup
+            string name = "test";
+            bool isValid = false;
+
+            var dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+
+            WaveConditionsInput input = GetDefaultValidationInput();
+            input.Orientation = RoundedDouble.NaN;
+
+            // Call
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
+                                                                                                                     name,
+                                                                                                                     dbFilePath,
+                                                                                                                     "DesignWaterLevelName");
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'oriëntatie'.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
         [Combinatorial]
         public void Calculate_Always_StartsCalculationWithRightParameters(
             [Values(true, false)] bool useForeshore,
@@ -411,37 +442,6 @@ namespace Ringtoets.Revetment.Service.Test
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, testCalculator.ReceivedInputs[i]);
                 }
             }
-        }
-
-        [Test]
-        public void Validate_StructureNormalOrientationInvalid_ReturnsFalse()
-        {
-            // Setup
-            string name = "test";
-            bool isValid = false;
-
-            var dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
-            WaveConditionsInput input = GetDefaultValidationInput();
-            input.Orientation = RoundedDouble.NaN;
-
-            // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     name,
-                                                                                                                     dbFilePath,
-                                                                                                                     "DesignWaterLevelName");
-
-            // Assert
-            TestHelper.AssertLogMessages(action, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'oriëntatie'.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
-            });
-
-            Assert.IsFalse(isValid);
         }
 
         [Test]
