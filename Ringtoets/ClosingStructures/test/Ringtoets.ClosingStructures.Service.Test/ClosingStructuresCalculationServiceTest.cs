@@ -1139,7 +1139,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
         private const string insideWaterLevel = "binnenwaterstand";
         private const string stormDuration = "stormduur";
-        private const string deviationWaveDirection = "afwijking golfrichting";
         private const string factorStormDurationOpenStructure = "factor voor stormduur hoogwater";
         private const string modelFactorSuperCriticalFlow = "modelfactor overloopdebiet volkomen overlaat";
         private const string drainCoefficient = "afvoercoëfficient";
