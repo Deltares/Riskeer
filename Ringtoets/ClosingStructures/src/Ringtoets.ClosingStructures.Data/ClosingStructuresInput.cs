@@ -48,8 +48,8 @@ namespace Ringtoets.ClosingStructures.Data
         /// </summary>
         public ClosingStructuresInput()
         {
-            factorStormDurationOpenStructure = new RoundedDouble(2, double.NaN);
-            deviationWaveDirection = new RoundedDouble(2, double.NaN);
+            factorStormDurationOpenStructure = new RoundedDouble(2, 1.0);
+            deviationWaveDirection = new RoundedDouble(2);
 
             failureProbabilityOpenStructure = 0;
             failureProbabilityReparation = 0;

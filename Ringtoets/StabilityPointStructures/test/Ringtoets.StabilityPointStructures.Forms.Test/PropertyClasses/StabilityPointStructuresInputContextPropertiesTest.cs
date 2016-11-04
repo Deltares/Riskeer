@@ -1225,10 +1225,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.DrainCoefficient)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.AreaFlowApertures)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.WidthFlowApertures)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthLinearLoadModel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthQuadraticLoadModel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.StabilityLinearLoadModel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.StabilityQuadraticLoadModel)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }

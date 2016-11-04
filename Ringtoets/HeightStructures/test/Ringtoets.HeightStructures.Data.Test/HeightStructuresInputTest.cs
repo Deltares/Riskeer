@@ -52,7 +52,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             DistributionAssert.AreEqual(levelCrestStructure, input.LevelCrestStructure);
 
             Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
-            Assert.IsNaN(input.DeviationWaveDirection);
+            Assert.AreEqual(0.0, input.DeviationWaveDirection, input.DeviationWaveDirection.GetAccuracy());
         }
 
         [Test]

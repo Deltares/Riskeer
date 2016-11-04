@@ -133,13 +133,15 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<StructuresInputBase<StabilityPointStructure>>(input);
 
+            Assert.AreEqual(LoadSchematizationType.Linear, input.LoadSchematizationType);
+
             AssertAreEqual(9.81, input.VolumicWeightWater);
             Assert.AreEqual(2, input.VolumicWeightWater.NumberOfDecimalPlaces);
             DistributionAssert.AreEqual(insideWaterLevelFailureConstruction, input.InsideWaterLevelFailureConstruction);
             DistributionAssert.AreEqual(insideWaterLevel, input.InsideWaterLevel);
 
-            Assert.IsNaN(input.FactorStormDurationOpenStructure);
             Assert.AreEqual(2, input.FactorStormDurationOpenStructure.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, input.FactorStormDurationOpenStructure, input.FactorStormDurationOpenStructure.GetAccuracy());
             DistributionAssert.AreEqual(drainCoefficient, input.DrainCoefficient);
             DistributionAssert.AreEqual(flowVelocityStructureClosable, input.FlowVelocityStructureClosable);
 

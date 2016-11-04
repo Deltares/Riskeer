@@ -76,8 +76,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(0, input.FailureProbabilityOpenStructure);
             Assert.AreEqual(0, input.FailureProbabilityReparation);
 
-            Assert.IsNaN(input.FactorStormDurationOpenStructure);
-            Assert.IsNaN(input.DeviationWaveDirection);
+            Assert.AreEqual(2, input.FactorStormDurationOpenStructure.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, input.FactorStormDurationOpenStructure, input.FactorStormDurationOpenStructure.GetAccuracy());
+            Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.0, input.DeviationWaveDirection, input.DeviationWaveDirection.GetAccuracy());
 
             DistributionAssert.AreEqual(insideWaterLevel, input.InsideWaterLevel);
             DistributionAssert.AreEqual(drainCoefficient, input.DrainCoefficient);

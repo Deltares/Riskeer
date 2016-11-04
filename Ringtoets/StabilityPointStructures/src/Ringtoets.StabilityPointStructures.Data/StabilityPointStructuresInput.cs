@@ -59,8 +59,9 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// </summary>
         public StabilityPointStructuresInput()
         {
+            LoadSchematizationType = LoadSchematizationType.Linear;
             volumicWeightWater = new RoundedDouble(2, 9.81);
-            factorStormDurationOpenStructure = new RoundedDouble(2, double.NaN);
+            factorStormDurationOpenStructure = new RoundedDouble(2, 1.0);
             failureProbabilityRepairClosure = 0;
             probabilityCollisionSecondaryStructure = 0;
             evaluationLevel = new RoundedDouble(2);

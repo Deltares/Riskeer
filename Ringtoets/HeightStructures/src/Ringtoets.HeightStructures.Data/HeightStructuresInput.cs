@@ -46,7 +46,7 @@ namespace Ringtoets.HeightStructures.Data
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
-            deviationWaveDirection = new RoundedDouble(2, double.NaN);
+            deviationWaveDirection = new RoundedDouble(2);
         }
 
         #region Hydraulic data
