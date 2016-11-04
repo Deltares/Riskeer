@@ -229,5 +229,52 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             // Assert
             CollectionAssert.IsEmpty(affectedItems);
         }
+
+        [Test]
+        public void ClearAllWaveConditionsCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllWaveConditionsCalculationOutput_WithOutput_ClearsCalculationsOutputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation1 = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation2 = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation3 = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems = WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(failureMechanism);
+
+            // Assert
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
+            {
+                Assert.IsNull(calculation.Output);
+            }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
+        }
     }
 }

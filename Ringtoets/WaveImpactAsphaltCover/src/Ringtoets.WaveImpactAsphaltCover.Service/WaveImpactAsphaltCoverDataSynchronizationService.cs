@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Utils.Extensions;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -91,6 +92,32 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                     affectedItems.Add(calculation);
                 }
             }
+
+            return affectedItems;
+        }
+
+        /// <summary>
+        /// Clears the output for all calculations in the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="WaveImpactAsphaltCoverFailureMechanism"/>
+        /// which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> ClearAllWaveConditionsCalculationOutput(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            var affectedItems = failureMechanism.Calculations
+                                                .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                .Where(c => c.HasOutput)
+                                                .ToArray();
+
+            affectedItems.ForEachElementDo(ClearWaveConditionsCalculationOutput);
 
             return affectedItems;
         }
