@@ -25,6 +25,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Utils.Extensions;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
 
@@ -120,6 +121,32 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                     affectedItems.Add(calculation);
                 }
             }
+
+            return affectedItems;
+        }
+
+        /// <summary>
+        /// Clears the output for all calculations in the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/>
+        /// which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> ClearAllWaveConditionsCalculationOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            var affectedItems = failureMechanism.Calculations
+                                                .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                .Where(c => c.HasOutput)
+                                                .ToArray();
+
+            affectedItems.ForEachElementDo(ClearWaveConditionsCalculationOutput);
 
             return affectedItems;
         }

@@ -271,5 +271,52 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 calculation2
             }, affectedItems);
         }
+
+        [Test]
+        public void ClearAllWaveConditionsCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllWaveConditionsCalculationOutput_WithOutput_ClearsCalculationsOutputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation2 = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation3 = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(failureMechanism);
+
+            // Assert
+            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>())
+            {
+                Assert.IsNull(calculation.Output);
+            }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
+        }
     }
 }
