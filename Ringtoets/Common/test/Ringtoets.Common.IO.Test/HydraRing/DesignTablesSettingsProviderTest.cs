@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -63,6 +64,21 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
+        public void GetDesignTablesSetting_FailureMechanismTypeIsInvalid_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            using (var designTablesSettingsProvider = new DesignTablesSettingsProvider(completeDatabaseDataPath))
+            {
+                // Call
+                TestDelegate test = () => designTablesSettingsProvider.GetDesignTablesSetting(0,
+                                                                                              (HydraRingFailureMechanismType) 4000);
+
+                // Assert
+                Assert.Throws<InvalidEnumArgumentException>(test);
+            }
+        }
+
+        [Test]
         [TestCase(HydraRingFailureMechanismType.QVariant, 700137, 0.98, 2.98)]
         [TestCase(HydraRingFailureMechanismType.WaveHeight, 700138, -2.0, 0)]
         [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 700132, 2.0, 5.0)]
@@ -71,10 +87,11 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             HydraRingFailureMechanismType failureMechanismType, long locationId, double expectedValueMin, double expectedValueMax)
         {
             // Setup
-            using (DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider(completeDatabaseDataPath))
+            using (var designTablesSettingsProvider = new DesignTablesSettingsProvider(completeDatabaseDataPath))
             {
                 // Call
-                DesignTablesSetting designTablesSetting = designTablesSettingsProvider.GetDesignTablesSetting(locationId, failureMechanismType);
+                DesignTablesSetting designTablesSetting = designTablesSettingsProvider.GetDesignTablesSetting(
+                    locationId, failureMechanismType);
 
                 // Assert
                 Assert.AreEqual(expectedValueMin, designTablesSetting.ValueMin);
@@ -97,7 +114,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             HydraRingFailureMechanismType failureMechanismType, long locationId, double expectedValueMin, double expectedValueMax)
         {
             // Setup
-            using (DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider(completeDatabaseDataPath))
+            using (var designTablesSettingsProvider = new DesignTablesSettingsProvider(completeDatabaseDataPath))
             {
                 // Call
                 DesignTablesSetting designTablesSetting = designTablesSettingsProvider.GetDesignTablesSetting(locationId, failureMechanismType);

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
@@ -63,7 +64,8 @@ namespace Ringtoets.Common.IO.HydraRing
             }
             catch (PathTooLongException)
             {
-                return String.Format(Resources.HydraulicDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_, filePath);
+                return string.Format(CultureInfo.CurrentCulture, Resources.HydraulicDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_,
+                                     filePath);
             }
 
             string settingsDatabaseFileName = GetHydraulicBoundarySettingsDatabase(filePath);
@@ -74,10 +76,10 @@ namespace Ringtoets.Common.IO.HydraRing
                     db.GetVersion();
                 }
                 string hlcdFilePath = Path.Combine(directoryName, hlcdFileName);
-                new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath).Dispose();
-                new DesignTablesSettingsProvider(settingsDatabaseFileName).Dispose();
-                new TimeIntegrationSettingsProvider(settingsDatabaseFileName).Dispose();
-                new NumericsSettingsProvider(settingsDatabaseFileName).Dispose();
+                using (new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath)) {}
+                using (new DesignTablesSettingsProvider(settingsDatabaseFileName)) {}
+                using (new TimeIntegrationSettingsProvider(settingsDatabaseFileName)) {}
+                using (new NumericsSettingsProvider(settingsDatabaseFileName)) {}
             }
             catch (CriticalFileReadException e)
             {

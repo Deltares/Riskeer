@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Core.Common.IO.Exceptions;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
@@ -61,6 +62,8 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <param name="locationId">The location id to obtain the <see cref="DesignTablesSetting"/> for.</param>
         /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="DesignTablesSetting"/> for.</param>
         /// <returns>The <see cref="DesignTablesSetting"/> corresponding to the provided failure mechanism type and location id.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="failureMechanismType"/> is not a valid
+        /// <see cref="HydraRingFailureMechanismType"/> value.</exception>
         public DesignTablesSetting GetDesignTablesSetting(long locationId, HydraRingFailureMechanismType failureMechanismType)
         {
             return designTableSettingsReader.ReadDesignTableSetting(locationId, failureMechanismType) ??

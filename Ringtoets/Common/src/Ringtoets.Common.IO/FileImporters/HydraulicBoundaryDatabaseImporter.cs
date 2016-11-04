@@ -128,14 +128,15 @@ namespace Ringtoets.Common.IO.FileImporters
             try
             {
                 string settingsDatabaseFileName = HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(filePath);
-                new DesignTablesSettingsProvider(settingsDatabaseFileName).Dispose();
-                new TimeIntegrationSettingsProvider(settingsDatabaseFileName).Dispose();
-                new NumericsSettingsProvider(settingsDatabaseFileName).Dispose();
+                using (new DesignTablesSettingsProvider(settingsDatabaseFileName)) {}
+                using (new TimeIntegrationSettingsProvider(settingsDatabaseFileName)) {}
+                using (new NumericsSettingsProvider(settingsDatabaseFileName)) {}
             }
             catch (CriticalFileReadException e)
             {
-                var errorMessage = string.Format(Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydaulic_calculation_settings_file_0_, e.Message);
-                var message = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
+                var errorMessage = string.Format(Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydaulic_calculation_settings_file_0_,
+                                                 e.Message);
+                string message = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
                 throw new CriticalFileReadException(message);
             }
         }

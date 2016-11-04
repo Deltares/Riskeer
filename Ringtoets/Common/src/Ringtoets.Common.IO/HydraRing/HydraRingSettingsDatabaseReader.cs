@@ -62,12 +62,12 @@ namespace Ringtoets.Common.IO.HydraRing
         private const string subMechanismIdParameterName = "@subMechanismID";
         private const string timeIntegrationSchemeIdColumn = "TimeIntegrationSchemeID";
 
+        private const string locationIdColumn = "LocationID";
+
         private readonly string designTableSettingsForLocationAndCalculationTypeQuery;
         private readonly string numericSettingsForLocationMechanismAndSubMechanismQuery;
         private readonly string excludedLocationsQuery;
         private readonly string timeIntegrationSettingsForLocationAndCalculationTypeQuery;
-
-        private readonly string locationIdColumn = "LocationID";
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingSettingsDatabaseReader"/>.
@@ -140,12 +140,14 @@ namespace Ringtoets.Common.IO.HydraRing
                 throw new InvalidEnumArgumentException("calculationType", (int) calculationType, calculationType.GetType());
             }
 
-            var reader = CreateDesignTablesDataReader(locationId, calculationType);
-            if (MoveNext(reader))
+            using (var reader = CreateDesignTablesDataReader(locationId, calculationType))
             {
-                return new DesignTablesSetting(
-                    Convert.ToDouble(reader[minColumn]),
-                    Convert.ToDouble(reader[maxColumn]));
+                if (MoveNext(reader))
+                {
+                    return new DesignTablesSetting(
+                        Convert.ToDouble(reader[minColumn]),
+                        Convert.ToDouble(reader[maxColumn]));
+                }
             }
             return null;
         }
@@ -154,29 +156,31 @@ namespace Ringtoets.Common.IO.HydraRing
         /// Read a numerics setting for a given location and <see cref="HydraRingFailureMechanismType"/>.
         /// </summary>
         /// <param name="locationId">The id of a hydraulic boundary location.</param>
-        /// <param name="mechanimsId">The mechanism id to obtain the <see cref="NumericsSetting"/> for.</param>
+        /// <param name="mechanismId">The mechanism id to obtain the <see cref="NumericsSetting"/> for.</param>
         /// <param name="subMechanismId">The sub mechanism id to obtain the <see cref="NumericsSetting"/> for.</param>
         /// <returns>A new <see cref="NumericsSetting"/> containing values read from the database.</returns>
-        public NumericsSetting ReadNumericsSetting(long locationId, int mechanimsId, int subMechanismId)
+        public NumericsSetting ReadNumericsSetting(long locationId, int mechanismId, int subMechanismId)
         {
-            var reader = CreateNumericsSettingsDataReader(locationId, mechanimsId, subMechanismId);
-            if (MoveNext(reader))
+            using (var reader = CreateNumericsSettingsDataReader(locationId, mechanismId, subMechanismId))
             {
-                return new NumericsSetting(
-                    Convert.ToInt32(reader[calculationTechniqueIdColumn]),
-                    Convert.ToInt32(reader[formStartMethodColumn]),
-                    Convert.ToInt32(reader[formNumberOfIterationsColumn]),
-                    Convert.ToDouble(reader[formRelaxationFactorColumn]),
-                    Convert.ToDouble(reader[formEpsBetaColumn]),
-                    Convert.ToDouble(reader[formEpsHohColumn]),
-                    Convert.ToDouble(reader[formEpsZFuncColumn]),
-                    Convert.ToInt32(reader[dsStartMethodColumn]),
-                    Convert.ToInt32(reader[dsMinNumberOfIterationsColumn]),
-                    Convert.ToInt32(reader[dsMaxNumberOfIterationsColumn]),
-                    Convert.ToDouble(reader[dsVarCoefficientColumn]),
-                    Convert.ToDouble(reader[niUMinColumn]),
-                    Convert.ToDouble(reader[niUMaxColumn]),
-                    Convert.ToInt32(reader[niNumberStepsColumn]));
+                if (MoveNext(reader))
+                {
+                    return new NumericsSetting(
+                        Convert.ToInt32(reader[calculationTechniqueIdColumn]),
+                        Convert.ToInt32(reader[formStartMethodColumn]),
+                        Convert.ToInt32(reader[formNumberOfIterationsColumn]),
+                        Convert.ToDouble(reader[formRelaxationFactorColumn]),
+                        Convert.ToDouble(reader[formEpsBetaColumn]),
+                        Convert.ToDouble(reader[formEpsHohColumn]),
+                        Convert.ToDouble(reader[formEpsZFuncColumn]),
+                        Convert.ToInt32(reader[dsStartMethodColumn]),
+                        Convert.ToInt32(reader[dsMinNumberOfIterationsColumn]),
+                        Convert.ToInt32(reader[dsMaxNumberOfIterationsColumn]),
+                        Convert.ToDouble(reader[dsVarCoefficientColumn]),
+                        Convert.ToDouble(reader[niUMinColumn]),
+                        Convert.ToDouble(reader[niUMaxColumn]),
+                        Convert.ToInt32(reader[niNumberStepsColumn]));
+                }
             }
             return null;
         }
@@ -196,10 +200,12 @@ namespace Ringtoets.Common.IO.HydraRing
                 throw new InvalidEnumArgumentException("calculationType", (int) calculationType, calculationType.GetType());
             }
 
-            var reader = CreateTimeIntegrationDataReader(locationId, calculationType);
-            if (MoveNext(reader))
+            using (var reader = CreateTimeIntegrationDataReader(locationId, calculationType))
             {
-                return new TimeIntegrationSetting(Convert.ToInt32(reader[timeIntegrationSchemeIdColumn]));
+                if (MoveNext(reader))
+                {
+                    return new TimeIntegrationSetting(Convert.ToInt32(reader[timeIntegrationSchemeIdColumn]));
+                }
             }
             return null;
         }
@@ -207,13 +213,15 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <summary>
         /// Reads the excluded locations (those for which no calculation is possible) from the database.
         /// </summary>
-        /// <returns>A <see cref="IEnumerable{T}"/> of id's for all the excluded locations.</returns>
+        /// <returns>A <see cref="IEnumerable{T}"/> of ids for all the excluded locations.</returns>
         public IEnumerable<long> ReadExcludedLocations()
         {
-            var reader = CreateExcludedLocationsDataReader();
-            while (MoveNext(reader))
+            using (var reader = CreateExcludedLocationsDataReader())
             {
-                yield return Convert.ToInt64(reader[locationIdColumn]);
+                while (MoveNext(reader))
+                {
+                    yield return Convert.ToInt64(reader[locationIdColumn]);
+                }
             }
         }
 
@@ -265,7 +273,7 @@ namespace Ringtoets.Common.IO.HydraRing
                 typeParameter);
         }
 
-        private SQLiteDataReader CreateNumericsSettingsDataReader(long locationId, int mechanimsId, int subMechanismId)
+        private SQLiteDataReader CreateNumericsSettingsDataReader(long locationId, int mechanismId, int subMechanismId)
         {
             var locationParameter = new SQLiteParameter
             {
@@ -278,7 +286,7 @@ namespace Ringtoets.Common.IO.HydraRing
             {
                 DbType = DbType.Int32,
                 ParameterName = mechanismIdParameterName,
-                Value = mechanimsId
+                Value = mechanismId
             };
 
             var subMechanismIdParameter = new SQLiteParameter
