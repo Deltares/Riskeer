@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Service
                 try
                 {
                     var lastErrorContent = calculator.LastErrorContent;
-                    if (!exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
+                    if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.Error(messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorContent));
                         throw new HydraRingFileParserException(lastErrorContent);

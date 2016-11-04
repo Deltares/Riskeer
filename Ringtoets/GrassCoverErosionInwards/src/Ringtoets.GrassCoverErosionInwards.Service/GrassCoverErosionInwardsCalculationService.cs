@@ -192,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 try
                 {
                     var lastErrorContent = overtoppingCalculator.LastErrorContent;
-                    if (!exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
+                    if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_1, calculationName, lastErrorContent);
                         throw new HydraRingFileParserException(lastErrorContent);
@@ -235,7 +235,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 finally
                 {
                     var lastErrorContent = dikeHeightCalculator.LastErrorContent;
-                    if (!exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
+                    if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_1, calculationName, lastErrorContent);
                     }

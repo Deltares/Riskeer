@@ -260,7 +260,7 @@ namespace Ringtoets.Revetment.Service
                 try
                 {
                     var lastErrorContent = calculator.LastErrorContent;
-                    if (!exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
+                    if (!Canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(CultureInfo.CurrentCulture,
                                         Resources.WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_2,

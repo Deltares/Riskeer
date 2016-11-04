@@ -125,7 +125,7 @@ namespace Ringtoets.ClosingStructures.Service
                 try
                 {
                     var lastErrorContent = calculator.LastErrorContent;
-                    if (!exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
+                    if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_1,
                                         calculationName, lastErrorContent);
