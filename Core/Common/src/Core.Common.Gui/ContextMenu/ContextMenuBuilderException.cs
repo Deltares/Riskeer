@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Runtime.Serialization;
 
 namespace Core.Common.Gui.ContextMenu
 {
@@ -50,5 +51,7 @@ namespace Core.Common.Gui.ContextMenu
         /// <param name="innerException">The exception that is the cause of the current exception, or a 
         /// null reference if no inner exception is specified.</param>
         public ContextMenuBuilderException(string message, Exception innerException) : base(message, innerException) {}
+
+        protected ContextMenuBuilderException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

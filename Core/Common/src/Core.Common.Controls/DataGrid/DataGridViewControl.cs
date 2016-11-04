@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Core.Common.Controls.DataGrid
@@ -131,7 +132,9 @@ namespace Core.Common.Controls.DataGrid
             {
                 DataPropertyName = dataPropertyName,
                 HeaderText = headerText,
-                Name = string.Format("column_{0}", dataPropertyName),
+                Name = string.Format(CultureInfo.InvariantCulture,
+                                     "column_{0}",
+                                     dataPropertyName),
                 ReadOnly = readOnly,
                 DefaultCellStyle =
                 {
@@ -167,7 +170,9 @@ namespace Core.Common.Controls.DataGrid
             {
                 DataPropertyName = dataPropertyName,
                 HeaderText = headerText,
-                Name = string.Format("column_{0}", dataPropertyName),
+                Name = string.Format(CultureInfo.InvariantCulture,
+                                     "column_{0}",
+                                     dataPropertyName),
                 AutoSizeMode = autoSizeMode
             });
         }
@@ -189,7 +194,9 @@ namespace Core.Common.Controls.DataGrid
             {
                 DataPropertyName = dataPropertyName,
                 HeaderText = headerText,
-                Name = string.Format("column_{0}", dataPropertyName),
+                Name = string.Format(CultureInfo.InvariantCulture,
+                                     "column_{0}",
+                                     dataPropertyName),
                 AutoSizeMode = autoSizeMode
             };
 

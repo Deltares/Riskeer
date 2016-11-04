@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
 using Core.Common.Utils.Properties;
@@ -250,7 +251,8 @@ namespace Core.Common.Utils.Reflection
             }
             catch (ArgumentException)
             {
-                var message = string.Format(Resources.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method,
+                var message = string.Format(CultureInfo.CurrentCulture,
+                                            Resources.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method,
                                             originalExpression);
                 throw new ArgumentException(message);
             }

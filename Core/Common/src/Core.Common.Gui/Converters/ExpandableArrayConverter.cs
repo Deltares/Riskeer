@@ -37,7 +37,9 @@ namespace Core.Common.Gui.Converters
             var array = value as Array;
             if (destinationType == typeof(string) && array != null)
             {
-                return string.Format(Resources.ExpandableArrayConverter_ConvertTo_Count_0_, array.GetLength(0));
+                return string.Format(CultureInfo.CurrentCulture,
+                                     Resources.ExpandableArrayConverter_ConvertTo_Count_0_,
+                                     array.GetLength(0));
             }
 
             return base.ConvertTo(context, culture, value, destinationType);

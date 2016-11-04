@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.IO.Exceptions;
 
@@ -72,6 +73,28 @@ namespace Ringtoets.HydraRing.IO.Test.Exceptions
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreSame(expectedInnerException, exception.InnerException);
             Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void Constructor_SerializationRoundTrip_ExceptionProperlyInitialized()
+        {
+            // Setup
+            var originalInnerException = new Exception("inner");
+            var originalException = new HydraulicBoundaryDatabaseReadException("outer", originalInnerException);
+
+            // Precondition
+            Assert.IsNotNull(originalException.InnerException);
+            Assert.IsNull(originalException.InnerException.InnerException);
+
+            // Call
+            HydraulicBoundaryDatabaseReadException persistedException = SerializationTestHelper.SerializeAndDeserializeException(originalException);
+
+            // Assert
+            Assert.AreEqual(originalException.Message, persistedException.Message);
+            Assert.IsNotNull(persistedException.InnerException);
+            Assert.AreEqual(originalException.InnerException.GetType(), persistedException.InnerException.GetType());
+            Assert.AreEqual(originalException.InnerException.Message, persistedException.InnerException.Message);
+            Assert.IsNull(persistedException.InnerException.InnerException);
         }
     }
 }

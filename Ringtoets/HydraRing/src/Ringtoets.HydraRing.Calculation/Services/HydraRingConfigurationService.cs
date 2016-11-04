@@ -241,7 +241,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
-                TimeIntegrationSetting timeIntegrationSetting  = hydraRingCalculationInput.TimeIntegrationSetting;
+                TimeIntegrationSetting timeIntegrationSetting = hydraRingCalculationInput.TimeIntegrationSetting;
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {

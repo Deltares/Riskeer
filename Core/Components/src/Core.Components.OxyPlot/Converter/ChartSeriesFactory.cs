@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using Core.Components.Charting.Data;
 using OxyPlot.Series;
 
@@ -59,7 +60,9 @@ namespace Core.Components.OxyPlot.Converter
                     return converter.Convert(data);
                 }
             }
-            throw new NotSupportedException(string.Format("ChartData of type {0} is not supported.", data.GetType().Name));
+            throw new NotSupportedException(string.Format(CultureInfo.CurrentCulture,
+                                                          "ChartData of type {0} is not supported.",
+                                                          data.GetType().Name));
         }
     }
 }

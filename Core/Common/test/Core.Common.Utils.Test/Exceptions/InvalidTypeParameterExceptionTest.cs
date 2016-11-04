@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Exceptions;
 using NUnit.Framework;
 
@@ -61,7 +62,8 @@ namespace Core.Common.Utils.Test.Exceptions
             var expectedMessage = string.Format("Exception of type '{0}' was thrown.", exception.GetType());
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.AreEqual(typeParamName, exception.TypeParamName);
-            CollectionAssert.IsEmpty(exception.Data);
+            Assert.AreEqual(1, exception.Data.Count);
+            Assert.AreEqual(exception.TypeParamName, exception.Data["TypeParamName"]);
             Assert.IsNull(exception.HelpLink);
             Assert.IsNull(exception.InnerException);
             Assert.IsNull(exception.Source);
@@ -83,7 +85,8 @@ namespace Core.Common.Utils.Test.Exceptions
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual(messageText, exception.Message);
             Assert.AreEqual(typeParamName, exception.TypeParamName);
-            CollectionAssert.IsEmpty(exception.Data);
+            Assert.AreEqual(1, exception.Data.Count);
+            Assert.AreEqual(exception.TypeParamName, exception.Data["TypeParamName"]);
             Assert.IsNull(exception.HelpLink);
             Assert.IsNull(exception.InnerException);
             Assert.IsNull(exception.Source);
@@ -106,12 +109,36 @@ namespace Core.Common.Utils.Test.Exceptions
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual(messageText, exception.Message);
             Assert.AreEqual(typeParamName, exception.TypeParamName);
-            CollectionAssert.IsEmpty(exception.Data);
+            Assert.AreEqual(1, exception.Data.Count);
+            Assert.AreEqual(exception.TypeParamName, exception.Data["TypeParamName"]);
             Assert.IsNull(exception.HelpLink);
             Assert.AreEqual(innerException, exception.InnerException);
             Assert.IsNull(exception.Source);
             Assert.IsNull(exception.StackTrace);
             Assert.IsNull(exception.TargetSite);
+        }
+
+        [Test]
+        public void Constructor_SerializationRoundTrip_ExceptionProperlyInitialized()
+        {
+            // Setup
+            var originalInnerException = new Exception("inner");
+            var originalException = new InvalidTypeParameterException("<parameter>", "<message>", originalInnerException);
+
+            // Precondition
+            Assert.IsNotNull(originalException.InnerException);
+            Assert.IsNull(originalException.InnerException.InnerException);
+
+            // Call
+            InvalidTypeParameterException persistedException = SerializationTestHelper.SerializeAndDeserializeException(originalException);
+
+            // Assert
+            Assert.AreEqual(originalException.Message, persistedException.Message);
+            Assert.AreEqual(originalException.TypeParamName, persistedException.TypeParamName);
+            Assert.IsNotNull(persistedException.InnerException);
+            Assert.AreEqual(originalException.InnerException.GetType(), persistedException.InnerException.GetType());
+            Assert.AreEqual(originalException.InnerException.Message, persistedException.InnerException.Message);
+            Assert.IsNull(persistedException.InnerException.InnerException);
         }
     }
 }

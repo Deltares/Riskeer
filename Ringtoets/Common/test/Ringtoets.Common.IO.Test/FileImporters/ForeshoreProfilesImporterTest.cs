@@ -203,10 +203,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var progressChangeNotifications = new List<ProgressNotification>();
             var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath)
-            {
-                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
-            };
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
             bool importResult = foreshoreProfilesImporter.Import();
@@ -280,10 +278,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var progressChangeNotifications = new List<ProgressNotification>();
             var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath)
-            {
-                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
-            };
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, assessmentSection);
             targetContext.Attach(observer);

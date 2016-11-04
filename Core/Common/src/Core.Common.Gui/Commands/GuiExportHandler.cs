@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
@@ -91,7 +92,9 @@ namespace Core.Common.Gui.Commands
                 MessageBox.Show(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available,
                                 Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_Error);
                 string itemToExportType = source == null ? "null" : source.GetType().FullName;
-                log.Warn(string.Format(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available, itemToExportType));
+                log.Warn(string.Format(CultureInfo.CurrentCulture,
+                                       Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available,
+                                       itemToExportType));
                 return null;
             }
 

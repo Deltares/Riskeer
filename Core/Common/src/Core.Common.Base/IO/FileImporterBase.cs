@@ -56,7 +56,10 @@ namespace Core.Common.Base.IO
             ImportTarget = importTarget;
         }
 
-        public ProgressChangedDelegate ProgressChanged { private get; set; }
+        public void SetProgressChanged(ProgressChangedDelegate action)
+        {
+            ProgressChanged = action;
+        }
 
         public abstract bool Import();
 
@@ -83,6 +86,8 @@ namespace Core.Common.Base.IO
                 changedObservableObject.NotifyObservers();
             }
         }
+
+        protected ProgressChangedDelegate ProgressChanged { get; private set; }
 
         /// <summary>
         /// Gets the import target.

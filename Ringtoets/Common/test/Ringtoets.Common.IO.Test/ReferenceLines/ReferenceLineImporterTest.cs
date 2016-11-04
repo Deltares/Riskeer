@@ -116,16 +116,14 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 }
             };
             var progressChangedCallCount = 0;
-            var importer = new ReferenceLineImporter(assessmentSection, path)
+            var importer = new ReferenceLineImporter(assessmentSection, path);
+            importer.SetProgressChanged((description, step, steps) =>
             {
-                ProgressChanged = (description, step, steps) =>
-                {
-                    Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
-                    Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
-                    Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].MaxNrOfSteps, steps);
-                    progressChangedCallCount++;
-                }
-            };
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].MaxNrOfSteps, steps);
+                progressChangedCallCount++;
+            });
 
             // Call
             importer.Import();
@@ -371,16 +369,14 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 }
             };
             var progressChangedCallCount = 0;
-            var importer = new ReferenceLineImporter(assessmentSection, path)
+            var importer = new ReferenceLineImporter(assessmentSection, path);
+            importer.SetProgressChanged((description, step, steps) =>
             {
-                ProgressChanged = (description, step, steps) =>
-                {
-                    Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
-                    Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
-                    Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].MaxNrOfSteps, steps);
-                    progressChangedCallCount++;
-                }
-            };
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].MaxNrOfSteps, steps);
+                progressChangedCallCount++;
+            });
 
             DialogBoxHandler = (name, wnd) =>
             {

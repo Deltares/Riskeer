@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Storage;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.Storage
@@ -70,6 +71,28 @@ namespace Core.Common.Base.Test.Storage
             // Assert
             Assert.AreSame(expectedInnerException, exception.InnerException);
             Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void Constructor_SerializationRoundTrip_ExceptionProperlyInitialized()
+        {
+            // Setup
+            var originalInnerException = new Exception("inner");
+            var originalException = new StorageException("outer", originalInnerException);
+
+            // Precondition
+            Assert.IsNotNull(originalException.InnerException);
+            Assert.IsNull(originalException.InnerException.InnerException);
+
+            // Call
+            StorageException persistedException = SerializationTestHelper.SerializeAndDeserializeException(originalException);
+
+            // Assert
+            Assert.AreEqual(originalException.Message, persistedException.Message);
+            Assert.IsNotNull(persistedException.InnerException);
+            Assert.AreEqual(originalException.InnerException.GetType(), persistedException.InnerException.GetType());
+            Assert.AreEqual(originalException.InnerException.Message, persistedException.InnerException.Message);
+            Assert.IsNull(persistedException.InnerException.InnerException);
         }
     }
 }

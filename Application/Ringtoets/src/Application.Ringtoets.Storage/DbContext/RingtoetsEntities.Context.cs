@@ -28,30 +28,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
-    public partial class RingtoetsEntities : DbContext
+    public partial class RingtoetsEntities : System.Data.Entity.DbContext
     {
         public RingtoetsEntities()
-            : base("name=RingtoetsEntities")
-        {
-        }
-    
-    	/// <summary>
-        /// This method is called in a 'code first' approach when the model for a derived <see cref="DbContext"/> has been initialized,
-        /// but before the model has been locked down and used to initialize the <see cref="DbContext"/>.
-        /// </summary>
-        /// <param name="modelBuilder">The <see cref="DbModelBuilder"/> that defines the model for the context being created.</param>
-        /// <exception cref="UnintentionalCodeFirstException">Thrown because the <see cref="DbContext"/> is created in a 'code first' approach.</exception>
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
+            : base("name=RingtoetsEntities") {}
+
         public virtual DbSet<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
         public virtual DbSet<CalculationGroupEntity> CalculationGroupEntities { get; set; }
         public virtual DbSet<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }
@@ -112,5 +98,16 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsCalculationEntity> WaveImpactAsphaltCoverWaveConditionsCalculationEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsOutputEntity> WaveImpactAsphaltCoverWaveConditionsOutputEntities { get; set; }
+
+        /// <summary>
+        /// This method is called in a 'code first' approach when the model for a derived <see cref="DbContext"/> has been initialized,
+        /// but before the model has been locked down and used to initialize the <see cref="DbContext"/>.
+        /// </summary>
+        /// <param name="modelBuilder">The <see cref="DbModelBuilder"/> that defines the model for the context being created.</param>
+        /// <exception cref="UnintentionalCodeFirstException">Thrown because the <see cref="DbContext"/> is created in a 'code first' approach.</exception>
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
     }
 }

@@ -217,7 +217,8 @@ namespace Core.Common.Base.Data
         {
             if (numberOfDecimalPlaces < 0 || numberOfDecimalPlaces > MaximumNumberOfDecimalPlaces)
             {
-                string message = string.Format("Value must be in range [0, {0}].",
+                string message = string.Format(CultureInfo.CurrentCulture,
+                                               "Value must be in range [0, {0}].",
                                                MaximumNumberOfDecimalPlaces);
                 throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
                                                       message);

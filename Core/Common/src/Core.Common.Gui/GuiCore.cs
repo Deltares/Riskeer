@@ -24,6 +24,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -86,7 +87,8 @@ namespace Core.Common.Gui
             {
                 isAlreadyRunningInstanceOfIGui = false; // reset to that the consecutive creations won't fail.
                 throw new InvalidOperationException(
-                    string.Format(Resources.GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0,
+                    string.Format(CultureInfo.CurrentCulture,
+                                  Resources.GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0,
                                   instanceCreationStackTrace));
             }
 
@@ -729,7 +731,8 @@ namespace Core.Common.Gui
         {
             if (mainWindow != null)
             {
-                mainWindow.Title = string.Format("{0} - {1} {2}",
+                mainWindow.Title = string.Format(CultureInfo.CurrentCulture,
+                                                 "{0} - {1} {2}",
                                                  Project != null ? Project.Name : Resources.GuiCore_UpdateTitle_Unknown,
                                                  FixedSettings.MainWindowTitle,
                                                  SettingsHelper.ApplicationVersion);

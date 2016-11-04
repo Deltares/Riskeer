@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using Core.Common.Base.Properties;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
@@ -81,7 +82,8 @@ namespace Core.Common.Base.Geometry
         {
             if (vector.Count != 2)
             {
-                string message = string.Format(Resources.Point2D_AddVector_Vector_must_be_2D_but_has_Dimensionality_0_,
+                string message = string.Format(CultureInfo.CurrentCulture,
+                                               Resources.Point2D_AddVector_Vector_must_be_2D_but_has_Dimensionality_0_,
                                                vector.Count);
                 throw new ArgumentException(message, "vector");
             }
@@ -136,7 +138,9 @@ namespace Core.Common.Base.Geometry
 
         public override string ToString()
         {
-            return string.Format("({0}, {1})", X, Y);
+            return string.Format(CultureInfo.CurrentCulture,
+                                 "({0}, {1})",
+                                 X, Y);
         }
 
         /// <summary>

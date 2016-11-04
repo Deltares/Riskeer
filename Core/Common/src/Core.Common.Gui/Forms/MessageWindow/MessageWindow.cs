@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using Core.Common.Gui.Properties;
@@ -234,22 +235,34 @@ namespace Core.Common.Gui.Forms.MessageWindow
         private string CreateLoggingLevelDataGridViewFilter()
         {
             var filterlines = new List<string>();
-            var filterFormat = string.Format("{0} = '{{0}}'", levelColumn.ColumnName);
+            var filterFormat = string.Format(CultureInfo.CurrentCulture,
+                                             "{0} = '{{0}}'",
+                                             levelColumn.ColumnName);
             if (buttonShowInfo.Checked)
             {
-                filterlines.Add(string.Format(filterFormat, Level.Info));
+                filterlines.Add(string.Format(CultureInfo.CurrentCulture,
+                                              filterFormat,
+                                              Level.Info));
             }
             if (buttonShowWarning.Checked)
             {
-                filterlines.Add(string.Format(filterFormat, Level.Warn));
+                filterlines.Add(string.Format(CultureInfo.CurrentCulture,
+                                              filterFormat,
+                                              Level.Warn));
             }
             if (buttonShowError.Checked)
             {
-                filterlines.Add(string.Format(filterFormat, Level.Error));
-                filterlines.Add(string.Format(filterFormat, Level.Fatal));
+                filterlines.Add(string.Format(CultureInfo.CurrentCulture,
+                                              filterFormat,
+                                              Level.Error));
+                filterlines.Add(string.Format(CultureInfo.CurrentCulture,
+                                              filterFormat,
+                                              Level.Fatal));
             }
             return filterlines.Count == 0 ?
-                       string.Format(filterFormat, "NOTHING SHOWN") :
+                       string.Format(CultureInfo.CurrentCulture,
+                                     filterFormat,
+                                     "NOTHING SHOWN") :
                        string.Join(" OR ", filterlines);
         }
 

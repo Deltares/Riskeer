@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Runtime.Serialization;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -51,5 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
         public HydraRingFileParserException(string message, Exception inner) : base(message, inner) {}
+
+        protected HydraRingFileParserException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

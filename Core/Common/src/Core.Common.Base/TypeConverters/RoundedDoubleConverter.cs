@@ -49,7 +49,7 @@ namespace Core.Common.Base.TypeConverters
             {
                 try
                 {
-                    return (RoundedDouble) Convert.ToDouble(text);
+                    return (RoundedDouble) Convert.ToDouble(text, CultureInfo.CurrentCulture);
                 }
                 catch (FormatException exception)
                 {

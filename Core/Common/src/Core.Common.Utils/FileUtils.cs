@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Core.Common.Utils.Builders;
@@ -60,7 +61,8 @@ namespace Core.Common.Utils
             catch (ArgumentException e)
             {
                 var message = new FileReaderErrorMessageBuilder(path)
-                    .Build(string.Format(Resources.Error_Path_cannot_contain_Characters_0_,
+                    .Build(string.Format(CultureInfo.CurrentCulture,
+                                         Resources.Error_Path_cannot_contain_Characters_0_,
                                          string.Join(", ", Path.GetInvalidFileNameChars())));
                 throw new ArgumentException(message, e);
             }
@@ -128,7 +130,9 @@ namespace Core.Common.Utils
             {
                 if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
                 {
-                    var message = string.Format(Resources.FileUtils_DeleteOldFiles_Error_occured_deleting_files_in_folder_0, path);
+                    var message = string.Format(CultureInfo.CurrentCulture,
+                                                Resources.FileUtils_DeleteOldFiles_Error_occured_deleting_files_in_folder_0,
+                                                path);
                     throw new IOException(message, e);
                 }
                 throw;

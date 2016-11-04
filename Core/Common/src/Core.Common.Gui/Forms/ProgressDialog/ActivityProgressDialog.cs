@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -80,14 +81,16 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                     progressReporter.ReportProgress(() =>
                     {
                         // Update the activity description label
-                        labelActivityDescription.Text = string.Format(runningActivity.Name);
+                        labelActivityDescription.Text = runningActivity.Name;
 
                         // Update the visibility of the activity progress text related controls
                         pictureBoxActivityProgressText.Visible = false;
                         labelActivityProgressText.Visible = false;
 
                         // Update the activity counter label
-                        labelActivityCounter.Text = string.Format(Resources.ActivityProgressDialog_OnShown_Executing_step_0_of_1, stepNumberForProgressNotification, activityCount);
+                        labelActivityCounter.Text = string.Format(CultureInfo.CurrentCulture,
+                                                                  Resources.ActivityProgressDialog_OnShown_Executing_step_0_of_1,
+                                                                  stepNumberForProgressNotification, activityCount);
                     });
 
                     try

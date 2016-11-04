@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -143,7 +144,8 @@ namespace Core.Common.Gui.PropertyBag
             catch (TargetException e)
             {
                 object type = instance == null ? null : instance.GetType();
-                var message = string.Format("Are you calling GetValue on the correct instance? Expected '{0}', but was '{1}'",
+                var message = string.Format(CultureInfo.CurrentCulture,
+                                            "Are you calling GetValue on the correct instance? Expected '{0}', but was '{1}'",
                                             propertyInfo.DeclaringType, type);
                 throw new ArgumentException(message, "instance", e);
             }
@@ -165,7 +167,7 @@ namespace Core.Common.Gui.PropertyBag
         /// such those properties will be considered not having the expandable object type converter.</remarks>
         public bool IsNonCustomExpandableObjectProperty()
         {
-            var typeConverterAttribute = (TypeConverterAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(TypeConverterAttribute), true);
+            var typeConverterAttribute = (TypeConverterAttribute) Attribute.GetCustomAttribute(propertyInfo, typeof(TypeConverterAttribute), true);
             if (typeConverterAttribute != null)
             {
                 try

@@ -82,7 +82,7 @@ namespace Core.Common.Base.Test.Service
             // Setup
             var mocks = new MockRepository();
             var fileImporter = mocks.Stub<IFileImporter>();
-            fileImporter.Stub(x => x.ProgressChanged = null).IgnoreArguments();
+            fileImporter.Stub(x => x.SetProgressChanged(null)).IgnoreArguments();
             fileImporter.Expect(i => i.Import()).Return(true);
             mocks.ReplayAll();
 
@@ -101,7 +101,7 @@ namespace Core.Common.Base.Test.Service
             // Setup
             var mocks = new MockRepository();
             var fileImporter = mocks.Stub<IFileImporter>();
-            fileImporter.Stub(x => x.ProgressChanged = null).IgnoreArguments();
+            fileImporter.Stub(x => x.SetProgressChanged(null)).IgnoreArguments();
             fileImporter.Expect(x => x.Cancel());
             mocks.ReplayAll();
 

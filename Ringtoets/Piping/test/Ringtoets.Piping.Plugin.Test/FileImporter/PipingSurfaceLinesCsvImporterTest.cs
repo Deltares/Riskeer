@@ -86,40 +86,38 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool progressStarted = false;
             bool progressCharacteristicPointsStarted = false;
 
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath)
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validFilePath);
+            importer.SetProgressChanged(delegate(string currentStepName, int currentStep, int totalNumberOfSteps)
             {
-                ProgressChanged = delegate(string currentStepName, int currentStep, int totalNumberOfSteps)
+                if (!progressStarted && callCount == 0)
                 {
-                    if (!progressStarted && callCount == 0)
-                    {
-                        progressStarted = true;
-                        Assert.AreEqual(PipingPluginResources.PipingSurfaceLinesCsvImporter_Reading_surface_line_file, currentStepName);
-                        return;
-                    }
-                    if (!progressCharacteristicPointsStarted && callCount == expectedNumberOfSurfaceLines + 1)
-                    {
-                        progressCharacteristicPointsStarted = true;
-                        Assert.AreEqual(PipingPluginResources.PipingSurfaceLinesCsvImporter_Reading_characteristic_points_file, currentStepName);
-                        return;
-                    }
-
-                    if (callCount <= expectedNumberOfSurfaceLines)
-                    {
-                        Assert.AreEqual(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_, twovalidsurfacelinesCsv), currentStepName);
-                    }
-                    else if (callCount <= expectedNumberOfSurfaceLines + 1 + expectedNumberOfSurfaceLines)
-                    {
-                        Assert.AreEqual(PipingPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, currentStepName);
-                    }
-                    else
-                    {
-                        Assert.Fail("Not expecting progress: \"{0}: {1} out of {2}\".", currentStepName, currentStep, totalNumberOfSteps);
-                    }
-
-                    Assert.AreEqual(expectedNumberOfSurfaceLines, totalNumberOfSteps);
-                    callCount++;
+                    progressStarted = true;
+                    Assert.AreEqual(PipingPluginResources.PipingSurfaceLinesCsvImporter_Reading_surface_line_file, currentStepName);
+                    return;
                 }
-            };
+                if (!progressCharacteristicPointsStarted && callCount == expectedNumberOfSurfaceLines + 1)
+                {
+                    progressCharacteristicPointsStarted = true;
+                    Assert.AreEqual(PipingPluginResources.PipingSurfaceLinesCsvImporter_Reading_characteristic_points_file, currentStepName);
+                    return;
+                }
+
+                if (callCount <= expectedNumberOfSurfaceLines)
+                {
+                    Assert.AreEqual(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_, twovalidsurfacelinesCsv), currentStepName);
+                }
+                else if (callCount <= expectedNumberOfSurfaceLines + 1 + expectedNumberOfSurfaceLines)
+                {
+                    Assert.AreEqual(PipingPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, currentStepName);
+                }
+                else
+                {
+                    Assert.Fail("Not expecting progress: \"{0}: {1} out of {2}\".", currentStepName, currentStep, totalNumberOfSteps);
+                }
+
+                Assert.AreEqual(expectedNumberOfSurfaceLines, totalNumberOfSteps);
+                callCount++;
+            });
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
@@ -417,14 +415,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 var failureMechanism = new PipingFailureMechanism();
 
-                var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), copyTargetPath)
+                var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), copyTargetPath);
+                importer.SetProgressChanged((name, step, steps) =>
                 {
-                    ProgressChanged = (name, step, steps) =>
-                    {
-                        // Delete the file being read by the import during the import itself:
-                        File.Delete(copyTargetPath);
-                    }
-                };
+                    // Delete the file being read by the import during the import itself:
+                    File.Delete(copyTargetPath);
+                });
 
                 var importResult = true;
 
@@ -522,9 +518,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, corruptPath);
             int progressCallCount = 0;
-            importer.ProgressChanged = (name, step, steps) => { progressCallCount++; };
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, corruptPath);
+            importer.SetProgressChanged((name, step, steps) => progressCallCount++);
 
             var importResult = false;
 
@@ -827,18 +823,16 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 var failureMechanism = new PipingFailureMechanism();
 
-                var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), copyTargetPath)
+                var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, new ReferenceLine(), copyTargetPath);
+                importer.SetProgressChanged((name, step, steps) =>
                 {
-                    ProgressChanged = (name, step, steps) =>
+                    // Delete the file being read by the import during the import itself:
+                    if (name == string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_,
+                                              copyCharacteristicPointsTargetPath))
                     {
-                        // Delete the file being read by the import during the import itself:
-                        if (name == string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_,
-                                                  copyCharacteristicPointsTargetPath))
-                        {
-                            File.Delete(copyCharacteristicPointsTargetPath);
-                        }
+                        File.Delete(copyCharacteristicPointsTargetPath);
                     }
-                };
+                });
 
                 var importResult = true;
 
@@ -952,9 +946,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesFile);
             int progressCallCount = 0;
-            importer.ProgressChanged = (name, step, steps) => { progressCallCount++; };
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesFile);
+            importer.SetProgressChanged((name, step, steps) => progressCallCount++);
 
             var importResult = false;
 
@@ -1024,9 +1018,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesPath);
             int progressCallCount = 0;
-            importer.ProgressChanged = (name, step, steps) => { progressCallCount++; };
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesPath);
+            importer.SetProgressChanged((name, step, steps) => progressCallCount++);
 
             var importResult = false;
 
@@ -1090,9 +1084,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesPath);
             int progressCallCount = 0;
-            importer.ProgressChanged = (name, step, steps) => { progressCallCount++; };
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesPath);
+            importer.SetProgressChanged((name, step, steps) => progressCallCount++);
 
             var importResult = false;
 
@@ -1161,9 +1155,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesPath);
             int progressCallCount = 0;
-            importer.ProgressChanged = (name, step, steps) => { progressCallCount++; };
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, surfaceLinesPath);
+            importer.SetProgressChanged((name, step, steps) => progressCallCount++);
 
             var importResult = false;
 
@@ -1237,11 +1231,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validSurfaceLinesFilePath);
             int callCount = 0;
             bool progressStarted = false;
             bool progressCharacteristicPointsStarted = false;
-            importer.ProgressChanged = delegate(string currentStepName, int currentStep, int totalNumberOfSteps)
+
+            var importer = new PipingSurfaceLinesCsvImporter(failureMechanism.SurfaceLines, referenceLine, validSurfaceLinesFilePath);
+            importer.SetProgressChanged(delegate(string currentStepName, int currentStep, int totalNumberOfSteps)
             {
                 if (!progressStarted && callCount == 0)
                 {
@@ -1275,7 +1270,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
                 Assert.AreEqual(expectedNumberOfSurfaceLines, totalNumberOfSteps);
                 callCount++;
-            };
+            });
 
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);

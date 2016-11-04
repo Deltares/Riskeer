@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Runtime.Serialization;
 
 namespace Application.Ringtoets.Storage.Exceptions
 {
@@ -50,5 +51,7 @@ namespace Application.Ringtoets.Storage.Exceptions
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a <c>null</c> reference if no inner exception is specified.</param>
         public CannotDeleteBackupFileException(string message, Exception inner) : base(message, inner) {}
+
+        protected CannotDeleteBackupFileException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

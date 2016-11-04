@@ -161,7 +161,7 @@ namespace Core.Common.Base.Test.TypeConverters
             var converter = new RoundedDoubleConverter();
 
             // Call
-            RoundedDouble conversionResult = (RoundedDouble)converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
+            RoundedDouble conversionResult = (RoundedDouble) converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
             Assert.IsNotNull(conversionResult);

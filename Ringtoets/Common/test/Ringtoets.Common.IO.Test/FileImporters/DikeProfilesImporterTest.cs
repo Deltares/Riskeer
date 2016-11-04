@@ -186,10 +186,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var progressChangeNotifications = new List<ProgressNotification>();
 
             var dikeProfiles = new ObservableList<DikeProfile>();
-            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath)
-            {
-                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
-            };
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            dikeProfilesImporter.SetProgressChanged((description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); });
 
             // Call
             bool importResult = dikeProfilesImporter.Import();
@@ -252,10 +250,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var progressChangeNotifications = new List<ProgressNotification>();
 
             var dikeProfiles = new ObservableList<DikeProfile>();
-            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath)
-            {
-                ProgressChanged = (description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps))
-            };
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            dikeProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
             bool importResult = dikeProfilesImporter.Import();

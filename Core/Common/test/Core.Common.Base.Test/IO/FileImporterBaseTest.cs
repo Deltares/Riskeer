@@ -142,10 +142,8 @@ namespace Core.Common.Base.Test.IO
         {
             // Setup
             var importTarget = new object();
-            var simpleImporter = new SimpleFileImporter<object>(importTarget)
-            {
-                ProgressChanged = null
-            };
+            var simpleImporter = new SimpleFileImporter<object>(importTarget);
+            simpleImporter.SetProgressChanged(null);
 
             // Call
             TestDelegate call = () => simpleImporter.TestNotifyProgress("A", 1, 2);
@@ -165,13 +163,13 @@ namespace Core.Common.Base.Test.IO
             var importTarget = new object();
             var simpleImporter = new SimpleFileImporter<object>(importTarget);
             int progressChangedCallCount = 0;
-            simpleImporter.ProgressChanged = (description, step, steps) =>
+            simpleImporter.SetProgressChanged((description, step, steps) =>
             {
                 Assert.AreEqual(expectedDescription, description);
                 Assert.AreEqual(expectedStep, step);
                 Assert.AreEqual(expectedNumberOfSteps, steps);
                 progressChangedCallCount++;
-            };
+            });
 
             // Call
             simpleImporter.TestNotifyProgress(expectedDescription, expectedStep, expectedNumberOfSteps);

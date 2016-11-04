@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Runtime.Serialization;
 
 namespace Core.Common.IO.Exceptions
 {
@@ -51,5 +52,7 @@ namespace Core.Common.IO.Exceptions
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
         public CriticalFileReadException(string message, Exception inner) : base(message, inner) {}
+
+        protected CriticalFileReadException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

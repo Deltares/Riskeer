@@ -103,6 +103,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="RandomExtensions.cs" />
+    <Compile Include="SerializationTestHelper.cs" />
     <Compile Include="TestDataPath.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="WindowsFormsTestHelper.cs">

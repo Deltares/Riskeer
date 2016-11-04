@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Reflection;
 using Core.Common.Gui.Properties;
 
@@ -70,8 +71,9 @@ namespace Core.Common.Gui.Attributes
             MemberInfo propertyInfo = obj.GetType().GetProperty(propertyName);
             if (propertyInfo == null)
             {
-                throw new MissingMemberException(string.Format(Resources.Could_not_find_property_0_on_type_1_, propertyName,
-                                                               obj.GetType()));
+                throw new MissingMemberException(string.Format(CultureInfo.CurrentCulture,
+                                                               Resources.Could_not_find_property_0_on_type_1_,
+                                                               propertyName, obj.GetType()));
             }
 
             return IsDefined(propertyInfo, typeof(DynamicPropertyOrderAttribute));

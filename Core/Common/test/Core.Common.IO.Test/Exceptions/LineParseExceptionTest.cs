@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.IO.Exceptions;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.IO.Test.Exceptions
@@ -86,6 +87,28 @@ namespace Core.Common.IO.Test.Exceptions
             Assert.IsNull(exception.Source);
             Assert.IsNull(exception.StackTrace);
             Assert.IsNull(exception.TargetSite);
+        }
+
+        [Test]
+        public void Constructor_SerializationRoundTrip_ExceptionProperlyInitialized()
+        {
+            // Setup
+            var originalInnerException = new Exception("inner");
+            var originalException = new LineParseException("outer", originalInnerException);
+
+            // Precondition
+            Assert.IsNotNull(originalException.InnerException);
+            Assert.IsNull(originalException.InnerException.InnerException);
+
+            // Call
+            LineParseException persistedException = SerializationTestHelper.SerializeAndDeserializeException(originalException);
+
+            // Assert
+            Assert.AreEqual(originalException.Message, persistedException.Message);
+            Assert.IsNotNull(persistedException.InnerException);
+            Assert.AreEqual(originalException.InnerException.GetType(), persistedException.InnerException.GetType());
+            Assert.AreEqual(originalException.InnerException.Message, persistedException.InnerException.Message);
+            Assert.IsNull(persistedException.InnerException.InnerException);
         }
     }
 }

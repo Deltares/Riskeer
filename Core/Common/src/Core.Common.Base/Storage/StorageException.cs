@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Runtime.Serialization;
 
 namespace Core.Common.Base.Storage
 {
@@ -50,5 +51,7 @@ namespace Core.Common.Base.Storage
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
         public StorageException(string message, Exception inner) : base(message, inner) {}
+
+        protected StorageException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

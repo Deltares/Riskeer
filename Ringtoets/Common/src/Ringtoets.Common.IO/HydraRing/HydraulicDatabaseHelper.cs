@@ -114,6 +114,11 @@ namespace Ringtoets.Common.IO.HydraRing
             return database.Version == GetVersion(pathToDatabase);
         }
 
+        public static string GetHydraulicBoundarySettingsDatabase(string hydraulicBoundaryDatabaseFilePath)
+        {
+            return Path.ChangeExtension(hydraulicBoundaryDatabaseFilePath, hydraRingConfigurationDatabaseExtension);
+        }
+
         /// <summary>
         /// Returns the version from the database pointed at by the <paramref name="filePath"/>.
         /// </summary>
@@ -127,11 +132,6 @@ namespace Ringtoets.Common.IO.HydraRing
             {
                 return db.GetVersion();
             }
-        }
-
-        public static string GetHydraulicBoundarySettingsDatabase(string hydraulicBoundaryDatabaseFilePath)
-        {
-            return Path.ChangeExtension(hydraulicBoundaryDatabaseFilePath, hydraRingConfigurationDatabaseExtension);
         }
     }
 }

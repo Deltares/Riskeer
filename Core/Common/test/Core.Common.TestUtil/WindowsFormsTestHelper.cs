@@ -255,7 +255,7 @@ namespace Core.Common.TestUtil
                 nodes.Add(node);
 
                 var control = item as Control;
-                if (control != null )
+                if (control != null)
                 {
                     AddAllNodes(node.Nodes, control.Controls);
 

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Reflection;
 
 namespace Core.Common.Utils.Attributes
@@ -42,13 +43,15 @@ namespace Core.Common.Utils.Attributes
             var property = resourceType.GetProperty(resourceName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
             if (property == null)
             {
-                var message = string.Format("Resource {0} does not have property {1}.",
+                var message = string.Format(CultureInfo.CurrentCulture,
+                                            "Resource {0} does not have property {1}.",
                                             resourceType, resourceName);
                 throw new InvalidOperationException(message);
             }
             if (property.PropertyType != typeof(string))
             {
-                var message = string.Format("Resource {0} is not string.",
+                var message = string.Format(CultureInfo.CurrentCulture,
+                                            "Resource {0} is not string.",
                                             resourceName);
                 throw new InvalidOperationException(message);
             }

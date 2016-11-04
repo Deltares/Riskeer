@@ -19,38 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Globalization;
-using Core.Common.Utils.Properties;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
-namespace Core.Common.Utils.Builders
+namespace Core.Common.TestUtil
 {
     /// <summary>
-    /// Class to help create consistent file writer error messages.
+    /// Helper class for dealing with <see cref="ISerializable"/> objects and serialization
+    /// related tasks.
     /// </summary>
-    public class FileWriterErrorMessageBuilder
+    public static class SerializationTestHelper
     {
-        private readonly string filePath;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileWriterErrorMessageBuilder"/> class.
+        /// Serializes and then deserializes an object.
         /// </summary>
-        /// <param name="filePath">The file path to the file where the error occurred.</param>
-        public FileWriterErrorMessageBuilder(string filePath)
+        /// <typeparam name="T">Type of the serializable object.</typeparam>
+        /// <param name="original">The object to be serialized.</param>
+        /// <returns>The result of serializing <paramref name="original"/> and
+        /// deserializing it again.</returns>
+        public static T SerializeAndDeserializeException<T>(T original) where T : ISerializable
         {
-            this.filePath = filePath;
-        }
-
-        /// <summary>
-        /// Builds the specified error message.
-        /// </summary>
-        /// <param name="errorMessage">The message about the error that has occurred.</param>
-        /// <returns>The full error message.</returns>
-        public string Build(string errorMessage)
-        {
-            return string.Format(CultureInfo.CurrentCulture,
-                                 Resources.Error_Writing_To_File_0_1,
-                                 filePath,
-                                 errorMessage);
+            var formatter = new BinaryFormatter();
+            using (var stream = new MemoryStream())
+            {
+                formatter.Serialize(stream, original);
+                stream.Seek(0, SeekOrigin.Begin);
+                return (T) formatter.Deserialize(stream);
+            }
         }
     }
 }

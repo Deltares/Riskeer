@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Runtime.Serialization;
 
 namespace Core.Common.Utils.Exceptions
 {
@@ -30,6 +31,8 @@ namespace Core.Common.Utils.Exceptions
     [Serializable]
     public class InvalidTypeParameterException : Exception
     {
+        private const string typeParamNameKey = "TypeParamName";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidTypeParameterException"/> class.
         /// </summary>
@@ -71,9 +74,30 @@ namespace Core.Common.Utils.Exceptions
             TypeParamName = typeParamName;
         }
 
+        protected InvalidTypeParameterException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            TypeParamName = info.GetString(typeParamNameKey);
+        }
+
         /// <summary>
         /// Gets the name of the type parameter that caused the exception.
         /// </summary>
-        public string TypeParamName { get; private set; }
+        public string TypeParamName
+        {
+            get
+            {
+                return (string) Data[typeParamNameKey];
+            }
+            private set
+            {
+                Data[typeParamNameKey] = value;
+            }
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue(typeParamNameKey, TypeParamName);
+        }
     }
 }

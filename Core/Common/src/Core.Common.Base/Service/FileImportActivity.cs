@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using Core.Common.Base.IO;
 using Core.Common.Base.Properties;
 
@@ -59,11 +60,12 @@ namespace Core.Common.Base.Service
         /// <remarks>This method can throw exceptions of any kind.</remarks>
         protected override void OnRun()
         {
-            fileImporter.ProgressChanged = (currentStepName, currentStep, totalSteps) =>
+            fileImporter.SetProgressChanged((currentStepName, currentStep, totalSteps) =>
             {
-                ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2,
+                ProgressText = string.Format(CultureInfo.CurrentCulture,
+                                             Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2,
                                              currentStep, totalSteps, currentStepName);
-            };
+            });
 
             fileImporter.Import();
         }

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -93,7 +94,9 @@ namespace Core.Plugins.ProjectExplorer
         {
             if (active)
             {
-                var message = string.Format(ProjectExplorerResources.ProjectExplorerPlugin_Cannot_activate_0_twice, ProjectExplorerResources.General_ProjectExplorer);
+                var message = string.Format(CultureInfo.CurrentCulture,
+                                            ProjectExplorerResources.ProjectExplorerPlugin_Cannot_activate_0_twice,
+                                            ProjectExplorerResources.General_ProjectExplorer);
                 throw new PluginActivationException(message);
             }
 
@@ -104,7 +107,9 @@ namespace Core.Plugins.ProjectExplorer
             }
             catch (ArgumentNullException e)
             {
-                var message = string.Format(ProjectExplorerResources.ProjectExplorerPlugin_Activation_of_0_failed, ProjectExplorerResources.General_ProjectExplorer);
+                var message = string.Format(CultureInfo.CurrentCulture,
+                                            ProjectExplorerResources.ProjectExplorerPlugin_Activation_of_0_failed,
+                                            ProjectExplorerResources.General_ProjectExplorer);
                 throw new PluginActivationException(message, e);
             }
 

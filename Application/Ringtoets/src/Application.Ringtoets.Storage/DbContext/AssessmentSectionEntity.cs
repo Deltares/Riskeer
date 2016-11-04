@@ -28,20 +28,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class AssessmentSectionEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AssessmentSectionEntity()
         {
-            this.FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
-            this.HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
+            FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
+            HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
         }
-    
+
         public long AssessmentSectionEntityId { get; set; }
         public long ProjectEntityId { get; set; }
         public string Id { get; set; }
@@ -53,11 +53,13 @@ namespace Application.Ringtoets.Storage.DbContext
         public short Composition { get; set; }
         public string ReferenceLinePointXml { get; set; }
         public int Order { get; set; }
-    
+
         public virtual ProjectEntity ProjectEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
     }
 }

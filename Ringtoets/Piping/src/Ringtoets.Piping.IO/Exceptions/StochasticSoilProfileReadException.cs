@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Runtime.Serialization;
 
 namespace Ringtoets.Piping.IO.Exceptions
 {
@@ -50,5 +51,7 @@ namespace Ringtoets.Piping.IO.Exceptions
         /// <param name="innerException">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
         public StochasticSoilProfileReadException(string message, Exception innerException) : base(message, innerException) {}
+
+        protected StochasticSoilProfileReadException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

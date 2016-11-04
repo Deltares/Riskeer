@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Runtime.Serialization;
 
 namespace Ringtoets.HydraRing.IO.Exceptions
 {
@@ -50,5 +51,7 @@ namespace Ringtoets.HydraRing.IO.Exceptions
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
         public HydraulicBoundaryDatabaseReadException(string message, Exception inner) : base(message, inner) {}
+
+        protected HydraulicBoundaryDatabaseReadException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

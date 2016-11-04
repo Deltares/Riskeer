@@ -50,7 +50,8 @@ namespace Core.Common.Utils
                 {
                     return Enum.Parse(EnumType, fieldInfo.Name);
                 }
-                throw new FormatException(string.Format(Resources.ConvertFrom_Only_following_values_are_accepted_ParameterValues_0_,
+                throw new FormatException(string.Format(CultureInfo.CurrentCulture,
+                                                        Resources.ConvertFrom_Only_following_values_are_accepted_ParameterValues_0_,
                                                         string.Join(", ", EnumType.GetFields(BindingFlags.Public | BindingFlags.Static)
                                                                                   .Select(fi => GetDisplayName(fi, fi.Name)))));
             }

@@ -48,7 +48,7 @@ namespace Core.Common.Controls.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
 
             // Disable default CommCtrl painting on non-Vista systems
-            if (!NativeInterop.IsWinVista)
+            if (!NativeMethods.IsWinVista)
             {
                 SetStyle(ControlStyles.UserPaint, true);
             }
@@ -60,9 +60,9 @@ namespace Core.Common.Controls.Forms
 
             UpdateExtendedStyles();
 
-            if (!NativeInterop.IsWinXp)
+            if (!NativeMethods.IsWinXp)
             {
-                NativeInterop.SendMessage(Handle, tvmSetbkcolor, IntPtr.Zero, (IntPtr) ColorTranslator.ToWin32(BackColor));
+                NativeMethods.SendMessage(Handle, tvmSetbkcolor, IntPtr.Zero, (IntPtr) ColorTranslator.ToWin32(BackColor));
             }
         }
 
@@ -73,9 +73,9 @@ namespace Core.Common.Controls.Forms
                 var m = new Message
                 {
                     HWnd = Handle,
-                    Msg = NativeInterop.WmPrintclient,
+                    Msg = NativeMethods.WmPrintclient,
                     WParam = e.Graphics.GetHdc(),
-                    LParam = (IntPtr) NativeInterop.PrfClient
+                    LParam = (IntPtr) NativeMethods.PrfClient
                 };
 
                 DefWndProc(ref m);
@@ -97,11 +97,11 @@ namespace Core.Common.Controls.Forms
 
             if (style != 0)
             {
-                NativeInterop.SendMessage(Handle, tvmSetextendedstyle, (IntPtr) tvsExDoublebuffer, (IntPtr) style);
+                NativeMethods.SendMessage(Handle, tvmSetextendedstyle, (IntPtr) tvsExDoublebuffer, (IntPtr) style);
             }
         }
 
-        private static class NativeInterop
+        private static class NativeMethods
         {
             public const int WmPrintclient = 0x0318;
             public const int PrfClient = 0x00000004;

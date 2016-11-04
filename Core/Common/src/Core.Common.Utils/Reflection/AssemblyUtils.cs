@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -110,7 +111,9 @@ namespace Core.Common.Utils.Reflection
                     }
                     else
                     {
-                        throw new AmbiguousMatchException(string.Format("Type '{0}' found in multiple assemblies", typeName));
+                        throw new AmbiguousMatchException(string.Format(CultureInfo.CurrentCulture,
+                                                                        "Type '{0}' found in multiple assemblies",
+                                                                        typeName));
                     }
                 }
             }
@@ -136,7 +139,8 @@ namespace Core.Common.Utils.Reflection
             }
             catch (InvalidOperationException e)
             {
-                var message = string.Format("Cannot find embedded resource file '{0}' in '{1}.",
+                var message = string.Format(CultureInfo.CurrentCulture,
+                                            "Cannot find embedded resource file '{0}' in '{1}.",
                                             fileName, assembly.FullName);
                 throw new ArgumentException(message, "fileName", e);
             }

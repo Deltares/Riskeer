@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
@@ -154,7 +155,9 @@ namespace Core.Common.Gui.Forms.MessageWindow
         {
             try
             {
-                return string.Format(format, args);
+                return string.Format(CultureInfo.CurrentCulture,
+                                     format,
+                                     args);
             }
             catch (ArgumentNullException)
             {

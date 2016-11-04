@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Globalization;
+
 namespace Core.Common.Utils.Builders
 {
     /// <summary>
@@ -46,7 +48,8 @@ namespace Core.Common.Utils.Builders
         /// <returns>The full error message.</returns>
         public string Build(string errorMessage)
         {
-            return string.Format("Fout bij het lezen van bestand '{0}'{1}{2}: {3}",
+            return string.Format(CultureInfo.CurrentCulture,
+                                 "Fout bij het lezen van bestand '{0}'{1}{2}: {3}",
                                  filePath,
                                  location ?? string.Empty,
                                  subject ?? string.Empty,
@@ -73,7 +76,9 @@ namespace Core.Common.Utils.Builders
         /// <remarks>Call this method with a subject description such as <c>"soil profile 'blabla'"</c>.</remarks>
         public FileReaderErrorMessageBuilder WithSubject(string subjectDescription)
         {
-            subject = string.Format(" ({0})", subjectDescription);
+            subject = string.Format(CultureInfo.CurrentCulture,
+                                    " ({0})",
+                                    subjectDescription);
             return this;
         }
     }

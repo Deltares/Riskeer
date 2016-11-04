@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 
 namespace Core.Common.Controls.DataGrid
@@ -26,11 +27,12 @@ namespace Core.Common.Controls.DataGrid
     /// <summary>
     /// Class describing the different cell styles for the <see cref="DataGridViewControl"/>.
     /// </summary>
-    public class CellStyle
+    public sealed class CellStyle
     {
         /// <summary>
         /// The cell style for enabled cells.
         /// </summary>
+        [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly CellStyle Enabled = new CellStyle
         {
             TextColor = Color.FromKnownColor(KnownColor.ControlText),
@@ -40,6 +42,7 @@ namespace Core.Common.Controls.DataGrid
         /// <summary>
         /// The cell style of disabled cells.
         /// </summary>
+        [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly CellStyle Disabled = new CellStyle
         {
             TextColor = Color.FromKnownColor(KnownColor.GrayText),

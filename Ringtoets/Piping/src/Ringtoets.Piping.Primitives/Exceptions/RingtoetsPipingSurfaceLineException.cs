@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Runtime.Serialization;
 
 namespace Ringtoets.Piping.Primitives.Exceptions
 {
@@ -51,5 +52,7 @@ namespace Ringtoets.Piping.Primitives.Exceptions
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
         public RingtoetsPipingSurfaceLineException(string message, Exception inner) : base(message, inner) {}
+
+        protected RingtoetsPipingSurfaceLineException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

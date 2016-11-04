@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Exceptions;
 
@@ -76,6 +77,29 @@ namespace Ringtoets.Piping.IO.Test.Exceptions
             Assert.AreSame(expectedInnerException, exception.InnerException);
             Assert.AreEqual(profileName, exception.ProfileName);
             Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void Constructor_SerializationRoundTrip_ExceptionProperlyInitialized()
+        {
+            // Setup
+            var originalInnerException = new Exception("inner");
+            var originalException = new PipingSoilProfileReadException("<Profile name>", "outer", originalInnerException);
+
+            // Precondition
+            Assert.IsNotNull(originalException.InnerException);
+            Assert.IsNull(originalException.InnerException.InnerException);
+
+            // Call
+            PipingSoilProfileReadException persistedException = SerializationTestHelper.SerializeAndDeserializeException(originalException);
+
+            // Assert
+            Assert.AreEqual(originalException.Message, persistedException.Message);
+            Assert.AreEqual(originalException.ProfileName, persistedException.ProfileName);
+            Assert.IsNotNull(persistedException.InnerException);
+            Assert.AreEqual(originalException.InnerException.GetType(), persistedException.InnerException.GetType());
+            Assert.AreEqual(originalException.InnerException.Message, persistedException.InnerException.Message);
+            Assert.IsNull(persistedException.InnerException.InnerException);
         }
     }
 }

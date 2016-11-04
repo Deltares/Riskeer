@@ -207,10 +207,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var failureMechanism = new Simple();
 
-            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine, sectionsFilePath)
-            {
-                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
-            };
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine, sectionsFilePath);
+            importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
             var importSuccessful = importer.Import();

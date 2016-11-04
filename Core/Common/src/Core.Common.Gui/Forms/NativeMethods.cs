@@ -28,7 +28,7 @@ namespace Core.Common.Gui.Forms
     /// <summary>
     /// Helper methods related to <see cref="Control"/> instances.
     /// </summary>
-    public static class ControlHelper
+    internal static class NativeMethods
     {
         /// <summary>
         /// Sends the specified message to a window or windows. The <see cref="SendMessage"/>

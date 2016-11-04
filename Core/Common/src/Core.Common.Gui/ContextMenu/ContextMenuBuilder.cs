@@ -52,14 +52,14 @@ namespace Core.Common.Gui.ContextMenu
         /// <param name="viewCommands">The <see cref="IViewCommands"/> from which to obtain information to render
         /// and bind actions to the items of the <see cref="ContextMenu"/>. If <c>null</c>, this builder will not
         /// render items which require this type of information.</param>
-        /// <param name="dataObject">The data object for which to create a <see cref="ContextMenuStrip"/>.</param>
+        /// <param name="dataValue">The data object for which to create a <see cref="ContextMenuStrip"/>.</param>
         /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to use while executing the <see cref="ContextMenuStrip"/> actions.</param>
         /// <exception cref="ContextMenuBuilderException">Thrown when the any input argument is null.</exception>
         public ContextMenuBuilder(IApplicationFeatureCommands featureCommandHandler,
                                   IImportCommandHandler importCommandHandler,
                                   IExportCommandHandler exportCommandHandler,
                                   IViewCommands viewCommands,
-                                  object dataObject,
+                                  object dataValue,
                                   TreeViewControl treeViewControl)
         {
             try
@@ -68,9 +68,9 @@ namespace Core.Common.Gui.ContextMenu
                                                                 importCommandHandler,
                                                                 exportCommandHandler,
                                                                 viewCommands,
-                                                                dataObject);
+                                                                dataValue);
 
-                treeViewItemsFactory = new TreeViewContextMenuItemFactory(dataObject, treeViewControl);
+                treeViewItemsFactory = new TreeViewContextMenuItemFactory(dataValue, treeViewControl);
             }
             catch (ArgumentNullException e)
             {

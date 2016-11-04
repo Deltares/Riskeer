@@ -284,7 +284,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             {
                 dockingManager.ActiveContentChanged -= OnActiveContentChanged;
                 var activeContent = dockingManager.ActiveContent;
-                ControlHelper.UnfocusActiveControl(focussedView as IContainerControl);
+                NativeMethods.UnfocusActiveControl(focussedView as IContainerControl);
                 dockingManager.ActiveContent = activeContent;
                 dockingManager.ActiveContentChanged += OnActiveContentChanged;
             }

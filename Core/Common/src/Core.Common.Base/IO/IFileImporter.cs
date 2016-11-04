@@ -29,7 +29,7 @@ namespace Core.Common.Base.IO
         /// <summary>
         /// Sets the action to perform when progress has changed.
         /// </summary>
-        ProgressChangedDelegate ProgressChanged { set; }
+        void SetProgressChanged(ProgressChangedDelegate action);
 
         /// <summary>
         /// This method imports the data to an item from a file at the given location.

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.IO;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
@@ -74,7 +75,9 @@ namespace Core.Common.Gui.Settings
                 {
                     if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
                     {
-                        var message = string.Format(Resources.SettingsHelper_GetApplicationLocalUserSettingsDirectory_Folder_0_Cannot_be_created, appSettingsDirectoryPath);
+                        var message = string.Format(CultureInfo.CurrentCulture,
+                                                    Resources.SettingsHelper_GetApplicationLocalUserSettingsDirectory_Folder_0_Cannot_be_created,
+                                                    appSettingsDirectoryPath);
                         throw new IOException(message, e);
                     }
                     throw;

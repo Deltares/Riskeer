@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Runtime.Serialization;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
@@ -68,6 +69,11 @@ namespace Ringtoets.Piping.IO.Exceptions
             ProfileName = profileName;
         }
 
+        private PipingSoilProfileReadException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            ProfileName = info.GetString(profileNameKey);
+        }
+
         /// <summary>
         /// The name of the profile for which this exception was thrown.
         /// </summary>
@@ -81,6 +87,12 @@ namespace Ringtoets.Piping.IO.Exceptions
             {
                 Data[profileNameKey] = value;
             }
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue(profileNameKey, ProfileName);
         }
     }
 }

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Globalization;
+
 namespace Core.Common.Base.Geometry
 {
     /// <summary>
@@ -84,7 +86,9 @@ namespace Core.Common.Base.Geometry
 
         public override string ToString()
         {
-            return string.Format("({0}, {1}, {2})", X, Y, Z);
+            return string.Format(CultureInfo.CurrentCulture,
+                                 "({0}, {1}, {2})",
+                                 X, Y, Z);
         }
 
         /// <summary>

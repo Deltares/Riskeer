@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -167,7 +168,9 @@ namespace Core.Common.Gui.Commands
             projectOwner.ProjectFilePath = filePath;
             project.Name = Path.GetFileNameWithoutExtension(filePath);
             project.NotifyObservers();
-            log.Info(string.Format(Resources.StorageCommandHandler_SaveProject_Successfully_saved_project_0_, project.Name));
+            log.Info(string.Format(CultureInfo.CurrentCulture,
+                                   Resources.StorageCommandHandler_SaveProject_Successfully_saved_project_0_,
+                                   project.Name));
             return true;
         }
 
@@ -191,7 +194,9 @@ namespace Core.Common.Gui.Commands
                 return false;
             }
 
-            log.Info(string.Format(Resources.StorageCommandHandler_SaveProject_Successfully_saved_project_0_, project.Name));
+            log.Info(string.Format(CultureInfo.CurrentCulture,
+                                   Resources.StorageCommandHandler_SaveProject_Successfully_saved_project_0_,
+                                   project.Name));
             return true;
         }
 
@@ -209,7 +214,9 @@ namespace Core.Common.Gui.Commands
         private bool OpenSaveOrDiscardProjectDialog()
         {
             var confirmation = MessageBox.Show(
-                string.Format(Resources.StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0, projectOwner.Project.Name),
+                string.Format(CultureInfo.CurrentCulture,
+                              Resources.StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0,
+                              projectOwner.Project.Name),
                 Resources.StorageCommandHandler_ClosingProject_Title,
                 MessageBoxButtons.YesNoCancel);
 

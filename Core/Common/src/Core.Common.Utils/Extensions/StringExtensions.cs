@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Globalization;
+
 namespace Core.Common.Utils.Extensions
 {
     /// <summary>
@@ -35,7 +37,9 @@ namespace Core.Common.Utils.Extensions
             {
                 return null;
             }
-            return string.Format("{0}", original);
+            return string.Format(CultureInfo.CurrentCulture,
+                                 "{0}",
+                                 original);
         }
 
         /// <summary>

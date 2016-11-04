@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using OxyPlot;
@@ -47,7 +48,9 @@ namespace Core.Components.OxyPlot.Converter
             }
             if (!CanConvertSeries(data))
             {
-                var message = string.Format("The data of type {0} cannot be converted by this converter.", data.GetType());
+                var message = string.Format(CultureInfo.CurrentCulture,
+                                            "The data of type {0} cannot be converted by this converter.",
+                                            data.GetType());
                 throw new ArgumentException(message);
             }
             return Convert((T) data);
