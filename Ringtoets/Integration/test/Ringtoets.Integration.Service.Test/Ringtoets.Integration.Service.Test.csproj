@@ -70,6 +70,10 @@
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+      <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
+      <Name>Ringtoets.ClosingStructures.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
@@ -105,6 +109,10 @@
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+      <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
       <Project>{B479E3AF-7C34-488C-BB73-D324100D36C9}</Project>

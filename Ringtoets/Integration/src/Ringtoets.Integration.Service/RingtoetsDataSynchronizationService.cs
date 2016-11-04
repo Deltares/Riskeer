@@ -23,6 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -34,6 +36,8 @@ using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -68,6 +72,8 @@ namespace Ringtoets.Integration.Service
                 var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
                 var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
+                var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
+                var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
                 var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
                 var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
 
@@ -94,6 +100,14 @@ namespace Ringtoets.Integration.Service
                 if (heightStructuresFailureMechanism != null)
                 {
                     affectedItems.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(heightStructuresFailureMechanism));
+                }
+                if (closingStructuresFailureMechanism != null)
+                {
+                    affectedItems.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(closingStructuresFailureMechanism));
+                }
+                if (stabilityPointStructuresFailureMechanism != null)
+                {
+                    affectedItems.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(stabilityPointStructuresFailureMechanism));
                 }
             }
 

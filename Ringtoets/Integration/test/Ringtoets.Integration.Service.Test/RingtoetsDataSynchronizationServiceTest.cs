@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -37,6 +38,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Revetment.Data;
+using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -270,6 +272,26 @@ namespace Ringtoets.Integration.Service.Test
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
+            var emptyClosingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>();
+            var closingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            var emptyStabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var stabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
             var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
             var stabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -306,6 +328,10 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
+            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(emptyClosingStructuresCalculation);
+            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(closingStructuresCalculation);
+            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(emptyStabilityPointStructuresCalculation);
+            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(stabilityPointStructuresCalculation);
             assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
             assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(stabilityStoneCoverWaveConditionsCalculation);
             assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(grassCoverErosionOutwardsWaveConditionsCalculation);
@@ -327,6 +353,8 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsNull(pipingCalculation.Output);
             Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
             Assert.IsNull(heightStructuresCalculation.Output);
+            Assert.IsNull(closingStructuresCalculation.Output);
+            Assert.IsNull(stabilityPointStructuresCalculation.Output);
             Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.Output);
             Assert.IsNull(grassCoverErosionOutwardsWaveConditionsCalculation.Output);
             Assert.IsNull(waveImpactAshpaltCoverWaveConditionsCalculation.Output);
@@ -337,7 +365,9 @@ namespace Ringtoets.Integration.Service.Test
                 stabilityStoneCoverWaveConditionsCalculation,
                 waveImpactAshpaltCoverWaveConditionsCalculation,
                 grassCoverErosionOutwardsWaveConditionsCalculation,
-                heightStructuresCalculation
+                heightStructuresCalculation,
+                closingStructuresCalculation,
+                stabilityPointStructuresCalculation
             }, affectedItems);
         }
 
@@ -375,6 +405,24 @@ namespace Ringtoets.Integration.Service.Test
                 }
             };
 
+            var emptyClosingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>();
+            var closingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var emptyStabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var stabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
             var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
             var stabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -408,6 +456,10 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
+            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(emptyClosingStructuresCalculation);
+            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(closingStructuresCalculation);
+            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(emptyStabilityPointStructuresCalculation);
+            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(stabilityPointStructuresCalculation);
             assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
             assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(stabilityStoneCoverWaveConditionsCalculation);
             assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(emptyGrassCoverErosionOutwardsWaveConditionsCalculation);
@@ -422,6 +474,8 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsNull(pipingCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.IsNull(grassCoverErosionInwardsCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.IsNull(heightStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.IsNull(closingStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.IsNull(stabilityPointStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.IsNull(grassCoverErosionOutwardsWaveConditionsCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.IsNull(waveImpactAshpaltCoverWaveConditionsCalculation.InputParameters.HydraulicBoundaryLocation);
@@ -432,7 +486,9 @@ namespace Ringtoets.Integration.Service.Test
                 stabilityStoneCoverWaveConditionsCalculation,
                 waveImpactAshpaltCoverWaveConditionsCalculation,
                 grassCoverErosionOutwardsWaveConditionsCalculation,
-                heightStructuresCalculation
+                heightStructuresCalculation,
+                closingStructuresCalculation,
+                stabilityPointStructuresCalculation
             }, affectedItems);
         }
 
@@ -456,6 +512,18 @@ namespace Ringtoets.Integration.Service.Test
 
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            var emptyClosingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>();
+            var closingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            var emptyStabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var stabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
@@ -484,6 +552,10 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
+            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(emptyClosingStructuresCalculation);
+            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(closingStructuresCalculation);
+            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(emptyStabilityPointStructuresCalculation);
+            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(stabilityPointStructuresCalculation);
             assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
             assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(stabilityStoneCoverWaveConditionsCalculation);
             assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(emptyGrassCoverErosionOutwardsWaveConditionsCalculation);
@@ -498,6 +570,8 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsNull(pipingCalculation.Output);
             Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
             Assert.IsNull(heightStructuresCalculation.Output);
+            Assert.IsNull(closingStructuresCalculation.Output);
+            Assert.IsNull(stabilityPointStructuresCalculation.Output);
             Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.Output);
             Assert.IsNull(grassCoverErosionOutwardsWaveConditionsCalculation.Output);
             Assert.IsNull(waveImpactAshpaltCoverWaveConditionsCalculation.Output);
@@ -508,7 +582,9 @@ namespace Ringtoets.Integration.Service.Test
                 stabilityStoneCoverWaveConditionsCalculation,
                 waveImpactAshpaltCoverWaveConditionsCalculation,
                 grassCoverErosionOutwardsWaveConditionsCalculation,
-                heightStructuresCalculation
+                heightStructuresCalculation,
+                closingStructuresCalculation,
+                stabilityPointStructuresCalculation
             }, affectedItems);
         }
 
@@ -521,6 +597,8 @@ namespace Ringtoets.Integration.Service.Test
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
+            var emptyClosingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>();
+            var emptyStabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
             var emptyGrassCoverErosionOutwardsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var emptyWaveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
@@ -528,6 +606,8 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
+            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(emptyClosingStructuresCalculation);
+            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(emptyStabilityPointStructuresCalculation);
             assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
             assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(emptyGrassCoverErosionOutwardsCalculation);
             assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(emptyWaveImpactAshpaltCoverWaveConditionsCalculation);
