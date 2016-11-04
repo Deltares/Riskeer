@@ -256,7 +256,6 @@ namespace Demo.Ringtoets.Commands
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
-            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) 10.0;
             calculation.InputParameters.Structure = heightStructure;
             calculation.InputParameters.NotifyObservers();
         }
@@ -315,7 +314,6 @@ namespace Demo.Ringtoets.Commands
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
-            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) 10.0;
             calculation.InputParameters.Structure = closingStructure;
             calculation.InputParameters.NotifyObservers();
         }
