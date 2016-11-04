@@ -491,4 +491,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="HydraulicBoundaryDatabaseImporter_Cannot_open_hydaulic_calculation_settings_file_0_" xml:space="preserve">
     <value>Kon het rekeninstellingen bestand niet openen. {0}</value>
   </data>
+  <data name="HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema" xml:space="preserve">
+    <value>De rekeninstellingen database heeft niet het juiste schema.</value>
+  </data>
 </root>

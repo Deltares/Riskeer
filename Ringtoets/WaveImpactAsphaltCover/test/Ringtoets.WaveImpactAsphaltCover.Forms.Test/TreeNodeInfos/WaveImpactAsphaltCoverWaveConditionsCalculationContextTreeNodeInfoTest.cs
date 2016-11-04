@@ -564,8 +564,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         public void GivenAssessmentSectionWithValidPathForCalculation_ThenValidationItemEnabled()
         {
             // Given
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
-                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("A", new[]
@@ -625,8 +625,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         public void GivenCalculation_WhenValidating_ThenCalculationValidated(bool validCalculation)
         {
             // Given
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
-                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("A", new[]
@@ -777,8 +777,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             if (validPath)
             {
-                hydraulicBoundaryDatabase.FilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
-                                                                                Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+                hydraulicBoundaryDatabase.FilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                                Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
             }
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
@@ -830,8 +830,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         public void GivenValidCalculation_WhenCalculating_ThenCalculationReturnsResult()
         {
             // Given
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
-                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("A", new[]

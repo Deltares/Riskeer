@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
     [TestFixture]
     public class HydraulicBoundarySqLiteDatabaseReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundarySqLiteDatabaseReader");
 
         [Test]
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()

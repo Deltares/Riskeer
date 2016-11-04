@@ -68,7 +68,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         private const int contextMenuCalculateAllIndexNestedGroup = 4;
         private const int contextMenuClearAllIndexNestedGroup = 5;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private IGui guiMock;
         private TreeNodeInfo info;

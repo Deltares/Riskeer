@@ -32,7 +32,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
     [TestFixture]
     public class HydraulicDatabaseHelperTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         [Test]
         public void ValidatePathForCalculation_ExistingFileWithHlcd_ReturnsNull()
@@ -112,6 +112,19 @@ namespace Ringtoets.Common.IO.Test.HydraRing
 
             // Assert
             StringAssert.StartsWith(string.Format("Fout bij het lezen van bestand '{0}':", validFilePath), result);
+        }
+
+        [Test]
+        public void ValidatePathForCalculation_ExistingFileWithInvalidSettingsDatabase_ReturnsMessageWithError()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite");
+
+            // Call
+            var result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
+
+            // Assert
+            StringAssert.StartsWith("De rekeninstellingen database heeft niet het juiste schema.", result);
         }
 
         [Test]

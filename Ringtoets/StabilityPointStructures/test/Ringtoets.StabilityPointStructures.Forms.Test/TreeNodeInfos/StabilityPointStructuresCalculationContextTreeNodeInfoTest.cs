@@ -58,7 +58,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         private const int contextMenuValidateIndex = 0;
         private const int contextMenuCalculateIndex = 1;
         private const int contextMenuClearIndex = 2;
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private MockRepository mocks;
         private StabilityPointStructuresPlugin plugin;

@@ -227,7 +227,7 @@ namespace Ringtoets.Common.IO.HydraRing
             if (!ContainsRequiredTables(GetColumnDefinitions(Connection)))
             {
                 CloseConnection();
-                throw new CriticalFileReadException("De rekeninstellingen database heeft niet het juiste schema.");
+                throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
             }
         }
 
@@ -342,10 +342,11 @@ namespace Ringtoets.Common.IO.HydraRing
             for (int i = 0; i < columns.Rows.Count; i++)
             {
                 var dataRow = columns.Rows[i];
-                definitions.Add(Tuple.Create(
-                    ((string) dataRow["TABLE_NAME"]).ToLower(),
-                    ((string) dataRow["COLUMN_NAME"]).ToLower()
-                                    ));
+                definitions.Add(
+                    Tuple.Create(
+                        ((string) dataRow["TABLE_NAME"]).ToLower(),
+                        ((string) dataRow["COLUMN_NAME"]).ToLower()
+                        ));
             }
             return definitions;
         }

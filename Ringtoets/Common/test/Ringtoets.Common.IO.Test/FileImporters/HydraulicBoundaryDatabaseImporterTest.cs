@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.HydraRing.Data;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
@@ -38,7 +39,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
     [TestFixture]
     public class HydraulicBoundaryDatabaseImporterTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
         private HydraulicBoundaryDatabaseImporter importer;
 
         [SetUp]
@@ -170,6 +171,53 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build("Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.");
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ExistingFileWithoutSettings_ThrowCriticalFileReadException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
+            mocks.ReplayAll();
+
+            string validFilePath = Path.Combine(testDataPath, "withoutSettings", "complete.sqlite");
+
+            // Call
+            TestDelegate test = () => importer.Import(assessmentSection, validFilePath);
+
+            // Assert
+            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build(string.Format(
+                "Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
+                HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(validFilePath)));
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ExistingFileWithInvalidSettingsDatabaseSchema_ThrowCriticalFileReadException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
+            mocks.ReplayAll();
+
+            string validFilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite");
+
+            // Call
+            TestDelegate test = () => importer.Import(assessmentSection, validFilePath);
+
+            // Assert
+            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build(
+                "Kon het rekeninstellingen bestand niet openen. De rekeninstellingen database heeft niet het juiste schema.");
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
 

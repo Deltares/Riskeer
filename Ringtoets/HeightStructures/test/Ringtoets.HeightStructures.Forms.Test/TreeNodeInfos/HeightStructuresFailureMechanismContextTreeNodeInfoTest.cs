@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         private const int contextMenuValidateAllIndex = 2;
         private const int contextMenuCalculateAllIndex = 3;
         private const int contextMenuClearAllIndex = 4;
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private MockRepository mocksRepository;
         private HeightStructuresPlugin plugin;

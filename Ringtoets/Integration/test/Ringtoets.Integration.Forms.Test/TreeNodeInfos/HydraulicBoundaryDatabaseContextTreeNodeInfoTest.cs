@@ -35,6 +35,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -53,6 +54,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabase");
         private readonly string testDataPathNoHlcd = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabaseNoHLCD");
+        private readonly string testDataPathNoSettings = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabaseNoSettings");
+        private readonly string testDataPathInvalidSettings = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabaseSettingsInvalid");
 
         [SetUp]
         public void SetUp()
@@ -388,6 +391,97 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     // Then
                     string expectedMessage =
                         string.Format("Fout bij het lezen van bestand '{0}': Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.",
+                                      testFile);
+                    TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
+
+                    Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
+                }
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GivenNoFilePathIsSet_WhenOpeneningValidFileWithoutSettingsDatabaseFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
+        {
+            // Given
+            string testFile = Path.Combine(testDataPathNoSettings, "HRD dutch coast south.sqlite");
+
+            int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            using (TreeViewControl treeViewControl = new TreeViewControl())
+            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            {
+                IGui gui = mocks.DynamicMock<IGui>();
+                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                    tester.OpenFile(testFile);
+                };
+
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl))
+                {
+                    // When
+                    Action action = () => contextMenuStrip.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
+
+                    // Then
+                    string expectedMessage =
+                        string.Format("Fout bij het lezen van bestand '{0}': Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{1}': Het bestand bestaat niet.",
+                                      testFile,
+                                      HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(testFile));
+                    TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
+
+                    Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
+                }
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GivenNoFilePathIsSet_WhenOpeneningValidFileWithInvalidSettingsDatabaseFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
+        {
+            // Given
+            string testFile = Path.Combine(testDataPathInvalidSettings, "HRD dutch coast south.sqlite");
+
+            int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            using (TreeViewControl treeViewControl = new TreeViewControl())
+            using (RingtoetsPlugin plugin = new RingtoetsPlugin())
+            {
+                IGui gui = mocks.DynamicMock<IGui>();
+                gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                    tester.OpenFile(testFile);
+                };
+
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl))
+                {
+                    // When
+                    Action action = () => contextMenuStrip.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
+
+                    // Then
+                    string expectedMessage =
+                        string.Format("Fout bij het lezen van bestand '{0}': Kon het rekeninstellingen bestand niet openen. De rekeninstellingen database heeft niet het juiste schema.",
                                       testFile);
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
