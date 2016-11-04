@@ -29,6 +29,28 @@ namespace Core.Common.Utils.Test.IO
     [TestFixture]
     public class EmbeddedResourceFileWriterTest
     {
+        [Test]
+        public void Constructor_AssemblyNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new EmbeddedResourceFileWriter(null, true, "A");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("assembly", paramName);
+        }
+
+        [Test]
+        public void Constructor_FilePathsNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new EmbeddedResourceFileWriter(GetType().Assembly, true, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("embeddedResourceFileNames", paramName);
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         public void EmbeddedResourceFileWriter_ValidEmbeddedResources_FilesCorrectlyWritten(bool removeFilesOnDispose)

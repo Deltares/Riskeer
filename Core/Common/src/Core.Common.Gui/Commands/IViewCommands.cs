@@ -36,22 +36,22 @@ namespace Core.Common.Gui.Commands
         /// <summary>
         /// Open the view for the given data object.
         /// </summary>
-        /// <param name="dataObject">The data object for which a view must be opened.</param>
+        /// <param name="viewData">The data object for which a view must be opened.</param>
         /// <remarks>If multiple views are available, the user is asked which view to use.</remarks>
         /// <seealso cref="OpenViewForSelection"/>
-        void OpenView(object dataObject);
+        void OpenView(object viewData);
 
         /// <summary>
         /// Removes all views that are associated to the given data object and/or its children.
         /// </summary>
-        /// <param name="dataObject">The root data object for which all views must be closed.</param>
-        void RemoveAllViewsForItem(object dataObject);
+        /// <param name="viewData">The root data object for which all views must be closed.</param>
+        void RemoveAllViewsForItem(object viewData);
 
         /// <summary>
         /// Indicates if a there are any views available for the application's selection.
         /// </summary>
-        /// <param name="dataObject">The data object to open views for.</param>
-        /// <returns><c>True</c> if there are any views for <paramref name="dataObject"/>, <c>false</c> otherwise.</returns>
-        bool CanOpenViewFor(object dataObject);
+        /// <param name="viewData">The data object to open views for.</param>
+        /// <returns><c>True</c> if there are any views for <paramref name="viewData"/>, <c>false</c> otherwise.</returns>
+        bool CanOpenViewFor(object viewData);
     }
 }

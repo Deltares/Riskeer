@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Utils.Extensions;
 using NUnit.Framework;
 
@@ -29,6 +30,34 @@ namespace Core.Common.Utils.Test.Extensions
     [TestFixture]
     public class EnumerableExtensionsTest
     {
+        [Test]
+        public void ForEachElementDo_IteratorNull_ThrowArgumentNullException()
+        {
+            // Setup
+            IEnumerable<object> enumerable = null;
+
+            // Call
+            TestDelegate call = () => enumerable.ForEachElementDo(e => e.GetType());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("source", paramName);
+        }
+
+        [Test]
+        public void ForEachElementDo_ActionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var enumerable = Enumerable.Empty<object>();
+
+            // Call
+            TestDelegate call = () => enumerable.ForEachElementDo(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("action", paramName);
+        }
+
         [Test]
         public void ForEachElementDo_PerformTheActionForEachElement()
         {

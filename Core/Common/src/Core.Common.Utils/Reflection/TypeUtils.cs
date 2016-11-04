@@ -54,8 +54,13 @@ namespace Core.Common.Utils.Reflection
         /// <returns><c>True</c> if <paramref name="thisType"/> is the same type as <paramref name="type"/>,
         /// or has that as (one of) its supertypes.</returns>
         /// <seealso cref="Implements{T}"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type"/> is <c>null</c>.</exception>
         public static bool Implements(this Type thisType, Type type)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
             return type.IsAssignableFrom(thisType);
         }
 
@@ -67,8 +72,13 @@ namespace Core.Common.Utils.Reflection
         /// <returns>The string name of the member.</returns>
         /// <exception cref="System.ArgumentException">Thrown when <paramref name="expression"/> 
         /// is not an expression with a member, such as an expression calling multiple methods.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="expression"/> is <c>null</c>.</exception>
         public static string GetMemberName<T>(Expression<Func<T, object>> expression)
         {
+            if (expression == null)
+            {
+                throw new ArgumentNullException("expression");
+            }
             return GetMemberName(expression, expression.Body);
         }
 
@@ -80,8 +90,13 @@ namespace Core.Common.Utils.Reflection
         /// <returns>The string name of the member.</returns>
         /// <exception cref="System.ArgumentException">Thrown when <paramref name="expression"/> 
         /// is not an expression with a member, such as an expression calling multiple methods.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="expression"/> is <c>null</c>.</exception>
         public static string GetMemberName<T>(Expression<Action<T>> expression)
         {
+            if (expression == null)
+            {
+                throw new ArgumentNullException("expression");
+            }
             return GetMemberName(expression, expression.Body);
         }
 
@@ -94,10 +109,14 @@ namespace Core.Common.Utils.Reflection
         /// <returns>The value of the field.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="instance"/>
         /// doesn't have a field with the name <paramref name="fieldName"/>.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fieldName"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         /// <remarks>This method can be used for fields of any visibility.</remarks>
         public static T GetField<T>(object instance, string fieldName)
         {
+            if (instance == null)
+            {
+                throw new ArgumentNullException("instance");
+            }
             FieldInfo fieldInfo = GetFieldInfo(instance.GetType(), fieldName);
             if (fieldInfo == null)
             {
@@ -116,10 +135,16 @@ namespace Core.Common.Utils.Reflection
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="obj"/>
         /// doesn't have a field with the name <paramref name="fieldName"/>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="newValue"/> is of incorrect type.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fieldName"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fieldName"/> 
+        /// or <paramref name="obj"/> is <c>null</c>.</exception>
         /// <remarks>This method can be used for fields of any visibility.</remarks>
         public static void SetField(object obj, string fieldName, object newValue)
         {
+            if (obj == null)
+            {
+                throw new ArgumentNullException("obj");
+            }
+
             FieldInfo fieldInfo = GetFieldInfo(obj.GetType(), fieldName);
             if (fieldInfo == null)
             {
@@ -146,10 +171,16 @@ namespace Core.Common.Utils.Reflection
         /// property returns <c>true</c> for the declaring type.</exception>
         /// <exception cref="AmbiguousMatchException">Thrown when more than one method is found with 
         /// the specified name and matching the specified binding constraints.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="methodName"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="instance"/>
+        /// or <paramref name="methodName"/> is <c>null</c>.</exception>
         /// <returns>The return value of the method.</returns>
         public static T CallPrivateMethod<T>(object instance, string methodName, params object[] arguments)
         {
+            if (instance == null)
+            {
+                throw new ArgumentNullException("instance");
+            }
+
             var methodInfo = instance.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
             if (methodInfo == null)
             {
@@ -175,9 +206,15 @@ namespace Core.Common.Utils.Reflection
         /// property returns <c>true</c> for the declaring type.</exception>
         /// <exception cref="AmbiguousMatchException">Thrown when more than one method is found with 
         /// the specified name and matching the specified binding constraints.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="methodName"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="instance"/>
+        /// or <paramref name="methodName"/> is <c>null</c>.</exception>
         public static void CallPrivateMethod(object instance, string methodName, params object[] arguments)
         {
+            if (instance == null)
+            {
+                throw new ArgumentNullException("instance");
+            }
+
             var methodInfo = instance.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
             if (methodInfo == null)
             {
@@ -193,7 +230,8 @@ namespace Core.Common.Utils.Reflection
         /// <param name="instance">The instance declaring the property. Cannot be <c>null</c>.</param>
         /// <param name="propertyName">Name of the property to be set.</param>
         /// <param name="value">The new value of the property.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="propertyName"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="instance"/>
+        /// or <paramref name="propertyName"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the property referred to by <paramref name="propertyName"/>
         /// is not declared or inherited by the class of <paramref name="instance"/>.</exception>
         /// <exception cref="ArgumentException">Thrown when the property has not setter.</exception>
@@ -204,6 +242,11 @@ namespace Core.Common.Utils.Reflection
         /// the reason for the error.</exception>
         public static void SetPrivatePropertyValue(object instance, string propertyName, object value)
         {
+            if (instance == null)
+            {
+                throw new ArgumentNullException("instance");
+            }
+
             var propertyInfo = instance.GetType().GetProperty(propertyName);
             if (propertyInfo == null)
             {
@@ -223,7 +266,8 @@ namespace Core.Common.Utils.Reflection
         /// <param name="expression">The expression that resolves to the property to be checked.</param>
         /// <returns><c>True</c> if the property is decorated with the given <see cref="TypeConverter"/>,
         /// <c>false</c> otherwise.</returns>
-        /// <exception cref="System.ArgumentException">Thrown when <paramref name="expression"/> 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="expression"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="expression"/> 
         /// is not an expression with a property, such as an expression calling multiple methods.</exception>
         /// <exception cref="AmbiguousMatchException">Thrown when more then one property is found with
         /// name specified in <paramref name="expression"/>.</exception>

@@ -36,6 +36,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
         /// <param name="level">Type of logging message.</param>
         /// <param name="time">Time when the message was logged.</param>
         /// <param name="message">The message text.</param>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="level"/> is <c>null</c>.</exception>
         void AddMessage(Level level, DateTime time, string message);
     }
 }

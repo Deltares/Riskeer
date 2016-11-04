@@ -35,11 +35,17 @@ namespace Core.Common.Utils.Extensions
         /// </summary>
         /// <typeparam name="T">The type of the elements in the collection.</typeparam>
         /// <param name="source">The collection from which elements should be removed.</param>
-        /// <param name="condition">The filtering method, that should return true if the
+        /// <param name="predicate">The filtering method, that should return true if the
         /// given element should be removed from <paramref name="source"/>.</param>
-        public static void RemoveAllWhere<T>(this ICollection<T> source, Func<T, bool> condition)
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        public static void RemoveAllWhere<T>(this ICollection<T> source, Func<T, bool> predicate)
         {
-            foreach (T item in source.Where(condition).ToArray())
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            foreach (T item in source.Where(predicate).ToArray())
             {
                 source.Remove(item);
             }

@@ -37,8 +37,18 @@ namespace Core.Common.Utils.Extensions
         /// <param name="source">A sequence that contains elements to be acted upon.</param>
         /// <param name="action">The action that should be performed on each element.</param>
         /// <remarks>Do not define an action that effect <see cref="source"/>.</remarks>
+        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
         public static void ForEachElementDo<T>(this IEnumerable<T> source, Action<T> action)
         {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+            if (action == null)
+            {
+                throw new ArgumentNullException("action");
+            }
+
             foreach (var item in source)
             {
                 action(item);

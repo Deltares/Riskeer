@@ -42,27 +42,27 @@ namespace Core.Common.Gui.Attributes
         /// <summary>
         /// Determines whether the property is visible or not.
         /// </summary>
-        /// <param name="obj">The object.</param>
-        /// <param name="propertyName">The name of the property of <paramref name="obj"/>.</param>
+        /// <param name="value">The object.</param>
+        /// <param name="propertyName">The name of the property of <paramref name="value"/>.</param>
         /// <returns><c>True</c> if the property is visible, <c>false</c> otherwise.</returns>
         /// <exception cref="MissingMemberException">Thrown when <paramref name="propertyName"/>
-        /// does not correspond to a public property of <paramref name="obj"/>.</exception>
+        /// does not correspond to a public property of <paramref name="value"/>.</exception>
         /// <exception cref="System.MissingMethodException">Thrown when there isn't a single method
-        /// declared on <paramref name="obj"/> marked with <see cref="DynamicVisibleValidationMethodAttribute"/>
+        /// declared on <paramref name="value"/> marked with <see cref="DynamicVisibleValidationMethodAttribute"/>
         /// that is matching the signature defined by <see cref="DynamicVisibleValidationMethodAttribute.IsPropertyVisible"/>.</exception>
-        public static bool IsVisible(object obj, string propertyName)
+        public static bool IsVisible(object value, string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))
             {
                 return BrowsableAttribute.Default.Browsable;
             }
 
-            if (!IsPropertyDynamicallyVisible(obj, propertyName))
+            if (!IsPropertyDynamicallyVisible(value, propertyName))
             {
                 return BrowsableAttribute.Default.Browsable;
             }
 
-            var isPropertyVisibleDelegate = DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(obj);
+            var isPropertyVisibleDelegate = DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(value);
 
             return isPropertyVisibleDelegate(propertyName);
         }

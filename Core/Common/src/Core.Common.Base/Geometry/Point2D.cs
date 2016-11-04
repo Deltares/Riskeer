@@ -60,8 +60,19 @@ namespace Core.Common.Base.Geometry
         /// <param name="p1">Head of the vector.</param>
         /// <param name="p2">Tail of the vector.</param>
         /// <returns>A 2D vector.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="p1"/>
+        /// or <paramref name="p2"/> is null.</exception>
         public static Vector<double> operator -(Point2D p1, Point2D p2)
         {
+            if (p1 == null)
+            {
+                throw new ArgumentNullException("p1");
+            }
+            if (p2 == null)
+            {
+                throw new ArgumentNullException("p2");
+            }
+
             var result = new DenseVector(2);
             result[0] = p1.X - p2.X;
             result[1] = p1.Y - p2.Y;
@@ -76,10 +87,21 @@ namespace Core.Common.Base.Geometry
         /// <returns>
         /// A 2D point.
         /// </returns>
-        /// <exception cref="System.ArgumentException">Thrown when <paramref name="vector"/> is 
+        /// <exception cref="ArgumentException">Thrown when <paramref name="vector"/> is 
         /// not a 2D vector.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/>
+        /// or <paramref name="vector"/> is null.</exception>
         public static Point2D operator +(Point2D point, Vector<double> vector)
         {
+            if (point == null)
+            {
+                throw new ArgumentNullException("point");
+            }
+            if (vector == null)
+            {
+                throw new ArgumentNullException("vector");
+            }
+
             if (vector.Count != 2)
             {
                 string message = string.Format(CultureInfo.CurrentCulture,

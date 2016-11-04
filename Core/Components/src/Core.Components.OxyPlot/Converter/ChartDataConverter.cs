@@ -60,13 +60,13 @@ namespace Core.Components.OxyPlot.Converter
         /// Transforms a given object into a <see cref="DataPoint"/>. Can be used as a 
         /// <see cref="DataPointSeries.Mapping"/>.
         /// </summary>
-        /// <param name="obj">The object to convert into a <see cref="DataPoint"/>.</param>
-        /// <returns>A new <see cref="DataPoint"/> based on <paramref name="obj"/>.</returns>
-        /// <exception cref="InvalidCastException">Thrown when <paramref name="obj"/> is not
-        /// of type <see cref="Tuple"/> of <see cref="double"/>.</exception>
-        protected static DataPoint Point2DToDataPoint(object obj)
+        /// <param name="point2D">The object to convert into a <see cref="DataPoint"/>.</param>
+        /// <returns>A new <see cref="DataPoint"/> based on <paramref name="point2D"/>.</returns>
+        /// <exception cref="InvalidCastException">Thrown when <paramref name="point2D"/> is not
+        /// of type <see cref="Point2D"/>.</exception>
+        protected static DataPoint Point2DToDataPoint(object point2D)
         {
-            Point2D point = (Point2D) obj;
+            Point2D point = (Point2D) point2D;
             return new DataPoint(point.X, point.Y);
         }
 
@@ -75,6 +75,7 @@ namespace Core.Components.OxyPlot.Converter
         /// </summary>
         /// <param name="data">The data to transform into one or more <see cref="Series"/>.</param>
         /// <returns>A new <see cref="IList{T}"/> of <see cref="Series"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         protected abstract IList<Series> Convert(T data);
     }
 }

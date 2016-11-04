@@ -156,7 +156,37 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void SubstractOperation_TwoDifferentPoints_Return2DVector()
+        public void SubstractOperator_FirstArgumentNull_ThrowArgumentNullException()
+        {
+            // Setup
+            Point2D first = null;
+            Point2D second = new Point2D(0,0);
+
+            // Call
+            TestDelegate call = () => { Vector<double> result = first - second; };
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("p1", paramName);
+        }
+
+        [Test]
+        public void SubstractOperator_SecondArgumentNull_ThrowArgumentNullException()
+        {
+            // Setup
+            Point2D first = new Point2D(0, 0);
+            Point2D second = null;
+
+            // Call
+            TestDelegate call = () => { Vector<double> result = first - second; };
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("p2", paramName);
+        }
+
+        [Test]
+        public void SubstractOperator_TwoDifferentPoints_Return2DVector()
         {
             // Setup
             var point1 = new Point2D(3.0, 4.0);
@@ -169,6 +199,36 @@ namespace Core.Common.Base.Test.Geometry
             Assert.AreEqual(2, vector.Count);
             Assert.AreEqual(point1.X - point2.X, vector[0]);
             Assert.AreEqual(point1.Y - point2.Y, vector[1]);
+        }
+
+        [Test]
+        public void AddOperator_PointNull_ThrowArgumentNullException()
+        {
+            // Setup
+            Point2D point = null;
+            Vector<double> vector = new DenseVector(2);
+
+            // Call
+            TestDelegate call = () => { Point2D result = point + vector; };
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("point", paramName);
+        }
+
+        [Test]
+        public void AddOperator_VectorNull_ThrowArgumentNullException()
+        {
+            // Setup
+            Point2D point = new Point2D(0, 0);
+            Vector<double> vector = null;
+
+            // Call
+            TestDelegate call = () => { Point2D result = point + vector; };
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("vector", paramName);
         }
 
         [Test]

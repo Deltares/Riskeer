@@ -37,8 +37,15 @@ namespace Core.Common.Utils.Reflection
         /// </summary>
         /// <param name="assembly">The assembly to read.</param>
         /// <returns>A structure containing all the assembly info provided.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/>
+        /// is <c>null</c>.</exception>
         public static AssemblyInfo GetAssemblyInfo(Assembly assembly)
         {
+            if (assembly == null)
+            {
+                throw new ArgumentNullException("assembly");
+            }
+
             AssemblyInfo info = new AssemblyInfo();
 
             if (string.IsNullOrEmpty(assembly.Location))
@@ -97,6 +104,8 @@ namespace Core.Common.Utils.Reflection
         /// <returns>The <see cref="Type"/> matching the string name, <c>null</c> otherwise.</returns>
         /// <exception cref="AmbiguousMatchException">Thrown when the specified type string is 
         /// found in multiple assemblies.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeName"/>
+        /// is <c>null</c>.</exception>
         public static Type GetTypeByName(string typeName)
         {
             Type result = null;
@@ -128,8 +137,15 @@ namespace Core.Common.Utils.Reflection
         /// <returns>The byte-stream to the embedded resource.</returns>
         /// <exception cref="ArgumentException">Thrown when the embedded resource file with 
         /// name <paramref name="fileName"/> cannot be found in <paramref name="assembly"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/>
+        /// is <c>null</c>.</exception>
         public static Stream GetAssemblyResourceStream(Assembly assembly, string fileName)
         {
+            if (assembly == null)
+            {
+                throw new ArgumentNullException("assembly");
+            }
+
             try
             {
                 return assembly.GetManifestResourceNames()

@@ -31,6 +31,17 @@ namespace Core.Common.Utils.Test.Reflection
     public class AssemblyUtilsTest
     {
         [Test]
+        public void GetAssemblyInfo_AssemblyNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AssemblyUtils.GetAssemblyInfo(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual(paramName, "assembly");
+        }
+
+        [Test]
         public void GetAssemblyInfo()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -107,6 +118,17 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
+        public void GetTypeByName_NameNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AssemblyUtils.GetTypeByName(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("name", paramName);
+        }
+
+        [Test]
         public void GetTypeByName_ForNonexistingClass_ReturnNull()
         {
             // Call
@@ -114,6 +136,17 @@ namespace Core.Common.Utils.Test.Reflection
 
             // Assert
             Assert.IsNull(returnedType);
+        }
+
+        [Test]
+        public void GetAssemblyResourceStream_AssemblyNull_ThrownArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AssemblyUtils.GetAssemblyResourceStream(null, "nice.txt");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("assembly", paramName);
         }
 
         [Test]

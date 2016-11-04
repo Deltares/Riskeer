@@ -33,6 +33,20 @@ namespace Core.Common.Gui.Test.PropertyBag
     public class PropertySpecTest
     {
         [Test]
+        public void Constructor_InfoNull_ThrowArgumentNullException()
+        {
+            // Setup
+            PropertyInfo info = null;
+
+            // Call
+            TestDelegate call = () => new PropertySpec(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("propertyInfo", paramName);
+        }
+
+        [Test]
         public void ParameteredConstructor_FromPropertyWithoutAttributesWithPublicGetSet_ExpectedValues()
         {
             // Setup

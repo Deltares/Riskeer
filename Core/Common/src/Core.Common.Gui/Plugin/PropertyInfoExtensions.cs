@@ -35,8 +35,15 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         /// <param name="propertyInfo">The property information used to create the object properties.</param>
         /// <param name="sourceData">Data that will be set to the created object properties instance.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="propertyInfo"/>
+        /// is <c>null</c>.</exception>
         public static IObjectProperties CreateObjectProperties(this PropertyInfo propertyInfo, object sourceData)
         {
+            if (propertyInfo == null)
+            {
+                throw new ArgumentNullException("propertyInfo");
+            }
+
             var objectProperties = (IObjectProperties) Activator.CreateInstance(propertyInfo.PropertyObjectType);
 
             objectProperties.Data = propertyInfo.GetObjectPropertiesData != null

@@ -283,6 +283,20 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
+        public void IsConnected_SegmentNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var segment = new Segment2D(new Point2D(0, 0), new Point2D(1, 1));
+
+            // Call
+            TestDelegate call = () => segment.IsConnected(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("segment", paramName);
+        }
+
+        [Test]
         public void IsConnected_SameSegment_True()
         {
             // Setup

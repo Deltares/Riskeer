@@ -148,13 +148,19 @@ namespace Core.Common.Base.Geometry
         /// </summary>
         /// <param name="segment">The segment which may be connected to the <see cref="Segment2D"/>.</param>
         /// <returns><c>true</c> if the segments are connected. <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="segment"/>
+        /// is <c>null</c>.</exception>
         public bool IsConnected(Segment2D segment)
         {
-            return
-                FirstPoint.Equals(segment.FirstPoint) ||
-                FirstPoint.Equals(segment.SecondPoint) ||
-                SecondPoint.Equals(segment.FirstPoint) ||
-                SecondPoint.Equals(segment.SecondPoint);
+            if (segment == null)
+            {
+                throw new ArgumentNullException("segment");
+            }
+
+            return FirstPoint.Equals(segment.FirstPoint) ||
+                   FirstPoint.Equals(segment.SecondPoint) ||
+                   SecondPoint.Equals(segment.FirstPoint) ||
+                   SecondPoint.Equals(segment.SecondPoint);
         }
 
         public override bool Equals(object obj)

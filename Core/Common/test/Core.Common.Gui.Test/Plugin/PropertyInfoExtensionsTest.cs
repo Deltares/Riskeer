@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -28,6 +29,20 @@ namespace Core.Common.Gui.Test.Plugin
     [TestFixture]
     public class PropertyInfoExtensionsTest
     {
+        [Test]
+        public void CreateObjectProperties_InfoNull_ThrowArgumentNullException()
+        {
+            // Setup
+            PropertyInfo info = null;
+
+            // Call
+            TestDelegate call = () => info.CreateObjectProperties(345);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("propertyInfo", paramName);
+        }
+
         [Test]
         public void CreateObjectProperties_SimplePropertyInfo_CreateObjectPropertiesObjectForData()
         {

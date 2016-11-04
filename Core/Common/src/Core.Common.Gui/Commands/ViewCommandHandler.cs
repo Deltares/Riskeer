@@ -53,29 +53,29 @@ namespace Core.Common.Gui.Commands
             OpenView(applicationSelection.Selection);
         }
 
-        public bool CanOpenViewFor(object dataObject)
+        public bool CanOpenViewFor(object viewData)
         {
-            return viewController.DocumentViewController.GetViewInfosFor(dataObject).Any();
+            return viewController.DocumentViewController.GetViewInfosFor(viewData).Any();
         }
 
-        public void OpenView(object dataObject)
+        public void OpenView(object viewData)
         {
-            viewController.DocumentViewController.OpenViewForData(dataObject);
+            viewController.DocumentViewController.OpenViewForData(viewData);
         }
 
-        public void RemoveAllViewsForItem(object dataObject)
+        public void RemoveAllViewsForItem(object viewData)
         {
-            if (dataObject == null || viewController.ViewHost == null)
+            if (viewData == null || viewController.ViewHost == null)
             {
                 return;
             }
 
             var objectsToRemoveViewsFor = new List<object>
             {
-                dataObject
+                viewData
             };
 
-            objectsToRemoveViewsFor.AddRange(pluginsHost.GetAllDataWithViewDefinitionsRecursively(dataObject).Cast<object>());
+            objectsToRemoveViewsFor.AddRange(pluginsHost.GetAllDataWithViewDefinitionsRecursively(viewData).Cast<object>());
 
             foreach (var data in objectsToRemoveViewsFor)
             {

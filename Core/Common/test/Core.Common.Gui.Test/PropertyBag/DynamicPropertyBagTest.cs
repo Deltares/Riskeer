@@ -35,6 +35,17 @@ namespace Core.Common.Gui.Test.PropertyBag
     public class DynamicPropertyBagTest
     {
         [Test]
+        public void Constructor_PropertyObjectNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new DynamicPropertyBag(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("propertyObject", paramName);
+        }
+
+        [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup

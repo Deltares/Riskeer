@@ -460,11 +460,11 @@ namespace Ringtoets.Integration.Plugin
         /// <summary>
         /// Gets the child data instances that have <see cref="ViewInfo"/> definitions of some parent data object.
         /// </summary>
-        /// <param name="dataObject">The parent data object.</param>
+        /// <param name="viewData">The parent data object.</param>
         /// <returns>Sequence of child data.</returns>
-        public override IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
+        public override IEnumerable<object> GetChildDataWithViewDefinitions(object viewData)
         {
-            var project = dataObject as RingtoetsProject;
+            var project = viewData as RingtoetsProject;
             if (project != null)
             {
                 foreach (var item in project.AssessmentSections)
@@ -473,7 +473,7 @@ namespace Ringtoets.Integration.Plugin
                 }
             }
 
-            var assessmentSection = dataObject as IAssessmentSection;
+            var assessmentSection = viewData as IAssessmentSection;
             if (assessmentSection != null)
             {
                 yield return assessmentSection.FailureMechanismContribution;

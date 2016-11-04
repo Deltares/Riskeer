@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Reflection;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
@@ -30,6 +31,17 @@ namespace Core.Common.Utils.Test.Reflection
     [TestFixture]
     public class TypeUtilsTest
     {
+        [Test]
+        public void Implements_TypeNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GetType().Implements(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("type", paramName);
+        }
+
         [Test]
         public void Implements_TypeIsSameClassAsGenericType_ReturnTrue()
         {
@@ -94,6 +106,30 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
+        public void GetMemberName_ExpressionNull1_ThrowsArgumentNullException()
+        {
+            // Call
+            Expression<Func<TestClass, object>> expression = null;
+            TestDelegate call = () => TypeUtils.GetMemberName(expression);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("expression", paramName);
+        }
+
+        [Test]
+        public void GetMemberName_ExpressionNull2_ThrowsArgumentNullException()
+        {
+            // Call
+            Expression<Action<TestClass>> expression = null;
+            TestDelegate call = () => TypeUtils.GetMemberName(expression);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("expression", paramName);
+        }
+
+        [Test]
         public void GetMemberName_PropertyExpression_ReturnPropertyName()
         {
             // Call
@@ -134,6 +170,17 @@ namespace Core.Common.Utils.Test.Reflection
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
             Assert.AreEqual("'t => new Object()' is geen geldige expressie voor deze methode.", exception.Message);
+        }
+
+        [Test]
+        public void GetField_InstanceNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => TypeUtils.GetField<int>(null, "A");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("instance", paramName);
         }
 
         [Test]
@@ -206,6 +253,17 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
+        public void SetField_InstanceNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => TypeUtils.SetField(null, "A", "B");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("obj", paramName);
+        }
+
+        [Test]
         public void SetField_SettingPrivateField_FieldHasBeenUpdated()
         {
             // Setup
@@ -266,6 +324,28 @@ namespace Core.Common.Utils.Test.Reflection
 
             // Assert
             Assert.AreEqual(10, TypeUtils.GetField<int>(derivedTestClass, "privateInt"));
+        }
+
+        [Test]
+        public void CallPrivateMethod_InstanceNull1_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => TypeUtils.CallPrivateMethod<object>(null, "A");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("instance", paramName);
+        }
+
+        [Test]
+        public void CallPrivateMethod_InstanceNull2_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => TypeUtils.CallPrivateMethod(null, "A");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("instance", paramName);
         }
 
         [Test]
@@ -370,6 +450,17 @@ namespace Core.Common.Utils.Test.Reflection
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void SetPrivatePropertyValue_InstanceNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => TypeUtils.SetPrivatePropertyValue(null, "A", "B");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("instance", paramName);
         }
 
         [Test]

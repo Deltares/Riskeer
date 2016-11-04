@@ -193,7 +193,7 @@ namespace Core.Common.Gui
 
         #region Implementation: IContextMenuBuilderProvider
 
-        public IContextMenuBuilder Get(object dataObject, TreeViewControl treeViewControl)
+        public IContextMenuBuilder Get(object value, TreeViewControl treeViewControl)
         {
             if (applicationFeatureCommands == null)
             {
@@ -204,7 +204,7 @@ namespace Core.Common.Gui
                                           importCommandHandler,
                                           exportCommandHandler,
                                           ViewCommands,
-                                          dataObject,
+                                          value,
                                           treeViewControl);
         }
 
@@ -690,14 +690,14 @@ namespace Core.Common.Gui
             return Plugins.SelectMany(pluginGui => pluginGui.GetTreeNodeInfos());
         }
 
-        public IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject)
+        public IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootValue)
         {
             var resultSet = new HashSet<object>();
-            foreach (var childDataInstance in Plugins.SelectMany(p => p.GetChildDataWithViewDefinitions(rootDataObject)).Distinct())
+            foreach (var childDataInstance in Plugins.SelectMany(p => p.GetChildDataWithViewDefinitions(rootValue)).Distinct())
             {
                 resultSet.Add(childDataInstance);
 
-                if (!ReferenceEquals(rootDataObject, childDataInstance))
+                if (!ReferenceEquals(rootValue, childDataInstance))
                 {
                     foreach (var dataWithViewDefined in GetAllDataWithViewDefinitionsRecursively(childDataInstance))
                     {

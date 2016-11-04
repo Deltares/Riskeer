@@ -45,8 +45,10 @@ namespace Core.Common.Gui.PropertyBag
         /// </summary>
         /// <param name="propertySpec">The property spec.</param>
         /// <param name="instance">The instance which has the property captured in <paramref name="propertySpec"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="propertySpec"/>
+        /// is <c>null</c>.</exception>
         public PropertySpecDescriptor(PropertySpec propertySpec, object instance)
-            : base(propertySpec.Name, propertySpec.Attributes)
+            : base(ValidateNotNull(propertySpec).Name, propertySpec.Attributes)
         {
             item = propertySpec;
             this.instance = instance;
@@ -120,6 +122,15 @@ namespace Core.Common.Gui.PropertyBag
         public override bool ShouldSerializeValue(object component)
         {
             return false;
+        }
+
+        private static PropertySpec ValidateNotNull(PropertySpec propertySpec)
+        {
+            if (propertySpec == null)
+            {
+                throw new ArgumentNullException("propertySpec");
+            }
+            return propertySpec;
         }
     }
 }

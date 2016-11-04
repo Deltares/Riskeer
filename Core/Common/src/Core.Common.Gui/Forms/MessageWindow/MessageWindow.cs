@@ -101,6 +101,11 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
         public void AddMessage(Level level, DateTime time, string message)
         {
+            if (level == null)
+            {
+                throw new ArgumentNullException("level");
+            }
+
             string shortMessage;
             using (var reader = new StringReader(message))
             {

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Utils.Extensions;
 using NUnit.Framework;
@@ -28,6 +29,34 @@ namespace Core.Common.Utils.Test.Extensions
     [TestFixture]
     public class CollectionExtensionsTest
     {
+        [Test]
+        public void RemoveAllWhere_CollectionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            ICollection<object> collection = null;
+
+            // Call
+            TestDelegate call = () => collection.RemoveAllWhere(o => true);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("source", paramName);
+        }
+
+        [Test]
+        public void RemoveAllWhere_FilterFunctionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            ICollection<object> collection = new List<object>();
+
+            // Call
+            TestDelegate call = () => collection.RemoveAllWhere(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("predicate", paramName);
+        }
+
         [Test]
         public void RemoveAllWhere_FilterReturningTrueForAllElements_CollectionIsCleared()
         {

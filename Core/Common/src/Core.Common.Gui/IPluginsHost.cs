@@ -41,9 +41,9 @@ namespace Core.Common.Gui
         /// Queries the plugins to get all data with view definitions recursively, given a
         /// piece of hierarchical data.
         /// </summary>
-        /// <param name="rootDataObject">The root data object.</param>
+        /// <param name="rootValue">The root data object.</param>
         /// <returns>An enumeration of all (child)data that have view definitions declared.</returns>
-        IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject);
+        IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootValue);
 
         /// <summary>
         /// Retrieves all the <see cref="TreeNodeInfo"/> defined on the configured plugins.

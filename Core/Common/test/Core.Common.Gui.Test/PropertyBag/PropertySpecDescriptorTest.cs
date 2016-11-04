@@ -31,6 +31,17 @@ namespace Core.Common.Gui.Test.PropertyBag
     public class PropertySpecDescriptorTest
     {
         [Test]
+        public void Constructor_PropertySpecNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new PropertySpecDescriptor(null, new object());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("propertySpec", paramName);
+        }
+
+        [Test]
         public void ParameteredConstructor_IsPropertyReadOnlyProperty_ExpectedValues()
         {
             // Setup

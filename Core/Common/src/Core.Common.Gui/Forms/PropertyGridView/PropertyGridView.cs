@@ -56,8 +56,18 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         /// <param name="applicationSelection">The application selection mechanism.</param>
         /// <param name="propertyResolver">The class responsible for finding the object properties
         /// for a given data object.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public PropertyGridView(IApplicationSelection applicationSelection, IPropertyResolver propertyResolver)
         {
+            if (applicationSelection == null)
+            {
+                throw new ArgumentNullException("applicationSelection");
+            }
+            if (propertyResolver == null)
+            {
+                throw new ArgumentNullException("propertyResolver");
+            }
+
             HideTabsButton();
             DisableDescriptionAreaAutoSizing();
             TranslateToolTips();

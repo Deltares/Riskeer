@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using Core.Common.TestUtil;
@@ -31,6 +32,38 @@ namespace Core.Common.Utils.Test.Drawing
     [TestFixture]
     public class GraphicsExtensionsTest
     {
+        [Test]
+        public void DrawImageTransparent_GraphicsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            Graphics graphics = null;
+
+            // Call
+            TestDelegate call = () => graphics.DrawImageTransparent(Resources.Black2x2, 1, 1, 0.4f);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("g", paramName);
+        }
+
+        [Test]
+        public void DrawImageTransparent_ImageNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var rect2x2 = new RectangleF(0f, 0f, 2f, 2f);
+            var imageFormat = PixelFormat.Format32bppArgb;
+
+            using (var target = Resources.Black2x2.Clone(rect2x2, imageFormat))
+            {
+                // Call
+                TestDelegate call = () => Graphics.FromImage(target).DrawImageTransparent(null, 0, 0, 0.4f);
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+                Assert.AreEqual("image", paramName);
+            }
+        }
+
         [Test]
         [TestCase(1.0f)]
         [TestCase(3.0f)]

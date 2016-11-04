@@ -102,9 +102,9 @@ namespace Core.Common.Gui.Plugin
         /// Gets the child data instances that have <see cref="ViewInfo"/> definitions of
         /// some parent data object.
         /// </summary>
-        /// <param name="dataObject">The parent data object.</param>
+        /// <param name="viewData">The parent data object.</param>
         /// <returns>Sequence of child data.</returns>
-        public virtual IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
+        public virtual IEnumerable<object> GetChildDataWithViewDefinitions(object viewData)
         {
             yield break;
         }

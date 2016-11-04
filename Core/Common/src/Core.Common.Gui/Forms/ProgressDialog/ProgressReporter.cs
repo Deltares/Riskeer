@@ -63,8 +63,14 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         /// <param name="task">The task to monitor for completion.</param>
         /// <param name="action">The action to take when the task has completed, in the context of the UI thread.</param>
         /// <returns>The continuation created to handle completion. This is normally ignored.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="task"/> is <c>null</c>.</exception>
         public void RegisterContinuation(Task task, Action action)
         {
+            if (task == null)
+            {
+                throw new ArgumentNullException("task");
+            }
+
             task.ContinueWith(_ => action(), CancellationToken.None, TaskContinuationOptions.None, scheduler);
         }
     }

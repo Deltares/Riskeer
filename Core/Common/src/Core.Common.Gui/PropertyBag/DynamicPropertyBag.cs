@@ -50,8 +50,15 @@ namespace Core.Common.Gui.PropertyBag
         /// object and exposing properties for that object.
         /// </summary>
         /// <param name="propertyObject">The object to be wrapped.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="propertyObject"/>
+        /// is <c>null</c>.</exception>
         public DynamicPropertyBag(object propertyObject)
         {
+            if (propertyObject == null)
+            {
+                throw new ArgumentNullException("propertyObject");
+            }
+
             Properties = new HashSet<PropertySpec>();
             WrappedObject = propertyObject;
 
