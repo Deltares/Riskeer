@@ -43,7 +43,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void Constructor_SettingsNotExisting_ThrowsArgumentException()
+        public void Constructor_SettingsNotExisting_ThrowsCriticalFileReadException()
         {
             // Call
             TestDelegate test = () => new HydraulicBoundaryLocationFilter(Path.Combine(testDataPath, "notExisting"));
