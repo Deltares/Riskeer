@@ -76,34 +76,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             calculation.Output = null;
         }
-
-        /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> for all the calculations in
-        /// the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/>
-        /// which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
-        /// removing <see cref="HydraulicBoundaryLocation"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// is <c>null</c>.</exception>
-        public static IEnumerable<GrassCoverErosionInwardsCalculation> ClearHydraulicBoundaryLocations(GrassCoverErosionInwardsFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException("failureMechanism");
-            }
-
-            var affectedItems = failureMechanism.Calculations
-                                                .Cast<GrassCoverErosionInwardsCalculation>()
-                                                .Where(c => c.InputParameters.HydraulicBoundaryLocation != null)
-                                                .ToArray();
-
-            affectedItems.ForEachElementDo(ClearHydraulicBoundaryLocation);
-
-            return affectedItems;
-        }
-
+        
         /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations
         /// in the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.

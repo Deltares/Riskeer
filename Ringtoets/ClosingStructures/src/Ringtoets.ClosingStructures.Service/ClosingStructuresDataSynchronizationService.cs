@@ -60,34 +60,7 @@ namespace Ringtoets.ClosingStructures.Service
 
             return affectedItems;
         }
-
-        /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> for all the calculations in
-        /// the <see cref="StructuresCalculation{T}"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/>
-        /// which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
-        /// removing <see cref="HydraulicBoundaryLocation"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// is <c>null</c>.</exception>
-        public static IEnumerable<StructuresCalculation<ClosingStructuresInput>> ClearHydraulicBoundaryLocations(ClosingStructuresFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException("failureMechanism");
-            }
-
-            var affectedItems = failureMechanism.Calculations
-                                                .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                                .Where(c => c.InputParameters.HydraulicBoundaryLocation != null)
-                                                .ToArray();
-
-            affectedItems.ForEachElementDo(ClearHydraulicBoundaryLocation);
-
-            return affectedItems;
-        }
-
+        
         /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations
         /// in the <see cref="StructuresCalculation{T}"/>.
