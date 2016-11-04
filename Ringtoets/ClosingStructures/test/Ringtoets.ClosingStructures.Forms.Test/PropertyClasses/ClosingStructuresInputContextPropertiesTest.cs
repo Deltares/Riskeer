@@ -94,7 +94,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var expectedFailureProbabilityOpenStructure = ProbabilityFormattingHelper.Format(input.FailureProbabilityOpenStructure);
             var expectedFailureProbabilityReparation = ProbabilityFormattingHelper.Format(input.FailureProbabilityReparation);
 
-            Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
             Assert.AreSame(input.InsideWaterLevel, properties.InsideWaterLevel.Data);
             Assert.AreEqual(input.InflowModelType, properties.InflowModelType);
             Assert.AreSame(input.AreaFlowApertures, properties.AreaFlowApertures.Data);
@@ -178,7 +177,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            const int numberOfChangedProperties = 7;
+            const int numberOfChangedProperties = 6;
             var observerMock = mockRepository.StrictMock<IObserver>();
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
 
@@ -201,13 +200,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             input.Attach(observerMock);
 
             var random = new Random(100);
-            double newDeviationWaveDirection = random.NextDouble();
             double newFactorStormDurationOpenStructure = random.NextDouble();
             var newInflowModelType = ClosingStructureInflowModelType.FloodedCulvert;
             var newIdenticalApertures = 2;
 
             // Call
-            properties.DeviationWaveDirection = (RoundedDouble) newDeviationWaveDirection;
             properties.FactorStormDurationOpenStructure = (RoundedDouble) newFactorStormDurationOpenStructure;
             properties.InflowModelType = newInflowModelType;
             properties.FailureProbabilityOpenStructure = "1e-2";
@@ -220,7 +217,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var expectedFailureProbabilityOpenStructure = ProbabilityFormattingHelper.Format(0.001);
             var expectedFailureProbabilityReparation = ProbabilityFormattingHelper.Format(0.0001);
 
-            Assert.AreEqual(newDeviationWaveDirection, properties.DeviationWaveDirection, properties.DeviationWaveDirection.GetAccuracy());
             Assert.AreEqual(newFactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure.GetAccuracy());
             Assert.AreEqual(newInflowModelType, properties.InflowModelType);
             Assert.AreEqual(expectedProbabilityOpenStructureBeforeFlooding, properties.FailureProbabilityOpenStructure);
@@ -532,7 +528,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Assert
             const string schematizationCategory = "Schematisatie";
-            const string hydraulicDataCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -540,13 +535,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             {
                 new BrowsableAttribute(true)
             });
-            Assert.AreEqual(23, dynamicProperties.Count);
-
-            PropertyDescriptor deviationWaveDirectionProperty = dynamicProperties[verticalWallDeviationWaveDirectionPropertyIndex];
-            Assert.IsFalse(deviationWaveDirectionProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicDataCategory, deviationWaveDirectionProperty.Category);
-            Assert.AreEqual("Afwijking golfrichting [°]", deviationWaveDirectionProperty.DisplayName);
-            Assert.AreEqual("Afwijking van de golfrichting.", deviationWaveDirectionProperty.Description);
+            Assert.AreEqual(22, dynamicProperties.Count);
 
             PropertyDescriptor inflowModelTypeProperty = dynamicProperties[verticalWallInflowModelTypePropertyIndex];
             Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
@@ -882,7 +871,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Call & Assert
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.InsideWaterLevel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DeviationWaveDirection)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DrainCoefficient)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.StructureNormalOrientation)));
@@ -920,7 +908,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.InsideWaterLevel)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DeviationWaveDirection)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DrainCoefficient)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.StructureNormalOrientation)));
@@ -958,7 +945,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.InsideWaterLevel)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DeviationWaveDirection)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DrainCoefficient)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.StructureNormalOrientation)));
@@ -990,7 +976,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.InsideWaterLevel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DeviationWaveDirection)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DrainCoefficient)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.StructureNormalOrientation)));
@@ -1008,27 +993,26 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
         private const int verticalWallHydraulicBoundaryLocationPropertyIndex = 0;
         private const int verticalWallStormDurationPropertyIndex = 1;
-        private const int verticalWallDeviationWaveDirectionPropertyIndex = 2;
-        private const int verticalWallStructurePropertyIndex = 3;
-        private const int verticalWallStructureLocationPropertyIndex = 4;
-        private const int verticalWallStructureNormalOrientationPropertyIndex = 5;
-        private const int verticalWallInflowModelTypePropertyIndex = 6;
-        private const int verticalWallWidthFlowAperturesPropertyIndex = 7;
-        private const int verticalWallIdenticalAperturesPropertyIndex = 8;
-        private const int verticalWallFlowWidthAtBottomProtectionPropertyIndex = 9;
-        private const int verticalWallStorageStructureAreaPropertyIndex = 10;
-        private const int verticalWallAllowedLevelIncreaseStoragePropertyIndex = 11;
-        private const int verticalWallLevelCrestStructureNotClosingPropertyIndex = 12;
-        private const int verticalWallCriticalOvertoppingDischargePropertyIndex = 13;
-        private const int verticalWallProbabilityOpenStructureBeforeFloodingPropertyIndex = 14;
-        private const int verticalWallFailureProbabilityOpenStructurePropertyIndex = 15;
-        private const int verticalWallFailureProbabilityReparationPropertyIndex = 16;
-        private const int verticalWallFailureProbabilityStructureWithErosionPropertyIndex = 17;
-        private const int verticalWallForeshoreProfilePropertyIndex = 18;
-        private const int verticalWallUseBreakWaterPropertyIndex = 19;
-        private const int verticalWallUseForeshorePropertyIndex = 20;
-        private const int verticalWallModelFactorSuperCriticalFlowPropertyIndex = 21;
-        private const int verticalWallFactorStormDurationOpenStructurePropertyIndex = 22;
+        private const int verticalWallStructurePropertyIndex = 2;
+        private const int verticalWallStructureLocationPropertyIndex = 3;
+        private const int verticalWallStructureNormalOrientationPropertyIndex = 4;
+        private const int verticalWallInflowModelTypePropertyIndex = 5;
+        private const int verticalWallWidthFlowAperturesPropertyIndex = 6;
+        private const int verticalWallIdenticalAperturesPropertyIndex = 7;
+        private const int verticalWallFlowWidthAtBottomProtectionPropertyIndex = 8;
+        private const int verticalWallStorageStructureAreaPropertyIndex = 9;
+        private const int verticalWallAllowedLevelIncreaseStoragePropertyIndex = 10;
+        private const int verticalWallLevelCrestStructureNotClosingPropertyIndex = 11;
+        private const int verticalWallCriticalOvertoppingDischargePropertyIndex = 12;
+        private const int verticalWallProbabilityOpenStructureBeforeFloodingPropertyIndex = 13;
+        private const int verticalWallFailureProbabilityOpenStructurePropertyIndex = 14;
+        private const int verticalWallFailureProbabilityReparationPropertyIndex = 15;
+        private const int verticalWallFailureProbabilityStructureWithErosionPropertyIndex = 16;
+        private const int verticalWallForeshoreProfilePropertyIndex = 17;
+        private const int verticalWallUseBreakWaterPropertyIndex = 18;
+        private const int verticalWallUseForeshorePropertyIndex = 19;
+        private const int verticalWallModelFactorSuperCriticalFlowPropertyIndex = 20;
+        private const int verticalWallFactorStormDurationOpenStructurePropertyIndex = 21;
 
         #endregion
 

@@ -48,31 +48,30 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int stormDurationPropertyIndex = 2;
-        private const int deviationWaveDirectionPropertyIndex = 3;
-        private const int insideWaterLevelPropertyIndex = 4;
-        private const int structurePropertyIndex = 5;
-        private const int structureLocationPropertyIndex = 6;
-        private const int structureNormalOrientationPropertyIndex = 7;
-        private const int inflowModelTypePropertyIndex = 8;
-        private const int widthFlowAperturesPropertyIndex = 9;
-        private const int areaFlowAperturesPropertyIndex = 10;
-        private const int identicalAperturesPropertyIndex = 11;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 12;
-        private const int storageStructureAreaPropertyIndex = 13;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 14;
-        private const int levelCrestStructureNotClosingPropertyIndex = 15;
-        private const int thresholdHeightOpenWeirPropertyIndex = 16;
-        private const int criticalOvertoppingDischargePropertyIndex = 17;
-        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 18;
-        private const int failureProbabilityOpenStructurePropertyIndex = 19;
-        private const int failureProbabilityReparationPropertyIndex = 20;
-        private const int failureProbabilityStructureWithErosionPropertyIndex = 21;
-        private const int foreshoreProfilePropertyIndex = 22;
-        private const int useBreakWaterPropertyIndex = 23;
-        private const int useForeshorePropertyIndex = 24;
-        private const int modelFactorSuperCriticalFlowPropertyIndex = 25;
-        private const int drainCoefficientPropertyIndex = 26;
-        private const int factorStormDurationOpenStructurePropertyIndex = 27;
+        private const int insideWaterLevelPropertyIndex = 3;
+        private const int structurePropertyIndex = 4;
+        private const int structureLocationPropertyIndex = 5;
+        private const int structureNormalOrientationPropertyIndex = 6;
+        private const int inflowModelTypePropertyIndex = 7;
+        private const int widthFlowAperturesPropertyIndex = 8;
+        private const int areaFlowAperturesPropertyIndex = 9;
+        private const int identicalAperturesPropertyIndex = 10;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 11;
+        private const int storageStructureAreaPropertyIndex = 12;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 13;
+        private const int levelCrestStructureNotClosingPropertyIndex = 14;
+        private const int thresholdHeightOpenWeirPropertyIndex = 15;
+        private const int criticalOvertoppingDischargePropertyIndex = 16;
+        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 17;
+        private const int failureProbabilityOpenStructurePropertyIndex = 18;
+        private const int failureProbabilityReparationPropertyIndex = 19;
+        private const int failureProbabilityStructureWithErosionPropertyIndex = 20;
+        private const int foreshoreProfilePropertyIndex = 21;
+        private const int useBreakWaterPropertyIndex = 22;
+        private const int useForeshorePropertyIndex = 23;
+        private const int modelFactorSuperCriticalFlowPropertyIndex = 24;
+        private const int drainCoefficientPropertyIndex = 25;
+        private const int factorStormDurationOpenStructurePropertyIndex = 26;
 
         /// <summary>
         /// Creates a new instance of the <see cref="ClosingStructuresInputContextProperties"/> class.
@@ -107,10 +106,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.InsideWaterLevel))
                 {
                     return data.WrappedData.InflowModelType != ClosingStructureInflowModelType.VerticalWall;
-                }
-                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DeviationWaveDirection))
-                {
-                    return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.VerticalWall;
                 }
                 if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow))
                 {
@@ -176,24 +171,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 {
                     Data = data.WrappedData.InsideWaterLevel
                 };
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(deviationWaveDirectionPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_DeviationWaveDirection_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_DeviationWaveDirection_Description")]
-        public RoundedDouble DeviationWaveDirection
-        {
-            get
-            {
-                return data.WrappedData.DeviationWaveDirection;
-            }
-            set
-            {
-                data.WrappedData.DeviationWaveDirection = value;
-                data.WrappedData.NotifyObservers();
             }
         }
 
