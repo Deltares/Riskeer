@@ -36,6 +36,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -754,10 +755,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var hydraulicBoundaryDatabaseStub = mocksRepository.Stub<HydraulicBoundaryDatabase>();
             hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
 
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.Stub(a => a.Id).Return(string.Empty);
+            assessmentSectionStub.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
+            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
 
-            var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -793,8 +796,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                         StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[7]);
                         StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", messageList[8]);
                         StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[9]);
-                        Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[10]);
-                        Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[11]);
+                        Assert.AreEqual("Uitvoeren van 'A' is gelukt.", messageList[10]);
+                        Assert.AreEqual("Uitvoeren van 'B' is gelukt.", messageList[11]);
                     });
                 }
             }
