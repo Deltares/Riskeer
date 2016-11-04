@@ -21,9 +21,11 @@
 
 using System;
 using System.IO;
+using System.Security.AccessControl;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Parsers;
+using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
@@ -40,21 +42,21 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void DefaultConstructor_SetDefaultValues()
         {
             // Call
-            var outputFileParser = new LastErrorFileParser();
+            var lastErrorFileParser = new LastErrorFileParser();
 
             // Assert
-            Assert.IsInstanceOf<IHydraRingFileParser>(outputFileParser);
+            Assert.IsInstanceOf<IHydraRingFileParser>(lastErrorFileParser);
         }
 
         [Test]
         public void Parse_NotExistingWorkingDirectory_DoesNotThrowException()
         {
             // Setup
-            var outputFileParser = new LastErrorFileParser();
+            var lastErrorFileParser = new LastErrorFileParser();
             var nonExistentDirectory = "c:/niet_bestaande_map";
 
             // Call
-            TestDelegate call = () => outputFileParser.Parse(nonExistentDirectory, 1);
+            TestDelegate call = () => lastErrorFileParser.Parse(nonExistentDirectory, 1);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -64,10 +66,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_NotExistingLastErrorOutputFile_DoensNotThrowException()
         {
             // Setup
-            var outputFileParser = new LastErrorFileParser();
+            var lastErrorFileParser = new LastErrorFileParser();
 
             // Call
-            TestDelegate call = () => outputFileParser.Parse(noErrorTestDataDirectory, 1);
+            TestDelegate call = () => lastErrorFileParser.Parse(noErrorTestDataDirectory, 1);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -77,17 +79,37 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_LastErrorFileExists_LastErrorContentSet()
         {
             // Setup
-            var outputFileParser = new LastErrorFileParser();
+            var lastErrorFileParser = new LastErrorFileParser();
 
             // Call
-            outputFileParser.Parse(lastErrorTestDataDirectory, 1);
+            lastErrorFileParser.Parse(lastErrorTestDataDirectory, 1);
 
             // Assert
             var expectedContent = " File not found: D:\\Repos\\Ringtoets\\Ringtoets\\Integration\\test\\Ringtoets.Integra"
                                   + Environment.NewLine +
                                   " tion.Service.Test\\test-data\\HLCD.sqlite"
                                   + Environment.NewLine;
-            Assert.AreEqual(expectedContent, outputFileParser.ErrorFileContent);
+            Assert.AreEqual(expectedContent, lastErrorFileParser.ErrorFileContent);
+        }
+
+        [Test]
+        public void Parse_ErrorWhileReadingFile_ThrowsHydraRingFileParserException()
+        {
+            // Setup
+            var lastErrorFileParser = new LastErrorFileParser();
+
+            using (new DirectoryPermissionsRevoker(lastErrorTestDataDirectory, FileSystemRights.ReadData))
+            {
+                // Call
+                TestDelegate call = () => lastErrorFileParser.Parse(lastErrorTestDataDirectory, 1);
+
+                // Assert
+                var exception = Assert.Throws<HydraRingFileParserException>(call);
+                var expectedMessage = string.Format("Kan het Hydra-Ring last_error bestand {0} niet lezen uit de map {1}.",
+                                                    HydraRingFileConstants.LastErrorFileName,
+                                                    lastErrorTestDataDirectory);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
         }
     }
 }
