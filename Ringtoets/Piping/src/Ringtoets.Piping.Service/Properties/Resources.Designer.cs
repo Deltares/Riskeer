@@ -221,7 +221,7 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen waarde voor het intredepunt opgegeven..
+        ///   Looks up a localized string similar to Er is geen concreet getal ingevoerd voor &apos;Intredepunt&apos;..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_No_value_for_EntryPointL {
             get {
@@ -230,7 +230,7 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen waarde voor het uittredepunt opgegeven..
+        ///   Looks up a localized string similar to Er is geen concreet getal ingevoerd voor &apos;Uittredepunt&apos;..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_No_value_for_ExitPointL {
             get {

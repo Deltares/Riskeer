@@ -98,8 +98,8 @@ namespace Ringtoets.Piping.Service.Test
                 StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[2]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[3]);
-                StringAssert.StartsWith("Validatie mislukt: Er is geen waarde voor het intredepunt opgegeven.", msgs[4]);
-                StringAssert.StartsWith("Validatie mislukt: Er is geen waarde voor het uittredepunt opgegeven.", msgs[5]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Intredepunt'.", msgs[4]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Uittredepunt'.", msgs[5]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
-                StringAssert.StartsWith("Validatie mislukt: Er is geen waarde voor het intredepunt opgegeven.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Intredepunt'.", msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
@@ -204,7 +204,7 @@ namespace Ringtoets.Piping.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
-                StringAssert.StartsWith("Validatie mislukt: Er is geen waarde voor het uittredepunt opgegeven.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Uittredepunt'.", msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
