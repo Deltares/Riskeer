@@ -534,7 +534,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
-                Action call = () => { activity.Run(); };
+                Action call = () => activity.Run();
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -578,7 +578,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
-                Action call = () => { activity.Run(); };
+                Action call = () => activity.Run();
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -623,7 +623,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
-                Action call = () => { activity.Run(); };
+                Action call = () => activity.Run();
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -669,7 +669,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
-                Action call = () => { activity.Run(); };
+                Action call = () => activity.Run();
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -714,7 +714,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
-                Action call = () => { activity.Run(); };
+                Action call = () => activity.Run();
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -760,7 +760,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
-                Action call = () => { activity.Run(); };
+                Action call = () => activity.Run();
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -788,7 +788,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             }));
         }
 
-        private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
+        private static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 

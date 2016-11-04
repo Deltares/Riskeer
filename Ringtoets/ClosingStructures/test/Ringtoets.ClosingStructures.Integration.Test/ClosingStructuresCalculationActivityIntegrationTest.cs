@@ -377,6 +377,9 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                calculator.EndInFailure = true;
+
                 activity.Run();
             }
 
