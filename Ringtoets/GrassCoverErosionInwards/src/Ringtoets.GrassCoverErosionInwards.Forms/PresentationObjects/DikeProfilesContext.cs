@@ -38,8 +38,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// </summary>
         /// <param name="dikeProfilesList">The observable list of dike profiles.</param>
         /// <param name="parentAssessmentSection">The parent assessment section.</param>
-        /// <exception cref="ArgumentNullException">When either <paramref name="dikeProfilesList"/>
-        /// or <paramref name="parentAssessmentSection"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="dikeProfilesList"/>
+        /// or <paramref name="parentAssessmentSection"/> is <c>null</c>.</exception>
         public DikeProfilesContext(ObservableList<DikeProfile> dikeProfilesList, IAssessmentSection parentAssessmentSection) : base(dikeProfilesList)
         {
             if (parentAssessmentSection == null)

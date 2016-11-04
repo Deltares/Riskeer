@@ -50,13 +50,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="observable">The object to be notified of changes to properties.
         /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="observable"/>
-        /// is null and any number of properties in this class is editable.</exception>
+        /// is <c>null</c> and any number of properties in this class is editable.</exception>
         protected VariationCoefficientDistributionPropertiesBase(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
                                                                  IObservable observable)
         {
             if (observable == null && !propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.All))
             {
-                throw new ArgumentException("Observable must be specified unless no property can be set.", "observable");
+                throw new ArgumentException(@"Observable must be specified unless no property can be set.", "observable");
             }
 
             isMeanReadOnly = propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.Mean);
@@ -69,8 +69,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(1)]
-        [ResourcesDisplayName(typeof(Resources), "Distribution_DestributionType_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Distribution_DestributionType_Description")]
+        [ResourcesDisplayName(typeof(Resources), "Distribution_DistributionType_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Distribution_DistributionType_Description")]
         public abstract string DistributionType { get; }
 
         [PropertyOrder(2)]

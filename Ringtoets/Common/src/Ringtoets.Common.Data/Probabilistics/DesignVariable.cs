@@ -41,7 +41,8 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// Initializes a new instance of the <see cref="DesignVariable{T}"/> class with 
         /// <see cref="Percentile"/> equal to 0.5.
         /// </summary>
-        /// <exception cref="ArgumentNullException"><see cref="Distribution"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="Distribution"/> is 
+        /// <c>null</c>.</exception>
         protected DesignVariable(TDistributionType distribution)
         {
             Distribution = distribution;
@@ -51,7 +52,8 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// <summary>
         /// Gets or sets the probabilistic distribution of the parameter being modeled.
         /// </summary>
-        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is 
+        /// <c>null</c>.</exception>
         public TDistributionType Distribution
         {
             get
@@ -71,6 +73,8 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// <summary>
         /// Gets or sets the percentile used to derive a deterministic value based on <see cref="Distribution"/>.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> 
+        /// is not in range [0,1].</exception>
         public double Percentile
         {
             get

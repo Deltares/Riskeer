@@ -50,7 +50,7 @@ namespace Core.Common.IO.Exceptions
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
-        /// or a null reference if no inner exception is specified.</param>
+        /// or a <c>null</c> reference if no inner exception is specified.</param>
         public CriticalFileReadException(string message, Exception inner) : base(message, inner) {}
 
         protected CriticalFileReadException(SerializationInfo info, StreamingContext context) : base(info, context) {}

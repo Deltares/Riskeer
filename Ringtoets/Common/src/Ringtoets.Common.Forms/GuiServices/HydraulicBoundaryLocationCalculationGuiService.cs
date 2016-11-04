@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// Initializes a new instance of the <see cref="HydraulicBoundaryLocationCalculationGuiService"/> class.
         /// </summary>
         /// <param name="viewParent">The parent of the view.</param>
-        /// <exception cref="ArgumentNullException">When the input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when the input parameter is <c>null</c>.</exception>
         public HydraulicBoundaryLocationCalculationGuiService(IWin32Window viewParent)
         {
             if (viewParent == null)

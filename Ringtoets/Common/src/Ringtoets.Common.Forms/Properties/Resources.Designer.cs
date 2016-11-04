@@ -607,18 +607,18 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het soort kansverdeling waarin deze parameter gedefinieerd wordt..
         /// </summary>
-        public static string Distribution_DestributionType_Description {
+        public static string Distribution_DistributionType_Description {
             get {
-                return ResourceManager.GetString("Distribution_DestributionType_Description", resourceCulture);
+                return ResourceManager.GetString("Distribution_DistributionType_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Type verdeling.
         /// </summary>
-        public static string Distribution_DestributionType_DisplayName {
+        public static string Distribution_DistributionType_DisplayName {
             get {
-                return ResourceManager.GetString("Distribution_DestributionType_DisplayName", resourceCulture);
+                return ResourceManager.GetString("Distribution_DistributionType_DisplayName", resourceCulture);
             }
         }
         

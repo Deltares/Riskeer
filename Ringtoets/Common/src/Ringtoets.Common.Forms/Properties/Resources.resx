@@ -316,10 +316,10 @@
   <data name="LogNormalDistribution_StandardDeviation_Description" xml:space="preserve">
     <value>De standaardafwijking van de lognormale verdeling.</value>
   </data>
-  <data name="Distribution_DestributionType_Description" xml:space="preserve">
+  <data name="Distribution_DistributionType_Description" xml:space="preserve">
     <value>Het soort kansverdeling waarin deze parameter gedefinieerd wordt.</value>
   </data>
-  <data name="Distribution_DestributionType_DisplayName" xml:space="preserve">
+  <data name="Distribution_DistributionType_DisplayName" xml:space="preserve">
     <value>Type verdeling</value>
   </data>
   <data name="NormalDistribution_Mean_Description" xml:space="preserve">

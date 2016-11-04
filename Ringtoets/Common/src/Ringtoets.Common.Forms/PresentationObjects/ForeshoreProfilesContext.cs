@@ -38,8 +38,8 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// </summary>
         /// <param name="foreshoreProfiles">The observable list of <see cref="ForeshoreProfile"/> objects.</param>
         /// <param name="parentAssessmentSection">The parent assessment section.</param>
-        /// <exception cref="ArgumentNullException">When either <paramref name="foreshoreProfiles"/>
-        /// or <paramref name="parentAssessmentSection"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="foreshoreProfiles"/>
+        /// or <paramref name="parentAssessmentSection"/> is <c>null</c>.</exception>
         public ForeshoreProfilesContext(ObservableList<ForeshoreProfile> foreshoreProfiles, IAssessmentSection parentAssessmentSection)
             : base(foreshoreProfiles)
         {

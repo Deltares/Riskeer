@@ -36,8 +36,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// </summary>
     public abstract class DistributionPropertiesBase<T> : ObjectProperties<T> where T : IDistribution
     {
-        private static string meanPropertyName;
-        private static string standardDeviationPropertyName;
+        private readonly string meanPropertyName;
+        private readonly string standardDeviationPropertyName;
         private readonly bool isMeanReadOnly;
         private readonly bool isStandardDeviationReadOnly;
         private readonly IObservable observable;
@@ -50,12 +50,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="observable">The object to be notified of changes to properties.
         /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="observable"/>
-        /// is null and any number of properties in this class is editable.</exception>
+        /// is <c>null</c> and any number of properties in this class is editable.</exception>
         protected DistributionPropertiesBase(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable)
         {
             if (observable == null && !propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.All))
             {
-                throw new ArgumentException("Observable must be specified unless no property can be set.", "observable");
+                throw new ArgumentException(@"Observable must be specified unless no property can be set.", "observable");
             }
 
             isMeanReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.Mean);
@@ -68,8 +68,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(1)]
-        [ResourcesDisplayName(typeof(Resources), "Distribution_DestributionType_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Distribution_DestributionType_Description")]
+        [ResourcesDisplayName(typeof(Resources), "Distribution_DistributionType_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Distribution_DistributionType_Description")]
         public abstract string DistributionType { get; }
 
         [PropertyOrder(2)]

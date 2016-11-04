@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedSectionResults">The <see cref="IEnumerable{T}"/> of <typeparamref name="T"/> to wrap.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the <paramref name="wrappedSectionResults"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public FailureMechanismSectionResultContext(IEnumerable<T> wrappedSectionResults, IFailureMechanism failureMechanism)
             : base(wrappedSectionResults)
         {

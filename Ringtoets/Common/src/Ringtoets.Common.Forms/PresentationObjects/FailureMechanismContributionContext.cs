@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedContribution">The contribution to wrap.</param>
         /// <param name="contributionOwner">The parent of <paramref name="wrappedContribution"/>.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public FailureMechanismContributionContext(FailureMechanismContribution wrappedContribution, IAssessmentSection contributionOwner)
             : base(wrappedContribution)
         {

@@ -34,12 +34,12 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// </summary>
         /// <param name="name">The name of the location for which the <see cref="CharacteristicPoints"/>
         /// defines characteristic points.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public CharacteristicPoints(string name)
         {
             if (name == null)
             {
-                throw new ArgumentNullException("name", "Cannot make a definition of characteristic points for an unknown location.");
+                throw new ArgumentNullException("name", @"Cannot make a definition of characteristic points for an unknown location.");
             }
             Name = name;
         }
