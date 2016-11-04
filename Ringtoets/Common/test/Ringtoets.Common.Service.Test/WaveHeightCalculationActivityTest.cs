@@ -453,7 +453,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 calculator.EndInFailure = false;
-                calculator.LastErrorContent = "An error occured";
+                calculator.LastErrorContent = "An error occurred";
 
                 // Call
                 Action call = () => activity.Run();

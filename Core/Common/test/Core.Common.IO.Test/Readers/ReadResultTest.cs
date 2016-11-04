@@ -30,7 +30,7 @@ namespace Core.Common.IO.Test.Readers
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_CriticalErrorOccuredOrNot_InitializesCollectionAndSetsCriticalErrorOccuredProperty(bool errorOccurred)
+        public void Constructor_CriticalErrorOccurredOrNot_InitializesCollectionAndSetsCriticalErrorOccurredProperty(bool errorOccurred)
         {
             // Call
             var readResult = new ReadResult<object>(errorOccurred);

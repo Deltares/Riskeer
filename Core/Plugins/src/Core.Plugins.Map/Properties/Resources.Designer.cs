@@ -123,9 +123,9 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie..
         /// </summary>
-        public static string MapLegendView_CheckDataFormat_An_error_occured_when_trying_to_read_the_file {
+        public static string MapLegendView_CheckDataFormat_An_error_occurred_when_trying_to_read_the_file {
             get {
-                return ResourceManager.GetString("MapLegendView_CheckDataFormat_An_error_occured_when_trying_to_read_the_file", resourceCulture);
+                return ResourceManager.GetString("MapLegendView_CheckDataFormat_An_error_occurred_when_trying_to_read_the_file", resourceCulture);
             }
         }
         

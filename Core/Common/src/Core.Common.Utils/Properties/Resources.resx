@@ -153,7 +153,7 @@
   <data name="TextFile_On_LineNumber_0_" xml:space="preserve">
     <value>op regel {0}</value>
   </data>
-  <data name="FileUtils_DeleteOldFiles_Error_occured_deleting_files_in_folder_0" xml:space="preserve">
+  <data name="FileUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0" xml:space="preserve">
     <value>Er is een fout opgetreden bij het verwijderen van bestanden in de map '{0}'.</value>
   </data>
   <data name="Error_General_output_error_0" xml:space="preserve">

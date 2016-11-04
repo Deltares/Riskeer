@@ -107,7 +107,7 @@ namespace Core.Common.Utils
         /// <param name="numberOfDaysToKeepFiles">The maximum number days since the file was created.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> or <paramref name="searchPattern"/> is <c>null</c>, is a zero-length string, 
         /// contains only white space, or contains one or more invalid characters.</exception>
-        /// <exception cref="IOException">Thrown when an error occured while trying to search and delete files in <paramref name="path"/>.</exception>
+        /// <exception cref="IOException">Thrown when an error occurred while trying to search and delete files in <paramref name="path"/>.</exception>
         public static void DeleteOldFiles(string path, string searchPattern, int numberOfDaysToKeepFiles)
         {
             if (string.IsNullOrWhiteSpace(path))
@@ -131,7 +131,7 @@ namespace Core.Common.Utils
                 if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
                 {
                     var message = string.Format(CultureInfo.CurrentCulture,
-                                                Resources.FileUtils_DeleteOldFiles_Error_occured_deleting_files_in_folder_0,
+                                                Resources.FileUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0,
                                                 path);
                     throw new IOException(message, e);
                 }

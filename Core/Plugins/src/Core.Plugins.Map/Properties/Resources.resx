@@ -205,7 +205,7 @@
   <data name="MapLegendView_CheckDataFormat_File_does_not_exist_or_misses_needed_files" xml:space="preserve">
     <value>Het bestand of andere benodigde bestanden zijn niet gevonden.</value>
   </data>
-  <data name="MapLegendView_CheckDataFormat_An_error_occured_when_trying_to_read_the_file" xml:space="preserve">
+  <data name="MapLegendView_CheckDataFormat_An_error_occurred_when_trying_to_read_the_file" xml:space="preserve">
     <value>Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.</value>
   </data>
   <data name="MapLegendView_CheckDataFormat_File_does_not_contain_geometries" xml:space="preserve">

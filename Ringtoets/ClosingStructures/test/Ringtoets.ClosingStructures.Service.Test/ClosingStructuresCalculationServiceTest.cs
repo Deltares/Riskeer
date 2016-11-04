@@ -909,7 +909,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
-                calculator.LastErrorContent = "An error occured";
+                calculator.LastErrorContent = "An error occurred";
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -1035,7 +1035,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
                 calculator.EndInFailure = false;
-                calculator.LastErrorContent = "An error occured";
+                calculator.LastErrorContent = "An error occurred";
 
                 var exceptionThrown = false;
                 var exceptionMessage = string.Empty;

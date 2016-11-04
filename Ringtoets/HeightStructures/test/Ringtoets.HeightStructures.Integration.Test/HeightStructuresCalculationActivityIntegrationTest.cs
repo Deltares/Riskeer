@@ -167,7 +167,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 calculator.EndInFailure = true;
-                calculator.LastErrorContent = "An error occured";
+                calculator.LastErrorContent = "An error occurred";
 
                 // Call
                 Action call = () => activity.Run();
@@ -271,7 +271,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 calculator.EndInFailure = false;
-                calculator.LastErrorContent = "An error occured";
+                calculator.LastErrorContent = "An error occurred";
 
                 // Call
                 Action call = () => activity.Run();

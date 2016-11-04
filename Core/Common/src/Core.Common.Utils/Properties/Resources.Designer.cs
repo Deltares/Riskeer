@@ -192,9 +192,9 @@ namespace Core.Common.Utils.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden bij het verwijderen van bestanden in de map &apos;{0}&apos;..
         /// </summary>
-        public static string FileUtils_DeleteOldFiles_Error_occured_deleting_files_in_folder_0 {
+        public static string FileUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0 {
             get {
-                return ResourceManager.GetString("FileUtils_DeleteOldFiles_Error_occured_deleting_files_in_folder_0", resourceCulture);
+                return ResourceManager.GetString("FileUtils_DeleteOldFiles_Error_occurred_deleting_files_in_folder_0", resourceCulture);
             }
         }
         

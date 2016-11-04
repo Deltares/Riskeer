@@ -590,7 +590,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
-                calculator.LastErrorContent = "An error occured";
+                calculator.LastErrorContent = "An error occurred";
                 calculator.EndInFailure = true;
 
                 var exception = false;
@@ -718,7 +718,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = false;
-                calculator.LastErrorContent = "An error occured";
+                calculator.LastErrorContent = "An error occurred";
 
                 var exception = false;
                 var exceptionMessage = string.Empty;

@@ -1431,7 +1431,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
-                calculator.LastErrorContent = "An error occured";
+                calculator.LastErrorContent = "An error occurred";
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -1557,7 +1557,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
                 calculator.EndInFailure = false;
-                calculator.LastErrorContent = "An error occured";
+                calculator.LastErrorContent = "An error occurred";
 
                 var exceptionThrown = false;
                 var exceptionMessage = string.Empty;

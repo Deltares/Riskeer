@@ -39,9 +39,9 @@ namespace Core.Common.TestUtil
 
         private static Form synchronizationForm;
 
-        private static bool unhandledThreadExceptionOccured;
+        private static bool unhandledThreadExceptionOccurred;
 
-        private static bool appDomainExceptionOccured;
+        private static bool appDomainExceptionOccurred;
 
         static GuiTestHelper()
         {
@@ -85,12 +85,12 @@ namespace Core.Common.TestUtil
                 return;
             }
 
-            if (unhandledThreadExceptionOccured)
+            if (unhandledThreadExceptionOccurred)
             {
                 throw new UnhandledException("Unhandled thread exception: " + Exception.Message, Exception, Exception.StackTrace);
             }
 
-            if (appDomainExceptionOccured)
+            if (appDomainExceptionOccurred)
             {
                 throw new UnhandledException("Unhandled app domain exception: " + Exception.Message, Exception, Exception.StackTrace);
             }
@@ -99,13 +99,13 @@ namespace Core.Common.TestUtil
         public static void Initialize()
         {
             Exception = null;
-            unhandledThreadExceptionOccured = false;
-            appDomainExceptionOccured = false;
+            unhandledThreadExceptionOccurred = false;
+            appDomainExceptionOccurred = false;
         }
 
         private static void CurrentDispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            unhandledThreadExceptionOccured = true;
+            unhandledThreadExceptionOccurred = true;
             Exception = e.Exception;
             RethrowUnhandledException();
         }
@@ -126,7 +126,7 @@ namespace Core.Common.TestUtil
 
         private static void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            appDomainExceptionOccured = true;
+            appDomainExceptionOccurred = true;
             Exception = e.ExceptionObject as Exception;
 
             RethrowUnhandledException();
@@ -134,7 +134,7 @@ namespace Core.Common.TestUtil
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            unhandledThreadExceptionOccured = true;
+            unhandledThreadExceptionOccurred = true;
             Exception = e.Exception;
             RethrowUnhandledException();
         }
