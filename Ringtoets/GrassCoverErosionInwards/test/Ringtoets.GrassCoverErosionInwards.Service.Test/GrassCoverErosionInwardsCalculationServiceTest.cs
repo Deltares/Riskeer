@@ -901,6 +901,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Assert.AreEqual(calculator.LastErrorContent, exceptionMessage);
             }
         }
+        
         [Test]
         public void Calculate_DikeHeightCalculationFailedWithExceptionAndLastErrorPresent_LogError()
         {

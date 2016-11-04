@@ -45,7 +45,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
-using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
