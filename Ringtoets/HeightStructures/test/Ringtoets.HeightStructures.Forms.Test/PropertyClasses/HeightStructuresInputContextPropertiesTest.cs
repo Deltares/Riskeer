@@ -24,8 +24,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -33,7 +31,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -61,7 +58,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int modelFactorSuperCriticalFlowPropertyIndex = 13;
         private const int hydraulicBoundaryLocationPropertyIndex = 14;
         private const int stormDurationPropertyIndex = 15;
-        private const int deviationWaveDirectionPropertyIndex = 16;
 
         private MockRepository mockRepository;
 
@@ -105,7 +101,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             HeightStructuresInput input = calculation.InputParameters;
 
             Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
-            Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
 
             mockRepository.VerifyAll();
         }
@@ -175,43 +170,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
-        {
-            // Setup
-            const int numberOfChangedProperties = 1;
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var input = calculation.InputParameters;
-            var inputContext = new HeightStructuresInputContext(input,
-                                                                calculation,
-                                                                failureMechanism,
-                                                                assessmentSectionStub);
-            var properties = new HeightStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            input.Attach(observerMock);
-
-            var random = new Random(100);
-            double newDeviationWaveDirection = random.NextDouble();
-
-            // Call
-            properties.DeviationWaveDirection = (RoundedDouble) newDeviationWaveDirection;
-
-            // Assert
-            Assert.AreEqual(newDeviationWaveDirection, properties.DeviationWaveDirection, properties.DeviationWaveDirection.GetAccuracy());
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void SetStructure_StructureInSection_UpdateSectionResults()
         {
             // Setup
@@ -265,26 +223,19 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             const string schematizationCategory = "Schematisatie";
-            const string hydraulicDataCategory = "Hydraulische gegevens";
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
             {
                 new BrowsableAttribute(true)
             });
-            Assert.AreEqual(17, dynamicProperties.Count);
+            Assert.AreEqual(16, dynamicProperties.Count);
 
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
             Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
             Assert.AreEqual("Kerende hoogte [m+NAP]", levelCrestStructureProperty.DisplayName);
             Assert.AreEqual("Kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
-
-            PropertyDescriptor deviationWaveDirectionProperty = dynamicProperties[deviationWaveDirectionPropertyIndex];
-            Assert.IsFalse(deviationWaveDirectionProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicDataCategory, deviationWaveDirectionProperty.Category);
-            Assert.AreEqual("Afwijking golfrichting [°]", deviationWaveDirectionProperty.DisplayName);
-            Assert.AreEqual("Afwijking van de golfrichting.", deviationWaveDirectionProperty.Description);
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[structurePropertyIndex].DisplayName);

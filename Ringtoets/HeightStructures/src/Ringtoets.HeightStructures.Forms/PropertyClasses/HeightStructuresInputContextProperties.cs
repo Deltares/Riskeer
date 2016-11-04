@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -58,7 +57,6 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int modelFactorSuperCriticalFlowPropertyIndex = 14;
         private const int hydraulicBoundaryLocationPropertyIndex = 15;
         private const int stormDurationPropertyIndex = 16;
-        private const int deviationWaveDirectionPropertyIndex = 17;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresInputContextProperties"/> class.
@@ -97,27 +95,6 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
                 {
                     Data = data.WrappedData.LevelCrestStructure
                 };
-            }
-        }
-
-        #endregion
-
-        #region Hydraulic data
-
-        [PropertyOrder(deviationWaveDirectionPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_DeviationWaveDirection_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_DeviationWaveDirection_Description")]
-        public RoundedDouble DeviationWaveDirection
-        {
-            get
-            {
-                return data.WrappedData.DeviationWaveDirection;
-            }
-            set
-            {
-                data.WrappedData.DeviationWaveDirection = value;
-                data.WrappedData.NotifyObservers();
             }
         }
 
