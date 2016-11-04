@@ -375,7 +375,10 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             var activity = new ClosingStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
 
-            activity.Run();
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                activity.Run();
+            }
 
             // Call
             activity.Finish();

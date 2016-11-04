@@ -419,6 +419,52 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
+        [Combinatorial]
+        public void Validate_UsesBreakWaterAndHasInvalidBreakWaterSettings_ReturnsFalse(
+            [Values(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.FloodedCulvert)] ClosingStructureInflowModelType inflowModelType,
+            [Values(double.NaN, double.NegativeInfinity, double.PositiveInfinity)] double breakWaterHeight)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+
+            var calculation = new TestClosingStructuresCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    InflowModelType = inflowModelType,
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
+                    UseBreakWater = true
+                }
+            };
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen geldige damhoogte ingevoerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Calculate_InvalidInFlowModelType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
@@ -463,52 +509,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                                                                         expectedMessage).ParamName;
                 Assert.AreEqual("calculation", paramName);
             }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [Combinatorial]
-        public void Validate_UsesBreakWaterAndHasInvalidBreakWaterSettings_ReturnsFalse(
-            [Values(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.FloodedCulvert)] ClosingStructureInflowModelType inflowModelType,
-            [Values(double.NaN, double.NegativeInfinity, double.PositiveInfinity)] double breakWaterHeight)
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
-            mockRepository.ReplayAll();
-
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            const string name = "<very nice name>";
-
-            var calculation = new TestClosingStructuresCalculation
-            {
-                Name = name,
-                InputParameters =
-                {
-                    InflowModelType = inflowModelType,
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
-                    UseBreakWater = true
-                }
-            };
-
-            bool isValid = false;
-
-            // Call
-            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: Er is geen geldige damhoogte ingevoerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-
             mockRepository.VerifyAll();
         }
 
