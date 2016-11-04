@@ -31,7 +31,7 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\ReleaseForCodeCoverage\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>

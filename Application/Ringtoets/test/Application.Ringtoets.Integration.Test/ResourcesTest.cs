@@ -45,6 +45,11 @@ namespace Application.Ringtoets.Integration.Test
             }
         }
 
+        /// <summary>
+        /// This test will determine if a resource defined in <c>Resources.resx</c> is used in the source code.
+        /// </summary>
+        /// <remarks>The test falsely mark resources used only by <see cref="Core.Common.Utils.IO.EmbeddedResourceFileWriter"/> 
+        /// as unused.</remarks>
         [Test]
         public void UnusedResourceSearcher_Always_WritesFileWithEmbeddedResources()
         {
@@ -85,11 +90,11 @@ namespace Application.Ringtoets.Integration.Test
                 }
             }
 
-            // There are 25 entries because we can't filter them with our search patterns.
+            // There are 38 entries because we can't filter them with our search patterns.
             var message = string.Format("The following resources are marked as unused:{0}{1}",
                                         Environment.NewLine,
                                         string.Join(Environment.NewLine, lines.OrderBy(s => s).ToList()));
-            Assert.AreEqual(25, lines.Count, message);
+            Assert.AreEqual(38, lines.Count, message);
         }
     }
 }

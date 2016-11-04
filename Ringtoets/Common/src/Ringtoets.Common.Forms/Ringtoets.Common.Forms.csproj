@@ -235,9 +235,6 @@
     <None Include="Resources\folder_output.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\cross-script.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\PlayAll.png" />
   </ItemGroup>
   <ItemGroup>
@@ -248,7 +245,6 @@
     <None Include="Resources\application_form.png" />
     <None Include="Resources\DikeProfile.png" />
     <None Include="Resources\calculation_icon.png" />
-    <None Include="Resources\text_columns.png" />
     <None Include="Resources\PointShapefileIcon.png" />
     <None Include="Resources\Structures.png" />
     <Content Include="Resources\wand-hat.png" />
