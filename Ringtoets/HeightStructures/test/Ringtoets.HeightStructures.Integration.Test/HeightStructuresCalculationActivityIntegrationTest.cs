@@ -378,7 +378,10 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 
-            activity.Run();
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                activity.Run();
+            }
 
             // Call
             activity.Finish();
