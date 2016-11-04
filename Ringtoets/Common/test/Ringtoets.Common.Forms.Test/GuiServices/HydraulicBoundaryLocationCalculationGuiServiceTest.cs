@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Service.MessageProviders;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.Test.GuiServices
@@ -77,6 +78,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -99,6 +101,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             const string databasePath = "Does not exist";
 
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -122,6 +125,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
 
             const string databasePath = "Does not exist";
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -148,6 +152,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
 
             const string databasePath = "Does not exist";
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -202,6 +207,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -220,11 +226,13 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             // Setup
             const string hydraulicLocationName = "name";
             const string calculationName = "calculationName";
+            const string notConvergedMessage = "not converged";
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();            
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(notConvergedMessage);
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -233,6 +241,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -248,13 +257,14 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
+                    Assert.AreEqual(7, msgs.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[2]);
-                    StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[4]);
-                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", calculationName), msgs[5]);
+                    Assert.AreEqual(notConvergedMessage, msgs[3]);
+                    StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[5]);
+                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is gelukt.", calculationName), msgs[6]);
                 });
             }
             mockRepository.VerifyAll();
@@ -271,6 +281,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return("not converged");
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -279,6 +290,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -301,6 +313,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -323,6 +336,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             const string databasePath = "Does not exist";
 
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -346,6 +360,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
 
             const string databasePath = "Does not exist";
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -372,6 +387,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
 
             const string databasePath = "Does not exist";
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -399,6 +415,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -426,6 +443,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -444,11 +462,13 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             // Setup
             const string hydraulicLocationName = "name";
             const string calculationName = "calculationName";
+            const string notConvergedMessage = "not converged";
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(notConvergedMessage);
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -457,6 +477,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -472,13 +493,14 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
+                    Assert.AreEqual(7, msgs.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[2]);
-                    StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[4]);
-                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", calculationName), msgs[5]);
+                    Assert.AreEqual(notConvergedMessage, msgs[3]);
+                    StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[5]);
+                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is gelukt.", calculationName), msgs[6]);
                 });
             }
             mockRepository.VerifyAll();
@@ -495,6 +517,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return("not converged");
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -503,6 +526,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 

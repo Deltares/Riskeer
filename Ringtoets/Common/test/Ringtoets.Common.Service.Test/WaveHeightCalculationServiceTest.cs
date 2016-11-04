@@ -153,8 +153,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-                var testCalculator = testFactory.WaveHeightCalculator;
+                var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
 
                 new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocation,
                                                              validFilePath,
@@ -190,8 +189,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-                var testCalculator = testFactory.WaveHeightCalculator;
+                var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
 
                 var service = new WaveHeightCalculationService();
                 testCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
@@ -231,8 +229,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-                var testCalculator = testFactory.WaveHeightCalculator;
+                var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 testCalculator.EndInFailure = true;
                 testCalculator.LastErrorContent = calculationFailedMessage;
                 bool exceptionThrown = false;

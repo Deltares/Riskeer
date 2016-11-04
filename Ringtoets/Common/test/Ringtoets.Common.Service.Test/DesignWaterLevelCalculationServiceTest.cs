@@ -153,8 +153,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-                var testCalculator = testFactory.DesignWaterLevelCalculator;
+                var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
 
                 // Call
                 new DesignWaterLevelCalculationService().Calculate(hydraulicBoundaryLocation,
@@ -191,8 +190,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-                var testCalculator = testFactory.DesignWaterLevelCalculator;
+                var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
 
                 var service = new DesignWaterLevelCalculationService();
                 testCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
@@ -233,8 +231,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-                var testCalculator = testFactory.DesignWaterLevelCalculator;
+                var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                 testCalculator.EndInFailure = true;
                 testCalculator.LastErrorContent = calculationFailedMessage;
                 bool exceptionThrown = false;

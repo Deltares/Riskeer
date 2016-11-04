@@ -173,8 +173,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-                var testWaveHeightCalculator = testFactory.WaveHeightCalculator;
+                var testWaveHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 testWaveHeightCalculator.ReliabilityIndex = StatisticsConverter.NormToBeta(norm);
 
                 // Call
@@ -352,8 +351,8 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-                testFactory.WaveHeightCalculator.ReliabilityIndex = 3;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                calculator.ReliabilityIndex = 3;
 
                 // Call
                 Action call = () => activity.Run();

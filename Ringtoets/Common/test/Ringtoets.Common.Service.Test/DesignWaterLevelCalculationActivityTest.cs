@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
+using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
@@ -191,8 +192,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-                var testDesignWaterLevelCalculator = testFactory.DesignWaterLevelCalculator;
+                var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                 testDesignWaterLevelCalculator.ReliabilityIndex = StatisticsConverter.NormToBeta(norm);
 
                 // Call
@@ -370,8 +370,8 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-                testFactory.DesignWaterLevelCalculator.ReliabilityIndex = 3;
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
+                calculator.ReliabilityIndex = 3;
 
                 Action call = () => activity.Run();
 
