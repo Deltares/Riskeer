@@ -59,7 +59,9 @@ namespace Application.Ringtoets.Integration.Test
             const string resource = "Resources.resx";
             const string sourceCode = "*.cs;*.xaml";
             const string filters = "Resources.designer.cs;test";
-            string searchPatterns = Regex.Replace("\\[.*\\(typeof\\(.*Resources\\).*\"-f-\".*\\)\\];\"-f-\"\\);Resources.-f-;Resources\\\\-f-", @"(\\*)" + "\"", @"$1$1\" + "\"");
+            string searchPatterns = Regex.Replace("\\[.*\\(typeof\\(.*Resources\\).*\"-f-\".*\\)\\];" +
+                                                  "\"-f-\"\\);Resources.-f-;Resources\\\\-f-", @"(\\*)" +
+                                                                                               "\"", @"$1$1\" + "\"");
 
             string directory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "UnusedResourceSearcher");
             string executable = Path.Combine(directory, "UnusedResourceSearcher.exe");
@@ -90,11 +92,11 @@ namespace Application.Ringtoets.Integration.Test
                 }
             }
 
-            // There are 38 entries because we can't filter them with our search patterns.
+            // There are 39 entries because we can't filter them with our search patterns.
             var message = string.Format("The following resources are marked as unused:{0}{1}",
                                         Environment.NewLine,
                                         string.Join(Environment.NewLine, lines.OrderBy(s => s).ToList()));
-            Assert.AreEqual(38, lines.Count, message);
+            Assert.AreEqual(39, lines.Count, message);
         }
     }
 }
