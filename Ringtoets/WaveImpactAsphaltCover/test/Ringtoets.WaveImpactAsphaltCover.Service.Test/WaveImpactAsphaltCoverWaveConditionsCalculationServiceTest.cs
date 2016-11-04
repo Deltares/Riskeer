@@ -66,7 +66,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        public void Run_NoHydraulicBoundaryDatabase_DoesNotPerformCalculationAndLogsError()
+        public void Validate_NoHydraulicBoundaryDatabase_DoesNotPerformCalculationAndLogsError()
         {
             // Setup
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
