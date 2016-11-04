@@ -48,20 +48,6 @@ if (container == null)
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-<#
-
-var codeNamespace = code.VsNamespaceSuggestion();
-if (!String.IsNullOrEmpty(codeNamespace))
-{
-#>
-namespace <#=code.EscapeNamespace(codeNamespace)#>
-{
-<#
-    PushIndent("    ");
-}
-
-#>
-using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 <#
@@ -74,44 +60,19 @@ using System.Linq;
 }
 #>
 
-<#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext
-{
-    public <#=code.Escape(container)#>()
-        : base("name=<#=container.Name#>")
-    {
 <#
-if (!loader.IsLazyLoadingEnabled(container))
+var codeNamespace = code.VsNamespaceSuggestion();
+if (!String.IsNullOrEmpty(codeNamespace))
 {
 #>
-        this.Configuration.LazyLoadingEnabled = false;
-<#
-}
-
-foreach (var entitySet in container.BaseEntitySets.OfType<EntitySet>())
+namespace <#=code.EscapeNamespace(codeNamespace)#>
 {
-    // Note: the DbSet members are defined below such that the getter and
-    // setter always have the same accessibility as the DbSet definition
-    if (Accessibility.ForReadOnlyProperty(entitySet) != "public")
-    {
-#>
-        <#=codeStringGenerator.DbSetInitializer(entitySet)#>
 <#
-    }
+    PushIndent("    ");
 }
 #>
-    }
-
-	/// <summary>
-    /// This method is called in a 'code first' approach when the model for a derived <see cref="DbContext"/> has been initialized,
-    /// but before the model has been locked down and used to initialize the <see cref="DbContext"/>.
-    /// </summary>
-    /// <param name="modelBuilder">The <see cref="DbModelBuilder"/> that defines the model for the context being created.</param>
-    /// <exception cref="UnintentionalCodeFirstException">Thrown because the <see cref="DbContext"/> is created in a 'code first' approach.</exception>
-    protected override void OnModelCreating(DbModelBuilder modelBuilder)
-    {
-        throw new UnintentionalCodeFirstException();
-    }
-
+<#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : System.Data.Entity.DbContext
+{
 <#
     foreach (var entitySet in container.BaseEntitySets.OfType<EntitySet>())
     {
@@ -125,6 +86,17 @@ foreach (var entitySet in container.BaseEntitySets.OfType<EntitySet>())
         WriteFunctionImport(typeMapper, codeStringGenerator, edmFunction, modelNamespace, includeMergeOption: false);
     }
 #>
+
+    /// <summary>
+    /// This method is called in a 'code first' approach when the model for a derived <see cref="DbContext"/> has been initialized,
+    /// but before the model has been locked down and used to initialize the <see cref="DbContext"/>.
+    /// </summary>
+    /// <param name="modelBuilder">The <see cref="DbModelBuilder"/> that defines the model for the context being created.</param>
+    /// <exception cref="UnintentionalCodeFirstException">Thrown because the <see cref="DbContext"/> is created in a 'code first' approach.</exception>
+    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+    {
+        throw new UnintentionalCodeFirstException();
+    }
 }
 <#
 
@@ -132,8 +104,7 @@ if (!String.IsNullOrEmpty(codeNamespace))
 {
     PopIndent();
 #>
-}
-<#
+}<#
 }
 #>
 <#+
