@@ -36,7 +36,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverFailureMechanismContext(WaveImpactAsphaltCoverFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
             base(wrappedFailureMechanism, parent) {}
     }

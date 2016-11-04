@@ -50,7 +50,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// </summary>
         /// <param name="importTarget">The assessment section to update.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="importTarget"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/> is <c>null</c>.</exception>
         public ReferenceLineImporter(IAssessmentSection importTarget, string filePath) : base(filePath, importTarget) {}
 
         public override bool Import()

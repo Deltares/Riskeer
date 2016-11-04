@@ -41,7 +41,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         /// Creates a new instance of <see cref="PropertyResolver"/> with the given <paramref name="propertyInfos"/>.
         /// </summary>
         /// <param name="propertyInfos">The list of property information objects to obtain the object properties from.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="propertyInfos"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="propertyInfos"/> is <c>null</c>.</exception>
         public PropertyResolver(IEnumerable<PropertyInfo> propertyInfos)
         {
             if (propertyInfos == null)

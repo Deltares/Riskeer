@@ -46,7 +46,7 @@ namespace Core.Common.Base.Geometry
         /// <param name="lengths">The lengths where the splits should be placed.</param>
         /// <returns>A sequence of line geometries of N elements long where N is the number
         /// of elements in <paramref name="lengths"/>.</returns>
-        /// <exception cref="ArgumentException">When the sum of all elements in <paramref name="lengths"/>
+        /// <exception cref="ArgumentException">Thrown when the sum of all elements in <paramref name="lengths"/>
         /// does not fully cover the line given by <paramref name="linePoints"/> - or - when
         /// <paramref name="lengths"/> contains negative values - or - when <paramref name="linePoints"/>
         /// does not have 2 or more elements.</exception>
@@ -531,7 +531,7 @@ namespace Core.Common.Base.Geometry
         /// <param name="point2">Another <see cref="Point2D"/> which the line passes through.</param>
         /// <param name="x">The X-coordinate of the vertical line.</param>
         /// <returns>The intersection point between the line through <paramref name="point1"/> and
-        /// <paramref name="point2"/> and the vertical line at x=<paramref name="x"/>; or null if
+        /// <paramref name="point2"/> and the vertical line at x=<paramref name="x"/>; or <c>null</c> if
         /// the line through <paramref name="point1"/> and <paramref name="point2"/> is vertical or
         /// the points are equal.</returns>
         private static Point2D LineIntersectionWithVerticalLine(Point2D point1, Point2D point2, double x)

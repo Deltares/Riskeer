@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="entity">The <see cref="ProjectEntity"/> to generate a hashcode for.</param>
         /// <returns>The binary hashcode for <paramref name="entity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         /// <exception cref="QuotaExceededException">Thrown when <paramref name="entity"/>
         /// contains more than <see cref="int.MaxValue"/> unique object instances.</exception>
         public static byte[] Get(ProjectEntity entity)

@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <param name="geometry">An <see cref="Array"/> of <see cref="byte"/> which contains the information
         /// of a <see cref="PipingSoilLayer"/> in an XML document.</param>
         /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is <c>null</c>.</exception>
         /// <exception cref="SoilLayerConversionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="geometry"/> is not valid XML.</item>
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <param name="geometry">An <see cref="XmlDocument"/> which contains the information of a <see cref="PipingSoilLayer"/>
         /// in an XML document.</param>
         /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is <c>null</c>.</exception>
         /// <exception cref="SoilLayerConversionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="geometry"/> is not valid XML.</item>
@@ -206,7 +206,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// Parses the XML element to create a <see cref="Point2D"/>.
         /// </summary>
         /// <param name="point">The 2D point element.</param>
-        /// <exception cref="SoilLayerConversionException">When any of the following occurs:
+        /// <exception cref="SoilLayerConversionException">Thrown when any of the following occurs:
         /// <list type="bullet">
         /// <item>A coordinate value cannot be parsed.</item>
         /// <item>XML for 2D point is invalid.</item>

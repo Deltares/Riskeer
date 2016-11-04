@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// </summary>
         /// <param name="surfaceLines">The collection to update.</param>
         /// <param name="assessmentSection">The assessment section.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public RingtoetsPipingSurfaceLinesContext(ObservableList<RingtoetsPipingSurfaceLine> surfaceLines, IAssessmentSection assessmentSection)
             : base(surfaceLines)
         {

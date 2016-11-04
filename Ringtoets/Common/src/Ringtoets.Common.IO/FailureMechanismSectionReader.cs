@@ -50,7 +50,7 @@ namespace Ringtoets.Common.IO
         /// </summary>
         /// <param name="shapeFilePath">The shape file path.</param>
         /// <exception cref="ArgumentException"><paramref name="shapeFilePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException">When either:
+        /// <exception cref="CriticalFileReadException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="shapeFilePath"/> points to a file that doesn't exist.</item>
         /// <item>The shapefile has non-line geometries in it.</item>
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.IO
         /// <summary>
         /// Gets the number of failure mechanism sections in the shapefile.
         /// </summary>
-        /// <exception cref="CriticalFileReadException">When the shapefile does not have
+        /// <exception cref="CriticalFileReadException">Thrown when the shapefile does not have
         /// a required attribute defined.</exception>
         public int GetFailureMechanismSectionCount()
         {
@@ -87,7 +87,7 @@ namespace Ringtoets.Common.IO
         /// </summary>
         /// <returns>The <see cref="FailureMechanismSection"/> read from the file, or <c>null</c>
         /// when at the end of the file.</returns>
-        /// <exception cref="CriticalFileReadException">When either:
+        /// <exception cref="CriticalFileReadException">Thrown when either:
         /// <list type="bullet">
         /// <item>the shapefile does not have a required attribute defined.</item>
         /// <item>the element read from the file is a multi-polyline.</item>
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.IO
         /// <summary>
         /// Validates the existence of required attributes.
         /// </summary>
-        /// <exception cref="CriticalFileReadException">When the shapefile does not have
+        /// <exception cref="CriticalFileReadException">Thrown when the shapefile does not have
         /// a required attribute defined.</exception>
         private void ValidateExistenceOfRequiredAttributes()
         {

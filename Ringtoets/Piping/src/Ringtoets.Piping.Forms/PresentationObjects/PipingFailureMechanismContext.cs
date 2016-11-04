@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public PipingFailureMechanismContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) :
             base(failureMechanism, assessmentSection) {}
     }

@@ -47,8 +47,8 @@ namespace Core.Components.Gis.IO.Readers
         /// Creates a new instance of <see cref="PolygonShapeFileReader"/>.
         /// </summary>
         /// <param name="filePath">The path to the shape file.</param>
-        /// <exception cref="ArgumentException">When <paramref name="filePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException">When either:
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="filePath"/> points to a file that doesn't exist.</item>
         /// <item>The shapefile has non-polygon geometries in it.</item>

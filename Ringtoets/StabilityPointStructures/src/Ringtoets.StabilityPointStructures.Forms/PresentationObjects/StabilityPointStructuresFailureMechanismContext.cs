@@ -36,7 +36,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         /// </summary>
         /// <param name="failureMechanism">The <see cref="StabilityPointStructuresFailureMechanism"/> instance wrapped by this context object.</param>
         /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public StabilityPointStructuresFailureMechanismContext(StabilityPointStructuresFailureMechanism failureMechanism,
                                                                IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}

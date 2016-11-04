@@ -46,8 +46,8 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// </summary>
         /// <param name="shapeFilePath">The file path to the shapefile.</param>
         /// <returns>The reference line created from the data in the shapefile.</returns>
-        /// <exception cref="ArgumentException">When <paramref name="shapeFilePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException">When either:
+        /// <exception cref="ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="shapeFilePath"/> points to a file that does not exist.</item>
         /// <item>There isn't exactly 1 polyline in the shapefile.</item>

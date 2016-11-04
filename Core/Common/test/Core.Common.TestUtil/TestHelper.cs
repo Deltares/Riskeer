@@ -168,7 +168,7 @@ namespace Core.Common.TestUtil
         /// </summary>
         /// <param name="expectedImage">The expected image.</param>
         /// <param name="actualImage">The actual image.</param>
-        /// <exception cref="AssertionException">When <paramref name="actualImage"/> is not
+        /// <exception cref="AssertionException">Thrown when <paramref name="actualImage"/> is not
         /// equal to <paramref name="expectedImage"/>.</exception>
         public static void AssertImagesAreEqual(Image expectedImage, Image actualImage)
         {
@@ -195,7 +195,7 @@ namespace Core.Common.TestUtil
         /// <param name="toolTip">The tooltip expected for the menu item.</param>
         /// <param name="icon">The image expected for the menu item.</param>
         /// <param name="enabled">Optional: the expected enabled state of the menu item. Default: <c>true</c>.</param>
-        /// <exception cref="AssertionException">When <paramref name="menu"/> does not contain a menu item at
+        /// <exception cref="AssertionException">Thrown when <paramref name="menu"/> does not contain a menu item at
         /// position with the right <paramref name="text"/>, <paramref name="toolTip"/> or <paramref name="icon"/>.
         /// </exception>
         public static void AssertContextMenuStripContainsItem(ContextMenuStrip menu, int position, string text, string toolTip, Image icon, bool enabled = true)
@@ -214,7 +214,7 @@ namespace Core.Common.TestUtil
         /// <param name="toolTip">The tooltip expected for the menu item.</param>
         /// <param name="icon">The image expected for the menu item.</param>
         /// <param name="enabled">Optional: the expected enabled state of the menu item. Default: <c>true</c>.</param>
-        /// <exception cref="AssertionException">When <paramref name="menu"/> does not contain a menu item at
+        /// <exception cref="AssertionException">Thrown when <paramref name="menu"/> does not contain a menu item at
         /// position with the right <paramref name="text"/>, <paramref name="toolTip"/> or <paramref name="icon"/>.
         /// </exception>
         public static void AssertDropDownItemContainsItem(ToolStripDropDownItem menu, int position, string text, string toolTip, Image icon, bool enabled = true)

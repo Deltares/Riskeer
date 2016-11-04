@@ -103,7 +103,7 @@ namespace Core.Components.Gis.IO.Writers
         /// Create a new feature from a <see cref="MapFeature"/>.
         /// </summary>
         /// <param name="mapFeature">The <see cref="MapFeature"/> from which to create a feature.
-        /// This cannot be null.</param>
+        /// This cannot be <c>null</c>.</param>
         /// <returns>The created feature.</returns>
         protected abstract IFeature AddFeature(MapFeature mapFeature);
 

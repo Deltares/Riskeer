@@ -42,7 +42,7 @@ namespace Core.Common.Gui.PropertyBag
         /// property meta-data object.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <exception cref="ArgumentException">When <paramref name="propertyInfo"/> is 
+        /// <exception cref="ArgumentException">Thrown when <paramref name="propertyInfo"/> is 
         /// an index property.</exception>
         public PropertySpec(PropertyInfo propertyInfo)
         {
@@ -86,11 +86,11 @@ namespace Core.Common.Gui.PropertyBag
         /// </summary>
         /// <param name="instance">The instance to be updated.</param>
         /// <param name="newValue">The new value for the property.</param>
-        /// <exception cref="ArgumentException">When
+        /// <exception cref="ArgumentException">Thrown when
         /// <list type="bullet">
         /// <item>Represented property is an index-property.</item>
         /// <item><paramref name="instance"/> does not match the target type.</item>
-        /// <item>Property is an instance property but <paramref name="instance"/> is null.</item>
+        /// <item>Property is an instance property but <paramref name="instance"/> is <c>null</c>.</item>
         /// <item><paramref name="newValue"/> is of incorrect type.</item>
         /// <item>An error occurred while setting the property value. The <see cref="Exception.InnerException"/>
         /// property indicates the reason for the error.</item>
@@ -119,11 +119,11 @@ namespace Core.Common.Gui.PropertyBag
         /// </summary>
         /// <param name="instance">The instance that holds the property to be retrieved.</param>
         /// <returns>The property value on <paramref name="instance"/>.</returns>
-        /// <exception cref="ArgumentException">When
+        /// <exception cref="ArgumentException">Thrown when
         /// <list type="bullet">
         /// <item>Represented property is an index-property.</item>
         /// <item><paramref name="instance"/> does not match the target type.</item>
-        /// <item>Property is an instance property but <paramref name="instance"/> is null.</item>
+        /// <item>Property is an instance property but <paramref name="instance"/> is <c>null</c>.</item>
         /// <item>An error occurred while setting the property value. The <see cref="Exception.InnerException"/>
         /// property indicates the reason for the error.</item>
         /// </list></exception>
@@ -151,7 +151,8 @@ namespace Core.Common.Gui.PropertyBag
             }
             catch (TargetInvocationException e)
             {
-                throw new ArgumentException("Something went wrong while getting property; Check InnerException for more information.", "instance", e);
+                throw new ArgumentException(@"Something went wrong while getting property; Check InnerException for more information.",
+                                            "instance", e);
             }
         }
 

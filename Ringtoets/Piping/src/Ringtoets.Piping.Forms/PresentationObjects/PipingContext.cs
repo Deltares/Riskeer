@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         protected PipingContext(
             T wrappedData,
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
@@ -100,13 +100,13 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         public IAssessmentSection AssessmentSection { get; private set; }
 
         /// <summary>
-        /// Asserts the inputs are not null.
+        /// Asserts the inputs are not <c>null</c>.
         /// </summary>
         /// <param name="surfaceLines">The surface lines.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
-        /// <exception cref="ArgumentNullException">When any input parameter is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         private static void AssertInputsAreNotNull(object surfaceLines, object stochasticSoilModels, object pipingFailureMechanism, object assessmentSection)
         {
             if (surfaceLines == null)

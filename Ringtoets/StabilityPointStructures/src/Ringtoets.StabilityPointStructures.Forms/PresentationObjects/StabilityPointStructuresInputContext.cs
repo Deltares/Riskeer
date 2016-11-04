@@ -42,7 +42,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         /// <param name="calculation">The calculation item which the <paramref name="input"/> belongs to.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public StabilityPointStructuresInputContext(StabilityPointStructuresInput input,
                                                     StructuresCalculation<StabilityPointStructuresInput> calculation,
                                                     StabilityPointStructuresFailureMechanism failureMechanism,

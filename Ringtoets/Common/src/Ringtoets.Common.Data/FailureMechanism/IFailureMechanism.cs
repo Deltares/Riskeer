@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         /// <summary>
         /// Gets the sections that define areas for which a calculation could determine
-        /// a representative result. Cannot return null.
+        /// a representative result. Cannot return <c>null</c>.
         /// </summary>
         IEnumerable<FailureMechanismSection> Sections { get; }
 
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// Adds a <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.
         /// </summary>
         /// <param name="section">The new section.</param>
-        /// <exception cref="System.ArgumentException">When <paramref name="section"/> cannot
+        /// <exception cref="System.ArgumentException">Thrown when <paramref name="section"/> cannot
         /// be connected to elements already defined in <see cref="Sections"/>.</exception>
         void AddSection(FailureMechanismSection section);
 

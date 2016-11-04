@@ -28,20 +28,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class SurfaceLineEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SurfaceLineEntity()
         {
             CharacteristicPointEntities = new HashSet<CharacteristicPointEntity>();
             PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
         }
-    
+
         public long SurfaceLineEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string Name { get; set; }
@@ -49,11 +50,13 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> ReferenceLineIntersectionY { get; set; }
         public string PointsXml { get; set; }
         public int Order { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }
+
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
     }
 }

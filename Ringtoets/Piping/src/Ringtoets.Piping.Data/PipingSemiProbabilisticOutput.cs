@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Data
         /// <param name="pipingProbability">The calculated probability of failing due to piping.</param>
         /// <param name="pipingReliability">The calculated reliability of the piping failure mechanism.</param>
         /// <param name="pipingFactorOfSafety">The factor of safety for the piping failure mechanism.</param>
-        /// <exception cref="ArgumentOutOfRangeException">When setting a probability that falls
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a probability that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public PipingSemiProbabilisticOutput(double upliftFactorOfSafety, double upliftReliability, double upliftProbability,
                                              double heaveFactorOfSafety, double heaveReliability, double heaveProbability,
@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Data
         /// Gets the required probability of the piping failure mechanism,
         /// which value in range [0,1].
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public double RequiredProbability
         {
@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.Data
         /// Gets the probability of failing due to the piping failure mechanism,
         /// which value in range [0,1].
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public double PipingProbability
         {
@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.Data
         /// Gets the probability of failing due to the uplift failure sub-mechanism,
         /// which value in range [0,1].
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public double UpliftProbability
         {
@@ -203,7 +203,7 @@ namespace Ringtoets.Piping.Data
         /// Gets the probability of failing due to the heave failure sub-mechanism,
         /// which value in range [0,1].
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public double HeaveProbability
         {
@@ -241,7 +241,7 @@ namespace Ringtoets.Piping.Data
         /// Gets the probability of failing due to the Sellmeijer failure sub-mechanism,
         /// which value in range [0,1].
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public double SellmeijerProbability
         {

@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that
         /// are the same across all piping calculations.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
         public PipingInput(GeneralPipingInput generalInputParameters)
         {

@@ -28,11 +28,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class WaveImpactAsphaltCoverSectionResultEntity
     {
         public long WaveImpactAsphaltCoverSectionResultEntityId { get; set; }
@@ -40,7 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte LayerOne { get; set; }
         public Nullable<double> LayerTwoA { get; set; }
         public Nullable<double> LayerThree { get; set; }
-    
+
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }

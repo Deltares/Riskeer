@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage
         /// <item>When reverting, the original file cannot be restored.</item>
         /// </list>
         /// </exception>
-        /// <exception cref="CannotDeleteBackupFileException">When cleaning up, the temporary file cannot be removed.</exception>
+        /// <exception cref="CannotDeleteBackupFileException">Thrown when cleaning up, the temporary file cannot be removed.</exception>
         /// <remarks>Any <see cref="Exception"/> thrown by <paramref name="writeAction"/> will be rethrown.</remarks>
         public void Perform(Action writeAction)
         {

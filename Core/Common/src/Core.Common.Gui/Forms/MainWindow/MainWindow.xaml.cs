@@ -120,7 +120,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// <summary>
         /// Gets or sets a value indicating whether or not the main user interface is visible.
         /// </summary>
-        /// <exception cref="System.InvalidOperationException">When no gui has been set using <see cref="SetGui"/>.</exception>
+        /// <exception cref="System.InvalidOperationException">Thrown when no gui has been set using <see cref="SetGui"/>.</exception>
         public bool Visible
         {
             get

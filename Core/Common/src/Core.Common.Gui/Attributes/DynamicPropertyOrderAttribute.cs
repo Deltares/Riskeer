@@ -44,9 +44,9 @@ namespace Core.Common.Gui.Attributes
         /// <param name="obj">The object.</param>
         /// <param name="propertyName">The name of the property of <paramref name="obj"/>.</param>
         /// <returns>The order of the property.</returns>
-        /// <exception cref="MissingMemberException">When <paramref name="propertyName"/>
+        /// <exception cref="MissingMemberException">Thrown when <paramref name="propertyName"/>
         /// does not correspond to a public property of <paramref name="obj"/>.</exception>
-        /// <exception cref="System.MissingMethodException">When there isn't a single method
+        /// <exception cref="System.MissingMethodException">Thrown when there isn't a single method
         /// declared on <paramref name="obj"/> marked with <see cref="DynamicPropertyOrderEvaluationMethodAttribute"/>
         /// that is matching the signature defined by <see cref="DynamicPropertyOrderEvaluationMethodAttribute.PropertyOrder"/>.</exception>
         public static int PropertyOrder(object obj, string propertyName)

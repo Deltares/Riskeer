@@ -58,10 +58,10 @@ namespace Ringtoets.Common.IO
         /// </summary>
         /// <param name="lineToParse">The line to be parsed.</param>
         /// <returns>The initialized <see cref="AssessmentSectionSettings"/>.</returns>
-        /// <exception cref="IndexOutOfRangeException">When <paramref name="lineToParse"/>
+        /// <exception cref="IndexOutOfRangeException">Thrown when <paramref name="lineToParse"/>
         /// does not have at least 2 columns or when the columns are not separated by a ';'.</exception>
-        /// <exception cref="FormatException">When the second column text does not represent a number.</exception>
-        /// <exception cref="OverflowException">When the second column text represents a number
+        /// <exception cref="FormatException">Thrown when the second column text does not represent a number.</exception>
+        /// <exception cref="OverflowException">Thrown when the second column text represents a number
         /// that is too big or too small to be stored in an <see cref="int"/>.</exception>
         private static AssessmentSectionSettings ReadAssessmentSectionSettings(string lineToParse)
         {

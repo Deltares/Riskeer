@@ -36,7 +36,8 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// Creates a corrupt database file based on <see cref="GetCompleteSchema"/>.
         /// </summary>
         /// <param name="databaseFilePath">The database file path.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="databaseFilePath"/> is null or whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="databaseFilePath"/> 
+        /// is <c>null</c> or whitespace.</exception>
         public static void CreateCorruptDatabaseFile(string databaseFilePath)
         {
             CreateDatabaseFile(databaseFilePath, GetCorruptSchema());
@@ -47,7 +48,8 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// Creates the complete database file with a VersionEntity row but no project data.
         /// </summary>
         /// <param name="databaseFilePath">The database file path.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="databaseFilePath"/> is null or whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="databaseFilePath"/> 
+        /// is <c>null</c> or whitespace.</exception>
         public static void CreateCompleteDatabaseFileWithoutProjectData(string databaseFilePath)
         {
             CreateCompleteDatabaseFileEmpty(databaseFilePath);
@@ -68,7 +70,8 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// </summary>
         /// <param name="databaseFilePath">The database file path.</param>
         /// <param name="databaseVersion">The database version.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="databaseFilePath"/> is null or whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="databaseFilePath"/> 
+        /// is <c>null</c> or whitespace.</exception>
         public static void AddVersionEntity(string databaseFilePath, int databaseVersion)
         {
             string addVersionRowCommand = GetAddVersionRowCommandText(databaseVersion);
@@ -81,8 +84,8 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <param name="databaseSchemaQuery">Script that contains the schema to execute on the database.</param>
         /// <exception cref="SQLiteException">Thrown when executing <paramref name="databaseSchemaQuery"/> failed.</exception>
-        /// <exception cref="ArgumentNullException">When <paramref name="databaseSchemaQuery"/>
-        /// or <paramref name="databaseFilePath"/> is null or whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="databaseSchemaQuery"/>
+        /// or <paramref name="databaseFilePath"/> is <c>null</c> or whitespace.</exception>
         public static void CreateDatabaseFile(string databaseFilePath, string databaseSchemaQuery)
         {
             if (string.IsNullOrWhiteSpace(databaseSchemaQuery))
@@ -142,7 +145,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// </summary>
         /// <param name="databaseFilePath">The file path to the database.</param>
         /// <param name="commandText">The command text/query.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="databaseFilePath"/> is null or whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="databaseFilePath"/> is <c>null</c> or whitespace.</exception>
         private static void PerformCommandOnDatabase(string databaseFilePath, string commandText)
         {
             var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath);

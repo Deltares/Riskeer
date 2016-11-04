@@ -47,8 +47,8 @@ namespace Core.Components.Gis.IO.Readers
         /// Initializes a new instance of the <see cref="PolylineShapeFileReader"/> class.
         /// </summary>
         /// <param name="shapeFilePath">The shapefile path.</param>
-        /// <exception cref="ArgumentException">When <paramref name="shapeFilePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException">When either:
+        /// <exception cref="ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="shapeFilePath"/> points to a file that doesn't exist.</item>
         /// <item>The shapefile has non-line geometries in it.</item>

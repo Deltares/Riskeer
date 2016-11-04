@@ -47,7 +47,7 @@ namespace Core.Common.Gui.Attributes
         /// </summary>
         /// <param name="target">The object instance declaring the validation method.</param>
         /// <returns>The delegate.</returns>
-        /// <exception cref="System.MissingMethodException">When there isn't a single method
+        /// <exception cref="System.MissingMethodException">Thrown when there isn't a single method
         /// declared on <paramref name="target"/> marked with <see cref="DynamicVisibleValidationMethodAttribute"/>
         /// that is matching the signature defined by <see cref="IsPropertyVisible"/>.</exception>
         public static IsPropertyVisible CreateIsVisibleMethod(object target)

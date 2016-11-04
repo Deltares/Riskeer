@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="wrappedStochasticSoilModels">The stochastic soil models to wrap.</param>
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public StochasticSoilModelsContext(ObservableList<StochasticSoilModel> wrappedStochasticSoilModels,
                                            PipingFailureMechanism failureMechanism,
                                            IAssessmentSection assessmentSection)

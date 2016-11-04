@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Data.Probability
         /// <param name="probability">The probability of failure.</param>
         /// <param name="reliability">The reliability of the failure mechanism.</param>
         /// <param name="factorOfSafety">The factor of safety of the failure mechanism.</param>
-        /// <exception cref="ArgumentOutOfRangeException">When setting a probability that falls
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a probability that falls
         /// outside the [0.0, 1.0] range and isn't <see cref="double.NaN"/>.</exception>
         public ProbabilityAssessmentOutput(double requiredProbability, double requiredReliability, double probability, double reliability, double factorOfSafety)
         {
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Data.Probability
         /// <summary>
         /// Gets the required (maximum allowed) probability of failure.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
         /// outside the [0.0, 1.0] range and isn't <see cref="double.NaN"/>.</exception>
         public double RequiredProbability
         {
@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Data.Probability
         /// <summary>
         /// Gets the probability of failure.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When setting a value that falls
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public double Probability
         {

@@ -76,7 +76,7 @@ namespace Core.Common.Base.Geometry
         /// <returns>
         /// A 2D point.
         /// </returns>
-        /// <exception cref="System.ArgumentException">When <paramref name="vector"/> is 
+        /// <exception cref="System.ArgumentException">Thrown when <paramref name="vector"/> is 
         /// not a 2D vector.</exception>
         public static Point2D operator +(Point2D point, Vector<double> vector)
         {
@@ -97,7 +97,7 @@ namespace Core.Common.Base.Geometry
         /// </summary>
         /// <param name="secondPoint">The second point.</param>
         /// <returns>A value of 0 or greater.</returns>
-        /// <exception cref="System.ArgumentNullException">When <paramref name="secondPoint"/> is null.</exception>
+        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="secondPoint"/> is <c>null</c>.</exception>
         public double GetEuclideanDistanceTo(Point2D secondPoint)
         {
             if (secondPoint == null)

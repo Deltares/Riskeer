@@ -195,7 +195,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="lineNumber">The line number.</param>
         /// <param name="readVersionText">The text to parse.</param>
         /// <returns>The read version code.</returns>
-        /// <exception cref="CriticalFileReadException">When <paramref name="readVersionText"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="readVersionText"/>
         /// does not represent a valid version code.</exception>
         private Version ParseVersion(int lineNumber, string readVersionText)
         {
@@ -225,7 +225,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="fileVersion">The file version.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <exception cref="CriticalFileReadException">When <paramref name="fileVersion"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="fileVersion"/>
         /// is not supported by this reader.</exception>
         private void ValidateVersion(Version fileVersion, int lineNumber)
         {
@@ -269,7 +269,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="id">The id.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <exception cref="CriticalFileReadException">When <paramref name="id"/> is not
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="id"/> is not
         /// present or has a whitespace.</exception>
         private void ValidateId(string id, int lineNumber)
         {
@@ -325,7 +325,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="lineNumber">The line number.</param>
         /// <param name="readOrientationText">The text.</param>
         /// <returns>The value corresponding to the RICHTING key.</returns>
-        /// <exception cref="CriticalFileReadException">When <paramref name="readOrientationText"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="readOrientationText"/>
         /// does not represent a valid number.</exception>
         private double ParseOrientation(int lineNumber, string readOrientationText)
         {
@@ -352,7 +352,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="orientation">The orientation.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <exception cref="CriticalFileReadException">When <paramref name="orientation"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="orientation"/>
         /// is outside the [0, 360] range.</exception>
         private void ValidateOrientation(double orientation, int lineNumber)
         {
@@ -398,7 +398,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="lineNumber">The line number.</param>
         /// <param name="readDamTypeText">The text.</param>
         /// <returns>The read dam-type.</returns>
-        /// <exception cref="CriticalFileReadException">When <paramref name="readDamTypeText"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="readDamTypeText"/>
         /// does not represent a <see cref="DamType"/>.</exception>
         private DamType ParseDamType(int lineNumber, string readDamTypeText)
         {
@@ -463,7 +463,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="lineNumber">The line number.</param>
         /// <param name="readSheetPileTypeText">The text.</param>
         /// <returns>The read sheet piling type.</returns>
-        /// <exception cref="CriticalFileReadException">When <paramref name="readSheetPileTypeText"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="readSheetPileTypeText"/>
         /// does not represent a <see cref="SheetPileType"/>.</exception>
         private SheetPileType ParseSheetPileType(int lineNumber, string readSheetPileTypeText)
         {
@@ -528,7 +528,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="lineNumber">The line number.</param>
         /// <param name="readDamHeightText">The text.</param>
         /// <returns>The height of the dam.</returns>
-        /// <exception cref="CriticalFileReadException">When <paramref name="readDamHeightText"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="readDamHeightText"/>
         /// does not represent a number.</exception>
         private double ParseDamHeight(string readDamHeightText, int lineNumber)
         {
@@ -584,7 +584,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="lineNumber">The line number.</param>
         /// <param name="readDikeHeightText">The text.</param>
         /// <returns>The height of the dike.</returns>
-        /// <exception cref="CriticalFileReadException">When <paramref name="readDikeHeightText"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="readDikeHeightText"/>
         /// does not represent a number.</exception>
         private double ParseDikeHeight(int lineNumber, string readDikeHeightText)
         {
@@ -616,7 +616,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="lineNumber">The line number.</param>
         /// <returns><c>True</c> if the text matches a DIJK key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
-        /// <exception cref="CriticalFileReadException">When
+        /// <exception cref="CriticalFileReadException">Thrown when
         /// <list type="bullet">
         /// <item>The value after the DIJK key does not represent a valid number.</item>
         /// <item>Any of read the parameters in the following data block is invalid.</item>
@@ -677,7 +677,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="lineNumber">The line number.</param>
         /// <param name="readDikeGeometryCountText">The DIJK key-value pair text.</param>
         /// <returns>The number of dike roughness points.</returns>
-        /// <exception cref="CriticalFileReadException">When <paramref name="readDikeGeometryCountText"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="readDikeGeometryCountText"/>
         /// does not represent a number.</exception>
         private int ParseNumberOfDikePoints(int lineNumber, string readDikeGeometryCountText)
         {
@@ -704,7 +704,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="numberOfElements">The number of elements.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <exception cref="CriticalFileReadException">When <paramref name="numberOfElements"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="numberOfElements"/>
         /// is negative.</exception>
         private void ValidateDikePointCount(int numberOfElements, int lineNumber)
         {
@@ -764,7 +764,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="lineNumber">The line number.</param>
         /// <param name="readParameterText">The value text to be parsed.</param>
         /// <returns>The parameter value.</returns>
-        /// <exception cref="CriticalFileReadException">When <paramref name="readParameterText"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="readParameterText"/>
         /// does not represent a number.</exception>
         private double ParseRoughnessPointParameter(string readParameterText, string parameterName, int lineNumber)
         {
@@ -791,7 +791,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="roughness">The roughness.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <exception cref="CriticalFileReadException">When <paramref name="roughness"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="roughness"/>
         /// is outside the range [0.5, 1].</exception>
         private void ValidateRoughness(double roughness, int lineNumber)
         {
@@ -809,7 +809,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="currentPoint">The current point.</param>
         /// <param name="previousPoint">The previous point.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <exception cref="CriticalFileReadException">When <paramref name="currentPoint"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="currentPoint"/>
         /// has an X-coordinate before or equal to that of <paramref name="previousPoint"/>.</exception>
         private void ValidateDikePointsAreMonotonicallyIncreasing(Point2D currentPoint, Point2D previousPoint, int lineNumber)
         {
@@ -827,7 +827,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="data">The data to be updated.</param>
         /// <param name="reader">The reader of the file.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <exception cref="CriticalFileReadException">When
+        /// <exception cref="CriticalFileReadException">Thrown when
         /// <list type="bullet">
         /// <item>The value after the VOORLAND key does not represent a valid number.</item>
         /// <item>Any of read the parameters in the following data block is invalid.</item>
@@ -886,7 +886,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="lineNumber">The line number.</param>
         /// <param name="readForeshoreCountText">The text.</param>
         /// <returns>The number of foreshore roughness points.</returns>
-        /// <exception cref="CriticalFileReadException">When <paramref name="readForeshoreCountText"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="readForeshoreCountText"/>
         /// does not represent a number.</exception>
         private int ParseNumberOfForeshoreElements(string readForeshoreCountText, int lineNumber)
         {
@@ -913,7 +913,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="numberOfElements">The number of elements.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <exception cref="CriticalFileReadException">When <paramref name="numberOfElements"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="numberOfElements"/>
         /// is negative.</exception>
         private void ValidateForeshorePointCount(int numberOfElements, int lineNumber)
         {
@@ -931,7 +931,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="currentPoint">The current point.</param>
         /// <param name="previousPoint">The previous point.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <exception cref="CriticalFileReadException">When <paramref name="currentPoint"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="currentPoint"/>
         /// has an X-coordinate before or equal to that of <paramref name="previousPoint"/>.</exception>
         private void ValidateForeshorePointsAreMonotonicallyIncreasing(Point2D currentPoint, Point2D previousPoint, int lineNumber)
         {
@@ -958,7 +958,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="parameter">The parameter.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <exception cref="CriticalFileReadException">When <paramref name="parameter"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="parameter"/>
         /// already has been defined in the file at a line prior to <paramref name="lineNumber"/>.</exception>
         private void ValidateNoPriorParameterDefinition(Keywords parameter, int lineNumber)
         {
@@ -983,7 +983,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="reader">The opened text file reader.</param>
         /// <param name="currentLine">Row number for error messaging.</param>
-        /// <returns>The read line, or null when at the end of the file.</returns>
+        /// <returns>The read line, or <c>null</c> when at the end of the file.</returns>
         /// <exception cref="CriticalFileReadException">An critical I/O exception occurred.</exception>
         private string ReadLineAndHandleIOExceptions(TextReader reader, int currentLine)
         {
@@ -1022,7 +1022,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="text">The unexpected text.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <exception cref="CriticalFileReadException">When calling this method, due to
+        /// <exception cref="CriticalFileReadException">Thrown when calling this method, due to
         /// having read an unexpected piece of text from the file.</exception>
         private void HandleUnexpectedText(string text, int lineNumber)
         {

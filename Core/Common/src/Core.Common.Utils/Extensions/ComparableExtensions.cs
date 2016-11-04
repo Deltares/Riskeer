@@ -46,7 +46,7 @@ namespace Core.Common.Utils.Extensions
             }
             if (object2 == null)
             {
-                return true; // Anything is greater then null.
+                return true; // Anything is greater than null.
             }
 
             return object1.CompareTo(object2) > 0;
