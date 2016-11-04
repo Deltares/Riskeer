@@ -438,92 +438,128 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void UpdateRibbonExtensions(IPluginsHost pluginsHost)
         {
             // get all ribbon controls
-            ribbonCommandHandlers = pluginsHost.Plugins.Where(p => p.RibbonCommandHandler != null).Select(p => p.RibbonCommandHandler).ToArray();
+            ribbonCommandHandlers = pluginsHost.Plugins.Where(p => p.RibbonCommandHandler != null)
+                                               .Select(p => p.RibbonCommandHandler)
+                                               .ToArray();
 
-            foreach (var ribbonControl in ribbonCommandHandlers.Select(rch => rch.GetRibbonControl()))
+            foreach (Ribbon ribbonControl in ribbonCommandHandlers.Select(rch => rch.GetRibbonControl()))
             {
-                // fill contextual groups from plugins
-                foreach (var group in ribbonControl.ContextualGroups.Where(group => Ribbon.ContextualGroups.All(g => g.Name != group.Name)))
+                FillContextualGroupsFromRibbonComponent(ribbonControl);
+
+                FillRibbonTabsFromRibbonComponent(ribbonControl);
+            }
+        }
+
+        private void FillContextualGroupsFromRibbonComponent(Ribbon ribbonControl)
+        {
+            foreach (var group in ribbonControl.ContextualGroups.Where(group => Ribbon.ContextualGroups.All(g => g.Name != @group.Name)))
+            {
+                Ribbon.ContextualGroups.Add(@group);
+            }
+        }
+
+        private void FillRibbonTabsFromRibbonComponent(Ribbon ribbonControl)
+        {
+            foreach (var sourceTab in ribbonControl.Tabs)
+            {
+                var existingTab = Ribbon.Tabs.FirstOrDefault(t => t.Header.Equals(sourceTab.Header));
+                if (existingTab == null) // add new tab
                 {
-                    Ribbon.ContextualGroups.Add(group);
+                    Ribbon.Tabs.Add(sourceTab);
+                    existingTab = sourceTab;
+                }
+                else
+                {
+                    SetReduceOrder(existingTab, sourceTab);
+
+                    CopyRibbonGroupBoxes(existingTab, sourceTab);
                 }
 
-                // fill tabs from plugins
-                foreach (var tab in ribbonControl.Tabs)
+                UpdateContextualTabBindings(existingTab);
+            }
+        }
+
+        private static void SetReduceOrder(RibbonTabItem targetTab, RibbonTabItem sourceTab)
+        {
+            if (!string.IsNullOrEmpty(sourceTab.ReduceOrder))
+            {
+                targetTab.ReduceOrder += "," + sourceTab.ReduceOrder; // Naive implementation; Can cause duplicates to occur
+            }
+        }
+
+        private static void CopyRibbonGroupBoxes(RibbonTabItem targetTab, RibbonTabItem sourceTab)
+        {
+            foreach (RibbonGroupBox sourceGroup in sourceTab.Groups)
+            {
+                var existingGroup = targetTab.Groups.FirstOrDefault(g => g.Header.Equals(sourceGroup.Header));
+                if (existingGroup == null) // add new group
                 {
-                    var existingTab = Ribbon.Tabs.FirstOrDefault(t => t.Header.Equals(tab.Header));
-
-                    if (existingTab == null) // add new tab
-                    {
-                        Ribbon.Tabs.Add(tab);
-                        existingTab = tab;
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrEmpty(tab.ReduceOrder))
-                        {
-                            existingTab.ReduceOrder += "," + tab.ReduceOrder; // Naive implementation; Can cause duplicates to occur
-                        }
-
-                        foreach (var group in tab.Groups)
-                        {
-                            var existingGroup = existingTab.Groups.FirstOrDefault(g => g.Header.Equals(group.Header));
-
-                            if (existingGroup == null) // add new group
-                            {
-                                var newGroup = new RibbonGroupBox
-                                {
-                                    Header = group.Header,
-                                    Name = group.Name // Ensure ReduceOrder is working properly
-                                };
-
-                                // Set KeyTip for keyboard navigation:
-                                var keys = KeyTip.GetKeys(group);
-                                if (!string.IsNullOrEmpty(keys))
-                                {
-                                    KeyTip.SetKeys(newGroup, keys);
-                                }
-
-                                existingTab.Groups.Add(newGroup);
-                                existingGroup = newGroup;
-                            }
-
-                            // Set group icon if not yet set:
-                            if (existingGroup.Icon == null && group.Icon != null)
-                            {
-                                existingGroup.Icon = group.Icon;
-                            }
-
-                            foreach (var item in group.Items.Cast<object>().ToArray())
-                            {
-                                // HACK: remember and restore button size (looks like a bug in Fluent)
-                                var iconSize = RibbonControlSize.Small;
-                                var buttonItem = item as Button;
-                                if (buttonItem != null)
-                                {
-                                    var button = buttonItem;
-                                    iconSize = button.Size;
-                                }
-
-                                group.Items.Remove(item);
-                                existingGroup.Items.Add(item);
-
-                                if (item is Button)
-                                {
-                                    var button = existingGroup.Items.OfType<Button>().Last();
-                                    button.Size = iconSize;
-                                }
-                            }
-                        }
-                    }
-
-                    // update contextual tab bindings
-                    if (existingTab.Group != null)
-                    {
-                        var newGroup = Ribbon.ContextualGroups.First(g => g.Name == existingTab.Group.Name);
-                        existingTab.Group = newGroup;
-                    }
+                    RibbonGroupBox newGroup = CreateRibbonGroupBox(sourceGroup);
+                    targetTab.Groups.Add(newGroup);
+                    existingGroup = newGroup;
                 }
+
+                InitializeRibbonGroupBoxIcon(existingGroup, sourceGroup.Icon);
+
+                CopyGroupBoxItems(existingGroup, sourceGroup);
+            }
+        }
+
+        private static RibbonGroupBox CreateRibbonGroupBox(RibbonGroupBox sourceGroup)
+        {
+            var newGroup = new RibbonGroupBox
+            {
+                Header = sourceGroup.Header,
+                Name = sourceGroup.Name // Ensure ReduceOrder is working properly
+            };
+
+            // Set KeyTip for keyboard navigation:
+            string keys = KeyTip.GetKeys(sourceGroup);
+            if (!string.IsNullOrEmpty(keys))
+            {
+                KeyTip.SetKeys(newGroup, keys);
+            }
+            return newGroup;
+        }
+
+        private static void InitializeRibbonGroupBoxIcon(RibbonGroupBox existingGroup, object icon)
+        {
+            if (existingGroup.Icon == null && icon != null)
+            {
+                existingGroup.Icon = icon;
+            }
+        }
+
+        private static void CopyGroupBoxItems(RibbonGroupBox targetGroupBox, RibbonGroupBox sourceGroupBox)
+        {
+            foreach (var item in sourceGroupBox.Items.Cast<object>().ToArray())
+            {
+                // HACK: remember and restore button size (looks like a bug in Fluent)
+                var iconSize = RibbonControlSize.Small;
+                var buttonItem = item as Button;
+                if (buttonItem != null)
+                {
+                    var button = buttonItem;
+                    iconSize = button.Size;
+                }
+
+                sourceGroupBox.Items.Remove(item);
+                targetGroupBox.Items.Add(item);
+
+                if (item is Button)
+                {
+                    var button = targetGroupBox.Items.OfType<Button>().Last();
+                    button.Size = iconSize;
+                }
+            }
+        }
+
+        private void UpdateContextualTabBindings(RibbonTabItem existingTab)
+        {
+            if (existingTab.Group != null)
+            {
+                var newGroup = Ribbon.ContextualGroups.First(g => g.Name == existingTab.Group.Name);
+                existingTab.Group = newGroup;
             }
         }
 
