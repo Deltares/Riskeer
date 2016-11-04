@@ -1721,24 +1721,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Afwijking van de golfrichting..
-        /// </summary>
-        public static string Structure_DeviationWaveDirection_Description {
-            get {
-                return ResourceManager.GetString("Structure_DeviationWaveDirection_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Afwijking golfrichting [°].
-        /// </summary>
-        public static string Structure_DeviationWaveDirection_DisplayName {
-            get {
-                return ResourceManager.GetString("Structure_DeviationWaveDirection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kunstwerk.
         /// </summary>
         public static string Structure_DisplayName {

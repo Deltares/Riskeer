@@ -368,8 +368,6 @@ namespace Ringtoets.ClosingStructures.Service
                 new UseBreakWaterRule(input),
                 new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)),
-                new NumericInputRule(input.DeviationWaveDirection,
-                                     ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_DeviationWaveDirection_DisplayName)),
                 new NormalDistributionRule(input.ModelFactorSuperCriticalFlow,
                                            ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
                 new NumericInputRule(input.FactorStormDurationOpenStructure,

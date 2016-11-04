@@ -796,12 +796,6 @@
   <data name="Structure_StormDuration_DisplayName" xml:space="preserve">
     <value>Stormduur [uur]</value>
   </data>
-  <data name="Structure_DeviationWaveDirection_Description" xml:space="preserve">
-    <value>Afwijking van de golfrichting.</value>
-  </data>
-  <data name="Structure_DeviationWaveDirection_DisplayName" xml:space="preserve">
-    <value>Afwijking golfrichting [°]</value>
-  </data>
   <data name="StructureSelectionDialog_Select_Structures" xml:space="preserve">
     <value>Selecteer kunstwerken</value>
   </data>

@@ -192,51 +192,6 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        public void Validate_DeviationWaveDirectionInvalid_ReturnsFalse()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
-
-            const string name = "<very nice name>";
-            const string parameterName = "afwijking golfrichting";
-            string expectedValidationMessage = string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", parameterName);
-
-            var calculation = new TestHeightStructuresCalculation
-            {
-                Name = name,
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    Structure = new TestHeightStructure()
-                }
-            };
-
-            calculation.InputParameters.DeviationWaveDirection = RoundedDouble.NaN;
-
-            // Call
-            bool isValid = false;
-            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith(expectedValidationMessage, msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Validate_StructureNormalOrientationInvalid_ReturnsFalse()
         {
             // Setup
