@@ -806,10 +806,10 @@
     <value>Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren.</value>
   </data>
   <data name="Structure_DrainCoefficient_Description" xml:space="preserve">
-    <value>Afvoercoëfficient.</value>
+    <value>Afvoercoëfficiënt.</value>
   </data>
   <data name="Structure_DrainCoefficient_DisplayName" xml:space="preserve">
-    <value>Afvoercoëfficient [-]</value>
+    <value>Afvoercoëfficiënt [-]</value>
   </data>
   <data name="Structure_FactorStormDurationOpenStructure_Description" xml:space="preserve">
     <value>Factor voor stormduur hoogwater gegeven geopend kunstwerk.</value>

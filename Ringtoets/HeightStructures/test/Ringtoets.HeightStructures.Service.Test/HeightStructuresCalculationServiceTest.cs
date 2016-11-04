@@ -392,7 +392,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
-            string expectedValidationMessage = string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterName);
+            string expectedValidationMessage = string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterName);
 
             var calculation = new TestHeightStructuresCalculation
             {

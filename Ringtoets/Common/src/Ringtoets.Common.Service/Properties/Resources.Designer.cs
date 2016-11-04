@@ -215,7 +215,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De variatiecoëfficient voor &apos;{0}&apos; moet groter zijn dan of gelijk zijn aan 0..
+        ///   Looks up a localized string similar to De variatiecoëfficiënt voor &apos;{0}&apos; moet groter zijn dan of gelijk zijn aan 0..
         /// </summary>
         public static string ProbabilistiDistributionValidationRule_CoefficientOfVariation_of_ParameterName_0_must_be_larger_or_equal_to_zero {
             get {

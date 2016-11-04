@@ -856,8 +856,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor drainCoefficientProperty = dynamicProperties[linearFloodedCulvertDrainCoefficientPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
             Assert.AreEqual(modelSettingsCategory, drainCoefficientProperty.Category);
-            Assert.AreEqual("Afvoercoëfficient [-]", drainCoefficientProperty.DisplayName);
-            Assert.AreEqual("Afvoercoëfficient.", drainCoefficientProperty.Description);
+            Assert.AreEqual("Afvoercoëfficiënt [-]", drainCoefficientProperty.DisplayName);
+            Assert.AreEqual("Afvoercoëfficiënt.", drainCoefficientProperty.Description);
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[linearFloodedCulvertFactorStormDurationOpenStructurePropertyIndex];
             Assert.IsFalse(factorStormDurationOpenStructureProperty.IsReadOnly);
@@ -1046,8 +1046,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor drainCoefficientProperty = dynamicProperties[quadraticFloodedCulvertDrainCoefficientPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
             Assert.AreEqual(modelSettingsCategory, drainCoefficientProperty.Category);
-            Assert.AreEqual("Afvoercoëfficient [-]", drainCoefficientProperty.DisplayName);
-            Assert.AreEqual("Afvoercoëfficient.", drainCoefficientProperty.Description);
+            Assert.AreEqual("Afvoercoëfficiënt [-]", drainCoefficientProperty.DisplayName);
+            Assert.AreEqual("Afvoercoëfficiënt.", drainCoefficientProperty.Description);
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[quadraticFloodedCulvertFactorStormDurationOpenStructurePropertyIndex];
             Assert.IsFalse(factorStormDurationOpenStructureProperty.IsReadOnly);

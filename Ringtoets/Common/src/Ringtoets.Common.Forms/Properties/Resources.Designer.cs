@@ -1730,7 +1730,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Afvoercoëfficient..
+        ///   Looks up a localized string similar to Afvoercoëfficiënt..
         /// </summary>
         public static string Structure_DrainCoefficient_Description {
             get {
@@ -1739,7 +1739,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Afvoercoëfficient [-].
+        ///   Looks up a localized string similar to Afvoercoëfficiënt [-].
         /// </summary>
         public static string Structure_DrainCoefficient_DisplayName {
             get {
