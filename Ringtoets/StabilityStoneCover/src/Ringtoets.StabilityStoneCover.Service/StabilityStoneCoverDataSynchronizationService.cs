@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Utils.Extensions;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
@@ -91,6 +92,32 @@ namespace Ringtoets.StabilityStoneCover.Service
                     affectedItems.Add(calculation);
                 }
             }
+
+            return affectedItems;
+        }
+
+        /// <summary>
+        /// Clears the output for all calculations in the <see cref="StabilityStoneCoverFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="StabilityStoneCoverFailureMechanism"/>
+        /// which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<StabilityStoneCoverWaveConditionsCalculation> ClearAllWaveConditionsCalculationOutput(StabilityStoneCoverFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            var affectedItems = failureMechanism.Calculations
+                                                .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                .Where(c => c.HasOutput)
+                                                .ToArray();
+
+            affectedItems.ForEachElementDo(ClearWaveConditionsCalculationOutput);
 
             return affectedItems;
         }

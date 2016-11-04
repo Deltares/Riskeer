@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -229,6 +230,53 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
             // Assert
             CollectionAssert.IsEmpty(affectedItems);
+        }
+
+        [Test]
+        public void ClearAllWaveConditionsCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllWaveConditionsCalculationOutput_WithOutput_ClearsCalculationsOutputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
+            StabilityStoneCoverWaveConditionsCalculation calculation1 = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            StabilityStoneCoverWaveConditionsCalculation calculation2 = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            StabilityStoneCoverWaveConditionsCalculation calculation3 = new StabilityStoneCoverWaveConditionsCalculation();
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedItems = StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(failureMechanism);
+
+            // Assert
+            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children.Cast<StabilityStoneCoverWaveConditionsCalculation>())
+            {
+                Assert.IsNull(calculation.Output);
+            }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
         }
     }
 }
