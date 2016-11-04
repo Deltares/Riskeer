@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
 
             // Assert
             Assert.AreEqual(1, validationMessages.Length);
-            var expectedMessage = string.Format("De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", paramName);
+            var expectedMessage = string.Format("De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", paramName);
             StringAssert.StartsWith(expectedMessage, validationMessages[0]);
         }
     }

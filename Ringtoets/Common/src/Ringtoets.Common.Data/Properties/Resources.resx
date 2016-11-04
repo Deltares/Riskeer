@@ -157,7 +157,7 @@
     <value>Gemiddelde moet groter zijn dan 0.</value>
   </data>
   <data name="StandardDeviation_Should_be_greater_or_equal_zero" xml:space="preserve">
-    <value>Standaard afwijking (σ) moet groter zijn dan of gelijk zijn aan 0.</value>
+    <value>Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.</value>
   </data>
   <data name="CalculationGroup_DefaultName" xml:space="preserve">
     <value>Nieuwe map</value>
