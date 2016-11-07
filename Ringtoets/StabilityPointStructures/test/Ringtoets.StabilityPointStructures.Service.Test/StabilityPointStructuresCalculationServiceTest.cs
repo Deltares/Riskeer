@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -157,7 +158,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void Validate_CalculationWithoutStructuresValidHydraulicBoundaryDatabase_LogStartAndEndAndErrorMessage()
+        public void Validate_CalculationWithoutStructuresValidHydraulicBoundaryDatabase_LogStartEndAndErrorMessage()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -206,7 +207,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
         [Test]
         [Combinatorial]
-        public void Validate_UseBreakWaterWithInvalidBreakWaterHeight_LogStartAndEndAndErrorMessageAndThrowsException(
+        public void Validate_UseBreakWaterWithInvalidBreakWaterHeight_LogStartEndError(
             [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)] StabilityPointStructureInflowModelType inflowModelType,
             [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)] LoadSchematizationType loadSchematizationType,
             [Values(double.NaN, double.PositiveInfinity, double.NegativeInfinity)] double breakWaterHeight)

@@ -39,9 +39,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("value")]
+        [TestCase(null, TestName = "GetCalculationName_ExpectedValue(null)")]
+        [TestCase("", TestName = "GetCalculationName_ExpectedValue(empty)")]
+        [TestCase("value", TestName = "GetCalculationName_ExpectedValue(value)")]
         public void GetCalculationName_ValidNames_ExpectedValue(string name)
         {
             // Setup
@@ -109,9 +109,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("value")]
+        [TestCase(null, TestName = "GetCalculationFailedUnexplainedMessage_ExpectedValues(null)")]
+        [TestCase("", TestName = "GetCalculationFailedUnexplainedMessage_ExpectedValues(empty)")]
+        [TestCase("value", TestName = "GetCalculationFailedUnexplainedMessage_ExpectedValues(value)")]
         public void GetCalculationFailedUnexplainedMessage_ValidNames_ExpectedValues(string name)
         {
             // Setup
