@@ -127,10 +127,10 @@
     <value>Dijkgeometrie</value>
   </data>
   <data name="DikeGeometry_Roughness_Description" xml:space="preserve">
-    <value>Lijst met de ruwheid van elk onderdeel.</value>
+    <value>Lijst met invloedsfactoren voor ruwheid op het talud van elk onderdeel.</value>
   </data>
   <data name="DikeGeometry_Roughness_DisplayName" xml:space="preserve">
-    <value>Ruwheden [-]</value>
+    <value>Ruwheid invloedsfactoren [-]</value>
   </data>
   <data name="DikeHeight_Description" xml:space="preserve">
     <value>De hoogte van de dijk.</value>

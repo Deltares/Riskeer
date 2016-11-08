@@ -155,8 +155,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor roughnessesProperty = dynamicProperties[roughnessesPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(roughnessesProperty,
                                                                             "Misc",
-                                                                            "Ruwheden [-]",
-                                                                            "Lijst met de ruwheid van elk onderdeel.",
+                                                                            "Ruwheid invloedsfactoren [-]",
+                                                                            "Lijst met invloedsfactoren voor ruwheid op het talud van elk onderdeel.",
                                                                             true);
 
             mockRepository.VerifyAll();
