@@ -37,22 +37,32 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLinesContext"/>.
         /// </summary>
         /// <param name="surfaceLines">The collection to update.</param>
+        /// <param name="failureMechanism">The failure mechanism</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public RingtoetsPipingSurfaceLinesContext(ObservableList<RingtoetsPipingSurfaceLine> surfaceLines, IAssessmentSection assessmentSection)
+        public RingtoetsPipingSurfaceLinesContext(ObservableList<RingtoetsPipingSurfaceLine> surfaceLines, 
+            PipingFailureMechanism failureMechanism, 
+            IAssessmentSection assessmentSection)
             : base(surfaceLines)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
             }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
 
             AssessmentSection = assessmentSection;
+            FailureMechanism = failureMechanism;
         }
 
         /// <summary>
         /// Gets the assessment section which the context belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
+
+        public PipingFailureMechanism FailureMechanism { get; private set; }
     }
 }

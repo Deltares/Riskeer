@@ -25,6 +25,7 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Primitives;
 
@@ -41,10 +42,12 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanism = new PipingFailureMechanism();
+
             var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
 
             // Call
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSectionMock);
+            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<RingtoetsPipingSurfaceLine>>>(context);
@@ -58,13 +61,33 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLinesContext(surfaceLines, null);
+            TestDelegate test = () => new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameteredConstructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
+
+            // Call
+            TestDelegate call = () => new RingtoetsPipingSurfaceLinesContext(surfaceLines, null, assessmentSection);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+            mocks.VerifyAll();
         }
     }
 }

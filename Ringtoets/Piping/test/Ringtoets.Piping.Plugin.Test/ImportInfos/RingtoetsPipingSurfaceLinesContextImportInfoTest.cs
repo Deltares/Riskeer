@@ -30,6 +30,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
@@ -94,9 +95,10 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = null;
             mocks.ReplayAll();
 
+            var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
 
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -115,9 +117,10 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
+            var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
 
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -158,9 +161,10 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
 
+            var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
 
-            var importTarget = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSection);
+            var importTarget = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(importTarget, filePath);

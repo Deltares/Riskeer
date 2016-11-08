@@ -332,25 +332,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point3D(4, 5, 6)
                 };
 
-                var geometry2 = new Collection<Point3D>
-                {
-                    new Point3D(11, 22, 33),
-                    new Point3D(44, 55, 66)
-                };
-
                 surfaceLine.SetGeometry(geometry1);
-                pipingFailureMechanism.SurfaceLines.Add(surfaceLine);
 
                 view.Data = pipingContext;
 
                 var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
 
-                // Precondition
-                AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, surfaceLineMapData);
-
                 // Call
-                surfaceLine.SetGeometry(geometry2);
-                pipingFailureMechanism.NotifyObservers();
+                pipingFailureMechanism.SurfaceLines.Add(surfaceLine);
+                pipingFailureMechanism.SurfaceLines.NotifyObservers();
 
                 // Assert
                 AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, surfaceLineMapData);

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
@@ -217,7 +218,10 @@ namespace Ringtoets.Piping.Plugin
                 Image = pipingSurfaceLine => PipingFormsResources.PipingSurfaceLineIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
-                                                                                 .Build()
+                                                                                 .AddDeleteItem()
+                                                                                 .Build(),
+                CanRemove = (nodeData, parentData) => true,
+                OnNodeRemoved = OnSurfaceLineRemoved
             };
 
             yield return new TreeNodeInfo<StochasticSoilModelsContext>
@@ -460,6 +464,33 @@ namespace Ringtoets.Piping.Plugin
                     .ToList());
         }
 
+        #region RingtoetsPipingSurfaceLine TreeNodeInfo
+
+        private void OnSurfaceLineRemoved(RingtoetsPipingSurfaceLine nodeData, object parentData)
+        {
+            var context = (RingtoetsPipingSurfaceLinesContext) parentData;
+            var changedObservables = new List<IObservable>();
+            PipingFailureMechanism failureMechanism = context.FailureMechanism;
+            foreach (PipingCalculationScenario pipingCalculationScenario in failureMechanism.Calculations)
+            {
+                if (ReferenceEquals(pipingCalculationScenario.InputParameters.SurfaceLine, nodeData))
+                {
+                    pipingCalculationScenario.InputParameters.SurfaceLine = null;
+                    changedObservables.Add(pipingCalculationScenario.InputParameters);
+                }
+            }
+
+            context.WrappedData.Remove(nodeData);
+            changedObservables.Add(context.WrappedData);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        #endregion
+
         # region Piping TreeNodeInfo
 
         private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
@@ -533,7 +564,7 @@ namespace Ringtoets.Piping.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                new RingtoetsPipingSurfaceLinesContext(failureMechanism.SurfaceLines, assessmentSection),
+                new RingtoetsPipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };

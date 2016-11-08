@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Plugin;
@@ -88,8 +89,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
-            var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSection);
+            var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             var text = info.Text(ringtoetsPipingSurfaceLines);
@@ -105,8 +107,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
-            var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSection);
+            var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             var image = info.Image(ringtoetsPipingSurfaceLines);
@@ -122,8 +125,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
-            var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSection);
+            var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             var foreColor = info.ForeColor(ringtoetsPipingSurfaceLines);
@@ -145,7 +149,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 ringtoetsPipingSurfaceLine1, ringtoetsPipingSurfaceLine2
             };
 
-            var ringtoetsPipingSurfaceLineContext = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSection);
+            var failureMechanism = new PipingFailureMechanism();
+
+            var ringtoetsPipingSurfaceLineContext = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -169,7 +175,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 ringtoetsPipingSurfaceLine1, ringtoetsPipingSurfaceLine2
             };
 
-            var ringtoetsPipingSurfaceLineContext = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSection);
+            var failureMechanism = new PipingFailureMechanism();
+
+            var ringtoetsPipingSurfaceLineContext = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 

@@ -39,6 +39,7 @@ namespace Ringtoets.Piping.Forms.Views
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
+        private readonly Observer surfaceLinesObserver;
         private readonly Observer stochasticSoilModelsObserver;
 
         private readonly MapLineData referenceLineMapData;
@@ -60,6 +61,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(UpdateMapData);
+            surfaceLinesObserver = new Observer(UpdateMapData);
             stochasticSoilModelsObserver = new Observer(UpdateMapData);
 
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -95,6 +97,7 @@ namespace Ringtoets.Piping.Forms.Views
                 {
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
+                    surfaceLinesObserver.Observable = null;
                     stochasticSoilModelsObserver.Observable = null;
 
                     Map.ResetMapData();
@@ -103,6 +106,7 @@ namespace Ringtoets.Piping.Forms.Views
 
                 failureMechanismObserver.Observable = data.WrappedData;
                 assessmentSectionObserver.Observable = data.Parent;
+                surfaceLinesObserver.Observable = data.WrappedData.SurfaceLines;
                 stochasticSoilModelsObserver.Observable = data.WrappedData.StochasticSoilModels;
 
                 UpdateMapData();
