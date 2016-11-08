@@ -39,6 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         DikesPiping,
         StructuresOvertopping,
         StructuresClosure,
-        StructuresStructuralFailure
+        StructuresStructuralFailure,
+        DunesBoundaryConditions
     }
 }

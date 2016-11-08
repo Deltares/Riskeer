@@ -124,6 +124,10 @@ namespace Ringtoets.Common.IO.HydraRing
                 {
                     HydraRingFailureMechanismType.StructuresStructuralFailure,
                     new DesignTablesSetting(double.NaN, double.NaN)
+                },
+                {
+                    HydraRingFailureMechanismType.DunesBoundaryConditions,
+                    new DesignTablesSetting(2, 4)
                 }
             };
         }

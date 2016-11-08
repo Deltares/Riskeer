@@ -127,6 +127,12 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                         434,
                         435
                     }, 4607)
+                },
+                {
+                    HydraRingFailureMechanismType.DunesBoundaryConditions, new FailureMechanismDefaults(1, new[]
+                    {
+                        6
+                    }, 8)
                 }
             };
         }

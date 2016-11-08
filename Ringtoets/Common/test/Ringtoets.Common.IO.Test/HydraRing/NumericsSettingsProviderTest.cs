@@ -120,6 +120,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 433, 1, 1, 10000, 40000)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 434, 11, 4, 10000, 40000)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 435, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.DunesBoundaryConditions, 6, 11, 4, 10000, 40000)]
         public void GetNumericsSetting_UnknownLocationId_ReturnsExpectedDefaultNumericsSetting(
             HydraRingFailureMechanismType failureMechanismType, int subMechanismId, int expectedCalculationTechniqueId,
             int expectedFormStartMethod, int expectedDsMinNumberOfIterations, int expectedDsMaxNumberOfIterations)

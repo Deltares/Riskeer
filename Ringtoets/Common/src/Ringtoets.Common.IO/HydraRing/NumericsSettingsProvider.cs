@@ -238,6 +238,14 @@ namespace Ringtoets.Common.IO.HydraRing
                             435, numericsSettingDirs
                         }
                     }
+                },
+                {
+                    HydraRingFailureMechanismType.DunesBoundaryConditions, new Dictionary<int, NumericsSetting>
+                    {
+                        {
+                            6, numericsSettingDirs
+                        }
+                    }
                 }
             };
         }

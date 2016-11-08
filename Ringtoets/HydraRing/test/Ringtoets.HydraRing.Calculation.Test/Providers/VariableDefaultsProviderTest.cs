@@ -154,6 +154,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 134, 999999)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 135, 999999)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 136, 999999)]
+        [TestCase(HydraRingFailureMechanismType.DunesBoundaryConditions, 26, 300)]
         public void GetVariableDefaults_ReturnsExpectedVariableDefaults(HydraRingFailureMechanismType failureMechanismType, int variableId, int expectedCorrelationLength)
         {
             // Setup

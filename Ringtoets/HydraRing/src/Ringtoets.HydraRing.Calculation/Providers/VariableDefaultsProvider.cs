@@ -473,6 +473,14 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             136, new VariableDefaults(notApplicableCorrelationLength)
                         }
                     }
+                },
+                {
+                    HydraRingFailureMechanismType.DunesBoundaryConditions, new Dictionary<int, VariableDefaults>
+                    {
+                        {
+                            26, new VariableDefaults(300)
+                        }
+                    }
                 }
             };
         }
