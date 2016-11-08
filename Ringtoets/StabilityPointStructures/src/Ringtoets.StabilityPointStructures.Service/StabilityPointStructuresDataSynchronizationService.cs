@@ -44,7 +44,8 @@ namespace Ringtoets.StabilityPointStructures.Service
         /// clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> ClearAllCalculationOutput(StabilityPointStructuresFailureMechanism failureMechanism)
+        public static IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> ClearAllCalculationOutput(
+            StabilityPointStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -71,7 +72,8 @@ namespace Ringtoets.StabilityPointStructures.Service
         /// removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> ClearAllCalculationOutputAndHydraulicBoundaryLocations(StabilityPointStructuresFailureMechanism failureMechanism)
+        public static IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+            StabilityPointStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {

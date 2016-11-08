@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -32,53 +33,6 @@ namespace Ringtoets.Piping.Service.Test
     [TestFixture]
     public class PipingDataSynchronizationServiceTest
     {
-        [Test]
-        public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => PipingDataSynchronizationService.ClearAllCalculationOutput(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutput_WithOutput_ClearsCalculationsOutputAndReturnsAffectedCalculations()
-        {
-            // Setup
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
-            var calculation1 = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput()
-            };
-
-            var calculation2 = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput()
-            };
-
-            var calculation3 = new PipingCalculation(new GeneralPipingInput());
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<PipingCalculation> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
-
-            // Assert
-            foreach (PipingCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<PipingCalculation>())
-            {
-                Assert.IsNull(calculation.Output);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-        }
-
         [Test]
         public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
         {
@@ -107,7 +61,34 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutAssessmentSection_ThrowsArgumentNullException()
+        public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => PipingDataSynchronizationService.ClearAllCalculationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutput_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            var expectedAffectedCalculations = failureMechanism.Calculations.Where(c => c.HasOutput)
+                                                               .ToArray();
+
+            // Call
+            IEnumerable<PipingCalculation> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
+
+            // Assert
+            Assert.IsFalse(failureMechanism.Calculations.Any(c => c.HasOutput));
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
@@ -118,13 +99,34 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
         {
             // Setup
+            PipingFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            var expectedAffectedCalculations = failureMechanism.Calculations.Cast<PipingCalculation>()
+                                                               .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
+                                                               .ToArray();
+
+            // Call
+            IEnumerable<PipingCalculation> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            Assert.IsFalse(failureMechanism.Calculations.Cast<PipingCalculation>()
+                                           .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+        }
+
+        private static PipingFailureMechanism CreateFullyConfiguredFailureMechanism()
+        {
             var failureMechanism = new PipingFailureMechanism();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
-            var calculation1 = new PipingCalculation(new GeneralPipingInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculationWithOutput = new PipingCalculation(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput()
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -132,8 +134,20 @@ namespace Ringtoets.Piping.Service.Test
                 },
                 Output = new TestPipingOutput()
             };
+            var calculationWithHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
 
-            var calculation2 = new PipingCalculation(new GeneralPipingInput())
+            var subCalculation = new PipingCalculation(new GeneralPipingInput());
+            var subCalculationWithOutput = new PipingCalculation(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput()
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -141,37 +155,7 @@ namespace Ringtoets.Piping.Service.Test
                 },
                 Output = new TestPipingOutput()
             };
-
-            var calculation3 = new PipingCalculation(new GeneralPipingInput());
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<PipingCalculation> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
-
-            // Assert
-            foreach (PipingCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<PipingCalculation>())
-            {
-                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-                Assert.IsNull(calculation.Output);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
-
-            var calculation1 = new PipingCalculation(new GeneralPipingInput())
+            var subCalculationWithHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -179,70 +163,19 @@ namespace Ringtoets.Piping.Service.Test
                 }
             };
 
-            var calculation2 = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
 
-            var calculation3 = new PipingCalculation(new GeneralPipingInput());
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(subCalculation);
+            calculationGroup.Children.Add(subCalculationWithOutput);
+            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
+            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<PipingCalculation> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
-
-            // Assert
-            foreach (PipingCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<PipingCalculation>())
-            {
-                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOutputAndReturnsAffectedCalculations()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var calculation1 = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput()
-            };
-
-            var calculation2 = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput()
-            };
-
-            var calculation3 = new PipingCalculation(new GeneralPipingInput());
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<PipingCalculation> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
-
-            // Assert
-            foreach (PipingCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<PipingCalculation>())
-            {
-                Assert.IsNull(calculation.Output);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
+            return failureMechanism;
         }
     }
 }

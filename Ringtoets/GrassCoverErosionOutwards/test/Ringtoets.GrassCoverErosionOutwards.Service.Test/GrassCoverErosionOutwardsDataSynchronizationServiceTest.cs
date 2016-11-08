@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
@@ -145,131 +146,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation2 = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation3 = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            var expectedAffectedCalculations = failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                               .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
+                                                               .ToArray();
 
             // Call
-            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems =
+                GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>())
-            {
-                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-                Assert.IsNull(calculation.Output);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
-        {
-            // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation2 = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation3 = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
-
-            // Assert
-            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>())
-            {
-                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOutputAndReturnsAffectedCalculations()
-        {
-            // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation2 = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation3 = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
-
-            // Assert
-            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>())
-            {
-                Assert.IsNull(calculation.Output);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
+            Assert.IsFalse(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                           .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            CollectionAssert.AreEqual(expectedAffectedCalculations, affectedItems);
         }
 
         [Test]
@@ -284,39 +176,82 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutput_WithOutput_ClearsCalculationsOutputAndReturnsAffectedCalculations()
+        public void ClearAllWaveConditionsCalculationOutput_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation2 = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation3 = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            var expectedAffectedCalculations = failureMechanism.Calculations.Where(c => c.HasOutput)
+                                                               .ToArray();
 
             // Call
-            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(failureMechanism);
+            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems =
+                GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(failureMechanism);
 
             // Assert
-            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>())
+            Assert.IsFalse(failureMechanism.Calculations.Any(c => c.HasOutput));
+            CollectionAssert.AreEqual(expectedAffectedCalculations, affectedItems);
+        }
+
+        private static GrassCoverErosionOutwardsFailureMechanism CreateFullyConfiguredFailureMechanism()
+        {
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Assert.IsNull(calculation.Output);
-            }
-            CollectionAssert.AreEqual(new[]
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                calculation1,
-                calculation2
-            }, affectedItems);
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var calculationWithHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var subCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var subCalculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var subCalculationWithHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(subCalculation);
+            calculationGroup.Children.Add(subCalculationWithOutput);
+            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
+            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+
+            return failureMechanism;
         }
     }
 }

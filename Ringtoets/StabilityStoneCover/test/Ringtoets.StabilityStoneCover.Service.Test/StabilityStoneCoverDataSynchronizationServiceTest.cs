@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -70,7 +70,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutFailureMechanism_ThrowsArgumentNullException()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(null);
@@ -81,155 +81,22 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsCalculationsAndReturnsAffectedCalculations()
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
-
-            var calculation1 = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            var calculation2 = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            var calculation3 = new StabilityStoneCoverWaveConditionsCalculation();
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
+            StabilityStoneCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            var expectedAffectedCalculations = failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                               .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
+                                                               .ToArray();
 
             // Call
-            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedItems = StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedItems =
+                StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children
-                                                                                                 .Cast<StabilityStoneCoverWaveConditionsCalculation>())
-            {
-                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-                Assert.IsNull(calculation.Output);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
-        {
-            // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
-
-            var calculation1 = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var calculation2 = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var calculation3 = new StabilityStoneCoverWaveConditionsCalculation();
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedItems = StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
-
-            // Assert
-            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children
-                                                                                                 .Cast<StabilityStoneCoverWaveConditionsCalculation>())
-            {
-                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOutputAndReturnsAffectedCalculations()
-        {
-            // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var calculation1 = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            var calculation2 = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            var calculation3 = new StabilityStoneCoverWaveConditionsCalculation();
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedItems = StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
-
-            // Assert
-            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children
-                                                                                                 .Cast<StabilityStoneCoverWaveConditionsCalculation>())
-            {
-                Assert.IsNull(calculation.Output);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationWithoutOutputAndHydraulicBoundaryLocation_ReturnNoAffectedCalculations()
-        {
-            // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var calculation1 = new StabilityStoneCoverWaveConditionsCalculation();
-            var calculation2 = new StabilityStoneCoverWaveConditionsCalculation();
-            var calculation3 = new StabilityStoneCoverWaveConditionsCalculation();
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedItems = StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
-
-            // Assert
-            CollectionAssert.IsEmpty(affectedItems);
+            Assert.IsFalse(failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                           .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
         }
 
         [Test]
@@ -244,39 +111,100 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutput_WithOutput_ClearsCalculationsOutputAndReturnsAffectedCalculations()
+        public void ClearAllWaveConditionsCalculationOutput_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
-            StabilityStoneCoverWaveConditionsCalculation calculation1 = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            StabilityStoneCoverWaveConditionsCalculation calculation2 = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            StabilityStoneCoverWaveConditionsCalculation calculation3 = new StabilityStoneCoverWaveConditionsCalculation();
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
+            StabilityStoneCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            ICalculation[] expectedAffectedCalculations = failureMechanism.Calculations.Where(c => c.HasOutput).ToArray();
 
             // Call
-            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedItems = StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(failureMechanism);
+            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedItems =
+                StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(failureMechanism);
 
             // Assert
-            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children.Cast<StabilityStoneCoverWaveConditionsCalculation>())
+            Assert.IsFalse(failureMechanism.Calculations.Any(c => c.HasOutput));
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllWaveConditionsCalculationOutput_CalculationWithoutOutput_ReturnNoAffectedCalculations()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+
+            // Call
+            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedItems =
+                StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(failureMechanism);
+
+            // Assert
+            CollectionAssert.IsEmpty(affectedItems);
+        }
+
+        private static StabilityStoneCoverFailureMechanism CreateFullyConfiguredFailureMechanism()
+        {
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Assert.IsNull(calculation.Output);
-            }
-            CollectionAssert.AreEqual(new[]
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                calculation1,
-                calculation2
-            }, affectedItems);
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var calculationWithHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var subCalculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var subCalculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var subCalculationWithHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(subCalculation);
+            calculationGroup.Children.Add(subCalculationWithOutput);
+            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
+            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+
+            return failureMechanism;
         }
     }
 }

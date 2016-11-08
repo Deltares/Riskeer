@@ -92,7 +92,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// removal of data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        public static IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -134,7 +135,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> ClearAllWaveConditionsCalculationOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        public static IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> ClearAllWaveConditionsCalculationOutput(
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -142,8 +144,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             }
 
             var affectedItems = failureMechanism.Calculations
-                                                .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
                                                 .Where(c => c.HasOutput)
+                                                .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
                                                 .ToArray();
 
             affectedItems.ForEachElementDo(ClearWaveConditionsCalculationOutput);

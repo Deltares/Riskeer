@@ -24,10 +24,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -62,100 +63,43 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithAssessmentSection_ClearsFailureMechanismCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput()
-            };
-
-            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
-            {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
-            };
-
-            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
-            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var emptyClosingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>();
-            var closingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var emptyStabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var stabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var stabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            var emptyGrassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var grassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            var emptyWaveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var waveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
-            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(emptyClosingStructuresCalculation);
-            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(closingStructuresCalculation);
-            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(emptyStabilityPointStructuresCalculation);
-            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(stabilityPointStructuresCalculation);
-            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
-            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(stabilityStoneCoverWaveConditionsCalculation);
-            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(emptyGrassCoverErosionOutwardsWaveConditionsCalculation);
-            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(grassCoverErosionOutwardsWaveConditionsCalculation);
-            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(emptyWaveImpactAshpaltCoverWaveConditionsCalculation);
-            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(waveImpactAshpaltCoverWaveConditionsCalculation);
+            var assessmentSection = GetFullyConfiguredAssessmentSection();
+            var expectedAffectedItems = new List<ICalculation>();
+            expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.HeightStructures.Calculations
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.PipingFailureMechanism.Calculations
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                            .Where(c => c.HasOutput));
 
             // Call
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Assert
-            Assert.IsNull(pipingCalculation.Output);
-            Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
-            Assert.IsNull(heightStructuresCalculation.Output);
-            Assert.IsNull(closingStructuresCalculation.Output);
-            Assert.IsNull(stabilityPointStructuresCalculation.Output);
-            Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.Output);
-            Assert.IsNull(grassCoverErosionOutwardsWaveConditionsCalculation.Output);
-            Assert.IsNull(waveImpactAshpaltCoverWaveConditionsCalculation.Output);
-            CollectionAssert.AreEqual(new ICalculation[]
-            {
-                pipingCalculation,
-                grassCoverErosionInwardsCalculation,
-                stabilityStoneCoverWaveConditionsCalculation,
-                waveImpactAshpaltCoverWaveConditionsCalculation,
-                grassCoverErosionOutwardsWaveConditionsCalculation,
-                heightStructuresCalculation,
-                closingStructuresCalculation,
-                stabilityPointStructuresCalculation
-            }, affectedItems);
+            Assert.IsFalse(assessmentSection.ClosingStructures.Calculations.Any(c => c.HasOutput));
+            Assert.IsFalse(assessmentSection.GrassCoverErosionInwards.Calculations.Any(c => c.HasOutput));
+            Assert.IsFalse(assessmentSection.GrassCoverErosionOutwards.Calculations.Any(c => c.HasOutput));
+            Assert.IsFalse(assessmentSection.HeightStructures.Calculations.Any(c => c.HasOutput));
+            Assert.IsFalse(assessmentSection.PipingFailureMechanism.Calculations.Any(c => c.HasOutput));
+            Assert.IsFalse(assessmentSection.StabilityPointStructures.Calculations.Any(c => c.HasOutput));
+            Assert.IsFalse(assessmentSection.StabilityStoneCover.Calculations.Any(c => c.HasOutput));
+            Assert.IsFalse(assessmentSection.WaveImpactAsphaltCover.Calculations.Any(c => c.HasOutput));
+
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutAssessmentSection_ThrowsArgumentNullException()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
@@ -166,387 +110,58 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_VariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
-            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new TestPipingOutput()
-            };
-
-            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
-            };
-
-            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
-            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var emptyClosingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>();
-            var closingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var emptyStabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var stabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var stabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            var emptyGrassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var grassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            var emptyWaveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var waveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
-            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(emptyClosingStructuresCalculation);
-            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(closingStructuresCalculation);
-            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(emptyStabilityPointStructuresCalculation);
-            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(stabilityPointStructuresCalculation);
-            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
-            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(stabilityStoneCoverWaveConditionsCalculation);
-            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(grassCoverErosionOutwardsWaveConditionsCalculation);
-            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(emptyGrassCoverErosionOutwardsWaveConditionsCalculation);
-            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(emptyWaveImpactAshpaltCoverWaveConditionsCalculation);
-            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(waveImpactAshpaltCoverWaveConditionsCalculation);
-
-            // Call
-
-            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
-
-            // Assert
-            Assert.IsNull(pipingCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(grassCoverErosionInwardsCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(heightStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(grassCoverErosionOutwardsWaveConditionsCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(waveImpactAshpaltCoverWaveConditionsCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(pipingCalculation.Output);
-            Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
-            Assert.IsNull(heightStructuresCalculation.Output);
-            Assert.IsNull(closingStructuresCalculation.Output);
-            Assert.IsNull(stabilityPointStructuresCalculation.Output);
-            Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.Output);
-            Assert.IsNull(grassCoverErosionOutwardsWaveConditionsCalculation.Output);
-            Assert.IsNull(waveImpactAshpaltCoverWaveConditionsCalculation.Output);
-            CollectionAssert.AreEqual(new ICalculation[]
-            {
-                pipingCalculation,
-                grassCoverErosionInwardsCalculation,
-                stabilityStoneCoverWaveConditionsCalculation,
-                waveImpactAshpaltCoverWaveConditionsCalculation,
-                grassCoverErosionOutwardsWaveConditionsCalculation,
-                heightStructuresCalculation,
-                closingStructuresCalculation,
-                stabilityPointStructuresCalculation
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
-            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
-            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var emptyClosingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>();
-            var closingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var emptyStabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var stabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var stabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var emptyGrassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var grassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var emptyWaveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var waveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
-            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(emptyClosingStructuresCalculation);
-            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(closingStructuresCalculation);
-            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(emptyStabilityPointStructuresCalculation);
-            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(stabilityPointStructuresCalculation);
-            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
-            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(stabilityStoneCoverWaveConditionsCalculation);
-            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(emptyGrassCoverErosionOutwardsWaveConditionsCalculation);
-            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(grassCoverErosionOutwardsWaveConditionsCalculation);
-            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(emptyWaveImpactAshpaltCoverWaveConditionsCalculation);
-            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(waveImpactAshpaltCoverWaveConditionsCalculation);
+            var assessmentSection = GetFullyConfiguredAssessmentSection();
+            var expectedAffectedItems = new List<ICalculation>();
+            expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
+                                                            .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
+                                                            .Cast<GrassCoverErosionInwardsCalculation>()
+                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                            .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.HeightStructures.Calculations
+                                                            .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.PipingFailureMechanism.Calculations
+                                                            .Cast<PipingCalculation>()
+                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
+                                                            .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                            .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                            .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
 
             // Call
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
 
             // Assert
-            Assert.IsNull(pipingCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(grassCoverErosionInwardsCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(heightStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(closingStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(stabilityPointStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(grassCoverErosionOutwardsWaveConditionsCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(waveImpactAshpaltCoverWaveConditionsCalculation.InputParameters.HydraulicBoundaryLocation);
-            CollectionAssert.AreEqual(new ICalculation[]
-            {
-                pipingCalculation,
-                grassCoverErosionInwardsCalculation,
-                stabilityStoneCoverWaveConditionsCalculation,
-                waveImpactAshpaltCoverWaveConditionsCalculation,
-                grassCoverErosionOutwardsWaveConditionsCalculation,
-                heightStructuresCalculation,
-                closingStructuresCalculation,
-                stabilityPointStructuresCalculation
-            }, affectedItems);
-        }
+            Assert.IsFalse(assessmentSection.ClosingStructures.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            Assert.IsFalse(assessmentSection.GrassCoverErosionInwards.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
+                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            Assert.IsFalse(assessmentSection.GrassCoverErosionOutwards.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            Assert.IsFalse(assessmentSection.HeightStructures.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
+                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            Assert.IsFalse(assessmentSection.PipingFailureMechanism.Calculations.Cast<PipingCalculation>()
+                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            Assert.IsFalse(assessmentSection.StabilityPointStructures.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            Assert.IsFalse(assessmentSection.StabilityStoneCover.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            Assert.IsFalse(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
 
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOutputAndReturnsAffectedCalculations()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput()
-            };
-
-            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
-            {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
-            };
-
-            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
-            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var emptyClosingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>();
-            var closingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var emptyStabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var stabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var stabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            var emptyGrassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var grassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            var emptyWaveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var waveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
-            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(emptyClosingStructuresCalculation);
-            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(closingStructuresCalculation);
-            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(emptyStabilityPointStructuresCalculation);
-            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(stabilityPointStructuresCalculation);
-            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
-            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(stabilityStoneCoverWaveConditionsCalculation);
-            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(emptyGrassCoverErosionOutwardsWaveConditionsCalculation);
-            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(grassCoverErosionOutwardsWaveConditionsCalculation);
-            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(emptyWaveImpactAshpaltCoverWaveConditionsCalculation);
-            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(waveImpactAshpaltCoverWaveConditionsCalculation);
-
-            // Call
-            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
-
-            // Assert
-            Assert.IsNull(pipingCalculation.Output);
-            Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
-            Assert.IsNull(heightStructuresCalculation.Output);
-            Assert.IsNull(closingStructuresCalculation.Output);
-            Assert.IsNull(stabilityPointStructuresCalculation.Output);
-            Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.Output);
-            Assert.IsNull(grassCoverErosionOutwardsWaveConditionsCalculation.Output);
-            Assert.IsNull(waveImpactAshpaltCoverWaveConditionsCalculation.Output);
-            CollectionAssert.AreEqual(new ICalculation[]
-            {
-                pipingCalculation,
-                grassCoverErosionInwardsCalculation,
-                stabilityStoneCoverWaveConditionsCalculation,
-                waveImpactAshpaltCoverWaveConditionsCalculation,
-                grassCoverErosionOutwardsWaveConditionsCalculation,
-                heightStructuresCalculation,
-                closingStructuresCalculation,
-                stabilityPointStructuresCalculation
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithoutOutputAndHydraulicBoundaryLocation_ReturnNoAffectedItems()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
-            var emptyClosingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>();
-            var emptyStabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var emptyGrassCoverErosionOutwardsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var emptyWaveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
-            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(emptyClosingStructuresCalculation);
-            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(emptyStabilityPointStructuresCalculation);
-            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
-            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(emptyGrassCoverErosionOutwardsCalculation);
-            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(emptyWaveImpactAshpaltCoverWaveConditionsCalculation);
-
-            // Call
-            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
-
-            // Assert
-            CollectionAssert.IsEmpty(affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
         [Test]
@@ -581,7 +196,8 @@ namespace Ringtoets.Integration.Service.Test
         [TestCase(1.0, 3.0)]
         [TestCase(3.8, double.NaN)]
         [TestCase(double.NaN, 6.9)]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsTrue(double waveHeight, double designWaterLevel)
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsTrue(
+            double waveHeight, double designWaterLevel)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -643,7 +259,8 @@ namespace Ringtoets.Integration.Service.Test
         [Test]
         [TestCase(3.5, double.NaN)]
         [TestCase(double.NaN, 8.3)]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnTrue(double designWaterLevel, double waveHeight)
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnTrue(
+            double designWaterLevel, double waveHeight)
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
@@ -709,7 +326,8 @@ namespace Ringtoets.Integration.Service.Test
         [Test]
         [TestCase(3.5, double.NaN)]
         [TestCase(double.NaN, 8.3)]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnTrue(double designWaterLevel, double waveHeight)
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnTrue(
+            double designWaterLevel, double waveHeight)
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0)
@@ -750,6 +368,388 @@ namespace Ringtoets.Integration.Service.Test
             Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculationConvergence);
 
             Assert.IsTrue(affected);
+        }
+
+        private static AssessmentSection GetFullyConfiguredAssessmentSection()
+        {
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
+
+            SetFullyConfiguredStructuresFailureMechanism<ClosingStructuresInput, ClosingStructure>(
+                assessmentSection.ClosingStructures, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation);
+            SetFullyConfiguredStructuresFailureMechanism<HeightStructuresInput, HeightStructure>(
+                assessmentSection.HeightStructures, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.PipingFailureMechanism, hydraulicBoundaryLocation);
+            SetFullyConfiguredStructuresFailureMechanism<StabilityPointStructuresInput, StabilityPointStructure>(
+                assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.StabilityStoneCover, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocation);
+
+            return assessmentSection;
+        }
+
+        private static void SetFullyConfiguredFailureMechanism(PipingFailureMechanism failureMechanism,
+                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculationWithOutput = new PipingCalculation(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput()
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new TestPipingOutput()
+            };
+            var calculationWithHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var subCalculation = new PipingCalculation(new GeneralPipingInput());
+            var subCalculationWithOutput = new PipingCalculation(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput()
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new TestPipingOutput()
+            };
+            var subCalculationWithHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(subCalculation);
+            calculationGroup.Children.Add(subCalculationWithOutput);
+            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
+            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+        }
+
+        private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationWithOutput = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+            };
+            var calculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var subCalculation = new GrassCoverErosionInwardsCalculation();
+            var subCalculationWithOutput = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+            };
+            var subCalculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(subCalculation);
+            calculationGroup.Children.Add(subCalculationWithOutput);
+            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
+            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+        }
+
+        private static void SetFullyConfiguredStructuresFailureMechanism<TCalculationInput, TStructureBase>(
+            ICalculatableFailureMechanism failureMechanism,
+            HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            where TStructureBase : StructureBase
+            where TCalculationInput : StructuresInputBase<TStructureBase>, new()
+        {
+            var calculation = new StructuresCalculation<TCalculationInput>();
+            var calculationWithOutput = new StructuresCalculation<TCalculationInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            var calculationWithHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var subCalculation = new StructuresCalculation<TCalculationInput>();
+            var subCalculationWithOutput = new StructuresCalculation<TCalculationInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            var subCalculationWithHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(subCalculation);
+            calculationGroup.Children.Add(subCalculationWithOutput);
+            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
+            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+        }
+
+        private static void SetFullyConfiguredFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism,
+                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var calculationWithHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var subCalculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var subCalculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var subCalculationWithHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(subCalculation);
+            calculationGroup.Children.Add(subCalculationWithOutput);
+            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
+            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+        }
+
+        private static void SetFullyConfiguredFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var calculationWithOutput = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var calculationWithHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var subCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var subCalculationWithOutput = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var subCalculationWithHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(subCalculation);
+            calculationGroup.Children.Add(subCalculationWithOutput);
+            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
+            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+        }
+
+        private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var calculationWithHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var subCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var subCalculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var subCalculationWithHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(subCalculation);
+            calculationGroup.Children.Add(subCalculationWithOutput);
+            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
+            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
         }
     }
 }

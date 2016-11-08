@@ -23,10 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.StabilityPointStructures.Data;
 
 namespace Ringtoets.StabilityPointStructures.Service.Test
 {
@@ -45,59 +46,24 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutput_WithOutput_ClearsCalculationsOutput()
+        public void ClearAllCalculationOutput_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var calculation2 = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var calculation3 = new StructuresCalculation<StabilityPointStructuresInput>();
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
+            StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            var expectedAffectedCalculations = failureMechanism.Calculations.Where(c => c.HasOutput)
+                                                               .ToArray();
 
             // Call
-            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> affectedItems = StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
+            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> affectedItems =
+                StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
 
             // Assert
-            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<StabilityPointStructuresInput>>())
-            {
-                Assert.IsNull(calculation.Output);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
+            Assert.IsFalse(failureMechanism.Calculations.Any(c => c.HasOutput));
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
         }
 
         [Test]
-        public void ClearCalculationOutput_WithCalculation_ClearsOutput()
-        {
-            // Setup
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            // Call
-            calculation.ClearOutput();
-
-            // Assert
-            Assert.IsNull(calculation.Output);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutFailureMechanism_ThrowsArgumentNullException()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
@@ -108,13 +74,35 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
+            StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            var expectedAffectedCalculations = failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                               .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
+                                                               .ToArray();
+
+            // Call
+            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> affectedItems =
+                StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            Assert.IsFalse(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                           .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+        }
+
+        private static StabilityPointStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
+        {
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
-            var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculationWithOutput = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -122,8 +110,20 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 },
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
+            var calculationWithHydraulicBoundaryLocation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
 
-            var calculation2 = new StructuresCalculation<StabilityPointStructuresInput>
+            var subCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var subCalculationWithOutput = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -131,37 +131,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 },
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
-
-            var calculation3 = new StructuresCalculation<StabilityPointStructuresInput>();
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> affectedItems = StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
-
-            // Assert
-            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<StabilityPointStructuresInput>>())
-            {
-                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-                Assert.IsNull(calculation.Output);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
-
-            var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
+            var subCalculationWithHydraulicBoundaryLocation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -169,91 +139,19 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 }
             };
 
-            var calculation2 = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
 
-            var calculation3 = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(subCalculation);
+            calculationGroup.Children.Add(subCalculationWithOutput);
+            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
+            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> affectedItems = StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
-
-            // Assert
-            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<StabilityPointStructuresInput>>())
-            {
-                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOutputAndReturnsAffectedCalculations()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var calculation2 = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            var calculation3 = new StructuresCalculation<StabilityPointStructuresInput>();
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> affectedItems = StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
-
-            // Assert
-            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<StabilityPointStructuresInput>>())
-            {
-                Assert.IsNull(calculation.Output);
-            }
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationWithoutOutputAndHydraulicBoundaryLocation_ReturnNoAffectedCalculations()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>();
-            var calculation2 = new StructuresCalculation<StabilityPointStructuresInput>();
-            var calculation3 = new StructuresCalculation<StabilityPointStructuresInput>();
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation1);
-            failureMechanism.CalculationsGroup.Children.Add(calculation2);
-            failureMechanism.CalculationsGroup.Children.Add(calculation3);
-
-            // Call
-            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> affectedItems = StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
-
-            // Assert
-            CollectionAssert.IsEmpty(affectedItems);
+            return failureMechanism;
         }
     }
 }
