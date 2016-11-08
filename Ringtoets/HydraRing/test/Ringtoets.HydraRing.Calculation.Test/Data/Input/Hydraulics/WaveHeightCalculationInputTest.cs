@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
@@ -43,6 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
 
             // Assert
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
+            Assert.IsInstanceOf<ReliabilityIndexCalculationInput>(waveHeightCalculationInput);
             Assert.AreEqual(HydraRingFailureMechanismType.WaveHeight, waveHeightCalculationInput.FailureMechanismType);
             Assert.AreEqual(9, waveHeightCalculationInput.CalculationTypeId);
             Assert.AreEqual(28, waveHeightCalculationInput.VariableId);

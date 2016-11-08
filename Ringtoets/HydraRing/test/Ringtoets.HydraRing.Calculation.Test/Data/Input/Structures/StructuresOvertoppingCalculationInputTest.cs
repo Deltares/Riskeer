@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 
@@ -89,6 +90,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             // Assert
             const int expectedCalculationTypeId = 1;
             const int variableId = 60;
+            Assert.IsInstanceOf<ExceedanceProbabilityCalculationInput>(input);
             Assert.AreEqual(expectedCalculationTypeId, input.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresOvertopping, input.FailureMechanismType);

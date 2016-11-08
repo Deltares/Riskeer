@@ -40,6 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
                 new ExceedanceProbabilityCalculationInputImplementation(hydraulicBoundaryLocationId);
 
             // Assert
+            Assert.IsInstanceOf<HydraRingCalculationInput>(exceedanceProbabilityCalculationInputImplementation);
             Assert.AreEqual(expectedCalculationTypeId, exceedanceProbabilityCalculationInputImplementation.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, exceedanceProbabilityCalculationInputImplementation.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.DikesOvertopping, exceedanceProbabilityCalculationInputImplementation.FailureMechanismType);

@@ -41,6 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             var reliabilityIndexCalculationInput = new SimpleReliabilityIndexCalculationInput(locationId, norm);
 
             // Assert
+            Assert.IsInstanceOf<HydraRingCalculationInput>(reliabilityIndexCalculationInput);
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
             Assert.AreEqual(locationId, reliabilityIndexCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(9, reliabilityIndexCalculationInput.CalculationTypeId);
