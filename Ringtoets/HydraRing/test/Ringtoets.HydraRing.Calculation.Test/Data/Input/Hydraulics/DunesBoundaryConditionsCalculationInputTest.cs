@@ -28,7 +28,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
 {
     [TestFixture]
-    public class AssessmentLevelCalculationInputTest
+    public class DunesBoundaryConditionsCalculationInputTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -39,27 +39,27 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             const long hydraulicBoundaryLocationId = 1234;
 
             // Call
-            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(sectionId, hydraulicBoundaryLocationId, norm);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(sectionId, hydraulicBoundaryLocationId, norm);
 
             // Assert
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
-            Assert.AreEqual(HydraRingFailureMechanismType.AssessmentLevel, assessmentLevelCalculationInput.FailureMechanismType);
-            Assert.AreEqual(9, assessmentLevelCalculationInput.CalculationTypeId);
-            Assert.AreEqual(26, assessmentLevelCalculationInput.VariableId);
-            Assert.AreEqual(hydraulicBoundaryLocationId, assessmentLevelCalculationInput.HydraulicBoundaryLocationId);
-            Assert.IsNotNull(assessmentLevelCalculationInput.Section);
-            Assert.AreEqual(1, assessmentLevelCalculationInput.Variables.Count());
-            CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ProfilePoints);
-            CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ForelandsPoints);
-            Assert.IsNull(assessmentLevelCalculationInput.BreakWater);
-            Assert.AreEqual(expectedBeta, assessmentLevelCalculationInput.Beta);
+            Assert.AreEqual(HydraRingFailureMechanismType.DunesBoundaryConditions, dunesBoundaryConditionsCalculationInput.FailureMechanismType);
+            Assert.AreEqual(9, dunesBoundaryConditionsCalculationInput.CalculationTypeId);
+            Assert.AreEqual(26, dunesBoundaryConditionsCalculationInput.VariableId);
+            Assert.AreEqual(hydraulicBoundaryLocationId, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+            Assert.IsNotNull(dunesBoundaryConditionsCalculationInput.Section);
+            Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.Variables.Count());
+            CollectionAssert.IsEmpty(dunesBoundaryConditionsCalculationInput.ProfilePoints);
+            CollectionAssert.IsEmpty(dunesBoundaryConditionsCalculationInput.ForelandsPoints);
+            Assert.IsNull(dunesBoundaryConditionsCalculationInput.BreakWater);
+            Assert.AreEqual(expectedBeta, dunesBoundaryConditionsCalculationInput.Beta);
 
-            var section = assessmentLevelCalculationInput.Section;
+            var section = dunesBoundaryConditionsCalculationInput.Section;
             Assert.AreEqual(sectionId, section.SectionId);
             Assert.IsNaN(section.SectionLength);
             Assert.IsNaN(section.CrossSectionNormal);
 
-            var waterLevelVariable = assessmentLevelCalculationInput.Variables.First();
+            var waterLevelVariable = dunesBoundaryConditionsCalculationInput.Variables.First();
             Assert.AreEqual(26, waterLevelVariable.VariableId);
             Assert.AreEqual(HydraRingDistributionType.Deterministic, waterLevelVariable.DistributionType);
             Assert.AreEqual(0.0, waterLevelVariable.Value);
@@ -73,10 +73,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void GetSubMechanismModelId_ReturnsExpectedValues()
         {
             // Call
-            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, 1, 2.2);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, 1, 2.2);
 
             // Assert
-            Assert.IsNull(assessmentLevelCalculationInput.GetSubMechanismModelId(1));
+            Assert.IsNull(dunesBoundaryConditionsCalculationInput.GetSubMechanismModelId(1));
         }
     }
 }
