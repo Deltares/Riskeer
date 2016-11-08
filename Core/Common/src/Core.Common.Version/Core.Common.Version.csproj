@@ -39,7 +39,6 @@
   <PropertyGroup>
     <PreBuildEvent>cmd /c $(SolutionDir)\build\svn_insert_version.cmd $(SolutionDir)\Core\Common\src\Core.Common.Version GlobalAssembly.cs.svn GlobalAssembly.cs</PreBuildEvent>
   </PropertyGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
