@@ -79,9 +79,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private void ReadVersion(string checkVersionQuery, SQLiteParameter sqliteParameter)
         {
-            using (SQLiteDataReader dataReader = CreateDataReader(checkVersionQuery, sqliteParameter))
+            using (IDataReader dataReader = CreateDataReader(checkVersionQuery, sqliteParameter))
             {
-                if (!dataReader.HasRows)
+                if (!dataReader.Read())
                 {
                     throw new CriticalFileReadException(string.Format(
                         Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_,

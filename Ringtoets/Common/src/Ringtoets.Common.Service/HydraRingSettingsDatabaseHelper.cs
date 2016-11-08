@@ -46,6 +46,7 @@ namespace Ringtoets.Common.Service
         /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
         /// </list>
         /// </exception>
         public static void AssignSettingsFromDatabase(HydraRingCalculationInput calculationInput, string hydraulicBoundaryDatabaseFilePath)

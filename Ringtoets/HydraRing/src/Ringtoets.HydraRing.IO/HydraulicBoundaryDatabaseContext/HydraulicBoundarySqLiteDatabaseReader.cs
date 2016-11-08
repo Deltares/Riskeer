@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
     /// </summary>
     public class HydraulicBoundarySqLiteDatabaseReader : SqLiteDatabaseReaderBase
     {
-        private SQLiteDataReader sqliteDataReader;
+        private IDataReader sqliteDataReader;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundarySqLiteDatabaseReader"/>, 
@@ -104,7 +104,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             string versionQuery = HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery();
             try
             {
-                using (SQLiteDataReader dataReader = CreateDataReader(versionQuery, null))
+                using (IDataReader dataReader = CreateDataReader(versionQuery, null))
                 {
                     return !dataReader.Read() ? string.Empty : Convert.ToString(dataReader[GeneralTableDefinitions.GeneratedVersion]);
                 }
@@ -133,7 +133,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             };
             try
             {
-                using (SQLiteDataReader dataReader = CreateDataReader(trackQuery, sqliteParameter))
+                using (IDataReader dataReader = CreateDataReader(trackQuery, sqliteParameter))
                 {
                     return !dataReader.Read() ? 0 : Convert.ToInt64(dataReader[GeneralTableDefinitions.TrackId]);
                 }
@@ -166,7 +166,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
 
             try
             {
-                using (SQLiteDataReader dataReader = CreateDataReader(locationCountQuery, sqliteParameter))
+                using (IDataReader dataReader = CreateDataReader(locationCountQuery, sqliteParameter))
                 {
                     return !dataReader.Read() ? 0 : Convert.ToInt32(dataReader[HrdLocationsTableDefinitions.Count]);
                 }

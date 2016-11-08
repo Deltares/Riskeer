@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.IO.Exceptions;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
@@ -57,6 +58,10 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <param name="locationId">The location id to obtain the <see cref="TimeIntegrationSetting"/> for.</param>
         /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="TimeIntegrationSetting"/> for.</param>
         /// <returns>The <see cref="TimeIntegrationSetting"/> corresponding to the provided failure mechanism type and location id.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="failureMechanismType"/> is not a valid
+        /// <see cref="HydraRingFailureMechanismType"/> value.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
+        /// contain expected type.</exception>
         public TimeIntegrationSetting GetTimeIntegrationSetting(long locationId, HydraRingFailureMechanismType failureMechanismType)
         {
             return timeIntegrationSettingsReader.ReadTimeIntegrationSetting(locationId, failureMechanismType) ??

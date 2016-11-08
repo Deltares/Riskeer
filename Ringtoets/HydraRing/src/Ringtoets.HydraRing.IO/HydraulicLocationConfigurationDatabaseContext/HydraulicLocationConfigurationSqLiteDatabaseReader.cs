@@ -88,7 +88,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         {
             var dictionary = new Dictionary<long, long>();
             var locationIdQuery = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsIdByTrackIdQuery();
-            using (SQLiteDataReader dataReader = CreateDataReader(locationIdQuery, trackParameter))
+            using (IDataReader dataReader = CreateDataReader(locationIdQuery, trackParameter))
             {
                 while (MoveNext(dataReader))
                 {

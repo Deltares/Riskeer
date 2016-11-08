@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
+using System.Linq;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.IO.Properties;
@@ -133,6 +134,8 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <returns>A new <see cref="DesignTablesSetting"/> containing values read from the database.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationType"/> is not a valid
         /// <see cref="HydraRingFailureMechanismType"/> value.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
+        /// contain expected type.</exception>
         public DesignTablesSetting ReadDesignTableSetting(long locationId, HydraRingFailureMechanismType calculationType)
         {
             if (!Enum.IsDefined(calculationType.GetType(), calculationType))
@@ -144,9 +147,16 @@ namespace Ringtoets.Common.IO.HydraRing
             {
                 if (MoveNext(reader))
                 {
-                    return new DesignTablesSetting(
-                        Convert.ToDouble(reader[minColumn]),
-                        Convert.ToDouble(reader[maxColumn]));
+                    try
+                    {
+                        return new DesignTablesSetting(
+                            reader.Read<double>(minColumn),
+                            reader.Read<double>(maxColumn));
+                    }
+                    catch (ConversionException)
+                    {
+                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                    }
                 }
             }
             return null;
@@ -159,27 +169,36 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <param name="mechanismId">The mechanism id to obtain the <see cref="NumericsSetting"/> for.</param>
         /// <param name="subMechanismId">The sub mechanism id to obtain the <see cref="NumericsSetting"/> for.</param>
         /// <returns>A new <see cref="NumericsSetting"/> containing values read from the database.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
+        /// contain expected type.</exception>
         public NumericsSetting ReadNumericsSetting(long locationId, int mechanismId, int subMechanismId)
         {
             using (var reader = CreateNumericsSettingsDataReader(locationId, mechanismId, subMechanismId))
             {
                 if (MoveNext(reader))
                 {
-                    return new NumericsSetting(
-                        Convert.ToInt32(reader[calculationTechniqueIdColumn]),
-                        Convert.ToInt32(reader[formStartMethodColumn]),
-                        Convert.ToInt32(reader[formNumberOfIterationsColumn]),
-                        Convert.ToDouble(reader[formRelaxationFactorColumn]),
-                        Convert.ToDouble(reader[formEpsBetaColumn]),
-                        Convert.ToDouble(reader[formEpsHohColumn]),
-                        Convert.ToDouble(reader[formEpsZFuncColumn]),
-                        Convert.ToInt32(reader[dsStartMethodColumn]),
-                        Convert.ToInt32(reader[dsMinNumberOfIterationsColumn]),
-                        Convert.ToInt32(reader[dsMaxNumberOfIterationsColumn]),
-                        Convert.ToDouble(reader[dsVarCoefficientColumn]),
-                        Convert.ToDouble(reader[niUMinColumn]),
-                        Convert.ToDouble(reader[niUMaxColumn]),
-                        Convert.ToInt32(reader[niNumberStepsColumn]));
+                    try
+                    {
+                        return new NumericsSetting(
+                            reader.Read<int>(calculationTechniqueIdColumn),
+                            reader.Read<int>(formStartMethodColumn),
+                            reader.Read<int>(formNumberOfIterationsColumn),
+                            reader.Read<double>(formRelaxationFactorColumn),
+                            reader.Read<double>(formEpsBetaColumn),
+                            reader.Read<double>(formEpsHohColumn),
+                            reader.Read<double>(formEpsZFuncColumn),
+                            reader.Read<int>(dsStartMethodColumn),
+                            reader.Read<int>(dsMinNumberOfIterationsColumn),
+                            reader.Read<int>(dsMaxNumberOfIterationsColumn),
+                            reader.Read<double>(dsVarCoefficientColumn),
+                            reader.Read<double>(niUMinColumn),
+                            reader.Read<double>(niUMaxColumn),
+                            reader.Read<int>(niNumberStepsColumn));
+                    }
+                    catch (ConversionException)
+                    {
+                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                    }
                 }
             }
             return null;
@@ -193,6 +212,8 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <returns>A new <see cref="TimeIntegrationSetting"/> containing values read from the database.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationType"/> is not a valid
         /// <see cref="HydraRingFailureMechanismType"/> value.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
+        /// contain expected type.</exception>
         public TimeIntegrationSetting ReadTimeIntegrationSetting(long locationId, HydraRingFailureMechanismType calculationType)
         {
             if (!Enum.IsDefined(calculationType.GetType(), calculationType))
@@ -204,7 +225,15 @@ namespace Ringtoets.Common.IO.HydraRing
             {
                 if (MoveNext(reader))
                 {
-                    return new TimeIntegrationSetting(Convert.ToInt32(reader[timeIntegrationSchemeIdColumn]));
+                    try
+                    {
+                        return new TimeIntegrationSetting(
+                            reader.Read<int>(timeIntegrationSchemeIdColumn));
+                    }
+                    catch (ConversionException)
+                    {
+                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                    }
                 }
             }
             return null;
@@ -214,14 +243,35 @@ namespace Ringtoets.Common.IO.HydraRing
         /// Reads the excluded locations (those for which no calculation is possible) from the database.
         /// </summary>
         /// <returns>A <see cref="IEnumerable{T}"/> of ids for all the excluded locations.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
+        /// contain expected type.</exception>
         public IEnumerable<long> ReadExcludedLocations()
         {
             using (var reader = CreateExcludedLocationsDataReader())
             {
                 while (MoveNext(reader))
                 {
-                    yield return Convert.ToInt64(reader[locationIdColumn]);
+                    yield return TryReadLocationIdColumn(reader);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Tries to read the <see cref="locationIdColumn"/> from the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The reader to read the column's value from.</param>
+        /// <returns>The id of the location that was read from the <paramref name="reader"/>.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the <see cref="locationIdColumn"/>
+        /// column contains a value of unexpected type.</exception>
+        private long TryReadLocationIdColumn(IDataReader reader)
+        {
+            try
+            {
+                return reader.Read<long>(locationIdColumn);
+            }
+            catch (ConversionException)
+            {
+                throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
             }
         }
 
@@ -241,17 +291,10 @@ namespace Ringtoets.Common.IO.HydraRing
 
         private bool ContainsRequiredTables(List<Tuple<string, string>> definitions)
         {
-            foreach (var tableDefinition in GetValidSchema())
-            {
-                if (!definitions.Contains(tableDefinition))
-                {
-                    return false;
-                }
-            }
-            return true;
+            return GetValidSchema().All(tableDefinition => definitions.Contains(tableDefinition));
         }
 
-        private SQLiteDataReader CreateDesignTablesDataReader(long locationId, HydraRingFailureMechanismType calculationType)
+        private IDataReader CreateDesignTablesDataReader(long locationId, HydraRingFailureMechanismType calculationType)
         {
             var locationParameter = new SQLiteParameter
             {
@@ -273,7 +316,7 @@ namespace Ringtoets.Common.IO.HydraRing
                 typeParameter);
         }
 
-        private SQLiteDataReader CreateNumericsSettingsDataReader(long locationId, int mechanismId, int subMechanismId)
+        private IDataReader CreateNumericsSettingsDataReader(long locationId, int mechanismId, int subMechanismId)
         {
             var locationParameter = new SQLiteParameter
             {
@@ -303,7 +346,7 @@ namespace Ringtoets.Common.IO.HydraRing
                 subMechanismIdParameter);
         }
 
-        private SQLiteDataReader CreateTimeIntegrationDataReader(long locationId, HydraRingFailureMechanismType calculationType)
+        private IDataReader CreateTimeIntegrationDataReader(long locationId, HydraRingFailureMechanismType calculationType)
         {
             var locationParameter = new SQLiteParameter
             {
@@ -325,7 +368,7 @@ namespace Ringtoets.Common.IO.HydraRing
                 typeParameter);
         }
 
-        private SQLiteDataReader CreateExcludedLocationsDataReader()
+        private IDataReader CreateExcludedLocationsDataReader()
         {
             return CreateDataReader(excludedLocationsQuery);
         }

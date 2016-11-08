@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using Core.Common.IO.Exceptions;
@@ -94,7 +95,7 @@ namespace Core.Common.IO.Readers
         /// </summary>
         /// <param name="sqliteDataReader">The <see cref="SQLiteDataReader"/> to process.</param>
         /// <returns><c>True</c> if the command was successful and a new resultset is available, <c>false</c> otherwise.</returns>
-        protected static bool MoveNext(SQLiteDataReader sqliteDataReader)
+        protected static bool MoveNext(IDataReader sqliteDataReader)
         {
             return sqliteDataReader.Read() || (sqliteDataReader.NextResult() && sqliteDataReader.Read());
         }
@@ -106,7 +107,7 @@ namespace Core.Common.IO.Readers
         /// <param name="parameters">Parameters the <paramref name="queryString"/> is dependend on.</param>
         /// <returns>A new instance of <see cref="SQLiteDataReader"/>.</returns>
         /// <exception cref="SQLiteException">The execution of <paramref name="queryString"/> failed.</exception>
-        protected SQLiteDataReader CreateDataReader(string queryString, params SQLiteParameter[] parameters)
+        protected IDataReader CreateDataReader(string queryString, params SQLiteParameter[] parameters)
         {
             using (var query = new SQLiteCommand(Connection)
             {

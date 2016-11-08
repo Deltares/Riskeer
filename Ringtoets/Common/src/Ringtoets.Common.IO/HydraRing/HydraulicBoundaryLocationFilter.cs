@@ -45,6 +45,7 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// <item>Unable to open database file.</item>
+        /// <item>Unable to read required data from database file.</item>
         /// </list>
         /// </exception>
         public HydraulicBoundaryLocationFilter(string databaseFilePath)

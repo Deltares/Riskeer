@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Data;
 using System.Data.SQLite;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -38,7 +39,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
     /// </summary>
     public class StochasticSoilProfileReader : SqLiteDatabaseReaderBase
     {
-        private SQLiteDataReader dataReader;
+        private IDataReader dataReader;
 
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilProfileReader"/>, 

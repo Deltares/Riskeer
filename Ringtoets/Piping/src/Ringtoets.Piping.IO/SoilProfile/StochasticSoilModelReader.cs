@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
     {
         private const string pipingMechanismName = "Piping";
         private readonly string filePath;
-        private SQLiteDataReader dataReader;
+        private IDataReader dataReader;
 
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModelReader"/>, 

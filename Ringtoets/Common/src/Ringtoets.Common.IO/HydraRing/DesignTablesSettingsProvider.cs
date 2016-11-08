@@ -64,6 +64,8 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <returns>The <see cref="DesignTablesSetting"/> corresponding to the provided failure mechanism type and location id.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="failureMechanismType"/> is not a valid
         /// <see cref="HydraRingFailureMechanismType"/> value.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
+        /// contain expected type.</exception>
         public DesignTablesSetting GetDesignTablesSetting(long locationId, HydraRingFailureMechanismType failureMechanismType)
         {
             return designTableSettingsReader.ReadDesignTableSetting(locationId, failureMechanismType) ??

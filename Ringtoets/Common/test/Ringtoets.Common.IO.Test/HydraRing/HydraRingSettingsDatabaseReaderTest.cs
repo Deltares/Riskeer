@@ -22,10 +22,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
@@ -44,6 +46,10 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         private static readonly string emptyDatabasePath = TestHelper.GetTestDataPath(
             TestDataPath.Ringtoets.Common.IO,
             Path.Combine(testDataSubDirectory, "7_67-empty.config.sqlite"));
+
+        private static readonly string invalidDatabasePath = TestHelper.GetTestDataPath(
+            TestDataPath.Ringtoets.Common.IO,
+            Path.Combine(testDataSubDirectory, "7_67-invalid-value-types.config.sqlite"));
 
         private static readonly string invalidSchemaDatabasePath = TestHelper.GetTestDataPath(
             TestDataPath.Ringtoets.Common.IO,
@@ -140,6 +146,22 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
+        [TestCase(700131, 5)]
+        [TestCase(700132, 0)]
+        public void ReadDesignTableSetting_InvalidValueInReadLocation_ThrowsCriticalFileReadException(long locationId, HydraRingFailureMechanismType type)
+        {
+            // Setup
+            using (var reader = new HydraRingSettingsDatabaseReader(invalidDatabasePath))
+            {
+                // Call
+                TestDelegate test = () => reader.ReadDesignTableSetting(locationId, type);
+
+                // Assert
+                Assert.Throws<CriticalFileReadException>(test);
+            }
+        }
+
+        [Test]
         [TestCase(-1)]
         [TestCase(12)]
         [TestCase(15)]
@@ -153,6 +175,20 @@ namespace Ringtoets.Common.IO.Test.HydraRing
 
                 // Assert
                 Assert.Throws<InvalidEnumArgumentException>(test);
+            }
+        }
+
+        [Test]
+        public void ReadTimeIntegrationSetting_InvalidValueInReadLocation_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            using (var reader = new HydraRingSettingsDatabaseReader(invalidDatabasePath))
+            {
+                // Call
+                TestDelegate test = () => reader.ReadTimeIntegrationSetting(700131, HydraRingFailureMechanismType.AssessmentLevel);
+
+                // Assert
+                Assert.Throws<CriticalFileReadException>(test);
             }
         }
 
@@ -271,6 +307,35 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
+        [TestCase(700132, 11, 14)]
+        [TestCase(700133, 11, 14)]
+        [TestCase(700134, 11, 14)]
+        [TestCase(700135, 11, 14)]
+        [TestCase(700136, 11, 14)]
+        [TestCase(700137, 11, 14)]
+        [TestCase(700138, 11, 14)]
+        [TestCase(700139, 11, 14)]
+        [TestCase(700140, 1, 1)]
+        [TestCase(700141, 1, 1)]
+        [TestCase(700142, 1, 1)]
+        [TestCase(700143, 1, 1)]
+        [TestCase(700144, 1, 1)]
+        [TestCase(700145, 1, 1)]
+        public void ReadNumericsSetting_InvalidValueInReadLocation_ThrowsCriticalFileReadException(
+            long locationId, int mechanismId, int subMechanismId)
+        {
+            // Setup
+            using (var reader = new HydraRingSettingsDatabaseReader(invalidDatabasePath))
+            {
+                // Call
+                TestDelegate test = () => reader.ReadNumericsSetting(locationId, mechanismId, subMechanismId);
+
+                // Assert
+                Assert.Throws<CriticalFileReadException>(test);
+            }
+        }
+
+        [Test]
         public void ReadNumericsSetting_EmptyTable_ReturnNull()
         {
             // Setup
@@ -301,6 +366,20 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                     700143,
                     700146
                 }, locations);
+            }
+        }
+
+        [Test]
+        public void ReadExcludedLocations_InvalidValueInReadLocation_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            using (var reader = new HydraRingSettingsDatabaseReader(invalidDatabasePath))
+            {
+                // Call
+                TestDelegate test = () => reader.ReadExcludedLocations().ToArray();
+
+                // Assert
+                Assert.Throws<CriticalFileReadException>(test);
             }
         }
 

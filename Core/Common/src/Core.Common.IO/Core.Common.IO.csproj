@@ -48,6 +48,8 @@
     <Compile Include="Exceptions\CriticalFileWriteException.cs" />
     <Compile Include="Exceptions\LineParseException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Exceptions\ConversionException.cs" />
+    <Compile Include="Readers\IDataReaderExtensions.cs" />
     <Compile Include="Readers\SqLiteDatabaseReaderBase.cs" />
     <Compile Include="Readers\IRowBasedDatabaseReader.cs" />
     <Compile Include="Readers\ReadResult.cs" />

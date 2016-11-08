@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         private const string pipingMechanismName = "Piping";
         private const string mechanismParameterName = "mechanism";
 
-        private SQLiteDataReader dataReader;
+        private IDataReader dataReader;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingSoilProfileReader"/> which will use the <paramref name="databaseFilePath"/>
