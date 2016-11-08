@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -158,7 +157,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void Validate_CalculationWithoutStructuresValidHydraulicBoundaryDatabase_LogStartEndAndErrorMessage()
+        public void Validate_CalculationWithoutStructuresValidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -207,7 +206,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
         [Test]
         [Combinatorial]
-        public void Validate_UseBreakWaterWithInvalidBreakWaterHeight_LogStartEndError(
+        public void Validate_UseBreakWaterWithInvalidBreakWaterHeight_LogsErrorAndReturnFalse(
             [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)] StabilityPointStructureInflowModelType inflowModelType,
             [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)] LoadSchematizationType loadSchematizationType,
             [Values(double.NaN, double.PositiveInfinity, double.NegativeInfinity)] double breakWaterHeight)
@@ -640,7 +639,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         [Test]
         [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert)]
         [TestCase(StabilityPointStructureInflowModelType.LowSill)]
-        public void Validate_InvalidLoadSchematizationType_ReturnsFalseAndLogsErrorMessage(StabilityPointStructureInflowModelType inflowModelType)
+        public void Validate_InvalidLoadSchematizationType_LogsErrorAndReturnsFalse(StabilityPointStructureInflowModelType inflowModelType)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();

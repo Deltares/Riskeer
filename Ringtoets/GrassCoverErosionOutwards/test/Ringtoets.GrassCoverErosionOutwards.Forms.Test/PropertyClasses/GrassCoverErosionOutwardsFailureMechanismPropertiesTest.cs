@@ -60,13 +60,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             var properties = new GrassCoverErosionOutwardsFailureMechanismProperties();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            properties.Data = new GrassCoverErosionOutwardsFailureMechanism();
+            properties.Data = failureMechanism;
 
             // Assert
             Assert.AreEqual(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, properties.Name);
             Assert.AreEqual(Resources.GrassCoverErosionOutwardsFailureMechanism_Code, properties.Code);
+            Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.A, properties.A);
+            Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.B, properties.B);
+            Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.C, properties.C);
             Assert.AreEqual(2, properties.LengthEffect);
         }
 

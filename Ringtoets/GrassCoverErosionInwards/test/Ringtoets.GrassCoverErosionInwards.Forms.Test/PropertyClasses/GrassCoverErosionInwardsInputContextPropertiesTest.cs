@@ -223,6 +223,39 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void GetAvailableDikeProfiles_InputWithDikeProfiles_ReturnsDikeProfiles()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var input = new GrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism()
+            {
+                DikeProfiles =
+                {
+                    new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                    null, new DikeProfile.ConstructionProperties())
+                }
+            };
+
+            var properties = new GrassCoverErosionInwardsInputContextProperties
+            {
+                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionStub)
+            };
+
+            // Call
+            var availableDikeProfiles = properties.GetAvailableDikeProfiles();
+
+            // Assert
+            List<DikeProfile> expectedHydraulicBoundaryLocations = failureMechanism.DikeProfiles;
+            Assert.AreSame(expectedHydraulicBoundaryLocations, availableDikeProfiles);
+            mockRepository.VerifyAll();
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool withDikeProfile)

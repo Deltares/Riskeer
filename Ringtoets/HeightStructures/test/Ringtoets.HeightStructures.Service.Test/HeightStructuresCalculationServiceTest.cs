@@ -237,7 +237,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
         [Test]
         [TestCaseSource("NormalDistributionsWithInvalidMean")]
-        public void Validate_NormalDistributionMeanInvalid_ReturnsFalse(double meanOne, double meanTwo, double meanThree, string parameterName)
+        public void Validate_NormalDistributionMeanInvalid_LogsErrorAndReturnsFalse(double meanOne, double meanTwo, double meanThree, string parameterName)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -284,8 +284,8 @@ namespace Ringtoets.HeightStructures.Service.Test
 
         [Test]
         [TestCaseSource("LogNormalDistributionsWithInvalidMean")]
-        public void Validate_LogNormalDistributionMeanInvalid_ReturnsFalse(double meanOne, double meanTwo, double meanThree,
-                                                                           double meanFour, double meanFive, string parameterName)
+        public void Validate_LogNormalDistributionMeanInvalid_LogsErrorAndReturnsFalse(double meanOne, double meanTwo, double meanThree,
+                                                                                       double meanFour, double meanFive, string parameterName)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -333,8 +333,8 @@ namespace Ringtoets.HeightStructures.Service.Test
 
         [Test]
         [TestCaseSource("DistributionsWithInvalidDeviation")]
-        public void Validate_DistributionStandardDeviationInvalid_ReturnsFalse(double deviationOne, double deviationTwo,
-                                                                               double deviationThree, double deviationFour, string parameterName)
+        public void Validate_DistributionStandardDeviationInvalid_LogsErrorAndReturnsFalse(double deviationOne, double deviationTwo,
+                                                                                           double deviationThree, double deviationFour, string parameterName)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -381,8 +381,8 @@ namespace Ringtoets.HeightStructures.Service.Test
 
         [Test]
         [TestCaseSource("DistributionsWithInvalidCoefficient")]
-        public void Validate_DistributionVariationCoefficientInvalid_ReturnsFalse(double coefficientOne, double coefficientTwo,
-                                                                                  double coefficientThree, double coefficientFour, string parameterName)
+        public void Validate_DistributionVariationCoefficientInvalid_LogsErrorAndReturnsFalse( 
+            double coefficientOne, double coefficientTwo, double coefficientThree, double coefficientFour, string parameterName)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -431,7 +431,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         [TestCase(double.NaN)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
-        public void Validate_UsesBreakWaterAndHasInvalidBreakWaterSettings_ReturnsFalse(double breakWaterHeight)
+        public void Validate_UsesBreakWaterAndHasInvalidBreakWaterSettings_LogsErrorAndReturnsFalse(double breakWaterHeight)
         {
             // Setup
             var mockRepository = new MockRepository();

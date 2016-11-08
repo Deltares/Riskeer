@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -248,6 +249,54 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(newStepSize, properties.StepSize);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetAvailableHydraulicBoundaryLocations_InputWithLocations_ReturnsLocations()
+        {
+            // Setup
+            var locations = new List<HydraulicBoundaryLocation>()
+            {
+                new HydraulicBoundaryLocation(0, string.Empty, 1, 2)
+            };
+
+            var input = new WaveConditionsInput();
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], locations);
+
+            var properties = new TestWaveConditionsInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            var availableHydraulicBoundaryLocations = properties.GetAvailableHydraulicBoundaryLocations();
+
+            // Assert
+            Assert.AreSame(locations, availableHydraulicBoundaryLocations);
+        }
+
+        [Test]
+        public void GetAvailableForeshoreProfiles_InputWithLocations_ReturnsLocations()
+        {
+            // Setup
+            var locations = new List<ForeshoreProfile>()
+            {
+                new TestForeshoreProfile()
+            };
+
+            var input = new WaveConditionsInput();
+            var inputContext = new TestWaveConditionsInputContext(input, locations, new HydraulicBoundaryLocation[0]);
+
+            var properties = new TestWaveConditionsInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
+
+            // Assert
+            Assert.AreSame(locations, availableForeshoreProfiles);
         }
 
         [Test]

@@ -33,7 +33,7 @@ namespace Core.Common.Utils.Extensions
         /// </summary>
         /// <param name="object1">The first object.</param>
         /// <param name="object2">The second object.</param>
-        /// <returns><c>True</c> if <paramref name="object1"/> is considered greater then <paramref name="object2"/>,
+        /// <returns><c>True</c> if <paramref name="object1"/> is considered greater than <paramref name="object2"/>,
         /// <c>false</c> otherwise.</returns>
         /// <remarks><c>null</c> is considered smaller than any other not-null value.</remarks>
         /// <exception cref="ArgumentException">Thrown when object type of <paramref name="object1"/>
@@ -57,9 +57,9 @@ namespace Core.Common.Utils.Extensions
         /// </summary>
         /// <param name="object1">The first object.</param>
         /// <param name="object2">The second object.</param>
-        /// <returns><c>True</c> if <paramref name="object1"/> is considered smaller then <paramref name="object2"/>,
+        /// <returns><c>True</c> if <paramref name="object1"/> is considered smaller than <paramref name="object2"/>,
         /// <c>false</c> otherwise.</returns>
-        /// <remarks><c>null</c> is considered smaller then any not-null value.</remarks>
+        /// <remarks><c>null</c> is considered smaller than any not-null value.</remarks>
         /// <exception cref="ArgumentException">Thrown when object type of <paramref name="object1"/>
         /// is not the same as that of <paramref name="object2"/>.</exception>
         public static bool IsSmaller(this IComparable object1, IComparable object2)

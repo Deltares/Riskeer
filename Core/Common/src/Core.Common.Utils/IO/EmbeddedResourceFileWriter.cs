@@ -41,7 +41,7 @@ namespace Core.Common.Utils.IO
         /// <param name="removeFilesOnDispose">Whether or not the files should be removed after 
         /// disposing the created <see cref="EmbeddedResourceFileWriter"/> instance.</param>
         /// <param name="embeddedResourceFileNames">The names of the Embedded Resource files to 
-        /// (temporary) write to the Windows Temp directory.</param>
+        /// (temporarily) write to the Windows Temp directory.</param>
         /// <exception cref="ArgumentException">Thrown when an embedded resource file in <paramref name="embeddedResourceFileNames"/> 
         /// cannot be found in <paramref name="assembly"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>

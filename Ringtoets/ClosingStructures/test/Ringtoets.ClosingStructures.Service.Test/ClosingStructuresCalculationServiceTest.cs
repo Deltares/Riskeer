@@ -419,7 +419,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
         [Test]
         [Combinatorial]
-        public void Validate_UsesBreakWaterAndHasInvalidBreakWaterSettings_ReturnsFalse(
+        public void Validate_UsesBreakWaterAndHasInvalidBreakWaterSettings_LogsErrorAndReturnsFalse(
             [Values(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.FloodedCulvert)] ClosingStructureInflowModelType inflowModelType,
             [Values(double.NaN, double.NegativeInfinity, double.PositiveInfinity)] double breakWaterHeight)
         {

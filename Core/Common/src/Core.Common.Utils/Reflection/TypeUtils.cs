@@ -88,7 +88,7 @@ namespace Core.Common.Utils.Reflection
         /// <typeparam name="T">The type of the class on which the expression takes place.</typeparam>
         /// <param name="expression">The expression.</param>
         /// <returns>The string name of the member.</returns>
-        /// <exception cref="System.ArgumentException">Thrown when <paramref name="expression"/> 
+        /// <exception cref="ArgumentException">Thrown when <paramref name="expression"/> 
         /// is not an expression with a member, such as an expression calling multiple methods.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="expression"/> is <c>null</c>.</exception>
         public static string GetMemberName<T>(Expression<Action<T>> expression)
@@ -234,7 +234,7 @@ namespace Core.Common.Utils.Reflection
         /// or <paramref name="propertyName"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the property referred to by <paramref name="propertyName"/>
         /// is not declared or inherited by the class of <paramref name="instance"/>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the property has not setter.</exception>
+        /// <exception cref="ArgumentException">Thrown when the property has no setter.</exception>
         /// <exception cref="TargetParameterCountException">Thrown when the Property is an indexed property.</exception>
         /// <exception cref="TargetInvocationException">Thrown when an error occurred while setting the
         /// property value. For example, an index value specified for an indexed property
@@ -269,7 +269,7 @@ namespace Core.Common.Utils.Reflection
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="expression"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="expression"/> 
         /// is not an expression with a property, such as an expression calling multiple methods.</exception>
-        /// <exception cref="AmbiguousMatchException">Thrown when more then one property is found with
+        /// <exception cref="AmbiguousMatchException">Thrown when more than one property is found with
         /// name specified in <paramref name="expression"/>.</exception>
         /// <exception cref="TypeLoadException">Thrown when a custom attribute type cannot be loaded.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the property in <paramref name="expression"/>

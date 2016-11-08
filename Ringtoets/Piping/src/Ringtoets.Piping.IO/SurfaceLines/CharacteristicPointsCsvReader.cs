@@ -460,7 +460,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// </summary>
         /// <param name="readText">The text.</param>
         /// <returns>The tokenized parts.</returns>
-        /// <exception cref="LineParseException">Thrown when <paramref name="readText"/> lacks separator character.</exception>
+        /// <exception cref="LineParseException">Thrown when <paramref name="readText"/> lacks the separator character.</exception>
         private string[] TokenizeString(string readText)
         {
             if (!readText.Contains(separator))
