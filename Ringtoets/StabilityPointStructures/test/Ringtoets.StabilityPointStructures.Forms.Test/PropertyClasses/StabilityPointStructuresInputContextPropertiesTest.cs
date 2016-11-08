@@ -92,6 +92,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var expectedFailureProbabilityRepairClosure = ProbabilityFormattingHelper.Format(input.FailureProbabilityRepairClosure);
             var expectedProbabilityCollisionSecondaryStructure = ProbabilityFormattingHelper.Format(input.ProbabilityCollisionSecondaryStructure);
 
+            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
+            Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
             Assert.AreEqual(input.VolumicWeightWater, properties.VolumicWeightWater);
             Assert.AreSame(input.InsideWaterLevelFailureConstruction, properties.InsideWaterLevelFailureConstruction.Data);
             Assert.AreSame(input.InsideWaterLevel, properties.InsideWaterLevel.Data);

@@ -94,6 +94,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var expectedFailureProbabilityOpenStructure = ProbabilityFormattingHelper.Format(input.FailureProbabilityOpenStructure);
             var expectedFailureProbabilityReparation = ProbabilityFormattingHelper.Format(input.FailureProbabilityReparation);
 
+            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
+            Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
             Assert.AreSame(input.InsideWaterLevel, properties.InsideWaterLevel.Data);
             Assert.AreEqual(input.InflowModelType, properties.InflowModelType);
             Assert.AreSame(input.AreaFlowApertures, properties.AreaFlowApertures.Data);

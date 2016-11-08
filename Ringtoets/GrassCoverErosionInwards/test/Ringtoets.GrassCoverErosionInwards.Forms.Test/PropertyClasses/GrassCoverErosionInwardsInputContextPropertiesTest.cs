@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -187,6 +188,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(newDikeHeight, input.DikeHeight);
             Assert.AreSame(newHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             Assert.IsTrue(input.CalculateDikeHeight);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetAvailableHydraulicBoundaryLocations_InputWithLocations_ReturnsLocations()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(0, "", 1, 2)
+                }
+            };
+
+            mockRepository.ReplayAll();
+
+            var input = new GrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var properties = new GrassCoverErosionInwardsInputContextProperties
+            {
+                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionStub)
+            };
+
+            // Call
+            var availableHydraulicBoundaryLocations = properties.GetAvailableHydraulicBoundaryLocations();
+
+            // Assert
+            List<HydraulicBoundaryLocation> expectedHydraulicBoundaryLocations = assessmentSectionStub.HydraulicBoundaryDatabase.Locations;
+            Assert.AreSame(expectedHydraulicBoundaryLocations, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
 

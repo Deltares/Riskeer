@@ -54,6 +54,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(failureMechanism.GeneralInput.A, properties.A);
+            Assert.AreEqual(failureMechanism.GeneralInput.B, properties.B);
+            Assert.AreEqual(failureMechanism.GeneralInput.C, properties.C);
         }
 
         [Test]
