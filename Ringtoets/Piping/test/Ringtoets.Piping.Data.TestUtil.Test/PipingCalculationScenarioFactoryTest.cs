@@ -54,8 +54,8 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             var scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability, section);
 
             // Assert
-            Assert.NotNull(scenario.SemiProbabilisticOutput);
             Assert.NotNull(scenario.Output);
+            Assert.NotNull(scenario.SemiProbabilisticOutput);
             Assert.AreEqual(probability, scenario.SemiProbabilisticOutput.PipingProbability, 1e-6);
             Assert.IsTrue(scenario.IsRelevant);
         }
@@ -81,8 +81,8 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             var scenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
 
             // Assert
-            Assert.NotNull(scenario.SemiProbabilisticOutput);
             Assert.NotNull(scenario.Output);
+            Assert.NotNull(scenario.SemiProbabilisticOutput);
             Assert.IsNaN(scenario.SemiProbabilisticOutput.PipingProbability);
             Assert.IsTrue(scenario.IsRelevant);
         }
@@ -132,12 +132,12 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             var scenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
 
             // Assert
-            Assert.IsNull(scenario.SemiProbabilisticOutput);
             Assert.IsNull(scenario.Output);
+            Assert.IsNull(scenario.SemiProbabilisticOutput);
             Assert.IsTrue(scenario.IsRelevant);
         }
 
-        private FailureMechanismSection CreateSection()
+        private static FailureMechanismSection CreateSection()
         {
             return new FailureMechanismSection("name", new[]
             {

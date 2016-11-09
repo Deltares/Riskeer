@@ -296,7 +296,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                       new Point2D(2, 5), new[]
                                       {
                                           new Point2D(1, 6),
-                                          new Point2D(8, 5),
+                                          new Point2D(8, 5)
                                       }, new BreakWater(BreakWaterType.Caisson, 2.5), new ForeshoreProfile.ConstructionProperties
                                       {
                                           Name = "FP",
@@ -745,7 +745,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                 new Point3D(3.6, 6.0, 0.2), // Bottom ditch dike side
                 new Point3D(3.4, 6.0, 0.25), // Bottom ditch polder side
                 new Point3D(3.2, 6.0, 0.5), // Ditch polder side
-                new Point3D(3.0, 6.0, 0.5),
+                new Point3D(3.0, 6.0, 0.5)
             };
             surfaceLine.SetGeometry(geometryPoints);
 
@@ -791,7 +791,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                               new[]
                                                               {
                                                                   new RoughnessPoint(new Point2D(11, 12), 1),
-                                                                  new RoughnessPoint(new Point2D(13, 14), 0.5),
+                                                                  new RoughnessPoint(new Point2D(13, 14), 0.5)
                                                               },
                                                               new Point2D[0],
                                                               null,
@@ -1026,7 +1026,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                     }, new[]
                     {
                         new WaveConditionsOutput(7, 4, 1, 2),
-                        new WaveConditionsOutput(8, 3, 2, 1),
+                        new WaveConditionsOutput(8, 3, 2, 1)
                     })
                 });
         }

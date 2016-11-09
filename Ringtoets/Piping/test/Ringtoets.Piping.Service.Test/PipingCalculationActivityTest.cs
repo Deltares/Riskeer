@@ -106,8 +106,8 @@ namespace Ringtoets.Piping.Service.Test
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", invalidPipingCalculation.Name), msgs.Last());
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            Assert.AreEqual(originalOutput, invalidPipingCalculation.Output);
-            Assert.AreEqual(originalSemiProbabilisticOutput, invalidPipingCalculation.SemiProbabilisticOutput);
+            Assert.AreSame(originalOutput, invalidPipingCalculation.Output);
+            Assert.AreSame(originalSemiProbabilisticOutput, invalidPipingCalculation.SemiProbabilisticOutput);
         }
 
         [Test]
