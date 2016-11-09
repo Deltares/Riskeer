@@ -26,19 +26,20 @@ namespace Ringtoets.HydraRing.Calculation.Data
     /// </summary>
     /// <remarks>
     /// The integer values DON'T correspond to failure mechanism ids defined within Hydra-Ring.
+    /// They DO, however, correspond to ids in the Hydra-Ring settings database files.
     /// </remarks>
     public enum HydraRingFailureMechanismType
     {
-        AssessmentLevel,
-        QVariant,
-        WaveHeight,
-        WavePeakPeriod,
-        WaveSpectralPeriod,
-        DikesOvertopping,
-        DikesHeight,
-        StructuresOvertopping,
-        StructuresClosure,
-        StructuresStructuralFailure,
-        DunesBoundaryConditions
+        AssessmentLevel = 0,
+        QVariant = 1,
+        WaveHeight = 2,
+        WavePeakPeriod = 3,
+        WaveSpectralPeriod = 4,
+        DikesHeight = 5,
+        DikesOvertopping = 6,
+        StructuresOvertopping = 7,
+        StructuresClosure = 8,
+        StructuresStructuralFailure = 9,
+        DunesBoundaryConditions = 10
     }
 }

@@ -140,7 +140,7 @@ namespace Ringtoets.Integration.Service
                 var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
                 var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
 
-                 if (pipingFailureMechanism != null)
+                if (pipingFailureMechanism != null)
                 {
                     affectedItems.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutput(pipingFailureMechanism));
                 }

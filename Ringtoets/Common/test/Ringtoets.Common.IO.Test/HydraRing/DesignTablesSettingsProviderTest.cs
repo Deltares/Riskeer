@@ -79,10 +79,13 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 700131, 0.29, 2.29)]
         [TestCase(HydraRingFailureMechanismType.QVariant, 700137, 0.98, 2.98)]
         [TestCase(HydraRingFailureMechanismType.WaveHeight, 700138, -2.0, 0)]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 700132, 2.0, 5.0)]
-        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 700131, 1.0, 5.0)]
+        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 700138, 1.0, 5.0)]
+        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 700138, 2.0, 5.0)]
+        [TestCase(HydraRingFailureMechanismType.WaveHeight, 700138, -2.0, 0.0)]
+        [TestCase(HydraRingFailureMechanismType.DikesHeight, 700132, 2.0, 5.0)]
         public void GetDesignTablesSetting_KnownLocationIdAndFailureMechanismType_ReturnsExpectedDesignTablesSetting(
             HydraRingFailureMechanismType failureMechanismType, long locationId, double expectedValueMin, double expectedValueMax)
         {
@@ -104,12 +107,12 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         [TestCase(HydraRingFailureMechanismType.WaveHeight, -1, 1.0, 4.0)]
         [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, -1, 5.0, 15.0)]
         [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, -1, 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, -1, double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.DikesHeight, 700131, 2.0, 4.0)]
+        [TestCase(HydraRingFailureMechanismType.DikesHeight, -1, 2.0, 4.0)]
+        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 700131, double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 700131, double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, 700131, double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 700131, double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.DunesBoundaryConditions, -1, 2.0, 4.0)]
+        [TestCase(HydraRingFailureMechanismType.DunesBoundaryConditions, 700131, 2.0, 4.0)]
         public void GetDesignTablesSetting_UnknownFailureMechanismTypeOrLocationId_ReturnsDefaultDesignTablesSetting(
             HydraRingFailureMechanismType failureMechanismType, long locationId, double expectedValueMin, double expectedValueMax)
         {
