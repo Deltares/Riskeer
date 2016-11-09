@@ -1363,16 +1363,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             }
 
             public void ClearOutput() {}
-
-            public ICalculationInput GetObservableInput()
-            {
-                return null;
-            }
-
-            public ICalculationOutput GetObservableOutput()
-            {
-                return null;
-            }
         }
 
         # endregion

@@ -76,15 +76,5 @@ namespace Ringtoets.Piping.Data
             Output = null;
             SemiProbabilisticOutput = null;
         }
-
-        public ICalculationInput GetObservableInput()
-        {
-            return InputParameters;
-        }
-
-        public ICalculationOutput GetObservableOutput()
-        {
-            return Output;
-        }
     }
 }

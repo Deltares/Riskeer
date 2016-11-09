@@ -94,35 +94,6 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        public void GetObservableInput_Always_ReturnsInputParameters()
-        {
-            // Setup
-            var calculation = new TestStructuresCalculation();
-
-            // Call
-            ICalculationInput input = calculation.GetObservableInput();
-
-            // Assert
-            Assert.AreSame(calculation.InputParameters, input);
-        }
-
-        [Test]
-        public void GetObservableOutput_Always_ReturnsOutput()
-        {
-            // Setup
-            var calculation = new TestStructuresCalculation
-            {
-                Output = new TestStructuresOutput()
-            };
-
-            // Call
-            ICalculationOutput output = calculation.GetObservableOutput();
-
-            // Assert
-            Assert.AreSame(calculation.Output, output);
-        }
-
-        [Test]
         public void ToString_Always_ReturnName()
         {
             // Setup

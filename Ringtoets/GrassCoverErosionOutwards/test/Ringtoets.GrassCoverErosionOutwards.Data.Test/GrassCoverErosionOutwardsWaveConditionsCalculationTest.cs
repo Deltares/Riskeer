@@ -99,33 +99,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             // Assert
             Assert.IsTrue(hasOutput);
         }
-
-        [Test]
-        public void GetObservableInput_Always_ReturnsInputParameters()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var inputParameters = calculation.InputParameters;
-
-            // Call
-            ICalculationInput input = calculation.GetObservableInput();
-
-            // Assert
-            Assert.AreSame(inputParameters, input);
-        }
-
-        [Test]
-        public void GetObservableOutput_Always_ReturnsOutput()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var output = calculation.Output;
-
-            // Call
-            ICalculationOutput observableOutput = calculation.GetObservableOutput();
-
-            // Assert
-            Assert.AreSame(output, observableOutput);
-        }
     }
 }

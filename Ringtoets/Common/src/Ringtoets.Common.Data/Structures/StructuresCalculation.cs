@@ -72,15 +72,5 @@ namespace Ringtoets.Common.Data.Structures
         {
             Output = null;
         }
-
-        public ICalculationInput GetObservableInput()
-        {
-            return InputParameters;
-        }
-
-        public ICalculationOutput GetObservableOutput()
-        {
-            return Output;
-        }
     }
 }

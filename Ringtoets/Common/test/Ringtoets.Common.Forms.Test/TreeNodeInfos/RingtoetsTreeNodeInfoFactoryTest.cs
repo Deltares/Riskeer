@@ -554,7 +554,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         /// <param name="data">The created group without any children.</param>
         /// <param name="dataContext">The context object for <paramref name="data"/>, without any other data.</param>
         /// <param name="failureMechanism">The failure mechanism the item and context it belong to.</param>
-        private void CreateCalculationGroupAndContext(out CalculationGroup data, out TestCalculationGroupContext dataContext, IFailureMechanism failureMechanism)
+        private static void CreateCalculationGroupAndContext(out CalculationGroup data, out TestCalculationGroupContext dataContext, IFailureMechanism failureMechanism)
         {
             data = new CalculationGroup();
             dataContext = new TestCalculationGroupContext(data, failureMechanism);
@@ -1191,16 +1191,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             }
 
             public void ClearOutput() {}
-
-            public ICalculationInput GetObservableInput()
-            {
-                return null;
-            }
-
-            public ICalculationOutput GetObservableOutput()
-            {
-                return null;
-            }
         }
 
         private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>

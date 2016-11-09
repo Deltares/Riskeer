@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             const string name = "<very cool name>";
-            var calculation = new TestCalculation()
+            var calculation = new TestCalculation
             {
                 Name = name
             };
@@ -154,16 +154,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             }
 
             public void ClearOutput() {}
-
-            public ICalculationInput GetObservableInput()
-            {
-                return null;
-            }
-
-            public ICalculationOutput GetObservableOutput()
-            {
-                return null;
-            }
         }
     }
 }

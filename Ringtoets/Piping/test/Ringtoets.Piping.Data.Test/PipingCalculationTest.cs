@@ -230,36 +230,5 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsTrue(calculationHasOutput);
         }
-
-        [Test]
-        public void GetObservableInput_Always_ReturnsInputParameters()
-        {
-            // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput());
-            var inputParameters = calculation.InputParameters;
-
-            // Call
-            ICalculationInput input = calculation.GetObservableInput();
-
-            // Assert
-            Assert.AreSame(inputParameters, input);
-        }
-
-        [Test]
-        public void GetObservableOutput_Always_ReturnsOutput()
-        {
-            // Setup
-            var output = new PipingOutput(2.0, 3.0, 1.4, 50.3, 16.3, 58.2);
-            var calculation = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = output
-            };
-
-            // Call
-            ICalculationOutput calculationOutput = calculation.GetObservableOutput();
-
-            // Assert
-            Assert.AreSame(output, calculationOutput);
-        }
     }
 }

@@ -75,15 +75,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             Output = null;
         }
-
-        public ICalculationInput GetObservableInput()
-        {
-            return InputParameters;
-        }
-
-        public ICalculationOutput GetObservableOutput()
-        {
-            return Output;
-        }
     }
 }
