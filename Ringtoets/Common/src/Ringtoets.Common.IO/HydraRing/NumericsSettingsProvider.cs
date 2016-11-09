@@ -160,20 +160,6 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesPiping, new Dictionary<int, NumericsSetting>
-                    {
-                        {
-                            311, numericsSettingDirs
-                        },
-                        {
-                            313, numericsSettingDirs
-                        },
-                        {
-                            314, numericsSettingDirs
-                        }
-                    }
-                },
-                {
                     HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<int, NumericsSetting>
                     {
                         {

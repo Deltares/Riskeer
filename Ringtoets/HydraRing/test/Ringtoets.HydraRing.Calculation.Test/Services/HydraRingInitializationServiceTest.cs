@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void ParameteredConstructor_ExpectedValues()
         {
             // Call
-            var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.DikesPiping, 700001, "D:\\hlcd", "D:\\work");
+            var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.AssessmentLevel, 700001, "D:\\hlcd", "D:\\work");
 
             // Assert
             Assert.AreEqual("D:\\work\\700001.ini", hydraRingInitializationService.IniFilePath);
@@ -54,11 +54,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void GenerateInitializationScript_ReturnsExpectedInitializationScript()
         {
             // Setup
-            var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.DikesPiping, 700001, "D:\\hlcd", "");
+            var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.StructuresStructuralFailure, 700001, "D:\\hlcd", "");
             var configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, "config.sqlite");
 
             var expectedInitializationScript = "section             = 700001" + Environment.NewLine +
-                                               "mechanism           = 103" + Environment.NewLine +
+                                               "mechanism           = 112" + Environment.NewLine +
                                                "alternative         = 1" + Environment.NewLine +
                                                "layer               = 1" + Environment.NewLine +
                                                "logfile             = 700001.log" + Environment.NewLine +

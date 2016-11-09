@@ -29,9 +29,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
     public class HydraRingFailureMechanismTypeTest
     {
         [Test]
-        public void Values_HasTwelve()
+        public void Values_HasEleven()
         {
-            Assert.AreEqual(12, Enum.GetValues(typeof(HydraRingFailureMechanismType)).Length);
+            Assert.AreEqual(11, Enum.GetValues(typeof(HydraRingFailureMechanismType)).Length);
         }
     }
 }

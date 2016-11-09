@@ -59,12 +59,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
             102,
             103
         }, 1017)]
-        [TestCase(HydraRingFailureMechanismType.DikesPiping, 103, new[]
-        {
-            311,
-            313,
-            314
-        }, 3015)]
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 110, new[]
         {
             421,

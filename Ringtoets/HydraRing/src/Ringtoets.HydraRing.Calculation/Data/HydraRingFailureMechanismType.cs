@@ -36,7 +36,6 @@ namespace Ringtoets.HydraRing.Calculation.Data
         WaveSpectralPeriod,
         DikesOvertopping,
         DikesHeight,
-        DikesPiping,
         StructuresOvertopping,
         StructuresClosure,
         StructuresStructuralFailure,

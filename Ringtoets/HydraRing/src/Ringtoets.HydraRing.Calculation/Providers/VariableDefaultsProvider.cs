@@ -158,68 +158,6 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesPiping, new Dictionary<int, VariableDefaults>
-                    {
-                        {
-                            23, new VariableDefaults(6000)
-                        },
-                        {
-                            42, new VariableDefaults(notApplicableCorrelationLength)
-                        },
-                        {
-                            43, new VariableDefaults(notApplicableCorrelationLength)
-                        },
-                        {
-                            44, new VariableDefaults(200)
-                        },
-                        {
-                            45, new VariableDefaults(300)
-                        },
-                        {
-                            46, new VariableDefaults(notApplicableCorrelationLength)
-                        },
-                        {
-                            47, new VariableDefaults(notApplicableCorrelationLength)
-                        },
-                        {
-                            48, new VariableDefaults(3000)
-                        },
-                        {
-                            49, new VariableDefaults(200)
-                        },
-                        {
-                            50, new VariableDefaults(300)
-                        },
-                        {
-                            51, new VariableDefaults(notApplicableCorrelationLength)
-                        },
-                        {
-                            52, new VariableDefaults(600)
-                        },
-                        {
-                            53, new VariableDefaults(notApplicableCorrelationLength)
-                        },
-                        {
-                            54, new VariableDefaults(notApplicableCorrelationLength)
-                        },
-                        {
-                            55, new VariableDefaults(600)
-                        },
-                        {
-                            56, new VariableDefaults(180)
-                        },
-                        {
-                            58, new VariableDefaults(notApplicableCorrelationLength)
-                        },
-                        {
-                            124, new VariableDefaults(300)
-                        },
-                        {
-                            127, new VariableDefaults(notApplicableCorrelationLength)
-                        }
-                    }
-                },
-                {
                     HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<int, VariableDefaults>
                     {
                         {

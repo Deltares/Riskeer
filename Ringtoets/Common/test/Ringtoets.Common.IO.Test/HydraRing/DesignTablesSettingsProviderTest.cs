@@ -106,7 +106,6 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, -1, 5.0, 15.0)]
         [TestCase(HydraRingFailureMechanismType.DikesOvertopping, -1, double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.DikesHeight, 700131, 2.0, 4.0)]
-        [TestCase(HydraRingFailureMechanismType.DikesPiping, 700131, double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 700131, double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, 700131, double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 700131, double.NaN, double.NaN)]
