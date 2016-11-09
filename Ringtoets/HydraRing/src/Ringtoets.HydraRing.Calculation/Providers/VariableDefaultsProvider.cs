@@ -100,7 +100,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<int, VariableDefaults>
+                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<int, VariableDefaults>
                     {
                         {
                             1, new VariableDefaults(300)
@@ -129,7 +129,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<int, VariableDefaults>
+                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<int, VariableDefaults>
                     {
                         {
                             1, new VariableDefaults(300)

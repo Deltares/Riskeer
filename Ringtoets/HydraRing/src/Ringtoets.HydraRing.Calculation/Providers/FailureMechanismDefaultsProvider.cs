@@ -75,14 +75,14 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     }, 6)
                 },
                 {
-                    HydraRingFailureMechanismType.DikesOvertopping, new FailureMechanismDefaults(101, new[]
+                    HydraRingFailureMechanismType.DikesHeight, new FailureMechanismDefaults(101, new[]
                     {
                         102,
                         103
                     }, 1017)
                 },
                 {
-                    HydraRingFailureMechanismType.DikesHeight, new FailureMechanismDefaults(101, new[]
+                    HydraRingFailureMechanismType.DikesOvertopping, new FailureMechanismDefaults(101, new[]
                     {
                         102,
                         103

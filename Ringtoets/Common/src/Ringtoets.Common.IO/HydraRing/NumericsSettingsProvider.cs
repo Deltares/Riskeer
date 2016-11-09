@@ -138,7 +138,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<int, NumericsSetting>
+                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<int, NumericsSetting>
                     {
                         {
                             102, numericsSettingDirs
@@ -149,7 +149,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<int, NumericsSetting>
+                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<int, NumericsSetting>
                     {
                         {
                             102, numericsSettingDirs

@@ -49,12 +49,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         {
             5
         }, 6)]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 101, new[]
+        [TestCase(HydraRingFailureMechanismType.DikesHeight, 101, new[]
         {
             102,
             103
         }, 1017)]
-        [TestCase(HydraRingFailureMechanismType.DikesHeight, 101, new[]
+        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 101, new[]
         {
             102,
             103

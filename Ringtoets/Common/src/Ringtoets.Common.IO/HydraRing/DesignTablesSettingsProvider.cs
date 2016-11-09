@@ -102,12 +102,12 @@ namespace Ringtoets.Common.IO.HydraRing
                     new DesignTablesSetting(10, 50)
                 },
                 {
-                    HydraRingFailureMechanismType.DikesOvertopping,
-                    new DesignTablesSetting(double.NaN, double.NaN)
-                },
-                {
                     HydraRingFailureMechanismType.DikesHeight,
                     new DesignTablesSetting(2, 4)
+                },
+                {
+                    HydraRingFailureMechanismType.DikesOvertopping,
+                    new DesignTablesSetting(double.NaN, double.NaN)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresOvertopping,
