@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Service.Test
@@ -124,7 +125,8 @@ namespace Ringtoets.Piping.Service.Test
             var calculation = new PipingCalculation(new GeneralPipingInput());
             var calculationWithOutput = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
             var calculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
             {
@@ -132,7 +134,8 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new TestPipingOutput()
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
             var calculationWithHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
             {
@@ -145,7 +148,8 @@ namespace Ringtoets.Piping.Service.Test
             var subCalculation = new PipingCalculation(new GeneralPipingInput());
             var subCalculationWithOutput = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
             {
@@ -153,7 +157,8 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new TestPipingOutput()
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
             var subCalculationWithHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
             {

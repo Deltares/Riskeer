@@ -69,9 +69,9 @@ namespace Ringtoets.Piping.Service
                 throw new ArgumentNullException("calculation");
             }
 
-            calculation.Output = null;
+            calculation.ClearOutput();
         }
-        
+
         /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations in the <see cref="PipingFailureMechanism"/>.
         /// </summary>

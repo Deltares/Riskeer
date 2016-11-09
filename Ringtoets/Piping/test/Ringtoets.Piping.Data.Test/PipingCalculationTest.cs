@@ -24,6 +24,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
@@ -164,12 +165,13 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ClearOutput_Always_SetsOutputToNull()
+        public void ClearOutput_Always_SetsOutputAndSemiProbabilisticOutputToNull()
         {
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
 
             // Call
@@ -177,15 +179,17 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
+            Assert.IsNull(calculation.SemiProbabilisticOutput);
         }
 
         [Test]
-        public void HasOutput_OutputNull_ReturnsFalse()
+        public void HasOutput_OutputAndSemiProbabilisticOutputNull_ReturnsFalse()
         {
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = null
+                Output = null,
+                SemiProbabilisticOutput = null
             };
 
             // Call
@@ -202,6 +206,22 @@ namespace Ringtoets.Piping.Data.Test
             var calculation = new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
+            };
+
+            // Call
+            bool calculationHasOutput = calculation.HasOutput;
+
+            // Assert
+            Assert.IsTrue(calculationHasOutput);
+        }
+
+        [Test]
+        public void HasOutput_SemiProbabilisticOutputSet_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
 
             // Call

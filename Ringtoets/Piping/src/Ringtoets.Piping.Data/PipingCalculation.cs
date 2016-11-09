@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return Output != null;
+                return Output != null || SemiProbabilisticOutput != null;
             }
         }
 
@@ -74,6 +74,7 @@ namespace Ringtoets.Piping.Data
         public void ClearOutput()
         {
             Output = null;
+            SemiProbabilisticOutput = null;
         }
 
         public ICalculationInput GetObservableInput()
