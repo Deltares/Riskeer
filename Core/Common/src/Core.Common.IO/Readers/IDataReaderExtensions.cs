@@ -35,6 +35,8 @@ namespace Core.Common.IO.Readers
         /// <param name="dataReader">The data reader to read a column of a certain type from.</param>
         /// <param name="columnName">The name of the column to read from.</param>
         /// <returns>The read value from the column with name <paramref name="columnName"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="columnName"/> is not present in the read
+        /// data row.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataReader"/> or 
         /// <paramref name="columnName"/> is null.</exception>
         /// <exception cref="InvalidCastException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
@@ -49,8 +51,17 @@ namespace Core.Common.IO.Readers
                 throw new ArgumentNullException("columnName");
             }
 
-            var value = dataReader[columnName];
             var conversionType = typeof(T);
+            object value;
+
+            try
+            {
+                value = dataReader[columnName];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new ArgumentException(string.Format("Column '{0}' not defined for data row.", columnName), "columnName");    
+            }
 
             try
             {

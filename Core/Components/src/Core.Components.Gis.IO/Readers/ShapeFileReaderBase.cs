@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -116,6 +117,8 @@ namespace Core.Components.Gis.IO.Readers
         /// </summary>
         /// <param name="targetFeature">The <see cref="MapFeature"/> whose metadata will be updated.</param>
         /// <param name="sourceFeatureIndex">The index of the feature in the shapefile on which the <see cref="MapFeature"/> is based.</param>
+        /// <remarks> Attributes with <see cref="DBNull"/> value are translated to a <c>null</c> value in the
+        /// <see cref="MapFeature.MetaData"/>.</remarks>
         protected void CopyMetaDataIntoFeature(MapFeature targetFeature, int sourceFeatureIndex)
         {
             DataTable table = ShapeFile.GetAttributes(sourceFeatureIndex, 1);
@@ -123,7 +126,8 @@ namespace Core.Components.Gis.IO.Readers
 
             for (int i = 0; i < table.Columns.Count; i++)
             {
-                targetFeature.MetaData[table.Columns[i].ColumnName] = dataRow[i];
+                var value = dataRow[i] is DBNull ? null : dataRow[i];
+                targetFeature.MetaData[table.Columns[i].ColumnName] = value;
             }
         }
     }

@@ -20,10 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using DotSpatial.Data;
 using NUnit.Framework;
@@ -46,7 +50,6 @@ namespace Core.Components.Gis.IO.Test.Readers
                 // Assert
                 Assert.IsInstanceOf<IDisposable>(reader);
                 Assert.AreEqual(testFilePath, reader.GetFilePath);
-                Assert.IsNull(reader.GetShapeFile);
             }
         }
 
@@ -115,9 +118,92 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
+        [Test]
+        public void CopyMetaDataIntoFeature_AllValidValues_MetaDataAddedToFeature()
+        {
+            // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "traject_10-1.shp");
+            
+            var reader = new TestShapeFileReaderBase(validFilePath);
+            var targetFeature = new MapFeature(new MapGeometry[0]);
+
+            // Call
+            reader.PublicCopyMetaDataIntoFeature(targetFeature, 0);
+
+            // Assert
+            Assert.AreEqual("A", targetFeature.MetaData["CATEGORIE"]);
+            Assert.AreEqual("10", targetFeature.MetaData["DIJKRING"]);
+            Assert.AreEqual(19190.35, targetFeature.MetaData["LENGTE_TRJ"]);
+            Assert.AreEqual("1:1000", targetFeature.MetaData["Ondergrens"]);
+            Assert.AreEqual("1:3000", targetFeature.MetaData["Signalerin"]);
+            Assert.AreEqual("10-1", targetFeature.MetaData["TRAJECT_ID"]);
+        }
+
+        [Test]
+        public void CopyMetaDataIntoFeature_MultipleFeaturesAllValidValues_MetaDataAddedToFeature()
+        {
+            // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Multiple_Polygon_with_ID.shp");
+            
+            var reader = new TestShapeFileReaderBase(validFilePath);
+            var features = new List<MapFeature>();
+
+            for (int i = 0; i < 4; i++)
+            {
+                var targetFeature = new MapFeature(new MapGeometry[0]);
+
+                // Call
+                reader.PublicCopyMetaDataIntoFeature(targetFeature, i);
+
+                features.Add(targetFeature);
+            }
+
+            // Assert
+            CollectionAssert.AreEqual(new [] { 4,3,2,1 } , features.Select(f => f.MetaData["id"]));
+        }
+
+        [Test]
+        public void CopyMetaDataIntoFeature_DBNullValuesForColumn_MetaDataWithNullValueForAttribute()
+        {
+            // Setup
+            string fileWithDbNullValues = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Shape_DBNullSignalerinValue.shp");
+
+            var reader = new TestShapeFileReaderBase(fileWithDbNullValues);
+            var targetFeature = new MapFeature(new MapGeometry[0]);
+
+            // Call
+            reader.PublicCopyMetaDataIntoFeature(targetFeature, 0);
+
+            // Assert
+            Assert.IsNull(targetFeature.MetaData["Signalerin"]);
+        }
+
+        [Test]
+        public void CopyMetaDataIntoFeature_DBNullValuesForEachType_MetaDataWithNullValues()
+        {
+            // Setup
+            string fileWithDbNullValues = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Attribute_EachTypeNullValue_QGis.shp");
+
+            var reader = new TestShapeFileReaderBase(fileWithDbNullValues);
+            var targetFeature = new MapFeature(new MapGeometry[0]);
+
+            // Call
+            reader.PublicCopyMetaDataIntoFeature(targetFeature, 3);
+
+            // Assert
+            Assert.IsNull(targetFeature.MetaData["attInteg2"]);
+            Assert.IsNull(targetFeature.MetaData["attInteg64"]);
+            Assert.IsNull(targetFeature.MetaData["attDecimal"]);
+            Assert.IsNull(targetFeature.MetaData["attString"]);
+            Assert.IsNull(targetFeature.MetaData["attDate"]);
+        }
+
         private class TestShapeFileReaderBase : ShapeFileReaderBase
         {
-            public TestShapeFileReaderBase(string filePath) : base(filePath) {}
+            public TestShapeFileReaderBase(string filePath) : base(filePath)
+            {
+                ShapeFile = Shapefile.OpenFile(filePath);
+            }
 
             public string GetFilePath
             {
@@ -148,6 +234,11 @@ namespace Core.Components.Gis.IO.Test.Readers
             public override IFeature GetFeature(int index)
             {
                 return null;
+            }
+
+            public void PublicCopyMetaDataIntoFeature(MapFeature targetFeature, int sourceFeatureIndex)
+            {
+                CopyMetaDataIntoFeature(targetFeature, sourceFeatureIndex);
             }
         }
     }
