@@ -289,7 +289,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Het bestand bestaat niet. ", sectionsFilePath) + Environment.NewLine +
+            var expectedMessage = 
+                string.Format(@"Fout bij het lezen van bestand '{0}': Het bestand bestaat niet. ", sectionsFilePath) + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -466,6 +467,31 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_MissingNameValue_ShouldReturn()
+        {
+            // Setup
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "vakindeling_Empty_Name_Value.shp"));
+
+            var failureMechanism = new Simple();
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, new ReferenceLine(), sectionsFilePath);
+
+            // Call
+            bool importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            var expectedMessage = string.Format(
+                "Fout bij het lezen van bestand '{0}': Voor één van de vakken is geen naam opgegeven. {1}Er is geen vakindeling geïmporteerd.",
+                sectionsFilePath,
+                Environment.NewLine);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccessful);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 
         [Test]

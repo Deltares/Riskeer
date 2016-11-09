@@ -170,7 +170,10 @@ namespace Ringtoets.Common.IO.Test
 
                 // Assert
                 var message = Assert.Throws<CriticalFileReadException>(call).Message;
-                Assert.AreEqual("Het bestand heeft geen attribuut 'Vaknaam'. Dit attribuut is vereist.", message);
+                var expectedMessage = string.Format(
+                    "Fout bij het lezen van bestand '{0}': Het bestand heeft geen attribuut 'Vaknaam'. Dit attribuut is vereist.",
+                    validFilePath);
+                Assert.AreEqual(expectedMessage, message);
             }
         }
 
@@ -280,7 +283,10 @@ namespace Ringtoets.Common.IO.Test
 
                 // Assert
                 var message = Assert.Throws<CriticalFileReadException>(call).Message;
-                Assert.AreEqual("Het bestand heeft geen attribuut 'Vaknaam'. Dit attribuut is vereist.", message);
+                var expectedMessage = string.Format(
+                    "Fout bij het lezen van bestand '{0}': Het bestand heeft geen attribuut 'Vaknaam'. Dit attribuut is vereist.",
+                    validFilePath);
+                Assert.AreEqual(expectedMessage, message);
             }
         }
 
@@ -304,7 +310,10 @@ namespace Ringtoets.Common.IO.Test
 
                 // Assert
                 var message = Assert.Throws<CriticalFileReadException>(call).Message;
-                Assert.AreEqual("Het bestand bevat één of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.", message);
+                var expectedMessage = string.Format(
+                    "Fout bij het lezen van bestand '{0}': Het bestand bevat één of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.",
+                    validFilePath);
+                Assert.AreEqual(expectedMessage, message);
             }
         }
 
@@ -321,8 +330,9 @@ namespace Ringtoets.Common.IO.Test
                 TestDelegate call = () => new FailureMechanismSectionReader(validFilePath);
 
                 // Assert
-                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
-                                                    validFilePath);
+                var expectedMessage = string.Format(
+                    "Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
+                    validFilePath);
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);

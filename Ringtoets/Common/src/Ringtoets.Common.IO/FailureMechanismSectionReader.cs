@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
@@ -44,6 +43,7 @@ namespace Ringtoets.Common.IO
     {
         private const string sectionNameAttributeKey = "Vaknaam";
         private readonly PolylineShapeFileReader polylineShapeFileReader;
+        private readonly string filePath;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSectionReader"/> class.
@@ -60,14 +60,8 @@ namespace Ringtoets.Common.IO
         public FailureMechanismSectionReader(string shapeFilePath)
         {
             FileUtils.ValidateFilePath(shapeFilePath);
-            if (!File.Exists(shapeFilePath))
-            {
-                string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(CoreCommonUtilsResources.Error_File_does_not_exist);
-                throw new CriticalFileReadException(message);
-            }
-
-            polylineShapeFileReader = new PolylineShapeFileReader(shapeFilePath);
+            filePath = shapeFilePath;
+            polylineShapeFileReader = new PolylineShapeFileReader(filePath);
         }
 
         /// <summary>
@@ -114,9 +108,9 @@ namespace Ringtoets.Common.IO
         {
             if (!polylineShapeFileReader.HasAttribute(sectionNameAttributeKey))
             {
-                var message = string.Format(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_lacks_required_Attribute_0_,
-                                            sectionNameAttributeKey);
-                throw new CriticalFileReadException(message);
+                throw CreateCriticalFileReadException(
+                    string.Format(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_lacks_required_Attribute_0_,
+                                  sectionNameAttributeKey));
             }
         }
 
@@ -134,7 +128,7 @@ namespace Ringtoets.Common.IO
             var features = lineData.Features.ToArray();
             if (features.Length > 1)
             {
-                throw new CriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
+                throw CreateCriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
             }
 
             var feature = features[0];
@@ -146,7 +140,14 @@ namespace Ringtoets.Common.IO
 
         private string GetSectionName(MapFeature lineFeature)
         {
-            return (string) lineFeature.MetaData[sectionNameAttributeKey];
+            var sectionName = lineFeature.MetaData[sectionNameAttributeKey] as string;
+
+            if (string.IsNullOrWhiteSpace(sectionName))
+            {
+                throw CreateCriticalFileReadException("Voor één van de vakken is geen naam opgegeven.");
+            }
+
+            return sectionName;
         }
 
         private IEnumerable<Point2D> GetSectionGeometry(MapFeature lineFeature)
@@ -154,10 +155,16 @@ namespace Ringtoets.Common.IO
             var mapGeometries = lineFeature.MapGeometries.ToArray();
             if (mapGeometries.Length > 1)
             {
-                throw new CriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
+                throw CreateCriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
             }
 
             return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p.X, p.Y));
+        }
+
+        private CriticalFileReadException CreateCriticalFileReadException(string message)
+        {
+            var wrappedMessage = new FileReaderErrorMessageBuilder(filePath).Build(message);
+            return new CriticalFileReadException(wrappedMessage);
         }
     }
 }
