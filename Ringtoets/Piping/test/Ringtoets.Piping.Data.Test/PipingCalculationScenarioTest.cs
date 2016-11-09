@@ -98,7 +98,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Probability_ScenarioStatusNotDOne_ThrowsInvalidOperationException()
+        public void Probability_ScenarioStatusNotDone_ThrowsInvalidOperationException()
         {
             // Setup
             var scenario = new PipingCalculationScenario(new GeneralPipingInput());
@@ -122,6 +122,23 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.NotCalculated, status);
+        }
+
+        [Test]
+        public void CalculationScenarioStatus_SemiProbabilisticOutputNull_ReturnsStatusFailed()
+        {
+            // Setup
+            var scenario = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = null
+            };
+
+            // Call
+            CalculationScenarioStatus status = scenario.Status;
+
+            // Assert
+            Assert.AreEqual(CalculationScenarioStatus.Failed, status);
         }
 
         [Test]

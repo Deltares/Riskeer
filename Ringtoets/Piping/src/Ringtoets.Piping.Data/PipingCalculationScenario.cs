@@ -76,12 +76,14 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                if (!HasOutput)
+                if (Output == null)
                 {
                     return CalculationScenarioStatus.NotCalculated;
                 }
 
-                return double.IsNaN(SemiProbabilisticOutput.PipingProbability) ? CalculationScenarioStatus.Failed : CalculationScenarioStatus.Done;
+                return SemiProbabilisticOutput == null || double.IsNaN(SemiProbabilisticOutput.PipingProbability)
+                           ? CalculationScenarioStatus.Failed
+                           : CalculationScenarioStatus.Done;
             }
         }
     }

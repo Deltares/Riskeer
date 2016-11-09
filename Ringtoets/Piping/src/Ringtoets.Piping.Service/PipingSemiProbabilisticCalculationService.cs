@@ -199,7 +199,7 @@ namespace Ringtoets.Piping.Service
 
         private static void ValidateOutputOnCalculation(PipingCalculation calculation)
         {
-            if (!calculation.HasOutput)
+            if (calculation.Output == null)
             {
                 throw new ArgumentException(Resources.PipingSemiProbabilisticCalculationService_ValidateOutputOnCalculation_Factor_of_safety_cannot_be_calculated);
             }
