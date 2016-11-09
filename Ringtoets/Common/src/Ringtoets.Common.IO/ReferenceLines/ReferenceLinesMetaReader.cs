@@ -222,7 +222,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         {
             try
             {
-                return Convert.ToInt32(readObject);
+                return readObject == null ? (int?) null : Convert.ToInt32(readObject);
             }
             catch (Exception exception)
             {
