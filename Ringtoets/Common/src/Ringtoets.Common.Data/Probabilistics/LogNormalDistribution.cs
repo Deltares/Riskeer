@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// initialized as the standard log-normal distribution (mu=0, sigma=1, theta=0).
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
-        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [1, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
         /// </exception>
         public LogNormalDistribution(int numberOfDecimalPlaces)

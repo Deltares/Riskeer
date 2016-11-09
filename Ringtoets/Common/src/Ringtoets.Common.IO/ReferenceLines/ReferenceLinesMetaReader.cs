@@ -96,7 +96,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// Validates the <paramref name="shapeFilePath"/>.
         /// </summary>
         /// <param name="shapeFilePath">The file path to the shape file.</param>
-        /// <exception cref="System.ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when <paramref name="shapeFilePath"/> does not exist.</exception>
         private static void ValidateFilePath(string shapeFilePath)
         {

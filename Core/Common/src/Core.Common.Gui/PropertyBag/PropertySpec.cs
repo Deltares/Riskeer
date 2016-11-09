@@ -44,7 +44,7 @@ namespace Core.Common.Gui.PropertyBag
         /// <param name="propertyInfo">The property information.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="propertyInfo"/> is 
         /// an index property.</exception>
-        /// <exception cref="ArgumentNullException">When <paramref name="propertyInfo"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="propertyInfo"/> is <c>null</c>.</exception>
         public PropertySpec(PropertyInfo propertyInfo)
         {
             if (propertyInfo == null)

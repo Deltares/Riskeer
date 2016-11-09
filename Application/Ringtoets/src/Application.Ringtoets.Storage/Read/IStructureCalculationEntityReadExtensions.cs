@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The entity.</param>
         /// <param name="inputToUpdate">The input object to update.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="inputToUpdate"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="inputToUpdate"/>
         /// or <paramref name="collector"/> is <c>null</c>.</exception>
         public static void Read<T>(this IStructuresCalculationEntity entity,
                                    StructuresInputBase<T> inputToUpdate,

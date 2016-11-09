@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// </summary>
         /// <param name="importTarget">The collection to update.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="importTarget"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/> is <c>null</c>.</exception>
         public PipingSoilProfilesImporter(ObservableList<StochasticSoilModel> importTarget, string filePath) : base(filePath, importTarget) {}
 
         public override bool Import()

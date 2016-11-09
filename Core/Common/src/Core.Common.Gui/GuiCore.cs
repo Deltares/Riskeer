@@ -77,9 +77,9 @@ namespace Core.Common.Gui
         /// <param name="projectStore">The project store.</param>
         /// <param name="projectFactory">The project factory.</param>
         /// <param name="fixedSettings">The fixed settings.</param>
-        /// <exception cref="System.InvalidOperationException">Thrown when another <see cref="GuiCore"/>
+        /// <exception cref="InvalidOperationException">Thrown when another <see cref="GuiCore"/>
         /// instance is running.</exception>
-        /// <exception cref="System.ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GuiCore(IMainWindow mainWindow, IStoreProject projectStore, IProjectFactory projectFactory, GuiCoreSettings fixedSettings)
         {
             // error detection code, make sure we use only a single instance of GuiCore at a time

@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// profiles.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
-        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">Thrown when:
+        /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>

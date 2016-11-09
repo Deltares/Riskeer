@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// Initializes a new instance of the <see cref="VariationCoefficientNormalDistribution"/> class.
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places of the distribution.</param>
-        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
         /// </exception>
         public VariationCoefficientNormalDistribution(int numberOfDecimalPlaces)

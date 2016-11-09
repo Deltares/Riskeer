@@ -59,7 +59,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="importTarget">The failure mechanism to update.</param>
         /// <param name="referenceLine">The reference line used to check correspondence with.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <exception cref="System.ArgumentNullException">Thrown when any input argument is <c>null</c>.
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.
         /// </exception>
         public FailureMechanismSectionsImporter(IFailureMechanism importTarget, ReferenceLine referenceLine, string filePath) : base(filePath, importTarget)
         {

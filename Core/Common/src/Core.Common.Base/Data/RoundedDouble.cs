@@ -54,7 +54,7 @@ namespace Core.Common.Base.Data
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
         /// <param name="value">The value to initialize the instance with.</param>
-        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, <see cref="MaximumNumberOfDecimalPlaces"/>].
         /// </exception>
         public RoundedDouble(int numberOfDecimalPlaces, double value = 0.0)
@@ -210,7 +210,7 @@ namespace Core.Common.Base.Data
         /// Validates <see cref="NumberOfDecimalPlaces"/>.
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The new value for <see cref="NumberOfDecimalPlaces"/>.</param>
-        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, 15].
         /// </exception>
         private static void ValidateNumberOfDecimalPlaces(int numberOfDecimalPlaces)

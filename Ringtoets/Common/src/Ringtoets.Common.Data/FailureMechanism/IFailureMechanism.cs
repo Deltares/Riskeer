@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// Adds a <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.
         /// </summary>
         /// <param name="section">The new section.</param>
-        /// <exception cref="System.ArgumentException">Thrown when <paramref name="section"/> cannot
+        /// <exception cref="ArgumentException">Thrown when <paramref name="section"/> cannot
         /// be connected to elements already defined in <see cref="Sections"/>.</exception>
         void AddSection(FailureMechanismSection section);
 

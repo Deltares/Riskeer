@@ -70,7 +70,7 @@ namespace Core.Common.Utils.Reflection
         /// <typeparam name="T">The type of the class on which the expression takes place.</typeparam>
         /// <param name="expression">The expression.</param>
         /// <returns>The string name of the member.</returns>
-        /// <exception cref="System.ArgumentException">Thrown when <paramref name="expression"/> 
+        /// <exception cref="ArgumentException">Thrown when <paramref name="expression"/> 
         /// is not an expression with a member, such as an expression calling multiple methods.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="expression"/> is <c>null</c>.</exception>
         public static string GetMemberName<T>(Expression<Func<T, object>> expression)

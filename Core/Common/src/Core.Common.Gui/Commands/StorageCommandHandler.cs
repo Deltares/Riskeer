@@ -245,7 +245,7 @@ namespace Core.Common.Gui.Commands
         /// <param name="filePath">The path to load a <see cref="IProject"/> from.</param>
         /// <returns>The loaded <see cref="IProject"/> from <paramref name="filePath"/> or <c>null</c> if the project
         /// could not be loaded from <paramref name="filePath"/>.</returns>
-        /// <exception cref="System.ArgumentException"><paramref name="filePath"/> is invalid.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is invalid.</exception>
         private IProject LoadProjectFromStorage(string filePath)
         {
             IProject loadedProject = null;

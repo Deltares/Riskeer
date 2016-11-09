@@ -46,7 +46,7 @@ namespace Core.Common.Base.Storage
         /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
         /// <exception cref="InvalidOperationException">Thrown when not project has been staged
         /// before calling this method.</exception>
-        /// <exception cref="System.ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
+        /// <exception cref="ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
         /// <exception cref="CouldNotConnectException">Thrown when no new storage was created.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
@@ -63,7 +63,7 @@ namespace Core.Common.Base.Storage
         /// </summary>
         /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
         /// <returns>Returns a new instance of <see cref="IProject"/> with the data from the storage or <c>null</c> when not found.</returns>
-        /// <exception cref="System.ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
+        /// <exception cref="ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
         /// <item><paramref name="connectionArguments"/> is invalid.</item>

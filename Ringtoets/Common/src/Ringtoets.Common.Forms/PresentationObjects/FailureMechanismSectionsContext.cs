@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedFailureMechanism">The failure mechanism to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedFailureMechanism"/>.</param>
-        /// <exception cref="System.ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public FailureMechanismSectionsContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection assessmentSection)
             : base(wrappedFailureMechanism)
         {

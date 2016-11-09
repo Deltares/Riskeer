@@ -119,7 +119,7 @@ namespace Core.Common.Base.Geometry
         /// </summary>
         /// <param name="secondPoint">The second point.</param>
         /// <returns>A value of 0 or greater.</returns>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="secondPoint"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="secondPoint"/> is <c>null</c>.</exception>
         public double GetEuclideanDistanceTo(Point2D secondPoint)
         {
             if (secondPoint == null)

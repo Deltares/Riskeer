@@ -568,7 +568,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         /// <param name="dataContext">Output: The context corresponding with <paramref name="data"/>.</param>
         /// <param name="failureMechanism">The failure mechanism the item and context belong to.</param>
         /// <param name="initialName">Optional: The name of <paramref name="data"/>.</param>
-        /// <exception cref="System.NotSupportedException"></exception>
+        /// <exception cref="NotSupportedException"></exception>
         private static void CreateCalculationItemAndContext(CalculationItemType type, out ICalculationBase data, out object dataContext, IFailureMechanism failureMechanism, string initialName = null)
         {
             switch (type)

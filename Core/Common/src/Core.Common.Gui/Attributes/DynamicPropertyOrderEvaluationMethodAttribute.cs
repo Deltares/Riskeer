@@ -47,7 +47,7 @@ namespace Core.Common.Gui.Attributes
         /// </summary>
         /// <param name="target">The object instance declaring the evaluation method.</param>
         /// <returns>The delegate.</returns>
-        /// <exception cref="System.MissingMethodException">Thrown when there isn't a single method
+        /// <exception cref="MissingMethodException">Thrown when there isn't a single method
         /// declared on <paramref name="target"/> marked with <see cref="DynamicPropertyOrderEvaluationMethodAttribute"/>
         /// that is matching the signature defined by <see cref="PropertyOrder"/>.</exception>
         public static PropertyOrder CreatePropertyOrderMethod(object target)

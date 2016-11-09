@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// initialized as the standard normal distribution.
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places of the distribution.</param>
-        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
         /// </exception>
         public NormalDistribution(int numberOfDecimalPlaces)

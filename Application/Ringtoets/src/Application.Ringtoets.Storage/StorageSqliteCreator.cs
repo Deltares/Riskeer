@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage
         /// <paramref name="databaseFilePath"/>.
         /// </summary>
         /// <param name="databaseFilePath">Path of the new database file.</param>
-        /// <exception cref="System.ArgumentException">Thrown when either:
+        /// <exception cref="ArgumentException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="databaseFilePath"/> is invalid</item>
         /// <item><paramref name="databaseFilePath"/> points to an existing file</item>
