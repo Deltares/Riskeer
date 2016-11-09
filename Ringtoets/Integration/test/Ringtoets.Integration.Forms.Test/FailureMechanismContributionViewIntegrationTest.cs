@@ -39,6 +39,7 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Integration.Forms.Test
@@ -85,7 +86,8 @@ namespace Ringtoets.Integration.Forms.Test
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
@@ -157,6 +159,7 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.AreEqual(designWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
 
                 Assert.IsNotNull(pipingCalculation.Output);
+                Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNotNull(heightStructuresCalculation.Output);
 
@@ -176,6 +179,7 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
                 Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
                 Assert.IsNull(pipingCalculation.Output);
+                Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNull(heightStructuresCalculation.Output);
             }
@@ -276,7 +280,8 @@ namespace Ringtoets.Integration.Forms.Test
             PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
             GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
@@ -332,6 +337,7 @@ namespace Ringtoets.Integration.Forms.Test
                 // Precondition
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
                 Assert.IsNotNull(pipingCalculation.Output);
+                Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNotNull(heightStructuresCalculation.Output);
 
@@ -345,6 +351,7 @@ namespace Ringtoets.Integration.Forms.Test
 
                 Assert.AreEqual(normValue, failureMechanismContribution.Norm);
                 Assert.IsNull(pipingCalculation.Output);
+                Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNull(heightStructuresCalculation.Output);
             }
@@ -363,7 +370,8 @@ namespace Ringtoets.Integration.Forms.Test
             PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
             GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
@@ -417,6 +425,7 @@ namespace Ringtoets.Integration.Forms.Test
                 // Precondition
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
                 Assert.IsNotNull(pipingCalculation.Output);
+                Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNotNull(heightStructuresCalculation.Output);
 
@@ -430,6 +439,7 @@ namespace Ringtoets.Integration.Forms.Test
 
                 Assert.AreEqual(normValue, failureMechanismContribution.Norm);
                 Assert.IsNull(pipingCalculation.Output);
+                Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNull(heightStructuresCalculation.Output);
             }

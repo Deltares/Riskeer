@@ -207,7 +207,7 @@ namespace Ringtoets.Piping.Service.Test
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
-        private PipingCalculation AsPipingCalculation(PipingOutput pipingOutput)
+        private static PipingCalculation AsPipingCalculation(PipingOutput pipingOutput)
         {
             return new PipingCalculation(new GeneralPipingInput())
             {

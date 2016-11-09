@@ -42,6 +42,8 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -511,14 +513,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            PipingOutput pipingOutput = new PipingOutput(3.0, 4.0, 1.0, 3.0, 0.2, 0.4);
-            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            var pipingOutput = new TestPipingOutput();
+            var pipingSemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
+            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First()
                 },
-                Output = pipingOutput
+                Output = pipingOutput,
+                SemiProbabilisticOutput = pipingSemiProbabilisticOutput
             };
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
@@ -565,6 +569,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     CollectionAssert.AreEqual(currentLocations, assessmentSection.HydraulicBoundaryDatabase.Locations);
                     Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations.First(), pipingCalculation.InputParameters.HydraulicBoundaryLocation);
                     Assert.AreSame(pipingOutput, pipingCalculation.Output);
+                    Assert.AreSame(pipingSemiProbabilisticOutput, pipingCalculation.SemiProbabilisticOutput);
                     Assert.AreSame(currentFirstGrassCoverErosionOutwardsLocation, assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.First());
                 }
             }

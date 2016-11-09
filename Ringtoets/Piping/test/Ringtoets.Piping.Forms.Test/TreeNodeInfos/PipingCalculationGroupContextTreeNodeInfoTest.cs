@@ -171,7 +171,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             });
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -287,7 +288,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             });
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -825,10 +827,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var calculation1 = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculation1.Name = "A";
                 calculation1.Output = new TestPipingOutput();
+                calculation1.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
                 calculation1.Attach(calculation1Observer);
                 var calculation2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculation2.Name = "B";
                 calculation2.Output = new TestPipingOutput();
+                calculation2.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
                 calculation1.Attach(calculation2Observer);
 
                 var childGroup = new CalculationGroup();

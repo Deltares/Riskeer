@@ -102,7 +102,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -217,7 +218,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    Output = new TestPipingOutput()
+                    Output = new TestPipingOutput(),
+                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
                 };
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
@@ -454,6 +456,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                         StringAssert.StartsWith("Validatie van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
                     });
                     Assert.IsNull(calculation.Output);
+                    Assert.IsNull(calculation.SemiProbabilisticOutput);
                 }
             }
         }
@@ -563,6 +566,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                         StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
                     });
                     Assert.IsNotNull(calculation.Output);
+                    Assert.IsNotNull(calculation.SemiProbabilisticOutput);
                 }
             }
         }
@@ -599,6 +603,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 calculation.Output = new TestPipingOutput();
+                calculation.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
                 calculation.Attach(observer);
 
                 string messageBoxText = null, messageBoxTitle = null;

@@ -81,9 +81,11 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var originalOutput = new TestPipingOutput();
+            var originalSemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
 
             PipingCalculationScenario invalidPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
             invalidPipingCalculation.Output = originalOutput;
+            invalidPipingCalculation.SemiProbabilisticOutput = originalSemiProbabilisticOutput;
 
             var activity = new PipingCalculationActivity(invalidPipingCalculation, new PipingProbabilityAssessmentInput(), int.MinValue, double.NaN);
 
@@ -105,6 +107,7 @@ namespace Ringtoets.Piping.Service.Test
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             Assert.AreEqual(originalOutput, invalidPipingCalculation.Output);
+            Assert.AreEqual(originalSemiProbabilisticOutput, invalidPipingCalculation.SemiProbabilisticOutput);
         }
 
         [Test]
@@ -113,6 +116,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             validPipingCalculation.Output = null;
+            validPipingCalculation.SemiProbabilisticOutput = null;
 
             int norm = new Random(21).Next(100, 300000);
             var activity = new PipingCalculationActivity(validPipingCalculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
@@ -133,6 +137,7 @@ namespace Ringtoets.Piping.Service.Test
             });
             Assert.AreEqual(ActivityState.Executed, activity.State);
             Assert.IsNotNull(validPipingCalculation.Output);
+            Assert.IsNotNull(validPipingCalculation.SemiProbabilisticOutput);
         }
 
         [Test]
@@ -146,6 +151,7 @@ namespace Ringtoets.Piping.Service.Test
 
             PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             validPipingCalculation.Output = null;
+            validPipingCalculation.SemiProbabilisticOutput = null;
             validPipingCalculation.Attach(observerMock);
 
             var activity = new PipingCalculationActivity(validPipingCalculation, new PipingProbabilityAssessmentInput(), int.MinValue, double.NaN);

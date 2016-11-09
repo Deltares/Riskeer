@@ -221,11 +221,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var generalInputParameters = new GeneralPipingInput();
                 var pipingCalculation1 = new PipingCalculationScenario(generalInputParameters)
                 {
-                    Output = new TestPipingOutput()
+                    Output = new TestPipingOutput(),
+                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
                 };
                 var pipingCalculation2 = new PipingCalculationScenario(generalInputParameters)
                 {
-                    Output = new TestPipingOutput()
+                    Output = new TestPipingOutput(),
+                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
                 };
 
                 var observer = mocks.StrictMock<IObserver>();
@@ -302,7 +304,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             }));
             var pipingCalculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
             {
-                Output = new TestPipingOutput()
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
             failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
@@ -400,7 +403,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             {
                 var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    Output = new TestPipingOutput()
+                    Output = new TestPipingOutput(),
+                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
                 };
 
                 var failureMechanism = new PipingFailureMechanism();

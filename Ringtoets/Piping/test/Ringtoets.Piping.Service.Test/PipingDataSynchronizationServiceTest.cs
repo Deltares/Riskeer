@@ -51,7 +51,8 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
 
             // Call
@@ -59,6 +60,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
+            Assert.IsNull(calculation.SemiProbabilisticOutput);
         }
 
         [Test]
