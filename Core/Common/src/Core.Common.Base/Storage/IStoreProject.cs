@@ -44,7 +44,7 @@ namespace Core.Common.Base.Storage
         /// Converts the staged project to a new storage entry.
         /// </summary>
         /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
-        /// <exception cref="InvalidOperationException">Thrown when not project has been staged
+        /// <exception cref="InvalidOperationException">Thrown when no project has been staged
         /// before calling this method.</exception>
         /// <exception cref="ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
         /// <exception cref="CouldNotConnectException">Thrown when no new storage was created.</exception>
