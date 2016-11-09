@@ -35,9 +35,6 @@ namespace Core.Common.Gui.Test.PropertyBag
         [Test]
         public void Constructor_InfoNull_ThrowArgumentNullException()
         {
-            // Setup
-            PropertyInfo info = null;
-
             // Call
             TestDelegate call = () => new PropertySpec(null);
 

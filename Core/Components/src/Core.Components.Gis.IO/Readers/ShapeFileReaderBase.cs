@@ -121,13 +121,32 @@ namespace Core.Components.Gis.IO.Readers
         /// <see cref="MapFeature.MetaData"/>.</remarks>
         protected void CopyMetaDataIntoFeature(MapFeature targetFeature, int sourceFeatureIndex)
         {
-            DataTable table = ShapeFile.GetAttributes(sourceFeatureIndex, 1);
-            DataRow dataRow = table.Rows[0];
+            DataRow dataRow = ShapeFile.GetAttributes(sourceFeatureIndex, 1).Rows[0];
+            List<Field> columns = ShapeFile.DataTable.Columns.OfType<Field>().ToList();
 
-            for (int i = 0; i < table.Columns.Count; i++)
+            for (int i = 0; i < columns.Count; i++)
             {
-                var value = dataRow[i] is DBNull ? null : dataRow[i];
-                targetFeature.MetaData[table.Columns[i].ColumnName] = value;
+                var dataRowValue = dataRow[i];
+
+                object newValue = null;
+                var column = columns[i];
+
+                if (!(dataRowValue is DBNull))
+                {
+                    if (column.TypeCharacter != 'C' && dataRowValue is string)
+                    {
+                        var nullValue = string.Join(string.Empty, Enumerable.Repeat('*', column.Length));
+                        if (!string.Equals(dataRowValue, nullValue))
+                        {
+                            newValue = dataRowValue;
+                        }
+                    }
+                    else
+                    {
+                        newValue = dataRowValue;
+                    }
+                }
+                targetFeature.MetaData[column.ColumnName] = newValue;
             }
         }
     }
