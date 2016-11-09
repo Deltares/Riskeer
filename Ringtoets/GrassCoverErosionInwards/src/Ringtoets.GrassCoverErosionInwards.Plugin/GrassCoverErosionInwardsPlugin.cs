@@ -118,6 +118,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                      .Cast<object>()
                                                      .ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddDeleteChildrenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
@@ -332,7 +334,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection),
+                new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }

@@ -26,6 +26,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
@@ -56,6 +57,7 @@ using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
@@ -599,8 +601,12 @@ namespace Ringtoets.Integration.Plugin
                 Text = dikeProfile => dikeProfile.Name,
                 Image = context => RingtoetsCommonFormsResources.DikeProfile,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddDeleteItem()
+                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
-                                                                                 .Build()
+                                                                                 .Build(),
+                CanRemove = CanRemoveDikeProfile,
+                OnNodeRemoved = OnDikeProfileRemoved
             };
 
             yield return new TreeNodeInfo<ForeshoreProfile>
@@ -834,6 +840,41 @@ namespace Ringtoets.Integration.Plugin
                 return createFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
+
+        #region DikeProfile TreeNodeInfo
+
+        private bool CanRemoveDikeProfile(DikeProfile nodeData, object parentData)
+        {
+            return parentData is DikeProfilesContext;
+        }
+
+        private void OnDikeProfileRemoved(DikeProfile nodeData, object parentData)
+        {
+            var parentContext = (DikeProfilesContext) parentData;
+            var changedObservables = new List<IObservable>();
+            GrassCoverErosionInwardsCalculation[] grassCoverErosionInwardsCalculations = parentContext.ParentFailureMechanism.Calculations
+                                                                                                      .Cast<GrassCoverErosionInwardsCalculation>()
+                                                                                                      .ToArray();
+            GrassCoverErosionInwardsCalculation[] calculationWithRemovedDikeProfile = grassCoverErosionInwardsCalculations
+                .Where(c => ReferenceEquals(c.InputParameters.DikeProfile, nodeData))
+                .ToArray();
+            foreach (GrassCoverErosionInwardsCalculation calculation in calculationWithRemovedDikeProfile)
+            {
+                calculation.InputParameters.DikeProfile = null;
+                GrassCoverErosionInwardsHelper.Delete(parentContext.ParentFailureMechanism.SectionResults, calculation, grassCoverErosionInwardsCalculations);
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            parentContext.WrappedData.Remove(nodeData);
+            changedObservables.Add(parentContext.WrappedData);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        #endregion
 
         #region Comment ViewInfo
 

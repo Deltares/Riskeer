@@ -30,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -48,9 +49,9 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
 
-            var list = new ObservableList<DikeProfile>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var importTarget = new DikeProfilesContext(list, assessmentSection);
+            var importTarget = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -122,9 +123,9 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var list = new ObservableList<DikeProfile>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var context = new DikeProfilesContext(list, assessmentSection);
+            var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -148,9 +149,9 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = null;
             mocks.ReplayAll();
 
-            var list = new ObservableList<DikeProfile>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var context = new DikeProfilesContext(list, assessmentSection);
+            var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {

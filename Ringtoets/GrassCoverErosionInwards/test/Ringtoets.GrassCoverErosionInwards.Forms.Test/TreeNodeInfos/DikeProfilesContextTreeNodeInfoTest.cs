@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -31,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -88,9 +88,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var dikeProfiles = new ObservableList<DikeProfile>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var dikeProfilesContext = new DikeProfilesContext(dikeProfiles, assessmentSection);
+            var dikeProfilesContext = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(dikeProfilesContext);
@@ -109,9 +109,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var dikeProfiles = new ObservableList<DikeProfile>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var dikeProfilesContext = new DikeProfilesContext(dikeProfiles, assessmentSection);
+            var dikeProfilesContext = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
             // Call
             Image image = info.Image(dikeProfilesContext);
@@ -129,12 +129,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var asssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var dikeProfiles = new ObservableList<DikeProfile>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Precondition
-            CollectionAssert.IsEmpty(dikeProfiles);
+            CollectionAssert.IsEmpty(failureMechanism.DikeProfiles);
 
-            var context = new DikeProfilesContext(dikeProfiles, asssessmentSection);
+            var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, asssessmentSection);
 
             // Call
             Color color = info.ForeColor(context);
@@ -152,15 +152,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var asssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var dikeProfiles = new ObservableList<DikeProfile>
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
-                CreateDikeProfile()
+                DikeProfiles =
+                {
+                    CreateDikeProfile()
+                }
             };
 
             // Precondition
-            CollectionAssert.IsNotEmpty(dikeProfiles);
+            CollectionAssert.IsNotEmpty(failureMechanism.DikeProfiles);
 
-            var context = new DikeProfilesContext(dikeProfiles, asssessmentSection);
+            var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, asssessmentSection);
 
             // Call
             Color color = info.ForeColor(context);
@@ -180,13 +183,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             DikeProfile dikeProfile1 = CreateDikeProfile();
             DikeProfile dikeProfile2 = CreateDikeProfile();
-            var dikeProfiles = new ObservableList<DikeProfile>
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
-                dikeProfile1,
-                dikeProfile2
+                DikeProfiles =
+                {
+                    dikeProfile1,
+                    dikeProfile2
+                }
             };
 
-            var dikeProfilesContext = new DikeProfilesContext(dikeProfiles, assessmentSection);
+            var dikeProfilesContext = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
             // Call
             var children = info.ChildNodeObjects(dikeProfilesContext);
@@ -204,6 +210,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);

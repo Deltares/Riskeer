@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
@@ -41,14 +42,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var dikeProfilesList = new ObservableList<DikeProfile>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var context = new DikeProfilesContext(dikeProfilesList, assessmentSection);
+            var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<ObservableList<DikeProfile>>>(context);
-            Assert.AreSame(dikeProfilesList, context.WrappedData);
+            Assert.AreSame(failureMechanism.DikeProfiles, context.WrappedData);
             Assert.AreSame(assessmentSection, context.ParentAssessmentSection);
             mocks.VerifyAll();
         }
@@ -61,8 +62,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             // Call
-            TestDelegate call = () => new DikeProfilesContext(null, assessmentSection);
+            TestDelegate call = () => new DikeProfilesContext(null, failureMechanism, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -71,10 +74,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var dikeProfiles = new ObservableList<DikeProfile>();
+
+            // Call
+            TestDelegate call = () => new DikeProfilesContext(dikeProfiles, null, assessmentSection);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("parentFailureMechanism", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             // Call
-            TestDelegate call = () => new DikeProfilesContext(new ObservableList<DikeProfile>(), null);
+            TestDelegate call = () => new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
