@@ -235,6 +235,8 @@ namespace Ringtoets.Piping.Plugin
                                                               Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddDeleteChildrenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()
                                                                                  .AddExpandAllItem()
@@ -248,11 +250,15 @@ namespace Ringtoets.Piping.Plugin
                 Image = stochasticSoilModel => PipingFormsResources.StochasticSoilModelIcon,
                 ChildNodeObjects = stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddDeleteItem()
+                                                                                 .AddSeparator()
                                                                                  .AddExpandAllItem()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddSeparator()
                                                                                  .AddPropertiesItem()
-                                                                                 .Build()
+                                                                                 .Build(),
+                CanRemove = (model, o) => true,
+                OnNodeRemoved = OnStochasticSoilModelRemoved
             };
 
             yield return new TreeNodeInfo<StochasticSoilProfile>
@@ -479,6 +485,34 @@ namespace Ringtoets.Piping.Plugin
                 if (ReferenceEquals(pipingCalculationScenario.InputParameters.SurfaceLine, nodeData))
                 {
                     pipingCalculationScenario.InputParameters.SurfaceLine = null;
+                    changedObservables.Add(pipingCalculationScenario.InputParameters);
+                }
+            }
+
+            context.WrappedData.Remove(nodeData);
+            changedObservables.Add(context.WrappedData);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        #endregion
+
+        #region
+
+        private void OnStochasticSoilModelRemoved(StochasticSoilModel nodeData, object parentData)
+        {
+            var context = (StochasticSoilModelsContext) parentData;
+            var changedObservables = new List<IObservable>();
+            PipingFailureMechanism failureMechanism = context.FailureMechanism;
+            foreach (PipingCalculationScenario pipingCalculationScenario in failureMechanism.Calculations)
+            {
+                if (ReferenceEquals(pipingCalculationScenario.InputParameters.StochasticSoilModel, nodeData))
+                {
+                    pipingCalculationScenario.InputParameters.StochasticSoilModel = null;
+                    pipingCalculationScenario.InputParameters.StochasticSoilProfile = null;
                     changedObservables.Add(pipingCalculationScenario.InputParameters);
                 }
             }
