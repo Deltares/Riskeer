@@ -56,7 +56,9 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculation>().Select(c => c.GetObservableInput())));
+                UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children
+                                                                                 .OfType<StructuresCalculation<HeightStructuresInput>>()
+                                                                                 .Select(c => c.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
         }
 

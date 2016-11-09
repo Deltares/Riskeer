@@ -35,15 +35,5 @@ namespace Ringtoets.Common.Data.Calculation
         /// Clears the calculated output.
         /// </summary>
         void ClearOutput();
-
-        /// <summary>
-        /// Gets the input of the calculation to observe.
-        /// </summary>
-        ICalculationInput GetObservableInput();
-
-        /// <summary>
-        /// Gets the output of the calculation to observe.
-        /// </summary>
-        ICalculationOutput GetObservableOutput();
     }
 }
