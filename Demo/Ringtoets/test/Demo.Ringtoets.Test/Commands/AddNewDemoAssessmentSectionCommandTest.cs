@@ -401,7 +401,7 @@ namespace Demo.Ringtoets.Test.Commands
 
             Assert.AreEqual(9.81, inputParameters.WaterVolumetricWeight, 1e-3);
             Assert.AreEqual(0.3, inputParameters.SellmeijerReductionFactor, 1e-3);
-            Assert.AreEqual(16.5, inputParameters.SandParticlesVolumicWeight, 1e-3);
+            Assert.AreEqual(16.2, inputParameters.SandParticlesVolumicWeight, 1e-3);
             Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient, 1e-3);
             Assert.AreEqual(1.33e-6, inputParameters.WaterKinematicViscosity, 1e-3);
             Assert.AreEqual(9.81, inputParameters.Gravity, 1e-3);
@@ -448,8 +448,8 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(-0.228, calculation.Output.HeaveZValue, 1e-3);
             Assert.AreEqual(1.484, calculation.Output.UpliftFactorOfSafety, 1e-3);
             Assert.AreEqual(1.499, calculation.Output.UpliftZValue, 1e-3);
-            Assert.AreEqual(0.432, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
-            Assert.AreEqual(-1.514, calculation.Output.SellmeijerZValue, 1e-3);
+            Assert.AreEqual(0.425, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
+            Assert.AreEqual(-1.535, calculation.Output.SellmeijerZValue, 1e-3);
         }
 
         private static void AssertCalculationInFailureMechanismSectionResult(PipingCalculationScenario calculation, PipingFailureMechanismSectionResult[] sectionResults, IEnumerable<PipingCalculationScenario> calculations)

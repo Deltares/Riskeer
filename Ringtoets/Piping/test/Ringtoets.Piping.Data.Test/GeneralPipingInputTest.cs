@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.AreEqual(0.3, inputParameters.CriticalHeaveGradient);
 
-            Assert.AreEqual(16.5, inputParameters.SandParticlesVolumicWeight);
+            Assert.AreEqual(16.2, inputParameters.SandParticlesVolumicWeight);
             Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient);
             Assert.AreEqual(37, inputParameters.BeddingAngle);
             Assert.AreEqual(1.33e-6, inputParameters.WaterKinematicViscosity);
