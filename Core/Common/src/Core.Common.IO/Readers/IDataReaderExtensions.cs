@@ -39,7 +39,8 @@ namespace Core.Common.IO.Readers
         /// data row.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataReader"/> or 
         /// <paramref name="columnName"/> is null.</exception>
-        /// <exception cref="InvalidCastException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
+        /// <exception cref="ConversionException">Thrown when the value in the column could not be converted
+        /// to type <typeparamref name="T"/>.</exception>
         public static T Read<T>(this IDataReader dataReader, string columnName)
         {
             if (dataReader == null)

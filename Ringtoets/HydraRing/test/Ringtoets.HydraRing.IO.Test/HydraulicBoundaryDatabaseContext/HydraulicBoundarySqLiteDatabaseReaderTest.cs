@@ -272,7 +272,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
                 // Assert
                 var exception = Assert.Throws<LineParseException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
+                Assert.IsInstanceOf<ConversionException>(exception.InnerException);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

@@ -85,7 +85,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             {
                 return ReadHrdLocation();
             }
-            catch (InvalidCastException e)
+            catch (ConversionException e)
             {
                 var message = new FileReaderErrorMessageBuilder(Path).
                     Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
@@ -197,19 +197,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         }
 
         /// <summary>
-        /// Reads a value at column <paramref name="columnName"/> from the database.
-        /// </summary>
-        /// <typeparam name="T">The expected type of value in the column with name <paramref name="columnName"/>.</typeparam>
-        /// <param name="columnName">The name of the column to read from.</param>
-        /// <returns>The read value from the column with name <paramref name="columnName"/>.</returns>
-        /// <exception cref="InvalidCastException">Thrown when the value in the column was not of type 
-        /// <typeparamref name="T"/>.</exception>
-        private T Read<T>(string columnName)
-        {
-            return (T) sqliteDataReader[columnName];
-        }
-
-        /// <summary>
         /// Reads the current row into a new instance of <see cref="HrdLocation"/>.
         /// </summary>
         /// <returns>A new instance of <see cref="HrdLocation"/>, based upon the current row.</returns>
@@ -219,10 +206,10 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         {
             try
             {
-                var id = Read<long>(HrdLocationsTableDefinitions.HrdLocationId);
-                var name = Read<string>(HrdLocationsTableDefinitions.Name);
-                var x = Read<double>(HrdLocationsTableDefinitions.XCoordinate);
-                var y = Read<double>(HrdLocationsTableDefinitions.YCoordinate);
+                var id = sqliteDataReader.Read<long>(HrdLocationsTableDefinitions.HrdLocationId);
+                var name = sqliteDataReader.Read<string>(HrdLocationsTableDefinitions.Name);
+                var x = sqliteDataReader.Read<double>(HrdLocationsTableDefinitions.XCoordinate);
+                var y = sqliteDataReader.Read<double>(HrdLocationsTableDefinitions.YCoordinate);
                 MoveNext();
                 return new HrdLocation(id, name, x, y);
             }
