@@ -205,11 +205,13 @@ namespace Ringtoets.Piping.Plugin
                 ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddDeleteChildrenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()
                                                                                  .AddExpandAllItem()
                                                                                  .AddCollapseAllItem()
-                                                                                 .Build()
+                                                                                 .Build(),
             };
 
             yield return new TreeNodeInfo<RingtoetsPipingSurfaceLine>
@@ -217,8 +219,9 @@ namespace Ringtoets.Piping.Plugin
                 Text = pipingSurfaceLine => pipingSurfaceLine.Name,
                 Image = pipingSurfaceLine => PipingFormsResources.PipingSurfaceLineIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
                                                                                  .AddDeleteItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
                                                                                  .Build(),
                 CanRemove = (nodeData, parentData) => true,
                 OnNodeRemoved = OnSurfaceLineRemoved
