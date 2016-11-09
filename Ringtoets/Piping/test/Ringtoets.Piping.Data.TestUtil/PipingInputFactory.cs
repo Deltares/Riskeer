@@ -25,8 +25,18 @@ using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.TestUtil
 {
-    public static class PipingCalculationFactory
+    /// <summary>
+    /// Helper class for creating different instances of <see cref="PipingInput"/>
+    /// for easier testing.
+    /// </summary>
+    public static class PipingInputFactory
     {
+        /// <summary>
+        /// Creates piping input with an aquifer layer and coverage layer.
+        /// </summary>
+        /// <param name="thicknessAquiferLayer">The thickness of the aquifer layer.</param>
+        /// <param name="thicknessCoverageLayer">The thickness of the coverage layer.</param>
+        /// <returns>A new <see cref="PipingInput"/>.</returns>
         public static PipingInput CreateInputWithAquiferAndCoverageLayer(double thicknessAquiferLayer = 1.0, double thicknessCoverageLayer = 2.0)
         {
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -58,6 +68,11 @@ namespace Ringtoets.Piping.Data.TestUtil
             };
         }
 
+        /// <summary>
+        /// Creates piping input with a single aquifer layer above the surface line.
+        /// </summary>
+        /// <param name="deltaAboveSurfaceLine">The distance between the aquifer layer and the surface line.</param>
+        /// <returns>A new <see cref="PipingInput"/>.</returns>
         public static PipingInput CreateInputWithSingleAquiferLayerAboveSurfaceLine(double deltaAboveSurfaceLine)
         {
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -94,6 +109,11 @@ namespace Ringtoets.Piping.Data.TestUtil
             return input;
         }
 
+        /// <summary>
+        /// Creates piping input with multiple aquifer layers under the surface line.
+        /// </summary>
+        /// <param name="expectedThickness">The expected thickness of the aquifer.</param>
+        /// <returns>A new <see cref="PipingInput"/>.</returns>
         public static PipingInput CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out double expectedThickness)
         {
             var surfaceLine = new RingtoetsPipingSurfaceLine();

@@ -46,7 +46,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="PipingCalculationFactory.cs" />
+    <Compile Include="PipingInputFactory.cs" />
     <Compile Include="PipingCalculationScenarioFactory.cs" />
     <Compile Include="Segment2DLoopCollectionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
