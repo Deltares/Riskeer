@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
                 random.NextDouble(),
                 random.NextDouble(),
@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Constructor_WithPipingCalculationWithoutSemiProbabilisticOutput_PropertiesFromPipingCalculation()
         {
             // Setup
-            var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
             var row = new PipingScenarioRow(calculation);
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.Attach(observer);
 
             var row = new PipingScenarioRow(calculation);
@@ -133,7 +133,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var newValue = new Random().Next(0, 100);
 
-            var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingScenarioRow(calculation);
 
             int counter = 0;

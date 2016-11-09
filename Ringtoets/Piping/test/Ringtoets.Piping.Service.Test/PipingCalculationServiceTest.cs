@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            PipingCalculation pipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation pipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             pipingCalculation.Name = name;
 
             // Call
@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var output = new TestPipingOutput();
-            PipingCalculation invalidPipingCalculation = PipingCalculationFactory.CreateCalculationWithInvalidData();
+            PipingCalculation invalidPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
             invalidPipingCalculation.Output = output;
 
             // Call
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.HydraulicBoundaryLocation = null;
             calculation.Name = name;
 
@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = RoundedDouble.NaN;
             calculation.Name = name;
 
@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.EntryPointL = RoundedDouble.NaN;
             calculation.Name = name;
 
@@ -190,7 +190,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.ExitPointL = RoundedDouble.NaN;
             calculation.Name = name;
 
@@ -216,7 +216,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.SurfaceLine = null;
             calculation.InputParameters.ExitPointL = (RoundedDouble) 0.9;
             calculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
@@ -244,7 +244,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.StochasticSoilProfile = null;
             calculation.Name = name;
 
@@ -281,7 +281,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
@@ -326,7 +326,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
@@ -373,7 +373,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
@@ -434,7 +434,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
@@ -494,7 +494,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
@@ -528,7 +528,7 @@ namespace Ringtoets.Piping.Service.Test
             var random = new Random(21);
             var incompletePipingSoilLayer = new PipingSoilLayer(10.5)
             {
-                IsAquifer = false,
+                IsAquifer = false
             };
             if (deviationSet)
             {
@@ -558,7 +558,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
@@ -616,7 +616,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
@@ -643,7 +643,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             validPipingCalculation.Name = name;
 
             Action call = () =>
@@ -671,7 +671,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Calculate_ValidPipingCalculationNoOutput_ShouldSetOutput()
         {
             // Setup
-            PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Precondition
             Assert.IsNull(validPipingCalculation.Output);
@@ -690,7 +690,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var output = new TestPipingOutput();
 
-            PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             validPipingCalculation.Output = output;
 
             // Precondition
@@ -707,7 +707,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_CompleteInput_InputSetOnSubCalculators()
         {
             // Setup
-            PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             PipingInput input = validPipingCalculation.InputParameters;
 
             using (new PipingSubCalculatorFactoryConfig())
@@ -724,7 +724,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Calculate_CompleteInput_InputSetOnSubCalculators()
         {
             // Setup
-            PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculation validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             PipingInput input = validPipingCalculation.InputParameters;
 
             using (new PipingSubCalculatorFactoryConfig())
@@ -737,7 +737,7 @@ namespace Ringtoets.Piping.Service.Test
             }
         }
 
-        private void AssertSubCalculatorInputs(PipingInput input)
+        private static void AssertSubCalculatorInputs(PipingInput input)
         {
             var testFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
             var heaveCalculator = testFactory.LastCreatedHeaveCalculator;

@@ -507,7 +507,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+                var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
@@ -671,7 +671,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                         Geometry =
                         {
                             new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
-                        },
+                        }
                     }
                 }
             };
