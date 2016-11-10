@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -88,9 +87,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var heightStructures = new ObservableList<HeightStructure>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var heightStructuresContext = new HeightStructuresContext(heightStructures, assessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(heightStructuresContext);
@@ -109,9 +108,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var heightStructures = new ObservableList<HeightStructure>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var heightStructuresContext = new HeightStructuresContext(heightStructures, assessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
 
             // Call
             Image image = info.Image(heightStructuresContext);
@@ -129,15 +128,18 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var asssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var heightStructures = new ObservableList<HeightStructure>
+            var failureMechanism = new HeightStructuresFailureMechanism
             {
-                new TestHeightStructure()
+                HeightStructures =
+                {
+                    new TestHeightStructure()
+                }
             };
 
             // Precondition
-            CollectionAssert.IsNotEmpty(heightStructures);
+            CollectionAssert.IsNotEmpty(failureMechanism.HeightStructures);
 
-            var heightStructuresContext = new HeightStructuresContext(heightStructures, asssessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, asssessmentSection);
 
             // Call
             Color color = info.ForeColor(heightStructuresContext);
@@ -157,19 +159,22 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             HeightStructure heightStructure1 = new TestHeightStructure();
             HeightStructure heightStructure2 = new TestHeightStructure();
-            var heightStructures = new ObservableList<HeightStructure>
+            var failureMechanism = new HeightStructuresFailureMechanism
             {
-                heightStructure1,
-                heightStructure2
+                HeightStructures =
+                {
+                    heightStructure1,
+                    heightStructure2
+                }
             };
 
-            var heightStructuresContext = new HeightStructuresContext(heightStructures, assessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(heightStructuresContext);
 
             // Assert
-            CollectionAssert.AreEqual(heightStructures, children);
+            CollectionAssert.AreEqual(failureMechanism.HeightStructures, children);
             mocks.VerifyAll();
         }
 
@@ -181,12 +186,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var asssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var heightStructures = new ObservableList<HeightStructure>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Precondition
-            CollectionAssert.IsEmpty(heightStructures);
+            CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
 
-            var heightStructuresContext = new HeightStructuresContext(heightStructures, asssessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, asssessmentSection);
 
             // Call
             Color color = info.ForeColor(heightStructuresContext);
@@ -202,6 +207,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);

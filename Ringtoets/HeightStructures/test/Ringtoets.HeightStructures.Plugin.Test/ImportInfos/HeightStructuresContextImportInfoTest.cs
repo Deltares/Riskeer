@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -48,9 +47,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
 
-            var list = new ObservableList<HeightStructure>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var importTarget = new HeightStructuresContext(list, assessmentSection);
+            var importTarget = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {
@@ -138,9 +137,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var list = new ObservableList<HeightStructure>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var context = new HeightStructuresContext(list, assessmentSection);
+            var context = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {
@@ -164,9 +163,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = null;
             mocks.ReplayAll();
 
-            var list = new ObservableList<HeightStructure>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var context = new HeightStructuresContext(list, assessmentSection);
+            var context = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {

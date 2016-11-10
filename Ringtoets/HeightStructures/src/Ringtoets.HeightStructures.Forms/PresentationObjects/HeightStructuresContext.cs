@@ -37,24 +37,36 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// </summary>
         /// <param name="heightStructures">The wrapped <see cref="ObservableList{T}"/>
         /// containing <see cref="HeightStructure"/>.</param>
-        /// <param name="assessmentSection">The assessment section which the height structures
+        /// <param name="failureMechanism">The failure mechanism to which the height structures
+        /// belong to.</param>
+        /// <param name="assessmentSection">The assessment section to which the height structures
         /// belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input arguments
         /// are <c>null</c>.</exception>
-        public HeightStructuresContext(ObservableList<HeightStructure> heightStructures, IAssessmentSection assessmentSection)
+        public HeightStructuresContext(ObservableList<HeightStructure> heightStructures, HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(heightStructures)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
             }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
 
             AssessmentSection = assessmentSection;
+            ParentFailureMechanism = failureMechanism;
         }
 
         /// <summary>
         /// Gets the assessment section of this instance.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
+
+        /// <summary>
+        /// Gets the failure mechanism of this instance.
+        /// </summary>
+        public HeightStructuresFailureMechanism ParentFailureMechanism { get; private set; }
     }
 }

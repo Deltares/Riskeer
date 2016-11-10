@@ -146,6 +146,8 @@ namespace Ringtoets.HeightStructures.Plugin
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddDeleteChildrenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()
                                                                                  .AddExpandAllItem()
@@ -158,8 +160,12 @@ namespace Ringtoets.HeightStructures.Plugin
                 Text = structure => structure.Name,
                 Image = structure => RingtoetsCommonFormsResources.StructuresIcon,
                 ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
+                                                                                  .AddDeleteItem()
+                                                                                  .AddSeparator()
                                                                                   .AddPropertiesItem()
-                                                                                  .Build()
+                                                                                  .Build(),
+                CanRemove = CanRemoveHeightStructure,
+                OnNodeRemoved = OnHeightStructureRemoved
             };
 
             yield return new TreeNodeInfo<HeightStructuresScenariosContext>
@@ -221,6 +227,41 @@ namespace Ringtoets.HeightStructures.Plugin
 
             return null;
         }
+
+        #region HeightStructure TreeNodeInfo
+
+        private bool CanRemoveHeightStructure(HeightStructure nodeData, object parentData)
+        {
+            return parentData is HeightStructuresContext;
+        }
+
+        private void OnHeightStructureRemoved(HeightStructure nodeData, object parentData)
+        {
+            var parentContext = (HeightStructuresContext) parentData;
+            var changedObservables = new List<IObservable>();
+            StructuresCalculation<HeightStructuresInput>[] grassCoverErosionInwardsCalculations = parentContext.ParentFailureMechanism.Calculations
+                                                                                                               .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                                                               .ToArray();
+            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedHeightStructure = grassCoverErosionInwardsCalculations
+                .Where(c => ReferenceEquals(c.InputParameters.Structure, nodeData))
+                .ToArray();
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedHeightStructure)
+            {
+                calculation.InputParameters.Structure = null;
+                StructuresHelper.Delete(parentContext.ParentFailureMechanism.SectionResults, calculation, grassCoverErosionInwardsCalculations);
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            parentContext.WrappedData.Remove(nodeData);
+            changedObservables.Add(parentContext.WrappedData);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        #endregion
 
         #region ViewInfo
 
@@ -295,7 +336,7 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                new HeightStructuresContext(failureMechanism.HeightStructures, assessmentSection),
+                new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
