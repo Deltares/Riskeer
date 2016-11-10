@@ -123,7 +123,7 @@ namespace Ringtoets.Common.IO.HydraRing
                 },
                 {
                     HydraRingFailureMechanismType.DunesBoundaryConditions,
-                    new DesignTablesSetting(2, 4)
+                    new DesignTablesSetting(3.5, 6)
                 }
             };
         }

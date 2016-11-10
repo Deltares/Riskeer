@@ -112,7 +112,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 700131, double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, 700131, double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 700131, double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.DunesBoundaryConditions, 700131, 2.0, 4.0)]
+        [TestCase(HydraRingFailureMechanismType.DunesBoundaryConditions, 700131, 3.5, 6.0)]
         public void GetDesignTablesSetting_UnknownFailureMechanismTypeOrLocationId_ReturnsDefaultDesignTablesSetting(
             HydraRingFailureMechanismType failureMechanismType, long locationId, double expectedValueMin, double expectedValueMax)
         {
