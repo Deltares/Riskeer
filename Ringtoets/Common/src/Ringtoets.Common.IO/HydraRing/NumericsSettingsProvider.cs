@@ -92,8 +92,10 @@ namespace Ringtoets.Common.IO.HydraRing
 
         private void InitializeDefaultNumericsSettings()
         {
-            var numericsSettingForm = new NumericsSetting(1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6.0, 6.0, 25);
-            var numericsSettingDirs = new NumericsSetting(11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6.0, 6.0, 25);
+            var numericsSettingForm = CreateDefaultNumericsSetting(1, 1);
+            var numericsSettingDirs = CreateDefaultNumericsSetting(11, 4);
+            var numericsSettingDunes = CreateDefaultNumericsSetting(1, 4);
+            var numericsSettingQVariant = new NumericsSetting(4, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3000, 10000, 0.1, -6.0, 6.0, 25);
 
             defaultNumericsSettings = new Dictionary<HydraRingFailureMechanismType, IDictionary<int, NumericsSetting>>
             {
@@ -133,7 +135,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.QVariant, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            5, new NumericsSetting(4, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3000, 10000, 0.1, -6.0, 6.0, 25)
+                            5, numericsSettingQVariant
                         }
                     }
                 },
@@ -229,11 +231,16 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.DunesBoundaryConditions, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            6, numericsSettingDirs
+                            6, numericsSettingDunes
                         }
                     }
                 }
             };
+        }
+
+        private static NumericsSetting CreateDefaultNumericsSetting(int calculationTechniqueId, int formStartMethod)
+        {
+            return new NumericsSetting(calculationTechniqueId, formStartMethod, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6.0, 6.0, 25);
         }
     }
 }
