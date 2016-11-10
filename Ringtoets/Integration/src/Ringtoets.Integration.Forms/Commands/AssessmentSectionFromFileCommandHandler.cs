@@ -123,6 +123,7 @@ namespace Ringtoets.Integration.Forms.Commands
         private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)
         {
             assessmentSection.GrassCoverErosionInwards.GeneralInput.N = n;
+            assessmentSection.GrassCoverErosionOutwards.GeneralInput.N = n;
             assessmentSection.HeightStructures.GeneralInput.N = n;
         }
 

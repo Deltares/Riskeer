@@ -491,6 +491,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Id = "1-2", Name = "Traject 1-2"
             };
             expectedAssessmentSection.GrassCoverErosionInwards.GeneralInput.N = 2;
+            expectedAssessmentSection.GrassCoverErosionOutwards.GeneralInput.N = 2;
             expectedAssessmentSection.HeightStructures.GeneralInput.N = 2;
             expectedAssessmentSection.ReferenceLine = new ReferenceLine();
             expectedAssessmentSection.ReferenceLine.SetGeometry(new[]
@@ -532,6 +533,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 }
             };
             assessmentSection.GrassCoverErosionInwards.GeneralInput.N = 2;
+            assessmentSection.GrassCoverErosionOutwards.GeneralInput.N = 2;
             assessmentSection.HeightStructures.GeneralInput.N = 2;
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(new[]
@@ -562,6 +564,13 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 },
                 ReferenceLine = referenceLine,
                 GrassCoverErosionInwards =
+                {
+                    GeneralInput =
+                    {
+                        N = 3
+                    }
+                },
+                GrassCoverErosionOutwards =
                 {
                     GeneralInput =
                     {
@@ -613,6 +622,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             Assert.AreEqual(expected.Composition, actual.Composition);
 
             Assert.AreEqual(expected.GrassCoverErosionInwards.GeneralInput.N, actual.GrassCoverErosionInwards.GeneralInput.N);
+            Assert.AreEqual(expected.GrassCoverErosionOutwards.GeneralInput.N, actual.GrassCoverErosionOutwards.GeneralInput.N);
             Assert.AreEqual(expected.HeightStructures.GeneralInput.N, actual.HeightStructures.GeneralInput.N);
 
             AssertReferenceLine(expected.ReferenceLine, actual.ReferenceLine);
