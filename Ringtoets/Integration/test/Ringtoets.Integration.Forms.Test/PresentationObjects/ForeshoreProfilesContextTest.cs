@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
@@ -38,10 +39,11 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ForeshoreProfilesContext(null, assessmentSection);
+            TestDelegate call = () => new ForeshoreProfilesContext(null, failureMechanism, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -50,21 +52,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_ParentAssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var foreshores = new ObservableList<ForeshoreProfile>();
-
-            // Call
-            TestDelegate call = () => new ForeshoreProfilesContext(foreshores, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("parentAssessmentSection", paramName);
-        }
-
-        [Test]
-        public void Constructor_ValidArgument_ExpectedValues()
+        public void Constructor_ParentFailureMechanismNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -74,10 +62,50 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var foreshores = new ObservableList<ForeshoreProfile>();
 
             // Call
-            var context = new ForeshoreProfilesContext(foreshores, assessmentSection);
+            TestDelegate call = () => new ForeshoreProfilesContext(foreshores, null, assessmentSection);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("parentFailureMechanism", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ParentAssessmentSectionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var foreshores = new ObservableList<ForeshoreProfile>();
+
+            // Call
+            TestDelegate call = () => new ForeshoreProfilesContext(foreshores, failureMechanism, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("parentAssessmentSection", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ValidArgument_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var foreshores = new ObservableList<ForeshoreProfile>();
+
+            // Call
+            var context = new ForeshoreProfilesContext(foreshores, failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreSame(foreshores, context.WrappedData);
+            Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, context.ParentAssessmentSection);
         }
     }

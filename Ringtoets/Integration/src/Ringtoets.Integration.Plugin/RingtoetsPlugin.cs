@@ -589,6 +589,8 @@ namespace Ringtoets.Integration.Plugin
                                                      .Cast<object>()
                                                      .ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddDeleteChildrenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
@@ -614,8 +616,12 @@ namespace Ringtoets.Integration.Plugin
                 Text = foreshoreProfile => foreshoreProfile.Name,
                 Image = context => RingtoetsIntegrationPluginResources.Foreshore,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddDeleteItem()
+                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
-                                                                                 .Build()
+                                                                                 .Build(),
+                CanRemove = CanRemoveForeshoreProfile,
+                OnNodeRemoved = OnForeshoreProfileRemoved
             };
 
             yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(
@@ -840,6 +846,116 @@ namespace Ringtoets.Integration.Plugin
                 return createFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
+
+        #region ForeshoreProfile TreeNodeInfo
+
+        private bool CanRemoveForeshoreProfile(ForeshoreProfile nodeData, object parentNodeData)
+        {
+            var parentContext = (ForeshoreProfilesContext) parentNodeData;
+            IFailureMechanism failureMechanism = parentContext.ParentFailureMechanism;
+            return failureMechanism is StabilityStoneCoverFailureMechanism ||
+                   failureMechanism is WaveImpactAsphaltCoverFailureMechanism ||
+                           failureMechanism is GrassCoverErosionOutwardsFailureMechanism /*||
+                           failureMechanism is HeightStructuresFailureMechanism ||
+                           failureMechanism is ClosingStructuresFailureMechanism ||
+                           failureMechanism is StabilityPointStructuresFailureMechanism*/;
+        }
+
+        private void OnForeshoreProfileRemoved(ForeshoreProfile nodeData, object parentNodeData)
+        {
+            var parentContext = (ForeshoreProfilesContext) parentNodeData;
+            IFailureMechanism failureMechanism = parentContext.ParentFailureMechanism;
+
+            var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
+            if (stabilityStoneCoverFailureMechanism != null)
+            {
+                OnStabilityStoneCoverForeshoreProfileRemoved(nodeData, parentContext.WrappedData, stabilityStoneCoverFailureMechanism);
+            }
+            var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
+            if (waveImpactAsphaltCoverFailureMechanism != null)
+            {
+                OnWaveImpactAsphaltCoverForeshoreProfileRemoved(nodeData, parentContext.WrappedData, waveImpactAsphaltCoverFailureMechanism);
+            }
+            var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
+            if (grassCoverErosionOutwardsFailureMechanism != null)
+            {
+                OnGrassCoverErosionOutwardsForeshoreProfileRemoved(nodeData, parentContext.WrappedData, grassCoverErosionOutwardsFailureMechanism);
+            }
+        }
+
+        private static void OnStabilityStoneCoverForeshoreProfileRemoved(ForeshoreProfile nodeData, ObservableList<ForeshoreProfile> foreshoreProfiles, StabilityStoneCoverFailureMechanism failureMechanism)
+        {
+            var changedObservables = new List<IObservable>();
+            StabilityStoneCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations
+                                                                                                             .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                                                             .ToArray();
+            StabilityStoneCoverWaveConditionsCalculation[] calculationWithRemovedForeshoreProfile = calculations
+                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, nodeData))
+                .ToArray();
+            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculationWithRemovedForeshoreProfile)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            foreshoreProfiles.Remove(nodeData);
+            changedObservables.Add(foreshoreProfiles);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        private static void OnWaveImpactAsphaltCoverForeshoreProfileRemoved(ForeshoreProfile nodeData, ObservableList<ForeshoreProfile> foreshoreProfiles, WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        {
+            var changedObservables = new List<IObservable>();
+            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations
+                                                                                                             .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                                                             .ToArray();
+            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationWithRemovedForeshoreProfile = calculations
+                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, nodeData))
+                .ToArray();
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculationWithRemovedForeshoreProfile)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            foreshoreProfiles.Remove(nodeData);
+            changedObservables.Add(foreshoreProfiles);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        private static void OnGrassCoverErosionOutwardsForeshoreProfileRemoved(ForeshoreProfile nodeData, ObservableList<ForeshoreProfile> foreshoreProfiles, GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            var changedObservables = new List<IObservable>();
+            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = failureMechanism.Calculations
+                                                                                                             .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                                                             .ToArray();
+            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculationWithRemovedForeshoreProfile = calculations
+                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, nodeData))
+                .ToArray();
+            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculationWithRemovedForeshoreProfile)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            foreshoreProfiles.Remove(nodeData);
+            changedObservables.Add(foreshoreProfiles);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        #endregion
 
         #region DikeProfile TreeNodeInfo
 

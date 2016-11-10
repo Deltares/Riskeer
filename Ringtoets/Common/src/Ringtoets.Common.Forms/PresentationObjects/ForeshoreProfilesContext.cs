@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
@@ -37,22 +38,32 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// Initializes a new instance of the <see cref="ForeshoreProfilesContext"/> class.
         /// </summary>
         /// <param name="foreshoreProfiles">The observable list of <see cref="ForeshoreProfile"/> objects.</param>
+        /// <param name="parentFailureMechanism">The parent failure mechanism</param>
         /// <param name="parentAssessmentSection">The parent assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="foreshoreProfiles"/>
-        /// or <paramref name="parentAssessmentSection"/> is <c>null</c>.</exception>
-        public ForeshoreProfilesContext(ObservableList<ForeshoreProfile> foreshoreProfiles, IAssessmentSection parentAssessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        public ForeshoreProfilesContext(ObservableList<ForeshoreProfile> foreshoreProfiles, IFailureMechanism parentFailureMechanism, IAssessmentSection parentAssessmentSection)
             : base(foreshoreProfiles)
         {
             if (parentAssessmentSection == null)
             {
                 throw new ArgumentNullException("parentAssessmentSection");
             }
+            if (parentFailureMechanism == null)
+            {
+                throw new ArgumentNullException("parentFailureMechanism");
+            }
             ParentAssessmentSection = parentAssessmentSection;
+            ParentFailureMechanism = parentFailureMechanism;
         }
 
         /// <summary>
         /// Gets the parent assessment section.
         /// </summary>
         public IAssessmentSection ParentAssessmentSection { get; private set; }
+
+        /// <summary>
+        /// Gets the parent failure mechanism.
+        /// </summary>
+        public IFailureMechanism ParentFailureMechanism { get; private set; }
     }
 }

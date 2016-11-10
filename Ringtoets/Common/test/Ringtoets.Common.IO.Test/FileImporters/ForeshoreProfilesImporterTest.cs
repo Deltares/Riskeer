@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO.FileImporters;
 
@@ -242,12 +243,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
 
-            var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, assessmentSection);
+            var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
             targetContext.Attach(observer);
 
             // Call
@@ -274,6 +276,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
@@ -281,7 +284,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
-            var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, assessmentSection);
+            var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
             targetContext.Attach(observer);
 
             // Call

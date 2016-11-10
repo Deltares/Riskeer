@@ -294,7 +294,7 @@ namespace Ringtoets.HeightStructures.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, assessmentSection),
+                new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new HeightStructuresContext(failureMechanism.HeightStructures, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };

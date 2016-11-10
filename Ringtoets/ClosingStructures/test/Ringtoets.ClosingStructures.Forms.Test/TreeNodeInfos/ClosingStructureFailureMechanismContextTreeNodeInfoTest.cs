@@ -138,6 +138,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents[1];
             Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
+            Assert.AreSame(failureMechanism, profilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSectionMock, profilesContext.ParentAssessmentSection);
 
             var closingStructuresContext = (ClosingStructuresContext) inputsFolder.Contents[2];

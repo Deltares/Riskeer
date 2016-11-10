@@ -196,6 +196,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
             var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents[1];
             Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
+            Assert.AreSame(failureMechanism, profilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, profilesContext.ParentAssessmentSection);
 
             var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];

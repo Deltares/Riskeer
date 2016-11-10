@@ -129,6 +129,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
                 var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents[1];
                 Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
+                Assert.AreSame(failureMechanism, profilesContext.ParentFailureMechanism);
                 Assert.AreSame(assessmentSectionMock, profilesContext.ParentAssessmentSection);
 
                 var stabilityPointStructuresContext = (StabilityPointStructuresContext) inputsFolder.Contents[2];

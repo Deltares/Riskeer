@@ -126,6 +126,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var dikeProfilesContext = (DikeProfilesContext) inputsFolder.Contents[1];
             Assert.AreSame(failureMechanism.DikeProfiles, dikeProfilesContext.WrappedData);
+            Assert.AreSame(failureMechanism, dikeProfilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSectionMock, dikeProfilesContext.ParentAssessmentSection);
 
             var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];

@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
@@ -45,11 +46,12 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             ReferenceLine referenceLine = mocks.Stub<ReferenceLine>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var list = new ObservableList<ForeshoreProfile>();
 
-            var importTarget = new ForeshoreProfilesContext(list, assessmentSection);
+            var importTarget = new ForeshoreProfilesContext(list, failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -119,11 +121,12 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var list = new ObservableList<ForeshoreProfile>();
 
-            var context = new ForeshoreProfilesContext(list, assessmentSection);
+            var context = new ForeshoreProfilesContext(list, failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -145,11 +148,12 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = null;
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var list = new ObservableList<ForeshoreProfile>();
 
-            var context = new ForeshoreProfilesContext(list, assessmentSection);
+            var context = new ForeshoreProfilesContext(list, failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {

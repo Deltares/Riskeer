@@ -196,6 +196,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
             var foreshoreProfilesContext = (ForeshoreProfilesContext) inputsFolder.Contents[1];
             Assert.AreSame(failureMechanism.ForeshoreProfiles, foreshoreProfilesContext.WrappedData);
+            Assert.AreSame(failureMechanism, foreshoreProfilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, foreshoreProfilesContext.ParentAssessmentSection);
 
             var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];

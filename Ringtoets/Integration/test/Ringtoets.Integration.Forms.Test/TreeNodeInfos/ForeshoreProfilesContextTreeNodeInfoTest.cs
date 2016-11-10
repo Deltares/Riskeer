@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -101,10 +102,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var emptyCollection = new ObservableList<ForeshoreProfile>();
-            var context = new ForeshoreProfilesContext(emptyCollection, assessmentSection);
+            var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
 
             // Call
             Color color = info.ForeColor(context);
@@ -120,13 +122,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var emptyCollection = new ObservableList<ForeshoreProfile>
             {
                 new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties())
             };
-            var context = new ForeshoreProfilesContext(emptyCollection, assessmentSection);
+            var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
 
             // Call
             Color color = info.ForeColor(context);
@@ -142,6 +145,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var profile1 = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
@@ -153,7 +157,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 profile2,
                 profile3,
             };
-            var context = new ForeshoreProfilesContext(emptyCollection, assessmentSection);
+            var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context);
@@ -177,11 +181,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var failureMechanism = mocks.Stub<IFailureMechanism>();
 
                 var emptyCollection = new ObservableList<ForeshoreProfile>();
-                var context = new ForeshoreProfilesContext(emptyCollection, assessmentSection);
+                var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
 
                 var contextMenuBuilder = mocks.Stub<IContextMenuBuilder>();
+                contextMenuBuilder.Expect(b => b.AddDeleteChildrenItem()).Return(contextMenuBuilder);
+                contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);
                 contextMenuBuilder.Expect(b => b.AddImportItem()).Return(contextMenuBuilder);
                 contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);
                 contextMenuBuilder.Expect(b => b.AddCollapseAllItem()).Return(contextMenuBuilder);
