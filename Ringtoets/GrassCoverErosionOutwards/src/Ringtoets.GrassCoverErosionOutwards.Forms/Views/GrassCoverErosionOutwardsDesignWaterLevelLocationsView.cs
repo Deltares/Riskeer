@@ -94,14 +94,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 return;
             }
 
-            var modifiedBeta = GetModifiedBeta();
+            var mechanismSpecificNorm = GetMechanismSpecificNorm();
 
-            if (!double.IsNaN(modifiedBeta))
+            if (!double.IsNaN(mechanismSpecificNorm))
             {
                 bool successfulCalculation = CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                               locations,
                                                                                               AssessmentSection.Id,
-                                                                                              modifiedBeta,
+                                                                                              mechanismSpecificNorm,
                                                                                               new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
                 if (successfulCalculation)
                 {
@@ -141,18 +141,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             return false;
         }
 
-        private double GetModifiedBeta()
+        private double GetMechanismSpecificNorm()
         {
-            var calculationBeta = double.NaN;
+            var mechanismSpecificNorm = double.NaN;
             try
             {
-                calculationBeta = FailureMechanism.CalculationBeta(AssessmentSection);
+                mechanismSpecificNorm = FailureMechanism.GetMechanismSpecificNorm(AssessmentSection);
             }
             catch (ArgumentException e)
             {
                 log.ErrorFormat(e.Message);
             }
-            return calculationBeta;
+            return mechanismSpecificNorm;
         }
     }
 }

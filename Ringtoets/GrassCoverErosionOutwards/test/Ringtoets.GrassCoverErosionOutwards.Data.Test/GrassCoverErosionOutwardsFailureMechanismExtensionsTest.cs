@@ -87,13 +87,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void CalculationBeta_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void GetMechanismSpecificNorm_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.CalculationBeta(null);
+            TestDelegate test = () => failureMechanism.GetMechanismSpecificNorm(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void CalculationBeta_WithAssessmentSection_ReturnBeta()
+        public void GetMechanismSpecificNorm_WithAssessmentSection_ReturnMechanismSpecificNorm()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -122,14 +122,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            double beta = failureMechanism.CalculationBeta(assessmentSection);
+            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
 
             // Assert
-            Assert.AreEqual(6000, beta);
+            Assert.AreEqual(6000, mechanismSpecificNorm);
         }
 
         [Test]
-        public void CalculationBeta_WithZeroContributionForFailureMechanism_ThrowsArgumentException()
+        public void GetMechanismSpecificNorm_WithZeroContributionForFailureMechanism_ThrowsArgumentException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -150,7 +150,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate action = () => failureMechanism.CalculationBeta(assessmentSection);
+            TestDelegate action = () => failureMechanism.GetMechanismSpecificNorm(assessmentSection);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");

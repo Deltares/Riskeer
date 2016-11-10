@@ -206,7 +206,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 assessmentSection.GrassCoverErosionOutwards.CalculationBeta(assessmentSection),
+                                                                                 assessmentSection.GrassCoverErosionOutwards.GetMechanismSpecificNorm(assessmentSection),
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
                                                                                  calculation.InputParameters.WaterLevels.ElementAt(waterLevelIndex++),
