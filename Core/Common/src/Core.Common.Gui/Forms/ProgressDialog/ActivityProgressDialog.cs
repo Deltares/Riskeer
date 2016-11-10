@@ -54,7 +54,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         {
             InitializeComponent();
 
-            MinimizeBox = true; // Allows for minimizing the dialog parent in case of long-lasting activities
+            MinimizeBox = true; // Allows for minimizing the dialog parent (in case of long-lasting activities)
 
             this.activities = activities ?? Enumerable.Empty<Activity>();
         }
@@ -162,7 +162,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
         private void ActivityProgressDialogFormClosing(object sender, FormClosingEventArgs e)
         {
-            if (task.Status == TaskStatus.Running)
+            if (task != null && task.Status == TaskStatus.Running)
             {
                 // Perform a cancel action when the activities are still running
                 CancelActivities();

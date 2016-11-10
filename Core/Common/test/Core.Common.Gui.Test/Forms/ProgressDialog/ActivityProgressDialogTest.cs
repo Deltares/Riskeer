@@ -19,29 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
-using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Forms.ProgressDialog;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Forms.ProgressDialog
 {
     [TestFixture]
-    public class ActivityProgressDialogTest
+    public class ActivityProgressDialogTest : NUnitFormTest
     {
         [SetUp]
         public void SetUp()
         {
-            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext()); 
+            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void DefaultConstructor_ExpectedValue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -53,8 +52,46 @@ namespace Core.Common.Gui.Test.Forms.ProgressDialog
             using (var dialog = new ActivityProgressDialog(window, Enumerable.Empty<Activity>()))
             {
                 // Assert
-                Assert.IsInstanceOf<DialogBase>(dialog);
+                Assert.IsNotNull(dialog.Icon);
+                Assert.IsTrue(dialog.ShowIcon);
+                Assert.AreEqual(0, dialog.MinimumSize.Width); // Set during load
+                Assert.AreEqual(0, dialog.MinimumSize.Height); // Set during load
+                Assert.AreEqual(FormBorderStyle.FixedDialog, dialog.FormBorderStyle);
+                Assert.AreEqual(FormStartPosition.CenterParent, dialog.StartPosition);
+                Assert.IsFalse(dialog.ShowInTaskbar);
+                Assert.IsTrue(dialog.ControlBox);
+                Assert.IsFalse(dialog.MaximizeBox);
                 Assert.IsTrue(dialog.MinimizeBox);
+                Assert.IsNull(dialog.CancelButton);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ShowDialog_ActivityProgressDialog_MinimumSizeSet()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            mocks.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var openedDialog = new FormTester(name);
+
+                openedDialog.Close();
+            };
+
+            using (var dialog = new ActivityProgressDialog(window, Enumerable.Empty<Activity>()))
+            {
+                // Call
+                dialog.ShowDialog();
+
+                // Assert
+                Assert.AreEqual(520, dialog.MinimumSize.Width);
+                Assert.AreEqual(150, dialog.MinimumSize.Height);
             }
 
             mocks.VerifyAll();
