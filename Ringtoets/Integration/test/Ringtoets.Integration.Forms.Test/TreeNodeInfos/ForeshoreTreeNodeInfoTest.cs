@@ -30,14 +30,18 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Integration.Plugin.Properties;
+using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -187,6 +191,66 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void CanRemove_ParentFailureMechanismIsHeightStructures_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
+
+            // Call
+            bool canRemove = info.CanRemove(null, parentData);
+
+            // Assert
+            Assert.IsTrue(canRemove);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanRemove_ParentFailureMechanismIsClosingStructures_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
+
+            // Call
+            bool canRemove = info.CanRemove(null, parentData);
+
+            // Assert
+            Assert.IsTrue(canRemove);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanRemove_ParentFailureMechanismIsStabilityPointStructures_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
+
+            // Call
+            bool canRemove = info.CanRemove(null, parentData);
+
+            // Assert
+            Assert.IsTrue(canRemove);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void CanRemove_UnsupportedFailureMechanism_ReturnFalse()
         {
             // Setup
@@ -217,7 +281,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var nodeData = new ForeshoreProfile(new Point2D(0,0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
@@ -518,6 +582,348 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     otherProfile
                 },
                 WaveConditionsCalculationGroup =
+                {
+                    Children =
+                    {
+                        calculation1,
+                        new CalculationGroup("A", true)
+                        {
+                            Children =
+                            {
+                                calculation2
+                            }
+                        },
+                        calculation3
+                    }
+                }
+            };
+            failureMechanism.ForeshoreProfiles.Attach(observer);
+
+            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, nodeData);
+
+            Assert.IsNull(calculation1.InputParameters.ForeshoreProfile);
+            Assert.IsNull(calculation2.InputParameters.ForeshoreProfile);
+            Assert.AreSame(otherProfile, calculation3.InputParameters.ForeshoreProfile);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OnNodeRemoved_ForeshoreProfileOfHeightStructures_ForeshoreProfileRemovedFromFailureMechanism()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                ForeshoreProfiles =
+                {
+                    nodeData
+                }
+            };
+            failureMechanism.ForeshoreProfiles.Attach(observer);
+
+            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, nodeData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OnNodeRemoved_ForeshoreProfileOfHeightStructuresWaveConditionsCalculation_CalculationForeshoreProfileCleared()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var calculation1Observer = mocks.StrictMock<IObserver>();
+            calculation1Observer.Expect(o => o.UpdateObserver());
+            var calculation2Observer = mocks.StrictMock<IObserver>();
+            calculation2Observer.Expect(o => o.UpdateObserver());
+            var calculation3Observer = mocks.StrictMock<IObserver>();
+            calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
+            mocks.ReplayAll();
+
+            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+            var otherProfile = new ForeshoreProfile(new Point2D(1, 1), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+
+            var calculation1 = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = nodeData
+                }
+            };
+            calculation1.InputParameters.Attach(calculation1Observer);
+            var calculation2 = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = nodeData
+                }
+            };
+            calculation2.InputParameters.Attach(calculation2Observer);
+            var calculation3 = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = otherProfile
+                }
+            };
+            calculation3.InputParameters.Attach(calculation3Observer);
+
+            var failureMechanism = new HeightStructuresFailureMechanism
+            {
+                ForeshoreProfiles =
+                {
+                    nodeData,
+                    otherProfile
+                },
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculation1,
+                        new CalculationGroup("A", true)
+                        {
+                            Children =
+                            {
+                                calculation2
+                            }
+                        },
+                        calculation3
+                    }
+                }
+            };
+            failureMechanism.ForeshoreProfiles.Attach(observer);
+
+            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, nodeData);
+
+            Assert.IsNull(calculation1.InputParameters.ForeshoreProfile);
+            Assert.IsNull(calculation2.InputParameters.ForeshoreProfile);
+            Assert.AreSame(otherProfile, calculation3.InputParameters.ForeshoreProfile);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OnNodeRemoved_ForeshoreProfileOfClosingStructures_ForeshoreProfileRemovedFromFailureMechanism()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                ForeshoreProfiles =
+                {
+                    nodeData
+                }
+            };
+            failureMechanism.ForeshoreProfiles.Attach(observer);
+
+            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, nodeData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OnNodeRemoved_ForeshoreProfileOfClosingStructuresWaveConditionsCalculation_CalculationForeshoreProfileCleared()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var calculation1Observer = mocks.StrictMock<IObserver>();
+            calculation1Observer.Expect(o => o.UpdateObserver());
+            var calculation2Observer = mocks.StrictMock<IObserver>();
+            calculation2Observer.Expect(o => o.UpdateObserver());
+            var calculation3Observer = mocks.StrictMock<IObserver>();
+            calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
+            mocks.ReplayAll();
+
+            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+            var otherProfile = new ForeshoreProfile(new Point2D(1, 1), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+
+            var calculation1 = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = nodeData
+                }
+            };
+            calculation1.InputParameters.Attach(calculation1Observer);
+            var calculation2 = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = nodeData
+                }
+            };
+            calculation2.InputParameters.Attach(calculation2Observer);
+            var calculation3 = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = otherProfile
+                }
+            };
+            calculation3.InputParameters.Attach(calculation3Observer);
+
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                ForeshoreProfiles =
+                {
+                    nodeData,
+                    otherProfile
+                },
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculation1,
+                        new CalculationGroup("A", true)
+                        {
+                            Children =
+                            {
+                                calculation2
+                            }
+                        },
+                        calculation3
+                    }
+                }
+            };
+            failureMechanism.ForeshoreProfiles.Attach(observer);
+
+            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, nodeData);
+
+            Assert.IsNull(calculation1.InputParameters.ForeshoreProfile);
+            Assert.IsNull(calculation2.InputParameters.ForeshoreProfile);
+            Assert.AreSame(otherProfile, calculation3.InputParameters.ForeshoreProfile);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OnNodeRemoved_ForeshoreProfileOfStabilityPointStructures_ForeshoreProfileRemovedFromFailureMechanism()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                ForeshoreProfiles =
+                {
+                    nodeData
+                }
+            };
+            failureMechanism.ForeshoreProfiles.Attach(observer);
+
+            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, nodeData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OnNodeRemoved_ForeshoreProfileOfStabilityPointStructuresWaveConditionsCalculation_CalculationForeshoreProfileCleared()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var calculation1Observer = mocks.StrictMock<IObserver>();
+            calculation1Observer.Expect(o => o.UpdateObserver());
+            var calculation2Observer = mocks.StrictMock<IObserver>();
+            calculation2Observer.Expect(o => o.UpdateObserver());
+            var calculation3Observer = mocks.StrictMock<IObserver>();
+            calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
+            mocks.ReplayAll();
+
+            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+            var otherProfile = new ForeshoreProfile(new Point2D(1, 1), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+
+            var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = nodeData
+                }
+            };
+            calculation1.InputParameters.Attach(calculation1Observer);
+            var calculation2 = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = nodeData
+                }
+            };
+            calculation2.InputParameters.Attach(calculation2Observer);
+            var calculation3 = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = otherProfile
+                }
+            };
+            calculation3.InputParameters.Attach(calculation3Observer);
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            {
+                ForeshoreProfiles =
+                {
+                    nodeData,
+                    otherProfile
+                },
+                CalculationsGroup =
                 {
                     Children =
                     {

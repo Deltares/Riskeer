@@ -46,6 +46,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -855,10 +856,10 @@ namespace Ringtoets.Integration.Plugin
             IFailureMechanism failureMechanism = parentContext.ParentFailureMechanism;
             return failureMechanism is StabilityStoneCoverFailureMechanism ||
                    failureMechanism is WaveImpactAsphaltCoverFailureMechanism ||
-                           failureMechanism is GrassCoverErosionOutwardsFailureMechanism /*||
-                           failureMechanism is HeightStructuresFailureMechanism ||
-                           failureMechanism is ClosingStructuresFailureMechanism ||
-                           failureMechanism is StabilityPointStructuresFailureMechanism*/;
+                   failureMechanism is GrassCoverErosionOutwardsFailureMechanism ||
+                   failureMechanism is HeightStructuresFailureMechanism ||
+                   failureMechanism is ClosingStructuresFailureMechanism ||
+                   failureMechanism is StabilityPointStructuresFailureMechanism;
         }
 
         private void OnForeshoreProfileRemoved(ForeshoreProfile nodeData, object parentNodeData)
@@ -881,14 +882,29 @@ namespace Ringtoets.Integration.Plugin
             {
                 OnGrassCoverErosionOutwardsForeshoreProfileRemoved(nodeData, parentContext.WrappedData, grassCoverErosionOutwardsFailureMechanism);
             }
+            var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
+            if (heightStructuresFailureMechanism != null)
+            {
+                OnHeightStructuresForeshoreProfileRemoved(nodeData, parentContext.WrappedData, heightStructuresFailureMechanism);
+            }
+            var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
+            if (closingStructuresFailureMechanism != null)
+            {
+                OnClosingStructuresForeshoreProfileRemoved(nodeData, parentContext.WrappedData, closingStructuresFailureMechanism);
+            }
+            var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
+            if (stabilityPointStructuresFailureMechanism != null)
+            {
+                OnStabilityPointStructuresForeshoreProfileRemoved(nodeData, parentContext.WrappedData, stabilityPointStructuresFailureMechanism);
+            }
         }
 
         private static void OnStabilityStoneCoverForeshoreProfileRemoved(ForeshoreProfile nodeData, ObservableList<ForeshoreProfile> foreshoreProfiles, StabilityStoneCoverFailureMechanism failureMechanism)
         {
             var changedObservables = new List<IObservable>();
             StabilityStoneCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations
-                                                                                                             .Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                                                                                             .ToArray();
+                                                                                          .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                                          .ToArray();
             StabilityStoneCoverWaveConditionsCalculation[] calculationWithRemovedForeshoreProfile = calculations
                 .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, nodeData))
                 .ToArray();
@@ -911,8 +927,8 @@ namespace Ringtoets.Integration.Plugin
         {
             var changedObservables = new List<IObservable>();
             WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations
-                                                                                                             .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                                                                             .ToArray();
+                                                                                             .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                                             .ToArray();
             WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationWithRemovedForeshoreProfile = calculations
                 .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, nodeData))
                 .ToArray();
@@ -935,12 +951,84 @@ namespace Ringtoets.Integration.Plugin
         {
             var changedObservables = new List<IObservable>();
             GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = failureMechanism.Calculations
-                                                                                                             .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                                                                             .ToArray();
+                                                                                                .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                                                .ToArray();
             GrassCoverErosionOutwardsWaveConditionsCalculation[] calculationWithRemovedForeshoreProfile = calculations
                 .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, nodeData))
                 .ToArray();
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculationWithRemovedForeshoreProfile)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            foreshoreProfiles.Remove(nodeData);
+            changedObservables.Add(foreshoreProfiles);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        private static void OnHeightStructuresForeshoreProfileRemoved(ForeshoreProfile nodeData, ObservableList<ForeshoreProfile> foreshoreProfiles, HeightStructuresFailureMechanism failureMechanism)
+        {
+            var changedObservables = new List<IObservable>();
+            StructuresCalculation<HeightStructuresInput>[] calculations = failureMechanism.Calculations
+                                                                                          .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                                          .ToArray();
+            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedForeshoreProfile = calculations
+                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, nodeData))
+                .ToArray();
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedForeshoreProfile)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            foreshoreProfiles.Remove(nodeData);
+            changedObservables.Add(foreshoreProfiles);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        private static void OnClosingStructuresForeshoreProfileRemoved(ForeshoreProfile nodeData, ObservableList<ForeshoreProfile> foreshoreProfiles, ClosingStructuresFailureMechanism failureMechanism)
+        {
+            var changedObservables = new List<IObservable>();
+            StructuresCalculation<ClosingStructuresInput>[] calculations = failureMechanism.Calculations
+                                                                                           .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                                                           .ToArray();
+            StructuresCalculation<ClosingStructuresInput>[] calculationWithRemovedForeshoreProfile = calculations
+                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, nodeData))
+                .ToArray();
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedForeshoreProfile)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            foreshoreProfiles.Remove(nodeData);
+            changedObservables.Add(foreshoreProfiles);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        private static void OnStabilityPointStructuresForeshoreProfileRemoved(ForeshoreProfile nodeData, ObservableList<ForeshoreProfile> foreshoreProfiles, StabilityPointStructuresFailureMechanism failureMechanism)
+        {
+            var changedObservables = new List<IObservable>();
+            StructuresCalculation<StabilityPointStructuresInput>[] calculations = failureMechanism.Calculations
+                                                                                                  .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                                  .ToArray();
+            StructuresCalculation<StabilityPointStructuresInput>[] calculationWithRemovedForeshoreProfile = calculations
+                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, nodeData))
+                .ToArray();
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedForeshoreProfile)
             {
                 calculation.InputParameters.ForeshoreProfile = null;
                 changedObservables.Add(calculation.InputParameters);
