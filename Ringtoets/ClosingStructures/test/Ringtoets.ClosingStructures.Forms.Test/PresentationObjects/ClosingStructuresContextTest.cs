@@ -41,15 +41,34 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var closingStructures = new ObservableList<ClosingStructure>();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var context = new ClosingStructuresContext(closingStructures, assessmentSectionMock);
+            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<ClosingStructure>>>(context);
-            Assert.AreSame(closingStructures, context.WrappedData);
+            Assert.AreSame(failureMechanism.ClosingStructures, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ParameteredConstructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var closingStructures = new ObservableList<ClosingStructure>();
+
+            // Call
+            TestDelegate test = () => new ClosingStructuresContext(closingStructures, null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -57,10 +76,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var closingStructures = new ObservableList<ClosingStructure>();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            TestDelegate test = () => new ClosingStructuresContext(closingStructures, null);
+            TestDelegate test = () => new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

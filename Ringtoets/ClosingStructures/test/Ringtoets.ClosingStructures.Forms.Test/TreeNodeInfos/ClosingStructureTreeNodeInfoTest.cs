@@ -21,6 +21,8 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -29,7 +31,12 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
+using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Plugin;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
@@ -72,8 +79,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
@@ -112,10 +117,241 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void CanRemove_ParentIsClosingStructuresContext_ReturnTrue()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var parentData = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
+
+            // Call
+            bool canRemove = info.CanRemove(null, parentData);
+
+            // Assert
+            Assert.IsTrue(canRemove);
+        }
+
+        [Test]
+        public void CanRemove_ParentIsNotClosingStructuresContext_ReturnFalse()
+        {
+            // Call
+            bool canRemove = info.CanRemove(null, null);
+
+            // Assert
+            Assert.IsFalse(canRemove);
+        }
+
+        [Test]
+        public void OnNodeRemoved_RemovingProfileFromContainer_ProfileRemovedFromContainer()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            ClosingStructure nodeData = new TestClosingStructure();
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                ClosingStructures =
+                {
+                    nodeData
+                }
+            };
+            failureMechanism.ClosingStructures.Attach(observer);
+
+            var parentData = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.ClosingStructures, nodeData);
+        }
+
+        [Test]
+        public void OnNodeRemoved_RemovingProfilePartOfCalculation_CalculationProfileCleared()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var calculation1Observer = mocks.StrictMock<IObserver>();
+            calculation1Observer.Expect(o => o.UpdateObserver());
+            var calculation2Observer = mocks.StrictMock<IObserver>();
+            calculation2Observer.Expect(o => o.UpdateObserver());
+            var calculation3Observer = mocks.StrictMock<IObserver>();
+            calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
+            mocks.ReplayAll();
+
+            ClosingStructure nodeData = new TestClosingStructure("A");
+            ClosingStructure otherProfile = new TestClosingStructure("B");
+
+            var calculation1 = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = nodeData
+                }
+            };
+            calculation1.InputParameters.Attach(calculation1Observer);
+            var calculation2 = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = nodeData
+                }
+            };
+            calculation2.InputParameters.Attach(calculation2Observer);
+            var calculation3 = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = otherProfile
+                }
+            };
+            calculation3.InputParameters.Attach(calculation3Observer);
+
+            var calculationGroup = new CalculationGroup("A", true)
+            {
+                Children =
+                {
+                    calculation2
+                }
+            };
+
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                ClosingStructures =
+                {
+                    nodeData,
+                    otherProfile
+                },
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculation1,
+                        calculationGroup,
+                        calculation3
+                    }
+                }
+            };
+            failureMechanism.ClosingStructures.Attach(observer);
+
+            var parentData = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.ClosingStructures, nodeData);
+
+            Assert.IsNull(calculation1.InputParameters.Structure);
+            Assert.IsNull(calculation2.InputParameters.Structure);
+            Assert.IsNotNull(calculation3.InputParameters.Structure);
+        }
+
+        [Test]
+        public void OnNodeRemoved_RemovingProfilePartOfCalculationOfSectionResult_SectionResultCalculationCleared()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var calculation1Observer = mocks.StrictMock<IObserver>();
+            calculation1Observer.Expect(o => o.UpdateObserver());
+            var calculation2Observer = mocks.StrictMock<IObserver>();
+            calculation2Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
+            var calculation3Observer = mocks.StrictMock<IObserver>();
+            calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
+            mocks.ReplayAll();
+
+            var nodeData = new TestClosingStructure(new Point2D(0, 0));
+            var otherProfile1 = new TestClosingStructure(new Point2D(1, 0));
+            var otherProfile2 = new TestClosingStructure(new Point2D(5, 0));
+
+            var calculation1 = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = nodeData
+                }
+            };
+            calculation1.InputParameters.Attach(calculation1Observer);
+            var calculation2 = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = otherProfile1
+                }
+            };
+            calculation2.InputParameters.Attach(calculation2Observer);
+            var calculation3 = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = otherProfile2
+                }
+            };
+            calculation3.InputParameters.Attach(calculation3Observer);
+
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                ClosingStructures =
+                {
+                    nodeData,
+                    otherProfile1,
+                    otherProfile2
+                },
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculation1,
+                        calculation2
+                    }
+                }
+            };
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(4, 0)
+            }));
+            failureMechanism.AddSection(new FailureMechanismSection("B", new[]
+            {
+                new Point2D(4, 0),
+                new Point2D(9, 0)
+            }));
+            failureMechanism.ClosingStructures.Attach(observer);
+            failureMechanism.SectionResults.ElementAt(0).Calculation = calculation1;
+            failureMechanism.SectionResults.ElementAt(1).Calculation = calculation3;
+
+            var parentData = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.ClosingStructures, nodeData);
+
+            Assert.IsNull(calculation1.InputParameters.Structure);
+            Assert.IsNotNull(calculation2.InputParameters.Structure);
+
+            Assert.AreSame(calculation2, failureMechanism.SectionResults.ElementAt(0).Calculation);
+            Assert.AreSame(calculation3, failureMechanism.SectionResults.ElementAt(1).Calculation);
+        }
+
+        [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 

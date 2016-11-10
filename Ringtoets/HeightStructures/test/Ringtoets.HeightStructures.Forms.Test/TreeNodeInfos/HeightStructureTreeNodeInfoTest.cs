@@ -277,9 +277,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            var nodeData = new TestHeightStructure("A");
-            var otherProfile1 = new TestHeightStructure("B");
-            var otherProfile2 = new TestHeightStructure("C");
+            var nodeData = new TestHeightStructure(new Point2D(1, 0));
+            var otherProfile1 = new TestHeightStructure(new Point2D(2, 0));
+            var otherProfile2 = new TestHeightStructure(new Point2D(6, 0));
 
             var calculation1 = new StructuresCalculation<HeightStructuresInput>
             {

@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -47,9 +46,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
             assessmentSectionMock.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var list = new ObservableList<ClosingStructure>();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var importTarget = new ClosingStructuresContext(list, assessmentSectionMock);
+            var importTarget = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionMock);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -137,8 +136,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
             assessmentSectionMock.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var list = new ObservableList<ClosingStructure>();
-            var context = new ClosingStructuresContext(list, assessmentSectionMock);
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionMock);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -161,8 +160,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var list = new ObservableList<ClosingStructure>();
-            var context = new ClosingStructuresContext(list, assessmentSectionMock);
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionMock);
 
             using (var plugin = new ClosingStructuresPlugin())
             {

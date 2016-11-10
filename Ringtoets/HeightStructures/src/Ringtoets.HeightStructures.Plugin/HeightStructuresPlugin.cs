@@ -239,16 +239,16 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             var parentContext = (HeightStructuresContext) parentData;
             var changedObservables = new List<IObservable>();
-            StructuresCalculation<HeightStructuresInput>[] grassCoverErosionInwardsCalculations = parentContext.ParentFailureMechanism.Calculations
-                                                                                                               .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                                                                                               .ToArray();
-            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedHeightStructure = grassCoverErosionInwardsCalculations
+            StructuresCalculation<HeightStructuresInput>[] heightStructureCalculations = parentContext.ParentFailureMechanism.Calculations
+                                                                                                      .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                                                      .ToArray();
+            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedHeightStructure = heightStructureCalculations
                 .Where(c => ReferenceEquals(c.InputParameters.Structure, nodeData))
                 .ToArray();
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedHeightStructure)
             {
                 calculation.InputParameters.Structure = null;
-                StructuresHelper.Delete(parentContext.ParentFailureMechanism.SectionResults, calculation, grassCoverErosionInwardsCalculations);
+                StructuresHelper.Delete(parentContext.ParentFailureMechanism.SectionResults, calculation, heightStructureCalculations);
                 changedObservables.Add(calculation.InputParameters);
             }
 

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -125,6 +126,8 @@ namespace Ringtoets.ClosingStructures.Plugin
                 ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddDeleteChildrenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()
                                                                                  .AddExpandAllItem()
@@ -137,8 +140,12 @@ namespace Ringtoets.ClosingStructures.Plugin
                 Text = structure => structure.Name,
                 Image = structure => RingtoetsCommonFormsResources.StructuresIcon,
                 ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
+                                                                                  .AddDeleteItem()
+                                                                                  .AddSeparator()
                                                                                   .AddPropertiesItem()
-                                                                                  .Build()
+                                                                                  .Build(),
+                CanRemove = CanRemoveClosingStructure,
+                OnNodeRemoved = OnClosingStructureRemoved
             };
 
             yield return new TreeNodeInfo<ClosingStructuresInputContext>
@@ -289,7 +296,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                new ClosingStructuresContext(failureMechanism.ClosingStructures, assessmentSection),
+                new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
@@ -615,6 +622,41 @@ namespace Ringtoets.ClosingStructures.Plugin
                                         context.WrappedData,
                                         context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
+            }
+        }
+
+        #endregion
+
+        #region ClosingStructure TreeNodeInfo
+
+        private bool CanRemoveClosingStructure(ClosingStructure nodeData, object parentData)
+        {
+            return parentData is ClosingStructuresContext;
+        }
+
+        private void OnClosingStructureRemoved(ClosingStructure nodeData, object parentData)
+        {
+            var parentContext = (ClosingStructuresContext) parentData;
+            var changedObservables = new List<IObservable>();
+            StructuresCalculation<ClosingStructuresInput>[] closingStructureCalculations = parentContext.ParentFailureMechanism.Calculations
+                                                                                                        .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                                                                        .ToArray();
+            StructuresCalculation<ClosingStructuresInput>[] calculationWithRemovedClosingStructure = closingStructureCalculations
+                .Where(c => ReferenceEquals(c.InputParameters.Structure, nodeData))
+                .ToArray();
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedClosingStructure)
+            {
+                calculation.InputParameters.Structure = null;
+                StructuresHelper.Delete(parentContext.ParentFailureMechanism.SectionResults, calculation, closingStructureCalculations);
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            parentContext.WrappedData.Remove(nodeData);
+            changedObservables.Add(parentContext.WrappedData);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
             }
         }
 

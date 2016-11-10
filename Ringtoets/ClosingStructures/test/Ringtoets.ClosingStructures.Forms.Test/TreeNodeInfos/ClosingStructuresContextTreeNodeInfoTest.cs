@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -88,9 +87,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var closingStructures = new ObservableList<ClosingStructure>();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var closingStructuresContext = new ClosingStructuresContext(closingStructures, assessmentSection);
+            var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(closingStructuresContext);
@@ -109,9 +108,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var closingStructures = new ObservableList<ClosingStructure>();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var closingStructuresContext = new ClosingStructuresContext(closingStructures, assessmentSection);
+            var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
 
             // Call
             Image image = info.Image(closingStructuresContext);
@@ -129,15 +128,18 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var asssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var closingStructures = new ObservableList<ClosingStructure>
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                new TestClosingStructure()
+                ClosingStructures =
+                {
+                    new TestClosingStructure()
+                }
             };
 
             // Precondition
-            CollectionAssert.IsNotEmpty(closingStructures);
+            CollectionAssert.IsNotEmpty(failureMechanism.ClosingStructures);
 
-            var closingStructuresContext = new ClosingStructuresContext(closingStructures, asssessmentSection);
+            var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, asssessmentSection);
 
             // Call
             Color color = info.ForeColor(closingStructuresContext);
@@ -157,13 +159,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             ClosingStructure closingStructure1 = new TestClosingStructure();
             ClosingStructure closingStructure2 = new TestClosingStructure();
-            var closingStructures = new ObservableList<ClosingStructure>
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                closingStructure1,
-                closingStructure2
+                ClosingStructures =
+                {
+                    closingStructure1,
+                    closingStructure2
+                }
             };
 
-            var closingStructuresContext = new ClosingStructuresContext(closingStructures, assessmentSection);
+            var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
 
             // Call
             var children = info.ChildNodeObjects(closingStructuresContext);
@@ -183,12 +188,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var asssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var closingStructures = new ObservableList<ClosingStructure>();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Precondition
-            CollectionAssert.IsEmpty(closingStructures);
+            CollectionAssert.IsEmpty(failureMechanism.ClosingStructures);
 
-            var closingStructuresContext = new ClosingStructuresContext(closingStructures, asssessmentSection);
+            var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, asssessmentSection);
 
             // Call
             Color color = info.ForeColor(closingStructuresContext);
@@ -204,6 +209,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
