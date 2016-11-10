@@ -29,6 +29,9 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
     /// <seealso cref="Ringtoets.Piping.Data.PipingOutput" />
     public class TestPipingOutput : PipingOutput
     {
+        /// <summary>
+        /// Creates a new instance of the <see cref="TestPipingOutput"/> class.
+        /// </summary>
         public TestPipingOutput() : base(0, 0, 0, 0, 0, 0) {}
     }
 }

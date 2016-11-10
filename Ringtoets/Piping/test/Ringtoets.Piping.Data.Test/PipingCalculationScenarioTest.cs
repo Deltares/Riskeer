@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
@@ -87,7 +88,7 @@ namespace Ringtoets.Piping.Data.Test
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, expectedProbability, 0, 0)
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput(expectedProbability)
             };
 
             // Call
@@ -148,7 +149,7 @@ namespace Ringtoets.Piping.Data.Test
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, double.NaN, 0, 0)
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput(double.NaN)
             };
 
             // Call
@@ -167,7 +168,7 @@ namespace Ringtoets.Piping.Data.Test
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, expectedProbability, 0, 0)
+                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput(expectedProbability)
             };
 
             // Call
