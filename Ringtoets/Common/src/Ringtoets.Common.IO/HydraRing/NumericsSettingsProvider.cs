@@ -93,7 +93,7 @@ namespace Ringtoets.Common.IO.HydraRing
         private void InitializeDefaultNumericsSettings()
         {
             var numericsSettingForm = CreateDefaultNumericsSetting(1, 1);
-            var numericsSettingDirs = CreateDefaultNumericsSetting(11, 4);
+            var numericsSettingFDir = CreateDefaultNumericsSetting(11, 4);
             var numericsSettingDunes = CreateDefaultNumericsSetting(1, 4);
             var numericsSettingQVariant = new NumericsSetting(4, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3000, 10000, 0.1, -6.0, 6.0, 25);
 
@@ -103,7 +103,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.AssessmentLevel, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            1, numericsSettingDirs
+                            1, numericsSettingFDir
                         }
                     }
                 },
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.WaveHeight, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            11, numericsSettingDirs
+                            11, numericsSettingFDir
                         }
                     }
                 },
@@ -119,7 +119,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.WavePeakPeriod, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            14, numericsSettingDirs
+                            14, numericsSettingFDir
                         }
                     }
                 },
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.WaveSpectralPeriod, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            16, numericsSettingDirs
+                            16, numericsSettingFDir
                         }
                     }
                 },
@@ -143,10 +143,10 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.DikesHeight, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            102, numericsSettingDirs
+                            102, numericsSettingFDir
                         },
                         {
-                            103, numericsSettingDirs
+                            103, numericsSettingFDir
                         }
                     }
                 },
@@ -154,10 +154,10 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            102, numericsSettingDirs
+                            102, numericsSettingFDir
                         },
                         {
-                            103, numericsSettingDirs
+                            103, numericsSettingFDir
                         }
                     }
                 },
@@ -165,13 +165,13 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            421, numericsSettingDirs
+                            421, numericsSettingFDir
                         },
                         {
-                            422, numericsSettingDirs
+                            422, numericsSettingFDir
                         },
                         {
-                            423, numericsSettingDirs
+                            423, numericsSettingFDir
                         }
                     }
                 },
@@ -182,10 +182,10 @@ namespace Ringtoets.Common.IO.HydraRing
                             422, numericsSettingForm
                         },
                         {
-                            424, numericsSettingDirs
+                            424, numericsSettingFDir
                         },
                         {
-                            425, numericsSettingDirs
+                            425, numericsSettingFDir
                         },
                         {
                             426, numericsSettingForm
@@ -202,13 +202,13 @@ namespace Ringtoets.Common.IO.HydraRing
                             422, numericsSettingForm
                         },
                         {
-                            424, numericsSettingDirs
+                            424, numericsSettingFDir
                         },
                         {
-                            425, numericsSettingDirs
+                            425, numericsSettingFDir
                         },
                         {
-                            430, numericsSettingDirs
+                            430, numericsSettingFDir
                         },
                         {
                             431, numericsSettingForm
@@ -220,10 +220,10 @@ namespace Ringtoets.Common.IO.HydraRing
                             433, numericsSettingForm
                         },
                         {
-                            434, numericsSettingDirs
+                            434, numericsSettingFDir
                         },
                         {
-                            435, numericsSettingDirs
+                            435, numericsSettingFDir
                         }
                     }
                 },
