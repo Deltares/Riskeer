@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Test
                 Assert.IsFalse(dialog.ShowInTaskbar);
                 Assert.IsTrue(dialog.ControlBox);
                 Assert.IsFalse(dialog.MaximizeBox);
-                Assert.IsFalse(dialog.MinimizeBox);
+                Assert.IsTrue(dialog.MinimizeBox);
                 Assert.IsNull(dialog.CancelButton);
             }
 

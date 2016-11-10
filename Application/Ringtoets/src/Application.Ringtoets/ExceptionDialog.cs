@@ -53,7 +53,10 @@ namespace Application.Ringtoets
         public ExceptionDialog(IWin32Window dialogParent, ICommandsOwner commands, Exception exception) : base(dialogParent, Resources.bug__exclamation, 470, 200)
         {
             this.commands = commands;
+
             InitializeComponent();
+
+            MinimizeBox = true; // Allows for minimizing the dialog parent
 
             buttonOpenLog.Enabled = false;
             exceptionTextBox.Text = exception == null ? "" : exception.ToString();
