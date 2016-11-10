@@ -46,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
             Assert.IsInstanceOf<AssessmentLevelCalculationInput>(dunesBoundaryConditionsCalculationInput);
             Assert.AreEqual(HydraRingFailureMechanismType.DunesBoundaryConditions, dunesBoundaryConditionsCalculationInput.FailureMechanismType);
-            Assert.AreEqual(9, dunesBoundaryConditionsCalculationInput.CalculationTypeId);
+            Assert.AreEqual(2, dunesBoundaryConditionsCalculationInput.CalculationTypeId);
             Assert.AreEqual(26, dunesBoundaryConditionsCalculationInput.VariableId);
             Assert.AreEqual(hydraulicBoundaryLocationId, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(dunesBoundaryConditionsCalculationInput.Section);

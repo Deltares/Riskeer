@@ -42,5 +42,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
                 return HydraRingFailureMechanismType.DunesBoundaryConditions;
             }
         }
+
+        public override int CalculationTypeId
+        {
+            get
+            {
+                return 2;
+            }
+        }
     }
 }
