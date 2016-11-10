@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             FailureMechanismSection section = CreateSection();
 
             // Call
-            var scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability, section);
+            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability, section);
 
             // Assert
             Assert.NotNull(scenario.Output);
@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             FailureMechanismSection section = CreateSection();
 
             // Call
-            var scenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
+            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
 
             // Assert
             Assert.NotNull(scenario.Output);
@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             FailureMechanismSection section = CreateSection();
 
             // Call
-            var scenario = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(section);
+            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(section);
 
             // Assert
             Assert.IsFalse(scenario.IsRelevant);
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             FailureMechanismSection section = CreateSection();
 
             // Call
-            var scenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
 
             // Assert
             Assert.IsNull(scenario.Output);

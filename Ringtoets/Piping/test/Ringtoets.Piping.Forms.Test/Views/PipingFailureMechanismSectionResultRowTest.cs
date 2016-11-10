@@ -97,8 +97,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             FailureMechanismSection section = CreateSection();
 
-            var scenarioA = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
-            var scenarioB = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            PipingCalculationScenario scenarioA = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            PipingCalculationScenario scenarioB = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
             scenarioA.Contribution = (RoundedDouble) contributionA;
             scenarioB.Contribution = (RoundedDouble) contributionB;
 
@@ -124,9 +124,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             FailureMechanismSection section = CreateSection();
 
-            var scenario = status.Equals(CalculationScenarioStatus.NotCalculated)
-                               ? PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section)
-                               : PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
+            PipingCalculationScenario scenario = status.Equals(CalculationScenarioStatus.NotCalculated)
+                                                     ? PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section)
+                                                     : PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
 
             var result = new PipingFailureMechanismSectionResult(section);
             var row = new PipingFailureMechanismSectionResultRow(result, new[]
@@ -144,9 +144,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         public void AssessmentLayerTwoA_RelevantScenariosDone_ResultOfSection()
         {
-            // Setup            
+            // Setup
             FailureMechanismSection section = CreateSection();
-            var scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(0.2, section);
+            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(0.2, section);
             scenario.Contribution = (RoundedDouble) 1.0;
 
             var result = new PipingFailureMechanismSectionResult(section);

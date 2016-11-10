@@ -79,8 +79,9 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            var expectedAffectedCalculations = failureMechanism.Calculations.Where(c => c.HasOutput)
-                                                               .ToArray();
+            ICalculation[] expectedAffectedCalculations = failureMechanism.Calculations
+                                                                          .Where(c => c.HasOutput)
+                                                                          .ToArray();
 
             // Call
             IEnumerable<PipingCalculation> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
@@ -106,9 +107,9 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            var expectedAffectedCalculations = failureMechanism.Calculations.Cast<PipingCalculation>()
-                                                               .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
-                                                               .ToArray();
+            PipingCalculation[] expectedAffectedCalculations = failureMechanism.Calculations.Cast<PipingCalculation>()
+                                                                               .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
+                                                                               .ToArray();
 
             // Call
             IEnumerable<PipingCalculation> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
@@ -174,13 +175,16 @@ namespace Ringtoets.Piping.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-
-            var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.Add(subCalculation);
-            calculationGroup.Children.Add(subCalculationWithOutput);
-            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
-            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocation
+                }
+            });
 
             return failureMechanism;
         }

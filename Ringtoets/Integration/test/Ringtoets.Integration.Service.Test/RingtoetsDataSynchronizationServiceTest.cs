@@ -64,38 +64,17 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithAssessmentSection_ClearsFailureMechanismCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            var assessmentSection = GetFullyConfiguredAssessmentSection();
-            var expectedAffectedItems = new List<ICalculation>();
-            expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.HeightStructures.Calculations
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.PipingFailureMechanism.Calculations
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.StabilityStoneCover.Calculations
-                                                            .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
-                                                            .Where(c => c.HasOutput));
+            AssessmentSection assessmentSection = GetFullyConfiguredAssessmentSection();
+            IEnumerable<ICalculation> expectedAffectedItems = assessmentSection.GetFailureMechanisms()
+                                                                               .SelectMany(f => f.Calculations)
+                                                                               .Where(c => c.HasOutput)
+                                                                               .ToList();
 
             // Call
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Assert
-            Assert.IsFalse(assessmentSection.ClosingStructures.Calculations.Any(c => c.HasOutput));
-            Assert.IsFalse(assessmentSection.GrassCoverErosionInwards.Calculations.Any(c => c.HasOutput));
-            Assert.IsFalse(assessmentSection.GrassCoverErosionOutwards.Calculations.Any(c => c.HasOutput));
-            Assert.IsFalse(assessmentSection.HeightStructures.Calculations.Any(c => c.HasOutput));
-            Assert.IsFalse(assessmentSection.PipingFailureMechanism.Calculations.Any(c => c.HasOutput));
-            Assert.IsFalse(assessmentSection.StabilityPointStructures.Calculations.Any(c => c.HasOutput));
-            Assert.IsFalse(assessmentSection.StabilityStoneCover.Calculations.Any(c => c.HasOutput));
-            Assert.IsFalse(assessmentSection.WaveImpactAsphaltCover.Calculations.Any(c => c.HasOutput));
-
+            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(f => f.Calculations).Where(c => c.HasOutput));
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
@@ -451,13 +430,16 @@ namespace Ringtoets.Integration.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-
-            var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.Add(subCalculation);
-            calculationGroup.Children.Add(subCalculationWithOutput);
-            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
-            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocation
+                }
+            });
         }
 
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
@@ -509,13 +491,16 @@ namespace Ringtoets.Integration.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-
-            var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.Add(subCalculation);
-            calculationGroup.Children.Add(subCalculationWithOutput);
-            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
-            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocation
+                }
+            });
         }
 
         private static void SetFullyConfiguredStructuresFailureMechanism<TCalculationInput, TStructureBase>(
@@ -570,13 +555,16 @@ namespace Ringtoets.Integration.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-
-            var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.Add(subCalculation);
-            calculationGroup.Children.Add(subCalculationWithOutput);
-            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
-            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocation
+                }
+            });
         }
 
         private static void SetFullyConfiguredFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism,
@@ -632,13 +620,16 @@ namespace Ringtoets.Integration.Service.Test
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-
-            var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.Add(subCalculation);
-            calculationGroup.Children.Add(subCalculationWithOutput);
-            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
-            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocation
+                }
+            });
         }
 
         private static void SetFullyConfiguredFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
@@ -690,13 +681,16 @@ namespace Ringtoets.Integration.Service.Test
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-
-            var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.Add(subCalculation);
-            calculationGroup.Children.Add(subCalculationWithOutput);
-            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
-            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocation
+                }
+            });
         }
 
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
@@ -748,13 +742,16 @@ namespace Ringtoets.Integration.Service.Test
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-
-            var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.Add(subCalculation);
-            calculationGroup.Children.Add(subCalculationWithOutput);
-            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
-            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocation
+                }
+            });
         }
     }
 }

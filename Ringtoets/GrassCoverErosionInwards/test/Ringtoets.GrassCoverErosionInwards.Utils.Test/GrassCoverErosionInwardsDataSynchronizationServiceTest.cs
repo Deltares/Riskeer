@@ -77,8 +77,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            var expectedAffectedCalculations = failureMechanism.Calculations.Where(c => c.HasOutput)
-                                                               .ToArray();
+            ICalculation[] expectedAffectedCalculations = failureMechanism.Calculations
+                                                                          .Where(c => c.HasOutput)
+                                                                          .ToArray();
 
             // Call
             IEnumerable<GrassCoverErosionInwardsCalculation> affectedItems = GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
@@ -104,9 +105,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            var expectedAffectedCalculations = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
-                                                               .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
-                                                               .ToArray();
+            GrassCoverErosionInwardsCalculation[] expectedAffectedCalculations = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
+                                                                                                 .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
+                                                                                                 .ToArray();
 
             // Call
             IEnumerable<GrassCoverErosionInwardsCalculation> affectedItems =
@@ -169,13 +170,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-
-            var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.Add(subCalculation);
-            calculationGroup.Children.Add(subCalculationWithOutput);
-            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
-            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocation
+                }
+            });
 
             return failureMechanism;
         }

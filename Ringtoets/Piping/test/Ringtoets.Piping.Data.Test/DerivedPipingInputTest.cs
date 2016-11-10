@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_WithPipingInput_DoesNotThrow()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer(1.0, 1.1);
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer(1.0, 1.1);
 
             // Call
             TestDelegate call = () => new DerivedPipingInput(input);
@@ -144,7 +144,7 @@ namespace Ringtoets.Piping.Data.Test
         public void PiezometricHeadExit_InputWithAssessmentLevelMissing_PiezometricHeadSetToNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer(1.0, 1.0);
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer(1.0, 1.0);
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
@@ -158,7 +158,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessAquiferLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsMeanExpectedThicknessAquiferLayer()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
@@ -172,7 +172,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessCoverageLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsThicknessCoverageLayer()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
@@ -186,7 +186,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessAquiferLayer_InputWithoutSoilProfile_ReturnMeanNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             input.StochasticSoilProfile = null;
             var derivedInput = new DerivedPipingInput(input);
 
@@ -201,7 +201,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessCoverageLayer_InputWithoutSoilProfile_MeansSetToNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             input.StochasticSoilProfile = null;
             var derivedInput = new DerivedPipingInput(input);
 
@@ -216,7 +216,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessAquiferLayer_InputWithoutSurfaceLine_ReturnMeanNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             input.SurfaceLine = null;
             var derivedInput = new DerivedPipingInput(input);
 
@@ -233,7 +233,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessCoverageLayer_InputWithoutSurfaceLine_MeansSetToNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             input.SurfaceLine = null;
             var derivedInput = new DerivedPipingInput(input);
 
@@ -252,7 +252,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessCoverageLayer_SoilProfileSingleAquiferAboveSurfaceLine_ThicknessCoverageLayerNaN(double deltaAboveSurfaceLine)
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithSingleAquiferLayerAboveSurfaceLine(deltaAboveSurfaceLine);
+            PipingInput input = PipingInputFactory.CreateInputWithSingleAquiferLayerAboveSurfaceLine(deltaAboveSurfaceLine);
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessAquiferLayer_SoilProfileSingleAquiferAboveSurfaceLine_ReturnMeanNaN(double deltaAboveSurfaceLine)
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithSingleAquiferLayerAboveSurfaceLine(deltaAboveSurfaceLine);
+            PipingInput input = PipingInputFactory.CreateInputWithSingleAquiferLayerAboveSurfaceLine(deltaAboveSurfaceLine);
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
@@ -283,7 +283,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             double expectedThickness;
-            var input = PipingInputFactory.CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out expectedThickness);
+            PipingInput input = PipingInputFactory.CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out expectedThickness);
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
@@ -297,7 +297,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessAquiferLayer_MeanSetExitPointSetToNaN_ReturnMeanNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             input.ExitPointL = RoundedDouble.NaN;
             var derivedInput = new DerivedPipingInput(input);
 
@@ -314,7 +314,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessCoverageLayer_MeanSetSoilProfileSetToNull_ThicknessCoverageLayerNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             input.ThicknessCoverageLayer.Mean = new RoundedDouble(2, new Random(21).NextDouble() + 1);
             var derivedInput = new DerivedPipingInput(input);
 
@@ -333,7 +333,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessCoverageLayer_ProfileWithoutAquiferLayer_ThicknessCoverageLayerNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
@@ -357,7 +357,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessAquiferLayer_ProfileWithoutAquiferLayer_ReturnMeanNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
@@ -381,7 +381,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessAquiferLayer_SoilProfileSingleAquiferUnderSurfaceLine_ReturnMeanExpectedThicknessAquiferLayer()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
@@ -395,7 +395,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessAquiferLayer_MeanSetSoilProfileSetToNull_ReturnMeanNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
 
             input.StochasticSoilProfile = null;
@@ -411,7 +411,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessAquiferLayer_InputResultsInZeroAquiferThickness_ReturnMeanNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
@@ -439,7 +439,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessCoverageLayer_InputResultsInZeroCoverageThickness_ThicknessCoverageLayerNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
@@ -467,7 +467,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ThicknessAquiferLayer_SurfaceLineHalfWayProfileLayer_ConsecutiveThicknessSetToLayerHeightUnderSurfaceLine()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
@@ -495,7 +495,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SeepageLength_ValidData_ReturnsSeepageLength()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
@@ -510,7 +510,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SeepageLength_EntryPointNaN_SeepageLengthNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             input.EntryPointL = RoundedDouble.NaN;
             var derivedInput = new DerivedPipingInput(input);
 
@@ -526,7 +526,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SeepageLength_ExitPointNaN_SeepageLengthNaN()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             input.ExitPointL = RoundedDouble.NaN;
             var derivedInput = new DerivedPipingInput(input);
 
@@ -542,7 +542,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_NoSoilProfile_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile.SoilProfile = null;
 
@@ -559,7 +559,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_NoStochasticSoilProfile_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile = null;
 
@@ -576,7 +576,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_NoSurfaceLine_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.SurfaceLine = null;
 
@@ -593,7 +593,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_NoExitPointL_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.ExitPointL = RoundedDouble.NaN;
 
@@ -610,7 +610,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_NoAquitardLayers_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
@@ -633,7 +633,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_NoAquiferLayers_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
@@ -656,7 +656,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_NoCoverageLayersAboveTopAquiferLayer_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
@@ -683,7 +683,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_SingleLayer_ReturnsWithParametersFromLayer()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
             double belowPhreaticLevelMean = random.NextDouble();
@@ -716,7 +716,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersEqualStandardDeviationAndShift_ReturnsWithWeightedMean()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
             var belowPhreaticLevelMeanA = random.NextDouble();
@@ -764,7 +764,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersInequalStandardDeviationOrShift_ReturnsNaNValues(double deviationDelta, double shiftDelta)
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
             var belowPhreaticLevelMeanA = random.NextDouble();
@@ -804,7 +804,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersInequalStandardDeviationOrShiftButEqualWhenRounded_ReturnsWithWeightedMean()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var belowPhreaticLevelMeanA = 2.5;
             var belowPhreaticLevelMeanB = 3.4;
@@ -841,7 +841,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_OneLayerWithIncorrectShiftMeanCombination_ReturnsNaNValues()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
@@ -870,7 +870,7 @@ namespace Ringtoets.Piping.Data.Test
         public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersOneLayerWithIncorrectShiftMeanCombination_ReturnsNaNValues()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
@@ -905,7 +905,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DarcyPermeability_NoSoilProfile_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile.SoilProfile = null;
 
@@ -921,7 +921,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DarcyPermeability_NoStochasticSoilProfile_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile = null;
 
@@ -937,7 +937,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DarcyPermeability_NoSurfaceLine_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.SurfaceLine = null;
 
@@ -953,7 +953,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DarcyPermeability_NoExitPointL_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.ExitPointL = RoundedDouble.NaN;
 
@@ -969,7 +969,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DarcyPermeability_NoAquiferLayers_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
@@ -988,7 +988,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DarcyPermeability_SingleAquiferLayers_ReturnsWithParametersFromLayer()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
             var permeabilityMean = random.NextDouble();
@@ -1015,7 +1015,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DarcyPermeability_MultipleAquiferLayers_ReturnsWithParametersFromTopmostLayer()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var permeabilityMean = 0.5;
             var permeabilityDeviation = 0.2;
@@ -1047,7 +1047,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DiameterD70_NoSoilProfile_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile.SoilProfile = null;
 
@@ -1063,7 +1063,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DiameterD70_NoStochasticSoilProfile_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile = null;
 
@@ -1079,7 +1079,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DiameterD70_NoSurfaceLine_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.SurfaceLine = null;
 
@@ -1095,7 +1095,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DiameterD70_NoExitPointL_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.ExitPointL = RoundedDouble.NaN;
 
@@ -1111,7 +1111,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DiameterD70_NoAquiferLayers_ReturnsNaNForParameters()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
@@ -1130,7 +1130,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DiameterD70_SingleAquiferLayers_ReturnsWithParametersFromLayer()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
             var diameterD70Mean = random.NextDouble();
@@ -1157,7 +1157,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DiameterD70_MultipleAquiferLayers_ReturnsWithParametersFromTopmostLayer()
         {
             // Setup
-            var input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var diameterD70Mean = 0.5;
             var diameterD70Deviation = 0.2;

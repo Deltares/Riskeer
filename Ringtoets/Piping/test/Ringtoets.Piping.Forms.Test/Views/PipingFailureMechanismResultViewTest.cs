@@ -305,7 +305,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (var view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                var calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
                     1.0/1000.0,
                     pipingFailureMechanism.Sections.First());
                 calculationScenario.Contribution = (RoundedDouble) 0.3;
@@ -335,7 +335,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (var view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                var calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
                     (RoundedDouble) 1e-3,
                     pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
@@ -364,7 +364,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                var calculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(
                     pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
@@ -391,7 +391,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (var view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                var calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(pipingFailureMechanism.Sections.First());
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
                 view.Data = pipingFailureMechanism.SectionResults;
 
@@ -440,7 +440,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                var calculationScenario = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(pipingFailureMechanism.Sections.First());
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
                 var gridTester = new ControlTester("dataGridView");
@@ -466,7 +466,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                var calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(pipingFailureMechanism.Sections.First());
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
                 var gridTester = new ControlTester("dataGridView");

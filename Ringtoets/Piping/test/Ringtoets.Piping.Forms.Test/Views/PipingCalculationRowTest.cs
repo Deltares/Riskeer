@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Constructor_WithPipingCalculation_PropertiesFromPipingCalculation()
         {
             // Setup
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
             var row = new PipingCalculationRow(calculation);
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var newValue = "Test new name";
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
             int counter = 0;
@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilModel>(new StochasticSoilModel(0, "test", "test"));
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
             int counter = 0;
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(new StochasticSoilProfile(0, 0, 0));
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
             int counter = 0;
@@ -149,7 +149,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var newValue = new DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>(new HydraulicBoundaryLocation(0, "test", 0.0, 0.0));
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
             int counter = 0;
@@ -173,7 +173,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var newValue = new Random().Next();
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
             int counter = 0;
@@ -197,7 +197,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var newValue = new Random().Next();
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
             int counter = 0;
@@ -226,7 +226,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var newValue = 0.1;
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
             calculation.InputParameters.Attach(observer);
@@ -249,7 +249,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
             calculation.InputParameters.Attach(observer);
@@ -271,7 +271,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
             calculation.InputParameters.Attach(observer);
@@ -298,7 +298,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var newValue = 0.3;
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
             calculation.InputParameters.Attach(observer);
@@ -321,7 +321,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
             calculation.InputParameters.Attach(observer);
@@ -343,7 +343,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
             calculation.InputParameters.Attach(observer);

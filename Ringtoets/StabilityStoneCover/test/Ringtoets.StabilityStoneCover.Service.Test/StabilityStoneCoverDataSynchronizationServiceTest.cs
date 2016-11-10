@@ -48,7 +48,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         public void ClearWaveConditionsCalculationOutput_WithCalculation_OutputNull()
         {
             // Setup
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation()
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Output = new StabilityStoneCoverWaveConditionsOutput(new[]
                 {
@@ -85,9 +85,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             StabilityStoneCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            var expectedAffectedCalculations = failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                                               .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
-                                                               .ToArray();
+            StabilityStoneCoverWaveConditionsCalculation[] expectedAffectedCalculations = failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                                                          .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
+                                                                                                          .ToArray();
 
             // Call
             IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedItems =
@@ -115,7 +115,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             StabilityStoneCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            ICalculation[] expectedAffectedCalculations = failureMechanism.Calculations.Where(c => c.HasOutput).ToArray();
+            ICalculation[] expectedAffectedCalculations = failureMechanism.Calculations
+                                                                          .Where(c => c.HasOutput)
+                                                                          .ToArray();
 
             // Call
             IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedItems =
@@ -196,13 +198,16 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-
-            var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.Add(subCalculation);
-            calculationGroup.Children.Add(subCalculationWithOutput);
-            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
-            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocation
+                }
+            });
 
             return failureMechanism;
         }

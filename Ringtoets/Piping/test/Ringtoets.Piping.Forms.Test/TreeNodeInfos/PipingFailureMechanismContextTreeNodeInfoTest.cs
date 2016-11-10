@@ -557,9 +557,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var failureMechanism = new PipingFailureMechanism();
                 failureMechanism.CalculationsGroup.Children.Clear();
 
-                var validCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario validCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 validCalculation.Name = "A";
-                var invalidCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
+                PipingCalculationScenario invalidCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
                 invalidCalculation.Name = "B";
 
                 failureMechanism.CalculationsGroup.Children.Add(validCalculation);
@@ -611,9 +611,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 }));
                 failureMechanism.CalculationsGroup.Children.Clear();
 
-                var validCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario validCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 validCalculation.Name = "A";
-                var invalidCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
+                PipingCalculationScenario invalidCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
                 invalidCalculation.Name = "B";
 
                 failureMechanism.CalculationsGroup.Children.Add(validCalculation);

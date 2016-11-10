@@ -678,9 +678,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var validCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario validCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 validCalculation.Name = "A";
-                var invalidCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
+                PipingCalculationScenario invalidCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
                 invalidCalculation.Name = "B";
 
                 var childGroup = new CalculationGroup();
@@ -746,9 +746,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                var validCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario validCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 validCalculation.Name = "A";
-                var invalidCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
+                PipingCalculationScenario invalidCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
                 invalidCalculation.Name = "B";
 
                 var childGroup = new CalculationGroup();
@@ -824,12 +824,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     calculation2Observer.Expect(o => o.UpdateObserver());
                 }
 
-                var calculation1 = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculation1 = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculation1.Name = "A";
                 calculation1.Output = new TestPipingOutput();
                 calculation1.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
                 calculation1.Attach(calculation1Observer);
-                var calculation2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculation2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculation2.Name = "B";
                 calculation2.Output = new TestPipingOutput();
                 calculation2.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();

@@ -150,9 +150,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            var expectedAffectedCalculations = failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                               .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
-                                                               .ToArray();
+            GrassCoverErosionOutwardsWaveConditionsCalculation[] expectedAffectedCalculations = failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                                                                .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
+                                                                                                                .ToArray();
 
             // Call
             IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems =
@@ -180,8 +180,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            var expectedAffectedCalculations = failureMechanism.Calculations.Where(c => c.HasOutput)
-                                                               .ToArray();
+            ICalculation[] expectedAffectedCalculations = failureMechanism.Calculations
+                                                                          .Where(c => c.HasOutput)
+                                                                          .ToArray();
 
             // Call
             IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems =
@@ -243,13 +244,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-
-            var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.Add(subCalculation);
-            calculationGroup.Children.Add(subCalculationWithOutput);
-            calculationGroup.Children.Add(subCalculationWithOutputAndHydraulicBoundaryLocation);
-            calculationGroup.Children.Add(subCalculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutput,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocation
+                }
+            });
 
             return failureMechanism;
         }
