@@ -96,6 +96,7 @@
     <Compile Include="Data\Output\OvertoppingCalculationWaveHeightOutput.cs" />
     <Compile Include="Data\Output\WaveConditionsCalculationOutput.cs" />
     <Compile Include="Data\Settings\TimeIntegrationSetting.cs" />
+    <Compile Include="Exceptions\HydraRingCalculationException.cs" />
     <Compile Include="Exceptions\HydraRingFileParserException.cs" />
     <Compile Include="Parsers\LastErrorFileParser.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParser.cs" />
