@@ -147,7 +147,7 @@ namespace Ringtoets.HeightStructures.Service
             finally
             {
                 var lastErrorFileContent = calculator.LastErrorFileContent;
-                bool errorOccurred = ErrorOccurred(exceptionThrown, lastErrorFileContent);
+                bool errorOccurred = CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
                     log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation_click_details_for_last_error_1,
@@ -162,11 +162,6 @@ namespace Ringtoets.HeightStructures.Service
                     throw new HydraRingFileParserException(lastErrorFileContent);
                 }
             }
-        }
-
-        private bool ErrorOccurred(bool exceptionThrown, string lastErrorFileContent)
-        {
-            return !canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorFileContent);
         }
 
         private static StructuresOvertoppingCalculationInput CreateInput(

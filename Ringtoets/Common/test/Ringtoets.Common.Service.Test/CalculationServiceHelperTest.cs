@@ -138,6 +138,44 @@ namespace Ringtoets.Common.Service.Test
             });
         }
 
+        [Test]
+        public void ErrorOccurred_CalculationNotCanceledOrExceptionThrownLastErrorSet_ReturnTrue()
+        {
+            // Call
+            bool errorOccurred = CalculationServiceHelper.ErrorOccurred(false, false, "An error has occurred.");
+
+            // Assert
+            Assert.IsTrue(errorOccurred);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        public void ErrorOccurred_CalculationNotCanceledOrExceptionThrownLastErrorNotSet_ReturnFalse(string errorContent)
+        {
+            // Call
+            bool errorOccurred = CalculationServiceHelper.ErrorOccurred(false, false, errorContent);
+
+            // Assert
+            Assert.IsFalse(errorOccurred);
+        }
+
+        [Test]
+        [TestCase(true, true, "An error has occurred.")]
+        [TestCase(true, false, "An error has occurred.")]
+        [TestCase(false, true, "An error has occurred.")]
+        [TestCase(true, true, "")]
+        [TestCase(true, false, "")]
+        [TestCase(false, true, "")]
+        public void ErrorOccurred_LastErrorSetCalculationCanceldOrExceptionThrown_ReturnFalse(bool canceled, bool exceptionThrown, string errorContent)
+        {
+            // Call
+            bool errorOccurred = CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, errorContent);
+
+            // Assert
+            Assert.IsFalse(errorOccurred);
+        }
+
         private static void AssertLogTime(string message, DateTime dateTime)
         {
             string[] logMessageArray = message.Split(':');

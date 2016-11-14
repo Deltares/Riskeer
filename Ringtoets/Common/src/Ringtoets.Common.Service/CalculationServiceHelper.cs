@@ -95,5 +95,18 @@ namespace Ringtoets.Common.Service
             log.Info(string.Format(Resources.Calculation_Subject_0_ended_Time_1_,
                                    name, DateTimeService.CurrentTimeAsString));
         }
+
+        /// <summary>
+        /// Determines whether an error has occurred during the calculation.
+        /// </summary>
+        /// <param name="canceled">The canceled state of the calculation.</param>
+        /// <param name="exceptionThrown">Indicator if there is already an exception thrown in the calculation.</param>
+        /// <param name="lastErrorFileContent">The contents of the last error file.</param>
+        /// <returns><c>true</c> when a calculation isn't canceled, has not already thrown an exception and 
+        /// <paramref name="lastErrorFileContent"/> is set. <c>false</c> otherwise.</returns>
+        public static bool ErrorOccurred(bool canceled, bool exceptionThrown, string lastErrorFileContent)
+        {
+            return !canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorFileContent);
+        }
     }
 }

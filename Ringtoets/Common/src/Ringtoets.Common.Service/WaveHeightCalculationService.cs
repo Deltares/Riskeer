@@ -121,7 +121,7 @@ namespace Ringtoets.Common.Service
             finally
             {
                 var lastErrorFileContent = calculator.LastErrorFileContent;
-                bool errorOccurred = ErrorOccurred(exceptionThrown, lastErrorFileContent);
+                bool errorOccurred = CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
                     log.Error(messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorFileContent));
@@ -147,11 +147,6 @@ namespace Ringtoets.Common.Service
                 calculator.Cancel();
                 canceled = true;
             }
-        }
-
-        private bool ErrorOccurred(bool exceptionThrown, string lastErrorFileContent)
-        {
-            return !canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorFileContent);
         }
 
         private WaveHeightCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm, string hydraulicBoundaryDatabaseFilePath)

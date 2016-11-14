@@ -258,7 +258,7 @@ namespace Ringtoets.Revetment.Service
             finally
             {
                 var lastErrorFileContent = calculator.LastErrorFileContent;
-                bool errorOccurred = ErrorOccurred(exceptionThrown, lastErrorFileContent);
+                bool errorOccurred = CalculationServiceHelper.ErrorOccurred(Canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
                     log.ErrorFormat(CultureInfo.CurrentCulture,
@@ -275,11 +275,6 @@ namespace Ringtoets.Revetment.Service
                     throw new HydraRingFileParserException(lastErrorFileContent);
                 }
             }
-        }
-
-        private bool ErrorOccurred(bool exceptionThrown, string lastErrorFileContent)
-        {
-            return !Canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorFileContent);
         }
 
         private static WaveConditionsCosineCalculationInput CreateInput(RoundedDouble waterLevel,

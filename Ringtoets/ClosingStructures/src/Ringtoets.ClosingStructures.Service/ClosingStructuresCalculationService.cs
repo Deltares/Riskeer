@@ -123,7 +123,7 @@ namespace Ringtoets.ClosingStructures.Service
             finally
             {
                 var lastErrorFileContent = calculator.LastErrorFileContent;
-                bool errorOccurred = ErrorOccurred(exceptionThrown, lastErrorFileContent);
+                bool errorOccurred = CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
                     log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_1,
@@ -169,11 +169,6 @@ namespace Ringtoets.ClosingStructures.Service
             CalculationServiceHelper.LogValidationEndTime(calculation.Name);
 
             return !messages.Any();
-        }
-
-        private bool ErrorOccurred(bool exceptionThrown, string lastErrorContent)
-        {
-            return !canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent);
         }
 
         private static StructuresClosureCalculationInput CreateStructuresClosureCalculationInput(
