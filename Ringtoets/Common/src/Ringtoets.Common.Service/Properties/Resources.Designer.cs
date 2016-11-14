@@ -128,7 +128,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetspeil berekening is uitgevoerd op de tijdelijke locatie: {0}. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
+        ///   Looks up a localized string similar to Toetspeil berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
         /// </summary>
         public static string DesignWaterLevelCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0 {
             get {
@@ -280,7 +280,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte berekening is uitgevoerd op de tijdelijke locatie: {0}. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
+        ///   Looks up a localized string similar to Golfhoogte berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
         /// </summary>
         public static string WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0 {
             get {

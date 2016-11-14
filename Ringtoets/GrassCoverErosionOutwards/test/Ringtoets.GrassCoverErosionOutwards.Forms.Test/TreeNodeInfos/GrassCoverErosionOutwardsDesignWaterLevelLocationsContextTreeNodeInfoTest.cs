@@ -529,7 +529,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                             StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie '{0}'' beëindigd om: ", location.Name), msgs[1]);
                             StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie '{0}'' gestart om: ", location.Name), msgs[2]);
                             Assert.AreEqual(string.Format("Waterstand bij doorsnede-eis berekening voor locatie '{0}' is niet geconvergeerd.", location.Name), msgs[3]);
-                            StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                            StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                             StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie '{0}'' beëindigd om: ", location.Name), msgs[5]);
                             StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is gelukt.", location.Name), msgs[6]);
                         });

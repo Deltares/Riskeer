@@ -82,7 +82,7 @@ namespace Ringtoets.Revetment.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfcondities berekening is uitgevoerd op de tijdelijke locatie: {0}. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
+        ///   Looks up a localized string similar to Golfcondities berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
         /// </summary>
         public static string WaveConditionsCalculationService_CalculateWaterLevel_Calculation_temporary_directory_can_be_found_on_location_0 {
             get {

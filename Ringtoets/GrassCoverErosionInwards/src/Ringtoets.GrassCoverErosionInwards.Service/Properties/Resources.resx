@@ -124,10 +124,10 @@
     <value>De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_CalculateOvertopping_calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
-    <value>Overloop berekening is uitgevoerd op de tijdelijke locatie: {0}. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
+    <value>Overloop berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
-    <value>Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie: {0}. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
+    <value>Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_calculation" xml:space="preserve">
     <value>Uitvoeren overloop en overslag berekening</value>

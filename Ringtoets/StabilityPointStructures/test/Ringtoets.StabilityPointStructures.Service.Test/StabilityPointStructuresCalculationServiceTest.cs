@@ -1337,7 +1337,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     var msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", msgs[1]);
+                    StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
                 });
                 Assert.IsNotNull(calculation.Output);
@@ -1445,7 +1445,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
                     StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
+                    StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
@@ -1508,7 +1508,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
                     StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
+                    StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
@@ -1575,7 +1575,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
                     StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
                                                           calculation.Name), msgs[1]);
-                    StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
+                    StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);

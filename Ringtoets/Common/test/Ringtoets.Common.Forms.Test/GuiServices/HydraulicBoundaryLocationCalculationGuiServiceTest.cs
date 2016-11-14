@@ -262,7 +262,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[2]);
                     Assert.AreEqual(notConvergedMessage, msgs[3]);
-                    StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[5]);
                     StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is gelukt.", calculationName), msgs[6]);
                 });
@@ -498,7 +498,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[2]);
                     Assert.AreEqual(notConvergedMessage, msgs[3]);
-                    StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[5]);
                     StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is gelukt.", calculationName), msgs[6]);
                 });

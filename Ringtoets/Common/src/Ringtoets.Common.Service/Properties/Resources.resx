@@ -181,10 +181,10 @@
     <value>Er is geen concreet getal ingevoerd voor '{0}'.</value>
   </data>
   <data name="DesignWaterLevelCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
-    <value>Toetspeil berekening is uitgevoerd op de tijdelijke locatie: {0}. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
+    <value>Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
   <data name="WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
-    <value>Golfhoogte berekening is uitgevoerd op de tijdelijke locatie: {0}. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
+    <value>Golfhoogte berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
   <data name="DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevel_0_calculation_click_details_for_last_error_report_1" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de toetspeil berekening '{0}'. Bekijk het foutrapport door op details te klikken.

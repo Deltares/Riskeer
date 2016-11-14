@@ -407,7 +407,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                             StringAssert.StartsWith(string.Format("Validatie van 'Golfhoogte berekenen voor locatie '{0}'' beëindigd om:", locationName), msgs[1]);
                             StringAssert.StartsWith(string.Format("Berekening van 'Golfhoogte berekenen voor locatie '{0}'' gestart om:", locationName), msgs[2]);
                             StringAssert.StartsWith(string.Format("Golfhoogte berekening voor locatie {0} is niet geconvergeerd.", locationName), msgs[3]);
-                            StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                            StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                             StringAssert.StartsWith(string.Format("Berekening van 'Golfhoogte berekenen voor locatie '{0}'' beëindigd om:", locationName), msgs[5]);
                             StringAssert.StartsWith(string.Format("Uitvoeren van 'Golfhoogte berekenen voor locatie '{0}'' is gelukt.", locationName), msgs[6]);
                         });

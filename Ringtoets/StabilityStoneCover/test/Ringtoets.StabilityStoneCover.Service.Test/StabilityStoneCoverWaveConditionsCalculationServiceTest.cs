@@ -290,7 +290,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                     {
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[i++]);
-                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[i++]);
+                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i++]);
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[i++]);
                     }
 
@@ -301,7 +301,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                     {
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[i++]);
-                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[i++]);
+                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i++]);
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[i++]);
                     }
 
@@ -362,7 +362,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                     {
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[i++]);
-                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[i++]);
+                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i++]);
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[i++]);
                     }
 
@@ -373,7 +373,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                     {
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[i++]);
-                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[i++]);
+                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i++]);
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[i++]);
                     }
 
@@ -624,7 +624,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[2]);
                     StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
                                                           calculation.Name, waterLevel), msgs[3]);
-                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                     Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[5]);
 
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
@@ -688,7 +688,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[2]);
                     StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Er is geen foutrapport beschikbaar.",
                                                           calculation.Name, waterLevel), msgs[3]);
-                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                     Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[5]);
 
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
@@ -755,7 +755,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[2]);
                     StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
                                                           calculation.Name, waterLevel), msgs[3]);
-                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                     Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[5]);
 
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);

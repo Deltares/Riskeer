@@ -359,7 +359,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                             StringAssert.StartsWith(string.Format("Validatie van 'Toetspeil berekenen voor locatie '{0}'' beëindigd om:", location.Name), msgs[1]);
                             StringAssert.StartsWith(string.Format("Berekening van 'Toetspeil berekenen voor locatie '{0}'' gestart om:", location.Name), msgs[2]);
                             StringAssert.StartsWith(string.Format("Toetspeil berekening voor locatie {0} is niet geconvergeerd.", location.Name), msgs[3]);
-                            StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                            StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                             StringAssert.StartsWith(string.Format("Berekening van 'Toetspeil berekenen voor locatie '{0}'' beëindigd om:", location.Name), msgs[5]);
                             StringAssert.StartsWith(string.Format("Uitvoeren van 'Toetspeil berekenen voor locatie '{0}'' is gelukt.", location.Name), msgs[6]);
                         });
