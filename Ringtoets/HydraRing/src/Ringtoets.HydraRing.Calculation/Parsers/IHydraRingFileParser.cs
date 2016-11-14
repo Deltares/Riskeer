@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {

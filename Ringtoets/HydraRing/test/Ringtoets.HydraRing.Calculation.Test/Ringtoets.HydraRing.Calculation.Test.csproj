@@ -95,8 +95,8 @@
     <Compile Include="Data\Output\ReliabilityIndexCalculationOutputTest.cs" />
     <Compile Include="Data\Output\WaveConditionsCalculationOutputTest.cs" />
     <Compile Include="Data\Settings\TimeIntegrationSettingTest.cs" />
+    <Compile Include="Exceptions\HydraRingFileParserExceptionTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
-    <Compile Include="Parsers\HydraRingFileParserExceptionTest.cs" />
     <Compile Include="Parsers\LastErrorFileParserTest.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParserTest.cs" />
     <Compile Include="Parsers\ReliabilityIndexCalculationParserTest.cs" />

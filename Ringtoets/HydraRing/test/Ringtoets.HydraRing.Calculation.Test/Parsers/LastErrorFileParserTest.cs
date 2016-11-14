@@ -24,6 +24,7 @@ using System.IO;
 using System.Security.AccessControl;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.IO;
 

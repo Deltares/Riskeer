@@ -96,11 +96,11 @@
     <Compile Include="Data\Output\OvertoppingCalculationWaveHeightOutput.cs" />
     <Compile Include="Data\Output\WaveConditionsCalculationOutput.cs" />
     <Compile Include="Data\Settings\TimeIntegrationSetting.cs" />
+    <Compile Include="Exceptions\HydraRingFileParserException.cs" />
     <Compile Include="Parsers\LastErrorFileParser.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParser.cs" />
     <Compile Include="Parsers\WaveConditionsCalculationParser.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParser.cs" />
-    <Compile Include="Parsers\HydraRingFileParserException.cs" />
     <Compile Include="Parsers\IHydraRingFileParser.cs" />
     <Compile Include="Parsers\ReliabilityIndexCalculationParser.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

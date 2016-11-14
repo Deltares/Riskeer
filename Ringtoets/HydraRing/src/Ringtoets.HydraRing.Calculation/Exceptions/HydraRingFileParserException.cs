@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.HydraRing.Calculation.Parsers
+namespace Ringtoets.HydraRing.Calculation.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when a HydraRing file parser encounters an error while

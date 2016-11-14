@@ -25,6 +25,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers

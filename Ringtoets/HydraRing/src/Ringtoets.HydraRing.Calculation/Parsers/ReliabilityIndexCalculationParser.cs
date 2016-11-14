@@ -24,6 +24,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers

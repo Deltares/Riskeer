@@ -22,9 +22,9 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Parsers;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Parsers
+namespace Ringtoets.HydraRing.Calculation.Test.Exceptions
 {
     [TestFixture]
     public class HydraRingFileParserExceptionTest
