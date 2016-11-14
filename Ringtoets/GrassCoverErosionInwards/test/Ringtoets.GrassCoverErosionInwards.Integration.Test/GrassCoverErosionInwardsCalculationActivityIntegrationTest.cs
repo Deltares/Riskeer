@@ -359,6 +359,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Assert
             Assert.AreEqual("Stap 1 van 2 | Uitvoeren overloop en overslag berekening", activity.ProgressText);
+            Assert.AreEqual(activity.State, ActivityState.Canceled);
         }
 
         [Test]
