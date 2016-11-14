@@ -136,7 +136,10 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
         }
 
         [Test]
-        public void Run_InvalidCalculationAndRan_PerformValidationAndCalculationAndLogStartAndEndAndError()
+        [TestCase(true, "An error occurred")]
+        [TestCase(true, null)]
+        [TestCase(false, "An error occurred")]
+        public void Run_InvalidCalculationAndRan_PerformValidationAndCalculationAndActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -168,131 +171,13 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
-                calculator.EndInFailure = true;
-                calculator.LastErrorFileContent = "An error occurred";
+                calculator.EndInFailure = endInFailure;
+                calculator.LastErrorFileContent = lastErrorFileContent;
 
                 // Call
-                Action call = () => activity.Run();
+                activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    var msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                    StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt.", calculation.Name), msgs[3]);
-                    StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
-                });
-                Assert.AreEqual(ActivityState.Failed, activity.State);
-            }
-        }
-
-        [Test]
-        public void Run_UnexplainedErrorInCalculation_PerformValidationAndCalculationAndLogStartAndEndAndError()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new TestStabilityPointStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    LoadSchematizationType = LoadSchematizationType.Linear
-                }
-            };
-
-            var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
-            using (new HydraRingCalculatorFactoryConfig())
-            {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
-                calculator.EndInFailure = true;
-
-                // Call
-                Action call = () => activity.Run();
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    var msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                    StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.",
-                                                          calculation.Name), msgs[3]);
-                    StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
-                });
-                Assert.AreEqual(ActivityState.Failed, activity.State);
-            }
-        }
-
-        [Test]
-        public void Run_ErrorInCalculation_PerformValidationAndCalculationAndLogStartAndEndAndError()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new TestStabilityPointStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    LoadSchematizationType = LoadSchematizationType.Linear
-                }
-            };
-
-            var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
-            using (new HydraRingCalculatorFactoryConfig())
-            {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
-                calculator.EndInFailure = false;
-                calculator.LastErrorFileContent = "An error occurred";
-
-                // Call
-                Action call = () => activity.Run();
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    var msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                    StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
-                                                          calculation.Name), msgs[3]);
-                    StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
-                });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
         }
