@@ -237,14 +237,14 @@ namespace Ringtoets.Revetment.Service
                     if (string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(CultureInfo.CurrentCulture,
-                                        Resources.WaveConditionsCalculationService_CalculateWaterLevel_Unexplained_error_in_wave_conditions_calculation_0_for_waterlevel_1,
+                                        Resources.WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_no_error_report,
                                         name,
                                         waterLevel);
                     }
                     else
                     {
                         log.ErrorFormat(CultureInfo.CurrentCulture,
-                                        Resources.WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_2,
+                                        Resources.WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_report_2,
                                         name,
                                         waterLevel,
                                         lastErrorContent);
@@ -262,7 +262,7 @@ namespace Ringtoets.Revetment.Service
                 if (errorOccurred)
                 {
                     log.ErrorFormat(CultureInfo.CurrentCulture,
-                                    Resources.WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_2,
+                                    Resources.WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_report_2,
                                     name,
                                     waterLevel,
                                     lastErrorFileContent);

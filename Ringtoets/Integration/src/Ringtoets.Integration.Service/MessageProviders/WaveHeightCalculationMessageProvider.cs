@@ -41,12 +41,12 @@ namespace Ringtoets.Integration.Service.MessageProviders
 
         public string GetCalculationFailedMessage(string locationName, string failureMessage)
         {
-            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation_click_details_for_last_error_1, locationName, failureMessage);
+            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation_click_details_for_last_error_report_1, locationName, failureMessage);
         }
 
         public string GetCalculationFailedUnexplainedMessage(string locationName)
         {
-            return string.Format(Resources.WaveHeightCalculationService_Calculate_Unexplained_error_in_wave_height_0_calculation, locationName);
+            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation_no_error_report, locationName);
         }
 
         public string GetCalculatedNotConvergedMessage(string locationName)

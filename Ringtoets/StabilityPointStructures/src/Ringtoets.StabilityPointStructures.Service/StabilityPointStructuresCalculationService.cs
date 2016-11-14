@@ -127,12 +127,12 @@ namespace Ringtoets.StabilityPointStructures.Service
                     var lastErrorContent = calculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorContent))
                     {
-                        log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Unexplained_error_in_stabilityPoint_structures_0_calculation,
+                        log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation_no_error_report,
                                         calculationName);
                     }
                     else
                     {
-                        log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation_click_details_for_last_error_1,
+                        log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation_click_details_for_last_error_report_1,
                                         calculationName, lastErrorContent);
                     }
 
@@ -146,7 +146,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 bool errorOccurred = CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
-                    log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation_click_details_for_last_error_1,
+                    log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation_click_details_for_last_error_report_1,
                                     calculationName, lastErrorFileContent);
                 }
 

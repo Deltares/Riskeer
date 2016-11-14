@@ -107,12 +107,12 @@ namespace Ringtoets.ClosingStructures.Service
                     var lastErrorFileContent = calculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorFileContent))
                     {
-                        log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Unexplained_error_in_closing_structures_0_calculation,
+                        log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_no_error_report,
                                         calculationName);
                     }
                     else
                     {
-                        log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_1,
+                        log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_report_1,
                                         calculationName, lastErrorFileContent);
                     }
 
@@ -126,7 +126,7 @@ namespace Ringtoets.ClosingStructures.Service
                 bool errorOccurred = CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
-                    log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_1,
+                    log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_report_1,
                                     calculationName, lastErrorFileContent);
                 }
 

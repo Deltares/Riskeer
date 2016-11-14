@@ -95,20 +95,20 @@ namespace Ringtoets.Revetment.Service.Properties {
         ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
         ///{2}.
         /// </summary>
-        public static string WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_2 {
+        public static string WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_report_2 {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_cal" +
-                        "culation_0_for_waterlevel_1_click_details_for_last_error_2", resourceCulture);
+                        "culation_0_for_waterlevel_1_click_details_for_last_error_report_2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
         /// </summary>
-        public static string WaveConditionsCalculationService_CalculateWaterLevel_Unexplained_error_in_wave_conditions_calculation_0_for_waterlevel_1 {
+        public static string WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_no_error_report {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_CalculateWaterLevel_Unexplained_error_in_wave_co" +
-                        "nditions_calculation_0_for_waterlevel_1", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_cal" +
+                        "culation_0_for_waterlevel_1_no_error_report", resourceCulture);
             }
         }
         
