@@ -125,32 +125,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void RemoveData_SurfaceLineFromCollection_SurfaceLineRemovedFromParentCollection()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var nodeData = new RingtoetsPipingSurfaceLine();
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SurfaceLines.Add(nodeData);
-            failureMechanism.SurfaceLines.Add(new RingtoetsPipingSurfaceLine());
-            failureMechanism.SurfaceLines.Attach(observer);
-
-            var parentNodeData = new RingtoetsPipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentNodeData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.SurfaceLines, nodeData);
-            // Expectancies checked in TearDown
-        }
-
-        [Test]
-        public void OnNodeRemoved_RemovedSurfaceLinePartOfCalculationInput_CalculationSurfaceLineCleared()
+        public void OnNodeRemoved_RemovedSurfaceLineAssignedToCalculationInput_SurfaceLineRemovedFromFailureMechanismAndCalculationSurfaceLineCleared()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -231,7 +206,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.IsNull(calculation2.InputParameters.SurfaceLine);
             Assert.IsNotNull(calculation3.InputParameters.SurfaceLine,
                              "Calculation with different surfaceline should not be affected.");
-            // Expectancies checked in TearDown
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
