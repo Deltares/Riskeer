@@ -148,37 +148,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_RemovingSoilModel_SoilModelRemovedFromParentContainer()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var nodeData = new StochasticSoilModel(1, "A", "B");
-            var failureMechanism = new PipingFailureMechanism
-            {
-                StochasticSoilModels =
-                {
-                    nodeData
-                }
-            };
-            failureMechanism.StochasticSoilModels.Attach(observer);
-
-            var parentData = new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
-            
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.StochasticSoilModels, nodeData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OnNodeRemoved_RemovingSoilModelPartOfCalculation_CalculationModelAndProfileCleared()
+        public void OnNodeRemoved_RemovingSoilModelAssignedToCalculation_SoilModelRemovedFromFailureMechanismAndCalculationModelAndProfileCleared()
         {
             // Setup
             var mocks = new MockRepository();
