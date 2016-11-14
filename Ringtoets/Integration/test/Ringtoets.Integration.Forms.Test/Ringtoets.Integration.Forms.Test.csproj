@@ -101,7 +101,7 @@
     <Compile Include="TreeNodeInfos\DesignWaterLevelLocationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ForeshoreProfilesContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ForeshoreTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ForeshoreProfileTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsProjectTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\TechnicalInnovationFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
@@ -192,10 +192,6 @@
     <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Forms\Ringtoets.ClosingStructures.Forms.csproj">
       <Project>{22E191F2-B2E3-413C-9511-4C2CDEDB2EFF}</Project>
       <Name>Ringtoets.ClosingStructures.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
-      <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
-      <Name>Ringtoets.HydraRing.Calculation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>

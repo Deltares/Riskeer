@@ -23,16 +23,16 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Application.Ringtoets.Storage.TestUtil.Test
+namespace Ringtoets.Common.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestForeshoreProfileTest
     {
         [Test]
-        public void Constructor_Always_ReturnsSectionWithEmptyNameAndOnePointAtOrigin()
+        public void Constructor_Always_ReturnsForeshoreProfileWithEmptyNameAndOnePointAtOrigin()
         {
             // Call
-            var profile = new TestForeshoreProfile();
+            ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Assert
             Assert.IsEmpty(profile.Geometry);
@@ -44,10 +44,10 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         }
 
         [Test]
-        public void Constructor_UseBreakWater_ReturnsSectionWithEmptyNameAndOnePointAtOriginAndDefaultBreakWater()
+        public void Constructor_UseBreakWater_ReturnsForeshoreProfileWithEmptyNameAndOnePointAtOriginAndDefaultBreakWater()
         {
             // Call
-            var profile = new TestForeshoreProfile(true);
+            ForeshoreProfile profile = new TestForeshoreProfile(true);
 
             // Assert
             Assert.IsEmpty(profile.Geometry);
@@ -62,13 +62,31 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         }
 
         [Test]
-        public void ConstructorWithBreakWater_Always_ReturnsSectionWithEmptyNameAndOnePointAtOriginAndBreakWater()
+        public void Constructor_WithName_ReturnForeshoreProfileWithGivenNameAndNoBreakWater()
+        {
+            // Setup
+            const string name = "test";
+
+            // Call
+            ForeshoreProfile profile = new TestForeshoreProfile(name);
+
+            // Assert
+            Assert.IsEmpty(profile.Geometry);
+            Assert.AreEqual(name, profile.Name);
+            Assert.IsFalse(profile.HasBreakWater);
+            Assert.AreEqual(0.0, profile.X0);
+            Assert.AreEqual(0.0, profile.Orientation.Value);
+            Assert.AreEqual(new Point2D(0, 0), profile.WorldReferencePoint);
+        }
+
+        [Test]
+        public void ConstructorWithBreakWater_Always_ReturnsForeshoreProfileWithEmptyNameAndOnePointAtOriginAndBreakWater()
         {
             // Setup
             var breakWater = new BreakWater(BreakWaterType.Dam, 50.0);
 
             // Call
-            var profile = new TestForeshoreProfile(breakWater);
+            ForeshoreProfile profile = new TestForeshoreProfile(breakWater);
 
             // Assert
             Assert.IsEmpty(profile.Geometry);

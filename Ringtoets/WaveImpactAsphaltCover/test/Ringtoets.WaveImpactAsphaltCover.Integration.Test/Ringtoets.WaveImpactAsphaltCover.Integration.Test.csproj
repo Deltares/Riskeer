@@ -63,10 +63,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Application\Ringtoets\test\Application.Ringtoets.Storage.TestUtil\Application.Ringtoets.Storage.TestUtil.csproj">
-      <Project>{03DBE353-99F7-47D6-B826-60D694FFB9AC}</Project>
-      <Name>Application.Ringtoets.Storage.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
@@ -82,6 +78,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843d6e5-066f-4795-94f5-1d53932dd03c}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>

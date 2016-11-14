@@ -30,6 +30,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
 {

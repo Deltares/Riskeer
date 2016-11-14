@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.UITypeEditors;
 
 namespace Ringtoets.Common.Forms.Test.UITypeEditors

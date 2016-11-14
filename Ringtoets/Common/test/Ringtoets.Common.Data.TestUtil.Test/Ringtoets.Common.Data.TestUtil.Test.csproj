@@ -59,6 +59,7 @@
     <Compile Include="TestFailureMechanismSectionResultTest.cs" />
     <Compile Include="TestFailureMechanismTest.cs" />
     <Compile Include="DistributionAssertTest.cs" />
+    <Compile Include="TestForeshoreProfileTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

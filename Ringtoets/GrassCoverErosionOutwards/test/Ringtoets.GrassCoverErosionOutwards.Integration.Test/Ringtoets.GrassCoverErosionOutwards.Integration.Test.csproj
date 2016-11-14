@@ -59,10 +59,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Application\Ringtoets\test\Application.Ringtoets.Storage.TestUtil\Application.Ringtoets.Storage.TestUtil.csproj">
-      <Project>{03DBE353-99F7-47D6-B826-60D694FFB9AC}</Project>
-      <Name>Application.Ringtoets.Storage.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
@@ -99,17 +95,9 @@
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Integration\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
-      <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
-      <Name>Ringtoets.Integration.Plugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Service\Ringtoets.Revetment.Service.csproj">
-      <Project>{2331235F-1E56-4344-ACC2-191C22A39594}</Project>
-      <Name>Ringtoets.Revetment.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
       <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>

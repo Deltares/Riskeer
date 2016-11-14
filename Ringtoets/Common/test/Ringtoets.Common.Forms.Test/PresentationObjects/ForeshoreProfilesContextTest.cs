@@ -79,15 +79,15 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ForeshoreProfilesContext(new ObservableList<ForeshoreProfile>(), failureMechanism, null);
+            TestDelegate call = () => new ForeshoreProfilesContext(new ObservableList<ForeshoreProfile>(), null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("parentAssessmentSection", paramName);
+            Assert.AreEqual("parentFailureMechanism", paramName);
             mocks.VerifyAll();
         }
 

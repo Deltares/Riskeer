@@ -22,7 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -32,6 +31,7 @@ using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Data;

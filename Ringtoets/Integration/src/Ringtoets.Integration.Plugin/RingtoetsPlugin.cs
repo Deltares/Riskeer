@@ -76,6 +76,7 @@ using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
@@ -901,65 +902,38 @@ namespace Ringtoets.Integration.Plugin
 
         private static void OnStabilityStoneCoverForeshoreProfileRemoved(ForeshoreProfile nodeData, ObservableList<ForeshoreProfile> foreshoreProfiles, StabilityStoneCoverFailureMechanism failureMechanism)
         {
-            var changedObservables = new List<IObservable>();
-            StabilityStoneCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations
-                                                                                          .Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                                                                          .ToArray();
-            StabilityStoneCoverWaveConditionsCalculation[] calculationWithRemovedForeshoreProfile = calculations
-                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, nodeData))
-                .ToArray();
-            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculationWithRemovedForeshoreProfile)
-            {
-                calculation.InputParameters.ForeshoreProfile = null;
-                changedObservables.Add(calculation.InputParameters);
-            }
-
-            foreshoreProfiles.Remove(nodeData);
-            changedObservables.Add(foreshoreProfiles);
-
-            foreach (IObservable observable in changedObservables)
-            {
-                observable.NotifyObservers();
-            }
+            WaveConditionsInput[] calculationInputs = failureMechanism.Calculations
+                                                                      .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                      .Select(c => c.InputParameters)
+                                                                      .ToArray();
+            OnWaveConditionsInputForeshoreProfileRemoved(nodeData, foreshoreProfiles, calculationInputs);
         }
 
         private static void OnWaveImpactAsphaltCoverForeshoreProfileRemoved(ForeshoreProfile nodeData, ObservableList<ForeshoreProfile> foreshoreProfiles, WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
-            var changedObservables = new List<IObservable>();
-            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations
-                                                                                             .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                                                             .ToArray();
-            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationWithRemovedForeshoreProfile = calculations
-                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, nodeData))
-                .ToArray();
-            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculationWithRemovedForeshoreProfile)
-            {
-                calculation.InputParameters.ForeshoreProfile = null;
-                changedObservables.Add(calculation.InputParameters);
-            }
-
-            foreshoreProfiles.Remove(nodeData);
-            changedObservables.Add(foreshoreProfiles);
-
-            foreach (IObservable observable in changedObservables)
-            {
-                observable.NotifyObservers();
-            }
+            WaveConditionsInput[] calculationInputs = failureMechanism.Calculations
+                                                                      .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                      .Select(c => c.InputParameters)
+                                                                      .ToArray();
+            OnWaveConditionsInputForeshoreProfileRemoved(nodeData, foreshoreProfiles, calculationInputs);
         }
 
         private static void OnGrassCoverErosionOutwardsForeshoreProfileRemoved(ForeshoreProfile nodeData, ObservableList<ForeshoreProfile> foreshoreProfiles, GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
+            WaveConditionsInput[] calculationInputs = failureMechanism.Calculations
+                                                                      .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                      .Select(c => c.InputParameters)
+                                                                      .ToArray();
+            OnWaveConditionsInputForeshoreProfileRemoved(nodeData, foreshoreProfiles, calculationInputs);
+        }
+
+        private static void OnWaveConditionsInputForeshoreProfileRemoved(ForeshoreProfile nodeData, ObservableList<ForeshoreProfile> foreshoreProfiles, WaveConditionsInput[] calculationInputs)
+        {
             var changedObservables = new List<IObservable>();
-            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = failureMechanism.Calculations
-                                                                                                .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                                                                .ToArray();
-            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculationWithRemovedForeshoreProfile = calculations
-                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, nodeData))
-                .ToArray();
-            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculationWithRemovedForeshoreProfile)
+            foreach (WaveConditionsInput input in calculationInputs.Where(input => ReferenceEquals(input.ForeshoreProfile, nodeData)))
             {
-                calculation.InputParameters.ForeshoreProfile = null;
-                changedObservables.Add(calculation.InputParameters);
+                input.ForeshoreProfile = null;
+                changedObservables.Add(input);
             }
 
             foreshoreProfiles.Remove(nodeData);

@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Application.Ringtoets.Storage.TestUtil
+namespace Ringtoets.Common.Data.TestUtil
 {
     /// <summary>
     /// Simple foreshore profile that can be used for testing.
@@ -34,15 +34,28 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// Creates a new instance of <see cref="TestForeshoreProfile"/>.
         /// </summary>
         /// <param name="useBreakWater">If <c>true</c>, create the ForeshoreProfile with a default <see cref="BreakWater"/>.</param>
-        public TestForeshoreProfile(bool useBreakWater = false) : base(new Point2D(0, 0),
-                                                                       Enumerable.Empty<Point2D>(),
-                                                                       useBreakWater ? new BreakWater(BreakWaterType.Dam, 10) : null,
-                                                                       new ConstructionProperties()) {}
+        public TestForeshoreProfile(bool useBreakWater = false) : this(null,
+                                                                       useBreakWater ? new BreakWater(BreakWaterType.Dam, 10) : null) {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestForeshoreProfile"/> with a specified<see cref="BreakWater"/>.
+        /// Creates a new instance of the <see cref="TestForeshoreProfile"/> with a given
+        /// name and no <see cref="BreakWater"/>.
+        /// </summary>
+        /// <param name="profileName">Name of the profile.</param>
+        public TestForeshoreProfile(string profileName) : this(profileName, null) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestForeshoreProfile"/> with a specified <see cref="BreakWater"/>.
         /// </summary>
         /// <param name="breakWater">The <see cref="BreakWater"/> which needs to be set on the <see cref="ForeshoreProfile"/>.</param>
-        public TestForeshoreProfile(BreakWater breakWater) : base(new Point2D(0, 0), Enumerable.Empty<Point2D>(), breakWater, new ConstructionProperties()) {}
+        public TestForeshoreProfile(BreakWater breakWater) : this(null, breakWater) {}
+
+        private TestForeshoreProfile(string profileName, BreakWater breakWater) : base(new Point2D(0, 0),
+                                                                                       Enumerable.Empty<Point2D>(),
+                                                                                       breakWater,
+                                                                                       new ConstructionProperties
+                                                                                       {
+                                                                                           Name = profileName
+                                                                                       }) {}
     }
 }

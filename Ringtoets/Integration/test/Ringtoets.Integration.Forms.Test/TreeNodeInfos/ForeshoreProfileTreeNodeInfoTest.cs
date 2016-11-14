@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -36,6 +34,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -48,7 +47,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ForeshoreTreeNodeInfoTest
+    public class ForeshoreProfileTreeNodeInfoTest
     {
         private RingtoetsPlugin plugin;
         private TreeNodeInfo info;
@@ -93,25 +92,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             const string profileName = "Random profile name";
-
-            var foreshoreGeometry = new List<Point2D>
-            {
-                new Point2D(2.2, 3.3)
-            };
-
-            var nonDefaultBreakWaterType = BreakWaterType.Wall;
-            var nonDefaultBreakWaterHeight = 5.5;
-            var breakWater = new BreakWater(nonDefaultBreakWaterType, nonDefaultBreakWaterHeight);
-
-            double orientation = 96;
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                        foreshoreGeometry.ToArray(),
-                                                        breakWater,
-                                                        new ForeshoreProfile.ConstructionProperties
-                                                        {
-                                                            Orientation = orientation,
-                                                            Name = profileName
-                                                        });
+            ForeshoreProfile foreshoreProfile = new TestForeshoreProfile(profileName);
 
             // Call
             string text = info.Text(foreshoreProfile);
@@ -272,38 +253,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_ForeshoreProfileOfStabilityStoneCover_ForeshoreProfileRemovedFromFailureMechanism()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                ForeshoreProfiles =
-                {
-                    nodeData
-                }
-            };
-            failureMechanism.ForeshoreProfiles.Attach(observer);
-
-            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, nodeData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OnNodeRemoved_ForeshoreProfileOfStabilityStoneCoverWaveConditionsCalculation_CalculationForeshoreProfileCleared()
+        public void OnNodeRemoved_ForeshoreProfileOfStabilityStoneCoverWaveConditionsCalculation_ForeshoreProfileRemovedFromFailureMechanismAndCalculationForeshoreProfileCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -318,8 +268,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-            var otherProfile = new ForeshoreProfile(new Point2D(1, 1), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+            ForeshoreProfile nodeData = new TestForeshoreProfile("A");
+            ForeshoreProfile otherProfile = new TestForeshoreProfile("B");
 
             var calculation1 = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -386,38 +336,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_ForeshoreProfileOfWaveImpactAsphaltCover_ForeshoreProfileRemovedFromFailureMechanism()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                ForeshoreProfiles =
-                {
-                    nodeData
-                }
-            };
-            failureMechanism.ForeshoreProfiles.Attach(observer);
-
-            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, nodeData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OnNodeRemoved_ForeshoreProfileOfWaveImpactAsphaltCoverWaveConditionsCalculation_CalculationForeshoreProfileCleared()
+        public void OnNodeRemoved_ForeshoreProfileOfWaveImpactAsphaltCoverWaveConditionsCalculation_ForeshoreProfileRemovedFromFailureMechanismAndCalculationForeshoreProfileCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -432,8 +351,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-            var otherProfile = new ForeshoreProfile(new Point2D(1, 1), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+            ForeshoreProfile nodeData = new TestForeshoreProfile("A");
+            ForeshoreProfile otherProfile = new TestForeshoreProfile("B");
 
             var calculation1 = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -498,40 +417,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             Assert.AreSame(otherProfile, calculation3.InputParameters.ForeshoreProfile);
             mocks.VerifyAll();
         }
-
+        
         [Test]
-        public void OnNodeRemoved_ForeshoreProfileOfGrassCoverErosionOutwards_ForeshoreProfileRemovedFromFailureMechanism()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                ForeshoreProfiles =
-                {
-                    nodeData
-                }
-            };
-            failureMechanism.ForeshoreProfiles.Attach(observer);
-
-            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, nodeData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OnNodeRemoved_ForeshoreProfileOfGrassCoverErosionOutwardsWaveConditionsCalculation_CalculationForeshoreProfileCleared()
+        public void OnNodeRemoved_ForeshoreProfileOfGrassCoverErosionOutwardsWaveConditionsCalculation_ForeshoreProfileRemovedFromFailureMechanismAndCalculationForeshoreProfileCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -546,8 +434,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-            var otherProfile = new ForeshoreProfile(new Point2D(1, 1), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+            ForeshoreProfile nodeData = new TestForeshoreProfile("A");
+            ForeshoreProfile otherProfile = new TestForeshoreProfile("B");
 
             var calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -614,38 +502,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_ForeshoreProfileOfHeightStructures_ForeshoreProfileRemovedFromFailureMechanism()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                ForeshoreProfiles =
-                {
-                    nodeData
-                }
-            };
-            failureMechanism.ForeshoreProfiles.Attach(observer);
-
-            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, nodeData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OnNodeRemoved_ForeshoreProfileOfHeightStructuresWaveConditionsCalculation_CalculationForeshoreProfileCleared()
+        public void OnNodeRemoved_ForeshoreProfileOfHeightStructuresWaveConditionsCalculation_ForeshoreProfileRemovedFromFailureMechanismAndCalculationForeshoreProfileCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -660,8 +517,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-            var otherProfile = new ForeshoreProfile(new Point2D(1, 1), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+            ForeshoreProfile nodeData = new TestForeshoreProfile("A");
+            ForeshoreProfile otherProfile = new TestForeshoreProfile("B");
 
             var calculation1 = new StructuresCalculation<HeightStructuresInput>
             {
@@ -728,38 +585,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_ForeshoreProfileOfClosingStructures_ForeshoreProfileRemovedFromFailureMechanism()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                ForeshoreProfiles =
-                {
-                    nodeData
-                }
-            };
-            failureMechanism.ForeshoreProfiles.Attach(observer);
-
-            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, nodeData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OnNodeRemoved_ForeshoreProfileOfClosingStructuresWaveConditionsCalculation_CalculationForeshoreProfileCleared()
+        public void OnNodeRemoved_ForeshoreProfileOfClosingStructuresWaveConditionsCalculation_ForeshoreProfileRemovedFromFailureMechanismAndCalculationForeshoreProfileCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -774,8 +600,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-            var otherProfile = new ForeshoreProfile(new Point2D(1, 1), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+            ForeshoreProfile nodeData = new TestForeshoreProfile("A");
+            ForeshoreProfile otherProfile = new TestForeshoreProfile("B");
 
             var calculation1 = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -842,38 +668,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_ForeshoreProfileOfStabilityPointStructures_ForeshoreProfileRemovedFromFailureMechanism()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                ForeshoreProfiles =
-                {
-                    nodeData
-                }
-            };
-            failureMechanism.ForeshoreProfiles.Attach(observer);
-
-            var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, nodeData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OnNodeRemoved_ForeshoreProfileOfStabilityPointStructuresWaveConditionsCalculation_CalculationForeshoreProfileCleared()
+        public void OnNodeRemoved_ForeshoreProfileOfStabilityPointStructuresWaveConditionsCalculation_ForeshoreProfileRemovedFromFailureMechanismAndCalculationForeshoreProfileCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -888,8 +683,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            var nodeData = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
-            var otherProfile = new ForeshoreProfile(new Point2D(1, 1), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties());
+            ForeshoreProfile nodeData = new TestForeshoreProfile("A");
+            ForeshoreProfile otherProfile = new TestForeshoreProfile("B");
 
             var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
             {
