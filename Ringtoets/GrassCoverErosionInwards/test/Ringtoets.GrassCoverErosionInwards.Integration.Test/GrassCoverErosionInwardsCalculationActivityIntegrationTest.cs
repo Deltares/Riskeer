@@ -325,6 +325,43 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
+        public void RunWithDikeHeightTrue_CancelDuringOvertoppingCalculation_ProgressTextSetToProbabilityCalculation()
+        {
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    CalculateDikeHeight = true
+                }
+            };
+
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                activity.ProgressChanged += (sender, args) =>
+                {
+                    if (activity.State != ActivityState.Canceled && activity.ProgressText.Contains("Stap 1 van 2"))
+                    {
+                        // Call 
+                        activity.Cancel();
+                    }
+                };
+
+                activity.Run();
+            }
+
+            // Assert
+            Assert.AreEqual("Stap 1 van 2 | Uitvoeren overloop en overslag berekening", activity.ProgressText);
+        }
+
+        [Test]
         public void Finish_CalculateDikeHeightFalseAndValidGrassCoverErosionInwardsCalculationAndRan_SetsOutputAndNotifyObserversOfGrassCoverErosionInwardsCalculation()
         {
             // Setup

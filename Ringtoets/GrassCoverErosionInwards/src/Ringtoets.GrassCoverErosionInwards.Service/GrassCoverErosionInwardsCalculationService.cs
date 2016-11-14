@@ -124,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             {
                 CalculateOvertopping(overtoppingCalculationInput, calculationName);
 
-                if (calculateDikeHeight)
+                if (calculateDikeHeight && !canceled)
                 {
                     NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_dikeheight_calculation, 2, totalSteps);
 
