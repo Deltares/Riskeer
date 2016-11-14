@@ -146,23 +146,27 @@ namespace Ringtoets.HeightStructures.Service
             }
             finally
             {
-                try
+                var lastErrorFileContent = calculator.LastErrorFileContent;
+                bool errorOccurred = ErrorOccurred(exceptionThrown, lastErrorFileContent);
+                if (errorOccurred)
                 {
-                    var lastErrorContent = calculator.LastErrorFileContent;
-                    if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
-                    {
-                        log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation_click_details_for_last_error_1,
-                                        calculationName, lastErrorContent);
-
-                        throw new HydraRingFileParserException(lastErrorContent);
-                    }
+                    log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation_click_details_for_last_error_1,
+                                    calculationName, lastErrorFileContent);
                 }
-                finally
+
+                log.InfoFormat(Resources.HeightStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+
+                if (errorOccurred)
                 {
-                    log.InfoFormat(Resources.HeightStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
-                    CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                    throw new HydraRingFileParserException(lastErrorFileContent);
                 }
             }
+        }
+
+        private bool ErrorOccurred(bool exceptionThrown, string lastErrorFileContent)
+        {
+            return !canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorFileContent);
         }
 
         private static StructuresOvertoppingCalculationInput CreateInput(

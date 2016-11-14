@@ -142,21 +142,20 @@ namespace Ringtoets.StabilityPointStructures.Service
             }
             finally
             {
-                try
+                var lastErrorFileContent = calculator.LastErrorFileContent;
+                bool errorOccurred = ErrorOccurred(exceptionThrown, lastErrorFileContent);
+                if (errorOccurred)
                 {
-                    var lastErrorContent = calculator.LastErrorFileContent;
-                    if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
-                    {
-                        log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation_click_details_for_last_error_1,
-                                        calculationName, lastErrorContent);
-
-                        throw new HydraRingFileParserException(lastErrorContent);
-                    }
+                    log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation_click_details_for_last_error_1,
+                                    calculationName, lastErrorFileContent);
                 }
-                finally
+
+                log.InfoFormat(Resources.StabilityPointStructuresCalculationService_CalculateCalculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+
+                if (errorOccurred)
                 {
-                    log.InfoFormat(Resources.StabilityPointStructuresCalculationService_CalculateCalculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
-                    CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                    throw new HydraRingFileParserException(lastErrorFileContent);
                 }
             }
         }
@@ -174,6 +173,11 @@ namespace Ringtoets.StabilityPointStructures.Service
             canceled = true;
         }
 
+        private bool ErrorOccurred(bool exceptionThrown, string lastErrorFileContent)
+        {
+            return !canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorFileContent);
+        }
+
         private StructuresStabilityPointCalculationInput CreateStructuresStabilityPointCalculationInput(
             StructuresCalculation<StabilityPointStructuresInput> calculation,
             StabilityPointStructuresFailureMechanism failureMechanism,
@@ -188,16 +192,16 @@ namespace Ringtoets.StabilityPointStructures.Service
                     {
                         case LoadSchematizationType.Linear:
                             input = CreateLowSillLinearCalculationInput(
-                                calculation, 
-                                failureMechanismSection, 
+                                calculation,
+                                failureMechanismSection,
                                 failureMechanism.GeneralInput,
                                 hydraulicBoundaryDatabaseFilePath);
                             break;
                         case LoadSchematizationType.Quadratic:
                             input = CreateLowSillQuadraticCalculationInput(
-                                calculation, 
-                                failureMechanismSection, 
-                                failureMechanism.GeneralInput, 
+                                calculation,
+                                failureMechanismSection,
+                                failureMechanism.GeneralInput,
                                 hydraulicBoundaryDatabaseFilePath);
                             break;
                         default:
@@ -211,16 +215,16 @@ namespace Ringtoets.StabilityPointStructures.Service
                     {
                         case LoadSchematizationType.Linear:
                             input = CreateFloodedCulvertLinearCalculationInput(
-                                calculation, 
-                                failureMechanismSection, 
+                                calculation,
+                                failureMechanismSection,
                                 failureMechanism.GeneralInput,
                                 hydraulicBoundaryDatabaseFilePath);
                             break;
                         case LoadSchematizationType.Quadratic:
                             input = CreateFloodedCulvertQuadraticCalculationInput(
-                                calculation, 
-                                failureMechanismSection, 
-                                failureMechanism.GeneralInput, 
+                                calculation,
+                                failureMechanismSection,
+                                failureMechanism.GeneralInput,
                                 hydraulicBoundaryDatabaseFilePath);
                             break;
                         default:
@@ -241,7 +245,7 @@ namespace Ringtoets.StabilityPointStructures.Service
         private StructuresStabilityPointLowSillLinearCalculationInput CreateLowSillLinearCalculationInput(StructuresCalculation<StabilityPointStructuresInput> calculation,
                                                                                                           FailureMechanismSection failureMechanismSection,
                                                                                                           GeneralStabilityPointStructuresInput generalInput,
-            string hydraulicBoundaryDatabaseFilePath)
+                                                                                                          string hydraulicBoundaryDatabaseFilePath)
         {
             var structuresStabilityPointLowSillLinearCalculationInput = new StructuresStabilityPointLowSillLinearCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
@@ -390,9 +394,9 @@ namespace Ringtoets.StabilityPointStructures.Service
         }
 
         private StructuresStabilityPointFloodedCulvertLinearCalculationInput CreateFloodedCulvertLinearCalculationInput(
-            StructuresCalculation<StabilityPointStructuresInput> calculation, 
-            FailureMechanismSection failureMechanismSection, 
-            GeneralStabilityPointStructuresInput generalInput, 
+            StructuresCalculation<StabilityPointStructuresInput> calculation,
+            FailureMechanismSection failureMechanismSection,
+            GeneralStabilityPointStructuresInput generalInput,
             string hydraulicBoundaryDatabaseFilePath)
         {
             var structuresStabilityPointFloodedCulvertLinearCalculationInput = new StructuresStabilityPointFloodedCulvertLinearCalculationInput(
@@ -536,7 +540,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 calculation.InputParameters.StabilityQuadraticLoadModel.Mean,
                 calculation.InputParameters.StabilityQuadraticLoadModel.CoefficientOfVariation);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresStabilityPointFloodedCulvertQuadraticCalculationInput, hydraulicBoundaryDatabaseFilePath); 
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresStabilityPointFloodedCulvertQuadraticCalculationInput, hydraulicBoundaryDatabaseFilePath);
 
             return structuresStabilityPointFloodedCulvertQuadraticCalculationInput;
         }

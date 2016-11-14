@@ -104,8 +104,8 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 if (!canceled)
                 {
-                    var lastErrorContent = calculator.LastErrorFileContent;
-                    if (string.IsNullOrEmpty(lastErrorContent))
+                    var lastErrorFileContent = calculator.LastErrorFileContent;
+                    if (string.IsNullOrEmpty(lastErrorFileContent))
                     {
                         log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Unexplained_error_in_closing_structures_0_calculation,
                                         calculationName);
@@ -113,7 +113,7 @@ namespace Ringtoets.ClosingStructures.Service
                     else
                     {
                         log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_1,
-                                        calculationName, lastErrorContent);
+                                        calculationName, lastErrorFileContent);
                     }
 
                     exceptionThrown = true;
@@ -122,22 +122,21 @@ namespace Ringtoets.ClosingStructures.Service
             }
             finally
             {
-                try
+                var lastErrorFileContent = calculator.LastErrorFileContent;
+                bool errorOccurred = ErrorOccurred(exceptionThrown, lastErrorFileContent);
+                if (errorOccurred)
                 {
-                    var lastErrorContent = calculator.LastErrorFileContent;
-                    if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
-                    {
-                        log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_1,
-                                        calculationName, lastErrorContent);
-
-                        throw new HydraRingFileParserException(lastErrorContent);
-                    }
+                    log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_1,
+                                    calculationName, lastErrorFileContent);
                 }
-                finally
+
+                log.InfoFormat(Resources.ClosingStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
+                               calculator.OutputDirectory);
+                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+
+                if (errorOccurred)
                 {
-                    log.InfoFormat(Resources.ClosingStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
-                                   calculator.OutputDirectory);
-                    CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                    throw new HydraRingFileParserException(lastErrorFileContent);
                 }
             }
         }
@@ -170,6 +169,11 @@ namespace Ringtoets.ClosingStructures.Service
             CalculationServiceHelper.LogValidationEndTime(calculation.Name);
 
             return !messages.Any();
+        }
+
+        private bool ErrorOccurred(bool exceptionThrown, string lastErrorContent)
+        {
+            return !canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent);
         }
 
         private static StructuresClosureCalculationInput CreateStructuresClosureCalculationInput(

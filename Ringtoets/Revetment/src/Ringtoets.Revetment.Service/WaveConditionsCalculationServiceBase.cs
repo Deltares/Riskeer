@@ -257,25 +257,29 @@ namespace Ringtoets.Revetment.Service
             }
             finally
             {
-                try
+                var lastErrorFileContent = calculator.LastErrorFileContent;
+                bool errorOccurred = ErrorOccurred(exceptionThrown, lastErrorFileContent);
+                if (errorOccurred)
                 {
-                    var lastErrorContent = calculator.LastErrorFileContent;
-                    if (!Canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
-                    {
-                        log.ErrorFormat(CultureInfo.CurrentCulture,
-                                        Resources.WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_2,
-                                        name,
-                                        waterLevel,
-                                        lastErrorContent);
-
-                        throw new HydraRingFileParserException(lastErrorContent);
-                    }
+                    log.ErrorFormat(CultureInfo.CurrentCulture,
+                                    Resources.WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_2,
+                                    name,
+                                    waterLevel,
+                                    lastErrorFileContent);
                 }
-                finally
+
+                log.InfoFormat(Resources.WaveConditionsCalculationService_CalculateWaterLevel_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+
+                if (errorOccurred)
                 {
-                    log.InfoFormat(Resources.WaveConditionsCalculationService_CalculateWaterLevel_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+                    throw new HydraRingFileParserException(lastErrorFileContent);
                 }
             }
+        }
+
+        private bool ErrorOccurred(bool exceptionThrown, string lastErrorFileContent)
+        {
+            return !Canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorFileContent);
         }
 
         private static WaveConditionsCosineCalculationInput CreateInput(RoundedDouble waterLevel,
@@ -283,7 +287,7 @@ namespace Ringtoets.Revetment.Service
                                                                         RoundedDouble b,
                                                                         RoundedDouble c,
                                                                         double norm,
-                                                                        WaveConditionsInput input, 
+                                                                        WaveConditionsInput input,
                                                                         string hydraulicBoundaryDatabaseFilePath)
         {
             var waveConditionsCosineCalculationInput = new WaveConditionsCosineCalculationInput(

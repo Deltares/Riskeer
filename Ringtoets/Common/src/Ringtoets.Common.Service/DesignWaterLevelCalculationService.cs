@@ -119,19 +119,19 @@ namespace Ringtoets.Common.Service
             }
             finally
             {
-                try
+                var lastErrorFileContent = calculator.LastErrorFileContent;
+                bool errorOccurred = ErrorOccurred(exceptionThrown, lastErrorFileContent);
+                if (errorOccurred)
                 {
-                    var lastErrorContent = calculator.LastErrorFileContent;
-                    if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
-                    {
-                        log.Error(messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorContent));
-                        throw new HydraRingFileParserException(lastErrorContent);
-                    }
+                    log.Error(messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorFileContent));
                 }
-                finally
+
+                log.InfoFormat(Resources.DesignWaterLevelCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+
+                if (errorOccurred)
                 {
-                    log.InfoFormat(Resources.DesignWaterLevelCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
-                    CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                    throw new HydraRingFileParserException(lastErrorFileContent);
                 }
             }
         }
@@ -146,6 +146,11 @@ namespace Ringtoets.Common.Service
                 calculator.Cancel();
                 canceled = true;
             }
+        }
+
+        private bool ErrorOccurred(bool exceptionThrown, string lastErrorFileContent)
+        {
+            return !canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorFileContent);
         }
 
         private AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm, string hydraulicBoundaryDatabaseFilePath)

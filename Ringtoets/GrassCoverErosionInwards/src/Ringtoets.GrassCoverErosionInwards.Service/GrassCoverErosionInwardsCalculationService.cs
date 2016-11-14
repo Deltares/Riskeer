@@ -189,18 +189,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             finally
             {
-                try
+                var lastErrorFileContent = overtoppingCalculator.LastErrorFileContent;
+                bool errorOccurred = ErrorOccurred(exceptionThrown, lastErrorFileContent);
+                if (errorOccurred)
                 {
-                    var lastErrorContent = overtoppingCalculator.LastErrorFileContent;
-                    if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
-                    {
-                        log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_1, calculationName, lastErrorContent);
-                        throw new HydraRingFileParserException(lastErrorContent);
-                    }
+                    log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_1, calculationName, lastErrorFileContent);
                 }
-                finally
+
+                log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_calculation_temporary_directory_can_be_found_on_location_0, overtoppingCalculator.OutputDirectory);
+
+                if (errorOccurred)
                 {
-                    log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_calculation_temporary_directory_can_be_found_on_location_0, overtoppingCalculator.OutputDirectory);
+                    throw new HydraRingFileParserException(lastErrorFileContent);
                 }
             }
         }
@@ -234,15 +234,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 }
                 finally
                 {
-                    var lastErrorContent = dikeHeightCalculator.LastErrorFileContent;
-                    if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
+                    var lastErrorFileContent = dikeHeightCalculator.LastErrorFileContent;
+                    if (ErrorOccurred(exceptionThrown, lastErrorFileContent))
                     {
-                        log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_1, calculationName, lastErrorContent);
+                        log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_1, calculationName, lastErrorFileContent);
                     }
 
                     log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_temporary_directory_can_be_found_on_location_0, dikeHeightCalculator.OutputDirectory);
                 }
             }
+        }
+
+        private bool ErrorOccurred(bool exceptionThrown, string lastErrorFileContent)
+        {
+            return !canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorFileContent);
         }
 
         private static OvertoppingCalculationInput CreateOvertoppingInput(GrassCoverErosionInwardsCalculation calculation,
