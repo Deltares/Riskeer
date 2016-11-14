@@ -489,6 +489,143 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
+        public void GenerateDataBaseCreationScript_HydraRingConfigurationWithOvertoppingRateCalculationInput_ReturnsExpectedCreationScript()
+        {
+            // Setup
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
+            const int hydraulicBoundaryLocationId = 700004;
+
+            var section = new HydraRingSection(1, 2.2, 3.3);
+            const double norm = 1000;
+            const double dikeHeight = 4.4;
+            const double modelFactorCriticalOvertopping = 5.5;
+            const double factorFbMean = 6.6;
+            const double factorFbStandardDeviation = 7.7;
+            const double factorFnMean = 8.8;
+            const double factorFnStandardDeviation = 9.9;
+            const double modelFactorOvertopping = 10.10;
+            const double modelFactorFrunupMean = 11.11;
+            const double modelFactorFrunupStandardDeviation = 12.12;
+            const double exponentModelFactorShallowMean = 13.13;
+            const double exponentModelFactorShallowStandardDeviation = 14.14;
+            var profilePoints = new List<HydraRingRoughnessProfilePoint>
+            {
+                new HydraRingRoughnessProfilePoint(1.1, 2.2, 3.3)
+            };
+            var forelandPoints = new List<HydraRingForelandPoint>
+            {
+                new HydraRingForelandPoint(1.1, 2.2)
+            };
+            var breakWater = new HydraRingBreakWater(1, 2.2);
+            var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
+
+            hydraRingConfigurationService.AddHydraRingCalculationInput(
+                new OvertoppingRateCalculationInput(hydraulicBoundaryLocationId, norm, section,
+                                               profilePoints, forelandPoints, breakWater,
+                                               dikeHeight,
+                                               modelFactorCriticalOvertopping,
+                                               factorFbMean, factorFbStandardDeviation,
+                                               factorFnMean, factorFnStandardDeviation,
+                                               modelFactorOvertopping,
+                                               modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
+                                               exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation)
+                {
+                    DesignTablesSetting = new DesignTablesSetting(15.15, 16.16),
+                    NumericsSettings = new Dictionary<int, NumericsSetting>
+                    {
+                        {
+                            102, numericsSetting
+                        },
+                        {
+                            103, numericsSetting
+                        }
+                    },
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
+                });
+
+            var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
+                                         "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Sections];" + Environment.NewLine +
+                                         "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [SectionCalculationSchemes];" + Environment.NewLine +
+                                         "INSERT INTO [SectionCalculationSchemes] VALUES (1, 101, 1);" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [DesignTables];" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (1, 101, 1, 1, 9, 17, 0, 0, 0, 0, 15.15, 16.16, 3.09023230616781);" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Numerics];" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 102, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 103, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [VariableDatas];" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 1, 4.4, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 8, 5.5, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 10, 0, 2, 6.6, 7.7, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 11, 0, 2, 8.8, 9.9, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 12, 10.1, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 17, 0, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 120, 0, 2, 11.11, 12.12, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 123, 0, 2, 13.13, 14.14, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
+                                         "INSERT INTO [CalculationProfiles] VALUES (1, 1, 1.1, 2.2, 3.3);" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
+                                         "INSERT INTO [SectionFaultTreeModels] VALUES (1, 101, 1, 1, 1017);" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
+                                         "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 102, 94);" + Environment.NewLine +
+                                         "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 103, 95);" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Fetches];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [AreaPoints];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [PresentationSections];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Profiles];" + Environment.NewLine +
+                                         "INSERT INTO [Profiles] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [ForelandModels];" + Environment.NewLine +
+                                         "INSERT INTO [ForelandModels] VALUES (1, 101, 3);" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Forelands];" + Environment.NewLine +
+                                         "INSERT INTO [Forelands] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [ProbabilityAlternatives];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [SetUpHeights];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Swells];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [WaveReductions];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Areas];" + Environment.NewLine +
+                                         "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Projects];" + Environment.NewLine +
+                                         "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Breakwaters];" + Environment.NewLine +
+                                         "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
+
+            var databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+            using (new FileDisposeHelper(databaseFilePath))
+            {
+                // Call
+                hydraRingConfigurationService.WriteDataBaseCreationScript(databaseFilePath);
+
+                // Assert
+                var creationScript = File.ReadAllText(databaseFilePath);
+                Assert.AreEqual(expectedCreationScript, creationScript);
+            }
+        }
+
+        [Test]
         public void GenerateDataBaseCreationScript_HydraRingConfigurationWithStructuresOvertoppingCalculationInput_ReturnsExpectedCreationScript()
         {
             // Setup
