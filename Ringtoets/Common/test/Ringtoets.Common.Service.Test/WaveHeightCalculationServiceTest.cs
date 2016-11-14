@@ -231,7 +231,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 testCalculator.EndInFailure = true;
-                testCalculator.LastErrorContent = calculationFailedMessage;
+                testCalculator.LastErrorFileContent = calculationFailedMessage;
                 bool exceptionThrown = false;
                 // Call
                 Action call = () =>
@@ -290,7 +290,7 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
-                calculator.LastErrorContent = "An error occurred";
+                calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -410,7 +410,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 calculator.EndInFailure = false;
-                calculator.LastErrorContent = "An error occurred";
+                calculator.LastErrorFileContent = "An error occurred";
 
                 var exceptionThrown = false;
                 var exceptionMessage = string.Empty;
@@ -444,7 +444,7 @@ namespace Ringtoets.Common.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
-                Assert.AreEqual(calculator.LastErrorContent, exceptionMessage);
+                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
         }
 

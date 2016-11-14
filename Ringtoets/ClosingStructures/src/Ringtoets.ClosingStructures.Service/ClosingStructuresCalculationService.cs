@@ -104,7 +104,7 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 if (!canceled)
                 {
-                    var lastErrorContent = calculator.LastErrorContent;
+                    var lastErrorContent = calculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Unexplained_error_in_closing_structures_0_calculation,
@@ -124,7 +124,7 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 try
                 {
-                    var lastErrorContent = calculator.LastErrorContent;
+                    var lastErrorContent = calculator.LastErrorFileContent;
                     if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_1,

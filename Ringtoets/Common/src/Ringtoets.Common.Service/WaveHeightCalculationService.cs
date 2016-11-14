@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Service
             {
                 if (!canceled)
                 {
-                    var lastErrorContent = calculator.LastErrorContent;
+                    var lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(string.IsNullOrEmpty(lastErrorContent)
                                   ? messageProvider.GetCalculationFailedUnexplainedMessage(hydraulicBoundaryLocation.Name)
                                   : messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorContent));
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Service
             {
                 try
                 {
-                    var lastErrorContent = calculator.LastErrorContent;
+                    var lastErrorContent = calculator.LastErrorFileContent;
                     if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.Error(messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorContent));

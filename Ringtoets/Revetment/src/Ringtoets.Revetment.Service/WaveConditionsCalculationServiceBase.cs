@@ -233,7 +233,7 @@ namespace Ringtoets.Revetment.Service
             {
                 if (!Canceled)
                 {
-                    var lastErrorContent = calculator.LastErrorContent;
+                    var lastErrorContent = calculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(CultureInfo.CurrentCulture,
@@ -259,7 +259,7 @@ namespace Ringtoets.Revetment.Service
             {
                 try
                 {
-                    var lastErrorContent = calculator.LastErrorContent;
+                    var lastErrorContent = calculator.LastErrorFileContent;
                     if (!Canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(CultureInfo.CurrentCulture,

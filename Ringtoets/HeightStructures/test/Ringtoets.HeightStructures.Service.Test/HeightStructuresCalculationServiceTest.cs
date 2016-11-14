@@ -784,7 +784,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
-                calculator.LastErrorContent = "An error occurred";
+                calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -910,7 +910,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 calculator.EndInFailure = false;
-                calculator.LastErrorContent = "An error occurred";
+                calculator.LastErrorFileContent = "An error occurred";
 
                 var exceptionThrown = false;
                 var exceptionMessage = string.Empty;
@@ -944,7 +944,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
-                Assert.AreEqual(calculator.LastErrorContent, exceptionMessage);
+                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
         }
 

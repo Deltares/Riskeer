@@ -908,7 +908,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
-                calculator.LastErrorContent = "An error occurred";
+                calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -1034,7 +1034,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
                 calculator.EndInFailure = false;
-                calculator.LastErrorContent = "An error occurred";
+                calculator.LastErrorFileContent = "An error occurred";
 
                 var exceptionThrown = false;
                 var exceptionMessage = string.Empty;
@@ -1068,7 +1068,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
-                Assert.AreEqual(calculator.LastErrorContent, exceptionMessage);
+                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
         }
 

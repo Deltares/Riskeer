@@ -47,7 +47,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <summary>
         /// Gets the content of the last error file generated during the Hydra-Ring calculation.
         /// </summary>
-        string LastErrorContent { get; }
+        string LastErrorFileContent { get; }
 
         /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.

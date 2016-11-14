@@ -1431,7 +1431,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
-                calculator.LastErrorContent = "An error occurred";
+                calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -1557,7 +1557,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
                 calculator.EndInFailure = false;
-                calculator.LastErrorContent = "An error occurred";
+                calculator.LastErrorFileContent = "An error occurred";
 
                 var exceptionThrown = false;
                 var exceptionMessage = string.Empty;
@@ -1590,7 +1590,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
-                Assert.AreEqual(calculator.LastErrorContent, exceptionMessage);
+                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
         }
 

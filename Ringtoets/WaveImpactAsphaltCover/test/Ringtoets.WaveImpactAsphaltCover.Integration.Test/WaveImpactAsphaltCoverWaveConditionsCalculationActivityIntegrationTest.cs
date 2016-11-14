@@ -299,7 +299,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = false;
-                calculator.LastErrorContent = "An error occurred";
+                calculator.LastErrorFileContent = "An error occurred";
 
                 // Call
                 activity.Run();

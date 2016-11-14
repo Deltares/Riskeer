@@ -173,7 +173,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             {
                 if (!canceled)
                 {
-                    var lastErrorContent = overtoppingCalculator.LastErrorContent;
+                    var lastErrorContent = overtoppingCalculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Unexplained_error_in_grass_cover_erosion_inwards_0_calculation, calculationName);
@@ -191,7 +191,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             {
                 try
                 {
-                    var lastErrorContent = overtoppingCalculator.LastErrorContent;
+                    var lastErrorContent = overtoppingCalculator.LastErrorFileContent;
                     if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_1, calculationName, lastErrorContent);
@@ -219,7 +219,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 {
                     if (!canceled)
                     {
-                        var lastErrorContent = dikeHeightCalculator.LastErrorContent;
+                        var lastErrorContent = dikeHeightCalculator.LastErrorFileContent;
                         if (string.IsNullOrEmpty(lastErrorContent))
                         {
                             log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Unexplained_error_in_hbn_grass_cover_erosion_inwards_0_calculation, calculationName);
@@ -234,7 +234,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 }
                 finally
                 {
-                    var lastErrorContent = dikeHeightCalculator.LastErrorContent;
+                    var lastErrorContent = dikeHeightCalculator.LastErrorFileContent;
                     if (!canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_1, calculationName, lastErrorContent);

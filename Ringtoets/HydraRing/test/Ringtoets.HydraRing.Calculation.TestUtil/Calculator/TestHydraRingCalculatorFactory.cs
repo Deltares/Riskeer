@@ -102,7 +102,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     public class TestWaveHeightCalculator : TestHydraRingCalculator<WaveHeightCalculationInput>, IWaveHeightCalculator
     {
         public string OutputDirectory { get; set; }
-        public string LastErrorContent { get; set; }
+        public string LastErrorFileContent { get; set; }
         public double WaveHeight { get; set; }
         public double ReliabilityIndex { get; set; }
     }
@@ -110,7 +110,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     public class TestWaveConditionsCosineCalculator : TestHydraRingCalculator<WaveConditionsCosineCalculationInput>, IWaveConditionsCosineCalculator
     {
         public string OutputDirectory { get; set; }
-        public string LastErrorContent { get; set; }
+        public string LastErrorFileContent { get; set; }
         public double WaveHeight { get; set; }
         public double WaveAngle { get; set; }
         public double WavePeakPeriod { get; set; }
@@ -122,20 +122,20 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public double WaveHeight { get; set; }
         public bool IsOvertoppingDominant { get; set; }
         public string OutputDirectory { get; set; }
-        public string LastErrorContent { get; set; }
+        public string LastErrorFileContent { get; set; }
     }
 
     public class TestDikeHeightCalculator : TestHydraRingCalculator<DikeHeightCalculationInput>, IDikeHeightCalculator
     {
         public double DikeHeight { get; set; }
         public string OutputDirectory { get; set; }
-        public string LastErrorContent { get; set; }
+        public string LastErrorFileContent { get; set; }
     }
 
     public class TestDesignWaterLevelCalculator : TestHydraRingCalculator<AssessmentLevelCalculationInput>, IDesignWaterLevelCalculator
     {
         public string OutputDirectory { get; set; }
-        public string LastErrorContent { get; set; }
+        public string LastErrorFileContent { get; set; }
         public double DesignWaterLevel { get; set; }
         public double ReliabilityIndex { get; set; }
     }
@@ -144,21 +144,21 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     {
         public double ExceedanceProbabilityBeta { get; set; }
         public string OutputDirectory { get; set; }
-        public string LastErrorContent { get; set; }
+        public string LastErrorFileContent { get; set; }
     }
 
     public class TestStructuresClosureCalculator : TestHydraRingCalculator<StructuresClosureCalculationInput>, IStructuresClosureCalculator
     {
         public double ExceedanceProbabilityBeta { get; set; }
         public string OutputDirectory { get; set; }
-        public string LastErrorContent { get; set; }
+        public string LastErrorFileContent { get; set; }
     }
 
     public class TestStructuresStabilityPointCalculator : TestHydraRingCalculator<StructuresStabilityPointCalculationInput>, IStructuresStabilityPointCalculator
     {
         public double ExceedanceProbabilityBeta { get; set; }
         public string OutputDirectory { get; set; }
-        public string LastErrorContent { get; set; }
+        public string LastErrorFileContent { get; set; }
     }
 
     public class TestHydraRingCalculator<T>

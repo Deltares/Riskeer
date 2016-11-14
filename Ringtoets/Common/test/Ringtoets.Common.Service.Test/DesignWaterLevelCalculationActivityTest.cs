@@ -326,7 +326,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                 calculator.EndInFailure = true;
-                calculator.LastErrorContent = calculationFailedMessage;
+                calculator.LastErrorFileContent = calculationFailedMessage;
 
                 // Call
                 Action call = () => activity.Run();
@@ -470,7 +470,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                 calculator.EndInFailure = false;
-                calculator.LastErrorContent = "An error occurred";
+                calculator.LastErrorFileContent = "An error occurred";
 
                 // Call
                 Action call = () => activity.Run();

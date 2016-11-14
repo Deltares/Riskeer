@@ -546,7 +546,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
-                calculator.LastErrorContent = "An error occurred";
+                calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
 
                 var exception = false;
@@ -672,7 +672,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = false;
-                calculator.LastErrorContent = "An error occurred";
+                calculator.LastErrorFileContent = "An error occurred";
 
                 var exception = false;
                 var exceptionMessage = string.Empty;
@@ -713,7 +713,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
                 });
                 Assert.IsTrue(exception);
-                Assert.AreEqual(calculator.LastErrorContent, exceptionMessage);
+                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
                 mockRepository.VerifyAll();
             }
         }

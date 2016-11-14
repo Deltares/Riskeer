@@ -68,7 +68,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <summary>
         /// Gets the content of the last error file generated during the Hydra-Ring calculation.
         /// </summary>
-        public string LastErrorContent { get; private set; }
+        public string LastErrorFileContent { get; private set; }
 
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
@@ -122,7 +122,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         private void ExecuteGenericParsers(HydraRingInitializationService hydraRingInitializationService, int sectionId)
         {
             lastErrorFileParser.Parse(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
-            LastErrorContent = lastErrorFileParser.ErrorFileContent;
+            LastErrorFileContent = lastErrorFileParser.ErrorFileContent;
         }
 
         private void ExecuteCustomParsers(string temporaryWorkingDirectory, int sectionId)
