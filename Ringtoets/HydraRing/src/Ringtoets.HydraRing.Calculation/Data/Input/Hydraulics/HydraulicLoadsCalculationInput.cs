@@ -25,9 +25,9 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
 {
     /// <summary>
-    /// Container for all data necessary for performing a dike height calculation via Hydra-Ring.
+    /// Container for all data necessary for performing a hydraulic loads calculation via Hydra-Ring.
     /// </summary>
-    public class DikeHeightCalculationInput : ReliabilityIndexCalculationInput
+    public abstract class HydraulicLoadsCalculationInput : ReliabilityIndexCalculationInput
     {
         private readonly HydraRingSection section;
         private readonly IEnumerable<HydraRingProfilePoint> profilePoints;
@@ -39,15 +39,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         private readonly double factorFnMean;
         private readonly double factorFnStandardDeviation;
         private readonly double modelFactorOvertopping;
-        private readonly double criticalOvertoppingMean;
-        private readonly double criticalOvertoppingStandardDeviation;
         private readonly double modelFactorFrunupStandardDeviation;
         private readonly double modelFactorFrunupMean;
         private readonly double exponentModelFactorShallowStandardDeviation;
         private readonly double exponentModelFactorShallowMean;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DikeHeightCalculationInput"/> class.
+        /// Creates a new instance of the <see cref="HydraulicLoadsCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="norm">The norm.</param>
@@ -61,24 +59,21 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// <param name="factorFnMean">The mean of the factor Fn.</param>
         /// <param name="factorFnStandardDeviation">The standard deviation of the factor Fn.</param>
         /// <param name="modelFactorOvertopping">The factor overtopping.</param>
-        /// <param name="criticalOvertoppingMean">The mean of the critical overtopping.</param>
-        /// <param name="criticalOvertoppingStandardDeviation">The standard deviation of the critical overtopping.</param>
         /// <param name="modelFactorFrunupMean">The mean of the factor frunup.</param>
         /// <param name="modelFactorFrunupStandardDeviation">The standard deviation of the factor frunup.</param>
         /// <param name="exponentModelFactorShallowMean">The mean of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowStandardDeviation">The standard deviation of the exponent model factor shallow.</param>
-        public DikeHeightCalculationInput(long hydraulicBoundaryLocationId, double norm,
-                                          HydraRingSection section,
-                                          IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
-                                          IEnumerable<HydraRingForelandPoint> forelandPoints,
-                                          HydraRingBreakWater breakWater,
-                                          double modelFactorCriticalOvertopping,
-                                          double factorFbMean, double factorFbStandardDeviation,
-                                          double factorFnMean, double factorFnStandardDeviation,
-                                          double modelFactorOvertopping,
-                                          double criticalOvertoppingMean, double criticalOvertoppingStandardDeviation,
-                                          double modelFactorFrunupMean, double modelFactorFrunupStandardDeviation,
-                                          double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation)
+        protected HydraulicLoadsCalculationInput(long hydraulicBoundaryLocationId, double norm,
+                                                 HydraRingSection section,
+                                                 IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
+                                                 IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                                 HydraRingBreakWater breakWater,
+                                                 double modelFactorCriticalOvertopping,
+                                                 double factorFbMean, double factorFbStandardDeviation,
+                                                 double factorFnMean, double factorFnStandardDeviation,
+                                                 double modelFactorOvertopping,
+                                                 double modelFactorFrunupMean, double modelFactorFrunupStandardDeviation,
+                                                 double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation)
             : base(hydraulicBoundaryLocationId, norm)
         {
             this.section = section;
@@ -92,8 +87,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             this.modelFactorFrunupStandardDeviation = modelFactorFrunupStandardDeviation;
             this.exponentModelFactorShallowMean = exponentModelFactorShallowMean;
             this.exponentModelFactorShallowStandardDeviation = exponentModelFactorShallowStandardDeviation;
-            this.criticalOvertoppingMean = criticalOvertoppingMean;
-            this.criticalOvertoppingStandardDeviation = criticalOvertoppingStandardDeviation;
             this.profilePoints = profilePoints;
             this.forelandPoints = forelandPoints;
             this.breakWater = breakWater;
@@ -104,14 +97,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             get
             {
                 return HydraRingFailureMechanismType.DikesHeight;
-            }
-        }
-
-        public override int VariableId
-        {
-            get
-            {
-                return 1;
             }
         }
 
@@ -151,8 +136,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         {
             get
             {
-                yield return new HydraRingVariable(1, HydraRingDistributionType.Deterministic, 0.0,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
                 yield return new HydraRingVariable(8, HydraRingDistributionType.Deterministic, modelFactorCriticalOvertopping,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
                 yield return new HydraRingVariable(10, HydraRingDistributionType.Normal, double.NaN,
@@ -163,9 +146,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
                                                    double.NaN);
                 yield return new HydraRingVariable(12, HydraRingDistributionType.Deterministic, modelFactorOvertopping,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(17, HydraRingDistributionType.LogNormal, double.NaN,
-                                                   HydraRingDeviationType.Standard, criticalOvertoppingMean,
-                                                   criticalOvertoppingStandardDeviation, double.NaN);
                 yield return new HydraRingVariable(120, HydraRingDistributionType.Normal, double.NaN,
                                                    HydraRingDeviationType.Standard, modelFactorFrunupMean,
                                                    modelFactorFrunupStandardDeviation, double.NaN);

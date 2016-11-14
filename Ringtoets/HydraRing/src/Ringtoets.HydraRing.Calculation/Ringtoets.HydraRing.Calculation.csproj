@@ -68,6 +68,7 @@
     <Compile Include="Data\HydraRingSection.cs" />
     <Compile Include="Data\HydraRingForelandPoint.cs" />
     <Compile Include="Data\HydraRingProfilePoint.cs" />
+    <Compile Include="Data\Input\Hydraulics\HydraulicLoadsCalculationInput.cs" />
     <Compile Include="Data\Input\Hydraulics\DikeHeightCalculationInput.cs" />
     <Compile Include="Data\Input\Hydraulics\DunesBoundaryConditionsCalculationInput.cs" />
     <Compile Include="Data\Input\Structures\StructuresClosureCalculationInput.cs" />
