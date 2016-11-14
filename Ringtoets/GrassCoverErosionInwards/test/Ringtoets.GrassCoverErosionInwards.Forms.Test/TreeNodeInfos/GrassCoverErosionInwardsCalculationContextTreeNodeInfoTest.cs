@@ -41,6 +41,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -614,8 +615,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                                  null, new DikeProfile.ConstructionProperties())
+                    DikeProfile = new TestDikeProfile()
                 }
             };
 
@@ -695,8 +695,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                                  null, new DikeProfile.ConstructionProperties())
+                    DikeProfile = new TestDikeProfile()
                 }
             };
 
@@ -778,8 +777,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 new Point2D(0.0, 0.0),
                 new Point2D(1.0, 1.0)
             }));
-            var dikeProfile = new DikeProfile(new Point2D(0.5, 0.5), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            DikeProfile dikeProfile = new TestDikeProfile(new Point2D(0.5, 0.5));
             failureMechanism.DikeProfiles.Add(dikeProfile);
 
             var elementToBeRemoved = new GrassCoverErosionInwardsCalculation

@@ -25,6 +25,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
@@ -56,11 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             const string name = "Dijkprofiel";
-            var dikeProfile = new DikeProfile(new Point2D(12.34, 56.78), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties
-                                              {
-                                                  Name = name
-                                              });
+            DikeProfile dikeProfile = new TestDikeProfile(name, new Point2D(12.34, 56.78));
 
             // Call
             var properties = new DikeProfileProperties
@@ -84,8 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            DikeProfile dikeProfile = new TestDikeProfile();
 
             // Call
             var properties = new DikeProfileProperties

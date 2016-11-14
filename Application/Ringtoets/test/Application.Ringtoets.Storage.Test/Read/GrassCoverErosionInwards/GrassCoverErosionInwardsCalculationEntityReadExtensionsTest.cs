@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 
@@ -156,8 +157,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         public void Read_ValidEntityWithAlreadyReadDikeProfileEntity_ReturnCalculationWithReadDikeProfile()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            DikeProfile dikeProfile = new TestDikeProfile();
             var dikeProfileEntity = new DikeProfileEntity();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {

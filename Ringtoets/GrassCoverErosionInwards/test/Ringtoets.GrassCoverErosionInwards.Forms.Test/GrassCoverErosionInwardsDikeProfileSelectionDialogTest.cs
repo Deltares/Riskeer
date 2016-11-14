@@ -22,11 +22,11 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
@@ -117,9 +117,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
 
             // Call
             using (var viewParent = new Form())
-            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, new[]
+            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, new DikeProfile[]
             {
-                CreateDikeProfile(testname)
+                new TestDikeProfile(testname)
             }))
             {
                 // Assert
@@ -130,15 +130,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
                 Assert.IsFalse((bool) dataGridViewControl.Rows[0].Cells[locationSelectionColumnIndex].Value);
                 Assert.AreEqual(testname, (string) dataGridViewControl.Rows[0].Cells[locationColumnIndex].Value);
             }
-        }
-
-        private static DikeProfile CreateDikeProfile(string name)
-        {
-            return new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                   null, new DikeProfile.ConstructionProperties
-                                   {
-                                       Name = name
-                                   });
         }
     }
 }

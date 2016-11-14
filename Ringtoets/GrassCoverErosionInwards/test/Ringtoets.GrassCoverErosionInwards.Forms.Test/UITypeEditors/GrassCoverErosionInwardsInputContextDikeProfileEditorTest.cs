@@ -22,12 +22,12 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -54,8 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             {
                 DikeProfiles =
                 {
-                    new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                    null, new DikeProfile.ConstructionProperties())
+                    new TestDikeProfile()
                 }
             };
             var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput();
@@ -97,8 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            DikeProfile dikeProfile = new TestDikeProfile();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 DikeProfiles =

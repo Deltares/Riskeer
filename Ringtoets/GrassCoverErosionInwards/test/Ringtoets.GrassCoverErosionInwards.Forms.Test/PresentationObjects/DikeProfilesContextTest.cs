@@ -50,6 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<ObservableList<DikeProfile>>>(context);
             Assert.AreSame(failureMechanism.DikeProfiles, context.WrappedData);
+            Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, context.ParentAssessmentSection);
             mocks.VerifyAll();
         }

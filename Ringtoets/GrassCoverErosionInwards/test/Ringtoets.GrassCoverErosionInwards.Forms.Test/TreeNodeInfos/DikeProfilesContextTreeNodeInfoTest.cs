@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -30,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
@@ -83,42 +83,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnExpectedText()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var dikeProfilesContext = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
-
             // Call
-            string text = info.Text(dikeProfilesContext);
+            string text = info.Text(null);
 
             // Assert
             const string expectedText = "Dijkprofielen";
             Assert.AreEqual(expectedText, text);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnExpectedImage()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var dikeProfilesContext = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
-
             // Call
-            Image image = info.Image(dikeProfilesContext);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -156,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 DikeProfiles =
                 {
-                    CreateDikeProfile()
+                    (DikeProfile) new TestDikeProfile()
                 }
             };
 
@@ -181,8 +161,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            DikeProfile dikeProfile1 = CreateDikeProfile();
-            DikeProfile dikeProfile2 = CreateDikeProfile();
+            DikeProfile dikeProfile1 = new TestDikeProfile();
+            DikeProfile dikeProfile2 = new TestDikeProfile();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 DikeProfiles =
@@ -232,12 +212,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             }
             // Assert
             mocks.VerifyAll();
-        }
-
-        private static DikeProfile CreateDikeProfile()
-        {
-            return new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                   null, new DikeProfile.ConstructionProperties());
         }
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="LimitedPrecisionHelper.cs" />
     <Compile Include="DistributionAssert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDikeProfile.cs" />
     <Compile Include="TestFailureMechanism.cs" />
     <Compile Include="TestFailureMechanismSectionResult.cs" />
     <Compile Include="TestForeshoreProfile.cs" />

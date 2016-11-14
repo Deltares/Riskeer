@@ -27,6 +27,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -51,10 +52,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var dikeProfile1 = new DikeProfile(new Point2D(0.51, 0.51), new RoughnessPoint[0], new Point2D[0],
-                                               null, new DikeProfile.ConstructionProperties());
-            var dikeProfile2 = new DikeProfile(new Point2D(1.51, 1.51), new RoughnessPoint[0], new Point2D[0],
-                                               null, new DikeProfile.ConstructionProperties());
+            DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0.51, 0.51));
+            DikeProfile dikeProfile2 = new TestDikeProfile(new Point2D(1.51, 1.51));
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -107,10 +106,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var dikeProfile1 = new DikeProfile(new Point2D(0.51, 0.51), new RoughnessPoint[0], new Point2D[0],
-                                               null, new DikeProfile.ConstructionProperties());
-            var dikeProfile2 = new DikeProfile(new Point2D(1.51, 1.51), new RoughnessPoint[0], new Point2D[0],
-                                               null, new DikeProfile.ConstructionProperties());
+            DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0.51, 0.51));
+            DikeProfile dikeProfile2 = new TestDikeProfile(new Point2D(1.51, 1.51));
 
             var calculation1 = new GrassCoverErosionInwardsCalculation
             {

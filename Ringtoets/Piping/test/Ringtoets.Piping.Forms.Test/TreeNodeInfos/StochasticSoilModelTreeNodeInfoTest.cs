@@ -140,11 +140,30 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         public void CanRemove_Always_ReturnTrue()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var parentData = new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+
+            // Call
+            bool canRemove = info.CanRemove(null, parentData);
+
+            // Assert
+            Assert.IsTrue(canRemove);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanRemove_OtherParentData_ReturnFalse()
+        {
             // Call
             bool canRemove = info.CanRemove(null, null);
 
             // Assert
-            Assert.IsTrue(canRemove);
+            Assert.IsFalse(canRemove);
         }
 
         [Test]

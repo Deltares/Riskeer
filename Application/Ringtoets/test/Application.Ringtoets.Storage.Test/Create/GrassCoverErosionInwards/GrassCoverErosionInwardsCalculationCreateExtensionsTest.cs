@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 
@@ -176,8 +177,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_CalculationWithAlreadySavedDikeProfile_ReturnEntityWithDikeProfileEntity()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
-                                              new Point2D[0], null, new DikeProfile.ConstructionProperties());
+            DikeProfile dikeProfile = new TestDikeProfile();
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =

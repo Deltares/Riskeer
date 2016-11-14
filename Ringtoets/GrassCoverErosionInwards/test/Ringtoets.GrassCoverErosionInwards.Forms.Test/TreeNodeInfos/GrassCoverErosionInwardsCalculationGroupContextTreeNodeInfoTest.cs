@@ -40,6 +40,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -622,7 +623,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.DikeProfiles.Add(CreateDikeProfile());
+            failureMechanism.DikeProfiles.Add(new TestDikeProfile());
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(null);
@@ -670,7 +671,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    DikeProfile = CreateDikeProfile()
+                    DikeProfile = new TestDikeProfile()
                 }
             });
 
@@ -680,7 +681,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    DikeProfile = CreateDikeProfile()
+                    DikeProfile = new TestDikeProfile()
                 }
             });
 
@@ -744,7 +745,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    DikeProfile = CreateDikeProfile()
+                    DikeProfile = new TestDikeProfile()
                 }
             });
 
@@ -754,7 +755,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    DikeProfile = CreateDikeProfile()
+                    DikeProfile = new TestDikeProfile()
                 }
             });
 
@@ -915,8 +916,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-                DikeProfile dikeProfile1 = CreateDikeProfile("Dike profile 1");
-                DikeProfile dikeProfile2 = CreateDikeProfile("Dike profile 2");
+                DikeProfile dikeProfile1 = new TestDikeProfile("Dike profile 1");
+                DikeProfile dikeProfile2 = new TestDikeProfile("Dike profile 2");
 
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
                 {
@@ -973,8 +974,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-                DikeProfile dikeProfile1 = CreateDikeProfile("Dike profile 1");
-                DikeProfile dikeProfile2 = CreateDikeProfile("Dike profile 2");
+                DikeProfile dikeProfile1 = new TestDikeProfile("Dike profile 1");
+                DikeProfile dikeProfile2 = new TestDikeProfile("Dike profile 2");
 
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
                 {
@@ -1029,8 +1030,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-                var existingCalculationName = "Dike profile";
-                DikeProfile dikeProfile = CreateDikeProfile(existingCalculationName);
+                const string existingCalculationName = "Dike profile";
+                DikeProfile dikeProfile = new TestDikeProfile(existingCalculationName);
 
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
                 {
@@ -1200,15 +1201,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
 
             base.TearDown();
-        }
-
-        private static DikeProfile CreateDikeProfile(string name = null)
-        {
-            return new DikeProfile(new Point2D(1, 2), new RoughnessPoint[0], new Point2D[0],
-                                   null, new DikeProfile.ConstructionProperties
-                                   {
-                                       Name = name
-                                   });
         }
     }
 }

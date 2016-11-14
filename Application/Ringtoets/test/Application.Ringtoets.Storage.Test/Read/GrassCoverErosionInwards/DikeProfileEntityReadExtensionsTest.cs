@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 {
@@ -214,8 +215,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         {
             // Setup
             var registeredEntity = new DikeProfileEntity();
-            var registeredProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                                    null, new DikeProfile.ConstructionProperties());
+            DikeProfile registeredProfile = new TestDikeProfile();
             var collector = new ReadConversionCollector();
             collector.Read(registeredEntity, registeredProfile);
 

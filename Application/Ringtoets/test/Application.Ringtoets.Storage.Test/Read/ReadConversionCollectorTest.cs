@@ -23,7 +23,6 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
@@ -825,7 +824,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var collector = new ReadConversionCollector();
             var entity = new DikeProfileEntity();
-            collector.Read(entity, CreateDikeProfile());
+            collector.Read(entity, new TestDikeProfile());
 
             // Call
             var result = collector.Contains(entity);
@@ -854,7 +853,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var collector = new ReadConversionCollector();
             var entity = new DikeProfileEntity();
-            collector.Read(new DikeProfileEntity(), CreateDikeProfile());
+            collector.Read(new DikeProfileEntity(), new TestDikeProfile());
 
             // Call
             var result = collector.Contains(entity);
@@ -882,7 +881,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var collector = new ReadConversionCollector();
-            DikeProfile dikeProfile = CreateDikeProfile();
+            DikeProfile dikeProfile = new TestDikeProfile();
             var entity = new DikeProfileEntity();
             collector.Read(entity, dikeProfile);
 
@@ -891,12 +890,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreSame(dikeProfile, result);
-        }
-
-        private static DikeProfile CreateDikeProfile()
-        {
-            return new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                   null, new DikeProfile.ConstructionProperties());
         }
 
         [Test]
@@ -919,7 +912,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var collector = new ReadConversionCollector();
             var entity = new DikeProfileEntity();
-            collector.Read(new DikeProfileEntity(), CreateDikeProfile());
+            collector.Read(new DikeProfileEntity(), new TestDikeProfile());
 
             // Call
             TestDelegate test = () => collector.Get(entity);
@@ -935,7 +928,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Read(null, CreateDikeProfile());
+            TestDelegate test = () => collector.Read(null, new TestDikeProfile());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

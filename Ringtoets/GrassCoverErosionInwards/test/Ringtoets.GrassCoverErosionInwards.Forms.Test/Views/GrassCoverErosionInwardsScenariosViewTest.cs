@@ -28,8 +28,8 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
@@ -356,7 +356,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Name = "CalculationA",
                 InputParameters =
                 {
-                    DikeProfile = CreateDikeProfile(matchingPointA)
+                    DikeProfile = new TestDikeProfile(matchingPointA)
                 }
             };
             var calculationB = new GrassCoverErosionInwardsCalculation
@@ -364,7 +364,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Name = "CalculationB",
                 InputParameters =
                 {
-                    DikeProfile = CreateDikeProfile(matchingPointB)
+                    DikeProfile = new TestDikeProfile(matchingPointB)
                 }
             };
             Point2D connectionPoint = new Point2D(10, 10);
@@ -385,11 +385,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             failureMechanism.AddSection(failureMechanismSectionB);
 
             return failureMechanism;
-        }
-
-        private static DikeProfile CreateDikeProfile(Point2D worldLocation)
-        {
-            return new DikeProfile(worldLocation, Enumerable.Empty<RoughnessPoint>(), Enumerable.Empty<Point2D>(), null, new DikeProfile.ConstructionProperties());
         }
 
         private GrassCoverErosionInwardsScenariosView ShowScenariosView()

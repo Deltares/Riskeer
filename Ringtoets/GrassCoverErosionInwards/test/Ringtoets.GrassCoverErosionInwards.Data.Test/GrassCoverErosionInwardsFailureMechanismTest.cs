@@ -27,6 +27,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -136,9 +137,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Scenario
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            DikeProfile dikeProfile1 = CreateSimpleDikeProfile(new Point2D(0, 0));
-            DikeProfile dikeProfile2 = CreateSimpleDikeProfile(new Point2D(1, 1));
-            DikeProfile dikeProfile3 = CreateSimpleDikeProfile(new Point2D(2, 2));
+            DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0, 0));
+            DikeProfile dikeProfile2 = new TestDikeProfile(new Point2D(1, 1));
+            DikeProfile dikeProfile3 = new TestDikeProfile(new Point2D(2, 2));
 
             failureMechanism.DikeProfiles.Add(dikeProfile1);
 
@@ -173,12 +174,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Result
             mocks.VerifyAll(); // Expect observer to be notified.
-        }
-
-        private static DikeProfile CreateSimpleDikeProfile(Point2D worldCoordinate)
-        {
-            return new DikeProfile(worldCoordinate, new RoughnessPoint[0], new Point2D[0],
-                                   null, new DikeProfile.ConstructionProperties());
         }
     }
 }

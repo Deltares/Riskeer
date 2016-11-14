@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
@@ -168,11 +169,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             {
                 InputParameters =
                 {
-                    DikeProfile = new DikeProfile(new Point2D(0, 0),
-                                                  Enumerable.Empty<RoughnessPoint>(),
-                                                  Enumerable.Empty<Point2D>(),
-                                                  null,
-                                                  new DikeProfile.ConstructionProperties())
+                    DikeProfile = new TestDikeProfile()
                 }
             };
 
@@ -431,8 +428,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         {
             InputParameters =
             {
-                DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0], null,
-                                              new DikeProfile.ConstructionProperties())
+                DikeProfile = new TestDikeProfile(new Point2D(1.1, 2.2))
             }
         };
 
@@ -440,8 +436,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         {
             InputParameters =
             {
-                DikeProfile = new DikeProfile(new Point2D(50.0, 66.0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties())
+                DikeProfile = new TestDikeProfile(new Point2D(50.0, 66.0))
             }
         };
 

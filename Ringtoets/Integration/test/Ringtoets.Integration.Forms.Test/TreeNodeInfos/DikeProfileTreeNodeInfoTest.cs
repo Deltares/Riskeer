@@ -30,9 +30,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
@@ -86,11 +86,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             const string profileName = "Random profile name";
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties
-                                              {
-                                                  Name = profileName
-                                              });
+            DikeProfile dikeProfile = new TestDikeProfile(profileName);
 
             // Call
             string text = info.Text(dikeProfile);
@@ -140,122 +136,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_RemovingProfileFromContainer_ProfileRemovedFromContainer()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var nodeData = new DikeProfile(new Point2D(0,0), new RoughnessPoint[0], new Point2D[0], null, new DikeProfile.ConstructionProperties());
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
-            {
-                DikeProfiles =
-                {
-                    nodeData
-                }
-            };
-            failureMechanism.DikeProfiles.Attach(observer);
-
-            var parentData = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.DikeProfiles, nodeData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OnNodeRemoved_RemovingProfilePartOfCalculation_CalculationProfileCleared()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var calculation1Observer = mocks.StrictMock<IObserver>();
-            calculation1Observer.Expect(o => o.UpdateObserver());
-            var calculation2Observer = mocks.StrictMock<IObserver>();
-            calculation2Observer.Expect(o => o.UpdateObserver());
-            var calculation3Observer = mocks.StrictMock<IObserver>();
-            calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-            mocks.ReplayAll();
-
-            var nodeData = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0], null, new DikeProfile.ConstructionProperties());
-            var otherProfile = new DikeProfile(new Point2D(1, 1), new RoughnessPoint[0], new Point2D[0], null, new DikeProfile.ConstructionProperties());
-
-            var calculation1 = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = nodeData
-                }
-            };
-            calculation1.InputParameters.Attach(calculation1Observer);
-            var calculation2 = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = nodeData
-                }
-            };
-            calculation2.InputParameters.Attach(calculation2Observer);
-            var calculation3 = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = otherProfile
-                }
-            };
-            calculation3.InputParameters.Attach(calculation3Observer);
-
-            var calculationGroup = new CalculationGroup("A", true)
-            {
-                Children =
-                {
-                    calculation2
-                }
-            };
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
-            {
-                DikeProfiles =
-                {
-                    nodeData,
-                    otherProfile
-                },
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculation1,
-                        calculationGroup,
-                        calculation3
-                    }
-                }
-            };
-            failureMechanism.DikeProfiles.Attach(observer);
-
-            var parentData = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.DikeProfiles, nodeData);
-
-            Assert.IsNull(calculation1.InputParameters.DikeProfile);
-            Assert.IsNull(calculation2.InputParameters.DikeProfile);
-            Assert.IsNotNull(calculation3.InputParameters.DikeProfile);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OnNodeRemoved_RemovingProfilePartOfCalculationOfSectionResult_SectionResultCalculationCleared()
+        public void OnNodeRemoved_RemovingProfileAssignedToCalculationOfSectionResult_ProfileRemovedFromFailureMechanismAndCalculationProfileClearedAndSectionResultCalculationCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -270,9 +151,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            var nodeData = new DikeProfile(new Point2D(1, 0), new RoughnessPoint[0], new Point2D[0], null, new DikeProfile.ConstructionProperties());
-            var otherProfile1 = new DikeProfile(new Point2D(2, 0), new RoughnessPoint[0], new Point2D[0], null, new DikeProfile.ConstructionProperties());
-            var otherProfile2 = new DikeProfile(new Point2D(7, 0), new RoughnessPoint[0], new Point2D[0], null, new DikeProfile.ConstructionProperties());
+            DikeProfile nodeData = new TestDikeProfile(new Point2D(1, 0));
+            DikeProfile otherProfile1 = new TestDikeProfile(new Point2D(2, 0));
+            DikeProfile otherProfile2 = new TestDikeProfile(new Point2D(7, 0));
 
             var calculation1 = new GrassCoverErosionInwardsCalculation
             {
@@ -316,14 +197,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     }
                 }
             };
-            failureMechanism.AddSection(new FailureMechanismSection("A", new []
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
             {
-                new Point2D(0, 0), 
+                new Point2D(0, 0),
                 new Point2D(4, 0)
             }));
             failureMechanism.AddSection(new FailureMechanismSection("B", new[]
             {
-                new Point2D(4, 0), 
+                new Point2D(4, 0),
                 new Point2D(9, 0)
             }));
             failureMechanism.DikeProfiles.Attach(observer);
@@ -340,7 +221,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             Assert.IsNull(calculation1.InputParameters.DikeProfile);
             Assert.IsNotNull(calculation2.InputParameters.DikeProfile);
-            
+
             Assert.AreSame(calculation2, failureMechanism.SectionResults.ElementAt(0).Calculation);
             Assert.AreSame(calculation3, failureMechanism.SectionResults.ElementAt(1).Calculation);
             mocks.VerifyAll();

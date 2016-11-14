@@ -223,7 +223,7 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build(),
-                CanRemove = (nodeData, parentData) => true,
+                CanRemove = CanRemoveSurfaceLine,
                 OnNodeRemoved = OnSurfaceLineRemoved
             };
 
@@ -257,7 +257,7 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build(),
-                CanRemove = (model, o) => true,
+                CanRemove = CanRemoveStochasticSoilModel,
                 OnNodeRemoved = OnStochasticSoilModelRemoved
             };
 
@@ -475,6 +475,11 @@ namespace Ringtoets.Piping.Plugin
 
         #region RingtoetsPipingSurfaceLine TreeNodeInfo
 
+        private bool CanRemoveSurfaceLine(RingtoetsPipingSurfaceLine nodeData, object parentData)
+        {
+            return parentData is RingtoetsPipingSurfaceLinesContext;
+        }
+
         private void OnSurfaceLineRemoved(RingtoetsPipingSurfaceLine nodeData, object parentData)
         {
             var context = (RingtoetsPipingSurfaceLinesContext) parentData;
@@ -500,7 +505,12 @@ namespace Ringtoets.Piping.Plugin
 
         #endregion
 
-        #region
+        #region StochasticSoilModel TreeNodeInfo
+
+        private bool CanRemoveStochasticSoilModel(StochasticSoilModel nodeData, object parentData)
+        {
+            return parentData is StochasticSoilModelsContext;
+        }
 
         private void OnStochasticSoilModelRemoved(StochasticSoilModel nodeData, object parentData)
         {

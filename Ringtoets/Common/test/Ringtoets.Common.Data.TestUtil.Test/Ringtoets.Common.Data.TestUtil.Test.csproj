@@ -56,6 +56,7 @@
     <Compile Include="AssessmentSectionHelperTest.cs" />
     <Compile Include="LimitedPrecisionHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDikeProfileTest.cs" />
     <Compile Include="TestFailureMechanismSectionResultTest.cs" />
     <Compile Include="TestFailureMechanismTest.cs" />
     <Compile Include="DistributionAssertTest.cs" />

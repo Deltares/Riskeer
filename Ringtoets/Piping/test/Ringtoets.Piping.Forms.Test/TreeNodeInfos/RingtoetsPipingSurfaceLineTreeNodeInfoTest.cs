@@ -115,13 +115,31 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemove_Always_ReturnTrue()
+        public void CanRemove_ParentDataIsRingtoetsSurfaceLinesContext_ReturnTrue()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+
+            var parentData = new RingtoetsPipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection);
+
+            // Call
+            bool canRemove = info.CanRemove(null, parentData);
+
+            // Assert
+            Assert.IsTrue(canRemove);
+        }
+
+        [Test]
+        public void CanRemove_OtherParentData_ReturnFalse()
         {
             // Call
             bool canRemove = info.CanRemove(null, null);
 
             // Assert
-            Assert.IsTrue(canRemove);
+            Assert.IsFalse(canRemove);
         }
 
         [Test]

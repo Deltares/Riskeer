@@ -114,6 +114,7 @@
     <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Utils\Ringtoets.GrassCoverErosionInwards.Utils.csproj">
       <Project>{99573570-ee00-4264-8147-26a1b25db23f}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Utils</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>

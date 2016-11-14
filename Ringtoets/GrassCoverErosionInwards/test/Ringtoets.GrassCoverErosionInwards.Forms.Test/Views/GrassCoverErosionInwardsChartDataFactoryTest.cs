@@ -21,11 +21,11 @@
 
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
@@ -87,10 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0], null, new DikeProfile.ConstructionProperties
-            {
-                Name = "dike profile name"
-            });
+            DikeProfile dikeProfile = new TestDikeProfile("dike profile name");
 
             // Call
             GrassCoverErosionInwardsChartDataFactory.UpdateDikeGeometryChartDataName(chartData, dikeProfile);
@@ -139,14 +136,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var chartData = new ChartLineData("test name");
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new DikeProfile(new Point2D(0, 0),
-                                              new RoughnessPoint[0],
-                                              new Point2D[0],
-                                              null,
-                                              new DikeProfile.ConstructionProperties
-                                              {
-                                                  Name = "dike profile name"
-                                              }),
+                DikeProfile = new TestDikeProfile("dike profile name"),
                 UseForeshore = false
             };
 
@@ -164,14 +154,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var chartData = new ChartLineData("test name");
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new DikeProfile(new Point2D(0, 0),
-                                              new RoughnessPoint[0],
-                                              new Point2D[0],
-                                              null,
-                                              new DikeProfile.ConstructionProperties
-                                              {
-                                                  Name = "dike profile name"
-                                              }),
+                DikeProfile = new TestDikeProfile("dike profile name"),
                 UseForeshore = true
             };
 

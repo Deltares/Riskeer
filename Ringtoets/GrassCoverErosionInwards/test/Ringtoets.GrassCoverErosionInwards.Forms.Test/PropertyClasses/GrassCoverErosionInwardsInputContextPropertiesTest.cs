@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -121,8 +122,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new DikeProfile(new Point2D(12.34, 56.78), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties()),
+                DikeProfile = new TestDikeProfile(new Point2D(12.34, 56.78)),
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0)
             };
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock);
@@ -169,8 +169,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock)
             };
 
-            var newDikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                                 null, new DikeProfile.ConstructionProperties());
+            DikeProfile newDikeProfile = new TestDikeProfile();
             var newDikeHeight = new RoundedDouble(2, 9);
             var newOrientation = new RoundedDouble(2, 5);
             var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
@@ -237,8 +236,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 DikeProfiles =
                 {
-                    new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                    null, new DikeProfile.ConstructionProperties())
+                    new TestDikeProfile()
                 }
             };
 
@@ -270,8 +268,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             if (withDikeProfile)
             {
-                input.DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                                    null, new DikeProfile.ConstructionProperties());
+                input.DikeProfile = new TestDikeProfile();
             }
 
             // Call
