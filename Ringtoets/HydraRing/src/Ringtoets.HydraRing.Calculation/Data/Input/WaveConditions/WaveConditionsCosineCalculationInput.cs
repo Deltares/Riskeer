@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// </summary>
         /// <param name="sectionId">The id of the section.</param>
         /// <param name="sectionNormal">The normal of the section.</param>
-        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
+        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="norm">The norm.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="breakWater">The break water.</param>

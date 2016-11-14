@@ -30,7 +30,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// Creates a new instance of the <see cref="DunesBoundaryConditionsCalculationInput"/> class.
         /// </summary>
         /// <param name="sectionId">The id of the section.</param>
-        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
+        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="norm">The norm.</param>
         public DunesBoundaryConditionsCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm)
             : base(sectionId, hydraulicBoundaryLocationId, norm) {}

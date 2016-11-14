@@ -41,7 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
     /// Combination of multiple sections
     /// </item>
     /// <item>
-    /// Coupling two hydraulic boundary stations
+    /// Coupling two hydraulic boundary locations
     /// </item>
     /// <item>
     /// Performing revetment calculations (DesignTables > LayerId)
@@ -170,7 +170,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "UncertaintiesID", (int) UncertaintiesType
                     },
                     {
-                        "DataSetName", "WTI 2017" // Fixed: use the WTI 2017 set of station locations
+                        "DataSetName", "WTI 2017" // Fixed: use the WTI 2017 set of hydraulic boundary locations
                     }
                 }
             };
@@ -217,10 +217,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "StationId1", hydraRingCalculationInput.HydraulicBoundaryLocationId
                     },
                     {
-                        "StationId2", hydraRingCalculationInput.HydraulicBoundaryLocationId // Same as "StationId1": no support for coupling two stations
+                        "StationId2", hydraRingCalculationInput.HydraulicBoundaryLocationId // Same as "StationId1": no support for coupling two hydraulic boundary locations
                     },
                     {
-                        "Relative", 100.0 // Fixed: no support for coupling two stations
+                        "Relative", 100.0 // Fixed: no support for coupling two hydraulic boundary locations
                     },
                     {
                         "Normal", GetHydraRingValue(hydraRingSection.CrossSectionNormal)

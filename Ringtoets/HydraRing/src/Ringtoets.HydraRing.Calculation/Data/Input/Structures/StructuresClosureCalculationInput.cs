@@ -55,7 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <summary>
         /// Creates a new instance of <see cref="StructuresClosureCalculationInput"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
+        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="section">The section.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="breakWater">The break water.</param>

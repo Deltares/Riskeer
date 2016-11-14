@@ -49,7 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// <summary>
         /// Creates a new instance of the <see cref="OvertoppingCalculationInput"/> class.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
+        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="norm">The norm.</param>
         /// <param name="section">The section.</param>
         /// <param name="profilePoints">The profile points.</param>

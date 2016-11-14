@@ -92,8 +92,8 @@ namespace Ringtoets.Common.IO.HydraRing
 
         private void InitializeDefaultNumericsSettings()
         {
-            var numericsSettingForm = CreateDefaultNumericsSetting(1, 1);
-            var numericsSettingFDir = CreateDefaultNumericsSetting(11, 4);
+            var numericsSettingForm = CreateDefaultNumericsSetting(1, 1); // Settings for a FORM calculation
+            var numericsSettingFDir = CreateDefaultNumericsSetting(11, 4); // Settings for a hybrid calculation; FORM in first instance, DIRS in case of no convergence
             var numericsSettingDunes = CreateDefaultNumericsSetting(1, 4);
             var numericsSettingQVariant = new NumericsSetting(4, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3000, 10000, 0.1, -6.0, 6.0, 25);
 
