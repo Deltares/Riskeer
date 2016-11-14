@@ -1045,7 +1045,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                             failureMechanism,
                                                                             validFilePath);
                     }
-                    catch (HydraRingFileParserException e)
+                    catch (HydraRingCalculationException e)
                     {
                         exceptionThrown = true;
                         exceptionMessage = e.Message;

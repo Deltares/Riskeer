@@ -687,7 +687,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                                                   assessmentSectionStub,
                                                                                                   validFilePath);
                     }
-                    catch (HydraRingFileParserException e)
+                    catch (HydraRingCalculationException e)
                     {
                         exception = true;
                         exceptionMessage = e.Message;

@@ -76,6 +76,8 @@ namespace Ringtoets.Common.Service
         /// <param name="ringId">The id of the assessment section.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                               string hydraulicBoundaryDatabaseFilePath,
                               string ringId,
@@ -131,7 +133,7 @@ namespace Ringtoets.Common.Service
 
                 if (errorOccurred)
                 {
-                    throw new HydraRingFileParserException(lastErrorFileContent);
+                    throw new HydraRingCalculationException(lastErrorFileContent);
                 }
             }
         }

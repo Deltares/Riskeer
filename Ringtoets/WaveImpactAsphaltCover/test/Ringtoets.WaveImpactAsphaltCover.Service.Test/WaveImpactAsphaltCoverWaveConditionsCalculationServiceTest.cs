@@ -674,7 +674,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                                                                                                failureMechanism.GeneralInput,
                                                                                                validFilePath);
                     }
-                    catch (HydraRingFileParserException e)
+                    catch (HydraRingCalculationException e)
                     {
                         exception = true;
                         exceptionMessage = e.Message;

@@ -93,6 +93,8 @@ namespace Ringtoets.HeightStructures.Service
         /// <param name="failureMechanism"> The <see cref="HeightStructuresFailureMechanism"/> that holds the information about the contribution 
         /// and the general inputs used in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         internal void Calculate(StructuresCalculation<HeightStructuresInput> calculation,
                                 IAssessmentSection assessmentSection,
                                 HeightStructuresFailureMechanism failureMechanism,
@@ -159,7 +161,7 @@ namespace Ringtoets.HeightStructures.Service
 
                 if (errorOccurred)
                 {
-                    throw new HydraRingFileParserException(lastErrorFileContent);
+                    throw new HydraRingCalculationException(lastErrorFileContent);
                 }
             }
         }

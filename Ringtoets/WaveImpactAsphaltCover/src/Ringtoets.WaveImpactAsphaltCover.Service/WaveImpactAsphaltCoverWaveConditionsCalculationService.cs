@@ -22,6 +22,7 @@
 using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
 using Ringtoets.Revetment.Service.Properties;
@@ -60,6 +61,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="generalWaveConditionsInput">Calculation input parameters that apply to all <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> instances.</param>
         /// <param name="hlcdFilePath">The path of the HLCD file that should be used for performing the calculation.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
                               IAssessmentSection assessmentSection,
                               GeneralWaveConditionsInput generalWaveConditionsInput,

@@ -113,6 +113,8 @@ namespace Ringtoets.Revetment.Service
         /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
         /// <param name="hrdFilePath">The filepath of the hydraulic boundary database.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         protected IEnumerable<WaveConditionsOutput> CalculateWaveConditions(string calculationName,
                                                                             WaveConditionsInput waveConditionsInput,
                                                                             RoundedDouble a,
@@ -205,6 +207,8 @@ namespace Ringtoets.Revetment.Service
         /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
         /// <param name="name">The name used for logging.</param>
         /// <returns>A <see cref="WaveConditionsOutput"/> if the calculation was succesful; or <c>null</c> if it was canceled.</returns>
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         private WaveConditionsOutput CalculateWaterLevel(RoundedDouble waterLevel,
                                                          RoundedDouble a,
                                                          RoundedDouble b,
@@ -272,7 +276,7 @@ namespace Ringtoets.Revetment.Service
 
                 if (errorOccurred)
                 {
-                    throw new HydraRingFileParserException(lastErrorFileContent);
+                    throw new HydraRingCalculationException(lastErrorFileContent);
                 }
             }
         }

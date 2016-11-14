@@ -87,6 +87,8 @@ namespace Ringtoets.StabilityPointStructures.Service
         /// <item><see cref="StabilityPointStructuresInput.LoadSchematizationType"/> is an invalid <see cref="LoadSchematizationType"/>.</item>
         /// </list>
         /// </exception>
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation,
                               IAssessmentSection assessmentSection,
                               StabilityPointStructuresFailureMechanism failureMechanism,
@@ -155,7 +157,7 @@ namespace Ringtoets.StabilityPointStructures.Service
 
                 if (errorOccurred)
                 {
-                    throw new HydraRingFileParserException(lastErrorFileContent);
+                    throw new HydraRingCalculationException(lastErrorFileContent);
                 }
             }
         }

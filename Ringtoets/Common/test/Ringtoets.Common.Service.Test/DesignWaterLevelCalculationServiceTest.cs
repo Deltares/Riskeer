@@ -373,7 +373,7 @@ namespace Ringtoets.Common.Service.Test
                                                                            30,
                                                                            calculationMessageProviderMock);
                     }
-                    catch (HydraRingFileParserException e)
+                    catch (HydraRingCalculationException e)
                     {
                         exceptionThrown = true;
                         exceptionMessage = e.Message;

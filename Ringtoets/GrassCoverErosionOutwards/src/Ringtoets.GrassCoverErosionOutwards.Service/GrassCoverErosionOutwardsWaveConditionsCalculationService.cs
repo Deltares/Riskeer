@@ -24,6 +24,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Service.Properties;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Service;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
@@ -61,6 +62,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// <param name="failureMechanism">The grass cover erosion outwards failure mechanism, which contains general parameters that apply to all 
         /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> instances.</param>
         /// <param name="hlcdFilePath">The path of the HLCD file that should be used for performing the calculation.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,

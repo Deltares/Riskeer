@@ -66,6 +66,8 @@ namespace Ringtoets.ClosingStructures.Service
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
         /// <see cref="ClosingStructureInflowModelType"/>.</exception>
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(StructuresCalculation<ClosingStructuresInput> calculation,
                               IAssessmentSection assessmentSection,
                               ClosingStructuresFailureMechanism failureMechanism,
@@ -136,7 +138,7 @@ namespace Ringtoets.ClosingStructures.Service
 
                 if (errorOccurred)
                 {
-                    throw new HydraRingFileParserException(lastErrorFileContent);
+                    throw new HydraRingCalculationException(lastErrorFileContent);
                 }
             }
         }

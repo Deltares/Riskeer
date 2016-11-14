@@ -100,6 +100,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         internal void Calculate(GrassCoverErosionInwardsCalculation calculation,
                                 IAssessmentSection assessmentSection,
                                 FailureMechanismSection failureMechanismSection,
@@ -200,7 +202,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
                 if (errorOccurred)
                 {
-                    throw new HydraRingFileParserException(lastErrorFileContent);
+                    throw new HydraRingCalculationException(lastErrorFileContent);
                 }
             }
         }
