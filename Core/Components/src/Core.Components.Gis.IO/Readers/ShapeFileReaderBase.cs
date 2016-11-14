@@ -126,16 +126,16 @@ namespace Core.Components.Gis.IO.Readers
 
             for (int i = 0; i < columns.Count; i++)
             {
-                var dataRowValue = dataRow[i];
+                object dataRowValue = dataRow[i];
 
                 object newValue = null;
-                var column = columns[i];
+                Field column = columns[i];
 
                 if (!(dataRowValue is DBNull))
                 {
                     if (column.TypeCharacter != 'C' && dataRowValue is string)
                     {
-                        var nullValue = string.Join(string.Empty, Enumerable.Repeat('*', column.Length));
+                        string nullValue = string.Join(string.Empty, Enumerable.Repeat('*', column.Length));
                         if (!string.Equals(dataRowValue, nullValue))
                         {
                             newValue = dataRowValue;

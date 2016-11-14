@@ -494,4 +494,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema" xml:space="preserve">
     <value>De rekeninstellingen database heeft niet het juiste schema.</value>
   </data>
+  <data name="FailureMechanismSectionReader_File_has_section_without_sectionName" xml:space="preserve">
+    <value>Voor één van de vakken is geen naam opgegeven.</value>
+  </data>
 </root>

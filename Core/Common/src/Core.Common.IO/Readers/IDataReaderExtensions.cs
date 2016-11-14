@@ -32,13 +32,13 @@ namespace Core.Common.IO.Readers
         /// Reads a value at column <paramref name="columnName"/> from the database.
         /// </summary>
         /// <typeparam name="T">The expected type of value in the column with name <paramref name="columnName"/>.</typeparam>
-        /// <param name="dataReader">The data reader to read a column of a certain type from.</param>
+        /// <param name="dataReader">The data reader from which to read a column of a certain type.</param>
         /// <param name="columnName">The name of the column to read from.</param>
         /// <returns>The read value from the column with name <paramref name="columnName"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="columnName"/> is not present in the read
         /// data row.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataReader"/> or 
-        /// <paramref name="columnName"/> is null.</exception>
+        /// <paramref name="columnName"/> is <c>null</c>.</exception>
         /// <exception cref="ConversionException">Thrown when the value in the column could not be converted
         /// to type <typeparamref name="T"/>.</exception>
         public static T Read<T>(this IDataReader dataReader, string columnName)
@@ -61,7 +61,7 @@ namespace Core.Common.IO.Readers
             }
             catch (IndexOutOfRangeException)
             {
-                throw new ArgumentException(string.Format("Column '{0}' not defined for data row.", columnName), "columnName");    
+                throw new ArgumentException(string.Format("Column '{0}' not defined for data row.", columnName), "columnName");
             }
 
             try
@@ -72,23 +72,23 @@ namespace Core.Common.IO.Readers
             {
                 throw new ConversionException(
                     string.Format(CultureInfo.CurrentCulture, "Value read from data reader ('{0}') could not be cast to desired type {1}.",
-                    value, 
-                    conversionType));
+                                  value,
+                                  conversionType));
             }
             catch (FormatException)
             {
                 throw new ConversionException(
                     string.Format(CultureInfo.CurrentCulture, "Value read from data reader ('{0}') is an incorrect format to transform to type {1}.",
-                    value,
-                    conversionType));
+                                  value,
+                                  conversionType));
             }
             catch (OverflowException)
             {
                 throw new ConversionException(
                     string.Format(CultureInfo.CurrentCulture, "Value read from data reader ('{0}') was too large to convert to type {1}.",
-                    value,
-                    conversionType));
+                                  value,
+                                  conversionType));
             }
-        } 
+        }
     }
 }

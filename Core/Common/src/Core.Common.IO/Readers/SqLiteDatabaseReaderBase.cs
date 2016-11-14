@@ -93,7 +93,7 @@ namespace Core.Common.IO.Readers
         /// <summary>
         /// Moves to and reads the next resultset in multiple row-returning SQL command. 
         /// </summary>
-        /// <param name="sqliteDataReader">The <see cref="SQLiteDataReader"/> to process.</param>
+        /// <param name="sqliteDataReader">The <see cref="IDataReader"/> to process.</param>
         /// <returns><c>True</c> if the command was successful and a new resultset is available, <c>false</c> otherwise.</returns>
         protected static bool MoveNext(IDataReader sqliteDataReader)
         {
@@ -105,7 +105,7 @@ namespace Core.Common.IO.Readers
         /// </summary>
         /// <param name="queryString">The query to execute.</param>
         /// <param name="parameters">Parameters the <paramref name="queryString"/> is dependend on.</param>
-        /// <returns>A new instance of <see cref="SQLiteDataReader"/>.</returns>
+        /// <returns>A new instance of <see cref="IDataReader"/>.</returns>
         /// <exception cref="SQLiteException">The execution of <paramref name="queryString"/> failed.</exception>
         protected IDataReader CreateDataReader(string queryString, params SQLiteParameter[] parameters)
         {

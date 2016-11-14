@@ -470,7 +470,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_MissingNameValue_ShouldReturn()
+        public void Import_MissingNameValue_CancelImportWithErrorMessage()
         {
             // Setup
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,

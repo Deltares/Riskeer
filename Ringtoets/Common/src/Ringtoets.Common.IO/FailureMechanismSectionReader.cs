@@ -144,7 +144,7 @@ namespace Ringtoets.Common.IO
 
             if (string.IsNullOrWhiteSpace(sectionName))
             {
-                throw CreateCriticalFileReadException("Voor één van de vakken is geen naam opgegeven.");
+                throw CreateCriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_section_without_sectionName);
             }
 
             return sectionName;
