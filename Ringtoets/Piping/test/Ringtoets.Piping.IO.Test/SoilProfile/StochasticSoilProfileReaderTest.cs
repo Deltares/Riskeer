@@ -258,7 +258,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadStochasticSoilProfile_SoilModelIdNotInDataBase_ReturnNull()
+        public void ReadStochasticSoilProfile_SoilModelIdNotInDatabase_ReturnNull()
         {
             // Setup
             var dbName = "complete.soil";

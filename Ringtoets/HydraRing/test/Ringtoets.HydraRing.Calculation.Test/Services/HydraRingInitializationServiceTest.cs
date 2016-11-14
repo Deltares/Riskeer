@@ -44,7 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             Assert.AreEqual("D:\\work\\700001.sql", hydraRingInitializationService.DatabaseCreationScriptFilePath);
             Assert.AreEqual("D:\\work\\700001.log", hydraRingInitializationService.LogFilePath);
             Assert.AreEqual("D:\\work\\designTable.txt", hydraRingInitializationService.OutputFilePath);
-            Assert.AreEqual("D:\\work\\temp.sqlite", hydraRingInitializationService.OutputDataBasePath);
+            Assert.AreEqual("D:\\work\\temp.sqlite", hydraRingInitializationService.OutputDatabasePath);
             Assert.AreEqual("D:\\hlcd\\HLCD.sqlite", hydraRingInitializationService.HlcdFilePath);
 
             Assert.AreEqual(Path.Combine(hydraRingDirectory, "MechanismComputation.exe"), hydraRingInitializationService.MechanismComputationExeFilePath);

@@ -86,7 +86,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         }
 
         [Test]
-        public void GenerateDataBaseCreationScript_SingleHydraRingCalculationInputAddedToConfiguration_ReturnsExpectedCreationScript()
+        public void WriteDatabaseCreationScript_SingleHydraRingCalculationInputAddedToConfiguration_WritesExpectedCreationScript()
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
@@ -176,7 +176,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
-                hydraRingConfigurationService.WriteDataBaseCreationScript(databaseFilePath);
+                hydraRingConfigurationService.WriteDatabaseCreationScript(databaseFilePath);
 
                 // Assert
                 var creationScript = File.ReadAllText(databaseFilePath);
@@ -185,7 +185,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         }
 
         [Test]
-        public void GenerateDataBaseCreationScript_MultipleHydraRingCalculationInputsAddedToConfiguration_ReturnsExpectedCreationScript()
+        public void WriteDatabaseCreationScript_MultipleHydraRingCalculationInputsAddedToConfiguration_WritesExpectedCreationScript()
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
@@ -337,7 +337,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
-                hydraRingConfigurationService.WriteDataBaseCreationScript(databaseFilePath);
+                hydraRingConfigurationService.WriteDatabaseCreationScript(databaseFilePath);
 
                 // Assert
                 var creationScript = File.ReadAllText(databaseFilePath);

@@ -119,7 +119,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <summary>
         /// Gets the output database path.
         /// </summary>
-        public string OutputDataBasePath
+        public string OutputDatabasePath
         {
             get
             {

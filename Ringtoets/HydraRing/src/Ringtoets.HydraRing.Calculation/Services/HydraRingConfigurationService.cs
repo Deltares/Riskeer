@@ -123,10 +123,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
         }
 
         /// <summary>
-        /// Generates the database creation script necessary for performing Hydra-Ring calculations.
+        /// Writes the database creation script necessary for performing Hydra-Ring calculations.
         /// </summary>
-        /// <returns>The database creation script.</returns>
-        public void WriteDataBaseCreationScript(string databaseFilePath)
+        /// <param name="databaseFilePath">The file path to write the database creation script to.</param>
+        public void WriteDatabaseCreationScript(string databaseFilePath)
         {
             var configurationDictionary = new Dictionary<string, IList<OrderedDictionary>>();
 
@@ -154,7 +154,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             configurationDictionary["Projects"] = GetProjectsConfiguration();
             configurationDictionary["Breakwaters"] = GetBreakWatersConfiguration();
 
-            File.WriteAllText(databaseFilePath, GenerateDataBaseCreationScript(configurationDictionary));
+            File.WriteAllText(databaseFilePath, GenerateDatabaseCreationScript(configurationDictionary));
         }
 
         private IList<OrderedDictionary> GetHydraulicModelsConfiguration()
@@ -718,7 +718,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             };
         }
 
-        private static string GenerateDataBaseCreationScript(Dictionary<string, IList<OrderedDictionary>> configurationDictionary)
+        private static string GenerateDatabaseCreationScript(Dictionary<string, IList<OrderedDictionary>> configurationDictionary)
         {
             var lines = new List<string>();
 

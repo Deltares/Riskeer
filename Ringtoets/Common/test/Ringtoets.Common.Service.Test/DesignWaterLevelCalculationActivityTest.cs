@@ -163,7 +163,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Run_ValidHydraulicBoundaryDataBaseAndHydraulicBoundaryLocation_PerformValidationValidParameters()
+        public void Run_ValidHydraulicBoundaryDatabaseAndHydraulicBoundaryLocation_PerformValidationValidParameters()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);

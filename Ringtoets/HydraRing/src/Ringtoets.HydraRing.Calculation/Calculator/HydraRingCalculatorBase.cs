@@ -112,7 +112,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
             var hydraRingInitializationService = new HydraRingInitializationService(hydraRingCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, OutputDirectory);
             hydraRingInitializationService.WriteInitializationScript();
-            hydraRingConfigurationService.WriteDataBaseCreationScript(hydraRingInitializationService.DatabaseCreationScriptFilePath);
+            hydraRingConfigurationService.WriteDatabaseCreationScript(hydraRingInitializationService.DatabaseCreationScriptFilePath);
 
             PerformCalculation(OutputDirectory, hydraRingInitializationService);
             ExecuteGenericParsers(hydraRingInitializationService, sectionId);
