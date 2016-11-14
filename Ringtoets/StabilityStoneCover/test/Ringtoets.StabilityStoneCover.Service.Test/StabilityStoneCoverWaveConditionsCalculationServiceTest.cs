@@ -573,7 +573,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_ExceptionThrown()
+        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism
@@ -637,7 +637,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_ExceptionThrown()
+        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism

@@ -108,8 +108,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    Structure = new TestHeightStructure()
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)                    
                 }
             };
 
@@ -159,8 +158,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
-                    Structure = new TestHeightStructure()
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
                 }
             };
 

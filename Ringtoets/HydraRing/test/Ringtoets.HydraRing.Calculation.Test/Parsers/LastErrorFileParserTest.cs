@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_NotExistingLastErrorOutputFile_DoensNotThrowException()
+        public void Parse_NotExistingLastErrorOutputFile_DoesNotThrowException()
         {
             // Setup
             var lastErrorFileParser = new LastErrorFileParser();

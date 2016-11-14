@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         }
 
         /// <summary>
-        /// Gets the directory of the output used during the calculation.
+        /// Gets the temporary output directory that is generated during the calculation.
         /// </summary>
         public string OutputDirectory { get; private set; }
 

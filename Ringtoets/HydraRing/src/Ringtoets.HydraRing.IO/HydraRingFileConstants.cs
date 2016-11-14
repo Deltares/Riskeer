@@ -30,12 +30,7 @@ namespace Ringtoets.HydraRing.IO
         /// The tail and extension of the file containing output generated during a calculation.
         /// </summary>
         internal const string OutputFileSuffix = "-output.txt";
-
-        /// <summary>
-        /// The extension of the log file for a certain section.
-        /// </summary>
-        internal const string LogFileExtension = ".log";
-
+        
         /// <summary>
         /// The file name of the file containing the output of a calculation.
         /// </summary>
@@ -62,7 +57,7 @@ namespace Ringtoets.HydraRing.IO
         internal const string ConfigurationDatabaseFileName = "config.sqlite";
 
         /// <summary>
-        /// The file name of the file containing the error of a calculation.
+        /// The file name which contains the error of a calculation.
         /// </summary>
         internal const string LastErrorFileName = "last_error.txt";
     }

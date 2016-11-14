@@ -515,7 +515,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_ExceptionThrown()
+        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
@@ -578,7 +578,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_ExceptionThrown()
+        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism

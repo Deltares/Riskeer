@@ -167,11 +167,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             var calculation = new TestHeightStructuresCalculation
             {
-                Name = name,
-                InputParameters =
-                {
-                    Structure = new TestHeightStructure()
-                }
+                Name = name
             };
 
             // Call
@@ -255,8 +251,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Name = name,
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    Structure = new TestHeightStructure()
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
                 }
             };
 
@@ -302,8 +297,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Name = name,
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    Structure = new TestHeightStructure()
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
                 }
             };
 
@@ -351,8 +345,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Name = name,
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    Structure = new TestHeightStructure()
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
                 }
             };
 
@@ -399,8 +392,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Name = name,
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    Structure = new TestHeightStructure()
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
                 }
             };
 
@@ -448,7 +440,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    Structure = new TestHeightStructure(),
                     ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
                     UseBreakWater = true
                 }
@@ -489,8 +480,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Name = name,
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    Structure = new TestHeightStructure()
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
                 }
             };
 
@@ -534,7 +524,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    Structure = new TestHeightStructure(),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseBreakWater = true,
                     UseForeshore = true
@@ -601,7 +590,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    Structure = new TestHeightStructure(),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseBreakWater = false,
                     UseForeshore = true
@@ -652,8 +640,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    Structure = new TestHeightStructure()
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -729,8 +716,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    Structure = new TestHeightStructure()
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 

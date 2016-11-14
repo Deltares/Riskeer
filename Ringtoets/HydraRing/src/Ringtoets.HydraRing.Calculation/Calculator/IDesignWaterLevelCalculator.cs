@@ -40,7 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         double ReliabilityIndex { get; }
 
         /// <summary>
-        /// Gets the the output directory used during the Hydra-Ring calculation.
+        /// Gets the temporary output directory that is generated during the Hydra-Ring calculation.
         /// </summary>
         string OutputDirectory { get; }
 

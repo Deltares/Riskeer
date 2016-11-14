@@ -370,73 +370,26 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Run_UnexplainedErrorInCalculation_PerformValidationAndCalculationAndLogStartAndEndAndError()
+        [TestCase(true, null)]
+        [TestCase(true, "An error occurred")]
+        [TestCase(false, "An error occurred")]
+        public void Run_ErrorInCalculation_PerformValidationAndCalculationAndLogStartAndEndAndError(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
             const string locationName = "locationName 1";
             string calculationFailedMessage = "Something went wrong";
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
             {
-                DesignWaterLevel = new RoundedDouble(2, double.NaN),
-                DesignWaterLevelCalculationConvergence = CalculationConvergence.NotCalculated
-            };
-
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(string.Empty);
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(locationName);
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(locationName)).Return(calculationFailedMessage);
-            mockRepository.ReplayAll();
-
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
-            var norm = 30;
-
-            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
-                                                             validFilePath,
-                                                             string.Empty,
-                                                             norm,
-                                                             calculationMessageProviderMock);
-
-            using (new HydraRingCalculatorFactoryConfig())
-            {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
-                calculator.EndInFailure = true;
-
-                // Call
-                Action call = () => activity.Run();
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    var msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", locationName), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", locationName), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", locationName), msgs[2]);
-                    Assert.AreEqual(calculationFailedMessage, msgs[3]);
-                    StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", locationName), msgs[5]);
-                });
-                Assert.AreEqual(ActivityState.Failed, activity.State);
-            }
-        }
-
-        [Test]
-        public void Run_ErrorInCalculation_PerformValidationAndCalculationAndLogStartAndEndAndError()
-        {
-            // Setup
-            const string locationName = "locationName 1";
-            string calculationFailedMessage = "Something went wrong";
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
-            {
-                DesignWaterLevel = new RoundedDouble(2, double.NaN),
-                DesignWaterLevelCalculationConvergence = CalculationConvergence.NotCalculated
+                WaveHeight = new RoundedDouble(2, double.NaN),
+                WaveHeightCalculationConvergence = CalculationConvergence.NotCalculated
             };
 
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(locationName);
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(locationName);
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(calculationFailedMessage);
+            calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(locationName)).Return(calculationFailedMessage);
+            calculationMessageProviderMock.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(locationName);
             mockRepository.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -451,27 +404,17 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
-                calculator.EndInFailure = false;
-                calculator.LastErrorFileContent = "An error occurred";
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                calculator.EndInFailure = endInFailure;
+                calculator.LastErrorFileContent = lastErrorFileContent;
 
                 // Call
-                Action call = () => activity.Run();
+                activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    var msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", locationName), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", locationName), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", locationName), msgs[2]);
-                    Assert.AreEqual(calculationFailedMessage, msgs[3]);
-                    StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", locationName), msgs[5]);
-                });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
+            mockRepository.VerifyAll();
         }
     }
 }

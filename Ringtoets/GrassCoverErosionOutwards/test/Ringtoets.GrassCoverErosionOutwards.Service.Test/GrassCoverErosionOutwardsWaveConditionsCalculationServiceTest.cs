@@ -529,7 +529,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_ExceptionThrown()
+        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -591,7 +591,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_ExceptionThrown()
+        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
