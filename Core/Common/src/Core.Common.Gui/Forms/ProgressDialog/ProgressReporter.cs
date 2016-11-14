@@ -38,6 +38,8 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         /// <summary>
         /// Initializes a new instance of the <see cref="ProgressReporter"/> class.
         /// This should be run on a UI thread.
+        /// <exception cref="InvalidOperationException">Thrown when the current <see cref="SynchronizationContext"/> 
+        /// may not be used as a <see cref="TaskScheduler"/>.</exception>
         /// </summary>
         public ProgressReporter()
         {
@@ -49,6 +51,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         /// the update before returning. This method should be called from the task.
         /// </summary>
         /// <param name="action">The action to perform in the context of the UI thread.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="action"/> is <c>null</c>.</exception>
         public void ReportProgress(Action action)
         {
             var task = Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None, scheduler);
@@ -62,7 +65,6 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         /// </summary>
         /// <param name="task">The task to monitor for completion.</param>
         /// <param name="action">The action to take when the task has completed, in the context of the UI thread.</param>
-        /// <returns>The continuation created to handle completion. This is normally ignored.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="task"/> is <c>null</c>.</exception>
         public void RegisterContinuation(Task task, Action action)
         {

@@ -101,6 +101,8 @@
     <Compile Include="Forms\MessageWindow\MessageWindowLogAppenderTest.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowTest.cs" />
     <Compile Include="Forms\ProgressDialog\ActivityProgressDialogTest.cs" />
+    <Compile Include="Forms\ProgressDialog\ProgressReporterTest.cs" />
+    <Compile Include="Forms\PropertyGridView\PropertyGridViewTest.cs" />
     <Compile Include="Forms\PropertyGridView\PropertyResolverTest.cs" />
     <Compile Include="Forms\RichTextFileTest.cs" />
     <Compile Include="Forms\RichTextViewTest.cs" />

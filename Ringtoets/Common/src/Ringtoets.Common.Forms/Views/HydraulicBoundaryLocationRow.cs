@@ -45,6 +45,9 @@ namespace Ringtoets.Common.Forms.Views
             HydraulicBoundaryLocation = hydraulicBoundaryLocation;
         }
 
+        /// <summary>
+        /// Gets the hydraulic boundaries location.
+        /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
 
         /// <summary>

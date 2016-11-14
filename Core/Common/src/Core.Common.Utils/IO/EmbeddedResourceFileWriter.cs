@@ -44,7 +44,8 @@ namespace Core.Common.Utils.IO
         /// (temporarily) write to the Windows Temp directory.</param>
         /// <exception cref="ArgumentException">Thrown when an embedded resource file in <paramref name="embeddedResourceFileNames"/> 
         /// cannot be found in <paramref name="assembly"/>.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> 
+        /// or <paramref name="embeddedResourceFileNames"/> is <c>null</c>.</exception>
         public EmbeddedResourceFileWriter(Assembly assembly, bool removeFilesOnDispose, params string[] embeddedResourceFileNames)
         {
             if (assembly == null)

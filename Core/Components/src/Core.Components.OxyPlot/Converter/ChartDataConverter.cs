@@ -75,7 +75,6 @@ namespace Core.Components.OxyPlot.Converter
         /// </summary>
         /// <param name="data">The data to transform into one or more <see cref="Series"/>.</param>
         /// <returns>A new <see cref="IList{T}"/> of <see cref="Series"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         protected abstract IList<Series> Convert(T data);
     }
 }

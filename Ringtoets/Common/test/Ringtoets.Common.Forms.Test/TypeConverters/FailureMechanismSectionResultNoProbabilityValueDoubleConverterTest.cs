@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         }
 
         [Test]
-        public void CanConvertFrom_OtherThenString_ReturnFalse()
+        public void CanConvertFrom_OtherThanString_ReturnFalse()
         {
             // Setup
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();

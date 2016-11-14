@@ -35,11 +35,8 @@ namespace Core.Common.TestUtil
         private static readonly ILog log = LogManager.GetLogger(typeof(WindowsFormsTestHelper));
 
         private static Window window;
-
         private readonly GuiTestHelper guiTestHelper;
-
         private Action shownAction;
-
         private bool wasShown;
 
         public WpfTestHelper()
@@ -143,10 +140,10 @@ namespace Core.Common.TestUtil
 
         private void ShowTopLevelControl(Control control, bool modal)
         {
-            var window1 = control as Window;
-            if (window1 != null)
+            var newWindow = control as Window;
+            if (newWindow != null)
             {
-                window = window1;
+                window = newWindow;
             }
             else
             {

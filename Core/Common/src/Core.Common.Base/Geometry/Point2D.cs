@@ -61,7 +61,7 @@ namespace Core.Common.Base.Geometry
         /// <param name="p2">Tail of the vector.</param>
         /// <returns>A 2D vector.</returns>
         /// <exception cref="ArgumentNullException">Thrown when either <paramref name="p1"/>
-        /// or <paramref name="p2"/> is null.</exception>
+        /// or <paramref name="p2"/> is <c>null</c>.</exception>
         public static Vector<double> operator -(Point2D p1, Point2D p2)
         {
             if (p1 == null)
@@ -90,7 +90,7 @@ namespace Core.Common.Base.Geometry
         /// <exception cref="ArgumentException">Thrown when <paramref name="vector"/> is 
         /// not a 2D vector.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/>
-        /// or <paramref name="vector"/> is null.</exception>
+        /// or <paramref name="vector"/> is <c>null</c>.</exception>
         public static Point2D operator +(Point2D point, Vector<double> vector)
         {
             if (point == null)
@@ -119,7 +119,8 @@ namespace Core.Common.Base.Geometry
         /// </summary>
         /// <param name="secondPoint">The second point.</param>
         /// <returns>A value of 0 or greater.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="secondPoint"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="secondPoint"/> 
+        /// is <c>null</c>.</exception>
         public double GetEuclideanDistanceTo(Point2D secondPoint)
         {
             if (secondPoint == null)
@@ -166,10 +167,12 @@ namespace Core.Common.Base.Geometry
         }
 
         /// <summary>
-        /// Compares the <see cref="Point2D"/> with <paramref name="other"/> based on <see cref="X"/> and <see cref="Y"/>.
+        /// Compares the <see cref="Point2D"/> with <paramref name="other"/> based on <see cref="X"/>
+        /// and <see cref="Y"/>.
         /// </summary>
         /// <param name="other">A <see cref="Point2D"/> to compare with.</param>
-        /// <returns>True if the coordinates of the <see cref="Point2D"/> matches the coordinate of <paramref name="other"/>. False otherwise.</returns>
+        /// <returns><c>true</c> if the coordinates of the <see cref="Point2D"/> matches the 
+        /// coordinate of <paramref name="other"/>. <c>false</c> otherwise.</returns>
         private bool Equals(Point2D other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y);

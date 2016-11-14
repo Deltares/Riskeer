@@ -452,9 +452,10 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void FillContextualGroupsFromRibbonComponent(Ribbon ribbonControl)
         {
-            foreach (var group in ribbonControl.ContextualGroups.Where(group => Ribbon.ContextualGroups.All(g => g.Name != @group.Name)))
+            foreach (RibbonContextualTabGroup group in ribbonControl.ContextualGroups.Where(
+                group => Ribbon.ContextualGroups.All(g => g.Name != @group.Name)))
             {
-                Ribbon.ContextualGroups.Add(@group);
+                Ribbon.ContextualGroups.Add(group);
             }
         }
 

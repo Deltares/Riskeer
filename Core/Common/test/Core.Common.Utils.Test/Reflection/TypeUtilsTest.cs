@@ -106,7 +106,7 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void GetMemberName_ExpressionNull1_ThrowsArgumentNullException()
+        public void GetMemberName_ExpressionOfFuncIsNull_ThrowsArgumentNullException()
         {
             // Call
             Expression<Func<TestClass, object>> expression = null;
@@ -118,7 +118,7 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void GetMemberName_ExpressionNull2_ThrowsArgumentNullException()
+        public void GetMemberName_ExpressionOfActionIsNull_ThrowsArgumentNullException()
         {
             // Call
             Expression<Action<TestClass>> expression = null;
@@ -184,6 +184,19 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
+        public void GetField_FieldNameIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            TestClass testClass = new TestClass(22);
+
+            // Call
+            TestDelegate call = () => TypeUtils.GetField<int>(testClass, null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
         public void GetField_PrivateField_ReturnFieldValue()
         {
             // Setup
@@ -242,14 +255,16 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void GetField_GetNonExistingPrivateField_ThrowsArgumentOutOfRangeException()
         {
             // Setup
             var testClass = new TestClass(0);
 
             // Call
-            TypeUtils.GetField<int>(testClass, "nonExistingField");
+            TestDelegate call = () => TypeUtils.GetField<int>(testClass, "nonExistingField");
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(call);
         }
 
         [Test]
@@ -261,6 +276,19 @@ namespace Core.Common.Utils.Test.Reflection
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("obj", paramName);
+        }
+
+        [Test]
+        public void SetField_FieldNameIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            TestClass testClass = new TestClass(22);
+
+            // Call
+            TestDelegate call = () => TypeUtils.SetField(testClass, null, "B");
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
         }
 
         [Test]
@@ -303,14 +331,16 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void SetField_SetNonExistingPrivateField_ThrowsArgumentOutOfRangeException()
         {
             // Setup
             var testClass = new TestClass(0);
 
             // Call
-            TypeUtils.SetField(testClass, "nonExistingField", 0);
+            TestDelegate call = () => TypeUtils.SetField(testClass, "nonExistingField", 0);
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(call);
         }
 
         [Test]
@@ -327,7 +357,7 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void CallPrivateMethod_InstanceNull1_ThrowArgumentNullException()
+        public void TypedCallPrivateMethod_InstanceNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => TypeUtils.CallPrivateMethod<object>(null, "A");
@@ -338,7 +368,7 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void CallPrivateMethod_InstanceNull2_ThrowArgumentNullException()
+        public void CallPrivateMethod_InstanceNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => TypeUtils.CallPrivateMethod(null, "A");
@@ -464,19 +494,16 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void SetPrivatePropertyValue_PublicPropertyPrivateSetter_PropertyIsSet()
+        public void SetPrivatePropertyValue_PropertyNameIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var testClass = new TestClass(1);
-
-            // Precondition
-            Assert.AreEqual(0.0, testClass.PublicPropertyPrivateSetter);
+            var instance = new TestClass();
 
             // Call
-            TypeUtils.SetPrivatePropertyValue(testClass, "PublicPropertyPrivateSetter", 1.2);
+            TestDelegate call = () => TypeUtils.SetPrivatePropertyValue(instance, null, "B");
 
             // Assert
-            Assert.AreEqual(1.2, testClass.PublicPropertyPrivateSetter);
+            Assert.Throws<ArgumentNullException>(call);
         }
 
         [Test]
@@ -493,6 +520,22 @@ namespace Core.Common.Utils.Test.Reflection
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(call);
+        }
+
+        [Test]
+        public void SetPrivatePropertyValue_PublicPropertyPrivateSetter_PropertyIsSet()
+        {
+            // Setup
+            var testClass = new TestClass(1);
+
+            // Precondition
+            Assert.AreEqual(0.0, testClass.PublicPropertyPrivateSetter);
+
+            // Call
+            TypeUtils.SetPrivatePropertyValue(testClass, "PublicPropertyPrivateSetter", 1.2);
+
+            // Assert
+            Assert.AreEqual(1.2, testClass.PublicPropertyPrivateSetter);
         }
 
         [Test]

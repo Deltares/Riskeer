@@ -22,70 +22,92 @@
 using System;
 using System.Data;
 using System.Windows.Forms;
-using Core.Common.Gui.Forms.MessageWindow;
 using log4net.Core;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using GuiFormsMessageWindow = Core.Common.Gui.Forms.MessageWindow;
 
 namespace Core.Common.Gui.Test.Forms.MessageWindow
 {
     [TestFixture]
     public class MessageWindowTest : NUnitFormTest
     {
-        private MessageWindowLogAppender originalValue;
+        private GuiFormsMessageWindow.MessageWindowLogAppender originalValue;
 
         [SetUp]
         public void SetUp()
         {
-            originalValue = MessageWindowLogAppender.Instance;
+            originalValue = GuiFormsMessageWindow.MessageWindowLogAppender.Instance;
         }
 
         [TearDown]
         public override void TearDown()
         {
             base.TearDown();
-            MessageWindowLogAppender.Instance = originalValue;
+            GuiFormsMessageWindow.MessageWindowLogAppender.Instance = originalValue;
         }
 
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var logAppender = new MessageWindowLogAppender();
+            var logAppender = new GuiFormsMessageWindow.MessageWindowLogAppender();
 
             // Precondition
-            Assert.AreSame(logAppender, MessageWindowLogAppender.Instance);
+            Assert.AreSame(logAppender, GuiFormsMessageWindow.MessageWindowLogAppender.Instance);
 
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();
 
             // Call
-            using (var messageWindow = new Gui.Forms.MessageWindow.MessageWindow(dialogParent))
+            using (var messageWindow = new GuiFormsMessageWindow.MessageWindow(dialogParent))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(messageWindow);
-                Assert.IsInstanceOf<IMessageWindow>(messageWindow);
+                Assert.IsInstanceOf<GuiFormsMessageWindow.IMessageWindow>(messageWindow);
                 Assert.AreEqual("Berichten", messageWindow.Text);
                 Assert.IsInstanceOf<DataTable>(messageWindow.Data);
-                Assert.AreSame(messageWindow, MessageWindowLogAppender.Instance.MessageWindow);
+                Assert.AreSame(messageWindow, GuiFormsMessageWindow.MessageWindowLogAppender.Instance.MessageWindow);
             }
 
             mocks.VerifyAll();
         }
 
         [Test]
+        public void AddMessage_LevelIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var logAppender = new GuiFormsMessageWindow.MessageWindowLogAppender();
+
+            // Precondition
+            Assert.AreSame(logAppender, GuiFormsMessageWindow.MessageWindowLogAppender.Instance);
+
+            // Setup
+            using (var messageWindow = new GuiFormsMessageWindow.MessageWindow(null))
+            {
+                // Call
+                TestDelegate call = () => messageWindow.AddMessage(null, new DateTime(),
+                                                                   "Should throw exception");
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+                Assert.AreEqual("level", paramName);
+            }
+        }
+
+        [Test]
         public void ShowDetailsButton_NoMessageSelectedOnClick_DontShowMessageWindowDialog()
         {
             // Setup
-            var logAppender = new MessageWindowLogAppender();
+            var logAppender = new GuiFormsMessageWindow.MessageWindowLogAppender();
 
             // Precondition
-            Assert.AreSame(logAppender, MessageWindowLogAppender.Instance);
+            Assert.AreSame(logAppender, GuiFormsMessageWindow.MessageWindowLogAppender.Instance);
 
             using (var form = new Form())
-            using (var messageWindow = new Gui.Forms.MessageWindow.MessageWindow(null))
+            using (var messageWindow = new GuiFormsMessageWindow.MessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -110,13 +132,13 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
 
             var detailedMessage = "TestDetailedMessage";
 
-            var logAppender = new MessageWindowLogAppender();
+            var logAppender = new GuiFormsMessageWindow.MessageWindowLogAppender();
 
             // Precondition
-            Assert.AreSame(logAppender, MessageWindowLogAppender.Instance);
+            Assert.AreSame(logAppender, GuiFormsMessageWindow.MessageWindowLogAppender.Instance);
 
             using (var form = new Form())
-            using (var messageWindow = new Gui.Forms.MessageWindow.MessageWindow(dialogParent))
+            using (var messageWindow = new GuiFormsMessageWindow.MessageWindow(dialogParent))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();

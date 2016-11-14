@@ -42,14 +42,6 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void GetAssemblyInfo()
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            AssemblyUtils.AssemblyInfo assemblyInfo = AssemblyUtils.GetAssemblyInfo(assembly);
-            Assert.AreEqual("Core.Common.Utils.Test", assemblyInfo.Title);
-        }
-
-        [Test]
         public void GetAssemblyInfo_LocationIsEmpty_ReturnEmptyAssemblyInfo()
         {
             // Setup
