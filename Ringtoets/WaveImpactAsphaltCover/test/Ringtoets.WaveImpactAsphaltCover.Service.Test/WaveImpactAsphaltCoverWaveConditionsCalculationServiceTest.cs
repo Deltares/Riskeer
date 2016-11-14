@@ -310,6 +310,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[7]);
                 });
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -371,6 +372,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[7]);
                 });
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -422,6 +424,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 }
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -508,6 +511,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 Assert.IsNotNull(calculation.Output);
                 Assert.AreEqual(3, calculation.Output.Items.Count());
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -568,8 +572,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
                 });
                 Assert.IsTrue(exception);
-                mockRepository.VerifyAll();
+                Assert.IsNull(calculation.Output);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -630,8 +635,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
                 });
                 Assert.IsTrue(exception);
-                mockRepository.VerifyAll();
+                Assert.IsNull(calculation.Output);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -696,8 +702,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 });
                 Assert.IsTrue(exception);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
-                mockRepository.VerifyAll();
+                Assert.IsNull(calculation.Output);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]

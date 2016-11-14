@@ -468,16 +468,15 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
             closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculation
             {
@@ -519,17 +518,17 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
+            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
-            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
 
             var calculation = new TestClosingStructuresCalculation
             {
@@ -605,17 +604,16 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
             closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculation
             {
@@ -691,17 +689,16 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
             closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();            
 
             var calculation = new TestClosingStructuresCalculation
             {
@@ -775,17 +772,16 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
             closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();            
 
             var calculation = new TestClosingStructuresCalculation
             {
@@ -842,17 +838,16 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
             closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculation
             {
@@ -878,6 +873,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(calculator.IsCanceled);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -885,17 +881,16 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();            
 
             var calculation = new TestClosingStructuresCalculation
             {
@@ -940,7 +935,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(calculation.Output);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -948,17 +945,16 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();            
 
             var calculation = new TestClosingStructuresCalculation
             {
@@ -1002,7 +998,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(calculation.Output);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -1010,17 +1008,16 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculation
             {
@@ -1070,6 +1067,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
+            mockRepository.VerifyAll();
         }
 
         /// <summary>

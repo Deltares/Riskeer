@@ -441,7 +441,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_DikeHeightCalculationFails_OutputNaN()
+        public void Calculate_DikeHeightCalculationFails_OutputNotNull()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -828,6 +828,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(calculation.Output);
             }
         }
 
@@ -899,6 +900,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
+                Assert.IsNull(calculation.Output);
             }
         }
 

@@ -519,16 +519,15 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
-            mockRepository.ReplayAll();
-
             heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -587,16 +586,15 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
-            mockRepository.ReplayAll();
-
             heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -640,16 +638,15 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
-            mockRepository.ReplayAll();
-
             heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -718,16 +715,15 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
-            mockRepository.ReplayAll();
-
             heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -754,6 +750,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(testStructuresOvertoppingCalculator.IsCanceled);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -761,17 +758,16 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();            
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -816,7 +812,9 @@ namespace Ringtoets.HeightStructures.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(calculation.Output);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -824,18 +822,17 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
 
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+            
             var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =
@@ -878,7 +875,9 @@ namespace Ringtoets.HeightStructures.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(calculation.Output);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -886,18 +885,17 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
 
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+            
             var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =
@@ -946,6 +944,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
+            mockRepository.VerifyAll();
         }
 
         #region Testcases

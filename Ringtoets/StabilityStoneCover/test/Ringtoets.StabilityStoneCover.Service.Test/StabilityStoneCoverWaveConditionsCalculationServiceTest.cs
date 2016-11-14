@@ -631,8 +631,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
                 });
                 Assert.IsTrue(exception);
-                mockRepository.VerifyAll();
+                Assert.IsNull(calculation.Output);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -694,8 +695,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
                 });
                 Assert.IsTrue(exception);
-                mockRepository.VerifyAll();
+                Assert.IsNull(calculation.Output);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -761,8 +763,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 });
                 Assert.IsTrue(exception);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
-                mockRepository.VerifyAll();
+                Assert.IsNull(calculation.Output);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
