@@ -65,30 +65,30 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             var expectedRingBreakWater = new HydraRingBreakWater(2, 3.3);
 
             // Call
-            DikeHeightCalculationInput dikeHeightCalculationInput = new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, section,
-                                                                                                   expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
-                                                                                                   modelFactorCriticalOvertopping,
-                                                                                                   factorFbMean, factorFbStandardDeviation,
-                                                                                                   factorFnMean, factorFnStandardDeviation,
-                                                                                                   modelFactorOvertopping,
-                                                                                                   criticalOvertoppingMean, criticalOvertoppingStandardDeviation,
-                                                                                                   modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
-                                                                                                   exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation);
+            var input = new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, section,
+                                                       expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
+                                                       modelFactorCriticalOvertopping,
+                                                       factorFbMean, factorFbStandardDeviation,
+                                                       factorFnMean, factorFnStandardDeviation,
+                                                       modelFactorOvertopping,
+                                                       criticalOvertoppingMean, criticalOvertoppingStandardDeviation,
+                                                       modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
+                                                       exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation);
 
             // Assert
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
-            Assert.IsInstanceOf<ReliabilityIndexCalculationInput>(dikeHeightCalculationInput);
-            Assert.AreEqual(9, dikeHeightCalculationInput.CalculationTypeId);
-            Assert.AreEqual(hydraulicBoundaryLocationId, dikeHeightCalculationInput.HydraulicBoundaryLocationId);
-            Assert.AreEqual(HydraRingFailureMechanismType.DikesHeight, dikeHeightCalculationInput.FailureMechanismType);
-            Assert.AreEqual(1, dikeHeightCalculationInput.VariableId);
-            Assert.IsNotNull(dikeHeightCalculationInput.Section);
-            HydraRingDataEqualityHelper.AreEqual(GetDefaultDikeHeightVariables().ToArray(), dikeHeightCalculationInput.Variables.ToArray());
-            CollectionAssert.AreEqual(expectedRingProfilePoints, dikeHeightCalculationInput.ProfilePoints);
-            CollectionAssert.AreEqual(expectedRingForelandPoints, dikeHeightCalculationInput.ForelandsPoints);
-            Assert.AreEqual(expectedRingBreakWater, dikeHeightCalculationInput.BreakWater);
-            Assert.AreEqual(expectedBeta, dikeHeightCalculationInput.Beta);
-            Assert.AreSame(section, dikeHeightCalculationInput.Section);
+            Assert.IsInstanceOf<HydraulicLoadsCalculationInput>(input);
+            Assert.AreEqual(9, input.CalculationTypeId);
+            Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
+            Assert.AreEqual(HydraRingFailureMechanismType.DikesHeight, input.FailureMechanismType);
+            Assert.AreEqual(1, input.VariableId);
+            Assert.IsNotNull(input.Section);
+            HydraRingDataEqualityHelper.AreEqual(GetDefaultDikeHeightVariables().ToArray(), input.Variables.ToArray());
+            CollectionAssert.AreEqual(expectedRingProfilePoints, input.ProfilePoints);
+            CollectionAssert.AreEqual(expectedRingForelandPoints, input.ForelandsPoints);
+            Assert.AreEqual(expectedRingBreakWater, input.BreakWater);
+            Assert.AreEqual(expectedBeta, input.Beta);
+            Assert.AreSame(section, input.Section);
         }
 
         [Test]
@@ -102,14 +102,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
 
             // Call
-            DikeHeightCalculationInput dikeHeightCalculationInput = new DikeHeightCalculationInput(1, 1000, section,
-                                                                                                   new List<HydraRingRoughnessProfilePoint>(),
-                                                                                                   new List<HydraRingForelandPoint>(),
-                                                                                                   new HydraRingBreakWater(0, 1.1),
-                                                                                                   2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
+            var input = new DikeHeightCalculationInput(1, 1000, section,
+                                                       new List<HydraRingRoughnessProfilePoint>(),
+                                                       new List<HydraRingForelandPoint>(),
+                                                       new HydraRingBreakWater(0, 1.1),
+                                                       2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
 
             // Assert
-            Assert.AreEqual(expectedSubMechanismModelId, dikeHeightCalculationInput.GetSubMechanismModelId(subMechanismModelId));
+            Assert.AreEqual(expectedSubMechanismModelId, input.GetSubMechanismModelId(subMechanismModelId));
         }
 
         private static IEnumerable<HydraRingVariable> GetDefaultDikeHeightVariables()

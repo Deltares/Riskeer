@@ -66,6 +66,7 @@
     <Compile Include="Calculator\WaveHeightCalculatorTest.cs" />
     <Compile Include="Data\HydraRingBreakWaterTest.cs" />
     <Compile Include="Data\HydraRingForelandPointTest.cs" />
+    <Compile Include="Data\Input\Hydraulics\OvertoppingRateCalculationInputTest.cs" />
     <Compile Include="Data\Input\Hydraulics\HydraulicLoadsCalculationInputTest.cs" />
     <Compile Include="Data\Input\Hydraulics\DunesBoundaryConditionsCalculationInputTest.cs" />
     <Compile Include="Data\Input\Hydraulics\DikeHeightCalculationInputTest.cs" />
