@@ -136,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 DikeProfiles =
                 {
-                    (DikeProfile) new TestDikeProfile()
+                    new TestDikeProfile()
                 }
             };
 
