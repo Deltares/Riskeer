@@ -94,7 +94,7 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 calculator.Calculate(input);
 
-                if (!canceled)
+                if (!canceled && string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
                     calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
                                                                                 failureMechanism.Contribution,

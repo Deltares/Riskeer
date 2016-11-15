@@ -98,13 +98,16 @@ namespace Ringtoets.Common.Service
             {
                 calculator.Calculate(CreateInput(hydraulicBoundaryLocation, norm, hydraulicBoundaryDatabaseFilePath));
 
-                hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) calculator.WaveHeight;
-                hydraulicBoundaryLocation.WaveHeightCalculationConvergence =
-                    RingtoetsCommonDataCalculationService.CalculationConverged(calculator.ReliabilityIndex, norm);
-
-                if (hydraulicBoundaryLocation.WaveHeightCalculationConvergence != CalculationConvergence.CalculatedConverged)
+                if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    log.Warn(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocation.Name));
+                    hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) calculator.WaveHeight;
+                    hydraulicBoundaryLocation.WaveHeightCalculationConvergence =
+                        RingtoetsCommonDataCalculationService.CalculationConverged(calculator.ReliabilityIndex, norm);
+
+                    if (hydraulicBoundaryLocation.WaveHeightCalculationConvergence != CalculationConvergence.CalculatedConverged)
+                    {
+                        log.Warn(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocation.Name));
+                    }
                 }
             }
             catch (HydraRingFileParserException)

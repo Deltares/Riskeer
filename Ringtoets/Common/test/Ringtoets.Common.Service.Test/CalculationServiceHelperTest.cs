@@ -167,7 +167,7 @@ namespace Ringtoets.Common.Service.Test
         [TestCase(true, true, "")]
         [TestCase(true, false, "")]
         [TestCase(false, true, "")]
-        public void ErrorOccurred_LastErrorSetCalculationCanceldOrExceptionThrown_ReturnFalse(bool canceled, bool exceptionThrown, string errorContent)
+        public void ErrorOccurred_LastErrorSetCalculationCanceledOrExceptionThrown_ReturnFalse(bool canceled, bool exceptionThrown, string errorContent)
         {
             // Call
             bool errorOccurred = CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, errorContent);

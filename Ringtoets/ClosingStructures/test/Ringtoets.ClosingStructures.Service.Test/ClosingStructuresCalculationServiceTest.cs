@@ -1064,6 +1064,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(calculation.Output);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
             mockRepository.VerifyAll();

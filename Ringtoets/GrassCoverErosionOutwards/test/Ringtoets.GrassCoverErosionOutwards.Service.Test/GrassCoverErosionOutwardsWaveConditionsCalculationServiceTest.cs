@@ -584,6 +584,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
                 });
+                Assert.IsNull(calculation.Output);
                 Assert.IsTrue(exception);
             }
             mockRepository.VerifyAll();

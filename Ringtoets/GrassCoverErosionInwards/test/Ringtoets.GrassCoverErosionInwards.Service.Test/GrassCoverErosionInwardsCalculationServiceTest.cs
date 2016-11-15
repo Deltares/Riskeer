@@ -506,73 +506,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_OvertoppingOnlyAndOvertoppingCalculationFails_OutputNull()
-        {
-            // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
-            mockRepository.ReplayAll();
-
-            var dikeProfile = GetDikeProfile();
-
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = dikeProfile
-                }
-            };
-
-            var failureMechanismSection = grassCoverErosionInwardsFailureMechanism.Sections.First();
-            bool expectedExceptionThrown = false;
-
-            // Call
-            Action call = () =>
-            {
-                try
-                {
-                    using (new HydraRingCalculatorFactoryConfig())
-                    {
-                        var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
-                        calculator.EndInFailure = true;
-
-                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanismSection,
-                                                                                   grassCoverErosionInwardsFailureMechanism.GeneralInput,
-                                                                                   grassCoverErosionInwardsFailureMechanism.Contribution,
-                                                                                   validFile);
-                    }
-                }
-                catch (HydraRingFileParserException)
-                {
-                    expectedExceptionThrown = true;
-                }
-            };
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(4, msgs.Length);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
-                StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
-            });
-            Assert.IsTrue(expectedExceptionThrown);
-            Assert.IsNull(calculation.Output);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Calculate_CancelWithValidOvertoppingCalculationInput_CancelsCalculatorAndHasNullOutput()
         {
             // Setup
@@ -693,7 +626,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_OvertoppingCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_OvertoppingCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException(bool calculateDikeHeight)
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -713,7 +648,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    CalculateDikeHeight = true
+                    CalculateDikeHeight = calculateDikeHeight
                 }
             };
 
@@ -755,12 +690,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
                 });
+                Assert.IsNull(calculation.Output);
                 Assert.IsTrue(exceptionThrown);
             }
         }
 
         [Test]
-        public void Calculate_OvertoppingCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_OvertoppingCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException(bool calculateDikeHeight)
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -780,7 +718,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    CalculateDikeHeight = true
+                    CalculateDikeHeight = calculateDikeHeight
                 }
             };
 
@@ -827,7 +765,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_OvertoppingCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_OvertoppingCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException(bool calculateDikeHeight)
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -847,7 +787,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    CalculateDikeHeight = true
+                    CalculateDikeHeight = calculateDikeHeight
                 }
             };
 
@@ -962,6 +902,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
                 });
+                Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);
             }
         }
@@ -974,8 +915,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             AddSectionToFailureMechanism(failureMechanism);
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository,
                                                                                                            validFile);
             mockRepository.ReplayAll();
 
@@ -1029,6 +969,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
                 });
+                Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);
             }
         }
@@ -1097,6 +1038,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
                 });
+                Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);
             }
         }
