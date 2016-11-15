@@ -833,6 +833,33 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De maatgevende berekening voor dit vak moet nog worden uitgevoerd..
+        /// </summary>
+        public static string FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_calculated {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_calculated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er moet een maatgevende berekening voor dit vak worden geselecteerd..
+        /// </summary>
+        public static string FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_set {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_set", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De maatgevende berekening voor dit vak heeft geen geldige uitkomst..
+        /// </summary>
+        public static string FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_successful {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Niet alle berekeningen voor dit vak zijn uitgevoerd..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed {

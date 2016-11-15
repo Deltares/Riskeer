@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </summary>
         public PipingFailureMechanismResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(ShowAssementLayerTwoAErrors);
+            DataGridViewControl.AddCellFormattingHandler(ShowAssessmentLayerTwoAErrors);
             DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.RemoveCellFormattingHandler(ShowAssementLayerTwoAErrors);
+            DataGridViewControl.RemoveCellFormattingHandler(ShowAssessmentLayerTwoAErrors);
             DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             calculationInputObserver.Dispose();
@@ -142,7 +142,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        private void ShowAssementLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
+        private void ShowAssessmentLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex != assessmentLayerTwoAIndex)
             {

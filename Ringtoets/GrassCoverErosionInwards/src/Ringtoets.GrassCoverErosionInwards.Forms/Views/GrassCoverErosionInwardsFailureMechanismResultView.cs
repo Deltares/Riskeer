@@ -25,9 +25,9 @@ using Core.Common.Base;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using CoreCommonResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         public GrassCoverErosionInwardsFailureMechanismResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(ShowAssessmentLayerTwoAErrors);
+            DataGridViewControl.AddCellFormattingHandler(ShowAssessmentLayerErrors);
             DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -86,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.RemoveCellFormattingHandler(ShowAssessmentLayerTwoAErrors);
+            DataGridViewControl.RemoveCellFormattingHandler(ShowAssessmentLayerErrors);
             DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             calculationInputObserver.Dispose();
@@ -134,58 +134,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        private void ShowAssessmentLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
+        private void ShowAssessmentLayerErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex != assessmentLayerTwoAIndex)
             {
                 return;
             }
 
-            DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
-
             var resultRow = (GrassCoverErosionInwardsFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
             if (resultRow != null)
             {
+                DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
                 GrassCoverErosionInwardsCalculation normativeCalculation = resultRow.GetSectionResultCalculation();
 
-                if (resultRow.AssessmentLayerOne)
-                {
-                    currentDataGridViewCell.ErrorText = string.Empty;
-                    return;
-                }
-
-                if (normativeCalculation == null)
-                {
-                    currentDataGridViewCell.ErrorText = Resources.GrassCoverErosionInwardsFailureMechanismResultView_Calculation_not_set;
-                    return;
-                }
-
-                CalculationScenarioStatus calculationScenarioStatus = GetCalculationStatus(normativeCalculation);
-                if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
-                {
-                    currentDataGridViewCell.ErrorText = Resources.GrassCoverErosionInwardsFailureMechanismResultView_Calculation_not_calculated;
-                    return;
-                }
-                if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
-                {
-                    currentDataGridViewCell.ErrorText = Resources.GrassCoverErosionInwardsFailureMechanismResultView_Calculation_not_successful;
-                    return;
-                }
-                currentDataGridViewCell.ErrorText = string.Empty;
+                FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(currentDataGridViewCell,
+                                                                                     resultRow.AssessmentLayerOne, 
+                                                                                     resultRow.AssessmentLayerTwoA, 
+                                                                                     normativeCalculation);
             }
-        }
-
-        private static CalculationScenarioStatus GetCalculationStatus(GrassCoverErosionInwardsCalculation calculation)
-        {
-            if (calculation.HasOutput)
-            {
-                if (double.IsNaN(calculation.Output.ProbabilityAssessmentOutput.Probability))
-                {
-                    return CalculationScenarioStatus.Failed;
-                }
-                return CalculationScenarioStatus.Done;
-            }
-            return CalculationScenarioStatus.NotCalculated;
         }
     }
 }

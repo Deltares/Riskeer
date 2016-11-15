@@ -108,6 +108,7 @@
     <Compile Include="Views\FailureMechanismResultViewTest.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Helpers\FailureMechanismSectionResultRowHelperTest.cs" />
     <Compile Include="Views\FailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationRowTest.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationsViewTest.cs" />
