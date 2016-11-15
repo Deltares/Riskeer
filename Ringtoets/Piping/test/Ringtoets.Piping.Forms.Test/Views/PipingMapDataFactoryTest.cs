@@ -57,61 +57,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             AssertEqualStyle(data.Style, Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid);
         }
 
-        [Test]
-        public void CreateFailureMechanismSectionsMapData_ReturnsEmptyChartLineDataWithDefaultStyling()
-        {
-            // Call
-            MapLineData data = PipingMapDataFactory.CreateFailureMechanismSectionsMapData();
-
-            // Assert
-            Assert.IsEmpty(data.Features);
-            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName, data.Name);
-            AssertEqualStyle(data.Style, Color.Khaki, 3, DashStyle.Dot);
-        }
-
-        [Test]
-        public void CreateFailureMechanismSectionsStartPointMapData_ReturnsEmptyChartPointDataWithDefaultStyling()
-        {
-            // Call
-            MapPointData data = PipingMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-
-            // Assert
-            Assert.IsEmpty(data.Features);
-            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), data.Name);
-            AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
-        }
-
-        [Test]
-        public void CreateFailureMechanismSectionsEndPointMapData_ReturnsEmptyChartPointDataWithDefaultStyling()
-        {
-            // Call
-            MapPointData data = PipingMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
-
-            // Assert
-            Assert.IsEmpty(data.Features);
-            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), data.Name);
-            AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
-        }
-
-        private void AssertEqualStyle(PointStyle pointStyle, Color color, int width, PointSymbol symbol)
-        {
-            Assert.AreEqual(color, pointStyle.Color);
-            Assert.AreEqual(width, pointStyle.Size);
-            Assert.AreEqual(symbol, pointStyle.Symbol);
-        }
-
         private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, DashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(style, lineStyle.Style);
-        }
-
-        private static string GetSectionPointDisplayName(string name)
-        {
-            return string.Format("{0} ({1})",
-                                 RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
-                                 name);
         }
     }
 }

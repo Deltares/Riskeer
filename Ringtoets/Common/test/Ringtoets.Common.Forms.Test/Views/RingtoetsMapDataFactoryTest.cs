@@ -46,6 +46,42 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void CreateFailureMechanismSectionsMapData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        {
+            // Call
+            MapLineData data = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
+
+            // Assert
+            Assert.IsEmpty(data.Features);
+            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName, data.Name);
+            AssertEqualStyle(data.Style, Color.Khaki, 3, DashStyle.Dot);
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionsStartPointMapData_ReturnsEmptyChartPointDataWithDefaultStyling()
+        {
+            // Call
+            MapPointData data = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
+
+            // Assert
+            Assert.IsEmpty(data.Features);
+            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), data.Name);
+            AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionsEndPointMapData_ReturnsEmptyChartPointDataWithDefaultStyling()
+        {
+            // Call
+            MapPointData data = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+
+            // Assert
+            Assert.IsEmpty(data.Features);
+            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), data.Name);
+            AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
+        }
+
+        [Test]
         public void CreateHydraulicBoundaryDatabaseMapData_ReturnsEmptyMapPointDataWithDefaultStyling()
         {
             // Call
@@ -55,6 +91,13 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsEmpty(data.Features);
             Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, data.Name);
             AssertEqualStyle(data.Style, Color.DarkBlue, 6, PointSymbol.Circle);
+        }
+
+        private static string GetSectionPointDisplayName(string name)
+        {
+            return string.Format("{0} ({1})",
+                                 RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
+                                 name);
         }
 
         private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, DashStyle style)

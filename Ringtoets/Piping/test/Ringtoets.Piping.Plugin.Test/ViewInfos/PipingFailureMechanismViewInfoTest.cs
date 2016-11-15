@@ -65,16 +65,22 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_Always_ReturnsTextFromResources()
+        public void GetViewName_WithPipingFailureMechanism_ReturnsTextFromResources()
         {
             // Setup
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
+
             using (var view = new PipingFailureMechanismView())
             {
                 // Call
-                string viewName = info.GetViewName(view, null);
+                string viewName = info.GetViewName(view, pipingFailureMechanismContext);
 
                 // Assert
-                Assert.AreEqual(PipingDataResources.PipingFailureMechanism_DisplayName, viewName);
+                Assert.AreEqual(pipingFailureMechanism.Name, viewName);
             }
         }
 

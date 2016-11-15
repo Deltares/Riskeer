@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -26,68 +27,62 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
-using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
+using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.Views
+namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for a piping failure mechanism.
+    /// This class is a view showing map data for a GrassCoverErosionInwards failure mechanism.
     /// </summary>
-    public partial class PipingFailureMechanismView : UserControl, IMapView
+    public partial class GrassCoverErosionInwardsFailureMechanismView : UserControl, IMapView
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
-        private readonly Observer surfaceLinesObserver;
-        private readonly Observer stochasticSoilModelsObserver;
+        private readonly Observer dikeProfilesObserver;
 
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
-        private readonly MapLineData stochasticSoilModelsMapData;
-        private readonly MapLineData surfaceLinesMapData;
         private readonly MapPointData sectionsStartPointMapData;
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData hydraulicBoundaryDatabaseMapData;
+        private readonly MapLineData dikeProfilesMapData;
 
-        private PipingFailureMechanismContext data;
+        private GrassCoverErosionInwardsFailureMechanismContext data;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailureMechanismView"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismView"/>.
         /// </summary>
-        public PipingFailureMechanismView()
+        public GrassCoverErosionInwardsFailureMechanismView()
         {
             InitializeComponent();
 
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(UpdateMapData);
-            surfaceLinesObserver = new Observer(UpdateMapData);
-            stochasticSoilModelsObserver = new Observer(UpdateMapData);
+            dikeProfilesObserver = new Observer(UpdateMapData);
 
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryDatabaseMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
+            dikeProfilesMapData = RingtoetsMapDataFactory.CreateDikeProfileMapData();
 
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
-            stochasticSoilModelsMapData = PipingMapDataFactory.CreateStochasticSoilModelsMapData();
-            surfaceLinesMapData = PipingMapDataFactory.CreateSurfaceLinesMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             mapControl.Data.Add(referenceLineMapData);
             mapControl.Data.Add(sectionsMapData);
-            mapControl.Data.Add(stochasticSoilModelsMapData);
-            mapControl.Data.Add(surfaceLinesMapData);
             mapControl.Data.Add(sectionsStartPointMapData);
             mapControl.Data.Add(sectionsEndPointMapData);
             mapControl.Data.Add(hydraulicBoundaryDatabaseMapData);
+            mapControl.Data.Add(dikeProfilesMapData);
 
-            mapControl.Data.Name = PipingDataResources.PipingFailureMechanism_DisplayName;
+            mapControl.Data.Name = GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsFailureMechanism_DisplayName;
         }
 
         public object Data
@@ -98,14 +93,13 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                data = value as PipingFailureMechanismContext;
+                data = value as GrassCoverErosionInwardsFailureMechanismContext;
 
                 if (data == null)
                 {
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
-                    surfaceLinesObserver.Observable = null;
-                    stochasticSoilModelsObserver.Observable = null;
+                    dikeProfilesObserver.Observable = null;
 
                     Map.ResetMapData();
                     return;
@@ -113,8 +107,7 @@ namespace Ringtoets.Piping.Forms.Views
 
                 failureMechanismObserver.Observable = data.WrappedData;
                 assessmentSectionObserver.Observable = data.Parent;
-                surfaceLinesObserver.Observable = data.WrappedData.SurfaceLines;
-                stochasticSoilModelsObserver.Observable = data.WrappedData.StochasticSoilModels;
+                dikeProfilesObserver.Observable = data.WrappedData.DikeProfiles;
 
                 UpdateMapData();
             }
@@ -132,8 +125,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
-            stochasticSoilModelsObserver.Dispose();
-            surfaceLinesObserver.Dispose();
+            dikeProfilesObserver.Dispose();
 
             if (disposing && (components != null))
             {
@@ -146,33 +138,29 @@ namespace Ringtoets.Piping.Forms.Views
         {
             ReferenceLine referenceLine = null;
             IEnumerable<FailureMechanismSection> failureMechanismSections = null;
-            ObservableList<StochasticSoilModel> stochasticSoilModels = null;
-            ObservableList<RingtoetsPipingSurfaceLine> ringtoetsPipingSurfaceLines = null;
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = null;
+            IEnumerable<DikeProfile> dikeProfiles = null;
 
             if (data != null)
             {
                 referenceLine = data.Parent.ReferenceLine;
                 failureMechanismSections = data.WrappedData.Sections;
-                stochasticSoilModels = data.WrappedData.StochasticSoilModels;
-                ringtoetsPipingSurfaceLines = data.WrappedData.SurfaceLines;
                 hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
+                dikeProfiles = data.WrappedData.DikeProfiles;
             }
 
             UpdateFeatureBasedMapData(referenceLineMapData,
                                       RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine));
             UpdateFeatureBasedMapData(sectionsMapData,
                                       RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections));
-            UpdateFeatureBasedMapData(stochasticSoilModelsMapData,
-                                      PipingMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(stochasticSoilModels));
-            UpdateFeatureBasedMapData(surfaceLinesMapData,
-                                      PipingMapDataFeaturesFactory.CreateSurfaceLineFeatures(ringtoetsPipingSurfaceLines));
             UpdateFeatureBasedMapData(sectionsStartPointMapData,
                                       RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections));
             UpdateFeatureBasedMapData(sectionsEndPointMapData,
                                       RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections));
             UpdateFeatureBasedMapData(hydraulicBoundaryDatabaseMapData,
                                       RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase));
+            UpdateFeatureBasedMapData(dikeProfilesMapData,
+                                      RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(dikeProfiles));
 
             mapControl.Data.NotifyObservers();
         }

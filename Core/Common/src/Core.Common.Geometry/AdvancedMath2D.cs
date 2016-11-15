@@ -19,11 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using GeoAPI.Geometries;
+using MathNet.Spatial.Euclidean;
+using MathNet.Spatial.Units;
 using NetTopologySuite.Geometries;
+
+using Point2D = Core.Common.Base.Geometry.Point2D;
 
 namespace Core.Common.Geometry
 {
@@ -53,6 +57,38 @@ namespace Core.Common.Geometry
             {
                 throw new InvalidPolygonException(e.Message, e);
             }
+        }
+
+        /// <summary>
+        /// Transforms X coordinates in a 2D X, Y plane using:
+        /// - A reference point as starting point of the line.
+        /// - An offset at which the reference coincides with the X axis.
+        /// - A rotation from North of the X coordinates around the origin after substracting the offset in degrees.
+        /// </summary>
+        /// <param name="xCoordinates">The X coordinates of a line.</param>
+        /// <param name="referencePoint">The point of reference where the line is transposed to.</param>
+        /// <param name="offset">The offset at which the referencePoints coincides with the X axis.</param>
+        /// <param name="rotation">The rotation from the North in degrees.</param>
+        /// <returns>A collection of <see cref="Point2D"/> with the transformed X coordinates.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="xCoordinates"/> or
+        /// <paramref name="referencePoint"/> is <c>null</c>.</exception>
+        public static Point2D[] FromXToXY(double[] xCoordinates, Point2D referencePoint, double offset, double rotation)
+        {
+            if (xCoordinates == null)
+            {
+                throw new ArgumentNullException("xCoordinates", "Cannot transform to coordinates without a source.");
+            }
+            if (referencePoint == null)
+            {
+                throw new ArgumentNullException("referencePoint", "Cannot transform to coordinates without a reference point.");
+            }
+
+            return xCoordinates.Select(coordinate =>
+            {
+                Vector2D referenceVector = new Vector2D(referencePoint.X, referencePoint.Y);
+                Vector2D pointVector = referenceVector + new Vector2D(0, coordinate - offset).Rotate(-rotation, AngleUnit.Degrees);
+                return new Point2D(pointVector.X, pointVector.Y);
+            }).ToArray();
         }
 
         private static Polygon PointsToPolygon(IEnumerable<Point2D> points)

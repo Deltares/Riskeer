@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new ViewInfo<PipingFailureMechanismContext, PipingFailureMechanismView>
             {
-                GetViewName = (view, mechanism) => PipingDataResources.PipingFailureMechanism_DisplayName,
+                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = ClosePipingFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant

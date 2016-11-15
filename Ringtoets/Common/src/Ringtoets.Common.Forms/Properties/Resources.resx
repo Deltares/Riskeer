@@ -823,4 +823,7 @@
   <data name="Structure_InflowModelType_DisplayName" xml:space="preserve">
     <value>Instroommodel</value>
   </data>
+  <data name="DikeProfiles_DisplayName" xml:space="preserve">
+    <value>Dijkprofielen</value>
+  </data>
 </root>

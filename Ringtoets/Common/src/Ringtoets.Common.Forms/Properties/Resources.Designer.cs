@@ -605,6 +605,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dijkprofielen.
+        /// </summary>
+        public static string DikeProfiles_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeProfiles_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het soort kansverdeling waarin deze parameter gedefinieerd wordt..
         /// </summary>
         public static string Distribution_DistributionType_Description {

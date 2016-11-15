@@ -66,6 +66,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
+            yield return new ViewInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismView>
+            {
+                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                CloseForData = CloseGrassCoverErosionInwardsFailureMechanismViewForData,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+            };
+
             yield return new ViewInfo<
                 GrassCoverErosionInwardsScenariosContext,
                 CalculationGroup,
@@ -109,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<DikeProfilesContext>
             {
-                Text = context => GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_DikeProfilesContext_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.DikeProfiles_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any() ?
                                            Color.FromKnownColor(KnownColor.ControlText) :
@@ -205,6 +213,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             return null;
         }
+
+        # region PipingFailureMechanismView ViewInfo
+
+        private bool CloseGrassCoverErosionInwardsFailureMechanismViewForData(GrassCoverErosionInwardsFailureMechanismView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var pipingFailureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
+
+            var viewFailureMechanismContext = (GrassCoverErosionInwardsFailureMechanismContext)view.Data;
+            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
+                       : ReferenceEquals(viewFailureMechanism, pipingFailureMechanism);
+        }
+
+        # endregion
 
         #region GrassCoverErosionInwardsScenariosView ViewInfo
 
@@ -352,20 +377,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, RemoveAllViewsForItem)
-                          .AddSeparator()
-                          .AddValidateAllCalculationsInFailureMechanismItem(
-                              grassCoverErosionInwardsFailureMechanismContext,
-                              ValidateAll,
-                              ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
-                          .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
-                          .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
-                          .AddSeparator()
-                          .AddExpandAllItem()
-                          .AddCollapseAllItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
+            return builder
+                .AddOpenItem()
+                .AddSeparator()
+                .AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, RemoveAllViewsForItem)
+                .AddSeparator()
+                .AddValidateAllCalculationsInFailureMechanismItem(
+                    grassCoverErosionInwardsFailureMechanismContext,
+                    ValidateAll,
+                    ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                .AddPerformAllCalculationsInFailureMechanismItem(
+                    grassCoverErosionInwardsFailureMechanismContext,
+                    CalculateAll,
+                    ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
         }
 
         private void RemoveAllViewsForItem(GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext)

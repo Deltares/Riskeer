@@ -19,11 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -55,6 +59,62 @@ namespace Ringtoets.Common.Forms.Views
             return new MapPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName)
             {
                 Style = new PointStyle(Color.DarkBlue, 6, PointSymbol.Circle)
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="FailureMechanismSection"/>.
+        /// </summary>
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
+        public static MapLineData CreateFailureMechanismSectionsMapData()
+        {
+            return new MapLineData(Resources.FailureMechanism_Sections_DisplayName)
+            {
+                Style = new LineStyle(Color.Khaki, 3, DashStyle.Dot)
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="MapPointData"/> with default styling for the start points in collections of <see cref="FailureMechanismSection"/>.
+        /// </summary>
+        /// <returns>The created <see cref="MapPointData"/>.</returns>
+        public static MapPointData CreateFailureMechanismSectionsStartPointMapData()
+        {
+            var mapDataName = String.Format("{0} ({1})",
+                                            Resources.FailureMechanism_Sections_DisplayName,
+                                            Resources.FailureMechanismSections_StartPoints_DisplayName);
+
+            return new MapPointData(mapDataName)
+            {
+                Style = new PointStyle(Color.DarkKhaki, 15, PointSymbol.Triangle)
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="MapPointData"/> with default styling for the end points in collections of <see cref="FailureMechanismSection"/>.
+        /// </summary>
+        /// <returns>The created <see cref="MapPointData"/>.</returns>
+        public static MapPointData CreateFailureMechanismSectionsEndPointMapData()
+        {
+            var mapDataName = String.Format("{0} ({1})",
+                                            Resources.FailureMechanism_Sections_DisplayName,
+                                            Resources.FailureMechanismSections_EndPoints_DisplayName);
+
+            return new MapPointData(mapDataName)
+            {
+                Style = new PointStyle(Color.DarkKhaki, 15, PointSymbol.Triangle)
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="DikeProfile"/>.
+        /// </summary>
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
+        public static MapLineData CreateDikeProfileMapData()
+        {
+            return new MapLineData(Resources.DikeProfiles_DisplayName)
+            {
+                Style = new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid)
             };
         }
     }

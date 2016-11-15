@@ -23,7 +23,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
@@ -57,50 +56,6 @@ namespace Ringtoets.Piping.Forms.Views
             return new MapLineData(Resources.StochasticSoilModelCollection_DisplayName)
             {
                 Style = new LineStyle(Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid)
-            };
-        }
-
-        /// <summary>
-        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="FailureMechanismSection"/>.
-        /// </summary>
-        /// <returns>The created <see cref="MapLineData"/>.</returns>
-        public static MapLineData CreateFailureMechanismSectionsMapData()
-        {
-            return new MapLineData(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName)
-            {
-                Style = new LineStyle(Color.Khaki, 3, DashStyle.Dot)
-            };
-        }
-
-        /// <summary>
-        /// Create <see cref="MapPointData"/> with default styling for the start points in collections of <see cref="FailureMechanismSection"/>.
-        /// </summary>
-        /// <returns>The created <see cref="MapPointData"/>.</returns>
-        public static MapPointData CreateFailureMechanismSectionsStartPointMapData()
-        {
-            var mapDataName = string.Format("{0} ({1})",
-                                            RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
-                                            RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName);
-
-            return new MapPointData(mapDataName)
-            {
-                Style = new PointStyle(Color.DarkKhaki, 15, PointSymbol.Triangle)
-            };
-        }
-
-        /// <summary>
-        /// Create <see cref="MapPointData"/> with default styling for the end points in collections of <see cref="FailureMechanismSection"/>.
-        /// </summary>
-        /// <returns>The created <see cref="MapPointData"/>.</returns>
-        public static MapPointData CreateFailureMechanismSectionsEndPointMapData()
-        {
-            var mapDataName = string.Format("{0} ({1})",
-                                            RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
-                                            RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName);
-
-            return new MapPointData(mapDataName)
-            {
-                Style = new PointStyle(Color.DarkKhaki, 15, PointSymbol.Triangle)
             };
         }
     }

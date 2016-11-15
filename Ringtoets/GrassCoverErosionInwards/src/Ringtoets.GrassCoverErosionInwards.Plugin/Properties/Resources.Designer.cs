@@ -99,14 +99,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
                 return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijkprofielen.
-        /// </summary>
-        internal static string GrassCoverErosionInwardsPlugin_DikeProfilesContext_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_DikeProfilesContext_DisplayName", resourceCulture);
-            }
-        }
     }
 }
