@@ -49,7 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         {
             5
         }, 6)]
-        [TestCase(HydraRingFailureMechanismType.DikesHeight, 101, new[]
+        [TestCase(HydraRingFailureMechanismType.HydraulicLoads, 101, new[]
         {
             102,
             103

@@ -102,7 +102,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     new DesignTablesSetting(10, 50)
                 },
                 {
-                    HydraRingFailureMechanismType.DikesHeight,
+                    HydraRingFailureMechanismType.HydraulicLoads,
                     new DesignTablesSetting(2, 4)
                 },
                 {

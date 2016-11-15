@@ -100,7 +100,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<int, VariableDefaults>
+                    HydraRingFailureMechanismType.HydraulicLoads, new Dictionary<int, VariableDefaults>
                     {
                         {
                             1, new VariableDefaults(300)

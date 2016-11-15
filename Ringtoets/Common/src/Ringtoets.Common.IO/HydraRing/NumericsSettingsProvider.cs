@@ -140,7 +140,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<int, NumericsSetting>
+                    HydraRingFailureMechanismType.HydraulicLoads, new Dictionary<int, NumericsSetting>
                     {
                         {
                             102, numericsSettingFDir

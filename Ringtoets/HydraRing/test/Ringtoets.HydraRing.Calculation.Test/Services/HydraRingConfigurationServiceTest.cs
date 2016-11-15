@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
             var calculationInput1 = new HydraRingCalculationInputImplementation(1, 2);
             var calculationInput2 = new HydraRingCalculationInputImplementation(2, 3);
-            calculationInput2.SetFailureMechanismType(HydraRingFailureMechanismType.DikesHeight);
+            calculationInput2.SetFailureMechanismType(HydraRingFailureMechanismType.HydraulicLoads);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput1);
 

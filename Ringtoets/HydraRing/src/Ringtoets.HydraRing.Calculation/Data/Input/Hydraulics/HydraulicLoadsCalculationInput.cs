@@ -96,7 +96,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         {
             get
             {
-                return HydraRingFailureMechanismType.DikesHeight;
+                return HydraRingFailureMechanismType.HydraulicLoads;
             }
         }
 

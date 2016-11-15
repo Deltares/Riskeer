@@ -77,7 +77,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsInstanceOf<ReliabilityIndexCalculationInput>(input);
             Assert.AreEqual(9, input.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
-            Assert.AreEqual(HydraRingFailureMechanismType.DikesHeight, input.FailureMechanismType);
+            Assert.AreEqual(HydraRingFailureMechanismType.HydraulicLoads, input.FailureMechanismType);
             Assert.IsNotNull(input.Section);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultHydraulicLoadsVariables().ToArray(), input.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, input.ProfilePoints);
