@@ -191,10 +191,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 var cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
                 var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
+                DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
 
-                Assert.AreEqual(checkBoxSelected, (bool) cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.AreEqual(checkBoxSelected, (bool)dataGridViewCell.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
 
                 var cellAssessmentLayerTwoABackColor = cellAssessmentLayerTwoA.Style.BackColor;
                 var cellAssessmentLayerTwoAForeColor = cellAssessmentLayerTwoA.Style.ForeColor;
@@ -293,7 +295,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenSectionResultWithoutCalculation_ThenLayerTwoANoError()
+        public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip()
         {
             // Given
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
@@ -315,7 +317,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
-                Assert.IsEmpty(dataGridViewCell.ErrorText);
+                Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.", dataGridViewCell.ErrorText);
             }
         }
 
@@ -347,7 +349,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
-                Assert.AreEqual("De maatgevende berekening voor dit vak is niet uitgevoerd.", dataGridViewCell.ErrorText);
+                Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.", dataGridViewCell.ErrorText);
             }
         }
 

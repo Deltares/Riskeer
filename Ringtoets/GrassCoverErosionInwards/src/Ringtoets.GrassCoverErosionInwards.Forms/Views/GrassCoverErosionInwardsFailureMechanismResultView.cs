@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         public GrassCoverErosionInwardsFailureMechanismResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(ShowAssementLayerTwoAErrors);
+            DataGridViewControl.AddCellFormattingHandler(ShowAssessmentLayerTwoAErrors);
             DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -86,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.RemoveCellFormattingHandler(ShowAssementLayerTwoAErrors);
+            DataGridViewControl.RemoveCellFormattingHandler(ShowAssessmentLayerTwoAErrors);
             DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             calculationInputObserver.Dispose();
@@ -134,7 +134,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        private void ShowAssementLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
+        private void ShowAssessmentLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex != assessmentLayerTwoAIndex)
             {
@@ -148,9 +148,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             {
                 GrassCoverErosionInwardsCalculation normativeCalculation = resultRow.GetSectionResultCalculation();
 
-                if (resultRow.AssessmentLayerOne || normativeCalculation == null)
+                if (resultRow.AssessmentLayerOne)
                 {
                     currentDataGridViewCell.ErrorText = string.Empty;
+                    return;
+                }
+
+                if (normativeCalculation == null)
+                {
+                    currentDataGridViewCell.ErrorText = Resources.GrassCoverErosionInwardsFailureMechanismResultView_Calculation_not_set;
                     return;
                 }
 
