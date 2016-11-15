@@ -47,7 +47,10 @@ namespace Ringtoets.Common.Forms.Views
         public static MapFeature[] CreateReferenceLineFeatures(ReferenceLine referenceLine)
         {
             return referenceLine != null
-                       ? GetMapFeatures(referenceLine.Points)
+                       ? new[]
+                       {
+                           GetAsSingleMapFeature(referenceLine.Points)
+                       }
                        : new MapFeature[0];
         }
 
@@ -59,7 +62,7 @@ namespace Ringtoets.Common.Forms.Views
         public static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             return hydraulicBoundaryDatabase != null
-                       ? GetMapFeatures(hydraulicBoundaryDatabase.Locations.Select(l => l.Location))
+                       ? GetAsMapFeatures(hydraulicBoundaryDatabase.Locations.Select(l => l.Location))
                        : new MapFeature[0];
         }
 
@@ -89,7 +92,10 @@ namespace Ringtoets.Common.Forms.Views
         public static MapFeature[] CreateFailureMechanismSectionStartPointFeatures(IEnumerable<FailureMechanismSection> sections)
         {
             return sections != null && sections.Any()
-                       ? GetMapFeatures(sections.Select(sl => sl.GetStart()))
+                       ? new[]
+                       {
+                           GetAsSingleMapFeature(sections.Select(sl => sl.GetStart()))
+                       }
                        : new MapFeature[0];
         }
 
@@ -101,7 +107,10 @@ namespace Ringtoets.Common.Forms.Views
         public static MapFeature[] CreateFailureMechanismSectionEndPointFeatures(IEnumerable<FailureMechanismSection> sections)
         {
             return sections != null && sections.Any()
-                       ? GetMapFeatures(sections.Select(sl => sl.GetLast()))
+                       ? new []
+                       {
+                           GetAsSingleMapFeature(sections.Select(sl => sl.GetLast()))
+                       }
                        : new MapFeature[0];
         }
 
@@ -145,18 +154,29 @@ namespace Ringtoets.Common.Forms.Views
             };
         }
 
-        private static MapFeature[] GetMapFeatures(IEnumerable<Point2D> points)
+        private static MapFeature GetAsSingleMapFeature(IEnumerable<Point2D> points)
         {
-            return new[]
+            return new MapFeature(new[]
             {
-                new MapFeature(new[]
+                new MapGeometry(new[]
                 {
-                    new MapGeometry(new[]
-                    {
-                        points
-                    })
+                    points
                 })
-            };
+            });
+        }
+
+        private static MapFeature[] GetAsMapFeatures(IEnumerable<Point2D> points)
+        {
+            return points.Select(p => new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        p
+                    }
+                })
+            })).ToArray();
         }
     }
 }

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Features;
@@ -91,7 +90,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
 
             // Assert
-            AssertEqualPointCollections(points, features.ElementAt(0).MapGeometries.ElementAt(0));
+            AssertEqualFeatureCollections(points, features);
         }
 
         [Test]
@@ -248,6 +247,15 @@ namespace Ringtoets.Common.Forms.Test.Views
                 pointsOne[1],
                 pointsTwo[1]
             }, features.ElementAt(0).MapGeometries.ElementAt(0));
+        }
+
+        private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
+        {
+            Assert.AreEqual(points.Length, features.Length);
+            for (int i = 0; i < points.Length; i++)
+            {
+                CollectionAssert.AreEqual(new[] { points[i] }, features[i].MapGeometries.First().PointCollections.First());
+            }
         }
 
         private static void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)
