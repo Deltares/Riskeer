@@ -38,18 +38,37 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<StabilityPointStructure>>>(context);
+            Assert.AreSame(failureMechanism.StabilityPointStructures, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ParameterdConstructor_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var structures = new ObservableList<StabilityPointStructure>();
 
             // Call
-            var context = new StabilityPointStructuresContext(structures, assessmentSectionMock);
+            TestDelegate call = () => new StabilityPointStructuresContext(structures, null, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<StabilityPointStructure>>>(context);
-            Assert.AreSame(structures, context.WrappedData);
-            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
+            string parmaName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", parmaName);
             mocks.VerifyAll();
         }
 
@@ -57,10 +76,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var structures = new ObservableList<StabilityPointStructure>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate test = () => new StabilityPointStructuresContext(structures, null);
+            TestDelegate test = () => new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

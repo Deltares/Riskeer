@@ -34,7 +34,6 @@ using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -145,118 +144,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_RemovingProfileFromContainer_ProfileRemovedFromContainer()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            ClosingStructure nodeData = new TestClosingStructure();
-            var failureMechanism = new ClosingStructuresFailureMechanism
-            {
-                ClosingStructures =
-                {
-                    nodeData
-                }
-            };
-            failureMechanism.ClosingStructures.Attach(observer);
-
-            var parentData = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.ClosingStructures, nodeData);
-        }
-
-        [Test]
-        public void OnNodeRemoved_RemovingProfilePartOfCalculation_CalculationProfileCleared()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var calculation1Observer = mocks.StrictMock<IObserver>();
-            calculation1Observer.Expect(o => o.UpdateObserver());
-            var calculation2Observer = mocks.StrictMock<IObserver>();
-            calculation2Observer.Expect(o => o.UpdateObserver());
-            var calculation3Observer = mocks.StrictMock<IObserver>();
-            calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-            mocks.ReplayAll();
-
-            ClosingStructure nodeData = new TestClosingStructure("A");
-            ClosingStructure otherProfile = new TestClosingStructure("B");
-
-            var calculation1 = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = nodeData
-                }
-            };
-            calculation1.InputParameters.Attach(calculation1Observer);
-            var calculation2 = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = nodeData
-                }
-            };
-            calculation2.InputParameters.Attach(calculation2Observer);
-            var calculation3 = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = otherProfile
-                }
-            };
-            calculation3.InputParameters.Attach(calculation3Observer);
-
-            var calculationGroup = new CalculationGroup("A", true)
-            {
-                Children =
-                {
-                    calculation2
-                }
-            };
-
-            var failureMechanism = new ClosingStructuresFailureMechanism
-            {
-                ClosingStructures =
-                {
-                    nodeData,
-                    otherProfile
-                },
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculation1,
-                        calculationGroup,
-                        calculation3
-                    }
-                }
-            };
-            failureMechanism.ClosingStructures.Attach(observer);
-
-            var parentData = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.ClosingStructures, nodeData);
-
-            Assert.IsNull(calculation1.InputParameters.Structure);
-            Assert.IsNull(calculation2.InputParameters.Structure);
-            Assert.IsNotNull(calculation3.InputParameters.Structure);
-        }
-
-        [Test]
-        public void OnNodeRemoved_RemovingProfilePartOfCalculationOfSectionResult_SectionResultCalculationCleared()
+        public void OnNodeRemoved_RemovingProfilePartOfCalculationOfSectionResult_ProfileRemovedFromFailureMechanismAndCalculationProfileClearedAndSectionResultCalculationCleared()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();

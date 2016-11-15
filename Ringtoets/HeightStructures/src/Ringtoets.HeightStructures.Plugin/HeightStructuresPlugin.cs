@@ -228,41 +228,6 @@ namespace Ringtoets.HeightStructures.Plugin
             return null;
         }
 
-        #region HeightStructure TreeNodeInfo
-
-        private bool CanRemoveHeightStructure(HeightStructure nodeData, object parentData)
-        {
-            return parentData is HeightStructuresContext;
-        }
-
-        private void OnHeightStructureRemoved(HeightStructure nodeData, object parentData)
-        {
-            var parentContext = (HeightStructuresContext) parentData;
-            var changedObservables = new List<IObservable>();
-            StructuresCalculation<HeightStructuresInput>[] heightStructureCalculations = parentContext.ParentFailureMechanism.Calculations
-                                                                                                      .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                                                                                      .ToArray();
-            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedHeightStructure = heightStructureCalculations
-                .Where(c => ReferenceEquals(c.InputParameters.Structure, nodeData))
-                .ToArray();
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedHeightStructure)
-            {
-                calculation.InputParameters.Structure = null;
-                StructuresHelper.Delete(parentContext.ParentFailureMechanism.SectionResults, calculation, heightStructureCalculations);
-                changedObservables.Add(calculation.InputParameters);
-            }
-
-            parentContext.WrappedData.Remove(nodeData);
-            changedObservables.Add(parentContext.WrappedData);
-
-            foreach (IObservable observable in changedObservables)
-            {
-                observable.NotifyObservers();
-            }
-        }
-
-        #endregion
-
         #region ViewInfo
 
         #region HeightStructuresFailureMechanismResultView ViewInfo
@@ -316,6 +281,41 @@ namespace Ringtoets.HeightStructures.Plugin
         #endregion
 
         #region TreeNodeInfos
+
+        #region HeightStructure TreeNodeInfo
+
+        private bool CanRemoveHeightStructure(HeightStructure nodeData, object parentData)
+        {
+            return parentData is HeightStructuresContext;
+        }
+
+        private void OnHeightStructureRemoved(HeightStructure nodeData, object parentData)
+        {
+            var parentContext = (HeightStructuresContext)parentData;
+            var changedObservables = new List<IObservable>();
+            StructuresCalculation<HeightStructuresInput>[] heightStructureCalculations = parentContext.ParentFailureMechanism.Calculations
+                                                                                                      .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                                                      .ToArray();
+            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedHeightStructure = heightStructureCalculations
+                .Where(c => ReferenceEquals(c.InputParameters.Structure, nodeData))
+                .ToArray();
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedHeightStructure)
+            {
+                calculation.InputParameters.Structure = null;
+                StructuresHelper.Delete(parentContext.ParentFailureMechanism.SectionResults, calculation, heightStructureCalculations);
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            parentContext.WrappedData.Remove(nodeData);
+            changedObservables.Add(parentContext.WrappedData);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        #endregion
 
         #region HeightStructuresFailureMechanismContext TreeNodeInfo
 

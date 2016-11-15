@@ -26,14 +26,18 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
 {
     public class TestStabilityPointStructure : StabilityPointStructure
     {
-        public TestStabilityPointStructure() : this("aName") {}
+        public TestStabilityPointStructure() : this("aName", new Point2D(1.234, 2.3456)) {}
 
-        public TestStabilityPointStructure(string name)
+        public TestStabilityPointStructure(Point2D point) : this("aName", point) {}
+
+        public TestStabilityPointStructure(string name) : this(name, new Point2D(1.234, 2.3456)) {}
+
+        private TestStabilityPointStructure(string name, Point2D point)
             : base(new ConstructionProperties
             {
                 Name = name,
                 Id = "anId",
-                Location = new Point2D(1.234, 2.3456),
+                Location = point,
                 StructureNormalOrientation = 123.456,
                 StorageStructureArea =
                 {

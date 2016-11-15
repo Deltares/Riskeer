@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -78,7 +77,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new StabilityPointStructuresContext(new ObservableList<StabilityPointStructure>(),
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
+                                                              failureMechanism,
                                                               assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
@@ -103,7 +104,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new StabilityPointStructuresContext(new ObservableList<StabilityPointStructure>(),
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
+                                                              failureMechanism,
                                                               assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
@@ -127,15 +130,20 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var structures = new ObservableList<StabilityPointStructure>
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
-                new TestStabilityPointStructure()
+                StabilityPointStructures =
+                {
+                    new TestStabilityPointStructure()
+                }
             };
 
             // Precondition
-            CollectionAssert.IsNotEmpty(structures);
+            CollectionAssert.IsNotEmpty(failureMechanism.StabilityPointStructures);
 
-            var context = new StabilityPointStructuresContext(structures, assessmentSection);
+            var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
+                                                              failureMechanism,
+                                                              assessmentSection);
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var info = GetInfo(plugin);
@@ -159,13 +167,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
             StabilityPointStructure structure1 = new TestStabilityPointStructure();
             StabilityPointStructure structure2 = new TestStabilityPointStructure();
-            var stabilityPointStructures = new ObservableList<StabilityPointStructure>
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
-                structure1,
-                structure2
+                StabilityPointStructures =
+                {
+                    structure1,
+                    structure2
+                }
             };
 
-            var context = new StabilityPointStructuresContext(stabilityPointStructures, assessmentSection);
+            var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
+                                                              failureMechanism,
+                                                              assessmentSection);
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var info = GetInfo(plugin);
@@ -189,12 +202,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var stabilityPointStructures = new ObservableList<StabilityPointStructure>();
+            var faliureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Precondition
-            CollectionAssert.IsEmpty(stabilityPointStructures);
+            CollectionAssert.IsEmpty(faliureMechanism.StabilityPointStructures);
 
-            var context = new StabilityPointStructuresContext(stabilityPointStructures, assessmentSection);
+            var context = new StabilityPointStructuresContext(faliureMechanism.StabilityPointStructures,
+                                                              faliureMechanism,
+                                                              assessmentSection);
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var info = GetInfo(plugin);
@@ -214,6 +229,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);

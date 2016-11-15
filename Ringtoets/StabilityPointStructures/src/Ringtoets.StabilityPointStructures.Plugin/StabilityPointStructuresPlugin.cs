@@ -118,6 +118,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddDeleteChildrenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()
                                                                                  .AddExpandAllItem()
@@ -130,8 +132,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 Text = structure => structure.Name,
                 Image = structure => RingtoetsCommonFormsResources.StructuresIcon,
                 ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
+                                                                                  .AddDeleteItem()
+                                                                                  .AddSeparator()
                                                                                   .AddPropertiesItem()
-                                                                                  .Build()
+                                                                                  .Build(),
+                CanRemove = CanRemoveStabilityPointStructure,
+                OnNodeRemoved = OnStabilityPointStructureRemoved
             };
 
             yield return new TreeNodeInfo<StabilityPointStructuresScenariosContext>
@@ -280,6 +286,41 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         #region TreeNodeInfo
 
+        #region StabilityPointStructure TreeNodeInfo
+
+        private bool CanRemoveStabilityPointStructure(StabilityPointStructure nodeData, object parentData)
+        {
+            return parentData is StabilityPointStructuresContext;
+        }
+
+        private void OnStabilityPointStructureRemoved(StabilityPointStructure nodeData, object parentData)
+        {
+            var parentContext = (StabilityPointStructuresContext) parentData;
+            var changedObservables = new List<IObservable>();
+            StructuresCalculation<StabilityPointStructuresInput>[] heightStructureCalculations = parentContext.FailureMechanism.Calculations
+                                                                                                              .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                                              .ToArray();
+            StructuresCalculation<StabilityPointStructuresInput>[] calculationWithRemovedStabilityPointStructure = heightStructureCalculations
+                .Where(c => ReferenceEquals(c.InputParameters.Structure, nodeData))
+                .ToArray();
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedStabilityPointStructure)
+            {
+                calculation.InputParameters.Structure = null;
+                StructuresHelper.Delete(parentContext.FailureMechanism.SectionResults, calculation, heightStructureCalculations);
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            parentContext.WrappedData.Remove(nodeData);
+            changedObservables.Add(parentContext.WrappedData);
+
+            foreach (IObservable observable in changedObservables)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
+        #endregion
+
         #region StabilityPointStructuresFailureMechanismContext TreeNodeInfo
 
         private static object[] FailureMechanismEnabledChildNodeObjects(StabilityPointStructuresFailureMechanismContext stabilityPointStructuresFailureMechanismContext)
@@ -313,7 +354,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, assessmentSection),
+                new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, failureMechanism, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }

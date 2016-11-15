@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -43,13 +42,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.ReferenceLine = new ReferenceLine();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var list = new ObservableList<StabilityPointStructure>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var importTarget = new StabilityPointStructuresContext(list, assessmentSectionMock);
+            var importTarget = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
+                                                                   failureMechanism,
+                                                                   assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {
@@ -133,13 +134,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.ReferenceLine = new ReferenceLine();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var list = new ObservableList<StabilityPointStructure>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var context = new StabilityPointStructuresContext(list, assessmentSectionMock);
+            var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
+                                                              failureMechanism,
+                                                              assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {
@@ -159,12 +162,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var list = new ObservableList<StabilityPointStructure>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var context = new StabilityPointStructuresContext(list, assessmentSectionMock);
+            var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
+                                                              failureMechanism,
+                                                              assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {

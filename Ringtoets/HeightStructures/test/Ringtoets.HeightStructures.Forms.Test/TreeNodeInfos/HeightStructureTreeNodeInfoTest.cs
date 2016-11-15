@@ -30,7 +30,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
@@ -147,122 +146,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_RemovingProfileFromContainer_ProfileRemovedFromContainer()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            HeightStructure nodeData = new TestHeightStructure();
-            var failureMechanism = new HeightStructuresFailureMechanism
-            {
-                HeightStructures =
-                {
-                    nodeData
-                }
-            };
-            failureMechanism.HeightStructures.Attach(observer);
-
-            var parentData = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.HeightStructures, nodeData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OnNodeRemoved_RemovingProfilePartOfCalculation_CalculationProfileCleared()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var calculation1Observer = mocks.StrictMock<IObserver>();
-            calculation1Observer.Expect(o => o.UpdateObserver());
-            var calculation2Observer = mocks.StrictMock<IObserver>();
-            calculation2Observer.Expect(o => o.UpdateObserver());
-            var calculation3Observer = mocks.StrictMock<IObserver>();
-            calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-            mocks.ReplayAll();
-
-            HeightStructure nodeData = new TestHeightStructure("A");
-            HeightStructure otherProfile = new TestHeightStructure("B");
-
-            var calculation1 = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = nodeData
-                }
-            };
-            calculation1.InputParameters.Attach(calculation1Observer);
-            var calculation2 = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = nodeData
-                }
-            };
-            calculation2.InputParameters.Attach(calculation2Observer);
-            var calculation3 = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = otherProfile
-                }
-            };
-            calculation3.InputParameters.Attach(calculation3Observer);
-
-            var calculationGroup = new CalculationGroup("A", true)
-            {
-                Children =
-                {
-                    calculation2
-                }
-            };
-
-            var failureMechanism = new HeightStructuresFailureMechanism
-            {
-                HeightStructures =
-                {
-                    nodeData,
-                    otherProfile
-                },
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculation1,
-                        calculationGroup,
-                        calculation3
-                    }
-                }
-            };
-            failureMechanism.HeightStructures.Attach(observer);
-
-            var parentData = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.HeightStructures, nodeData);
-
-            Assert.IsNull(calculation1.InputParameters.Structure);
-            Assert.IsNull(calculation2.InputParameters.Structure);
-            Assert.IsNotNull(calculation3.InputParameters.Structure);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OnNodeRemoved_RemovingProfilePartOfCalculationOfSectionResult_SectionResultCalculationCleared()
+        public void OnNodeRemoved_RemovingProfilePartOfCalculationOfSectionResult_ProfileRemovedFromFailureMechanismAndCalculationProfileClearedAndSectionResultCalculationCleared()
         {
             // Setup
             var mocks = new MockRepository();

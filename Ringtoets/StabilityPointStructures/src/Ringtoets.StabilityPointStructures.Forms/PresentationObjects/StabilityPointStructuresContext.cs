@@ -36,22 +36,33 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         /// Creates an instance of <see cref="StabilityPointStructuresContext"/>.
         /// </summary>
         /// <param name="stabilityPointStructures">The wrapped <see cref="ObservableList{T}"/> containing <see cref="StabilityPointStructure"/>.</param>
+        /// <param name="failureMechanism"></param>
         /// <param name="assessmentSection">The assessment section which the <paramref name="stabilityPointStructures"/> belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are <c>null</c>.</exception>
-        public StabilityPointStructuresContext(ObservableList<StabilityPointStructure> stabilityPointStructures, IAssessmentSection assessmentSection)
+        public StabilityPointStructuresContext(ObservableList<StabilityPointStructure> stabilityPointStructures, StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(stabilityPointStructures)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
             }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
 
             AssessmentSection = assessmentSection;
+            FailureMechanism = failureMechanism;
         }
 
         /// <summary>
         /// Gets the assessment section of this instance.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
+
+        /// <summary>
+        /// Gets the parent failure mechanism of this instance.
+        /// </summary>
+        public StabilityPointStructuresFailureMechanism FailureMechanism { get; private set; }
     }
 }
