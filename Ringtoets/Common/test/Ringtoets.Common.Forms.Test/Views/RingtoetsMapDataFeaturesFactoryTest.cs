@@ -90,6 +90,17 @@ namespace Ringtoets.Common.Forms.Test.Views
             MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
 
             // Assert
+            var hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
+            Assert.AreEqual(hydraulicBoundaryLocations.Count, features.Length);
+            for (int i = 0; i < hydraulicBoundaryLocations.Count; i++)
+            {
+                Assert.AreEqual(4, features[i].MetaData.Keys.Count);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].Id, features[i].MetaData["ID"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].Name, features[i].MetaData["Name"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].DesignWaterLevel, features[i].MetaData["DesignWaterLevel"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].WaveHeight, features[i].MetaData["WaveHeight"]);
+            }
+
             AssertEqualFeatureCollections(points, features);
         }
 

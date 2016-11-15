@@ -61,9 +61,27 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</returns>
         public static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            return hydraulicBoundaryDatabase != null
-                       ? GetAsMapFeatures(hydraulicBoundaryDatabase.Locations.Select(l => l.Location))
-                       : new MapFeature[0];
+            var features = new List<MapFeature>();
+
+            if (hydraulicBoundaryDatabase != null)
+            {
+                foreach (var location in hydraulicBoundaryDatabase.Locations)
+                {
+                    var feature = GetAsSingleMapFeature(new[]
+                    {
+                        location.Location
+                    });
+
+                    feature.MetaData["ID"] = location.Id;
+                    feature.MetaData["Name"] = location.Name;
+                    feature.MetaData["DesignWaterLevel"] = location.DesignWaterLevel;
+                    feature.MetaData["WaveHeight"] = location.WaveHeight;
+
+                    features.Add(feature);
+                }
+            }
+
+            return features.ToArray();
         }
 
         /// <summary>
@@ -163,20 +181,6 @@ namespace Ringtoets.Common.Forms.Views
                     points
                 })
             });
-        }
-
-        private static MapFeature[] GetAsMapFeatures(IEnumerable<Point2D> points)
-        {
-            return points.Select(p => new MapFeature(new[]
-            {
-                new MapGeometry(new[]
-                {
-                    new[]
-                    {
-                        p
-                    }
-                })
-            })).ToArray();
         }
     }
 }
