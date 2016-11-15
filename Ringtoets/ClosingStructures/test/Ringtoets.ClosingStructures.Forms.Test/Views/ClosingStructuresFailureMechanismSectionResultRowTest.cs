@@ -24,7 +24,10 @@ using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.Views;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -50,6 +53,116 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructuresFailureMechanismSectionResultRow,
                               FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_NoCalculationSet_ReturnNaN()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            // Precondition
+            Assert.IsNull(sectionResult.Calculation);
+
+            var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(assessmentLayerTwoA);
+        }
+
+        [Test]
+        [TestCase(CalculationScenarioStatus.Failed)]
+        [TestCase(CalculationScenarioStatus.NotCalculated)]
+        public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
+        {
+            // Setup
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            if (status == CalculationScenarioStatus.Failed)
+            {
+                calculation.Output = new ProbabilityAssessmentOutput(0.9, 1.0, double.NaN, 1.0, 1.0);
+            }
+
+            FailureMechanismSection section = CreateSection();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = calculation
+            };
+
+            var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(assessmentLayerTwoA);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0.9, 1.0, 0.95, 1.0, 1.0)
+            };
+
+            FailureMechanismSection section = CreateSection();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = calculation
+            };
+
+            var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.AreEqual(calculation.Output.Probability, assessmentLayerTwoA);
+        }
+
+        [Test]
+        public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            // Precondition
+            Assert.IsNull(result.Calculation);
+
+            var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
+
+            // Call
+            StructuresCalculation<ClosingStructuresInput> calculation = row.GetSectionResultCalculation();
+
+            // Assert
+            Assert.IsNull(calculation);
+        }
+
+        [Test]
+        public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
+        {
+            // Setup
+            var expectedCalculation = new StructuresCalculation<ClosingStructuresInput>();
+
+            FailureMechanismSection section = CreateSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = expectedCalculation
+            };
+
+            var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
+
+            // Call
+            StructuresCalculation<ClosingStructuresInput> calculation = row.GetSectionResultCalculation();
+
+            // Assert
+            Assert.AreSame(expectedCalculation, calculation);
         }
 
         private static FailureMechanismSection CreateSection()

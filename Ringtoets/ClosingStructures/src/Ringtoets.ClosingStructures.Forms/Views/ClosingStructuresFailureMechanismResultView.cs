@@ -27,6 +27,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -38,7 +39,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
     public class ClosingStructuresFailureMechanismResultView : FailureMechanismResultView<ClosingStructuresFailureMechanismSectionResult>
     {
         private const int assessmentLayerOneColumnIndex = 1;
-
+        private const int assessmentLayerTwoAIndex = 2;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
@@ -48,6 +49,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// </summary>
         public ClosingStructuresFailureMechanismResultView()
         {
+            DataGridViewControl.AddCellFormattingHandler(ShowAssessmentLayerErrors);
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -90,6 +92,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
+            DataGridViewControl.RemoveCellFormattingHandler(ShowAssessmentLayerErrors);
             DataGridViewControl.RemoveCellFormattingHandler(OnCellFormatting);
 
             calculationInputObserver.Dispose();
@@ -128,6 +131,26 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 {
                     DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
+            }
+        }
+
+        private void ShowAssessmentLayerErrors(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex != assessmentLayerTwoAIndex)
+            {
+                return;
+            }
+
+            var resultRow = (ClosingStructuresFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
+            if (resultRow != null)
+            {
+                DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
+                StructuresCalculation<ClosingStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
+
+                FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(currentDataGridViewCell,
+                                                                                     resultRow.AssessmentLayerOne,
+                                                                                     resultRow.AssessmentLayerTwoA,
+                                                                                     normativeCalculation);
             }
         }
     }
