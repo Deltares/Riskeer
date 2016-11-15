@@ -31,7 +31,9 @@ using Core.Components.Gis.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -190,6 +192,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 grassCoverErosionInwardsFailureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 grassCoverErosionInwardsFailureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
+                grassCoverErosionInwardsFailureMechanism.DikeProfiles.Add(new TestDikeProfile());
+                grassCoverErosionInwardsFailureMechanism.DikeProfiles.Add(new TestDikeProfile());
+
                 var grassCoverErosionInwardsContext = new GrassCoverErosionInwardsFailureMechanismContext(grassCoverErosionInwardsFailureMechanism, assessmentSection);
 
                 // Call
@@ -208,6 +213,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 AssertFailureMechanismSectionsStartPointMapData(grassCoverErosionInwardsFailureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 AssertFailureMechanismSectionsEndPointMapData(grassCoverErosionInwardsFailureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase, mapDataList[hydraulicBoundaryDatabaseIndex]);
+                AssertDikeProfiles(grassCoverErosionInwardsFailureMechanism.DikeProfiles, mapDataList[dikeProfilesIndex]);
             }
         }
 
@@ -330,6 +336,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 AssertFailureMechanismSectionsMapData(grassCoverErosionInwardsFailureMechanism.Sections, sectionMapData);
                 AssertFailureMechanismSectionsStartPointMapData(grassCoverErosionInwardsFailureMechanism.Sections, sectionStartsMapData);
                 AssertFailureMechanismSectionsEndPointMapData(grassCoverErosionInwardsFailureMechanism.Sections, sectionsEndsMapData);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_DikeProfilesUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            {
+                var map = (MapControl)view.Controls[0];
+
+                var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var grassCoverErosionInwardsContext = new GrassCoverErosionInwardsFailureMechanismContext(grassCoverErosionInwardsFailureMechanism, new TestAssessmentSection());
+
+                grassCoverErosionInwardsFailureMechanism.DikeProfiles.Add(new TestDikeProfile());
+
+                view.Data = grassCoverErosionInwardsContext;
+
+                var dikeProfileData = map.Data.Collection.ElementAt(dikeProfilesIndex);
+
+                // Precondition
+                AssertDikeProfiles(grassCoverErosionInwardsFailureMechanism.DikeProfiles, dikeProfileData);
+
+                // Call
+                grassCoverErosionInwardsFailureMechanism.DikeProfiles.Add(new TestDikeProfile());
+                grassCoverErosionInwardsFailureMechanism.DikeProfiles.NotifyObservers();
+
+                // Assert
+                AssertDikeProfiles(grassCoverErosionInwardsFailureMechanism.DikeProfiles, dikeProfileData);
             }
         }
 
@@ -461,6 +496,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Referentielijn", mapData.Name);
+        }
+
+        private static void AssertDikeProfiles(IEnumerable<DikeProfile> dikeProfiles, MapData mapData)
+        {
+            Assert.NotNull(dikeProfiles, "dikeProfiles should never be null.");
+            Assert.IsInstanceOf<MapLineData>(mapData);
+            var dikeProfilesData = (MapLineData) mapData;
+            Assert.AreEqual(2, dikeProfilesData.Features.Length);
+
+            var foreshoreProfileData = dikeProfilesData.Features.ElementAt(0).MapGeometries.ToArray();
+            var dikeProfileData = dikeProfilesData.Features.ElementAt(1).MapGeometries.ToArray();
+            var dikeProfileArray = dikeProfiles.ToArray();
+            Assert.AreEqual(dikeProfileArray.Length, foreshoreProfileData.Length);
+            Assert.AreEqual(dikeProfileArray.Length, dikeProfileData.Length);
+
+            for (int index = 0; index < dikeProfileArray.Length; index++)
+            {
+                var dikeProfile = dikeProfileArray.ElementAt(index);
+                CollectionAssert.AreEquivalent(dikeProfile.DikeGeometry, dikeProfileData[index].PointCollections.First());
+                CollectionAssert.AreEquivalent(dikeProfile.ForeshoreProfile.Geometry, foreshoreProfileData[index].PointCollections.First());
+            }
+            Assert.AreEqual("Dijkprofielen", mapData.Name);
         }
 
         private static void AssertHydraulicBoundaryLocationsMapData(HydraulicBoundaryDatabase database, MapData mapData)

@@ -25,28 +25,28 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.Views;
-using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
-using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
+using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin.Test.ViewInfos
+namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class PipingFailureMechanismViewInfoTest
+    public class GrassCoverErosionInwardsFailureMechanismViewInfoTest
     {
         private MockRepository mocks;
-        private PipingPlugin plugin;
+        private GrassCoverErosionInwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new PipingPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(PipingFailureMechanismView));
+            plugin = new GrassCoverErosionInwardsPlugin();
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismView));
         }
 
         [TearDown]
@@ -59,28 +59,28 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(PipingFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContext), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, info.Image);
         }
 
         [Test]
-        public void GetViewName_WithPipingFailureMechanism_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithGrassCoverErosionInwardsFailureMechanism_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var grassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(grassCoverErosionInwardsFailureMechanism, assessmentSectionMock);
 
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 // Call
-                string viewName = info.GetViewName(view, pipingFailureMechanismContext);
+                string viewName = info.GetViewName(view, grassCoverErosionInwardsFailureMechanismContext);
 
                 // Assert
-                Assert.AreEqual(pipingFailureMechanism.Name, viewName);
+                Assert.AreEqual(grassCoverErosionInwardsFailureMechanism.Name, viewName);
             }
         }
 
@@ -92,12 +92,12 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var otherAssessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var grassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(grassCoverErosionInwardsFailureMechanism, assessmentSectionMock);
 
-            using (var view = new PipingFailureMechanismView
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView
             {
-                Data = pipingFailureMechanismContext
+                Data = grassCoverErosionInwardsFailureMechanismContext
             })
             {
                 // Call
@@ -116,12 +116,12 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var grassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(grassCoverErosionInwardsFailureMechanism, assessmentSectionMock);
 
-            using (var view = new PipingFailureMechanismView
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView
             {
-                Data = pipingFailureMechanismContext
+                Data = grassCoverErosionInwardsFailureMechanismContext
             })
             {
                 // Call
@@ -140,18 +140,18 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            var otherPipingFailureMechanism = new PipingFailureMechanism();
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var otherGrassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
+            var grassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(grassCoverErosionInwardsFailureMechanism, assessmentSectionMock);
 
-            using (var view = new PipingFailureMechanismView
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView
             {
-                Data = pipingFailureMechanismContext
+                Data = grassCoverErosionInwardsFailureMechanismContext
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, otherPipingFailureMechanism);
+                bool closeForData = info.CloseForData(view, otherGrassCoverErosionInwardsFailureMechanism);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -166,16 +166,16 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var grassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(grassCoverErosionInwardsFailureMechanism, assessmentSectionMock);
 
-            using (var view = new PipingFailureMechanismView
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView
             {
-                Data = pipingFailureMechanismContext
+                Data = grassCoverErosionInwardsFailureMechanismContext
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, pipingFailureMechanism);
+                bool closeForData = info.CloseForData(view, grassCoverErosionInwardsFailureMechanism);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -192,12 +192,12 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
-            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);

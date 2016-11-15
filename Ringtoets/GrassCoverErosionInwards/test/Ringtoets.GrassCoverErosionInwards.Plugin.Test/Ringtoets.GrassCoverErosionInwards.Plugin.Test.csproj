@@ -60,6 +60,7 @@
     <Compile Include="ViewInfos\GrassCoverErosionInwardsFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsInputViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsScenariosViewInfoTest.cs" />
+    <Compile Include="ViewInfos\GrassCoverErosionInwardsFailureMechanismViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

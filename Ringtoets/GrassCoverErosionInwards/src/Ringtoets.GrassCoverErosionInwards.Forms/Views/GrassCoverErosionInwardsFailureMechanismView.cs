@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -39,7 +38,7 @@ using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInward
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for a GrassCoverErosionInwards failure mechanism.
+    /// This class is a view showing map data for a grass cover erosion inwards failure mechanism.
     /// </summary>
     public partial class GrassCoverErosionInwardsFailureMechanismView : UserControl, IMapView
     {
