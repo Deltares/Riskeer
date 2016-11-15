@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void ConstructorWithBreakWater_Always_ReturnsForeshoreProfileWithEmptyNameAndOnePointAtOriginAndBreakWater()
+        public void Constructor_WithBreakWater_ReturnsForeshoreProfileWithEmptyNameAndOnePointAtOriginAndBreakWater()
         {
             // Setup
             var breakWater = new BreakWater(BreakWaterType.Dam, 50.0);
