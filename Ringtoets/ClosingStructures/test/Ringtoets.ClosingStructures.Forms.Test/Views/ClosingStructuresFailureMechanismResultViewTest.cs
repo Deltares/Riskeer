@@ -46,7 +46,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         private const int assessmentLayerOneIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
-
         private Form testForm;
 
         [SetUp]
@@ -152,6 +151,59 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
+            }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(bool checkBoxSelected)
+        {
+            // Setup
+            using (CreateConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Call
+                dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = checkBoxSelected;
+
+                // Assert
+                var rows = dataGridView.Rows;
+
+                var cells = rows[0].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                var cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
+                var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
+                DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
+
+                Assert.AreEqual(checkBoxSelected, (bool) dataGridViewCell.FormattedValue);
+                Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
+                Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+
+                var cellAssessmentLayerTwoABackColor = cellAssessmentLayerTwoA.Style.BackColor;
+                var cellAssessmentLayerTwoAForeColor = cellAssessmentLayerTwoA.Style.ForeColor;
+                var cellAssessmentLayerThreeBackColor = cellAssessmentLayerThree.Style.BackColor;
+                var cellAssessmentLayerThreeForeColor = cellAssessmentLayerThree.Style.ForeColor;
+
+                if (checkBoxSelected)
+                {
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellAssessmentLayerTwoABackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellAssessmentLayerTwoAForeColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellAssessmentLayerThreeBackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellAssessmentLayerThreeForeColor);
+                }
+                else
+                {
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellAssessmentLayerTwoABackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerTwoAForeColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellAssessmentLayerThreeBackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerThreeForeColor);
+                }
+
+                Assert.AreEqual(checkBoxSelected, cellAssessmentLayerThree.ReadOnly);
             }
         }
 

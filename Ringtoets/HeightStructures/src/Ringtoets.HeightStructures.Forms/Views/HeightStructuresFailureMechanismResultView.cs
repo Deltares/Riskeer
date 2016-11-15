@@ -26,6 +26,7 @@ using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -37,6 +38,8 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// </summary>
     public class HeightStructuresFailureMechanismResultView : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult>
     {
+        private const int assessmentLayerOneColumnIndex = 1;
+        private const int assessmentLayerTwoAIndex = 2;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
@@ -46,6 +49,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// </summary>
         public HeightStructuresFailureMechanismResultView()
         {
+            DataGridViewControl.AddCellFormattingHandler(ShowAssessmentLayerErrors);
             DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -83,6 +87,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
+            DataGridViewControl.RemoveCellFormattingHandler(ShowAssessmentLayerErrors);
             DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             calculationInputObserver.Dispose();
@@ -117,7 +122,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > 1)
+            if (eventArgs.ColumnIndex > assessmentLayerOneColumnIndex)
             {
                 if (HasPassedLevelOne(eventArgs.RowIndex))
                 {
@@ -127,6 +132,26 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 {
                     DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
+            }
+        }
+
+        private void ShowAssessmentLayerErrors(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex != assessmentLayerTwoAIndex)
+            {
+                return;
+            }
+
+            var resultRow = (HeightStructuresFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
+            if (resultRow != null)
+            {
+                DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
+                StructuresCalculation<HeightStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
+
+                FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(currentDataGridViewCell,
+                                                                                     resultRow.AssessmentLayerOne,
+                                                                                     resultRow.AssessmentLayerTwoA,
+                                                                                     normativeCalculation);
             }
         }
     }

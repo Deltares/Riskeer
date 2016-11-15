@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            using (var view = new HeightStructuresFailureMechanismResultView())
+            using (HeightStructuresFailureMechanismResultView view = new HeightStructuresFailureMechanismResultView())
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult>>(view);
@@ -127,11 +127,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewEmtpy()
+        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewEmpty()
         {
             // Setup
             var testData = new object();
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -140,7 +140,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 // Assert
                 Assert.IsNull(view.Data);
-
                 Assert.AreEqual(0, dataGridView.RowCount);
             }
         }
@@ -194,10 +193,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 var cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
                 var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
+                DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
 
-                Assert.AreEqual(checkBoxSelected, (bool) cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.AreEqual(checkBoxSelected, (bool) dataGridViewCell.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
 
                 var cellAssessmentLayerTwoABackColor = cellAssessmentLayerTwoA.Style.BackColor;
                 var cellAssessmentLayerTwoAForeColor = cellAssessmentLayerTwoA.Style.ForeColor;

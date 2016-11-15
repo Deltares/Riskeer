@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HeightStructures.Data;
@@ -49,6 +50,17 @@ namespace Ringtoets.HeightStructures.Forms.Views
             {
                 return SectionResult.AssessmentLayerTwoA;
             }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="StructuresCalculation{T}"/> of the wrapped
+        /// <see cref="HeightStructuresFailureMechanismSectionResult"/>.
+        /// </summary>
+        /// <returns><c>null</c> if the wrapped section result does not have a calculation
+        /// set. Otherwise the calculation of the wrapped section result is returned.</returns>
+        public StructuresCalculation<HeightStructuresInput> GetSectionResultCalculation()
+        {
+            return SectionResult.Calculation;
         }
     }
 }

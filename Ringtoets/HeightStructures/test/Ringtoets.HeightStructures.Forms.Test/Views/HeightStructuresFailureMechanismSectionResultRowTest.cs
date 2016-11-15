@@ -22,7 +22,10 @@
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HeightStructures.Data;
@@ -37,10 +40,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var section = new FailureMechanismSection("name", new[]
-            {
-                new Point2D(0, 0)
-            });
+            FailureMechanismSection section = CreateSection();
             var result = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Call
@@ -52,6 +52,124 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             Assert.IsTrue(TypeUtils.HasTypeConverter<HeightStructuresFailureMechanismSectionResultRow,
                               FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_NoCalculationSet_ReturnNaN()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+
+            // Precondition
+            Assert.IsNull(sectionResult.Calculation);
+
+            var resultRow = new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(assessmentLayerTwoA);
+        }
+
+        [Test]
+        [TestCase(CalculationScenarioStatus.Failed)]
+        [TestCase(CalculationScenarioStatus.NotCalculated)]
+        public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
+        {
+            // Setup
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            if (status == CalculationScenarioStatus.Failed)
+            {
+                calculation.Output = new ProbabilityAssessmentOutput(0.9, 1.0, double.NaN, 1.0, 1.0);
+            }
+
+            FailureMechanismSection section = CreateSection();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = calculation
+            };
+
+            var resultRow = new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(assessmentLayerTwoA);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0.9, 1.0, 0.95, 1.0, 1.0)
+            };
+
+            FailureMechanismSection section = CreateSection();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = calculation
+            };
+
+            var resultRow = new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.AreEqual(calculation.Output.Probability, assessmentLayerTwoA);
+        }
+
+        [Test]
+        public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
+
+            // Precondition
+            Assert.IsNull(result.Calculation);
+
+            var row = new HeightStructuresFailureMechanismSectionResultRow(result);
+
+            // Call
+            StructuresCalculation<HeightStructuresInput> calculation = row.GetSectionResultCalculation();
+
+            // Assert
+            Assert.IsNull(calculation);
+        }
+
+        [Test]
+        public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
+        {
+            // Setup
+            var expectedCalculation = new StructuresCalculation<HeightStructuresInput>();
+
+            FailureMechanismSection section = CreateSection();
+            var result = new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = expectedCalculation
+            };
+
+            var row = new HeightStructuresFailureMechanismSectionResultRow(result);
+
+            // Call
+            StructuresCalculation<HeightStructuresInput> calculation = row.GetSectionResultCalculation();
+
+            // Assert
+            Assert.AreSame(expectedCalculation, calculation);
+        }
+
+        private static FailureMechanismSection CreateSection()
+        {
+            return new FailureMechanismSection("name", new[]
+            {
+                new Point2D(0, 0)
+            });
         }
     }
 }
