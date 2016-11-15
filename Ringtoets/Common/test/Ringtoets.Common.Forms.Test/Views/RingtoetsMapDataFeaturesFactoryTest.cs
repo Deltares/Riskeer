@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
@@ -28,7 +29,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
-using Point2D = Core.Common.Base.Geometry.Point2D;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {
