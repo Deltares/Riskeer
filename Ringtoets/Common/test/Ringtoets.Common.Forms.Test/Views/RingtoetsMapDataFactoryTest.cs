@@ -93,6 +93,18 @@ namespace Ringtoets.Common.Forms.Test.Views
             AssertEqualStyle(data.Style, Color.DarkBlue, 6, PointSymbol.Circle);
         }
 
+        [Test]
+        public void CreateDikeProfileMapData_ReturnsEmptyMapPointDataWithDefaultStyling()
+        {
+            // Call
+            MapLineData data = RingtoetsMapDataFactory.CreateDikeProfileMapData();
+
+            // Assert
+            Assert.IsEmpty(data.Features);
+            Assert.AreEqual(RingtoetsCommonFormsResources.DikeProfiles_DisplayName, data.Name);
+            AssertEqualStyle(data.Style, Color.DarkSeaGreen, 2, DashStyle.Solid);
+        }
+
         private static string GetSectionPointDisplayName(string name)
         {
             return string.Format("{0} ({1})",

@@ -139,37 +139,37 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns>An array of features or an empty array when <paramref name="dikeProfiles"/> is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateDikeProfilesFeatures(IEnumerable<DikeProfile> dikeProfiles)
         {
-            return dikeProfiles != null && dikeProfiles.Any()
-                       ? new[]
-                       {
-                           new MapFeature(dikeProfiles.Select(dp => new MapGeometry(GetWorldPoints(dp.ForeshoreProfile)))),
-                           new MapFeature(dikeProfiles.Select(dp => new MapGeometry(GetWorldPoints(dp)))), 
-                       }
-                       : new MapFeature[0];
+            if (dikeProfiles == null || !dikeProfiles.Any())
+            {
+                return new MapFeature[0];
+            }
+
+            var features = new List<MapFeature>();
+            foreach (var dikeProfile in dikeProfiles)
+            {
+                features.Add(GetAsSingleMapFeature(GetWorldPoints(dikeProfile)));
+                features.Add(GetAsSingleMapFeature(GetWorldPoints(dikeProfile.ForeshoreProfile)));
+            }
+
+            return features.ToArray();
         }
 
-        private static IEnumerable<IEnumerable<Point2D>> GetWorldPoints(DikeProfile dikeProfile)
+        private static Point2D[] GetWorldPoints(DikeProfile dikeProfile)
         {
-            return new[]
-            {
-                AdvancedMath2D.FromXToXY(
-                dikeProfile.DikeGeometry.Select(p => p.Point.X).ToArray(), 
-                dikeProfile.WorldReferencePoint, 
-                dikeProfile.X0,
-                dikeProfile.Orientation)
-            };
+            return AdvancedMath2D.FromXToXY(
+                    dikeProfile.DikeGeometry.Select(p => -p.Point.X).ToArray(),
+                    dikeProfile.WorldReferencePoint,
+                    -dikeProfile.X0,
+                    dikeProfile.Orientation);
         }
 
-        private static IEnumerable<IEnumerable<Point2D>> GetWorldPoints(ForeshoreProfile foreshoreProfile)
+        private static Point2D[] GetWorldPoints(ForeshoreProfile foreshoreProfile)
         {
-            return new[]
-            {
-                AdvancedMath2D.FromXToXY(
-                foreshoreProfile.Geometry.Select(p => p.X).ToArray(), 
-                foreshoreProfile.WorldReferencePoint, 
-                foreshoreProfile.X0,
-                foreshoreProfile.Orientation)
-            };
+            return AdvancedMath2D.FromXToXY(
+                foreshoreProfile.Geometry.Select(p => -p.X).ToArray(),
+                foreshoreProfile.WorldReferencePoint,
+                -foreshoreProfile.X0,
+                foreshoreProfile.Orientation);
         }
 
         private static MapFeature GetAsSingleMapFeature(IEnumerable<Point2D> points)

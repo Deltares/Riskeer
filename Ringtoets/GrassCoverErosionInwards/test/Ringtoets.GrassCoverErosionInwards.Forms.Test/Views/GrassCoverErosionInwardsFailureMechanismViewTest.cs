@@ -501,22 +501,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         private static void AssertDikeProfiles(IEnumerable<DikeProfile> dikeProfiles, MapData mapData)
         {
             Assert.NotNull(dikeProfiles, "dikeProfiles should never be null.");
-            Assert.IsInstanceOf<MapLineData>(mapData);
+
             var dikeProfilesData = (MapLineData) mapData;
-            Assert.AreEqual(2, dikeProfilesData.Features.Length);
-
-            var foreshoreProfileData = dikeProfilesData.Features.ElementAt(0).MapGeometries.ToArray();
-            var dikeProfileData = dikeProfilesData.Features.ElementAt(1).MapGeometries.ToArray();
             var dikeProfileArray = dikeProfiles.ToArray();
-            Assert.AreEqual(dikeProfileArray.Length, foreshoreProfileData.Length);
-            Assert.AreEqual(dikeProfileArray.Length, dikeProfileData.Length);
 
-            for (int index = 0; index < dikeProfileArray.Length; index++)
+            Assert.IsInstanceOf<MapLineData>(mapData);
+            Assert.AreEqual(dikeProfileArray.Length * 2, dikeProfilesData.Features.Length);
+
+            for (int i = 0; i < dikeProfileArray.Length; i++)
             {
-                var dikeProfile = dikeProfileArray.ElementAt(index);
-                CollectionAssert.AreEquivalent(dikeProfile.DikeGeometry, dikeProfileData[index].PointCollections.First());
-                CollectionAssert.AreEquivalent(dikeProfile.ForeshoreProfile.Geometry, foreshoreProfileData[index].PointCollections.First());
+                var profileDataA = dikeProfilesData.Features.ElementAt(i * 2).MapGeometries.First();
+                var foreshoreDataA = dikeProfilesData.Features.ElementAt(i * 2 + 1).MapGeometries.First();
+
+                CollectionAssert.AreEquivalent(dikeProfileArray[0].DikeGeometry, profileDataA.PointCollections.First());
+                CollectionAssert.AreEquivalent(dikeProfileArray[0].ForeshoreProfile.Geometry, foreshoreDataA.PointCollections.First());
             }
+            
             Assert.AreEqual("Dijkprofielen", mapData.Name);
         }
 

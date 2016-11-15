@@ -26,6 +26,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
@@ -266,6 +267,113 @@ namespace Ringtoets.Common.Forms.Test.Views
             for (int i = 0; i < points.Length; i++)
             {
                 CollectionAssert.AreEqual(new[] { points[i] }, features[i].MapGeometries.First().PointCollections.First());
+            }
+        }
+
+        [Test]
+        public void CreateDikeProfilesFeatures_NullDikeProfiles_ReturnsEmptyCollection()
+        {
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(null);
+
+            // Assert
+            Assert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateDikeProfilesFeatures_EmptyDikeProfiles_ReturnsEmptyCollection()
+        {
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(
+                Enumerable.Empty<DikeProfile>());
+
+            // Assert
+            Assert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateDikeProfilesFeatures_WithDikeProfiles_ReturnsCollectionWithForeshoreProfileAndDikeProfile()
+        {
+            // Setup
+            var pointA = new Point2D(1.2, 2.3);
+            var pointB = new Point2D(2.7, 2.0);
+            var pointC = new Point2D(3.2, 23.3);
+            var pointD = new Point2D(7.7, 12.6);
+
+            var pointE = new Point2D(1.3, 2.3);
+            var pointF = new Point2D(4.6, 2.0);
+            var pointG = new Point2D(6.3, 23.3);
+            var pointH = new Point2D(4.2, 12.6);
+
+            var roughnessPointsOne = new[]
+            {
+                new RoughnessPoint(pointA, 1),
+                new RoughnessPoint(pointB, 2)
+            };
+            var pointsOne = new[]
+            {
+                pointC,
+                pointD
+            };
+            var roughnessPointsTwo = new[]
+            {
+                new RoughnessPoint(pointE, 1),
+                new RoughnessPoint(pointF, 2),
+                new RoughnessPoint(pointG, 1),
+                new RoughnessPoint(pointH, 2)
+            };
+            var dikeProfiles = new[]
+            {
+                new DikeProfile(new Point2D(5,4), roughnessPointsOne, pointsOne, null, new DikeProfile.ConstructionProperties()), 
+                new DikeProfile(new Point2D(2,1), roughnessPointsTwo, Enumerable.Empty<Point2D>(), null, new DikeProfile.ConstructionProperties())
+            };
+
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(dikeProfiles);
+
+            // Assert
+            Assert.AreEqual(4, features.Length);
+            Assert.AreEqual(1, features.ElementAt(0).MapGeometries.Count());
+            Assert.AreEqual(1, features.ElementAt(1).MapGeometries.Count());
+            Assert.AreEqual(1, features.ElementAt(2).MapGeometries.Count());
+            Assert.AreEqual(1, features.ElementAt(3).MapGeometries.Count());
+            var mapDataDikeGeometryOne = features.ElementAt(0).MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            var mapDataForeshoreGeometryOne = features.ElementAt(1).MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            var mapDataDikeGeometryTwo = features.ElementAt(2).MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            var mapDataForeshoreGeometryTwo = features.ElementAt(3).MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+
+            CollectionElementsAlmostEquals(new[]
+            {
+                new Point2D(5, 2.8),
+                new Point2D(5, 1.3)
+            }, mapDataDikeGeometryOne);
+            CollectionElementsAlmostEquals(new[]
+            {
+                new Point2D(5, 0.8),
+                new Point2D(5, -3.7)
+            }, mapDataForeshoreGeometryOne);
+            CollectionElementsAlmostEquals(new[]
+            {
+                new Point2D(2, -0.3),
+                new Point2D(2, -3.6),
+                new Point2D(2, -5.3),
+                new Point2D(2, -3.2)
+            }, mapDataDikeGeometryTwo);
+            Assert.IsEmpty(mapDataForeshoreGeometryTwo);
+        }
+
+        private void CollectionElementsAlmostEquals(IEnumerable<Point2D> expected, Point2D[] actual)
+        {
+            Assert.AreEqual(expected.Count(), actual.Length);
+
+            for (int index = 0; index < actual.Length; index++)
+            {
+                var actualPoint = actual[index];
+                var expectedPoint = expected.ElementAt(index);
+
+                var delta = 1e-8;
+                Assert.AreEqual(expectedPoint.X, actualPoint.X, delta);
+                Assert.AreEqual(expectedPoint.Y, actualPoint.Y, delta);
             }
         }
 
