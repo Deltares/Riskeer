@@ -92,6 +92,15 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Algemeen.
+        /// </summary>
+        public static string Categories_General {
+            get {
+                return ResourceManager.GetString("Categories_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kaart.
         /// </summary>
         public static string General_Map {
@@ -107,6 +116,24 @@ namespace Core.Plugins.Map.Properties {
             get {
                 object obj = ResourceManager.GetObject("LineIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van de kaartlaag..
+        /// </summary>
+        public static string MapData_Name_Description {
+            get {
+                return ResourceManager.GetString("MapData_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string MapData_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("MapData_Name_DisplayName", resourceCulture);
             }
         }
         

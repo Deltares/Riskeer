@@ -211,4 +211,13 @@
   <data name="MapLegendView_CheckDataFormat_File_does_not_contain_geometries" xml:space="preserve">
     <value>Kon geen geometrieën vinden in dit bestand.</value>
   </data>
+  <data name="Categories_General" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="MapData_Name_Description" xml:space="preserve">
+    <value>Naam van de kaartlaag.</value>
+  </data>
+  <data name="MapData_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
 </root>

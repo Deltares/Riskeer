@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
+using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Core.Plugins.Map.Commands;
 using Core.Plugins.Map.Legend;
+using Core.Plugins.Map.PropertyClasses;
 
 namespace Core.Plugins.Map
 {
@@ -54,6 +57,11 @@ namespace Core.Plugins.Map
             mapLegendController.ToggleView();
             Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
             activated = true;
+        }
+
+        public override IEnumerable<PropertyInfo> GetPropertyInfos()
+        {
+            yield return new PropertyInfo<MapPointData, MapPointDataProperties>();
         }
 
         public override void Dispose()
