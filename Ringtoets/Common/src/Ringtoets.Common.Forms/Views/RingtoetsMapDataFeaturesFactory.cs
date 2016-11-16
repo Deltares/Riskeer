@@ -26,6 +26,7 @@ using Core.Common.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -67,10 +68,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 foreach (var location in hydraulicBoundaryDatabase.Locations)
                 {
-                    var feature = GetAsSingleMapFeature(new[]
-                    {
-                        location.Location
-                    });
+                    var feature = GetAsSingleMapFeature(location.Location);
 
                     feature.MetaData["ID"] = location.Id;
                     feature.MetaData["Name"] = location.Name;
@@ -133,7 +131,7 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Create features for the foreshore and dike geometry of the <paramref name="dikeProfiles"/>.
+        /// Create features for the geometry of the <paramref name="dikeProfiles"/>.
         /// </summary>
         /// <param name="dikeProfiles">The profiles to create features for.</param>
         /// <returns>An array of features or an empty array when <paramref name="dikeProfiles"/> is <c>null</c> or empty.</returns>
@@ -147,6 +145,11 @@ namespace Ringtoets.Common.Forms.Views
             return dikeProfiles.Select(dikeProfile => GetAsSingleMapFeature(GetWorldPoints(dikeProfile))).ToArray();
         }
 
+        /// <summary>
+        /// Create features for the geometry of the <paramref name="foreshoreProfiles"/>.
+        /// </summary>
+        /// <param name="foreshoreProfiles">The profiles to create features for.</param>
+        /// <returns>An array of features or an empty array when <paramref name="foreshoreProfiles"/> is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateForeshoreProfilesFeatures(IEnumerable<ForeshoreProfile> foreshoreProfiles)
         {
             if (foreshoreProfiles == null || !foreshoreProfiles.Any())
@@ -155,6 +158,21 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             return foreshoreProfiles.Select(foreshoreProfile => GetAsSingleMapFeature(GetWorldPoints(foreshoreProfile))).ToArray();
+        }
+
+        /// <summary>
+        /// Create features for the geometry of the <paramref name="structures"/>.
+        /// </summary>
+        /// <param name="structures">The profiles to create features for.</param>
+        /// <returns>An array of features or an empty array when <paramref name="structures"/> is <c>null</c> or empty.</returns>
+        public static MapFeature[] CreateStructuresFeatures(IEnumerable<StructureBase> structures)
+        {
+            if (structures == null || !structures.Any())
+            {
+                return new MapFeature[0];
+            }
+
+            return structures.Select(structure => GetAsSingleMapFeature(structure.Location)).ToArray();
         }
 
         private static Point2D[] GetWorldPoints(DikeProfile dikeProfile)
@@ -185,5 +203,16 @@ namespace Ringtoets.Common.Forms.Views
                 })
             });
         }
+
+        private static MapFeature GetAsSingleMapFeature(Point2D point)
+        {
+            return new MapFeature(new[] 
+            { 
+                new MapGeometry(new[] 
+                { 
+                    new [] { point }
+                }) 
+            });
+        } 
     }
 }

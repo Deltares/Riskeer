@@ -85,6 +85,14 @@ namespace Ringtoets.HeightStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
+            yield return new ViewInfo<HeightStructuresFailureMechanismContext, HeightStructuresFailureMechanismView>
+            {
+                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                CloseForData = CloseHeightStructuresFailureMechanismViewForData,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+            };
+
             yield return new ViewInfo<
                 HeightStructuresScenariosContext,
                 CalculationGroup,
@@ -230,7 +238,22 @@ namespace Ringtoets.HeightStructures.Plugin
 
         #region ViewInfo
 
-        #region HeightStructuresFailureMechanismResultView ViewInfo
+        # region HeightStructuresFailureMechanismView ViewInfo
+
+        private bool CloseHeightStructuresFailureMechanismViewForData(HeightStructuresFailureMechanismView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as HeightStructuresFailureMechanism;
+
+            var viewFailureMechanismContext = (HeightStructuresFailureMechanismContext)view.Data;
+            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
+                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+        }
+
+        # endregion
 
         #region HeightStructuresScenariosView ViewInfo
 
@@ -256,6 +279,8 @@ namespace Ringtoets.HeightStructures.Plugin
         }
 
         #endregion
+
+        #region HeightStructuresFailureMechanismResultView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(HeightStructuresFailureMechanismResultView view, object o)
         {
@@ -362,7 +387,9 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               context,

@@ -29,24 +29,25 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
+using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using GrassCoverErosionOutwardsDataResources = Ringtoets.GrassCoverErosionOutwards.Data.Properties.Resources;
-using GrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
+using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
+namespace Ringtoets.HeightStructures.Forms.Test.Views
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailureMechanismViewTest
+    public class HeightStructuresFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
         private const int sectionsIndex = 1;
@@ -54,12 +55,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         private const int sectionsEndPointIndex = 3;
         private const int hydraulicBoundaryDatabaseIndex = 4;
         private const int foreshoreProfilesIndex = 5;
+        private const int structuresIndex = 6;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView())
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -73,24 +75,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void DefaultConstructor_Always_AddMapControlWithCollectionOfEmptyMapData()
         {
             // Call
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView())
             {
                 // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Map, view.Controls[0]);
                 Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
-                Assert.AreEqual(GrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, view.Map.Data.Name);
+                Assert.AreEqual(HeightStructuresDataResources.HeightStructuresFailureMechanism_DisplayName, view.Map.Data.Name);
                 AssertEmptyMapData(view.Map.Data);
             }
         }
 
         [Test]
-        public void Data_GrassCoverErosionOutwardsFailureMechanismContext_DataSet()
+        public void Data_HeightStructuresFailureMechanismContext_DataSet()
         {
             // Setup
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView())
             {
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), new TestAssessmentSection());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -101,10 +103,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_OtherThanGrassCoverErosionOutwardsFailureMechanismContext_DataNull()
+        public void Data_OtherThanHeightStructuresFailureMechanismContext_DataNull()
         {
             // Setup
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView())
             {
                 var data = new object();
 
@@ -120,14 +122,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void Data_SetToNull_MapDataCleared()
         {
             // Setup
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView())
             {
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), new TestAssessmentSection());
 
                 view.Data = failureMechanismContext;
 
                 // Precondition
-                Assert.AreEqual(6, view.Map.Data.Collection.Count());
+                Assert.AreEqual(7, view.Map.Data.Collection.Count());
 
                 // Call
                 view.Data = null;
@@ -139,12 +141,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_EmptyGrassCoverErosionOutwardsFailureMechanismContext_NoMapDataSet()
+        public void Data_EmptyHeightStructuresFailureMechanismContext_NoMapDataSet()
         {
             // Setup
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView())
             {
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), new TestAssessmentSection());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -156,10 +158,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_GrassCoverErosionOutwardsFailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
+        public void Data_HeightStructuresFailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView())
             {
                 var map = (MapControl)view.Controls[0];
 
@@ -187,7 +189,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+                var failureMechanism = new HeightStructuresFailureMechanism();
                 failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
@@ -195,7 +197,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
 
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -207,7 +209,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
                 var mapDataList = mapData.Collection.ToList();
-                Assert.AreEqual(6, mapDataList.Count);
+                Assert.AreEqual(7, mapDataList.Count);
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
@@ -221,7 +223,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_MapDataUpdated()
         {
             // Setup
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView())
             {
                 var map = (MapControl)view.Controls[0];
 
@@ -245,7 +247,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase1
                 };
 
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
 
                 view.Data = failureMechanismContext;
 
@@ -267,7 +269,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
         {
             // Setup
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView())
             {
                 var map = (MapControl)view.Controls[0];
 
@@ -289,7 +291,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 };
                 assessmentSection.ReferenceLine.SetGeometry(points1);
 
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
 
                 view.Data = failureMechanismContext;
 
@@ -311,12 +313,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void UpdateObserver_FailureMechanismSectionsUpdated_MapDataUpdated()
         {
             // Setup
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView())
             {
                 var map = (MapControl)view.Controls[0];
 
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanism = new HeightStructuresFailureMechanism();
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new TestAssessmentSection());
 
                 view.Data = failureMechanismContext;
 
@@ -343,12 +345,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void UpdateObserver_ForeshoreProfilesUpdated_MapDataUpdated()
         {
             // Setup
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView())
             {
                 var map = (MapControl)view.Controls[0];
 
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanism = new HeightStructuresFailureMechanism();
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new TestAssessmentSection());
 
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
 
@@ -369,23 +371,53 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObserver_StructuresUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new HeightStructuresFailureMechanismView())
+            {
+                var map = (MapControl)view.Controls[0];
+
+                var failureMechanism = new HeightStructuresFailureMechanism();
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+
+                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+
+                view.Data = failureMechanismContext;
+
+                var structuresData = map.Data.Collection.ElementAt(structuresIndex);
+
+                // Precondition
+                AssertStructures(failureMechanism.HeightStructures, structuresData);
+
+                // Call
+                failureMechanism.HeightStructures.Add(new TestHeightStructure());
+                failureMechanism.HeightStructures.NotifyObservers();
+
+                // Assert
+                AssertStructures(failureMechanism.HeightStructures, structuresData);
+            }
+        }
+
+        [Test]
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
-            const int updatedRefenceLineLayerIndex = referenceLineIndex + 5;
+            const int updatedRefenceLineLayerIndex = referenceLineIndex + 6;
             const int updatedSectionsLayerIndex = sectionsIndex - 1;
             const int updateSectionStartLayerIndex = sectionsStartPointIndex - 1;
             const int updatedSectionEndLayerIndex = sectionsEndPointIndex - 1;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryDatabaseIndex - 1;
             const int updatedForeshoreProfilesLayerIndex = foreshoreProfilesIndex - 1;
+            const int updatedStructuresLayerIndex = structuresIndex- 1;
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView())
             {
                 var map = (MapControl)view.Controls[0];
 
                 var assessmentSection = new TestAssessmentSection();
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanism = new HeightStructuresFailureMechanism();
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 view.Data = failureMechanismContext;
 
@@ -415,6 +447,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 var foreshoreProfilesData = (MapLineData)mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", foreshoreProfilesData.Name);
+
+                var structuresData = (MapPointData)mapDataList[updatedStructuresLayerIndex];
+                Assert.AreEqual("Kunstwerken", structuresData.Name);
 
                 var points = new List<Point2D>
                 {
@@ -446,6 +481,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 var actualForeshoreProfilesData = (MapLineData)mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", actualForeshoreProfilesData.Name);
+
+                var actualStructuresData = (MapPointData)mapDataList[updatedStructuresLayerIndex];
+                Assert.AreEqual("Kunstwerken", actualStructuresData.Name);
             }
         }
 
@@ -463,14 +501,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 new Point2D(3, 4)
             });
 
-            var oldGrassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), oldAssessmentSection);
-            var newGrassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), newAssessmentSection);
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            var oldHeightStructuresFailureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), oldAssessmentSection);
+            var newHeightStructuresFailureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), newAssessmentSection);
+            using (var view = new HeightStructuresFailureMechanismView())
             {
                 var map = (MapControl)view.Controls[0];
 
-                view.Data = oldGrassCoverErosionOutwardsFailureMechanismContext;
-                view.Data = newGrassCoverErosionOutwardsFailureMechanismContext;
+                view.Data = oldHeightStructuresFailureMechanismContext;
+                view.Data = newHeightStructuresFailureMechanismContext;
                 MapData dataBeforeUpdate = map.Data;
 
                 newAssessmentSection.ReferenceLine.SetGeometry(Enumerable.Empty<Point2D>());
@@ -505,7 +543,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var foreshoreProfilesData = (MapLineData)mapData;
             var foreshoreProfileArray = foreshoreProfiles.ToArray();
 
-            Assert.IsInstanceOf<MapLineData>(mapData);
             Assert.AreEqual(foreshoreProfileArray.Length, foreshoreProfilesData.Features.Length);
 
             for (int i = 0; i < foreshoreProfileArray.Length; i++)
@@ -515,6 +552,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             }
 
             Assert.AreEqual("Voorlandprofielen", mapData.Name);
+        }
+
+        private static void AssertStructures(IEnumerable<StructureBase> structures, MapData mapData)
+        {
+            Assert.NotNull(structures, "structures should never be null.");
+
+            var structuresData = (MapPointData)mapData;
+            var structuresArray = structures.ToArray();
+
+            Assert.AreEqual(structuresArray.Length, structuresData.Features.Length);
+
+            for (int i = 0; i < structuresArray.Length; i++)
+            {
+                var profileDataA = structuresData.Features.ElementAt(i).MapGeometries.First();
+                Assert.AreEqual(structuresArray[0].Location, profileDataA.PointCollections.First().First());
+            }
+
+            Assert.AreEqual("Kunstwerken", mapData.Name);
         }
 
         private static void AssertHydraulicBoundaryLocationsMapData(HydraulicBoundaryDatabase database, MapData mapData)
@@ -573,11 +628,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             var mapDataList = mapData.Collection.ToList();
 
-            Assert.AreEqual(6, mapDataList.Count);
+            Assert.AreEqual(7, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData)mapDataList[referenceLineIndex];
             var sectionsMapData = (MapLineData)mapDataList[sectionsIndex];
             var foreshoreProfilesMapData = (MapLineData)mapDataList[foreshoreProfilesIndex];
+            var structuresMapData = (MapPointData)mapDataList[structuresIndex];
             var sectionsStartPointMapData = (MapPointData)mapDataList[sectionsStartPointIndex];
             var sectionsEndPointMapData = (MapPointData)mapDataList[sectionsEndPointIndex];
             var hydraulicBoundaryDatabaseMapData = (MapPointData)mapDataList[hydraulicBoundaryDatabaseIndex];
@@ -585,6 +641,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(sectionsMapData.Features);
             CollectionAssert.IsEmpty(foreshoreProfilesMapData.Features);
+            CollectionAssert.IsEmpty(structuresMapData.Features);
             CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
             CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabaseMapData.Features);

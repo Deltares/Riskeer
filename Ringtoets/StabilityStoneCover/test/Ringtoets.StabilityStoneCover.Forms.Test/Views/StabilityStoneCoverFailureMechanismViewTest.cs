@@ -585,7 +585,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(sectionsMapData.Features);
             CollectionAssert.IsEmpty(foreshoreProfilesMapData.Features);
-            CollectionAssert.IsEmpty(foreshoreProfilesMapData.Features);
             CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
             CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabaseMapData.Features);

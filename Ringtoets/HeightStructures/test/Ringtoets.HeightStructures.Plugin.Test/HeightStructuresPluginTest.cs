@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -28,6 +29,7 @@ using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -146,10 +148,24 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, viewInfos.Length);
+                Assert.AreEqual(3, viewInfos.Length);
 
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(HeightStructuresFailureMechanismResultView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(HeightStructuresScenariosView)));
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos, 
+                    typeof(HeightStructuresFailureMechanismContext), 
+                    typeof(HeightStructuresFailureMechanismView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>),
+                    typeof(IEnumerable<HeightStructuresFailureMechanismSectionResult>),
+                    typeof(HeightStructuresFailureMechanismResultView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos, 
+                    typeof(HeightStructuresScenariosContext),
+                    typeof(CalculationGroup),
+                    typeof(HeightStructuresScenariosView));
             }
             mocks.VerifyAll();
         }

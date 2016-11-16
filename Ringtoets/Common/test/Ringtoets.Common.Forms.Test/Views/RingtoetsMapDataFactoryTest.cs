@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             Assert.IsEmpty(data.Features);
             Assert.AreEqual(RingtoetsCommonFormsResources.DikeProfiles_DisplayName, data.Name);
-            AssertEqualStyle(data.Style, Color.DarkSeaGreen, 2, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.SaddleBrown, 2, DashStyle.Solid);
         }
 
         [Test]
@@ -115,7 +115,19 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             Assert.IsEmpty(data.Features);
             Assert.AreEqual(RingtoetsCommonFormsResources.ForeshoreProfiles_DisplayName, data.Name);
-            AssertEqualStyle(data.Style, Color.LightSeaGreen, 2, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.DarkOrange, 2, DashStyle.Solid);
+        }
+
+        [Test]
+        public void CreateStructuresMapData_ReturnsEmptyMapPointDataWithDefaultStyling()
+        {
+            // Call
+            MapPointData data = RingtoetsMapDataFactory.CreateStructuresMapData();
+
+            // Assert
+            Assert.IsEmpty(data.Features);
+            Assert.AreEqual(RingtoetsCommonFormsResources.StructuresCollection_DisplayName, data.Name);
+            AssertEqualStyle(data.Style, Color.DarkSeaGreen, 15, PointSymbol.Square);
         }
 
         private static string GetSectionPointDisplayName(string name)

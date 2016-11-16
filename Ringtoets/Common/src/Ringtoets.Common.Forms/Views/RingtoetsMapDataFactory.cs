@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -115,7 +116,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapLineData(Resources.DikeProfiles_DisplayName)
             {
-                Style = new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid)
+                Style = new LineStyle(Color.SaddleBrown, 2, DashStyle.Solid)
             };
         }
 
@@ -127,7 +128,19 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapLineData(Resources.ForeshoreProfiles_DisplayName)
             {
-                Style = new LineStyle(Color.LightSeaGreen, 2, DashStyle.Solid)
+                Style = new LineStyle(Color.DarkOrange, 2, DashStyle.Solid)
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="MapPointData"/> with default styling for collections of <see cref="StructureBase"/>.
+        /// </summary>
+        /// <returns>The created <see cref="MapPointData"/>.</returns>
+        public static MapPointData CreateStructuresMapData()
+        {
+            return new MapPointData(Resources.StructuresCollection_DisplayName)
+            {
+                Style = new PointStyle(Color.DarkSeaGreen, 15, PointSymbol.Square)
             };
         }
     }
