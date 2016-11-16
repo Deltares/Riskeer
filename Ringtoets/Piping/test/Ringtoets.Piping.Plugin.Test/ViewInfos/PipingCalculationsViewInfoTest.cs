@@ -275,7 +275,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             viewMock.Expect(v => v.AssessmentSection = assessmentSectionMock);
             viewMock.Expect(v => v.PipingFailureMechanism = pipingFailureMechanismMock);
-            viewMock.Expect(v => v.ApplicationSelection = plugin.Gui);
 
             mocks.ReplayAll();
 

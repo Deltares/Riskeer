@@ -295,8 +295,6 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.ViewHost).Return(viewHost);
             gui.Selection = selectedObject;
             gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
-            gui.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            gui.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -334,8 +332,6 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.ViewHost).Return(viewHost);
             gui.Selection = selectedObject;
             gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
-            gui.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            gui.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -391,8 +387,6 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.ViewHost).Return(viewHost);
             gui.Selection = selectedObject;
             gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
-            gui.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            gui.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())

@@ -27,7 +27,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Selection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -182,20 +181,15 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void HydraulicBoundaryLocationsView_SelectingCellInRow_ApplicationSelectionCorrectlySynced()
+        public void HydraulicBoundaryLocationsView_SelectingCellInRow_SelectionChangedFired()
         {
             // Setup
             var view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
             var createdSelection = new object();
             view.CreateForSelection = createdSelection;
 
-            var mocks = new MockRepository();
-            var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
-            applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
-            applicationSelectionMock.Expect(asm => asm.Selection = createdSelection);
-            mocks.ReplayAll();
-
-            view.ApplicationSelection = applicationSelectionMock;
+            var selectionChangedCount = 0;
+            view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -204,29 +198,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
 
             // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void HydraulicBoundaryLocationsView_SelectingCellInAlreadySelectedRow_ApplicationSelectionNotSyncedRedundantly()
-        {
-            // Setup
-            var view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            var mocks = new MockRepository();
-            var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
-            applicationSelectionMock.Stub(asm => asm.Selection).Return(view.Selection);
-            mocks.ReplayAll();
-
-            view.ApplicationSelection = applicationSelectionMock;
-
-            // Call
-            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[locationCalculateColumnIndex];
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(locationCalculateColumnIndex, 0));
-
-            // Assert
-            mocks.VerifyAll();
+            Assert.AreEqual(1, selectionChangedCount);
         }
 
         [Test]
@@ -378,7 +350,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             var view = ShowTestHydraulicBoundaryLocationsView();
 
-            var assessmentSection = new TestAssessmentSection()
+            var assessmentSection = new TestAssessmentSection
             {
                 HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
             };
@@ -390,11 +362,17 @@ namespace Ringtoets.Common.Forms.Test.Views
         private class TestAssessmentSection : Observable, IAssessmentSection
         {
             public string Comments { get; set; }
+
             public string Id { get; set; }
+
             public string Name { get; set; }
+
             public AssessmentSectionComposition Composition { get; private set; }
+
             public ReferenceLine ReferenceLine { get; set; }
+
             public FailureMechanismContribution FailureMechanismContribution { get; private set; }
+
             public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
 
             public IEnumerable<IFailureMechanism> GetFailureMechanisms()
@@ -440,6 +418,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             public override IAssessmentSection AssessmentSection { get; set; }
 
             public IEnumerable<HydraulicBoundaryLocation> LocationsToCalculate { get; private set; }
+
             public object CreateForSelection { get; set; }
 
             protected override TestHydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)

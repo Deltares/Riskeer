@@ -38,7 +38,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
     /// </summary>
     public class PropertyGridView : PropertyGrid, IView, IObserver
     {
-        private readonly IApplicationSelection applicationSelection;
         private readonly IPropertyResolver propertyResolver;
 
         private object data;
@@ -75,9 +74,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             PropertySort = PropertySort.Categorized;
 
             this.propertyResolver = propertyResolver;
-
-            this.applicationSelection = applicationSelection;
-            this.applicationSelection.SelectionChanged += GuiSelectionChanged;
         }
 
         public void UpdateObserver()
@@ -106,29 +102,12 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
         protected override void Dispose(bool disposing)
         {
-            if (applicationSelection != null)
-            {
-                applicationSelection.SelectionChanged -= GuiSelectionChanged;
-            }
-
             if (observable != null)
             {
                 observable.Detach(this);
             }
 
             base.Dispose(disposing);
-        }
-
-        private void GuiSelectionChanged(object sender, EventArgs e)
-        {
-            var selection = applicationSelection.Selection;
-            if (selection == null)
-            {
-                Data = null;
-                return;
-            }
-
-            Data = selection;
         }
 
         #region IView Members

@@ -47,9 +47,14 @@ namespace Core.Common.Gui.Forms.ViewHost
         event EventHandler<ViewChangeEventArgs> ActiveViewChanged;
 
         /// <summary>
+        /// Fired when a document view or a tool view has been opened.
+        /// </summary>
+        event EventHandler<ViewChangeEventArgs> ViewOpened;
+
+        /// <summary>
         /// Fired when a document view or a tool view has been closed.
         /// </summary>
-        event EventHandler<EventArgs> ViewClosed;
+        event EventHandler<ViewChangeEventArgs> ViewClosed;
 
         /// <summary>
         /// Gets the added document views.

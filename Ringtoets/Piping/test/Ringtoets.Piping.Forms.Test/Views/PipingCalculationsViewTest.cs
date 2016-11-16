@@ -28,7 +28,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Selection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -87,7 +86,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsNull(pipingCalculationsView.Data);
                 Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
                 Assert.IsNull(pipingCalculationsView.AssessmentSection);
-                Assert.IsNull(pipingCalculationsView.ApplicationSelection);
             }
         }
 
@@ -333,7 +331,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PipingCalculationsView_SelectingCellInRow_ApplicationSelectionCorrectlySynced()
+        public void PipingCalculationsView_SelectingCellInRow_SelectionChangedFired()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -341,20 +339,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
 
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
-            var secondPipingCalculationItem = ((PipingCalculationScenario) ((CalculationGroup) pipingCalculationsView.Data).Children[1]);
-            var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
-            var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
-            applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
-            applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem,
-                                                                                          secondPipingCalculationItem,
-                                                                                          pipingCalculationsView.PipingFailureMechanism.SurfaceLines,
-                                                                                          pipingCalculationsView.PipingFailureMechanism.StochasticSoilModels,
-                                                                                          pipingCalculationsView.PipingFailureMechanism,
-                                                                                          pipingCalculationsView.AssessmentSection));
             mocks.ReplayAll();
 
-            pipingCalculationsView.ApplicationSelection = applicationSelectionMock;
+            var selectionChangedCount = 0;
+            pipingCalculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -363,46 +352,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
 
             // Assert
+            Assert.AreEqual(1, selectionChangedCount);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void PipingCalculationsView_SelectingCellInAlreadySelectedRow_ApplicationSelectionNotSyncedRedundantly()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
-
-            var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
-            var secondPipingCalculationItem = ((PipingCalculationScenario) ((CalculationGroup) pipingCalculationsView.Data).Children[1]);
-            var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
-
-            applicationSelectionMock.Stub(asm => asm.Selection)
-                                    .Return(new PipingInputContext(secondPipingInputItem,
-                                                                   secondPipingCalculationItem,
-                                                                   pipingCalculationsView.PipingFailureMechanism.SurfaceLines,
-                                                                   pipingCalculationsView.PipingFailureMechanism.StochasticSoilModels,
-                                                                   pipingCalculationsView.PipingFailureMechanism,
-                                                                   pipingCalculationsView.AssessmentSection));
-
-            mocks.ReplayAll();
-
-            pipingCalculationsView.ApplicationSelection = applicationSelectionMock;
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Call
-            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void PipingCalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndApplicationSelectionUpdated()
+        public void PipingCalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndSelectionChangedFired()
         {
             // Setup
             var mocks = new MockRepository();
@@ -410,12 +365,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
 
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
-            var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
-            applicationSelectionMock.Expect(asm => asm.Selection).Return(null);
 
             mocks.ReplayAll();
 
-            pipingCalculationsView.ApplicationSelection = applicationSelectionMock;
+            var selectionChangedCount = 0;
+            pipingCalculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -424,7 +378,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(2, dataGridView.Rows.Count);
             Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
-            Assert.IsNull(pipingCalculationsView.ApplicationSelection.Selection);
 
             // Call
             listBox.SelectedIndex = 1;
@@ -432,6 +385,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreEqual(1, dataGridView.Rows.Count);
             Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual(1, selectionChangedCount);
             mocks.VerifyAll();
         }
 
@@ -530,7 +484,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 SurfaceLines =
                 {
                     new RingtoetsPipingSurfaceLine()
-                },
+                }
             };
             var button = (Button) new ButtonTester("buttonGenerateScenarios", testForm).TheObject;
 
@@ -1263,7 +1217,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                         Geometry =
                         {
                             new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
-                        },
+                        }
                     }
                 }
             };

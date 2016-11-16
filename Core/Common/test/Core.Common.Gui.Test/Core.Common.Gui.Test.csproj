@@ -135,7 +135,6 @@
     <Compile Include="PropertyBag\PropertySpecTest.cs" />
     <Compile Include="GuiCoreTest.cs" />
     <Compile Include="PropertyBag\ReadOnlyPropertyDescriptorDecoratorTest.cs" />
-    <Compile Include="Selection\SelectedItemChangedEventArgsTest.cs" />
     <Compile Include="Settings\SettingsHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewPropertyEditorTest.cs" />

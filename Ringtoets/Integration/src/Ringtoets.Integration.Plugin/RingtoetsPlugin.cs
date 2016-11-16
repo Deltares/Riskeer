@@ -323,7 +323,6 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) =>
                 {
                     view.AssessmentSection = context.WrappedData;
-                    view.ApplicationSelection = Gui;
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 }
             };
@@ -344,7 +343,6 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) =>
                 {
                     view.AssessmentSection = context.WrappedData;
-                    view.ApplicationSelection = Gui;
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 }
             };

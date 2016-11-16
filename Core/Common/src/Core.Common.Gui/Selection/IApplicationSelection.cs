@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-
 namespace Core.Common.Gui.Selection
 {
     /// <summary>
@@ -28,11 +26,6 @@ namespace Core.Common.Gui.Selection
     /// </summary>
     public interface IApplicationSelection
     {
-        /// <summary>
-        /// Fired when the application's selection has been changed.
-        /// </summary>
-        event EventHandler<SelectedItemChangedEventArgs> SelectionChanged;
-
         /// <summary>
         /// Gets or sets current selected object(s) within the application.
         /// </summary>

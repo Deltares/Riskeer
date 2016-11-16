@@ -48,7 +48,8 @@ namespace Core.Common.Gui.Forms.ViewHost
         public event EventHandler<EventArgs> ActiveDocumentViewChanging;
         public event EventHandler<EventArgs> ActiveDocumentViewChanged;
         public event EventHandler<ViewChangeEventArgs> ActiveViewChanged;
-        public event EventHandler<EventArgs> ViewClosed;
+        public event EventHandler<ViewChangeEventArgs> ViewOpened;
+        public event EventHandler<ViewChangeEventArgs> ViewClosed;
 
         /// <summary>
         /// Creates a new instance of the <see cref="AvalonDockViewHost"/> class.
@@ -136,6 +137,8 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             layoutDocument.Closing += OnLayoutDocumentClosing;
             layoutDocument.Closed += OnLayoutDocumentClosed;
+
+            OnViewOpenedEvent(view);
         }
 
         public void AddToolView(IView view, ToolViewLocation toolViewLocation)
@@ -172,6 +175,8 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             layoutAnchorable.Hiding += OnLayoutAnchorableHiding;
             layoutAnchorable.Closing += OnLayoutAnchorableClosing;
+
+            OnViewOpenedEvent(view);
         }
 
         public void Remove(IView view)
@@ -265,11 +270,19 @@ namespace Core.Common.Gui.Forms.ViewHost
             }
         }
 
-        private void OnViewClosedEvent()
+        private void OnViewOpenedEvent(IView view)
+        {
+            if (ViewOpened != null)
+            {
+                ViewOpened(this, new ViewChangeEventArgs(view));
+            }
+        }
+
+        private void OnViewClosedEvent(IView view)
         {
             if (ViewClosed != null)
             {
-                ViewClosed(this, new EventArgs());
+                ViewClosed(this, new ViewChangeEventArgs(view));
             }
         }
 
@@ -365,7 +378,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             view.Data = null;
             view.Dispose();
 
-            OnViewClosedEvent();
+            OnViewClosedEvent(view);
         }
 
         /// <summary>

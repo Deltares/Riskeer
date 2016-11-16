@@ -27,7 +27,6 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Selection;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -61,6 +60,8 @@ namespace Ringtoets.Piping.Forms.Views
         private PipingFailureMechanism pipingFailureMechanism;
 
         private bool updatingDataSource;
+
+        public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of the <see cref="PipingCalculationsView"/> class.
@@ -120,11 +121,6 @@ namespace Ringtoets.Piping.Forms.Views
                 UpdateHydraulicBoundaryLocationsColumn();
             }
         }
-
-        /// <summary>
-        /// Gets or sets the <see cref="IApplicationSelection"/>.
-        /// </summary>
-        public IApplicationSelection ApplicationSelection { get; set; }
 
         public object Data
         {
@@ -497,12 +493,13 @@ namespace Ringtoets.Piping.Forms.Views
                 return;
             }
 
-            UpdateApplicationSelection();
+            OnSelectionChanged();
         }
 
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
             UpdateDataGridViewDataSource();
+            OnSelectionChanged();
         }
 
         private void OnGenerateScenariosButtonClick(object sender, EventArgs e)
@@ -549,18 +546,11 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        private void UpdateApplicationSelection()
+        private void OnSelectionChanged()
         {
-            if (ApplicationSelection == null)
+            if (SelectionChanged != null)
             {
-                return;
-            }
-
-            PipingInputContext selection = CreateSelectedItemFromCurrentRow();
-            if ((ApplicationSelection.Selection == null && selection != null) ||
-                (ApplicationSelection.Selection != null && !ApplicationSelection.Selection.Equals(selection)))
-            {
-                ApplicationSelection.Selection = selection;
+                SelectionChanged(this, new EventArgs());
             }
         }
 

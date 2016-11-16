@@ -28,7 +28,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
-using Core.Common.Gui.Selection;
 using Core.Plugins.ProjectExplorer.Commands;
 using Core.Plugins.ProjectExplorer.Exceptions;
 using ProjectExplorerResources = Core.Plugins.ProjectExplorer.Properties.Resources;
@@ -44,7 +43,6 @@ namespace Core.Plugins.ProjectExplorer
         private ProjectExplorerViewController projectExplorerViewController;
         private IViewCommands viewCommands;
         private IProjectOwner projectOwner;
-        private IApplicationSelection applicationSelection;
         private Ribbon ribbonCommandHandler;
         private IEnumerable<TreeNodeInfo> treeNodeInfos;
         private bool active;
@@ -71,7 +69,6 @@ namespace Core.Plugins.ProjectExplorer
                 {
                     viewController = value;
                     projectOwner = value;
-                    applicationSelection = value;
                     viewCommands = value.ViewCommands;
                     treeNodeInfos = value.GetTreeNodeInfos();
                 }
@@ -79,7 +76,6 @@ namespace Core.Plugins.ProjectExplorer
                 {
                     viewController = null;
                     projectOwner = null;
-                    applicationSelection = null;
                     viewCommands = null;
                     treeNodeInfos = null;
                 }
@@ -103,7 +99,7 @@ namespace Core.Plugins.ProjectExplorer
             base.Activate();
             try
             {
-                projectExplorerViewController = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos);
+                projectExplorerViewController = new ProjectExplorerViewController(viewCommands, viewController, treeNodeInfos);
             }
             catch (ArgumentNullException e)
             {

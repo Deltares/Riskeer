@@ -152,7 +152,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
-                Assert.AreSame(view.ApplicationSelection, guiStub);
             }
 
             mocks.VerifyAll();

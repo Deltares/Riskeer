@@ -205,6 +205,66 @@ namespace Core.Plugins.Map.Test.Legend
             }
         }
 
+        [Test]
+        [RequiresSTA]
+        public void Selection_Always_ReturnsSelectedNodeData()
+        {
+            // Setup
+            var mapData = new MapLineData("line data");
+            var mapDataCollection = new MapDataCollection("collection");
+
+            mapDataCollection.Add(mapData);
+
+            using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow)
+            {
+                Data = mapDataCollection
+            })
+            {
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
+
+                WindowsFormsTestHelper.Show(treeViewControl);
+                treeViewControl.TrySelectNodeForData(mapData);
+
+                // Call
+                var selection = view.Selection;
+
+                // Assert
+                Assert.AreSame(mapData, selection);
+            }
+            WindowsFormsTestHelper.CloseAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void TreeViewSelectedNodeChanged_Always_SelectionChangedFired()
+        {
+            // Setup
+            var mapData = new MapLineData("line data");
+            var mapDataCollection = new MapDataCollection("collection");
+
+            mapDataCollection.Add(mapData);
+
+            using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow)
+            {
+                Data = mapDataCollection
+            })
+            {
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
+
+                WindowsFormsTestHelper.Show(treeViewControl);
+
+                var selectionChangedCount = 0;
+                view.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+                // Call
+                treeViewControl.TrySelectNodeForData(mapData);
+
+                // Assert
+                Assert.AreEqual(1, selectionChangedCount);
+            }
+            WindowsFormsTestHelper.CloseAll();
+        }
+
         private static MapFeature[] CreateFeatures()
         {
             return new[]

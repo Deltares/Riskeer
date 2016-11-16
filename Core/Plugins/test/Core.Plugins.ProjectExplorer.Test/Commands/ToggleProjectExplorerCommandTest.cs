@@ -28,7 +28,6 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.ViewHost;
-using Core.Common.Gui.Selection;
 using Core.Plugins.ProjectExplorer.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -53,21 +52,18 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            var applicationSelection = mocks.StrictMock<IApplicationSelection>();
-
             var viewHost = mocks.StrictMock<IViewHost>();
-            viewHost.Stub(vm => vm.ToolViews).Return(new List<IView>());
-
             var viewController = mocks.StrictMock<IViewController>();
+
+            viewHost.Stub(vm => vm.ToolViews).Return(new List<IView>());
             viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
 
             mocks.ReplayAll();
 
             var treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
-            using (var explorerViewController = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos))
+            using (var explorerViewController = new ProjectExplorerViewController(viewCommands, viewController, treeNodeInfos))
             {
                 // Call
                 var command = new ToggleProjectExplorerCommand(explorerViewController);
@@ -85,13 +81,12 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            var applicationSelection = mocks.Stub<IApplicationSelection>();
-
             var toolViewList = new List<IView>();
             var viewHost = mocks.StrictMock<IViewHost>();
+
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
+
             if (isViewOpen)
             {
                 viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true),
@@ -108,7 +103,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
 
             var treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
-            using (var explorerViewController = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos))
+            using (var explorerViewController = new ProjectExplorerViewController(viewCommands, viewController, treeNodeInfos))
             {
                 var command = new ToggleProjectExplorerCommand(explorerViewController);
 
@@ -134,10 +129,9 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            var applicationSelection = mocks.Stub<IApplicationSelection>();
-
             var toolViewList = new List<IView>();
             var viewHost = mocks.StrictMock<IViewHost>();
+
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
             viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true),
                                                  Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
@@ -153,7 +147,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
 
             var treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
-            using (var explorerViewController = new ProjectExplorerViewController(viewCommands, applicationSelection, viewController, treeNodeInfos))
+            using (var explorerViewController = new ProjectExplorerViewController(viewCommands, viewController, treeNodeInfos))
             {
                 if (isViewOpen)
                 {

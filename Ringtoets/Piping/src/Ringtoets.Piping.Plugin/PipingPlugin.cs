@@ -135,7 +135,6 @@ namespace Ringtoets.Piping.Plugin
                 CloseForData = ClosePipingCalculationsViewForData,
                 AfterCreate = (view, context) =>
                 {
-                    view.ApplicationSelection = Gui;
                     view.AssessmentSection = context.AssessmentSection;
                     view.PipingFailureMechanism = context.FailureMechanism;
                 }
@@ -211,7 +210,7 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .AddSeparator()
                                                                                  .AddExpandAllItem()
                                                                                  .AddCollapseAllItem()
-                                                                                 .Build(),
+                                                                                 .Build()
             };
 
             yield return new TreeNodeInfo<RingtoetsPipingSurfaceLine>

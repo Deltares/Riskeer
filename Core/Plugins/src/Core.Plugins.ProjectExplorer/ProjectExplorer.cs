@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
-using Core.Common.Gui.Selection;
 using Core.Common.Utils.Events;
 using Core.Plugins.ProjectExplorer.Properties;
 
@@ -37,29 +36,24 @@ namespace Core.Plugins.ProjectExplorer
     /// </summary>
     public sealed partial class ProjectExplorer : UserControl, IProjectExplorer
     {
-        private readonly IApplicationSelection applicationSelection;
         private readonly IViewCommands viewCommands;
+
+        public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="ProjectExplorer"/>.
         /// </summary>
-        /// <param name="applicationSelection">The owner of the selection in the application.</param>
         /// <param name="viewCommands">The provider of view related commands.</param>
         /// <param name="treeNodeInfos">The <see cref="IEnumerable{T}"/> of <see cref="TreeNodeInfo"/> which 
         /// are used to draw nodes.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="applicationSelection"/> is <c>null</c>,</item>
         /// <item><paramref name="viewCommands"/> is <c>null</c>,</item>
         /// <item><paramref name="treeNodeInfos"/> is <c>null</c></item>
         /// </list>
         /// </exception>
-        public ProjectExplorer(IApplicationSelection applicationSelection, IViewCommands viewCommands, IEnumerable<TreeNodeInfo> treeNodeInfos)
+        public ProjectExplorer(IViewCommands viewCommands, IEnumerable<TreeNodeInfo> treeNodeInfos)
         {
-            if (applicationSelection == null)
-            {
-                throw new ArgumentNullException("applicationSelection");
-            }
             if (viewCommands == null)
             {
                 throw new ArgumentNullException("viewCommands");
@@ -72,7 +66,6 @@ namespace Core.Plugins.ProjectExplorer
 
             Text = Resources.General_ProjectExplorer;
 
-            this.applicationSelection = applicationSelection;
             this.viewCommands = viewCommands;
 
             RegisterTreeNodeInfos(treeNodeInfos);
@@ -127,7 +120,10 @@ namespace Core.Plugins.ProjectExplorer
 
         private void TreeViewControlSelectedDataChanged(object sender, EventArgs e)
         {
-            applicationSelection.Selection = treeViewControl.SelectedData;
+            if (SelectionChanged != null)
+            {
+                SelectionChanged(this, new EventArgs());
+            }
         }
 
         private void TreeViewControlDataDoubleClick(object sender, EventArgs e)

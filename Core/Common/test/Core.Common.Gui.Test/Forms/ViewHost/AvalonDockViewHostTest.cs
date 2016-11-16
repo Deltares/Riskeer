@@ -110,7 +110,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         # region Document views
 
         [Test]
-        public void AddDocumentView_NonControlView_ViewNotAdded()
+        public void AddDocumentView_NonControlView_ViewNotAddedAndNoViewOpenedEventFired()
         {
             // Setup
             var mocks = new MockRepository();
@@ -119,12 +119,16 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
+                var viewOpenedCounter = 0;
+                avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
+
                 // Call
                 avalonDockViewHost.AddDocumentView(testView);
 
                 // Assert
                 CollectionAssert.IsEmpty(avalonDockViewHost.DocumentViews);
                 Assert.IsFalse(IsDocumentViewPresent(avalonDockViewHost, testView));
+                Assert.AreEqual(0, viewOpenedCounter);
             }
 
             mocks.VerifyAll();
@@ -133,13 +137,16 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         [Test]
         [TestCase(1)]
         [TestCase(5)]
-        public void AddDocumentView_MultipleTestViews_ViewsAdded(int numberOfViewsToAdd)
+        public void AddDocumentView_MultipleTestViews_ViewsAddedAndViewOpenedEventsFired(int numberOfViewsToAdd)
         {
             // Setup
             var viewList = new List<IView>();
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
+                var viewOpenedCounter = 0;
+                avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
+
                 for (var i = 0; i < numberOfViewsToAdd; i++)
                 {
                     var testView = new TestView();
@@ -153,6 +160,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 // Assert
                 CollectionAssert.AreEqual(viewList, avalonDockViewHost.DocumentViews);
                 Assert.IsTrue(viewList.All(v => IsDocumentViewPresent(avalonDockViewHost, v)));
+                Assert.AreEqual(numberOfViewsToAdd, viewOpenedCounter);
             }
         }
 
@@ -190,7 +198,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void AddDocumentView_ActiveDocumentViewWasAlreadyAdded_NoDuplicationAndNoActiveDocumentEventsFired()
+        public void AddDocumentView_ActiveDocumentViewWasAlreadyAdded_NoDuplicationNoViewOpenedEventFiredAndNoActiveDocumentEventsFired()
         {
             // Setup
             var testView = new TestView();
@@ -200,6 +208,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 avalonDockViewHost.AddDocumentView(testView);
+
+                var viewOpenedCounter = 0;
+                avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
 
                 // Precondition
                 Assert.AreSame(testView, avalonDockViewHost.ActiveDocumentView);
@@ -228,11 +239,12 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                         testView
                     },
                     avalonDockViewHost.DocumentViews);
+                Assert.AreEqual(0, viewOpenedCounter);
             }
         }
 
         [Test]
-        public void AddDocumentView_NonActiveDocumentViewWasAlreadyAdded_NoDuplicationViewSetAsActiveDocumentViewAndActiveDocumentEventsFired()
+        public void AddDocumentView_NonActiveDocumentViewWasAlreadyAdded_NoDuplicationNoViewOpenedEventFiredViewSetAsActiveDocumentViewAndActiveDocumentEventsFired()
         {
             // Setup
             var testView1 = new TestView();
@@ -244,6 +256,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             {
                 avalonDockViewHost.AddDocumentView(testView1);
                 avalonDockViewHost.AddDocumentView(testView2);
+
+                var viewOpenedCounter = 0;
+                avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
 
                 // Precondition
                 Assert.AreNotSame(testView1, avalonDockViewHost.ActiveDocumentView);
@@ -274,6 +289,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                         testView2
                     },
                     avalonDockViewHost.DocumentViews);
+                Assert.AreEqual(0, viewOpenedCounter);
             }
         }
 
@@ -535,7 +551,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         # region Tool views
 
         [Test]
-        public void AddToolView_NonControlView_ViewNotAdded()
+        public void AddToolView_NonControlView_ViewNotAddedAndNoViewOpenedEventFired()
         {
             // Setup
             var mocks = new MockRepository();
@@ -544,12 +560,16 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
+                var viewOpenedCounter = 0;
+                avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
+
                 // Call
                 avalonDockViewHost.AddToolView(testView, ToolViewLocation.Left);
 
                 // Assert
                 CollectionAssert.IsEmpty(avalonDockViewHost.ToolViews);
                 Assert.IsFalse(IsToolViewPresent(avalonDockViewHost, testView, ToolViewLocation.Left));
+                Assert.AreEqual(0, viewOpenedCounter);
             }
 
             mocks.VerifyAll();
@@ -559,7 +579,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         [TestCase(ToolViewLocation.Left)]
         [TestCase(ToolViewLocation.Right)]
         [TestCase(ToolViewLocation.Bottom)]
-        public void AddToolView_TestViews_ViewAdded(ToolViewLocation toolViewLocation)
+        public void AddToolView_TestViews_ViewAddedAndViewOpenedEventFired(ToolViewLocation toolViewLocation)
         {
             // Setup
             var testView = new TestView();
@@ -572,6 +592,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
+                var viewOpenedCounter = 0;
+                avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
+
                 // Call
                 avalonDockViewHost.AddToolView(testView, toolViewLocation);
 
@@ -584,6 +607,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                     avalonDockViewHost.ToolViews);
                 Assert.IsTrue(IsToolViewPresent(avalonDockViewHost, testView, toolViewLocation));
                 Assert.IsFalse(otherToolViewLocations.Any(tvl => IsToolViewPresent(avalonDockViewHost, testView, tvl)));
+                Assert.AreEqual(1, viewOpenedCounter);
             }
         }
 
@@ -640,7 +664,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void AddToolView_ToolViewWasAlreadyAdded_NoDuplicationAndViewFocussed()
+        public void AddToolView_ToolViewWasAlreadyAdded_NoDuplicationNoViewOpenedEventFiredAndViewFocussed()
         {
             // Setup
             var testView1 = new TestView();
@@ -650,6 +674,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             {
                 avalonDockViewHost.AddToolView(testView1, ToolViewLocation.Left);
                 avalonDockViewHost.AddToolView(testView2, ToolViewLocation.Left);
+
+                var viewOpenedCounter = 0;
+                avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
 
                 // Precondition
                 CollectionAssert.AreEqual(
@@ -673,6 +700,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                     },
                     avalonDockViewHost.ToolViews);
                 Assert.IsTrue(IsFocussedView(avalonDockViewHost, testView1));
+                Assert.AreEqual(0, viewOpenedCounter);
             }
         }
 

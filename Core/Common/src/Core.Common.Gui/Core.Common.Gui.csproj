@@ -157,7 +157,6 @@
     <Compile Include="PropertyBag\PropertySpecDescriptor.cs" />
     <Compile Include="PropertyBag\ReadOnlyPropertyDescriptorDecorator.cs" />
     <Compile Include="Selection\IApplicationSelection.cs" />
-    <Compile Include="Selection\SelectedItemChangedEventArgs.cs" />
     <Compile Include="Settings\GuiCoreSettings.cs" />
     <Compile Include="Settings\ISettingsOwner.cs" />
     <Compile Include="Settings\SettingsHelper.cs" />

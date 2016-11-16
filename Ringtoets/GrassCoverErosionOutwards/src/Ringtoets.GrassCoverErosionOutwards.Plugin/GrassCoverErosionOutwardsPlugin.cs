@@ -126,7 +126,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 {
                     view.AssessmentSection = context.AssessmentSection;
                     view.FailureMechanism = context.FailureMechanism;
-                    view.ApplicationSelection = Gui;
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 },
                 CloseForData = CloseDesignWaterLevelLocationsViewForData
@@ -145,7 +144,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 {
                     view.AssessmentSection = context.AssessmentSection;
                     view.FailureMechanism = context.FailureMechanism;
-                    view.ApplicationSelection = Gui;
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 }
             };

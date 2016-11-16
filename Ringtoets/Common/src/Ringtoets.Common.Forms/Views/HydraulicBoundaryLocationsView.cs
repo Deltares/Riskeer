@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Selection;
 using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -44,6 +43,8 @@ namespace Ringtoets.Common.Forms.Views
         private bool updatingDataSource;
         private IEnumerable<HydraulicBoundaryLocation> locations;
 
+        public event EventHandler<EventArgs> SelectionChanged;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsView{T}"/>.
         /// </summary>
@@ -53,11 +54,6 @@ namespace Ringtoets.Common.Forms.Views
             LocalizeControls();
             InitializeEventHandlers();
         }
-
-        /// <summary>
-        /// Gets or sets the <see cref="IApplicationSelection"/>.
-        /// </summary>
-        public IApplicationSelection ApplicationSelection { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationGuiService"/>.
@@ -201,21 +197,14 @@ namespace Ringtoets.Common.Forms.Views
                 return;
             }
 
-            UpdateApplicationSelection();
+            OnSelectionChanged();
         }
 
-        private void UpdateApplicationSelection()
+        private void OnSelectionChanged()
         {
-            if (ApplicationSelection == null)
+            if (SelectionChanged != null)
             {
-                return;
-            }
-
-            object selection = CreateSelectedItemFromCurrentRow();
-            if ((ApplicationSelection.Selection == null && selection != null) ||
-                (ApplicationSelection.Selection != null && !ReferenceEquals(selection, ApplicationSelection.Selection)))
-            {
-                ApplicationSelection.Selection = selection;
+                SelectionChanged(this, new EventArgs());
             }
         }
 

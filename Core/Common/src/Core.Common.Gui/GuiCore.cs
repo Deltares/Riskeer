@@ -42,7 +42,6 @@ using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
-using Core.Common.Gui.Selection;
 using Core.Common.Gui.Settings;
 using Core.Common.Utils.Extensions;
 using log4net;
@@ -65,10 +64,10 @@ namespace Core.Common.Gui
 
         private readonly IProjectFactory projectFactory;
 
-        private SplashScreen splashScreen;
-
-        private bool runFinished;
         private bool isExiting;
+        private bool runFinished;
+        private SplashScreen splashScreen;
+        private IList<ISelectionProvider> selectionProviders = new List<ISelectionProvider>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiCore"/> class.
@@ -245,9 +244,16 @@ namespace Core.Common.Gui
                 if (ViewHost != null)
                 {
                     ViewHost.Dispose();
+                    ViewHost.ViewOpened -= OnViewOpened;
+                    ViewHost.ViewClosed -= OnViewClosed;
                     ViewHost.ViewClosed -= OnActiveDocumentViewChanged;
                     ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
                     ViewHost.ActiveViewChanged -= OnActiveViewChanged;
+                }
+
+                foreach (var selectionProvider in selectionProviders)
+                {
+                    selectionProvider.SelectionChanged -= OnSelectionChanged;
                 }
 
                 // Dispose managed resources. TODO: double check if we need to dispose managed resources?
@@ -476,6 +482,8 @@ namespace Core.Common.Gui
             InitializeMainWindow();
 
             ViewHost = mainWindow.ViewHost;
+            ViewHost.ViewOpened += OnViewOpened;
+            ViewHost.ViewClosed += OnViewClosed;
             ViewHost.ViewClosed += OnActiveDocumentViewChanged;
             ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
             ViewHost.ActiveViewChanged += OnActiveViewChanged;
@@ -492,6 +500,26 @@ namespace Core.Common.Gui
             UpdateTitle();
         }
 
+        private void OnViewOpened(object sender, ViewChangeEventArgs e)
+        {
+            var selectionProvider = e.View as ISelectionProvider;
+            if (selectionProvider != null)
+            {
+                selectionProviders.Add(selectionProvider);
+                selectionProvider.SelectionChanged += OnSelectionChanged;
+            }
+        }
+
+        private void OnViewClosed(object sender, ViewChangeEventArgs e)
+        {
+            var selectionProvider = e.View as ISelectionProvider;
+            if (selectionProvider != null)
+            {
+                selectionProviders.Remove(selectionProvider);
+                selectionProvider.SelectionChanged -= OnSelectionChanged;
+            }
+        }
+
         private void OnActiveDocumentViewChanged(object sender, EventArgs e)
         {
             if (mainWindow != null && !mainWindow.IsWindowDisposed)
@@ -506,6 +534,15 @@ namespace Core.Common.Gui
             if (selectionProvider != null)
             {
                 Selection = selectionProvider.Selection ?? Selection;
+            }
+        }
+
+        private void OnSelectionChanged(object sender, EventArgs eventArgs)
+        {
+            var selectionProvider = sender as ISelectionProvider;
+            if (selectionProvider != null)
+            {
+                Selection = selectionProvider.Selection;
             }
         }
 
@@ -597,10 +634,6 @@ namespace Core.Common.Gui
 
         private object selection;
 
-        private bool settingSelection;
-
-        public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; // TODO: make it weak
-
         public object Selection
         {
             get
@@ -609,28 +642,24 @@ namespace Core.Common.Gui
             }
             set
             {
-                if (selection == value || settingSelection)
+                if (selection == value)
                 {
                     return;
                 }
 
                 selection = value;
 
-                settingSelection = true;
-
-                try
+                if (mainWindow == null)
                 {
-                    if (SelectionChanged != null)
-                    {
-                        SelectionChanged(selection, new SelectedItemChangedEventArgs(value));
-                    }
-                }
-                finally
-                {
-                    settingSelection = false;
+                    return;
                 }
 
-                if (!isExiting && mainWindow != null && !mainWindow.IsWindowDisposed)
+                if (mainWindow.PropertyGrid != null)
+                {
+                    mainWindow.PropertyGrid.Data = selection;
+                }
+
+                if (!isExiting && !mainWindow.IsWindowDisposed)
                 {
                     mainWindow.ValidateItems();
                 }

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Core.Common.Controls.Views
 {
     /// <summary>
@@ -26,6 +28,11 @@ namespace Core.Common.Controls.Views
     /// </summary>
     public interface ISelectionProvider : IView
     {
+        /// <summary>
+        /// Fired when the provider's selection has been changed.
+        /// </summary>
+        event EventHandler<EventArgs> SelectionChanged;
+
         /// <summary>
         /// Gets the selected <see cref="object"/>; or <c>null</c> if nothing is selected.
         /// </summary>

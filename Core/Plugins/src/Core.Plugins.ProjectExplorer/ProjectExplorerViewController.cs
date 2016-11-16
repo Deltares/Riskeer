@@ -27,7 +27,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.ViewHost;
-using Core.Common.Gui.Selection;
 using Core.Plugins.ProjectExplorer.Properties;
 
 namespace Core.Plugins.ProjectExplorer
@@ -39,7 +38,6 @@ namespace Core.Plugins.ProjectExplorer
     {
         private readonly IViewController viewController;
         private readonly IEnumerable<TreeNodeInfo> treeNodeInfos;
-        private readonly IApplicationSelection applicationSelection;
         private readonly IViewCommands viewCommands;
 
         private ProjectExplorer projectExplorer;
@@ -53,27 +51,21 @@ namespace Core.Plugins.ProjectExplorer
         /// Creates a new instance of <see cref="ProjectExplorerViewController"/>.
         /// </summary>
         /// <param name="viewCommands">The provider of view related commands.</param>
-        /// <param name="applicationSelection">The owner of the selection in the application.</param>
         /// <param name="viewController">The provider of view related commands.</param>
         /// <param name="treeNodeInfos">The <see cref="IEnumerable{T}"/> of <see cref="TreeNodeInfo"/> which 
         /// are used to draw nodes.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="viewCommands"/> is <c>null</c>,</item>
-        /// <item><paramref name="applicationSelection"/> is <c>null</c>,</item>
         /// <item><paramref name="viewController"/> is <c>null</c>,</item>
         /// <item><paramref name="treeNodeInfos"/> is <c>null</c></item>
         /// </list>
         /// </exception>
-        public ProjectExplorerViewController(IViewCommands viewCommands, IApplicationSelection applicationSelection, IViewController viewController, IEnumerable<TreeNodeInfo> treeNodeInfos)
+        public ProjectExplorerViewController(IViewCommands viewCommands, IViewController viewController, IEnumerable<TreeNodeInfo> treeNodeInfos)
         {
             if (viewCommands == null)
             {
                 throw new ArgumentNullException("viewCommands");
-            }
-            if (applicationSelection == null)
-            {
-                throw new ArgumentNullException("applicationSelection");
             }
             if (viewController == null)
             {
@@ -85,7 +77,6 @@ namespace Core.Plugins.ProjectExplorer
             }
 
             this.viewController = viewController;
-            this.applicationSelection = applicationSelection;
             this.treeNodeInfos = treeNodeInfos;
             this.viewCommands = viewCommands;
         }
@@ -142,7 +133,7 @@ namespace Core.Plugins.ProjectExplorer
 
         private void OpenProjectExplorer()
         {
-            projectExplorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos);
+            projectExplorer = new ProjectExplorer(viewCommands, treeNodeInfos);
 
             viewController.ViewHost.AddToolView(projectExplorer, ToolViewLocation.Left);
             viewController.ViewHost.SetImage(projectExplorer, Resources.ProjectExplorerIcon);

@@ -44,12 +44,14 @@ namespace Core.Plugins.Map.Legend
     /// <summary>
     /// The view which shows the data that is added to a <see cref="MapControl"/>.
     /// </summary>
-    public sealed partial class MapLegendView : UserControl, IView
+    public sealed partial class MapLegendView : UserControl, ISelectionProvider
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MapLegendView));
 
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
         private readonly IWin32Window parentWindow;
+
+        public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapLegendView"/>.
@@ -74,6 +76,8 @@ namespace Core.Plugins.Map.Legend
             Text = MapResources.General_Map;
 
             RegisterTreeNodeInfos();
+
+            treeViewControl.SelectedDataChanged += TreeViewControlSelectedDataChanged;
         }
 
         public object Data
@@ -85,6 +89,22 @@ namespace Core.Plugins.Map.Legend
             set
             {
                 treeViewControl.Data = (MapData) value;
+            }
+        }
+
+        public object Selection
+        {
+            get
+            {
+                return treeViewControl.SelectedData;
+            }
+        }
+
+        private void TreeViewControlSelectedDataChanged(object sender, EventArgs e)
+        {
+            if (SelectionChanged != null)
+            {
+                SelectionChanged(this, new EventArgs());
             }
         }
 
@@ -200,7 +220,7 @@ namespace Core.Plugins.Map.Legend
             }
         }
 
-        private void CheckDataFormat(string filePath, string title, MapDataCollection mapDataCollection)
+        private static void CheckDataFormat(string filePath, string title, MapDataCollection mapDataCollection)
         {
             try
             {
@@ -271,7 +291,7 @@ namespace Core.Plugins.Map.Legend
             }
         }
 
-        private FeatureBasedMapData GetShapeFileData(ShapeFileReaderBase reader, string title)
+        private static FeatureBasedMapData GetShapeFileData(ShapeFileReaderBase reader, string title)
         {
             return reader.ReadShapeFile(title);
         }

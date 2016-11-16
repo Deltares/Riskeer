@@ -115,7 +115,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                     // Assert
                     Assert.AreSame(assessmentSectionStub, view.AssessmentSection);
-                    Assert.AreSame(guiStub, view.ApplicationSelection);
                     Assert.AreSame(failureMechanism, view.FailureMechanism);
                     Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
                 }

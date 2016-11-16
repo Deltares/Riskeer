@@ -82,8 +82,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
             viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
             guiStub.Stub(g => g.ViewHost).Return(viewHost);
-            guiStub.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            guiStub.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
             guiStub.Expect(g => g.ProjectOpened += null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
@@ -116,8 +114,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
             viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
             guiStub.Stub(g => g.ViewHost).Return(viewHost);
-            guiStub.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            guiStub.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
@@ -155,8 +151,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
             viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
             guiStub.Stub(g => g.ViewHost).Return(viewHost);
-            guiStub.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            guiStub.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
 
             guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();

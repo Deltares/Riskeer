@@ -27,7 +27,6 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
-using Core.Common.Gui.Selection;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
@@ -42,19 +41,17 @@ namespace Core.Plugins.ProjectExplorer.Test
         [Test]
         [TestCase(0)]
         [TestCase(1)]
-        [TestCase(2)]
         public void Constructor_ArgumentsNull_ThrowsArgumentNullException(int paramNullIndex)
         {
             // Setup
             var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = paramNullIndex == 0 ? null : mocks.StrictMock<IApplicationSelection>();
-            IViewCommands viewCommands = paramNullIndex == 1 ? null : mocks.StrictMock<IViewCommands>();
-            IEnumerable<TreeNodeInfo> treeNodeInfos = paramNullIndex == 2 ? null : Enumerable.Empty<TreeNodeInfo>();
+            IViewCommands viewCommands = paramNullIndex == 0 ? null : mocks.StrictMock<IViewCommands>();
+            IEnumerable<TreeNodeInfo> treeNodeInfos = paramNullIndex == 1 ? null : Enumerable.Empty<TreeNodeInfo>();
 
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos);
+            TestDelegate test = () => new ProjectExplorer(viewCommands, treeNodeInfos);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -62,18 +59,17 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        public void Constructor_NoNullArguments_CreatesNewInstanceApplicationSelectionEventBound()
+        public void Constructor_NoNullArguments_CreatesNewInstance()
         {
             // Setup
             var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
             mocks.ReplayAll();
 
             // Call
-            using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos))
+            using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos))
             {
                 // Assert
                 Assert.IsInstanceOf<IProjectExplorer>(explorer);
@@ -89,9 +85,9 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             var projectStub = mocks.Stub<IProject>();
+
             mocks.ReplayAll();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
@@ -102,7 +98,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 }
             };
 
-            using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos))
+            using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos))
             {
                 // Call
                 explorer.Data = projectStub;
@@ -118,9 +114,9 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             var projectStub = mocks.Stub<IProject>();
+
             viewCommands.Expect(vc => vc.RemoveAllViewsForItem(projectStub));
 
             mocks.ReplayAll();
@@ -140,7 +136,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 messageBox.ClickOk();
             };
 
-            using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
+            using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {
                 Data = projectStub
             })
@@ -154,21 +150,14 @@ namespace Core.Plugins.ProjectExplorer.Test
 
         [Test]
         [RequiresSTA]
-        public void TreeViewSelectedNodeChanged_Always_SetsApplicationSelection()
+        public void TreeViewSelectedNodeChanged_Always_SelectionChangedFired()
         {
             // Setup
             var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
 
             var projectStub = mocks.Stub<IProject>();
             var stringA = "testA";
-
-            using (mocks.Ordered())
-            {
-                applicationSelection.Expect(a => a.Selection = projectStub);
-                applicationSelection.Expect(a => a.Selection = stringA);
-            }
 
             mocks.ReplayAll();
 
@@ -191,21 +180,21 @@ namespace Core.Plugins.ProjectExplorer.Test
                 }
             };
 
-            using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
+            using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {
                 Data = projectStub
             })
             {
                 WindowsFormsTestHelper.Show(explorer.TreeViewControl);
 
-                // Precondition
-                Assert.AreNotSame(explorer.TreeViewControl.SelectedData, stringA);
+                var selectionChangedCount = 0;
+                explorer.SelectionChanged += (sender, args) => selectionChangedCount++;
 
                 // Call
                 explorer.TreeViewControl.TrySelectNodeForData(stringA);
 
                 // Assert
-                Assert.AreSame(explorer.TreeViewControl.SelectedData, stringA);
+                Assert.AreEqual(1, selectionChangedCount);
             }
             WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
@@ -219,7 +208,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             var treeIdentifier = "SomeName";
             var formIdentifier = "SomeForm";
             var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             var projectStub = mocks.Stub<IProject>();
 
@@ -238,7 +226,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 viewCommands.Expect(a => a.OpenViewForSelection());
             }
 
-            using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
+            using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {
                 Data = projectStub
             })
@@ -270,7 +258,6 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             var projectStub = mocks.Stub<IProject>();
 
@@ -296,7 +283,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 }
             };
 
-            using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
+            using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {
                 Data = projectStub
             })
