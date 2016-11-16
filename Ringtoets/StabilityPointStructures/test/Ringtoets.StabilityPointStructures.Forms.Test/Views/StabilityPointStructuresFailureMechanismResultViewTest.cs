@@ -446,7 +446,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
-                Assert.AreEqual("De maatgevende berekening voor dit vak heeft geen geldige uitkomst.", dataGridViewCell.ErrorText);
+                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.", dataGridViewCell.ErrorText);
             }
         }
 
@@ -529,7 +529,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual("-", formattedValue);
-                Assert.AreEqual("De maatgevende berekening voor dit vak heeft geen geldige uitkomst.", dataGridViewCell.ErrorText);
+                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.", dataGridViewCell.ErrorText);
             }
         }
 

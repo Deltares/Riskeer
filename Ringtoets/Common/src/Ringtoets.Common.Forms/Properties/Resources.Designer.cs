@@ -851,7 +851,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De maatgevende berekening voor dit vak heeft geen geldige uitkomst..
+        ///   Looks up a localized string similar to De maatgevende berekening voor dit vak moet een geldige uitkomst hebben..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_successful {
             get {
@@ -860,7 +860,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Niet alle berekeningen voor dit vak zijn uitgevoerd..
+        ///   Looks up a localized string similar to Alle berekeningen voor dit vak moeten uitgevoerd zijn..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed {
             get {
@@ -870,7 +870,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Niet alle berekeningen voor dit vak hebben een geldige uitkomst..
+        ///   Looks up a localized string similar to Alle berekeningen voor dit vak moeten een geldige uitkomst hebben..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output {
             get {
@@ -880,7 +880,16 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijdrage van de geselecteerde scenario&apos;s voor dit vak is opgeteld niet gelijk aan 100%..
+        ///   Looks up a localized string similar to Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd..
+        /// </summary>
+        public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bijdrage van de geselecteerde scenario&apos;s voor dit vak moet opgeteld gelijk zijn aan 100%..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100 {
             get {

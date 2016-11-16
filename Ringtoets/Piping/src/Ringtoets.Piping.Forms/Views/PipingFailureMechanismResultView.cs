@@ -38,12 +38,12 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public class PipingFailureMechanismResultView : FailureMechanismResultView<PipingFailureMechanismSectionResult>
     {
+        private const int assessmentLayerOneColumnIndex = 1;
+        private const int assessmentLayerTwoAIndex = 2;
         private const double tolerance = 1e-6;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-
-        private readonly int assessmentLayerTwoAIndex = 2;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > 1)
+            if (eventArgs.ColumnIndex > assessmentLayerOneColumnIndex)
             {
                 if (HasPassedLevelOne(eventArgs.RowIndex))
                 {
@@ -152,38 +152,40 @@ namespace Ringtoets.Piping.Forms.Views
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
 
             var resultRow = (PipingFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
-            if (resultRow != null)
+            PipingFailureMechanismSectionResult rowObject = resultRow.GetSectionResult;
+
+            var relevantScenarios = rowObject.GetCalculationScenarios(FailureMechanism.Calculations.OfType<PipingCalculationScenario>()).ToArray();
+            bool relevantScenarioAvailable = relevantScenarios.Length != 0;
+
+            if (rowObject.AssessmentLayerOne)
             {
-                PipingFailureMechanismSectionResult rowObject = resultRow.GetSectionResult;
-
-                var relevantScenarios = rowObject.GetCalculationScenarios(FailureMechanism.Calculations.OfType<PipingCalculationScenario>()).Where(cs => cs.IsRelevant).ToArray();
-                bool relevantScenarioAvailable = relevantScenarios.Length != 0;
-
-                if (rowObject.AssessmentLayerOne || !relevantScenarioAvailable)
-                {
-                    currentDataGridViewCell.ErrorText = string.Empty;
-                    return;
-                }
-
-                if (Math.Abs(rowObject.GetTotalContribution(FailureMechanism.Calculations.OfType<PipingCalculationScenario>()) - 1.0) > tolerance)
-                {
-                    currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
-                    return;
-                }
-
-                var calculationScenarioStatus = rowObject.GetCalculationScenarioStatus(FailureMechanism.Calculations.OfType<PipingCalculationScenario>());
-                if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
-                {
-                    currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed;
-                    return;
-                }
-                if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
-                {
-                    currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output;
-                    return;
-                }
                 currentDataGridViewCell.ErrorText = string.Empty;
+                return;
             }
+            if (!relevantScenarioAvailable)
+            {
+                currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set;
+                return;
+            }
+
+            if (Math.Abs(rowObject.GetTotalContribution(relevantScenarios) - 1.0) > tolerance)
+            {
+                currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
+                return;
+            }
+
+            var calculationScenarioStatus = rowObject.GetCalculationScenarioStatus(relevantScenarios);
+            if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
+            {
+                currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed;
+                return;
+            }
+            if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
+            {
+                currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output;
+                return;
+            }
+            currentDataGridViewCell.ErrorText = string.Empty;
         }
 
         #endregion

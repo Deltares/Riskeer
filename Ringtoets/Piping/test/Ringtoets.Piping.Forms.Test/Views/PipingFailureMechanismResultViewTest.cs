@@ -303,7 +303,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var rowIndex = 0;
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
+            using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
                 PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
                     1.0/1000.0,
@@ -318,10 +318,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
                 // Call
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Assert
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak is opgeteld niet gelijk aan 100%.", dataGridViewCell.ErrorText);
+                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
+                                dataGridViewCell.ErrorText);
                 Assert.AreEqual("-", formattedValue);
             }
         }
@@ -333,7 +334,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var rowIndex = 0;
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
+            using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
                 PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
                     (RoundedDouble) 1e-3,
@@ -347,11 +348,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
                 // Call
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Assert
-                Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
-                Assert.AreEqual(string.Format("1/{0:N0}", 1/calculationScenario.Probability), formattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+                Assert.AreEqual(string.Format("1/{0:N0}", 1/calculationScenario.Probability),
+                                formattedValue);
             }
         }
 
@@ -374,10 +376,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
                 // Call
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Assert
-                Assert.AreEqual("Niet alle berekeningen voor dit vak zijn uitgevoerd.", dataGridViewCell.ErrorText);
+                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                                dataGridViewCell.ErrorText);
                 Assert.AreEqual("-", formattedValue);
             }
         }
@@ -389,9 +392,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var rowIndex = 0;
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
+            using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(pipingFailureMechanism.Sections.First());
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(
+                    pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
                 view.Data = pipingFailureMechanism.SectionResults;
 
@@ -401,16 +405,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
                 // Call
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Assert
-                Assert.AreEqual("Niet alle berekeningen voor dit vak hebben een geldige uitkomst.", dataGridViewCell.ErrorText);
+                Assert.AreEqual("Alle berekeningen voor dit vak moeten een geldige uitkomst hebben.",
+                                dataGridViewCell.ErrorText);
                 Assert.AreEqual("-", formattedValue);
             }
         }
 
         [Test]
-        public void FailureMechanismResultView_NoCalculationScenarios_DoesNotShowErrorTooltip()
+        public void FailureMechanismResultView_NoCalculationScenarios_ShowsErrorTooltip()
         {
             // Setup
             var rowIndex = 0;
@@ -423,16 +428,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
                 // Call
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Assert
-                Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
+                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
+                                dataGridViewCell.ErrorText);
                 Assert.AreEqual("-", formattedValue);
             }
         }
 
         [Test]
-        public void FailureMechanismResultView_NoCalculationScenariosRelevant_DoesNotShowErrorTooltip()
+        public void FailureMechanismResultView_NoCalculationScenariosRelevant_ShowsErrorTooltip()
         {
             // Setup
             var rowIndex = 0;
@@ -440,7 +446,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(pipingFailureMechanism.Sections.First());
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(
+                    pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
                 var gridTester = new ControlTester("dataGridView");
@@ -449,10 +456,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
                 // Call
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Assert
-                Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
+                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
+                                dataGridViewCell.ErrorText);
                 Assert.AreEqual("-", formattedValue);
             }
         }
@@ -466,7 +474,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(pipingFailureMechanism.Sections.First());
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(
+                    pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
                 var gridTester = new ControlTester("dataGridView");
@@ -476,10 +485,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Call
                 dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = true;
-                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Assert
-                Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
                 Assert.AreEqual("-", formattedValue);
             }
         }

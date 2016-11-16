@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.");
 
             yield return new TestCaseData(dataGridViewCell, false, double.NaN, new CalculationWithOutput(),
-                                          "De maatgevende berekening voor dit vak heeft geen geldige uitkomst.");
+                                          "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.");
             yield return new TestCaseData(dataGridViewCell, false, 0.0, new CalculationWithOutput(),
                                           string.Empty);
         }
