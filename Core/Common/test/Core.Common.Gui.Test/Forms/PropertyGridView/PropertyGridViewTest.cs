@@ -24,7 +24,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.PropertyGridView;
-using Core.Common.Gui.Selection;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -34,37 +33,13 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
     public class PropertyGridViewTest
     {
         [Test]
-        public void Constructor_ApplicationSelectionIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var propertyResolverStub = mockRepository.Stub<IPropertyResolver>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new Gui.Forms.PropertyGridView.PropertyGridView(null,
-                                                                                      propertyResolverStub);
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("applicationSelection", paramName);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_PropertyResolverIsNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mockRepository = new MockRepository();
-            var applicationSelectionStub = mockRepository.Stub<IApplicationSelection>();
-            mockRepository.ReplayAll();
-
             // Call
-            TestDelegate call = () => new Gui.Forms.PropertyGridView.PropertyGridView(applicationSelectionStub,
-                                                                                      null);
+            TestDelegate call = () => new Gui.Forms.PropertyGridView.PropertyGridView(null);
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("propertyResolver", paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -72,14 +47,11 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         {
             // Setup
             var mockRepository = new MockRepository();
-            var applicationSelectionStub = mockRepository.Stub<IApplicationSelection>();
             var propertyResolverStub = mockRepository.Stub<IPropertyResolver>();
             mockRepository.ReplayAll();
 
             // Call
-            using (var propertyGridView = new Gui.Forms.PropertyGridView.PropertyGridView(
-                applicationSelectionStub,
-                propertyResolverStub))
+            using (var propertyGridView = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolverStub))
             {
                 // Assert
                 Assert.IsInstanceOf<PropertyGrid>(propertyGridView);

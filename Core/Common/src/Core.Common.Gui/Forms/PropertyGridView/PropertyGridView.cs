@@ -29,7 +29,6 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Gui.Selection;
 
 namespace Core.Common.Gui.Forms.PropertyGridView
 {
@@ -52,16 +51,11 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyGridView"/> class.
         /// </summary>
-        /// <param name="applicationSelection">The application selection mechanism.</param>
         /// <param name="propertyResolver">The class responsible for finding the object properties
         /// for a given data object.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public PropertyGridView(IApplicationSelection applicationSelection, IPropertyResolver propertyResolver)
+        public PropertyGridView(IPropertyResolver propertyResolver)
         {
-            if (applicationSelection == null)
-            {
-                throw new ArgumentNullException("applicationSelection");
-            }
             if (propertyResolver == null)
             {
                 throw new ArgumentNullException("propertyResolver");
