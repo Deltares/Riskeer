@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -28,6 +29,7 @@ using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
+using Point = DotSpatial.Topology.Point;
 
 namespace Core.Components.DotSpatial.Converter
 {
@@ -74,7 +76,12 @@ namespace Core.Components.DotSpatial.Converter
 
             if (featureSet.DataTable.Columns.Count > 0)
             {
-                labelLayer.Symbology.Categories[0].Symbolizer.PriorityField = "ID";
+                labelLayer.Symbology.Categories[0].Symbolizer = new LabelSymbolizer
+                {
+                    Orientation = ContentAlignment.MiddleRight,
+                    OffsetX = 5,
+                    PriorityField = "ID"
+                };
                 labelLayer.Symbology.Categories[0].Expression = "[name]";
             }
 

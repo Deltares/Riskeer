@@ -192,8 +192,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual("Name", dataColumns[1].ColumnName);
 
             Assert.IsNotNull(layer.LabelLayer);
-            Assert.AreEqual("ID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
-            Assert.AreEqual("[name]", layer.LabelLayer.Symbology.Categories[0].Expression);
+            var labelCategory = layer.LabelLayer.Symbology.Categories[0];
+            Assert.AreEqual("ID", labelCategory.Symbolizer.PriorityField);
+            Assert.AreEqual(ContentAlignment.MiddleRight, labelCategory.Symbolizer.Orientation);
+            Assert.AreEqual(5, labelCategory.Symbolizer.OffsetX);
+            Assert.AreEqual("[name]", labelCategory.Expression);
         }
 
         [Test]
