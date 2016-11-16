@@ -1309,7 +1309,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
-        # region Nested types
+        #region Nested types
 
         private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
         {
@@ -1365,6 +1365,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             public void ClearOutput() {}
         }
 
-        # endregion
+        #endregion
     }
 }

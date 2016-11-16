@@ -162,7 +162,7 @@ namespace Core.Plugins.Chart.Legend
 
         #endregion
 
-        # region ChartDataCollection
+        #region ChartDataCollection
 
         private static object[] GetCollectionChildNodeObjects(ChartDataCollection chartDataCollection)
         {
@@ -190,6 +190,6 @@ namespace Core.Plugins.Chart.Legend
             parent.NotifyObservers();
         }
 
-        # endregion
+        #endregion
     }
 }

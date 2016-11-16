@@ -167,7 +167,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
 
         #endregion
 
-        # region Helper methods for CreateCalculationGroupContextTreeNodeInfo
+        #region Helper methods for CreateCalculationGroupContextTreeNodeInfo
 
         private static bool IsNestedGroup(object parentData)
         {
@@ -208,7 +208,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             return new DroppingCalculationToNewContainer(sourceCalculationGroup, targetCalculationGroup);
         }
 
-        # region Nested types: DroppingCalculationInContainerStrategy and implementations
+        #region Nested types: DroppingCalculationInContainerStrategy and implementations
 
         /// <summary>
         /// Strategy pattern implementation for dealing with drag and drop of a <see cref="ICalculation"/>
@@ -312,8 +312,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             }
         }
 
-        # endregion
+        #endregion
 
-        # endregion
+        #endregion
     }
 }

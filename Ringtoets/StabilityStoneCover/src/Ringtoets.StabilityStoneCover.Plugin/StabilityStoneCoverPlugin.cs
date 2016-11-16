@@ -167,7 +167,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         #region ViewInfos
 
-        # region StabilityStoneCoverFailureMechanismView ViewInfo
+        #region StabilityStoneCoverFailureMechanismView ViewInfo
 
         private bool CloseStabilityStoneCoverFailureMechanismViewForData(StabilityStoneCoverFailureMechanismView view, object o)
         {
@@ -182,7 +182,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                        : ReferenceEquals(viewFailureMechanism, failureMechanism);
         }
 
-        # endregion
+        #endregion
 
         #region FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>
 

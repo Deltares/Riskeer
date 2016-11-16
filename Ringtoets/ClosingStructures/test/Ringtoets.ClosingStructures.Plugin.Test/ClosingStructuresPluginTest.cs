@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
@@ -30,6 +31,7 @@ using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -126,9 +128,24 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, viewInfos.Length);
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(ClosingStructuresFailureMechanismResultView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(ClosingStructuresScenariosView)));
+                Assert.AreEqual(3, viewInfos.Length);
+                
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos, 
+                    typeof(ClosingStructuresFailureMechanismContext), 
+                    typeof(ClosingStructuresFailureMechanismView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>),
+                    typeof(IEnumerable<ClosingStructuresFailureMechanismSectionResult>),
+                    typeof(ClosingStructuresFailureMechanismResultView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos, 
+                    typeof(ClosingStructuresScenariosContext),
+                    typeof(CalculationGroup),
+                    typeof(ClosingStructuresScenariosView));
             }
         }
 

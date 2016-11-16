@@ -227,7 +227,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         #endregion
 
-        # region Model factors and critical values
+        #region Model factors and critical values
 
         [DynamicVisible]
         public override NormalDistributionProperties ModelFactorSuperCriticalFlow

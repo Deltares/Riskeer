@@ -484,7 +484,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         #endregion
 
-        # region Event handling
+        #region Event handling
 
         private void DataGridViewOnCellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -576,6 +576,6 @@ namespace Ringtoets.Piping.Forms.Views
             return selection;
         }
 
-        # endregion
+        #endregion
     }
 }

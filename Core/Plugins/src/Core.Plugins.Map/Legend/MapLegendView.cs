@@ -168,7 +168,7 @@ namespace Core.Plugins.Map.Legend
 
         #endregion
 
-        # region MapDataCollection
+        #region MapDataCollection
 
         private static bool MapControlCanDrop(object draggedData, object targetData)
         {
@@ -201,7 +201,7 @@ namespace Core.Plugins.Map.Legend
             return contextMenuBuilderProvider.Get(mapDataCollection, treeView).AddCustomItem(addMapLayerMenuItem).Build();
         }
 
-        # endregion
+        #endregion
 
         #region ShapeFileImporter
 

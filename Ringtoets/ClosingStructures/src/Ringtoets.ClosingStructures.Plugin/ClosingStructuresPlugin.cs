@@ -70,6 +70,14 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
+            yield return new ViewInfo<ClosingStructuresFailureMechanismContext, ClosingStructuresFailureMechanismView>
+            {
+                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                CloseForData = CloseClosingStructuresFailureMechanismViewForData,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+            };
+
             yield return new ViewInfo<
                 FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
                 IEnumerable<ClosingStructuresFailureMechanismSectionResult>,
@@ -216,6 +224,23 @@ namespace Ringtoets.ClosingStructures.Plugin
         }
 
         #region ViewInfo
+
+        #region HeightStructuresFailureMechanismView ViewInfo
+
+        private bool CloseClosingStructuresFailureMechanismViewForData(ClosingStructuresFailureMechanismView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as ClosingStructuresFailureMechanism;
+
+            var viewFailureMechanismContext = (ClosingStructuresFailureMechanismContext)view.Data;
+            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
+                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+        }
+
+        #endregion
 
         #region ClosingStructuresFailureMechanismResultView ViewInfo
 

@@ -238,7 +238,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         #region ViewInfo
 
-        # region HeightStructuresFailureMechanismView ViewInfo
+        #region HeightStructuresFailureMechanismView ViewInfo
 
         private bool CloseHeightStructuresFailureMechanismViewForData(HeightStructuresFailureMechanismView view, object o)
         {
@@ -253,7 +253,7 @@ namespace Ringtoets.HeightStructures.Plugin
                        : ReferenceEquals(viewFailureMechanism, failureMechanism);
         }
 
-        # endregion
+        #endregion
 
         #region HeightStructuresScenariosView ViewInfo
 

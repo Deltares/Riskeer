@@ -180,7 +180,7 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridViewControl.SetDataSource(dataSource);
         }
 
-        # region Event handling
+        #region Event handling
 
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
@@ -203,6 +203,6 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        # endregion
+        #endregion
     }
 }

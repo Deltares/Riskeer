@@ -247,7 +247,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             return this;
         }
 
-        # region Decorated members
+        #region Decorated members
 
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which starts edit mode for the name of <see cref="TreeNode"/>.
@@ -373,6 +373,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             return contextMenuBuilder.Build();
         }
 
-        # endregion
+        #endregion
     }
 }

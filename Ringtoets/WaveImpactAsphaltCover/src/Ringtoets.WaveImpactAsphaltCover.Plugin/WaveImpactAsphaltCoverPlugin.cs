@@ -170,7 +170,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         #region ViewInfos
 
-        # region WaveImpactAsphaltCoverFailureMechanismView ViewInfo
+        #region WaveImpactAsphaltCoverFailureMechanismView ViewInfo
 
         private bool CloseWaveImpactAsphaltCoverFailureMechanismViewForData(WaveImpactAsphaltCoverFailureMechanismView view, object o)
         {
@@ -185,7 +185,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                        : ReferenceEquals(viewFailureMechanism, failureMechanism);
         }
 
-        # endregion
+        #endregion
 
         #region FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>
 

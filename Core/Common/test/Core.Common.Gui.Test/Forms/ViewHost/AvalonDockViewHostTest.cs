@@ -107,7 +107,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             Assert.IsFalse(IsAnyViewFocussed(avalonDockViewHost));
         }
 
-        # region Document views
+        #region Document views
 
         [Test]
         public void AddDocumentView_NonControlView_ViewNotAddedAndNoViewOpenedEventFired()
@@ -546,9 +546,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             }
         }
 
-        # endregion
+        #endregion
 
-        # region Tool views
+        #region Tool views
 
         [Test]
         public void AddToolView_NonControlView_ViewNotAddedAndNoViewOpenedEventFired()
@@ -843,9 +843,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             }
         }
 
-        # endregion
+        #endregion
 
-        # region Helper methods
+        #region Helper methods
 
         private static bool IsDocumentViewPresent(AvalonDockViewHost avalonDockViewHost, IView documentView)
         {
@@ -910,6 +910,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                                  .First(lc => ((WindowsFormsHost) lc.Content).Child == view).IconSource != null;
         }
 
-        # endregion
+        #endregion
     }
 }

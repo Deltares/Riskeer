@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class RingtoetsTreeNodeInfoFactoryTest
     {
-        # region CreateCalculationGroupContextTreeNodeInfo
+        #region CreateCalculationGroupContextTreeNodeInfo
 
         [Test]
         public void CreateCalculationGroupContextTreeNodeInfo_Always_ExpectedPropertiesSet()
@@ -795,7 +795,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
-        # region CreateFailureMechanismContextTreeNodeInfo
+        #region CreateFailureMechanismContextTreeNodeInfo
 
         [Test]
         public void CreateFailureMechanismContextTreeNodeInfo_Always_ExpectedPropertiesSet()
@@ -1068,7 +1068,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             }
         }
 
-        # endregion
+        #endregion
 
         #region EmptyProbabilityAssessmentOutputTreeNodeInfo
 
@@ -1143,7 +1143,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
-        # region Nested types
+        #region Nested types
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
         {
@@ -1230,6 +1230,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Group
         }
 
-        # endregion
+        #endregion
     }
 }

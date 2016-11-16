@@ -721,7 +721,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        # region Nested types
+        #region Nested types
 
         private class TreeNodeObserver : IDisposable, IObserver
         {
@@ -755,9 +755,9 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        # endregion
+        #endregion
 
-        # region TreeView event handling
+        #region TreeView event handling
 
         private void TreeViewBeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
@@ -957,6 +957,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        # endregion
+        #endregion
     }
 }

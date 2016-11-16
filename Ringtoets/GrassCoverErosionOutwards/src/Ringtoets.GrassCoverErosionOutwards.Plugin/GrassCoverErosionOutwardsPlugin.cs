@@ -298,7 +298,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region ViewInfos
 
-        # region GrassCoverErosionOutwardsFailureMechanismView ViewInfo
+        #region GrassCoverErosionOutwardsFailureMechanismView ViewInfo
 
         private bool CloseGrassCoverErosionOutwardsFailureMechanismViewForData(GrassCoverErosionOutwardsFailureMechanismView view, object o)
         {
@@ -313,7 +313,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                        : ReferenceEquals(viewFailureMechanism, failureMechanism);
         }
 
-        # endregion
+        #endregion
 
         #region GrassCoverErosionOutwardsFailureMechanismResultView ViewInfo
 

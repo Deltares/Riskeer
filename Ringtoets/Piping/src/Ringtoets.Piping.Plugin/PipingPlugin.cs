@@ -298,7 +298,7 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        # region PipingFailureMechanismView ViewInfo
+        #region PipingFailureMechanismView ViewInfo
 
         private static bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
         {
@@ -313,9 +313,9 @@ namespace Ringtoets.Piping.Plugin
                        : ReferenceEquals(viewPipingFailureMechanism, pipingFailureMechanism);
         }
 
-        # endregion
+        #endregion
 
-        # region FailureMechanismResultsView ViewInfo
+        #region FailureMechanismResultsView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object o)
         {
@@ -336,9 +336,9 @@ namespace Ringtoets.Piping.Plugin
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
-        # endregion
+        #endregion
 
-        # region PipingCalculationsView ViewInfo
+        #region PipingCalculationsView ViewInfo
 
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object o)
         {
@@ -362,7 +362,7 @@ namespace Ringtoets.Piping.Plugin
 
         #endregion endregion
 
-        # region PipingScenariosView ViewInfo
+        #region PipingScenariosView ViewInfo
 
         private static bool ClosePipingScenariosViewForData(PipingScenariosView view, object o)
         {
@@ -537,7 +537,7 @@ namespace Ringtoets.Piping.Plugin
 
         #endregion
 
-        # region Piping TreeNodeInfo
+        #region Piping TreeNodeInfo
 
         private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
@@ -625,9 +625,9 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        # endregion
+        #endregion
 
-        # region PipingCalculationScenarioContext TreeNodeInfo
+        #region PipingCalculationScenarioContext TreeNodeInfo
 
         private ContextMenuStrip PipingCalculationContextContextMenuStrip(PipingCalculationScenarioContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
@@ -701,9 +701,9 @@ namespace Ringtoets.Piping.Plugin
                                                                            context.FailureMechanism.Contribution));
         }
 
-        # endregion
+        #endregion
 
-        # region PipingCalculationGroupContext TreeNodeInfo
+        #region PipingCalculationGroupContext TreeNodeInfo
 
         private static object[] PipingCalculationGroupContextChildNodeObjects(PipingCalculationGroupContext nodeData)
         {
