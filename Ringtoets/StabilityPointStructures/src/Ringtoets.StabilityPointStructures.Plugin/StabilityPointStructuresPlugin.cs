@@ -69,6 +69,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
+            yield return new ViewInfo<StabilityPointStructuresFailureMechanismContext, StabilityPointStructuresFailureMechanismView>
+            {
+                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                CloseForData = CloseStabilityPointStructuresFailureMechanismViewForData,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+            };
+
             yield return new ViewInfo<
                 FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,
                 IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
@@ -187,6 +195,23 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         }
 
         #region ViewInfo
+
+        #region StabilityPointStructuresFailureMechanismView ViewInfo
+
+        private bool CloseStabilityPointStructuresFailureMechanismViewForData(StabilityPointStructuresFailureMechanismView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as StabilityPointStructuresFailureMechanism;
+
+            var viewFailureMechanismContext = (StabilityPointStructuresFailureMechanismContext)view.Data;
+            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
+                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+        }
+
+        #endregion
 
         #region StabilityPointStructuresFailureMechanismResultView ViewInfo
 

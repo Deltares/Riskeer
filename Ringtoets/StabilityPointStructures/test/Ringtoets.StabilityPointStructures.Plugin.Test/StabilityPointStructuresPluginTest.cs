@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -27,6 +28,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
@@ -130,10 +132,24 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, viewInfos.Length);
+                Assert.AreEqual(3, viewInfos.Length);
 
-                Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(StabilityPointStructuresScenariosView)));
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(StabilityPointStructuresFailureMechanismContext),
+                    typeof(StabilityPointStructuresFailureMechanismView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>),
+                    typeof(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>),
+                    typeof(StabilityPointStructuresFailureMechanismResultView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(StabilityPointStructuresScenariosContext),
+                    typeof(CalculationGroup),
+                    typeof(StabilityPointStructuresScenariosView));
             }
         }
 
