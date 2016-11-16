@@ -41,6 +41,7 @@ namespace Core.Components.Gis.Data
         protected FeatureBasedMapData(string name) : base(name)
         {
             features = new MapFeature[0];
+            ShowLabels = false;
         }
 
         /// <summary>
@@ -76,5 +77,10 @@ namespace Core.Components.Gis.Data
                 throw new ArgumentNullException("featuresToValidate", @"The array of features cannot be null or contain null.");
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating wheter the labels of the <see cref="FeatureBasedMapData"/> should be shown.
+        /// </summary>
+        public bool ShowLabels { get; set; }
     }
 }
