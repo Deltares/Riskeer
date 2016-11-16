@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Utils.Extensions;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -120,6 +121,34 @@ namespace Ringtoets.StabilityStoneCover.Service
             affectedItems.ForEachElementDo(ClearWaveConditionsCalculationOutput);
 
             return affectedItems;
+        }
+
+        /// <summary>
+        /// Clears all data dependent, either directly or indirectly, on the parent reference line.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to be cleared.</param>
+        /// <returns>All objects that have been changed.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearReferenceLineDependentData(StabilityStoneCoverFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            var observables = new List<IObservable>();
+
+            failureMechanism.ClearAllSections();
+            observables.Add(failureMechanism);
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Clear();
+            observables.Add(failureMechanism.WaveConditionsCalculationGroup);
+
+            failureMechanism.ForeshoreProfiles.Clear();
+            observables.Add(failureMechanism.ForeshoreProfiles);
+
+            return observables;
         }
 
         private static void ClearHydraulicBoundaryLocation(StabilityStoneCoverWaveConditionsCalculation calculation)

@@ -153,6 +153,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             return affectedItems;
         }
 
+        /// <summary>
+        /// Clears all data dependent, either directly or indirectly, on the parent reference line.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to be cleared.</param>
+        /// <returns>All objects that have been changed.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearReferenceLineDependentData(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            var observables = new List<IObservable>();
+
+            failureMechanism.ClearAllSections();
+            observables.Add(failureMechanism);
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Clear();
+            observables.Add(failureMechanism.WaveConditionsCalculationGroup);
+
+            failureMechanism.ForeshoreProfiles.Clear();
+            observables.Add(failureMechanism.ForeshoreProfiles);
+
+            return observables;
+        }
+
         private static void ClearHydraulicBoundaryLocation(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {
             calculation.InputParameters.HydraulicBoundaryLocation = null;

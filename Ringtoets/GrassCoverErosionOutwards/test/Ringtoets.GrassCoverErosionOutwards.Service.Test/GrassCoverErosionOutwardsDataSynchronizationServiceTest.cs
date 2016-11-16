@@ -193,6 +193,40 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             CollectionAssert.AreEqual(expectedAffectedCalculations, affectedItems);
         }
 
+        [Test]
+        public void ClearReferenceLineDependentData_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionOutwardsDataSynchronizationService.ClearReferenceLineDependentData(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void ClearReferenceLineDependentData_FullyConfiguredFailureMechanism_RemoveFailureMechanismDependentData()
+        {
+            // Setup
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+
+            // Call
+            IObservable[] observables = GrassCoverErosionOutwardsDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, observables.Length);
+
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, failureMechanism);
+
+            CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
+            CollectionAssert.Contains(observables, failureMechanism.WaveConditionsCalculationGroup);
+
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
+        }
+
         private static GrassCoverErosionOutwardsFailureMechanism CreateFullyConfiguredFailureMechanism()
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();

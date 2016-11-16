@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Utils.Extensions;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -120,6 +121,32 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             affectedItems.ForEachElementDo(ClearWaveConditionsCalculationOutput);
 
             return affectedItems;
+        }
+
+        /// <summary>
+        /// Clears all data dependent, either directly or indirectly, on the parent reference line.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to be cleared.</param>
+        /// <returns>All objects that have been changed.</returns>
+        public static IEnumerable<IObservable> ClearReferenceLineDependentData(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            var observables = new List<IObservable>();
+
+            failureMechanism.ClearAllSections();
+            observables.Add(failureMechanism);
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Clear();
+            observables.Add(failureMechanism.WaveConditionsCalculationGroup);
+
+            failureMechanism.ForeshoreProfiles.Clear();
+            observables.Add(failureMechanism.ForeshoreProfiles);
+
+            return observables;
         }
 
         private static void ClearHydraulicBoundaryLocation(WaveImpactAsphaltCoverWaveConditionsCalculation calculation)

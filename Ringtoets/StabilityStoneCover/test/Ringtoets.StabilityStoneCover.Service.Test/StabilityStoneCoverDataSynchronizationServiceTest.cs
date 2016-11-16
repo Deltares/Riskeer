@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HydraRing.Data;
@@ -141,6 +142,40 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
             // Assert
             CollectionAssert.IsEmpty(affectedItems);
+        }
+
+        [Test]
+        public void ClearReferenceLineDependentData_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => StabilityStoneCoverDataSynchronizationService.ClearReferenceLineDependentData(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void ClearReferenceLineDependentData_FullyConfiguredFailureMechanism_RemoveFailureMechanismDependentData()
+        {
+            // Setup
+            StabilityStoneCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+
+            // Call
+            IObservable[] observables = StabilityStoneCoverDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, observables.Length);
+
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, failureMechanism);
+
+            CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
+            CollectionAssert.Contains(observables, failureMechanism.WaveConditionsCalculationGroup);
+
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
         }
 
         private static StabilityStoneCoverFailureMechanism CreateFullyConfiguredFailureMechanism()

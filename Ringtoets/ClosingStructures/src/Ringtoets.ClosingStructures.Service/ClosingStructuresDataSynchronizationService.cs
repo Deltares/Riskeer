@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Utils.Extensions;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
@@ -60,7 +61,7 @@ namespace Ringtoets.ClosingStructures.Service
 
             return affectedItems;
         }
-        
+
         /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations
         /// in the <see cref="StructuresCalculation{T}"/>.
@@ -103,6 +104,35 @@ namespace Ringtoets.ClosingStructures.Service
             }
 
             return affectedItems;
+        }
+
+        /// <summary>
+        /// Clears all data dependent, either directly or indirectly, on the parent reference line.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to be cleared.</param>
+        /// <returns>All objects that have been changed.</returns>
+        public static IEnumerable<IObservable> ClearReferenceLineDependentData(ClosingStructuresFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            var observables = new List<IObservable>();
+
+            failureMechanism.ClearAllSections();
+            observables.Add(failureMechanism);
+
+            failureMechanism.CalculationsGroup.Children.Clear();
+            observables.Add(failureMechanism.CalculationsGroup);
+
+            failureMechanism.ForeshoreProfiles.Clear();
+            observables.Add(failureMechanism.ForeshoreProfiles);
+
+            failureMechanism.ClosingStructures.Clear();
+            observables.Add(failureMechanism.ClosingStructures);
+
+            return observables;
         }
 
         private static void ClearHydraulicBoundaryLocation(StructuresCalculation<ClosingStructuresInput> calculation)

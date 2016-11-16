@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -91,6 +92,43 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             Assert.IsFalse(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+        }
+
+        [Test]
+        public void ClearReferenceLineDependentData_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void ClearReferenceLineDependentData_FullyConfiguredFailureMechanism_RemoveFailureMechanismDependentData()
+        {
+            // Setup
+            StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+
+            // Call
+            IObservable[] observables = StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism).ToArray();
+
+            // Assert
+            Assert.AreEqual(4, observables.Length);
+
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, failureMechanism);
+
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
+            CollectionAssert.Contains(observables, failureMechanism.CalculationsGroup);
+
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
+
+            CollectionAssert.IsEmpty(failureMechanism.StabilityPointStructures);
+            CollectionAssert.Contains(observables, failureMechanism.StabilityPointStructures);
         }
 
         private static StabilityPointStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()

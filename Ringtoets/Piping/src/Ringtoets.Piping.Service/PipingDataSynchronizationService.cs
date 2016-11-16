@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Utils.Extensions;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
@@ -111,6 +112,37 @@ namespace Ringtoets.Piping.Service
             }
 
             return affectedItems;
+        }
+
+        /// <summary>
+        /// Clears all data dependent, either directly or indirectly, on the parent reference line.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to be cleared.</param>
+        /// <returns>All objects that have been changed.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearReferenceLineDependentData(PipingFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            var observables = new List<IObservable>();
+
+            failureMechanism.ClearAllSections();
+            observables.Add(failureMechanism);
+
+            failureMechanism.CalculationsGroup.Children.Clear();
+            observables.Add(failureMechanism.CalculationsGroup);
+
+            failureMechanism.StochasticSoilModels.Clear();
+            observables.Add(failureMechanism.StochasticSoilModels);
+
+            failureMechanism.SurfaceLines.Clear();
+            observables.Add(failureMechanism.SurfaceLines);
+
+            return observables;
         }
 
         private static void ClearHydraulicBoundaryLocation(PipingCalculation calculation)

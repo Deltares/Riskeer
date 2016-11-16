@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Utils.Extensions;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
@@ -76,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             calculation.Output = null;
         }
-        
+
         /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations
         /// in the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
@@ -118,6 +119,34 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             return affectedItems;
+        }
+
+        /// <summary>
+        /// Clears all data dependent, either directly or indirectly, on the parent reference line.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to be cleared.</param>
+        /// <returns>All objects that have been changed.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearReferenceLineDependentData(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            var observables = new List<IObservable>();
+
+            failureMechanism.ClearAllSections();
+            observables.Add(failureMechanism);
+
+            failureMechanism.CalculationsGroup.Children.Clear();
+            observables.Add(failureMechanism.CalculationsGroup);
+
+            failureMechanism.DikeProfiles.Clear();
+            observables.Add(failureMechanism.DikeProfiles);
+
+            return observables;
         }
 
         private static void ClearHydraulicBoundaryLocation(GrassCoverErosionInwardsCalculation calculation)

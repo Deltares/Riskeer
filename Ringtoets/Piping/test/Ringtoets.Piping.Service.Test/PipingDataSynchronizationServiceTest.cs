@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HydraRing.Data;
@@ -118,6 +119,43 @@ namespace Ringtoets.Piping.Service.Test
             Assert.IsFalse(failureMechanism.Calculations.Cast<PipingCalculation>()
                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+        }
+
+        [Test]
+        public void ClearReferenceLineDependentData_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => PipingDataSynchronizationService.ClearReferenceLineDependentData(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void ClearReferenceLineDependentData_FullyConfiguredFailureMechanism_RemoveFailureMechanismDependentData()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+
+            // Call
+            IObservable[] observables = PipingDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism).ToArray();
+
+            // Assert
+            Assert.AreEqual(4, observables.Length);
+
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, failureMechanism);
+
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
+            CollectionAssert.Contains(observables, failureMechanism.CalculationsGroup);
+
+            CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            CollectionAssert.Contains(observables, failureMechanism.StochasticSoilModels);
+
+            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
+            CollectionAssert.Contains(observables, failureMechanism.SurfaceLines);
         }
 
         private static PipingFailureMechanism CreateFullyConfiguredFailureMechanism()

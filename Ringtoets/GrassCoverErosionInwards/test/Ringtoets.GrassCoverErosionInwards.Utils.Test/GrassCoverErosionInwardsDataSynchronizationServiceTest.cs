@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -117,6 +118,40 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             Assert.IsFalse(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+        }
+
+        [Test]
+        public void ClearReferenceLineDependentData_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsDataSynchronizationService.ClearReferenceLineDependentData(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void ClearReferenceLineDependentData_FullyConfiguredFailureMechanism_RemoveFailureMechanismDependentData()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+
+            // Call
+            IObservable[] observables = GrassCoverErosionInwardsDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, observables.Length);
+
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, failureMechanism);
+
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
+            CollectionAssert.Contains(observables, failureMechanism.CalculationsGroup);
+
+            CollectionAssert.IsEmpty(failureMechanism.DikeProfiles);
+            CollectionAssert.Contains(observables, failureMechanism.DikeProfiles);
         }
 
         private static GrassCoverErosionInwardsFailureMechanism CreateFullyConfiguredFailureMechanism()

@@ -22,10 +22,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Service.Test
@@ -254,6 +260,82 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Assert
             CollectionAssert.IsEmpty(affectedItems);
+        }
+
+        [Test]
+        public void ClearReferenceLineDependentData_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void ClearReferenceLineDependentData_FullyConfiguredFailureMechanism_RemoveFailureMechanismDependentData()
+        {
+            // Setup
+            HeightStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+
+            // Call
+            IObservable[] observables = HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism).ToArray();
+
+            // Assert
+            Assert.AreEqual(4, observables.Length);
+
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, failureMechanism);
+
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
+            CollectionAssert.Contains(observables, failureMechanism.CalculationsGroup);
+
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
+
+            CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
+            CollectionAssert.Contains(observables, failureMechanism.HeightStructures);
+        }
+
+        private HeightStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
+        {
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(-1, 0), 
+                new Point2D(2, 0)
+            });
+            var structure = new TestHeightStructure();
+            var profile = new TestForeshoreProfile();
+            var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism
+            {
+                HeightStructures =
+                {
+                    structure
+                },
+                ForeshoreProfiles =
+                {
+                    profile
+                },
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new TestHeightStructuresCalculation
+                        {
+                            InputParameters =
+                            {
+                                ForeshoreProfile = profile,
+                                Structure = structure
+                            }
+                        },
+                        new CalculationGroup("B", true)
+                    }
+                }
+            };
+            heightStructuresFailureMechanism.AddSection(section);
+            return heightStructuresFailureMechanism;
         }
     }
 }

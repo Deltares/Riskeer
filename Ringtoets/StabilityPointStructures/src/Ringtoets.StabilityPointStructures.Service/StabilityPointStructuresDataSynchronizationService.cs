@@ -23,10 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Utils.Extensions;
-using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.StabilityPointStructures.Data;
 
 namespace Ringtoets.StabilityPointStructures.Service
 {
@@ -61,7 +62,7 @@ namespace Ringtoets.StabilityPointStructures.Service
 
             return affectedItems;
         }
-        
+
         /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations
         /// in the <see cref="StabilityPointStructuresFailureMechanism"/>.
@@ -105,6 +106,35 @@ namespace Ringtoets.StabilityPointStructures.Service
             }
 
             return affectedItems;
+        }
+
+        /// <summary>
+        /// Clears all data dependent, either directly or indirectly, on the parent reference line.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to be cleared.</param>
+        /// <returns>All objects that have been changed.</returns>
+        public static IEnumerable<IObservable> ClearReferenceLineDependentData(StabilityPointStructuresFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            var observables = new List<IObservable>();
+
+            failureMechanism.ClearAllSections();
+            observables.Add(failureMechanism);
+
+            failureMechanism.CalculationsGroup.Children.Clear();
+            observables.Add(failureMechanism.CalculationsGroup);
+
+            failureMechanism.ForeshoreProfiles.Clear();
+            observables.Add(failureMechanism.ForeshoreProfiles);
+
+            failureMechanism.StabilityPointStructures.Clear();
+            observables.Add(failureMechanism.StabilityPointStructures);
+
+            return observables;
         }
 
         private static void ClearHydraulicBoundaryLocation(StructuresCalculation<StabilityPointStructuresInput> calculation)
