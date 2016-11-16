@@ -61,7 +61,7 @@ namespace Core.Common.Gui.Test.Forms.ProgressDialog
                 Assert.IsFalse(dialog.ShowInTaskbar);
                 Assert.IsTrue(dialog.ControlBox);
                 Assert.IsFalse(dialog.MaximizeBox);
-                Assert.IsTrue(dialog.MinimizeBox);
+                Assert.IsFalse(dialog.MinimizeBox);
                 Assert.IsNull(dialog.CancelButton);
             }
 

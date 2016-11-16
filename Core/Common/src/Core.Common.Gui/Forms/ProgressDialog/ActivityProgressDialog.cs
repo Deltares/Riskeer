@@ -54,8 +54,6 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         {
             InitializeComponent();
 
-            MinimizeBox = true; // Allows for minimizing the dialog parent (in case of long-lasting activities)
-
             this.activities = activities ?? Enumerable.Empty<Activity>();
         }
 
