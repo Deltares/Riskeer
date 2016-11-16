@@ -40,6 +40,7 @@ namespace Core.Components.Gis.Data
         {
             Name = name;
             IsVisible = true;
+            ShowLabels = false;
         }
 
         /// <summary>
@@ -66,5 +67,10 @@ namespace Core.Components.Gis.Data
         /// Gets or sets a value indicating whether the <see cref="MapData"/> is visible.
         /// </summary>
         public bool IsVisible { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating wheter the labels of the <see cref="MapData"/> should be shown.
+        /// </summary>
+        public bool ShowLabels { get; set; }
     }
 }

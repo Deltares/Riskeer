@@ -57,6 +57,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.IsInstanceOf<Observable>(data);
             Assert.AreEqual(name, data.Name);
             Assert.IsTrue(data.IsVisible);
+            Assert.IsFalse(data.ShowLabels);
         }
 
         [Test]

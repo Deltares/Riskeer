@@ -90,6 +90,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             Assert.IsEmpty(data.Features);
             Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, data.Name);
+            Assert.IsTrue(data.ShowLabels);
             AssertEqualStyle(data.Style, Color.DarkBlue, 6, PointSymbol.Circle);
         }
 
