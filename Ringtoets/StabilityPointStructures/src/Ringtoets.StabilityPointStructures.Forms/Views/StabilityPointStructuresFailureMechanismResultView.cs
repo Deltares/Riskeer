@@ -26,6 +26,7 @@ using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -37,6 +38,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     /// </summary>
     public class StabilityPointStructuresFailureMechanismResultView : FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult>
     {
+        private const int assessmentLayerOneColumnIndex = 1;
+        private const int assessmentLayerTwoAIndex = 2;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
@@ -46,6 +49,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// </summary>
         public StabilityPointStructuresFailureMechanismResultView()
         {
+            DataGridViewControl.AddCellFormattingHandler(ShowAssessmentLayerErrors);
             DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -73,7 +77,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                 base.FailureMechanism = value;
 
                 var calculatableFailureMechanism = value as ICalculatableFailureMechanism;
-                CalculationGroup observableGroup = calculatableFailureMechanism != null ? calculatableFailureMechanism.CalculationsGroup : null;
+                CalculationGroup observableGroup = calculatableFailureMechanism != null
+                                                       ? calculatableFailureMechanism.CalculationsGroup
+                                                       : null;
 
                 calculationInputObserver.Observable = observableGroup;
                 calculationOutputObserver.Observable = observableGroup;
@@ -88,6 +94,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
+            DataGridViewControl.RemoveCellFormattingHandler(ShowAssessmentLayerErrors);
             DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
 
             calculationInputObserver.Dispose();
@@ -116,7 +123,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > 1)
+            if (eventArgs.ColumnIndex > assessmentLayerOneColumnIndex)
             {
                 if (HasPassedLevelOne(eventArgs.RowIndex))
                 {
@@ -127,6 +134,23 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                     DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
             }
+        }
+
+        private void ShowAssessmentLayerErrors(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex != assessmentLayerTwoAIndex)
+            {
+                return;
+            }
+
+            var resultRow = (StabilityPointStructuresFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
+            DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
+            StructuresCalculation<StabilityPointStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
+
+            FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(currentDataGridViewCell,
+                                                                                 resultRow.AssessmentLayerOne,
+                                                                                 resultRow.AssessmentLayerTwoA,
+                                                                                 normativeCalculation);
         }
     }
 }

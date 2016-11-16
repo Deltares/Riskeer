@@ -28,7 +28,10 @@ using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.Views;
@@ -76,20 +79,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             // Setup
             using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                var points = new[]
-                {
-                    new Point2D(1, 2),
-                    new Point2D(3, 4)
-                };
-
-                var section = new FailureMechanismSection("test", points);
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
                 var testData = new List<StabilityPointStructuresFailureMechanismSectionResult>
                 {
                     sectionResult
                 };
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Precondition
                 Assert.AreEqual(2, dataGridView.RowCount);
@@ -106,7 +103,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewEmtpy()
+        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewEmpty()
         {
             // Setup
             var testData = new object();
@@ -149,6 +146,59 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
+            }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(bool checkBoxSelected)
+        {
+            // Setup
+            using (CreateConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Call
+                dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = checkBoxSelected;
+
+                // Assert
+                var rows = dataGridView.Rows;
+
+                var cells = rows[0].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                var cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
+                var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
+                DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
+
+                Assert.AreEqual(checkBoxSelected, (bool) dataGridViewCell.FormattedValue);
+                Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
+                Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+
+                var cellAssessmentLayerTwoABackColor = cellAssessmentLayerTwoA.Style.BackColor;
+                var cellAssessmentLayerTwoAForeColor = cellAssessmentLayerTwoA.Style.ForeColor;
+                var cellAssessmentLayerThreeBackColor = cellAssessmentLayerThree.Style.BackColor;
+                var cellAssessmentLayerThreeForeColor = cellAssessmentLayerThree.Style.ForeColor;
+
+                if (checkBoxSelected)
+                {
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellAssessmentLayerTwoABackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellAssessmentLayerTwoAForeColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellAssessmentLayerThreeBackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellAssessmentLayerThreeForeColor);
+                }
+                else
+                {
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellAssessmentLayerTwoABackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerTwoAForeColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellAssessmentLayerThreeBackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerThreeForeColor);
+                }
+
+                Assert.AreEqual(checkBoxSelected, cellAssessmentLayerThree.ReadOnly);
             }
         }
 
@@ -285,14 +335,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
-            var section1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(0, 0)
-            });
+            var section1 = CreateSimpleFailureMechanismSection();
+            var section2 = CreateSimpleFailureMechanismSection();
             var result1 = new TestFailureMechanismSectionResult(section1);
             var result2 = new TestFailureMechanismSectionResult(section2);
 
@@ -310,6 +354,194 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(0, rows.Count);
             }
+        }
+
+        [Test]
+        public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip()
+        {
+            // Given
+            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            {
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+                var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // When
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual("-", formattedValue);
+                Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.", dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip()
+        {
+            // Given
+            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            {
+                var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+                var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+                {
+                    Calculation = calculation
+                };
+
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // When
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual("-", formattedValue);
+                Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.", dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip()
+        {
+            // Given
+            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            {
+                var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                };
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+                var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+                {
+                    Calculation = calculation
+                };
+
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // When
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual("-", formattedValue);
+                Assert.AreEqual("De maatgevende berekening voor dit vak heeft geen geldige uitkomst.", dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError()
+        {
+            // Given
+            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            {
+                const double probability = 0.56789;
+                var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                };
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+                var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+                {
+                    Calculation = calculation
+                };
+
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // When
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError()
+        {
+            // Given
+            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            {
+                const double probability = 0.56789;
+                var successfulCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                };
+
+                var failedCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                };
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+                var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+                {
+                    Calculation = successfulCalculation
+                };
+
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // Precondition
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+
+                // When
+                sectionResult.Calculation = failedCalculation;
+                formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual("-", formattedValue);
+                Assert.AreEqual("De maatgevende berekening voor dit vak heeft geen geldige uitkomst.", dataGridViewCell.ErrorText);
+            }
+        }
+
+        private static FailureMechanismSection CreateSimpleFailureMechanismSection()
+        {
+            var section = new FailureMechanismSection("A",
+                                                      new[]
+                                                      {
+                                                          new Point2D(1, 2),
+                                                          new Point2D(3, 4)
+                                                      });
+            return section;
         }
 
         private static void AssertCellIsDisabled(DataGridViewCell dataGridViewCell)

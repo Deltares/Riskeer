@@ -78,20 +78,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Setup
             using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                var points = new[]
-                {
-                    new Point2D(1, 2),
-                    new Point2D(3, 4)
-                };
-
-                var section = new FailureMechanismSection("test", points);
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
                 var testData = new List<ClosingStructuresFailureMechanismSectionResult>
                 {
                     sectionResult
                 };
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Precondition
                 Assert.AreEqual(2, dataGridView.RowCount);
@@ -340,14 +334,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenFormWithClosingStructuresFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
-            var section1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(0, 0)
-            });
+            var section1 = CreateSimpleFailureMechanismSection();
+            var section2 = CreateSimpleFailureMechanismSection();
             var result1 = new TestFailureMechanismSectionResult(section1);
             var result2 = new TestFailureMechanismSectionResult(section2);
 

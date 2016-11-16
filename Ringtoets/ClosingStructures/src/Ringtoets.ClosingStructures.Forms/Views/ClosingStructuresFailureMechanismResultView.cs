@@ -142,16 +142,13 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             }
 
             var resultRow = (ClosingStructuresFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
-            if (resultRow != null)
-            {
-                DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
-                StructuresCalculation<ClosingStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
+            DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
+            StructuresCalculation<ClosingStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
 
-                FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(currentDataGridViewCell,
-                                                                                     resultRow.AssessmentLayerOne,
-                                                                                     resultRow.AssessmentLayerTwoA,
-                                                                                     normativeCalculation);
-            }
+            FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(currentDataGridViewCell,
+                                                                                 resultRow.AssessmentLayerOne,
+                                                                                 resultRow.AssessmentLayerTwoA,
+                                                                                 normativeCalculation);
         }
     }
 }

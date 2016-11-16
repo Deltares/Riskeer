@@ -29,6 +29,9 @@ using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Views;
@@ -271,10 +274,187 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
+        public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip()
+        {
+            // Given
+            using (HeightStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            {
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+                var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // When
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual("-", formattedValue);
+                Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.", dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip()
+        {
+            // Given
+            using (HeightStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            {
+                var calculation = new StructuresCalculation<HeightStructuresInput>();
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+                var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+                {
+                    Calculation = calculation
+                };
+
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // When
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual("-", formattedValue);
+                Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.", dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip()
+        {
+            // Given
+            using (HeightStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            {
+                var calculation = new StructuresCalculation<HeightStructuresInput>
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                };
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+                var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+                {
+                    Calculation = calculation
+                };
+
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // When
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual("-", formattedValue);
+                Assert.AreEqual("De maatgevende berekening voor dit vak heeft geen geldige uitkomst.", dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError()
+        {
+            // Given
+            using (HeightStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            {
+                const double probability = 0.56789;
+                var calculation = new StructuresCalculation<HeightStructuresInput>
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                };
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+                var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+                {
+                    Calculation = calculation
+                };
+
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // When
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError()
+        {
+            // Given
+            using (HeightStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            {
+                const double probability = 0.56789;
+                var successfulCalculation = new StructuresCalculation<HeightStructuresInput>
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                };
+
+                var failedCalculation = new StructuresCalculation<HeightStructuresInput>
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                };
+                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+                var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+                {
+                    Calculation = successfulCalculation
+                };
+
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // Precondition
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+
+                // When
+                sectionResult.Calculation = failedCalculation;
+                formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual("-", formattedValue);
+                Assert.AreEqual("De maatgevende berekening voor dit vak heeft geen geldige uitkomst.", dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
         public void FailureMechanismResultView_EditValueDirtyStateChangedEventFired_ValueCommittedCellInEditMode()
         {
             // Setup
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var sections = (List<HeightStructuresFailureMechanismSectionResult>) view.Data;
                 sections[0].AssessmentLayerOne = false;
@@ -294,6 +474,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Assert.IsTrue(dataGridViewCell.IsInEditMode);
                 Assert.IsTrue(sections[0].AssessmentLayerOne);
             }
+        }
+
+        private static FailureMechanismSection CreateSimpleFailureMechanismSection()
+        {
+            var section = new FailureMechanismSection("A",
+                                                      new[]
+                                                      {
+                                                          new Point2D(1, 2),
+                                                          new Point2D(3, 4)
+                                                      });
+            return section;
         }
 
         private HeightStructuresFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()

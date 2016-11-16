@@ -142,16 +142,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
 
             var resultRow = (GrassCoverErosionInwardsFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
-            if (resultRow != null)
-            {
-                DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
-                GrassCoverErosionInwardsCalculation normativeCalculation = resultRow.GetSectionResultCalculation();
+            DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
+            GrassCoverErosionInwardsCalculation normativeCalculation = resultRow.GetSectionResultCalculation();
 
-                FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(currentDataGridViewCell,
-                                                                                     resultRow.AssessmentLayerOne, 
-                                                                                     resultRow.AssessmentLayerTwoA, 
-                                                                                     normativeCalculation);
-            }
+            FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(currentDataGridViewCell,
+                                                                                 resultRow.AssessmentLayerOne,
+                                                                                 resultRow.AssessmentLayerTwoA,
+                                                                                 normativeCalculation);
         }
     }
 }

@@ -22,12 +22,14 @@
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.Views;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 {
@@ -50,6 +52,116 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             Assert.IsTrue(TypeUtils.HasTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow,
                               FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_NoCalculationSet_ReturnNaN()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            // Precondition
+            Assert.IsNull(sectionResult.Calculation);
+
+            var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(assessmentLayerTwoA);
+        }
+
+        [Test]
+        [TestCase(CalculationScenarioStatus.Failed)]
+        [TestCase(CalculationScenarioStatus.NotCalculated)]
+        public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            if (status == CalculationScenarioStatus.Failed)
+            {
+                calculation.Output = new ProbabilityAssessmentOutput(0.9, 1.0, double.NaN, 1.0, 1.0);
+            }
+
+            FailureMechanismSection section = CreateSection();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = calculation
+            };
+
+            var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(assessmentLayerTwoA);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0.9, 1.0, 0.95, 1.0, 1.0)
+            };
+
+            FailureMechanismSection section = CreateSection();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = calculation
+            };
+
+            var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.AreEqual(calculation.Output.Probability, assessmentLayerTwoA);
+        }
+
+        [Test]
+        public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            // Precondition
+            Assert.IsNull(result.Calculation);
+
+            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result);
+
+            // Call
+            StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
+
+            // Assert
+            Assert.IsNull(calculation);
+        }
+
+        [Test]
+        public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
+        {
+            // Setup
+            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
+
+            FailureMechanismSection section = CreateSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = expectedCalculation
+            };
+
+            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result);
+
+            // Call
+            StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
+
+            // Assert
+            Assert.AreSame(expectedCalculation, calculation);
         }
 
         private static FailureMechanismSection CreateSection()

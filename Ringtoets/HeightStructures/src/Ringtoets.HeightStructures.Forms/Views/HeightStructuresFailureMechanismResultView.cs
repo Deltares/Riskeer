@@ -77,7 +77,9 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 base.FailureMechanism = value;
 
                 var calculatableFailureMechanism = value as ICalculatableFailureMechanism;
-                CalculationGroup observableGroup = calculatableFailureMechanism != null ? calculatableFailureMechanism.CalculationsGroup : null;
+                CalculationGroup observableGroup = calculatableFailureMechanism != null
+                                                       ? calculatableFailureMechanism.CalculationsGroup
+                                                       : null;
 
                 calculationInputObserver.Observable = observableGroup;
                 calculationOutputObserver.Observable = observableGroup;
@@ -143,16 +145,13 @@ namespace Ringtoets.HeightStructures.Forms.Views
             }
 
             var resultRow = (HeightStructuresFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
-            if (resultRow != null)
-            {
-                DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
-                StructuresCalculation<HeightStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
+            DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
+            StructuresCalculation<HeightStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
 
-                FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(currentDataGridViewCell,
-                                                                                     resultRow.AssessmentLayerOne,
-                                                                                     resultRow.AssessmentLayerTwoA,
-                                                                                     normativeCalculation);
-            }
+            FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(currentDataGridViewCell,
+                                                                                 resultRow.AssessmentLayerOne,
+                                                                                 resultRow.AssessmentLayerTwoA,
+                                                                                 normativeCalculation);
         }
     }
 }
