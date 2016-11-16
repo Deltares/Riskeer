@@ -44,6 +44,21 @@ namespace Core.Common.Utils.Test.Builders
         }
 
         [Test]
+        public void Build_BasedOnPathAndMessageStartingWithUpperCase_ReturnWithInnerErrorMessageStartingWithLowercase()
+        {
+            // Setup
+            const string filePath = "<file path>";
+
+            // Call
+            var message = new FileReaderErrorMessageBuilder(filePath).Build("Test TEst 1,2,3");
+
+            // Assert
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
+                                                filePath, "test TEst 1,2,3");
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
         public void Build_BasedOnPathAndMessageWithLocation_ReturnBuiltErrorMessage()
         {
             // Setup
