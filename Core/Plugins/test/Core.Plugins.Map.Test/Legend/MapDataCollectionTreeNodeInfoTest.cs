@@ -332,7 +332,7 @@ namespace Core.Plugins.Map.Test.Legend
                     Action action = () => contextMenuStrip.Items[0].PerformClick();
 
                     // Then
-                    var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
+                    var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
                                                         testFilePath);
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
                 }
@@ -367,7 +367,7 @@ namespace Core.Plugins.Map.Test.Legend
                     Action action = () => contextMenuStrip.Items[0].PerformClick();
 
                     // Then
-                    var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Kon geen geometrieën vinden in dit bestand.",
+                    var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen geometrieën vinden in dit bestand.",
                                                         testFilePath);
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
                 }

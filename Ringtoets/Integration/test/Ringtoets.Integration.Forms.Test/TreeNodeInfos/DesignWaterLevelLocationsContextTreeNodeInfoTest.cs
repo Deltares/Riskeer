@@ -290,7 +290,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                         Action action = () => contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
 
                         // Then
-                        string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
+                        string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
                                                        hydraulicBoundaryDatabase.FilePath);
                         TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
 

@@ -54,7 +54,7 @@ namespace Core.Common.Utils.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet leeg of ongedefinieerd zijn.", invalidPath);
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.", invalidPath);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -71,7 +71,7 @@ namespace Core.Common.Utils.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet de volgende tekens bevatten: {1}",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet de volgende tekens bevatten: {1}",
                                                 invalidPath, string.Join(", ", invalidFileNameChars));
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -87,7 +87,7 @@ namespace Core.Common.Utils.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam.", folderPath);
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.", folderPath);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

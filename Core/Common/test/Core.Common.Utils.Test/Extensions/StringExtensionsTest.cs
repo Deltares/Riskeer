@@ -81,5 +81,33 @@ namespace Core.Common.Utils.Test.Extensions
             // Assert
             Assert.AreEqual(expectedResult, result);
         }
+
+        [Test]
+        public void FirstToLower_StringIsNull_ReturnNull()
+        {
+            // Setup
+            const string str = null;
+
+            // Call
+            string result = str.FirstToLower();
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [TestCase("t", "t")]
+        [TestCase("T", "t")]
+        [TestCase("test", "test")]
+        [TestCase("Test", "test")]
+        [TestCase("tesT Test", "tesT Test")]
+        [TestCase("TesT Test", "tesT Test")]
+        public void FirstToLower_StringIsNotNull_ReturnStringWithFirstLetterLowerCase(string str, string expectedResult)
+        {
+            // Call
+            string result = str.FirstToLower();
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
     }
 }

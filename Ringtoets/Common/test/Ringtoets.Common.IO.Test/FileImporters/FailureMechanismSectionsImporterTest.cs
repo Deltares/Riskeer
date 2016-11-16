@@ -257,7 +257,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam. ", sectionsFilePath) + Environment.NewLine +
+            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam. ", sectionsFilePath) + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -290,7 +290,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             var expectedMessage = 
-                string.Format(@"Fout bij het lezen van bestand '{0}': Het bestand bestaat niet. ", sectionsFilePath) + Environment.NewLine +
+                string.Format(@"Fout bij het lezen van bestand '{0}': het bestand bestaat niet. ", sectionsFilePath) + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -486,7 +486,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             var expectedMessage = string.Format(
-                "Fout bij het lezen van bestand '{0}': Voor één van de vakken is geen naam opgegeven. {1}Er is geen vakindeling geïmporteerd.",
+                "Fout bij het lezen van bestand '{0}': voor één of meerdere vakken is geen naam opgegeven. {1}Er is geen vakindeling geïmporteerd.",
                 sectionsFilePath,
                 Environment.NewLine);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);

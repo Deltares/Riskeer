@@ -48,7 +48,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => new ReferenceLineMetaImporter(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet leeg of ongedefinieerd zijn.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
                                                 invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => new ReferenceLineMetaImporter(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet de volgende tekens bevatten: {1}",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet de volgende tekens bevatten: {1}",
                                                 invalidFilePath, string.Join(", ", invalidFileNameChars));
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
@@ -166,7 +166,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             // Assert
             var shapeFile = Path.Combine(pathToFolder, "NonUniqueTrajectIds.shp");
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Meerdere trajecten met dezelfde identificatiecode (attribuut 'TRAJECT_ID') gevonden.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': meerdere trajecten met dezelfde identificatiecode (attribuut 'TRAJECT_ID') gevonden.",
                                                 shapeFile);
             CriticalFileValidationException exception = Assert.Throws<CriticalFileValidationException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
@@ -184,7 +184,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             // Assert
             var shapeFile = Path.Combine(pathToFolder, "EmptyTrackId.shp");
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Trajecten gevonden zonder een geldige identificatiecode (attribuut 'TRAJECT_ID').", shapeFile);
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': trajecten gevonden zonder een geldige identificatiecode (attribuut 'TRAJECT_ID').", shapeFile);
             CriticalFileValidationException exception = Assert.Throws<CriticalFileValidationException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

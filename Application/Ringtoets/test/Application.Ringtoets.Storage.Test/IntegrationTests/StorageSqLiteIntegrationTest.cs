@@ -211,7 +211,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 var expectedMessages = new[]
                 {
                     "Openen van bestaand Ringtoetsproject.",
-                    string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", testFile),
+                    string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", testFile),
                     "Het is niet gelukt om het Ringtoetsproject te laden.",
                     "Nieuw project aanmaken..."
                 };

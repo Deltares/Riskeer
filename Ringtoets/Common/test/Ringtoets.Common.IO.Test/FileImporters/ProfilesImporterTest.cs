@@ -183,7 +183,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             {
                 string[] messageArray = messages.ToArray();
                 string expectedMessage =
-                    string.Format("Fout bij het lezen van bestand '{0}': Kon geen punten vinden in dit bestand.", filePath);
+                    string.Format("Fout bij het lezen van bestand '{0}': kon geen punten vinden in dit bestand.", filePath);
                 StringAssert.EndsWith(expectedMessage, messageArray[0]);
             });
             Assert.IsFalse(importResult);
@@ -341,7 +341,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             Action<IEnumerable<string>> asserts = messages =>
             {
-                bool found = messages.Any(message => message.EndsWith(": Het ingelezen damtype ('4') moet 0, 1, 2 of 3 zijn."));
+                bool found = messages.Any(message => message.EndsWith(": het ingelezen damtype ('4') moet 0, 1, 2 of 3 zijn."));
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);
@@ -452,7 +452,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             Action<IEnumerable<string>> asserts = messages =>
             {
-                bool found = messages.First().Contains(": De volgende parameters zijn niet aanwezig in het bestand: VOORLAND, DAMWAND, KRUINHOOGTE, DIJK, MEMO");
+                bool found = messages.First().Contains(": de volgende parameters zijn niet aanwezig in het bestand: VOORLAND, DAMWAND, KRUINHOOGTE, DIJK, MEMO");
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);

@@ -24,6 +24,7 @@ using System.IO;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Extensions;
 using NUnit.Framework;
 using Ringtoets.Common.IO.DikeProfiles;
 
@@ -45,7 +46,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet leeg of ongedefinieerd zijn.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
                                                 invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
@@ -66,7 +67,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet de volgende tekens bevatten: {1}",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet de volgende tekens bevatten: {1}",
                                                 invalidFilePath, string.Join(", ", invalidFileNameChars));
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
@@ -84,7 +85,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
                                                 invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
@@ -515,7 +516,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeFileName_FileWithNegativeDikeCount_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "Het aantal punten van de dijkgeometrie ('-1') mag niet negatief zijn.";
+            string expectedMessage = "het aantal punten van de dijkgeometrie ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("faulty_dijkCountNegative.prfl", 13, expectedMessage);
         }
 
@@ -688,7 +689,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel {1}: {2}",
-                                                   faultyFilePath, lineNumber, errorMessage);
+                                                   faultyFilePath, lineNumber, errorMessage.FirstToLower());
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -706,7 +707,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                   faultyFilePath, errorMessage);
+                                                   faultyFilePath, errorMessage.FirstToLower());
             Assert.AreEqual(expectedMessage, message);
         }
 

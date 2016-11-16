@@ -63,7 +63,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new TestShapeFileReaderBase(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet leeg of ongedefinieerd zijn.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
                                                 invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
@@ -77,7 +77,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new TestShapeFileReaderBase(pathToNotExistingShapeFile);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
                                                 pathToNotExistingShapeFile);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
@@ -97,7 +97,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new TestShapeFileReaderBase(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet de volgende tekens bevatten: {1}",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet de volgende tekens bevatten: {1}",
                                                 invalidFilePath, string.Join(", ", invalidFileNameChars));
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
@@ -113,7 +113,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new TestShapeFileReaderBase(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
                                                 invalidFilePath);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }

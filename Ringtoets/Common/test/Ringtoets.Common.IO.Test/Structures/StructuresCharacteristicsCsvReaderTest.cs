@@ -94,7 +94,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                Assert.AreEqual("Fout bij het lezen van bestand 'I_do_not_exist.csv': Het bestand bestaat niet.", message);
+                Assert.AreEqual("Fout bij het lezen van bestand 'I_do_not_exist.csv': het bestand bestaat niet.", message);
             }
         }
 
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestandspad verwijst naar een map die niet bestaat.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestandspad verwijst naar een map die niet bestaat.",
                                                        invalidFilePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -131,7 +131,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is leeg.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: het bestand is leeg.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -165,7 +165,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                                                    "* Numeriekewaarde" + Environment.NewLine +
                                                    "* Standaardafwijking.variatie" + Environment.NewLine +
                                                    "* Boolean" + Environment.NewLine;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet in ieder geval de volgende kolommen bevatten:"
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet in ieder geval de volgende kolommen bevatten:"
                                                        + Environment.NewLine
                                                        + "{1}"
                                                        + Environment.NewLine
@@ -256,7 +256,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: De kolom '{1}' mag maar één keer gedefinieerd zijn.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: de kolom '{1}' mag maar één keer gedefinieerd zijn.",
                                                        filePath, columnName);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -275,7 +275,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                Assert.AreEqual("Fout bij het lezen van bestand 'I_do_not_exist.csv': Het bestand bestaat niet.", message);
+                Assert.AreEqual("Fout bij het lezen van bestand 'I_do_not_exist.csv': het bestand bestaat niet.", message);
             }
         }
 
@@ -292,7 +292,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestandspad verwijst naar een map die niet bestaat.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestandspad verwijst naar een map die niet bestaat.",
                                                        invalidFilePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -312,7 +312,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is leeg.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: het bestand is leeg.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -346,7 +346,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                                                    "* Numeriekewaarde" + Environment.NewLine +
                                                    "* Standaardafwijking.variatie" + Environment.NewLine +
                                                    "* Boolean" + Environment.NewLine;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet in ieder geval de volgende kolommen bevatten:"
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet in ieder geval de volgende kolommen bevatten:"
                                                        + Environment.NewLine
                                                        + "{1}"
                                                        + Environment.NewLine
@@ -380,7 +380,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: De kolom '{1}' mag maar één keer gedefinieerd zijn.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: de kolom '{1}' mag maar één keer gedefinieerd zijn.",
                                                        filePath, columnName);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -417,7 +417,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Ontbrekend scheidingsteken ';'.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: ontbrekend scheidingsteken ';'.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -437,7 +437,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Regel verwacht 21 elementen, maar het zijn er 20.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: regel verwacht 21 elementen, maar het zijn er 20.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -457,7 +457,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Regel verwacht 21 elementen, maar het zijn er 23.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: regel verwacht 21 elementen, maar het zijn er 23.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -525,7 +525,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Numeriekewaarde' kan niet worden omgezet naar een getal.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: de waarde voor 'Numeriekewaarde' kan niet worden omgezet naar een getal.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -545,7 +545,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Numeriekewaarde' is te groot of te klein om ingelezen te worden.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: de waarde voor 'Numeriekewaarde' is te groot of te klein om ingelezen te worden.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -565,7 +565,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Numeriekewaarde' is te groot of te klein om ingelezen te worden.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: de waarde voor 'Numeriekewaarde' is te groot of te klein om ingelezen te worden.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -585,7 +585,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Standaardafwijking.variatie' kan niet worden omgezet naar een getal.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: de waarde voor 'Standaardafwijking.variatie' kan niet worden omgezet naar een getal.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -605,7 +605,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Standaardafwijking.variatie' is te groot of te klein om ingelezen te worden.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: de waarde voor 'Standaardafwijking.variatie' is te groot of te klein om ingelezen te worden.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -625,7 +625,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Standaardafwijking.variatie' is te groot of te klein om ingelezen te worden.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: de waarde voor 'Standaardafwijking.variatie' is te groot of te klein om ingelezen te worden.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -645,7 +645,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Boolean' moet '0', '1' of leeg zijn.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: de waarde voor 'Boolean' moet '0', '1' of leeg zijn.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -665,7 +665,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Boolean' moet '0', '1' of leeg zijn.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: de waarde voor 'Boolean' moet '0', '1' of leeg zijn.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -685,7 +685,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Boolean' moet '0', '1' of leeg zijn.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: de waarde voor 'Boolean' moet '0', '1' of leeg zijn.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -705,7 +705,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Boolean' moet '0', '1' of leeg zijn.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: de waarde voor 'Boolean' moet '0', '1' of leeg zijn.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -725,7 +725,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Boolean' moet '0', '1' of leeg zijn.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: de waarde voor 'Boolean' moet '0', '1' of leeg zijn.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }

@@ -52,7 +52,7 @@ namespace Core.Common.IO.Test.Readers
         {
             // Setup
             var filePath = "nothing";
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", filePath);
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", filePath);
 
             // Call
             TestDelegate call = () => StreamReaderHelper.InitializeStreamReader(filePath);
@@ -68,7 +68,7 @@ namespace Core.Common.IO.Test.Readers
         {
             // Setup
             var filePath = Path.Combine(notExistingTestDataPath, "empty.csv");
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestandspad verwijst naar een map die niet bestaat.", filePath);
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestandspad verwijst naar een map die niet bestaat.", filePath);
 
             // Call
             TestDelegate call = () => StreamReaderHelper.InitializeStreamReader(filePath);

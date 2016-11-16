@@ -177,7 +177,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     Action action = () => gui.Project = project;
 
                     // Then
-                    var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", nonExistingFileExistingFile);
+                    var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", nonExistingFileExistingFile);
                     string message = string.Format(
                         RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
                         fileMissingMessage);

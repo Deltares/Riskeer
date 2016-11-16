@@ -176,7 +176,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             string expectedMessage =
-                string.Format("Fout bij het lezen van bestand '{0}': Kon geen punten vinden in dit bestand.", filePath);
+                string.Format("Fout bij het lezen van bestand '{0}': kon geen punten vinden in dit bestand.", filePath);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
         }
 

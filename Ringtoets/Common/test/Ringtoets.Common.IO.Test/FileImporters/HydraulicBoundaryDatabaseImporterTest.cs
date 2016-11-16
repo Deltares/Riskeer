@@ -94,7 +94,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "nonexisting.sqlite");
-            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", filePath);
+            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", filePath);
 
             // Call
             TestDelegate test = () => importer.Import(assessmentSection, filePath);
@@ -142,7 +142,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "/");
-            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam.", filePath);
+            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.", filePath);
 
             // Call
             TestDelegate test = () => importer.Import(assessmentSection, filePath);
@@ -193,7 +193,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build(string.Format(
-                "Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
+                "Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
                 HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(validFilePath)));
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
@@ -329,7 +329,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             string corruptPath = Path.Combine(testDataPath, "corruptschema.sqlite");
-            var expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.", corruptPath);
+            var expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.", corruptPath);
 
             var importResult = true;
 

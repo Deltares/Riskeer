@@ -597,7 +597,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   validateMenuItemIndex,
                                                                   "&Valideren",
-                                                                  "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': Bestandspad mag niet leeg of ongedefinieerd zijn.",
+                                                                  "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': bestandspad mag niet leeg of ongedefinieerd zijn.",
                                                                   RingtoetsCommonFormsResources.ValidateIcon,
                                                                   false);
                 }
@@ -849,7 +849,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     // Then
                     var expectedTooltip = validPath
                                               ? "Voer deze berekening uit."
-                                              : "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': Bestandspad mag niet leeg of ongedefinieerd zijn.";
+                                              : "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': bestandspad mag niet leeg of ongedefinieerd zijn.";
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   calculateMenuItemIndex,
                                                                   "Be&rekenen",

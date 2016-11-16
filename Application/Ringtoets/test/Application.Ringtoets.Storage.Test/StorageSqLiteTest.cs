@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                   invalidPath, UtilsResources.Error_Path_must_be_specified);
+                                                   invalidPath, "bestandspad mag niet leeg of ongedefinieerd zijn.");
 
             // Call
             TestDelegate test = () => new StorageSqLite().LoadProject(invalidPath);
@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             string nonExistingPath = "fileDoesNotExist";
-            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}", nonExistingPath, "Het bestand bestaat niet.");
+            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}", nonExistingPath, "het bestand bestaat niet.");
 
             // Call
             TestDelegate test = () => new StorageSqLite().LoadProject(nonExistingPath);
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test
             string validPath = "empty.rtd";
             var tempFile = Path.Combine(testDataPath, validPath);
             string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}",
-                                                   tempFile, @"Het bestand is geen geldig Ringtoets bestand.");
+                                                   tempFile, @"het bestand is geen geldig Ringtoets bestand.");
 
             // Call
             TestDelegate test = () => new StorageSqLite().LoadProject(tempFile);
@@ -119,7 +119,7 @@ namespace Application.Ringtoets.Storage.Test
 
                 // Assert
                 var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}",
-                                                    tempRingtoetsFile, @"Het bestand is geen geldig Ringtoets bestand.");
+                                                    tempRingtoetsFile, @"het bestand is geen geldig Ringtoets bestand.");
 
                 StorageException exception = Assert.Throws<StorageException>(test);
                 Assert.IsInstanceOf<Exception>(exception);
@@ -136,7 +136,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace()
         {
             // Setup
-            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}", tempRingtoetsFile, @"Het bestand is geen geldig Ringtoets bestand.");
+            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}", tempRingtoetsFile, @"het bestand is geen geldig Ringtoets bestand.");
             var expectedInnerExceptionMessage = "An error occurred while executing the command definition. See the inner exception for details.";
             var expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database" + Environment.NewLine +
                                                               "no such table: ProjectEntity";
@@ -174,7 +174,7 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}",
                                                    tempRingtoetsFile,
-                                                   @"Database moet één rij in de VersionEntity tabel hebben.");
+                                                   @"database moet één rij in de VersionEntity tabel hebben.");
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
@@ -204,7 +204,7 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}",
                                                    tempRingtoetsFile,
-                                                   @"Database moet één rij in de VersionEntity tabel hebben.");
+                                                   @"database moet één rij in de VersionEntity tabel hebben.");
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
@@ -239,7 +239,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException(int versionCode)
         {
             // Setup
-            string subMessage = string.Format("Database versie '{0}' is hoger dan de huidig ondersteunde versie ('{1}'). Update Ringtoets naar een nieuwere versie.",
+            string subMessage = string.Format("database versie '{0}' is hoger dan de huidig ondersteunde versie ('{1}'). Update Ringtoets naar een nieuwere versie.",
                                               versionCode, currentDatabaseVersion);
             string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}",
                                                    tempRingtoetsFile,
@@ -276,7 +276,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseWithInvalidVersionCode_ThrowStorageValidationException(int versionCode)
         {
             // Setup
-            string subMessage = string.Format("Database versie '{0}' is niet valide. Database versie dient '1' of hoger te zijn.",
+            string subMessage = string.Format("database versie '{0}' is niet valide. Database versie dient '1' of hoger te zijn.",
                                               versionCode);
             string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}",
                                                    tempRingtoetsFile,
@@ -360,7 +360,7 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             RingtoetsProject project = new RingtoetsProject();
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                invalidPath, UtilsResources.Error_Path_must_be_specified);
+                                                invalidPath, "bestandspad mag niet leeg of ongedefinieerd zijn.");
 
             var storage = new StorageSqLite();
             storage.StageProject(project);

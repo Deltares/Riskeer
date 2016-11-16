@@ -97,7 +97,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     var msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    Assert.AreEqual(string.Format("Validatie mislukt: Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", testFilePath), msgs[1]);
+                    Assert.AreEqual(string.Format("Validatie mislukt: Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", testFilePath), msgs[1]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);

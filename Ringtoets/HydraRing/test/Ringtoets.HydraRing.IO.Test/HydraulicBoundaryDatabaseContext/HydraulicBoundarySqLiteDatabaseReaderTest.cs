@@ -60,7 +60,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Setup
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}", fileName, UtilsResources.Error_Path_must_be_specified);
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}", fileName, "bestandspad mag niet leeg of ongedefinieerd zijn.");
 
             // Call
             TestDelegate test = () => new HydraulicBoundarySqLiteDatabaseReader(fileName).Dispose();

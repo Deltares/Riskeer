@@ -90,7 +90,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.SaveAs(filePath);
 
                 // Assert
-                var expectedMessage = "Bestandspad mag niet leeg of ongedefinieerd zijn.";
+                var expectedMessage = "bestandspad mag niet leeg of ongedefinieerd zijn.";
                 var message = Assert.Throws<ArgumentException>(call).Message;
                 StringAssert.Contains(expectedMessage, message);
             }
@@ -106,7 +106,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.SaveAs("c:/");
 
                 // Assert
-                var expectedMessage = "Bestandspad mag niet verwijzen naar een lege bestandsnaam.";
+                var expectedMessage = "bestandspad mag niet verwijzen naar een lege bestandsnaam.";
                 var message = Assert.Throws<ArgumentException>(call).Message;
                 StringAssert.Contains(expectedMessage, message);
             }
@@ -126,7 +126,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.SaveAs(filePath);
 
                 // Assert
-                const string expectedMessage = "Fout bij het lezen van bestand 'c:/\".shp': Bestandspad mag niet de volgende tekens bevatten: \", <, >, |, \0, , , , , , , \a, \b, \t, \n, \v, \f, \r, , , , , , , , , , , , , , , , , , , :, *, ?, \\, /";
+                const string expectedMessage = "Fout bij het lezen van bestand 'c:/\".shp': bestandspad mag niet de volgende tekens bevatten: \", <, >, |, \0, , , , , , , \a, \b, \t, \n, \v, \f, \r, , , , , , , , , , , , , , , , , , , :, *, ?, \\, /";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             }
         }

@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var expectedMessage = string.Format(
-                "Fout bij het lezen van bestand '{0}' (ondergrondschematisatie '{1}'): Ondergrondschematisatie bevat geen geldige waarde in kolom 'IsAquifer'.",
+                "Fout bij het lezen van bestand '{0}' (ondergrondschematisatie '{1}'): ondergrondschematisatie bevat geen geldige waarde in kolom 'IsAquifer'.",
                 path,
                 profileName);
 

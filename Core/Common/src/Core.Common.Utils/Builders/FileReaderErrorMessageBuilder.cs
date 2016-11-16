@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Globalization;
+using Core.Common.Utils.Extensions;
 
 namespace Core.Common.Utils.Builders
 {
@@ -53,7 +54,7 @@ namespace Core.Common.Utils.Builders
                                  filePath,
                                  location ?? string.Empty,
                                  subject ?? string.Empty,
-                                 errorMessage);
+                                 errorMessage.FirstToLower());
         }
 
         /// <summary>

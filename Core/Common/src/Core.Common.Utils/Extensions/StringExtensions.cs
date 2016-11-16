@@ -61,5 +61,25 @@ namespace Core.Common.Utils.Extensions
 
             return str.ToUpper();
         }
+
+        /// <summary>
+        /// Sets the first letter of a string to lower case.
+        /// </summary>
+        /// <param name="str">The string to set the first letter to lower case for.</param>
+        /// <returns>A string with the first letter set to lower case.</returns>
+        public static string FirstToLower(this string str)
+        {
+            if (str == null)
+            {
+                return null;
+            }
+
+            if (str.Length > 1)
+            {
+                return char.ToLower(str[0]) + str.Substring(1);
+            }
+
+            return str.ToLower();
+        }
     }
 }

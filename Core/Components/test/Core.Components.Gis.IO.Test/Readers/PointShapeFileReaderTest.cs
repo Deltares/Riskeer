@@ -67,7 +67,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PointShapeFileReader(nonPointShapeFile);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Kon geen punten vinden in dit bestand.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen punten vinden in dit bestand.",
                                                 nonPointShapeFile);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
@@ -84,7 +84,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PointShapeFileReader(nonExistingPointShapeFile);
 
             // Assert 
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
                                                 nonExistingPointShapeFile);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
@@ -101,7 +101,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PointShapeFileReader(emptyPointShapeFile);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Kon geen punten vinden in dit bestand.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen punten vinden in dit bestand.",
                                                 emptyPointShapeFile);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
@@ -118,7 +118,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PointShapeFileReader(corruptPointShapeFile);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
                                                 corruptPointShapeFile);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
@@ -136,7 +136,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 TestDelegate call = () => new PointShapeFileReader(testFilePath);
 
                 // Assert
-                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
+                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
                                                     testFilePath);
                 CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);

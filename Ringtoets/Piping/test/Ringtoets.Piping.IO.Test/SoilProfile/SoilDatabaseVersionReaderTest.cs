@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                fileName, UtilsResources.Error_Path_must_be_specified);
+                                                fileName, "bestandspad mag niet leeg of ongedefinieerd zijn.");
             // Call
             TestDelegate test = () => { using (new SoilDatabaseVersionReader(fileName)) {} };
 

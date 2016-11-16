@@ -357,7 +357,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': De ondergrondschematisatie verwijst naar een ongeldige waarde." +
+            var expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': de ondergrondschematisatie verwijst naar een ongeldige waarde." +
                                                    " Dit stochastische ondergrondmodel wordt overgeslagen.", validFilePath);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.AreEqual(0, failureMechanism.StochasticSoilModels.Count);

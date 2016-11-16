@@ -347,7 +347,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     Action action = () => contextMenuStrip.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
 
                     // Then
-                    string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Kon geen locaties verkrijgen van de database. Het bestand wordt overgeslagen.",
+                    string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen locaties verkrijgen van de database. Het bestand wordt overgeslagen.",
                                                            testFile);
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
@@ -392,7 +392,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                     // Then
                     string expectedMessage =
-                        string.Format("Fout bij het lezen van bestand '{0}': Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.",
+                        string.Format("Fout bij het lezen van bestand '{0}': het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.",
                                       testFile);
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
@@ -437,7 +437,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                     // Then
                     string expectedMessage =
-                        string.Format("Fout bij het lezen van bestand '{0}': Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{1}': Het bestand bestaat niet.",
+                        string.Format("Fout bij het lezen van bestand '{0}': kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{1}': het bestand bestaat niet.",
                                       testFile,
                                       HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(testFile));
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
@@ -483,7 +483,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                     // Then
                     string expectedMessage =
-                        string.Format("Fout bij het lezen van bestand '{0}': Kon het rekeninstellingen bestand niet openen. De rekeninstellingen database heeft niet het juiste schema.",
+                        string.Format("Fout bij het lezen van bestand '{0}': kon het rekeninstellingen bestand niet openen. De rekeninstellingen database heeft niet het juiste schema.",
                                       testFile);
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 

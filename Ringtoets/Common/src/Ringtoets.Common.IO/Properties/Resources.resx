@@ -495,6 +495,6 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>De rekeninstellingen database heeft niet het juiste schema.</value>
   </data>
   <data name="FailureMechanismSectionReader_File_has_section_without_sectionName" xml:space="preserve">
-    <value>Voor één van de vakken is geen naam opgegeven.</value>
+    <value>Voor één of meerdere vakken is geen naam opgegeven.</value>
   </data>
 </root>

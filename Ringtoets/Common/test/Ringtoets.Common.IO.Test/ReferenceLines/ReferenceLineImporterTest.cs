@@ -150,7 +150,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             Action call = () => importSuccesful = importer.Import();
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam. ", path) + Environment.NewLine +
+            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam. ", path) + Environment.NewLine +
                                   "Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccesful);
@@ -175,7 +175,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             Action call = () => importSuccesful = importer.Import();
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Het bestand bestaat niet. ", path) + Environment.NewLine +
+            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': het bestand bestaat niet. ", path) + Environment.NewLine +
                                   "Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccesful);
