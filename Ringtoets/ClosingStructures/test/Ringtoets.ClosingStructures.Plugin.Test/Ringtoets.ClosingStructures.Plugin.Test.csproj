@@ -60,6 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewInfos\ClosingStructuresFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\ClosingStructuresScenariosViewInfoTest.cs" />
+    <Compile Include="ViewInfos\ClosingStructuresFailureMechanismViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
