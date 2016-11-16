@@ -38,7 +38,7 @@ using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties
 namespace Ringtoets.HeightStructures.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for a grass cover erosion outwards failure mechanism.
+    /// This class is a view showing map data for a height structures failure mechanism.
     /// </summary>
     public partial class HeightStructuresFailureMechanismView : UserControl, IMapView
     {

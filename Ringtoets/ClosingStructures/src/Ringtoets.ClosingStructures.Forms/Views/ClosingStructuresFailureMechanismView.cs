@@ -38,7 +38,7 @@ using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properti
 namespace Ringtoets.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for a grass cover erosion outwards failure mechanism.
+    /// This class is a view showing map data for a closing structures failure mechanism.
     /// </summary>
     public partial class ClosingStructuresFailureMechanismView : UserControl, IMapView
     {

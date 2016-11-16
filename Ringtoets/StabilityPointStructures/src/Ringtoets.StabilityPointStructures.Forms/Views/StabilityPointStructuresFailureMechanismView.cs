@@ -38,7 +38,7 @@ using StabilityPointStructuresDataResources = Ringtoets.StabilityPointStructures
 namespace Ringtoets.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for a grass cover erosion outwards failure mechanism.
+    /// This class is a view showing map data for a stability point structures failure mechanism.
     /// </summary>
     public partial class StabilityPointStructuresFailureMechanismView : UserControl, IMapView
     {
