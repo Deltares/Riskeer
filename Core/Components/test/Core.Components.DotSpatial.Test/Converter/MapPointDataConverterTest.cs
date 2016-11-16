@@ -95,7 +95,9 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_RandomPointDataWithoutAttributes_ReturnsNewMapPointLayerListWithDefaultLabelLayer()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Convert_RandomPointDataWithoutAttributes_ReturnsNewMapPointLayerListWithDefaultLabelLayer(bool showLabels)
         {
             // Setup
             var converter = new MapPointDataConverter();
@@ -119,7 +121,8 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             var pointData = new MapPointData("test data")
             {
-                Features = features.ToArray()
+                Features = features.ToArray(),
+                ShowLabels = showLabels
             };
 
             // Call
@@ -133,7 +136,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.IsInstanceOf<MapPointLayer>(layer);
             Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
             CollectionAssert.AreNotEqual(pointData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
-            Assert.IsTrue(layer.ShowLabels);
+            Assert.AreEqual(showLabels, layer.ShowLabels);
             CollectionAssert.IsEmpty(layer.DataSet.GetColumns());
 
             Assert.IsNotNull(layer.LabelLayer);
@@ -142,7 +145,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
         
         [Test]
-        public void Convert_RandomPointDataWithAttributes_ReturnsNewMapPointLayerListWithCustomLabelLayer()
+        public void Convert_RandomPointDataWithAttributesShowLabelsFalse_ReturnsNewMapPointLayerListWithDefaultLabelLayer()
         {
             // Setup
             var converter = new MapPointDataConverter();
@@ -170,7 +173,60 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             var pointData = new MapPointData("test data")
             {
-                Features = features.ToArray()
+                Features = features.ToArray(),
+                ShowLabels = false
+            };
+
+            // Call
+            IList<IMapFeatureLayer> mapLayers = converter.Convert(pointData);
+
+            // Assert
+            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
+            IMapFeatureLayer layer = mapLayers[0];
+
+            Assert.AreEqual(pointData.Features.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapPointLayer>(layer);
+            Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
+            CollectionAssert.AreNotEqual(pointData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
+            Assert.IsFalse(layer.ShowLabels);
+            CollectionAssert.IsEmpty(layer.DataSet.GetColumns());
+
+            Assert.IsNotNull(layer.LabelLayer);
+            Assert.AreEqual("FID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
+            Assert.IsNull(layer.LabelLayer.Symbology.Categories[0].Expression);
+        }
+        
+        [Test]
+        public void Convert_RandomPointDataWithAttributesShowLabelsTrue_ReturnsNewMapPointLayerListWithCustomLabelLayer()
+        {
+            // Setup
+            var converter = new MapPointDataConverter();
+            var random = new Random(21);
+            var randomCount = random.Next(5, 10);
+            var features = new List<MapFeature>();
+
+            for (var i = 0; i < randomCount; i++)
+            {
+                var mapFeature = new MapFeature(new[]
+                {
+                    new MapGeometry(new[]
+                    {
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
+                    })
+                });
+                mapFeature.MetaData["ID"] = random.NextDouble();
+                mapFeature.MetaData["Name"] = string.Format("feature [{0}]", i);
+
+                features.Add(mapFeature);
+            }
+
+            var pointData = new MapPointData("test data")
+            {
+                Features = features.ToArray(),
+                ShowLabels = true
             };
 
             // Call

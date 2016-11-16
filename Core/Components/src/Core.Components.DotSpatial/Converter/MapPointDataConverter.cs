@@ -46,10 +46,11 @@ namespace Core.Components.DotSpatial.Converter
             foreach (var ringtoetsMapFeature in data.Features)
             {
                 foreach (var feature in GetAllMapFeatureCoordinates(ringtoetsMapFeature)
-                    .Select(c => new Feature(new Point(c.X, c.Y), featureSet)))
-                {
-                    AddMetaDataAsAttributes(ringtoetsMapFeature, featureSet, feature);
-                }
+                    .Select(c => new Feature(new Point(c.X, c.Y), featureSet))
+                    .Where(feature => data.ShowLabels))
+                    {
+                        AddMetaDataAsAttributes(ringtoetsMapFeature, featureSet, feature);
+                    }
             }
 
             featureSet.InitializeVertices();
@@ -58,8 +59,8 @@ namespace Core.Components.DotSpatial.Converter
             {
                 IsVisible = data.IsVisible,
                 Name = data.Name,
-                ShowLabels = true,
-                LabelLayer = GetLabelLayer(featureSet)
+                ShowLabels = data.ShowLabels,
+                LabelLayer = GetLabelLayer(featureSet, data.ShowLabels)
             };
 
             CreateStyle(layer, data.Style);
@@ -70,11 +71,11 @@ namespace Core.Components.DotSpatial.Converter
             };
         }
 
-        private static MapLabelLayer GetLabelLayer(FeatureSet featureSet)
+        private static MapLabelLayer GetLabelLayer(FeatureSet featureSet, bool showLabels)
         {
             var labelLayer = new MapLabelLayer();
 
-            if (featureSet.DataTable.Columns.Count > 0)
+            if (featureSet.DataTable.Columns.Count > 0 && showLabels)
             {
                 labelLayer.Symbology.Categories[0].Symbolizer = new LabelSymbolizer
                 {
