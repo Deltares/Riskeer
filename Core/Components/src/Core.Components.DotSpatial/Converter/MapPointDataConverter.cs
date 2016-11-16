@@ -60,7 +60,7 @@ namespace Core.Components.DotSpatial.Converter
                 IsVisible = data.IsVisible,
                 Name = data.Name,
                 ShowLabels = data.ShowLabels,
-                LabelLayer = GetLabelLayer(featureSet, data.ShowLabels)
+                LabelLayer = GetLabelLayer(featureSet, data.ShowLabels, data.SelectedAttribute)
             };
 
             CreateStyle(layer, data.Style);
@@ -71,7 +71,7 @@ namespace Core.Components.DotSpatial.Converter
             };
         }
 
-        private static MapLabelLayer GetLabelLayer(FeatureSet featureSet, bool showLabels)
+        private static MapLabelLayer GetLabelLayer(FeatureSet featureSet, bool showLabels, string labelToShow)
         {
             var labelLayer = new MapLabelLayer();
 
@@ -83,7 +83,7 @@ namespace Core.Components.DotSpatial.Converter
                     OffsetX = 5,
                     PriorityField = "ID"
                 };
-                labelLayer.Symbology.Categories[0].Expression = "[name]";
+                labelLayer.Symbology.Categories[0].Expression = string.Format("[{0}]", labelToShow);
             }
 
             return labelLayer;

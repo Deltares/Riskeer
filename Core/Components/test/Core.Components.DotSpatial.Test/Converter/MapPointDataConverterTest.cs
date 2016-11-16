@@ -197,7 +197,9 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
         
         [Test]
-        public void Convert_RandomPointDataWithAttributesShowLabelsTrue_ReturnsNewMapPointLayerListWithCustomLabelLayer()
+        [TestCase("id")]
+        [TestCase("name")]
+        public void Convert_RandomPointDataWithAttributesShowLabelsTrue_ReturnsNewMapPointLayerListWithCustomLabelLayer(string selectedAttribute)
         {
             // Setup
             var converter = new MapPointDataConverter();
@@ -226,7 +228,8 @@ namespace Core.Components.DotSpatial.Test.Converter
             var pointData = new MapPointData("test data")
             {
                 Features = features.ToArray(),
-                ShowLabels = true
+                ShowLabels = true,
+                SelectedAttribute = selectedAttribute
             };
 
             // Call
@@ -252,7 +255,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual("ID", labelCategory.Symbolizer.PriorityField);
             Assert.AreEqual(ContentAlignment.MiddleRight, labelCategory.Symbolizer.Orientation);
             Assert.AreEqual(5, labelCategory.Symbolizer.OffsetX);
-            Assert.AreEqual("[name]", labelCategory.Expression);
+            Assert.AreEqual(string.Format("[{0}]", pointData.SelectedAttribute), labelCategory.Expression);
         }
 
         [Test]

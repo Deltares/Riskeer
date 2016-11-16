@@ -42,6 +42,7 @@ namespace Core.Components.Gis.Data
         {
             features = new MapFeature[0];
             ShowLabels = false;
+            SelectedAttribute = "name";
         }
 
         /// <summary>
@@ -64,6 +65,16 @@ namespace Core.Components.Gis.Data
         }
 
         /// <summary>
+        /// Gets or sets a value indicating wheter the labels of the <see cref="FeatureBasedMapData"/> should be shown.
+        /// </summary>
+        public bool ShowLabels { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected attribute to show as label.
+        /// </summary>
+        public string SelectedAttribute { get; set; }
+
+        /// <summary>
         /// This method validates newly set features.
         /// </summary>
         /// <param name="featuresToValidate">The new features to validate.</param>
@@ -77,10 +88,5 @@ namespace Core.Components.Gis.Data
                 throw new ArgumentNullException("featuresToValidate", @"The array of features cannot be null or contain null.");
             }
         }
-
-        /// <summary>
-        /// Gets or sets a value indicating wheter the labels of the <see cref="FeatureBasedMapData"/> should be shown.
-        /// </summary>
-        public bool ShowLabels { get; set; }
     }
 }

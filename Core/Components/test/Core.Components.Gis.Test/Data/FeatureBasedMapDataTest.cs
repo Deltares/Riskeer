@@ -42,6 +42,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual("test data", data.Name);
             Assert.IsEmpty(data.Features);
             Assert.IsFalse(data.ShowLabels);
+            Assert.AreEqual("name", data.SelectedAttribute);
         }
 
         [Test]
