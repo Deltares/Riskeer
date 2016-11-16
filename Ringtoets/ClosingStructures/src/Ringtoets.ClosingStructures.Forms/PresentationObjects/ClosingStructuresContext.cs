@@ -39,7 +39,9 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism which the closing structures belong to.</param>
         /// <param name="assessmentSection">The assessment section which the closing structures belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are <c>null</c>.</exception>
-        public ClosingStructuresContext(ObservableList<ClosingStructure> closingStructures, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public ClosingStructuresContext(ObservableList<ClosingStructure> closingStructures,
+                                        ClosingStructuresFailureMechanism failureMechanism,
+                                        IAssessmentSection assessmentSection)
             : base(closingStructures)
         {
             if (assessmentSection == null)
@@ -51,7 +53,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            ParentFailureMechanism = failureMechanism;
+            FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
         }
 
@@ -63,6 +65,6 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         /// <summary>
         /// Gets the failure mechanism of this instance.
         /// </summary>
-        public ClosingStructuresFailureMechanism ParentFailureMechanism { get; private set; }
+        public ClosingStructuresFailureMechanism FailureMechanism { get; private set; }
     }
 }

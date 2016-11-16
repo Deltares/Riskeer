@@ -190,7 +190,8 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, ClosingStructuresFailureMechanism failureMechanism)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection,
+                                                                         ClosingStructuresFailureMechanism failureMechanism)
         {
             if (!failureMechanism.Sections.Any())
             {
@@ -232,7 +233,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as ClosingStructuresFailureMechanism;
 
-            var viewFailureMechanismContext = (ClosingStructuresFailureMechanismContext)view.Data;
+            var viewFailureMechanismContext = (ClosingStructuresFailureMechanismContext) view.Data;
             var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
@@ -665,16 +666,19 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             var parentContext = (ClosingStructuresContext) parentData;
             var changedObservables = new List<IObservable>();
-            StructuresCalculation<ClosingStructuresInput>[] closingStructureCalculations = parentContext.ParentFailureMechanism.Calculations
-                                                                                                        .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                                                                                        .ToArray();
+            StructuresCalculation<ClosingStructuresInput>[] closingStructureCalculations = parentContext
+                .FailureMechanism.Calculations
+                .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                .ToArray();
             StructuresCalculation<ClosingStructuresInput>[] calculationWithRemovedClosingStructure = closingStructureCalculations
                 .Where(c => ReferenceEquals(c.InputParameters.Structure, nodeData))
                 .ToArray();
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedClosingStructure)
             {
                 calculation.InputParameters.Structure = null;
-                StructuresHelper.Delete(parentContext.ParentFailureMechanism.SectionResults, calculation, closingStructureCalculations);
+                StructuresHelper.Delete(parentContext.FailureMechanism.SectionResults,
+                                        calculation,
+                                        closingStructureCalculations);
                 changedObservables.Add(calculation.InputParameters);
             }
 

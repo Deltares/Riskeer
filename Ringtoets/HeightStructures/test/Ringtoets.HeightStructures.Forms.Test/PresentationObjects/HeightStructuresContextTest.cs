@@ -48,6 +48,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HeightStructure>>>(context);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(failureMechanism.HeightStructures, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             mocks.VerifyAll();

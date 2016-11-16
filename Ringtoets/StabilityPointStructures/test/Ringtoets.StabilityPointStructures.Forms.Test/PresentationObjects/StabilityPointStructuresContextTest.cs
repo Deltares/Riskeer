@@ -48,13 +48,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<StabilityPointStructure>>>(context);
+            Assert.AreSame(failureMechanism, failureMechanism);
             Assert.AreSame(failureMechanism.StabilityPointStructures, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void ParameterdConstructor_FailureMechanismNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();

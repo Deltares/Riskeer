@@ -99,9 +99,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             };
         }
 
-        /// <summary>
-        /// Returns all <see cref="TreeNodeInfo"/> instances provided for data of <see cref="StabilityPointStructuresPlugin"/>.
-        /// </summary>
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StabilityPointStructuresFailureMechanismContext>(
@@ -322,16 +319,19 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             var parentContext = (StabilityPointStructuresContext) parentData;
             var changedObservables = new List<IObservable>();
-            StructuresCalculation<StabilityPointStructuresInput>[] heightStructureCalculations = parentContext.FailureMechanism.Calculations
-                                                                                                              .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                                                                              .ToArray();
+            StructuresCalculation<StabilityPointStructuresInput>[] heightStructureCalculations = parentContext
+                .FailureMechanism.Calculations
+                .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                .ToArray();
             StructuresCalculation<StabilityPointStructuresInput>[] calculationWithRemovedStabilityPointStructure = heightStructureCalculations
                 .Where(c => ReferenceEquals(c.InputParameters.Structure, nodeData))
                 .ToArray();
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedStabilityPointStructure)
             {
                 calculation.InputParameters.Structure = null;
-                StructuresHelper.Delete(parentContext.FailureMechanism.SectionResults, calculation, heightStructureCalculations);
+                StructuresHelper.Delete(parentContext.FailureMechanism.SectionResults,
+                                        calculation,
+                                        heightStructureCalculations);
                 changedObservables.Add(calculation.InputParameters);
             }
 

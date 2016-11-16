@@ -35,11 +35,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         /// <summary>
         /// Creates an instance of <see cref="StabilityPointStructuresContext"/>.
         /// </summary>
-        /// <param name="stabilityPointStructures">The wrapped <see cref="ObservableList{T}"/> containing <see cref="StabilityPointStructure"/>.</param>
+        /// <param name="stabilityPointStructures">The wrapped <see cref="ObservableList{T}"/> 
+        /// containing <see cref="StabilityPointStructure"/>.</param>
         /// <param name="failureMechanism"></param>
-        /// <param name="assessmentSection">The assessment section which the <paramref name="stabilityPointStructures"/> belong to.</param>
+        /// <param name="assessmentSection">The assessment section which the <paramref name="stabilityPointStructures"/> 
+        /// belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are <c>null</c>.</exception>
-        public StabilityPointStructuresContext(ObservableList<StabilityPointStructure> stabilityPointStructures, StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public StabilityPointStructuresContext(ObservableList<StabilityPointStructure> stabilityPointStructures,
+                                               StabilityPointStructuresFailureMechanism failureMechanism,
+                                               IAssessmentSection assessmentSection)
             : base(stabilityPointStructures)
         {
             if (assessmentSection == null)

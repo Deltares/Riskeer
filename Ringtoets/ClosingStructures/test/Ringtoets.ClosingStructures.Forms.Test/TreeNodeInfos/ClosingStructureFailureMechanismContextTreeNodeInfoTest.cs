@@ -143,7 +143,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             var closingStructuresContext = (ClosingStructuresContext) inputsFolder.Contents[2];
             Assert.AreSame(failureMechanism.ClosingStructures, closingStructuresContext.WrappedData);
-            Assert.AreSame(failureMechanism, closingStructuresContext.ParentFailureMechanism);
+            Assert.AreSame(failureMechanism, closingStructuresContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, closingStructuresContext.AssessmentSection);
 
             var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];

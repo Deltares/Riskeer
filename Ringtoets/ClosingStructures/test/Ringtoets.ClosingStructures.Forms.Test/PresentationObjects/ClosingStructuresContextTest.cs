@@ -48,6 +48,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<ClosingStructure>>>(context);
+            Assert.AreSame(failureMechanism, failureMechanism);
             Assert.AreSame(failureMechanism.ClosingStructures, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             mocks.VerifyAll();

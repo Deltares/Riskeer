@@ -206,7 +206,8 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                                                  assessmentSection)).ToArray());
         }
 
-        private static void ValidateAll(IEnumerable<StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations, IAssessmentSection assessmentSection)
+        private static void ValidateAll(IEnumerable<StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations,
+                                        IAssessmentSection assessmentSection)
         {
             foreach (var calculation in heightStructuresCalculations)
             {
@@ -214,7 +215,8 @@ namespace Ringtoets.HeightStructures.Plugin
             }
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, HeightStructuresFailureMechanism failureMechanism)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection,
+                                                                         HeightStructuresFailureMechanism failureMechanism)
         {
             if (!failureMechanism.Sections.Any())
             {
@@ -245,7 +247,7 @@ namespace Ringtoets.HeightStructures.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as HeightStructuresFailureMechanism;
 
-            var viewFailureMechanismContext = (HeightStructuresFailureMechanismContext)view.Data;
+            var viewFailureMechanismContext = (HeightStructuresFailureMechanismContext) view.Data;
             var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
@@ -316,18 +318,21 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private void OnHeightStructureRemoved(HeightStructure nodeData, object parentData)
         {
-            var parentContext = (HeightStructuresContext)parentData;
+            var parentContext = (HeightStructuresContext) parentData;
             var changedObservables = new List<IObservable>();
-            StructuresCalculation<HeightStructuresInput>[] heightStructureCalculations = parentContext.ParentFailureMechanism.Calculations
-                                                                                                      .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                                                                                      .ToArray();
+            StructuresCalculation<HeightStructuresInput>[] heightStructureCalculations = parentContext
+                .FailureMechanism.Calculations
+                .Cast<StructuresCalculation<HeightStructuresInput>>()
+                .ToArray();
             StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedHeightStructure = heightStructureCalculations
                 .Where(c => ReferenceEquals(c.InputParameters.Structure, nodeData))
                 .ToArray();
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedHeightStructure)
             {
                 calculation.InputParameters.Structure = null;
-                StructuresHelper.Delete(parentContext.ParentFailureMechanism.SectionResults, calculation, heightStructureCalculations);
+                StructuresHelper.Delete(parentContext.FailureMechanism.SectionResults,
+                                        calculation,
+                                        heightStructureCalculations);
                 changedObservables.Add(calculation.InputParameters);
             }
 

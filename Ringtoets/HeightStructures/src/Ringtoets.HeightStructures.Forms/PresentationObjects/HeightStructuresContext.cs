@@ -43,7 +43,9 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input arguments
         /// are <c>null</c>.</exception>
-        public HeightStructuresContext(ObservableList<HeightStructure> heightStructures, HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public HeightStructuresContext(ObservableList<HeightStructure> heightStructures,
+                                       HeightStructuresFailureMechanism failureMechanism,
+                                       IAssessmentSection assessmentSection)
             : base(heightStructures)
         {
             if (assessmentSection == null)
@@ -56,7 +58,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
             }
 
             AssessmentSection = assessmentSection;
-            ParentFailureMechanism = failureMechanism;
+            FailureMechanism = failureMechanism;
         }
 
         /// <summary>
@@ -67,6 +69,6 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <summary>
         /// Gets the failure mechanism of this instance.
         /// </summary>
-        public HeightStructuresFailureMechanism ParentFailureMechanism { get; private set; }
+        public HeightStructuresFailureMechanism FailureMechanism { get; private set; }
     }
 }
