@@ -96,12 +96,18 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, viewInfos.Length);
+                Assert.AreEqual(2, viewInfos.Length);
+                
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(WaveImpactAsphaltCoverFailureMechanismContext),
+                    typeof(WaveImpactAsphaltCoverFailureMechanismView));
 
-                var waveImpactAsphaltCoverResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>), waveImpactAsphaltCoverResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismResultView), waveImpactAsphaltCoverResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, waveImpactAsphaltCoverResultViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>),
+                    typeof(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>),
+                    typeof(WaveImpactAsphaltCoverFailureMechanismResultView));
             }
         }
 

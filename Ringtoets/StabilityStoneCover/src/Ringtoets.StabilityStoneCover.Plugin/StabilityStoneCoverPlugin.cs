@@ -69,6 +69,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
+            yield return new ViewInfo<StabilityStoneCoverFailureMechanismContext, StabilityStoneCoverFailureMechanismView>
+            {
+                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                CloseForData = CloseStabilityStoneCoverFailureMechanismViewForData,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+            };
+
             yield return new ViewInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>,
                 IEnumerable<StabilityStoneCoverFailureMechanismSectionResult>,
                 StabilityStoneCoverResultView>
@@ -101,9 +109,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
             yield return new TreeNodeInfo<EmptyStabilityStoneCoverOutput>
             {
-                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
+                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -111,8 +119,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
             yield return new TreeNodeInfo<StabilityStoneCoverWaveConditionsOutput>
             {
-                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -158,6 +166,23 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         }
 
         #region ViewInfos
+
+        # region StabilityStoneCoverFailureMechanismView ViewInfo
+
+        private bool CloseStabilityStoneCoverFailureMechanismViewForData(StabilityStoneCoverFailureMechanismView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as StabilityStoneCoverFailureMechanism;
+
+            var viewFailureMechanismContext = (StabilityStoneCoverFailureMechanismContext)view.Data;
+            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
+                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+        }
+
+        # endregion
 
         #region FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>
 
@@ -231,7 +256,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

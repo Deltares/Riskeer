@@ -94,6 +94,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
+            yield return new ViewInfo<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismView>
+            {
+                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                CloseForData = CloseGrassCoverErosionOutwardsFailureMechanismViewForData,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+            };
+
             yield return new ViewInfo<
                 FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
                 IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
@@ -202,9 +210,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<EmptyGrassCoverErosionOutwardsOutput>
             {
-                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
+                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -212,8 +220,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsOutput>
             {
-                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -291,6 +299,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         #region ViewInfos
+
+        # region GrassCoverErosionOutwardsFailureMechanismView ViewInfo
+
+        private bool CloseGrassCoverErosionOutwardsFailureMechanismViewForData(GrassCoverErosionOutwardsFailureMechanismView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as GrassCoverErosionOutwardsFailureMechanism;
+
+            var viewFailureMechanismContext = (GrassCoverErosionOutwardsFailureMechanismContext)view.Data;
+            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
+                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+        }
+
+        # endregion
 
         #region GrassCoverErosionOutwardsFailureMechanismResultView ViewInfo
 
@@ -405,7 +430,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionOutwardsFailureMechanismContext, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionOutwardsFailureMechanismContext, RemoveAllViewsForItem)
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionOutwardsFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

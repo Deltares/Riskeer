@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +57,12 @@
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsInputContextProperties.cs" />
     <Compile Include="StabilityStoneCoverCalculationConfigurationHelper.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputProperties.cs" />
+    <Compile Include="Views\StabilityStoneCoverFailureMechanismView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StabilityStoneCoverFailureMechanismView.Designer.cs">
+      <DependentUpon>StabilityStoneCoverFailureMechanismView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\StabilityStoneCoverResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -85,6 +92,21 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
+      <Project>{5a91174a-fb95-4c9d-9ca5-81c0b8d4361a}</Project>
+      <Name>Core.Components.DotSpatial.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
+      <Project>{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}</Project>
+      <Name>Core.Components.Gis.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
+      <Name>Core.Components.Gis</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
@@ -123,6 +145,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\StabilityStoneCoverFailureMechanismView.resx">
+      <DependentUpon>StabilityStoneCoverFailureMechanismView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

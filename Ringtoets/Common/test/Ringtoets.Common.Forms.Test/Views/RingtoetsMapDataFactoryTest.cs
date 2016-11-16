@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CreateDikeProfileMapData_ReturnsEmptyMapPointDataWithDefaultStyling()
+        public void CreateDikeProfileMapData_ReturnsEmptyMapLineDataWithDefaultStyling()
         {
             // Call
             MapLineData data = RingtoetsMapDataFactory.CreateDikeProfileMapData();
@@ -104,6 +104,18 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsEmpty(data.Features);
             Assert.AreEqual(RingtoetsCommonFormsResources.DikeProfiles_DisplayName, data.Name);
             AssertEqualStyle(data.Style, Color.DarkSeaGreen, 2, DashStyle.Solid);
+        }
+
+        [Test]
+        public void CreateForeshoreProfileMapData_ReturnsEmptyMapLineDataWithDefaultStyling()
+        {
+            // Call
+            MapLineData data = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
+
+            // Assert
+            Assert.IsEmpty(data.Features);
+            Assert.AreEqual(RingtoetsCommonFormsResources.ForeshoreProfiles_DisplayName, data.Name);
+            AssertEqualStyle(data.Style, Color.LightSeaGreen, 2, DashStyle.Solid);
         }
 
         private static string GetSectionPointDisplayName(string name)

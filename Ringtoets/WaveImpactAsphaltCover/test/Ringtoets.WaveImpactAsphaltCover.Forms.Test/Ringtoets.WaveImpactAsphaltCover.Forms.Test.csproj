@@ -74,6 +74,7 @@
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsOutputTreeNodeInfoTest.cs" />
+    <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismViewTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
@@ -113,6 +114,18 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
+      <Project>{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}</Project>
+      <Name>Core.Components.DotSpatial.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
+      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
+      <Name>Core.Components.Gis.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
+      <Name>Core.Components.Gis</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>

@@ -58,6 +58,7 @@
     <Compile Include="PropertyInfos\WaveImpactAsphaltCoverFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="ViewInfos\WaveImpactAsphaltCoverFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaveImpactAsphaltCoverResultViewInfoTest.cs" />
     <Compile Include="WaveImpactAsphaltCoverPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,6 +93,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
+      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
+      <Name>Core.Components.Gis.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>

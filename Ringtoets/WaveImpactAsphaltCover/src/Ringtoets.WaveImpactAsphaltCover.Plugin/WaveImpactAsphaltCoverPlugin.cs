@@ -68,6 +68,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
+            yield return new ViewInfo<WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismView>
+            {
+                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                CloseForData = CloseWaveImpactAsphaltCoverFailureMechanismViewForData,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+            };
+
             yield return new ViewInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
                 IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
                 WaveImpactAsphaltCoverFailureMechanismResultView>
@@ -109,9 +117,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
             yield return new TreeNodeInfo<EmptyWaveImpactAsphaltCoverOutput>
             {
-                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
+                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -119,8 +127,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
             yield return new TreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsOutput>
             {
-                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -161,6 +169,23 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         }
 
         #region ViewInfos
+
+        # region WaveImpactAsphaltCoverFailureMechanismView ViewInfo
+
+        private bool CloseWaveImpactAsphaltCoverFailureMechanismViewForData(WaveImpactAsphaltCoverFailureMechanismView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as WaveImpactAsphaltCoverFailureMechanism;
+
+            var viewFailureMechanismContext = (WaveImpactAsphaltCoverFailureMechanismContext)view.Data;
+            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
+                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+        }
+
+        # endregion
 
         #region FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>
 
@@ -234,7 +259,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

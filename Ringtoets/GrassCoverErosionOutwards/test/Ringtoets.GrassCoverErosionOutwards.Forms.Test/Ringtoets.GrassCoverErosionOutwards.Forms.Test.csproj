@@ -99,6 +99,7 @@
     <Compile Include="TreeNodeInfos\HydraulicBoundariesGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsOutputTreeNodeInfoTest.cs" />
+    <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsDesignWaterLevelLocationsViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest.cs" />
@@ -138,6 +139,18 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
+      <Project>{5a91174a-fb95-4c9d-9ca5-81c0b8d4361a}</Project>
+      <Name>Core.Components.DotSpatial.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
+      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
+      <Name>Core.Components.Gis.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
+      <Name>Core.Components.Gis</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>

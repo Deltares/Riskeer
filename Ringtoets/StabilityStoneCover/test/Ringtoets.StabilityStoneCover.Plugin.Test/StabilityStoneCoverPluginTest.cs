@@ -81,12 +81,18 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, viewInfos.Length);
+                Assert.AreEqual(2, viewInfos.Length);
 
-                var stabilityStoneCoverResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult>), stabilityStoneCoverResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(StabilityStoneCoverResultView), stabilityStoneCoverResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, stabilityStoneCoverResultViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(StabilityStoneCoverFailureMechanismContext),
+                    typeof(StabilityStoneCoverFailureMechanismView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>),
+                    typeof(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult>),
+                    typeof(StabilityStoneCoverResultView));
             }
         }
 

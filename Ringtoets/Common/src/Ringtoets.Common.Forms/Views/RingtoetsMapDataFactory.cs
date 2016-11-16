@@ -118,5 +118,17 @@ namespace Ringtoets.Common.Forms.Views
                 Style = new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid)
             };
         }
+
+        /// <summary>
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="ForeshoreProfile"/>.
+        /// </summary>
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
+        public static MapLineData CreateForeshoreProfileMapData()
+        {
+            return new MapLineData(Resources.ForeshoreProfiles_DisplayName)
+            {
+                Style = new LineStyle(Color.LightSeaGreen, 2, DashStyle.Solid)
+            };
+        }
     }
 }

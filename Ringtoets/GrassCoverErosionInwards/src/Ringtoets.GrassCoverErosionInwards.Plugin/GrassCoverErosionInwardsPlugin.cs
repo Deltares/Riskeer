@@ -214,19 +214,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return null;
         }
 
-        # region PipingFailureMechanismView ViewInfo
+        # region GrassCoverErosionInwardsFailureMechanismView ViewInfo
 
         private bool CloseGrassCoverErosionInwardsFailureMechanismViewForData(GrassCoverErosionInwardsFailureMechanismView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            var pipingFailureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
+            var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
 
             var viewFailureMechanismContext = (GrassCoverErosionInwardsFailureMechanismContext)view.Data;
             var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
                        ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
-                       : ReferenceEquals(viewFailureMechanism, pipingFailureMechanism);
+                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
         }
 
         # endregion

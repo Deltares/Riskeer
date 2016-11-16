@@ -87,6 +87,7 @@
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsOutputTreeNodeInfoTest.cs" />
+    <Compile Include="Views\StabilityStoneCoverFailureMechanismViewTest.cs" />
     <Compile Include="Views\StabilityStoneCoverResultViewTest.cs" />
     <Compile Include="Views\StabilityStoneCoverSectionResultRowTest.cs" />
   </ItemGroup>
@@ -130,6 +131,18 @@
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
       <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
+      <Project>{5a91174a-fb95-4c9d-9ca5-81c0b8d4361a}</Project>
+      <Name>Core.Components.DotSpatial.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
+      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
+      <Name>Core.Components.Gis.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
+      <Name>Core.Components.Gis</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>

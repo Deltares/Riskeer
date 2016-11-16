@@ -35,32 +35,31 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
-using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
+using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
+using WaveImpactAsphaltCoverFormsResources = Ringtoets.WaveImpactAsphaltCover.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
+namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismViewTest
+    public class WaveImpactAsphaltCoverFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
         private const int sectionsIndex = 1;
         private const int sectionsStartPointIndex = 2;
         private const int sectionsEndPointIndex = 3;
         private const int hydraulicBoundaryDatabaseIndex = 4;
-        private const int dikeProfilesIndex = 5;
-        private const int foreshoreProfilesIndex = 6;
+        private const int foreshoreProfilesIndex = 5;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -74,24 +73,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void DefaultConstructor_Always_AddMapControlWithCollectionOfEmptyMapData()
         {
             // Call
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
                 // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Map, view.Controls[0]);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-                Assert.AreEqual(GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsFailureMechanism_DisplayName, view.Map.Data.Name);
+                Assert.AreEqual(WaveImpactAsphaltCoverDataResources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, view.Map.Data.Name);
                 AssertEmptyMapData(view.Map.Data);
             }
         }
 
         [Test]
-        public void Data_GrassCoverErosionInwardsFailureMechanismContext_DataSet()
+        public void Data_WaveImpactAsphaltCoverFailureMechanismContext_DataSet()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), new TestAssessmentSection());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -102,10 +101,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_OtherThanGrassCoverErosionInwardsFailureMechanismContext_DataNull()
+        public void Data_OtherThanWaveImpactAsphaltCoverFailureMechanismContext_DataNull()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
                 var data = new object();
 
@@ -121,14 +120,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Data_SetToNull_MapDataCleared()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), new TestAssessmentSection());
 
                 view.Data = failureMechanismContext;
 
                 // Precondition
-                Assert.AreEqual(7, view.Map.Data.Collection.Count());
+                Assert.AreEqual(6, view.Map.Data.Collection.Count());
 
                 // Call
                 view.Data = null;
@@ -140,12 +139,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_EmptyGrassCoverErosionInwardsFailureMechanismContext_NoMapDataSet()
+        public void Data_EmptyWaveImpactAsphaltCoverFailureMechanismContext_NoMapDataSet()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), new TestAssessmentSection());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -157,10 +156,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_GrassCoverErosionInwardsFailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
+        public void Data_WaveImpactAsphaltCoverFailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
                 var map = (MapControl) view.Controls[0];
 
@@ -188,15 +187,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile());
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile());
+                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
 
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -208,14 +207,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
                 var mapDataList = mapData.Collection.ToList();
-                Assert.AreEqual(7, mapDataList.Count);
+                Assert.AreEqual(6, mapDataList.Count);
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase, mapDataList[hydraulicBoundaryDatabaseIndex]);
-                AssertDikeProfiles(failureMechanism.DikeProfiles, mapDataList[dikeProfilesIndex]);
-                AssertForeshoreProfiles(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), mapDataList[foreshoreProfilesIndex]);
+                AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
             }
         }
 
@@ -223,7 +221,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_MapDataUpdated()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
                 var map = (MapControl) view.Controls[0];
 
@@ -247,7 +245,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase1
                 };
 
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
 
                 view.Data = failureMechanismContext;
 
@@ -269,7 +267,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
                 var map = (MapControl) view.Controls[0];
 
@@ -291,7 +289,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 };
                 assessmentSection.ReferenceLine.SetGeometry(points1);
 
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
 
                 view.Data = failureMechanismContext;
 
@@ -313,12 +311,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void UpdateObserver_FailureMechanismSectionsUpdated_MapDataUpdated()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
                 var map = (MapControl) view.Controls[0];
 
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
 
                 view.Data = failureMechanismContext;
 
@@ -342,60 +340,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_DikeProfilesUpdated_MapDataUpdated()
-        {
-            // Setup
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
-            {
-                var map = (MapControl)view.Controls[0];
-
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new TestAssessmentSection());
-
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile());
-
-                view.Data = failureMechanismContext;
-
-                var dikeProfileData = map.Data.Collection.ElementAt(dikeProfilesIndex);
-
-                // Precondition
-                AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
-
-                // Call
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile());
-                failureMechanism.DikeProfiles.NotifyObservers();
-
-                // Assert
-                AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
-            }
-        }
-
-        [Test]
         public void UpdateObserver_ForeshoreProfilesUpdated_MapDataUpdated()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
                 var map = (MapControl)view.Controls[0];
 
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
 
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile());
+                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
 
                 view.Data = failureMechanismContext;
 
-                var dikeProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
+                var foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
                 // Precondition
-                AssertForeshoreProfiles(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
+                AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
 
                 // Call
-                failureMechanism.DikeProfiles.Add(new TestDikeProfile());
-                failureMechanism.DikeProfiles.NotifyObservers();
+                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+                failureMechanism.ForeshoreProfiles.NotifyObservers();
 
                 // Assert
-                AssertForeshoreProfiles(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
+                AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
             }
         }
 
@@ -403,21 +372,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
-            const int updatedRefenceLineLayerIndex = referenceLineIndex + 6;
+            const int updatedRefenceLineLayerIndex = referenceLineIndex + 5;
             const int updatedSectionsLayerIndex = sectionsIndex - 1;
             const int updateSectionStartLayerIndex = sectionsStartPointIndex - 1;
             const int updatedSectionEndLayerIndex = sectionsEndPointIndex - 1;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryDatabaseIndex - 1;
-            const int updatedDikeProfilesLayerIndex = dikeProfilesIndex - 1;
             const int updatedForeshoreProfilesLayerIndex = foreshoreProfilesIndex - 1;
 
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
                 var map = (MapControl) view.Controls[0];
 
                 var assessmentSection = new TestAssessmentSection();
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
                 view.Data = failureMechanismContext;
 
@@ -444,9 +412,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicLocationsData.Name);
-
-                var dikeProfilesData = (MapLineData) mapDataList[updatedDikeProfilesLayerIndex];
-                Assert.AreEqual("Dijkprofielen", dikeProfilesData.Name);
 
                 var foreshoreProfilesData = (MapLineData)mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", foreshoreProfilesData.Name);
@@ -479,10 +444,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische randvoorwaarden", actualHydraulicLocationsData.Name);
 
-                var actualDikeProfilesData = (MapLineData) mapDataList[updatedDikeProfilesLayerIndex];
-                Assert.AreEqual("Dijkprofielen", actualDikeProfilesData.Name);
-
-                var actualForeshoreProfilesData = (MapLineData)mapDataList[updatedForeshoreProfilesLayerIndex];
+                var actualForeshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", actualForeshoreProfilesData.Name);
             }
         }
@@ -501,14 +463,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 new Point2D(3, 4)
             });
 
-            var oldGrassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), oldAssessmentSection);
-            var newGrassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), newAssessmentSection);
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            var oldWaveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), oldAssessmentSection);
+            var newWaveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), newAssessmentSection);
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
                 var map = (MapControl) view.Controls[0];
 
-                view.Data = oldGrassCoverErosionInwardsFailureMechanismContext;
-                view.Data = newGrassCoverErosionInwardsFailureMechanismContext;
+                view.Data = oldWaveImpactAsphaltCoverFailureMechanismContext;
+                view.Data = newWaveImpactAsphaltCoverFailureMechanismContext;
                 MapData dataBeforeUpdate = map.Data;
 
                 newAssessmentSection.ReferenceLine.SetGeometry(Enumerable.Empty<Point2D>());
@@ -534,25 +496,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Referentielijn", mapData.Name);
-        }
-
-        private static void AssertDikeProfiles(IEnumerable<DikeProfile> dikeProfiles, MapData mapData)
-        {
-            Assert.NotNull(dikeProfiles, "dikeProfiles should never be null.");
-
-            var dikeProfilesData = (MapLineData) mapData;
-            var dikeProfileArray = dikeProfiles.ToArray();
-
-            Assert.IsInstanceOf<MapLineData>(mapData);
-            Assert.AreEqual(dikeProfileArray.Length, dikeProfilesData.Features.Length);
-
-            for (int i = 0; i < dikeProfileArray.Length; i++)
-            {
-                var profileDataA = dikeProfilesData.Features.ElementAt(i).MapGeometries.First();
-                CollectionAssert.AreEquivalent(dikeProfileArray[0].DikeGeometry, profileDataA.PointCollections.First());
-            }
-            
-            Assert.AreEqual("Dijkprofielen", mapData.Name);
         }
 
         private static void AssertForeshoreProfiles(IEnumerable<ForeshoreProfile> foreshoreProfiles, MapData mapData)
@@ -630,11 +573,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             var mapDataList = mapData.Collection.ToList();
 
-            Assert.AreEqual(7, mapDataList.Count);
+            Assert.AreEqual(6, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
             var sectionsMapData = (MapLineData) mapDataList[sectionsIndex];
-            var dikeProfilesMapData = (MapLineData) mapDataList[dikeProfilesIndex];
             var foreshoreProfilesMapData = (MapLineData) mapDataList[foreshoreProfilesIndex];
             var sectionsStartPointMapData = (MapPointData) mapDataList[sectionsStartPointIndex];
             var sectionsEndPointMapData = (MapPointData) mapDataList[sectionsEndPointIndex];
@@ -642,7 +584,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(sectionsMapData.Features);
-            CollectionAssert.IsEmpty(dikeProfilesMapData.Features);
+            CollectionAssert.IsEmpty(foreshoreProfilesMapData.Features);
             CollectionAssert.IsEmpty(foreshoreProfilesMapData.Features);
             CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
             CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);

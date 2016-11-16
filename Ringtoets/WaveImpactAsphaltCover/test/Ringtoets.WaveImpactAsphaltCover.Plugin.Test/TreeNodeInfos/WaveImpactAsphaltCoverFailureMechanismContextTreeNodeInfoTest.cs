@@ -43,7 +43,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismContextTreeNodeInfoTest
     {
-        private const int contextMenuRelevancyIndexWhenRelevant = 0;
+        private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
         private MockRepository mocks;
 
@@ -275,6 +275,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                                                 assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);

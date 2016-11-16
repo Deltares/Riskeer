@@ -144,14 +144,17 @@ namespace Ringtoets.Common.Forms.Views
                 return new MapFeature[0];
             }
 
-            var features = new List<MapFeature>();
-            foreach (var dikeProfile in dikeProfiles)
+            return dikeProfiles.Select(dikeProfile => GetAsSingleMapFeature(GetWorldPoints(dikeProfile))).ToArray();
+        }
+
+        public static MapFeature[] CreateForeshoreProfilesFeatures(IEnumerable<ForeshoreProfile> foreshoreProfiles)
+        {
+            if (foreshoreProfiles == null || !foreshoreProfiles.Any())
             {
-                features.Add(GetAsSingleMapFeature(GetWorldPoints(dikeProfile)));
-                features.Add(GetAsSingleMapFeature(GetWorldPoints(dikeProfile.ForeshoreProfile)));
+                return new MapFeature[0];
             }
 
-            return features.ToArray();
+            return foreshoreProfiles.Select(foreshoreProfile => GetAsSingleMapFeature(GetWorldPoints(foreshoreProfile))).ToArray();
         }
 
         private static Point2D[] GetWorldPoints(DikeProfile dikeProfile)
