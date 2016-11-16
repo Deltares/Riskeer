@@ -41,15 +41,23 @@ namespace Core.Components.DotSpatial.Converter
         {
             var featureSet = new FeatureSet(FeatureType.Point);
 
-            foreach (Coordinate coordinate in GetAllPointCoordinates(data))
+            foreach (var ringtoetsMapFeature in data.Features)
             {
-                featureSet.Features.Add(coordinate);
+                foreach (var feature in GetAllMapFeatureCoordinates(ringtoetsMapFeature)
+                    .Select(c => new Feature(new Point(c.X, c.Y), featureSet)))
+                {
+                    AddMetaDataAsAttributes(ringtoetsMapFeature, featureSet, feature);
+                }
             }
+
+            featureSet.InitializeVertices();
 
             var layer = new MapPointLayer(featureSet)
             {
                 IsVisible = data.IsVisible,
-                Name = data.Name
+                Name = data.Name,
+                ShowLabels = true,
+                LabelLayer = GetLabelLayer(featureSet)
             };
 
             CreateStyle(layer, data.Style);
@@ -60,17 +68,38 @@ namespace Core.Components.DotSpatial.Converter
             };
         }
 
-        private static IEnumerable<Coordinate> GetAllPointCoordinates(FeatureBasedMapData data)
+        private static MapLabelLayer GetLabelLayer(FeatureSet featureSet)
         {
-            return data.Features.SelectMany(GetAllMapFeatureCoordinates);
+            var labelLayer = new MapLabelLayer();
+
+            if (featureSet.DataTable.Columns.Count > 0)
+            {
+                labelLayer.Symbology.Categories[0].Symbolizer.PriorityField = "ID";
+                labelLayer.Symbology.Categories[0].Expression = "[name]";
+            }
+
+            return labelLayer;
         }
 
-        private static IEnumerable<Coordinate> GetAllMapFeatureCoordinates(MapFeature features)
+        private static void AddMetaDataAsAttributes(MapFeature ringtoetsMapFeature, FeatureSet featureSet, Feature feature)
         {
-            return features.MapGeometries.SelectMany(mapGeometry => ConvertPoint2DElementsToCoordinates(mapGeometry.PointCollections.First()));
+            foreach (var attribute in ringtoetsMapFeature.MetaData)
+            {
+                if (!featureSet.DataTable.Columns.Contains(attribute.Key))
+                {
+                    featureSet.DataTable.Columns.Add(attribute.Key, typeof(string));
+                }
+
+                feature.DataRow[attribute.Key] = attribute.Value;
+            }
         }
 
-        private void CreateStyle(MapPointLayer layer, PointStyle style)
+        private static IEnumerable<Coordinate> GetAllMapFeatureCoordinates(MapFeature feature)
+        {
+            return feature.MapGeometries.SelectMany(mapGeometry => ConvertPoint2DElementsToCoordinates(mapGeometry.PointCollections.First()));
+        }
+
+        private static void CreateStyle(MapPointLayer layer, PointStyle style)
         {
             if (style != null)
             {

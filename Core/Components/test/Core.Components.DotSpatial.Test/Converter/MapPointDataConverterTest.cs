@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -94,7 +95,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_RandomPointData_ReturnsNewMapPointLayerList()
+        public void Convert_RandomPointDataWithoutAttributes_ReturnsNewMapPointLayerListWithDefaultLabelLayer()
         {
             // Setup
             var converter = new MapPointDataConverter();
@@ -132,6 +133,67 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.IsInstanceOf<MapPointLayer>(layer);
             Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
             CollectionAssert.AreNotEqual(pointData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
+            Assert.IsTrue(layer.ShowLabels);
+            CollectionAssert.IsEmpty(layer.DataSet.GetColumns());
+
+            Assert.IsNotNull(layer.LabelLayer);
+            Assert.AreEqual("FID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
+            Assert.IsNull(layer.LabelLayer.Symbology.Categories[0].Expression);
+        }
+        
+        [Test]
+        public void Convert_RandomPointDataWithAttributes_ReturnsNewMapPointLayerListWithCustomLabelLayer()
+        {
+            // Setup
+            var converter = new MapPointDataConverter();
+            var random = new Random(21);
+            var randomCount = random.Next(5, 10);
+            var features = new List<MapFeature>();
+
+            for (var i = 0; i < randomCount; i++)
+            {
+                var mapFeature = new MapFeature(new[]
+                {
+                    new MapGeometry(new[]
+                    {
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
+                    })
+                });
+                mapFeature.MetaData["ID"] = random.NextDouble();
+                mapFeature.MetaData["Name"] = string.Format("feature [{0}]", i);
+
+                features.Add(mapFeature);
+            }
+
+            var pointData = new MapPointData("test data")
+            {
+                Features = features.ToArray()
+            };
+
+            // Call
+            IList<IMapFeatureLayer> mapLayers = converter.Convert(pointData);
+
+            // Assert
+            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
+            IMapFeatureLayer layer = mapLayers[0];
+
+            Assert.AreEqual(pointData.Features.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapPointLayer>(layer);
+            Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
+            CollectionAssert.AreNotEqual(pointData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
+            Assert.IsTrue(layer.ShowLabels);
+
+            DataColumn[] dataColumns = layer.DataSet.GetColumns();
+            Assert.AreEqual(2, dataColumns.Length);
+            Assert.AreEqual("ID", dataColumns[0].ColumnName);
+            Assert.AreEqual("Name", dataColumns[1].ColumnName);
+
+            Assert.IsNotNull(layer.LabelLayer);
+            Assert.AreEqual("ID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
+            Assert.AreEqual("[name]", layer.LabelLayer.Symbology.Categories[0].Expression);
         }
 
         [Test]
@@ -324,7 +386,11 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             var layer = (MapPointLayer) layers.First();
-            PointShape expectedPointShape = pointStyle == PointSymbol.Circle ? PointShape.Ellipse : pointStyle == PointSymbol.Square ? PointShape.Rectangle : PointShape.Triangle;
+            PointShape expectedPointShape = pointStyle == PointSymbol.Circle
+                                                ? PointShape.Ellipse
+                                                : pointStyle == PointSymbol.Square
+                                                      ? PointShape.Rectangle
+                                                      : PointShape.Triangle;
             AssertAreEqual(new PointSymbolizer(Color.AliceBlue, expectedPointShape, 3), layer.Symbolizer);
         }
 
