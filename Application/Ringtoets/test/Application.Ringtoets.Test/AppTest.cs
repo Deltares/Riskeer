@@ -22,6 +22,7 @@
 using System;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
+using System.Threading;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -75,8 +76,11 @@ namespace Application.Ringtoets.Test
                 };
 
                 // Assert
-                var userDisplayInfo = string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
-                                                    UserPrincipal.Current.SamAccountName);
+                var userDisplayInfo = !Thread.CurrentPrincipal.Identity.IsAuthenticated
+                                          ? Environment.UserName
+                                          : string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
+                                                          UserPrincipal.Current.SamAccountName);
+
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();

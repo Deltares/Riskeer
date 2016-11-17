@@ -398,7 +398,10 @@ namespace Application.Ringtoets
 
         private static string UserDisplay()
         {
-            return string.Format("{0} ({1})", UserPrincipal.Current.DisplayName, UserPrincipal.Current.SamAccountName);
+            return !Thread.CurrentPrincipal.Identity.IsAuthenticated
+                       ? Environment.UserName
+                       : string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
+                                       UserPrincipal.Current.SamAccountName);
         }
 
         private static string GetLogFileDirectory()
