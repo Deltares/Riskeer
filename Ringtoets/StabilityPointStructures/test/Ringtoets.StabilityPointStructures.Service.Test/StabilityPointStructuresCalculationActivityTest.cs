@@ -38,14 +38,14 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            var activity = new StabilityPointStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSectionMock);
+            var activity = new StabilityPointStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSectionStub);
 
             // Assert
             Assert.IsInstanceOf<HydraRingActivityBase>(activity);
@@ -61,13 +61,13 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(null, "", failureMechanism, assessmentSectionMock);
+            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(null, "", failureMechanism, assessmentSectionStub);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -80,14 +80,14 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, null, failureMechanism, assessmentSectionMock);
+            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, null, failureMechanism, assessmentSectionStub);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -100,13 +100,13 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, "", null, assessmentSectionMock);
+            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, "", null, assessmentSectionStub);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

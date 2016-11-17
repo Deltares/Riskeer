@@ -38,19 +38,19 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionMock);
+            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionStub);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<ClosingStructure>>>(context);
             Assert.AreSame(failureMechanism, failureMechanism);
             Assert.AreSame(failureMechanism.ClosingStructures, context.WrappedData);
-            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
+            Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
             mocks.VerifyAll();
         }
 

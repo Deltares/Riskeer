@@ -67,11 +67,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_WithTestFailureMechanism_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSectionStub);
 
             using (var view = new FailureMechanismView<IFailureMechanism>())
             {
@@ -87,14 +87,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var otherAssessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSectionStub);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>()
+            using (var view = new FailureMechanismView<IFailureMechanism>
             {
                 Data = failureMechanismContext
             })
@@ -112,19 +112,19 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSectionStub);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>()
+            using (var view = new FailureMechanismView<IFailureMechanism>
             {
                 Data = failureMechanismContext
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, assessmentSectionMock);
+                bool closeForData = info.CloseForData(view, assessmentSectionStub);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -136,15 +136,15 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
             var otherTestFailureMechanism = new TestFailureMechanism();
 
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSectionStub);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>()
+            using (var view = new FailureMechanismView<IFailureMechanism>
             {
                 Data = failureMechanismContext
             })
@@ -162,13 +162,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSectionStub);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>()
+            using (var view = new FailureMechanismView<IFailureMechanism>
             {
                 Data = failureMechanismContext
             })

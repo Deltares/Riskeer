@@ -1134,8 +1134,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             {
                 var group = new CalculationGroup();
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-                assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+                assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     Locations =
                     {
@@ -1146,7 +1146,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 var observerMock = mocks.StrictMock<IObserver>();
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                failureMechanism,
-                                                                                               assessmentSectionMock);
+                                                                                               assessmentSectionStub);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();

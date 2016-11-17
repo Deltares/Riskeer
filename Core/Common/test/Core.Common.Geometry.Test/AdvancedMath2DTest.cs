@@ -294,9 +294,11 @@ namespace Core.Common.Geometry.Test
         [Test]
         public void FromXToXY_WithoutTransformations_ReturnsCoordinatesOnYAxis()
         {
-            // Call
+            // Setup
             var xCoordinates = ThreeRandomXCoordinates();
             var referencePoint = new Point2D(0, 0);
+
+            // Call
             var points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 0);
 
             // Assert
@@ -385,7 +387,7 @@ namespace Core.Common.Geometry.Test
             };
         }
 
-        private void CollectionElementsAlmostEquals(IEnumerable<Point2D> expected, Point2D[] actual)
+        private static void CollectionElementsAlmostEquals(IEnumerable<Point2D> expected, Point2D[] actual)
         {
             Assert.AreEqual(expected.Count(), actual.Length);
 

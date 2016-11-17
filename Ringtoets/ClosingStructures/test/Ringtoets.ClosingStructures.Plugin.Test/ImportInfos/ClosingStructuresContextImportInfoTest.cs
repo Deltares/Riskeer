@@ -42,13 +42,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.ReferenceLine = new ReferenceLine();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            assessmentSectionStub.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var importTarget = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionMock);
+            var importTarget = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionStub);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -132,12 +132,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.ReferenceLine = new ReferenceLine();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            assessmentSectionStub.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionMock);
+            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionStub);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -157,11 +157,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionMock);
+            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionStub);
 
             using (var plugin = new ClosingStructuresPlugin())
             {

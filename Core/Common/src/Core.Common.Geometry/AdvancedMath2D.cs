@@ -76,16 +76,16 @@ namespace Core.Common.Geometry
         {
             if (xCoordinates == null)
             {
-                throw new ArgumentNullException("xCoordinates", "Cannot transform to coordinates without a source.");
+                throw new ArgumentNullException("xCoordinates", @"Cannot transform to coordinates without a source.");
             }
             if (referencePoint == null)
             {
-                throw new ArgumentNullException("referencePoint", "Cannot transform to coordinates without a reference point.");
+                throw new ArgumentNullException("referencePoint", @"Cannot transform to coordinates without a reference point.");
             }
 
             return xCoordinates.Select(coordinate =>
             {
-                Vector2D referenceVector = new Vector2D(referencePoint.X, referencePoint.Y);
+                var referenceVector = new Vector2D(referencePoint.X, referencePoint.Y);
                 Vector2D pointVector = referenceVector + new Vector2D(0, coordinate - offset).Rotate(-rotation, AngleUnit.Degrees);
                 return new Point2D(pointVector.X, pointVector.Y);
             }).ToArray();

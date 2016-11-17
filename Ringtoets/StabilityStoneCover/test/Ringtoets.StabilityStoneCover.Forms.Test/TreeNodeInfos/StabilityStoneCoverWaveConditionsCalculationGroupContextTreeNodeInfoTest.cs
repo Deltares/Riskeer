@@ -1140,8 +1140,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             {
                 var group = new CalculationGroup();
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-                assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+                assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     Locations =
                     {
@@ -1152,7 +1152,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 var observerMock = mocks.StrictMock<IObserver>();
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                             failureMechanism,
-                                                                                            assessmentSectionMock);
+                                                                                            assessmentSectionStub);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
