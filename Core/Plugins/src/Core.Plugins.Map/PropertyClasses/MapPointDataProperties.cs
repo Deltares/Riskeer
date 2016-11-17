@@ -19,11 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing.Design;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.Properties;
+using Core.Plugins.Map.UITypeEditors;
 
 namespace Core.Plugins.Map.PropertyClasses
 {
@@ -73,6 +77,26 @@ namespace Core.Plugins.Map.PropertyClasses
             set
             {
                 data.ShowLabels = value;
+                data.NotifyObservers();
+            }
+        }
+
+        public IEnumerable<string> GetAvailableMetaDataAttributes()
+        {
+            return data.MetaData;
+        }
+
+        [Editor(typeof(MetaDataAttributeEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(Resources), "Categories_Label")]
+        public string SelectedMetaDataAttribute
+        {
+            get
+            {
+                return data.SelectedMetaDataAttribute;
+            }
+            set
+            {
+                data.SelectedMetaDataAttribute = value;
                 data.NotifyObservers();
             }
         }
