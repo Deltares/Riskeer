@@ -74,8 +74,8 @@ namespace Ringtoets.Integration.Test
             Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
-            var expectedText = "Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
-                               Environment.NewLine + "Weet u zeker dat u wilt doorgaan?";
+            var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geimporteerde en berekende gegevens van faalmechanismen worden gewist." + Environment.NewLine +
+                               Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
         }
 
@@ -153,8 +153,8 @@ namespace Ringtoets.Integration.Test
             CollectionAssert.IsEmpty(assessmentSection.PipingFailureMechanism.CalculationsGroup.Children);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
-            var expectedText = "Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
-                               Environment.NewLine + "Weet u zeker dat u wilt doorgaan?";
+            var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geimporteerde en berekende gegevens van faalmechanismen worden gewist." + Environment.NewLine +
+                               Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
 
             mocks.VerifyAll();
