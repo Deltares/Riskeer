@@ -86,7 +86,6 @@ namespace Application.Ringtoets
             SetLanguage();
 
             var userDisplay = UserDisplay();
-
             log.Info(string.Format(CoreCommonGuiResources.App_Starting_Ringtoets_version_0_by_user_0,
                                    SettingsHelper.ApplicationVersion,
                                    userDisplay));
