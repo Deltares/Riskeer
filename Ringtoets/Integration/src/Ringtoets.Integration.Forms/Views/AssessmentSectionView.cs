@@ -67,8 +67,9 @@ namespace Ringtoets.Integration.Forms.Views
 
             mapControl.Data.Add(referenceLineMapData);
             mapControl.Data.Add(hydraulicBoundaryDatabaseMapData);
-
             mapControl.Data.Name = Resources.AssessmentSectionMap_DisplayName;
+
+            mapControl.Data.NotifyObservers();
         }
 
         public object Data
@@ -122,8 +123,6 @@ namespace Ringtoets.Integration.Forms.Views
                                       RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(data != null
                                                                                                                   ? data.HydraulicBoundaryDatabase
                                                                                                                   : null));
-
-            mapControl.Data.NotifyObservers();
         }
 
         private static void UpdateFeatureBasedMapData(FeatureBasedMapData mapData, MapFeature[] features)

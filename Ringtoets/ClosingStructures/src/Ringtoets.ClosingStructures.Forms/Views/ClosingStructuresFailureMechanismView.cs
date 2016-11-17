@@ -87,6 +87,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             mapControl.Data.Add(structuresMapData);
 
             mapControl.Data.Name = ClosingStructuresDataResources.ClosingStructuresFailureMechanism_DisplayName;
+            mapControl.Data.NotifyObservers();
         }
 
         public object Data
@@ -171,8 +172,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                                       RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles));
             UpdateFeatureBasedMapData(structuresMapData,
                                       RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures));
-
-            mapControl.Data.NotifyObservers();
         }
 
         private static void UpdateFeatureBasedMapData(FeatureBasedMapData mapData, MapFeature[] features)

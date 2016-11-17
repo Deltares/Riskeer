@@ -86,6 +86,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             mapControl.Data.Add(foreshoreProfilesMapData);
 
             mapControl.Data.Name = GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsFailureMechanism_DisplayName;
+            mapControl.Data.NotifyObservers();
         }
 
         public object Data
@@ -166,8 +167,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                                       RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(dikeProfiles));
             UpdateFeatureBasedMapData(foreshoreProfilesMapData,
                                       RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(dikeProfiles.Select(dp => dp.ForeshoreProfile)));
-
-            mapControl.Data.NotifyObservers();
         }
 
         private static void UpdateFeatureBasedMapData(FeatureBasedMapData mapData, MapFeature[] features)

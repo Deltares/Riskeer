@@ -113,7 +113,6 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [RequiresSTA]
         public void GivenMapControlWithNestedMapData_WhenNestedMapDataChanged_MapControlUpdated()
         {
             // Given

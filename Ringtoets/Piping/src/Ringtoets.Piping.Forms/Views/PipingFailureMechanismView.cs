@@ -88,6 +88,7 @@ namespace Ringtoets.Piping.Forms.Views
             mapControl.Data.Add(hydraulicBoundaryDatabaseMapData);
 
             mapControl.Data.Name = PipingDataResources.PipingFailureMechanism_DisplayName;
+            mapControl.Data.NotifyObservers();
         }
 
         public object Data
@@ -173,8 +174,6 @@ namespace Ringtoets.Piping.Forms.Views
                                       RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections));
             UpdateFeatureBasedMapData(hydraulicBoundaryDatabaseMapData,
                                       RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase));
-
-            mapControl.Data.NotifyObservers();
         }
 
         private static void UpdateFeatureBasedMapData(FeatureBasedMapData mapData, MapFeature[] features)

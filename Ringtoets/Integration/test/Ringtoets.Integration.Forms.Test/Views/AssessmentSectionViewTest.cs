@@ -109,10 +109,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Data_SetToNull_MapDataCleared()
         {
             // Setup
-            using (var view = new AssessmentSectionView())
+            using (var view = new AssessmentSectionView
             {
-                view.Data = new TestAssessmentSection();
-
+                Data = new TestAssessmentSection()
+            })
+            {
                 // Precondition
                 Assert.AreEqual(2, view.Map.Data.Collection.Count());
 

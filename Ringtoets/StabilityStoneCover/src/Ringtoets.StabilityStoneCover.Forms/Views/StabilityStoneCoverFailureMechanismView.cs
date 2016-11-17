@@ -82,6 +82,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             mapControl.Data.Add(foreshoreProfilesMapData);
 
             mapControl.Data.Name = StabilityStoneCoverDataResources.StabilityStoneCoverFailureMechanism_DisplayName;
+            mapControl.Data.NotifyObservers();
         }
 
         public object Data
@@ -160,8 +161,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                                       RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase));
             UpdateFeatureBasedMapData(foreshoreProfilesMapData,
                                       RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles));
-
-            mapControl.Data.NotifyObservers();
         }
 
         private static void UpdateFeatureBasedMapData(FeatureBasedMapData mapData, MapFeature[] features)
