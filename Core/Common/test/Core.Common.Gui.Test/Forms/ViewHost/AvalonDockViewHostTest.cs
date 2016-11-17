@@ -345,7 +345,12 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             {
                 avalonDockViewHost.AddDocumentView(testView);
 
-                avalonDockViewHost.ViewClosed += (sender, args) => { viewClosedCounter++; };
+                avalonDockViewHost.ViewClosed += (sender, args) =>
+                {
+                    Assert.AreSame(testView, args.View);
+
+                    viewClosedCounter++;
+                };
 
                 // Call
                 avalonDockViewHost.Remove(testView);
@@ -759,7 +764,12 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             {
                 avalonDockViewHost.AddToolView(testView, ToolViewLocation.Left);
 
-                avalonDockViewHost.ViewClosed += (sender, args) => { viewClosedCounter++; };
+                avalonDockViewHost.ViewClosed += (sender, args) =>
+                {
+                    Assert.AreSame(testView, args.View);
+
+                    viewClosedCounter++;
+                };
 
                 // Call
                 avalonDockViewHost.Remove(testView);

@@ -533,7 +533,7 @@ namespace Core.Common.Gui
             var selectionProvider = e.View as ISelectionProvider;
             if (selectionProvider != null)
             {
-                Selection = selectionProvider.Selection ?? Selection;
+                Selection = selectionProvider.Selection;
             }
         }
 
