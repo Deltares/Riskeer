@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Features;
 
@@ -43,6 +44,7 @@ namespace Core.Components.Gis.Data
             features = new MapFeature[0];
             ShowLabels = false;
             SelectedAttribute = "name";
+            MetaData = new List<string>();
         }
 
         /// <summary>
@@ -70,9 +72,14 @@ namespace Core.Components.Gis.Data
         public bool ShowLabels { get; set; }
 
         /// <summary>
-        /// Gets or sets the selected attribute to show as label.
+        /// Gets or sets the selected attribute of the meta data to show as label.
         /// </summary>
         public string SelectedAttribute { get; set; }
+
+        /// <summary>
+        /// Gets the meta data associated with the map data.
+        /// </summary>
+        public List<string> MetaData { get; private set; } 
 
         /// <summary>
         /// This method validates newly set features.
