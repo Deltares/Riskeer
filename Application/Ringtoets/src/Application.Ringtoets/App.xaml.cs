@@ -29,7 +29,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security;
-using System.Security.Principal;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
@@ -410,8 +409,7 @@ namespace Application.Ringtoets
         {
             try
             {
-                WindowsIdentity identity = WindowsIdentity.GetCurrent();
-                return identity.IsAuthenticated;
+                return Thread.CurrentPrincipal.Identity.IsAuthenticated;
             }
             catch (SecurityException)
             {

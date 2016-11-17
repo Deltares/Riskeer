@@ -23,7 +23,7 @@ using System;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using System.Security;
-using System.Security.Principal;
+using System.Threading;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -96,8 +96,7 @@ namespace Application.Ringtoets.Test
         {
             try
             {
-                WindowsIdentity identity = WindowsIdentity.GetCurrent();
-                return identity.IsAuthenticated;
+                return Thread.CurrentPrincipal.Identity.IsAuthenticated;
             }
             catch (SecurityException)
             {
