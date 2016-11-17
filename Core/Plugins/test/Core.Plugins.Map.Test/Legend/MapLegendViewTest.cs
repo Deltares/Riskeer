@@ -66,15 +66,15 @@ namespace Core.Plugins.Map.Test.Legend
             // Call
             using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow))
             {
-                var treeView = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
 
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreEqual(Resources.General_Map, view.Text);
-                Assert.IsNotNull(treeView);
-                Assert.IsInstanceOf<TreeViewControl>(treeView);
+                Assert.IsNotNull(treeViewControl);
+                Assert.IsInstanceOf<TreeViewControl>(treeViewControl);
             }
         }
 

@@ -71,11 +71,13 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Call
             using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos))
             {
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");
+
                 // Assert
                 Assert.IsInstanceOf<IProjectExplorer>(explorer);
                 Assert.IsInstanceOf<UserControl>(explorer);
                 Assert.IsNull(explorer.Data);
-                Assert.IsInstanceOf<TreeViewControl>(explorer.TreeViewControl);
+                Assert.IsInstanceOf<TreeViewControl>(treeViewControl);
             }
             mocks.VerifyAll();
         }
@@ -100,11 +102,13 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos))
             {
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");
+
                 // Call
                 explorer.Data = projectStub;
 
                 // Assert
-                Assert.AreSame(projectStub, explorer.TreeViewControl.Data);
+                Assert.AreSame(projectStub, treeViewControl.Data);
             }
             mocks.VerifyAll();
         }
@@ -141,8 +145,10 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Data = projectStub
             })
             {
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");
+
                 // Call
-                explorer.TreeViewControl.TryRemoveNodeForData(projectStub);
+                treeViewControl.TryRemoveNodeForData(projectStub);
             }
             // Assert
             mocks.VerifyAll();
@@ -185,13 +191,15 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Data = projectStub
             })
             {
-                WindowsFormsTestHelper.Show(explorer.TreeViewControl);
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");
+
+                WindowsFormsTestHelper.Show(treeViewControl);
 
                 var selectionChangedCount = 0;
                 explorer.SelectionChanged += (sender, args) => selectionChangedCount++;
 
                 // Call
-                explorer.TreeViewControl.TrySelectNodeForData(stringA);
+                treeViewControl.TrySelectNodeForData(stringA);
 
                 // Assert
                 Assert.AreEqual(1, selectionChangedCount);
@@ -238,10 +246,12 @@ namespace Core.Plugins.ProjectExplorer.Test
                 form.Controls.Add(explorer);
                 form.Show();
 
-                TypeUtils.GetField<TreeView>(explorer.TreeViewControl, "treeView").Name = treeIdentifier;
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");
+
+                TypeUtils.GetField<TreeView>(treeViewControl, "treeView").Name = treeIdentifier;
 
                 // Precondition
-                Assert.AreSame(explorer.TreeViewControl.SelectedData, projectStub);
+                Assert.AreSame(treeViewControl.SelectedData, projectStub);
 
                 var tester = new TreeViewTester(treeIdentifier);
 
@@ -288,8 +298,10 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Data = projectStub
             })
             {
-                WindowsFormsTestHelper.Show(explorer.TreeViewControl);
-                explorer.TreeViewControl.TrySelectNodeForData(stringA);
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");
+
+                WindowsFormsTestHelper.Show(treeViewControl);
+                treeViewControl.TrySelectNodeForData(stringA);
 
                 // Call
                 var selection = explorer.Selection;
