@@ -24,7 +24,6 @@ using System.IO;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Extensions;
 using NUnit.Framework;
 using Ringtoets.Common.IO.DikeProfiles;
 
@@ -93,7 +92,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadReferenceLine_ShapefileDoesntExist_ThrowCriticalFileReadException()
         {
-            string expectedMessage = "Het bestand bestaat niet.";
+            string expectedMessage = "het bestand bestaat niet.";
             ReadFileAndExpectCriticalFileReadException("I_do_not_exist.shp", expectedMessage);
         }
 
@@ -258,7 +257,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FilesWithMissingParameters_ThrowCriticalFileReadException(
             string faultyFileName, string missingParameterNames)
         {
-            string expectedMessage = string.Format("De volgende parameters zijn niet aanwezig in het bestand: {0}",
+            string expectedMessage = string.Format("de volgende parameters zijn niet aanwezig in het bestand: {0}",
                                                    missingParameterNames);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedMessage);
         }
@@ -269,7 +268,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnsupportedVersion_ThrowCriticalFileReadException(
             string faultyFileName)
         {
-            string expectedMessage = @"Enkel bestanden van versie '4.0' worden ondersteund.";
+            string expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 1, expectedMessage);
         }
 
@@ -279,7 +278,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOrientationOutOfRange_ThrowCriticalFileReadException(
             string faultyFileName, double expectedOrientationInFile)
         {
-            string expectedMessage = string.Format("De oriëntatie ('{0}') moet in het bereik [0, 360] liggen.",
+            string expectedMessage = string.Format("de oriëntatie ('{0}') moet in het bereik [0, 360] liggen.",
                                                    expectedOrientationInFile);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 4, expectedMessage);
         }
@@ -290,7 +289,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithDamTypeOutOfRange_ThrowCriticalFileReadException(
             string faultyFileName, int expectedDamInFile)
         {
-            string expectedMessage = string.Format("Het ingelezen damtype ('{0}') moet 0, 1, 2 of 3 zijn.",
+            string expectedMessage = string.Format("het ingelezen damtype ('{0}') moet 0, 1, 2 of 3 zijn.",
                                                    expectedDamInFile);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 6, expectedMessage);
         }
@@ -301,7 +300,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithProfileTypeOutOfRange_ThrowCriticalFileReadException(
             string faultyFileName, int expectedDamInFile)
         {
-            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet '0', '1' of '2' zijn.",
+            string expectedMessage = string.Format("het ingelezen damwandtype ('{0}') moet '0', '1' of '2' zijn.",
                                                    expectedDamInFile);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 11, expectedMessage);
         }
@@ -309,7 +308,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithNegativeForeshorePointCount_ThrowCriticalFileReadException()
         {
-            string expectedMessage = "Het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
+            string expectedMessage = "het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("faulty_voorlandCountNegative.prfl", 9, expectedMessage);
         }
 
@@ -344,7 +343,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableVersion_ThrowCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = @"Enkel bestanden van versie '4.0' worden ondersteund.";
+            string expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 1, expectedMessage);
         }
 
@@ -354,7 +353,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableId_ThrowCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De ingelezen ID ('{0}') is ongeldig.",
+            string expectedMessage = string.Format("de ingelezen ID ('{0}') is ongeldig.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 2, expectedMessage);
         }
@@ -362,7 +361,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithInvalidId_ThrowCriticalFileReadException()
         {
-            string expectedMessage = @"De ingelezen ID ('Id's are not allowed to have any white spaces!') bevat spaties. Spaties zijn niet toegestaan.";
+            string expectedMessage = @"de ingelezen ID ('Id's are not allowed to have any white spaces!') bevat spaties. Spaties zijn niet toegestaan.";
             ReadFileAndExpectCriticalFileReadException("faulty_invalidId.prfl", 2, expectedMessage);
         }
 
@@ -371,7 +370,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowVersion_ThrowCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = @"Enkel bestanden van versie '4.0' worden ondersteund.";
+            string expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 1, expectedMessage);
         }
 
@@ -382,7 +381,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableOrientation_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De ingelezen oriëntatie ('{0}') is geen getal.",
+            string expectedMessage = string.Format("de ingelezen oriëntatie ('{0}') is geen getal.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 4, expectedMessage);
         }
@@ -393,7 +392,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowOrientation_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De oriëntatie ('{0}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("de oriëntatie ('{0}') is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 4, expectedMessage);
         }
@@ -405,7 +404,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableDamType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen damtype ('{0}') moet 0, 1, 2 of 3 zijn.",
+            string expectedMessage = string.Format("het ingelezen damtype ('{0}') moet 0, 1, 2 of 3 zijn.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 6, expectedMessage);
         }
@@ -416,7 +415,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowDamType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen damtype ('{0}') moet 0, 1, 2 of 3 zijn.",
+            string expectedMessage = string.Format("het ingelezen damtype ('{0}') moet 0, 1, 2 of 3 zijn.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 6, expectedMessage);
         }
@@ -428,7 +427,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableProfileType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet '0', '1' of '2' zijn.",
+            string expectedMessage = string.Format("het ingelezen damwandtype ('{0}') moet '0', '1' of '2' zijn.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 11, expectedMessage);
         }
@@ -439,7 +438,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowProfileType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet '0', '1' of '2' zijn.",
+            string expectedMessage = string.Format("het ingelezen damwandtype ('{0}') moet '0', '1' of '2' zijn.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 11, expectedMessage);
         }
@@ -451,7 +450,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableDamHeight_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De ingelezen damhoogte ('{0}') is geen getal.",
+            string expectedMessage = string.Format("de ingelezen damhoogte ('{0}') is geen getal.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 7, expectedMessage);
         }
@@ -462,7 +461,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowDamHeight_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De ingelezen damhoogte ('{0}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("de ingelezen damhoogte ('{0}') is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 7, expectedMessage);
         }
@@ -474,7 +473,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableDikeHeight_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De ingelezen dijkhoogte ('{0}') is geen getal.",
+            string expectedMessage = string.Format("de ingelezen dijkhoogte ('{0}') is geen getal.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 12, expectedMessage);
         }
@@ -485,7 +484,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowDikeHeight_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De ingelezen dijkhoogte ('{0}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("de ingelezen dijkhoogte ('{0}') is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 12, expectedMessage);
         }
@@ -497,7 +496,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableDikeCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het aantal punten van de dijkgeometrie ('{0}') moet worden gespecificeerd door middel van een geheel getal.",
+            string expectedMessage = string.Format("het aantal punten van de dijkgeometrie ('{0}') moet worden gespecificeerd door middel van een geheel getal.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 16, expectedMessage);
         }
@@ -508,7 +507,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowDijkCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het gespecificeerde aantal punten van de dijkgeometrie ('{0}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("het gespecificeerde aantal punten van de dijkgeometrie ('{0}') is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 16, expectedMessage);
         }
@@ -530,7 +529,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_UnparsableRoughnessPoints_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedParameterName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De ingelezen {0} ('{1}') is geen getal.",
+            string expectedMessage = string.Format("de ingelezen {0} ('{1}') is geen getal.",
                                                    expectedParameterName, expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
@@ -551,7 +550,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_NoRoughnessPointDefinition_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedReadText)
         {
-            string expectedMessage = string.Format("De ingelezen regel ('{0}') is geen 'X Y ruwheid' definitie.", expectedReadText);
+            string expectedMessage = string.Format("de ingelezen regel ('{0}') is geen 'X Y ruwheid' definitie.", expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
 
@@ -571,7 +570,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_OverflowRoughnessPoints_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedParameterName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De in te lezen {0} ('{1}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("de in te lezen {0} ('{1}') is te groot of te klein om ingelezen te worden.",
                                                    expectedParameterName, expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
@@ -583,7 +582,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithMissingDikePoints_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, int actualCount, int expectedCount)
         {
-            string expectedMessage = string.Format("Het aantal punten van de dijkgeometrie gevonden in het bestand '{0}' komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').",
+            string expectedMessage = string.Format("het aantal punten van de dijkgeometrie gevonden in het bestand '{0}' komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').",
                                                    actualCount, expectedCount);
             ReadFileAndExpectCriticalFileReadException(faultyFileName,
                                                        expectedLineNumber, expectedMessage);
@@ -597,7 +596,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_IncorrectOrderingX_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedTypePrefix)
         {
-            string expectedMessage = string.Format("De X-coördinaten van de {0}geometriepunten moeten strikt toenemend zijn.",
+            string expectedMessage = string.Format("de X-coördinaten van de {0}geometriepunten moeten strikt toenemend zijn.",
                                                    expectedTypePrefix);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
@@ -609,7 +608,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableForeshoreCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het aantal punten van de voorlandgeometrie ('{0}') moet worden gespecificeerd door middel van een geheel getal.",
+            string expectedMessage = string.Format("het aantal punten van de voorlandgeometrie ('{0}') moet worden gespecificeerd door middel van een geheel getal.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 9, expectedMessage);
         }
@@ -620,7 +619,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowForeshoreCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het gespecificeerde aantal punten van de voorlandgeometrie ('{0}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("het gespecificeerde aantal punten van de voorlandgeometrie ('{0}') is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 9, expectedMessage);
         }
@@ -628,7 +627,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithNegativeForeshoreCount_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "Het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
+            string expectedMessage = "het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("faulty_voorlandCountNegative.prfl",
                                                        9, expectedMessage);
         }
@@ -636,7 +635,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithMissingForeshorePoints_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "Het aantal punten van de voorlandgeometrie gevonden in het bestand '1' komt niet overeen met de daarin aangegeven hoeveelheid ('3').";
+            string expectedMessage = "het aantal punten van de voorlandgeometrie gevonden in het bestand '1' komt niet overeen met de daarin aangegeven hoeveelheid ('3').";
             ReadFileAndExpectCriticalFileReadException("faulty_unparsableVoorland_missingElements.prfl",
                                                        11, expectedMessage);
         }
@@ -654,7 +653,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithDoubleParameter_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedKeyword)
         {
-            string expectedMessage = string.Format("De parameter {0} is al eerder in het bestand gedefinieerd.",
+            string expectedMessage = string.Format("de parameter {0} is al eerder in het bestand gedefinieerd.",
                                                    expectedKeyword);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
@@ -670,7 +669,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnexpectedText_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedText)
         {
-            string expectedMessage = string.Format("De regel ('{0}') bevat ongeldige tekst.",
+            string expectedMessage = string.Format("de regel ('{0}') bevat ongeldige tekst.",
                                                    expectedText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
@@ -689,7 +688,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel {1}: {2}",
-                                                   faultyFilePath, lineNumber, errorMessage.FirstToLower());
+                                                   faultyFilePath, lineNumber, errorMessage);
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -707,14 +706,14 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                   faultyFilePath, errorMessage.FirstToLower());
+                                                   faultyFilePath, errorMessage);
             Assert.AreEqual(expectedMessage, message);
         }
 
         private void ReadDikeProfileData_FileWithRoughnessOutOfRange_ThrowsCriticalFileReadException(
             string faultyFileName, double expectedFaultyRoughness, int expectedLineNumber, string expectedLowerLimitText)
         {
-            string expectedMessage = string.Format("De ingelezen ruwheid ('{0}') moet in het bereik [{1}, 1] liggen.",
+            string expectedMessage = string.Format("de ingelezen ruwheid ('{0}') moet in het bereik [{1}, 1] liggen.",
                                                    expectedFaultyRoughness, expectedLowerLimitText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
