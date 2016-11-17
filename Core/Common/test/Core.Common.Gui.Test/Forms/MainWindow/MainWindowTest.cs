@@ -315,7 +315,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
         [Test]
         [STAThread]
-        public void InitPropertiesWindowAndActivate_GuiSetAndCalledTwice_UpdateAlreadyExistingPropertyGridViewInstance()
+        public void InitPropertiesWindowAndActivate_GuiSetAndCalledTwice_PropertyGridViewInstanceNotUpdatedRedundantly()
         {
             // Setup
             var selectedObject = new object();
@@ -326,7 +326,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var propertyResolver = mocks.Stub<IPropertyResolver>();
             propertyResolver.Expect(r => r.GetObjectProperties(selectedObject))
                             .Return(selectedObjectProperties)
-                            .Repeat.Twice();
+                            .Repeat.Once();
 
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.ViewHost).Return(viewHost);
@@ -348,7 +348,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.IsNull(viewHost.ActiveDocumentView);
                 Assert.AreSame(originalPropertyGrid, mainWindow.PropertyGrid, "PropertyGrid instance should remain the same.");
                 Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
-                Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
+                Assert.AreSame(selectedObject, mainWindow.PropertyGrid.Data);
             }
 
             mocks.VerifyAll();
