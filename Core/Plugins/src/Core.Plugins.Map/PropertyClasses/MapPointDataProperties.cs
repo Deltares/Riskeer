@@ -33,7 +33,8 @@ namespace Core.Plugins.Map.PropertyClasses
     public class MapPointDataProperties : ObjectProperties<MapPointData>
     {
         private const int namePropertyIndex = 0;
-        private const int showLabelsPropertyIndex = 1;
+        private const int typePropertyIndex = 1;
+        private const int showLabelsPropertyIndex = 2;
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
@@ -44,6 +45,18 @@ namespace Core.Plugins.Map.PropertyClasses
             get
             {
                 return data.Name;
+            }
+        }
+
+        [PropertyOrder(typePropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "MapData_Type_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "MapData_Type_Description")]
+        public string Type
+        {
+            get
+            {
+                return Resources.MapData_Type_Points;
             }
         }
 

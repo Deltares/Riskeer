@@ -32,8 +32,9 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     public class MapLineDataProperties : ObjectProperties<MapLineData>
     {
-        private const int namePropertyIndex = 1;
-        private const int typePropertyIndex = 2;
+        private const int namePropertyIndex = 0;
+        private const int typePropertyIndex = 1;
+        private const int showLabelsPropertyIndex = 2;
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
@@ -56,6 +57,23 @@ namespace Core.Plugins.Map.PropertyClasses
             get
             {
                 return Resources.MapData_Type_Lines;
+            }
+        }
+
+        [PropertyOrder(showLabelsPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_Label")]
+        [ResourcesDisplayName(typeof(Resources), "MapData_ShowLabels_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "MapData_ShowLabels_Description")]
+        public bool ShowLabels
+        {
+            get
+            {
+                return data.ShowLabels;
+            }
+            set
+            {
+                data.ShowLabels = value;
+                data.NotifyObservers();
             }
         }
     }

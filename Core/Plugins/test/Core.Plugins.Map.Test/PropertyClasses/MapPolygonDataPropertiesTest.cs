@@ -31,7 +31,7 @@ using Rhino.Mocks;
 namespace Core.Plugins.Map.Test.PropertyClasses
 {
     [TestFixture]
-    public class MapPointDataPropertiesTest
+    public class MapPolygonDataPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int typePropertyIndex = 1;
@@ -41,39 +41,39 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new MapPointDataProperties();
+            var properties = new MapPolygonDataProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<MapPointData>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<MapPolygonData>>(properties);
             Assert.IsNull(properties.Data);
         }
 
         [Test]
-        public void Data_SetNewMapPointDataInstance_ReturnCorrectPropertyValues()
+        public void Data_SetNewMapPolygonDataInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            MapPointData mapPointData = new MapPointData("Test");
-            var properties = new MapPointDataProperties();
+            MapPolygonData mapPolygonData = new MapPolygonData("Test");
+            var properties = new MapPolygonDataProperties();
 
             // Call
-            properties.Data = mapPointData;
+            properties.Data = mapPolygonData;
 
             // Assert
-            Assert.AreEqual(mapPointData.Name, properties.Name);
-            Assert.AreEqual("Punten", properties.Type);
-            Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
+            Assert.AreEqual(mapPolygonData.Name, properties.Name);
+            Assert.AreEqual("Polygonen", properties.Type);
+            Assert.AreEqual(mapPolygonData.ShowLabels, properties.ShowLabels);
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            MapPointData mapPointData = new MapPointData("Test");
+            MapPolygonData mapPolygonData = new MapPolygonData("Test");
 
             // Call
-            var properties = new MapPointDataProperties
+            var properties = new MapPolygonDataProperties
             {
-                Data = mapPointData
+                Data = mapPolygonData
             };
 
             // Assert
@@ -113,23 +113,23 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            MapPointData mapPointData = new MapPointData("Test")
+            MapPolygonData mapPolygonData = new MapPolygonData("Test")
             {
                 ShowLabels = true
             };
 
-            mapPointData.Attach(observerMock);
+            mapPolygonData.Attach(observerMock);
 
-            var properties = new MapPointDataProperties
+            var properties = new MapPolygonDataProperties
             {
-                Data = mapPointData
+                Data = mapPolygonData
             };
 
             // Call
             properties.ShowLabels = false;
 
             // Assert
-            Assert.AreEqual(properties.ShowLabels, mapPointData.ShowLabels);
+            Assert.AreEqual(properties.ShowLabels, mapPolygonData.ShowLabels);
             mocks.VerifyAll();
         }
     }
