@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -983,6 +984,240 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Then
             Assert.IsFalse(double.IsNaN(inputParameters.PiezometricHeadExit));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetAvailableSurfaceLines_ReturnAllRingtoetsPipingSurfaceLines()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                 failureMechanism, assessmentSection);
+            var properties = new PipingInputContextProperties
+            {
+                Data = context
+            };
+
+            // Call
+            IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines = properties.GetAvailableSurfaceLines();
+
+            // Assert
+            Assert.AreSame(context.AvailablePipingSurfaceLines, surfaceLines);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetAvailableStochasticSoilModels_NoSurfaceLineAssigned_ReturnAllStochasticSoilModels()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                 failureMechanism, assessmentSection);
+            var properties = new PipingInputContextProperties
+            {
+                Data = context
+            };
+
+            // Precondition:
+            Assert.IsNull(calculation.InputParameters.SurfaceLine);
+
+            // Call
+            IEnumerable<StochasticSoilModel> soilModels = properties.GetAvailableStochasticSoilModels();
+
+            // Assert
+            Assert.AreSame(context.AvailableStochasticSoilModels, soilModels);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetAvailableStochasticSoilModels_SurfaceLineAssigned_ReturnMatchingSubsetOfStochasticSoilModels()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new []{ new Point3D(0,0,0), new Point3D(10,0,0) });
+            var failureMechanism = new PipingFailureMechanism
+            {
+                StochasticSoilModels =
+                {
+                    new StochasticSoilModel(1, "A", "B")
+                    {
+                        Geometry =
+                        {
+                            new Point2D(2, -1),
+                            new Point2D(2, 1)
+                        },
+                        StochasticSoilProfiles =
+                        {
+                            new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                        }
+                    },
+                    new StochasticSoilModel(2, "C", "D")
+                    {
+                        Geometry =
+                        {
+                            new Point2D(-2, -1),
+                            new Point2D(-2, 1)
+                        },
+                        StochasticSoilProfiles =
+                        {
+                            new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                        }
+                    },
+                    new StochasticSoilModel(3, "E", "F")
+                    {
+                        Geometry =
+                        {
+                            new Point2D(6, -1),
+                            new Point2D(6, 1)
+                        },
+                        StochasticSoilProfiles =
+                        {
+                            new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 3)
+                        }
+                    }
+                }
+            };
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine
+                }
+            };
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                 failureMechanism, assessmentSection);
+            var properties = new PipingInputContextProperties
+            {
+                Data = context
+            };
+
+            // Precondition:
+            Assert.IsNotNull(calculation.InputParameters.SurfaceLine);
+
+            // Call
+            IEnumerable<StochasticSoilModel> soilModels = properties.GetAvailableStochasticSoilModels();
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                failureMechanism.StochasticSoilModels[0],
+                failureMechanism.StochasticSoilModels[2]
+            }, soilModels);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetAvailableStochasticSoilProfiles_NoStochasticSoilModel_ReturnEmpty()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                 failureMechanism, assessmentSection);
+            var properties = new PipingInputContextProperties
+            {
+                Data = context
+            };
+
+            // Precondition
+            Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
+
+            // Call
+            IEnumerable<StochasticSoilProfile> profiles = properties.GetAvailableStochasticSoilProfiles();
+
+            // Assert
+            CollectionAssert.IsEmpty(profiles);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetAvailableStochasticSoilProfiles_StochasticSoilModel_ReturnAssignedSoilModelProfiles()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var model = new StochasticSoilModel(1, "A", "B")
+            {
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+                }
+            };
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
+            {
+                InputParameters =
+                {
+                    StochasticSoilModel = model
+                }
+            };
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                 failureMechanism, assessmentSection);
+            var properties = new PipingInputContextProperties
+            {
+                Data = context
+            };
+
+            // Precondition
+            Assert.IsNotNull(calculation.InputParameters.StochasticSoilModel);
+
+            // Call
+            IEnumerable<StochasticSoilProfile> profiles = properties.GetAvailableStochasticSoilProfiles();
+
+            // Assert
+            CollectionAssert.AreEqual(model.StochasticSoilProfiles, profiles);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetAvailableHydraulicBoundaryLocations_ReturnAvailableHydraulicBoundaryLocations()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                 failureMechanism, assessmentSection);
+            var properties = new PipingInputContextProperties
+            {
+                Data = context
+            };
+
+            // Call
+            IEnumerable<HydraulicBoundaryLocation> profiles = properties.GetAvailableHydraulicBoundaryLocations();
+
+            // Assert
+            Assert.AreSame(context.AvailableHydraulicBoundaryLocations, profiles);
             mocks.VerifyAll();
         }
 

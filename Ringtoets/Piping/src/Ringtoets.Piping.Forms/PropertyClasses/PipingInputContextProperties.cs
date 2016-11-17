@@ -58,6 +58,10 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// </summary>
         public IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels()
         {
+            if (data.WrappedData.SurfaceLine == null)
+            {
+                return data.AvailableStochasticSoilModels;
+            }
             return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(data.WrappedData.SurfaceLine, data.AvailableStochasticSoilModels);
         }
 
