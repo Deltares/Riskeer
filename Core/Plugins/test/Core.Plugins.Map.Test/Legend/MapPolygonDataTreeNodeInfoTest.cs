@@ -38,16 +38,17 @@ namespace Core.Plugins.Map.Test.Legend
     [TestFixture]
     public class MapPolygonDataTreeNodeInfoTest
     {
+        private TreeNodeInfo info;
         private MockRepository mocks;
         private MapLegendView mapLegendView;
-        private TreeNodeInfo info;
+        private IContextMenuBuilderProvider contextMenuBuilderProvider;
 
         [SetUp]
         public void SetUp()
         {
-            var mockRepository = new MockRepository();
-            var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mockRepository.StrictMock<IWin32Window>();
+            mocks = new MockRepository();
+            contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var parentWindow = mocks.StrictMock<IWin32Window>();
 
             mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
 
@@ -55,8 +56,6 @@ namespace Core.Plugins.Map.Test.Legend
             Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
             info = treeNodeInfoLookup[typeof(MapPolygonData)];
-
-            mocks = mockRepository;
         }
 
         [TearDown]
@@ -76,7 +75,6 @@ namespace Core.Plugins.Map.Test.Legend
             // Assert
             Assert.AreEqual(typeof(MapPolygonData), info.TagType);
             Assert.IsNull(info.ForeColor);
-            Assert.IsNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
@@ -113,6 +111,25 @@ namespace Core.Plugins.Map.Test.Legend
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.AreaIcon, image);
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_CallsBuilder()
+        {
+            // Setup
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(menuBuilderMock);
+
+            mocks.ReplayAll();
+
+            // Call
+            info.ContextMenuStrip(null, null, null);
+
+            // Assert
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]

@@ -114,6 +114,9 @@ namespace Core.Plugins.Map.Legend
             {
                 Text = mapPointData => mapPointData.Name,
                 Image = mapPointData => MapResources.PointsIcon,
+                ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
+                                                                                                 .AddPropertiesItem()
+                                                                                                 .Build(),
                 CanDrag = (mapPointData, parentData) => true,
                 CanCheck = mapPointData => true,
                 IsChecked = mapPointData => mapPointData.IsVisible,
@@ -124,6 +127,9 @@ namespace Core.Plugins.Map.Legend
             {
                 Text = mapLineData => mapLineData.Name,
                 Image = mapLineData => MapResources.LineIcon,
+                ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
+                                                                                                 .AddPropertiesItem()
+                                                                                                 .Build(),
                 CanDrag = (mapLineData, parentData) => true,
                 CanCheck = mapLineData => true,
                 IsChecked = mapLineData => mapLineData.IsVisible,
@@ -134,6 +140,9 @@ namespace Core.Plugins.Map.Legend
             {
                 Text = mapPolygonData => mapPolygonData.Name,
                 Image = mapPolygonData => MapResources.AreaIcon,
+                ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
+                                                                                                 .AddPropertiesItem()
+                                                                                                 .Build(),
                 CanDrag = (mapPolygonData, parentData) => true,
                 CanCheck = mapPolygonData => true,
                 IsChecked = mapPolygonData => mapPolygonData.IsVisible,

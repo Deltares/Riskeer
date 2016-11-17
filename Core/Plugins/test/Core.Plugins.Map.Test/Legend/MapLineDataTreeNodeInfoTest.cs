@@ -38,15 +38,16 @@ namespace Core.Plugins.Map.Test.Legend
     [TestFixture]
     public class MapLineDataTreeNodeInfoTest
     {
+        private TreeNodeInfo info;
         private MockRepository mocks;
         private MapLegendView mapLegendView;
-        private TreeNodeInfo info;
+        private IContextMenuBuilderProvider contextMenuBuilderProvider;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var parentWindow = mocks.StrictMock<IWin32Window>();
 
             mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
@@ -74,7 +75,6 @@ namespace Core.Plugins.Map.Test.Legend
             // Assert
             Assert.AreEqual(typeof(MapLineData), info.TagType);
             Assert.IsNull(info.ForeColor);
-            Assert.IsNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
@@ -111,6 +111,25 @@ namespace Core.Plugins.Map.Test.Legend
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.LineIcon, image);
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_CallsBuilder()
+        {
+            // Setup
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(menuBuilderMock);
+
+            mocks.ReplayAll();
+
+            // Call
+            info.ContextMenuStrip(null, null, null);
+
+            // Assert
+            // Assert expectancies are called in TearDown()
         }
 
         [Test]
