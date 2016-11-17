@@ -145,7 +145,12 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 var viewOpenedCounter = 0;
-                avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
+                avalonDockViewHost.ViewOpened += (sender, args) =>
+                {
+                    Assert.AreSame(viewList.Last(), args.View);
+
+                    viewOpenedCounter++;
+                };
 
                 for (var i = 0; i < numberOfViewsToAdd; i++)
                 {
@@ -593,7 +598,12 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 var viewOpenedCounter = 0;
-                avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
+                avalonDockViewHost.ViewOpened += (sender, args) =>
+                {
+                    Assert.AreSame(testView, args.View);
+
+                    viewOpenedCounter++;
+                };
 
                 // Call
                 avalonDockViewHost.AddToolView(testView, toolViewLocation);
