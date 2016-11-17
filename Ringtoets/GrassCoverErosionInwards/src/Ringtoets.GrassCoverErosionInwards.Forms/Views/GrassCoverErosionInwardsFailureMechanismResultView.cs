@@ -65,8 +65,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);
-
-            AddDataGridColumns();
         }
 
         public override IFailureMechanism FailureMechanism
@@ -101,15 +99,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
         }
 
-        private void AddDataGridColumns()
+        protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.Name),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true);
-            DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
+            base.AddDataGridColumns();
+
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,

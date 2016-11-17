@@ -41,8 +41,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public TechnicalInnovationResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
-
-            AddDataGridColumns();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(TechnicalInnovationFailureMechanismSectionResult sectionResult)
@@ -55,6 +53,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.RemoveCellFormattingHandler(OnCellFormatting);
 
             base.Dispose(disposing);
+        }
+
+        protected override void AddDataGridColumns()
+        {
+            base.AddDataGridColumns();
+
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.AssessmentLayerThree),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
@@ -70,20 +77,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                     DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
             }
-        }
-
-        private void AddDataGridColumns()
-        {
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.Name),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true);
-            DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
     }
 }

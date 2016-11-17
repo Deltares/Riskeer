@@ -66,8 +66,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);
-
-            AddDataGridColumns();
         }
 
         public override IFailureMechanism FailureMechanism
@@ -104,15 +102,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void AddDataGridColumns()
+        protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<StabilityPointStructuresFailureMechanismSectionResultRow>(sr => sr.Name),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true);
-            DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<StabilityPointStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
+            base.AddDataGridColumns();
+
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StabilityPointStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);

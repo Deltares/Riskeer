@@ -26,6 +26,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.Common.Forms.Test.Helpers
@@ -42,7 +43,9 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(null, true, 0.0, calculationStub);
+            TestDelegate call = () => FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(null,
+                                                                                                           AssessmentLayerOneState.Sufficient, 
+                                                                                                           0.0, calculationStub);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -53,7 +56,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [Test]
         [TestCaseSource("ValidShowAssessmentLayerTwoAErrorsArguments")]
         public void ShowAssessmentLayerTwoAErrors_SetsErrorText(DataGridViewCell dataGridViewCell,
-                                                                bool passedAssessmentLayerOne,
+                                                                AssessmentLayerOneState passedAssessmentLayerOne,
                                                                 double assessmentLayerTwoA,
                                                                 ICalculation normativeCalculation,
                                                                 string expectedErrorText)
@@ -75,28 +78,30 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                 ErrorText = "Default text"
             };
 
-            yield return new TestCaseData(dataGridViewCell, true, double.NaN, new CalculationWithoutOutput(),
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, double.NaN, 
+                new CalculationWithoutOutput(), string.Empty);
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0, new CalculationWithoutOutput(),
                                           string.Empty);
-            yield return new TestCaseData(dataGridViewCell, true, 0.0, new CalculationWithoutOutput(),
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, double.NaN, null, string.Empty);
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0, null, string.Empty);
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, double.NaN, new CalculationWithOutput(),
                                           string.Empty);
-            yield return new TestCaseData(dataGridViewCell, true, double.NaN, null, string.Empty);
-            yield return new TestCaseData(dataGridViewCell, true, 0.0, null, string.Empty);
-            yield return new TestCaseData(dataGridViewCell, true, double.NaN, new CalculationWithOutput(),
-                                          string.Empty);
-            yield return new TestCaseData(dataGridViewCell, true, 0.0, new CalculationWithOutput(),
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0, new CalculationWithOutput(),
                                           string.Empty);
 
-            yield return new TestCaseData(dataGridViewCell, false, double.NaN, null, "Er moet een maatgevende berekening voor dit vak worden geselecteerd.");
-            yield return new TestCaseData(dataGridViewCell, false, 0.0, null, "Er moet een maatgevende berekening voor dit vak worden geselecteerd.");
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, double.NaN, null, 
+                "Er moet een maatgevende berekening voor dit vak worden geselecteerd.");
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, 0.0, null, 
+                "Er moet een maatgevende berekening voor dit vak worden geselecteerd.");
 
-            yield return new TestCaseData(dataGridViewCell, false, double.NaN, new CalculationWithoutOutput(),
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, double.NaN,
+                new CalculationWithoutOutput(), "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.");
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, 0.0, new CalculationWithoutOutput(),
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.");
-            yield return new TestCaseData(dataGridViewCell, false, 0.0, new CalculationWithoutOutput(),
-                                          "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.");
 
-            yield return new TestCaseData(dataGridViewCell, false, double.NaN, new CalculationWithOutput(),
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, double.NaN, new CalculationWithOutput(),
                                           "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.");
-            yield return new TestCaseData(dataGridViewCell, false, 0.0, new CalculationWithOutput(),
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, 0.0, new CalculationWithOutput(),
                                           string.Empty);
         }
 

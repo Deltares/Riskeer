@@ -19,13 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using Core.Common.Utils;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Properties;
 using CoreCommonResources = Core.Common.Base.Properties.Resources;
 using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
@@ -98,6 +102,12 @@ namespace Ringtoets.Common.Forms.Views
 
         protected DataGridViewControl DataGridViewControl { get; private set; }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            AddDataGridColumns();
+        }
+
         /// <summary>
         /// Creates a display object for <paramref name="sectionResult"/> which is added to the
         /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{T}"/>.
@@ -131,7 +141,8 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns><c>false</c> if assessment level 1 has passed, <c>true</c> otherwise.</returns>
         protected bool HasPassedLevelOne(int rowIndex)
         {
-            return (bool) DataGridViewControl.GetCell(rowIndex, assessmentLayerOneColumnIndex).Value;
+            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, assessmentLayerOneColumnIndex).Value
+                   == AssessmentLayerOneState.Sufficient;
         }
 
         /// <summary>
@@ -157,6 +168,30 @@ namespace Ringtoets.Common.Forms.Views
         protected object GetDataAtRow(int rowIndex)
         {
             return DataGridViewControl.GetRowFromIndex(rowIndex).DataBoundItem;
+        }
+
+        /// <summary>
+        /// Adds the columns section name and the assessment layer one in the view.
+        /// </summary>
+        protected virtual void AddDataGridColumns()
+        {
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<FailureMechanismSectionResultRow<T>>(sr => sr.Name),
+                Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
+                true);
+
+            EnumDisplayWrapper<AssessmentLayerOneState>[] oneStateDataSource =
+                Enum.GetValues(typeof(AssessmentLayerOneState))
+                    .OfType<AssessmentLayerOneState>()
+                    .Select(el => new EnumDisplayWrapper<AssessmentLayerOneState>(el))
+                    .ToArray();
+
+            DataGridViewControl.AddComboBoxColumn(
+                TypeUtils.GetMemberName<FailureMechanismSectionResultRow<T>>(sr => sr.AssessmentLayerOne),
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                oneStateDataSource,
+                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerOneState>>(edw => edw.Value),
+                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerOneState>>(edw => edw.DisplayName));
         }
 
         private IEnumerable<T> FailureMechanismSectionResult

@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.HeightStructures;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 
@@ -63,9 +64,11 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnHeightStructuresSectionResultWithDoubleParameterValues(bool layerOne)
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.Sufficient)]
+        public void Read_WithDecimalParameterValues_ReturnHeightStructuresSectionResultWithDoubleParameterValues(
+            AssessmentLayerOneState layerOne)
         {
             // Setup
             var random = new Random(21);

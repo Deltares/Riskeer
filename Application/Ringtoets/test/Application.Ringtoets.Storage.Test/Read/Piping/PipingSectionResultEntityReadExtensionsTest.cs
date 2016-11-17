@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
@@ -47,9 +48,11 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnPipingSectionResultWithDoubleParameterValues(bool layerOne)
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.Sufficient)]
+        public void Read_WithDecimalParameterValues_ReturnPipingSectionResultWithDoubleParameterValues(
+            AssessmentLayerOneState layerOne)
         {
             // Setup
             var random = new Random(21);

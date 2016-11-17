@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Read
@@ -47,7 +48,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException("sectionResult");
             }
 
-            sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
+            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
             sectionResult.AssessmentLayerTwoA = (RoundedDouble) entity.LayerTwoA.ToNullAsNaN();
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
         }

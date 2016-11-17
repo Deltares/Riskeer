@@ -237,4 +237,13 @@
   <data name="DeviationWaveDirection_Value_needs_to_be_between_negative_360_and_positive_360" xml:space="preserve">
     <value>De waarde voor de afwijking van de golfrichting moet in het bereik [-360, 360] liggen.</value>
   </data>
+  <data name="AssessmentLayerOneState_NeedsDetailedAssessment" xml:space="preserve">
+    <value>Detailtoets nodig</value>
+  </data>
+  <data name="AssessmentLayerOneState_NotAssessed" xml:space="preserve">
+    <value>Nog niet beoordeeld</value>
+  </data>
+  <data name="AssessmentLayerOneState_Sufficient" xml:space="preserve">
+    <value>Voldoende</value>
+  </data>
 </root>

@@ -28,10 +28,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class GrassCoverErosionOutwardsWaveConditionsOutputEntity
     {
         public long GrassCoverErosionOutwardsWaveConditionsOutputEntityId { get; set; }
@@ -41,7 +42,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> WaveHeight { get; set; }
         public Nullable<double> WavePeakPeriod { get; set; }
         public Nullable<double> WaveAngle { get; set; }
-
+    
         public virtual GrassCoverErosionOutwardsWaveConditionsCalculationEntity GrassCoverErosionOutwardsWaveConditionsCalculationEntity { get; set; }
     }
 }

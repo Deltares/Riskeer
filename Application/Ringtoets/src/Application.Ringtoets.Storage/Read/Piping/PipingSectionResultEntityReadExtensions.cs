@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Read.Piping
@@ -46,7 +47,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
             {
                 throw new ArgumentNullException("sectionResult");
             }
-            sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
+            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
         }
     }

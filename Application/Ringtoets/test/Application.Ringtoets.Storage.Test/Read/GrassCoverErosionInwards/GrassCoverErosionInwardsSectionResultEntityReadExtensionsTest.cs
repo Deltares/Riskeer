@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
@@ -61,9 +62,10 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithDoubleValues_ReturnSectionResultWithDoubleValues(bool layerOne)
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.Sufficient)]
+        public void Read_WithDoubleValues_ReturnSectionResultWithDoubleValues(AssessmentLayerOneState layerOne)
         {
             // Setup
             var random = new Random(21);

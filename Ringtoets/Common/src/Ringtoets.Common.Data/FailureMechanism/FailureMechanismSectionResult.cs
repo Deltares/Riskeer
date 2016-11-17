@@ -42,13 +42,14 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 throw new ArgumentNullException("section");
             }
             Section = section;
+            AssessmentLayerOne = AssessmentLayerOneState.NotAssessed;
             AssessmentLayerThree = RoundedDouble.NaN;
         }
 
         /// <summary>
         /// Gets or sets the state of the assessment layer one.
         /// </summary>
-        public bool AssessmentLayerOne { get; set; }
+        public AssessmentLayerOneState AssessmentLayerOne { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.

@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         public void Create_ValidData_ReturnsEntityEqualData()
         {
             // Setup
-            const bool assessmentLayerOneResult = false;
+            const AssessmentLayerOneState assessmentLayerOneResult = AssessmentLayerOneState.NotAssessed;
             AssessmentLayerTwoAResult assessmentLayerTwoAResult = AssessmentLayerTwoAResult.Failed;
             var assessmentLayerThreeResult = 3.2;
             var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection())

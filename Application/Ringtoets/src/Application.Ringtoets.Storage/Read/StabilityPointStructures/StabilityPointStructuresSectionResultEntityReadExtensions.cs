@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
@@ -53,7 +54,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
                 throw new ArgumentNullException("collector");
             }
 
-            sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
+            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
 
             if (entity.StabilityPointStructuresCalculationEntity != null)

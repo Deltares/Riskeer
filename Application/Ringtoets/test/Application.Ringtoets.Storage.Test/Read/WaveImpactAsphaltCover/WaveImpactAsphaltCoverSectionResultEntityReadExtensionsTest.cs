@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
@@ -47,9 +48,10 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnSectionResultWithDoubleParameterValues(bool layerOne)
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.Sufficient)]
+        public void Read_WithDecimalParameterValues_ReturnSectionResultWithDoubleParameterValues(AssessmentLayerOneState layerOne)
         {
             // Setup
             var random = new Random(21);

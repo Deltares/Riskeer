@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
@@ -33,7 +34,8 @@ namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
     {
         [Test]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
-            [Values(true, false)] bool assessmentLayerOneResult,
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
             [Values(3.2, 4.5)] double assessmentLayerThreeResult
             )
         {

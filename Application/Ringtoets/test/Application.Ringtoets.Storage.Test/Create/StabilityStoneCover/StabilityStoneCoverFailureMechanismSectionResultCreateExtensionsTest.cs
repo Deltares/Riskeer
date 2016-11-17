@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
         public void Create_ValidData_ReturnsEntityEqualData()
         {
             // Setup
-            const bool assessmentLayerOneResult = false;
+            const AssessmentLayerOneState assessmentLayerOneResult = AssessmentLayerOneState.NeedsDetailedAssessment;
             AssessmentLayerTwoAResult assessmentLayerTwoAResult = AssessmentLayerTwoAResult.Failed;
             var assessmentLayerThreeResult = 3.2;
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection())

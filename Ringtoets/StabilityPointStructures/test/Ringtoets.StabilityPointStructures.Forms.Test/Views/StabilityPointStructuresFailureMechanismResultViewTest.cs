@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -32,10 +31,10 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 {
@@ -136,14 +135,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
@@ -151,9 +150,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(bool checkBoxSelected)
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.Sufficient)]
+        public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(
+            AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
             using (CreateConfiguredFailureMechanismResultsView())
@@ -161,7 +162,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = checkBoxSelected;
+                dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 // Assert
                 var rows = dataGridView.Rows;
@@ -173,32 +174,25 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
                 DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
 
-                Assert.AreEqual(checkBoxSelected, (bool) dataGridViewCell.FormattedValue);
+                Assert.AreEqual(assessmentLayerOneState, dataGridViewCell.Value);
                 Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
-                var cellAssessmentLayerTwoABackColor = cellAssessmentLayerTwoA.Style.BackColor;
-                var cellAssessmentLayerTwoAForeColor = cellAssessmentLayerTwoA.Style.ForeColor;
-                var cellAssessmentLayerThreeBackColor = cellAssessmentLayerThree.Style.BackColor;
-                var cellAssessmentLayerThreeForeColor = cellAssessmentLayerThree.Style.ForeColor;
-
-                if (checkBoxSelected)
+                if (assessmentLayerOneState == AssessmentLayerOneState.Sufficient)
                 {
-                    Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellAssessmentLayerTwoABackColor);
-                    Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellAssessmentLayerTwoAForeColor);
-                    Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellAssessmentLayerThreeBackColor);
-                    Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellAssessmentLayerThreeForeColor);
+                    DataGridViewCellTester.AssertCellIsDisabled(cellAssessmentLayerTwoA);
+                    DataGridViewCellTester.AssertCellIsDisabled(cellAssessmentLayerThree);
+
+                    Assert.IsTrue(cellAssessmentLayerThree.ReadOnly);
                 }
                 else
                 {
-                    Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellAssessmentLayerTwoABackColor);
-                    Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerTwoAForeColor);
-                    Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellAssessmentLayerThreeBackColor);
-                    Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerThreeForeColor);
-                }
+                    DataGridViewCellTester.AssertCellIsEnabled(cellAssessmentLayerTwoA, true);
+                    DataGridViewCellTester.AssertCellIsEnabled(cellAssessmentLayerThree);
 
-                Assert.AreEqual(checkBoxSelected, cellAssessmentLayerThree.ReadOnly);
+                    Assert.IsFalse(cellAssessmentLayerThree.ReadOnly);
+                }
             }
         }
 
@@ -213,19 +207,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);
 
-                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                Assert.AreEqual(
-                    RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
-                    dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
-                Assert.AreEqual(
-                    RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
-                    dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
-                Assert.AreEqual(
-                    RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three,
-                    dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
+                Assert.AreEqual("Toetslaag 1", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
+                Assert.AreEqual("Toetslaag 2a", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
+                Assert.AreEqual("Toetslaag 3", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
@@ -244,15 +232,25 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             {
                 new Point2D(0, 0)
             });
+            var section3 = new FailureMechanismSection("Section 3", new[]
+            {
+                new Point2D(0, 0)
+            });
+
             Random random = new Random(21);
             var result1 = new StabilityPointStructuresFailureMechanismSectionResult(section1)
             {
-                AssessmentLayerOne = true,
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             var result2 = new StabilityPointStructuresFailureMechanismSectionResult(section2)
             {
-                AssessmentLayerOne = false,
+                AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
+                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+            };
+            var result3 = new StabilityPointStructuresFailureMechanismSectionResult(section3)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.NeedsDetailedAssessment,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
@@ -262,13 +260,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 view.Data = new[]
                 {
                     result1,
-                    result2
+                    result2,
+                    result3
                 };
 
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(2, rows.Count);
+                Assert.AreEqual(3, rows.Count);
 
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
@@ -278,8 +277,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
@@ -288,13 +287,26 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                AssertCellIsEnabled(cells[assessmentLayerTwoAIndex], true);
-                AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex], true);
+                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+
+                cells = rows[2].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
+
+                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex], true);
+                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
         [Test]
-        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
+            AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
             var section = new FailureMechanismSection("Section 1", new[]
@@ -304,7 +316,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             Random random = new Random(21);
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = false,
+                AssessmentLayerOne = assessmentLayerOneState,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             using (var view = ShowFailureMechanismResultsView())
@@ -315,7 +327,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 };
 
                 // When
-                result.AssessmentLayerOne = true;
+                result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
                 result.NotifyObservers();
 
                 // Then
@@ -326,8 +338,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
 
-                AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
@@ -542,20 +554,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                                                           new Point2D(3, 4)
                                                       });
             return section;
-        }
-
-        private static void AssertCellIsDisabled(DataGridViewCell dataGridViewCell)
-        {
-            Assert.AreEqual(true, dataGridViewCell.ReadOnly);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
-        }
-
-        private static void AssertCellIsEnabled(DataGridViewCell dataGridViewCell, bool readOnly = false)
-        {
-            Assert.AreEqual(readOnly, dataGridViewCell.ReadOnly);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
         }
 
         private StabilityPointStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView()

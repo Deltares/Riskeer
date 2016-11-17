@@ -22,6 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 
@@ -42,7 +43,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
         public static void ShowAssessmentLayerTwoAErrors(DataGridViewCell dataGridViewCell,
-                                                         bool passedAssessmentLayerOne, double assessmentLayerTwoA,
+                                                         AssessmentLayerOneState passedAssessmentLayerOne, double assessmentLayerTwoA,
                                                          ICalculation normativeCalculation)
         {
             if (dataGridViewCell == null)
@@ -50,7 +51,7 @@ namespace Ringtoets.Common.Forms.Helpers
                 throw new ArgumentNullException("dataGridViewCell");
             }
 
-            if (passedAssessmentLayerOne)
+            if (passedAssessmentLayerOne == AssessmentLayerOneState.Sufficient)
             {
                 dataGridViewCell.ErrorText = string.Empty;
                 return;

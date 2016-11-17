@@ -43,7 +43,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public DuneErosionResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
-            AddDataGridColumns();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult)
@@ -58,21 +57,16 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             base.Dispose(disposing);
         }
 
-        private void AddDataGridColumns()
+        protected override void AddDataGridColumns()
         {
+            base.AddDataGridColumns();
+
             EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
                 Enum.GetValues(typeof(AssessmentLayerTwoAResult))
                     .OfType<AssessmentLayerTwoAResult>()
                     .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
                     .ToArray();
 
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.Name),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true);
-            DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddComboBoxColumn(
                 TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,

@@ -67,8 +67,6 @@ namespace Ringtoets.Piping.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);
-
-            AddDataGridColumns();
         }
 
         public override IFailureMechanism FailureMechanism
@@ -107,15 +105,10 @@ namespace Ringtoets.Piping.Forms.Views
             return new PipingFailureMechanismSectionResultRow(sectionResult, FailureMechanism.Calculations.OfType<PipingCalculationScenario>());
         }
 
-        private void AddDataGridColumns()
+        protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.Name),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true);
-            DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
+            base.AddDataGridColumns();
+
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
@@ -157,7 +150,7 @@ namespace Ringtoets.Piping.Forms.Views
             var relevantScenarios = rowObject.GetCalculationScenarios(FailureMechanism.Calculations.OfType<PipingCalculationScenario>()).ToArray();
             bool relevantScenarioAvailable = relevantScenarios.Length != 0;
 
-            if (rowObject.AssessmentLayerOne)
+            if (rowObject.AssessmentLayerOne == AssessmentLayerOneState.Sufficient)
             {
                 currentDataGridViewCell.ErrorText = string.Empty;
                 return;

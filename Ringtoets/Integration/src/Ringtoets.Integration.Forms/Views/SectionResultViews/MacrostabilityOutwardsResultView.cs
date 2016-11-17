@@ -41,8 +41,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public MacrostabilityOutwardsResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
-
-            AddDataGridColumns();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(MacrostabilityOutwardsFailureMechanismSectionResult sectionResult)
@@ -57,15 +55,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             base.Dispose(disposing);
         }
 
-        private void AddDataGridColumns()
+        protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<MacrostabilityOutwardsSectionResultRow>(sr => sr.Name),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true);
-            DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<MacrostabilityOutwardsSectionResultRow>(sr => sr.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
+            base.AddDataGridColumns();
+
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<MacrostabilityOutwardsSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);

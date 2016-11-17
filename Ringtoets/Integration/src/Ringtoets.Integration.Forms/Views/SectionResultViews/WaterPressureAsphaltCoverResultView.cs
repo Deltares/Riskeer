@@ -41,8 +41,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public WaterPressureAsphaltCoverResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
-
-            AddDataGridColumns();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult)
@@ -57,15 +55,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             base.Dispose(disposing);
         }
 
-        private void AddDataGridColumns()
+        protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<WaterPressureAsphaltCoverSectionResultRow>(sr => sr.Name),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true);
-            DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<WaterPressureAsphaltCoverSectionResultRow>(sr => sr.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
+            base.AddDataGridColumns();
+
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<WaterPressureAsphaltCoverSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);

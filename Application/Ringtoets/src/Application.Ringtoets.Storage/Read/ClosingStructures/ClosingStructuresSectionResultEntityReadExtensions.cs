@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Read.ClosingStructures
 {
@@ -53,7 +54,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
                 throw new ArgumentNullException("collector");
             }
 
-            sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
+            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
 
             if (entity.ClosingStructuresCalculationEntity != null)

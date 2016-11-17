@@ -139,6 +139,10 @@
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Forms.TestUtil\Ringtoets.Common.Forms.TestUtil.csproj">
+      <Project>{d24fa2f7-28a7-413b-afd3-ee10e985630b}</Project>
+      <Name>Ringtoets.Common.Forms.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>

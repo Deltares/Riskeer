@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -46,9 +47,11 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(true, TestName = "DecimalValues_ReturnsStrengthStabilityLengthwiseConstructionSectionResultWithDoubleParameters(true)")]
-        [TestCase(false, TestName = "DecimalValues_ReturnsStrengthStabilityLengthwiseConstructionSectionResultWithDoubleParameters(false)")]
-        public void Read_WithDecimalParameterValues_ReturnStrengthStabilityLengthwiseConstructionSectionResultWithDoubleParameterValues(bool layerOne)
+        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "DecimalValues_ReturnsStrengthStabilityLengthwiseConstructionSectionResultWithDoubleParameters(NotAssessed)")]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment, TestName = "DecimalValues_ReturnsStrengthStabilityLengthwiseConstructionSectionResultWithDoubleParameters(NeedsDetailedAssessment)")]
+        [TestCase(AssessmentLayerOneState.Sufficient, TestName = "DecimalValues_ReturnsStrengthStabilityLengthwiseConstructionSectionResultWithDoubleParameters(Sufficient)")]
+        public void Read_WithDecimalParameterValues_ReturnStrengthStabilityLengthwiseConstructionSectionResultWithDoubleParameterValues(
+            AssessmentLayerOneState layerOne)
         {
             // Setup
             var random = new Random(21);

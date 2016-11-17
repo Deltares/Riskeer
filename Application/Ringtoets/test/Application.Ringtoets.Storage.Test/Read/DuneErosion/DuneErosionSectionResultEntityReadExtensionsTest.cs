@@ -48,10 +48,11 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
         }
 
         [Test]
-        [TestCase(true, AssessmentLayerTwoAResult.Failed)]
-        [TestCase(false, AssessmentLayerTwoAResult.Successful)]
-        [TestCase(false, AssessmentLayerTwoAResult.Failed)]
-        public void Read_WithDecimalParameterValues_ReturnDuneErosionSectionResultWithDoubleParameterValues(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
+        [TestCase(AssessmentLayerOneState.NotAssessed, AssessmentLayerTwoAResult.Failed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment, AssessmentLayerTwoAResult.Successful)]
+        [TestCase(AssessmentLayerOneState.Sufficient, AssessmentLayerTwoAResult.Failed)]
+        public void Read_WithDecimalParameterValues_ReturnDuneErosionSectionResultWithDoubleParameterValues(
+            AssessmentLayerOneState layerOne, AssessmentLayerTwoAResult layerTwoA)
         {
             // Setup
             var random = new Random(21);

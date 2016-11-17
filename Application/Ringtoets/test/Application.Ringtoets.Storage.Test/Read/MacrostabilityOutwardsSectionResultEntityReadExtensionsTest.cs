@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -46,9 +47,11 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnMacrostabilityOutwardsSectionResultWithDoubleParameterValues(bool layerOne)
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.Sufficient)]
+        public void Read_WithDecimalParameterValues_ReturnMacrostabilityOutwardsSectionResultWithDoubleParameterValues(
+            AssessmentLayerOneState layerOne)
         {
             // Setup
             var random = new Random(21);
@@ -78,9 +81,11 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithNullLayerTwoA_ReturnMacrostabilityOutwardsSectionResultWithNullParameters(bool layerOne)
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.Sufficient)]
+        public void Read_WithNullLayerTwoA_ReturnMacrostabilityOutwardsSectionResultWithNullParameters(
+            AssessmentLayerOneState layerOne)
         {
             // Setup
             var collector = new ReadConversionCollector();

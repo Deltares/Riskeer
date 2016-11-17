@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the value representing whether the section passed the layer 0 assessment.
         /// </summary>
-        public bool AssessmentLayerOne
+        public AssessmentLayerOneState AssessmentLayerOne
         {
             get
             {

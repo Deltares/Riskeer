@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
@@ -52,7 +53,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                 throw new ArgumentNullException("sectionResult");
             }
 
-            sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
+            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
             if (entity.GrassCoverErosionInwardsCalculationEntity != null)
             {

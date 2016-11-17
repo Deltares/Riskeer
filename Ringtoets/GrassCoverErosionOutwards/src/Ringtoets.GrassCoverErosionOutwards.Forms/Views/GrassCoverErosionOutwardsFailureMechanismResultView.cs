@@ -44,8 +44,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         public GrassCoverErosionOutwardsFailureMechanismResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
-
-            AddDataGridColumns();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
@@ -58,6 +56,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             DataGridViewControl.RemoveCellFormattingHandler(OnCellFormatting);
 
             base.Dispose(disposing);
+        }
+
+        protected override void AddDataGridColumns()
+        {
+            base.AddDataGridColumns();
+
+            EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
+                Enum.GetValues(typeof(AssessmentLayerTwoAResult))
+                    .OfType<AssessmentLayerTwoAResult>()
+                    .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
+                    .ToArray();
+
+            DataGridViewControl.AddComboBoxColumn(
+                TypeUtils.GetMemberName<GrassCoverErosionOutwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                twoAResultDataSource,
+                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.Value),
+                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.DisplayName));
+            DataGridViewControl.AddTextBoxColumn(
+                TypeUtils.GetMemberName<GrassCoverErosionOutwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
@@ -73,32 +92,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                     DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
             }
-        }
-
-        private void AddDataGridColumns()
-        {
-            EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
-                Enum.GetValues(typeof(AssessmentLayerTwoAResult))
-                    .OfType<AssessmentLayerTwoAResult>()
-                    .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
-                    .ToArray();
-
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionOutwardsFailureMechanismSectionResultRow>(sr => sr.Name),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true);
-            DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionOutwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
-            DataGridViewControl.AddComboBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionOutwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
-                twoAResultDataSource,
-                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.Value),
-                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.DisplayName));
-            DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionOutwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
     }
 }

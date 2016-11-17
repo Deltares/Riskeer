@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.Read.ClosingStructures;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 
 namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
@@ -63,9 +64,11 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnClosingStructuresSectionResultWithDoubleParameterValues(bool layerOne)
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.Sufficient)]
+        public void Read_WithDecimalParameterValues_ReturnClosingStructuresSectionResultWithDoubleParameterValues(
+            AssessmentLayerOneState layerOne)
         {
             // Setup
             var random = new Random(21);

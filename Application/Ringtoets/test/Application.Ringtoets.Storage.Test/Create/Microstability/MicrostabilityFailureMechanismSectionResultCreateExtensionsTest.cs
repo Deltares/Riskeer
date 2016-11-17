@@ -34,7 +34,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Microstability
     {
         [Test]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
-            [Values(true, false)] bool assessmentLayerOneResult,
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
             [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed)] AssessmentLayerTwoAResult assessmentLayerTwoAResult,
             [Values(3.2, 4.5)] double assessmentLayerThreeResult)
         {

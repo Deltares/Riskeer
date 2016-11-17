@@ -64,13 +64,22 @@ namespace Ringtoets.Common.Forms.Test.Views
         [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
+            // Setup 
+            const int nameColumnIndex = 0;
+            const int assessmentLayerOneIndex = 1;
+
             // Call
             using (ShowFailureMechanismResultsView())
             {
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(0, dataGridView.ColumnCount);
+                Assert.AreEqual(2, dataGridView.ColumnCount);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+
+                Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);                
+                Assert.AreEqual("Toetslaag 1", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
             }
         }
 

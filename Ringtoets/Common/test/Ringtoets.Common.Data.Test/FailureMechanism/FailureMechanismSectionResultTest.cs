@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
-            Assert.IsFalse(result.AssessmentLayerOne);
+            Assert.AreEqual(AssessmentLayerOneState.NotAssessed, result.AssessmentLayerOne);
             Assert.IsNaN(result.AssessmentLayerThree);
             Assert.AreSame(section, result.Section);
         }
@@ -59,9 +59,10 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerOne_SetNewValue_ReturnsNewValue(bool newValue)
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.Sufficient)]
+        public void AssessmentLayerOne_SetNewValue_ReturnsNewValue(AssessmentLayerOneState newValue)
         {
             // Setup
             FailureMechanismSection section = CreateSection();

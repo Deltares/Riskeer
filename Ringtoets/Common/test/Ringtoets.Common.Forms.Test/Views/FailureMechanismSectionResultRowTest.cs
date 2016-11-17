@@ -67,9 +67,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(bool newValue)
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.Sufficient)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(AssessmentLayerOneState newValue)
         {
             // Setup
             var mocks = new MockRepository();
