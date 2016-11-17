@@ -81,7 +81,7 @@ namespace Core.Common.Base.IO
                 observableTarget.NotifyObservers();
             }
 
-            foreach (var changedObservableObject in AffectedNonTargetObservableInstances)
+            foreach (var changedObservableObject in AffectedNonTargetObservableInstances.Where(o => !ReferenceEquals(o, ImportTarget)))
             {
                 changedObservableObject.NotifyObservers();
             }

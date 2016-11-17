@@ -60,27 +60,13 @@
     <Compile Include="GrassCoverErosionInwardsCalculationActivityIntegrationTest.cs" />
     <Compile Include="GrassCoverErosionInwardsInputContextPropertiesIntegrationTest.cs" />
     <Compile Include="GrassCoverErosionInwardsScenariosViewIntegrationTest.cs" />
-    <Compile Include="IntegrationTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
-    <EmbeddedResource Include="Resources\traject_6-3.dbf" />
-    <EmbeddedResource Include="Resources\traject_6-3.prj" />
-    <EmbeddedResource Include="Resources\traject_6-3.shp" />
-    <EmbeddedResource Include="Resources\traject_6-3.shx" />
-    <EmbeddedResource Include="Resources\traject_6-3_vakken.dbf" />
-    <EmbeddedResource Include="Resources\traject_6-3_vakken.prj" />
-    <EmbeddedResource Include="Resources\traject_6-3_vakken.shp" />
-    <EmbeddedResource Include="Resources\traject_6-3_vakken.shx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
@@ -94,10 +80,6 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>Core.Common.Gui</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
@@ -135,9 +117,9 @@
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Integration\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
-      <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
-      <Name>Ringtoets.Integration.Plugin</Name>
+    <ProjectReference Include="..\..\..\Integration\test\Ringtoets.Integration.TestUtils\Ringtoets.Integration.TestUtils.csproj">
+      <Project>{174ba68d-6176-4ac5-8dfd-98cdd2c4d971}</Project>
+      <Name>Ringtoets.Integration.TestUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
       <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
@@ -151,12 +133,6 @@
       <Project>{5D158D8E-A5EB-489C-A885-87E13BC0D3B3}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Service</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" />

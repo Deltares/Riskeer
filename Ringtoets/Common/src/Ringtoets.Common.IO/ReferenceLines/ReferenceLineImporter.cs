@@ -22,14 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
@@ -43,27 +41,28 @@ namespace Ringtoets.Common.IO.ReferenceLines
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ReferenceLineImporter));
 
-        private readonly IList<IObservable> changedObservables = new List<IObservable>();
+        private readonly List<IObservable> changedObservables = new List<IObservable>();
+        private readonly IReferenceLineReplaceHandler replacementHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReferenceLineImporter"/> class.
         /// </summary>
         /// <param name="importTarget">The assessment section to update.</param>
+        /// <param name="replacementHandler">The object responsible for replacing the
+        /// <see cref="ReferenceLine"/>.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public ReferenceLineImporter(IAssessmentSection importTarget, string filePath) : base(filePath, importTarget) {}
+        public ReferenceLineImporter(IAssessmentSection importTarget, IReferenceLineReplaceHandler replacementHandler, string filePath) : base(filePath, importTarget)
+        {
+            this.replacementHandler = replacementHandler;
+        }
 
         public override bool Import()
         {
             Canceled = false;
             changedObservables.Clear();
 
-            bool clearReferenceLineDependentData = false;
-
-            if (ImportTarget.ReferenceLine != null)
-            {
-                clearReferenceLineDependentData = ConfirmImportOfReferenceLineToClearReferenceLineDependentData();
-            }
+            bool clearReferenceLineDependentData = IsClearingOfReferenceLineDependentDataRequired();
 
             if (Canceled)
             {
@@ -72,7 +71,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
             }
 
             NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Reading_referenceline,
-                           1, clearReferenceLineDependentData ? 4 : 2);
+                           1, clearReferenceLineDependentData ? 3 : 2);
             ReadResult<ReferenceLine> readResult = ReadReferenceLine();
             if (readResult.CriticalErrorOccurred)
             {
@@ -97,23 +96,22 @@ namespace Ringtoets.Common.IO.ReferenceLines
             }
         }
 
-        private bool ConfirmImportOfReferenceLineToClearReferenceLineDependentData()
+        private bool IsClearingOfReferenceLineDependentDataRequired()
         {
-            DialogResult result = MessageBox.Show(RingtoetsCommonIOResources.ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed,
-                                                  CoreCommonBaseResources.Confirm,
-                                                  MessageBoxButtons.OKCancel);
-            if (result == DialogResult.Cancel)
+            bool clearReferenceLineDependentData = false;
+
+            if (ImportTarget.ReferenceLine != null)
             {
-                Canceled = true;
-            }
-            else
-            {
-                if (ImportTarget.GetFailureMechanisms() != null)
+                if (!replacementHandler.ConfirmReplace())
                 {
-                    return true;
+                    Canceled = true;
+                }
+                else
+                {
+                    clearReferenceLineDependentData = true;
                 }
             }
-            return false;
+            return clearReferenceLineDependentData;
         }
 
         private static void HandleUserCancellingImport()
@@ -154,49 +152,13 @@ namespace Ringtoets.Common.IO.ReferenceLines
         private void AddReferenceLineToDataModel(ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
         {
             NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection,
-                           2, clearReferenceLineDependentData ? 4 : 2);
-            ImportTarget.ReferenceLine = importedReferenceLine;
-
-            if (clearReferenceLineDependentData && ImportTarget.GetFailureMechanisms() != null)
+                           2, clearReferenceLineDependentData ? 3 : 2);
+            if (clearReferenceLineDependentData)
             {
-                ClearReferenceLineDependentData();
+                NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections,
+                               3, 3);
             }
-        }
-
-        private void ClearReferenceLineDependentData()
-        {
-            NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections,
-                           3, 4);
-            foreach (var failureMechanism in ImportTarget.GetFailureMechanisms())
-            {
-                ClearCalculationOutput(failureMechanism);
-                ClearFailureMechanismSections(failureMechanism);
-            }
-            NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output,
-                           4, 4);
-            ClearHydraulicBoundaryOutput();
-        }
-
-        private void ClearCalculationOutput(IFailureMechanism failureMechanism)
-        {
-            foreach (var calculationItem in failureMechanism.Calculations)
-            {
-                calculationItem.ClearOutput();
-                changedObservables.Add(calculationItem);
-            }
-        }
-
-        private void ClearFailureMechanismSections(IFailureMechanism failureMechanism)
-        {
-            failureMechanism.ClearAllSections();
-
-            changedObservables.Add(failureMechanism);
-        }
-
-        private void ClearHydraulicBoundaryOutput()
-        {
-            // TODO: WTI-440 - Clear all 'Toetspeil' calculation output
-            //changedObservables.Add(clearedInstance);
+            changedObservables.AddRange(replacementHandler.Replace(ImportTarget, importedReferenceLine));
         }
     }
 }

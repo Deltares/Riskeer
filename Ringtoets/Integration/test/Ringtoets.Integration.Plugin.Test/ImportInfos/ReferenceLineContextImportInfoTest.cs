@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -108,6 +109,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,

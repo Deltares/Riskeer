@@ -45,7 +45,6 @@
       <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +73,7 @@
     <Compile Include="HydraRing\TimeIntegrationSettingsProvider.cs" />
     <Compile Include="HydraRing\NumericsSettingsProvider.cs" />
     <Compile Include="HydraulicBoundaryLocationsExporter.cs" />
+    <Compile Include="ReferenceLines\IReferenceLineReplaceHandler.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLinesMetaReader.cs" />

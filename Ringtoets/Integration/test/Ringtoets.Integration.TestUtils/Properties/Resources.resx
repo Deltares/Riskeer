@@ -133,6 +133,9 @@
   <data name="HRD_dutch_coast_south" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HRD dutch coast south.sqlite;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="HRD_dutch_coast_south_config" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HRD dutch coast south.config.sqlite;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="traject_6_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\traject_6-3.dbf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

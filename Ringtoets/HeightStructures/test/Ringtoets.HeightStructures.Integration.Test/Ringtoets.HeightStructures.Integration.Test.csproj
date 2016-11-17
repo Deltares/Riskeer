@@ -49,10 +49,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
@@ -61,7 +57,6 @@
     </Compile>
     <Compile Include="HeightStructuresScenariosViewIntegrationTest.cs" />
     <Compile Include="HeightStructuresCalculationActivityIntegrationTest.cs" />
-    <Compile Include="IntegrationTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,14 +64,6 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
-    <EmbeddedResource Include="Resources\traject_6-3.dbf" />
-    <EmbeddedResource Include="Resources\traject_6-3.prj" />
-    <EmbeddedResource Include="Resources\traject_6-3.shp" />
-    <EmbeddedResource Include="Resources\traject_6-3.shx" />
-    <EmbeddedResource Include="Resources\traject_6-3_vakken.dbf" />
-    <EmbeddedResource Include="Resources\traject_6-3_vakken.prj" />
-    <EmbeddedResource Include="Resources\traject_6-3_vakken.shp" />
-    <EmbeddedResource Include="Resources\traject_6-3_vakken.shx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
@@ -86,10 +73,6 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
@@ -122,6 +105,10 @@
     <ProjectReference Include="..\..\..\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Integration\test\Ringtoets.Integration.TestUtils\Ringtoets.Integration.TestUtils.csproj">
+      <Project>{174ba68d-6176-4ac5-8dfd-98cdd2c4d971}</Project>
+      <Name>Ringtoets.Integration.TestUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>

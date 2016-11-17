@@ -401,7 +401,9 @@ namespace Ringtoets.Integration.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.ReferenceLineIcon,
                 FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter,
-                CreateFileImporter = (context, filePath) => new ReferenceLineImporter(context.WrappedData, filePath)
+                CreateFileImporter = (context, filePath) => new ReferenceLineImporter(context.WrappedData,
+                                                                                      new ReferenceLineReplacementHandler(),
+                                                                                      filePath)
             };
 
             yield return new ImportInfo<FailureMechanismSectionsContext>

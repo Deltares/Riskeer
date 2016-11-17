@@ -40,6 +40,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.StabilityPointStructures.Data;
@@ -108,6 +109,7 @@ namespace Demo.Ringtoets.Commands
                                                                                    "traject_6-3.shx"))
             {
                 var importer = new ReferenceLineImporter(demoAssessmentSection,
+                                                         new ReferenceLineReplacementHandler(),
                                                          Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                                       "traject_6-3.shp"));
                 importer.Import();

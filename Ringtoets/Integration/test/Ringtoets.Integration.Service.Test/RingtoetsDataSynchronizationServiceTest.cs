@@ -36,6 +36,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -64,7 +65,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithAssessmentSection_ClearsFailureMechanismCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            AssessmentSection assessmentSection = GetFullyConfiguredAssessmentSection();
+            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
             IEnumerable<ICalculation> expectedAffectedItems = assessmentSection.GetFailureMechanisms()
                                                                                .SelectMany(f => f.Calculations)
                                                                                .Where(c => c.HasOutput)
@@ -93,7 +94,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_VariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
         {
             // Setup
-            var assessmentSection = GetFullyConfiguredAssessmentSection();
+            var assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
             var expectedAffectedItems = new List<ICalculation>();
             expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
                                                             .Cast<StructuresCalculation<ClosingStructuresInput>>()
@@ -365,13 +366,13 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearReferenceLine_FullyConfiguredAssessmentSection_AllReferenceLineDependentDataCleared()
         {
             // Setup
-            AssessmentSection assessmentSection = GetFullyConfiguredAssessmentSection();
+            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
 
             // Call
             var observables = RingtoetsDataSynchronizationService.ClearReferenceLine(assessmentSection).ToArray();
 
             // Assert
-            Assert.AreEqual(29, observables.Length);
+            Assert.AreEqual(39, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -453,412 +454,58 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.StabilityPointStructures);
             CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism.StabilityPointStructures);
 
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
+            CollectionAssert.IsEmpty(duneErosionFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, duneErosionFailureMechanism);
+
+            MacrostabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacrostabilityInwards;
+            CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, macrostabilityInwardsFailureMechanism);
+
+            MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
+            CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, macrostabilityOutwardsFailureMechanism);
+
+            MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
+            CollectionAssert.IsEmpty(microstabilityFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(microstabilityFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, microstabilityFailureMechanism);
+
+            WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
+            CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, waterPressureAsphaltCoverFailureMechanism);
+
+            GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
+            CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, grassCoverSlipOffOutwardsFailureMechanism);
+
+            GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
+            CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, grassCoverSlipOffInwardsFailureMechanism);
+
+            StrengthStabilityLengthwiseConstructionFailureMechanism stabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
+            CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, stabilityLengthwiseConstructionFailureMechanism);
+
+            PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
+            CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, pipingStructureFailureMechanism);
+
+            TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
+            CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, technicalInnovationFailureMechanism);
+
             Assert.IsNull(assessmentSection.ReferenceLine);
             CollectionAssert.Contains(observables, assessmentSection);
-        }
-
-        private static AssessmentSection GetFullyConfiguredAssessmentSection()
-        {
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
-            };
-
-            SetFullyConfiguredStructuresFailureMechanism<ClosingStructuresInput, ClosingStructure>(
-                assessmentSection.ClosingStructures, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation);
-            SetFullyConfiguredStructuresFailureMechanism<HeightStructuresInput, HeightStructure>(
-                assessmentSection.HeightStructures, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.PipingFailureMechanism, hydraulicBoundaryLocation);
-            SetFullyConfiguredStructuresFailureMechanism<StabilityPointStructuresInput, StabilityPointStructure>(
-                assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.StabilityStoneCover, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocation);
-
-            return assessmentSection;
-        }
-
-        private static void SetFullyConfiguredFailureMechanism(PipingFailureMechanism failureMechanism,
-                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            var calculation = new PipingCalculation(new GeneralPipingInput());
-            var calculationWithOutput = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-            var calculationWithHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var subCalculation = new PipingCalculation(new GeneralPipingInput());
-            var subCalculationWithOutput = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-            var subCalculationWithHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
-        }
-
-        private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var calculationWithOutput = new GrassCoverErosionInwardsCalculation
-            {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
-            };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
-            };
-            var calculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var subCalculation = new GrassCoverErosionInwardsCalculation();
-            var subCalculationWithOutput = new GrassCoverErosionInwardsCalculation
-            {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
-            };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
-            };
-            var subCalculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
-        }
-
-        private static void SetFullyConfiguredStructuresFailureMechanism<TCalculationInput, TStructureBase>(
-            ICalculatableFailureMechanism failureMechanism,
-            HydraulicBoundaryLocation hydraulicBoundaryLocation)
-            where TStructureBase : StructureBase
-            where TCalculationInput : StructuresInputBase<TStructureBase>, new()
-        {
-            var calculation = new StructuresCalculation<TCalculationInput>();
-            var calculationWithOutput = new StructuresCalculation<TCalculationInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-            var calculationWithHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var subCalculation = new StructuresCalculation<TCalculationInput>();
-            var subCalculationWithOutput = new StructuresCalculation<TCalculationInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-            var subCalculationWithHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
-        }
-
-        private static void SetFullyConfiguredFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism,
-                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var calculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var calculationWithHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var subCalculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var subCalculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var subCalculationWithHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
-        }
-
-        private static void SetFullyConfiguredFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
-                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var calculationWithOutput = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var calculationWithHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var subCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var subCalculationWithOutput = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var subCalculationWithHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
-        }
-
-        private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var calculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var calculationWithHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var subCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var subCalculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-            var subCalculationWithHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
         }
     }
 }

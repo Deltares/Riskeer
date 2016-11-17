@@ -27,12 +27,14 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Views;
 using Ringtoets.HeightStructures.IO;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.TestUtils;
 
 namespace Ringtoets.HeightStructures.Integration.Test
 {
@@ -49,7 +51,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                IntegrationTestHelper.ImportReferenceLine(assessmentSection);
+                DataImportHelper.ImportReferenceLine(assessmentSection);
 
                 var view = new HeightStructuresScenariosView
                 {
@@ -65,7 +67,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 Assert.AreEqual(0, dataGridView.RowCount);
 
                 // Call
-                IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.HeightStructures);
+                IFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+                DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 assessmentSection.HeightStructures.NotifyObservers();
 
                 // Assert
@@ -84,8 +87,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                IntegrationTestHelper.ImportReferenceLine(assessmentSection);
-                IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.HeightStructures);
+                DataImportHelper.ImportReferenceLine(assessmentSection);
+                IFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+                DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
                                              assessmentSection.ReferenceLine,
                                              filePath)
@@ -131,8 +135,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                IntegrationTestHelper.ImportReferenceLine(assessmentSection);
-                IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.HeightStructures);
+                DataImportHelper.ImportReferenceLine(assessmentSection);
+                IFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+                DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
                                              assessmentSection.ReferenceLine,
                                              filePath)
@@ -184,8 +189,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                IntegrationTestHelper.ImportReferenceLine(assessmentSection);
-                IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.HeightStructures);
+                DataImportHelper.ImportReferenceLine(assessmentSection);
+                IFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+                DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
                                              assessmentSection.ReferenceLine,
                                              filePath)

@@ -27,7 +27,9 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.TestUtils;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Views;
 
@@ -63,12 +65,13 @@ namespace Ringtoets.Piping.Integration.Test
                 pipingCalculationsView.PipingFailureMechanism = assessmentSection.PipingFailureMechanism;
 
                 // Import failure mechanism sections and ensure the listbox is updated
-                IntegrationTestHelper.ImportReferenceLine(assessmentSection);
-                IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.PipingFailureMechanism);
+                DataImportHelper.ImportReferenceLine(assessmentSection);
+                IFailureMechanism failureMechanism = assessmentSection.PipingFailureMechanism;
+                DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 Assert.AreEqual(283, listBox.Items.Count);
 
                 // Import surface lines
-                IntegrationTestHelper.ImportSurfaceLines(assessmentSection);
+                DataImportHelper.ImportPipingSurfaceLines(assessmentSection);
 
                 // Setup some calculations
                 var pipingCalculation1 = new PipingCalculationScenario(new GeneralPipingInput())
@@ -92,7 +95,7 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual(1, dataGridView.Rows.Count);
 
                 // Import soil models and profiles and ensure the corresponding combobox items are updated
-                IntegrationTestHelper.ImportSoilProfiles(assessmentSection);
+                DataImportHelper.ImportPipingStochasticSoilModels(assessmentSection);
                 pipingCalculation1.InputParameters.StochasticSoilModel = assessmentSection.PipingFailureMechanism.StochasticSoilModels.First(sl => sl.Name == "PK001_0001_Piping");
                 Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items.Count);
                 Assert.AreEqual("PK001_0001_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
@@ -100,7 +103,7 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual("<geen>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
 
                 // Import hydraulic boundary locations and ensure the corresponding combobox items are updated
-                IntegrationTestHelper.ImportHydraulicBoundaryDatabase(assessmentSection);
+                DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection);
                 Assert.AreEqual(19, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[hydraulicBoundaryLocationsColumnIndex]).Items.Count);
 
                 // Add group and ensure the data grid view is not changed

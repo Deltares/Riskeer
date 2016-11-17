@@ -26,7 +26,9 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.TestUtils;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
@@ -59,15 +61,16 @@ namespace Ringtoets.Piping.Integration.Test
                 failureMechanismResultView.FailureMechanism = assessmentSection.PipingFailureMechanism;
 
                 // Import failure mechanism sections and ensure the data grid view is updated
-                IntegrationTestHelper.ImportReferenceLine(assessmentSection);
-                IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.PipingFailureMechanism);
+                DataImportHelper.ImportReferenceLine(assessmentSection);
+                IFailureMechanism failureMechanism = assessmentSection.PipingFailureMechanism;
+                DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 Assert.AreEqual(283, dataGridView.Rows.Count);
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Import surface lines
-                IntegrationTestHelper.ImportSurfaceLines(assessmentSection);
+                DataImportHelper.ImportPipingSurfaceLines(assessmentSection);
 
                 // Setup some calculations
                 var pipingCalculation1 = new PipingCalculationScenario(new GeneralPipingInput())

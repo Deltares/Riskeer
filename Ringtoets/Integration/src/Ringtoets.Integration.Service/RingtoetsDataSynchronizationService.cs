@@ -28,6 +28,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -231,7 +232,7 @@ namespace Ringtoets.Integration.Service
 
             var list = new List<IObservable>();
 
-            foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
                 var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
@@ -246,33 +247,37 @@ namespace Ringtoets.Integration.Service
                 {
                     list.AddRange(PipingDataSynchronizationService.ClearReferenceLineDependentData(pipingFailureMechanism));
                 }
-                if (grassCoverErosionInwardsFailureMechanism != null)
+                else if (grassCoverErosionInwardsFailureMechanism != null)
                 {
                     list.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearReferenceLineDependentData(grassCoverErosionInwardsFailureMechanism));
                 }
-                if (stabilityStoneCoverFailureMechanism != null)
+                else if (stabilityStoneCoverFailureMechanism != null)
                 {
                     list.AddRange(StabilityStoneCoverDataSynchronizationService.ClearReferenceLineDependentData(stabilityStoneCoverFailureMechanism));
                 }
-                if (waveImpactAsphaltCoverFailureMechanism != null)
+                else if (waveImpactAsphaltCoverFailureMechanism != null)
                 {
                     list.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearReferenceLineDependentData(waveImpactAsphaltCoverFailureMechanism));
                 }
-                if (grassCoverErosionOutwardsFailureMechanism != null)
+                else if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
                     list.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearReferenceLineDependentData(grassCoverErosionOutwardsFailureMechanism));
                 }
-                if (heightStructuresFailureMechanism != null)
+                else if (heightStructuresFailureMechanism != null)
                 {
                     list.AddRange(HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(heightStructuresFailureMechanism));
                 }
-                if (closingStructuresFailureMechanism != null)
+                else if (closingStructuresFailureMechanism != null)
                 {
                     list.AddRange(ClosingStructuresDataSynchronizationService.ClearReferenceLineDependentData(closingStructuresFailureMechanism));
                 }
-                if (stabilityPointStructuresFailureMechanism != null)
+                else if (stabilityPointStructuresFailureMechanism != null)
                 {
                     list.AddRange(StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(stabilityPointStructuresFailureMechanism));
+                }
+                else
+                {
+                    list.AddRange(ClearReferenceLineDependentData(failureMechanism));
                 }
             }
 
@@ -281,6 +286,15 @@ namespace Ringtoets.Integration.Service
             list.Add(assessmentSection);
 
             return list;
+        }
+
+        private static IEnumerable<IObservable> ClearReferenceLineDependentData(IFailureMechanism failureMechanism)
+        {
+            failureMechanism.ClearAllSections();
+            return new[]
+            {
+                failureMechanism
+            };
         }
     }
 }

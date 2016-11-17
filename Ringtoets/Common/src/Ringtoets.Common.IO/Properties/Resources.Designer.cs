@@ -884,15 +884,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verwijderen uitvoer van hydraulische randvoorwaarden..
-        /// </summary>
-        public static string ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output {
-            get {
-                return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Meerdere shapebestanden gevonden in &apos;{0}&apos;. Het bestand &apos;{1}&apos; is gebruikt..
         /// </summary>
         public static string ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_FilePath_0_SelectedFilePath_1 {

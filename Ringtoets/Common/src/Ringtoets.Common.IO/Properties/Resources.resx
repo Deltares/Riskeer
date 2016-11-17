@@ -147,9 +147,6 @@ Er is geen referentielijn geïmporteerd.</value>
   <data name="ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections" xml:space="preserve">
     <value>Wissen rekenresultaten en vakindelingen van toetsspoor.</value>
   </data>
-  <data name="ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output" xml:space="preserve">
-    <value>Verwijderen uitvoer van hydraulische randvoorwaarden.</value>
-  </data>
   <data name="DataTypeDisplayName_shape_file_filter" xml:space="preserve">
     <value>Shapebestand (*.shp)|*.shp</value>
   </data>

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -148,11 +149,21 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            handler.Stub(h => h.ConfirmReplace()).Return(true);
+            handler.Stub(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
+                                        Arg<ReferenceLine>.Is.NotNull))
+                   .WhenCalled(invocation =>
+                   {
+                       var importedReferenceLine = (ReferenceLine) invocation.Arguments[1];
+                       assessmentSection.ReferenceLine = importedReferenceLine;
+                   })
+                   .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             var failureMechanism = new Simple();
 
-            var referenceLineImporter = new ReferenceLineImporter(assessmentSection, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection, handler, referenceLineFilePath);
             referenceLineImporter.Import();
 
             var importTarget = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);

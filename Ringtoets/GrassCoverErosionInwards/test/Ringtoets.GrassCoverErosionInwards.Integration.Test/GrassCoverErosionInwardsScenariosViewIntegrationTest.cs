@@ -27,11 +27,13 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.TestUtils;
 
 namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 {
@@ -48,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                IntegrationTestHelper.ImportReferenceLine(assessmentSection);
+                DataImportHelper.ImportReferenceLine(assessmentSection);
 
                 var view = new GrassCoverErosionInwardsScenariosView()
                 {
@@ -64,7 +66,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 Assert.AreEqual(0, dataGridView.RowCount);
 
                 // Call
-                IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GrassCoverErosionInwards);
+                IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
+                DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 assessmentSection.GrassCoverErosionInwards.NotifyObservers();
 
                 // Assert
@@ -83,8 +86,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                IntegrationTestHelper.ImportReferenceLine(assessmentSection);
-                IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GrassCoverErosionInwards);
+                DataImportHelper.ImportReferenceLine(assessmentSection);
+                IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
+                DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
                 var view = new GrassCoverErosionInwardsScenariosView()
@@ -131,8 +135,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                IntegrationTestHelper.ImportReferenceLine(assessmentSection);
-                IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GrassCoverErosionInwards);
+                DataImportHelper.ImportReferenceLine(assessmentSection);
+                IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
+                DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
                 var view = new GrassCoverErosionInwardsScenariosView()
@@ -185,8 +190,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                IntegrationTestHelper.ImportReferenceLine(assessmentSection);
-                IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GrassCoverErosionInwards);
+                DataImportHelper.ImportReferenceLine(assessmentSection);
+                IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
+                DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 var view = new GrassCoverErosionInwardsScenariosView()
                 {

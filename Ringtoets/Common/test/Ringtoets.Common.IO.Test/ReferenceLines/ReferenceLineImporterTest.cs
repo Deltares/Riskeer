@@ -26,29 +26,31 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
-using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO.ReferenceLines;
 
 namespace Ringtoets.Common.IO.Test.ReferenceLines
 {
     [TestFixture]
-    public class ReferenceLineImporterTest : NUnitFormsAssertTest
+    public class ReferenceLineImporterTest
     {
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
         {
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new ReferenceLineImporter(null, "");
+            TestDelegate call = () => new ReferenceLineImporter(null, handler, "");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("importTarget", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -57,10 +59,11 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
             mocks.ReplayAll();
 
             // Call
-            var importer = new ReferenceLineImporter(assessmentSection, "");
+            var importer = new ReferenceLineImporter(assessmentSection, handler, "");
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<IAssessmentSection>>(importer);
@@ -73,23 +76,30 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
+                                          Arg<ReferenceLine>.Is.NotNull))
+                   .WhenCalled(invocation =>
+                   {
+                       var importedReferenceLine = (ReferenceLine) invocation.Arguments[1];
+                       Point2D[] point2Ds = importedReferenceLine.Points.ToArray();
+                       Assert.AreEqual(803, point2Ds.Length);
+                       Assert.AreEqual(193515.719, point2Ds[467].X, 1e-6);
+                       Assert.AreEqual(511444.750, point2Ds[467].Y, 1e-6);
+                   })
+                   .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                   Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var importer = new ReferenceLineImporter(assessmentSection, path);
+            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
             // Call
             bool importSuccesful = importer.Import();
 
             // Assert
             Assert.IsTrue(importSuccesful);
-            Assert.IsNotNull(assessmentSection.ReferenceLine);
-            Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
-            Assert.AreEqual(803, point2Ds.Length);
-            Assert.AreEqual(193515.719, point2Ds[467].X, 1e-6);
-            Assert.AreEqual(511444.750, point2Ds[467].Y, 1e-6);
             mocks.VerifyAll();
         }
 
@@ -99,6 +109,10 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
+                                          Arg<ReferenceLine>.Is.NotNull))
+                   .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -116,7 +130,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 }
             };
             var progressChangedCallCount = 0;
-            var importer = new ReferenceLineImporter(assessmentSection, path);
+            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
@@ -139,11 +153,19 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            handler.Expect(h => h.ConfirmReplace())
+                   .Return(true)
+                   .Repeat.Never();
+            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
+                                          Arg<ReferenceLine>.Is.NotNull))
+                   .Return(Enumerable.Empty<IObservable>())
+                   .Repeat.Never();
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
 
-            var importer = new ReferenceLineImporter(assessmentSection, path);
+            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
             // Call
             bool importSuccesful = true;
@@ -154,7 +176,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                                   "Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccesful);
-            Assert.IsNull(assessmentSection.ReferenceLine);
             mocks.VerifyAll();
         }
 
@@ -164,11 +185,19 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            handler.Expect(h => h.ConfirmReplace())
+                   .Return(true)
+                   .Repeat.Never();
+            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
+                                          Arg<ReferenceLine>.Is.NotNull))
+                   .Return(Enumerable.Empty<IObservable>())
+                   .Repeat.Never();
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist");
 
-            var importer = new ReferenceLineImporter(assessmentSection, path);
+            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
             // Call
             bool importSuccesful = true;
@@ -179,216 +208,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                                   "Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccesful);
-            Assert.IsNull(assessmentSection.ReferenceLine);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Import_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToCancel_NoChanges()
-        {
-            // Setup
-            var originalReferenceLine = new ReferenceLine();
-
-            var mocks = new MockRepository();
-            var calculation1 = mocks.StrictMock<ICalculation>();
-            var calculation3 = mocks.StrictMock<ICalculation>();
-
-            var failureMechanism1 = mocks.Stub<IFailureMechanism>();
-            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
-            {
-                calculation1
-            });
-
-            var failureMechanism2 = mocks.Stub<IFailureMechanism>();
-            failureMechanism2.Stub(fm => fm.Calculations).Return(new[]
-            {
-                calculation3
-            });
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = originalReferenceLine;
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism1,
-                failureMechanism2
-            });
-            mocks.ReplayAll();
-
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
-
-            var importer = new ReferenceLineImporter(assessmentSection, path);
-            string messageBoxTitle = null, messageBoxText = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBoxTester = new MessageBoxTester(wnd);
-
-                messageBoxTitle = messageBoxTester.Title;
-                messageBoxText = messageBoxTester.Text;
-
-                messageBoxTester.ClickCancel();
-            };
-
-            // Call
-            bool importSuccesful = importer.Import();
-
-            // Assert
-            Assert.IsFalse(importSuccesful);
-            Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
-
-            Assert.AreEqual("Bevestigen", messageBoxTitle);
-            var expectedText = "Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
-                               Environment.NewLine + "Weet u zeker dat u wilt doorgaan?";
-            Assert.AreEqual(expectedText, messageBoxText);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Import_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToContinue_ClearDataDependentOnReferenceLine()
-        {
-            // Setup
-            var originalReferenceLine = new ReferenceLine();
-
-            var mocks = new MockRepository();
-            var calculation1 = mocks.Stub<ICalculation>();
-            calculation1.Expect(c => c.ClearOutput());
-            var calculation2 = mocks.Stub<ICalculation>();
-            calculation2.Expect(c => c.ClearOutput());
-            var calculation3 = mocks.Stub<ICalculation>();
-            calculation3.Expect(c => c.ClearOutput());
-            var calculation4 = mocks.Stub<ICalculation>();
-            calculation4.Expect(c => c.ClearOutput());
-
-            var failureMechanism1 = mocks.Stub<IFailureMechanism>();
-            failureMechanism1.Expect(fm => fm.ClearAllSections());
-            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
-            {
-                calculation1,
-                calculation2
-            });
-
-            var failureMechanism2 = mocks.Stub<IFailureMechanism>();
-            failureMechanism2.Expect(fm => fm.ClearAllSections());
-            failureMechanism2.Stub(fm => fm.Calculations).Return(new[]
-            {
-                calculation3,
-                calculation4
-            });
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = originalReferenceLine;
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism1,
-                failureMechanism2
-            });
-            mocks.ReplayAll();
-
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
-
-            var importer = new ReferenceLineImporter(assessmentSection, path);
-
-            string messageBoxTitle = null, messageBoxText = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBoxTester = new MessageBoxTester(wnd);
-
-                messageBoxTitle = messageBoxTester.Title;
-                messageBoxText = messageBoxTester.Text;
-
-                messageBoxTester.ClickOk();
-            };
-
-            // Call
-            bool importSuccesful = importer.Import();
-
-            // Assert
-            Assert.IsTrue(importSuccesful);
-            Assert.AreNotSame(originalReferenceLine, assessmentSection.ReferenceLine);
-            Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
-            Assert.AreEqual(803, point2Ds.Length);
-            Assert.AreEqual(198237.375, point2Ds[123].X, 1e-6);
-            Assert.AreEqual(514879.781, point2Ds[123].Y, 1e-6);
-
-            Assert.AreEqual("Bevestigen", messageBoxTitle);
-            var expectedText = "Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
-                               Environment.NewLine + "Weet u zeker dat u wilt doorgaan?";
-            Assert.AreEqual(expectedText, messageBoxText);
-
-            // TODO: Clear calculated HR
-            mocks.VerifyAll(); // Expect calculation output cleared
-        }
-
-        [Test]
-        public void Import_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToContinue_GenerateExpectedProgressMessages()
-        {
-            // Setup
-            var originalReferenceLine = new ReferenceLine();
-
-            var mocks = new MockRepository();
-            var calculation1 = mocks.Stub<ICalculation>();
-            var calculation2 = mocks.Stub<ICalculation>();
-
-            var failureMechanism1 = mocks.Stub<IFailureMechanism>();
-            failureMechanism1.Expect(fm => fm.ClearAllSections());
-            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
-            {
-                calculation1,
-                calculation2
-            });
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = originalReferenceLine;
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism1
-            });
-            mocks.ReplayAll();
-
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
-
-            var expectedProgressMessages = new[]
-            {
-                new ExpectedProgressNotification
-                {
-                    Text = "Inlezen referentielijn.", CurrentStep = 1, MaxNrOfSteps = 4
-                },
-                new ExpectedProgressNotification
-                {
-                    Text = "Geïmporteerde data toevoegen aan het traject.", CurrentStep = 2, MaxNrOfSteps = 4
-                },
-                new ExpectedProgressNotification
-                {
-                    Text = "Wissen rekenresultaten en vakindelingen van toetsspoor.", CurrentStep = 3, MaxNrOfSteps = 4
-                },
-                new ExpectedProgressNotification
-                {
-                    Text = "Verwijderen uitvoer van hydraulische randvoorwaarden.", CurrentStep = 4, MaxNrOfSteps = 4
-                }
-            };
-            var progressChangedCallCount = 0;
-            var importer = new ReferenceLineImporter(assessmentSection, path);
-            importer.SetProgressChanged((description, step, steps) =>
-            {
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].MaxNrOfSteps, steps);
-                progressChangedCallCount++;
-            });
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBoxTester = new MessageBoxTester(wnd);
-                messageBoxTester.ClickOk();
-            };
-
-            // Call
-            importer.Import();
-
-            // Assert
-            Assert.AreEqual(expectedProgressMessages.Length, progressChangedCallCount);
             mocks.VerifyAll();
         }
 
@@ -401,26 +220,23 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
+            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            handler.Expect(h => h.ConfirmReplace()).Return(false);
+            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
+                                          Arg<ReferenceLine>.Is.NotNull))
+                   .Return(Enumerable.Empty<IObservable>())
+                   .Repeat.Never();
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
-            var importer = new ReferenceLineImporter(assessmentSection, path);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                importer.Cancel();
-
-                var messageBoxTester = new MessageBoxTester(wnd);
-                messageBoxTester.ClickOk();
-            };
+            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
             // Call
             bool importSuccesful = importer.Import();
 
             // Assert
             Assert.IsFalse(importSuccesful);
-            Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
             mocks.VerifyAll();
         }
 
@@ -430,31 +246,22 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void Import_CancelImportDuringDialogInteraction_GenerateCancelledLogMessage(bool acceptRemovalOfReferenceLineDependentData)
         {
             // Setup
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
+            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            handler.Expect(h => h.ConfirmReplace())
+                   .WhenCalled(invocation => importer.Cancel())
+                   .Return(acceptRemovalOfReferenceLineDependentData);
+            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Anything,
+                                          Arg<ReferenceLine>.Is.Anything))
+                   .Return(Enumerable.Empty<IObservable>())
+                   .Repeat.Never();
             mocks.ReplayAll();
-
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
-
-            var importer = new ReferenceLineImporter(assessmentSection, path);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                importer.Cancel();
-
-                var messageBoxTester = new MessageBoxTester(wnd);
-                if (acceptRemovalOfReferenceLineDependentData)
-                {
-                    messageBoxTester.ClickOk();
-                }
-                else
-                {
-                    messageBoxTester.ClickCancel();
-                }
-            };
 
             // Call
             Action call = () => importer.Import();
@@ -470,12 +277,27 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            handler.Expect(h => h.ConfirmReplace())
+                   .Return(true)
+                   .Repeat.Never();
+            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
+                                          Arg<ReferenceLine>.Is.NotNull))
+                   .WhenCalled(invocation =>
+                   {
+                       var importedReferenceLine = (ReferenceLine) invocation.Arguments[1];
+                       Point2D[] point2Ds = importedReferenceLine.Points.ToArray();
+                       Assert.AreEqual(803, point2Ds.Length);
+                       Assert.AreEqual(195203.563, point2Ds[321].X, 1e-6);
+                       Assert.AreEqual(512826.406, point2Ds[321].Y, 1e-6);
+                   })
+                   .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                   Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var importer = new ReferenceLineImporter(assessmentSection, path);
+            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
             importer.Cancel();
 
             // Call
@@ -483,11 +305,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             // Assert
             Assert.IsTrue(importSuccesful);
-            Assert.IsNotNull(assessmentSection.ReferenceLine);
-            Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
-            Assert.AreEqual(803, point2Ds.Length);
-            Assert.AreEqual(195203.563, point2Ds[321].X, 1e-6);
-            Assert.AreEqual(512826.406, point2Ds[321].Y, 1e-6);
             mocks.VerifyAll();
         }
 
@@ -498,49 +315,30 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var calculation1 = mocks.Stub<ICalculation>();
-            calculation1.Stub(c => c.ClearOutput());
-            calculation1.Expect(c => c.NotifyObservers());
-            var calculation2 = mocks.Stub<ICalculation>();
-            calculation2.Stub(c => c.ClearOutput());
-            calculation2.Expect(c => c.NotifyObservers());
-            var calculation3 = mocks.Stub<ICalculation>();
-            calculation3.Stub(c => c.ClearOutput());
-            calculation3.Expect(c => c.NotifyObservers());
-            var calculation4 = mocks.Stub<ICalculation>();
-            calculation4.Stub(c => c.ClearOutput());
-            calculation4.Expect(c => c.NotifyObservers());
-
-            var failureMechanism1 = mocks.Stub<IFailureMechanism>();
-            failureMechanism1.Expect(fm => fm.ClearAllSections());
-            failureMechanism1.Expect(fm => fm.NotifyObservers());
-            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
-            {
-                calculation1,
-                calculation2
-            });
-
-            var failureMechanism2 = mocks.Stub<IFailureMechanism>();
-            failureMechanism2.Expect(fm => fm.ClearAllSections());
-            failureMechanism2.Expect(fm => fm.NotifyObservers());
-            failureMechanism2.Stub(fm => fm.Calculations).Return(new[]
-            {
-                calculation3,
-                calculation4
-            });
-
             var contextObserver = mocks.Stub<IObserver>();
             contextObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism1,
-                failureMechanism2
-            });
             assessmentSection.Expect(section => section.Attach(contextObserver));
             assessmentSection.Expect(section => section.NotifyObservers()).Do((Action) (() => contextObserver.UpdateObserver()));
+
+            var observable1 = mocks.StrictMock<IObservable>();
+            observable1.Expect(o => o.NotifyObservers());
+            var observable2 = mocks.StrictMock<IObservable>();
+            observable2.Expect(o => o.NotifyObservers());
+
+            var observables = new[]
+            {
+                observable1,
+                observable2
+            };
+
+            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            handler.Expect(h => h.ConfirmReplace()).Return(true);
+            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
+                                          Arg<ReferenceLine>.Is.NotNull))
+                   .Return(observables);
 
             mocks.ReplayAll();
 
@@ -550,13 +348,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
             referenceLineContext.Attach(contextObserver);
 
-            var importer = new ReferenceLineImporter(assessmentSection, path);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBoxTester = new MessageBoxTester(wnd);
-                messageBoxTester.ClickOk();
-            };
+            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
             // Precondition
             Assert.IsTrue(importer.Import());
@@ -569,85 +361,32 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
-        public void DoPostImportUpdates_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToContinue_NotifyObserversOfTargetContextParent()
-        {
-            // Setup
-            var originalReferenceLine = new ReferenceLine();
-
-            var mocks = new MockRepository();
-            var observer = mocks.Stub<IObserver>();
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.ReferenceLine = originalReferenceLine;
-            assessmentSection.Expect(section => section.Attach(observer));
-            assessmentSection.Expect(section => section.NotifyObservers());
-            mocks.ReplayAll();
-
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                  Path.Combine("ReferenceLine", "traject_10-2.shp"));
-
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-            referenceLineContext.WrappedData.Attach(observer);
-
-            var importer = new ReferenceLineImporter(assessmentSection, path);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBoxTester = new MessageBoxTester(wnd);
-                messageBoxTester.ClickOk();
-            };
-
-            // Precondition
-            Assert.IsTrue(importer.Import());
-
-            // Call
-            importer.DoPostImportUpdates();
-
-            // Assert
-            mocks.VerifyAll(); // Expect NotifyObservers on context parent
-        }
-
-        [Test]
         public void DoPostImportUpdates_CancellingImport_DoNotNotifyObservers()
         {
             // Setup
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var calculation1 = mocks.StrictMock<ICalculation>();
-
-            var failureMechanism1 = mocks.Stub<IFailureMechanism>();
-            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
-            {
-                calculation1
-            });
-
             var contextObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism1
-            });
             assessmentSection.Expect(section => section.Attach(contextObserver));
+
+            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            handler.Expect(h => h.ConfirmReplace())
+                   .WhenCalled(invocation => importer.Cancel())
+                   .Return(true);
+            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
+                                          Arg<ReferenceLine>.Is.NotNull))
+                   .Return(Enumerable.Empty<IObservable>())
+                   .Repeat.Never();
 
             mocks.ReplayAll();
 
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
-
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
             referenceLineContext.Attach(contextObserver);
-
-            var importer = new ReferenceLineImporter(assessmentSection, path);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                importer.Cancel();
-
-                var messageBoxTester = new MessageBoxTester(wnd);
-                messageBoxTester.ClickOk();
-            };
 
             // Precondition
             Assert.IsFalse(importer.Import());
@@ -666,49 +405,30 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var calculation1 = mocks.Stub<ICalculation>();
-            calculation1.Stub(c => c.ClearOutput());
-            calculation1.Expect(c => c.NotifyObservers());
-            var calculation2 = mocks.Stub<ICalculation>();
-            calculation2.Stub(c => c.ClearOutput());
-            calculation2.Expect(c => c.NotifyObservers());
-            var calculation3 = mocks.Stub<ICalculation>();
-            calculation3.Stub(c => c.ClearOutput());
-            calculation3.Expect(c => c.NotifyObservers());
-            var calculation4 = mocks.Stub<ICalculation>();
-            calculation4.Stub(c => c.ClearOutput());
-            calculation4.Expect(c => c.NotifyObservers());
-
-            var failureMechanism1 = mocks.Stub<IFailureMechanism>();
-            failureMechanism1.Expect(fm => fm.ClearAllSections()).Repeat.Twice();
-            failureMechanism1.Expect(fm => fm.NotifyObservers());
-            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
-            {
-                calculation1,
-                calculation2
-            });
-
-            var failureMechanism2 = mocks.Stub<IFailureMechanism>();
-            failureMechanism2.Expect(fm => fm.ClearAllSections()).Repeat.Twice();
-            failureMechanism2.Expect(fm => fm.NotifyObservers());
-            failureMechanism2.Stub(fm => fm.Calculations).Return(new[]
-            {
-                calculation3,
-                calculation4
-            });
-
             var contextObserver = mocks.Stub<IObserver>();
             contextObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism1,
-                failureMechanism2
-            });
             assessmentSection.Expect(section => section.Attach(contextObserver));
             assessmentSection.Expect(section => section.NotifyObservers()).Do((Action) (() => contextObserver.UpdateObserver()));
+
+            var observable1 = mocks.StrictMock<IObservable>();
+            observable1.Expect(o => o.NotifyObservers());
+            var observable2 = mocks.StrictMock<IObservable>();
+            observable2.Expect(o => o.NotifyObservers());
+
+            var observables = new[]
+            {
+                observable1,
+                observable2
+            };
+
+            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            handler.Stub(h => h.ConfirmReplace()).Return(true);
+            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
+                                          Arg<ReferenceLine>.Is.NotNull))
+                   .Return(observables);
 
             mocks.ReplayAll();
 
@@ -718,22 +438,11 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
             referenceLineContext.Attach(contextObserver);
 
-            var importer = new ReferenceLineImporter(assessmentSection, path);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBoxTester = new MessageBoxTester(wnd);
-                messageBoxTester.ClickOk();
-            };
+            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
 
             // Precondition
             Assert.IsTrue(importer.Import());
             importer.Cancel();
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBoxTester = new MessageBoxTester(wnd);
-                messageBoxTester.ClickOk();
-            };
             Assert.IsTrue(importer.Import());
 
             // Call

@@ -22,26 +22,31 @@
 using System.IO;
 using Core.Common.Base.Service;
 using Core.Common.Utils.IO;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Service;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
+using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Integration.Test
+namespace Ringtoets.Integration.TestUtils
 {
     /// <summary>
-    /// Helper methods related to integration tests.
+    /// Helper methods related to importing data for integration tests.
     /// </summary>
-    public static class IntegrationTestHelper
+    public static class DataImportHelper
     {
         /// <summary>
-        /// Imports the reference line on the <see cref="AssessmentSection"/>.
+        /// Imports the <see cref="ReferenceLine"/> on the <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import the reference line on.</param>
         public static void ImportReferenceLine(AssessmentSection assessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    true,
                                                                                    "traject_6-3.shp",
                                                                                    "traject_6-3.dbf",
@@ -49,7 +54,9 @@ namespace Ringtoets.Piping.Integration.Test
                                                                                    "traject_6-3.shx"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp");
-                var activity = new FileImportActivity(new ReferenceLineImporter(assessmentSection, filePath),
+                var activity = new FileImportActivity(new ReferenceLineImporter(assessmentSection,
+                                                                                new ReferenceLineReplacementHandler(),
+                                                                                filePath),
                                                       "ReferenceLineImporter");
                 activity.Run();
                 activity.Finish();
@@ -57,14 +64,14 @@ namespace Ringtoets.Piping.Integration.Test
         }
 
         /// <summary>
-        /// Imports the failure mechanism sections.
+        /// Imports the <see cref="FailureMechanismSection"/> data for a given <see cref="IFailureMechanism"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to import on.</param>
         /// <remarks>This will import 283 failure mechanism sections.</remarks>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    true,
                                                                                    "traject_6-3_vakken.shp",
                                                                                    "traject_6-3_vakken.dbf",
@@ -80,13 +87,13 @@ namespace Ringtoets.Piping.Integration.Test
         }
 
         /// <summary>
-        /// Imports the hydraulic boundary database.
+        /// Imports the <see cref="HydraulicBoundaryDatabase"/> for the given <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
         /// <remarks>This will import 19 Hydraulic boundary locations.</remarks>
         public static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    false,
                                                                                    "HRD dutch coast south.sqlite",
                                                                                    "HLCD.sqlite",
@@ -98,14 +105,17 @@ namespace Ringtoets.Piping.Integration.Test
             }
         }
 
+        #region Piping Specific Imports
+
         /// <summary>
-        /// Imports the surface lines.
+        /// Imports the <see cref="RingtoetsPipingSurfaceLine"/> data for the <see cref="PipingFailureMechanism"/>
+        /// of the given <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
         /// <remarks>This will import 4 surface lines.</remarks>
-        public static void ImportSurfaceLines(AssessmentSection assessmentSection)
+        public static void ImportPipingSurfaceLines(AssessmentSection assessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    true,
                                                                                    "DR6_surfacelines.csv",
                                                                                    "DR6_surfacelines.krp.csv"))
@@ -119,13 +129,14 @@ namespace Ringtoets.Piping.Integration.Test
         }
 
         /// <summary>
-        /// Imports the soil profiles.
+        /// Imports the <see cref="StochasticSoilModel"/> data for the <see cref="PipingFailureMechanism"/>
+        /// of the given <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
         /// <remarks>This will import 4 soil models with one profile each.</remarks>
-        public static void ImportSoilProfiles(AssessmentSection assessmentSection)
+        public static void ImportPipingStochasticSoilModels(AssessmentSection assessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    true,
                                                                                    "DR6.soil"))
             {
@@ -136,5 +147,8 @@ namespace Ringtoets.Piping.Integration.Test
                 activity.Finish();
             }
         }
+
+        #endregion
+
     }
 }

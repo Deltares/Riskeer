@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ringtoets.Integration.TestUtils</RootNamespace>
+    <AssemblyName>Ringtoets.Integration.TestUtils</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\Release\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
+    <OutputPath>bin\ReleaseForCodeCoverage\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
+    <Compile Include="DataImportHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <EmbeddedResource Include="Resources\DR6.soil" />
+    <EmbeddedResource Include="Resources\DR6_surfacelines.csv" />
+    <EmbeddedResource Include="Resources\DR6_surfacelines.krp.csv" />
+    <EmbeddedResource Include="Resources\HLCD.sqlite" />
+    <EmbeddedResource Include="Resources\HRD dutch coast south.config.sqlite" />
+    <EmbeddedResource Include="Resources\HRD dutch coast south.sqlite" />
+    <EmbeddedResource Include="Resources\traject_6-3.dbf" />
+    <EmbeddedResource Include="Resources\traject_6-3.prj" />
+    <EmbeddedResource Include="Resources\traject_6-3.shp" />
+    <EmbeddedResource Include="Resources\traject_6-3.shx" />
+    <EmbeddedResource Include="Resources\traject_6-3_vakken.dbf" />
+    <EmbeddedResource Include="Resources\traject_6-3_vakken.prj" />
+    <EmbeddedResource Include="Resources\traject_6-3_vakken.shp" />
+    <EmbeddedResource Include="Resources\traject_6-3_vakken.shx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
+      <Name>Ringtoets.Piping.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
+      <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
+      <Name>Ringtoets.Piping.Plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+      <Project>{14c6f716-64e2-4bc4-a1ef-05865fcefa4c}</Project>
+      <Name>Ringtoets.Piping.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
+      <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
+      <Name>Ringtoets.Integration.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
+      <Project>{28811c4a-6c18-42c1-88b2-a03a3784e2d0}</Project>
+      <Name>Ringtoets.Integration.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
