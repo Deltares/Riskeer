@@ -117,17 +117,13 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithNestedMapData_WhenNestedMapDataChanged_MapControlUpdated()
         {
             // Given
-            using (var form = new Form())
+            using (var map = new MapControl())
             {
-                var map = new MapControl();
                 var testData = new MapPointData("test data");
                 var view = map.Controls.OfType<Map>().First();
 
                 map.Data.Add(testData);
                 map.Data.NotifyObservers();
-
-                form.Controls.Add(map);
-                form.Show();
 
                 var layers = view.Layers.ToList();
 
@@ -145,20 +141,17 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataset_ViewInvalidatedLayersSame()
         {
             // Setup
-            using (var form = new Form())
+            using (var map = new MapControl())
             {
-                var map = new MapControl();
                 var testData = new MapPointData("test data");
                 var mapView = map.Controls.OfType<Map>().First();
                 var invalidated = 0;
 
                 map.Data.Add(testData);
                 map.Data.NotifyObservers();
-                form.Controls.Add(map);
 
                 mapView.Invalidated += (sender, args) => { invalidated++; };
 
-                form.Show();
                 Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
 
                 // Call
@@ -226,26 +219,28 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_NotAllLayersVisible_ZoomToVisibleLayersExtent()
         {
             // Setup
-            var map = new MapControl();
-            var mapView = map.Controls.OfType<Map>().First();
-            var testData = GetTestData();
-            map.Data.Add(testData);
-            map.Data.NotifyObservers();
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var testData = GetTestData();
+                map.Data.Add(testData);
+                map.Data.NotifyObservers();
 
-            var expectedExtent = new Extent(0.0, 0.5, 1.6, 2.1);
-            var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
-            expectedExtent.ExpandBy(smallest*padding);
+                var expectedExtent = new Extent(0.0, 0.5, 1.6, 2.1);
+                var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
+                expectedExtent.ExpandBy(smallest*padding);
 
-            // Precondition
-            Assert.AreEqual(3, mapView.Layers.Count, "Precondition failed: mapView.Layers != 3");
-            Assert.IsFalse(mapView.Layers.All(l => l.IsVisible), "Precondition failed: not all map layers should be visible.");
+                // Precondition
+                Assert.AreEqual(3, mapView.Layers.Count, "Precondition failed: mapView.Layers != 3");
+                Assert.IsFalse(mapView.Layers.All(l => l.IsVisible), "Precondition failed: not all map layers should be visible.");
 
-            // Call
-            map.ZoomToAllVisibleLayers();
+                // Call
+                map.ZoomToAllVisibleLayers();
 
-            // Assert
-            Assert.AreNotEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
-            Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+                // Assert
+                Assert.AreNotEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
+                Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+            }
         }
 
         [Test]
@@ -257,48 +252,50 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_LayersOfVariousDimensions_ZoomToVisibleLayersExtent(double xMax, double yMax)
         {
             // Setup
-            var map = new MapControl();
-            var mapView = map.Controls.OfType<Map>().First();
-            var mapDataCollection = new MapDataCollection("test data");
-
-            mapDataCollection.Add(new MapPointData("test data")
+            using (var map = new MapControl())
             {
-                Features = new[]
+                var mapView = map.Controls.OfType<Map>().First();
+                var mapDataCollection = new MapDataCollection("test data");
+
+                mapDataCollection.Add(new MapPointData("test data")
                 {
-                    new MapFeature(new[]
+                    Features = new[]
                     {
-                        new MapGeometry(new[]
+                        new MapFeature(new[]
                         {
-                            new[]
+                            new MapGeometry(new[]
                             {
-                                new Point2D(0.0, 0.0),
-                                new Point2D(xMax, yMax)
-                            }
+                                new[]
+                                {
+                                    new Point2D(0.0, 0.0),
+                                    new Point2D(xMax, yMax)
+                                }
+                            })
                         })
-                    })
+                    }
+                });
+
+                map.Data.Add(mapDataCollection);
+                map.Data.NotifyObservers();
+
+                var expectedExtent = new Extent(0.0, 0.0, xMax, yMax);
+                var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
+                expectedExtent.ExpandBy(smallest*padding);
+
+                // Call
+                map.ZoomToAllVisibleLayers();
+
+                // Assert
+                if (double.IsInfinity(expectedExtent.Height) || double.IsInfinity(expectedExtent.Width))
+                {
+                    Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
+                    Assert.AreNotEqual(expectedExtent, mapView.ViewExtents);
                 }
-            });
-
-            map.Data.Add(mapDataCollection);
-            map.Data.NotifyObservers();
-
-            var expectedExtent = new Extent(0.0, 0.0, xMax, yMax);
-            var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
-            expectedExtent.ExpandBy(smallest*padding);
-
-            // Call
-            map.ZoomToAllVisibleLayers();
-
-            // Assert
-            if (double.IsInfinity(expectedExtent.Height) || double.IsInfinity(expectedExtent.Width))
-            {
-                Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
-                Assert.AreNotEqual(expectedExtent, mapView.ViewExtents);
-            }
-            else
-            {
-                Assert.AreNotEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
-                Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+                else
+                {
+                    Assert.AreNotEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
+                    Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+                }
             }
         }
 
