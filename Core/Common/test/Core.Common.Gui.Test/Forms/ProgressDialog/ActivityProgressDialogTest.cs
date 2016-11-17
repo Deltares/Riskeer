@@ -23,6 +23,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
+using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Forms.ProgressDialog;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -52,6 +53,7 @@ namespace Core.Common.Gui.Test.Forms.ProgressDialog
             using (var dialog = new ActivityProgressDialog(window, Enumerable.Empty<Activity>()))
             {
                 // Assert
+                Assert.IsInstanceOf<DialogBase>(dialog);
                 Assert.IsNotNull(dialog.Icon);
                 Assert.IsTrue(dialog.ShowIcon);
                 Assert.AreEqual(0, dialog.MinimumSize.Width); // Set during load
