@@ -221,6 +221,7 @@
     <Compile Include="Forms\ViewHost\DocumentViewController.cs" />
     <Compile Include="IGui.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UITypeEditors\SelectionEditor.cs" />
     <Compile Include="ViewPropertyEditor.cs" />
   </ItemGroup>
   <ItemGroup>

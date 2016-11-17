@@ -43,7 +43,7 @@ namespace Core.Plugins.Map.PropertyClasses
         public string Name
         {
             get
-            {
+            {   
                 return data.Name;
             }
         }

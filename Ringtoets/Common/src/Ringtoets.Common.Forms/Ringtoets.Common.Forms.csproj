@@ -133,7 +133,6 @@
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactory.cs" />
     <Compile Include="TypeConverters\FailureMechanismSectionResultNoProbabilityValueDoubleConverter.cs" />
     <Compile Include="TypeConverters\NoValueRoundedDoubleConverter.cs" />
-    <Compile Include="UITypeEditors\SelectionEditor.cs" />
     <Compile Include="Views\CommentView.cs">
       <SubType>UserControl</SubType>
     </Compile>

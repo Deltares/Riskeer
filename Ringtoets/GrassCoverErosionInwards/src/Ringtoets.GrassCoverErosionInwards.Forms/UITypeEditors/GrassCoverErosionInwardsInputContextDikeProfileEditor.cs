@@ -21,9 +21,9 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using Core.Common.Gui.UITypeEditors;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors

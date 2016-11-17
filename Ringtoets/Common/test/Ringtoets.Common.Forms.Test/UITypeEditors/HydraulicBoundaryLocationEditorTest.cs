@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Gui.UITypeEditors;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.UITypeEditors;
