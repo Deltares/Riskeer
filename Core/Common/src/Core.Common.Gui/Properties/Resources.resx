@@ -202,8 +202,8 @@
   <data name="Ribbon_TabItem_Help" xml:space="preserve">
     <value>Help</value>
   </data>
-  <data name="App_Starting_Ringtoets_version_0" xml:space="preserve">
-    <value>Ringtoets versie {0} wordt gestart...</value>
+  <data name="App_Starting_Ringtoets_version_0_by_user_0" xml:space="preserve">
+    <value>Ringtoets versie {0} wordt gestart door {1}...</value>
   </data>
   <data name="Ribbon_Messages" xml:space="preserve">
     <value>Berichten</value>

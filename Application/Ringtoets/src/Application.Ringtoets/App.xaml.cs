@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.DirectoryServices.AccountManagement;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -54,6 +55,7 @@ using Ringtoets.Piping.Plugin;
 using Ringtoets.StabilityPointStructures.Plugin;
 using Ringtoets.StabilityStoneCover.Plugin;
 using Ringtoets.WaveImpactAsphaltCover.Plugin;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
 #if INCLUDE_DEMOPROJECT
 using Demo.Ringtoets.GUIs;
@@ -83,7 +85,11 @@ namespace Application.Ringtoets
         {
             SetLanguage();
 
-            log.Info(string.Format(Core.Common.Gui.Properties.Resources.App_Starting_Ringtoets_version_0, SettingsHelper.ApplicationVersion));
+            var userDisplay = UserDisplay();
+
+            log.Info(string.Format(CoreCommonGuiResources.App_Starting_Ringtoets_version_0_by_user_0,
+                                   SettingsHelper.ApplicationVersion,
+                                   userDisplay));
         }
 
         private delegate void ExceptionDelegate(Exception exception, bool isTerminating);
@@ -219,7 +225,7 @@ namespace Application.Ringtoets
                 {
                     if (!AcquireSingleInstancePerUserMutex())
                     {
-                        MessageBox.Show(Core.Common.Gui.Properties.Resources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets_Please_close_the_other_instance_first);
+                        MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets_Please_close_the_other_instance_first);
                         Shutdown(1);
                         return true; //done here
                     }
@@ -283,7 +289,7 @@ namespace Application.Ringtoets
 
         private static void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Exception exception = e.ExceptionObject as Exception ?? new Exception(Core.Common.Gui.Properties.Resources.App_AppDomain_UnhandledException_Unknown_exception_);
+            Exception exception = e.ExceptionObject as Exception ?? new Exception(CoreCommonGuiResources.App_AppDomain_UnhandledException_Unknown_exception_);
 
             HandleExceptionOnMainThread(exception, e.IsTerminating);
         }
@@ -389,6 +395,11 @@ namespace Application.Ringtoets
                 Thread.CurrentThread.CurrentUICulture = cultureInfo;
                 Thread.CurrentThread.CurrentCulture = cultureInfo;
             }
+        }
+
+        private static string UserDisplay()
+        {
+            return string.Format("{0} ({1})", UserPrincipal.Current.DisplayName, UserPrincipal.Current.SamAccountName);
         }
 
         private static string GetLogFileDirectory()
