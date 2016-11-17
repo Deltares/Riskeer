@@ -244,4 +244,10 @@
   <data name="MapData_Type_Polygons" xml:space="preserve">
     <value>Polygonen</value>
   </data>
+  <data name="Mapdata_SelectedMetaDataAttribute_Description" xml:space="preserve">
+    <value>Toont de eigenschap op basis waarvan labels op de geselecteerde kaartlaag worden weergegeven.</value>
+  </data>
+  <data name="Mapdata_SelectedMetaDataAttribute_DisplayName" xml:space="preserve">
+    <value>Op basis van</value>
+  </data>
 </root>

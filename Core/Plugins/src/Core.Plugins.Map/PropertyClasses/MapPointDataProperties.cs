@@ -39,6 +39,7 @@ namespace Core.Plugins.Map.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int typePropertyIndex = 1;
         private const int showLabelsPropertyIndex = 2;
+        private const int selectedMetaDataAttributePropertyIndex = 3;
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
@@ -86,8 +87,11 @@ namespace Core.Plugins.Map.PropertyClasses
             return data.MetaData;
         }
 
+        [PropertyOrder(selectedMetaDataAttributePropertyIndex)]
         [Editor(typeof(MetaDataAttributeEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_Label")]
+        [ResourcesDisplayName(typeof(Resources), "Mapdata_SelectedMetaDataAttribute_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Mapdata_SelectedMetaDataAttribute_Description")]
         public string SelectedMetaDataAttribute
         {
             get

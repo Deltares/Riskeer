@@ -36,6 +36,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int typePropertyIndex = 1;
         private const int showLabelsPropertyIndex = 2;
+        private const int selectedMetaDataAttributePropertyIndex = 3;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -78,7 +79,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string labelCategory = "Label";
@@ -102,15 +103,22 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             labelCategory,
                                                                             "Weergeven",
                                                                             "Geeft aan of op deze kaartlaag labels moeten worden weergegeven.");
+
+            PropertyDescriptor selectedMetaDataAttributeProperty = dynamicProperties[selectedMetaDataAttributePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(selectedMetaDataAttributeProperty,
+                                                                            labelCategory,
+                                                                            "Op basis van",
+                                                                            "Toont de eigenschap op basis waarvan labels op de geselecteerde kaartlaag worden weergegeven.");
         }
 
         [Test]
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
+            const int numberOfChangedProperties = 2;
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
             MapPointData mapPointData = new MapPointData("Test")
@@ -127,9 +135,11 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Call
             properties.ShowLabels = false;
+            properties.SelectedMetaDataAttribute = "ID";
 
             // Assert
             Assert.AreEqual(properties.ShowLabels, mapPointData.ShowLabels);
+            Assert.AreEqual(properties.SelectedMetaDataAttribute, mapPointData.SelectedMetaDataAttribute);
             mocks.VerifyAll();
         }
     }
