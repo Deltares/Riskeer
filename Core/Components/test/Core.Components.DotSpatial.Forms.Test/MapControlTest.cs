@@ -94,30 +94,49 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void UpdateObserver_UpdateData_UpdateMap()
+        public void GivenMapControlWithMapData_WhenNestedMapDataAdded_MapControlUpdated()
         {
-            // Setup
+            // Given
             using (var map = new MapControl())
             {
                 var mapView = map.Controls.OfType<Map>().First();
                 var testData = new MapPointData("test data");
 
+                // When
                 map.Data.Add(testData);
-                map.UpdateObserver();
+                map.Data.NotifyObservers();
 
-                // Precondition
+                // Then
                 Assert.AreEqual(1, mapView.Layers.Count);
                 Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+            }
+        }
 
-                map.Data.Add(new MapLineData("test data"));
+        [Test]
+        [RequiresSTA]
+        public void GivenMapControlWithNestedMapData_WhenNestedMapDataChanged_MapControlUpdated()
+        {
+            // Given
+            using (var form = new Form())
+            {
+                var map = new MapControl();
+                var testData = new MapPointData("test data");
+                var view = map.Controls.OfType<Map>().First();
+
+                map.Data.Add(testData);
+                map.Data.NotifyObservers();
+
+                form.Controls.Add(map);
+                form.Show();
+
+                var layers = view.Layers.ToList();
 
                 // Call
-                map.UpdateObserver();
+                testData.NotifyObservers();
 
                 // Assert
-                Assert.AreEqual(2, mapView.Layers.Count);
-                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
-                Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[1]);
+                Assert.AreEqual(1, view.Layers.Count);
+                Assert.AreNotSame(layers[0], view.Layers[0]);
             }
         }
 
@@ -498,35 +517,6 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Assert
                 Assert.AreEqual(Cursors.Default, map.Cursor);
-            }
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void UpdateObserver_MapInForm_MapLayersRenewed()
-        {
-            // Setup
-            using (var form = new Form())
-            {
-                var map = new MapControl();
-                var testData = new MapPointData("test data");
-                var view = map.Controls.OfType<Map>().First();
-
-                map.Data.Add(testData);
-                map.Data.NotifyObservers();
-
-                var layers = view.Layers.ToList();
-
-                form.Controls.Add(map);
-
-                form.Show();
-
-                // Call
-                map.UpdateObserver();
-
-                // Assert
-                Assert.AreEqual(1, view.Layers.Count);
-                Assert.AreNotSame(layers[0], view.Layers[0]);
             }
         }
 

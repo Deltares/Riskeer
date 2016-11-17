@@ -36,7 +36,7 @@ namespace Core.Components.DotSpatial.Forms
     /// <summary>
     /// This class describes a map view with configured projection and function mode.
     /// </summary>
-    public sealed class MapControl : Control, IMapControl, IObserver
+    public sealed class MapControl : Control, IMapControl
     {
         private readonly Cursor defaultCursor = Cursors.Default;
         private readonly MapFeatureLayerFactory mapFeatureLayerFactory = new MapFeatureLayerFactory();
@@ -45,6 +45,8 @@ namespace Core.Components.DotSpatial.Forms
         private MapFunctionPan mapFunctionPan;
         private MapFunctionSelectionZoom mapFunctionSelectionZoom;
         private MouseCoordinatesMapExtension mouseCoordinatesMapExtension;
+
+        private readonly RecursiveObserver<MapDataCollection, MapData> mapDataObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -55,7 +57,11 @@ namespace Core.Components.DotSpatial.Forms
             TogglePanning();
 
             Data = new MapDataCollection("Root");
-            Data.Attach(this);
+
+            mapDataObserver = new RecursiveObserver<MapDataCollection, MapData>(DrawFeatureSets, mdc => mdc.Collection)
+            {
+                Observable = Data
+            };
 
             DrawFeatureSets();
         }
@@ -116,15 +122,12 @@ namespace Core.Components.DotSpatial.Forms
             Data = null;
         }
 
-        public void UpdateObserver()
-        {
-            DrawFeatureSets();
-        }
-
         protected override void Dispose(bool disposing)
         {
             map.Dispose();
             mouseCoordinatesMapExtension.Dispose();
+            mapDataObserver.Dispose();
+
             base.Dispose(disposing);
         }
 
