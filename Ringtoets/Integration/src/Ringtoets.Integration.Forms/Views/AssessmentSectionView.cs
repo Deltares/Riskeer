@@ -23,7 +23,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Views;
@@ -115,20 +114,14 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void UpdateMapData()
         {
-            UpdateFeatureBasedMapData(referenceLineMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(data != null
-                                                                                                      ? data.ReferenceLine
-                                                                                                      : null));
-            UpdateFeatureBasedMapData(hydraulicBoundaryDatabaseMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(data != null
-                                                                                                                  ? data.HydraulicBoundaryDatabase
-                                                                                                                  : null));
-        }
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(data != null
+                                                                                                            ? data.ReferenceLine
+                                                                                                            : null);
+            hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(data != null
+                                                                                                                                    ? data.HydraulicBoundaryDatabase
+                                                                                                                                    : null);
 
-        private static void UpdateFeatureBasedMapData(FeatureBasedMapData mapData, MapFeature[] features)
-        {
-            mapData.Features = features;
-            mapData.NotifyObservers();
+            mapControl.Data.NotifyObservers();
         }
     }
 }

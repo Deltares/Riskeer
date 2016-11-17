@@ -24,7 +24,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -153,26 +152,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 dikeProfiles = data.WrappedData.DikeProfiles;
             }
 
-            UpdateFeatureBasedMapData(referenceLineMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine));
-            UpdateFeatureBasedMapData(sectionsMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections));
-            UpdateFeatureBasedMapData(sectionsStartPointMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections));
-            UpdateFeatureBasedMapData(sectionsEndPointMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections));
-            UpdateFeatureBasedMapData(hydraulicBoundaryDatabaseMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase));
-            UpdateFeatureBasedMapData(dikeProfilesMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(dikeProfiles));
-            UpdateFeatureBasedMapData(foreshoreProfilesMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(dikeProfiles.Select(dp => dp.ForeshoreProfile)));
-        }
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine);
+            sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
+            sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
+            sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
+            hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
+            dikeProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(dikeProfiles);
+            foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(dikeProfiles.Select(dp => dp.ForeshoreProfile));
 
-        private static void UpdateFeatureBasedMapData(FeatureBasedMapData mapData, MapFeature[] features)
-        {
-            mapData.Features = features;
-            mapData.NotifyObservers();
+            mapControl.Data.NotifyObservers();
         }
     }
 }

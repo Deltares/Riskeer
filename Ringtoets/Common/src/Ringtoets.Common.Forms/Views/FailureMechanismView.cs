@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -134,24 +133,13 @@ namespace Ringtoets.Common.Forms.Views
                 failureMechanismSections = data.WrappedData.Sections;
             }
 
-            UpdateFeatureBasedMapData(referenceLineMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine));
-            UpdateFeatureBasedMapData(sectionsMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections));
-            UpdateFeatureBasedMapData(sectionsStartPointMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections));
-            UpdateFeatureBasedMapData(sectionsEndPointMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections));
-            UpdateFeatureBasedMapData(hydraulicBoundaryDatabaseMapData,
-                                      RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase));
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine);
+            sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
+            sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
+            sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
+            hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
 
             mapControl.Data.NotifyObservers();
-        }
-
-        private static void UpdateFeatureBasedMapData(FeatureBasedMapData mapData, MapFeature[] features)
-        {
-            mapData.Features = features;
-            mapData.NotifyObservers();
         }
     }
 }
