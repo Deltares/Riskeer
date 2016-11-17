@@ -61,5 +61,30 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             }
             mockRepository.VerifyAll();
         }
+
+        [Test]
+        public void Data_SetSameDataObject_NoRedundantViewUpdate()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var propertyResolverStub = mockRepository.Stub<IPropertyResolver>();
+            mockRepository.ReplayAll();
+
+            var dataObject = new object();
+
+            using (var propertyGridView = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolverStub))
+            {
+                propertyGridView.Data = dataObject;
+
+                var selectedObject = propertyGridView.SelectedObject;
+
+                // Call
+                propertyGridView.Data = dataObject;
+
+                // Assert
+                Assert.AreSame(selectedObject, propertyGridView.SelectedObject);
+            }
+            mockRepository.VerifyAll();
+        }
     }
 }

@@ -114,6 +114,12 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
             set
             {
+                // Prevent redundant updates
+                if (data != null && data.Equals(value))
+                {
+                    return;
+                }
+
                 if (observable != null)
                 {
                     observable.Detach(this);
