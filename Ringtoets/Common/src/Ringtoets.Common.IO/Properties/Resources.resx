@@ -126,11 +126,6 @@
   <data name="FailureMechanismSectionReader_File_has_unsupported_multiPolyline" xml:space="preserve">
     <value>Het bestand bevat één of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.</value>
   </data>
-  <data name="ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed" xml:space="preserve">
-    <value>Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd.
-
-Weet u zeker dat u wilt doorgaan?</value>
-  </data>
   <data name="ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported" xml:space="preserve">
     <value>{0} 
 Er is geen referentielijn geïmporteerd.</value>

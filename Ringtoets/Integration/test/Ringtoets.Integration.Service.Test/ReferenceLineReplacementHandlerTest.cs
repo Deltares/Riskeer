@@ -83,9 +83,9 @@ namespace Ringtoets.Integration.Service.Test
             Assert.AreEqual(clickOk, result);
 
             Assert.AreEqual("Bevestigen", dialogTitle);
-            Assert.AreEqual("Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
+            Assert.AreEqual("Na het importeren van een aangepaste ligging van de referentielijn zullen alle geimporteerde en berekende gegevens van faalmechanismen worden gewist." + Environment.NewLine +
                             Environment.NewLine +
-                            "Weet u zeker dat u wilt doorgaan?",
+                            "Wilt u doorgaan?",
                             dialogMessage);
         }
 

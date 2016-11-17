@@ -24,7 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.ReferenceLines;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using Ringtoets.Integration.Service.Properties;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Integration.Service
@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Service
     {
         public bool ConfirmReplace()
         {
-            DialogResult result = MessageBox.Show(RingtoetsCommonIOResources.ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed,
+            DialogResult result = MessageBox.Show(Resources.ReferenceLineReplacementHandler_Confirm_clear_referenceLine_dependent_data,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
             return result == DialogResult.OK;
