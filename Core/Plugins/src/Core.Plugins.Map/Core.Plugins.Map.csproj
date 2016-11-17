@@ -80,7 +80,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\MapLineDataProperties.cs" />
     <Compile Include="PropertyClasses\MapPointDataProperties.cs" />
+    <Compile Include="PropertyClasses\MapPolygonDataProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">

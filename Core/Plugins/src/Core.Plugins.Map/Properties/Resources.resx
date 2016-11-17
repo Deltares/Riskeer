@@ -229,4 +229,19 @@
   <data name="MapData_ShowLabels_DisplayName" xml:space="preserve">
     <value>Weergeven</value>
   </data>
+  <data name="MapData_Type_Description" xml:space="preserve">
+    <value>Type van de data dat wordt getoond op de kaartlaag.</value>
+  </data>
+  <data name="MapData_Type_DisplayName" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="MapData_Type_Lines" xml:space="preserve">
+    <value>Lijnen</value>
+  </data>
+  <data name="MapData_Type_Points" xml:space="preserve">
+    <value>Punten</value>
+  </data>
+  <data name="MapData_Type_Polygons" xml:space="preserve">
+    <value>Polygonen</value>
+  </data>
 </root>

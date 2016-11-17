@@ -46,10 +46,10 @@ namespace Ringtoets.Piping.Plugin.Test
         [STAThread] // For creation of XAML UI component (PipingRibbon)
         public void DefaultConstructor_ExpectedValues()
         {
-            // call
+            // Call
             using (var plugin = new PipingPlugin())
             {
-                // assert
+                // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
                 Assert.IsInstanceOf<PipingRibbon>(plugin.RibbonCommandHandler);
             }
@@ -58,16 +58,16 @@ namespace Ringtoets.Piping.Plugin.Test
         [Test]
         public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
         {
-            // setup
+            // Setup
             using (var plugin = new PipingPlugin())
             {
-                // call
+                // Call
                 var mocks = new MockRepository();
                 mocks.ReplayAll();
 
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
-                // assert
+                // Assert
                 Assert.AreEqual(6, propertyInfos.Length);
 
                 PropertyInfo pipingFailureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Plugin.Test
         [Test]
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
@@ -136,10 +136,10 @@ namespace Ringtoets.Piping.Plugin.Test
                 Gui = guiStub
             })
             {
-                // call
+                // Call
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
-                // assert
+                // Assert
                 Assert.AreEqual(13, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLinesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLine)));

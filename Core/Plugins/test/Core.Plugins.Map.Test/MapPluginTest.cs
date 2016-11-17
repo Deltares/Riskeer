@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
@@ -30,8 +31,11 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
+using Core.Common.Gui.TestUtil;
 using Core.Components.DotSpatial.Forms;
+using Core.Components.Gis.Data;
 using Core.Plugins.Map.Legend;
+using Core.Plugins.Map.PropertyClasses;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -103,6 +107,44 @@ namespace Core.Plugins.Map.Test
                 Assert.NotNull(plugin.RibbonCommandHandler);
             }
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
+        {
+            // Setup
+            using (var plugin = new MapPlugin())
+            {
+                // Call
+                PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(3, propertyInfos.Length);
+
+                PropertyInfo mapPointDataPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(MapPointData),
+                    typeof(MapPointDataProperties));
+                Assert.IsNull(mapPointDataPropertyInfo.AdditionalDataCheck);
+                Assert.IsNull(mapPointDataPropertyInfo.GetObjectPropertiesData);
+                Assert.IsNull(mapPointDataPropertyInfo.AfterCreate);
+
+                PropertyInfo mapLineDataPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(MapLineData),
+                    typeof(MapLineDataProperties));
+                Assert.IsNull(mapLineDataPropertyInfo.AdditionalDataCheck);
+                Assert.IsNull(mapLineDataPropertyInfo.GetObjectPropertiesData);
+                Assert.IsNull(mapLineDataPropertyInfo.AfterCreate);
+
+                PropertyInfo mapPolygonDataPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(MapPolygonData),
+                    typeof(MapPolygonDataProperties));
+                Assert.IsNull(mapPolygonDataPropertyInfo.AdditionalDataCheck);
+                Assert.IsNull(mapPolygonDataPropertyInfo.GetObjectPropertiesData);
+                Assert.IsNull(mapPolygonDataPropertyInfo.AfterCreate);
+            }
         }
 
         [Test]

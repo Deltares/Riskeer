@@ -42,10 +42,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // call
+            // Call
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                // assert
+                // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
             }
         }

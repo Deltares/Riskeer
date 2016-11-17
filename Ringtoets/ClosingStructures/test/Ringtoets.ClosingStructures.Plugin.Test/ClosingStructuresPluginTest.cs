@@ -54,17 +54,17 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
         [Test]
         public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             using (var plugin = new ClosingStructuresPlugin())
             {
-                // call
+                // Call
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
-                // assert
+                // Assert
                 Assert.AreEqual(3, propertyInfos.Length);
 
                 var failureMechanism = new ClosingStructuresFailureMechanism();

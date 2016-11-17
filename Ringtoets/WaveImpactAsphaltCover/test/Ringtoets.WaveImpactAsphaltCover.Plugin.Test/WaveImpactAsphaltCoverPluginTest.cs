@@ -24,7 +24,6 @@ using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -41,10 +40,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // call
+            // Call
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
-                // assert
+                // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
             }
         }

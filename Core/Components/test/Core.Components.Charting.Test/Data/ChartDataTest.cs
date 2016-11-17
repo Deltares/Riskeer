@@ -62,7 +62,7 @@ namespace Core.Components.Charting.Test.Data
         [Test]
         public void Name_SetName_ReturnsNewName()
         {
-            // setup
+            // Setup
             var name = "Some name";
             var newName = "Something";
             var data = new TestChartData(name);
