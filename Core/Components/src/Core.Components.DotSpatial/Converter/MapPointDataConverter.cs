@@ -60,7 +60,7 @@ namespace Core.Components.DotSpatial.Converter
                 IsVisible = data.IsVisible,
                 Name = data.Name,
                 ShowLabels = data.ShowLabels,
-                LabelLayer = GetLabelLayer(featureSet, data.ShowLabels, data.SelectedAttribute)
+                LabelLayer = GetLabelLayer(featureSet, data.ShowLabels, data.SelectedMetaDataAttribute)
             };
 
             CreateStyle(layer, data.Style);

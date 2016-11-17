@@ -43,7 +43,7 @@ namespace Core.Components.Gis.Data
         {
             features = new MapFeature[0];
             ShowLabels = false;
-            SelectedAttribute = "name";
+            SelectedMetaDataAttribute = "name";
             MetaData = new List<string>();
         }
 
@@ -74,7 +74,7 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Gets or sets the selected attribute of the meta data to show as label.
         /// </summary>
-        public string SelectedAttribute { get; set; }
+        public string SelectedMetaDataAttribute { get; set; }
 
         /// <summary>
         /// Gets the meta data associated with the map data.

@@ -229,7 +229,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             {
                 Features = features.ToArray(),
                 ShowLabels = true,
-                SelectedAttribute = selectedAttribute
+                SelectedMetaDataAttribute = selectedAttribute
             };
 
             // Call
@@ -255,7 +255,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual("ID", labelCategory.Symbolizer.PriorityField);
             Assert.AreEqual(ContentAlignment.MiddleRight, labelCategory.Symbolizer.Orientation);
             Assert.AreEqual(5, labelCategory.Symbolizer.OffsetX);
-            Assert.AreEqual(string.Format("[{0}]", pointData.SelectedAttribute), labelCategory.Expression);
+            Assert.AreEqual(string.Format("[{0}]", pointData.SelectedMetaDataAttribute), labelCategory.Expression);
         }
 
         [Test]
