@@ -40,6 +40,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
@@ -331,77 +332,101 @@ namespace Ringtoets.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(15, viewInfos.Length);
+                Assert.AreEqual(16, viewInfos.Length);
 
-                var contributionViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismContributionContext));
-                Assert.AreEqual(typeof(FailureMechanismContributionView), contributionViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismContributionIcon, contributionViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismContributionContext),
+                    typeof(FailureMechanismContribution),
+                    typeof(FailureMechanismContributionView));
 
-                var designWaterLevelLocationsViewInfo = viewInfos.Single(vi => vi.DataType == typeof(DesignWaterLevelLocationsContext));
-                Assert.AreEqual(typeof(DesignWaterLevelLocationsView), designWaterLevelLocationsViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, designWaterLevelLocationsViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(DesignWaterLevelLocationsContext),
+                    typeof(IEnumerable<HydraulicBoundaryLocation>),
+                    typeof(DesignWaterLevelLocationsView));
 
-                var waveHeightLocationsViewInfo = viewInfos.Single(vi => vi.DataType == typeof(WaveHeightLocationsContext));
-                Assert.AreEqual(typeof(WaveHeightLocationsView), waveHeightLocationsViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, waveHeightLocationsViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(WaveHeightLocationsContext),
+                    typeof(IEnumerable<HydraulicBoundaryLocation>),
+                    typeof(WaveHeightLocationsView));
 
-                var mapViewInfo = viewInfos.Single(vi => vi.DataType == typeof(IAssessmentSection));
-                Assert.AreEqual(typeof(AssessmentSectionView), mapViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Map, mapViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(IAssessmentSection),
+                    typeof(AssessmentSectionView));
 
-                var strengthStabilityLengthwiseConstructionResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>), strengthStabilityLengthwiseConstructionResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(StrengthStabilityLengthwiseConstructionResultView), strengthStabilityLengthwiseConstructionResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, strengthStabilityLengthwiseConstructionResultViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismContext<IFailureMechanism>),
+                    typeof(FailureMechanismView<IFailureMechanism>));
 
-                var waterPressureAsphaltCoverResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult>), waterPressureAsphaltCoverResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(WaterPressureAsphaltCoverResultView), waterPressureAsphaltCoverResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, waterPressureAsphaltCoverResultViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>),
+                    typeof(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>),
+                    typeof(StrengthStabilityLengthwiseConstructionResultView));
 
-                var macrostabilityOutwardsResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<MacrostabilityOutwardsFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult>), macrostabilityOutwardsResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(MacrostabilityOutwardsResultView), macrostabilityOutwardsResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, macrostabilityOutwardsResultViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>),
+                    typeof(IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult>),
+                    typeof(WaterPressureAsphaltCoverResultView));
 
-                var macrostabilityInwardsResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<MacrostabilityInwardsFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult>), macrostabilityInwardsResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(MacrostabilityInwardsResultView), macrostabilityInwardsResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, macrostabilityInwardsResultViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<MacrostabilityOutwardsFailureMechanismSectionResult>),
+                    typeof(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult>),
+                    typeof(MacrostabilityOutwardsResultView));
 
-                var duneErosionResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<DuneErosionFailureMechanismSectionResult>), duneErosionResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(DuneErosionResultView), duneErosionResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, duneErosionResultViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<MacrostabilityInwardsFailureMechanismSectionResult>),
+                    typeof(IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult>),
+                    typeof(MacrostabilityInwardsResultView));
 
-                var grassCoverSlipOffInwardsResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult>), grassCoverSlipOffInwardsResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(GrassCoverSlipOffInwardsResultView), grassCoverSlipOffInwardsResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, grassCoverSlipOffInwardsResultViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>),
+                    typeof(IEnumerable<DuneErosionFailureMechanismSectionResult>),
+                    typeof(DuneErosionResultView));
 
-                var grassCoverSlipOffOutwardsResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>), grassCoverSlipOffOutwardsResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(GrassCoverSlipOffOutwardsResultView), grassCoverSlipOffOutwardsResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, grassCoverSlipOffOutwardsResultViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>),
+                    typeof(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult>),
+                    typeof(GrassCoverSlipOffInwardsResultView));
 
-                var microstabilityResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<MicrostabilityFailureMechanismSectionResult>), microstabilityResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(MicrostabilityResultView), microstabilityResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, microstabilityResultViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>),
+                    typeof(IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>),
+                    typeof(GrassCoverSlipOffOutwardsResultView));
 
-                var pipingStructureResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<PipingStructureFailureMechanismSectionResult>), pipingStructureResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(PipingStructureResultView), pipingStructureResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, pipingStructureResultViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>),
+                    typeof(IEnumerable<MicrostabilityFailureMechanismSectionResult>),
+                    typeof(MicrostabilityResultView));
 
-                var technicalInnovationResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<TechnicalInnovationFailureMechanismSectionResult>), technicalInnovationResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(TechnicalInnovationResultView), technicalInnovationResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, technicalInnovationResultViewInfo.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>),
+                    typeof(IEnumerable<PipingStructureFailureMechanismSectionResult>),
+                    typeof(PipingStructureResultView));
 
-                var commentView = viewInfos.Single(vi => vi.DataType == typeof(CommentContext<ICommentable>));
-                Assert.AreEqual(typeof(CommentView), commentView.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.EditDocumentIcon, commentView.Image);
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>),
+                    typeof(IEnumerable<TechnicalInnovationFailureMechanismSectionResult>),
+                    typeof(TechnicalInnovationResultView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(CommentContext<ICommentable>),
+                    typeof(ICommentable),
+                    typeof(CommentView));
             }
         }
 

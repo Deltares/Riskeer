@@ -226,7 +226,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         #region ViewInfo
 
-        #region HeightStructuresFailureMechanismView ViewInfo
+        #region ClosingStructuresFailureMechanismView ViewInfo
 
         private bool CloseClosingStructuresFailureMechanismViewForData(ClosingStructuresFailureMechanismView view, object o)
         {

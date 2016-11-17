@@ -52,7 +52,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class FailureMechanismContextTreeNodeInfoTest
     {
-        private const int contextMenuRelevancyIndex = 0;
+        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
+        private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private MockRepository mocks;
 
         [SetUp]
@@ -273,6 +274,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var gui = mocks.StrictMock<IGui>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
+                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
@@ -371,7 +374,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     // Call
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                     {
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndex,
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                                       RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
                                                                       RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
                                                                       RingtoetsCommonFormsResources.Checkbox_ticked);
@@ -423,7 +426,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                     {
                         // Call
-                        contextMenu.Items[contextMenuRelevancyIndex].PerformClick();
+                        contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
 
                         // Assert
                         Assert.IsFalse(failureMechanism.IsRelevant);
@@ -470,7 +473,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     using (var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                     {
                         // Call
-                        contextMenu.Items[contextMenuRelevancyIndex].PerformClick();
+                        contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
 
                         // Assert
                         Assert.IsTrue(failureMechanism.IsRelevant);

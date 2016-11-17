@@ -648,6 +648,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             Assert.AreEqual(RingtoetsCommonDataResources.ReferenceLine_DisplayName, referenceLineMapData.Name);
             Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName, sectionsMapData.Name);
+            Assert.AreEqual(RingtoetsCommonFormsResources.ForeshoreProfiles_DisplayName, foreshoreProfilesMapData.Name);
+            Assert.AreEqual(RingtoetsCommonFormsResources.StructuresCollection_DisplayName, structuresMapData.Name);
             Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), sectionsStartPointMapData.Name);
             Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), sectionsEndPointMapData.Name);
             Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, hydraulicBoundaryDatabaseMapData.Name);

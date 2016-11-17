@@ -77,6 +77,7 @@
     <Compile Include="ViewInfos\CommentViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\DesignWaterLevelLocationsViewInfoTest.cs" />
+    <Compile Include="ViewInfos\StabilityPointStructuresFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\TechnicalInnovationResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\MicrostabilityResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\PipingStructureResultViewInfoTest.cs" />
@@ -134,6 +135,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
       <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
       <Name>Ringtoets.Common.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
       <Project>{90de728e-48ef-4665-ab38-3d88e41d9f4d}</Project>

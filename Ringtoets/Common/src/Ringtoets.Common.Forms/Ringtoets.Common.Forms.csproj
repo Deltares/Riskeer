@@ -111,6 +111,12 @@
     <Compile Include="UITypeEditors\IHasHydraulicBoundaryLocationProperty.cs" />
     <Compile Include="UITypeEditors\IHasStructureProperty.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
+    <Compile Include="Views\FailureMechanismView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FailureMechanismView.Designer.cs">
+      <DependentUpon>FailureMechanismView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\DesignWaterLevelLocationRow.cs" />
     <Compile Include="Views\FailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationRow.cs" />
@@ -153,6 +159,9 @@
     <EmbeddedResource Include="ScenarioSelectionControl.resx">
       <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\FailureMechanismView.resx">
+      <DependentUpon>FailureMechanismView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\CommentView.resx">
       <DependentUpon>CommentView.cs</DependentUpon>
     </EmbeddedResource>
@@ -194,6 +203,14 @@
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
+      <Project>{5a91174a-fb95-4c9d-9ca5-81c0b8d4361a}</Project>
+      <Name>Core.Components.DotSpatial.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
+      <Project>{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}</Project>
+      <Name>Core.Components.Gis.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>

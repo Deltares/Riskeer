@@ -353,6 +353,14 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.Map
             };
 
+            yield return new ViewInfo<FailureMechanismContext<IFailureMechanism>, FailureMechanismView<IFailureMechanism>>
+            {
+                GetViewName = (v, o) => o.WrappedData.Name,
+                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                CloseForData = CloseFailureMechanismViewForData,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+            };
+
             yield return CreateFailureMechanismResultViewInfo<
                 DuneErosionFailureMechanismSectionResult,
                 DuneErosionResultView>();
@@ -751,6 +759,23 @@ namespace Ringtoets.Integration.Plugin
                 }
             }
         }
+
+        #region FailureMechanismView ViewInfo
+
+        private bool CloseFailureMechanismViewForData(FailureMechanismView<IFailureMechanism> view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as IFailureMechanism;
+
+            var viewFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)view.Data;
+            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
+                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+        }
+
+        #endregion
 
         #region FailureMechanismContributionContext ViewInfo
 
@@ -1306,7 +1331,9 @@ namespace Ringtoets.Integration.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

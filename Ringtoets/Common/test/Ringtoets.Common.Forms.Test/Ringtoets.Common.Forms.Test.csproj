@@ -103,6 +103,7 @@
     <Compile Include="UITypeEditors\ForeshoreProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\SelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\StructureEditorTest.cs" />
+    <Compile Include="Views\FailureMechanismViewTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationRowTest.cs" />
     <Compile Include="Views\FailureMechanismResultViewTest.cs">
@@ -142,6 +143,14 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
+      <Project>{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}</Project>
+      <Name>Core.Components.DotSpatial.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
+      <Project>{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}</Project>
+      <Name>Core.Components.Gis.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
