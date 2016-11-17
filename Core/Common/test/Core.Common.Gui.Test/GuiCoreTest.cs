@@ -1025,7 +1025,7 @@ namespace Core.Common.Gui.Test
         [STAThread]
         public void GivenGuiWithoutSelection_WhenSelectionProviderAdded_ThenSelectionSynced()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
@@ -1040,10 +1040,10 @@ namespace Core.Common.Gui.Test
                 // Precondition
                 Assert.IsNull(gui.Selection);
 
-                // Call
+                // When
                 gui.ViewHost.AddDocumentView(selectionProvider);
 
-                // Assert
+                // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
             }
             mocks.VerifyAll();
@@ -1053,7 +1053,7 @@ namespace Core.Common.Gui.Test
         [STAThread]
         public void GivenGuiWithRandomSelection_WhenSelectionProviderAdded_ThenSelectionSynced()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
@@ -1067,10 +1067,10 @@ namespace Core.Common.Gui.Test
 
                 gui.Selection = new object();
 
-                // Call
+                // When
                 gui.ViewHost.AddDocumentView(selectionProvider);
 
-                // Assert
+                // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
             }
             mocks.VerifyAll();
@@ -1080,7 +1080,7 @@ namespace Core.Common.Gui.Test
         [STAThread]
         public void GivenGuiWithRandomSelection_WhenNonSelectionProviderAdded_ThenSelectionPreserved()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
@@ -1094,10 +1094,10 @@ namespace Core.Common.Gui.Test
 
                 gui.Selection = selection;
 
-                // Call
+                // When
                 gui.ViewHost.AddDocumentView(new TestView());
 
-                // Assert
+                // Then
                 Assert.AreSame(selection, gui.Selection);
             }
             mocks.VerifyAll();
@@ -1107,7 +1107,7 @@ namespace Core.Common.Gui.Test
         [STAThread]
         public void GivenGuiWithRandomSelection_WhenSelectionChangedOnAddedSelectionProvider_ThenSelectionSynced()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
@@ -1122,10 +1122,10 @@ namespace Core.Common.Gui.Test
 
                 gui.Selection = new object();
 
-                // Call
+                // When
                 selectionProvider.ChangeSelection();
 
-                // Assert
+                // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
             }
             mocks.VerifyAll();
@@ -1135,7 +1135,7 @@ namespace Core.Common.Gui.Test
         [STAThread]
         public void GivenGuiWithRandomSelection_WhenSelectionChangedOnRemovedSelectionProvider_ThenSelectionNoLongerSynced()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
@@ -1152,10 +1152,10 @@ namespace Core.Common.Gui.Test
 
                 gui.Selection = selection;
 
-                // Call
+                // When
                 selectionProvider.ChangeSelection();
 
-                // Assert
+                // Then
                 Assert.AreSame(selection, gui.Selection);
             }
             mocks.VerifyAll();
@@ -1165,7 +1165,7 @@ namespace Core.Common.Gui.Test
         [STAThread]
         public void GivenGuiWithRandomSelection_WhenSelectionProviderBecomesActiveView_ThenSelectionSynced()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
@@ -1181,10 +1181,10 @@ namespace Core.Common.Gui.Test
 
                 gui.Selection = new object();
 
-                // Call
+                // When
                 gui.ViewHost.SetFocusToView(selectionProvider);
 
-                // Assert
+                // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
             }
             mocks.VerifyAll();
@@ -1194,7 +1194,7 @@ namespace Core.Common.Gui.Test
         [STAThread]
         public void GivenGuiWithRandomSelection_WhenNonSelectionProviderBecomesActiveView_ThenSelectionPreserved()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
@@ -1210,11 +1210,69 @@ namespace Core.Common.Gui.Test
 
                 gui.Selection = selection;
 
-                // Call
+                // When
                 gui.ViewHost.SetFocusToView(testView);
 
-                // Assert
+                // Then
                 Assert.AreSame(selection, gui.Selection);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void GivenGuiWithRandomSelection_WhenSelectionProviderRemoved_ThenSelectionPreserved()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            mocks.ReplayAll();
+
+            var testView = new TestView();
+            var selection = new object();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Run();
+                gui.ViewHost.AddDocumentView(testView);
+
+                gui.Selection = selection;
+
+                // When
+                gui.ViewHost.Remove(testView);
+
+                // Then
+                Assert.AreSame(selection, gui.Selection);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void GivenGuiWithSelectionFromSelectionProvider_WhenSelectionProviderRemoved_ThenSelectionCleared()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            mocks.ReplayAll();
+
+            var selectionProvider = new TestSelectionProvider();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Run();
+                gui.ViewHost.AddDocumentView(selectionProvider);
+
+                // Precondition
+                Assert.AreSame(selectionProvider.Selection, gui.Selection);
+
+                // When
+                gui.ViewHost.Remove(selectionProvider);
+
+                // Then
+                Assert.IsNull(gui.Selection);
             }
             mocks.VerifyAll();
         }
@@ -1223,7 +1281,7 @@ namespace Core.Common.Gui.Test
         [STAThread]
         public void GivenGuiWithRandomSelection_WhenGuiDisposed_ThenSelectionNoLongerSynced()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
@@ -1241,10 +1299,10 @@ namespace Core.Common.Gui.Test
                 // Precondition
                 Assert.IsNull(gui.Selection);
 
-                // Call
+                // When
                 selectionProvider.ChangeSelection();
 
-                // Assert
+                // Then
                 Assert.IsNull(gui.Selection);
             }
             mocks.VerifyAll();

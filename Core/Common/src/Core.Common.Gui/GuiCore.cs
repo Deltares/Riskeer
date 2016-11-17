@@ -517,6 +517,12 @@ namespace Core.Common.Gui
             {
                 selectionProviders.Remove(selectionProvider);
                 selectionProvider.SelectionChanged -= OnSelectionChanged;
+
+                // Clear the current selection if it's no longer applicable
+                if (Selection != null && !selectionProviders.Select(sp => sp.Selection).Any(s => Selection.Equals(s)))
+                {
+                    Selection = null;
+                }
             }
         }
 
