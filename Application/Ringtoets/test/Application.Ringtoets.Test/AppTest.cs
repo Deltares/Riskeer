@@ -22,7 +22,8 @@
 using System;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
-using System.Threading;
+using System.Security;
+using System.Security.Principal;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -76,10 +77,10 @@ namespace Application.Ringtoets.Test
                 };
 
                 // Assert
-                var userDisplayInfo = !Thread.CurrentPrincipal.Identity.IsAuthenticated
-                                          ? Environment.UserName
-                                          : string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
-                                                          UserPrincipal.Current.SamAccountName);
+                string userDisplayInfo = IsAuthenticated()
+                                             ? string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
+                                                             UserPrincipal.Current.SamAccountName)
+                                             : Environment.UserName;
 
                 TestHelper.AssertLogMessages(call, messages =>
                 {
@@ -89,6 +90,19 @@ namespace Application.Ringtoets.Test
                                                   SettingsHelper.ApplicationVersion, userDisplayInfo), msgs[0]);
                 });
             });
+        }
+
+        private static bool IsAuthenticated()
+        {
+            try
+            {
+                WindowsIdentity identity = WindowsIdentity.GetCurrent();
+                return identity.IsAuthenticated;
+            }
+            catch (SecurityException)
+            {
+                return false;
+            }
         }
     }
 }

@@ -28,6 +28,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security;
+using System.Security.Principal;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
@@ -398,10 +400,23 @@ namespace Application.Ringtoets
 
         private static string UserDisplay()
         {
-            return !Thread.CurrentPrincipal.Identity.IsAuthenticated
-                       ? Environment.UserName
-                       : string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
-                                       UserPrincipal.Current.SamAccountName);
+            return IsAuthenticated()
+                       ? string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
+                                       UserPrincipal.Current.SamAccountName)
+                       : Environment.UserName;
+        }
+
+        private static bool IsAuthenticated()
+        {
+            try
+            {
+                WindowsIdentity identity = WindowsIdentity.GetCurrent();
+                return identity.IsAuthenticated;
+            }
+            catch (SecurityException)
+            {
+                return false;
+            }
         }
 
         private static string GetLogFileDirectory()
