@@ -215,9 +215,18 @@
     <value>Algemeen</value>
   </data>
   <data name="MapData_Name_Description" xml:space="preserve">
-    <value>Naam van de kaartlaag.</value>
+    <value>De naam van de kaartlaag.</value>
   </data>
   <data name="MapData_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
+  </data>
+  <data name="Categories_Label" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="MapData_ShowLabels_Description" xml:space="preserve">
+    <value>Geeft aan of op deze kaartlaag labels moeten worden weergegeven.</value>
+  </data>
+  <data name="MapData_ShowLabels_DisplayName" xml:space="preserve">
+    <value>Weergeven</value>
   </data>
 </root>
