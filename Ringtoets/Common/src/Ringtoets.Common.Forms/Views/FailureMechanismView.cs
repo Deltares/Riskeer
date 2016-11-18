@@ -71,6 +71,7 @@ namespace Ringtoets.Common.Forms.Views
             mapControl.Data.Add(sectionsEndPointMapData);
             mapControl.Data.Add(hydraulicBoundaryDatabaseMapData);
 
+            mapControl.Data.NotifyObservers();
         }
 
         public object Data
