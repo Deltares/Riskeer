@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
@@ -42,7 +44,14 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Integration.Service.Test
 {
-    public class TestDataGenerator {
+    /// <summary>
+    /// Class that generates fully configured Ringtoets objects.
+    /// </summary>
+    public static class TestDataGenerator
+    {
+        /// <summary>
+        /// Gets a fully configured assessment section.
+        /// </summary>
         public static AssessmentSection GetFullyConfiguredAssessmentSection()
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -55,19 +64,88 @@ namespace Ringtoets.Integration.Service.Test
                 }
             };
 
-            SetFullyConfiguredStructuresFailureMechanism<ClosingStructuresInput, ClosingStructure>(
-                assessmentSection.ClosingStructures, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.ClosingStructures, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation);
-            SetFullyConfiguredStructuresFailureMechanism<HeightStructuresInput, HeightStructure>(
-                assessmentSection.HeightStructures, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.HeightStructures, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.PipingFailureMechanism, hydraulicBoundaryLocation);
-            SetFullyConfiguredStructuresFailureMechanism<StabilityPointStructuresInput, StabilityPointStructure>(
-                assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.StabilityStoneCover, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocation);
 
             return assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets a fully configured stability stone cover failure mechanism.
+        /// </summary>
+        public static StabilityStoneCoverFailureMechanism GetFullyConfiguredStabilityStoneCoverFailureMechanism()
+        {
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            SetFullyConfiguredFailureMechanism(failureMechanism, hydroLocation);
+
+            return failureMechanism;
+        }
+
+        /// <summary>
+        /// Gets a fully configured asphalt cover failure mechanism.
+        /// </summary>
+        public static WaveImpactAsphaltCoverFailureMechanism GetFullyConfiguredWaveImpactAsphaltCoverFailureMechanism()
+        {
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            SetFullyConfiguredFailureMechanism(failureMechanism, hydroLocation);
+
+            return failureMechanism;
+        }
+
+        /// <summary>
+        /// Gets a fully configured grass cover erosion outwards failure mechanism.
+        /// </summary>
+        public static GrassCoverErosionOutwardsFailureMechanism GetFullyConfiguredGrassCoverErosionOutwardsFailureMechanism()
+        {
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            SetFullyConfiguredFailureMechanism(failureMechanism, hydroLocation);
+
+            return failureMechanism;
+        }
+
+        /// <summary>
+        /// Gets a fully configured height structures failure mechanism.
+        /// </summary>
+        public static HeightStructuresFailureMechanism GetFullyConfiguredHeightStructuresFailureMechanism()
+        {
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            SetFullyConfiguredFailureMechanism(failureMechanism, hydroLocation);
+
+            return failureMechanism;
+        }
+
+        /// <summary>
+        /// Gets a fully configured closing structures failure mechanism.
+        /// </summary>
+        public static ClosingStructuresFailureMechanism GetFullyConfiguredClosingStructuresFailureMechanism()
+        {
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            SetFullyConfiguredFailureMechanism(failureMechanism, hydroLocation);
+
+            return failureMechanism;
+        }
+
+        /// <summary>
+        /// Gets a fully configured stability point structures failure mechanism.
+        /// </summary>
+        public static StabilityPointStructuresFailureMechanism GetFullyConfiguredStabilityPointStructuresFailureMechanism()
+        {
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            SetFullyConfiguredFailureMechanism(failureMechanism, hydroLocation);
+
+            return failureMechanism;
         }
 
         private static void SetFullyConfiguredFailureMechanism(PipingFailureMechanism failureMechanism,
@@ -196,22 +274,129 @@ namespace Ringtoets.Integration.Service.Test
             });
         }
 
-        private static void SetFullyConfiguredStructuresFailureMechanism<TCalculationInput, TStructureBase>(
+        private static void SetFullyConfiguredFailureMechanism(HeightStructuresFailureMechanism failureMechanism,
+                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            var profile1 = new ForeshoreProfile(new Point2D(0, 0),
+                                                new[]
+                                                {
+                                                    new Point2D(0, 0),
+                                                    new Point2D(10, 0)
+                                                },
+                                                new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties
+                                                {
+                                                    Name = "A",
+                                                    Orientation = 30,
+                                                    X0 = 0
+                                                });
+            var profile2 = new ForeshoreProfile(new Point2D(10, 10),
+                                                new[]
+                                                {
+                                                    new Point2D(0, 2),
+                                                    new Point2D(20, 2)
+                                                },
+                                                new BreakWater(BreakWaterType.Dam, 2.2), new ForeshoreProfile.ConstructionProperties
+                                                {
+                                                    Name = "B",
+                                                    Orientation = 50,
+                                                    X0 = 10
+                                                });
+
+            failureMechanism.ForeshoreProfiles.Add(profile1);
+            failureMechanism.ForeshoreProfiles.Add(profile2);
+            SetConfiguredStructuresCalculations<HeightStructuresInput, HeightStructure>(failureMechanism, hydraulicBoundaryLocation, profile1, profile2);
+        }
+
+        private static void SetFullyConfiguredFailureMechanism(ClosingStructuresFailureMechanism failureMechanism,
+                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            var profile1 = new ForeshoreProfile(new Point2D(0, 0),
+                                                new[]
+                                                {
+                                                    new Point2D(0, 0),
+                                                    new Point2D(10, 0)
+                                                },
+                                                new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties
+                                                {
+                                                    Name = "A",
+                                                    Orientation = 30,
+                                                    X0 = 0
+                                                });
+            var profile2 = new ForeshoreProfile(new Point2D(10, 10),
+                                                new[]
+                                                {
+                                                    new Point2D(0, 2),
+                                                    new Point2D(20, 2)
+                                                },
+                                                new BreakWater(BreakWaterType.Dam, 2.2), new ForeshoreProfile.ConstructionProperties
+                                                {
+                                                    Name = "B",
+                                                    Orientation = 50,
+                                                    X0 = 10
+                                                });
+
+            failureMechanism.ForeshoreProfiles.Add(profile1);
+            failureMechanism.ForeshoreProfiles.Add(profile2);
+            SetConfiguredStructuresCalculations<ClosingStructuresInput, ClosingStructure>(failureMechanism, hydraulicBoundaryLocation, profile1, profile2);
+        }
+
+        private static void SetFullyConfiguredFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism,
+                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            var profile1 = new ForeshoreProfile(new Point2D(0, 0),
+                                                new[]
+                                                {
+                                                    new Point2D(0, 0),
+                                                    new Point2D(10, 0)
+                                                },
+                                                new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties
+                                                {
+                                                    Name = "A",
+                                                    Orientation = 30,
+                                                    X0 = 0
+                                                });
+            var profile2 = new ForeshoreProfile(new Point2D(10, 10),
+                                                new[]
+                                                {
+                                                    new Point2D(0, 2),
+                                                    new Point2D(20, 2)
+                                                },
+                                                new BreakWater(BreakWaterType.Dam, 2.2), new ForeshoreProfile.ConstructionProperties
+                                                {
+                                                    Name = "B",
+                                                    Orientation = 50,
+                                                    X0 = 10
+                                                });
+
+            failureMechanism.ForeshoreProfiles.Add(profile1);
+            failureMechanism.ForeshoreProfiles.Add(profile2);
+            SetConfiguredStructuresCalculations<StabilityPointStructuresInput, StabilityPointStructure>(failureMechanism, hydraulicBoundaryLocation, profile1, profile2);
+        }
+
+        private static void SetConfiguredStructuresCalculations<TCalculationInput, TStructureBase>(
             ICalculatableFailureMechanism failureMechanism,
-            HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            HydraulicBoundaryLocation hydraulicBoundaryLocation,
+            ForeshoreProfile profile1,
+            ForeshoreProfile profile2)
             where TStructureBase : StructureBase
             where TCalculationInput : StructuresInputBase<TStructureBase>, new()
         {
             var calculation = new StructuresCalculation<TCalculationInput>();
             var calculationWithOutput = new StructuresCalculation<TCalculationInput>
             {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile1
+                },
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
             var calculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
                 },
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
@@ -226,13 +411,19 @@ namespace Ringtoets.Integration.Service.Test
             var subCalculation = new StructuresCalculation<TCalculationInput>();
             var subCalculationWithOutput = new StructuresCalculation<TCalculationInput>
             {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
+                },
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile1
                 },
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
@@ -263,9 +454,42 @@ namespace Ringtoets.Integration.Service.Test
         private static void SetFullyConfiguredFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism,
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
+            var profile1 = new ForeshoreProfile(new Point2D(0, 0),
+                                                new[]
+                                                {
+                                                    new Point2D(0, 0),
+                                                    new Point2D(10, 0)
+                                                },
+                                                new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties
+                                                {
+                                                    Name = "A",
+                                                    Orientation = 30,
+                                                    X0 = 0
+                                                });
+            var profile2 = new ForeshoreProfile(new Point2D(10, 10),
+                                                new[]
+                                                {
+                                                    new Point2D(0, 2),
+                                                    new Point2D(20, 2)
+                                                },
+                                                new BreakWater(BreakWaterType.Dam, 2.2), new ForeshoreProfile.ConstructionProperties
+                                                {
+                                                    Name = "B",
+                                                    Orientation = 50,
+                                                    X0 = 10
+                                                });
+
+            failureMechanism.ForeshoreProfiles.Add(profile1);
+            failureMechanism.ForeshoreProfiles.Add(profile2);
+
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var calculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation
             {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile1
+                },
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
                                                                      Enumerable.Empty<WaveConditionsOutput>())
             };
@@ -273,7 +497,8 @@ namespace Ringtoets.Integration.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
                 },
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
                                                                      Enumerable.Empty<WaveConditionsOutput>())
@@ -289,6 +514,11 @@ namespace Ringtoets.Integration.Service.Test
             var subCalculation = new StabilityStoneCoverWaveConditionsCalculation();
             var subCalculationWithOutput = new StabilityStoneCoverWaveConditionsCalculation
             {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
+                },
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
                                                                      Enumerable.Empty<WaveConditionsOutput>())
             };
@@ -296,7 +526,8 @@ namespace Ringtoets.Integration.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile1
                 },
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
                                                                      Enumerable.Empty<WaveConditionsOutput>())
@@ -328,16 +559,50 @@ namespace Ringtoets.Integration.Service.Test
         private static void SetFullyConfiguredFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
+            var profile1 = new ForeshoreProfile(new Point2D(0, 0),
+                                                new[]
+                                                {
+                                                    new Point2D(0, 0),
+                                                    new Point2D(10, 0)
+                                                },
+                                                new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties
+                                                {
+                                                    Name = "A",
+                                                    Orientation = 30,
+                                                    X0 = 0
+                                                });
+            var profile2 = new ForeshoreProfile(new Point2D(10, 10),
+                                                new[]
+                                                {
+                                                    new Point2D(0, 2),
+                                                    new Point2D(20, 2)
+                                                },
+                                                new BreakWater(BreakWaterType.Dam, 2.2), new ForeshoreProfile.ConstructionProperties
+                                                {
+                                                    Name = "B",
+                                                    Orientation = 50,
+                                                    X0 = 10
+                                                });
+
+            failureMechanism.ForeshoreProfiles.Add(profile1);
+            failureMechanism.ForeshoreProfiles.Add(profile2);
+
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var calculationWithOutput = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile1
+                },
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
             var calculationWithOutputAndHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
                 },
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
@@ -352,13 +617,19 @@ namespace Ringtoets.Integration.Service.Test
             var subCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var subCalculationWithOutput = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
+                },
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile1
                 },
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
@@ -389,16 +660,50 @@ namespace Ringtoets.Integration.Service.Test
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
+            var profile1 = new ForeshoreProfile(new Point2D(0, 0),
+                                                new[]
+                                                {
+                                                    new Point2D(0, 0),
+                                                    new Point2D(10, 0)
+                                                },
+                                                new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties
+                                                {
+                                                    Name = "A",
+                                                    Orientation = 30,
+                                                    X0 = 0
+                                                });
+            var profile2 = new ForeshoreProfile(new Point2D(10, 10),
+                                                new[]
+                                                {
+                                                    new Point2D(0, 2),
+                                                    new Point2D(20, 2)
+                                                },
+                                                new BreakWater(BreakWaterType.Dam, 2.2), new ForeshoreProfile.ConstructionProperties
+                                                {
+                                                    Name = "B",
+                                                    Orientation = 50,
+                                                    X0 = 10
+                                                });
+
+            failureMechanism.ForeshoreProfiles.Add(profile1);
+            failureMechanism.ForeshoreProfiles.Add(profile2);
+
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var calculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile1
+                },
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
             var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
                 },
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
@@ -413,13 +718,19 @@ namespace Ringtoets.Integration.Service.Test
             var subCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var subCalculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
+                },
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile1
                 },
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };

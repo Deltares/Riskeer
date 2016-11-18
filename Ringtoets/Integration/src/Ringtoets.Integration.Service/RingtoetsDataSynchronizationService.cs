@@ -28,7 +28,9 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -38,6 +40,7 @@ using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Service;
 using Ringtoets.StabilityStoneCover.Data;
@@ -288,6 +291,228 @@ namespace Ringtoets.Integration.Service
             return list;
         }
 
+        /// <summary>
+        /// Removes a given <see cref="ForeshoreProfile"/> from the <see cref="HeightStructuresFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
+        /// that should be removed.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// or <paramref name="profile"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveForeshoreProfile(HeightStructuresFailureMechanism failureMechanism, ForeshoreProfile profile)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
+            var changedObservables = new List<IObservable>();
+            StructuresCalculation<HeightStructuresInput>[] calculations = failureMechanism.Calculations
+                                                                                          .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                                          .ToArray();
+            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedForeshoreProfile = calculations
+                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
+                .ToArray();
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedForeshoreProfile)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            failureMechanism.ForeshoreProfiles.Remove(profile);
+            changedObservables.Add(failureMechanism.ForeshoreProfiles);
+
+            return changedObservables;
+        }
+
+        /// <summary>
+        /// Removes a given <see cref="ForeshoreProfile"/> from the <see cref="ClosingStructuresFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
+        /// that should be removed.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// or <paramref name="profile"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveForeshoreProfile(ClosingStructuresFailureMechanism failureMechanism, ForeshoreProfile profile)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
+            var changedObservables = new List<IObservable>();
+            StructuresCalculation<ClosingStructuresInput>[] calculations = failureMechanism.Calculations
+                                                                                          .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                                                          .ToArray();
+            StructuresCalculation<ClosingStructuresInput>[] calculationWithRemovedForeshoreProfile = calculations
+                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
+                .ToArray();
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedForeshoreProfile)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            failureMechanism.ForeshoreProfiles.Remove(profile);
+            changedObservables.Add(failureMechanism.ForeshoreProfiles);
+
+            return changedObservables;
+        }
+
+        /// <summary>
+        /// Removes a given <see cref="ForeshoreProfile"/> from the <see cref="StabilityPointStructuresFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
+        /// that should be removed.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// or <paramref name="profile"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveForeshoreProfile(StabilityPointStructuresFailureMechanism failureMechanism, ForeshoreProfile profile)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
+            var changedObservables = new List<IObservable>();
+            StructuresCalculation<StabilityPointStructuresInput>[] calculations = failureMechanism.Calculations
+                                                                                          .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                          .ToArray();
+            StructuresCalculation<StabilityPointStructuresInput>[] calculationWithRemovedForeshoreProfile = calculations
+                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
+                .ToArray();
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedForeshoreProfile)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            failureMechanism.ForeshoreProfiles.Remove(profile);
+            changedObservables.Add(failureMechanism.ForeshoreProfiles);
+
+            return changedObservables;
+        }
+
+        /// <summary>
+        /// Removes a given <see cref="ForeshoreProfile"/> from the <see cref="StabilityStoneCoverFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
+        /// that should be removed.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// or <paramref name="profile"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveForeshoreProfile(StabilityStoneCoverFailureMechanism failureMechanism, ForeshoreProfile profile)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
+            var changedObservables = new List<IObservable>();
+            WaveConditionsInput[] calculationInputs = failureMechanism.Calculations
+                                                                      .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                      .Select(c => c.InputParameters)
+                                                                      .ToArray();
+            changedObservables.AddRange(OnWaveConditionsInputForeshoreProfileRemoved(profile, calculationInputs));
+
+            failureMechanism.ForeshoreProfiles.Remove(profile);
+            changedObservables.Add(failureMechanism.ForeshoreProfiles);
+
+            return changedObservables;
+        }
+
+        /// <summary>
+        /// Removes a given <see cref="ForeshoreProfile"/> from the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
+        /// that should be removed.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// or <paramref name="profile"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveForeshoreProfile(WaveImpactAsphaltCoverFailureMechanism failureMechanism, ForeshoreProfile profile)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
+            var changedObservables = new List<IObservable>();
+            WaveConditionsInput[] calculationInputs = failureMechanism.Calculations
+                                                                      .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                      .Select(c => c.InputParameters)
+                                                                      .ToArray();
+            changedObservables.AddRange(OnWaveConditionsInputForeshoreProfileRemoved(profile, calculationInputs));
+
+            failureMechanism.ForeshoreProfiles.Remove(profile);
+            changedObservables.Add(failureMechanism.ForeshoreProfiles);
+
+            return changedObservables;
+        }
+
+        /// <summary>
+        /// Removes a given <see cref="ForeshoreProfile"/> from the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
+        /// that should be removed.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// or <paramref name="profile"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveForeshoreProfile(GrassCoverErosionOutwardsFailureMechanism failureMechanism, ForeshoreProfile profile)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
+            var changedObservables = new List<IObservable>();
+            WaveConditionsInput[] calculationInputs = failureMechanism.Calculations
+                                                                      .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                      .Select(c => c.InputParameters)
+                                                                      .ToArray();
+            changedObservables.AddRange(OnWaveConditionsInputForeshoreProfileRemoved(profile, calculationInputs));
+
+            failureMechanism.ForeshoreProfiles.Remove(profile);
+            changedObservables.Add(failureMechanism.ForeshoreProfiles);
+
+            return changedObservables;
+        }
+
         private static IEnumerable<IObservable> ClearReferenceLineDependentData(IFailureMechanism failureMechanism)
         {
             failureMechanism.ClearAllSections();
@@ -295,6 +520,17 @@ namespace Ringtoets.Integration.Service
             {
                 failureMechanism
             };
+        }
+
+        private static IEnumerable<IObservable> OnWaveConditionsInputForeshoreProfileRemoved(ForeshoreProfile profile, WaveConditionsInput[] calculationInputs)
+        {
+            var changedObservables = new List<IObservable>();
+            foreach (WaveConditionsInput input in calculationInputs.Where(input => ReferenceEquals(input.ForeshoreProfile, profile)))
+            {
+                input.ForeshoreProfile = null;
+                changedObservables.Add(input);
+            }
+            return changedObservables;
         }
     }
 }
