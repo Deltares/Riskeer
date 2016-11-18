@@ -52,5 +52,15 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// Gets the <see cref="HydraRing.Data.HydraulicBoundaryLocation"/>.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
+
+        public override bool Equals(WrappedObjectContextBase<HydraulicBoundaryDatabase> other)
+        {
+            return base.Equals(other) && ReferenceEquals(((HydraulicBoundaryLocationContext) other).HydraulicBoundaryLocation, HydraulicBoundaryLocation);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ HydraulicBoundaryLocation.GetHashCode();
+        }
     }
 }

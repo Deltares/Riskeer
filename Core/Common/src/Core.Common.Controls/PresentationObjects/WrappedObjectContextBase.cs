@@ -52,7 +52,7 @@ namespace Core.Common.Controls.PresentationObjects
 
         #region IEquatable members
 
-        public bool Equals(WrappedObjectContextBase<T> other)
+        public virtual bool Equals(WrappedObjectContextBase<T> other)
         {
             if (ReferenceEquals(null, other))
             {
