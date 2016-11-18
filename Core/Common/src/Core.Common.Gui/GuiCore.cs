@@ -67,7 +67,7 @@ namespace Core.Common.Gui
         private bool isExiting;
         private bool runFinished;
         private SplashScreen splashScreen;
-        private IList<ISelectionProvider> selectionProviders = new List<ISelectionProvider>();
+        private readonly IList<ISelectionProvider> selectionProviders = new List<ISelectionProvider>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiCore"/> class.

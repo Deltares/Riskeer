@@ -199,6 +199,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if (viewController != null && viewController.ViewHost != null)
             {
+                viewController.ViewHost.ViewClosed += OnViewClosed;
                 viewController.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
                 viewController.ViewHost.ActiveDocumentViewChanging += OnActiveDocumentViewChanging;
             }
@@ -211,6 +212,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if (viewController != null && viewController.ViewHost != null)
             {
+                viewController.ViewHost.ViewClosed -= OnViewClosed;
                 viewController.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
                 viewController.ViewHost.ActiveDocumentViewChanging -= OnActiveDocumentViewChanging;
             }
@@ -291,16 +293,21 @@ namespace Core.Common.Gui.Forms.MainWindow
                 throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitPropertiesWindowAndActivate'.");
             }
 
-            if (propertyGrid == null || propertyGrid.IsDisposed)
+            if (propertyGrid == null)
             {
-                propertyGrid = new PropertyGridView.PropertyGridView(gui.PropertyResolver);
+                propertyGrid = new PropertyGridView.PropertyGridView(gui.PropertyResolver)
+                {
+                    Text = Properties.Resources.Properties_Title,
+                    Data = applicationSelection.Selection
+                };
+
+                viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right);
+                viewController.ViewHost.SetImage(propertyGrid, Properties.Resources.PropertiesHS);
             }
-
-            propertyGrid.Text = Properties.Resources.Properties_Title;
-            propertyGrid.Data = applicationSelection.Selection;
-
-            viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right);
-            viewController.ViewHost.SetImage(propertyGrid, Properties.Resources.PropertiesHS);
+            else
+            {
+                viewController.ViewHost.SetFocusToView(propertyGrid);
+            }
         }
 
         private void OnActiveDocumentViewChanging(object sender, EventArgs e)
@@ -331,6 +338,19 @@ namespace Core.Common.Gui.Forms.MainWindow
             else
             {
                 activateContextualTab = true;
+            }
+        }
+
+        private void OnViewClosed(object sender, ViewChangeEventArgs e)
+        {
+            if (ReferenceEquals(e.View, propertyGrid))
+            {
+                propertyGrid = null;
+            }
+
+            if (ReferenceEquals(e.View, messageWindow))
+            {
+                messageWindow = null;
             }
         }
 
@@ -379,18 +399,18 @@ namespace Core.Common.Gui.Forms.MainWindow
                 throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitMessagesWindowOrActivate'.");
             }
 
-            if (messageWindow == null || messageWindow.IsDisposed)
+            if (messageWindow == null)
             {
                 messageWindow = new MessageWindow.MessageWindow(this)
                 {
                     Text = Properties.Resources.Messages
                 };
-            }
-
-            if (viewController.ViewHost != null)
-            {
                 viewController.ViewHost.AddToolView(messageWindow, ToolViewLocation.Bottom);
                 viewController.ViewHost.SetImage(messageWindow, Properties.Resources.application_view_list);
+            }
+            else
+            {
+                viewController.ViewHost.SetFocusToView(messageWindow);
             }
         }
 

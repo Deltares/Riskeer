@@ -199,6 +199,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             // Setup
             var mocks = new MockRepository();
             var viewHost = mocks.Stub<IViewHost>();
+            viewHost.Expect(vm => vm.ViewClosed += null).IgnoreArguments();
             viewHost.Expect(vm => vm.ActiveDocumentViewChanged += null).IgnoreArguments();
             viewHost.Expect(vm => vm.ActiveDocumentViewChanging += null).IgnoreArguments(); // Should happen during dispose
 
@@ -239,8 +240,10 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             // Setup
             var mocks = new MockRepository();
             var viewHost = mocks.Stub<IViewHost>();
+            viewHost.Expect(l => l.ViewClosed += null).IgnoreArguments();
             viewHost.Expect(l => l.ActiveDocumentViewChanged += null).IgnoreArguments();
             viewHost.Expect(l => l.ActiveDocumentViewChanging += null).IgnoreArguments();
+            viewHost.Expect(l => l.ViewClosed -= null).IgnoreArguments();
             viewHost.Expect(l => l.ActiveDocumentViewChanged -= null).IgnoreArguments();
             viewHost.Expect(l => l.ActiveDocumentViewChanging -= null).IgnoreArguments();
 
