@@ -23,6 +23,8 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
@@ -408,6 +410,66 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.AreEqual("Berichten", mainWindow.MessageWindow.Text);
 
                 Assert.IsNull(viewHost.ActiveDocumentView);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void GivenGuiWithPropertyGrid_ClosingPropertyGrid_PropertyGridPropertySetToNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                // Precondition
+                Assert.IsNotNull(mainWindow.PropertyGrid);
+
+                // Call
+                mainWindow.ViewHost.Remove(mainWindow.PropertyGrid);
+
+                // Assert
+                Assert.IsNull(mainWindow.PropertyGrid);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void GivenGuiWithMessageWindow_ClosingMessageWindow_MessageWindowPropertySetToNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                // Precondition
+                Assert.IsNotNull(mainWindow.MessageWindow);
+
+                // Call
+                mainWindow.ViewHost.Remove(mainWindow.MessageWindow);
+
+                // Assert
+                Assert.IsNull(mainWindow.MessageWindow);
             }
             mocks.VerifyAll();
         }
