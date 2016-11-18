@@ -36,7 +36,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
         /// <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> will hold the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+        public GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        {
+            AssessmentLayerTwoA = AssessmentLayerTwoAResult.NotCalculated;
+        }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section, for which

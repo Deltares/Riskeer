@@ -33,12 +33,14 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
     public class DuneErosionFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        public void Create_ValidData_ReturnsEntityEqualData()
+        public void Create_ValidData_ReturnsEntityEqualData(
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
+            [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed,
+                AssessmentLayerTwoAResult.Successful)] AssessmentLayerTwoAResult assessmentLayerTwoAResult,
+            [Values(3.2, 4.5)] double assessmentLayerThreeResult)
         {
             // Setup
-            const AssessmentLayerOneState assessmentLayerOneResult = AssessmentLayerOneState.NotAssessed;
-            AssessmentLayerTwoAResult assessmentLayerTwoAResult = AssessmentLayerTwoAResult.Failed;
-            var assessmentLayerThreeResult = 3.2;
             var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,

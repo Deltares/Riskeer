@@ -48,15 +48,13 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
-        [TestCase(AssessmentLayerOneState.Sufficient)]
-        public void Read_WithDecimalParameterValues_ReturnSectionResultWithDoubleParameterValues(AssessmentLayerOneState layerOne)
+        public void Read_ParameterValues_SectionResultWithParameterValues(
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,
+            [Values(0.1, 0.2, null)] double? layerTwoA,
+            [Values(0.11, 0.22, null)] double? layerThree)
         {
             // Setup
-            var random = new Random(21);
-            double layerThree = random.NextDouble();
-            double layerTwoA = random.NextDouble();
             var collector = new ReadConversionCollector();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
@@ -76,58 +74,8 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
             // Assert
             Assert.IsNotNull(sectionResult);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA, 1e-6);
-            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithNullLayerTwoA_ReturnWaveImpactAsphaltCoverSectionResultWithNullParameters(bool layerOne)
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new WaveImpactAsphaltCoverSectionResultEntity
-            {
-                LayerOne = Convert.ToByte(layerOne),
-                LayerTwoA = null,
-                LayerThree = new Random(21).NextDouble(),
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
-
-            // Call
-            entity.Read(sectionResult);
-
-            // Assert
-            Assert.IsNaN(sectionResult.AssessmentLayerTwoA);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithNullLayerThree_ReturnWaveImpactAsphaltCoverSectionResultWithNullParameters(bool layerOne)
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new WaveImpactAsphaltCoverSectionResultEntity
-            {
-                LayerOne = Convert.ToByte(layerOne),
-                LayerTwoA = new Random(21).NextDouble(),
-                LayerThree = null,
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
-
-            // Call
-            entity.Read(sectionResult);
-
-            // Assert
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
+            Assert.AreEqual(layerTwoA ?? double.NaN, sectionResult.AssessmentLayerTwoA, 1e-6);
+            Assert.AreEqual(layerThree ?? double.NaN, sectionResult.AssessmentLayerThree, 1e-6);
         }
     }
 }

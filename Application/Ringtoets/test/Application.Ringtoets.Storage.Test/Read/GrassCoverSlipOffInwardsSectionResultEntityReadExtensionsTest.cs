@@ -47,15 +47,14 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed, AssessmentLayerTwoAResult.Failed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment, AssessmentLayerTwoAResult.Successful)]
-        [TestCase(AssessmentLayerOneState.Sufficient, AssessmentLayerTwoAResult.Failed)]
-        public void Read_WithDecimalParameterValues_ReturnGrassCoverSlipOffInwardsSectionResultWithDoubleParameterValues(
-            AssessmentLayerOneState layerOne, AssessmentLayerTwoAResult layerTwoA)
+        public void Read_ParameterValues_SectionResultWithParameterValues(
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,
+            [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed,
+                AssessmentLayerTwoAResult.Successful)] AssessmentLayerTwoAResult layerTwoA,
+            [Values(0.1, 0.2, null)] double? layerThree)
         {
             // Setup
-            var random = new Random(21);
-            double layerThree = random.NextDouble();
             var collector = new ReadConversionCollector();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
@@ -76,33 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(sectionResult);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
             Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA);
-            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
-        }
-
-        [Test]
-        [TestCase(true, AssessmentLayerTwoAResult.Failed)]
-        [TestCase(false, AssessmentLayerTwoAResult.Successful)]
-        [TestCase(false, AssessmentLayerTwoAResult.Failed)]
-        public void Read_WithNullLayerThree_ReturnGrassCoverSlipOffInwardsSectionResultWithNullParameters(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new GrassCoverSlipOffInwardsSectionResultEntity
-            {
-                LayerOne = Convert.ToByte(layerOne),
-                LayerTwoA = Convert.ToByte(layerTwoA),
-                LayerThree = null,
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
-
-            // Call
-            entity.Read(sectionResult);
-
-            // Assert
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
+            Assert.AreEqual(layerThree ?? double.NaN, sectionResult.AssessmentLayerThree, 1e-6);
         }
     }
 }

@@ -62,14 +62,12 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
-        [TestCase(AssessmentLayerOneState.Sufficient)]
-        public void Read_WithDoubleValues_ReturnSectionResultWithDoubleValues(AssessmentLayerOneState layerOne)
+        public void Read_ParameterValues_SectionResultWithParameterValues(
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,
+            [Values(1.1, 2.2, null)] double? layerThree)
         {
             // Setup
-            var random = new Random(21);
-            double layerThree = random.NextDouble();
             var collector = new ReadConversionCollector();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
@@ -88,33 +86,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Assert
             Assert.IsNotNull(sectionResult);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
-
+            Assert.AreEqual(layerThree ?? double.NaN, sectionResult.AssessmentLayerThree, 1e-6);
             Assert.IsNull(sectionResult.Calculation);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithNullProperties_ReturnGrassCoverErosionInwardsSectionResultWithNullValues(bool layerOne)
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new GrassCoverErosionInwardsSectionResultEntity
-            {
-                LayerOne = Convert.ToByte(layerOne),
-                LayerThree = null,
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
-
-            // Call
-            entity.Read(sectionResult, collector);
-
-            // Assert
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
         }
 
         [Test]

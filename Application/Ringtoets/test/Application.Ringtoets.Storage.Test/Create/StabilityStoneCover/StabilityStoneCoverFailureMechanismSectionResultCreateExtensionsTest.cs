@@ -33,12 +33,14 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
     public class StabilityStoneCoverFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        public void Create_ValidData_ReturnsEntityEqualData()
+        public void Create_ValidData_ReturnsEntityEqualData(
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
+            [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed,
+                AssessmentLayerTwoAResult.Successful)] AssessmentLayerTwoAResult assessmentLayerTwoAResult,
+            [Values(3.2, 4.5)] double assessmentLayerThreeResult)
         {
             // Setup
-            const AssessmentLayerOneState assessmentLayerOneResult = AssessmentLayerOneState.NeedsDetailedAssessment;
-            AssessmentLayerTwoAResult assessmentLayerTwoAResult = AssessmentLayerTwoAResult.Failed;
-            var assessmentLayerThreeResult = 3.2;
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,

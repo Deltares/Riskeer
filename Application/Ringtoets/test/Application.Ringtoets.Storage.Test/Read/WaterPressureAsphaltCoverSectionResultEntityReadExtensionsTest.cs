@@ -47,15 +47,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
-        [TestCase(AssessmentLayerOneState.Sufficient)]
-        public void Read_WithDecimalParameterValues_ReturnWaterPressureAsphaltCoverSectionResultWithDoubleParameterValues(
-            AssessmentLayerOneState layerOne)
+        public void Read_ParameterValues_SectionResultWithParameterValues(
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,
+            [Values(0.1, 0.2, null)] double? layerThree)
         {
             // Setup
-            var random = new Random(21);
-            double layerThree = random.NextDouble();
             var collector = new ReadConversionCollector();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
@@ -74,31 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(sectionResult);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithNullParameterValues_ReturnWaterPressureAsphaltCoverSectionResultWithNullParameters(bool layerOne)
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new WaterPressureAsphaltCoverSectionResultEntity
-            {
-                LayerOne = Convert.ToByte(layerOne),
-                LayerThree = null,
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
-
-            // Call
-            entity.Read(sectionResult);
-
-            // Assert
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
+            Assert.AreEqual(layerThree ?? double.NaN, sectionResult.AssessmentLayerThree, 1e-6);
         }
     }
 }

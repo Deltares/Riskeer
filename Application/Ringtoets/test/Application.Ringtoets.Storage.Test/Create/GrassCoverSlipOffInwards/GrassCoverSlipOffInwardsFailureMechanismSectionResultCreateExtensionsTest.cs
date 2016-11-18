@@ -36,8 +36,9 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverSlipOffInwards
         public void Create_VariousResults_ReturnsEntity(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
-            [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed)] AssessmentLayerTwoAResult assessmentLayerTwoAResult,
-            [Values(3.2, 4.5)] double assessmentLayerThreeResult)
+            [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed,
+                AssessmentLayerTwoAResult.Successful)] AssessmentLayerTwoAResult assessmentLayerTwoAResult,
+            [Values(0.2, 4.5)] double assessmentLayerThreeResult)
         {
             // Setup
             var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
