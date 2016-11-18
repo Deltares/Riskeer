@@ -19,10 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.ComponentModel;
+using System.Windows.Forms.Design;
+using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.UITypeEditors;
+using Core.Components.Gis.Data;
 using Core.Plugins.Map.PropertyClasses;
 using Core.Plugins.Map.UITypeEditors;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Plugins.Map.Test.UITypeEditors
 {
@@ -37,6 +43,80 @@ namespace Core.Plugins.Map.Test.UITypeEditors
 
             // Assert
             Assert.IsInstanceOf<SelectionEditor<MapPointDataProperties, string>>(editor);
+        }
+
+        [Test]
+        public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
+        {
+            // Setup
+            var mapData = new MapPointData("Name")
+            {
+                MetaData =
+                {
+                    "Test",
+                    "Test 2"
+                }
+            };
+
+            var properties = new MapPointDataProperties
+            {
+                Data = mapData
+            };
+            var propertyBag = new DynamicPropertyBag(properties);
+            var editor = new MetaDataAttributeEditor();
+            var someValue = new object();
+
+            var mockRepository = new MockRepository();
+            var serviceProviderStub = mockRepository.Stub<IServiceProvider>();
+            var serviceStub = mockRepository.Stub<IWindowsFormsEditorService>();
+            var descriptorContextStub = mockRepository.Stub<ITypeDescriptorContext>();
+            serviceProviderStub.Stub(p => p.GetService(null)).IgnoreArguments().Return(serviceStub);
+            descriptorContextStub.Stub(c => c.Instance).Return(propertyBag);
+            mockRepository.ReplayAll();
+
+            // Call
+            var result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
+
+            // Assert
+            Assert.AreSame(someValue, result);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
+        {
+            // Setup
+            var mapData = new MapPointData("Name")
+            {
+                MetaData =
+                {
+                    "Test",
+                    "Test 2"
+                }
+            };
+
+            var properties = new MapPointDataProperties
+            {
+                Data = mapData
+            };
+            var propertyBag = new DynamicPropertyBag(properties);
+            var editor = new MetaDataAttributeEditor();
+            var newValue = "Test 2";
+
+            var mockRepository = new MockRepository();
+            var serviceProviderStub = mockRepository.Stub<IServiceProvider>();
+            var serviceStub = mockRepository.Stub<IWindowsFormsEditorService>();
+            var descriptorContextStub = mockRepository.Stub<ITypeDescriptorContext>();
+            serviceProviderStub.Stub(p => p.GetService(null)).IgnoreArguments().Return(serviceStub);
+            descriptorContextStub.Stub(c => c.Instance).Return(propertyBag);
+            mockRepository.ReplayAll();
+
+            // Call
+            var result = editor.EditValue(descriptorContextStub, serviceProviderStub, newValue);
+
+            // Assert
+            Assert.AreSame(newValue, result);
+            mockRepository.VerifyAll();
         }
     }
 }
