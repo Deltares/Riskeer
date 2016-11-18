@@ -399,10 +399,17 @@ namespace Application.Ringtoets
 
         private static string UserDisplay()
         {
-            return IsAuthenticated()
-                       ? string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
-                                       UserPrincipal.Current.SamAccountName)
-                       : Environment.UserName;
+            try
+            {
+                return IsAuthenticated()
+                           ? string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
+                                           UserPrincipal.Current.SamAccountName)
+                           : Environment.UserName;
+            }
+            catch (SystemException)
+            {
+                return string.Empty;
+            }
         }
 
         private static bool IsAuthenticated()
