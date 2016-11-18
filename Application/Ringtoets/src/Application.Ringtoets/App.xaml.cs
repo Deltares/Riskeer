@@ -86,7 +86,7 @@ namespace Application.Ringtoets
         {
             SetLanguage();
 
-            var userDisplay = UserDisplay();
+            string userDisplay = UserDisplay();
             log.Info(string.Format(CoreCommonGuiResources.App_Starting_Ringtoets_version_0_by_user_0,
                                    SettingsHelper.ApplicationVersion,
                                    userDisplay));
@@ -408,6 +408,8 @@ namespace Application.Ringtoets
             }
             catch (SystemException)
             {
+                // Cannot only catch specified exceptions, as there are some hidden exception
+                // that can be thrown when calling UserPrincipal.Current.
                 return string.Empty;
             }
         }
