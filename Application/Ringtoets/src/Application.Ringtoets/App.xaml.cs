@@ -28,7 +28,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
@@ -401,28 +400,14 @@ namespace Application.Ringtoets
         {
             try
             {
-                return IsAuthenticated()
-                           ? string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
-                                           UserPrincipal.Current.SamAccountName)
-                           : Environment.UserName;
+                return string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
+                                     UserPrincipal.Current.SamAccountName);
             }
             catch (SystemException)
             {
                 // Cannot only catch specified exceptions, as there are some hidden exception
                 // that can be thrown when calling UserPrincipal.Current.
-                return string.Empty;
-            }
-        }
-
-        private static bool IsAuthenticated()
-        {
-            try
-            {
-                return Thread.CurrentPrincipal.Identity.IsAuthenticated;
-            }
-            catch (SecurityException)
-            {
-                return false;
+                return Environment.UserName;
             }
         }
 

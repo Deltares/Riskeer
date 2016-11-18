@@ -23,7 +23,7 @@ using System;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using System.Security;
-using System.Threading;
+using System.Security.Principal;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -77,10 +77,7 @@ namespace Application.Ringtoets.Test
                 };
 
                 // Assert
-                string userDisplayInfo = IsAuthenticated()
-                                             ? string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
-                                                             UserPrincipal.Current.SamAccountName)
-                                             : Environment.UserName;
+                string userDisplayInfo = UserDisplay();
 
                 TestHelper.AssertLogMessages(call, messages =>
                 {
@@ -92,15 +89,18 @@ namespace Application.Ringtoets.Test
             });
         }
 
-        private static bool IsAuthenticated()
+        private static string UserDisplay()
         {
             try
             {
-                return Thread.CurrentPrincipal.Identity.IsAuthenticated;
+                return string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
+                                     UserPrincipal.Current.SamAccountName);
             }
-            catch (SecurityException)
+            catch (SystemException)
             {
-                return false;
+                // Cannot only catch specified exceptions, as there are some hidden exception
+                // that can be thrown when calling UserPrincipal.Current.
+                return Environment.UserName;
             }
         }
     }
