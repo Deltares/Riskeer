@@ -207,7 +207,11 @@ namespace Core.Plugins.Map.Legend
                 MapResources.MapPlusIcon,
                 (sender, args) => ShowSelectShapeFileDialog(mapDataCollection));
 
-            return contextMenuBuilderProvider.Get(mapDataCollection, treeView).AddCustomItem(addMapLayerMenuItem).Build();
+            return contextMenuBuilderProvider.Get(mapDataCollection, treeView)
+                .AddCustomItem(addMapLayerMenuItem)
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
         }
 
         #endregion

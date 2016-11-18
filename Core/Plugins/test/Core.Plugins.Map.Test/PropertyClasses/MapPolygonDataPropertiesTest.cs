@@ -52,7 +52,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Data_SetNewMapPolygonDataInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            MapPolygonData mapPolygonData = new MapPolygonData("Test");
+            var mapPolygonData = new MapPolygonData("Test");
             var properties = new MapPolygonDataProperties();
 
             // Call
@@ -68,7 +68,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            MapPolygonData mapPolygonData = new MapPolygonData("Test");
+            var mapPolygonData = new MapPolygonData("Test");
 
             // Call
             var properties = new MapPolygonDataProperties
@@ -113,7 +113,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            MapPolygonData mapPolygonData = new MapPolygonData("Test")
+            var mapPolygonData = new MapPolygonData("Test")
             {
                 ShowLabels = true
             };

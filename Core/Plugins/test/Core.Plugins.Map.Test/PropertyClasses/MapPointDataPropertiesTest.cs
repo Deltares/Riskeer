@@ -53,7 +53,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Data_SetNewMapPointDataInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            MapPointData mapPointData = new MapPointData("Test");
+            var mapPointData = new MapPointData("Test");
             var properties = new MapPointDataProperties();
 
             // Call
@@ -69,7 +69,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            MapPointData mapPointData = new MapPointData("Test");
+            var mapPointData = new MapPointData("Test");
 
             // Call
             var properties = new MapPointDataProperties
@@ -121,7 +121,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
-            MapPointData mapPointData = new MapPointData("Test")
+            var mapPointData = new MapPointData("Test")
             {
                 ShowLabels = true
             };

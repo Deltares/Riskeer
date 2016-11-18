@@ -61,6 +61,7 @@ namespace Core.Plugins.Map
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
+            yield return new PropertyInfo<MapDataCollection, MapDataCollectionProperties>();
             yield return new PropertyInfo<MapPointData, MapPointDataProperties>();
             yield return new PropertyInfo<MapLineData, MapLineDataProperties>();
             yield return new PropertyInfo<MapPolygonData, MapPolygonDataProperties>();

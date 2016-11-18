@@ -119,7 +119,15 @@ namespace Core.Plugins.Map.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, propertyInfos.Length);
+                Assert.AreEqual(4, propertyInfos.Length);
+
+                PropertyInfo mapDataCollectionPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(MapDataCollection),
+                    typeof(MapDataCollectionProperties));
+                Assert.IsNull(mapDataCollectionPropertyInfo.AdditionalDataCheck);
+                Assert.IsNull(mapDataCollectionPropertyInfo.GetObjectPropertiesData);
+                Assert.IsNull(mapDataCollectionPropertyInfo.AfterCreate);
 
                 PropertyInfo mapPointDataPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

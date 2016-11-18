@@ -268,6 +268,8 @@ namespace Core.Plugins.Map.Test.Legend
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
             using (var treeViewControl = new TreeViewControl())

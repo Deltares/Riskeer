@@ -250,4 +250,7 @@
   <data name="Mapdata_SelectedMetaDataAttribute_DisplayName" xml:space="preserve">
     <value>Op basis van</value>
   </data>
+  <data name="MapDataCollection_Name_Description" xml:space="preserve">
+    <value>De naam van de kaartlagenmap.</value>
+  </data>
 </root>
