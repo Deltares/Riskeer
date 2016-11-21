@@ -172,7 +172,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             {
                 new Point2D(0, 0)
             });
-            Random random = new Random(21);
+            var random = new Random(21);
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = assessmentLayerOneState,
