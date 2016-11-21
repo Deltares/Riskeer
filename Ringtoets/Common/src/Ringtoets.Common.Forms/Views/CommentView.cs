@@ -27,7 +27,7 @@ using Ringtoets.Common.Data;
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// This class represents a simple view with a rich text editor, to which data can be added. 
+    /// This class represents a simple view with a rich text editor, to which data can be added.
     /// </summary>
     public partial class CommentView : UserControl, IView
     {

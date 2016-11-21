@@ -183,13 +183,17 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
                 Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-                var commentContext = (CommentContext<ICommentable>) inputFolder.Contents[1];
-                Assert.IsNotNull(commentContext);
-                Assert.AreSame(failureMechanism, commentContext.WrappedData);
+                var inputCommentContext = (CommentContext<ICommentable>) inputFolder.Contents[1];
+                Assert.IsNotNull(inputCommentContext);
+                Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
 
                 var outputFolder = (CategoryTreeFolder) children[1];
                 Assert.AreEqual("Oordeel", outputFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
+
+                var outputCommentContext = (CommentContext<ICommentable>) outputFolder.Contents[0];
+                Assert.IsNotNull(outputCommentContext);
+                Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
             }
             mocks.VerifyAll();
         }
@@ -256,7 +260,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(1, children.Length);
                 var commentContext = (CommentContext<ICommentable>) children[0];
-                Assert.AreSame(failureMechanism, commentContext.WrappedData);
+                Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
             }
             mocks.VerifyAll();
         }
@@ -452,9 +456,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var gui = mocks.StrictMock<IGui>();
+            gui.Stub(g => g.ViewCommands).Return(viewCommands);
             gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
@@ -498,6 +506,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<T>>(typeof(IFailureMechanism));
                 failureMechanism.Expect(fm => ((IFailureMechanism) fm).IsRelevant).Return(true);
                 failureMechanism.Expect(fm => fm.SectionResults).Return(new List<T>()).Repeat.Any();
+                failureMechanism.Expect(fm => ((IFailureMechanism) fm).InputComments).Return(new Commentable());
+                failureMechanism.Expect(fm => ((IFailureMechanism) fm).OutputComments).Return(new Commentable());
                 var failureMechanismContext = mocks.Stub<FailureMechanismContext<IFailureMechanism>>(failureMechanism, assessmentSection);
 
                 mocks.ReplayAll();

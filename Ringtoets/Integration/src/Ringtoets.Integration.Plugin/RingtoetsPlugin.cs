@@ -1027,6 +1027,9 @@ namespace Ringtoets.Integration.Plugin
         private static IEnumerable<ICommentable> GetCommentableElements(IFailureMechanism failureMechanism)
         {
             yield return failureMechanism;
+            yield return failureMechanism.InputComments;
+            yield return failureMechanism.OutputComments;
+            yield return failureMechanism.NotRelevantComments;
             foreach (ICalculation commentableCalculation in failureMechanism.Calculations)
             {
                 yield return commentableCalculation;
@@ -1113,7 +1116,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(nodeData.WrappedData)
+                new CommentContext<ICommentable>(nodeData.WrappedData.NotRelevantComments)
             };
         }
 
@@ -1122,7 +1125,7 @@ namespace Ringtoets.Integration.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(nodeData, assessmentSection),
-                new CommentContext<ICommentable>(nodeData)
+                new CommentContext<ICommentable>(nodeData.InputComments)
             };
         }
 
@@ -1143,7 +1146,7 @@ namespace Ringtoets.Integration.Plugin
             var macrostabilityOutwards = nodeData as IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>;
             var stabilityPointConstruction = nodeData as IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>;
 
-            var failureMechanismSectionResultContexts = new object[1];
+            var failureMechanismSectionResultContexts = new object[2];
             if (duneErosion != null)
             {
                 failureMechanismSectionResultContexts[0] =
@@ -1214,6 +1217,7 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(stabilityPointConstruction.SectionResults, nodeData);
             }
+            failureMechanismSectionResultContexts[1] = new CommentContext<ICommentable>(nodeData.OutputComments);
             return failureMechanismSectionResultContexts;
         }
 
@@ -1241,7 +1245,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(nodeData, null)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

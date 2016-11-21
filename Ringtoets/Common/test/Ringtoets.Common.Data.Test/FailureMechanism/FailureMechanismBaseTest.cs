@@ -78,7 +78,9 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             Assert.AreEqual(name, failureMechanism.Name);
             Assert.AreEqual(code, failureMechanism.Code);
             Assert.IsNull(failureMechanism.Comments);
-            Assert.IsNull(failureMechanism.OutputComments);
+            Assert.IsNotNull(failureMechanism.InputComments);
+            Assert.IsNotNull(failureMechanism.OutputComments);
+            Assert.IsNotNull(failureMechanism.NotRelevantComments);
             Assert.IsTrue(failureMechanism.IsRelevant);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }

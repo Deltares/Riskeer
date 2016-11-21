@@ -49,9 +49,19 @@ namespace Ringtoets.Common.Data.FailureMechanism
         string Code { get; }
 
         /// <summary>
-        /// Gets or sets the comments associated with the output of the data object.
+        /// Gets the comments associated with the input of the data object.
         /// </summary>
-        string OutputComments { get; set; }
+        Commentable InputComments { get; }
+        
+        /// <summary>
+        /// Gets the comments associated with the output of the data object.
+        /// </summary>
+        Commentable OutputComments { get; }
+
+        /// <summary>
+        /// Gets the comments associated when the failure mechanism is set to be not relevant.
+        /// </summary>
+        Commentable NotRelevantComments { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this failure mechanism is relevant.
