@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
                 GrassCoverErosionInwardsFailureMechanismResultView>
             {
-                GetViewName = (v, o) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,

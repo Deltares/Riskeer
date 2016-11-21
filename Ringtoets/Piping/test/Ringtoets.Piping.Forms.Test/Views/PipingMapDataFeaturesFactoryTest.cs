@@ -81,9 +81,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, features.Length);
-            Assert.AreEqual(2, features.ElementAt(0).MapGeometries.Count());
-            AssertEqualPointCollections(pointsOne, features.ElementAt(0).MapGeometries.ElementAt(0));
-            AssertEqualPointCollections(pointsTwo, features.ElementAt(0).MapGeometries.ElementAt(1));
+            Assert.AreEqual(2, features[0].MapGeometries.Count());
+            AssertEqualPointCollections(pointsOne, features[0].MapGeometries.ElementAt(0));
+            AssertEqualPointCollections(pointsTwo, features[0].MapGeometries.ElementAt(1));
         }
 
         [Test]
@@ -133,9 +133,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, features.Length);
-            Assert.AreEqual(2, features.ElementAt(0).MapGeometries.Count());
-            AssertEqualPointCollections(pointsOne, features.ElementAt(0).MapGeometries.ElementAt(0));
-            AssertEqualPointCollections(pointsTwo, features.ElementAt(0).MapGeometries.ElementAt(1));
+            Assert.AreEqual(2, features[0].MapGeometries.Count());
+            AssertEqualPointCollections(pointsOne, features[0].MapGeometries.ElementAt(0));
+            AssertEqualPointCollections(pointsTwo, features[0].MapGeometries.ElementAt(1));
         }
 
         private static void AssertEqualPointCollections(IEnumerable<Point3D> points, MapGeometry geometry)

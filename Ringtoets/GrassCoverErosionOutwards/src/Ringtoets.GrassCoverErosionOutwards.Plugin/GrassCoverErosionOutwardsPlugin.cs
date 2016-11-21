@@ -107,7 +107,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
                 GrassCoverErosionOutwardsFailureMechanismResultView>
             {
-                GetViewName = (v, o) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
@@ -119,7 +119,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 IEnumerable<HydraulicBoundaryLocation>,
                 GrassCoverErosionOutwardsDesignWaterLevelLocationsView>
             {
-                GetViewName = (v, o) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
+                GetViewName = (view, locations) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 AfterCreate = (view, context) =>
@@ -136,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 IEnumerable<HydraulicBoundaryLocation>,
                 GrassCoverErosionOutwardsWaveHeightLocationsView>
             {
-                GetViewName = (v, o) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName,
+                GetViewName = (view, locations) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseGrassCoverErosionOutwardsLocationsViewForData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -300,10 +300,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsFailureMechanismView ViewInfo
 
-        private bool CloseGrassCoverErosionOutwardsFailureMechanismViewForData(GrassCoverErosionOutwardsFailureMechanismView view, object o)
+        private bool CloseGrassCoverErosionOutwardsFailureMechanismViewForData(GrassCoverErosionOutwardsFailureMechanismView view, object data)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as GrassCoverErosionOutwardsFailureMechanism;
+            var assessmentSection = data as IAssessmentSection;
+            var failureMechanism = data as GrassCoverErosionOutwardsFailureMechanism;
 
             var viewFailureMechanismContext = (GrassCoverErosionOutwardsFailureMechanismContext)view.Data;
             var viewFailureMechanism = viewFailureMechanismContext.WrappedData;

@@ -547,7 +547,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             for (int i = 0; i < foreshoreProfileArray.Length; i++)
             {
-                var profileDataA = foreshoreProfilesData.Features.ElementAt(i).MapGeometries.First();
+                var profileDataA = foreshoreProfilesData.Features[i].MapGeometries.First();
                 CollectionAssert.AreEquivalent(foreshoreProfileArray[0].Geometry, profileDataA.PointCollections.First());
             }
 
@@ -565,7 +565,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             for (int i = 0; i < structuresArray.Length; i++)
             {
-                var profileDataA = structuresData.Features.ElementAt(i).MapGeometries.First();
+                var profileDataA = structuresData.Features[i].MapGeometries.First();
                 Assert.AreEqual(structuresArray[0].Location, profileDataA.PointCollections.First().First());
             }
 

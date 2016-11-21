@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -547,7 +548,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             for (int i = 0; i < foreshoreProfileArray.Length; i++)
             {
-                var profileDataA = foreshoreProfilesData.Features.ElementAt(i).MapGeometries.First();
+                var profileDataA = foreshoreProfilesData.Features[i].MapGeometries.First();
                 CollectionAssert.AreEquivalent(foreshoreProfileArray[0].Geometry, profileDataA.PointCollections.First());
             }
 
@@ -565,7 +566,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             for (int i = 0; i < structuresArray.Length; i++)
             {
-                var profileDataA = structuresData.Features.ElementAt(i).MapGeometries.First();
+                MapGeometry profileDataA = structuresData.Features[i].MapGeometries.First();
                 Assert.AreEqual(structuresArray[0].Location, profileDataA.PointCollections.First().First());
             }
 

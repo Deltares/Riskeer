@@ -510,7 +510,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             for (int i = 0; i < foreshoreProfileArray.Length; i++)
             {
-                var profileDataA = foreshoreProfilesData.Features.ElementAt(i).MapGeometries.First();
+                var profileDataA = foreshoreProfilesData.Features[i].MapGeometries.First();
                 CollectionAssert.AreEquivalent(foreshoreProfileArray[0].Geometry, profileDataA.PointCollections.First());
             }
 

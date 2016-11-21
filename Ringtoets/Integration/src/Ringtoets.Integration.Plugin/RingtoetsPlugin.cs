@@ -294,7 +294,7 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new ViewInfo<FailureMechanismContributionContext, FailureMechanismContribution, FailureMechanismContributionView>
             {
-                GetViewName = (v, o) => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
+                GetViewName = (view, context) => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
                 CloseForData = CloseFailureMechanismContributionViewForData,
@@ -307,7 +307,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, DesignWaterLevelLocationsView>
             {
-                GetViewName = (v, o) => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
+                GetViewName = (view, context) => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
                 GetViewData = context =>
                 {
                     if (context.WrappedData.HydraulicBoundaryDatabase == null)
@@ -327,7 +327,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<WaveHeightLocationsContext, IEnumerable<HydraulicBoundaryLocation>, WaveHeightLocationsView>
             {
-                GetViewName = (v, o) => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
+                GetViewName = (view, context) => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
                 GetViewData = context =>
                 {
                     if (context.WrappedData.HydraulicBoundaryDatabase == null)
@@ -347,13 +347,13 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
             {
-                GetViewName = (v, o) => RingtoetsFormsResources.AssessmentSectionMap_DisplayName,
+                GetViewName = (view, section) => RingtoetsFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RingtoetsFormsResources.Map
             };
 
             yield return new ViewInfo<FailureMechanismContext<IFailureMechanism>, FailureMechanismView<IFailureMechanism>>
             {
-                GetViewName = (v, o) => o.WrappedData.Name,
+                GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
@@ -392,7 +392,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<CommentContext<ICommentable>, ICommentable, CommentView>
             {
-                GetViewName = (v, o) => RingtoetsIntegrationPluginResources.Comment_DisplayName,
+                GetViewName = (view, context) => RingtoetsIntegrationPluginResources.Comment_DisplayName,
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.EditDocumentIcon,
                 CloseForData = CloseCommentViewForData
@@ -700,7 +700,7 @@ namespace Ringtoets.Integration.Plugin
                 IEnumerable<TResult>,
                 TView>
             {
-                GetViewName = (v, o) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,

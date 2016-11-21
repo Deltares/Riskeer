@@ -110,7 +110,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 IEnumerable<HeightStructuresFailureMechanismSectionResult>,
                 HeightStructuresFailureMechanismResultView>
             {
-                GetViewName = (v, o) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
@@ -242,10 +242,10 @@ namespace Ringtoets.HeightStructures.Plugin
 
         #region HeightStructuresFailureMechanismView ViewInfo
 
-        private bool CloseHeightStructuresFailureMechanismViewForData(HeightStructuresFailureMechanismView view, object o)
+        private bool CloseHeightStructuresFailureMechanismViewForData(HeightStructuresFailureMechanismView view, object data)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as HeightStructuresFailureMechanism;
+            var assessmentSection = data as IAssessmentSection;
+            var failureMechanism = data as HeightStructuresFailureMechanism;
 
             var viewFailureMechanismContext = (HeightStructuresFailureMechanismContext) view.Data;
             var viewFailureMechanism = viewFailureMechanismContext.WrappedData;

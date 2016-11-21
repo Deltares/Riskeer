@@ -80,7 +80,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
                 WaveImpactAsphaltCoverFailureMechanismResultView>
             {
-                GetViewName = (v, o) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,

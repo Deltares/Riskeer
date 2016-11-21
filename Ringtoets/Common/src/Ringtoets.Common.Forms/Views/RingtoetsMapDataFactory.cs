@@ -39,6 +39,11 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public static class RingtoetsMapDataFactory
     {
+        private const int thinLineWidth = 2;
+        private const int thickLineWidth = 3;
+        private const int smallPointSize = 6;
+        private const int largePointSize = 15;
+
         /// <summary>
         /// Create <see cref="MapLineData"/> with default styling for a <see cref="ReferenceLine"/>.
         /// </summary>
@@ -47,7 +52,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName)
             {
-                Style = new LineStyle(Color.Red, 3, DashStyle.Solid)
+                Style = new LineStyle(Color.Red, thickLineWidth, DashStyle.Solid)
             };
         }
 
@@ -59,7 +64,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName)
             {
-                Style = new PointStyle(Color.DarkBlue, 6, PointSymbol.Circle),
+                Style = new PointStyle(Color.DarkBlue, smallPointSize, PointSymbol.Circle),
                 ShowLabels = true
             };
         }
@@ -72,7 +77,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapLineData(Resources.FailureMechanism_Sections_DisplayName)
             {
-                Style = new LineStyle(Color.Khaki, 3, DashStyle.Dot)
+                Style = new LineStyle(Color.Khaki, thickLineWidth, DashStyle.Dot)
             };
         }
 
@@ -88,7 +93,7 @@ namespace Ringtoets.Common.Forms.Views
 
             return new MapPointData(mapDataName)
             {
-                Style = new PointStyle(Color.DarkKhaki, 15, PointSymbol.Triangle)
+                Style = new PointStyle(Color.DarkKhaki, largePointSize, PointSymbol.Triangle)
             };
         }
 
@@ -104,7 +109,7 @@ namespace Ringtoets.Common.Forms.Views
 
             return new MapPointData(mapDataName)
             {
-                Style = new PointStyle(Color.DarkKhaki, 15, PointSymbol.Triangle)
+                Style = new PointStyle(Color.DarkKhaki, largePointSize, PointSymbol.Triangle)
             };
         }
 
@@ -116,7 +121,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapLineData(Resources.DikeProfiles_DisplayName)
             {
-                Style = new LineStyle(Color.SaddleBrown, 2, DashStyle.Solid)
+                Style = new LineStyle(Color.SaddleBrown, thinLineWidth, DashStyle.Solid)
             };
         }
 
@@ -128,7 +133,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapLineData(Resources.ForeshoreProfiles_DisplayName)
             {
-                Style = new LineStyle(Color.DarkOrange, 2, DashStyle.Solid)
+                Style = new LineStyle(Color.DarkOrange, thinLineWidth, DashStyle.Solid)
             };
         }
 
@@ -140,7 +145,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapPointData(Resources.StructuresCollection_DisplayName)
             {
-                Style = new PointStyle(Color.DarkSeaGreen, 15, PointSymbol.Square)
+                Style = new PointStyle(Color.DarkSeaGreen, largePointSize, PointSymbol.Square)
             };
         }
     }

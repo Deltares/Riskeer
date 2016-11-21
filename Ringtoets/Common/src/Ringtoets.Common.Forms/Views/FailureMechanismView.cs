@@ -33,7 +33,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for a closing structures failure mechanism.
+    /// This class is a view showing map data for a failure mechanism.
     /// </summary>
     public partial class FailureMechanismView<T> : UserControl, IMapView where T : IFailureMechanism
     {

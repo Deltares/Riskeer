@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine);
 
             // Assert
-            AssertEqualPointCollections(points, features.ElementAt(0).MapGeometries.ElementAt(0));
+            AssertEqualPointCollections(points, features[0].MapGeometries.ElementAt(0));
         }
 
         [Test]
@@ -190,9 +190,9 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, features.Length);
-            Assert.AreEqual(2, features.ElementAt(0).MapGeometries.Count());
-            AssertEqualPointCollections(pointsOne, features.ElementAt(0).MapGeometries.ElementAt(0));
-            AssertEqualPointCollections(pointsTwo, features.ElementAt(0).MapGeometries.ElementAt(1));
+            Assert.AreEqual(2, features[0].MapGeometries.Count());
+            AssertEqualPointCollections(pointsOne, features[0].MapGeometries.ElementAt(0));
+            AssertEqualPointCollections(pointsTwo, features[0].MapGeometries.ElementAt(1));
         }
 
         [Test]
@@ -240,12 +240,12 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, features.Length);
-            Assert.AreEqual(1, features.ElementAt(0).MapGeometries.Count());
+            Assert.AreEqual(1, features[0].MapGeometries.Count());
             AssertEqualPointCollections(new[]
             {
                 pointsOne[0],
                 pointsTwo[0]
-            }, features.ElementAt(0).MapGeometries.ElementAt(0));
+            }, features[0].MapGeometries.ElementAt(0));
         }
 
         [Test]
@@ -293,12 +293,12 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, features.Length);
-            Assert.AreEqual(1, features.ElementAt(0).MapGeometries.Count());
+            Assert.AreEqual(1, features[0].MapGeometries.Count());
             AssertEqualPointCollections(new[]
             {
                 pointsOne[1],
                 pointsTwo[1]
-            }, features.ElementAt(0).MapGeometries.ElementAt(0));
+            }, features[0].MapGeometries.ElementAt(0));
         }
 
         private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
@@ -373,10 +373,10 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(2, features.Length);
-            Assert.AreEqual(1, features.ElementAt(0).MapGeometries.Count());
-            Assert.AreEqual(1, features.ElementAt(1).MapGeometries.Count());
-            var mapDataDikeGeometryOne = features.ElementAt(0).MapGeometries.ElementAt(0).PointCollections.First().ToArray();
-            var mapDataDikeGeometryTwo = features.ElementAt(1).MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            Assert.AreEqual(1, features[0].MapGeometries.Count());
+            Assert.AreEqual(1, features[1].MapGeometries.Count());
+            var mapDataDikeGeometryOne = features[0].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            var mapDataDikeGeometryTwo = features[1].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
 
             CollectionElementsAlmostEquals(new[]
             {
@@ -447,10 +447,10 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(2, features.Length);
-            Assert.AreEqual(1, features.ElementAt(0).MapGeometries.Count());
-            Assert.AreEqual(1, features.ElementAt(1).MapGeometries.Count());
-            var mapDataGeometryOne = features.ElementAt(0).MapGeometries.ElementAt(0).PointCollections.First().ToArray();
-            var mapDataGeometryTwo = features.ElementAt(1).MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            Assert.AreEqual(1, features[0].MapGeometries.Count());
+            Assert.AreEqual(1, features[1].MapGeometries.Count());
+            var mapDataGeometryOne = features[0].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            var mapDataGeometryTwo = features[1].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
 
             CollectionElementsAlmostEquals(new[]
             {
