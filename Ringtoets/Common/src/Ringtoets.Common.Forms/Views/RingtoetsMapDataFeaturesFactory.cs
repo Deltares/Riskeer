@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Properties;
 using Core.Common.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -56,30 +57,29 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Create hydraulic boundary database location features based on the provided <paramref name="hydraulicBoundaryDatabase"/>.
+        /// Create hydraulic boundary database location features based on the provided <paramref name="hydraulicBoundaryDatabase"/>
+        /// with default labels for design water level and wave height.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to create the location features for.</param>
         /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</returns>
-        public static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public static MapFeature[] CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            var features = new List<MapFeature>();
+            return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase,
+                                                           Resources.RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_DesignWaterLevel,
+                                                           Resources.RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_WaveHeight);
+        }
 
-            if (hydraulicBoundaryDatabase != null)
-            {
-                foreach (var location in hydraulicBoundaryDatabase.Locations)
-                {
-                    var feature = GetAsSingleMapFeature(location.Location);
-
-                    feature.MetaData["ID"] = location.Id;
-                    feature.MetaData["Naam"] = location.Name;
-                    feature.MetaData["Toetspeil"] = location.DesignWaterLevel;
-                    feature.MetaData["Golfhoogte"] = location.WaveHeight;
-
-                    features.Add(feature);
-                }
-            }
-
-            return features.ToArray();
+        /// <summary>
+        /// Create hydraulic boundary database location features based on the provided <paramref name="hydraulicBoundaryDatabase"/>
+        /// with optional labels for design water level and wave height.
+        /// </summary>
+        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to create the location features for.</param>
+        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</returns>
+        public static MapFeature[] CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase,
+                                                           Resources.RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_DesignWaterLevel_GrassOutwards,
+                                                           Resources.RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_WaveHeight_GrassOutwards);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Forms.Views
         public static MapFeature[] CreateFailureMechanismSectionEndPointFeatures(IEnumerable<FailureMechanismSection> sections)
         {
             return sections != null && sections.Any()
-                       ? new []
+                       ? new[]
                        {
                            GetAsSingleMapFeature(sections.Select(sl => sl.GetLast()))
                        }
@@ -175,13 +175,37 @@ namespace Ringtoets.Common.Forms.Views
             return structures.Select(structure => GetAsSingleMapFeature(structure.Location)).ToArray();
         }
 
+        private static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                            string designWaterLevelAttributeName,
+                                                                            string waveheightAttributeName)
+        {
+            var features = new List<MapFeature>();
+
+            if (hydraulicBoundaryDatabase != null)
+            {
+                foreach (var location in hydraulicBoundaryDatabase.Locations)
+                {
+                    var feature = GetAsSingleMapFeature(location.Location);
+
+                    feature.MetaData[Resources.RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_ID] = location.Id;
+                    feature.MetaData[Resources.RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_Name] = location.Name;
+                    feature.MetaData[designWaterLevelAttributeName] = location.DesignWaterLevel;
+                    feature.MetaData[waveheightAttributeName] = location.WaveHeight;
+
+                    features.Add(feature);
+                }
+            }
+
+            return features.ToArray();
+        }
+
         private static Point2D[] GetWorldPoints(DikeProfile dikeProfile)
         {
             return AdvancedMath2D.FromXToXY(
-                    dikeProfile.DikeGeometry.Select(p => -p.Point.X).ToArray(),
-                    dikeProfile.WorldReferencePoint,
-                    -dikeProfile.X0,
-                    dikeProfile.Orientation);
+                dikeProfile.DikeGeometry.Select(p => -p.Point.X).ToArray(),
+                dikeProfile.WorldReferencePoint,
+                -dikeProfile.X0,
+                dikeProfile.Orientation);
         }
 
         private static Point2D[] GetWorldPoints(ForeshoreProfile foreshoreProfile)
@@ -206,13 +230,16 @@ namespace Ringtoets.Common.Forms.Views
 
         private static MapFeature GetAsSingleMapFeature(Point2D point)
         {
-            return new MapFeature(new[] 
-            { 
-                new MapGeometry(new[] 
-                { 
-                    new [] { point }
-                }) 
+            return new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        point
+                    }
+                })
             });
-        } 
+        }
     }
 }

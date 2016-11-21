@@ -174,4 +174,22 @@
   <data name="Error" xml:space="preserve">
     <value>Fout</value>
   </data>
+  <data name="RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_Name" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_DesignWaterLevel" xml:space="preserve">
+    <value>Toetspeil</value>
+  </data>
+  <data name="RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_WaveHeight" xml:space="preserve">
+    <value>Golfhoogte</value>
+  </data>
+  <data name="RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_DesignWaterLevel_GrassOutwards" xml:space="preserve">
+    <value>Waterstand bij doorsnede-eis</value>
+  </data>
+  <data name="RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_WaveHeight_GrassOutwards" xml:space="preserve">
+    <value>Golfhoogte bij doorsnede-eis</value>
+  </data>
 </root>

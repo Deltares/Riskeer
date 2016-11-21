@@ -66,17 +66,17 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CreateHydraulicBoundaryDatabaseFeatures_HydraulicBoundaryDatabaseNull_ReturnsEmptyFeaturesArray()
+        public void CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels_HydraulicBoundaryDatabaseNull_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(null);
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateHydraulicBoundaryDatabaseFeatures_GivenHydraulicBoundaryDatabase_ReturnsLocationFeaturesArray()
+        public void CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels_GivenHydraulicBoundaryDatabase_ReturnsLocationFeaturesArray()
         {
             // Setup
             var points = new[]
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             hydraulicBoundaryDatabase.Locations.AddRange(points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)));
 
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
 
             // Assert
             var hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
@@ -100,6 +100,46 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(hydraulicBoundaryLocations[i].Name, features[i].MetaData["Naam"]);
                 Assert.AreEqual(hydraulicBoundaryLocations[i].DesignWaterLevel, features[i].MetaData["Toetspeil"]);
                 Assert.AreEqual(hydraulicBoundaryLocations[i].WaveHeight, features[i].MetaData["Golfhoogte"]);
+            }
+
+            AssertEqualFeatureCollections(points, features);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels_HydraulicBoundaryDatabaseNull_ReturnsEmptyFeaturesArray()
+        {
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels_GivenHydraulicBoundaryDatabase_ReturnsLocationFeaturesArray()
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point2D(1.2, 2.3),
+                new Point2D(2.7, 2.0)
+            };
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.AddRange(points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)));
+
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels(hydraulicBoundaryDatabase);
+
+            // Assert
+            var hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
+            Assert.AreEqual(hydraulicBoundaryLocations.Count, features.Length);
+            for (int i = 0; i < hydraulicBoundaryLocations.Count; i++)
+            {
+                Assert.AreEqual(4, features[i].MetaData.Keys.Count);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].Id, features[i].MetaData["ID"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].Name, features[i].MetaData["Naam"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].DesignWaterLevel, features[i].MetaData["Waterstand bij doorsnede-eis"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].WaveHeight, features[i].MetaData["Golfhoogte bij doorsnede-eis"]);
             }
 
             AssertEqualFeatureCollections(points, features);
