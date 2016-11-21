@@ -79,7 +79,7 @@ namespace Demo.Ringtoets.Test.Commands
 
             var mocks = new MockRepository();
             var projectOwnerStub = mocks.Stub<IProjectOwner>();
-            projectOwnerStub.Project = project;
+            projectOwnerStub.Stub(po => po.Project).Return(project);
 
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());

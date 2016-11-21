@@ -161,6 +161,31 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         [Test]
         [STAThread]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("  ")]
+        public void GivenRingtoetsGuiWithStorageSql_WhenRunWithEmptyFile_DefaultProjectStillSet(string testFile)
+        {
+            // Given
+            var projectStore = new StorageSqLite();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            {
+                // When
+                gui.Run(testFile);
+
+                // Then
+                Assert.AreEqual(null, gui.ProjectFilePath);
+                Assert.NotNull(gui.Project);
+                Assert.AreEqual("Project", gui.Project.Name);
+                Assert.IsEmpty(gui.Project.Description);
+                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
+                CollectionAssert.IsEmpty(((RingtoetsProject)gui.Project).AssessmentSections);
+            }
+        }
+
+        [Test]
+        [STAThread]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithValidFile_ProjectSet()
         {
             // Given
@@ -180,7 +205,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 // Then
                 var expectedMessages = new[]
                 {
-                    "Openen van bestaand Ringtoetsproject.",
+                    "Openen van bestaand Ringtoetsproject...",
                     "Bestaand Ringtoetsproject succesvol geopend."
                 };
                 TestHelper.AssertLogMessagesAreGenerated(action, expectedMessages, 3);
@@ -191,67 +216,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
                 AssertProjectsAreEqual((RingtoetsProject) gui.Project, fullProject);
-            }
-        }
-
-        [Test]
-        [STAThread]
-        public void GivenRingtoetsGuiWithStorageSql_WhenRunWithInvalidFile_EmptyProjectSet()
-        {
-            // Given
-            var testFile = "SomeFile";
-            var projectStore = new StorageSqLite();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
-            {
-                // When
-                Action action = () => gui.Run(testFile);
-
-                // Then
-                var expectedMessages = new[]
-                {
-                    "Openen van bestaand Ringtoetsproject.",
-                    string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", testFile),
-                    "Het is niet gelukt om het Ringtoetsproject te laden.",
-                    "Nieuw project aanmaken..."
-                };
-                TestHelper.AssertLogMessagesAreGenerated(action, expectedMessages, 5);
-                Assert.AreEqual(null, gui.ProjectFilePath);
-                Assert.NotNull(gui.Project);
-                Assert.AreEqual("Project", gui.Project.Name);
-                Assert.IsEmpty(gui.Project.Description);
-                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
-                CollectionAssert.IsEmpty(((RingtoetsProject) gui.Project).AssessmentSections);
-            }
-        }
-
-        [Test]
-        [STAThread]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("  ")]
-        public void GivenRingtoetsGuiWithStorageSql_WhenRunWithEmptyFile_EmptyProjectSet(string testFile)
-        {
-            // Given
-            var projectStore = new StorageSqLite();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
-            {
-                // When
-                Action action = () => gui.Run(testFile);
-
-                // Then
-                var expectedMessages = new[]
-                {
-                    "Nieuw project aanmaken..."
-                };
-                TestHelper.AssertLogMessagesAreGenerated(action, expectedMessages, 2);
-                Assert.AreEqual(null, gui.ProjectFilePath);
-                Assert.NotNull(gui.Project);
-                Assert.AreEqual("Project", gui.Project.Name);
-                Assert.IsEmpty(gui.Project.Description);
-                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
-                CollectionAssert.IsEmpty(((RingtoetsProject) gui.Project).AssessmentSections);
             }
         }
 

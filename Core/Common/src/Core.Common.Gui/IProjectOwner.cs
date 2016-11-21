@@ -37,27 +37,23 @@ namespace Core.Common.Gui
         /// <summary>
         /// Gets or sets the project of the application.
         /// </summary>
-        IProject Project { get; set; }
+        /// <exception cref="ArgumentNullException">Thrown when a <c>null</c> project is
+        /// assigned.</exception>
+        /// <remarks><c>null</c> is not a valid return value.</remarks>
+        IProject Project { get; }
 
         /// <summary>
         /// Gets or sets the project path of the application.
         /// </summary>
-        string ProjectFilePath { get; set; }
+        string ProjectFilePath { get; }
 
         /// <summary>
-        /// Indicates whether the current <see cref="IProjectOwner.Project"/> is a new project.
+        /// Sets the project and the path of the project that was used for obtaining it.
         /// </summary>
-        /// <returns><c>true</c> if <see cref="IProjectOwner.Project"/> is equal to a new project, <c>false</c> otherwise.</returns>
-        bool IsCurrentNew();
-
-        /// <summary>
-        /// Creates a new <see cref="IProject"/>.
-        /// </summary>
-        void CreateNewProject();
-
-        /// <summary>
-        /// Closes the current <see cref="IProjectOwner.Project"/>.
-        /// </summary>
-        void CloseProject();
+        /// <param name="project">The project that is used in the application.</param>
+        /// <param name="projectPath">The file location where the <paramref name="project"/> was
+        /// loaded from, or <c>null</c> if it was not loaded from a file source.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is <c>null</c>.</exception>
+        void SetProject(IProject project, string projectPath);
     }
 }

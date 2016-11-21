@@ -422,6 +422,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -452,6 +453,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())

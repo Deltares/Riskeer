@@ -302,6 +302,24 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieuw Ringtoetsproject succesvol aangemaakt..
+        /// </summary>
+        public static string Created_new_project_succesful {
+            get {
+                return ResourceManager.GetString("Created_new_project_succesful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuw Ringtoetsproject aanmaken....
+        /// </summary>
+        public static string Creating_new_project {
+            get {
+                return ResourceManager.GetString("Creating_new_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verwij&amp;deren....
         /// </summary>
         public static string Delete {
@@ -727,15 +745,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 return ResourceManager.GetString("GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_proce" +
                         "ss_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nieuw project aanmaken....
-        /// </summary>
-        public static string GuiCore_Run_Creating_new_project {
-            get {
-                return ResourceManager.GetString("GuiCore_Run_Creating_new_project", resourceCulture);
             }
         }
         
@@ -1400,24 +1409,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuw Ringtoetsproject succesvol geopend..
-        /// </summary>
-        public static string StorageCommandHandler_NewProject_Created_new_project_succesful {
-            get {
-                return ResourceManager.GetString("StorageCommandHandler_NewProject_Created_new_project_succesful", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Openen van nieuw Ringtoetsproject..
-        /// </summary>
-        public static string StorageCommandHandler_NewProject_Creating_new_project {
-            get {
-                return ResourceManager.GetString("StorageCommandHandler_NewProject_Creating_new_project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Openen van een nieuw Ringtoetsproject geannuleerd..
         /// </summary>
         public static string StorageCommandHandler_NewProject_Creating_new_project_cancelled {
@@ -1427,7 +1418,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Openen van bestaand Ringtoetsproject..
+        ///   Looks up a localized string similar to Openen van bestaand Ringtoetsproject....
         /// </summary>
         public static string StorageCommandHandler_OpenExistingProject_Opening_existing_project {
             get {

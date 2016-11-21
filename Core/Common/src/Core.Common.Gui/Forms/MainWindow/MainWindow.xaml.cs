@@ -431,7 +431,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)
         {
-            // Original code:
             commands.StorageCommands.CreateNewProject();
             ValidateItems();
         }

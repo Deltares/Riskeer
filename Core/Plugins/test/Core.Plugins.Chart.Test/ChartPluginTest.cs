@@ -111,6 +111,7 @@ namespace Core.Plugins.Chart.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))

@@ -48,9 +48,7 @@ namespace Application.Ringtoets.Storage
         private const int currentDatabaseVersion = 4;
         private static readonly ILog log = LogManager.GetLogger(typeof(StorageSqLite));
 
-        private string connectionString;
-        private RingtoetsProject stagedProject;
-        private ProjectEntity stagedProjectEntity;
+        private StagedProject stagedProject;
 
         public string FileFilter
         {
@@ -64,7 +62,7 @@ namespace Application.Ringtoets.Storage
         {
             get
             {
-                return stagedProjectEntity != null;
+                return stagedProject != null;
             }
         }
 
@@ -75,16 +73,14 @@ namespace Application.Ringtoets.Storage
             {
                 throw new ArgumentNullException("project");
             }
-            stagedProject = ringtoetsProject;
-
             var registry = new PersistenceRegistry();
-            stagedProjectEntity = ringtoetsProject.Create(registry);
+
+            stagedProject = new StagedProject(ringtoetsProject, ringtoetsProject.Create(registry));
         }
 
         public void UnstageProject()
         {
             stagedProject = null;
-            stagedProjectEntity = null;
         }
 
         public void SaveProjectAs(string databaseFilePath)
@@ -97,11 +93,7 @@ namespace Application.Ringtoets.Storage
             try
             {
                 BackedUpFileWriter writer = new BackedUpFileWriter(databaseFilePath);
-                writer.Perform(() =>
-                {
-                    SetConnectionToNewFile(databaseFilePath);
-                    SaveProjectInDatabase(databaseFilePath);
-                });
+                writer.Perform(() => { SaveProjectInDatabase(databaseFilePath); });
             }
             catch (IOException e)
             {
@@ -119,7 +111,7 @@ namespace Application.Ringtoets.Storage
 
         public IProject LoadProject(string databaseFilePath)
         {
-            SetConnectionToExistingFile(databaseFilePath);
+            var connectionString = GetConnectionToExistingFile(databaseFilePath);
             try
             {
                 RingtoetsProject project;
@@ -154,23 +146,18 @@ namespace Application.Ringtoets.Storage
             }
         }
 
-        public void CloseProject()
-        {
-            connectionString = null;
-        }
-
-        public bool HasStagedProjectChanges()
+        public bool HasStagedProjectChanges(string filePath)
         {
             if (!HasStagedProject)
             {
                 throw new InvalidOperationException("Call 'StageProject(IProject)' first before calling this method.");
             }
-
-            if (string.IsNullOrWhiteSpace(connectionString))
+            if (string.IsNullOrWhiteSpace(filePath))
             {
                 return true;
             }
 
+            var connectionString = GetConnectionToExistingFile(filePath);
             try
             {
                 byte[] originalHash;
@@ -179,7 +166,7 @@ namespace Application.Ringtoets.Storage
                     originalHash = dbContext.VersionEntities.Select(v => v.FingerPrint).First();
                 }
 
-                byte[] hash = FingerprintHelper.Get(stagedProjectEntity);
+                byte[] hash = FingerprintHelper.Get(stagedProject.Entity);
                 return !FingerprintHelper.AreEqual(originalHash, hash);
             }
             catch (QuotaExceededException e)
@@ -188,7 +175,43 @@ namespace Application.Ringtoets.Storage
             }
         }
 
-        private void ValidateDatabaseVersion(RingtoetsEntities ringtoetsEntities, string databaseFilePath)
+        private void SaveProjectInDatabase(string databaseFilePath)
+        {
+            var connectionString = GetConnectionToNewFile(databaseFilePath);
+            using (var dbContext = new RingtoetsEntities(connectionString))
+            {
+                try
+                {
+                    dbContext.VersionEntities.Add(new VersionEntity
+                    {
+                        Version = currentDatabaseVersion,
+                        Timestamp = DateTime.Now,
+                        FingerPrint = FingerprintHelper.Get(stagedProject.Entity)
+                    });
+                    dbContext.ProjectEntities.Add(stagedProject.Entity);
+                    dbContext.SaveChanges();
+                }
+                catch (DataException exception)
+                {
+                    throw CreateStorageWriterException(databaseFilePath, Resources.Error_saving_database, exception);
+                }
+                catch (QuotaExceededException exception)
+                {
+                    throw CreateStorageWriterException(databaseFilePath, exception.Message, exception);
+                }
+                catch (SystemException exception)
+                {
+                    if (exception is InvalidOperationException || exception is NotSupportedException)
+                    {
+                        throw CreateStorageWriterException(databaseFilePath, Resources.Error_during_connection, exception);
+                    }
+                    throw;
+                }
+                stagedProject.Model.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
+            }
+        }
+
+        private static void ValidateDatabaseVersion(RingtoetsEntities ringtoetsEntities, string databaseFilePath)
         {
             try
             {
@@ -216,41 +239,6 @@ namespace Application.Ringtoets.Storage
             }
         }
 
-        private void SaveProjectInDatabase(string databaseFilePath)
-        {
-            using (var dbContext = new RingtoetsEntities(connectionString))
-            {
-                try
-                {
-                    dbContext.VersionEntities.Add(new VersionEntity
-                    {
-                        Version = currentDatabaseVersion,
-                        Timestamp = DateTime.Now,
-                        FingerPrint = FingerprintHelper.Get(stagedProjectEntity)
-                    });
-                    dbContext.ProjectEntities.Add(stagedProjectEntity);
-                    dbContext.SaveChanges();
-                }
-                catch (DataException exception)
-                {
-                    throw CreateStorageWriterException(databaseFilePath, Resources.Error_saving_database, exception);
-                }
-                catch (QuotaExceededException exception)
-                {
-                    throw CreateStorageWriterException(databaseFilePath, exception.Message, exception);
-                }
-                catch (SystemException exception)
-                {
-                    if (exception is InvalidOperationException || exception is NotSupportedException)
-                    {
-                        throw CreateStorageWriterException(databaseFilePath, Resources.Error_during_connection, exception);
-                    }
-                    throw;
-                }
-                stagedProject.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
-            }
-        }
-
         /// <summary>
         /// Attempts to set the connection to an existing storage file <paramref name="databaseFilePath"/>.
         /// </summary>
@@ -261,10 +249,10 @@ namespace Application.Ringtoets.Storage
         /// <item>the database has an invalid schema.</item>
         /// </list>
         /// </exception>
-        private void SetConnectionToExistingFile(string databaseFilePath)
+        private static string GetConnectionToExistingFile(string databaseFilePath)
         {
             FileUtils.ValidateFilePath(databaseFilePath);
-            SetConnectionToFile(databaseFilePath);
+            return GetConnectionToFile(databaseFilePath);
         }
 
         /// <summary>
@@ -280,11 +268,11 @@ namespace Application.Ringtoets.Storage
         /// <item>executing <c>DatabaseStructure</c> script failed</item>
         /// </list>
         /// </exception>
-        private void SetConnectionToNewFile(string databaseFilePath)
+        private static string GetConnectionToNewFile(string databaseFilePath)
         {
             FileUtils.ValidateFilePath(databaseFilePath);
             StorageSqliteCreator.CreateDatabaseStructure(databaseFilePath);
-            SetConnectionToFile(databaseFilePath);
+            return GetConnectionToFile(databaseFilePath);
         }
 
         /// <summary>
@@ -292,7 +280,7 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to connect to.</param>
         /// <exception cref="CouldNotConnectException">No file exists at <paramref name="databaseFilePath"/>.</exception>
-        private void SetConnectionToFile(string databaseFilePath)
+        private static string GetConnectionToFile(string databaseFilePath)
         {
             if (!File.Exists(databaseFilePath))
             {
@@ -300,7 +288,7 @@ namespace Application.Ringtoets.Storage
                 throw new CouldNotConnectException(message);
             }
 
-            SetConnectionToStorage(databaseFilePath);
+            return GetConnectionToStorage(databaseFilePath);
         }
 
         /// <summary>
@@ -308,9 +296,9 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="databaseFilePath">The path of the file, which is used for creating exceptions.</param>
         /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
-        private void SetConnectionToStorage(string databaseFilePath)
+        private static string GetConnectionToStorage(string databaseFilePath)
         {
-            connectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
+            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
 
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
@@ -325,6 +313,7 @@ namespace Application.Ringtoets.Storage
                     throw new StorageValidationException(message, exception);
                 }
             }
+            return connectionString;
         }
 
         /// <summary>
@@ -334,7 +323,7 @@ namespace Application.Ringtoets.Storage
         /// <param name="errorMessage">The critical error message.</param>
         /// <param name="innerException">Exception that caused this exception to be thrown.</param>
         /// <returns>Returns a new <see cref="StorageException"/>.</returns>
-        private StorageException CreateStorageWriterException(string databaseFilePath, string errorMessage, Exception innerException)
+        private static StorageException CreateStorageWriterException(string databaseFilePath, string errorMessage, Exception innerException)
         {
             var message = new FileWriterErrorMessageBuilder(databaseFilePath).Build(errorMessage);
             return new StorageException(message, innerException);
@@ -347,10 +336,22 @@ namespace Application.Ringtoets.Storage
         /// <param name="errorMessage">The critical error message.</param>
         /// <param name="innerException">Exception that caused this exception to be thrown.</param>
         /// <returns>Returns a new <see cref="StorageException"/>.</returns>
-        private StorageException CreateStorageReaderException(string databaseFilePath, string errorMessage, Exception innerException = null)
+        private static StorageException CreateStorageReaderException(string databaseFilePath, string errorMessage, Exception innerException = null)
         {
             var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(errorMessage);
             return new StorageException(message, innerException);
+        }
+
+        private class StagedProject
+        {
+            public StagedProject(RingtoetsProject projectModel, ProjectEntity projectEntity)
+            {
+                Model = projectModel;
+                Entity = projectEntity;
+            }
+
+            public RingtoetsProject Model { get; private set; }
+            public ProjectEntity Entity { get; private set; }
         }
     }
 }

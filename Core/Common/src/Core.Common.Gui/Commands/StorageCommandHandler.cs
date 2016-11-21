@@ -40,35 +40,38 @@ namespace Core.Common.Gui.Commands
         private readonly IWin32Window dialogParent;
         private readonly IProjectOwner projectOwner;
         private readonly IStoreProject projectPersistor;
+        private readonly IProjectFactory projectFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StorageCommandHandler"/> class.
         /// </summary>
         /// <param name="projectStorage">Class responsible to storing and loading the application project.</param>
+        /// <param name="projectFactory"></param>
         /// <param name="projectOwner">The class owning the application project.</param>
         /// <param name="dialogParent">Controller for UI.</param>
-        public StorageCommandHandler(IStoreProject projectStorage, IProjectOwner projectOwner, IWin32Window dialogParent)
+        public StorageCommandHandler(IStoreProject projectStorage, IProjectFactory projectFactory, IProjectOwner projectOwner, IWin32Window dialogParent)
         {
             this.dialogParent = dialogParent;
             this.projectOwner = projectOwner;
             projectPersistor = projectStorage;
+            this.projectFactory = projectFactory;
         }
 
         /// <summary>
         /// Checks if an action may continue when changes are detected.
         /// </summary>
         /// <returns><c>True</c> if the action should continue, <c>false</c> otherwise.</returns>
-        public bool ContinueIfHasChanges()
+        public bool AskConfirmationUnsavedChanges()
         {
-            var project = projectOwner.Project;
-            if (project == null || projectOwner.IsCurrentNew())
+            if (IsCurrentNew())
             {
                 return true;
             }
+            var project = projectOwner.Project;
             projectPersistor.StageProject(project);
             try
             {
-                if (!projectPersistor.HasStagedProjectChanges())
+                if (!projectPersistor.HasStagedProjectChanges(projectOwner.ProjectFilePath))
                 {
                     projectPersistor.UnstageProject();
                     return true;
@@ -86,22 +89,29 @@ namespace Core.Common.Gui.Commands
             {
                 projectPersistor.UnstageProject();
             }
+            if (!openSaveOrDiscardProjectDialog)
+            {
+                log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_cancelled);
+            }
+
             return openSaveOrDiscardProjectDialog;
+        }
+
+        private bool IsCurrentNew()
+        {
+            return projectOwner.Project.Equals(projectFactory.CreateNewProject());
         }
 
         public void CreateNewProject()
         {
-            if (!ContinueIfHasChanges())
+            if (!AskConfirmationUnsavedChanges())
             {
                 log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_cancelled);
                 return;
             }
-            CloseProject();
-
-            log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project);
-            projectOwner.CreateNewProject();
-            projectOwner.ProjectFilePath = "";
-            log.Info(Resources.StorageCommandHandler_NewProject_Created_new_project_succesful);
+            log.Info(Resources.Creating_new_project);
+            projectOwner.SetProject(projectFactory.CreateNewProject(), null);
+            log.Info(Resources.Created_new_project_succesful);
         }
 
         public bool OpenExistingProject()
@@ -112,7 +122,7 @@ namespace Core.Common.Gui.Commands
                 Title = Resources.OpenFileDialog_Title
             })
             {
-                if (openFileDialog.ShowDialog(dialogParent) != DialogResult.Cancel && ContinueIfHasChanges())
+                if (openFileDialog.ShowDialog(dialogParent) != DialogResult.Cancel && AskConfirmationUnsavedChanges())
                 {
                     return OpenExistingProject(openFileDialog.FileName);
                 }
@@ -126,20 +136,19 @@ namespace Core.Common.Gui.Commands
         {
             log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project);
 
-            CloseProject();
-
             var newProject = LoadProjectFromStorage(filePath);
             var isOpenProjectSuccessful = newProject != null;
-            if (!isOpenProjectSuccessful)
-            {
-                log.Error(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed);
-            }
-            else
+
+            if (isOpenProjectSuccessful)
             {
                 log.Info(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_successful);
                 newProject.Name = Path.GetFileNameWithoutExtension(filePath);
-                projectOwner.ProjectFilePath = filePath;
-                projectOwner.Project = newProject;
+                projectOwner.SetProject(newProject, filePath);
+            }
+            else
+            {
+                log.Error(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed);
+                projectOwner.SetProject(projectFactory.CreateNewProject(), null);
             }
 
             return isOpenProjectSuccessful;
@@ -165,9 +174,9 @@ namespace Core.Common.Gui.Commands
             }
 
             // Save was successful, store location
-            projectOwner.ProjectFilePath = filePath;
             project.Name = Path.GetFileNameWithoutExtension(filePath);
-            project.NotifyObservers();
+            projectOwner.SetProject(project, filePath);
+
             log.Info(string.Format(CultureInfo.CurrentCulture,
                                    Resources.StorageCommandHandler_SaveProject_Successfully_saved_project_0_,
                                    project.Name));
@@ -198,17 +207,6 @@ namespace Core.Common.Gui.Commands
                                    Resources.StorageCommandHandler_SaveProject_Successfully_saved_project_0_,
                                    project.Name));
             return true;
-        }
-
-        private void CloseProject()
-        {
-            if (projectOwner.Project == null)
-            {
-                return;
-            }
-            projectOwner.CloseProject();
-            projectOwner.ProjectFilePath = "";
-            projectPersistor.CloseProject();
         }
 
         private bool OpenSaveOrDiscardProjectDialog()

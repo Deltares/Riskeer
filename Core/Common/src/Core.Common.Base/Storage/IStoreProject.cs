@@ -41,7 +41,8 @@ namespace Core.Common.Base.Storage
         bool HasStagedProject { get; }
 
         /// <summary>
-        /// Converts the staged project to a new storage entry.
+        /// Converts the staged project to a new storage entry. Upon return, the staged project is released and
+        /// <see cref="HasStagedProject"/> will be <c>false</c>.
         /// </summary>
         /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
         /// <exception cref="InvalidOperationException">Thrown when no project has been staged
@@ -76,11 +77,6 @@ namespace Core.Common.Base.Storage
         IProject LoadProject(string connectionArguments);
 
         /// <summary>
-        /// Removes the connection to a database that has been made previously.
-        /// </summary>
-        void CloseProject();
-
-        /// <summary>
         /// Stages the project (does some prep-work and validity checking) to be saved.
         /// </summary>
         /// <param name="project">The project to be prepared to be saved.</param>
@@ -93,13 +89,16 @@ namespace Core.Common.Base.Storage
         void UnstageProject();
 
         /// <summary>
-        /// Checks if the staged project differs from the last saved or loaded <see cref="IProject"/>, if any.
+        /// Checks if the staged project differs from the <see cref="IProject"/> which can be found at
+        /// <paramref name="filePath"/>, if any.
         /// </summary>
-        /// <returns><c>true</c> if last <see cref="IProject"/> was set and is different
-        /// from the staged project, <c>false</c> otherwise.</returns>
+        /// <param name="filePath">The currently set path to the loaded project.</param>
+        /// <returns><c>true</c> if <see cref="IProject"/> can be loaded from <paramref name="filePath"/> 
+        /// and is different from the staged project, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no project has been staged.</exception>
         /// <exception cref="StorageException">Thrown when the staged project contains
         /// more than <see cref="int.MaxValue"/> unique object instances.</exception>
-        bool HasStagedProjectChanges();
+        bool HasStagedProjectChanges(string filePath);
     }
 }

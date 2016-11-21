@@ -33,6 +33,8 @@ namespace Core.Common.Gui.Commands
         /// </summary>
         void CreateNewProject();
 
+        bool AskConfirmationUnsavedChanges();
+
         /// <summary>
         /// Asks the user for a file-location to save the current project, then proceeds
         /// to persist the data to that location.

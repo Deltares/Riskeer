@@ -154,8 +154,8 @@
   <data name="GuiCore_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
     <value>Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.</value>
   </data>
-  <data name="GuiCore_Run_Creating_new_project" xml:space="preserve">
-    <value>Nieuw project aanmaken...</value>
+  <data name="Creating_new_project" xml:space="preserve">
+    <value>Nieuw Ringtoetsproject aanmaken...</value>
   </data>
   <data name="Messages" xml:space="preserve">
     <value>Berichten</value>
@@ -208,8 +208,8 @@
   <data name="Ribbon_Messages" xml:space="preserve">
     <value>Berichten</value>
   </data>
-  <data name="StorageCommandHandler_NewProject_Created_new_project_succesful" xml:space="preserve">
-    <value>Nieuw Ringtoetsproject succesvol geopend.</value>
+  <data name="Created_new_project_succesful" xml:space="preserve">
+    <value>Nieuw Ringtoetsproject succesvol aangemaakt.</value>
   </data>
   <data name="Ribbon_TabItem_View" xml:space="preserve">
     <value>Beeld</value>
@@ -253,9 +253,6 @@
   <data name="OpenFileDialog_Title" xml:space="preserve">
     <value>Openen</value>
   </data>
-  <data name="StorageCommandHandler_NewProject_Creating_new_project" xml:space="preserve">
-    <value>Openen van nieuw Ringtoetsproject.</value>
-  </data>
   <data name="ApplicationFeatureCommandHandler_OpenLogFileExternal_Unable_to_open_log_file" xml:space="preserve">
     <value>Logbestand kan niet worden geopend.</value>
   </data>
@@ -269,7 +266,7 @@
     <value>Eigenschappen</value>
   </data>
   <data name="StorageCommandHandler_OpenExistingProject_Opening_existing_project" xml:space="preserve">
-    <value>Openen van bestaand Ringtoetsproject.</value>
+    <value>Openen van bestaand Ringtoetsproject...</value>
   </data>
   <data name="brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/brick.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

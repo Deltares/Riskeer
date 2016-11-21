@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var parentDialogStub = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
             var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
-            projectOwnerStub.Project = project;
+            projectOwnerStub.Stub(po => po.Project).Return(project);
             var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
@@ -215,7 +215,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var parentDialogStub = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
             var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
-            projectOwnerStub.Project = project;
+            projectOwnerStub.Stub(po => po.Project).Return(project);
             var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
@@ -253,7 +253,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var parentDialogStub = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
             var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
-            projectOwnerStub.Project = project;
+            projectOwnerStub.Stub(po => po.Project).Return(project);
             var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
@@ -298,7 +298,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var parentDialogStub = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
             var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
-            projectOwnerStub.Project = project;
+            projectOwnerStub.Stub(po => po.Project).Return(project);
             var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
@@ -333,7 +333,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var parentDialogStub = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
             var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
-            projectOwnerStub.Project = project;
+            projectOwnerStub.Stub(po => po.Project).Return(project);
             var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
@@ -373,7 +373,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var parentDialogStub = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
             var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
-            projectOwnerStub.Project = project;
+            projectOwnerStub.Stub(po => po.Project).Return(project);
             var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
@@ -413,7 +413,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var parentDialogStub = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
             var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
-            projectOwnerStub.Project = project;
+            projectOwnerStub.Stub(po => po.Project).Return(project);
             var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
@@ -457,7 +457,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var parentDialogStub = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
             var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
-            projectOwnerStub.Project = project;
+            projectOwnerStub.Stub(po => po.Project).Return(project);
             var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();

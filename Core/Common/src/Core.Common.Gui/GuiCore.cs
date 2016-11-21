@@ -62,8 +62,6 @@ namespace Core.Common.Gui
         private static bool isAlreadyRunningInstanceOfIGui;
         private static string instanceCreationStackTrace;
 
-        private readonly IProjectFactory projectFactory;
-
         private bool isExiting;
         private bool runFinished;
         private SplashScreen splashScreen;
@@ -107,7 +105,6 @@ namespace Core.Common.Gui
             {
                 throw new ArgumentNullException("fixedSettings");
             }
-            this.projectFactory = projectFactory;
 
             MainWindow = mainWindow;
             FixedSettings = fixedSettings;
@@ -118,7 +115,7 @@ namespace Core.Common.Gui
             Plugins = new List<PluginBase>();
 
             viewCommandHandler = new ViewCommandHandler(this, this, this);
-            storageCommandHandler = new StorageCommandHandler(projectStore, this, MainWindow);
+            storageCommandHandler = new StorageCommandHandler(projectStore, projectFactory, this, MainWindow);
             importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetImportInfos()));
             exportCommandHandler = new GuiExportHandler(MainWindow, Plugins.SelectMany(p => p.GetExportInfos()));
 
@@ -127,6 +124,8 @@ namespace Core.Common.Gui
 
             ProjectOpened += ApplicationProjectOpened;
             projectObserver = new Observer(UpdateTitle);
+
+            Project = projectFactory.CreateNewProject();
         }
 
         public IPropertyResolver PropertyResolver { get; private set; }
@@ -176,7 +175,7 @@ namespace Core.Common.Gui
             }
 
             // Store project?
-            if (!storageCommandHandler.ContinueIfHasChanges())
+            if (!storageCommandHandler.AskConfirmationUnsavedChanges())
             {
                 // User pressed cancel
                 return;
@@ -239,7 +238,6 @@ namespace Core.Common.Gui
                 }
 
                 Selection = null;
-                Project = null;
 
                 if (ViewHost != null)
                 {
@@ -348,15 +346,10 @@ namespace Core.Common.Gui
 
         private void InitializeProjectFromPath(string projectPath)
         {
-            var setDefaultProject = string.IsNullOrWhiteSpace(projectPath);
-            if (!setDefaultProject)
+            var isPathGiven = !string.IsNullOrWhiteSpace(projectPath);
+            if (isPathGiven)
             {
-                setDefaultProject = !storageCommandHandler.OpenExistingProject(projectPath);
-            }
-            if (setDefaultProject)
-            {
-                log.Info(Resources.GuiCore_Run_Creating_new_project);
-                CreateNewProject();
+                storageCommandHandler.OpenExistingProject(projectPath);
             }
         }
 
@@ -598,40 +591,32 @@ namespace Core.Common.Gui
             {
                 return project;
             }
-            set
+            private set
             {
-                if (project != null)
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value", @"There should always be a project.");
+                }
+                if (!ReferenceEquals(project, value))
                 {
                     ViewCommands.RemoveAllViewsForItem(project);
-                }
+                    project = value;
+                    projectObserver.Observable = project;
 
-                project = value;
-                projectObserver.Observable = project;
-                UpdateTitle();
-
-                if (project != null)
-                {
                     if (ProjectOpened != null)
                     {
                         ProjectOpened(project);
                     }
                 }
+
+                UpdateTitle();
             }
         }
 
-        public bool IsCurrentNew()
+        public void SetProject(IProject newProject, string projectPath)
         {
-            return Project != null && Project.Equals(projectFactory.CreateNewProject());
-        }
-
-        public void CreateNewProject()
-        {
-            Project = projectFactory.CreateNewProject();
-        }
-
-        public void CloseProject()
-        {
-            Project = null;
+            Project = newProject;
+            ProjectFilePath = projectPath;
         }
 
         #endregion

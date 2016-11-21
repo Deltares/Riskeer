@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     gui.Run();
 
                     // When
-                    Action action = () => gui.Project = new RingtoetsProject();
+                    Action action = () => gui.SetProject(new RingtoetsProject(), null);
 
                     // Then
                     TestHelper.AssertLogMessagesCount(action, 0);
@@ -135,7 +135,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     project.AssessmentSections.Add(section);
 
                     // When
-                    Action action = () => gui.Project = project;
+                    Action action = () => gui.SetProject(project, null);
 
                     // Then
                     TestHelper.AssertLogMessagesCount(action, 0);
@@ -175,7 +175,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     gui.Run();
 
                     // When
-                    Action action = () => gui.Project = project;
+                    Action action = () => gui.SetProject(project, null);
 
                     // Then
                     var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", nonExistingFileExistingFile);

@@ -489,7 +489,7 @@ namespace Application.Ringtoets.Storage.Test
             Assert.IsFalse(storage.HasStagedProject);
 
             // Call
-            TestDelegate call = () => storage.HasStagedProjectChanges();
+            TestDelegate call = () => storage.HasStagedProjectChanges(null);
 
             // Assert
             string message = Assert.Throws<InvalidOperationException>(call).Message;
@@ -497,14 +497,14 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void HasStagedProjectChanges_NoConnectionSet_ReturnsTrue()
+        public void HasStagedProjectChanges_NoPathGiven_ReturnsTrue()
         {
             // Setup
             StorageSqLite storageSqLite = new StorageSqLite();
             storageSqLite.StageProject(new RingtoetsProject());
 
             // Call
-            bool hasChanges = storageSqLite.HasStagedProjectChanges();
+            bool hasChanges = storageSqLite.HasStagedProjectChanges(null);
 
             // Assert
             Assert.IsTrue(hasChanges);
@@ -525,39 +525,10 @@ namespace Application.Ringtoets.Storage.Test
                 storageSqLite.StageProject(loadedProject);
 
                 // Call
-                bool hasChanges = storageSqLite.HasStagedProjectChanges();
+                bool hasChanges = storageSqLite.HasStagedProjectChanges(tempRingtoetsFile);
 
                 // Assert
                 Assert.IsFalse(hasChanges);
-            }
-            finally
-            {
-                CallGarbageCollector();
-                fileDisposeHelper.Dispose();
-            }
-        }
-
-        [Test]
-        public void HasStagedProjectChanges_ValidProjectLoadedAndThenClosed_ReturnsTrue()
-        {
-            // Setup
-            StorageSqLite storageSqLite = new StorageSqLite();
-            RingtoetsProject storedProject = new RingtoetsProject();
-
-            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
-            try
-            {
-                SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
-                IProject loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
-                storageSqLite.CloseProject();
-
-                storageSqLite.StageProject(loadedProject);
-
-                // Call
-                bool hasChanges = storageSqLite.HasStagedProjectChanges();
-
-                // Assert
-                Assert.IsTrue(hasChanges);
             }
             finally
             {
@@ -583,7 +554,7 @@ namespace Application.Ringtoets.Storage.Test
 
                 // Call
                 loadedProject.Name = changedName;
-                bool hasChanges = storageSqLite.HasStagedProjectChanges();
+                bool hasChanges = storageSqLite.HasStagedProjectChanges(tempRingtoetsFile);
 
                 // Assert
                 Assert.IsFalse(hasChanges);
@@ -613,7 +584,7 @@ namespace Application.Ringtoets.Storage.Test
                 storageSqLite.StageProject(loadedProject);
 
                 // Call
-                bool hasChanges = storageSqLite.HasStagedProjectChanges();
+                bool hasChanges = storageSqLite.HasStagedProjectChanges(tempRingtoetsFile);
 
                 // Assert
                 Assert.IsTrue(hasChanges);
@@ -645,7 +616,7 @@ namespace Application.Ringtoets.Storage.Test
                 storage.StageProject(projectMock);
 
                 // Call
-                var hasChanges = storage.HasStagedProjectChanges();
+                var hasChanges = storage.HasStagedProjectChanges(tempRingtoetsFile);
 
                 // Assert
                 Assert.IsFalse(hasChanges);

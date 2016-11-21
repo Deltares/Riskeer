@@ -84,6 +84,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             guiStub.Stub(g => g.ViewHost).Return(viewHost);
             guiStub.Expect(g => g.ProjectOpened += null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            guiStub.Stub(g => g.Project).Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var plugin = new ProjectExplorerPlugin
@@ -116,6 +117,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             guiStub.Stub(g => g.ViewHost).Return(viewHost);
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            guiStub.Stub(g => g.Project).Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var plugin = new ProjectExplorerPlugin
@@ -152,6 +154,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
             guiStub.Stub(g => g.ViewHost).Return(viewHost);
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            guiStub.Stub(g => g.Project).Return(mocks.Stub<IProject>());
 
             guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
@@ -246,6 +249,8 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             guiStub.Expect(g => g.ProjectOpened += null).IgnoreArguments();
             guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
+            guiStub.Expect(g => g.Project).Return(initialProjectMock);
+            guiStub.Expect(g => g.Project).Return(newProjectMock);
 
             mocks.ReplayAll();
 
@@ -254,7 +259,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Gui = guiStub
             })
             {
-                guiStub.Project = initialProjectMock;
                 plugin.Activate();
 
                 // Precondition
@@ -262,7 +266,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Assert.AreSame(initialProjectMock, toolViews[0].Data);
 
                 // Call
-                guiStub.Project = newProjectMock;
                 guiStub.Raise(s => s.ProjectOpened += null, newProjectMock);
 
                 // Assert
