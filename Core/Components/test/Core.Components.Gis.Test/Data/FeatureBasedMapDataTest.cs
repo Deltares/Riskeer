@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
@@ -42,7 +43,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual("test data", data.Name);
             Assert.IsEmpty(data.Features);
             Assert.IsFalse(data.ShowLabels);
-            Assert.AreEqual("name", data.SelectedMetaDataAttribute);
+            Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
             CollectionAssert.IsEmpty(data.MetaData);
         }
 
@@ -107,6 +108,40 @@ namespace Core.Components.Gis.Test.Data
             // Assert
             const string expectedMessage = "The array of features cannot be null or contain null.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void MetaData_Always_ReturnAllAvailableMetaDataAttributesFromFeatures()
+        {
+            // Setup
+            var feature1 = new MapFeature(Enumerable.Empty<MapGeometry>());
+            feature1.MetaData["Attribute1"] = new object();
+            var feature2 = new MapFeature(Enumerable.Empty<MapGeometry>());
+            feature2.MetaData["Attribute1"] = new object();
+            feature2.MetaData["Attribute2"] = new object();
+            var feature3 = new MapFeature(Enumerable.Empty<MapGeometry>());
+            feature3.MetaData["Attribute3"] = new object();
+
+            var data = new TestFeatureBasedMapData("test data")
+            {
+                Features = new[]
+                {
+                    feature1,
+                    feature2,
+                    feature3
+                }
+            };
+
+            // Call
+            IEnumerable<string> metaData = data.MetaData;
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                "Attribute1",
+                "Attribute2",
+                "Attribute3",
+            }, metaData);
         }
 
         private class TestFeatureBasedMapData : FeatureBasedMapData

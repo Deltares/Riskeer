@@ -97,9 +97,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 Assert.AreEqual(4, features[i].MetaData.Keys.Count);
                 Assert.AreEqual(hydraulicBoundaryLocations[i].Id, features[i].MetaData["ID"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].Name, features[i].MetaData["Name"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].DesignWaterLevel, features[i].MetaData["DesignWaterLevel"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].WaveHeight, features[i].MetaData["WaveHeight"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].Name, features[i].MetaData["Naam"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].DesignWaterLevel, features[i].MetaData["Toetspeil"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].WaveHeight, features[i].MetaData["Golfhoogte"]);
             }
 
             AssertEqualFeatureCollections(points, features);

@@ -71,9 +71,9 @@ namespace Ringtoets.Common.Forms.Views
                     var feature = GetAsSingleMapFeature(location.Location);
 
                     feature.MetaData["ID"] = location.Id;
-                    feature.MetaData["Name"] = location.Name;
-                    feature.MetaData["DesignWaterLevel"] = location.DesignWaterLevel;
-                    feature.MetaData["WaveHeight"] = location.WaveHeight;
+                    feature.MetaData["Naam"] = location.Name;
+                    feature.MetaData["Toetspeil"] = location.DesignWaterLevel;
+                    feature.MetaData["Golfhoogte"] = location.WaveHeight;
 
                     features.Add(feature);
                 }

@@ -21,10 +21,13 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms.Design;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.UITypeEditors;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using Core.Plugins.Map.PropertyClasses;
 using Core.Plugins.Map.UITypeEditors;
 using NUnit.Framework;
@@ -49,12 +52,14 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
+            var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
+            feature.MetaData["Name"] = "naam";
+
             var mapData = new MapPointData("Name")
             {
-                MetaData =
+                Features = new[]
                 {
-                    "Test",
-                    "Test 2"
+                    feature
                 }
             };
 
@@ -86,12 +91,17 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
+            const string newValue = "Test 2";
+
+            var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
+            feature.MetaData["Test"] = "test";
+            feature.MetaData[newValue] = "test 2";
+
             var mapData = new MapPointData("Name")
             {
-                MetaData =
+                Features = new[]
                 {
-                    "Test",
-                    "Test 2"
+                    feature
                 }
             };
 
@@ -101,7 +111,6 @@ namespace Core.Plugins.Map.Test.UITypeEditors
             };
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new MetaDataAttributeEditor();
-            var newValue = "Test 2";
 
             var mockRepository = new MockRepository();
             var serviceProviderStub = mockRepository.Stub<IServiceProvider>();

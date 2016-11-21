@@ -43,8 +43,7 @@ namespace Core.Components.Gis.Data
         {
             features = new MapFeature[0];
             ShowLabels = false;
-            SelectedMetaDataAttribute = "name";
-            MetaData = new List<string>();
+            SelectedMetaDataAttribute = "Naam";
         }
 
         /// <summary>
@@ -67,7 +66,7 @@ namespace Core.Components.Gis.Data
         }
 
         /// <summary>
-        /// Gets or sets a value indicating wheter the labels of the <see cref="FeatureBasedMapData"/> should be shown.
+        /// Gets or sets a value indicating whether the labels of the <see cref="FeatureBasedMapData"/> should be shown.
         /// </summary>
         public bool ShowLabels { get; set; }
 
@@ -79,7 +78,15 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Gets the meta data associated with the map data.
         /// </summary>
-        public List<string> MetaData { get; private set; } 
+        public IEnumerable<string> MetaData
+        {
+            get
+            {
+                return features.SelectMany(f => f.MetaData)
+                               .Select(md => md.Key)
+                               .Distinct();
+            }
+        }
 
         /// <summary>
         /// This method validates newly set features.

@@ -92,13 +92,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, data.Name);
             Assert.IsTrue(data.ShowLabels);
             AssertEqualStyle(data.Style, Color.DarkBlue, 6, PointSymbol.Circle);
-            CollectionAssert.AreEqual(new[]
-            {
-                "ID",
-                "Name",
-                "DesignWaterLevel",
-                "WaveHeight"
-            }, data.MetaData);
         }
 
         [Test]
