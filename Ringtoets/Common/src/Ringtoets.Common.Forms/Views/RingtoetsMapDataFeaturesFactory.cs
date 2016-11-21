@@ -279,12 +279,32 @@ namespace Ringtoets.Common.Forms.Views
             });
         }
 
+        /// <summary>
+        /// This class holds information to be able to present calculations coupled to hydraulic boundary locations on the map.
+        /// </summary>
         public class MapCalculationData
         {
+            /// <summary>
+            /// Gets the name of the calculation.
+            /// </summary>
             public string Name { get; private set; }
+
+            /// <summary>
+            /// Gets the location of the calculation.
+            /// </summary>
             public Point2D CalculationLocation { get; private set; }
+
+            /// <summary>
+            /// Gets the hydraulic boundary location assigned to the calculation.
+            /// </summary>
             public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
 
+            /// <summary>
+            /// Creates a new instance of <see cref="MapCalculationData"/>.
+            /// </summary>
+            /// <param name="calculationName">The name of the calculation.</param>
+            /// <param name="calculationLocation">The location of the calculation.</param>
+            /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location assigned to the calculation.</param>
             public MapCalculationData(string calculationName, Point2D calculationLocation, HydraulicBoundaryLocation hydraulicBoundaryLocation)
             {
                 if (calculationName == null)
