@@ -65,6 +65,8 @@ namespace Core.Common.Gui
         private bool isExiting;
         private bool runFinished;
         private SplashScreen splashScreen;
+        private readonly Observer projectObserver;
+
         private readonly IList<ISelectionProvider> selectionProviders = new List<ISelectionProvider>();
 
         /// <summary>
@@ -375,6 +377,10 @@ namespace Core.Common.Gui
             {
                 mainWindow.ValidateItems();
             }
+
+            ViewCommands.RemoveAllViewsForItem(project);
+            projectObserver.Observable = project;
+            UpdateTitle();
         }
 
         private static void ConfigureLogging()
@@ -579,11 +585,9 @@ namespace Core.Common.Gui
         #region Implementation: IProjectOwner
 
         private IProject project;
-        private readonly Observer projectObserver;
-
         public event Action<IProject> ProjectOpened;
 
-        public string ProjectFilePath { get; set; }
+        public string ProjectFilePath { get; private set; }
 
         public IProject Project
         {
@@ -597,19 +601,20 @@ namespace Core.Common.Gui
                 {
                     throw new ArgumentNullException("value", @"There should always be a project.");
                 }
+
                 if (!ReferenceEquals(project, value))
                 {
-                    ViewCommands.RemoveAllViewsForItem(project);
                     project = value;
-                    projectObserver.Observable = project;
-
-                    if (ProjectOpened != null)
-                    {
-                        ProjectOpened(project);
-                    }
+                    OnProjectOpened();
                 }
+            }
+        }
 
-                UpdateTitle();
+        private void OnProjectOpened()
+        {
+            if (ProjectOpened != null)
+            {
+                ProjectOpened(project);
             }
         }
 

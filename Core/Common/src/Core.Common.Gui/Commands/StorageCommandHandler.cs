@@ -142,8 +142,9 @@ namespace Core.Common.Gui.Commands
             if (isOpenProjectSuccessful)
             {
                 log.Info(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_successful);
-                newProject.Name = Path.GetFileNameWithoutExtension(filePath);
                 projectOwner.SetProject(newProject, filePath);
+                newProject.Name = Path.GetFileNameWithoutExtension(filePath);
+                newProject.NotifyObservers();
             }
             else
             {
@@ -174,8 +175,9 @@ namespace Core.Common.Gui.Commands
             }
 
             // Save was successful, store location
-            project.Name = Path.GetFileNameWithoutExtension(filePath);
             projectOwner.SetProject(project, filePath);
+            project.Name = Path.GetFileNameWithoutExtension(filePath);
+            project.NotifyObservers();
 
             log.Info(string.Format(CultureInfo.CurrentCulture,
                                    Resources.StorageCommandHandler_SaveProject_Successfully_saved_project_0_,
