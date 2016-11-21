@@ -45,7 +45,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
             var editor = new MetaDataAttributeEditor();
 
             // Assert
-            Assert.IsInstanceOf<SelectionEditor<MapPointDataProperties, string>>(editor);
+            Assert.IsInstanceOf<SelectionEditor<IHasMetaData, string>>(editor);
         }
 
         [Test]

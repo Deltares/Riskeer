@@ -20,26 +20,24 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.ComponentModel;
-using Core.Common.Gui.UITypeEditors;
-using Core.Plugins.Map.PropertyClasses;
+using Core.Common.Gui.PropertyBag;
 
-namespace Core.Plugins.Map.UITypeEditors
+namespace Core.Plugins.Map.PropertyClasses
 {
     /// <summary>
-    /// This class defines a drop down list edit-control from which the user can select a
-    /// meta data attribute from a collection.
+    /// Interface for <see cref="IObjectProperties"/> with a meta data property.
     /// </summary>
-    public class MetaDataAttributeEditor : SelectionEditor<IHasMetaData, string>
+    public interface IHasMetaData : IObjectProperties
     {
-        protected override IEnumerable<string> GetAvailableOptions(ITypeDescriptorContext context)
-        {
-            return GetPropertiesObject(context).GetAvailableMetaDataAttributes();
-        }
+        /// <summary>
+        /// Gets the selected meta data attribute.
+        /// </summary>
+        string SelectedMetaDataAttribute { get; }
 
-        protected override string GetCurrentOption(ITypeDescriptorContext context)
-        {
-            return GetPropertiesObject(context).SelectedMetaDataAttribute;
-        }
+        /// <summary>
+        /// Return the collection of available meta data attributes.
+        /// </summary>
+        /// <returns>The collection of available meta data attributes.</returns>
+        IEnumerable<string> GetAvailableMetaDataAttributes();
     }
 }

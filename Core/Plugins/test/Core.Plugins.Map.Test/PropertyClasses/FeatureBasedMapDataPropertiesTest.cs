@@ -49,6 +49,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MapPointData>>(properties);
+            Assert.IsInstanceOf<IHasMetaData>(properties);
             Assert.IsNull(properties.Data);
         }
 
