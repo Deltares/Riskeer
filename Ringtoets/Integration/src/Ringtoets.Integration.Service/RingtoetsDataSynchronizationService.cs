@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
+using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.HeightStructures.Data;
@@ -354,8 +355,8 @@ namespace Ringtoets.Integration.Service
 
             var changedObservables = new List<IObservable>();
             StructuresCalculation<ClosingStructuresInput>[] calculations = failureMechanism.Calculations
-                                                                                          .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                                                                          .ToArray();
+                                                                                           .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                                                           .ToArray();
             StructuresCalculation<ClosingStructuresInput>[] calculationWithRemovedForeshoreProfile = calculations
                 .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
                 .ToArray();
@@ -394,8 +395,8 @@ namespace Ringtoets.Integration.Service
 
             var changedObservables = new List<IObservable>();
             StructuresCalculation<StabilityPointStructuresInput>[] calculations = failureMechanism.Calculations
-                                                                                          .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                                                          .ToArray();
+                                                                                                  .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                                  .ToArray();
             StructuresCalculation<StabilityPointStructuresInput>[] calculationWithRemovedForeshoreProfile = calculations
                 .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
                 .ToArray();
@@ -509,6 +510,47 @@ namespace Ringtoets.Integration.Service
 
             failureMechanism.ForeshoreProfiles.Remove(profile);
             changedObservables.Add(failureMechanism.ForeshoreProfiles);
+
+            return changedObservables;
+        }
+
+        /// <summary>
+        /// Removes a given <see cref="DikeProfile"/> from the <see cref="GrassCoverErosionInwardsFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
+        /// that should be removed.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// or <paramref name="profile"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveDikeProfile(GrassCoverErosionInwardsFailureMechanism failureMechanism, DikeProfile profile)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
+            var changedObservables = new List<IObservable>();
+            GrassCoverErosionInwardsCalculation[] calculations = failureMechanism.Calculations
+                                                                                 .Cast<GrassCoverErosionInwardsCalculation>()
+                                                                                 .ToArray();
+            GrassCoverErosionInwardsCalculation[] calculationWithRemovedDikeProfile = calculations
+                .Where(c => ReferenceEquals(c.InputParameters.DikeProfile, profile))
+                .ToArray();
+            foreach (GrassCoverErosionInwardsCalculation calculation in calculationWithRemovedDikeProfile)
+            {
+                calculation.InputParameters.DikeProfile = null;
+                GrassCoverErosionInwardsHelper.Delete(failureMechanism.SectionResults, calculation, calculations);
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            failureMechanism.DikeProfiles.Remove(profile);
+            changedObservables.Add(failureMechanism.DikeProfiles);
 
             return changedObservables;
         }

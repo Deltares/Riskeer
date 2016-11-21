@@ -482,19 +482,7 @@ namespace Ringtoets.Piping.Plugin
         private void OnSurfaceLineRemoved(RingtoetsPipingSurfaceLine nodeData, object parentData)
         {
             var context = (RingtoetsPipingSurfaceLinesContext) parentData;
-            var changedObservables = new List<IObservable>();
-            PipingFailureMechanism failureMechanism = context.FailureMechanism;
-            foreach (PipingCalculationScenario pipingCalculationScenario in failureMechanism.Calculations)
-            {
-                if (ReferenceEquals(pipingCalculationScenario.InputParameters.SurfaceLine, nodeData))
-                {
-                    pipingCalculationScenario.InputParameters.SurfaceLine = null;
-                    changedObservables.Add(pipingCalculationScenario.InputParameters);
-                }
-            }
-
-            context.WrappedData.Remove(nodeData);
-            changedObservables.Add(context.WrappedData);
+            IObservable[] changedObservables = PipingDataSynchronizationService.RemoveSurfaceLine(context.FailureMechanism, nodeData).ToArray();
 
             foreach (IObservable observable in changedObservables)
             {
@@ -514,20 +502,8 @@ namespace Ringtoets.Piping.Plugin
         private void OnStochasticSoilModelRemoved(StochasticSoilModel nodeData, object parentData)
         {
             var context = (StochasticSoilModelsContext) parentData;
-            var changedObservables = new List<IObservable>();
-            PipingFailureMechanism failureMechanism = context.FailureMechanism;
-            foreach (PipingCalculationScenario pipingCalculationScenario in failureMechanism.Calculations)
-            {
-                if (ReferenceEquals(pipingCalculationScenario.InputParameters.StochasticSoilModel, nodeData))
-                {
-                    pipingCalculationScenario.InputParameters.StochasticSoilModel = null;
-                    pipingCalculationScenario.InputParameters.StochasticSoilProfile = null;
-                    changedObservables.Add(pipingCalculationScenario.InputParameters);
-                }
-            }
-
-            context.WrappedData.Remove(nodeData);
-            changedObservables.Add(context.WrappedData);
+            IObservable[] changedObservables = PipingDataSynchronizationService.RemoveStochasticSoilModel(context.FailureMechanism,
+                                                                                                          nodeData).ToArray();
 
             foreach (IObservable observable in changedObservables)
             {

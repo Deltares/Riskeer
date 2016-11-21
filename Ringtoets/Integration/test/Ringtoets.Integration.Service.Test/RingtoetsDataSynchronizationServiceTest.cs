@@ -37,6 +37,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.TestUtils;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -857,6 +858,77 @@ namespace Ringtoets.Integration.Service.Test
                 Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
                 CollectionAssert.Contains(observables, calculation.InputParameters);
             }
+        }
+
+        [Test]
+        public void RemoveDikeProfile_GrassCoverErosionInwardsFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = null;
+            DikeProfile profile = new TestDikeProfile();
+
+            // Call
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void RemoveDikeProfile_GrassCoverErosionInwardsFailureMechanismProfileNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            DikeProfile profile = null;
+
+            // Call
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("profile", paramName);
+        }
+
+        [Test]
+        public void RemoveDikeProfile_FullyConfiguredGrassCoverErosionInwardsFailureMechanism_RemoveProfileAndClearDependentData()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = TestDataGenerator.GetFullyConfiguredGrassCoverErosionInwardsFailureMechanism();
+            DikeProfile profile = failureMechanism.DikeProfiles[0];
+            GrassCoverErosionInwardsCalculation[] calculations = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
+                                                                                 .Where(c => ReferenceEquals(c.InputParameters.DikeProfile, profile))
+                                                                                 .ToArray();
+            int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
+            GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
+                                                                                                     .Where(sr => calculations.Contains(sr.Calculation))
+                                                                                                     .ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculations);
+
+            // Call
+            IObservable[] observables = RingtoetsDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile).ToArray();
+
+            // Assert
+            Assert.AreEqual(1 + calculations.Length + sectionResults.Length, observables.Length);
+
+            CollectionAssert.DoesNotContain(failureMechanism.DikeProfiles, profile);
+            CollectionAssert.Contains(observables, failureMechanism.DikeProfiles);
+
+            foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
+            {
+                Assert.IsNull(calculation.InputParameters.DikeProfile);
+                CollectionAssert.Contains(observables, calculation.InputParameters);
+            }
+
+            foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in sectionResults)
+            {
+                Assert.IsNull(sectionResult.Calculation);
+                CollectionAssert.Contains(observables, sectionResult);
+            }
+            Assert.AreEqual(originalNumberOfSectionResultAssignments - sectionResults.Length, failureMechanism.SectionResults.Count(sr => sr.Calculation != null),
+                            "Other section results with a different calculation/dikeprofile should still have their association.");
         }
     }
 }

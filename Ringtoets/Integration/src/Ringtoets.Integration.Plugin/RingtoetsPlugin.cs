@@ -57,7 +57,6 @@ using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
@@ -959,22 +958,8 @@ namespace Ringtoets.Integration.Plugin
         private void OnDikeProfileRemoved(DikeProfile nodeData, object parentData)
         {
             var parentContext = (DikeProfilesContext) parentData;
-            var changedObservables = new List<IObservable>();
-            GrassCoverErosionInwardsCalculation[] grassCoverErosionInwardsCalculations = parentContext.ParentFailureMechanism.Calculations
-                                                                                                      .Cast<GrassCoverErosionInwardsCalculation>()
-                                                                                                      .ToArray();
-            GrassCoverErosionInwardsCalculation[] calculationWithRemovedDikeProfile = grassCoverErosionInwardsCalculations
-                .Where(c => ReferenceEquals(c.InputParameters.DikeProfile, nodeData))
-                .ToArray();
-            foreach (GrassCoverErosionInwardsCalculation calculation in calculationWithRemovedDikeProfile)
-            {
-                calculation.InputParameters.DikeProfile = null;
-                GrassCoverErosionInwardsHelper.Delete(parentContext.ParentFailureMechanism.SectionResults, calculation, grassCoverErosionInwardsCalculations);
-                changedObservables.Add(calculation.InputParameters);
-            }
-
-            parentContext.WrappedData.Remove(nodeData);
-            changedObservables.Add(parentContext.WrappedData);
+            var changedObservables = RingtoetsDataSynchronizationService.RemoveDikeProfile(parentContext.ParentFailureMechanism,
+                                                                                           nodeData).ToArray();
 
             foreach (IObservable observable in changedObservables)
             {

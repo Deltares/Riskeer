@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Utils.Extensions;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Service
 {
@@ -143,6 +144,81 @@ namespace Ringtoets.Piping.Service
             observables.Add(failureMechanism.SurfaceLines);
 
             return observables;
+        }
+
+        /// <summary>
+        /// Removes a given <see cref="RingtoetsPipingSurfaceLine"/> from the <see cref="PipingFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing at least one surfaceline.</param>
+        /// <param name="surfaceLine">The surfaceline residing in <paramref name="failureMechanism"/>
+        /// that should be removed.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// or <paramref name="surfaceLine"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveSurfaceLine(PipingFailureMechanism failureMechanism, RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (surfaceLine == null)
+            {
+                throw new ArgumentNullException("surfaceLine");
+            }
+
+            var changedObservables = new List<IObservable>();
+            foreach (PipingCalculation pipingCalculationScenario in failureMechanism.Calculations)
+            {
+                if (ReferenceEquals(pipingCalculationScenario.InputParameters.SurfaceLine, surfaceLine))
+                {
+                    pipingCalculationScenario.InputParameters.SurfaceLine = null;
+                    changedObservables.Add(pipingCalculationScenario.InputParameters);
+                }
+            }
+
+            failureMechanism.SurfaceLines.Remove(surfaceLine);
+            changedObservables.Add(failureMechanism.SurfaceLines);
+
+            return changedObservables;
+        }
+
+        /// <summary>
+        /// Removes a given <see cref="StochasticSoilModel"/> from the <see cref="PipingFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing at least one stochastic soil model.</param>
+        /// <param name="soilModel">The soil model residing in <paramref name="failureMechanism"/>
+        /// that should be removed.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// or <paramref name="soilModel"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveStochasticSoilModel(PipingFailureMechanism failureMechanism, StochasticSoilModel soilModel)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (soilModel == null)
+            {
+                throw new ArgumentNullException("soilModel");
+            }
+
+            var changedObservables = new List<IObservable>();
+            foreach (PipingCalculation pipingCalculationScenario in failureMechanism.Calculations)
+            {
+                if (ReferenceEquals(pipingCalculationScenario.InputParameters.StochasticSoilModel, soilModel))
+                {
+                    pipingCalculationScenario.InputParameters.StochasticSoilModel = null;
+                    pipingCalculationScenario.InputParameters.StochasticSoilProfile = null;
+                    changedObservables.Add(pipingCalculationScenario.InputParameters);
+                }
+            }
+
+            failureMechanism.StochasticSoilModels.Remove(soilModel);
+            changedObservables.Add(failureMechanism.StochasticSoilModels);
+
+            return changedObservables;
         }
 
         private static void ClearHydraulicBoundaryLocation(PipingCalculation calculation)

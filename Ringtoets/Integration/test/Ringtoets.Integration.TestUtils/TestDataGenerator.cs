@@ -34,15 +34,13 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Integration.TestUtils;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.Integration.Service.Test
+namespace Ringtoets.Integration.TestUtils
 {
     /// <summary>
     /// Class that generates fully configured Ringtoets objects.
@@ -68,7 +66,7 @@ namespace Ringtoets.Integration.Service.Test
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.HeightStructures, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.PipingFailureMechanism, hydraulicBoundaryLocation);
+            PipingTestDataGenerator.SetFullyConfiguredFailureMechanism(assessmentSection.PipingFailureMechanism, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.StabilityStoneCover, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocation);
@@ -148,84 +146,87 @@ namespace Ringtoets.Integration.Service.Test
             return failureMechanism;
         }
 
-        private static void SetFullyConfiguredFailureMechanism(PipingFailureMechanism failureMechanism,
-                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        /// <summary>
+        /// Gets a fully configured grass cover erosion inwards failure mechanism.
+        /// </summary>
+        public static GrassCoverErosionInwardsFailureMechanism GetFullyConfiguredGrassCoverErosionInwardsFailureMechanism()
         {
-            var calculation = new PipingCalculation(new GeneralPipingInput());
-            var calculationWithOutput = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-            var calculationWithHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            SetFullyConfiguredFailureMechanism(failureMechanism, hydroLocation);
 
-            var subCalculation = new PipingCalculation(new GeneralPipingInput());
-            var subCalculationWithOutput = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-            var subCalculationWithHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
+            return failureMechanism;
         }
 
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
+            var dikeprofile1 = new DikeProfile(new Point2D(0, 0),
+                                               new[]
+                                               {
+                                                   new RoughnessPoint(new Point2D(0, 0), 0.5),
+                                                   new RoughnessPoint(new Point2D(1, 1), 0.6),
+                                                   new RoughnessPoint(new Point2D(4, 5), 0.8),
+                                                   new RoughnessPoint(new Point2D(10, 1), 1.0)
+                                               },
+                                               new[]
+                                               {
+                                                   new Point2D(0, 0),
+                                                   new Point2D(1, 1),
+                                                   new Point2D(4, 5),
+                                                   new Point2D(10, 1)
+                                               },
+                                               new BreakWater(BreakWaterType.Caisson, 1.3),
+                                               new DikeProfile.ConstructionProperties
+                                               {
+                                                   Name = "A",
+                                                   DikeHeight = 5,
+                                                   Orientation = 20,
+                                                   X0 = 0
+                                               });
+            var dikeprofile2 = new DikeProfile(new Point2D(10, 10),
+                                               new[]
+                                               {
+                                                   new RoughnessPoint(new Point2D(0, 1), 1.0),
+                                                   new RoughnessPoint(new Point2D(1, 2), 0.6),
+                                                   new RoughnessPoint(new Point2D(4, 2), 0.5),
+                                                   new RoughnessPoint(new Point2D(10, 0), 0.8)
+                                               },
+                                               new[]
+                                               {
+                                                   new Point2D(0, 1),
+                                                   new Point2D(1, 2),
+                                                   new Point2D(4, 2),
+                                                   new Point2D(10, 0)
+                                               },
+                                               new BreakWater(BreakWaterType.Caisson, 1.3),
+                                               new DikeProfile.ConstructionProperties
+                                               {
+                                                   Name = "B",
+                                                   DikeHeight = 3,
+                                                   Orientation = 20,
+                                                   X0 = 0
+                                               });
+
+            failureMechanism.DikeProfiles.Add(dikeprofile1);
+            failureMechanism.DikeProfiles.Add(dikeprofile2);
+
             var calculation = new GrassCoverErosionInwardsCalculation();
             var calculationWithOutput = new GrassCoverErosionInwardsCalculation
             {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeProfile = dikeprofile1
+                },
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
             var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeProfile = dikeprofile2
                 },
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
@@ -240,13 +241,19 @@ namespace Ringtoets.Integration.Service.Test
             var subCalculation = new GrassCoverErosionInwardsCalculation();
             var subCalculationWithOutput = new GrassCoverErosionInwardsCalculation
             {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeProfile = dikeprofile2
+                },
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeProfile = dikeprofile1
                 },
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
@@ -272,6 +279,24 @@ namespace Ringtoets.Integration.Service.Test
                     subCalculationWithHydraulicBoundaryLocation
                 }
             });
+
+            var section1 = new FailureMechanismSection("1",
+                                                       new[]
+                                                       {
+                                                           new Point2D(-1, -1),
+                                                           new Point2D(5, 5)
+                                                       });
+            var section2 = new FailureMechanismSection("2",
+                                                       new[]
+                                                       {
+                                                           new Point2D(5, 5),
+                                                           new Point2D(15, 15)
+                                                       });
+            failureMechanism.AddSection(section1);
+            failureMechanism.AddSection(section2);
+
+            failureMechanism.SectionResults.ElementAt(0).Calculation = calculation;
+            failureMechanism.SectionResults.ElementAt(1).Calculation = subCalculation;
         }
 
         private static void SetFullyConfiguredFailureMechanism(HeightStructuresFailureMechanism failureMechanism,

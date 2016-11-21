@@ -28,7 +28,9 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.Integration.TestUtils;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Service.Test
 {
@@ -156,6 +158,124 @@ namespace Ringtoets.Piping.Service.Test
 
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             CollectionAssert.Contains(observables, failureMechanism.SurfaceLines);
+        }
+
+        [Test]
+        public void RemoveSurfaceLine_PipingFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = null;
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate call = () => PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void RemoveSurfaceLine_PipingFailureMechanismProfileNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLine surfaceLine = null;
+
+            // Call
+            TestDelegate call = () => PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("surfaceLine", paramName);
+        }
+
+        [Test]
+        public void RemoveSurfaceLine_FullyConfiguredPipingFailureMechanism_RemoveProfileAndClearDependentData()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
+            RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines[0];
+            PipingCalculation[] calculations = failureMechanism.Calculations.Cast<PipingCalculation>()
+                                                               .Where(c => ReferenceEquals(c.InputParameters.SurfaceLine, surfaceLine))
+                                                               .ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculations);
+
+            // Call
+            IObservable[] observables = PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine).ToArray();
+
+            // Assert
+            Assert.AreEqual(1 + calculations.Length, observables.Length);
+
+            CollectionAssert.DoesNotContain(failureMechanism.SurfaceLines, surfaceLine);
+            CollectionAssert.Contains(observables, failureMechanism.SurfaceLines);
+
+            foreach (PipingCalculation calculation in calculations)
+            {
+                Assert.IsNull(calculation.InputParameters.SurfaceLine);
+                CollectionAssert.Contains(observables, calculation.InputParameters);
+            }
+        }
+
+        [Test]
+        public void RemoveStochasticSoilModel_PipingFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = null;
+            StochasticSoilModel soilModel = new StochasticSoilModel(1, "A", "B");
+
+            // Call
+            TestDelegate call = () => PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void RemoveStochasticSoilModel_PipingFailureMechanismProfileNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            StochasticSoilModel soilModel = null;
+
+            // Call
+            TestDelegate call = () => PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("soilModel", paramName);
+        }
+
+        [Test]
+        public void RemoveStochasticSoilModel_FullyConfiguredPipingFailureMechanism_RemoveProfileAndClearDependentData()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
+            StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[1];
+            PipingCalculation[] calculations = failureMechanism.Calculations.Cast<PipingCalculation>()
+                                                               .Where(c => ReferenceEquals(c.InputParameters.StochasticSoilModel, soilModel))
+                                                               .ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculations);
+
+            // Call
+            IObservable[] observables = PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel).ToArray();
+
+            // Assert
+            Assert.AreEqual(1 + calculations.Length, observables.Length);
+
+            CollectionAssert.DoesNotContain(failureMechanism.StochasticSoilModels, soilModel);
+            CollectionAssert.Contains(observables, failureMechanism.StochasticSoilModels);
+
+            foreach (PipingCalculation calculation in calculations)
+            {
+                Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
+                CollectionAssert.Contains(observables, calculation.InputParameters);
+            }
         }
 
         private static PipingFailureMechanism CreateFullyConfiguredFailureMechanism()
