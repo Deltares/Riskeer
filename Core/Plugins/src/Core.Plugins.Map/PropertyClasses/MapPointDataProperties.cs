@@ -48,7 +48,7 @@ namespace Core.Plugins.Map.PropertyClasses
         public string Name
         {
             get
-            {   
+            {
                 return data.Name;
             }
         }
@@ -82,11 +82,6 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        public IEnumerable<string> GetAvailableMetaDataAttributes()
-        {
-            return data.MetaData;
-        }
-
         [PropertyOrder(selectedMetaDataAttributePropertyIndex)]
         [Editor(typeof(MetaDataAttributeEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_Label")]
@@ -103,6 +98,11 @@ namespace Core.Plugins.Map.PropertyClasses
                 data.SelectedMetaDataAttribute = value;
                 data.NotifyObservers();
             }
+        }
+
+        public IEnumerable<string> GetAvailableMetaDataAttributes()
+        {
+            return data.MetaData;
         }
     }
 }

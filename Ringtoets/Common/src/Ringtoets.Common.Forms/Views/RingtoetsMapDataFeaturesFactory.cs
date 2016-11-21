@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Properties;
 using Core.Common.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -31,6 +30,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.Views
@@ -65,8 +65,8 @@ namespace Ringtoets.Common.Forms.Views
         public static MapFeature[] CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase,
-                                                           Resources.RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_DesignWaterLevel,
-                                                           Resources.RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_WaveHeight);
+                                                           Resources.MetaData_DesignWaterLevel,
+                                                           Resources.MetaData_WaveHeight);
         }
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace Ringtoets.Common.Forms.Views
         public static MapFeature[] CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase,
-                                                           Resources.RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_DesignWaterLevel_GrassOutwards,
-                                                           Resources.RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_WaveHeight_GrassOutwards);
+                                                           Resources.MetaData_DesignWaterLevel_GrassOutwards,
+                                                           Resources.MetaData_WaveHeight_GrassOutwards);
         }
 
         /// <summary>
@@ -187,8 +187,8 @@ namespace Ringtoets.Common.Forms.Views
                 {
                     var feature = GetAsSingleMapFeature(location.Location);
 
-                    feature.MetaData[Resources.RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_ID] = location.Id;
-                    feature.MetaData[Resources.RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_Name] = location.Name;
+                    feature.MetaData[Resources.MetaData_ID] = location.Id;
+                    feature.MetaData[Resources.MetaData_Name] = location.Name;
                     feature.MetaData[designWaterLevelAttributeName] = location.DesignWaterLevel;
                     feature.MetaData[waveheightAttributeName] = location.WaveHeight;
 

@@ -65,7 +65,8 @@ namespace Ringtoets.Common.Forms.Views
             return new MapPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName)
             {
                 Style = new PointStyle(Color.DarkBlue, smallPointSize, PointSymbol.Circle),
-                ShowLabels = true
+                ShowLabels = true,
+                SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }
 

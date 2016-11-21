@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(RingtoetsCommonDataResources.ReferenceLine_DisplayName, data.Name);
+            Assert.AreEqual("Referentielijn", data.Name);
             AssertEqualStyle(data.Style, Color.Red, 3, DashStyle.Solid);
         }
 
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName, data.Name);
+            Assert.AreEqual("Vakindeling", data.Name);
             AssertEqualStyle(data.Style, Color.Khaki, 3, DashStyle.Dot);
         }
 
@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), data.Name);
+            Assert.AreEqual(GetSectionPointDisplayName("startpunten"), data.Name);
             AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
         }
 
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), data.Name);
+            Assert.AreEqual(GetSectionPointDisplayName("eindpunten"), data.Name);
             AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
         }
 
@@ -89,9 +89,10 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, data.Name);
+            Assert.AreEqual("Hydraulische randvoorwaarden", data.Name);
             Assert.IsTrue(data.ShowLabels);
             AssertEqualStyle(data.Style, Color.DarkBlue, 6, PointSymbol.Circle);
+            Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
 
         [Test]
@@ -102,7 +103,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(RingtoetsCommonFormsResources.DikeProfiles_DisplayName, data.Name);
+            Assert.AreEqual("Dijkprofielen", data.Name);
             AssertEqualStyle(data.Style, Color.SaddleBrown, 2, DashStyle.Solid);
         }
 
@@ -114,7 +115,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(RingtoetsCommonFormsResources.ForeshoreProfiles_DisplayName, data.Name);
+            Assert.AreEqual("Voorlandprofielen", data.Name);
             AssertEqualStyle(data.Style, Color.DarkOrange, 2, DashStyle.Solid);
         }
 
@@ -126,14 +127,14 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(RingtoetsCommonFormsResources.StructuresCollection_DisplayName, data.Name);
+            Assert.AreEqual("Kunstwerken", data.Name);
             AssertEqualStyle(data.Style, Color.DarkSeaGreen, 15, PointSymbol.Square);
         }
 
         private static string GetSectionPointDisplayName(string name)
         {
             return string.Format("{0} ({1})",
-                                 RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
+                                 "Vakindeling",
                                  name);
         }
 

@@ -43,7 +43,6 @@ namespace Core.Components.Gis.Data
         {
             features = new MapFeature[0];
             ShowLabels = false;
-            SelectedMetaDataAttribute = "Naam";
         }
 
         /// <summary>

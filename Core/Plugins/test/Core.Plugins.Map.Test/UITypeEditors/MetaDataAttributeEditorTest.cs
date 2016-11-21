@@ -52,16 +52,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
-            feature.MetaData["Name"] = "naam";
-
-            var mapData = new MapPointData("Name")
-            {
-                Features = new[]
-                {
-                    feature
-                }
-            };
+            var mapData = new MapPointData("Name");
 
             var properties = new MapPointDataProperties
             {

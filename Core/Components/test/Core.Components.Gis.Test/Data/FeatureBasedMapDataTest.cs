@@ -43,7 +43,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual("test data", data.Name);
             Assert.IsEmpty(data.Features);
             Assert.IsFalse(data.ShowLabels);
-            Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
+            Assert.IsNull(data.SelectedMetaDataAttribute);
             CollectionAssert.IsEmpty(data.MetaData);
         }
 

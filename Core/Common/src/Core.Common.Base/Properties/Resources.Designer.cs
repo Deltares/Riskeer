@@ -200,66 +200,6 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetspeil.
-        /// </summary>
-        public static string RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_DesignWaterLevel {
-            get {
-                return ResourceManager.GetString("RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_" +
-                        "DesignWaterLevel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis.
-        /// </summary>
-        public static string RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_DesignWaterLevel_GrassOutwards {
-            get {
-                return ResourceManager.GetString("RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_" +
-                        "DesignWaterLevel_GrassOutwards", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ID.
-        /// </summary>
-        public static string RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_ID {
-            get {
-                return ResourceManager.GetString("RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_" +
-                        "ID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_Name {
-            get {
-                return ResourceManager.GetString("RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_" +
-                        "Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte.
-        /// </summary>
-        public static string RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_WaveHeight {
-            get {
-                return ResourceManager.GetString("RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_" +
-                        "WaveHeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis.
-        /// </summary>
-        public static string RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_WaveHeight_GrassOutwards {
-            get {
-                return ResourceManager.GetString("RingtoetsMapDataFeaturesFactory_CreateHydraulicBoundaryDatabaseFeatures_MetaData_" +
-                        "WaveHeight_GrassOutwards", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to -Oneindig.
         /// </summary>
         public static string RoundedDouble_ToString_NegativeInfinity {
