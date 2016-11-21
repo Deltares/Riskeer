@@ -21,11 +21,11 @@
 
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -37,8 +37,6 @@ namespace Ringtoets.Integration.Forms.Views
     public partial class AssessmentSectionView : UserControl, IMapView
     {
         private readonly Observer assessmentSectionObserver;
-
-        private readonly MapControl mapControl;
 
         private readonly MapLineData referenceLineMapData;
         private readonly MapPointData hydraulicBoundaryDatabaseMapData;
@@ -53,13 +51,6 @@ namespace Ringtoets.Integration.Forms.Views
             InitializeComponent();
 
             assessmentSectionObserver = new Observer(UpdateMapData);
-
-            mapControl = new MapControl
-            {
-                Dock = DockStyle.Fill
-            };
-
-            Controls.Add(mapControl);
 
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryDatabaseMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
@@ -114,12 +105,17 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void UpdateMapData()
         {
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(data != null
-                                                                                                            ? data.ReferenceLine
-                                                                                                            : null);
-            hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(data != null
-                                                                                                                                    ? data.HydraulicBoundaryDatabase
-                                                                                                                                    : null);
+            ReferenceLine referenceLine = null;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = null;
+
+            if (data != null)
+            {
+                referenceLine = data.ReferenceLine;
+                hydraulicBoundaryDatabase = data.HydraulicBoundaryDatabase;
+            }
+
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine);
+            hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
 
             mapControl.Data.NotifyObservers();
         }

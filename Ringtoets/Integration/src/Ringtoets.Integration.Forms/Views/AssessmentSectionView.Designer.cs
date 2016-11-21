@@ -36,10 +36,29 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.mapControl = new Core.Components.DotSpatial.Forms.MapControl();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            // 
+            // MapView
+            //
+            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapControl.Location = new System.Drawing.Point(0, 0);
+            this.mapControl.Name = "mapControl";
+            this.mapControl.Size = new System.Drawing.Size(150, 150);
+            this.mapControl.TabIndex = 0;
+            this.mapControl.Text = "mapControl1";
+            // 
+            // AssessmentSectionView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.mapControl);
+            this.Name = "AssessmentSectionView";
+            this.ResumeLayout(false);
         }
 
         #endregion
+
+        private Core.Components.DotSpatial.Forms.MapControl mapControl;
     }
 }
