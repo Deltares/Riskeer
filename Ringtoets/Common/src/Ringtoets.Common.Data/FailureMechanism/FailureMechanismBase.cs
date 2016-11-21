@@ -91,6 +91,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         public string Comments { get; set; }
 
+        public string OutputComments { get; set; }
+
         public bool IsRelevant { get; set; }
 
         public virtual void AddSection(FailureMechanismSection section)
