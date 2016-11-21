@@ -145,15 +145,15 @@ namespace Ringtoets.Piping.Forms.Views
 
             var resultRow = (PipingFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
             PipingFailureMechanismSectionResult rowObject = resultRow.GetSectionResult;
-
-            var relevantScenarios = rowObject.GetCalculationScenarios(FailureMechanism.Calculations.OfType<PipingCalculationScenario>()).ToArray();
-            bool relevantScenarioAvailable = relevantScenarios.Length != 0;
-
             if (rowObject.AssessmentLayerOne == AssessmentLayerOneState.Sufficient)
             {
                 currentDataGridViewCell.ErrorText = string.Empty;
                 return;
             }
+
+            var relevantScenarios = rowObject.GetCalculationScenarios(FailureMechanism.Calculations.OfType<PipingCalculationScenario>()).ToArray();
+            bool relevantScenarioAvailable = relevantScenarios.Length != 0;
+
             if (!relevantScenarioAvailable)
             {
                 currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set;
@@ -169,12 +169,12 @@ namespace Ringtoets.Piping.Forms.Views
             var calculationScenarioStatus = rowObject.GetCalculationScenarioStatus(relevantScenarios);
             if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
             {
-                currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed;
+                currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed;
                 return;
             }
             if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
             {
-                currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output;
+                currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
                 return;
             }
             currentDataGridViewCell.ErrorText = string.Empty;

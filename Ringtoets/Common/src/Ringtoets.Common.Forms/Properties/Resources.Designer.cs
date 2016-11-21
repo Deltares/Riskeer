@@ -833,6 +833,26 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alle berekeningen voor dit vak moeten een geldige uitkomst hebben..
+        /// </summary>
+        public static string FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_" +
+                        "valid_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De maatgevende berekening voor dit vak moet een geldige uitkomst hebben..
+        /// </summary>
+        public static string FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid_output {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid" +
+                        "_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De maatgevende berekening voor dit vak moet nog worden uitgevoerd..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_calculated {
@@ -851,31 +871,12 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De maatgevende berekening voor dit vak moet een geldige uitkomst hebben..
-        /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_successful {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_successful", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alle berekeningen voor dit vak moeten uitgevoerd zijn..
         /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed {
+        public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_ex" +
-                        "ecuted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle berekeningen voor dit vak moeten een geldige uitkomst hebben..
-        /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_v" +
-                        "alid_output", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_b" +
+                        "een_executed", resourceCulture);
             }
         }
         

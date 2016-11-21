@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <param name="normativeCalculation">The <see cref="ICalculation"/> set for the 
         /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
-        public static void ShowAssessmentLayerTwoAErrors(DataGridViewCell dataGridViewCell,
+        public static void SetAssessmentLayerTwoAError(DataGridViewCell dataGridViewCell,
                                                          AssessmentLayerOneState passedAssessmentLayerOne, double assessmentLayerTwoA,
                                                          ICalculation normativeCalculation)
         {
@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Forms.Helpers
             }
             if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
             {
-                dataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_successful;
+                dataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid_output;
                 return;
             }
             dataGridViewCell.ErrorText = string.Empty;

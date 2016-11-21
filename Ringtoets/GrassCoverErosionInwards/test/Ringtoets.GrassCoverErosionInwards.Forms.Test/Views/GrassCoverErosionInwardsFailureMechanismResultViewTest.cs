@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -237,11 +238,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase("1", assessmentLayerThreeIndex, "AssessmentLayerThree")]
-        [TestCase("1e-6", assessmentLayerThreeIndex, "AssessmentLayerThree")]
-        [TestCase("1e+6", assessmentLayerThreeIndex, "AssessmentLayerThree")]
-        [TestCase("14.3", assessmentLayerThreeIndex, "AssessmentLayerThree")]
-        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue, int cellIndex, string propertyName)
+        [TestCase("1")]
+        [TestCase("1e-6")]
+        [TestCase("1e+6")]
+        [TestCase("14.3")]
+        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue)
         {
             // Setup
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
@@ -249,7 +250,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue;
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
@@ -258,6 +259,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.IsNotNull(dataObject);
                 var row = dataObject.First();
 
+                const string propertyName = "AssessmentLayerThree";
                 var propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
 
                 Assert.AreEqual((RoundedDouble) double.Parse(newValue), propertyValue);
@@ -265,13 +267,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (var view = ShowFailureMechanismResultsView())
             {
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+                var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+                {
+                    AssessmentLayerOne = assessmentLayerOneState
+                };
                 view.Data = new[]
                 {
                     sectionResult
@@ -292,16 +299,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip(
+            AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (var view = ShowFailureMechanismResultsView())
             {
                 var calculation = new GrassCoverErosionInwardsCalculation();
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
                 {
-                    Calculation = calculation
+                    Calculation = calculation,
+                    AssessmentLayerOne = assessmentLayerOneState
                 };
 
                 view.Data = new[]
@@ -324,10 +335,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (var view = ShowFailureMechanismResultsView())
             {
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
                 var calculation = new GrassCoverErosionInwardsCalculation
@@ -337,7 +350,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
                 {
-                    Calculation = calculation
+                    Calculation = calculation,
+                    AssessmentLayerOne = assessmentLayerOneState
                 };
 
                 view.Data = new[]
@@ -360,7 +374,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
@@ -397,10 +413,39 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError()
+        [TestCaseSource("AssessmentLayerOneStateIsSufficientVariousSectionResults")]
+        public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
+            GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult, string expectedValue)
+        {
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            {
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // When
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual(expectedValue, formattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
+            AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (var view = ShowFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
                 var successfulCalculationOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
@@ -417,7 +462,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
                 {
-                    Calculation = successfulCalculation
+                    Calculation = successfulCalculation,
+                    AssessmentLayerOne = assessmentLayerOneState
                 };
 
                 view.Data = new[]
@@ -443,6 +489,42 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("-", formattedValue);
                 Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.", dataGridViewCell.ErrorText);
             }
+        }
+
+        private static IEnumerable AssessmentLayerOneStateIsSufficientVariousSectionResults()
+        {
+            FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+            const double probability = 0.56789;
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient
+            }, "-").SetName("SectionWithoutCalculation");
+            yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                Calculation = new GrassCoverErosionInwardsCalculation()
+            }, "-").SetName("SectionWithCalculationNoOutput");
+            yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                Calculation = new GrassCoverErosionInwardsCalculation()
+                {
+                    Output = new GrassCoverErosionInwardsOutput(1.1, true,
+                                                                new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0),
+                                                                0.0)
+                }
+            }, "-").SetName("SectionWithInvalidCalculationOutput");
+            yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                Calculation = new GrassCoverErosionInwardsCalculation()
+                {
+                    Output = new GrassCoverErosionInwardsOutput(1.1, true,
+                                                                new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0),
+                                                                0.0)
+                }
+            }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutput");
         }
 
         private static FailureMechanismSection CreateSimpleFailureMechanismSection()

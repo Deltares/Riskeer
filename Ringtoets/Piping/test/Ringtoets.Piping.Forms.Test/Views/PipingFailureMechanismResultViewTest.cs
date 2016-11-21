@@ -238,11 +238,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase("1", assessmentLayerThreeIndex, "AssessmentLayerThree")]
-        [TestCase("1e-6", assessmentLayerThreeIndex, "AssessmentLayerThree")]
-        [TestCase("1e+6", assessmentLayerThreeIndex, "AssessmentLayerThree")]
-        [TestCase("14.3", assessmentLayerThreeIndex, "AssessmentLayerThree")]
-        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue, int cellIndex, string propertyName)
+        [TestCase("1")]
+        [TestCase("1e-6")]
+        [TestCase("1e+6")]
+        [TestCase("14.3")]
+        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue)
         {
             // Setup
             using (var view = ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
@@ -250,7 +250,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue;
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
@@ -259,6 +259,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsNotNull(dataObject);
                 var row = dataObject.First();
 
+                const string propertyName = "AssessmentLayerThree";
                 var propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
 
                 Assert.AreEqual((RoundedDouble) double.Parse(newValue), propertyValue);
@@ -266,7 +267,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_TotalContributionNotHundred_ShowsErrorTooltip()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void FailureMechanismResultView_TotalContributionNotHundred_ShowsErrorTooltip(
+            AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
             var rowIndex = 0;
@@ -285,6 +289,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -297,7 +302,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_AssessmentLayerTwoAHasValue_DoesNotShowsErrorTooltip()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void FailureMechanismResultView_AssessmentLayerTwoAHasValue_DoesNotShowsErrorTooltip(
+            AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
             var rowIndex = 0;
@@ -315,6 +323,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -327,7 +336,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_AssessmentLayerTwoANull_ShowsErrorTooltip()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void FailureMechanismResultView_AssessmentLayerTwoANull_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
             var rowIndex = 0;
@@ -343,6 +354,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -355,7 +367,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
             var rowIndex = 0;
@@ -372,6 +386,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -384,7 +399,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_NoCalculationScenarios_ShowsErrorTooltip()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void FailureMechanismResultView_NoCalculationScenarios_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
             var rowIndex = 0;
@@ -395,6 +412,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -407,7 +425,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_NoCalculationScenariosRelevant_ShowsErrorTooltip()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void FailureMechanismResultView_NoCalculationScenariosRelevant_ShowsErrorTooltip(
+            AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
             var rowIndex = 0;
@@ -423,6 +444,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.

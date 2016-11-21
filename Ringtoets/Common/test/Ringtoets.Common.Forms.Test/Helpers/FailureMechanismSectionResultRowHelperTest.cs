@@ -43,9 +43,9 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(null,
-                                                                                                           AssessmentLayerOneState.Sufficient, 
-                                                                                                           0.0, calculationStub);
+            TestDelegate call = () => FailureMechanismSectionResultRowHelper.SetAssessmentLayerTwoAError(null,
+                                                                                                         AssessmentLayerOneState.Sufficient,
+                                                                                                         0.0, calculationStub);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -54,55 +54,24 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [TestCaseSource("ValidShowAssessmentLayerTwoAErrorsArguments")]
-        public void ShowAssessmentLayerTwoAErrors_SetsErrorText(DataGridViewCell dataGridViewCell,
-                                                                AssessmentLayerOneState passedAssessmentLayerOne,
-                                                                double assessmentLayerTwoA,
-                                                                ICalculation normativeCalculation,
-                                                                string expectedErrorText)
+        [TestCaseSource("AssessmentLayerOneStateIsSufficient")]
+        [TestCaseSource("AssessmentLayerOneStateIsNotSufficientAndCalculationNull")]
+        [TestCaseSource("AssessmentLayerOneStateIsNotSufficientAndCalculationWithoutOutput")]
+        [TestCaseSource("AssessmentLayerOneStateIsNotSufficientAndCalculationWithOutput")]
+        public void SetAssessmentLayerTwoAError_SetsErrorText(DataGridViewCell dataGridViewCell,
+                                                              AssessmentLayerOneState passedAssessmentLayerOne,
+                                                              double assessmentLayerTwoA,
+                                                              ICalculation normativeCalculation,
+                                                              string expectedErrorText)
         {
             // Call
-            FailureMechanismSectionResultRowHelper.ShowAssessmentLayerTwoAErrors(dataGridViewCell,
-                                                                                 passedAssessmentLayerOne,
-                                                                                 assessmentLayerTwoA,
-                                                                                 normativeCalculation);
+            FailureMechanismSectionResultRowHelper.SetAssessmentLayerTwoAError(dataGridViewCell,
+                                                                               passedAssessmentLayerOne,
+                                                                               assessmentLayerTwoA,
+                                                                               normativeCalculation);
 
             // Assert
             Assert.AreEqual(expectedErrorText, dataGridViewCell.ErrorText);
-        }
-
-        private static IEnumerable ValidShowAssessmentLayerTwoAErrorsArguments()
-        {
-            var dataGridViewCell = new TestDataGridViewCell
-            {
-                ErrorText = "Default text"
-            };
-
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, double.NaN, 
-                new CalculationWithoutOutput(), string.Empty);
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0, new CalculationWithoutOutput(),
-                                          string.Empty);
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, double.NaN, null, string.Empty);
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0, null, string.Empty);
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, double.NaN, new CalculationWithOutput(),
-                                          string.Empty);
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0, new CalculationWithOutput(),
-                                          string.Empty);
-
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, double.NaN, null, 
-                "Er moet een maatgevende berekening voor dit vak worden geselecteerd.");
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, 0.0, null, 
-                "Er moet een maatgevende berekening voor dit vak worden geselecteerd.");
-
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, double.NaN,
-                new CalculationWithoutOutput(), "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.");
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, 0.0, new CalculationWithoutOutput(),
-                                          "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.");
-
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, double.NaN, new CalculationWithOutput(),
-                                          "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.");
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, 0.0, new CalculationWithOutput(),
-                                          string.Empty);
         }
 
         private class TestDataGridViewCell : DataGridViewCell {}
@@ -144,5 +113,107 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             public void NotifyObservers() {}
             public void ClearOutput() {}
         }
+
+        #region Testcases
+
+        private static IEnumerable AssessmentLayerOneStateIsSufficient()
+        {
+            var dataGridViewCell = new TestDataGridViewCell
+            {
+                ErrorText = "Default text"
+            };
+
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, double.NaN, null, string.Empty)
+                .SetName("SufficientWithInvalidLayerTwoAAndNoCalculation");
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0, null, string.Empty)
+                .SetName("SufficientWithValidLayerTwoAAndNoCalculation");
+
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, double.NaN,
+                                          new CalculationWithOutput(), string.Empty)
+                .SetName("SufficientWithInvalidLayerTwoAAndCalculationWithOutput");
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0,
+                                          new CalculationWithOutput(), string.Empty)
+                .SetName("SufficientWithValidLayerTwoAAndCalculationWithOutput");
+
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, double.NaN,
+                                          new CalculationWithoutOutput(), string.Empty)
+                .SetName("SufficientWithInvalidLayerTwoAAndCalculationWithoutOutput");
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0,
+                                          new CalculationWithoutOutput(), string.Empty)
+                .SetName("SufficientWithValidLayerTwoAAndCalculationWithOutput");
+        }
+
+        private static IEnumerable AssessmentLayerOneStateIsNotSufficientAndCalculationNull()
+        {
+            var dataGridViewCell = new TestDataGridViewCell
+            {
+                ErrorText = "Default text"
+            };
+
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, double.NaN, null,
+                                          "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
+                .SetName("NotAssessedWithInvalidLayerTwoAAndNoCalculation");
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, 0.0, null,
+                                          "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
+                .SetName("NotAssessedWithValidLayerTwoAAndNoCalculation");
+
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NeedsDetailedAssessment, double.NaN, null,
+                                          "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
+                .SetName("NeedsDetailedAssessmentWithInvalidLayerTwoAAndNoCalculation");
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NeedsDetailedAssessment, 0.0, null,
+                                          "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
+                .SetName("NeedsDetailedAssessmentWithValidLayerTwoAAndNoCalculation");
+        }
+
+        private static IEnumerable AssessmentLayerOneStateIsNotSufficientAndCalculationWithoutOutput()
+        {
+            var dataGridViewCell = new TestDataGridViewCell
+            {
+                ErrorText = "Default text"
+            };
+
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, double.NaN,
+                                          new CalculationWithoutOutput(),
+                                          "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
+                .SetName("NotAssessedWithInvalidLayerTwoAAndCalculationWithoutOutput");
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, 0.0, new CalculationWithoutOutput(),
+                                          "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
+                .SetName("NotAssessedWithValidLayerTwoAAndCalculationWithoutOutput");
+
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NeedsDetailedAssessment, double.NaN,
+                                          new CalculationWithoutOutput(),
+                                          "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
+                .SetName("NeedsDetailedAssessmentWithInvalidLayerTwoAAndCalculationWithoutOutput");
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NeedsDetailedAssessment, 0.0,
+                                          new CalculationWithoutOutput(),
+                                          "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
+                .SetName("NeedsDetailedAssessmentValidLayerTwoAAndCalculationWithoutOutput");
+        }
+
+        private static IEnumerable AssessmentLayerOneStateIsNotSufficientAndCalculationWithOutput()
+        {
+            var dataGridViewCell = new TestDataGridViewCell
+            {
+                ErrorText = "Default text"
+            };
+
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, double.NaN,
+                                          new CalculationWithOutput(),
+                                          "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.")
+                .SetName("NotAssessedWithInvalidLayerTwoAAndCalculationWithOutput");
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, 0.0, new CalculationWithOutput(),
+                                          string.Empty)
+                .SetName("NotAssessedWithValidLayerTwoAAndCalculationWithOutput");
+
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NeedsDetailedAssessment, double.NaN,
+                                          new CalculationWithOutput(),
+                                          "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.")
+                .SetName("NeedsDetailedAssessmentWithInvalidLayerTwoAAndCalculationWithOutput");
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NeedsDetailedAssessment, 0.0,
+                                          new CalculationWithOutput(), string.Empty)
+                .SetName("NeedsDetailedAssessmentWithValidLayerTwoAAndCalculationWithOutput");
+        }
+
+        #endregion
     }
 }

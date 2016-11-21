@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -369,13 +370,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
             using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+                var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+                {
+                    AssessmentLayerOne = assessmentLayerOneState
+                };
                 view.Data = new[]
                 {
                     sectionResult
@@ -396,7 +402,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip(
+            AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
             using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
@@ -405,7 +414,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
                 {
-                    Calculation = calculation
+                    Calculation = calculation,
+                    AssessmentLayerOne = assessmentLayerOneState
                 };
 
                 view.Data = new[]
@@ -428,7 +438,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip()
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
             using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
@@ -440,7 +452,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
                 {
-                    Calculation = calculation
+                    Calculation = calculation,
+                    AssessmentLayerOne = assessmentLayerOneState
                 };
 
                 view.Data = new[]
@@ -499,7 +512,36 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError()
+        [TestCaseSource("AssessmentLayerOneStateIsSufficientVariousSections")]
+        public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
+            StabilityPointStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
+        {
+            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            {
+                view.Data = new[]
+                {
+                    sectionResult
+                };
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+
+                // When
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual(expectedValue, formattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
+            AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
             using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
@@ -517,7 +559,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
                 {
-                    Calculation = successfulCalculation
+                    Calculation = successfulCalculation,
+                    AssessmentLayerOne = assessmentLayerOneState
                 };
 
                 view.Data = new[]
@@ -543,6 +586,38 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual("-", formattedValue);
                 Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.", dataGridViewCell.ErrorText);
             }
+        }
+
+        private static IEnumerable AssessmentLayerOneStateIsSufficientVariousSections()
+        {
+            FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+            const double probability = 0.56789;
+
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient
+            }, "-").SetName("SectionWithoutCalculation");
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>()
+            }, "-").SetName("SectionWithCalculationNoOutput");
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>()
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                }
+            }, "-").SetName("SectionWithInvalidCalculationOutput");
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>()
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                }
+            }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutput");
         }
 
         private static FailureMechanismSection CreateSimpleFailureMechanismSection()
