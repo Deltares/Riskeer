@@ -114,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > 1)
+            if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
             {
                 if (HasPassedLevelOne(eventArgs.RowIndex))
                 {

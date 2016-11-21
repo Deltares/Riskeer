@@ -180,15 +180,15 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 if (assessmentLayerOneState == AssessmentLayerOneState.Sufficient)
                 {
-                    DataGridViewCellTester.AssertCellIsDisabled(cellAssessmentLayerTwoA);
-                    DataGridViewCellTester.AssertCellIsDisabled(cellAssessmentLayerThree);
+                    DataGridViewCellTestHelper.AssertCellIsDisabled(cellAssessmentLayerTwoA);
+                    DataGridViewCellTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
 
                     Assert.IsTrue(cellAssessmentLayerThree.ReadOnly);
                 }
                 else
                 {
-                    DataGridViewCellTester.AssertCellIsEnabled(cellAssessmentLayerTwoA, true);
-                    DataGridViewCellTester.AssertCellIsEnabled(cellAssessmentLayerThree);
+                    DataGridViewCellTestHelper.AssertCellIsEnabled(cellAssessmentLayerTwoA, true);
+                    DataGridViewCellTestHelper.AssertCellIsEnabled(cellAssessmentLayerThree);
 
                     Assert.IsFalse(cellAssessmentLayerThree.ReadOnly);
                 }
@@ -276,8 +276,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
@@ -286,8 +286,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex], true);
-                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex], true);
+                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[2].Cells;
                 Assert.AreEqual(4, cells.Count);
@@ -296,8 +296,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex], true);
-                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex], true);
+                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
@@ -337,8 +337,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
 
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
             }
         }
 

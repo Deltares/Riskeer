@@ -37,8 +37,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// </summary>
     public class PipingStructureResultView : FailureMechanismResultView<PipingStructureFailureMechanismSectionResult>
     {
-        private const int assessmentLayerOneColumnIndex = 1;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingStructureResultView"/>.
         /// </summary>
@@ -82,7 +80,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > assessmentLayerOneColumnIndex)
+            if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
             {
                 if (HasPassedLevelOne(eventArgs.RowIndex))
                 {

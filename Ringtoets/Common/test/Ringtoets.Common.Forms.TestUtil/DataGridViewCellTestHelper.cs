@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// <summary>
     /// Class that can be used to test properties of a <see cref="System.Windows.Forms.DataGridViewCell"/>.
     /// </summary>
-    public static class DataGridViewCellTester
+    public static class DataGridViewCellTestHelper
     {
         /// <summary>
         /// Asserts whether a <see cref="DataGridViewCell"/> is in a disabled state.

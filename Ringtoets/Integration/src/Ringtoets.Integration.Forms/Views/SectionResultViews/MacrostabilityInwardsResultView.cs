@@ -33,8 +33,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// </summary>
     public class MacrostabilityInwardsResultView : FailureMechanismResultView<MacrostabilityInwardsFailureMechanismSectionResult>
     {
-        private const int assessmentLayerOneColumnIndex = 1;
-
         /// <summary>
         /// Creates a new instance of <see cref="MacrostabilityInwardsResultView"/>.
         /// </summary>
@@ -69,7 +67,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > assessmentLayerOneColumnIndex)
+            if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
             {
                 if (HasPassedLevelOne(eventArgs.RowIndex))
                 {

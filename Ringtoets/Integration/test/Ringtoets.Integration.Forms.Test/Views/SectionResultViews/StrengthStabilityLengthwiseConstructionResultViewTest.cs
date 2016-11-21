@@ -125,7 +125,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(3, cells.Count);
@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[2].Cells;
                 Assert.AreEqual(3, cells.Count);
@@ -141,7 +141,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
@@ -185,7 +185,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 var cells = rows[0].Cells;
                 Assert.AreEqual(3, cells.Count);
 
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
             }
         }
 

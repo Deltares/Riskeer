@@ -36,8 +36,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismResultView : FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
-        private const int assessmentLayerOneColumnIndex = 1;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismResultView"/>.
         /// </summary>
@@ -81,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > assessmentLayerOneColumnIndex)
+            if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
             {
                 if (HasPassedLevelOne(eventArgs.RowIndex))
                 {

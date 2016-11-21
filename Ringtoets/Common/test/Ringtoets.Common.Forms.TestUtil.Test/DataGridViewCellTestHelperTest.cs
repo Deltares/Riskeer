@@ -27,7 +27,7 @@ using NUnit.Framework;
 namespace Ringtoets.Common.Forms.TestUtil.Test
 {
     [TestFixture]
-    public class DataGridViewCellTesterTest
+    public class DataGridViewCellTestHelperTest
     {
         [Test]
         public void AssertCellIsDisabled_DisabledCell_DoesNotThrowAssertionException()
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
 
             // Call 
-            TestDelegate call = () => DataGridViewCellTester.AssertCellIsDisabled(row.Cells[0]);
+            TestDelegate call = () => DataGridViewCellTestHelper.AssertCellIsDisabled(row.Cells[0]);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
 
             // Call 
-            TestDelegate call = () => DataGridViewCellTester.AssertCellIsEnabled(row.Cells[0], readOnlyProperty);
+            TestDelegate call = () => DataGridViewCellTestHelper.AssertCellIsEnabled(row.Cells[0], readOnlyProperty);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void AssertCellIsDisabled_InvalidDisabledCells_ThrowAssertionException(DataGridViewRow row)
         {
             // Call 
-            TestDelegate call = () => DataGridViewCellTester.AssertCellIsDisabled(row.Cells[0]);
+            TestDelegate call = () => DataGridViewCellTestHelper.AssertCellIsDisabled(row.Cells[0]);
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void AssertCellIsEnabled_InvalidDisabledCells_ThrowAssertionException(DataGridViewRow row)
         {
             // Call 
-            TestDelegate call = () => DataGridViewCellTester.AssertCellIsEnabled(row.Cells[0]);
+            TestDelegate call = () => DataGridViewCellTestHelper.AssertCellIsEnabled(row.Cells[0]);
 
             // Assert
             Assert.Throws<AssertionException>(call);

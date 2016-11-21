@@ -38,7 +38,6 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public class PipingFailureMechanismResultView : FailureMechanismResultView<PipingFailureMechanismSectionResult>
     {
-        private const int assessmentLayerOneColumnIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
         private const double tolerance = 1e-6;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
@@ -122,7 +121,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > assessmentLayerOneColumnIndex)
+            if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
             {
                 if (HasPassedLevelOne(eventArgs.RowIndex))
                 {

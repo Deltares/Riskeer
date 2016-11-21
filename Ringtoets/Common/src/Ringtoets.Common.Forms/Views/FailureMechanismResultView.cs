@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Views
     /// <typeparam name="T">The type of results which are presented by the <see cref="FailureMechanismResultView{T}"/>.</typeparam>
     public abstract partial class FailureMechanismResultView<T> : UserControl, IView where T : FailureMechanismSectionResult
     {
-        private const int assessmentLayerOneColumnIndex = 1;
+        protected const int AssessmentLayerOneColumnIndex = 1;
         private readonly IList<Observer> failureMechanismSectionResultObservers;
         private readonly Observer failureMechanismObserver;
 
@@ -141,7 +141,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns><c>false</c> if assessment level 1 has passed, <c>true</c> otherwise.</returns>
         protected bool HasPassedLevelOne(int rowIndex)
         {
-            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, assessmentLayerOneColumnIndex).Value
+            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value
                    == AssessmentLayerOneState.Sufficient;
         }
 

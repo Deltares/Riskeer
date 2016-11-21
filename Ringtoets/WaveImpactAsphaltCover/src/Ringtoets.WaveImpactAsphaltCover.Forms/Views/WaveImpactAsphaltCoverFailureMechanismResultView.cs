@@ -32,8 +32,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanismResultView : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult>
     {
-        private const int assessmentLayerOneColumnIndex = 1;
-
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismResultView"/>.
         /// </summary>
@@ -68,7 +66,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > assessmentLayerOneColumnIndex)
+            if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
             {
                 if (HasPassedLevelOne(eventArgs.RowIndex))
                 {

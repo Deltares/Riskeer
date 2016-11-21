@@ -203,15 +203,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 if (assessmentLayerOneState == AssessmentLayerOneState.Sufficient)
                 {
-                    DataGridViewCellTester.AssertCellIsDisabled(cellAssessmentLayerTwoA);
-                    DataGridViewCellTester.AssertCellIsDisabled(cellAssessmentLayerThree);
+                    DataGridViewCellTestHelper.AssertCellIsDisabled(cellAssessmentLayerTwoA);
+                    DataGridViewCellTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
 
                     Assert.IsTrue(cellAssessmentLayerThree.ReadOnly);
                 }
                 else
                 {
-                    DataGridViewCellTester.AssertCellIsEnabled(cellAssessmentLayerTwoA, true);
-                    DataGridViewCellTester.AssertCellIsEnabled(cellAssessmentLayerThree);
+                    DataGridViewCellTestHelper.AssertCellIsEnabled(cellAssessmentLayerTwoA, true);
+                    DataGridViewCellTestHelper.AssertCellIsEnabled(cellAssessmentLayerThree);
 
                     Assert.IsFalse(cellAssessmentLayerThree.ReadOnly);
                 }

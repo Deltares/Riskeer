@@ -134,8 +134,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(expectedAssessmentLayer2AString1, cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
@@ -153,8 +153,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(expectedAssessmentLayer2AString3, cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
@@ -199,8 +199,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 var cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
 
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
             }
         }
 

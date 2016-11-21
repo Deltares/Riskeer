@@ -135,8 +135,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
@@ -145,8 +145,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[2].Cells;
                 Assert.AreEqual(4, cells.Count);
@@ -155,8 +155,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(result3.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewCellTester.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
@@ -201,8 +201,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 var cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
 
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewCellTester.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
