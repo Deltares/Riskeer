@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
@@ -36,6 +38,66 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class RingtoetsMapDataFeaturesFactoryTest
     {
+        [Test]
+        public void MapCalculationDataConstructor_WithoutName_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculationLocation = new Point2D(0.0, 2.3);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.1, 2.3);
+
+            // Call
+            TestDelegate test = () => new RingtoetsMapDataFeaturesFactory.MapCalculationData(
+                null, 
+                calculationLocation, 
+                hydraulicBoundaryLocation);
+
+            // Assert
+            var paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A calculation name is required.")
+                .ParamName;
+
+            Assert.AreEqual("calculationName", paramName);
+        }
+
+        [Test]
+        public void MapCalculationDataConstructor_WithoutCalculationLocation_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculationName = "name";
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.1, 2.3);
+
+            // Call
+            TestDelegate test = () => new RingtoetsMapDataFeaturesFactory.MapCalculationData(
+                calculationName,
+                null,
+                hydraulicBoundaryLocation);
+
+            // Assert
+            var paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A location for the calculation is required.")
+                .ParamName;
+
+            Assert.AreEqual("calculationLocation", paramName);
+        }
+
+        [Test]
+        public void MapCalculationDataConstructor_WithoutHydraulicBoundaryLocation_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculationName = "name";
+            var calculationLocation = new Point2D(0.0, 2.3);
+
+            // Call
+            TestDelegate test = () => new RingtoetsMapDataFeaturesFactory.MapCalculationData(
+                calculationName,
+                calculationLocation,
+                null);
+
+            // Assert
+            var paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A hydraulic boundary location is required.")
+                .ParamName;
+
+            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
+        }
+
         [Test]
         public void CreateReferenceLineFeatures_ReferenceLineNull_ReturnsEmptyFeaturesArray()
         {
@@ -312,6 +374,62 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void CreateCalculationsFeatures_NullLocations_ReturnsEmptyCollection()
+        {
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateCalculationsFeatures(null);
+
+            // Assert
+            Assert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateCalculationsFeatures_EmptyLocations_ReturnsEmptyCollection()
+        {
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateCalculationsFeatures(
+                Enumerable.Empty<RingtoetsMapDataFeaturesFactory.MapCalculationData>());
+
+            // Assert
+            Assert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateCalculationsFeatures_WithCalculations_ReturnsCollectionWithCalculations()
+        {
+            // Setup
+            var calculationLocationA = new Point2D(1.2, 2.3);
+            var calculationLocationB = new Point2D(2.7, 2.0);
+
+            var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
+            var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6);
+
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateCalculationsFeatures(new [] {
+                new RingtoetsMapDataFeaturesFactory.MapCalculationData("calculationA", calculationLocationA, hydraulicBoundaryLocationA),
+                new RingtoetsMapDataFeaturesFactory.MapCalculationData("calculationB", calculationLocationB, hydraulicBoundaryLocationB)
+                });
+
+            // Assert
+            Assert.AreEqual(2, features.Length);
+            Assert.AreEqual(1, features[0].MapGeometries.Count());
+            Assert.AreEqual(1, features[1].MapGeometries.Count());
+            var mapDataGeometryOne = features[0].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            var mapDataGeometryTwo = features[1].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+
+            CollectionElementsAlmostEquals(new[]
+            {
+                calculationLocationA,
+                hydraulicBoundaryLocationA.Location
+            }, mapDataGeometryOne);
+            CollectionElementsAlmostEquals(new[]
+            {
+                calculationLocationB,
+                hydraulicBoundaryLocationB.Location
+            }, mapDataGeometryTwo);
+        }
+
+        [Test]
         public void CreateDikeProfilesFeatures_NullDikeProfiles_ReturnsEmptyCollection()
         {
             // Call
@@ -333,7 +451,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CreateDikeProfilesFeatures_WithDikeProfiles_ReturnsCollectionWithForeshoreProfileAndDikeProfile()
+        public void CreateDikeProfilesFeatures_WithDikeProfiles_ReturnsCollectionWithDikeProfiles()
         {
             // Setup
             var pointA = new Point2D(1.2, 2.3);
@@ -415,7 +533,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CreateForeshoreProfilesFeatures_WithForeshoreProfiles_ReturnsCollectionWithForeshoreProfileAndForeshoreProfile()
+        public void CreateForeshoreProfilesFeatures_WithForeshoreProfiles_ReturnsCollectionWithForeshoreProfiles()
         {
             // Setup
             var pointA = new Point2D(1.2, 2.3);

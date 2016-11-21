@@ -130,6 +130,18 @@ namespace Ringtoets.Common.Forms.Test.Views
             AssertEqualStyle(data.Style, Color.DarkSeaGreen, 15, PointSymbol.Square);
         }
 
+        [Test]
+        public void CreateCalculationsMapData_ReturnsEmptyMapPointDataWithDefaultStyling()
+        {
+            // Call
+            MapLineData data = RingtoetsMapDataFactory.CreateCalculationsMapData();
+
+            // Assert
+            Assert.IsEmpty(data.Features);
+            Assert.AreEqual(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, data.Name);
+            AssertEqualStyle(data.Style, Color.MediumPurple, 2, DashStyle.Dash);
+        }
+
         private static string GetSectionPointDisplayName(string name)
         {
             return string.Format("{0} ({1})",

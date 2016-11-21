@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -185,6 +186,32 @@ namespace Ringtoets.Common.Forms.Views
             return structures.Select(structure => GetAsSingleMapFeature(structure.Location)).ToArray();
         }
 
+        public static MapFeature[] CreateCalculationsFeatures(IEnumerable<MapCalculationData> calculationData)
+        {
+            if (calculationData == null || !calculationData.Any())
+            {
+                return new MapFeature[0];
+            }
+
+            var features = new List<MapFeature>();
+
+            foreach (var calculationItem in calculationData)
+            {
+                var feature = GetAsSingleMapFeature(new[]
+                {
+                    calculationItem.CalculationLocation,
+                    calculationItem.HydraulicBoundaryLocation.Location
+                });
+
+                feature.MetaData[Resources.MetaData_Name] = calculationItem.Name;
+                feature.MetaData[Resources.MetaData_Couple_distance] = 
+                    calculationItem.CalculationLocation.GetEuclideanDistanceTo(calculationItem.HydraulicBoundaryLocation.Location);
+
+                features.Add(feature);
+            }
+            return features.ToArray();
+        }
+
         private static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                                                             string designWaterLevelAttributeName,
                                                                             string waveheightAttributeName)
@@ -250,6 +277,32 @@ namespace Ringtoets.Common.Forms.Views
                     }
                 })
             });
+        }
+
+        public class MapCalculationData
+        {
+            public string Name { get; private set; }
+            public Point2D CalculationLocation { get; private set; }
+            public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
+
+            public MapCalculationData(string calculationName, Point2D calculationLocation, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            {
+                if (calculationName == null)
+                {
+                    throw new ArgumentNullException("calculationName", @"A calculation name is required.");
+                }
+                if (calculationLocation == null)
+                {
+                    throw new ArgumentNullException("calculationLocation", @"A location for the calculation is required.");
+                }
+                if (hydraulicBoundaryLocation == null)
+                {
+                    throw new ArgumentNullException("hydraulicBoundaryLocation", @"A hydraulic boundary location is required.");
+                }
+                Name = calculationName;
+                CalculationLocation = calculationLocation;
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            }
         }
     }
 }

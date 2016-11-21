@@ -25,7 +25,10 @@ using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 
@@ -136,6 +139,75 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(2, features[0].MapGeometries.Count());
             AssertEqualPointCollections(pointsOne, features[0].MapGeometries.ElementAt(0));
             AssertEqualPointCollections(pointsTwo, features[0].MapGeometries.ElementAt(1));
+        }
+
+        [Test]
+        public void CreateCalculationFeatures_CalculationNull_ReturnsEmptyFeaturesArray()
+        {
+            // Call
+            MapFeature[] features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateCalculationFeatures_ReferenceLineNull_ReturnsEmptyFeaturesArray()
+        {
+            // Call
+            MapFeature[] features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(Enumerable.Empty<PipingCalculationScenario>());
+
+            // Assert
+            CollectionAssert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateCalculationFeatures_NoCalculations_ReturnsEmptyFeaturesArray()
+        {
+            // Call
+            MapFeature[] features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(Enumerable.Empty<PipingCalculationScenario>());
+
+            // Assert
+            CollectionAssert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateCalculationFeatures_GivenCalculations_ReturnsCalculationFeaturesArray()
+        {
+            // Setup
+            var calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            var calculationB = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+
+            calculationA.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(1.0, 3.0);
+            calculationB.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(1.0, 4.0);
+
+            calculationA.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 5.0, 4.0);
+            calculationB.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8);
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new []
+            {
+                new Point2D(1.0, 0.0),
+                new Point2D(1.0, 5.0)
+            });
+
+            // Call
+            MapFeature[] features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(new [] { calculationA, calculationB});
+
+            // Assert
+            Assert.AreEqual(2, features.Length);
+            Assert.AreEqual(1, features[0].MapGeometries.Count());
+            Assert.AreEqual(1, features[1].MapGeometries.Count());
+            AssertEqualPointCollections(new []
+            {
+                new Point2D(1.0, 3.0), 
+                new Point2D(5.0, 4.0) 
+            }, features[0].MapGeometries.ElementAt(0));
+            AssertEqualPointCollections(new []
+            {
+                new Point2D(1.0, 4.0), 
+                new Point2D(2.2, 3.8) 
+            }, features[1].MapGeometries.ElementAt(0));
         }
 
         private static void AssertEqualPointCollections(IEnumerable<Point3D> points, MapGeometry geometry)

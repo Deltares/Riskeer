@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -71,6 +71,29 @@ namespace Ringtoets.Piping.Forms.Views
                            })))
                        }
                        : new MapFeature[0];
+        }
+
+        public static MapFeature[] CreateCalculationFeatures(IEnumerable<PipingCalculationScenario> calculations)
+        {
+            var hasCalculations = calculations != null && calculations.Any();
+
+            if (!hasCalculations)
+            {
+                return new MapFeature[0];
+            }
+
+            var calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(c =>
+                c.InputParameters.SurfaceLine != null &&
+                c.InputParameters.HydraulicBoundaryLocation != null);
+
+            IList<RingtoetsMapDataFeaturesFactory.MapCalculationData> calculationData = 
+                calculationsWithLocationAndHydraulicBoundaryLocation.Select(
+                    calculation => new RingtoetsMapDataFeaturesFactory.MapCalculationData(
+                        calculation.Name, 
+                        calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint, 
+                        calculation.InputParameters.HydraulicBoundaryLocation)).ToList();
+
+            return RingtoetsMapDataFeaturesFactory.CreateCalculationsFeatures(calculationData);
         }
     }
 }

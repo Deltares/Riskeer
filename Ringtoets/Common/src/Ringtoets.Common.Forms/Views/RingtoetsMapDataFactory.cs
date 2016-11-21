@@ -26,6 +26,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
@@ -148,6 +149,20 @@ namespace Ringtoets.Common.Forms.Views
             return new MapPointData(Resources.StructuresCollection_DisplayName)
             {
                 Style = new PointStyle(Color.DarkSeaGreen, largePointSize, PointSymbol.Square)
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="ICalculation"/>.
+        /// </summary>
+        /// <returns>The created <see cref="MapPointData"/>.</returns>
+        public static MapLineData CreateCalculationsMapData()
+        {
+            return new MapLineData(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName)
+            {
+                Style = new LineStyle(Color.MediumPurple, thinLineWidth, DashStyle.Dash),
+                ShowLabels = true,
+                SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }
     }
