@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Attributes;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.Properties;
 
@@ -30,50 +27,13 @@ namespace Core.Plugins.Map.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="MapPolygonData"/> for properties panel.
     /// </summary>
-    public class MapPolygonDataProperties : ObjectProperties<MapPolygonData>
+    public class MapPolygonDataProperties : FeatureBasedMapDataProperties<MapPolygonData>
     {
-        private const int namePropertyIndex = 0;
-        private const int typePropertyIndex = 1;
-        private const int showLabelsPropertyIndex = 2;
-
-        [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "MapData_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "MapData_Name_Description")]
-        public string Name
-        {
-            get
-            {
-                return data.Name;
-            }
-        }
-
-        [PropertyOrder(typePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "MapData_Type_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "MapData_Type_Description")]
-        public string Type
+        public override string Type
         {
             get
             {
                 return Resources.MapData_Type_Polygons;
-            }
-        }
-
-        [PropertyOrder(showLabelsPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Label")]
-        [ResourcesDisplayName(typeof(Resources), "MapData_ShowLabels_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "MapData_ShowLabels_Description")]
-        public bool ShowLabels
-        {
-            get
-            {
-                return data.ShowLabels;
-            }
-            set
-            {
-                data.ShowLabels = value;
-                data.NotifyObservers();
             }
         }
     }

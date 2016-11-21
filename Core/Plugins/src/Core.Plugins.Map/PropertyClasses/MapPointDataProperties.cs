@@ -19,105 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing.Design;
-using System.Linq;
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Attributes;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.Properties;
-using Core.Plugins.Map.UITypeEditors;
 
 namespace Core.Plugins.Map.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="MapPointData"/> for properties panel.
     /// </summary>
-    public class MapPointDataProperties : ObjectProperties<MapPointData>
+    public class MapPointDataProperties : FeatureBasedMapDataProperties<MapPointData>
     {
-        private const int namePropertyIndex = 0;
-        private const int typePropertyIndex = 1;
-        private const int showLabelsPropertyIndex = 2;
-        private const int selectedMetaDataAttributePropertyIndex = 3;
-
-        [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "MapData_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "MapData_Name_Description")]
-        public string Name
-        {
-            get
-            {
-                return data.Name;
-            }
-        }
-
-        [PropertyOrder(typePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "MapData_Type_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "MapData_Type_Description")]
-        public string Type
+        public override string Type
         {
             get
             {
                 return Resources.MapData_Type_Points;
             }
-        }
-
-        [PropertyOrder(showLabelsPropertyIndex)]
-        [DynamicReadOnly]
-        [ResourcesCategory(typeof(Resources), "Categories_Label")]
-        [ResourcesDisplayName(typeof(Resources), "MapData_ShowLabels_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "MapData_ShowLabels_Description")]
-        public bool ShowLabels
-        {
-            get
-            {
-                return data.ShowLabels;
-            }
-            set
-            {
-                data.ShowLabels = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(selectedMetaDataAttributePropertyIndex)]
-        [DynamicVisible]
-        [Editor(typeof(MetaDataAttributeEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), "Categories_Label")]
-        [ResourcesDisplayName(typeof(Resources), "Mapdata_SelectedMetaDataAttribute_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Mapdata_SelectedMetaDataAttribute_Description")]
-        public string SelectedMetaDataAttribute
-        {
-            get
-            {
-                return data.SelectedMetaDataAttribute;
-            }
-            set
-            {
-                data.SelectedMetaDataAttribute = value;
-                data.NotifyObservers();
-            }
-        }
-
-        public IEnumerable<string> GetAvailableMetaDataAttributes()
-        {
-            return data.MetaData;
-        }
-
-        [DynamicReadOnlyValidationMethod]
-        public bool DynamicReadonlyValidator(string propertyName)
-        {
-            return !data.MetaData.Any();
-        }
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.ShowLabels;
         }
     }
 }

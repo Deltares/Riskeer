@@ -25,8 +25,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {
