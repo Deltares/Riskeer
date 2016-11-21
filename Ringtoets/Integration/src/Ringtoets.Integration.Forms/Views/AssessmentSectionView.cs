@@ -114,7 +114,7 @@ namespace Ringtoets.Integration.Forms.Views
                 hydraulicBoundaryDatabase = data.HydraulicBoundaryDatabase;
             }
 
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine);
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Id, data.Name);
             hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
 
             mapControl.Data.NotifyObservers();

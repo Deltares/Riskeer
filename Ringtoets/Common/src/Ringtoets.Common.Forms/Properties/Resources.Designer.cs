@@ -1401,6 +1401,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lengte.
+        /// </summary>
+        public static string MetaData_Length {
+            get {
+                return ResourceManager.GetString("MetaData_Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Naam.
         /// </summary>
         public static string MetaData_Name {

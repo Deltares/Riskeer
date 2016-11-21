@@ -45,15 +45,25 @@ namespace Ringtoets.Common.Forms.Views
         /// Create reference line features based on the provided <paramref name="referenceLine"/>.
         /// </summary>
         /// <param name="referenceLine">The <see cref="ReferenceLine"/> to create the reference line features for.</param>
+        /// <param name="id">The id of the <see cref="IAssessmentSection"/>.</param>
+        /// <param name="name">The name of the <see cref="IAssessmentSection"/>.</param>
         /// <returns>An array of features or an empty array when <paramref name="referenceLine"/> is <c>null</c>.</returns>
-        public static MapFeature[] CreateReferenceLineFeatures(ReferenceLine referenceLine)
+        public static MapFeature[] CreateReferenceLineFeatures(ReferenceLine referenceLine, string id, string name)
         {
-            return referenceLine != null
-                       ? new[]
-                       {
-                           GetAsSingleMapFeature(referenceLine.Points)
-                       }
-                       : new MapFeature[0];
+            var features = new List<MapFeature>();
+
+            if (referenceLine != null)
+            {
+                var feature = GetAsSingleMapFeature(referenceLine.Points);
+
+                feature.MetaData[Resources.MetaData_ID] = id;
+                feature.MetaData[Resources.MetaData_Name] = name;
+                feature.MetaData[Resources.MetaData_Length] = Math2D.Length(referenceLine.Points);
+
+                features.Add(feature);
+            }
+
+            return features.ToArray();
         }
 
         /// <summary>

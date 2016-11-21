@@ -52,7 +52,8 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName)
             {
-                Style = new LineStyle(Color.Red, thickLineWidth, DashStyle.Solid)
+                Style = new LineStyle(Color.Red, thickLineWidth, DashStyle.Solid),
+                SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }
 

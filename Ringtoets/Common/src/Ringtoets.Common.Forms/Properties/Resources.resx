@@ -856,4 +856,7 @@
   <data name="MetaData_WaveHeight_GrassOutwards" xml:space="preserve">
     <value>Golfhoogte bij doorsnede-eis</value>
   </data>
+  <data name="MetaData_Length" xml:space="preserve">
+    <value>Lengte</value>
+  </data>
 </root>

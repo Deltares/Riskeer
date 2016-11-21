@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CreateReferenceLineFeatures_ReferenceLineNull_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(null);
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(null, string.Empty, string.Empty);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -50,6 +50,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CreateReferenceLineFeatures_GivenReferenceLine_ReturnsReferenceLineFeaturesArray()
         {
             // Setup
+            const string id = "1";
+            const string name = "Traject 1";
+
             var points = new[]
             {
                 new Point2D(1.2, 2.3),
@@ -59,10 +62,17 @@ namespace Ringtoets.Common.Forms.Test.Views
             referenceLine.SetGeometry(points);
 
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine);
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, id, name);
 
             // Assert
-            AssertEqualPointCollections(points, features[0].MapGeometries.ElementAt(0));
+            MapFeature mapFeature = features[0];
+            Assert.AreEqual(3, mapFeature.MetaData.Keys.Count);
+            Assert.AreEqual(id, mapFeature.MetaData["ID"]);
+            Assert.AreEqual(name, mapFeature.MetaData["Naam"]);
+
+            var expectedLength = Math2D.Length(points);
+            Assert.AreEqual(expectedLength, mapFeature.MetaData["Lengte"]);
+            AssertEqualPointCollections(points, mapFeature.MapGeometries.ElementAt(0));
         }
 
         [Test]
@@ -301,15 +311,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             }, features[0].MapGeometries.ElementAt(0));
         }
 
-        private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
-        {
-            Assert.AreEqual(points.Length, features.Length);
-            for (int i = 0; i < points.Length; i++)
-            {
-                CollectionAssert.AreEqual(new[] { points[i] }, features[i].MapGeometries.First().PointCollections.First());
-            }
-        }
-
         [Test]
         public void CreateDikeProfilesFeatures_NullDikeProfiles_ReturnsEmptyCollection()
         {
@@ -364,8 +365,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             };
             var dikeProfiles = new[]
             {
-                new DikeProfile(new Point2D(5,4), roughnessPointsOne, pointsOne, null, new DikeProfile.ConstructionProperties()), 
-                new DikeProfile(new Point2D(2,1), roughnessPointsTwo, Enumerable.Empty<Point2D>(), null, new DikeProfile.ConstructionProperties())
+                new DikeProfile(new Point2D(5, 4), roughnessPointsOne, pointsOne, null, new DikeProfile.ConstructionProperties()),
+                new DikeProfile(new Point2D(2, 1), roughnessPointsTwo, Enumerable.Empty<Point2D>(), null, new DikeProfile.ConstructionProperties())
             };
 
             // Call
@@ -391,6 +392,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new Point2D(2, -3.2)
             }, mapDataDikeGeometryTwo);
         }
+
         [Test]
         public void CreateForeshoreProfilesFeatures_NullForeshoreProfiles_ReturnsEmptyCollection()
         {
@@ -438,8 +440,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             };
             var dikeProfiles = new[]
             {
-                new ForeshoreProfile(new Point2D(5,4), pointsOne, null, new ForeshoreProfile.ConstructionProperties()), 
-                new ForeshoreProfile(new Point2D(2,1), pointsTwo, null, new ForeshoreProfile.ConstructionProperties())
+                new ForeshoreProfile(new Point2D(5, 4), pointsOne, null, new ForeshoreProfile.ConstructionProperties()),
+                new ForeshoreProfile(new Point2D(2, 1), pointsTwo, null, new ForeshoreProfile.ConstructionProperties())
             };
 
             // Call
@@ -464,6 +466,18 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new Point2D(2, -2.2),
                 new Point2D(2, -6.7)
             }, mapDataGeometryTwo);
+        }
+
+        private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
+        {
+            Assert.AreEqual(points.Length, features.Length);
+            for (int i = 0; i < points.Length; i++)
+            {
+                CollectionAssert.AreEqual(new[]
+                {
+                    points[i]
+                }, features[i].MapGeometries.First().PointCollections.First());
+            }
         }
 
         private void CollectionElementsAlmostEquals(IEnumerable<Point2D> expected, Point2D[] actual)
