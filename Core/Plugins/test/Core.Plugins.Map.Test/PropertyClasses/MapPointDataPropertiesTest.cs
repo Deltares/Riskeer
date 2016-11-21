@@ -20,10 +20,13 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using Core.Plugins.Map.PropertyClasses;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -66,10 +69,25 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        [Combinatorial]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues([Values(true, false)] bool hasMetaData,
+                                                                              [Values(true, false)] bool showLabels)
         {
             // Setup
-            var mapPointData = new MapPointData("Test");
+            var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
+            if (hasMetaData)
+            {
+                feature.MetaData["key"] = "value";
+            }
+
+            var mapPointData = new MapPointData("Test")
+            {
+                Features = new[]
+                {
+                    feature
+                },
+                ShowLabels = showLabels
+            };
 
             // Call
             var properties = new MapPointDataProperties
@@ -79,7 +97,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(showLabels ? 4 : 3, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string labelCategory = "Label";
@@ -102,13 +120,17 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(showlabelsProperty,
                                                                             labelCategory,
                                                                             "Weergeven",
-                                                                            "Geeft aan of op deze kaartlaag labels moeten worden weergegeven.");
+                                                                            "Geeft aan of op deze kaartlaag labels moeten worden weergegeven.",
+                                                                            !hasMetaData);
 
-            PropertyDescriptor selectedMetaDataAttributeProperty = dynamicProperties[selectedMetaDataAttributePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(selectedMetaDataAttributeProperty,
-                                                                            labelCategory,
-                                                                            "Op basis van",
-                                                                            "Toont de eigenschap op basis waarvan labels op de geselecteerde kaartlaag worden weergegeven.");
+            if (showLabels)
+            {
+                PropertyDescriptor selectedMetaDataAttributeProperty = dynamicProperties[selectedMetaDataAttributePropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(selectedMetaDataAttributeProperty,
+                                                                                labelCategory,
+                                                                                "Op basis van",
+                                                                                "Toont de eigenschap op basis waarvan labels op de geselecteerde kaartlaag worden weergegeven.");
+            }
         }
 
         [Test]

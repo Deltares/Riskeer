@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Linq;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -66,6 +67,7 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [PropertyOrder(showLabelsPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), "Categories_Label")]
         [ResourcesDisplayName(typeof(Resources), "MapData_ShowLabels_DisplayName")]
         [ResourcesDescription(typeof(Resources), "MapData_ShowLabels_Description")]
@@ -83,6 +85,7 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [PropertyOrder(selectedMetaDataAttributePropertyIndex)]
+        [DynamicVisible]
         [Editor(typeof(MetaDataAttributeEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_Label")]
         [ResourcesDisplayName(typeof(Resources), "Mapdata_SelectedMetaDataAttribute_DisplayName")]
@@ -103,6 +106,18 @@ namespace Core.Plugins.Map.PropertyClasses
         public IEnumerable<string> GetAvailableMetaDataAttributes()
         {
             return data.MetaData;
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadonlyValidator(string propertyName)
+        {
+            return !data.MetaData.Any();
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.ShowLabels;
         }
     }
 }
