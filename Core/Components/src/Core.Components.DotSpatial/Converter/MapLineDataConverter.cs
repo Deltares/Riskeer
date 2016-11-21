@@ -44,18 +44,24 @@ namespace Core.Components.DotSpatial.Converter
 
             foreach (var mapFeature in data.Features)
             {
-                var feature = new Feature();
+                var geometry = new GeometryFactory().CreateMultiLineString(mapFeature.MapGeometries.Select(AsLineString).ToArray());
 
-                GeometryFactory factory = new GeometryFactory();
-                feature.BasicGeometry = factory.CreateMultiLineString(mapFeature.MapGeometries.Select(AsLineString).ToArray());
+                var feature = new Feature(geometry, featureSet);
 
-                featureSet.Features.Add(feature);
+                if (data.ShowLabels)
+                {
+                    AddMetaDataAsAttributes(mapFeature, featureSet, feature);
+                }
             }
+
+            featureSet.InitializeVertices();
 
             var layer = new MapLineLayer(featureSet)
             {
                 IsVisible = data.IsVisible,
-                Name = data.Name
+                Name = data.Name,
+                ShowLabels = data.ShowLabels,
+                LabelLayer = GetLabelLayer(featureSet, data.ShowLabels, data.SelectedMetaDataAttribute)
             };
 
             CreateStyle(layer, data.Style);

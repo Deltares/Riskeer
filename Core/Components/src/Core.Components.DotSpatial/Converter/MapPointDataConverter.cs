@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -29,7 +28,6 @@ using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
-using Point = DotSpatial.Topology.Point;
 
 namespace Core.Components.DotSpatial.Converter
 {
@@ -69,37 +67,6 @@ namespace Core.Components.DotSpatial.Converter
             {
                 layer
             };
-        }
-
-        private static MapLabelLayer GetLabelLayer(FeatureSet featureSet, bool showLabels, string labelToShow)
-        {
-            var labelLayer = new MapLabelLayer();
-
-            if (featureSet.DataTable.Columns.Count > 0 && showLabels)
-            {
-                labelLayer.Symbology.Categories[0].Symbolizer = new LabelSymbolizer
-                {
-                    Orientation = ContentAlignment.MiddleRight,
-                    OffsetX = 5,
-                    PriorityField = "ID"
-                };
-                labelLayer.Symbology.Categories[0].Expression = string.Format("[{0}]", labelToShow);
-            }
-
-            return labelLayer;
-        }
-
-        private static void AddMetaDataAsAttributes(MapFeature ringtoetsMapFeature, FeatureSet featureSet, Feature feature)
-        {
-            foreach (var attribute in ringtoetsMapFeature.MetaData)
-            {
-                if (!featureSet.DataTable.Columns.Contains(attribute.Key))
-                {
-                    featureSet.DataTable.Columns.Add(attribute.Key, typeof(string));
-                }
-
-                feature.DataRow[attribute.Key] = attribute.Value;
-            }
         }
 
         private static IEnumerable<Coordinate> GetAllMapFeatureCoordinates(MapFeature feature)
