@@ -99,6 +99,7 @@
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactoryTest.cs" />
     <Compile Include="TypeConverters\FailureMechanismSectionResultNoProbabilityValueDoubleConverterTest.cs" />
     <Compile Include="TypeConverters\NoValueRoundedDoubleConverterTest.cs" />
+    <Compile Include="UITypeEditors\HydraulicBoundaryLocationCalculationInputItemTest.cs" />
     <Compile Include="UITypeEditors\HydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="UITypeEditors\ForeshoreProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\StructureEditorTest.cs" />
