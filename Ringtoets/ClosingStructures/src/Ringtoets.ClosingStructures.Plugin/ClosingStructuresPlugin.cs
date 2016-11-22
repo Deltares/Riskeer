@@ -673,26 +673,8 @@ namespace Ringtoets.ClosingStructures.Plugin
         private void OnClosingStructureRemoved(ClosingStructure nodeData, object parentData)
         {
             var parentContext = (ClosingStructuresContext) parentData;
-            var changedObservables = new List<IObservable>();
-            StructuresCalculation<ClosingStructuresInput>[] closingStructureCalculations = parentContext
-                .FailureMechanism.Calculations
-                .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                .ToArray();
-            StructuresCalculation<ClosingStructuresInput>[] calculationWithRemovedClosingStructure = closingStructureCalculations
-                .Where(c => ReferenceEquals(c.InputParameters.Structure, nodeData))
-                .ToArray();
-            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedClosingStructure)
-            {
-                calculation.InputParameters.Structure = null;
-                StructuresHelper.Delete(parentContext.FailureMechanism.SectionResults,
-                                        calculation,
-                                        closingStructureCalculations);
-                changedObservables.Add(calculation.InputParameters);
-            }
-
-            parentContext.WrappedData.Remove(nodeData);
-            changedObservables.Add(parentContext.WrappedData);
-
+            IEnumerable<IObservable> changedObservables = ClosingStructuresDataSynchronizationService.RemoveStructure(parentContext.FailureMechanism,
+                                                                                                                      nodeData);
             foreach (IObservable observable in changedObservables)
             {
                 observable.NotifyObservers();

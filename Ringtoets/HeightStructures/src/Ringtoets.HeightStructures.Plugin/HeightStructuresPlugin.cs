@@ -319,26 +319,8 @@ namespace Ringtoets.HeightStructures.Plugin
         private void OnHeightStructureRemoved(HeightStructure nodeData, object parentData)
         {
             var parentContext = (HeightStructuresContext) parentData;
-            var changedObservables = new List<IObservable>();
-            StructuresCalculation<HeightStructuresInput>[] heightStructureCalculations = parentContext
-                .FailureMechanism.Calculations
-                .Cast<StructuresCalculation<HeightStructuresInput>>()
-                .ToArray();
-            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedHeightStructure = heightStructureCalculations
-                .Where(c => ReferenceEquals(c.InputParameters.Structure, nodeData))
-                .ToArray();
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedHeightStructure)
-            {
-                calculation.InputParameters.Structure = null;
-                StructuresHelper.Delete(parentContext.FailureMechanism.SectionResults,
-                                        calculation,
-                                        heightStructureCalculations);
-                changedObservables.Add(calculation.InputParameters);
-            }
-
-            parentContext.WrappedData.Remove(nodeData);
-            changedObservables.Add(parentContext.WrappedData);
-
+            var changedObservables = HeightStructuresDataSynchronizationService.RemoveStructure(parentContext.FailureMechanism,
+                                                                                                      nodeData);
             foreach (IObservable observable in changedObservables)
             {
                 observable.NotifyObservers();

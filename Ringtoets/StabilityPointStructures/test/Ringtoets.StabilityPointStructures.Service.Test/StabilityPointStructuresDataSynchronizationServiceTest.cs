@@ -23,12 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
 namespace Ringtoets.StabilityPointStructures.Service.Test
 {
@@ -136,67 +138,129 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             CollectionAssert.Contains(array, failureMechanism.StabilityPointStructures);
         }
 
-        private static StabilityPointStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
+        [Test]
+        public void RemoveStabilityPointStructure_FullyConfiguredFailureMechanism_RemovesStructureAndClearsDependentData()
         {
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            // Setup
+            StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            StabilityPointStructure structure = failureMechanism.StabilityPointStructures[0];
+            StructuresCalculation<StabilityPointStructuresInput>[] calculatiosnWithStructure = failureMechanism.Calculations
+                                                                                                               .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                                               .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
+                                                                                                               .ToArray();
+            StabilityPointStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
+                                                                                                                  .Where(sr => calculatiosnWithStructure.Contains(sr.Calculation))
+                                                                                                                  .ToArray();
 
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var calculationWithOutput = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-            var calculationWithHydraulicBoundaryLocation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculatiosnWithStructure);
+            CollectionAssert.IsNotEmpty(sectionResultsWithStructure);
 
-            var subCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var subCalculationWithOutput = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-            var subCalculationWithHydraulicBoundaryLocation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
+            // Call
+            IEnumerable<IObservable> affectedObjects = StabilityPointStructuresDataSynchronizationService.RemoveStructure(failureMechanism, structure);
 
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            CollectionAssert.DoesNotContain(failureMechanism.StabilityPointStructures, structure);
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculatiosnWithStructure)
             {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
+                Assert.IsNull(calculation.InputParameters.Structure);
+            }
+            foreach (StabilityPointStructuresFailureMechanismSectionResult sectionResult in sectionResultsWithStructure)
+            {
+                Assert.IsNull(sectionResult.Calculation);
+            }
+
+            IObservable[] array = affectedObjects.ToArray();
+            Assert.AreEqual(1 + calculatiosnWithStructure.Length + sectionResultsWithStructure.Length,
+                            array.Length);
+            CollectionAssert.Contains(array, failureMechanism.StabilityPointStructures);
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculatiosnWithStructure)
+            {
+                CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+            foreach (StabilityPointStructuresFailureMechanismSectionResult result in sectionResultsWithStructure)
+            {
+                CollectionAssert.Contains(array, result);
+            }
+        }
+
+        private StabilityPointStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
+        {
+            var section1 = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(-1, 0),
+                new Point2D(2, 0)
             });
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(2, 0),
+                new Point2D(4, 0)
+            });
+            var structure1 = new TestStabilityPointStructure(new Point2D(1, 0));
+            var structure2 = new TestStabilityPointStructure(new Point2D(3, 0));
+            var profile = new TestForeshoreProfile();
+            StructuresCalculation<StabilityPointStructuresInput> calculation1 = new TestStabilityPointStructuresCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = profile,
+                    Structure = structure1
+                }
+            };
+            StructuresCalculation<StabilityPointStructuresInput> calculation2 = new TestStabilityPointStructuresCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = profile,
+                    Structure = structure2
+                }
+            };
+            StructuresCalculation<StabilityPointStructuresInput> calculation3 = new TestStabilityPointStructuresCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = profile,
+                    Structure = structure1
+                }
+            };
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            {
+                StabilityPointStructures =
+                {
+                    structure1,
+                    structure2
+                },
+                ForeshoreProfiles =
+                {
+                    profile
+                },
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculation1,
+                        new CalculationGroup("B", true)
+                        {
+                            Children =
+                            {
+                                calculation2
+                            }
+                        },
+                        calculation3
+                    }
+                }
+            };
+
+            failureMechanism.AddSection(section1);
+            failureMechanism.AddSection(section2);
+            StabilityPointStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
+                                                                                            .First(sr => ReferenceEquals(sr.Section, section1));
+            StabilityPointStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults
+                                                                                            .First(sr => ReferenceEquals(sr.Section, section2));
+            result1.Calculation = calculation1;
+            result2.Calculation = calculation2;
 
             return failureMechanism;
         }

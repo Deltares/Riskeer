@@ -522,7 +522,7 @@ namespace Ringtoets.Integration.Service
                 throw new ArgumentNullException("profile");
             }
 
-            var changedObservables = new List<IObservable>();
+            var changedObservables = new HashSet<IObservable>();
             GrassCoverErosionInwardsCalculation[] calculations = failureMechanism.Calculations
                                                                                  .Cast<GrassCoverErosionInwardsCalculation>()
                                                                                  .ToArray();
@@ -532,7 +532,12 @@ namespace Ringtoets.Integration.Service
             foreach (GrassCoverErosionInwardsCalculation calculation in calculationWithRemovedDikeProfile)
             {
                 calculation.InputParameters.DikeProfile = null;
-                GrassCoverErosionInwardsHelper.Delete(failureMechanism.SectionResults, calculation, calculations);
+                IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> changedSectionResults = 
+                    GrassCoverErosionInwardsHelper.Delete(failureMechanism.SectionResults, calculation, calculations);
+                foreach (GrassCoverErosionInwardsFailureMechanismSectionResult result in changedSectionResults)
+                {
+                    changedObservables.Add(result);
+                }
                 changedObservables.Add(calculation.InputParameters);
             }
 

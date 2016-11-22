@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
@@ -65,10 +66,11 @@ namespace Ringtoets.Common.Utils
         /// information about assigning calculations to sections.</param>
         /// <param name="calculation">The <see cref="ICalculation"/> that was removed.</param>
         /// <param name="calculations">All the remaining calculations after deletion of the <paramref name="calculation"/>.</param>
+        /// <returns>All affected objects by the deletion.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="sectionResults"/> or <paramref name="calculations"/>
         /// contains a <c>null</c> element.</exception>
-        public static void Delete(
+        public static IEnumerable<FailureMechanismSectionResult> Delete(
             IEnumerable<SectionResultWithCalculationAssignment> sectionResults,
             ICalculation calculation,
             IEnumerable<CalculationWithLocation> calculations)
@@ -82,7 +84,7 @@ namespace Ringtoets.Common.Utils
             Dictionary<string, IList<ICalculation>> calculationsPerSegmentName =
                 CollectCalculationsPerSection(sectionResultsArray.Select(sr => sr.Result.Section), calculations);
 
-            UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(sectionResultsArray, calculation, calculationsPerSegmentName);
+            return UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(sectionResultsArray, calculation, calculationsPerSegmentName);
         }
 
         /// <summary>
@@ -143,23 +145,28 @@ namespace Ringtoets.Common.Utils
             return FindSectionAtLocation(sectionSegments, calculation.Location);
         }
 
-        private static void UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
+        private static IEnumerable<FailureMechanismSectionResult> UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
             IEnumerable<SectionResultWithCalculationAssignment> sectionResults,
             ICalculation calculation, Dictionary<string, IList<ICalculation>> calculationsPerSegmentName)
         {
             IEnumerable<SectionResultWithCalculationAssignment> sectionResultsUsingCalculation =
                 sectionResults.Where(sr => sr.Calculation != null && ReferenceEquals(sr.Calculation, calculation));
 
-            foreach (var sectionResult in sectionResultsUsingCalculation)
+            var affectedObjects = new Collection<FailureMechanismSectionResult>();
+            foreach (SectionResultWithCalculationAssignment sectionResult in sectionResultsUsingCalculation)
             {
                 string sectionName = sectionResult.Result.Section.Name;
                 if (calculationsPerSegmentName.ContainsKey(sectionName) && calculationsPerSegmentName[sectionName].Count == 1)
                 {
                     sectionResult.Calculation = calculationsPerSegmentName[sectionName].Single();
-                    continue;
                 }
-                sectionResult.Calculation = null;
+                else
+                {
+                    sectionResult.Calculation = null;
+                }
+                affectedObjects.Add(sectionResult.Result);
             }
+            return affectedObjects;
         }
 
         private static void AssignCalculationIfContainingSectionResultHasNoCalculationAssigned(

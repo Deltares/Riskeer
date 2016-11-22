@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Utils;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityPointStructures.Data;
 
@@ -120,6 +121,42 @@ namespace Ringtoets.StabilityPointStructures.Service
             observables.Add(failureMechanism.StabilityPointStructures);
 
             return observables;
+        }
+
+        /// <summary>
+        /// Removes the given stability point structure and all dependent data, either
+        /// directly or indirectly, from the failure mechanism.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism with at least 1 structure.</param>
+        /// <param name="structure">The structure to be removed.</param>
+        /// <returns>All objects affected by the removal.</returns>
+        public static IEnumerable<IObservable> RemoveStructure(StabilityPointStructuresFailureMechanism failureMechanism,
+                                                               StabilityPointStructure structure)
+        {
+            var changedObservables = new HashSet<IObservable>();
+            StructuresCalculation<StabilityPointStructuresInput>[] heightStructureCalculations = failureMechanism.Calculations
+                                                                                                         .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                                         .ToArray();
+            StructuresCalculation<StabilityPointStructuresInput>[] calculationWithRemovedStabilityPointStructure = heightStructureCalculations
+                .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
+                .ToArray();
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedStabilityPointStructure)
+            {
+                calculation.InputParameters.Structure = null;
+
+                IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> affectedSectionResults =
+                    StructuresHelper.Delete(failureMechanism.SectionResults, calculation, heightStructureCalculations);
+                foreach (StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> result in affectedSectionResults)
+                {
+                    changedObservables.Add(result);
+                }
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            failureMechanism.StabilityPointStructures.Remove(structure);
+            changedObservables.Add(failureMechanism.StabilityPointStructures);
+
+            return changedObservables;
         }
 
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(StabilityPointStructuresInput input)

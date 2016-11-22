@@ -295,20 +295,99 @@ namespace Ringtoets.ClosingStructures.Service.Test
             CollectionAssert.Contains(array, failureMechanism.ClosingStructures);
         }
 
+        [Test]
+        public void RemoveClosingStructure_FullyConfiguredFailureMechanism_RemovesStructureAndClearsDependentData()
+        {
+            // Setup
+            ClosingStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            ClosingStructure structure = failureMechanism.ClosingStructures[0];
+            StructuresCalculation<ClosingStructuresInput>[] calculatiosnWithStructure = failureMechanism.Calculations
+                                                                                                        .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                                                                        .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
+                                                                                                        .ToArray();
+            ClosingStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
+                                                                                                           .Where(sr => calculatiosnWithStructure.Contains(sr.Calculation))
+                                                                                                           .ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculatiosnWithStructure);
+            CollectionAssert.IsNotEmpty(sectionResultsWithStructure);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = ClosingStructuresDataSynchronizationService.RemoveStructure(failureMechanism, structure);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            CollectionAssert.DoesNotContain(failureMechanism.ClosingStructures, structure);
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculatiosnWithStructure)
+            {
+                Assert.IsNull(calculation.InputParameters.Structure);
+            }
+            foreach (ClosingStructuresFailureMechanismSectionResult sectionResult in sectionResultsWithStructure)
+            {
+                Assert.IsNull(sectionResult.Calculation);
+            }
+
+            IObservable[] array = affectedObjects.ToArray();
+            Assert.AreEqual(1 + calculatiosnWithStructure.Length + sectionResultsWithStructure.Length,
+                            array.Length);
+            CollectionAssert.Contains(array, failureMechanism.ClosingStructures);
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculatiosnWithStructure)
+            {
+                CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+            foreach (ClosingStructuresFailureMechanismSectionResult result in sectionResultsWithStructure)
+            {
+                CollectionAssert.Contains(array, result);
+            }
+        }
+
         private ClosingStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
         {
-            var section = new FailureMechanismSection("A", new[]
+            var section1 = new FailureMechanismSection("A", new[]
             {
-                new Point2D(-1, 0), 
+                new Point2D(-1, 0),
                 new Point2D(2, 0)
             });
-            var structure = new TestClosingStructure();
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(2, 0),
+                new Point2D(4, 0)
+            });
+            var structure1 = new TestClosingStructure(new Point2D(1, 0));
+            var structure2 = new TestClosingStructure(new Point2D(3, 0));
             var profile = new TestForeshoreProfile();
-            var heightStructuresFailureMechanism = new ClosingStructuresFailureMechanism
+            StructuresCalculation<ClosingStructuresInput> calculation1 = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = profile,
+                    Structure = structure1
+                }
+            };
+            StructuresCalculation<ClosingStructuresInput> calculation2 = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = profile,
+                    Structure = structure2
+                }
+            };
+            StructuresCalculation<ClosingStructuresInput> calculation3 = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = profile,
+                    Structure = structure1
+                }
+            };
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 ClosingStructures =
                 {
-                    structure
+                    structure1,
+                    structure2
                 },
                 ForeshoreProfiles =
                 {
@@ -318,20 +397,29 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 {
                     Children =
                     {
-                        new TestClosingStructuresCalculation
+                        calculation1,
+                        new CalculationGroup("B", true)
                         {
-                            InputParameters =
+                            Children =
                             {
-                                ForeshoreProfile = profile,
-                                Structure = structure
+                                calculation2
                             }
                         },
-                        new CalculationGroup("B", true)
+                        calculation3
                     }
                 }
             };
-            heightStructuresFailureMechanism.AddSection(section);
-            return heightStructuresFailureMechanism;
+
+            failureMechanism.AddSection(section1);
+            failureMechanism.AddSection(section2);
+            ClosingStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
+                                                                                     .First(sr => ReferenceEquals(sr.Section, section1));
+            ClosingStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults
+                                                                                     .First(sr => ReferenceEquals(sr.Section, section2));
+            result1.Calculation = calculation1;
+            result2.Calculation = calculation2;
+
+            return failureMechanism;
         }
     }
 }

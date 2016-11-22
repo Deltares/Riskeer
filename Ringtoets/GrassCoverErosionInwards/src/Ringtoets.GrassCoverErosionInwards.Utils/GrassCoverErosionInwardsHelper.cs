@@ -109,19 +109,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> which has a location that has been updated.</param>
         /// <param name="calculations">The <see cref="IEnumerable{T}"/> of <see cref="GrassCoverErosionInwardsCalculation"/> that were left after removing
         /// <paramref name="calculation"/>.</param>
+        /// <returns>All section results affected by the deletion.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c> or when an element 
         /// in <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
-        public static void Delete(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
-                                  GrassCoverErosionInwardsCalculation calculation, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        public static IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> Delete(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
+                                                                                                GrassCoverErosionInwardsCalculation calculation,
+                                                                                                IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             ValidateSectionResults(sectionResults);
 
-            AssignUnassignCalculations.Delete(
+            return AssignUnassignCalculations.Delete(
                 sectionResults.Select(AsCalculationAssignment),
                 calculation,
-                CalculationsToCalculationsWithLocations(calculations));
+                CalculationsToCalculationsWithLocations(calculations))
+                                             .Cast<GrassCoverErosionInwardsFailureMechanismSectionResult>()
+                                             .ToArray();
         }
 
         /// <summary>

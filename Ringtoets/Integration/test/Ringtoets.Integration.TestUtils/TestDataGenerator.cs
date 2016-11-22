@@ -295,8 +295,8 @@ namespace Ringtoets.Integration.TestUtils
             failureMechanism.AddSection(section1);
             failureMechanism.AddSection(section2);
 
-            failureMechanism.SectionResults.ElementAt(0).Calculation = calculation;
-            failureMechanism.SectionResults.ElementAt(1).Calculation = subCalculation;
+            failureMechanism.SectionResults.ElementAt(0).Calculation = calculationWithOutput;
+            failureMechanism.SectionResults.ElementAt(1).Calculation = subCalculationWithOutput;
         }
 
         private static void SetFullyConfiguredFailureMechanism(HeightStructuresFailureMechanism failureMechanism,

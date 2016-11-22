@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 
@@ -118,6 +119,41 @@ namespace Ringtoets.HeightStructures.Service
             observables.Add(failureMechanism.HeightStructures);
 
             return observables;
+        }
+
+        /// <summary>
+        /// Removes the given height structure and all dependent data, either directly or indirectly,
+        /// from the failure mechanism.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism with at least 1 structure.</param>
+        /// <param name="structure">The structure to be removed.</param>
+        /// <returns>All objects affected by the removal.</returns>
+        public static IEnumerable<IObservable> RemoveStructure(HeightStructuresFailureMechanism failureMechanism, HeightStructure structure)
+        {
+            var changedObservables = new HashSet<IObservable>();
+            StructuresCalculation<HeightStructuresInput>[] heightStructureCalculations = failureMechanism.Calculations
+                                                                                                         .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                                                         .ToArray();
+            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedHeightStructure = heightStructureCalculations
+                .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
+                .ToArray();
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedHeightStructure)
+            {
+                calculation.InputParameters.Structure = null;
+
+                IEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> affectedSectionResults =
+                    StructuresHelper.Delete(failureMechanism.SectionResults, calculation, heightStructureCalculations);
+                foreach (StructuresFailureMechanismSectionResult<HeightStructuresInput> result in affectedSectionResults)
+                {
+                    changedObservables.Add(result);
+                }
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            failureMechanism.HeightStructures.Remove(structure);
+            changedObservables.Add(failureMechanism.HeightStructures);
+
+            return changedObservables;
         }
 
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(HeightStructuresInput input)

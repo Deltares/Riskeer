@@ -1022,6 +1022,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Precondition
             CollectionAssert.IsNotEmpty(calculations);
+            CollectionAssert.IsNotEmpty(sectionResults);
 
             // Call
             IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile);

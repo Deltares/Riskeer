@@ -318,26 +318,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         private void OnStabilityPointStructureRemoved(StabilityPointStructure nodeData, object parentData)
         {
             var parentContext = (StabilityPointStructuresContext) parentData;
-            var changedObservables = new List<IObservable>();
-            StructuresCalculation<StabilityPointStructuresInput>[] heightStructureCalculations = parentContext
-                .FailureMechanism.Calculations
-                .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                .ToArray();
-            StructuresCalculation<StabilityPointStructuresInput>[] calculationWithRemovedStabilityPointStructure = heightStructureCalculations
-                .Where(c => ReferenceEquals(c.InputParameters.Structure, nodeData))
-                .ToArray();
-            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedStabilityPointStructure)
-            {
-                calculation.InputParameters.Structure = null;
-                StructuresHelper.Delete(parentContext.FailureMechanism.SectionResults,
-                                        calculation,
-                                        heightStructureCalculations);
-                changedObservables.Add(calculation.InputParameters);
-            }
-
-            parentContext.WrappedData.Remove(nodeData);
-            changedObservables.Add(parentContext.WrappedData);
-
+            IEnumerable<IObservable> changedObservables = StabilityPointStructuresDataSynchronizationService.RemoveStructure(parentContext.FailureMechanism,
+                                                                                                                             nodeData);
             foreach (IObservable observable in changedObservables)
             {
                 observable.NotifyObservers();

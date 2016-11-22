@@ -110,16 +110,18 @@ namespace Ringtoets.Common.Utils
         /// in <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
-        public static void Delete<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
-                                     StructuresCalculation<T> calculation,
-                                     IEnumerable<StructuresCalculation<T>> calculations) where T : IStructuresCalculationInput<StructureBase>, new()
+        public static IEnumerable<StructuresFailureMechanismSectionResult<T>> Delete<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
+                                                                                        StructuresCalculation<T> calculation,
+                                                                                        IEnumerable<StructuresCalculation<T>> calculations) where T : IStructuresCalculationInput<StructureBase>, new()
         {
             ValidateSectionResults(sectionResults);
 
-            AssignUnassignCalculations.Delete(
+            return AssignUnassignCalculations.Delete(
                 sectionResults.Select(AsCalculationAssignment),
                 calculation,
-                AsCalculationsWithLocations(calculations));
+                AsCalculationsWithLocations(calculations))
+                                             .Cast<StructuresFailureMechanismSectionResult<T>>()
+                                             .ToArray();
         }
 
         /// <summary>

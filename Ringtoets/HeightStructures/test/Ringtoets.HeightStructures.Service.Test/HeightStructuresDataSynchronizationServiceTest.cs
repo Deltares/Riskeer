@@ -295,20 +295,99 @@ namespace Ringtoets.HeightStructures.Service.Test
             CollectionAssert.Contains(array, failureMechanism.HeightStructures);
         }
 
+        [Test]
+        public void RemoveHeightStructure_FullyConfiguredFailureMechanism_RemovesStructureAndClearsDependentData()
+        {
+            // Setup
+            HeightStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            HeightStructure structure = failureMechanism.HeightStructures[0];
+            StructuresCalculation<HeightStructuresInput>[] calculatiosnWithStructure = failureMechanism.Calculations
+                                                                                                       .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                                                       .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
+                                                                                                       .ToArray();
+            HeightStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
+                                                                                                          .Where(sr => calculatiosnWithStructure.Contains(sr.Calculation))
+                                                                                                          .ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculatiosnWithStructure);
+            CollectionAssert.IsNotEmpty(sectionResultsWithStructure);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = HeightStructuresDataSynchronizationService.RemoveStructure(failureMechanism, structure);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            CollectionAssert.DoesNotContain(failureMechanism.HeightStructures, structure);
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculatiosnWithStructure)
+            {
+                Assert.IsNull(calculation.InputParameters.Structure);
+            }
+            foreach (HeightStructuresFailureMechanismSectionResult sectionResult in sectionResultsWithStructure)
+            {
+                Assert.IsNull(sectionResult.Calculation);
+            }
+
+            IObservable[] array = affectedObjects.ToArray();
+            Assert.AreEqual(1 + calculatiosnWithStructure.Length + sectionResultsWithStructure.Length,
+                            array.Length);
+            CollectionAssert.Contains(array, failureMechanism.HeightStructures);
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculatiosnWithStructure)
+            {
+                CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+            foreach (HeightStructuresFailureMechanismSectionResult result in sectionResultsWithStructure)
+            {
+                CollectionAssert.Contains(array, result);
+            }
+        }
+
         private HeightStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
         {
-            var section = new FailureMechanismSection("A", new[]
+            var section1 = new FailureMechanismSection("A", new[]
             {
                 new Point2D(-1, 0),
                 new Point2D(2, 0)
             });
-            var structure = new TestHeightStructure();
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(2, 0),
+                new Point2D(4, 0)
+            });
+            var structure1 = new TestHeightStructure(new Point2D(1, 0));
+            var structure2 = new TestHeightStructure(new Point2D(3, 0));
             var profile = new TestForeshoreProfile();
-            var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism
+            StructuresCalculation<HeightStructuresInput> calculation1 = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = profile,
+                    Structure = structure1
+                }
+            };
+            StructuresCalculation<HeightStructuresInput> calculation2 = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = profile,
+                    Structure = structure2
+                }
+            };
+            StructuresCalculation<HeightStructuresInput> calculation3 = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = profile,
+                    Structure = structure1
+                }
+            };
+            var failureMechanism = new HeightStructuresFailureMechanism
             {
                 HeightStructures =
                 {
-                    structure
+                    structure1,
+                    structure2
                 },
                 ForeshoreProfiles =
                 {
@@ -318,20 +397,29 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     Children =
                     {
-                        new TestHeightStructuresCalculation
+                        calculation1,
+                        new CalculationGroup("B", true)
                         {
-                            InputParameters =
+                            Children =
                             {
-                                ForeshoreProfile = profile,
-                                Structure = structure
+                                calculation2
                             }
                         },
-                        new CalculationGroup("B", true)
+                        calculation3
                     }
                 }
             };
-            heightStructuresFailureMechanism.AddSection(section);
-            return heightStructuresFailureMechanism;
+
+            failureMechanism.AddSection(section1);
+            failureMechanism.AddSection(section2);
+            HeightStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
+                            .First(sr => ReferenceEquals(sr.Section, section1));
+            HeightStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults
+                .First(sr => ReferenceEquals(sr.Section, section2));
+            result1.Calculation = calculation1;
+            result2.Calculation = calculation2;
+
+            return failureMechanism;
         }
     }
 }
