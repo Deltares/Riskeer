@@ -25,7 +25,6 @@ using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -142,20 +141,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void CreateCalculationFeatures_CalculationNull_ReturnsEmptyFeaturesArray()
+        public void CreateCalculationFeatures_CalculationsNull_ReturnsEmptyFeaturesArray()
         {
             // Call
             MapFeature[] features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(null);
-
-            // Assert
-            CollectionAssert.IsEmpty(features);
-        }
-
-        [Test]
-        public void CreateCalculationFeatures_ReferenceLineNull_ReturnsEmptyFeaturesArray()
-        {
-            // Call
-            MapFeature[] features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(Enumerable.Empty<PipingCalculationScenario>());
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -183,13 +172,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             calculationA.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 5.0, 4.0);
             calculationB.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8);
-
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new []
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(1.0, 5.0)
-            });
 
             // Call
             MapFeature[] features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(new [] { calculationA, calculationB});

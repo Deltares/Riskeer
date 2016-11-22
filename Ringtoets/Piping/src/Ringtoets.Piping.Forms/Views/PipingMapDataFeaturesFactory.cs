@@ -73,6 +73,11 @@ namespace Ringtoets.Piping.Forms.Views
                        : new MapFeature[0];
         }
 
+        /// <summary>
+        /// Create calculation features based on the provided <paramref name="calculations"/>.
+        /// </summary>
+        /// <param name="calculations">The collection of <see cref="PipingCalculationScenario"/> to create the calculation features for.</param>
+        /// <returns>An array of features or an empty array when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateCalculationFeatures(IEnumerable<PipingCalculationScenario> calculations)
         {
             var hasCalculations = calculations != null && calculations.Any();

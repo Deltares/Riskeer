@@ -49,9 +49,9 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly Observer surfaceLinesObserver;
         private readonly Observer stochasticSoilModelsObserver;
 
-        private readonly RecursiveObserver<CalculationGroup, PipingInput> pipingInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
-        private readonly RecursiveObserver<CalculationGroup, PipingCalculationScenario> pipingCalculationObserver;
+        private readonly RecursiveObserver<CalculationGroup, PipingInput> calculationInputObserver;
+        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+        private readonly RecursiveObserver<CalculationGroup, PipingCalculationScenario> calculationObserver;
 
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
@@ -76,9 +76,10 @@ namespace Ringtoets.Piping.Forms.Views
             surfaceLinesObserver = new Observer(UpdateMapData);
             stochasticSoilModelsObserver = new Observer(UpdateMapData);
 
-            pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
-            pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
-            pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(UpdateMapData, pcg => pcg.Children);
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(
+                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
+            calculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(UpdateMapData, pcg => pcg.Children);
 
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryDatabaseMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
@@ -119,9 +120,9 @@ namespace Ringtoets.Piping.Forms.Views
                     assessmentSectionObserver.Observable = null;
                     surfaceLinesObserver.Observable = null;
                     stochasticSoilModelsObserver.Observable = null;
-                    pipingInputObserver.Observable = null;
-                    pipingCalculationGroupObserver.Observable = null;
-                    pipingCalculationObserver.Observable = null;
+                    calculationInputObserver.Observable = null;
+                    calculationGroupObserver.Observable = null;
+                    calculationObserver.Observable = null;
 
                     Map.ResetMapData();
                     return;
@@ -131,9 +132,9 @@ namespace Ringtoets.Piping.Forms.Views
                 assessmentSectionObserver.Observable = data.Parent;
                 surfaceLinesObserver.Observable = data.WrappedData.SurfaceLines;
                 stochasticSoilModelsObserver.Observable = data.WrappedData.StochasticSoilModels;
-                pipingInputObserver.Observable = data.WrappedData.CalculationsGroup;
-                pipingCalculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
-                pipingCalculationObserver.Observable = data.WrappedData.CalculationsGroup;
+                calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
+                calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
+                calculationObserver.Observable = data.WrappedData.CalculationsGroup;
 
                 UpdateMapData();
             }
@@ -153,9 +154,9 @@ namespace Ringtoets.Piping.Forms.Views
             assessmentSectionObserver.Dispose();
             stochasticSoilModelsObserver.Dispose();
             surfaceLinesObserver.Dispose();
-            pipingInputObserver.Dispose();
-            pipingCalculationGroupObserver.Dispose();
-            pipingCalculationObserver.Dispose();
+            calculationInputObserver.Dispose();
+            calculationGroupObserver.Dispose();
+            calculationObserver.Dispose();
 
             if (disposing && (components != null))
             {

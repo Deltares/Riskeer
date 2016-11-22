@@ -35,6 +35,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -1242,14 +1243,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 new Point3D(xMax, 0.0, 1.0)
             });
             return surfaceLine;
-        }
-
-        private class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
-        {
-            public TestHydraulicBoundaryLocation(RoundedDouble designWaterLevel) : base(0, string.Empty, 0, 0)
-            {
-                DesignWaterLevel = designWaterLevel;
-            }
         }
     }
 }

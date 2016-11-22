@@ -87,6 +87,7 @@
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsOutputTreeNodeInfoTest.cs" />
+    <Compile Include="Views\StabilityStoneCoverMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\StabilityStoneCoverFailureMechanismViewTest.cs" />
     <Compile Include="Views\StabilityStoneCoverResultViewTest.cs" />
     <Compile Include="Views\StabilityStoneCoverSectionResultRowTest.cs" />
@@ -170,6 +171,10 @@
     <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Data.TestUtil\Ringtoets.HydraRing.Data.TestUtil.csproj">
+      <Project>{C033C69A-A1E3-4438-9C2C-EECCA27BCBA3}</Project>
+      <Name>Ringtoets.HydraRing.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>

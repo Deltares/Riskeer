@@ -74,6 +74,7 @@
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsOutputTreeNodeInfoTest.cs" />
+    <Compile Include="Views\WaveImpactAsphaltCoverMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismViewTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismSectionResultRowTest.cs" />
@@ -150,6 +151,10 @@
     <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Data.TestUtil\Ringtoets.HydraRing.Data.TestUtil.csproj">
+      <Project>{C033C69A-A1E3-4438-9C2C-EECCA27BCBA3}</Project>
+      <Name>Ringtoets.HydraRing.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>

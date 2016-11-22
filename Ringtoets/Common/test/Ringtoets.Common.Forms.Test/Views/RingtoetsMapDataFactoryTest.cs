@@ -25,7 +25,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Views;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {
@@ -140,7 +139,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, data.Name);
+            Assert.AreEqual("Berekeningen", data.Name);
             AssertEqualStyle(data.Style, Color.MediumPurple, 2, DashStyle.Dash);
         }
 

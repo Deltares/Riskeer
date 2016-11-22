@@ -31,26 +31,32 @@ namespace Ringtoets.Common.Data.TestUtil
     public class TestForeshoreProfile : ForeshoreProfile
     {
         /// <summary>
+        /// Creates a new instance of the <see cref="TestForeshoreProfile"/> at a specified
+        /// <see cref="Point2D"/>.
+        /// </summary>
+        /// <param name="worldReferencePoint">Location of the profile.</param>
+        public TestForeshoreProfile(Point2D worldReferencePoint) : this(null, worldReferencePoint, null) {}
+
+        /// <summary>
         /// Creates a new instance of <see cref="TestForeshoreProfile"/>.
         /// </summary>
         /// <param name="useBreakWater">If <c>true</c>, create the ForeshoreProfile with a default <see cref="BreakWater"/>.</param>
-        public TestForeshoreProfile(bool useBreakWater = false) : this(null,
-                                                                       useBreakWater ? new BreakWater(BreakWaterType.Dam, 10) : null) {}
+        public TestForeshoreProfile(bool useBreakWater = false) : this(null, new Point2D(0, 0), useBreakWater ? new BreakWater(BreakWaterType.Dam, 10) : null) {}
 
         /// <summary>
         /// Creates a new instance of the <see cref="TestForeshoreProfile"/> with a given
         /// name and no <see cref="BreakWater"/>.
         /// </summary>
         /// <param name="profileName">Name of the profile.</param>
-        public TestForeshoreProfile(string profileName) : this(profileName, null) {}
+        public TestForeshoreProfile(string profileName) : this(profileName, new Point2D(0, 0), null) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestForeshoreProfile"/> with a specified <see cref="BreakWater"/>.
         /// </summary>
         /// <param name="breakWater">The <see cref="BreakWater"/> which needs to be set on the <see cref="ForeshoreProfile"/>.</param>
-        public TestForeshoreProfile(BreakWater breakWater) : this(null, breakWater) {}
+        public TestForeshoreProfile(BreakWater breakWater) : this(null, new Point2D(0, 0), breakWater) {}
 
-        private TestForeshoreProfile(string profileName, BreakWater breakWater) : base(new Point2D(0, 0),
+        private TestForeshoreProfile(string profileName, Point2D worldCoordinate, BreakWater breakWater) : base(worldCoordinate,
                                                                                        Enumerable.Empty<Point2D>(),
                                                                                        breakWater,
                                                                                        new ConstructionProperties

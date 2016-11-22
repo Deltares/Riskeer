@@ -39,6 +39,7 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using Ringtoets.HydraRing.Data.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
@@ -56,6 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         private const int hydraulicBoundaryDatabaseIndex = 4;
         private const int dikeProfilesIndex = 5;
         private const int foreshoreProfilesIndex = 6;
+        private const int calculationsIndex = 7;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -129,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Precondition
-                Assert.AreEqual(7, view.Map.Data.Collection.Count());
+                Assert.AreEqual(8, view.Map.Data.Collection.Count());
 
                 // Call
                 view.Data = null;
@@ -209,7 +211,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
                 var mapDataList = mapData.Collection.ToList();
-                Assert.AreEqual(7, mapDataList.Count);
+                Assert.AreEqual(8, mapDataList.Count);
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
@@ -406,16 +408,135 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObserver_CalculationGroupUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            {
+                var map = (MapControl)view.Controls[0];
+
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+
+                var dikeProfileA = new TestDikeProfile(new Point2D(1.3, 1.3));
+                var dikeProfileB = new TestDikeProfile(new Point2D(1.5, 1.5));
+
+                var calculationA = new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeProfile = dikeProfileA,
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    }
+                };
+                var calculationB = new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeProfile = dikeProfileB,
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    }
+                };
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+                view.Data = failureMechanismContext;
+
+                var calculationMapData = (MapLineData)map.Data.Collection.ElementAt(calculationsIndex);
+
+                failureMechanism.CalculationsGroup.Children.Add(calculationB);
+
+                // Call
+                failureMechanism.CalculationsGroup.NotifyObservers();
+
+                // Assert
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_CalculationInputUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            {
+                var map = (MapControl)view.Controls[0];
+
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+
+                var dikeProfileA = new TestDikeProfile(new Point2D(1.3, 1.3));
+                var dikeProfileB = new TestDikeProfile(new Point2D(1.5, 1.5));
+
+                var calculationA = new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeProfile = dikeProfileA,
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    }
+                };
+                view.Data = failureMechanismContext;
+
+                var calculationMapData = (MapLineData)map.Data.Collection.ElementAt(calculationsIndex);
+
+                calculationA.InputParameters.DikeProfile = dikeProfileB;
+
+                // Call
+                calculationA.InputParameters.NotifyObservers();
+
+                // Assert
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_CalculationUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
+            {
+                var map = (MapControl)view.Controls[0];
+
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+
+                var dikeProfileA = new TestDikeProfile(new Point2D(1.3, 1.3));
+
+                var calculationA = new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeProfile = dikeProfileA,
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    }
+                };
+
+                view.Data = failureMechanismContext;
+
+                var calculationMapData = (MapLineData)map.Data.Collection.ElementAt(calculationsIndex);
+
+                calculationA.Name = "new name";
+
+                // Call
+                calculationA.NotifyObservers();
+
+                // Assert
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
+            }
+        }
+
+        [Test]
         public void NotifyObservers_DataUpdated_MapLayersSameOrder()
         {
             // Setup
-            const int updatedRefenceLineLayerIndex = referenceLineIndex + 6;
+            const int updatedRefenceLineLayerIndex = referenceLineIndex + 7;
             const int updatedSectionsLayerIndex = sectionsIndex - 1;
             const int updateSectionStartLayerIndex = sectionsStartPointIndex - 1;
             const int updatedSectionEndLayerIndex = sectionsEndPointIndex - 1;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryDatabaseIndex - 1;
             const int updatedDikeProfilesLayerIndex = dikeProfilesIndex - 1;
             const int updatedForeshoreProfilesLayerIndex = foreshoreProfilesIndex - 1;
+            const int updatedCalculationsIndex = calculationsIndex - 1;
 
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
@@ -457,6 +578,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var foreshoreProfilesData = (MapLineData)mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", foreshoreProfilesData.Name);
 
+                var calculationsData = (MapLineData)mapDataList[updatedCalculationsIndex];
+                Assert.AreEqual("Berekeningen", calculationsData.Name);
+
                 var points = new List<Point2D>
                 {
                     new Point2D(2.0, 5.0),
@@ -490,6 +614,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 var actualForeshoreProfilesData = (MapLineData)mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", actualForeshoreProfilesData.Name);
+
+                var actualCalculationsData = (MapLineData)mapDataList[updatedCalculationsIndex];
+                Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
             }
         }
 
@@ -611,13 +738,37 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
         }
 
+        private static void AssertCalculationsMapData(IEnumerable<GrassCoverErosionInwardsCalculation> calculations, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapLineData>(mapData);
+            var calculationsMapData = (MapLineData)mapData;
+            var calculationsArray = calculations.ToArray();
+            var calculationsFeatures = calculationsMapData.Features.ToArray();
+            Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
+
+
+            for (int index = 0; index < calculationsArray.Length; index++)
+            {
+                var geometries = calculationsFeatures[index].MapGeometries.ToArray();
+                Assert.AreEqual(1, geometries.Length);
+
+                GrassCoverErosionInwardsCalculation calculation = calculationsArray[index];
+                CollectionAssert.AreEquivalent(new[] {
+                        calculation.InputParameters.DikeProfile.WorldReferencePoint, 
+                        calculation.InputParameters.HydraulicBoundaryLocation.Location
+                    },
+                geometries[0].PointCollections.First());
+            }
+            Assert.AreEqual("Berekeningen", mapData.Name);
+        }
+
         private static void AssertEmptyMapData(MapDataCollection mapData)
         {
             Assert.IsInstanceOf<MapDataCollection>(mapData);
 
             var mapDataList = mapData.Collection.ToList();
 
-            Assert.AreEqual(7, mapDataList.Count);
+            Assert.AreEqual(8, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
             var sectionsMapData = (MapLineData) mapDataList[sectionsIndex];

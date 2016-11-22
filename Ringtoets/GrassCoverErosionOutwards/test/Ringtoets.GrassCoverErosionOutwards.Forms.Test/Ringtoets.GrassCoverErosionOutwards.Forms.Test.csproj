@@ -104,6 +104,7 @@
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightLocationsViewTest.cs" />
+    <Compile Include="Views\GrassCoverErosionOutwardsMapDataFeaturesFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -187,6 +188,10 @@
     <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Data.TestUtil\Ringtoets.HydraRing.Data.TestUtil.csproj">
+      <Project>{C033C69A-A1E3-4438-9C2C-EECCA27BCBA3}</Project>
+      <Name>Ringtoets.HydraRing.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>

@@ -72,11 +72,11 @@
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationContextProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationsContextProperties.cs" />
-    <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismView.cs">
+    <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismView.Designer.cs">
-      <DependentUpon>GrassCoverErosionInwardsFailureMechanismView.cs</DependentUpon>
+    <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismView.Designer.cs">
+      <DependentUpon>GrassCoverErosionOutwardsFailureMechanismView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\GrassCoverErosionOutwardsDesignWaterLevelLocationsView.cs">
       <SubType>UserControl</SubType>
@@ -88,6 +88,7 @@
     <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightLocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Views\GrassCoverErosionOutwardsMapDataFeaturesFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -178,8 +179,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\GrassCoverErosionInwardsFailureMechanismView.resx">
-      <DependentUpon>GrassCoverErosionInwardsFailureMechanismView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\GrassCoverErosionOutwardsFailureMechanismView.resx">
+      <DependentUpon>GrassCoverErosionOutwardsFailureMechanismView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
