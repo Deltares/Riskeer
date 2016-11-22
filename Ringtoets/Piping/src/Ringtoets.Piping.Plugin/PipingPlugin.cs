@@ -515,7 +515,9 @@ namespace Ringtoets.Piping.Plugin
 
         #region Piping TreeNodeInfo
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
 
@@ -546,11 +548,13 @@ namespace Ringtoets.Piping.Plugin
             ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation>());
         }
 
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext,
+                                                                          object parentData,
+                                                                          TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, null)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
@@ -577,7 +581,7 @@ namespace Ringtoets.Piping.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(pipingFailureMechanismContext.WrappedData)
+                new CommentContext<ICommentable>(pipingFailureMechanismContext.WrappedData.NotRelevantComments)
             };
         }
 
@@ -588,7 +592,7 @@ namespace Ringtoets.Piping.Plugin
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new RingtoetsPipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism)
+                new CommentContext<ICommentable>(failureMechanism.InputComments)
             };
         }
 
@@ -597,7 +601,9 @@ namespace Ringtoets.Piping.Plugin
             return new ArrayList
             {
                 new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
+                new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism),
+                new CommentContext<ICommentable>(failureMechanism.OutputComments)
             };
         }
 

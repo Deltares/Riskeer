@@ -163,8 +163,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreSame(pipingFailureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(assessmentSection, stochasticSoilModelContext.AssessmentSection);
 
-            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
-            Assert.AreSame(pipingFailureMechanism, commentContext.WrappedData);
+            var inputCommentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
+            Assert.AreSame(pipingFailureMechanism.InputComments, inputCommentContext.WrappedData);
 
             var calculationsFolder = (PipingCalculationGroupContext) children[1];
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
@@ -177,6 +177,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
+            Assert.AreEqual(3, outputsFolder.Contents.Count);
             var failureMechanismScenariosContext = (PipingScenariosContext) outputsFolder.Contents[0];
             Assert.AreSame(pipingFailureMechanism, failureMechanismScenariosContext.ParentFailureMechanism);
             Assert.AreSame(pipingFailureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
@@ -184,10 +185,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>) outputsFolder.Contents[1];
             Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+
+            var outputCommentContext = (CommentContext<ICommentable>) outputsFolder.Contents[2];
+            Assert.AreSame(pipingFailureMechanism.OutputComments, outputCommentContext.WrappedData);
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismComments()
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -209,7 +213,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, children.Length);
             var commentContext = (CommentContext<ICommentable>) children[0];
-            Assert.AreSame(pipingFailureMechanism, commentContext.WrappedData);
+            Assert.AreSame(pipingFailureMechanism.NotRelevantComments, commentContext.WrappedData);
         }
 
         [Test]
@@ -659,10 +663,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var failureMechanismObserver = mocks.Stub<IObserver>();
                 failureMechanismObserver.Expect(o => o.UpdateObserver());
 
-                var failureMechanism = new PipingFailureMechanism
-                {
-                    IsRelevant = true
-                };
+                var failureMechanism = new PipingFailureMechanism();
                 failureMechanism.Attach(failureMechanismObserver);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -710,9 +711,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
+                var viewCommands = mocks.StrictMock<IViewCommands>();
+                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.StrictMock<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
 
                 mocks.ReplayAll();

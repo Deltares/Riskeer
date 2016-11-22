@@ -200,7 +200,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as StabilityPointStructuresFailureMechanism;
 
-            var viewFailureMechanismContext = (StabilityPointStructuresFailureMechanismContext)view.Data;
+            var viewFailureMechanismContext = (StabilityPointStructuresFailureMechanismContext) view.Data;
             var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
@@ -369,18 +369,19 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(stabilityPointStructuresFailureMechanismContext.WrappedData)
+                new CommentContext<ICommentable>(stabilityPointStructuresFailureMechanismContext.WrappedData.NotRelevantComments)
             };
         }
 
-        private static object[] GetInputs(StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static object[] GetInputs(StabilityPointStructuresFailureMechanism failureMechanism,
+                                          IAssessmentSection assessmentSection)
         {
             return new object[]
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism)
+                new CommentContext<ICommentable>(failureMechanism.InputComments)
             };
         }
 
@@ -389,7 +390,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return new object[]
             {
                 new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
+                new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism),
+                new CommentContext<ICommentable>(failureMechanism.OutputComments)
             };
         }
 
@@ -428,7 +431,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(stabilityPointStructuresFailureMechanismContext, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(stabilityPointStructuresFailureMechanismContext, null)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(stabilityPointStructuresFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

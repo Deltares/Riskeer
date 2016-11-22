@@ -139,8 +139,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, stabilityPointStructuresContext.FailureMechanism);
                 Assert.AreSame(assessmentSectionMock, stabilityPointStructuresContext.AssessmentSection);
 
-                var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
-                Assert.AreSame(failureMechanism, commentContext.WrappedData);
+                var inputCommentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
+                Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
 
                 var calculationsFolder = (StabilityPointStructuresCalculationGroupContext) children[1];
                 Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
@@ -150,7 +150,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 var outputsFolder = (CategoryTreeFolder) children[2];
                 Assert.AreEqual("Oordeel", outputsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-                Assert.AreEqual(2, outputsFolder.Contents.Count);
+                Assert.AreEqual(3, outputsFolder.Contents.Count);
 
                 var scenariosContext = (StabilityPointStructuresScenariosContext) outputsFolder.Contents[0];
                 Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
@@ -159,12 +159,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 var failureMechanismResultsContext = (FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>) outputsFolder.Contents[1];
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+
+                var outputCommentContext = (CommentContext<ICommentable>) outputsFolder.Contents[2];
+                Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
             }
             mocksRepository.VerifyAll();
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismComments()
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
         {
             // Setup
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
@@ -186,7 +189,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(1, children.Length);
                 var commentContext = (CommentContext<ICommentable>) children[0];
-                Assert.AreSame(failureMechanism, commentContext.WrappedData);
+                Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
             }
             mocksRepository.VerifyAll();
         }
@@ -365,7 +368,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_OnChangeActionRemovesAllViewsForItem()
+        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevantAndRemovesAllViewsForItem()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -392,15 +395,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
+
+                    // Assert
+                    Assert.IsFalse(failureMechanism.IsRelevant);
                 }
             }
 
-            // Assert
             mocksRepository.VerifyAll();
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevant()
+        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevantAndRemovesAllViewsForItem()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism
@@ -409,8 +414,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             };
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var guiMock = mocksRepository.StrictMock<IGui>();
+
+            viewCommandsMock.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+            guiMock.Stub(g => g.ViewCommands).Return(viewCommandsMock);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
@@ -426,10 +435,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
+
+                    // Assert
+                    Assert.IsTrue(failureMechanism.IsRelevant);
                 }
             }
 
-            // Assert
             mocksRepository.VerifyAll();
         }
 
