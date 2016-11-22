@@ -135,7 +135,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             layer = layers[1];
             Assert.AreEqual(1, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapLineLayer>(layer);
-            Assert.IsInstanceOf<MultiLineString>(layer.DataSet.Features[0].BasicGeometry);
+            Assert.IsInstanceOf<LineString>(layer.DataSet.Features[0].BasicGeometry);
             Assert.AreEqual(FeatureType.Line, layer.DataSet.FeatureType);
 
             layer = layers[2];

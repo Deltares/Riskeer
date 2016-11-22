@@ -22,7 +22,9 @@
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Data;
@@ -44,9 +46,7 @@ namespace Core.Components.DotSpatial.Converter
 
             foreach (var mapFeature in data.Features)
             {
-                var geometry = new GeometryFactory().CreateMultiLineString(mapFeature.MapGeometries.Select(AsLineString).ToArray());
-
-                var feature = new Feature(geometry, featureSet);
+                var feature = new Feature(GetGeometry(mapFeature), featureSet);
 
                 if (data.ShowLabels)
                 {
@@ -70,6 +70,23 @@ namespace Core.Components.DotSpatial.Converter
             {
                 layer
             };
+        }
+
+        private static IBasicGeometry GetGeometry(MapFeature mapFeature)
+        {
+            var factory = new GeometryFactory();
+
+            if (mapFeature.MapGeometries.Count() > 1)
+            {
+                return factory.CreateMultiLineString(mapFeature.MapGeometries.Select(AsLineString).ToArray());
+            }
+
+            Point2D[] pointsToConvert = {};
+            if (mapFeature.MapGeometries.Count() == 1)
+            {
+                pointsToConvert = mapFeature.MapGeometries.First().PointCollections.First().ToArray();
+            }
+            return factory.CreateLineString(ConvertPoint2DElementsToCoordinates(pointsToConvert).ToList());
         }
 
         private static IBasicLineString AsLineString(MapGeometry mapGeometry)

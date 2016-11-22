@@ -128,6 +128,83 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
+        public void Convert_MapDataWithSingleGeometry_ReturnMapLineLayerWithLineString()
+        {
+            // Setup
+            var converter = new MapLineDataConverter();
+            var random = new Random(21);
+            var features = new List<MapFeature>();
+
+            features.Add(new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(random.NextDouble(), random.NextDouble()),
+                        new Point2D(random.NextDouble(), random.NextDouble()),
+                        new Point2D(random.NextDouble(), random.NextDouble())
+                    }
+                })
+            }));
+
+            var lineData = new MapLineData("test data")
+            {
+                Features = features.ToArray()
+            };
+
+            // Call
+            var mapLayers = converter.Convert(lineData);
+
+            // Assert
+            var layer = mapLayers[0];
+            Assert.IsInstanceOf<LineString>(layer.DataSet.Features[0].BasicGeometry);
+        }
+
+        [Test]
+        public void Convert_MapDataWithMultipleGeometry_ReturnMapLineLayerWithMultiLineString()
+        {
+            // Setup
+            var converter = new MapLineDataConverter();
+            var random = new Random(21);
+            var features = new List<MapFeature>();
+
+            features.Add(new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(random.NextDouble(), random.NextDouble()),
+                        new Point2D(random.NextDouble(), random.NextDouble()),
+                        new Point2D(random.NextDouble(), random.NextDouble())
+                    }
+                }),
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(random.NextDouble(), random.NextDouble()),
+                        new Point2D(random.NextDouble(), random.NextDouble()),
+                        new Point2D(random.NextDouble(), random.NextDouble())
+                    }
+                })
+            }));
+
+            var lineData = new MapLineData("test data")
+            {
+                Features = features.ToArray()
+            };
+
+            // Call
+            var mapLayers = converter.Convert(lineData);
+
+            // Assert
+            var layer = mapLayers[0];
+            Assert.IsInstanceOf<MultiLineString>(layer.DataSet.Features[0].BasicGeometry);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Convert_RandomLineDataWithoutAttributes_ReturnsNewMapLineLayerListWithDefaultLabelLayer(bool showLabels)
