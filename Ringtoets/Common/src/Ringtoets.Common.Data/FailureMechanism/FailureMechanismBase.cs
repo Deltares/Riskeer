@@ -92,8 +92,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
         }
 
-        public string Comments { get; set; }
-
         public Commentable InputComments { get; private set; }
 
         public Commentable OutputComments { get; private set; }
