@@ -19,15 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using log4net;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service;
+using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsRevetmentFormsResources = Ringtoets.Revetment.Forms.Properties.Resources;
 
@@ -64,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 
         private void ClearHydraulicBoundaryLocationOutput()
         {
-            GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(data.HydraulicBoundaryLocations);
+            RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(data.HydraulicBoundaryLocations);
             data.HydraulicBoundaryLocations.NotifyObservers();
             log.Info(Resources.GrassCoverErosionOutwards_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
         }

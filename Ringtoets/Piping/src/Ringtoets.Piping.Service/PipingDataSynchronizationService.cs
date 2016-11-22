@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Utils.Extensions;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
@@ -42,21 +41,17 @@ namespace Ringtoets.Piping.Service
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which contains the calculations.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<PipingCalculation> ClearAllCalculationOutput(PipingFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearAllCalculationOutput(PipingFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var affectedItems = failureMechanism.Calculations
-                                                .Cast<PipingCalculation>()
-                                                .Where(c => c.HasOutput)
-                                                .ToArray();
-
-            affectedItems.ForEachElementDo(ClearCalculationOutput);
-
-            return affectedItems;
+            return failureMechanism.Calculations
+                                   .Cast<PipingCalculation>()
+                                   .SelectMany(ClearCalculationOutput)
+                                   .ToArray();
         }
 
         /// <summary>
@@ -64,14 +59,23 @@ namespace Ringtoets.Piping.Service
         /// </summary>
         /// <param name="calculation">The <see cref="PipingCalculation"/> to clear the output for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static void ClearCalculationOutput(PipingCalculation calculation)
+        /// <returns>All objects that have been changed.</returns>
+        public static IEnumerable<IObservable> ClearCalculationOutput(PipingCalculation calculation)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException("calculation");
             }
 
-            calculation.ClearOutput();
+            if (calculation.HasOutput)
+            {
+                calculation.ClearOutput();
+                return new[]
+                {
+                    calculation
+                };
+            }
+            return Enumerable.Empty<IObservable>();
         }
 
         /// <summary>
@@ -81,31 +85,19 @@ namespace Ringtoets.Piping.Service
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
         /// removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<PipingCalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(PipingFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(PipingFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            Collection<PipingCalculation> affectedItems = new Collection<PipingCalculation>();
-
+            var affectedItems = new Collection<IObservable>();
             foreach (var calculation in failureMechanism.Calculations.Cast<PipingCalculation>())
             {
-                var calculationChanged = false;
-
-                if (calculation.HasOutput)
-                {
-                    ClearCalculationOutput(calculation);
-                    calculationChanged = true;
-                }
-
-                if (calculation.InputParameters.HydraulicBoundaryLocation != null)
-                {
-                    ClearHydraulicBoundaryLocation(calculation);
-                    calculationChanged = true;
-                }
-
+                bool calculationChanged = ClearCalculationOutput(calculation)
+                    .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters))
+                    .Any();
                 if (calculationChanged)
                 {
                     affectedItems.Add(calculation);
@@ -129,7 +121,7 @@ namespace Ringtoets.Piping.Service
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var observables = new List<IObservable>();
+            var observables = new Collection<IObservable>();
 
             failureMechanism.ClearAllSections();
             observables.Add(failureMechanism);
@@ -172,8 +164,7 @@ namespace Ringtoets.Piping.Service
             {
                 if (ReferenceEquals(pipingCalculationScenario.InputParameters.SurfaceLine, surfaceLine))
                 {
-                    pipingCalculationScenario.InputParameters.SurfaceLine = null;
-                    changedObservables.Add(pipingCalculationScenario.InputParameters);
+                    changedObservables.AddRange(ClearSurfaceLine(pipingCalculationScenario.InputParameters));
                 }
             }
 
@@ -209,9 +200,7 @@ namespace Ringtoets.Piping.Service
             {
                 if (ReferenceEquals(pipingCalculationScenario.InputParameters.StochasticSoilModel, soilModel))
                 {
-                    pipingCalculationScenario.InputParameters.StochasticSoilModel = null;
-                    pipingCalculationScenario.InputParameters.StochasticSoilProfile = null;
-                    changedObservables.Add(pipingCalculationScenario.InputParameters);
+                    changedObservables.AddRange(ClearStochasticSoilModel(pipingCalculationScenario.InputParameters));
                 }
             }
 
@@ -221,9 +210,37 @@ namespace Ringtoets.Piping.Service
             return changedObservables;
         }
 
-        private static void ClearHydraulicBoundaryLocation(PipingCalculation calculation)
+        private static IEnumerable<IObservable> ClearSurfaceLine(PipingInput input)
         {
-            calculation.InputParameters.HydraulicBoundaryLocation = null;
+            input.SurfaceLine = null;
+            return new[]
+            {
+                input
+            };
+        }
+
+        private static IEnumerable<IObservable> ClearStochasticSoilModel(PipingInput input)
+        {
+            input.StochasticSoilModel = null;
+            input.StochasticSoilProfile = null;
+
+            return new[]
+            {
+                input
+            };
+        }
+
+        private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(PipingInput input)
+        {
+            if (input.HydraulicBoundaryLocation != null)
+            {
+                input.HydraulicBoundaryLocation = null;
+                return new[]
+                {
+                    input
+                };
+            }
+            return Enumerable.Empty<IObservable>();
         }
     }
 }

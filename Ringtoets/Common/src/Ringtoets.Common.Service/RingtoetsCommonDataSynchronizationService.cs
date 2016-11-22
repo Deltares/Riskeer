@@ -20,7 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service
@@ -31,39 +36,62 @@ namespace Ringtoets.Common.Service
     public static class RingtoetsCommonDataSynchronizationService
     {
         /// <summary>
-        /// Clears the output design water level
-        /// of the <see cref="HydraulicBoundaryLocation"/>.
+        /// Clears the output of the hydraulic boundary locations within the collection.
         /// </summary>
-        /// <param name="location">The <see cref="HydraulicBoundaryLocation"/> 
-        /// to clear the output for</param>.
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> 
-        /// is <c>null</c>.</exception>
-        public static void ClearDesignWaterLevel(HydraulicBoundaryLocation location)
+        /// <param name="locations">The locations for which the output needs to be cleared.</param>
+        /// <returns>All objects changed during the clear.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(IEnumerable<HydraulicBoundaryLocation> locations)
         {
-            if (location == null)
+            if (locations == null)
             {
-                throw new ArgumentNullException("location");
+                throw new ArgumentNullException("locations");
             }
 
-            location.DesignWaterLevel = RoundedDouble.NaN;
+            return locations.SelectMany(ClearHydraulicBoundaryLocationOutput)
+                            .ToArray();
         }
 
         /// <summary>
-        /// Clears the output WaveHeight 
-        /// of the <see cref="HydraulicBoundaryLocation"/>.
+        /// Clears the output of the given <see cref="StructuresCalculation{T}"/>.
         /// </summary>
-        /// <param name="location">The <see cref="HydraulicBoundaryLocation"/> 
-        /// to clear the output for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> 
-        /// is <c>null</c>.</exception>
-        public static void ClearWaveHeight(HydraulicBoundaryLocation location)
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to clear the output for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <returns>All objects that have been changed.</returns>
+        public static IEnumerable<IObservable> ClearCalculationOutput<T>(StructuresCalculation<T> calculation) where T : ICalculationInput, new()
         {
-            if (location == null)
+            if (calculation == null)
             {
-                throw new ArgumentNullException("location");
+                throw new ArgumentNullException("calculation");
             }
 
-            location.WaveHeight = RoundedDouble.NaN;
+            if (calculation.HasOutput)
+            {
+                calculation.ClearOutput();
+                return new[]
+                {
+                    calculation
+                };
+            }
+            return Enumerable.Empty<IObservable>();
+        }
+
+        private static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation location)
+        {
+            if (!double.IsNaN(location.DesignWaterLevel) ||
+                !double.IsNaN(location.WaveHeight))
+            {
+                location.DesignWaterLevel = RoundedDouble.NaN;
+                location.WaveHeight = RoundedDouble.NaN;
+                location.DesignWaterLevelCalculationConvergence = CalculationConvergence.NotCalculated;
+                location.WaveHeightCalculationConvergence = CalculationConvergence.NotCalculated;
+
+                return new[]
+                {
+                    location
+                };
+            }
+            return Enumerable.Empty<IObservable>();
         }
     }
 }

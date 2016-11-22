@@ -23,14 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionInwards.Utils;
@@ -63,14 +62,14 @@ namespace Ringtoets.Integration.Service
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
         /// removing data.</returns>
         /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<ICalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(IAssessmentSection assessmentSection)
+        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
             }
 
-            var affectedItems = new List<ICalculation>();
+            var affectedItems = new List<IObservable>();
 
             foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
             {
@@ -126,14 +125,14 @@ namespace Ringtoets.Integration.Service
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<ICalculation> ClearFailureMechanismCalculationOutputs(IAssessmentSection assessmentSection)
+        public static IEnumerable<IObservable> ClearFailureMechanismCalculationOutputs(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
             }
 
-            var affectedItems = new List<ICalculation>();
+            var affectedItems = new List<IObservable>();
 
             foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
             {
@@ -189,10 +188,10 @@ namespace Ringtoets.Integration.Service
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> wich contains the locations.</param>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> which contains the locations.</param>
-        /// <returns><c>true</c> when one or multiple locations are affected by clearing the output. <c>false</c> otherwise.</returns>
+        /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> 
         /// or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static bool ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             if (hydraulicBoundaryDatabase == null)
             {
@@ -203,21 +202,9 @@ namespace Ringtoets.Integration.Service
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var locationsAffected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(failureMechanism.HydraulicBoundaryLocations);
-
-            foreach (var hydraulicBoundaryLocation in hydraulicBoundaryDatabase.Locations
-                                                                               .Where(hydraulicBoundaryLocation =>
-                                                                                      !double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel) ||
-                                                                                      !double.IsNaN(hydraulicBoundaryLocation.WaveHeight)))
-            {
-                hydraulicBoundaryLocation.DesignWaterLevel = RoundedDouble.NaN;
-                hydraulicBoundaryLocation.WaveHeight = RoundedDouble.NaN;
-                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = CalculationConvergence.NotCalculated;
-                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.NotCalculated;
-                locationsAffected = true;
-            }
-
-            return locationsAffected;
+            return RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(failureMechanism.HydraulicBoundaryLocations)
+                                                            .Concat(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase.Locations))
+                                                            .ToArray();
         }
 
         /// <summary>

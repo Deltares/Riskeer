@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
@@ -28,7 +29,7 @@ namespace Ringtoets.HydraRing.Data
     /// <summary>
     /// Location of a hydraulic boundary.
     /// </summary>
-    public class HydraulicBoundaryLocation
+    public class HydraulicBoundaryLocation : Observable
     {
         private RoundedDouble designWaterLevel;
         private RoundedDouble waveHeight;

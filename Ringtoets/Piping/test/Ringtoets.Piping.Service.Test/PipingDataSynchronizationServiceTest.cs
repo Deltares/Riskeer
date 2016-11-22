@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Integration.TestUtils;
@@ -59,11 +58,35 @@ namespace Ringtoets.Piping.Service.Test
             };
 
             // Call
-            PipingDataSynchronizationService.ClearCalculationOutput(calculation);
+            IEnumerable<IObservable> changedObjects = PipingDataSynchronizationService.ClearCalculationOutput(calculation);
 
             // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.SemiProbabilisticOutput);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation
+            }, changedObjects);
+        }
+
+        [Test]
+        public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
+        {
+            // Setup
+            var calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                Output = null,
+                SemiProbabilisticOutput = null
+            };
+
+            // Call
+            IEnumerable<IObservable> changedObjects = PipingDataSynchronizationService.ClearCalculationOutput(calculation);
+
+            // Assert
+            CollectionAssert.IsEmpty(changedObjects);
         }
 
         [Test]
@@ -81,16 +104,19 @@ namespace Ringtoets.Piping.Service.Test
         public void ClearAllCalculationOutput_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
             ICalculation[] expectedAffectedCalculations = failureMechanism.Calculations
                                                                           .Where(c => c.HasOutput)
                                                                           .ToArray();
 
             // Call
-            IEnumerable<PipingCalculation> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
+            IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
 
             // Assert
-            Assert.IsFalse(failureMechanism.Calculations.Any(c => c.HasOutput));
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
+
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
         }
 
@@ -109,17 +135,22 @@ namespace Ringtoets.Piping.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
             PipingCalculation[] expectedAffectedCalculations = failureMechanism.Calculations.Cast<PipingCalculation>()
                                                                                .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
                                                                                .ToArray();
 
             // Call
-            IEnumerable<PipingCalculation> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            Assert.IsFalse(failureMechanism.Calculations.Cast<PipingCalculation>()
-                                           .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            Assert.IsTrue(failureMechanism.Calculations
+                                          .Cast<PipingCalculation>()
+                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null &&
+                                                    !c.HasOutput));
+
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
         }
 
@@ -138,26 +169,26 @@ namespace Ringtoets.Piping.Service.Test
         public void ClearReferenceLineDependentData_FullyConfiguredFailureMechanism_RemoveFailureMechanismDependentData()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
 
             // Call
-            IObservable[] observables = PipingDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism).ToArray();
+            IEnumerable<IObservable> observables = PipingDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
 
             // Assert
-            Assert.AreEqual(4, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.Contains(observables, failureMechanism);
-
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-            CollectionAssert.Contains(observables, failureMechanism.CalculationsGroup);
-
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
-            CollectionAssert.Contains(observables, failureMechanism.StochasticSoilModels);
-
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
-            CollectionAssert.Contains(observables, failureMechanism.SurfaceLines);
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(4, array.Length);
+            CollectionAssert.Contains(array, failureMechanism);
+            CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
+            CollectionAssert.Contains(array, failureMechanism.StochasticSoilModels);
+            CollectionAssert.Contains(array, failureMechanism.SurfaceLines);
         }
 
         [Test]
@@ -204,18 +235,23 @@ namespace Ringtoets.Piping.Service.Test
             CollectionAssert.IsNotEmpty(calculations);
 
             // Call
-            IObservable[] observables = PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine).ToArray();
+            IEnumerable<IObservable> observables = PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
 
             // Assert
-            Assert.AreEqual(1 + calculations.Length, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.SurfaceLines, surfaceLine);
-            CollectionAssert.Contains(observables, failureMechanism.SurfaceLines);
-
             foreach (PipingCalculation calculation in calculations)
             {
                 Assert.IsNull(calculation.InputParameters.SurfaceLine);
-                CollectionAssert.Contains(observables, calculation.InputParameters);
+            }
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(1 + calculations.Length, array.Length);
+            CollectionAssert.Contains(array, failureMechanism.SurfaceLines);
+            foreach (PipingCalculation calculation in calculations)
+            {
+                CollectionAssert.Contains(array, calculation.InputParameters);
             }
         }
 
@@ -263,88 +299,25 @@ namespace Ringtoets.Piping.Service.Test
             CollectionAssert.IsNotEmpty(calculations);
 
             // Call
-            IObservable[] observables = PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel).ToArray();
+            IEnumerable<IObservable> observables = PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel);
 
             // Assert
-            Assert.AreEqual(1 + calculations.Length, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.StochasticSoilModels, soilModel);
-            CollectionAssert.Contains(observables, failureMechanism.StochasticSoilModels);
-
             foreach (PipingCalculation calculation in calculations)
             {
                 Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
-                CollectionAssert.Contains(observables, calculation.InputParameters);
             }
-        }
 
-        private static PipingFailureMechanism CreateFullyConfiguredFailureMechanism()
-        {
-            var failureMechanism = new PipingFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(1 + calculations.Length, array.Length);
 
-            var calculation = new PipingCalculation(new GeneralPipingInput());
-            var calculationWithOutput = new PipingCalculation(new GeneralPipingInput())
+            CollectionAssert.Contains(array, failureMechanism.StochasticSoilModels);
+            foreach (PipingCalculation calculation in calculations)
             {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-            var calculationWithHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var subCalculation = new PipingCalculation(new GeneralPipingInput());
-            var subCalculationWithOutput = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-            var subCalculationWithHydraulicBoundaryLocation = new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
-
-            return failureMechanism;
+                CollectionAssert.Contains(array, calculation.InputParameters);
+            }
         }
     }
 }

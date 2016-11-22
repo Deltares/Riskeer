@@ -20,8 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service.Test
@@ -30,57 +35,147 @@ namespace Ringtoets.Common.Service.Test
     public class RingtoetsCommonDataSynchronizationServiceTest
     {
         [Test]
-        public void ClearDesignWaterLevel_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        public void ClearHydraulicBoundaryLocationOutput_LocationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.ClearDesignWaterLevel(null);
+            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("location", exception.ParamName);
+            Assert.AreEqual("locations", exception.ParamName);
         }
 
         [Test]
-        public void ClearDesignWaterLevel_WithHydraulicBoundaryLocation_OutputNaN()
+        [TestCase(3.4, 5.3)]
+        [TestCase(3.4, double.NaN)]
+        [TestCase(double.NaN, 8.5)]
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsTrue(double designWaterLevel, double waveHeight)
         {
             // Setup
-            var calculation = new HydraulicBoundaryLocation(0, "Location 1", 0.5, 0.5)
+            var location = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
-                DesignWaterLevel = (RoundedDouble) 5.0
+                DesignWaterLevel = (RoundedDouble) designWaterLevel,
+                WaveHeight = (RoundedDouble) waveHeight
+            };
+
+            var locations = new ObservableList<HydraulicBoundaryLocation>
+            {
+                location
             };
 
             // Call
-            RingtoetsCommonDataSynchronizationService.ClearDesignWaterLevel(calculation);
+            IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
 
             // Assert
-            Assert.IsNaN(calculation.DesignWaterLevel);
+            Assert.IsNaN(location.DesignWaterLevel);
+            Assert.IsNaN(location.WaveHeight);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                location
+            }, affectedObjects);
         }
 
         [Test]
-        public void ClearWaveHeight_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryDatabaseWithoutLocations_ReturnsFalse()
         {
+            // Setup
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
+
             // Call
-            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.ClearWaveHeight(null);
+            IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
+
+            // Assert
+            CollectionAssert.IsEmpty(affectedObjects);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutWaveHeightAndDesignWaterLevel_ReturnsFalse()
+        {
+            // Setup
+            var locations = new ObservableList<HydraulicBoundaryLocation>
+            {
+                new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+            };
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
+
+            // Assert
+            CollectionAssert.IsEmpty(affectedObjects);
+        }
+
+        [Test]
+        public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            StructuresCalculation<TestInput> calculation = null;
+
+            // Call
+            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("location", exception.ParamName);
+            Assert.AreEqual("calculation", exception.ParamName);
         }
 
         [Test]
-        public void ClearWaveHeight_WithHydraulicBoundaryLocation_OutputNaN()
+        public void ClearCalculationOutput_WithCalculation_ClearsOutput()
         {
             // Setup
-            var calculation = new HydraulicBoundaryLocation(0, "Location 1", 0.5, 0.5)
+            var calculation = new StructuresCalculation<TestInput>
             {
-                WaveHeight = (RoundedDouble) 5.0
+                Output = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1)
             };
 
             // Call
-            RingtoetsCommonDataSynchronizationService.ClearWaveHeight(calculation);
+            IEnumerable<IObservable> changedObjects = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation);
 
             // Assert
-            Assert.IsNaN(calculation.WaveHeight);
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            Assert.IsNull(calculation.Output);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation
+            }, changedObjects);
+        }
+
+        [Test]
+        public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<TestInput>
+            {
+                Output = null
+            };
+
+            // Call
+            IEnumerable<IObservable> changedObjects = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation);
+
+            // Assert
+            CollectionAssert.IsEmpty(changedObjects);
+        }
+
+        private class TestInput : ICalculationInput
+        {
+            public void Attach(IObserver observer)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Detach(IObserver observer)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void NotifyObservers()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

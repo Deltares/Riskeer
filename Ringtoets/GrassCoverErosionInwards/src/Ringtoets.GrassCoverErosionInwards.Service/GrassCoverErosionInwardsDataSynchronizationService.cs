@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Utils.Extensions;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 
@@ -44,21 +43,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<GrassCoverErosionInwardsCalculation> ClearAllCalculationOutput(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearAllCalculationOutput(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var affectedItems = failureMechanism.Calculations
-                                                .Cast<GrassCoverErosionInwardsCalculation>()
-                                                .Where(c => c.HasOutput)
-                                                .ToArray();
-
-            affectedItems.ForEachElementDo(ClearCalculationOutput);
-
-            return affectedItems;
+            return failureMechanism.Calculations
+                                   .Cast<GrassCoverErosionInwardsCalculation>()
+                                   .SelectMany(ClearCalculationOutput)
+                                   .ToArray();
         }
 
         /// <summary>
@@ -68,14 +63,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// to clear the output for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
         /// is <c>null</c>.</exception>
-        public static void ClearCalculationOutput(GrassCoverErosionInwardsCalculation calculation)
+        /// <returns>All objects that have been changed.</returns>
+        public static IEnumerable<IObservable> ClearCalculationOutput(GrassCoverErosionInwardsCalculation calculation)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException("calculation");
             }
 
-            calculation.Output = null;
+            if (calculation.HasOutput)
+            {
+                calculation.ClearOutput();
+                return new[]
+                {
+                    calculation
+                };
+            }
+            return Enumerable.Empty<IObservable>();
         }
 
         /// <summary>
@@ -88,30 +92,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// removal of data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<GrassCoverErosionInwardsCalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            Collection<GrassCoverErosionInwardsCalculation> affectedItems = new Collection<GrassCoverErosionInwardsCalculation>();
+            var affectedItems = new Collection<IObservable>();
             foreach (var calculation in failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>())
             {
-                var calculationChanged = false;
-
-                if (calculation.HasOutput)
-                {
-                    ClearCalculationOutput(calculation);
-                    calculationChanged = true;
-                }
-
-                if (calculation.InputParameters.HydraulicBoundaryLocation != null)
-                {
-                    ClearHydraulicBoundaryLocation(calculation);
-                    calculationChanged = true;
-                }
-
+                bool calculationChanged = ClearCalculationOutput(calculation)
+                    .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters))
+                    .Any();
                 if (calculationChanged)
                 {
                     affectedItems.Add(calculation);
@@ -149,9 +142,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             return observables;
         }
 
-        private static void ClearHydraulicBoundaryLocation(GrassCoverErosionInwardsCalculation calculation)
+        private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(GrassCoverErosionInwardsInput input)
         {
-            calculation.InputParameters.HydraulicBoundaryLocation = null;
+            if (input.HydraulicBoundaryLocation != null)
+            {
+                input.HydraulicBoundaryLocation = null;
+                return new[]
+                {
+                    input
+                };
+            }
+            return Enumerable.Empty<IObservable>();
         }
     }
 }

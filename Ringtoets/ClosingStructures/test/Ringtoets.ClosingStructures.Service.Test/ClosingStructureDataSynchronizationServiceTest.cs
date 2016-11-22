@@ -72,34 +72,21 @@ namespace Ringtoets.ClosingStructures.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
+            IEnumerable<IObservable> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
 
             // Assert
-            foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<ClosingStructuresInput>>())
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.Output);
             }
+
             CollectionAssert.AreEqual(new[]
             {
                 calculation1,
                 calculation2
             }, affectedItems);
-        }
-
-        [Test]
-        public void ClearCalculationOutput_WithCalculation_ClearsOutput()
-        {
-            // Setup
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            // Call
-            calculation.ClearOutput();
-
-            // Assert
-            Assert.IsNull(calculation.Output);
         }
 
         [Test]
@@ -148,11 +135,14 @@ namespace Ringtoets.ClosingStructures.Service.Test
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
                 Assert.IsNull(calculation.Output);
             }
+
             CollectionAssert.AreEqual(new[]
             {
                 calculation1,
@@ -193,10 +183,13 @@ namespace Ringtoets.ClosingStructures.Service.Test
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
             }
+
             CollectionAssert.AreEqual(new[]
             {
                 calculation1,
@@ -230,10 +223,13 @@ namespace Ringtoets.ClosingStructures.Service.Test
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.Output);
             }
+
             CollectionAssert.AreEqual(new[]
             {
                 calculation1,
@@ -280,23 +276,23 @@ namespace Ringtoets.ClosingStructures.Service.Test
             ClosingStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
             // Call
-            IObservable[] observables = ClosingStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism).ToArray();
+            IEnumerable<IObservable> observables = ClosingStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
 
             // Assert
-            Assert.AreEqual(4, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.Contains(observables, failureMechanism);
-
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-            CollectionAssert.Contains(observables, failureMechanism.CalculationsGroup);
-
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
-
             CollectionAssert.IsEmpty(failureMechanism.ClosingStructures);
-            CollectionAssert.Contains(observables, failureMechanism.ClosingStructures);
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(4, array.Length);
+            CollectionAssert.Contains(array, failureMechanism);
+            CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+            CollectionAssert.Contains(array, failureMechanism.ClosingStructures);
         }
 
         private ClosingStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()

@@ -1473,7 +1473,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static void ClearCalculations(IAssessmentSection nodeData)
         {
-            var affectedCalculations = new List<ICalculation>();
+            var affectedCalculations = new List<IObservable>();
             affectedCalculations.AddRange(RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(nodeData));
             affectedCalculations.ForEachElementDo(ac => ac.NotifyObservers());
 

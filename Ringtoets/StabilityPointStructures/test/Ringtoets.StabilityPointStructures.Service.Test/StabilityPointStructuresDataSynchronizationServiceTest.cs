@@ -56,11 +56,13 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                           .ToArray();
 
             // Call
-            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> affectedItems =
-                StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
+            IEnumerable<IObservable> affectedItems = StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
 
             // Assert
-            Assert.IsFalse(failureMechanism.Calculations.Any(c => c.HasOutput));
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
+
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
         }
 
@@ -89,8 +91,11 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            Assert.IsFalse(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                           .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            Assert.IsTrue(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
         }
 
@@ -112,23 +117,23 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
             // Call
-            IObservable[] observables = StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism).ToArray();
+            IEnumerable<IObservable> observables = StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
 
             // Assert
-            Assert.AreEqual(4, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.Contains(observables, failureMechanism);
-
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-            CollectionAssert.Contains(observables, failureMechanism.CalculationsGroup);
-
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
-
             CollectionAssert.IsEmpty(failureMechanism.StabilityPointStructures);
-            CollectionAssert.Contains(observables, failureMechanism.StabilityPointStructures);
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(4, array.Length);
+            CollectionAssert.Contains(array, failureMechanism);
+            CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+            CollectionAssert.Contains(array, failureMechanism.StabilityPointStructures);
         }
 
         private static StabilityPointStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()

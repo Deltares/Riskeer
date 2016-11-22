@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 
@@ -45,21 +45,17 @@ namespace Ringtoets.HeightStructures.Service
         /// clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<StructuresCalculation<HeightStructuresInput>> ClearAllCalculationOutput(HeightStructuresFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearAllCalculationOutput(HeightStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var affectedItems = failureMechanism.Calculations
-                                                .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                                .Where(c => c.HasOutput)
-                                                .ToArray();
-
-            affectedItems.ForEachElementDo(item => item.ClearOutput());
-
-            return affectedItems;
+            return failureMechanism.Calculations
+                                   .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                   .SelectMany(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput)
+                                   .ToArray();
         }
 
         /// <summary>
@@ -72,7 +68,7 @@ namespace Ringtoets.HeightStructures.Service
         /// removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<StructuresCalculation<HeightStructuresInput>> ClearAllCalculationOutputAndHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -80,29 +76,16 @@ namespace Ringtoets.HeightStructures.Service
             }
 
             var affectedItems = new Collection<StructuresCalculation<HeightStructuresInput>>();
-
             foreach (var calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
             {
-                var calculationChanged = false;
-
-                if (calculation.HasOutput)
-                {
-                    calculation.ClearOutput();
-                    calculationChanged = true;
-                }
-
-                if (calculation.InputParameters.HydraulicBoundaryLocation != null)
-                {
-                    ClearHydraulicBoundaryLocation(calculation);
-                    calculationChanged = true;
-                }
-
+                var calculationChanged = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
+                                                                                  .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters))
+                                                                                  .Any();
                 if (calculationChanged)
                 {
                     affectedItems.Add(calculation);
                 }
             }
-
             return affectedItems;
         }
 
@@ -137,9 +120,17 @@ namespace Ringtoets.HeightStructures.Service
             return observables;
         }
 
-        private static void ClearHydraulicBoundaryLocation(StructuresCalculation<HeightStructuresInput> calculation)
+        private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(HeightStructuresInput input)
         {
-            calculation.InputParameters.HydraulicBoundaryLocation = null;
+            if (input.HydraulicBoundaryLocation != null)
+            {
+                input.HydraulicBoundaryLocation = null;
+                return new[]
+                {
+                    input
+                };
+            }
+            return Enumerable.Empty<IObservable>();
         }
     }
 }

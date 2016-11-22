@@ -70,10 +70,15 @@ namespace Ringtoets.Integration.Service.Test
                                                                                .ToList();
 
             // Call
-            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
+            IEnumerable<IObservable> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Assert
-            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(f => f.Calculations).Where(c => c.HasOutput));
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms()
+                .SelectMany(f => f.Calculations)
+                .Where(c => c.HasOutput));
+
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
@@ -120,25 +125,27 @@ namespace Ringtoets.Integration.Service.Test
                                                             .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
 
             // Call
-            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
+            IEnumerable<IObservable> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
 
             // Assert
-            Assert.IsFalse(assessmentSection.ClosingStructures.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
-            Assert.IsFalse(assessmentSection.GrassCoverErosionInwards.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
-                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
-            Assert.IsFalse(assessmentSection.GrassCoverErosionOutwards.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
-            Assert.IsFalse(assessmentSection.HeightStructures.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
-                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
-            Assert.IsFalse(assessmentSection.PipingFailureMechanism.Calculations.Cast<PipingCalculation>()
-                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
-            Assert.IsFalse(assessmentSection.StabilityPointStructures.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
-            Assert.IsFalse(assessmentSection.StabilityStoneCover.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
-            Assert.IsFalse(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                            .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            Assert.IsTrue(assessmentSection.ClosingStructures.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.GrassCoverErosionInwards.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
+                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.GrassCoverErosionOutwards.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.HeightStructures.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
+                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.PipingFailureMechanism.Calculations.Cast<PipingCalculation>()
+                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.StabilityPointStructures.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.StabilityStoneCover.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
@@ -191,14 +198,21 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
-            bool affected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection.GrassCoverErosionOutwards);
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                                                                assessmentSection.GrassCoverErosionOutwards);
 
             // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
-            Assert.IsTrue(affected);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                hydraulicBoundaryLocation
+            }, affectedObjects);
         }
 
         [Test]
@@ -211,10 +225,10 @@ namespace Ringtoets.Integration.Service.Test
             };
 
             // Call
-            bool affected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection.GrassCoverErosionOutwards);
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection.GrassCoverErosionOutwards);
 
             // Assert
-            Assert.IsFalse(affected);
+            CollectionAssert.IsEmpty(affectedObjects);
         }
 
         [Test]
@@ -229,10 +243,10 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
-            bool affected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection.GrassCoverErosionOutwards);
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection.GrassCoverErosionOutwards);
 
             // Assert
-            Assert.IsFalse(affected);
+            CollectionAssert.IsEmpty(affectedObjects);
         }
 
         [Test]
@@ -264,14 +278,20 @@ namespace Ringtoets.Integration.Service.Test
             };
 
             // Call
-            bool affected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase, failureMechanism);
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase, failureMechanism);
 
             // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculationConvergence);
-            Assert.IsTrue(affected);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                grassCoverErosionOutwardsHydraulicBoundaryLocation
+            }, affectedObjects);
         }
 
         [Test]
@@ -296,10 +316,10 @@ namespace Ringtoets.Integration.Service.Test
             };
 
             // Call
-            bool affected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase, failureMechanism);
+            IEnumerable<IObservable> affected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase, failureMechanism);
 
             // Assert
-            Assert.IsFalse(affected);
+            CollectionAssert.IsEmpty(affected);
         }
 
         [Test]
@@ -309,7 +329,7 @@ namespace Ringtoets.Integration.Service.Test
             double designWaterLevel, double waveHeight)
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 0, 0)
             {
                 DesignWaterLevel = (RoundedDouble) designWaterLevel,
                 WaveHeight = (RoundedDouble) waveHeight
@@ -322,7 +342,11 @@ namespace Ringtoets.Integration.Service.Test
                 }
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new HydraulicBoundaryLocation(2, "test2", 0, 0)
+            {
+                DesignWaterLevel = (RoundedDouble) designWaterLevel,
+                WaveHeight = (RoundedDouble) waveHeight
+            };;
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
@@ -333,20 +357,28 @@ namespace Ringtoets.Integration.Service.Test
             };
 
             // Call
-            bool affected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase, failureMechanism);
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase, failureMechanism);
 
             // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
 
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculationConvergence);
 
-            Assert.IsTrue(affected);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                grassCoverErosionOutwardsHydraulicBoundaryLocation,
+                hydraulicBoundaryLocation
+            }, affectedObjects);
         }
 
         [Test]
@@ -367,89 +399,160 @@ namespace Ringtoets.Integration.Service.Test
             AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
 
             // Call
+            RingtoetsDataSynchronizationService.ClearReferenceLine(assessmentSection);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+            CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(pipingFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.IsEmpty(pipingFailureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(pipingFailureMechanism.SurfaceLines);
+
+            GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
+            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.DikeProfiles);
+
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children);
+            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
+
+            WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
+            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
+            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
+
+            StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
+            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
+            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
+
+            ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
+            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.ForeshoreProfiles);
+            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.ClosingStructures);
+
+            HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
+            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.ForeshoreProfiles);
+            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.HeightStructures);
+
+            StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
+            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
+            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.StabilityPointStructures);
+
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
+            CollectionAssert.IsEmpty(duneErosionFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResults);
+
+            MacrostabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacrostabilityInwards;
+            CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.SectionResults);
+
+            MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
+            CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.SectionResults);
+
+            MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
+            CollectionAssert.IsEmpty(microstabilityFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(microstabilityFailureMechanism.SectionResults);
+
+            WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
+            CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.SectionResults);
+
+            GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
+            CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.SectionResults);
+
+            GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
+            CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.SectionResults);
+
+            StrengthStabilityLengthwiseConstructionFailureMechanism stabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
+            CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.SectionResults);
+
+            PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
+            CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResults);
+
+            TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
+            CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.SectionResults);
+
+            Assert.IsNull(assessmentSection.ReferenceLine);
+        }
+
+        [Test]
+        public void ClearReferenceLine_FullyConfiguredAssessmentSection_AllAffectedObservableObjectsReturned()
+        {
+            // Setup
+            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+
+            // Call
             var observables = RingtoetsDataSynchronizationService.ClearReferenceLine(assessmentSection).ToArray();
 
             // Assert
             Assert.AreEqual(39, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
-            CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, pipingFailureMechanism);
-            CollectionAssert.IsEmpty(pipingFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, pipingFailureMechanism.CalculationsGroup);
-            CollectionAssert.IsEmpty(pipingFailureMechanism.StochasticSoilModels);
             CollectionAssert.Contains(observables, pipingFailureMechanism.StochasticSoilModels);
-            CollectionAssert.IsEmpty(pipingFailureMechanism.SurfaceLines);
             CollectionAssert.Contains(observables, pipingFailureMechanism.SurfaceLines);
 
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
-            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism);
-            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism.CalculationsGroup);
-            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.DikeProfiles);
             CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism.DikeProfiles);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism);
-            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup);
-            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
-            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism);
-            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup);
-            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
 
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
-            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism);
-            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup);
-            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
-            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, closingStructuresFailureMechanism);
-            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, closingStructuresFailureMechanism.CalculationsGroup);
-            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, closingStructuresFailureMechanism.ForeshoreProfiles);
-            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.ClosingStructures);
             CollectionAssert.Contains(observables, closingStructuresFailureMechanism.ClosingStructures);
 
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
-            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, heightStructuresFailureMechanism);
-            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, heightStructuresFailureMechanism.CalculationsGroup);
-            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, heightStructuresFailureMechanism.ForeshoreProfiles);
-            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.HeightStructures);
             CollectionAssert.Contains(observables, heightStructuresFailureMechanism.HeightStructures);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
-            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism);
-            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism.CalculationsGroup);
-            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
-            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.StabilityPointStructures);
             CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism.StabilityPointStructures);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
@@ -458,48 +561,30 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.Contains(observables, duneErosionFailureMechanism);
 
             MacrostabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacrostabilityInwards;
-            CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, macrostabilityInwardsFailureMechanism);
 
             MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
-            CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, macrostabilityOutwardsFailureMechanism);
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
-            CollectionAssert.IsEmpty(microstabilityFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(microstabilityFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, microstabilityFailureMechanism);
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
-            CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, waterPressureAsphaltCoverFailureMechanism);
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
-            CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverSlipOffOutwardsFailureMechanism);
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
-            CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverSlipOffInwardsFailureMechanism);
 
             StrengthStabilityLengthwiseConstructionFailureMechanism stabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, stabilityLengthwiseConstructionFailureMechanism);
 
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
-            CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, pipingStructureFailureMechanism);
 
             TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
-            CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, technicalInnovationFailureMechanism);
 
             Assert.IsNull(assessmentSection.ReferenceLine);
@@ -550,18 +635,23 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculations);
 
             // Call
-            IObservable[] observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile).ToArray();
+            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
 
             // Assert
-            Assert.AreEqual(1 + calculations.Length, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
-            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
-
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
                 Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-                CollectionAssert.Contains(observables, calculation.InputParameters);
+            }
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(1 + calculations.Length, array.Length);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
+            {
+                CollectionAssert.Contains(array, calculation.InputParameters);
             }
         }
 
@@ -609,18 +699,23 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculations);
 
             // Call
-            IObservable[] observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile).ToArray();
+            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
 
             // Assert
-            Assert.AreEqual(1 + calculations.Length, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
-            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
-
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
                 Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-                CollectionAssert.Contains(observables, calculation.InputParameters);
+            }
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(1 + calculations.Length, array.Length);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
+            {
+                CollectionAssert.Contains(array, calculation.InputParameters);
             }
         }
 
@@ -668,18 +763,23 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculations);
 
             // Call
-            IObservable[] observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile).ToArray();
+            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
 
             // Assert
-            Assert.AreEqual(1 + calculations.Length, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
-            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
-
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
             {
                 Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-                CollectionAssert.Contains(observables, calculation.InputParameters);
+            }
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(1 + calculations.Length, array.Length);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
+            {
+                CollectionAssert.Contains(array, calculation.InputParameters);
             }
         }
 
@@ -727,18 +827,23 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculations);
 
             // Call
-            IObservable[] observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile).ToArray();
+            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
 
             // Assert
-            Assert.AreEqual(1 + calculations.Length, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
-            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
-
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculations)
             {
                 Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-                CollectionAssert.Contains(observables, calculation.InputParameters);
+            }
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(1 + calculations.Length, array.Length);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculations)
+            {
+                CollectionAssert.Contains(array, calculation.InputParameters);
             }
         }
 
@@ -786,18 +891,24 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculations);
 
             // Call
-            IObservable[] observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile).ToArray();
+            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
 
             // Assert
-            Assert.AreEqual(1 + calculations.Length, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
-            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
-
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculations)
             {
                 Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-                CollectionAssert.Contains(observables, calculation.InputParameters);
+            }
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(1 + calculations.Length, array.Length);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculations)
+            {
+                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
+                CollectionAssert.Contains(array, calculation.InputParameters);
             }
         }
 
@@ -845,18 +956,23 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculations);
 
             // Call
-            IObservable[] observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile).ToArray();
+            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
 
             // Assert
-            Assert.AreEqual(1 + calculations.Length, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
-            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
-
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculations)
             {
                 Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-                CollectionAssert.Contains(observables, calculation.InputParameters);
+            }
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(1 + calculations.Length, array.Length);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculations)
+            {
+                CollectionAssert.Contains(array, calculation.InputParameters);
             }
         }
 
@@ -908,24 +1024,31 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculations);
 
             // Call
-            IObservable[] observables = RingtoetsDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile).ToArray();
+            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile);
 
             // Assert
-            Assert.AreEqual(1 + calculations.Length + sectionResults.Length, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.DikeProfiles, profile);
-            CollectionAssert.Contains(observables, failureMechanism.DikeProfiles);
-
             foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
             {
                 Assert.IsNull(calculation.InputParameters.DikeProfile);
-                CollectionAssert.Contains(observables, calculation.InputParameters);
             }
-
             foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 Assert.IsNull(sectionResult.Calculation);
-                CollectionAssert.Contains(observables, sectionResult);
+            }
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(1 + calculations.Length + sectionResults.Length, array.Length);
+            CollectionAssert.Contains(array, failureMechanism.DikeProfiles);
+            foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
+            {
+                CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+            foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in sectionResults)
+            {
+                CollectionAssert.Contains(array, sectionResult);
             }
             Assert.AreEqual(originalNumberOfSectionResultAssignments - sectionResults.Length, failureMechanism.SectionResults.Count(sr => sr.Calculation != null),
                             "Other section results with a different calculation/dikeprofile should still have their association.");

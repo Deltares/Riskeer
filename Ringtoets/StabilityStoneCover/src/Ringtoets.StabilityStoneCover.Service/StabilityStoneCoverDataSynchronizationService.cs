@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Utils.Extensions;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Service
@@ -40,16 +40,25 @@ namespace Ringtoets.StabilityStoneCover.Service
         /// </summary>
         /// <param name="calculation">The <see cref="StabilityStoneCoverWaveConditionsCalculation"/>
         /// to clear the output for.</param>
+        /// <returns>All objects that have been changed.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
         /// is <c>null</c>.</exception>
-        public static void ClearWaveConditionsCalculationOutput(StabilityStoneCoverWaveConditionsCalculation calculation)
+        public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutput(StabilityStoneCoverWaveConditionsCalculation calculation)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException("calculation");
             }
 
-            calculation.Output = null;
+            if (calculation.HasOutput)
+            {
+                calculation.ClearOutput();
+                return new[]
+                {
+                    calculation
+                };
+            }
+            return Enumerable.Empty<IObservable>();
         }
 
         /// <summary>
@@ -62,7 +71,7 @@ namespace Ringtoets.StabilityStoneCover.Service
         /// removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<StabilityStoneCoverWaveConditionsCalculation> ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+        public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
             StabilityStoneCoverFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
@@ -74,20 +83,9 @@ namespace Ringtoets.StabilityStoneCover.Service
 
             foreach (var calculation in failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>())
             {
-                var calculationChanged = false;
-
-                if (calculation.HasOutput)
-                {
-                    ClearWaveConditionsCalculationOutput(calculation);
-                    calculationChanged = true;
-                }
-
-                if (calculation.InputParameters.HydraulicBoundaryLocation != null)
-                {
-                    ClearHydraulicBoundaryLocation(calculation);
-                    calculationChanged = true;
-                }
-
+                bool calculationChanged = ClearWaveConditionsCalculationOutput(calculation)
+                    .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters))
+                    .Any();
                 if (calculationChanged)
                 {
                     affectedItems.Add(calculation);
@@ -106,21 +104,17 @@ namespace Ringtoets.StabilityStoneCover.Service
         /// clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<StabilityStoneCoverWaveConditionsCalculation> ClearAllWaveConditionsCalculationOutput(StabilityStoneCoverFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput(StabilityStoneCoverFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var affectedItems = failureMechanism.Calculations
-                                                .Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                                .Where(c => c.HasOutput)
-                                                .ToArray();
-
-            affectedItems.ForEachElementDo(ClearWaveConditionsCalculationOutput);
-
-            return affectedItems;
+            return failureMechanism.Calculations
+                                   .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                   .SelectMany(ClearWaveConditionsCalculationOutput)
+                                   .ToArray();
         }
 
         /// <summary>
@@ -151,9 +145,17 @@ namespace Ringtoets.StabilityStoneCover.Service
             return observables;
         }
 
-        private static void ClearHydraulicBoundaryLocation(StabilityStoneCoverWaveConditionsCalculation calculation)
+        private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(WaveConditionsInput input)
         {
-            calculation.InputParameters.HydraulicBoundaryLocation = null;
+            if (input.HydraulicBoundaryLocation != null)
+            {
+                input.HydraulicBoundaryLocation = null;
+                return new[]
+                {
+                    input
+                };
+            }
+            return Enumerable.Empty<IObservable>();
         }
     }
 }

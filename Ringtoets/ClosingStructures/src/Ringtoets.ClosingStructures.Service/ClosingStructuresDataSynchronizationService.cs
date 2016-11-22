@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Utils.Extensions;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.ClosingStructures.Service
@@ -45,21 +45,17 @@ namespace Ringtoets.ClosingStructures.Service
         /// clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<StructuresCalculation<ClosingStructuresInput>> ClearAllCalculationOutput(ClosingStructuresFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearAllCalculationOutput(ClosingStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var affectedItems = failureMechanism.Calculations
-                                                .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                                .Where(c => c.HasOutput)
-                                                .ToArray();
-
-            affectedItems.ForEachElementDo(item => item.ClearOutput());
-
-            return affectedItems;
+            return failureMechanism.Calculations
+                                   .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                   .SelectMany(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput)
+                                   .ToArray();
         }
 
         /// <summary>
@@ -83,20 +79,9 @@ namespace Ringtoets.ClosingStructures.Service
 
             foreach (var calculation in failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
-                var calculationChanged = false;
-
-                if (calculation.HasOutput)
-                {
-                    calculation.ClearOutput();
-                    calculationChanged = true;
-                }
-
-                if (calculation.InputParameters.HydraulicBoundaryLocation != null)
-                {
-                    ClearHydraulicBoundaryLocation(calculation);
-                    calculationChanged = true;
-                }
-
+                var calculationChanged = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
+                                                                                  .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters))
+                                                                                  .Any();
                 if (calculationChanged)
                 {
                     affectedItems.Add(calculation);
@@ -118,7 +103,7 @@ namespace Ringtoets.ClosingStructures.Service
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var observables = new List<IObservable>();
+            var observables = new Collection<IObservable>();
 
             failureMechanism.ClearAllSections();
             observables.Add(failureMechanism);
@@ -135,9 +120,17 @@ namespace Ringtoets.ClosingStructures.Service
             return observables;
         }
 
-        private static void ClearHydraulicBoundaryLocation(StructuresCalculation<ClosingStructuresInput> calculation)
+        private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(ClosingStructuresInput input)
         {
-            calculation.InputParameters.HydraulicBoundaryLocation = null;
+            if (input.HydraulicBoundaryLocation != null)
+            {
+                input.HydraulicBoundaryLocation = null;
+                return new[]
+                {
+                    input
+                };
+            }
+            return Enumerable.Empty<IObservable>();
         }
     }
 }

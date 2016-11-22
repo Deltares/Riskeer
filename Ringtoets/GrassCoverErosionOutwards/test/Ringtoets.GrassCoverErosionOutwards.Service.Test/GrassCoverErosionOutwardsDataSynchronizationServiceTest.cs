@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -59,79 +58,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             Assert.IsNotNull(calculation.Output);
 
             // Call
-            GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
+            IEnumerable<IObservable> affectedObjects = GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
 
             // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             Assert.IsNull(calculation.Output);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation
+            }, affectedObjects);
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationOutput_LocationsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("locations", exception.ParamName);
-        }
-
-        [Test]
-        [TestCase(3.4, 5.3)]
-        [TestCase(3.4, double.NaN)]
-        [TestCase(double.NaN, 8.5)]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsTrue(double designWaterLevel, double waveHeight)
+        public void ClearWaveConditionsCalculation_CalculationWithoutOutput_OutputNull()
         {
             // Setup
-            var location = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                DesignWaterLevel = (RoundedDouble) designWaterLevel,
-                WaveHeight = (RoundedDouble) waveHeight
-            };
-
-            var locations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location
+                Output = null
             };
 
             // Call
-            bool affected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
+            IEnumerable<IObservable> affectedObjects = GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
 
             // Assert
-            Assert.IsNaN(location.DesignWaterLevel);
-            Assert.IsNaN(location.WaveHeight);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
-            Assert.IsTrue(affected);
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryDatabaseWithoutLocations_ReturnsFalse()
-        {
-            // Setup
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
-
-            // Call
-            bool affected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
-
-            // Assert
-            Assert.IsFalse(affected);
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutWaveHeightAndDesignWaterLevel_ReturnsFalse()
-        {
-            // Setup
-            var locations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-            };
-
-            // Call
-            bool affected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
-
-            // Assert
-            Assert.IsFalse(affected);
+            CollectionAssert.IsEmpty(affectedObjects);
         }
 
         [Test]
@@ -155,12 +108,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                                                                 .ToArray();
 
             // Call
-            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems =
+            IEnumerable<IObservable> affectedItems =
                 GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            Assert.IsFalse(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                           .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            Assert.IsTrue(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null &&
+                                                    !c.HasOutput));
+
             CollectionAssert.AreEqual(expectedAffectedCalculations, affectedItems);
         }
 
@@ -185,11 +142,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                           .ToArray();
 
             // Call
-            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems =
+            IEnumerable<IObservable> affectedItems =
                 GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(failureMechanism);
 
             // Assert
-            Assert.IsFalse(failureMechanism.Calculations.Any(c => c.HasOutput));
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
+
             CollectionAssert.AreEqual(expectedAffectedCalculations, affectedItems);
         }
 
@@ -211,20 +171,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
             // Call
-            IObservable[] observables = GrassCoverErosionOutwardsDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism).ToArray();
+            IEnumerable<IObservable> observables = GrassCoverErosionOutwardsDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
 
             // Assert
-            Assert.AreEqual(3, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.Contains(observables, failureMechanism);
-
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
-            CollectionAssert.Contains(observables, failureMechanism.WaveConditionsCalculationGroup);
-
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(3, array.Length);
+            CollectionAssert.Contains(array, failureMechanism);
+            CollectionAssert.Contains(array, failureMechanism.WaveConditionsCalculationGroup);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
         }
 
         private static GrassCoverErosionOutwardsFailureMechanism CreateFullyConfiguredFailureMechanism()

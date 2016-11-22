@@ -72,34 +72,21 @@ namespace Ringtoets.HeightStructures.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<StructuresCalculation<HeightStructuresInput>> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
+            IEnumerable<IObservable> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
 
             // Assert
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<HeightStructuresInput>>())
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
             {
                 Assert.IsNull(calculation.Output);
             }
+
             CollectionAssert.AreEqual(new[]
             {
                 calculation1,
                 calculation2
             }, affectedItems);
-        }
-
-        [Test]
-        public void ClearCalculationOutput_WithCalculation_ClearsOutput()
-        {
-            // Setup
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            };
-
-            // Call
-            calculation.ClearOutput();
-
-            // Assert
-            Assert.IsNull(calculation.Output);
         }
 
         [Test]
@@ -145,14 +132,17 @@ namespace Ringtoets.HeightStructures.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<StructuresCalculation<HeightStructuresInput>> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<HeightStructuresInput>>())
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
                 Assert.IsNull(calculation.Output);
             }
+
             CollectionAssert.AreEqual(new[]
             {
                 calculation1,
@@ -190,13 +180,16 @@ namespace Ringtoets.HeightStructures.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<StructuresCalculation<HeightStructuresInput>> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<HeightStructuresInput>>())
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
             }
+
             CollectionAssert.AreEqual(new[]
             {
                 calculation1,
@@ -227,13 +220,16 @@ namespace Ringtoets.HeightStructures.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<StructuresCalculation<HeightStructuresInput>> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<HeightStructuresInput>>())
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
             {
                 Assert.IsNull(calculation.Output);
             }
+
             CollectionAssert.AreEqual(new[]
             {
                 calculation1,
@@ -256,7 +252,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<StructuresCalculation<HeightStructuresInput>> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             CollectionAssert.IsEmpty(affectedItems);
@@ -280,30 +276,30 @@ namespace Ringtoets.HeightStructures.Service.Test
             HeightStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
             // Call
-            IObservable[] observables = HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism).ToArray();
+            IEnumerable<IObservable> observables = HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
 
             // Assert
-            Assert.AreEqual(4, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.Contains(observables, failureMechanism);
-
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-            CollectionAssert.Contains(observables, failureMechanism.CalculationsGroup);
-
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-            CollectionAssert.Contains(observables, failureMechanism.ForeshoreProfiles);
-
             CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
-            CollectionAssert.Contains(observables, failureMechanism.HeightStructures);
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(4, array.Length);
+            CollectionAssert.Contains(array, failureMechanism);
+            CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
+            CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+            CollectionAssert.Contains(array, failureMechanism.HeightStructures);
         }
 
         private HeightStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
         {
             var section = new FailureMechanismSection("A", new[]
             {
-                new Point2D(-1, 0), 
+                new Point2D(-1, 0),
                 new Point2D(2, 0)
             });
             var structure = new TestHeightStructure();

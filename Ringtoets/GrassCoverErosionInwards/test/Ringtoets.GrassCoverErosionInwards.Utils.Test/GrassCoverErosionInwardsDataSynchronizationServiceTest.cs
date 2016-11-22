@@ -56,10 +56,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             };
 
             // Call
-            GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
+            IEnumerable<IObservable> changedObjects = GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
 
             // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             Assert.IsNull(calculation.Output);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation
+            }, changedObjects);
+        }
+
+        [Test]
+        public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Output = null
+            };
+
+            // Call
+            IEnumerable<IObservable> changedObjects = GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
+
+            // Assert
+            CollectionAssert.IsEmpty(changedObjects);
         }
 
         [Test]
@@ -83,10 +106,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                                                                           .ToArray();
 
             // Call
-            IEnumerable<GrassCoverErosionInwardsCalculation> affectedItems = GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
+            IEnumerable<IObservable> affectedItems = GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
 
             // Assert
-            Assert.IsFalse(failureMechanism.Calculations.Any(c => c.HasOutput));
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
+
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
         }
 
@@ -111,12 +137,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                                                                                                  .ToArray();
 
             // Call
-            IEnumerable<GrassCoverErosionInwardsCalculation> affectedItems =
+            IEnumerable<IObservable> affectedItems =
                 GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            Assert.IsFalse(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
-                                           .Any(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
+            Assert.IsTrue(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
+                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null &&
+                                                    !c.HasOutput));
+
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
         }
 
@@ -138,20 +168,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
             // Call
-            IObservable[] observables = GrassCoverErosionInwardsDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism).ToArray();
+            IEnumerable<IObservable> observables = GrassCoverErosionInwardsDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
 
             // Assert
-            Assert.AreEqual(3, observables.Length);
-
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should not be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.Contains(observables, failureMechanism);
-
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-            CollectionAssert.Contains(observables, failureMechanism.CalculationsGroup);
-
             CollectionAssert.IsEmpty(failureMechanism.DikeProfiles);
-            CollectionAssert.Contains(observables, failureMechanism.DikeProfiles);
+
+            IObservable[] array = observables.ToArray();
+            Assert.AreEqual(3, array.Length);
+            CollectionAssert.Contains(array, failureMechanism);
+            CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
+            CollectionAssert.Contains(array, failureMechanism.DikeProfiles);
         }
 
         private static GrassCoverErosionInwardsFailureMechanism CreateFullyConfiguredFailureMechanism()

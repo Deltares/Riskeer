@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 
@@ -51,6 +52,8 @@ namespace Ringtoets.HydraRing.Data.Test
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
 
             // Assert
+            Assert.IsInstanceOf<Observable>(hydraulicBoundaryLocation);
+
             Assert.AreEqual(id, hydraulicBoundaryLocation.Id);
             Assert.AreEqual(name, hydraulicBoundaryLocation.Name);
             Point2D location = hydraulicBoundaryLocation.Location;
