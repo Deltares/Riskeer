@@ -107,11 +107,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
 
             // Call
             var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -126,20 +126,20 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             Assert.AreEqual(4, inputsFolder.Contents.Count);
             var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-            Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
+            Assert.AreSame(assessmentSectionStub, failureMechanismSectionsContext.ParentAssessmentSection);
 
             var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents[1];
             Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
             Assert.AreSame(failureMechanism, profilesContext.ParentFailureMechanism);
-            Assert.AreSame(assessmentSectionMock, profilesContext.ParentAssessmentSection);
+            Assert.AreSame(assessmentSectionStub, profilesContext.ParentAssessmentSection);
 
             var heightStructuresContext = (HeightStructuresContext) inputsFolder.Contents[2];
             Assert.AreSame(failureMechanism.HeightStructures, heightStructuresContext.WrappedData);
             Assert.AreSame(failureMechanism, heightStructuresContext.FailureMechanism);
-            Assert.AreSame(assessmentSectionMock, heightStructuresContext.AssessmentSection);
+            Assert.AreSame(assessmentSectionStub, heightStructuresContext.AssessmentSection);
 
-            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
-            Assert.AreSame(failureMechanism, commentContext.WrappedData);
+            var inputCommentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
+            Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
 
             var calculationsFolder = (HeightStructuresCalculationGroupContext) children[1];
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
@@ -149,6 +149,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
+
+            Assert.AreEqual(3, outputsFolder.Contents.Count);
             var scenariosContext = (HeightStructuresScenariosContext) outputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
             Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
@@ -156,10 +158,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>) outputsFolder.Contents[1];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+
+            var outputCommentContext = (CommentContext<ICommentable>) outputsFolder.Contents[2];
+            Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismComments()
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
         {
             // Setup
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
@@ -177,7 +182,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, children.Length);
             var commentContext = (CommentContext<ICommentable>) children[0];
-            Assert.AreSame(failureMechanism, commentContext.WrappedData);
+            Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
         }
 
         [Test]
@@ -342,12 +347,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_OnChangeActionRemovesAllViewsForItem()
+        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevantAndRemovesAllViewsForItem()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
+            var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
             var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var guiMock = mocksRepository.StrictMock<IGui>();
@@ -367,24 +372,29 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
+
+                    // Assert
+                    Assert.IsFalse(failureMechanism.IsRelevant);
                 }
             }
-            // Assert
-            // Assert expectancies are called in TearDown()
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_NoOnChangeAction()
+        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevantAndRemovesAllViewsForItem()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism
             {
                 IsRelevant = false
             };
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
+            var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var guiMock = mocksRepository.StrictMock<IGui>();
+
+            viewCommandsMock.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+            guiMock.Stub(g => g.ViewCommands).Return(viewCommandsMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -398,10 +408,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
+
+                    // Assert
+                    Assert.IsTrue(failureMechanism.IsRelevant);
                 }
             }
-            // Assert
-            // Assert expectancies are called in TearDown()
         }
 
         [Test]
