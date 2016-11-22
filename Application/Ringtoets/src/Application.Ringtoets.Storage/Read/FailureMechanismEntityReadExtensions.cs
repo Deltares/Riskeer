@@ -67,7 +67,9 @@ namespace Application.Ringtoets.Storage.Read
                                                                   ReadConversionCollector collector)
         {
             failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
-            failureMechanism.Comments = entity.Comments;
+            failureMechanism.InputComments.Comments = entity.InputComments;
+            failureMechanism.OutputComments.Comments = entity.OutputComments;
+            failureMechanism.NotRelevantComments.Comments = entity.NotRelevantComments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);
         }

@@ -156,20 +156,24 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithPipingFailureMechnismProperties_ReturnsNewAssessmentSectionWithPropertiesInPipingFailureMechanism(bool isRelevant)
+        public void Read_WithPipingFailureMechanismProperties_ReturnsNewAssessmentSectionWithPropertiesInPipingFailureMechanism(bool isRelevant)
         {
             // Setup
             var entity = CreateAssessmentSectionEntity();
             var random = new Random(21);
             var parameterA = random.NextDouble()/10;
-            const string comments = "Some text";
+            const string inputComments = "Some input text";
+            const string outputComments = "Some output text";
+            const string notRelevantComments = "Really not relevant";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.Piping,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = comments,
+                InputComments = inputComments,
+                OutputComments = outputComments,
+                NotRelevantComments = notRelevantComments,
                 PipingFailureMechanismMetaEntities =
                 {
                     new PipingFailureMechanismMetaEntity
@@ -187,7 +191,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.PipingFailureMechanism.IsRelevant);
-            Assert.AreEqual(comments, section.PipingFailureMechanism.Comments);
+            Assert.AreEqual(inputComments, section.PipingFailureMechanism.InputComments.Comments);
+            Assert.AreEqual(outputComments, section.PipingFailureMechanism.OutputComments.Comments);
+            Assert.AreEqual(notRelevantComments, section.PipingFailureMechanism.NotRelevantComments.Comments);
             Assert.AreEqual(parameterA, section.PipingFailureMechanism.PipingProbabilityAssessmentInput.A);
         }
 
@@ -336,7 +342,9 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var entity = CreateAssessmentSectionEntity();
-            const string comments = "Some text";
+            const string originalInput = "Some input text";
+            const string originalOutput = "Some output text";
+            const string originalNotRelevantText = "Really not relevant";
 
             var n = new Random(21).Next(1, 20);
             var failureMechanismEntity = new FailureMechanismEntity
@@ -344,7 +352,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = comments,
+                InputComments = originalInput,
+                OutputComments = originalOutput,
+                NotRelevantComments = originalNotRelevantText,
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
@@ -362,7 +372,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.GrassCoverErosionInwards.IsRelevant);
-            Assert.AreEqual(comments, section.GrassCoverErosionInwards.Comments);
+            Assert.AreEqual(originalInput, section.GrassCoverErosionInwards.InputComments.Comments);
+            Assert.AreEqual(originalOutput, section.GrassCoverErosionInwards.OutputComments.Comments);
+            Assert.AreEqual(originalNotRelevantText, section.GrassCoverErosionInwards.NotRelevantComments.Comments);
             Assert.AreEqual(n, section.GrassCoverErosionInwards.GeneralInput.N);
         }
 
@@ -447,7 +459,9 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var entity = CreateAssessmentSectionEntity();
-            const string comments = "Some text";
+            const string inputComments = "Some input text";
+            const string outputComments = "Some output text";
+            const string notRelevantComments = "Really not relevant";
 
             int n = new Random(21).Next(1, 20);
             var failureMechanismEntity = new FailureMechanismEntity
@@ -455,7 +469,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = comments,
+                InputComments = inputComments,
+                OutputComments = outputComments,
+                NotRelevantComments = notRelevantComments,
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
@@ -473,7 +489,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.GrassCoverErosionOutwards.IsRelevant);
-            Assert.AreEqual(comments, section.GrassCoverErosionOutwards.Comments);
+            Assert.AreEqual(inputComments, section.GrassCoverErosionOutwards.InputComments.Comments);
+            Assert.AreEqual(outputComments, section.GrassCoverErosionOutwards.OutputComments.Comments);
+            Assert.AreEqual(notRelevantComments, section.GrassCoverErosionOutwards.NotRelevantComments.Comments);
             Assert.AreEqual(n, section.GrassCoverErosionOutwards.GeneralInput.N);
         }
 
@@ -578,14 +596,18 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var entity = CreateAssessmentSectionEntity();
-            const string comments = "Some text";
+            const string inputComments = "Some input text";
+            const string outputComments = "Some output text";
+            const string notRelevantComments = "Really not relevant";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.StabilityStoneRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = comments
+                InputComments = inputComments,
+                OutputComments = outputComments,
+                NotRelevantComments = notRelevantComments
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
 
@@ -596,7 +618,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.StabilityStoneCover.IsRelevant);
-            Assert.AreEqual(comments, section.StabilityStoneCover.Comments);
+            Assert.AreEqual(inputComments, section.StabilityStoneCover.InputComments.Comments);
+            Assert.AreEqual(outputComments, section.StabilityStoneCover.OutputComments.Comments);
+            Assert.AreEqual(notRelevantComments, section.StabilityStoneCover.NotRelevantComments.Comments);
         }
 
         [Test]
@@ -689,14 +713,18 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var entity = CreateAssessmentSectionEntity();
-            const string comments = "Some text";
+            const string inputComments = "Some input text";
+            const string outputComments = "Some output text";
+            const string notRelevantComments = "Really not relevant";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.WaveImpactOnAsphaltRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = comments
+                InputComments = inputComments,
+                OutputComments = outputComments,
+                NotRelevantComments = notRelevantComments
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
 
@@ -707,7 +735,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.WaveImpactAsphaltCover.IsRelevant);
-            Assert.AreEqual(comments, section.WaveImpactAsphaltCover.Comments);
+            Assert.AreEqual(inputComments, section.WaveImpactAsphaltCover.InputComments.Comments);
+            Assert.AreEqual(outputComments, section.WaveImpactAsphaltCover.OutputComments.Comments);
+            Assert.AreEqual(notRelevantComments, section.WaveImpactAsphaltCover.NotRelevantComments.Comments);
         }
 
         [Test]
@@ -797,14 +827,18 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-            const string comments = "Some text";
+            const string inputComments = "Some input text";
+            const string outputComments = "Some output text";
+            const string notRelevantComments = "Really not relevant";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.StructureHeight,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = comments,
+                InputComments = inputComments,
+                OutputComments = outputComments,
+                NotRelevantComments = notRelevantComments,
                 HeightStructuresFailureMechanismMetaEntities =
                 {
                     new HeightStructuresFailureMechanismMetaEntity
@@ -822,7 +856,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.HeightStructures.IsRelevant);
-            Assert.AreEqual(comments, section.HeightStructures.Comments);
+            Assert.AreEqual(inputComments, section.HeightStructures.InputComments.Comments);
+            Assert.AreEqual(outputComments, section.HeightStructures.OutputComments.Comments);
+            Assert.AreEqual(notRelevantComments, section.HeightStructures.NotRelevantComments.Comments);
         }
 
         [Test]
@@ -832,14 +868,18 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-            const string comments = "Some text";
+            const string inputComments = "Some input text";
+            const string outputComments = "Some output text";
+            const string notRelevantComments = "Really not relevant";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.ReliabilityClosingOfStructure,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = comments,
+                InputComments = inputComments,
+                OutputComments = outputComments,
+                NotRelevantComments = notRelevantComments,
                 ClosingStructureFailureMechanismMetaEntities =
                 {
                     new ClosingStructureFailureMechanismMetaEntity
@@ -857,7 +897,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.ClosingStructures.IsRelevant);
-            Assert.AreEqual(comments, section.ClosingStructures.Comments);
+            Assert.AreEqual(inputComments, section.ClosingStructures.InputComments.Comments);
+            Assert.AreEqual(outputComments, section.ClosingStructures.OutputComments.Comments);
+            Assert.AreEqual(notRelevantComments, section.ClosingStructures.NotRelevantComments.Comments);
         }
 
         [Test]
@@ -867,14 +909,18 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-            const string comments = "Some text";
+            const string inputComments = "Some input text";
+            const string outputComments = "Some output text";
+            const string notRelevantComments = "Really not relevant";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.StabilityPointStructures,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = comments,
+                InputComments = inputComments,
+                OutputComments = outputComments,
+                NotRelevantComments = notRelevantComments,
                 StabilityPointStructuresFailureMechanismMetaEntities =
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
@@ -892,7 +938,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.StabilityPointStructures.IsRelevant);
-            Assert.AreEqual(comments, section.StabilityPointStructures.Comments);
+            Assert.AreEqual(inputComments, section.StabilityPointStructures.InputComments.Comments);
+            Assert.AreEqual(outputComments, section.StabilityPointStructures.OutputComments.Comments);
+            Assert.AreEqual(notRelevantComments, section.StabilityPointStructures.NotRelevantComments.Comments);
         }
 
         [Test]
@@ -902,25 +950,35 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var entity = CreateAssessmentSectionEntity();
-            var macrostabilityInwardsEntityComment = "2";
-            var macrostabilityOutwardsEntityComment = "3";
-            var microstabilityEntityComment = "4";
-            var failingOfConstructionLengthwiseEntityComment = "23";
-            var waterPressureEntityComment = "78";
-            var grassCoverSlipoffOutwardsEntityComment = "134";
-            var grassCoverSlipoffInwardsEntityComment = "135";
-            var duneErosionEntityComment = "256";
-            var technicalInnovationsEntityComment = "257";
 
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, macrostabilityInwardsEntityComment, FailureMechanismType.MacrostabilityInwards));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, macrostabilityOutwardsEntityComment, FailureMechanismType.MacrostabilityOutwards));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, microstabilityEntityComment, FailureMechanismType.Microstability));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, failingOfConstructionLengthwiseEntityComment, FailureMechanismType.StrengthAndStabilityParallelConstruction));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, waterPressureEntityComment, FailureMechanismType.WaterOverpressureAsphaltRevetment));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, grassCoverSlipoffOutwardsEntityComment, FailureMechanismType.GrassRevetmentSlidingOutwards));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, grassCoverSlipoffInwardsEntityComment, FailureMechanismType.GrassRevetmentSlidingInwards));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, duneErosionEntityComment, FailureMechanismType.DuneErosion));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, technicalInnovationsEntityComment, FailureMechanismType.TechnicalInnovations));
+            FailureMechanismEntity macrostabilityInwards = CreateFailureMechanismEntity(
+                isRelevant, FailureMechanismType.MacrostabilityInwards);
+            FailureMechanismEntity macrostabilityOutwards = CreateFailureMechanismEntity(
+                isRelevant, FailureMechanismType.MacrostabilityOutwards);
+            FailureMechanismEntity microstability = CreateFailureMechanismEntity(
+                isRelevant, FailureMechanismType.Microstability);
+            FailureMechanismEntity strengthAndStabilityParallelConstruction = CreateFailureMechanismEntity(
+                isRelevant, FailureMechanismType.StrengthAndStabilityParallelConstruction);
+            FailureMechanismEntity waterOverpressureAsphaltRevetment = CreateFailureMechanismEntity(
+                isRelevant, FailureMechanismType.WaterOverpressureAsphaltRevetment);
+            FailureMechanismEntity grassRevetmentSlidingOutwards = CreateFailureMechanismEntity(
+                isRelevant, FailureMechanismType.GrassRevetmentSlidingOutwards);
+            FailureMechanismEntity grassRevetmentSlidingInwards = CreateFailureMechanismEntity(
+                isRelevant, FailureMechanismType.GrassRevetmentSlidingInwards);
+            FailureMechanismEntity duneErosion = CreateFailureMechanismEntity(
+                isRelevant, FailureMechanismType.DuneErosion);
+            FailureMechanismEntity technicalInnovations = CreateFailureMechanismEntity(
+                isRelevant, FailureMechanismType.TechnicalInnovations);
+
+            entity.FailureMechanismEntities.Add(macrostabilityInwards);
+            entity.FailureMechanismEntities.Add(macrostabilityOutwards);
+            entity.FailureMechanismEntities.Add(microstability);
+            entity.FailureMechanismEntities.Add(strengthAndStabilityParallelConstruction);
+            entity.FailureMechanismEntities.Add(waterOverpressureAsphaltRevetment);
+            entity.FailureMechanismEntities.Add(grassRevetmentSlidingOutwards);
+            entity.FailureMechanismEntities.Add(grassRevetmentSlidingInwards);
+            entity.FailureMechanismEntities.Add(duneErosion);
+            entity.FailureMechanismEntities.Add(technicalInnovations);
 
             var collector = new ReadConversionCollector();
 
@@ -928,15 +986,30 @@ namespace Application.Ringtoets.Storage.Test.Read
             var section = entity.Read(collector);
 
             // Assert
-            AssertFailureMechanismEqual(isRelevant, macrostabilityInwardsEntityComment, 2, section.MacrostabilityInwards);
-            AssertFailureMechanismEqual(isRelevant, macrostabilityOutwardsEntityComment, 2, section.MacrostabilityOutwards);
-            AssertFailureMechanismEqual(isRelevant, microstabilityEntityComment, 2, section.Microstability);
-            AssertFailureMechanismEqual(isRelevant, failingOfConstructionLengthwiseEntityComment, 2, section.StrengthStabilityLengthwiseConstruction);
-            AssertFailureMechanismEqual(isRelevant, waterPressureEntityComment, 2, section.WaterPressureAsphaltCover);
-            AssertFailureMechanismEqual(isRelevant, grassCoverSlipoffOutwardsEntityComment, 2, section.GrassCoverSlipOffOutwards);
-            AssertFailureMechanismEqual(isRelevant, grassCoverSlipoffInwardsEntityComment, 2, section.GrassCoverSlipOffInwards);
-            AssertFailureMechanismEqual(isRelevant, duneErosionEntityComment, 2, section.DuneErosion);
-            AssertFailureMechanismEqual(isRelevant, technicalInnovationsEntityComment, 2, section.TechnicalInnovation);
+            AssertFailureMechanismEqual(isRelevant, 2, macrostabilityInwards.InputComments,
+                                        macrostabilityInwards.OutputComments, macrostabilityInwards.NotRelevantComments,
+                                        section.MacrostabilityInwards);
+            AssertFailureMechanismEqual(isRelevant, 2, macrostabilityOutwards.InputComments,
+                                        macrostabilityOutwards.OutputComments, macrostabilityOutwards.NotRelevantComments,
+                                        section.MacrostabilityOutwards);
+            AssertFailureMechanismEqual(isRelevant, 2, microstability.InputComments,
+                                        microstability.OutputComments, microstability.NotRelevantComments, section.Microstability);
+            AssertFailureMechanismEqual(isRelevant, 2, strengthAndStabilityParallelConstruction.InputComments,
+                                        strengthAndStabilityParallelConstruction.OutputComments,
+                                        strengthAndStabilityParallelConstruction.NotRelevantComments,
+                                        section.StrengthStabilityLengthwiseConstruction);
+            AssertFailureMechanismEqual(isRelevant, 2, waterOverpressureAsphaltRevetment.InputComments,
+                                        waterOverpressureAsphaltRevetment.OutputComments,
+                                        waterOverpressureAsphaltRevetment.NotRelevantComments,
+                                        section.WaterPressureAsphaltCover);
+            AssertFailureMechanismEqual(isRelevant, 2, grassRevetmentSlidingOutwards.InputComments,
+                                        grassRevetmentSlidingOutwards.OutputComments, grassRevetmentSlidingOutwards.NotRelevantComments,
+                                        section.GrassCoverSlipOffOutwards);
+            AssertFailureMechanismEqual(isRelevant, 2, duneErosion.InputComments, duneErosion.OutputComments,
+                                        duneErosion.NotRelevantComments, section.DuneErosion);
+            AssertFailureMechanismEqual(isRelevant, 2, technicalInnovations.InputComments,
+                                        technicalInnovations.OutputComments, technicalInnovations.NotRelevantComments,
+                                        section.TechnicalInnovation);
         }
 
         private static AssessmentSectionEntity CreateAssessmentSectionEntity()
@@ -947,22 +1020,28 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
         }
 
-        private static FailureMechanismEntity CreateFailureMechanismEntity(bool isRelevant, string comment, FailureMechanismType failureMechanismType)
+        private static FailureMechanismEntity CreateFailureMechanismEntity(bool isRelevant,
+                                                                           FailureMechanismType failureMechanismType)
         {
             return new FailureMechanismEntity
             {
                 FailureMechanismType = (short) failureMechanismType,
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = comment,
+                InputComments = string.Concat("InputComment", failureMechanismType.ToString()),
+                OutputComments = string.Concat("OutputComment", failureMechanismType.ToString()),
+                NotRelevantComments = string.Concat("NotRelevantComment", failureMechanismType.ToString()),
                 FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             };
         }
 
-        private static void AssertFailureMechanismEqual(bool expectedIsRelevant, string expectedComments,
-                                                        int expectedSectionCount, IFailureMechanism failureMechanism)
+        private static void AssertFailureMechanismEqual(bool expectedIsRelevant, int expectedSectionCount,
+                                                        string expectedInputComments, string expectedOutputComments,
+                                                        string expectedNotRelevantComments, IFailureMechanism failureMechanism)
         {
             Assert.AreEqual(expectedIsRelevant, failureMechanism.IsRelevant);
-            Assert.AreEqual(expectedComments, failureMechanism.Comments);
+            Assert.AreEqual(expectedInputComments, failureMechanism.InputComments.Comments);
+            Assert.AreEqual(expectedOutputComments, failureMechanism.OutputComments.Comments);
+            Assert.AreEqual(expectedNotRelevantComments, failureMechanism.NotRelevantComments.Comments);
             Assert.AreEqual(expectedSectionCount, failureMechanism.Sections.Count());
         }
 

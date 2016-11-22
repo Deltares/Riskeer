@@ -61,7 +61,9 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<long> CalculationGroupEntityId { get; set; }
         public short FailureMechanismType { get; set; }
         public byte IsRelevant { get; set; }
-        public string Comments { get; set; }
+        public string InputComments { get; set; }
+        public string OutputComments { get; set; }
+        public string NotRelevantComments { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }

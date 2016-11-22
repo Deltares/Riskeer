@@ -53,7 +53,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new FailureMechanismEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = "Some comment"
+                InputComments = "Some input text",
+                OutputComments = "Some output text",
+                NotRelevantComments = "Really not relevant"
             };
             var collector = new ReadConversionCollector();
             var failureMechanism = new TestFailureMechanism();
@@ -64,7 +66,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsEmpty(failureMechanism.Sections);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
-            Assert.AreEqual(entity.Comments, failureMechanism.Comments);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Comments);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Comments);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Comments);
             Assert.IsEmpty(failureMechanism.Sections);
         }
 
@@ -143,7 +147,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new FailureMechanismEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = "Some comment",
+                InputComments = "Some input text",
+                OutputComments = "Some output text",
+                NotRelevantComments = "Really not relevant",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 PipingFailureMechanismMetaEntities = new[]
                 {
@@ -162,7 +168,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
-            Assert.AreEqual(entity.Comments, failureMechanism.Comments);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Comments);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Comments);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Comments);
             Assert.IsEmpty(failureMechanism.StochasticSoilModels);
             Assert.IsEmpty(failureMechanism.Sections);
 
@@ -331,7 +339,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new FailureMechanismEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = "Some comment",
+                InputComments = "Some input text",
+                OutputComments = "Some output text",
+                NotRelevantComments = "Really not relevant",
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
@@ -350,7 +360,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
-            Assert.AreEqual(entity.Comments, failureMechanism.Comments);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Comments);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Comments);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Comments);
             Assert.IsEmpty(failureMechanism.Sections);
 
             Assert.AreEqual(3, failureMechanism.GeneralInput.N);
@@ -492,7 +504,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new FailureMechanismEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
-                Comments = "Some comment",
+                InputComments = "Some input text",
+                OutputComments = "Some output text",
+                NotRelevantComments = "Really not relevant",
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
@@ -511,7 +525,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
-            Assert.AreEqual(entity.Comments, failureMechanism.Comments);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Comments);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Comments);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Comments);
             Assert.IsEmpty(failureMechanism.Sections);
 
             Assert.AreEqual(3, failureMechanism.GeneralInput.N);

@@ -60,7 +60,18 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 IsRelevant = isRelevant,
-                Comments = "Some text",
+                InputComments =
+                {
+                    Comments = "Some input text"
+                },
+                OutputComments =
+                {
+                    Comments = "Some output text"
+                },
+                NotRelevantComments =
+                {
+                    Comments = "Really not relevant"
+                },
                 GeneralInput =
                 {
                     N2A = 5
@@ -75,7 +86,9 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.ReliabilityClosingOfStructure, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
-            Assert.AreEqual(failureMechanism.Comments, entity.Comments);
+            Assert.AreEqual(failureMechanism.InputComments.Comments, entity.InputComments);
+            Assert.AreEqual(failureMechanism.OutputComments.Comments, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.NotRelevantComments.Comments, entity.NotRelevantComments);
 
             ClosingStructureFailureMechanismMetaEntity metaEntity = entity.ClosingStructureFailureMechanismMetaEntities.First();
             Assert.AreEqual(failureMechanism.GeneralInput.N2A, metaEntity.N2A);
@@ -85,10 +98,23 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            const string original = "Some text";
+            const string originalInput = "Some input text";
+            const string originalOutput = "Some output text";
+            const string originalNotRelevantText = "Really not relevant";
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                Comments = original
+                InputComments =
+                {
+                    Comments = originalInput
+                },
+                OutputComments =
+                {
+                    Comments = originalOutput
+                },
+                NotRelevantComments =
+                {
+                    Comments = originalNotRelevantText
+                }
             };
             var registry = new PersistenceRegistry();
 
@@ -96,9 +122,15 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             var entity = failureMechanism.Create(registry);
 
             // Assert
-            Assert.AreNotSame(original, entity.Comments,
+            Assert.AreNotSame(originalInput, entity.InputComments,
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.Comments, entity.Comments);
+            Assert.AreEqual(failureMechanism.InputComments.Comments, entity.InputComments);
+            Assert.AreNotSame(originalOutput, entity.OutputComments,
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(failureMechanism.OutputComments.Comments, entity.OutputComments);
+            Assert.AreNotSame(originalNotRelevantText, entity.NotRelevantComments,
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(failureMechanism.NotRelevantComments.Comments, entity.NotRelevantComments);
         }
 
         [Test]
