@@ -100,15 +100,28 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns>An array of features or an empty array when <paramref name="sections"/> is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateFailureMechanismSectionFeatures(IEnumerable<FailureMechanismSection> sections)
         {
-            return sections != null && sections.Any()
-                       ? new[]
-                       {
-                           new MapFeature(sections.Select(section => new MapGeometry(new[]
-                           {
-                               section.Points.Select(p => new Point2D(p.X, p.Y))
-                           })))
-                       }
-                       : new MapFeature[0];
+            var features = new List<MapFeature>();
+
+            if (sections != null && sections.Any())
+            {
+                foreach (var section in sections)
+                {
+                    var feature = new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            section.Points.Select(p => new Point2D(p.X, p.Y))
+                        })
+                    });
+
+                    feature.MetaData[Resources.MetaData_Name] = section.Name;
+                    feature.MetaData[Resources.MetaData_Length] = Math2D.Length(section.Points);
+
+                    features.Add(feature);
+                }
+            }
+
+            return features.ToArray();
         }
 
         /// <summary>

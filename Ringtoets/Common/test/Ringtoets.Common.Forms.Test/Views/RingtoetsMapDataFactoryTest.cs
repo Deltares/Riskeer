@@ -55,6 +55,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsEmpty(data.Features);
             Assert.AreEqual("Vakindeling", data.Name);
             AssertEqualStyle(data.Style, Color.Khaki, 3, DashStyle.Dot);
+            Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
 
         [Test]

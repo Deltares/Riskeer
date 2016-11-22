@@ -41,6 +41,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Views;
+using Ringtoets.Common.Forms.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
@@ -212,7 +213,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 var mapDataList = mapData.Collection.ToList();
                 Assert.AreEqual(7, mapDataList.Count);
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
-                AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
+                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase, mapDataList[hydraulicBoundaryDatabaseIndex]);
@@ -336,7 +337,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 failureMechanism.NotifyObservers();
 
                 // Assert
-                AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
+                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
                 AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
                 AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
             }
@@ -586,25 +587,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 CollectionAssert.AreEqual(database.Locations.Select(hrp => hrp.Location), hydraulicLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
-        }
-
-        private static void AssertFailureMechanismSectionsMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapLineData>(mapData);
-            var sectionsMapLinesData = (MapLineData)mapData;
-            var sectionMapLinesFeatures = sectionsMapLinesData.Features.ToArray();
-            Assert.AreEqual(1, sectionMapLinesFeatures.Length);
-
-            var geometries = sectionMapLinesFeatures.First().MapGeometries.ToArray();
-            var sectionsArray = sections.ToArray();
-            Assert.AreEqual(sectionsArray.Length, geometries.Length);
-
-            for (int index = 0; index < sectionsArray.Length; index++)
-            {
-                var failureMechanismSection = sectionsArray[index];
-                CollectionAssert.AreEquivalent(failureMechanismSection.Points, geometries[index].PointCollections.First());
-            }
-            Assert.AreEqual("Vakindeling", mapData.Name);
         }
 
         private static void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)

@@ -241,6 +241,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CreateFailureMechanismSectionFeatures_GivenSections_ReturnsSectionFeaturesArray()
         {
             // Setup
+            const string sectionName1 = "section 1";
+            const string sectionName2 = "section 2";
+
             var pointsOne = new[]
             {
                 new Point2D(1.2, 2.3),
@@ -251,20 +254,28 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new Point2D(3.2, 23.3),
                 new Point2D(7.7, 12.6)
             };
+
             var sections = new[]
             {
-                new FailureMechanismSection(string.Empty, pointsOne),
-                new FailureMechanismSection(string.Empty, pointsTwo)
+                new FailureMechanismSection(sectionName1, pointsOne),
+                new FailureMechanismSection(sectionName2, pointsTwo)
             };
 
             // Call
             MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(sections);
 
             // Assert
-            Assert.AreEqual(1, features.Length);
-            Assert.AreEqual(2, features[0].MapGeometries.Count());
-            AssertEqualPointCollections(pointsOne, features[0].MapGeometries.ElementAt(0));
-            AssertEqualPointCollections(pointsTwo, features[0].MapGeometries.ElementAt(1));
+            Assert.AreEqual(2, features.Length);
+            for (int i= 0; i < features.Length; i++)
+            {
+                Assert.AreEqual(1, features[i].MapGeometries.Count());
+                Assert.AreEqual(2, features[i].MetaData.Keys.Count);
+
+                Assert.AreEqual(sections[i].Name, features[i].MetaData["Naam"]);
+                Assert.AreEqual(Math2D.Length(sections[i].Points), features[i].MetaData["Lengte"]);
+
+                AssertEqualPointCollections(sections[i].Points, features[i].MapGeometries.First());
+            }
         }
 
         [Test]

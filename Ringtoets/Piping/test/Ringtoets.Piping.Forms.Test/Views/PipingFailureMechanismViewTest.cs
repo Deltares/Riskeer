@@ -33,6 +33,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -243,7 +244,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(8, mapDataList.Count);
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 AssertSurfacelinesMapData(failureMechanism.SurfaceLines, mapDataList[surfaceLinesIndex]);
-                AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
+                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase, mapDataList[hydraulicBoundaryDatabaseIndex]);
@@ -405,7 +406,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 failureMechanism.NotifyObservers();
 
                 // Assert
-                AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
+                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
                 AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
                 AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
             }
@@ -735,25 +736,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 CollectionAssert.AreEqual(database.Locations.Select(hrp => hrp.Location), hydraulicLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
             }
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
-        }
-
-        private static void AssertFailureMechanismSectionsMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapLineData>(mapData);
-            var sectionsMapLinesData = (MapLineData) mapData;
-            var sectionMapLinesFeatures = sectionsMapLinesData.Features.ToArray();
-            Assert.AreEqual(1, sectionMapLinesFeatures.Length);
-
-            var geometries = sectionMapLinesFeatures.First().MapGeometries.ToArray();
-            var sectionsArray = sections.ToArray();
-            Assert.AreEqual(sectionsArray.Length, geometries.Length);
-
-            for (int index = 0; index < sectionsArray.Length; index++)
-            {
-                var failureMechanismSection = sectionsArray[index];
-                CollectionAssert.AreEquivalent(failureMechanismSection.Points, geometries[index].PointCollections.First());
-            }
-            Assert.AreEqual("Vakindeling", mapData.Name);
         }
 
         private static void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)

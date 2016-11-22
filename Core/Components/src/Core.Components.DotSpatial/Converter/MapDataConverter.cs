@@ -93,7 +93,7 @@ namespace Core.Components.DotSpatial.Converter
                 {
                     Orientation = ContentAlignment.MiddleRight,
                     OffsetX = 5,
-                    PriorityField = "ID"
+                    PriorityField = labelToShow
                 };
                 labelLayer.Symbology.Categories[0].Expression = string.Format("[{0}]", labelToShow);
             }

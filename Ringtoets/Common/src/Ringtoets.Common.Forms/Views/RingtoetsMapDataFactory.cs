@@ -80,7 +80,8 @@ namespace Ringtoets.Common.Forms.Views
         {
             return new MapLineData(Resources.FailureMechanism_Sections_DisplayName)
             {
-                Style = new LineStyle(Color.Khaki, thickLineWidth, DashStyle.Dot)
+                Style = new LineStyle(Color.Khaki, thickLineWidth, DashStyle.Dot),
+                SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }
 

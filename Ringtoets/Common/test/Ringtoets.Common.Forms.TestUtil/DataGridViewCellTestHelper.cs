@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.Common.Forms.TestUtil
 {
     /// <summary>
-    /// Class that can be used to test properties of a <see cref="System.Windows.Forms.DataGridViewCell"/>.
+    /// Class that can be used to test properties of a <see cref="DataGridViewCell"/>.
     /// </summary>
     public static class DataGridViewCellTestHelper
     {
