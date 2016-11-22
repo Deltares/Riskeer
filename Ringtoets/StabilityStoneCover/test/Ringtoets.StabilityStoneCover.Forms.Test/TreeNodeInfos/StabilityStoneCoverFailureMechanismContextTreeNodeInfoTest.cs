@@ -200,7 +200,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             Assert.AreSame(assessmentSection, profilesContext.ParentAssessmentSection);
 
             var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
-            Assert.AreSame(failureMechanism, commentContext.WrappedData);
+            Assert.AreSame(failureMechanism.InputComments, commentContext.WrappedData);
 
             var hydraulicBoundariesCalculationGroup = (StabilityStoneCoverWaveConditionsCalculationGroupContext) children[1];
             Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, hydraulicBoundariesCalculationGroup.WrappedData);
@@ -209,15 +209,18 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-            Assert.AreEqual(1, outputsFolder.Contents.Count);
+            Assert.AreEqual(2, outputsFolder.Contents.Count);
 
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>) outputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+
+            var outputCommentContext = (CommentContext<ICommentable>) outputsFolder.Contents[1];
+            Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -236,7 +239,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, children.Length);
             var commentContext = (CommentContext<ICommentable>) children[0];
-            Assert.AreSame(failureMechanism, commentContext.WrappedData);
+            Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
         }
 
         [Test]
@@ -376,9 +379,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
                                                                                              assessmentSection);
 
+                var viewCommands = mocks.StrictMock<IViewCommands>();
+                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.StrictMock<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
 
                 mocks.ReplayAll();

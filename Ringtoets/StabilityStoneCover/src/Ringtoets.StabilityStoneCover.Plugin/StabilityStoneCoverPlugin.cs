@@ -174,7 +174,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as StabilityStoneCoverFailureMechanism;
 
-            var viewFailureMechanismContext = (StabilityStoneCoverFailureMechanismContext)view.Data;
+            var viewFailureMechanismContext = (StabilityStoneCoverFailureMechanismContext) view.Data;
             var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
@@ -230,7 +230,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(failureMechanismContext.WrappedData)
+                new CommentContext<ICommentable>(failureMechanismContext.WrappedData.NotRelevantComments)
             };
         }
 
@@ -240,7 +240,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism)
+                new CommentContext<ICommentable>(failureMechanism.InputComments)
             };
         }
 
@@ -248,11 +248,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             return new ArrayList
             {
-                new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
+                new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism),
+                new CommentContext<ICommentable>(failureMechanism.OutputComments)
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(StabilityStoneCoverFailureMechanismContext failureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(StabilityStoneCoverFailureMechanismContext failureMechanismContext,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
@@ -272,11 +276,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(StabilityStoneCoverFailureMechanismContext failureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(StabilityStoneCoverFailureMechanismContext failureMechanismContext,
+                                                                          object parentData,
+                                                                          TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, null)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

@@ -213,8 +213,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, foreshoreProfilesContext.ParentFailureMechanism);
                 Assert.AreSame(assessmentSection, foreshoreProfilesContext.ParentAssessmentSection);
 
-                var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
-                Assert.AreSame(failureMechanism, commentContext.WrappedData);
+                var inputCommentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
+                Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
 
                 var hydraulicBoundariesCalculationGroup = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext) children[1];
                 Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, hydraulicBoundariesCalculationGroup.WrappedData);
@@ -223,17 +223,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var outputsFolder = (CategoryTreeFolder) children[2];
                 Assert.AreEqual("Oordeel", outputsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-                Assert.AreEqual(1, outputsFolder.Contents.Count);
+                Assert.AreEqual(2, outputsFolder.Contents.Count);
 
                 var failureMechanismResultsContext = (FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>)
                                                      outputsFolder.Contents[0];
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+
+                var outputCommentContext = (CommentContext<ICommentable>) outputsFolder.Contents[1];
+                Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
             }
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -256,7 +259,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(1, children.Length);
                 var commentContext = (CommentContext<ICommentable>) children[0];
-                Assert.AreSame(failureMechanism, commentContext.WrappedData);
+                Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
             }
         }
 
@@ -412,9 +415,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
                                                                                                 assessmentSection);
 
+                var viewCommands = mocks.StrictMock<IViewCommands>();
+                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.StrictMock<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
 
                 mocks.ReplayAll();

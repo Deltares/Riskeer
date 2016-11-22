@@ -177,7 +177,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as WaveImpactAsphaltCoverFailureMechanism;
 
-            var viewFailureMechanismContext = (WaveImpactAsphaltCoverFailureMechanismContext)view.Data;
+            var viewFailureMechanismContext = (WaveImpactAsphaltCoverFailureMechanismContext) view.Data;
             var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
@@ -233,7 +233,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(failureMechanismContext.WrappedData)
+                new CommentContext<ICommentable>(failureMechanismContext.WrappedData.NotRelevantComments)
             };
         }
 
@@ -243,7 +243,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism)
+                new CommentContext<ICommentable>(failureMechanism.InputComments)
             };
         }
 
@@ -251,11 +251,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             return new ArrayList
             {
-                new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
+                new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism),
+                new CommentContext<ICommentable>(failureMechanism.OutputComments)
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
@@ -275,11 +279,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext,
+                                                                          object parentData,
+                                                                          TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, null)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
