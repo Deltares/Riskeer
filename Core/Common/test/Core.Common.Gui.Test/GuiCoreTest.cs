@@ -1000,27 +1000,33 @@ namespace Core.Common.Gui.Test
             // Setup
             var mocks = new MockRepository();
             var storeProject = mocks.Stub<IStoreProject>();
-            var projectFactory = CreateProjectFactory(mocks);
-            var oldProjectMock = mocks.Stub<IProject>();
-            var newProjectMock = mocks.Stub<IProject>();
+            var oldProject = mocks.Stub<IProject>();
+            var newProject = mocks.Stub<IProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(oldProject);
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), storeProject, projectFactory, new GuiCoreSettings()))
             {
-                gui.SetProject(oldProjectMock, null);
-
                 int openedCallCount = 0;
+                int beforeOpenCallCount = 0;
+                gui.BeforeProjectOpened += project =>
+                {
+                    Assert.AreSame(oldProject, project);
+                    beforeOpenCallCount++;
+                };
                 gui.ProjectOpened += project =>
                 {
-                    Assert.AreSame(newProjectMock, project);
+                    Assert.AreSame(newProject, project);
                     openedCallCount++;
                 };
 
                 // Call
-                gui.SetProject(newProjectMock, null);
+                gui.SetProject(newProject, null);
 
                 // Assert
                 Assert.AreEqual(1, openedCallCount);
+                Assert.AreEqual(1, beforeOpenCallCount);
             }
             mocks.VerifyAll();
         }

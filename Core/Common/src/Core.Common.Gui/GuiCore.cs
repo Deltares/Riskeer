@@ -125,6 +125,7 @@ namespace Core.Common.Gui
             ViewPropertyEditor.ViewCommands = ViewCommands;
 
             ProjectOpened += ApplicationProjectOpened;
+            BeforeProjectOpened += ApplicationBeforeProjectOpened;
             projectObserver = new Observer(UpdateTitle);
 
             Project = projectFactory.CreateNewProject();
@@ -378,9 +379,13 @@ namespace Core.Common.Gui
                 mainWindow.ValidateItems();
             }
 
-            ViewCommands.RemoveAllViewsForItem(project);
-            projectObserver.Observable = project;
+            projectObserver.Observable = newProject;
             UpdateTitle();
+        }
+
+        private void ApplicationBeforeProjectOpened(IProject oldProject)
+        {
+            ViewCommands.RemoveAllViewsForItem(project);
         }
 
         private static void ConfigureLogging()
@@ -585,6 +590,7 @@ namespace Core.Common.Gui
         #region Implementation: IProjectOwner
 
         private IProject project;
+        public event Action<IProject> BeforeProjectOpened;
         public event Action<IProject> ProjectOpened;
 
         public string ProjectFilePath { get; private set; }
@@ -604,9 +610,18 @@ namespace Core.Common.Gui
 
                 if (!ReferenceEquals(project, value))
                 {
+                    OnBeforeProjectOpened();
                     project = value;
                     OnProjectOpened();
                 }
+            }
+        }
+
+        private void OnBeforeProjectOpened()
+        {
+            if (BeforeProjectOpened != null)
+            {
+                BeforeProjectOpened(project);
             }
         }
 

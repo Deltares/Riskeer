@@ -30,7 +30,12 @@ namespace Core.Common.Gui
     public interface IProjectOwner
     {
         /// <summary>
-        /// Occurs when a new instance is available at <see cref="IProject"/>.
+        /// Occurs just before a new instance is available at <see cref="Project"/>.
+        /// </summary>
+        event Action<IProject> BeforeProjectOpened;
+
+        /// <summary>
+        /// Occurs when a new instance is available at <see cref="Project"/>.
         /// </summary>
         event Action<IProject> ProjectOpened;
 
