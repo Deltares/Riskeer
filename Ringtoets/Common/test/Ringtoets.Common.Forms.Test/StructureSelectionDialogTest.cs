@@ -138,10 +138,10 @@ namespace Ringtoets.Common.Forms.Test
                 Assert.AreEqual(testname, (string) dataGridViewControl.Rows[0].Cells[nameColumnIndex].Value);
             }
         }
-    }
 
-    public class TestStructure : StructureBase
-    {
-        public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
+        public class TestStructure : StructureBase
+        {
+            public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) { }
+        }
     }
 }

@@ -199,7 +199,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 });
 
                 var surfaceLineA = new RingtoetsPipingSurfaceLine();
-                surfaceLineA.SetGeometry(new []
+                surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
@@ -632,7 +632,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var stochasticSoilModelsData = (MapLineData) mapDataList[updatedStochasticSoilModelsLayerIndex];
                 Assert.AreEqual("Stochastische ondergrondmodellen", stochasticSoilModelsData.Name);
 
-                var calculationsData = (MapLineData)mapDataList[updatedCalculationsIndex];
+                var calculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
                 Assert.AreEqual("Berekeningen", calculationsData.Name);
 
                 var points = new List<Point2D>
@@ -669,7 +669,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var actualStochasticSoilModelsData = (MapLineData) mapDataList[updatedStochasticSoilModelsLayerIndex];
                 Assert.AreEqual("Stochastische ondergrondmodellen", actualStochasticSoilModelsData.Name);
 
-                var actualCalculationsData = (MapLineData)mapDataList[updatedCalculationsIndex];
+                var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
                 Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
             }
         }
@@ -800,18 +800,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var calculationsFeatures = calculationsMapData.Features.ToArray();
             Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
 
-
             for (int index = 0; index < calculationsArray.Length; index++)
             {
                 var geometries = calculationsFeatures[index].MapGeometries.ToArray();
                 Assert.AreEqual(1, geometries.Length);
 
                 PipingCalculationScenario calculation = calculationsArray[index];
-                    CollectionAssert.AreEquivalent(new[] {
-                        calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint, 
-                        calculation.InputParameters.HydraulicBoundaryLocation.Location
-                    },
-                    geometries[0].PointCollections.First());
+                CollectionAssert.AreEquivalent(new[]
+                {
+                    calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
+                    calculation.InputParameters.HydraulicBoundaryLocation.Location
+                },
+                                               geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
         }
@@ -831,7 +831,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var sectionsStartPointMapData = (MapPointData) mapDataList[sectionsStartPointIndex];
             var sectionsEndPointMapData = (MapPointData) mapDataList[sectionsEndPointIndex];
             var hydraulicBoundaryDatabaseMapData = (MapPointData) mapDataList[hydraulicBoundaryDatabaseIndex];
-            var calculationsMapData = (MapLineData)mapDataList[calculationsIndex];
+            var calculationsMapData = (MapLineData) mapDataList[calculationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(sectionsMapData.Features);

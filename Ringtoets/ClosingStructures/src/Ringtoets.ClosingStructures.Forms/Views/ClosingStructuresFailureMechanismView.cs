@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
@@ -30,6 +31,8 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
@@ -46,6 +49,10 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         private readonly Observer foreshoreProfilesObserver;
         private readonly Observer structuresObserver;
 
+        private readonly RecursiveObserver<CalculationGroup, ClosingStructuresInput> calculationInputObserver;
+        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+        private readonly RecursiveObserver<CalculationGroup, StructuresCalculation<ClosingStructuresInput>> calculationObserver;
+
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
         private readonly MapPointData sectionsStartPointMapData;
@@ -53,6 +60,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         private readonly MapPointData hydraulicBoundaryDatabaseMapData;
         private readonly MapLineData foreshoreProfilesMapData;
         private readonly MapPointData structuresMapData;
+        private readonly MapLineData calculationsMapData;
 
         private ClosingStructuresFailureMechanismContext data;
 
@@ -68,6 +76,11 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             foreshoreProfilesObserver = new Observer(UpdateMapData);
             structuresObserver = new Observer(UpdateMapData);
 
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, ClosingStructuresInput>(
+                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<ClosingStructuresInput>>().Select(pc => pc.InputParameters)));
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
+            calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<ClosingStructuresInput>>(UpdateMapData, pcg => pcg.Children);
+
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryDatabaseMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
             foreshoreProfilesMapData = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
@@ -76,6 +89,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+            calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
 
             mapControl.Data.Add(referenceLineMapData);
             mapControl.Data.Add(sectionsMapData);
@@ -84,6 +98,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             mapControl.Data.Add(hydraulicBoundaryDatabaseMapData);
             mapControl.Data.Add(foreshoreProfilesMapData);
             mapControl.Data.Add(structuresMapData);
+            mapControl.Data.Add(calculationsMapData);
 
             mapControl.Data.Name = ClosingStructuresDataResources.ClosingStructuresFailureMechanism_DisplayName;
             mapControl.Data.NotifyObservers();
@@ -105,6 +120,9 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                     assessmentSectionObserver.Observable = null;
                     foreshoreProfilesObserver.Observable = null;
                     structuresObserver.Observable = null;
+                    calculationInputObserver.Observable = null;
+                    calculationGroupObserver.Observable = null;
+                    calculationObserver.Observable = null;
 
                     Map.ResetMapData();
                     return;
@@ -114,6 +132,9 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 assessmentSectionObserver.Observable = data.Parent;
                 foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
                 structuresObserver.Observable = data.WrappedData.ClosingStructures;
+                calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
+                calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
+                calculationObserver.Observable = data.WrappedData.CalculationsGroup;
 
                 UpdateMapData();
             }
@@ -132,6 +153,9 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
             foreshoreProfilesObserver.Dispose();
+            calculationInputObserver.Dispose();
+            calculationGroupObserver.Dispose();
+            calculationObserver.Dispose();
 
             if (disposing && (components != null))
             {
@@ -147,6 +171,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = null;
             IEnumerable<ForeshoreProfile> foreshoreProfiles = null;
             IEnumerable<ClosingStructure> structures = null;
+            CalculationGroup calculationGroup = null;
 
             if (data != null)
             {
@@ -155,6 +180,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
                 foreshoreProfiles = data.WrappedData.ForeshoreProfiles;
                 structures = data.WrappedData.ClosingStructures;
+                calculationGroup = data.WrappedData.CalculationsGroup;
             }
 
             referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
@@ -164,6 +190,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
             foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
             structuresMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
+            calculationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures
+                <ClosingStructuresInput, ClosingStructure>(calculationGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>());
 
             mapControl.Data.NotifyObservers();
         }

@@ -27,9 +27,11 @@ using Core.Common.TestUtil;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
 
@@ -385,6 +387,83 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void CreateStructureCalculationsFeatures_NullLocations_ReturnsEmptyCollection()
+        {
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures<
+                SimpleStructuresInput, StructureBase>(null);
+
+            // Assert
+            Assert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateStructureCalculationsFeatures_EmptyLocations_ReturnsEmptyCollection()
+        {
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures
+                <SimpleStructuresInput, StructureBase>(Enumerable.Empty<SimpleStructuresCalculation>());
+
+            // Assert
+            Assert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateStructureCalculationsFeatures_WithCalculations_ReturnsCollectionWithCalculations()
+        {
+            // Setup
+            var calculationLocationA = new Point2D(1.2, 2.3);
+            var calculationLocationB = new Point2D(2.7, 2.0);
+
+            var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
+            var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6);
+
+            var simpleStructuresCalculationA = new SimpleStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
+                    Structure = new SimpleStructure(calculationLocationA)
+                }
+            };
+
+            var simpleStructuresCalculationB = new SimpleStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocationB,
+                    Structure = new SimpleStructure(calculationLocationB)
+                }
+            };
+
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures
+                <SimpleStructuresInput, StructureBase>(new[]
+                {
+                    simpleStructuresCalculationA, 
+                    simpleStructuresCalculationB
+                });
+
+            // Assert
+            Assert.AreEqual(2, features.Length);
+            Assert.AreEqual(1, features[0].MapGeometries.Count());
+            Assert.AreEqual(1, features[1].MapGeometries.Count());
+            var mapDataGeometryOne = features[0].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            var mapDataGeometryTwo = features[1].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+
+            CollectionElementsAlmostEquals(new[]
+            {
+                calculationLocationA,
+                hydraulicBoundaryLocationA.Location
+            }, mapDataGeometryOne);
+            CollectionElementsAlmostEquals(new[]
+            {
+                calculationLocationB,
+                hydraulicBoundaryLocationB.Location
+            }, mapDataGeometryTwo);
+        }
+
+        [Test]
         public void CreateCalculationsFeatures_NullLocations_ReturnsEmptyCollection()
         {
             // Call
@@ -627,6 +706,29 @@ namespace Ringtoets.Common.Forms.Test.Views
         private static void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)
         {
             CollectionAssert.AreEqual(points, geometry.PointCollections.First());
+        }
+
+        private class SimpleStructuresInput : StructuresInputBase<StructureBase>
+        {
+            protected override void UpdateStructureParameters()
+            {
+            }
+        }
+
+        private class SimpleStructuresCalculation : StructuresCalculation<SimpleStructuresInput>
+        {
+        }
+
+        public class SimpleStructure : StructureBase
+        {
+
+            public SimpleStructure(Point2D location)
+                : base(new ConstructionProperties
+                {
+                    Location = location,
+                    Name = "name",
+                    Id = "id"
+                }) { }
         }
     }
 }

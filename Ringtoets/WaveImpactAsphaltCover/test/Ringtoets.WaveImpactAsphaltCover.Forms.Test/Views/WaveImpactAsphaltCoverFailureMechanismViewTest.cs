@@ -713,7 +713,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             var foreshoreProfilesMapData = (MapLineData) mapDataList[foreshoreProfilesIndex];
             var sectionsStartPointMapData = (MapPointData) mapDataList[sectionsStartPointIndex];
             var sectionsEndPointMapData = (MapPointData) mapDataList[sectionsEndPointIndex];
-            var hydraulicBoundaryDatabaseMapData = (MapPointData) mapDataList[hydraulicBoundaryDatabaseIndex];
+            var hydraulicBoundaryDatabaseMapData = (MapPointData)mapDataList[hydraulicBoundaryDatabaseIndex];
+            var calculationsMapData = (MapLineData)mapDataList[calculationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(sectionsMapData.Features);
@@ -721,6 +722,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
             CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabaseMapData.Features);
+            CollectionAssert.IsEmpty(calculationsMapData.Features);
 
             Assert.AreEqual(RingtoetsCommonDataResources.ReferenceLine_DisplayName, referenceLineMapData.Name);
             Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName, sectionsMapData.Name);
@@ -728,6 +730,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), sectionsStartPointMapData.Name);
             Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), sectionsEndPointMapData.Name);
             Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, hydraulicBoundaryDatabaseMapData.Name);
+            Assert.AreEqual(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, calculationsMapData.Name);
         }
 
         private static string GetSectionPointDisplayName(string name)

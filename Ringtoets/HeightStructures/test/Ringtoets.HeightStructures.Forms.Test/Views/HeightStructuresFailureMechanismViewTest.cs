@@ -34,13 +34,14 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Views;
+using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
@@ -57,6 +58,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         private const int hydraulicBoundaryDatabaseIndex = 4;
         private const int foreshoreProfilesIndex = 5;
         private const int structuresIndex = 6;
+        private const int calculationsIndex = 7;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -81,7 +83,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Map, view.Controls[0]);
-                Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
+                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 Assert.AreEqual(HeightStructuresDataResources.HeightStructuresFailureMechanism_DisplayName, view.Map.Data.Name);
                 AssertEmptyMapData(view.Map.Data);
             }
@@ -130,7 +132,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 view.Data = failureMechanismContext;
 
                 // Precondition
-                Assert.AreEqual(7, view.Map.Data.Collection.Count());
+                Assert.AreEqual(8, view.Map.Data.Collection.Count());
 
                 // Call
                 view.Data = null;
@@ -164,7 +166,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Setup
             using (var view = new HeightStructuresFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var geometryPoints = new[]
                 {
@@ -210,7 +212,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
                 var mapDataList = mapData.Collection.ToList();
-                Assert.AreEqual(7, mapDataList.Count);
+                Assert.AreEqual(8, mapDataList.Count);
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
@@ -226,7 +228,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Setup
             using (var view = new HeightStructuresFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase
                 {
@@ -272,7 +274,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Setup
             using (var view = new HeightStructuresFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var points1 = new List<Point2D>
                 {
@@ -316,16 +318,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Setup
             using (var view = new HeightStructuresFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new TestAssessmentSection());
 
                 view.Data = failureMechanismContext;
 
-                var sectionMapData = (MapLineData)map.Data.Collection.ElementAt(sectionsIndex);
-                var sectionStartsMapData = (MapPointData)map.Data.Collection.ElementAt(sectionsStartPointIndex);
-                var sectionsEndsMapData = (MapPointData)map.Data.Collection.ElementAt(sectionsEndPointIndex);
+                var sectionMapData = (MapLineData) map.Data.Collection.ElementAt(sectionsIndex);
+                var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
+                var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
                 // Call
                 failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
@@ -348,7 +350,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Setup
             using (var view = new HeightStructuresFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new TestAssessmentSection());
@@ -377,7 +379,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Setup
             using (var view = new HeightStructuresFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new TestAssessmentSection());
@@ -401,20 +403,149 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObserver_CalculationGroupUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new HeightStructuresFailureMechanismView())
+            {
+                var map = (MapControl) view.Controls[0];
+
+                var failureMechanism = new HeightStructuresFailureMechanism();
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+
+                var calculationLocationA = new Point2D(1.2, 2.3);
+                var calculationLocationB = new Point2D(2.7, 2.0);
+
+                var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
+                var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6);
+
+                var calculationA = new StructuresCalculation<HeightStructuresInput>
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
+                        Structure = new TestHeightStructure(calculationLocationA)
+                    }
+                };
+
+                var calculationB = new StructuresCalculation<HeightStructuresInput>
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocationB,
+                        Structure = new TestHeightStructure(calculationLocationB)
+                    }
+                };
+
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+                view.Data = failureMechanismContext;
+
+                var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+                failureMechanism.CalculationsGroup.Children.Add(calculationB);
+
+                // Call
+                failureMechanism.CalculationsGroup.NotifyObservers();
+
+                // Assert
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(), calculationMapData);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_CalculationInputUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new HeightStructuresFailureMechanismView())
+            {
+                var map = (MapControl) view.Controls[0];
+
+                var failureMechanism = new HeightStructuresFailureMechanism();
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+
+                var calculationLocationA = new Point2D(1.2, 2.3);
+                var calculationLocationB = new Point2D(2.7, 2.0);
+
+                var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
+
+                var calculationA = new StructuresCalculation<HeightStructuresInput>
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
+                        Structure = new TestHeightStructure(calculationLocationA)
+                    }
+                };
+
+                view.Data = failureMechanismContext;
+
+                var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+                calculationA.InputParameters.Structure = new TestHeightStructure(calculationLocationB);
+
+                // Call
+                calculationA.InputParameters.NotifyObservers();
+
+                // Assert
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(), calculationMapData);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_CalculationUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new HeightStructuresFailureMechanismView())
+            {
+                var map = (MapControl) view.Controls[0];
+
+                var failureMechanism = new HeightStructuresFailureMechanism();
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new TestAssessmentSection());
+
+                var calculationLocationA = new Point2D(1.2, 2.3);
+
+                var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
+
+                var calculationA = new StructuresCalculation<HeightStructuresInput>
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
+                        Structure = new TestHeightStructure(calculationLocationA)
+                    }
+                };
+
+                view.Data = failureMechanismContext;
+
+                var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+                calculationA.Name = "new name";
+
+                // Call
+                calculationA.NotifyObservers();
+
+                // Assert
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(), calculationMapData);
+            }
+        }
+
+        [Test]
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
-            const int updatedRefenceLineLayerIndex = referenceLineIndex + 6;
+            const int updatedRefenceLineLayerIndex = referenceLineIndex + 7;
             const int updatedSectionsLayerIndex = sectionsIndex - 1;
             const int updateSectionStartLayerIndex = sectionsStartPointIndex - 1;
             const int updatedSectionEndLayerIndex = sectionsEndPointIndex - 1;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryDatabaseIndex - 1;
             const int updatedForeshoreProfilesLayerIndex = foreshoreProfilesIndex - 1;
-            const int updatedStructuresLayerIndex = structuresIndex- 1;
+            const int updatedStructuresLayerIndex = structuresIndex - 1;
+            const int updatedCalculationsIndex = calculationsIndex - 1;
 
             using (var view = new HeightStructuresFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var assessmentSection = new TestAssessmentSection();
                 var failureMechanism = new HeightStructuresFailureMechanism();
@@ -424,33 +555,36 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 var mapData = map.Data;
 
-                var dataToMove = (MapLineData)map.Data.Collection.ElementAt(referenceLineIndex);
+                var dataToMove = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
                 mapData.Remove(dataToMove);
                 mapData.Add(dataToMove);
 
                 var mapDataList = mapData.Collection.ToList();
 
                 // Precondition
-                var referenceLineData = (MapLineData)mapDataList[updatedRefenceLineLayerIndex];
+                var referenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-                var sectionsData = (MapLineData)mapDataList[updatedSectionsLayerIndex];
+                var sectionsData = (MapLineData) mapDataList[updatedSectionsLayerIndex];
                 Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-                var sectionStartsData = (MapPointData)mapDataList[updateSectionStartLayerIndex];
+                var sectionStartsData = (MapPointData) mapDataList[updateSectionStartLayerIndex];
                 Assert.AreEqual("Vakindeling (startpunten)", sectionStartsData.Name);
 
-                var sectionEndsData = (MapPointData)mapDataList[updatedSectionEndLayerIndex];
+                var sectionEndsData = (MapPointData) mapDataList[updatedSectionEndLayerIndex];
                 Assert.AreEqual("Vakindeling (eindpunten)", sectionEndsData.Name);
 
-                var hydraulicLocationsData = (MapPointData)mapDataList[updatedHydraulicLocationsLayerIndex];
+                var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicLocationsData.Name);
 
-                var foreshoreProfilesData = (MapLineData)mapDataList[updatedForeshoreProfilesLayerIndex];
+                var foreshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", foreshoreProfilesData.Name);
 
-                var structuresData = (MapPointData)mapDataList[updatedStructuresLayerIndex];
+                var structuresData = (MapPointData) mapDataList[updatedStructuresLayerIndex];
                 Assert.AreEqual("Kunstwerken", structuresData.Name);
+
+                var calculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
+                Assert.AreEqual("Berekeningen", calculationsData.Name);
 
                 var points = new List<Point2D>
                 {
@@ -465,26 +599,29 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 assessmentSection.NotifyObservers();
 
                 // Call
-                var actualReferenceLineData = (MapLineData)mapDataList[updatedRefenceLineLayerIndex];
+                var actualReferenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-                var actualSectionsData = (MapLineData)mapDataList[updatedSectionsLayerIndex];
+                var actualSectionsData = (MapLineData) mapDataList[updatedSectionsLayerIndex];
                 Assert.AreEqual("Vakindeling", actualSectionsData.Name);
 
-                var actualSectionStartsData = (MapPointData)mapDataList[updateSectionStartLayerIndex];
+                var actualSectionStartsData = (MapPointData) mapDataList[updateSectionStartLayerIndex];
                 Assert.AreEqual("Vakindeling (startpunten)", actualSectionStartsData.Name);
 
-                var actualSectionEndsData = (MapPointData)mapDataList[updatedSectionEndLayerIndex];
+                var actualSectionEndsData = (MapPointData) mapDataList[updatedSectionEndLayerIndex];
                 Assert.AreEqual("Vakindeling (eindpunten)", actualSectionEndsData.Name);
 
-                var actualHydraulicLocationsData = (MapPointData)mapDataList[updatedHydraulicLocationsLayerIndex];
+                var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische randvoorwaarden", actualHydraulicLocationsData.Name);
 
-                var actualForeshoreProfilesData = (MapLineData)mapDataList[updatedForeshoreProfilesLayerIndex];
+                var actualForeshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", actualForeshoreProfilesData.Name);
 
-                var actualStructuresData = (MapPointData)mapDataList[updatedStructuresLayerIndex];
+                var actualStructuresData = (MapPointData) mapDataList[updatedStructuresLayerIndex];
                 Assert.AreEqual("Kunstwerken", actualStructuresData.Name);
+
+                var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
+                Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
             }
         }
 
@@ -506,7 +643,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var newHeightStructuresFailureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), newAssessmentSection);
             using (var view = new HeightStructuresFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 view.Data = oldHeightStructuresFailureMechanismContext;
                 view.Data = newHeightStructuresFailureMechanismContext;
@@ -525,7 +662,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         private static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
-            var referenceLineData = (MapLineData)mapData;
+            var referenceLineData = (MapLineData) mapData;
             if (referenceLine == null)
             {
                 CollectionAssert.IsEmpty(referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
@@ -541,7 +678,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         {
             Assert.NotNull(foreshoreProfiles, "foreshoreProfiles should never be null.");
 
-            var foreshoreProfilesData = (MapLineData)mapData;
+            var foreshoreProfilesData = (MapLineData) mapData;
             var foreshoreProfileArray = foreshoreProfiles.ToArray();
 
             Assert.AreEqual(foreshoreProfileArray.Length, foreshoreProfilesData.Features.Length);
@@ -559,7 +696,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         {
             Assert.NotNull(structures, "structures should never be null.");
 
-            var structuresData = (MapPointData)mapData;
+            var structuresData = (MapPointData) mapData;
             var structuresArray = structures.ToArray();
 
             Assert.AreEqual(structuresArray.Length, structuresData.Features.Length);
@@ -576,7 +713,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         private static void AssertHydraulicBoundaryLocationsMapData(HydraulicBoundaryDatabase database, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
-            var hydraulicLocationsMapData = (MapPointData)mapData;
+            var hydraulicLocationsMapData = (MapPointData) mapData;
             if (database == null)
             {
                 CollectionAssert.IsEmpty(hydraulicLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
@@ -591,7 +728,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         private static void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
-            var sectionsStartPointData = (MapPointData)mapData;
+            var sectionsStartPointData = (MapPointData) mapData;
             CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
             Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
         }
@@ -599,9 +736,33 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         private static void AssertFailureMechanismSectionsEndPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
-            var sectionsStartPointData = (MapPointData)mapData;
+            var sectionsStartPointData = (MapPointData) mapData;
             CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
             Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
+        }
+
+        private static void AssertCalculationsMapData(IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapLineData>(mapData);
+            var calculationsMapData = (MapLineData) mapData;
+            var calculationsArray = calculations.ToArray();
+            var calculationsFeatures = calculationsMapData.Features.ToArray();
+            Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
+
+            for (int index = 0; index < calculationsArray.Length; index++)
+            {
+                var geometries = calculationsFeatures[index].MapGeometries.ToArray();
+                Assert.AreEqual(1, geometries.Length);
+
+                StructuresCalculation<HeightStructuresInput> calculation = calculationsArray[index];
+                CollectionAssert.AreEquivalent(new[]
+                {
+                    calculation.InputParameters.Structure.Location,
+                    calculation.InputParameters.HydraulicBoundaryLocation.Location
+                },
+                                               geometries[0].PointCollections.First());
+            }
+            Assert.AreEqual("Berekeningen", mapData.Name);
         }
 
         private static void AssertEmptyMapData(MapDataCollection mapData)
@@ -610,15 +771,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             var mapDataList = mapData.Collection.ToList();
 
-            Assert.AreEqual(7, mapDataList.Count);
+            Assert.AreEqual(8, mapDataList.Count);
 
-            var referenceLineMapData = (MapLineData)mapDataList[referenceLineIndex];
-            var sectionsMapData = (MapLineData)mapDataList[sectionsIndex];
-            var foreshoreProfilesMapData = (MapLineData)mapDataList[foreshoreProfilesIndex];
-            var structuresMapData = (MapPointData)mapDataList[structuresIndex];
-            var sectionsStartPointMapData = (MapPointData)mapDataList[sectionsStartPointIndex];
-            var sectionsEndPointMapData = (MapPointData)mapDataList[sectionsEndPointIndex];
-            var hydraulicBoundaryDatabaseMapData = (MapPointData)mapDataList[hydraulicBoundaryDatabaseIndex];
+            var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
+            var sectionsMapData = (MapLineData) mapDataList[sectionsIndex];
+            var foreshoreProfilesMapData = (MapLineData) mapDataList[foreshoreProfilesIndex];
+            var structuresMapData = (MapPointData) mapDataList[structuresIndex];
+            var sectionsStartPointMapData = (MapPointData) mapDataList[sectionsStartPointIndex];
+            var sectionsEndPointMapData = (MapPointData) mapDataList[sectionsEndPointIndex];
+            var hydraulicBoundaryDatabaseMapData = (MapPointData) mapDataList[hydraulicBoundaryDatabaseIndex];
+            var calculationsMapData = (MapLineData) mapDataList[calculationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(sectionsMapData.Features);
@@ -627,6 +789,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
             CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabaseMapData.Features);
+            CollectionAssert.IsEmpty(calculationsMapData.Features);
 
             Assert.AreEqual(RingtoetsCommonDataResources.ReferenceLine_DisplayName, referenceLineMapData.Name);
             Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName, sectionsMapData.Name);
@@ -635,6 +798,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), sectionsStartPointMapData.Name);
             Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), sectionsEndPointMapData.Name);
             Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, hydraulicBoundaryDatabaseMapData.Name);
+            Assert.AreEqual(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, calculationsMapData.Name);
         }
 
         private static string GetSectionPointDisplayName(string name)

@@ -29,8 +29,10 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 
@@ -45,10 +47,12 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Create reference line features based on the provided <paramref name="referenceLine"/>.
         /// </summary>
-        /// <param name="referenceLine">The <see cref="ReferenceLine"/> to create the reference line features for.</param>
+        /// <param name="referenceLine">The <see cref="ReferenceLine"/> to create the reference 
+        /// line features for.</param>
         /// <param name="id">The id of the <see cref="IAssessmentSection"/>.</param>
         /// <param name="name">The name of the <see cref="IAssessmentSection"/>.</param>
-        /// <returns>An array of features or an empty array when <paramref name="referenceLine"/> is <c>null</c>.</returns>
+        /// <returns>An array of features or an empty array when <paramref name="referenceLine"/> 
+        /// is <c>null</c>.</returns>
         public static MapFeature[] CreateReferenceLineFeatures(ReferenceLine referenceLine, string id, string name)
         {
             var features = new List<MapFeature>();
@@ -68,11 +72,14 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Create hydraulic boundary database location features based on the provided <paramref name="hydraulicBoundaryDatabase"/>
-        /// with default labels for design water level and wave height.
+        /// Create hydraulic boundary database location features based on the provided 
+        /// <paramref name="hydraulicBoundaryDatabase"/> with default labels for design 
+        /// water level and wave height.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to create the location features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</returns>
+        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
+        /// to create the location features for.</param>
+        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryDatabase"/> 
+        /// is <c>null</c>.</returns>
         public static MapFeature[] CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase,
@@ -81,11 +88,14 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Create hydraulic boundary database location features based on the provided <paramref name="hydraulicBoundaryDatabase"/>
-        /// with optional labels for design water level and wave height.
+        /// Create hydraulic boundary database location features based on the provided
+        /// <paramref name="hydraulicBoundaryDatabase"/> with optional labels for design
+        /// water level and wave height.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to create the location features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</returns>
+        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
+        /// to create the location features for.</param>
+        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryDatabase"/>
+        /// is <c>null</c>.</returns>
         public static MapFeature[] CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase,
@@ -96,8 +106,10 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Create section features based on the provided <paramref name="sections"/>.
         /// </summary>
-        /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create the section features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="sections"/> is <c>null</c> or empty.</returns>
+        /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create 
+        /// the section features for.</param>
+        /// <returns>An array of features or an empty array when <paramref name="sections"/> is 
+        /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateFailureMechanismSectionFeatures(IEnumerable<FailureMechanismSection> sections)
         {
             var features = new List<MapFeature>();
@@ -127,8 +139,10 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Create section start point features based on the provided <paramref name="sections"/>.
         /// </summary>
-        /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create the section start point features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="sections"/> is <c>null</c> or empty.</returns>
+        /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create 
+        /// the section start point features for.</param>
+        /// <returns>An array of features or an empty array when <paramref name="sections"/> is 
+        /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateFailureMechanismSectionStartPointFeatures(IEnumerable<FailureMechanismSection> sections)
         {
             return sections != null && sections.Any()
@@ -142,8 +156,10 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Create section end point features based on the provided <paramref name="sections"/>.
         /// </summary>
-        /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create the section end point features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="sections"/> is <c>null</c> or empty.</returns>
+        /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create 
+        /// the section end point features for.</param>
+        /// <returns>An array of features or an empty array when <paramref name="sections"/> is 
+        /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateFailureMechanismSectionEndPointFeatures(IEnumerable<FailureMechanismSection> sections)
         {
             return sections != null && sections.Any()
@@ -158,7 +174,8 @@ namespace Ringtoets.Common.Forms.Views
         /// Create features for the geometry of the <paramref name="dikeProfiles"/>.
         /// </summary>
         /// <param name="dikeProfiles">The profiles to create features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="dikeProfiles"/> is <c>null</c> or empty.</returns>
+        /// <returns>An array of features or an empty array when <paramref name="dikeProfiles"/> is 
+        /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateDikeProfilesFeatures(IEnumerable<DikeProfile> dikeProfiles)
         {
             if (dikeProfiles == null || !dikeProfiles.Any())
@@ -173,7 +190,8 @@ namespace Ringtoets.Common.Forms.Views
         /// Create features for the geometry of the <paramref name="foreshoreProfiles"/>.
         /// </summary>
         /// <param name="foreshoreProfiles">The profiles to create features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="foreshoreProfiles"/> is <c>null</c> or empty.</returns>
+        /// <returns>An array of features or an empty array when <paramref name="foreshoreProfiles"/>
+        /// is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateForeshoreProfilesFeatures(IEnumerable<ForeshoreProfile> foreshoreProfiles)
         {
             if (foreshoreProfiles == null || !foreshoreProfiles.Any())
@@ -188,7 +206,8 @@ namespace Ringtoets.Common.Forms.Views
         /// Create features for the geometry of the <paramref name="structures"/>.
         /// </summary>
         /// <param name="structures">The profiles to create features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="structures"/> is <c>null</c> or empty.</returns>
+        /// <returns>An array of features or an empty array when <paramref name="structures"/> is 
+        /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateStructuresFeatures(IEnumerable<StructureBase> structures)
         {
             if (structures == null || !structures.Any())
@@ -197,6 +216,39 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             return structures.Select(structure => GetAsSingleMapFeature(structure.Location)).ToArray();
+        }
+
+        /// <summary>
+        /// Create calculation features based on the provided <paramref name="calculationInputs"/>.
+        /// </summary>
+        /// <param name="calculationInputs">The collection of <see cref="StructuresCalculation{T}"/> to create the 
+        /// calculation features for.</param>
+        /// <returns>An array of features or an empty array when <paramref name="calculationInputs"/> is <c>null</c> 
+        /// or empty.</returns>
+        public static MapFeature[] CreateStructureCalculationsFeatures<T, U>(IEnumerable<StructuresCalculation<T>> calculationInputs)
+            where T : StructuresInputBase<U>, new()
+            where U : StructureBase
+        {
+            var hasCalculations = calculationInputs != null && calculationInputs.Any();
+
+            if (!hasCalculations)
+            {
+                return new MapFeature[0];
+            }
+
+            var calculationsWithLocationAndHydraulicBoundaryLocation = calculationInputs.Where(
+                calculation =>
+                calculation.InputParameters.Structure != null &&
+                calculation.InputParameters.HydraulicBoundaryLocation != null);
+
+            IList<MapCalculationData> calculationData =
+                calculationsWithLocationAndHydraulicBoundaryLocation.Select(
+                    calculation => new MapCalculationData(
+                                       calculation.Name,
+                                       calculation.InputParameters.Structure.Location,
+                                       calculation.InputParameters.HydraulicBoundaryLocation)).ToList();
+
+            return CreateCalculationsFeatures(calculationData);
         }
 
         public static MapFeature[] CreateCalculationsFeatures(IEnumerable<MapCalculationData> calculationData)
@@ -218,16 +270,18 @@ namespace Ringtoets.Common.Forms.Views
 
                 feature.MetaData[Resources.MetaData_Name] = calculationItem.Name;
                 feature.MetaData[Resources.MetaData_Couple_distance] = 
-                    calculationItem.CalculationLocation.GetEuclideanDistanceTo(calculationItem.HydraulicBoundaryLocation.Location);
+                    calculationItem.CalculationLocation.GetEuclideanDistanceTo(
+                        calculationItem.HydraulicBoundaryLocation.Location);
 
                 features.Add(feature);
             }
             return features.ToArray();
         }
 
-        private static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                                            string designWaterLevelAttributeName,
-                                                                            string waveheightAttributeName)
+        private static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+            string designWaterLevelAttributeName,
+            string waveheightAttributeName)
         {
             var features = new List<MapFeature>();
 
@@ -293,7 +347,8 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// This class holds information to be able to present calculations coupled to hydraulic boundary locations on the map.
+        /// This class holds information to be able to present calculations coupled to
+        /// hydraulic boundary locations on the map.
         /// </summary>
         public class MapCalculationData
         {
@@ -317,7 +372,8 @@ namespace Ringtoets.Common.Forms.Views
             /// </summary>
             /// <param name="calculationName">The name of the calculation.</param>
             /// <param name="calculationLocation">The location of the calculation.</param>
-            /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location assigned to the calculation.</param>
+            /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location 
+            /// assigned to the calculation.</param>
             public MapCalculationData(string calculationName, Point2D calculationLocation, HydraulicBoundaryLocation hydraulicBoundaryLocation)
             {
                 if (calculationName == null)
