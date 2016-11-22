@@ -312,7 +312,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(closingStructuresFailureMechanismContext.WrappedData)
+                new CommentContext<ICommentable>(closingStructuresFailureMechanismContext.WrappedData.NotRelevantComments)
             };
         }
 
@@ -323,7 +323,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism)
+                new CommentContext<ICommentable>(failureMechanism.InputComments)
             };
         }
 
@@ -332,7 +332,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new ArrayList
             {
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
+                new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism),
+                new CommentContext<ICommentable>(failureMechanism.OutputComments)
             };
         }
 
@@ -364,11 +366,15 @@ namespace Ringtoets.ClosingStructures.Plugin
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(ClosingStructuresFailureMechanismContext closingStructuresFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(ClosingStructuresFailureMechanismContext closingStructuresFailureMechanismContext,
+                                                                          object parentData,
+                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(closingStructuresFailureMechanismContext, treeViewControl));
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(closingStructuresFailureMechanismContext,
+                                                                  treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(closingStructuresFailureMechanismContext, null)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(closingStructuresFailureMechanismContext,
+                                                                    RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

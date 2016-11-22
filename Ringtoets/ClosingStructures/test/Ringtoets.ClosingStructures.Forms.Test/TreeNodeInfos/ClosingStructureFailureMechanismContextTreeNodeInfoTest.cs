@@ -146,8 +146,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, closingStructuresContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, closingStructuresContext.AssessmentSection);
 
-            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
-            Assert.AreSame(failureMechanism, commentContext.WrappedData);
+            var inputCommentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
+            Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
 
             var calculationsFolder = (ClosingStructuresCalculationGroupContext) children[1];
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
@@ -157,8 +157,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-            Assert.AreEqual(2, outputsFolder.Contents.Count);
 
+            Assert.AreEqual(3, outputsFolder.Contents.Count);
             var scenariosContext = (ClosingStructuresScenariosContext) outputsFolder.Contents[0];
             Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
             Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
@@ -166,10 +166,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>) outputsFolder.Contents[1];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+
+            var outputCommentContext = (CommentContext<ICommentable>) outputsFolder.Contents[2];
+            Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismComments()
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
         {
             // Setup
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
@@ -187,7 +190,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, children.Length);
             var commentContext = (CommentContext<ICommentable>) children[0];
-            Assert.AreSame(failureMechanism, commentContext.WrappedData);
+            Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
         }
 
         [Test]
@@ -354,8 +357,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
+            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
             var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var guiMock = mocksRepository.StrictMock<IGui>();
@@ -382,17 +385,21 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevant()
+        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_OnChangeActionRemovesAllViewsForItem()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 IsRelevant = false
             };
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
+            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var guiMock = mocksRepository.StrictMock<IGui>();
+
+            viewCommandsMock.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+            guiMock.Stub(g => g.ViewCommands).Return(viewCommandsMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
