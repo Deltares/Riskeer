@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.Data
 {
     /// <summary>
-    /// This class represents a simple <see cref="ICommentable"/> property.
+    /// This class represents an object about which some comments can be assigned.
     /// </summary>
     public class Commentable : ICommentable
     {
