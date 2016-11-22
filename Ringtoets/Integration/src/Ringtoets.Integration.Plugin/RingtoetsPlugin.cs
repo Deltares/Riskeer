@@ -1026,7 +1026,6 @@ namespace Ringtoets.Integration.Plugin
 
         private static IEnumerable<ICommentable> GetCommentableElements(IFailureMechanism failureMechanism)
         {
-            yield return failureMechanism;
             yield return failureMechanism.InputComments;
             yield return failureMechanism.OutputComments;
             yield return failureMechanism.NotRelevantComments;
@@ -1241,7 +1240,9 @@ namespace Ringtoets.Integration.Plugin
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip StandAloneFailureMechanismDisabledContextMenuStrip(FailureMechanismContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailureMechanismDisabledContextMenuStrip(FailureMechanismContext<IFailureMechanism> nodeData,
+                                                                                    object parentData, 
+            TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 

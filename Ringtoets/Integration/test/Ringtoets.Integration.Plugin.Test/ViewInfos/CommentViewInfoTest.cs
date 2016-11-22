@@ -204,68 +204,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsFailureMechanismOfDeletedAssessmentSection_ReturnTrue()
-        {
-            // Setup
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-            mocks.ReplayAll();
-
-            using (var view = new CommentView
-            {
-                Data = failureMechanism
-            })
-            {
-                // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewDataIsFailureMechanismButNotOfDeletedAssessmentSection_ReturnFalse()
-        {
-            // Setup
-            var viewDataFailureMechanism = mocks.Stub<IFailureMechanism>();
-            viewDataFailureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-
-            var deletedFailureMechanism = mocks.Stub<IFailureMechanism>();
-            deletedFailureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            deletedFailureMechanism.Stub(fm => fm.InputComments).Return(new Commentable());
-            deletedFailureMechanism.Stub(fm => fm.OutputComments).Return(new Commentable());
-            deletedFailureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Commentable());
-
-            var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
-            deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
-            {
-                deletedFailureMechanism
-            });
-            mocks.ReplayAll();
-
-            using (var view = new CommentView
-            {
-                Data = viewDataFailureMechanism
-            })
-            {
-                // Call
-                var closeForData = info.CloseForData(view, deletedAssessmentSection);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void CloseForData_ViewDataIsCalculationOfDeletedAssessmentSection_ReturnTrue()
         {
             // Setup
