@@ -175,14 +175,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 IsRelevant = false
             };
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
 
             // Call
             var children = info.ChildNodeObjects(failureMechanismContext).ToArray();

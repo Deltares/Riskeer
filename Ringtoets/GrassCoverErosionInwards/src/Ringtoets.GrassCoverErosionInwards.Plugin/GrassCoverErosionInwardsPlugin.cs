@@ -221,7 +221,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
 
-            var viewFailureMechanismContext = (GrassCoverErosionInwardsFailureMechanismContext)view.Data;
+            var viewFailureMechanismContext = (GrassCoverErosionInwardsFailureMechanismContext) view.Data;
             var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
@@ -350,7 +350,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
+                new CommentContext<ICommentable>(grassCoverErosionInwardsFailureMechanismContext.WrappedData.NotRelevantComments)
             };
         }
 
@@ -360,7 +360,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism)
+                new CommentContext<ICommentable>(failureMechanism.InputComments)
             };
         }
 
@@ -369,11 +369,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return new ArrayList
             {
                 new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
+                new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism),
+                new CommentContext<ICommentable>(failureMechanism.OutputComments)
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
 
@@ -404,11 +408,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext,
+                                                                          object parentData,
+                                                                          TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, null)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext,
+                                                                    RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

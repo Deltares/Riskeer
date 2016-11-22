@@ -121,6 +121,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var inputsFolder = (CategoryTreeFolder) children[0];
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
+
             Assert.AreEqual(3, inputsFolder.Contents.Count);
             var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
@@ -131,8 +132,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, dikeProfilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSectionMock, dikeProfilesContext.ParentAssessmentSection);
 
-            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
-            Assert.AreSame(failureMechanism, commentContext.WrappedData);
+            var inputCommentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
+            Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
 
             var calculationsFolder = (GrassCoverErosionInwardsCalculationGroupContext) children[1];
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
@@ -142,7 +143,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-            Assert.AreEqual(2, outputsFolder.Contents.Count);
+
+            Assert.AreEqual(3, outputsFolder.Contents.Count);
             var scenariosContext = (GrassCoverErosionInwardsScenariosContext) outputsFolder.Contents[0];
             Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
             Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
@@ -150,10 +152,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>) outputsFolder.Contents[1];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+
+            var outputCommentContext = (CommentContext<ICommentable>) outputsFolder.Contents[2];
+            Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismComments()
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
         {
             // Setup
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
@@ -171,7 +176,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, children.Length);
             var commentContext = (CommentContext<ICommentable>) children[0];
-            Assert.AreSame(failureMechanism, commentContext.WrappedData);
+            Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
         }
 
         [Test]
@@ -341,8 +346,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionStub);
             var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var guiMock = mocksRepository.StrictMock<IGui>();
@@ -369,17 +374,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevant()
+        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_OnChangeActionRemovesAllViewsForItem()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 IsRelevant = false
             };
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var guiMock = mocksRepository.StrictMock<IGui>();
+
+            viewCommandsMock.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+            guiMock.Stub(g => g.ViewCommands).Return(viewCommandsMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
