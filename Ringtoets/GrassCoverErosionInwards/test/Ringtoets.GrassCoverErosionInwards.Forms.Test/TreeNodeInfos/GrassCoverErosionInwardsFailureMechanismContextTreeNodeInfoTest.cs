@@ -342,7 +342,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_OnChangeActionRemovesAllViewsForItem()
+        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevantAndRemovesAllViewsForItem()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -367,14 +367,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
+
+                    // Assert
+                    Assert.IsFalse(failureMechanism.IsRelevant);
                 }
             }
-            // Assert
-            // Assert expectancies are called in TearDown()
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_OnChangeActionRemovesAllViewsForItem()
+        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevantAndRemovesAllViewsForItem()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
@@ -402,10 +403,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
+
+                    // Assert
+                    Assert.IsTrue(failureMechanism.IsRelevant);
                 }
             }
-            // Assert
-            // Assert expectancies are called in TearDown()
         }
 
         [Test]

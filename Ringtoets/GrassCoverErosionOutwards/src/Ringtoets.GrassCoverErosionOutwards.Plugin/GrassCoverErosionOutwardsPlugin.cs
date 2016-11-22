@@ -305,7 +305,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             var assessmentSection = data as IAssessmentSection;
             var failureMechanism = data as GrassCoverErosionOutwardsFailureMechanism;
 
-            var viewFailureMechanismContext = (GrassCoverErosionOutwardsFailureMechanismContext)view.Data;
+            var viewFailureMechanismContext = (GrassCoverErosionOutwardsFailureMechanismContext) view.Data;
             var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
@@ -402,7 +402,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(failureMechanismContext.WrappedData)
+                new CommentContext<ICommentable>(failureMechanismContext.WrappedData.NotRelevantComments)
             };
         }
 
@@ -412,7 +412,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism)
+                new CommentContext<ICommentable>(failureMechanism.InputComments)
             };
         }
 
@@ -420,11 +420,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             return new ArrayList
             {
-                new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
+                new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism),
+                new CommentContext<ICommentable>(failureMechanism.OutputComments)
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(GrassCoverErosionOutwardsFailureMechanismContext grassCoverErosionOutwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(GrassCoverErosionOutwardsFailureMechanismContext grassCoverErosionOutwardsFailureMechanismContext,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionOutwardsFailureMechanismContext, treeViewControl));
 
@@ -444,11 +448,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionOutwardsFailureMechanismContext grassCoverErosionOutwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionOutwardsFailureMechanismContext grassCoverErosionOutwardsFailureMechanismContext,
+                                                                          object parentData,
+                                                                          TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionOutwardsFailureMechanismContext, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionOutwardsFailureMechanismContext, null)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionOutwardsFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

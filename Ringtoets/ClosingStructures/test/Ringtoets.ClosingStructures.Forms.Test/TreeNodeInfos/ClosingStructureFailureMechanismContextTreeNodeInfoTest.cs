@@ -115,11 +115,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
 
             // Call
             var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -134,17 +134,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             Assert.AreEqual(4, inputsFolder.Contents.Count);
             var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-            Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
+            Assert.AreSame(assessmentSectionStub, failureMechanismSectionsContext.ParentAssessmentSection);
 
             var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents[1];
             Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
             Assert.AreSame(failureMechanism, profilesContext.ParentFailureMechanism);
-            Assert.AreSame(assessmentSectionMock, profilesContext.ParentAssessmentSection);
+            Assert.AreSame(assessmentSectionStub, profilesContext.ParentAssessmentSection);
 
             var closingStructuresContext = (ClosingStructuresContext) inputsFolder.Contents[2];
             Assert.AreSame(failureMechanism.ClosingStructures, closingStructuresContext.WrappedData);
             Assert.AreSame(failureMechanism, closingStructuresContext.FailureMechanism);
-            Assert.AreSame(assessmentSectionMock, closingStructuresContext.AssessmentSection);
+            Assert.AreSame(assessmentSectionStub, closingStructuresContext.AssessmentSection);
 
             var inputCommentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
             Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
@@ -353,7 +353,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_OnChangeActionRemovesAllViewsForItem()
+        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevantAndRemovesAllViewsForItem()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -377,15 +377,15 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
+
+                    // Assert
+                    Assert.IsFalse(failureMechanism.IsRelevant);
                 }
             }
-
-            // Assert
-            // Assert is done in TearDown
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_OnChangeActionRemovesAllViewsForItem()
+        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevantAndRemovesAllViewsForItem()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism
@@ -412,11 +412,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
+
+                    // Assert
+                    Assert.IsTrue(failureMechanism.IsRelevant);
                 }
             }
-
-            // Assert
-            // Assert is done in TearDown
         }
 
         [Test]

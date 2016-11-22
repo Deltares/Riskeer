@@ -199,8 +199,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, foreshoreProfilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, foreshoreProfilesContext.ParentAssessmentSection);
 
-            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
-            Assert.AreSame(failureMechanism, commentContext.WrappedData);
+            var inputCommentContext = (CommentContext<ICommentable>)inputsFolder.Contents[2];
+            Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
 
             var hydraulicBoundariesGroupContext = (HydraulicBoundariesGroupContext) children[1];
             Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, hydraulicBoundariesGroupContext.WrappedData);
@@ -210,16 +210,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-            Assert.AreEqual(1, outputsFolder.Contents.Count);
 
+            Assert.AreEqual(2, outputsFolder.Contents.Count);
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>)
                                                  outputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+
+            var outputCommentContext = (CommentContext<ICommentable>)outputsFolder.Contents[1];
+            Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -238,7 +241,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, children.Length);
             var commentContext = (CommentContext<ICommentable>) children[0];
-            Assert.AreSame(failureMechanism, commentContext.WrappedData);
+            Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
         }
 
         [Test]
@@ -317,7 +320,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevant()
+        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevantAndRemovesAllViewsForItem()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -325,10 +328,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 var failureMechanismObserver = mocks.Stub<IObserver>();
                 failureMechanismObserver.Expect(o => o.UpdateObserver());
 
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    IsRelevant = true
-                };
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 failureMechanism.Attach(failureMechanismObserver);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -360,7 +360,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevant()
+        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevantAndRemovesAllViewsForItem()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -378,9 +378,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
                                                                                                    assessmentSection);
 
+                var viewCommands = mocks.StrictMock<IViewCommands>();
+                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.StrictMock<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
 
                 mocks.ReplayAll();

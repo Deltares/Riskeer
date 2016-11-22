@@ -338,7 +338,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(ClosingStructuresFailureMechanismContext closingStructuresFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(ClosingStructuresFailureMechanismContext closingStructuresFailureMechanismContext,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(closingStructuresFailureMechanismContext, treeViewControl));
 
