@@ -1175,6 +1175,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Forms.Test
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Integration.TestUtils", "Ringtoets\Piping\test\Ringtoets.Piping.Integration.TestUtils\Ringtoets.Piping.Integration.TestUtils.csproj", "{A4972765-DDBB-4A1E-B17C-7185577E5591}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
