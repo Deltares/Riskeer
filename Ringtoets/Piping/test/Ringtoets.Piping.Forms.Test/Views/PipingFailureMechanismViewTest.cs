@@ -759,16 +759,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsInstanceOf<MapLineData>(mapData);
             var surfacelinesMapData = (MapLineData) mapData;
             var surfacelineFeatures = surfacelinesMapData.Features.ToArray();
-            Assert.AreEqual(1, surfacelineFeatures.Length);
-
-            var geometries = surfacelineFeatures.First().MapGeometries.ToArray();
             var surfaceLinesArray = surfaceLines.ToArray();
-            Assert.AreEqual(surfaceLinesArray.Length, geometries.Length);
+            Assert.AreEqual(surfaceLinesArray.Length, surfacelineFeatures.Length);
 
             for (int index = 0; index < surfaceLinesArray.Length; index++)
             {
                 var surfaceLine = surfaceLinesArray[index];
-                CollectionAssert.AreEquivalent(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)), geometries[index].PointCollections.First());
+                CollectionAssert.AreEquivalent(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)), surfacelineFeatures[index].MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Profielschematisaties", mapData.Name);
         }

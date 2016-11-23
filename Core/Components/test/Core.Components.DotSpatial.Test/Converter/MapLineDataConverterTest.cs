@@ -133,20 +133,21 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapLineDataConverter();
             var random = new Random(21);
-            var features = new List<MapFeature>();
-
-            features.Add(new MapFeature(new[]
+            var features = new List<MapFeature>
             {
-                new MapGeometry(new[]
+                new MapFeature(new[]
                 {
-                    new[]
+                    new MapGeometry(new[]
                     {
-                        new Point2D(random.NextDouble(), random.NextDouble()),
-                        new Point2D(random.NextDouble(), random.NextDouble()),
-                        new Point2D(random.NextDouble(), random.NextDouble())
-                    }
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
+                    })
                 })
-            }));
+            };
 
             var lineData = new MapLineData("test data")
             {
@@ -167,29 +168,30 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapLineDataConverter();
             var random = new Random(21);
-            var features = new List<MapFeature>();
-
-            features.Add(new MapFeature(new[]
+            var features = new List<MapFeature>
             {
-                new MapGeometry(new[]
+                new MapFeature(new[]
                 {
-                    new[]
+                    new MapGeometry(new[]
                     {
-                        new Point2D(random.NextDouble(), random.NextDouble()),
-                        new Point2D(random.NextDouble(), random.NextDouble()),
-                        new Point2D(random.NextDouble(), random.NextDouble())
-                    }
-                }),
-                new MapGeometry(new[]
-                {
-                    new[]
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
+                    }),
+                    new MapGeometry(new[]
                     {
-                        new Point2D(random.NextDouble(), random.NextDouble()),
-                        new Point2D(random.NextDouble(), random.NextDouble()),
-                        new Point2D(random.NextDouble(), random.NextDouble())
-                    }
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
+                    })
                 })
-            }));
+            };
 
             var lineData = new MapLineData("test data")
             {
@@ -212,20 +214,21 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapLineDataConverter();
             var random = new Random(21);
-            var features = new List<MapFeature>();
-
-            features.Add(new MapFeature(new[]
+            var features = new List<MapFeature>
             {
-                new MapGeometry(new[]
+                new MapFeature(new[]
                 {
-                    new[]
+                    new MapGeometry(new[]
                     {
-                        new Point2D(random.NextDouble(), random.NextDouble()),
-                        new Point2D(random.NextDouble(), random.NextDouble()),
-                        new Point2D(random.NextDouble(), random.NextDouble())
-                    }
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
+                    })
                 })
-            }));
+            };
 
             var lineData = new MapLineData("test data")
             {

@@ -28,6 +28,7 @@ using Core.Components.Gis.Geometries;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -44,15 +45,27 @@ namespace Ringtoets.Piping.Forms.Views
         /// <returns>An array of features or an empty array when <paramref name="surfaceLines"/> is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateSurfaceLineFeatures(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines)
         {
-            return surfaceLines != null && surfaceLines.Any()
-                       ? new[]
-                       {
-                           new MapFeature(surfaceLines.Select(surfaceLine => new MapGeometry(new[]
-                           {
-                               surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))
-                           })))
-                       }
-                       : new MapFeature[0];
+            var features = new List<MapFeature>();
+
+            if (surfaceLines != null && surfaceLines.Any())
+            {
+                foreach (var surfaceLine in surfaceLines)
+                {
+                    var feature = new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))
+                        })
+                    });
+
+                    feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = surfaceLine.Name;
+
+                    features.Add(feature);
+                }
+            }
+
+            return features.ToArray();
         }
 
         /// <summary>

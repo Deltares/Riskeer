@@ -72,8 +72,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             };
             var surfaceLines = new[]
             {
-                new RingtoetsPipingSurfaceLine(),
-                new RingtoetsPipingSurfaceLine()
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Surfaceline 1"
+                },
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = "Surfaceline 2"
+                }
             };
             surfaceLines[0].SetGeometry(pointsOne);
             surfaceLines[1].SetGeometry(pointsTwo);
@@ -82,10 +88,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
             MapFeature[] features = PipingMapDataFeaturesFactory.CreateSurfaceLineFeatures(surfaceLines);
 
             // Assert
-            Assert.AreEqual(1, features.Length);
-            Assert.AreEqual(2, features[0].MapGeometries.Count());
-            AssertEqualPointCollections(pointsOne, features[0].MapGeometries.ElementAt(0));
-            AssertEqualPointCollections(pointsTwo, features[0].MapGeometries.ElementAt(1));
+            Assert.AreEqual(surfaceLines.Length, features.Length);
+
+            for (int i = 0; i < features.Length; i++)
+            {
+                Assert.AreEqual(1, features[i].MapGeometries.Count());
+                AssertEqualPointCollections(surfaceLines[i].Points, features[i].MapGeometries.First());
+                Assert.AreEqual(1, features[i].MetaData.Keys.Count);
+                Assert.AreEqual(surfaceLines[i].Name, features[i].MetaData["Naam"]);
+            }
         }
 
         [Test]

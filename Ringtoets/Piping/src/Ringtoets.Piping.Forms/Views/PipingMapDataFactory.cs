@@ -43,7 +43,8 @@ namespace Ringtoets.Piping.Forms.Views
         {
             return new MapLineData(Resources.PipingSurfaceLinesCollection_DisplayName)
             {
-                Style = new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid)
+                Style = new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid),
+                SelectedMetaDataAttribute = RingtoetsCommonFormsResources.MetaData_Name
             };
         }
 
