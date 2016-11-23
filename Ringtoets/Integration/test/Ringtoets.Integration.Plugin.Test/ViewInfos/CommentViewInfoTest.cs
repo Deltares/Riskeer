@@ -185,6 +185,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
             deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+            deletedAssessmentSection.Stub(s => s.Comments).Return(new Commentable());
 
             var viewDataAssessmentSection = mocks.Stub<IAssessmentSection>();
             viewDataAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
@@ -225,6 +226,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+            assessmentSection.Stub(s => s.Comments).Return(new Commentable());
             mocks.ReplayAll();
 
             using (var view = new CommentView
@@ -263,6 +265,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 deletedfailureMechanism
             });
+            deletedAssessmentSection.Stub(s => s.Comments).Return(new Commentable());
             mocks.ReplayAll();
 
             using (var view = new CommentView
@@ -296,7 +299,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
-
+            assessmentSection.Stub(s => s.Comments).Return(new Commentable());
             mocks.ReplayAll();
 
             using (var view = new CommentView
@@ -330,7 +333,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
-
+            assessmentSection.Stub(s => s.Comments).Return(new Commentable());
             mocks.ReplayAll();
 
             using (var view = new CommentView
@@ -364,7 +367,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
-
+            assessmentSection.Stub(s => s.Comments).Return(new Commentable());
             mocks.ReplayAll();
 
             using (var view = new CommentView
@@ -398,7 +401,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
-
+            assessmentSection.Stub(s => s.Comments).Return(new Commentable());
             mocks.ReplayAll();
 
             using (var view = new CommentView
