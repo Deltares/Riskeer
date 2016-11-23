@@ -1292,7 +1292,50 @@ namespace Core.Common.Controls.TreeView.Test
 
         [Test]
         [RequiresSTA]
-        public void SelectedDataChanged_ListenerSetOnInit_SelectedDataChangedInvokedOnce()
+        public void SelectedDataChanged_ListenerSetOnInitAndDataSetToNull_SelectedDataChangedInvokedOnce()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var hit = 0;
+                treeViewControl.SelectedDataChanged += (sender, args) => hit++;
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    ChildNodeObjects = o => new object[]
+                    {
+                        string.Empty
+                    },
+                    Text = o => "root"
+                };
+                var childTreeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(string),
+                    Text = o => "child"
+                };
+                treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+
+                try
+                {
+                    WindowsFormsTestHelper.Show(treeViewControl);
+
+                    // Call
+                    treeViewControl.Data = null;
+
+                    // Assert
+                    Assert.AreEqual(1, hit);
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void SelectedDataChanged_ListenerSetOnInitAndDataSetToObject_SelectedDataChangedInvokedOnce()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())

@@ -147,6 +147,10 @@ namespace Core.Common.Controls.TreeView
 
                 if (data == null)
                 {
+                    // Propagate a selection change here manually as setting the treeview selection to null (by clearing all nodes)
+                    // does not fire the AfterSelect event
+                    OnSelectedDataChanged();
+
                     return;
                 }
 
@@ -669,7 +673,7 @@ namespace Core.Common.Controls.TreeView
             return treeNode.Parent != null ? treeNode.Parent.Tag : null;
         }
 
-        private Image CreateCheckBoxGlyph(CheckBoxState state)
+        private static Image CreateCheckBoxGlyph(CheckBoxState state)
         {
             var result = new Bitmap(16, 16);
 
@@ -704,7 +708,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private string GetImageHash(Image image)
+        private static string GetImageHash(Image image)
         {
             var stream = new MemoryStream();
             image.Save(stream, image.RawFormat);
@@ -950,6 +954,11 @@ namespace Core.Common.Controls.TreeView
         }
 
         private void TreeViewAfterSelect(object sender, TreeViewEventArgs e)
+        {
+            OnSelectedDataChanged();
+        }
+
+        private void OnSelectedDataChanged()
         {
             if (SelectedDataChanged != null)
             {
