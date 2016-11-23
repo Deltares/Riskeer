@@ -180,39 +180,23 @@ namespace Core.Plugins.Map.Test.Legend
 
         [TestCase(true)]
         [TestCase(false)]
-        public void OnNodeChecked_PolygonDataNodeWithoutParent_SetsPolygonDataVisibility(bool initialVisibleState)
+        public void OnNodeChecked_MapPolygonDataNode_SetsPolygonDataVisibilityAndNotifiesObservers(bool initialVisibleState)
         {
             // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
             mocks.ReplayAll();
+
             var mapPolygonData = new MapPolygonData("test data")
             {
                 IsVisible = initialVisibleState
             };
+
+            mapPolygonData.Attach(observer);
 
             // Call
             info.OnNodeChecked(mapPolygonData, null);
-
-            // Assert
-            Assert.AreEqual(!initialVisibleState, mapPolygonData.IsVisible);
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void OnNodeChecked_PolygonDataNodeWithObservableParent_SetsPolygonDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
-        {
-            // Setup
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-
-            mocks.ReplayAll();
-
-            var mapPolygonData = new MapPolygonData("test data")
-            {
-                IsVisible = initialVisibleState
-            };
-
-            // Call
-            info.OnNodeChecked(mapPolygonData, observable);
 
             // Assert
             Assert.AreEqual(!initialVisibleState, mapPolygonData.IsVisible);

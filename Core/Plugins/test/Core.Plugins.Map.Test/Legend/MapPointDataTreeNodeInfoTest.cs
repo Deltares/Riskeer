@@ -180,39 +180,23 @@ namespace Core.Plugins.Map.Test.Legend
 
         [TestCase(true)]
         [TestCase(false)]
-        public void OnNodeChecked_PointDataNodeWithoutParent_SetsPointDataVisibility(bool initialVisibleState)
+        public void OnNodeChecked_MapPointDataNode_SetsPointDataVisibilityAndNotifiesObservers(bool initialVisibleState)
         {
             // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
             mocks.ReplayAll();
+
             var mapPointData = new MapPointData("test data")
             {
                 IsVisible = initialVisibleState
             };
+
+            mapPointData.Attach(observer);
 
             // Call
             info.OnNodeChecked(mapPointData, null);
-
-            // Assert
-            Assert.AreEqual(!initialVisibleState, mapPointData.IsVisible);
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void OnNodeChecked_PointDataNodeWithObservableParent_SetsPointDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
-        {
-            // Setup
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-
-            mocks.ReplayAll();
-
-            var mapPointData = new MapPointData("test data")
-            {
-                IsVisible = initialVisibleState
-            };
-
-            // Call
-            info.OnNodeChecked(mapPointData, observable);
 
             // Assert
             Assert.AreEqual(!initialVisibleState, mapPointData.IsVisible);

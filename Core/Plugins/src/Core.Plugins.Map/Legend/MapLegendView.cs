@@ -120,7 +120,7 @@ namespace Core.Plugins.Map.Legend
                 CanDrag = (mapPointData, parentData) => true,
                 CanCheck = mapPointData => true,
                 IsChecked = mapPointData => mapPointData.IsVisible,
-                OnNodeChecked = PointBasedMapDataOnNodeChecked
+                OnNodeChecked = MapDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapLineData>
@@ -133,7 +133,7 @@ namespace Core.Plugins.Map.Legend
                 CanDrag = (mapLineData, parentData) => true,
                 CanCheck = mapLineData => true,
                 IsChecked = mapLineData => mapLineData.IsVisible,
-                OnNodeChecked = PointBasedMapDataOnNodeChecked
+                OnNodeChecked = MapDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPolygonData>
@@ -146,7 +146,7 @@ namespace Core.Plugins.Map.Legend
                 CanDrag = (mapPolygonData, parentData) => true,
                 CanCheck = mapPolygonData => true,
                 IsChecked = mapPolygonData => mapPolygonData.IsVisible,
-                OnNodeChecked = PointBasedMapDataOnNodeChecked
+                OnNodeChecked = MapDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataCollection>
@@ -163,16 +163,10 @@ namespace Core.Plugins.Map.Legend
 
         #region MapData
 
-        private static void PointBasedMapDataOnNodeChecked(FeatureBasedMapData featureBasedMapData, object parentData)
+        private static void MapDataOnNodeChecked(FeatureBasedMapData featureBasedMapData, object parentData)
         {
             featureBasedMapData.IsVisible = !featureBasedMapData.IsVisible;
             featureBasedMapData.NotifyObservers();
-
-            var observableParent = parentData as IObservable;
-            if (observableParent != null)
-            {
-                observableParent.NotifyObservers();
-            }
         }
 
         #endregion
