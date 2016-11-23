@@ -102,28 +102,28 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(showLabels ? 5 : 4, dynamicProperties.Count);
 
-            const string generalCategory = "Algemeen";
+            const string layerCategory = "Kaartlaag";
             const string labelCategory = "Label";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
+                                                                            layerCategory,
                                                                             "Naam",
-                                                                            "De naam van de kaartlaag.",
+                                                                            "De naam van deze kaartlaag.",
                                                                             true);
 
             PropertyDescriptor typeProperty = dynamicProperties[typePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(typeProperty,
-                                                                            generalCategory,
+                                                                            layerCategory,
                                                                             "Type",
-                                                                            "Type van de data dat wordt getoond op de kaartlaag.",
+                                                                            "Het type van de data die wordt weergegeven op deze kaartlaag.",
                                                                             true);
 
             PropertyDescriptor isVisibleProperty = dynamicProperties[isVisiblePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isVisibleProperty,
-                                                                            generalCategory,
-                                                                            "Zichtbaar",
-                                                                            "Geeft aan of deze kaartlaag moet worden getoond.");
+                                                                            layerCategory,
+                                                                            "Weergeven",
+                                                                            "Geeft aan of deze kaartlaag moet worden weergegeven.");
 
             PropertyDescriptor showlabelsProperty = dynamicProperties[showLabelsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(showlabelsProperty,
@@ -138,7 +138,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(selectedMetaDataAttributeProperty,
                                                                                 labelCategory,
                                                                                 "Op basis van",
-                                                                                "Toont de eigenschap op basis waarvan labels op de geselecteerde kaartlaag worden weergegeven.");
+                                                                                "Toont de eigenschap op basis waarvan labels op deze kaartlaag worden weergegeven.");
             }
         }
 

@@ -80,7 +80,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
-                                                                            "De naam van de kaartlagenmap.",
+                                                                            "De naam van deze kaartlagenmap.",
                                                                             true);
         }
     }

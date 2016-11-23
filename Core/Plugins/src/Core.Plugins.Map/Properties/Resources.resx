@@ -215,7 +215,7 @@
     <value>Algemeen</value>
   </data>
   <data name="MapData_Name_Description" xml:space="preserve">
-    <value>De naam van de kaartlaag.</value>
+    <value>De naam van deze kaartlaag.</value>
   </data>
   <data name="MapData_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
@@ -230,7 +230,7 @@
     <value>Weergeven</value>
   </data>
   <data name="MapData_Type_Description" xml:space="preserve">
-    <value>Type van de data dat wordt getoond op de kaartlaag.</value>
+    <value>Het type van de data die wordt weergegeven op deze kaartlaag.</value>
   </data>
   <data name="MapData_Type_DisplayName" xml:space="preserve">
     <value>Type</value>
@@ -245,18 +245,21 @@
     <value>Polygonen</value>
   </data>
   <data name="Mapdata_SelectedMetaDataAttribute_Description" xml:space="preserve">
-    <value>Toont de eigenschap op basis waarvan labels op de geselecteerde kaartlaag worden weergegeven.</value>
+    <value>Toont de eigenschap op basis waarvan labels op deze kaartlaag worden weergegeven.</value>
   </data>
   <data name="Mapdata_SelectedMetaDataAttribute_DisplayName" xml:space="preserve">
     <value>Op basis van</value>
   </data>
   <data name="MapDataCollection_Name_Description" xml:space="preserve">
-    <value>De naam van de kaartlagenmap.</value>
+    <value>De naam van deze kaartlagenmap.</value>
   </data>
   <data name="MapData_IsVisible_Description" xml:space="preserve">
-    <value>Geeft aan of deze kaartlaag moet worden getoond.</value>
+    <value>Geeft aan of deze kaartlaag moet worden weergegeven.</value>
   </data>
   <data name="MapData_IsVisible_DisplayName" xml:space="preserve">
-    <value>Zichtbaar</value>
+    <value>Weergeven</value>
+  </data>
+  <data name="Categories_Layer" xml:space="preserve">
+    <value>Kaartlaag</value>
   </data>
 </root>

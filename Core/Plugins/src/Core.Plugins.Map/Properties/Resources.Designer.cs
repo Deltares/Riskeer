@@ -110,6 +110,15 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kaartlaag.
+        /// </summary>
+        public static string Categories_Layer {
+            get {
+                return ResourceManager.GetString("Categories_Layer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kaart.
         /// </summary>
         public static string General_Map {
@@ -129,7 +138,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of deze kaartlaag moet worden getoond..
+        ///   Looks up a localized string similar to Geeft aan of deze kaartlaag moet worden weergegeven..
         /// </summary>
         public static string MapData_IsVisible_Description {
             get {
@@ -138,7 +147,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zichtbaar.
+        ///   Looks up a localized string similar to Weergeven.
         /// </summary>
         public static string MapData_IsVisible_DisplayName {
             get {
@@ -147,7 +156,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De naam van de kaartlaag..
+        ///   Looks up a localized string similar to De naam van deze kaartlaag..
         /// </summary>
         public static string MapData_Name_Description {
             get {
@@ -165,7 +174,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan labels op de geselecteerde kaartlaag worden weergegeven..
+        ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan labels op deze kaartlaag worden weergegeven..
         /// </summary>
         public static string Mapdata_SelectedMetaDataAttribute_Description {
             get {
@@ -201,7 +210,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type van de data dat wordt getoond op de kaartlaag..
+        ///   Looks up a localized string similar to Het type van de data die wordt weergegeven op deze kaartlaag..
         /// </summary>
         public static string MapData_Type_Description {
             get {
@@ -246,7 +255,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De naam van de kaartlagenmap..
+        ///   Looks up a localized string similar to De naam van deze kaartlagenmap..
         /// </summary>
         public static string MapDataCollection_Name_Description {
             get {

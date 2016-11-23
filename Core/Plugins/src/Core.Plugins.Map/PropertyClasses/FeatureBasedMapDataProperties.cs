@@ -44,7 +44,7 @@ namespace Core.Plugins.Map.PropertyClasses
         private const int selectedMetaDataAttributePropertyIndex = 4;
 
         [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(Resources), "Categories_Layer")]
         [ResourcesDisplayName(typeof(Resources), "MapData_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "MapData_Name_Description")]
         public string Name
@@ -56,13 +56,13 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [PropertyOrder(typePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(Resources), "Categories_Layer")]
         [ResourcesDisplayName(typeof(Resources), "MapData_Type_DisplayName")]
         [ResourcesDescription(typeof(Resources), "MapData_Type_Description")]
         public abstract string Type { get; }
 
         [PropertyOrder(isVisiblePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(Resources), "Categories_Layer")]
         [ResourcesDisplayName(typeof(Resources), "MapData_IsVisible_DisplayName")]
         [ResourcesDescription(typeof(Resources), "MapData_IsVisible_Description")]
         public bool IsVisible
