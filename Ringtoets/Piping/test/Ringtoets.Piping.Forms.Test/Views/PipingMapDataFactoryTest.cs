@@ -56,6 +56,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsEmpty(data.Features);
             Assert.AreEqual(Resources.StochasticSoilModelCollection_DisplayName, data.Name);
             AssertEqualStyle(data.Style, Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid);
+            Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
 
         private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, DashStyle style)

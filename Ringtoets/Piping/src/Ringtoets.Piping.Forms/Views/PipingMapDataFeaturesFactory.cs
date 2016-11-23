@@ -75,15 +75,27 @@ namespace Ringtoets.Piping.Forms.Views
         /// <returns>An array of features or an empty array when <paramref name="stochasticSoilModels"/> is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateStochasticSoilModelFeatures(IEnumerable<StochasticSoilModel> stochasticSoilModels)
         {
-            return stochasticSoilModels != null && stochasticSoilModels.Any()
-                       ? new[]
-                       {
-                           new MapFeature(stochasticSoilModels.Select(stochasticSoilModel => new MapGeometry(new[]
-                           {
-                               stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y))
-                           })))
-                       }
-                       : new MapFeature[0];
+            var features = new List<MapFeature>();
+
+            if (stochasticSoilModels != null && stochasticSoilModels.Any())
+            {
+                foreach (var stochasticSoilModel in stochasticSoilModels)
+                {
+                    var feature = new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y))
+                        })
+                    });
+
+                    feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = stochasticSoilModel.Name;
+
+                    features.Add(feature);
+                }
+            }
+
+            return features.ToArray();
         }
 
         /// <summary>
