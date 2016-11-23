@@ -341,7 +341,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentsContext = (CommentContext<ICommentable>) children[0];
+            var commentsContext = (CommentContext) children[0];
             Assert.AreSame(calculation.Comments, commentsContext.WrappedData);
 
             var inputContext = (GrassCoverErosionOutwardsWaveConditionsInputContext) children[1];
@@ -405,7 +405,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentsContext = (CommentContext<ICommentable>) children[0];
+            var commentsContext = (CommentContext) children[0];
             Assert.AreSame(calculation.Comments, commentsContext.WrappedData);
 
             var inputContext = (GrassCoverErosionOutwardsWaveConditionsInputContext) children[1];

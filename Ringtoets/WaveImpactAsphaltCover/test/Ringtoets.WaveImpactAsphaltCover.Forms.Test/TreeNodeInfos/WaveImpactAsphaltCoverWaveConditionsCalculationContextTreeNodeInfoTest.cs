@@ -192,7 +192,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentsContext = (CommentContext<ICommentable>) children[0];
+            var commentsContext = (CommentContext) children[0];
             Assert.AreSame(calculation.Comments, commentsContext.WrappedData);
 
             var inputContext = (WaveImpactAsphaltCoverWaveConditionsInputContext) children[1];
@@ -251,7 +251,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentsContext = (CommentContext<ICommentable>) children[0];
+            var commentsContext = (CommentContext) children[0];
             Assert.AreSame(calculation.Comments, commentsContext.WrappedData);
 
             var inputContext = (WaveImpactAsphaltCoverWaveConditionsInputContext) children[1];

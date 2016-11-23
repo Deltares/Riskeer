@@ -581,7 +581,7 @@ namespace Ringtoets.Piping.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(pipingFailureMechanismContext.WrappedData.NotRelevantComments)
+                new CommentContext(pipingFailureMechanismContext.WrappedData.NotRelevantComments)
             };
         }
 
@@ -592,7 +592,7 @@ namespace Ringtoets.Piping.Plugin
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new RingtoetsPipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism.InputComments)
+                new CommentContext(failureMechanism.InputComments)
             };
         }
 
@@ -603,7 +603,7 @@ namespace Ringtoets.Piping.Plugin
                 new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                new CommentContext<ICommentable>(failureMechanism.OutputComments)
+                new CommentContext(failureMechanism.OutputComments)
             };
         }
 
@@ -635,7 +635,7 @@ namespace Ringtoets.Piping.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(pipingCalculationScenarioContext.WrappedData.Comments),
+                new CommentContext(pipingCalculationScenarioContext.WrappedData.Comments),
                 new PipingInputContext(pipingCalculationScenarioContext.WrappedData.InputParameters,
                                        pipingCalculationScenarioContext.WrappedData,
                                        pipingCalculationScenarioContext.AvailablePipingSurfaceLines,

@@ -233,7 +233,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(failureMechanismContext.WrappedData.NotRelevantComments)
+                new CommentContext(failureMechanismContext.WrappedData.NotRelevantComments)
             };
         }
 
@@ -243,7 +243,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism.InputComments)
+                new CommentContext(failureMechanism.InputComments)
             };
         }
 
@@ -253,7 +253,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             {
                 new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                new CommentContext<ICommentable>(failureMechanism.OutputComments)
+                new CommentContext(failureMechanism.OutputComments)
             };
         }
 
@@ -511,7 +511,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(context.WrappedData.Comments),
+                new CommentContext(context.WrappedData.Comments),
                 new WaveImpactAsphaltCoverWaveConditionsInputContext(context.WrappedData.InputParameters,
                                                                      context.FailureMechanism.ForeshoreProfiles,
                                                                      context.AssessmentSection)

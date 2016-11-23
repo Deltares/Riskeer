@@ -390,7 +390,7 @@ namespace Ringtoets.Integration.Plugin
                 MacrostabilityOutwardsFailureMechanismSectionResult,
                 MacrostabilityOutwardsResultView>();
 
-            yield return new ViewInfo<CommentContext<ICommentable>, ICommentable, CommentView>
+            yield return new ViewInfo<CommentContext, Commentable, CommentView>
             {
                 GetViewName = (view, context) => RingtoetsIntegrationPluginResources.Comment_DisplayName,
                 GetViewData = context => context.WrappedData,
@@ -648,7 +648,7 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityInwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityOutwardsFailureMechanismSectionResult>();
 
-            yield return new TreeNodeInfo<CommentContext<ICommentable>>
+            yield return new TreeNodeInfo<CommentContext>
             {
                 Text = comment => RingtoetsIntegrationPluginResources.Comment_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.EditDocumentIcon,
@@ -1015,12 +1015,12 @@ namespace Ringtoets.Integration.Plugin
             return false;
         }
 
-        private static IEnumerable<ICommentable> GetCommentableElements(CalculationGroup calculationGroup)
+        private static IEnumerable<Commentable> GetCommentableElements(CalculationGroup calculationGroup)
         {
             return calculationGroup.GetCalculations().Select(c => c.Comments);
         }
 
-        private static IEnumerable<ICommentable> GetCommentableElements(IAssessmentSection assessmentSection)
+        private static IEnumerable<Commentable> GetCommentableElements(IAssessmentSection assessmentSection)
         {
             yield return assessmentSection.Comments;
             foreach (var commentable in assessmentSection.GetFailureMechanisms().SelectMany(GetCommentableElements))
@@ -1029,7 +1029,7 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private static IEnumerable<ICommentable> GetCommentableElements(IFailureMechanism failureMechanism)
+        private static IEnumerable<Commentable> GetCommentableElements(IFailureMechanism failureMechanism)
         {
             yield return failureMechanism.InputComments;
             yield return failureMechanism.OutputComments;
@@ -1051,7 +1051,7 @@ namespace Ringtoets.Integration.Plugin
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),
-                new CommentContext<ICommentable>(nodeData.Comments)
+                new CommentContext(nodeData.Comments)
             };
 
             IEnumerable<object> failureMechanismContexts = WrapFailureMechanismsInContexts(nodeData);
@@ -1120,7 +1120,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(nodeData.WrappedData.NotRelevantComments)
+                new CommentContext(nodeData.WrappedData.NotRelevantComments)
             };
         }
 
@@ -1129,7 +1129,7 @@ namespace Ringtoets.Integration.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(nodeData, assessmentSection),
-                new CommentContext<ICommentable>(nodeData.InputComments)
+                new CommentContext(nodeData.InputComments)
             };
         }
 
@@ -1221,7 +1221,7 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(stabilityPointConstruction.SectionResults, nodeData);
             }
-            failureMechanismSectionResultContexts[1] = new CommentContext<ICommentable>(nodeData.OutputComments);
+            failureMechanismSectionResultContexts[1] = new CommentContext(nodeData.OutputComments);
             return failureMechanismSectionResultContexts;
         }
 

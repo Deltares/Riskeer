@@ -146,7 +146,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, closingStructuresContext.FailureMechanism);
             Assert.AreSame(assessmentSectionStub, closingStructuresContext.AssessmentSection);
 
-            var inputCommentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
+            var inputCommentContext = (CommentContext) inputsFolder.Contents[3];
             Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
 
             var calculationsFolder = (ClosingStructuresCalculationGroupContext) children[1];
@@ -167,7 +167,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputCommentContext = (CommentContext<ICommentable>) outputsFolder.Contents[2];
+            var outputCommentContext = (CommentContext) outputsFolder.Contents[2];
             Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
         }
 
@@ -189,7 +189,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, children.Length);
-            var commentContext = (CommentContext<ICommentable>) children[0];
+            var commentContext = (CommentContext) children[0];
             Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
         }
 

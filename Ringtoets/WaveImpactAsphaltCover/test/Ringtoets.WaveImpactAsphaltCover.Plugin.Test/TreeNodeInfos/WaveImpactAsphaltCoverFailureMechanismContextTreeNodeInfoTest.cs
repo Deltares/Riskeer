@@ -213,7 +213,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, foreshoreProfilesContext.ParentFailureMechanism);
                 Assert.AreSame(assessmentSection, foreshoreProfilesContext.ParentAssessmentSection);
 
-                var inputCommentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
+                var inputCommentContext = (CommentContext) inputsFolder.Contents[2];
                 Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
 
                 var hydraulicBoundariesCalculationGroup = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext) children[1];
@@ -230,7 +230,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-                var outputCommentContext = (CommentContext<ICommentable>) outputsFolder.Contents[1];
+                var outputCommentContext = (CommentContext) outputsFolder.Contents[1];
                 Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
             }
         }
@@ -258,7 +258,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual(1, children.Length);
-                var commentContext = (CommentContext<ICommentable>) children[0];
+                var commentContext = (CommentContext) children[0];
                 Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
             }
         }

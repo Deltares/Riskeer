@@ -59,20 +59,20 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(CommentContext<ICommentable>), info.DataType);
+            Assert.AreEqual(typeof(CommentContext), info.DataType);
         }
 
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var commentMock = mocks.StrictMock<ICommentable>();
+            var comment = new Commentable();
             var viewMock = mocks.StrictMock<CommentView>();
 
             mocks.ReplayAll();
 
             // Call
-            var viewName = info.GetViewName(viewMock, commentMock);
+            var viewName = info.GetViewName(viewMock, comment);
 
             // Assert
             Assert.AreEqual("Opmerkingen", viewName);
@@ -80,18 +80,18 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsIComment()
+        public void GetViewData_Always_ReturnsComment()
         {
             // Setup
-            var commentMock = mocks.StrictMock<ICommentable>();
-            var contextMock = mocks.StrictMock<CommentContext<ICommentable>>(commentMock);
+            var comment = new Commentable();
+            var contextMock = mocks.StrictMock<CommentContext>(comment);
             mocks.ReplayAll();
 
             // Call
             var viewData = info.GetViewData(contextMock);
 
             // Assert
-            Assert.AreSame(commentMock, viewData);
+            Assert.AreSame(comment, viewData);
             mocks.VerifyAll();
         }
 
@@ -112,7 +112,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(CommentContext<ICommentable>), dataType);
+            Assert.AreEqual(typeof(CommentContext), dataType);
         }
 
         [Test]
@@ -122,11 +122,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(ICommentable), viewDataType);
+            Assert.AreEqual(typeof(Commentable), viewDataType);
         }
 
         [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
+        public void Image_Always_ReturnsEditDocumentIcon()
         {
             // Call
             var image = info.Image;
@@ -139,12 +139,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ObjectIsNotObjectOfInterest_ReturnFalse()
         {
             // Setup
-            var commentableMock = mocks.Stub<ICommentable>();
+            var comment = new Commentable();
             mocks.ReplayAll();
 
             using (var view = new CommentView
             {
-                Data = commentableMock
+                Data = comment
             })
             {
                 // Call

@@ -24,7 +24,6 @@ using Core.Common.Controls.TextEditor;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Views;
 
@@ -50,12 +49,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_IComment_DataSet()
+        public void Data_Comment_DataSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var data = mocks.Stub<ICommentable>();
-            mocks.ReplayAll();
+            var data = new Commentable();
 
             using (var view = new CommentView())
             {
@@ -65,12 +62,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.AreSame(data, view.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void Data_NoIComment_DataNull()
+        public void Data_NoComment_DataNull()
         {
             // Setup
             using (var view = new CommentView())
@@ -89,13 +84,13 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_ContainsComment_CommentSetOnRichTextEditor()
         {
             // Setup
-            var expectedText = "<Some_text>";
+            const string expectedText = "<Some_text>";
             var validRtfString = GetValidRtfString(expectedText);
 
-            var mocks = new MockRepository();
-            var data = mocks.Stub<ICommentable>();
-            data.Comments = validRtfString;
-            mocks.ReplayAll();
+            var data = new Commentable
+            {
+                Comments = validRtfString
+            };
 
             using (var view = new CommentView())
             {
@@ -107,17 +102,13 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsNotNull(textBoxControl);
                 Assert.AreEqual(validRtfString, textBoxControl.Rtf);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void RichTextEditorOnTextChanged_Always_SetsComments()
         {
             // Setup
-            var mocks = new MockRepository();
-            var data = mocks.Stub<ICommentable>();
-            mocks.ReplayAll();
+            var data = new Commentable();
 
             using (var form = new Form())
             using (var view = new CommentView())
@@ -142,7 +133,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(validRtfString, data.Comments);
             }
-            mocks.VerifyAll();
         }
 
         [Test]

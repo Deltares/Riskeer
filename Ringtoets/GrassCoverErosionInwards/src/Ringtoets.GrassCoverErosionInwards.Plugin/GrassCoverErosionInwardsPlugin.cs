@@ -350,7 +350,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(grassCoverErosionInwardsFailureMechanismContext.WrappedData.NotRelevantComments)
+                new CommentContext(grassCoverErosionInwardsFailureMechanismContext.WrappedData.NotRelevantComments)
             };
         }
 
@@ -360,7 +360,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism.InputComments)
+                new CommentContext(failureMechanism.InputComments)
             };
         }
 
@@ -371,7 +371,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                new CommentContext<ICommentable>(failureMechanism.OutputComments)
+                new CommentContext(failureMechanism.OutputComments)
             };
         }
 
@@ -610,7 +610,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(context.WrappedData.Comments),
+                new CommentContext(context.WrappedData.Comments),
                 new GrassCoverErosionInwardsInputContext(context.WrappedData.InputParameters,
                                                          context.WrappedData,
                                                          context.FailureMechanism,

@@ -72,7 +72,6 @@
     <Compile Include="FailureMechanism\IFailureMechanism.cs" />
     <Compile Include="Calculation\CalculationGroupExtensions.cs" />
     <Compile Include="FailureMechanism\IHasSectionResults.cs" />
-    <Compile Include="ICommentable.cs" />
     <Compile Include="Calculation\ICalculationBase.cs" />
     <Compile Include="Probabilistics\DesignVariable.cs" />
     <Compile Include="Probabilistics\IDistribution.cs" />

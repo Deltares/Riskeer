@@ -192,7 +192,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentsContext = (CommentContext<ICommentable>) children[0];
+            var commentsContext = (CommentContext) children[0];
             Assert.AreSame(calculation.Comments, commentsContext.WrappedData);
 
             var inputContext = (StabilityStoneCoverWaveConditionsInputContext) children[1];
@@ -253,7 +253,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentsContext = (CommentContext<ICommentable>) children[0];
+            var commentsContext = (CommentContext) children[0];
             Assert.AreSame(calculation.Comments, commentsContext.WrappedData);
 
             var inputContext = (StabilityStoneCoverWaveConditionsInputContext) children[1];

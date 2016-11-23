@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class CommentView : UserControl, IView
     {
-        private ICommentable data;
+        private Commentable data;
 
         /// <summary>
         /// Creates a new instance of <see cref="CommentView"/>.
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.Views
             }
             set
             {
-                data = value as ICommentable;
+                data = value as Commentable;
 
                 if (data != null)
                 {

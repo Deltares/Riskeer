@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(CommentContext<ICommentable>), info.TagType);
+                Assert.AreEqual(typeof(CommentContext), info.TagType);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
                 Assert.IsNull(info.ChildNodeObjects);
                 Assert.IsNull(info.CanRename);
@@ -79,22 +79,19 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var commentMock = mocks.StrictMock<ICommentable>();
-            mocks.ReplayAll();
+            var comment = new Commentable();
 
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
-                var context = new CommentContext<ICommentable>(commentMock);
+                var context = new CommentContext(comment);
 
                 // Call
                 var text = info.Text(context);
 
                 // Assert
                 Assert.AreEqual("Opmerkingen", text);
-
-                mocks.VerifyAll();
             }
         }
 
@@ -102,21 +99,18 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var commentMock = mocks.StrictMock<ICommentable>();
-            mocks.ReplayAll();
+            var comment = new Commentable();
 
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
-                var context = new CommentContext<ICommentable>(commentMock);
+                var context = new CommentContext(comment);
 
                 // Call
                 var image = info.Image(context);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.EditDocumentIcon, image);
-
-                mocks.VerifyAll();
             }
         }
 
@@ -152,7 +146,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
         private TreeNodeInfo GetInfo(PluginBase gui)
         {
-            return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CommentContext<ICommentable>));
+            return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CommentContext));
         }
     }
 }

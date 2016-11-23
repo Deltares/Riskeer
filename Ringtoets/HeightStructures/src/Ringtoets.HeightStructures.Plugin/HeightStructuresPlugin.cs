@@ -349,7 +349,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism.InputComments)
+                new CommentContext(failureMechanism.InputComments)
             };
         }
 
@@ -360,7 +360,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                new CommentContext<ICommentable>(failureMechanism.OutputComments)
+                new CommentContext(failureMechanism.OutputComments)
             };
         }
 
@@ -368,7 +368,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(context.WrappedData.NotRelevantComments)
+                new CommentContext(context.WrappedData.NotRelevantComments)
             };
         }
 
@@ -608,7 +608,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(context.WrappedData.Comments),
+                new CommentContext(context.WrappedData.Comments),
                 new HeightStructuresInputContext(context.WrappedData.InputParameters,
                                                  context.WrappedData,
                                                  context.FailureMechanism,

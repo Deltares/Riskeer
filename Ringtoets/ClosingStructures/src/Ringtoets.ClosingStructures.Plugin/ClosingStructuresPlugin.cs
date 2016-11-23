@@ -312,7 +312,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(closingStructuresFailureMechanismContext.WrappedData.NotRelevantComments)
+                new CommentContext(closingStructuresFailureMechanismContext.WrappedData.NotRelevantComments)
             };
         }
 
@@ -323,7 +323,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism.InputComments)
+                new CommentContext(failureMechanism.InputComments)
             };
         }
 
@@ -334,7 +334,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                new CommentContext<ICommentable>(failureMechanism.OutputComments)
+                new CommentContext(failureMechanism.OutputComments)
             };
         }
 
@@ -587,7 +587,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(context.WrappedData.Comments),
+                new CommentContext(context.WrappedData.Comments),
                 new ClosingStructuresInputContext(context.WrappedData.InputParameters,
                                                   context.WrappedData,
                                                   context.FailureMechanism,

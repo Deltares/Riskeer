@@ -24,8 +24,11 @@ namespace Ringtoets.Common.Data
     /// <summary>
     /// This class represents an object about which some comments can be assigned.
     /// </summary>
-    public class Commentable : ICommentable
+    public class Commentable
     {
+        /// <summary>
+        /// Gets or sets the comments associated with the data object.
+        /// </summary>
         public string Comments { get; set; }
     }
 }

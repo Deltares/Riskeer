@@ -351,7 +351,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             return new object[]
             {
-                new CommentContext<ICommentable>(stabilityPointStructuresFailureMechanismContext.WrappedData.NotRelevantComments)
+                new CommentContext(stabilityPointStructuresFailureMechanismContext.WrappedData.NotRelevantComments)
             };
         }
 
@@ -363,7 +363,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, failureMechanism, assessmentSection),
-                new CommentContext<ICommentable>(failureMechanism.InputComments)
+                new CommentContext(failureMechanism.InputComments)
             };
         }
 
@@ -374,7 +374,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                new CommentContext<ICommentable>(failureMechanism.OutputComments)
+                new CommentContext(failureMechanism.OutputComments)
             };
         }
 
@@ -616,7 +616,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(context.WrappedData.Comments),
+                new CommentContext(context.WrappedData.Comments),
                 new StabilityPointStructuresInputContext(context.WrappedData.InputParameters,
                                                          context.WrappedData,
                                                          context.FailureMechanism,

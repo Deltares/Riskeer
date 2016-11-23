@@ -163,7 +163,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreSame(pipingFailureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(assessmentSection, stochasticSoilModelContext.AssessmentSection);
 
-            var inputCommentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
+            var inputCommentContext = (CommentContext) inputsFolder.Contents[3];
             Assert.AreSame(pipingFailureMechanism.InputComments, inputCommentContext.WrappedData);
 
             var calculationsFolder = (PipingCalculationGroupContext) children[1];
@@ -186,7 +186,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputCommentContext = (CommentContext<ICommentable>) outputsFolder.Contents[2];
+            var outputCommentContext = (CommentContext) outputsFolder.Contents[2];
             Assert.AreSame(pipingFailureMechanism.OutputComments, outputCommentContext.WrappedData);
         }
 
@@ -212,7 +212,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, children.Length);
-            var commentContext = (CommentContext<ICommentable>) children[0];
+            var commentContext = (CommentContext) children[0];
             Assert.AreSame(pipingFailureMechanism.NotRelevantComments, commentContext.WrappedData);
         }
 

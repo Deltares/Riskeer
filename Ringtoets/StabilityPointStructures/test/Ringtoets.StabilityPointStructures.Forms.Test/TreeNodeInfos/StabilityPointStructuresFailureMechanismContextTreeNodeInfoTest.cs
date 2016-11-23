@@ -139,7 +139,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, stabilityPointStructuresContext.FailureMechanism);
                 Assert.AreSame(assessmentSectionMock, stabilityPointStructuresContext.AssessmentSection);
 
-                var inputCommentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
+                var inputCommentContext = (CommentContext) inputsFolder.Contents[3];
                 Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
 
                 var calculationsFolder = (StabilityPointStructuresCalculationGroupContext) children[1];
@@ -160,7 +160,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-                var outputCommentContext = (CommentContext<ICommentable>) outputsFolder.Contents[2];
+                var outputCommentContext = (CommentContext) outputsFolder.Contents[2];
                 Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
             }
             mocksRepository.VerifyAll();
@@ -188,7 +188,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual(1, children.Length);
-                var commentContext = (CommentContext<ICommentable>) children[0];
+                var commentContext = (CommentContext) children[0];
                 Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
             }
             mocksRepository.VerifyAll();
