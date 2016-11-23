@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_Comment_DataSet()
         {
             // Setup
-            var data = new Commentable();
+            var data = new Comment();
 
             using (var view = new CommentView())
             {
@@ -87,9 +87,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             const string expectedText = "<Some_text>";
             var validRtfString = GetValidRtfString(expectedText);
 
-            var data = new Commentable
+            var data = new Comment
             {
-                Comments = validRtfString
+                Body = validRtfString
             };
 
             using (var view = new CommentView())
@@ -105,10 +105,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void RichTextEditorOnTextChanged_Always_SetsComments()
+        public void RichTextEditorOnTextChanged_Always_SetsComment()
         {
             // Setup
-            var data = new Commentable();
+            var data = new Comment();
 
             using (var form = new Form())
             using (var view = new CommentView())
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 view.Data = data;
 
                 // Precondition
-                Assert.AreEqual(GetValidRtfString(""), data.Comments);
+                Assert.AreEqual(GetValidRtfString(""), data.Body);
 
                 var expectedText = "<Some_text>";
                 var validRtfString = GetValidRtfString(expectedText);
@@ -131,7 +131,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 richTextBoxControl.Rtf = validRtfString;
 
                 // Assert
-                Assert.AreEqual(validRtfString, data.Comments);
+                Assert.AreEqual(validRtfString, data.Body);
             }
         }
 

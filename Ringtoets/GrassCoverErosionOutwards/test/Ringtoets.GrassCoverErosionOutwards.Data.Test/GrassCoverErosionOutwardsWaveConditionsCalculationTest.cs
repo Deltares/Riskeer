@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.AreEqual(RingtoetsCommonDataResources.Calculation_DefaultName, calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsFalse(calculation.HasOutput);
-            Assert.IsNull(calculation.Comments.Comments);
+            Assert.IsNull(calculation.Comments.Body);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
         }

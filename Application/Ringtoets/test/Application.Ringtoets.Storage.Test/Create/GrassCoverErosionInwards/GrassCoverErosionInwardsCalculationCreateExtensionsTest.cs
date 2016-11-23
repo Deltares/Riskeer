@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                 Name = name,
                 Comments =
                 {
-                    Comments = comment
+                    Body = comment
                 },
                 InputParameters =
                 {
@@ -125,7 +125,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                 Name = name,
                 Comments =
                 {
-                    Comments = comment
+                    Body = comment
                 }
             };
 

@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsFalse(calculation.HasOutput);
-            Assert.IsNull(calculation.Comments.Comments);
+            Assert.IsNull(calculation.Comments.Body);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
         }

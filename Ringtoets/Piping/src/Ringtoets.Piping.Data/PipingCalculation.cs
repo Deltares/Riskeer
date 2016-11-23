@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Data
         {
             Name = RingtoetsCommonDataResources.Calculation_DefaultName;
             InputParameters = new PipingInput(generalInputParameters);
-            Comments = new Commentable();
+            Comments = new Comment();
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        public Commentable Comments { get; private set; }
+        public Comment Comments { get; private set; }
 
         public void ClearOutput()
         {

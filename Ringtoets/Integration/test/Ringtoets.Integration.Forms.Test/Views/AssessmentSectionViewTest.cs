@@ -373,7 +373,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             public AssessmentSectionComposition Composition { get; private set; }
 
-            public Commentable Comments { get; private set; }
+            public Comment Comments { get; private set; }
 
             public ReferenceLine ReferenceLine { get; set; }
 

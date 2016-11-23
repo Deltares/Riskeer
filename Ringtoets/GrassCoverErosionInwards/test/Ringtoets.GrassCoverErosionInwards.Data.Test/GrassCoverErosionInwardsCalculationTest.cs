@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsFalse(calculation.HasOutput);
-            Assert.IsNull(calculation.Comments.Comments);
+            Assert.IsNull(calculation.Comments.Body);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.InputParameters.DikeProfile);
         }
@@ -73,10 +73,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            calculation.Comments.Comments = comments;
+            calculation.Comments.Body = comments;
 
             // Assert
-            Assert.AreEqual(comments, calculation.Comments.Comments);
+            Assert.AreEqual(comments, calculation.Comments.Body);
         }
 
         [Test]

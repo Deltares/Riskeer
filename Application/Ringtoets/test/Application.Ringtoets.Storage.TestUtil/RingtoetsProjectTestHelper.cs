@@ -367,7 +367,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Name = "Calculation 1",
                         Comments =
                         {
-                            Comments = "Fully configured for greatness!"
+                            Body = "Fully configured for greatness!"
                         },
                         InputParameters =
                         {
@@ -626,7 +626,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Contribution = (RoundedDouble) 1.0,
                         Comments =
                         {
-                            Comments = "Nice comment about this calculation!"
+                            Body = "Nice comment about this calculation!"
                         },
                         InputParameters =
                         {
@@ -684,7 +684,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                 Contribution = (RoundedDouble) 0.5,
                 Comments =
                 {
-                    Comments = "Another great comment"
+                    Body = "Another great comment"
                 },
                 InputParameters =
                 {
@@ -823,7 +823,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Name = "Calculation 1",
                         Comments =
                         {
-                            Comments = "Comments for Calculation 1"
+                            Body = "Comments for Calculation 1"
                         },
                         InputParameters =
                         {
@@ -859,7 +859,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                     Name = "Calculation 2",
                     Comments =
                     {
-                        Comments = "Comments about Calculation 2"
+                        Body = "Comments about Calculation 2"
                     }
                 });
         }
@@ -904,7 +904,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Name = "Calculation 1",
                         Comments =
                         {
-                            Comments = "Comments for Calculation 1"
+                            Body = "Comments for Calculation 1"
                         },
                         InputParameters =
                         {
@@ -937,7 +937,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                     Name = "Calculation 2",
                     Comments =
                     {
-                        Comments = "Comments for Calculation 2"
+                        Body = "Comments for Calculation 2"
                     },
                     InputParameters =
                     {
@@ -993,7 +993,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Name = "Calculation 1",
                         Comments =
                         {
-                            Comments = "Comments for Calculation 1"
+                            Body = "Comments for Calculation 1"
                         },
                         InputParameters =
                         {
@@ -1026,7 +1026,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                     Name = "Calculation 2",
                     Comments =
                     {
-                        Comments = "Comments for Calculation 2"
+                        Body = "Comments for Calculation 2"
                     },
                     InputParameters =
                     {
@@ -1086,7 +1086,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Name = "Calculation 1",
                         Comments =
                         {
-                            Comments = "Comments for Calculation 1"
+                            Body = "Comments for Calculation 1"
                         },
                         InputParameters =
                         {
@@ -1119,7 +1119,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                     Name = "Calculation 2",
                     Comments =
                     {
-                        Comments = "Comments for Calculation 2"
+                        Body = "Comments for Calculation 2"
                     },
                     InputParameters =
                     {

@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             // Assert
             Assert.AreEqual(entity.Name, calculation.Name);
-            Assert.AreEqual(entity.Comments, calculation.Comments.Comments);
+            Assert.AreEqual(entity.Comments, calculation.Comments.Body);
 
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
             Assert.AreEqual(entity.Orientation, input.Orientation.Value);
@@ -139,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNull(calculation.Name);
-            Assert.IsNull(calculation.Comments.Comments);
+            Assert.IsNull(calculation.Comments.Body);
 
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
             Assert.IsNaN(input.Orientation);

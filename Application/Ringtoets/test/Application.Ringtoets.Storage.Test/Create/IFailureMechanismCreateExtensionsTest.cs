@@ -97,9 +97,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string originalOutput = "Some output text";
             const string originalNotRelevantText = "Really not relevant";
             IFailureMechanism failureMechanism = new TestFailureMechanism("a", "cool");
-            failureMechanism.InputComments.Comments = originalInput;
-            failureMechanism.OutputComments.Comments = originalOutput;
-            failureMechanism.NotRelevantComments.Comments = originalNotRelevantText;
+            failureMechanism.InputComments.Body = originalInput;
+            failureMechanism.OutputComments.Body = originalOutput;
+            failureMechanism.NotRelevantComments.Body = originalNotRelevantText;
 
             var registry = new PersistenceRegistry();
 
@@ -109,13 +109,13 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreNotSame(originalInput, entity.InputComments,
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.InputComments.Comments, entity.InputComments);
+            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreNotSame(originalOutput, entity.OutputComments,
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.OutputComments.Comments, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreNotSame(originalNotRelevantText, entity.NotRelevantComments,
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Comments, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
         }
     }
 }

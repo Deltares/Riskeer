@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
                 ScenarioContribution = calculation.Contribution.Value.ToNaNAsNull(),
                 Name = calculation.Name.DeepClone(),
-                Comments = calculation.Comments.Comments.DeepClone(),
+                Comments = calculation.Comments.Body.DeepClone(),
                 Order = order
             };
             SetInputParametersToEntity(entity, calculation.InputParameters, registry);

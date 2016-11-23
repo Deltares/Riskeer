@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// Gets the comments associated with the assessment section.
         /// </summary>
-        Commentable Comments { get; }
+        Comment Comments { get; }
 
         /// <summary>
         /// Gets the composition of the assessment section, i.e. what type of elements can 

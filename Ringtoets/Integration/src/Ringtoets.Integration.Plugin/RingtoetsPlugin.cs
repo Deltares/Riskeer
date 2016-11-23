@@ -390,7 +390,7 @@ namespace Ringtoets.Integration.Plugin
                 MacrostabilityOutwardsFailureMechanismSectionResult,
                 MacrostabilityOutwardsResultView>();
 
-            yield return new ViewInfo<CommentContext, Commentable, CommentView>
+            yield return new ViewInfo<CommentContext, Comment, CommentView>
             {
                 GetViewName = (view, context) => RingtoetsIntegrationPluginResources.Comment_DisplayName,
                 GetViewData = context => context.WrappedData,
@@ -977,8 +977,8 @@ namespace Ringtoets.Integration.Plugin
             var calculationGroupContext = o as ICalculationContext<CalculationGroup, IFailureMechanism>;
             if (calculationGroupContext != null)
             {
-                return GetCommentableElements(calculationGroupContext.WrappedData)
-                    .Any(commentableElement => ReferenceEquals(commentView.Data, commentableElement));
+                return GetCommentElements(calculationGroupContext.WrappedData)
+                    .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
             var calculationContext = o as ICalculationContext<ICalculationBase, IFailureMechanism>;
@@ -1001,42 +1001,42 @@ namespace Ringtoets.Integration.Plugin
 
             if (failureMechanism != null)
             {
-                return GetCommentableElements(failureMechanism)
-                    .Any(commentableElement => ReferenceEquals(commentView.Data, commentableElement));
+                return GetCommentElements(failureMechanism)
+                    .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
             var assessmentSection = o as IAssessmentSection;
             if (assessmentSection != null)
             {
-                return GetCommentableElements(assessmentSection)
-                    .Any(commentableElement => ReferenceEquals(commentView.Data, commentableElement));
+                return GetCommentElements(assessmentSection)
+                    .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
             return false;
         }
 
-        private static IEnumerable<Commentable> GetCommentableElements(CalculationGroup calculationGroup)
+        private static IEnumerable<Comment> GetCommentElements(CalculationGroup calculationGroup)
         {
             return calculationGroup.GetCalculations().Select(c => c.Comments);
         }
 
-        private static IEnumerable<Commentable> GetCommentableElements(IAssessmentSection assessmentSection)
+        private static IEnumerable<Comment> GetCommentElements(IAssessmentSection assessmentSection)
         {
             yield return assessmentSection.Comments;
-            foreach (var commentable in assessmentSection.GetFailureMechanisms().SelectMany(GetCommentableElements))
+            foreach (Comment comment in assessmentSection.GetFailureMechanisms().SelectMany(GetCommentElements))
             {
-                yield return commentable;
+                yield return comment;
             }
         }
 
-        private static IEnumerable<Commentable> GetCommentableElements(IFailureMechanism failureMechanism)
+        private static IEnumerable<Comment> GetCommentElements(IFailureMechanism failureMechanism)
         {
             yield return failureMechanism.InputComments;
             yield return failureMechanism.OutputComments;
             yield return failureMechanism.NotRelevantComments;
-            foreach (ICalculation commentableCalculation in failureMechanism.Calculations)
+            foreach (ICalculation calculation in failureMechanism.Calculations)
             {
-                yield return commentableCalculation.Comments;
+                yield return calculation.Comments;
             }
         }
 

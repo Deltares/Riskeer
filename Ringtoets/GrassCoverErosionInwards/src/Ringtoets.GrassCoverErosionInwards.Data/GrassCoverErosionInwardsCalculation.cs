@@ -39,7 +39,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             Name = RingtoetsCommonDataResources.Calculation_DefaultName;
             InputParameters = new GrassCoverErosionInwardsInput();
-            Comments = new Commentable();
+            Comments = new Comment();
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public GrassCoverErosionInwardsOutput Output { get; set; }
 
-        public Commentable Comments { get; private set; }
+        public Comment Comments { get; private set; }
 
         public string Name { get; set; }
 

@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 Name = name,
                 Comments =
                 {
-                    Comments = comments
+                    Body = comments
                 },
                 InputParameters =
                 {
@@ -144,7 +144,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 Name = name,
                 Comments =
                 {
-                    Comments = comments
+                    Body = comments
                 }
             };
 

@@ -26,16 +26,16 @@ using Ringtoets.Common.Data;
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for the comment of <see cref="Commentable"/>.
+    /// This class is a presentation object for the comment of <see cref="Comment"/>.
     /// </summary>
-    public class CommentContext : WrappedObjectContextBase<Commentable>
+    public class CommentContext : WrappedObjectContextBase<Comment>
     {
         /// <summary>
         /// Creates a new instance of <see cref="CommentContext"/>.
         /// </summary>
-        /// <param name="wrappedCommentable">The commentable item to wrap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedCommentable"/> 
+        /// <param name="wrappedComment">The comment item to wrap.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedComment"/> 
         /// is <c>null</c>.</exception>
-        public CommentContext(Commentable wrappedCommentable) : base(wrappedCommentable) {}
+        public CommentContext(Comment wrappedComment) : base(wrappedComment) {}
     }
 }

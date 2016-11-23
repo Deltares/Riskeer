@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Read
                 Name = entity.Name,
                 Comments =
                 {
-                    Comments = entity.Comments
+                    Body = entity.Comments
                 },
                 FailureMechanismContribution =
                 {

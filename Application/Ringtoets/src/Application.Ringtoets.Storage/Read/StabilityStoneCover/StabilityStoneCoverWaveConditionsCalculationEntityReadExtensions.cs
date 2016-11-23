@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
                 Name = entity.Name,
                 Comments =
                 {
-                    Comments = entity.Comments
+                    Body = entity.Comments
                 }
             };
             ReadCalculationInputs(calculation.InputParameters, entity, collector);

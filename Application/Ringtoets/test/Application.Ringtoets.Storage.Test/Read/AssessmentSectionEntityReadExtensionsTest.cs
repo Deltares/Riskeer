@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(section);
             Assert.AreEqual(testId, section.Id);
             Assert.AreEqual(testName, section.Name);
-            Assert.AreEqual(comments, section.Comments.Comments);
+            Assert.AreEqual(comments, section.Comments.Body);
             Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
             Assert.IsNull(section.HydraulicBoundaryDatabase);
@@ -191,9 +191,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.PipingFailureMechanism.IsRelevant);
-            Assert.AreEqual(inputComments, section.PipingFailureMechanism.InputComments.Comments);
-            Assert.AreEqual(outputComments, section.PipingFailureMechanism.OutputComments.Comments);
-            Assert.AreEqual(notRelevantComments, section.PipingFailureMechanism.NotRelevantComments.Comments);
+            Assert.AreEqual(inputComments, section.PipingFailureMechanism.InputComments.Body);
+            Assert.AreEqual(outputComments, section.PipingFailureMechanism.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.PipingFailureMechanism.NotRelevantComments.Body);
             Assert.AreEqual(parameterA, section.PipingFailureMechanism.PipingProbabilityAssessmentInput.A);
         }
 
@@ -372,9 +372,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.GrassCoverErosionInwards.IsRelevant);
-            Assert.AreEqual(originalInput, section.GrassCoverErosionInwards.InputComments.Comments);
-            Assert.AreEqual(originalOutput, section.GrassCoverErosionInwards.OutputComments.Comments);
-            Assert.AreEqual(originalNotRelevantText, section.GrassCoverErosionInwards.NotRelevantComments.Comments);
+            Assert.AreEqual(originalInput, section.GrassCoverErosionInwards.InputComments.Body);
+            Assert.AreEqual(originalOutput, section.GrassCoverErosionInwards.OutputComments.Body);
+            Assert.AreEqual(originalNotRelevantText, section.GrassCoverErosionInwards.NotRelevantComments.Body);
             Assert.AreEqual(n, section.GrassCoverErosionInwards.GeneralInput.N);
         }
 
@@ -489,9 +489,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.GrassCoverErosionOutwards.IsRelevant);
-            Assert.AreEqual(inputComments, section.GrassCoverErosionOutwards.InputComments.Comments);
-            Assert.AreEqual(outputComments, section.GrassCoverErosionOutwards.OutputComments.Comments);
-            Assert.AreEqual(notRelevantComments, section.GrassCoverErosionOutwards.NotRelevantComments.Comments);
+            Assert.AreEqual(inputComments, section.GrassCoverErosionOutwards.InputComments.Body);
+            Assert.AreEqual(outputComments, section.GrassCoverErosionOutwards.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.GrassCoverErosionOutwards.NotRelevantComments.Body);
             Assert.AreEqual(n, section.GrassCoverErosionOutwards.GeneralInput.N);
         }
 
@@ -618,9 +618,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.StabilityStoneCover.IsRelevant);
-            Assert.AreEqual(inputComments, section.StabilityStoneCover.InputComments.Comments);
-            Assert.AreEqual(outputComments, section.StabilityStoneCover.OutputComments.Comments);
-            Assert.AreEqual(notRelevantComments, section.StabilityStoneCover.NotRelevantComments.Comments);
+            Assert.AreEqual(inputComments, section.StabilityStoneCover.InputComments.Body);
+            Assert.AreEqual(outputComments, section.StabilityStoneCover.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.StabilityStoneCover.NotRelevantComments.Body);
         }
 
         [Test]
@@ -735,9 +735,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.WaveImpactAsphaltCover.IsRelevant);
-            Assert.AreEqual(inputComments, section.WaveImpactAsphaltCover.InputComments.Comments);
-            Assert.AreEqual(outputComments, section.WaveImpactAsphaltCover.OutputComments.Comments);
-            Assert.AreEqual(notRelevantComments, section.WaveImpactAsphaltCover.NotRelevantComments.Comments);
+            Assert.AreEqual(inputComments, section.WaveImpactAsphaltCover.InputComments.Body);
+            Assert.AreEqual(outputComments, section.WaveImpactAsphaltCover.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.WaveImpactAsphaltCover.NotRelevantComments.Body);
         }
 
         [Test]
@@ -856,9 +856,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.HeightStructures.IsRelevant);
-            Assert.AreEqual(inputComments, section.HeightStructures.InputComments.Comments);
-            Assert.AreEqual(outputComments, section.HeightStructures.OutputComments.Comments);
-            Assert.AreEqual(notRelevantComments, section.HeightStructures.NotRelevantComments.Comments);
+            Assert.AreEqual(inputComments, section.HeightStructures.InputComments.Body);
+            Assert.AreEqual(outputComments, section.HeightStructures.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.HeightStructures.NotRelevantComments.Body);
         }
 
         [Test]
@@ -897,9 +897,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.ClosingStructures.IsRelevant);
-            Assert.AreEqual(inputComments, section.ClosingStructures.InputComments.Comments);
-            Assert.AreEqual(outputComments, section.ClosingStructures.OutputComments.Comments);
-            Assert.AreEqual(notRelevantComments, section.ClosingStructures.NotRelevantComments.Comments);
+            Assert.AreEqual(inputComments, section.ClosingStructures.InputComments.Body);
+            Assert.AreEqual(outputComments, section.ClosingStructures.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.ClosingStructures.NotRelevantComments.Body);
         }
 
         [Test]
@@ -938,9 +938,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(isRelevant, section.StabilityPointStructures.IsRelevant);
-            Assert.AreEqual(inputComments, section.StabilityPointStructures.InputComments.Comments);
-            Assert.AreEqual(outputComments, section.StabilityPointStructures.OutputComments.Comments);
-            Assert.AreEqual(notRelevantComments, section.StabilityPointStructures.NotRelevantComments.Comments);
+            Assert.AreEqual(inputComments, section.StabilityPointStructures.InputComments.Body);
+            Assert.AreEqual(outputComments, section.StabilityPointStructures.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.StabilityPointStructures.NotRelevantComments.Body);
         }
 
         [Test]
@@ -1039,9 +1039,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                                                         string expectedNotRelevantComments, IFailureMechanism failureMechanism)
         {
             Assert.AreEqual(expectedIsRelevant, failureMechanism.IsRelevant);
-            Assert.AreEqual(expectedInputComments, failureMechanism.InputComments.Comments);
-            Assert.AreEqual(expectedOutputComments, failureMechanism.OutputComments.Comments);
-            Assert.AreEqual(expectedNotRelevantComments, failureMechanism.NotRelevantComments.Comments);
+            Assert.AreEqual(expectedInputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(expectedOutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(expectedNotRelevantComments, failureMechanism.NotRelevantComments.Body);
             Assert.AreEqual(expectedSectionCount, failureMechanism.Sections.Count());
         }
 

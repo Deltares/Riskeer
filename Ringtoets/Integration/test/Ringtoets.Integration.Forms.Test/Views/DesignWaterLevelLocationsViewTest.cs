@@ -354,7 +354,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0, 300000);
             }
 
-            public Commentable Comments { get; private set; }
+            public Comment Comments { get; private set; }
             public string Id { get; set; }
             public string Name { get; set; }
             public AssessmentSectionComposition Composition { get; private set; }

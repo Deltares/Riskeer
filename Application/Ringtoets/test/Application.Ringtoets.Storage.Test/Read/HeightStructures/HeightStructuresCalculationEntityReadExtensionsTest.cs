@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
 
             // Assert
             Assert.AreEqual(name, calculation.Name);
-            Assert.AreEqual(comments, calculation.Comments.Comments);
+            Assert.AreEqual(comments, calculation.Comments.Body);
 
             HeightStructuresInput input = calculation.InputParameters;
             Assert.IsFalse(input.UseForeshore);

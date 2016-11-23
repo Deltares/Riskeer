@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var comment = new Commentable();
+            var comment = new Comment();
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var comment = new Commentable();
+            var comment = new Comment();
 
             using (var plugin = new RingtoetsPlugin())
             {

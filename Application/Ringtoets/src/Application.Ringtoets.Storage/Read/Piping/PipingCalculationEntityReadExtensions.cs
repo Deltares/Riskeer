@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 Name = entity.Name,
                 Comments =
                 {
-                    Comments = entity.Comments
+                    Body = entity.Comments
                 }
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);

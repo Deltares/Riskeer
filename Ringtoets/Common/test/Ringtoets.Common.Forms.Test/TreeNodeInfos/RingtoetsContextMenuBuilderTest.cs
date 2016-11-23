@@ -1609,7 +1609,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             public string Name { get; set; }
 
-            public Commentable Comments { get; private set; }
+            public Comment Comments { get; private set; }
 
             public bool HasOutput
             {

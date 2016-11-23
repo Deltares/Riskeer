@@ -109,7 +109,7 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new ClosingStructuresCalculationEntity
             {
                 Name = calculation.Name.DeepClone(),
-                Comments = calculation.Comments.Comments.DeepClone(),
+                Comments = calculation.Comments.Body.DeepClone(),
                 Order = order
             };
             SetInputValues(entity, calculation.InputParameters, registry);
@@ -193,7 +193,7 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new HeightStructuresCalculationEntity
             {
                 Name = calculation.Name.DeepClone(),
-                Comments = calculation.Comments.Comments.DeepClone(),
+                Comments = calculation.Comments.Body.DeepClone(),
                 Order = order
             };
             SetInputValues(entity, calculation.InputParameters, registry);
@@ -254,7 +254,7 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new StabilityPointStructuresCalculationEntity
             {
                 Name = calculation.Name.DeepClone(),
-                Comments = calculation.Comments.Comments.DeepClone(),
+                Comments = calculation.Comments.Body.DeepClone(),
                 Order = order
             };
             SetInputValues(entity, calculation.InputParameters, registry);

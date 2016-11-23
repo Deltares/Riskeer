@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
                 Name = entity.Name,
                 Comments =
                 {
-                    Comments = entity.Comments
+                    Body = entity.Comments
                 }
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);

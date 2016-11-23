@@ -19,16 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Data
+using NUnit.Framework;
+
+namespace Ringtoets.Common.Data.Test
 {
-    /// <summary>
-    /// This class represents an object about which some comments can be assigned.
-    /// </summary>
-    public class Commentable
+    [TestFixture]
+    public class CommentTest
     {
-        /// <summary>
-        /// Gets or sets the comments associated with the data object.
-        /// </summary>
-        public string Comments { get; set; }
+        [Test]
+        public void Constructor_ReturnExpectedValues()
+        {
+            // Call
+            var comment = new Comment();
+
+            // Assert
+            Assert.IsNull(comment.Body);
+        }
     }
 }

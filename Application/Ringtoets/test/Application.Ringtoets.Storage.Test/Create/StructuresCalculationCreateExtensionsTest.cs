@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 Name = name,
                 Comments =
                 {
-                    Comments = comments
+                    Body = comments
                 },
                 InputParameters =
                 {
@@ -264,7 +264,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 Name = name,
                 Comments =
                 {
-                    Comments = comment
+                    Body = comment
                 }
             };
 
@@ -404,7 +404,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 Name = "A",
                 Comments =
                 {
-                    Comments = "B"
+                    Body = "B"
                 },
                 InputParameters =
                 {
@@ -493,7 +493,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(calculation.Name, entity.Name);
-            Assert.AreEqual(calculation.Comments.Comments, entity.Comments);
+            Assert.AreEqual(calculation.Comments.Body, entity.Comments);
 
             ClosingStructuresInput inputParameters = calculation.InputParameters;
             Assert.AreEqual(inputParameters.StormDuration.Mean.Value, entity.StormDurationMean);
@@ -769,7 +769,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 Name = "A",
                 Comments =
                 {
-                    Comments = "B"
+                    Body = "B"
                 },
                 InputParameters =
                 {
@@ -910,7 +910,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(calculation.Name, entity.Name);
-            Assert.AreEqual(calculation.Comments.Comments, entity.Comments);
+            Assert.AreEqual(calculation.Comments.Body, entity.Comments);
 
             StabilityPointStructuresInput inputParameters = calculation.InputParameters;
             Assert.AreEqual(inputParameters.StormDuration.Mean.Value, entity.StormDurationMean);

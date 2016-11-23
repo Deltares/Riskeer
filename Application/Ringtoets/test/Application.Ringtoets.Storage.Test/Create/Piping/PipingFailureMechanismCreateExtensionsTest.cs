@@ -61,15 +61,15 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 IsRelevant = isRelevant,
                 InputComments =
                 {
-                    Comments = "Some input text"
+                    Body = "Some input text"
                 },
                 OutputComments =
                 {
-                    Comments = "Some output text"
+                    Body = "Some output text"
                 },
                 NotRelevantComments =
                 {
-                    Comments = "Really not relevant"
+                    Body = "Really not relevant"
                 },
                 PipingProbabilityAssessmentInput =
                 {
@@ -85,9 +85,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.Piping, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
-            Assert.AreEqual(failureMechanism.InputComments.Comments, entity.InputComments);
-            Assert.AreEqual(failureMechanism.OutputComments.Comments, entity.OutputComments);
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Comments, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
+            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
 
             var failureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.ToArray()[0];
@@ -105,15 +105,15 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             {
                 InputComments =
                 {
-                    Comments = originalInput
+                    Body = originalInput
                 },
                 OutputComments =
                 {
-                    Comments = originalOutput
+                    Body = originalOutput
                 },
                 NotRelevantComments =
                 {
-                    Comments = originalNotRelevantText
+                    Body = originalNotRelevantText
                 }
             };
             var registry = new PersistenceRegistry();
@@ -124,13 +124,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.AreNotSame(originalInput, entity.InputComments,
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.InputComments.Comments, entity.InputComments);
+            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreNotSame(originalOutput, entity.OutputComments,
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.OutputComments.Comments, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreNotSame(originalNotRelevantText, entity.NotRelevantComments,
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Comments, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
         }
 
         [Test]

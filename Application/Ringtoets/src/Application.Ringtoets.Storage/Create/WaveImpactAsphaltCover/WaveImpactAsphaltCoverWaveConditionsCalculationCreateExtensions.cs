@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
             {
                 Order = order,
                 Name = calculation.Name.DeepClone(),
-                Comments = calculation.Comments.Comments.DeepClone()
+                Comments = calculation.Comments.Body.DeepClone()
             };
 
             SetInputParameters(entity, calculation, registry);

@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
-            Assert.IsNull(calculation.Comments.Comments);
+            Assert.IsNull(calculation.Comments.Body);
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Output);
         }
@@ -120,10 +120,10 @@ namespace Ringtoets.Common.Data.Test.Structures
             var calculation = new TestStructuresCalculation();
 
             // Call
-            calculation.Comments.Comments = comments;
+            calculation.Comments.Body = comments;
 
             // Assert
-            Assert.AreEqual(comments, calculation.Comments.Comments);
+            Assert.AreEqual(comments, calculation.Comments.Body);
         }
 
         private class TestStructuresCalculation : StructuresCalculation<TestStructuresInput> {}

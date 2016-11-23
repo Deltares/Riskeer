@@ -19,26 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Forms.PresentationObjects;
-
-namespace Ringtoets.Common.Forms.Test.PresentationObjects
+namespace Ringtoets.Common.Data
 {
-    [TestFixture]
-    public class CommentContextTest
+    /// <summary>
+    /// This class represents an object about which some comments can be assigned.
+    /// </summary>
+    public class Comment
     {
-        [Test]
-        public void Constructor_DefaultValues()
-        {
-            // Setup
-            var comment = new Comment();
-
-            // Call
-            var context = new CommentContext(comment);
-
-            // Assert
-            Assert.AreSame(comment, context.WrappedData);
-        }
+        /// <summary>
+        /// Gets or sets the comment body associated with the data object.
+        /// </summary>
+        public string Body { get; set; }
     }
 }

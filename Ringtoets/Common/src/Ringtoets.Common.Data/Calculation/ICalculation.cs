@@ -39,6 +39,6 @@ namespace Ringtoets.Common.Data.Calculation
         /// <summary>
         /// Gets the comments associated with the calculation.
         /// </summary>
-        Commentable Comments { get; }
+        Comment Comments { get; }
     }
 }

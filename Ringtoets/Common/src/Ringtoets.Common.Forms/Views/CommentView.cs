@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class CommentView : UserControl, IView
     {
-        private Commentable data;
+        private Comment data;
 
         /// <summary>
         /// Creates a new instance of <see cref="CommentView"/>.
@@ -51,11 +51,11 @@ namespace Ringtoets.Common.Forms.Views
             }
             set
             {
-                data = value as Commentable;
+                data = value as Comment;
 
                 if (data != null)
                 {
-                    richTextBoxControl.Rtf = data.Comments;
+                    richTextBoxControl.Rtf = data.Body;
                 }
             }
         }
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (data != null)
             {
-                data.Comments = richTextBoxControl.Rtf;
+                data.Body = richTextBoxControl.Rtf;
             }
         }
     }

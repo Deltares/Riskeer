@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         private class CalculationWithOutput : ICalculation
         {
             public string Name { get; set; }
-            public Commentable Comments { get; private set; }
+            public Comment Comments { get; private set; }
 
             public bool HasOutput
             {
@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         private class CalculationWithoutOutput : ICalculation
         {
             public string Name { get; set; }
-            public Commentable Comments { get; private set; }
+            public Comment Comments { get; private set; }
 
             public bool HasOutput
             {

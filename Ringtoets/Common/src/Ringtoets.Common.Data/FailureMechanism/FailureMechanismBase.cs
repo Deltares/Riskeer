@@ -57,9 +57,9 @@ namespace Ringtoets.Common.Data.FailureMechanism
             Code = failureMechanismCode;
             sections = new List<FailureMechanismSection>();
             IsRelevant = true;
-            InputComments = new Commentable();
-            OutputComments = new Commentable();
-            NotRelevantComments = new Commentable();
+            InputComments = new Comment();
+            OutputComments = new Comment();
+            NotRelevantComments = new Comment();
         }
 
         public double Contribution
@@ -92,11 +92,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
         }
 
-        public Commentable InputComments { get; private set; }
+        public Comment InputComments { get; private set; }
 
-        public Commentable OutputComments { get; private set; }
+        public Comment OutputComments { get; private set; }
 
-        public Commentable NotRelevantComments { get; private set; }
+        public Comment NotRelevantComments { get; private set; }
 
         public bool IsRelevant { get; set; }
 

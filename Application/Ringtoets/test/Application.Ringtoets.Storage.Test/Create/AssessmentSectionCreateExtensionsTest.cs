@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 Name = testName,
                 Comments =
                 {
-                    Comments = comments
+                    Body = comments
                 },
                 FailureMechanismContribution =
                 {
@@ -129,7 +129,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 Name = originalName,
                 Comments =
                 {
-                    Comments = originalComments
+                    Body = originalComments
                 }
             };
 

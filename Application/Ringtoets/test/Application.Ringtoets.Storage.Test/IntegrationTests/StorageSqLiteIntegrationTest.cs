@@ -836,9 +836,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedRoughnessPoint.Roughness, actualRoughnessPoint.Roughness);
         }
 
-        private static void AssertComments(Commentable expectedComments, Commentable actualComments)
+        private static void AssertComments(Comment expectedComments, Comment actualComments)
         {
-            Assert.AreEqual(expectedComments.Comments, actualComments.Comments);
+            Assert.AreEqual(expectedComments.Body, actualComments.Body);
         }
 
         private static void AssertStructureInputBase<T>(StructuresInputBase<T> expectedInput,

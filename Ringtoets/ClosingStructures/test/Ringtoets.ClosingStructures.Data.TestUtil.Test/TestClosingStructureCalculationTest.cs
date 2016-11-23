@@ -41,7 +41,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             Assert.IsInstanceOf<StructuresCalculation<ClosingStructuresInput>>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
-            Assert.IsNull(calculation.Comments.Comments);
+            Assert.IsNull(calculation.Comments.Body);
             Assert.IsFalse(calculation.HasOutput);
 
             Assert.IsNotNull(calculation.InputParameters.Structure);

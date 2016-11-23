@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             public string Name { get; set; }
 
-            public Commentable Comments { get; private set; }
+            public Comment Comments { get; private set; }
 
             public bool HasOutput
             {

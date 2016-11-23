@@ -425,7 +425,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(CommentContext),
-                    typeof(Commentable),
+                    typeof(Comment),
                     typeof(CommentView));
             }
         }

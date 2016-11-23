@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
                 Name = name,
                 Comments =
                 {
-                    Comments = comments
+                    Body = comments
                 },
                 InputParameters =
                 {
@@ -143,7 +143,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
                 Name = name,
                 Comments =
                 {
-                    Comments = comments
+                    Body = comments
                 }
             };
 

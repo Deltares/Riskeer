@@ -39,7 +39,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         {
             Name = RingtoetsCommonDataResources.Calculation_DefaultName;
             InputParameters = new WaveConditionsInput();
-            Comments = new Commentable();
+            Comments = new Comment();
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Ringtoets.StabilityStoneCover.Data
 
         public string Name { get; set; }
 
-        public Commentable Comments { get; private set; }
+        public Comment Comments { get; private set; }
 
         public bool HasOutput
         {

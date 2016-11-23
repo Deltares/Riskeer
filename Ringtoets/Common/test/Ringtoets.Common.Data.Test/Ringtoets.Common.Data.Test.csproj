@@ -56,6 +56,7 @@
     </Compile>
     <Compile Include="AssessmentSection\ReferenceLineMetaTest.cs" />
     <Compile Include="AssessmentSection\ReferenceLineTest.cs" />
+    <Compile Include="CommentTest.cs" />
     <Compile Include="DikeProfiles\BreakWaterTest.cs" />
     <Compile Include="Calculation\CalculationGroupTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileTest.cs" />

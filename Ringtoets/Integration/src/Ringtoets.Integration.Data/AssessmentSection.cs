@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.Data
         public AssessmentSection(AssessmentSectionComposition composition)
         {
             Name = Resources.AssessmentSection_DisplayName;
-            Comments = new Commentable();
+            Comments = new Comment();
 
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
@@ -176,7 +176,7 @@ namespace Ringtoets.Integration.Data
 
         public string Name { get; set; }
 
-        public Commentable Comments { get; private set; }
+        public Comment Comments { get; private set; }
 
         public AssessmentSectionComposition Composition { get; private set; }
 

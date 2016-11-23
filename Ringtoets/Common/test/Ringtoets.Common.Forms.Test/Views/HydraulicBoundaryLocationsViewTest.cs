@@ -362,7 +362,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private class TestAssessmentSection : Observable, IAssessmentSection
         {
-            public Commentable Comments { get; private set; }
+            public Comment Comments { get; private set; }
 
             public string Id { get; set; }
 

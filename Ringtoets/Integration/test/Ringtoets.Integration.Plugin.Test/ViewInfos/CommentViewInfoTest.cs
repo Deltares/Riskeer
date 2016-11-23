@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var comment = new Commentable();
+            var comment = new Comment();
             var viewMock = mocks.StrictMock<CommentView>();
 
             mocks.ReplayAll();
@@ -83,7 +83,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsComment()
         {
             // Setup
-            var comment = new Commentable();
+            var comment = new Comment();
             var contextMock = mocks.StrictMock<CommentContext>(comment);
             mocks.ReplayAll();
 
@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(Commentable), viewDataType);
+            Assert.AreEqual(typeof(Comment), viewDataType);
         }
 
         [Test]
@@ -139,7 +139,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ObjectIsNotObjectOfInterest_ReturnFalse()
         {
             // Setup
-            var comment = new Commentable();
+            var comment = new Comment();
             mocks.ReplayAll();
 
             using (var view = new CommentView
@@ -162,7 +162,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(s => s.Comments).Return(new Commentable());
+            assessmentSection.Stub(s => s.Comments).Return(new Comment());
             mocks.ReplayAll();
 
             using (var view = new CommentView
@@ -185,11 +185,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
             deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            deletedAssessmentSection.Stub(s => s.Comments).Return(new Commentable());
+            deletedAssessmentSection.Stub(s => s.Comments).Return(new Comment());
 
             var viewDataAssessmentSection = mocks.Stub<IAssessmentSection>();
             viewDataAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            viewDataAssessmentSection.Stub(s => s.Comments).Return(new Commentable());
+            viewDataAssessmentSection.Stub(s => s.Comments).Return(new Comment());
             mocks.ReplayAll();
 
             using (var view = new CommentView
@@ -211,23 +211,23 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var calculation = mocks.Stub<ICalculation>();
-            calculation.Stub(s => s.Comments).Return(new Commentable());
+            calculation.Stub(s => s.Comments).Return(new Comment());
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation
             });
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Commentable());
+            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
-            assessmentSection.Stub(s => s.Comments).Return(new Commentable());
+            assessmentSection.Stub(s => s.Comments).Return(new Comment());
             mocks.ReplayAll();
 
             using (var view = new CommentView
@@ -249,7 +249,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
-            viewDataCalculation.Stub(s => s.Comments).Return(new Commentable());
+            viewDataCalculation.Stub(s => s.Comments).Return(new Comment());
 
             var deletedCalculation = mocks.Stub<ICalculation>();
 
@@ -258,16 +258,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 deletedCalculation
             });
-            deletedfailureMechanism.Stub(fm => fm.InputComments).Return(new Commentable());
-            deletedfailureMechanism.Stub(fm => fm.OutputComments).Return(new Commentable());
-            deletedfailureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Commentable());
+            deletedfailureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
+            deletedfailureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            deletedfailureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
 
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
             deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
             {
                 deletedfailureMechanism
             });
-            deletedAssessmentSection.Stub(s => s.Comments).Return(new Commentable());
+            deletedAssessmentSection.Stub(s => s.Comments).Return(new Comment());
             mocks.ReplayAll();
 
             using (var view = new CommentView
@@ -285,28 +285,28 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsInputCommentableOfDeletedAssessmentSection_ReturnTrue()
+        public void CloseForData_ViewDataIsInputCommentOfDeletedAssessmentSection_ReturnTrue()
         {
             // Setup
-            var commentable = new Commentable();
+            var comment = new Comment();
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            failureMechanism.Stub(fm => fm.InputComments).Return(commentable);
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Commentable());
+            failureMechanism.Stub(fm => fm.InputComments).Return(comment);
+            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
-            assessmentSection.Stub(s => s.Comments).Return(new Commentable());
+            assessmentSection.Stub(s => s.Comments).Return(new Comment());
             mocks.ReplayAll();
 
             using (var view = new CommentView
             {
-                Data = commentable
+                Data = comment
             })
             {
                 // Call
@@ -319,28 +319,28 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsCommentableButNotOfDeletedAssessmentSection_ReturnFalse()
+        public void CloseForData_ViewDataIsCommentButNotOfDeletedAssessmentSection_ReturnFalse()
         {
             // Setup
-            var viewDataCommentable = new Commentable();
+            var viewDataComment = new Comment();
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Commentable());
+            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
-            assessmentSection.Stub(s => s.Comments).Return(new Commentable());
+            assessmentSection.Stub(s => s.Comments).Return(new Comment());
             mocks.ReplayAll();
 
             using (var view = new CommentView
             {
-                Data = viewDataCommentable
+                Data = viewDataComment
             })
             {
                 // Call
@@ -353,28 +353,28 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsOutputCommentableOfDeletedAssessmentSection_ReturnTrue()
+        public void CloseForData_ViewDataIsOutputCommentOfDeletedAssessmentSection_ReturnTrue()
         {
             // Setup
-            var commentable = new Commentable();
+            var comment = new Comment();
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(commentable);
-            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Commentable());
+            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.OutputComments).Return(comment);
+            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
-            assessmentSection.Stub(s => s.Comments).Return(new Commentable());
+            assessmentSection.Stub(s => s.Comments).Return(new Comment());
             mocks.ReplayAll();
 
             using (var view = new CommentView
             {
-                Data = commentable
+                Data = comment
             })
             {
                 // Call
@@ -387,28 +387,28 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsNotRelevantCommentableOfDeletedAssessmentSection_ReturnTrue()
+        public void CloseForData_ViewDataIsNotRelevantCommentOfDeletedAssessmentSection_ReturnTrue()
         {
             // Setup
-            var commentable = new Commentable();
+            var comment = new Comment();
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(commentable);
+            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(comment);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
-            assessmentSection.Stub(s => s.Comments).Return(new Commentable());
+            assessmentSection.Stub(s => s.Comments).Return(new Comment());
             mocks.ReplayAll();
 
             using (var view = new CommentView
             {
-                Data = commentable
+                Data = comment
             })
             {
                 // Call
@@ -425,7 +425,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var calculation = mocks.Stub<ICalculation>();
-            calculation.Stub(s => s.Comments).Return(new Commentable());
+            calculation.Stub(s => s.Comments).Return(new Comment());
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             var failureMechanismContext = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
 
@@ -434,9 +434,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 calculation
             });
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Commentable());
+            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
 
             mocks.ReplayAll();
 
@@ -459,9 +459,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
-            viewDataCalculation.Stub(s => s.Comments).Return(new Commentable());
+            viewDataCalculation.Stub(s => s.Comments).Return(new Comment());
             var deletedCalculation = mocks.Stub<ICalculation>();
-            deletedCalculation.Stub(s => s.Comments).Return(new Commentable());
+            deletedCalculation.Stub(s => s.Comments).Return(new Comment());
 
             var deletedfailureMechanism = mocks.Stub<IFailureMechanism>();
             var failureMechanismContext = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
@@ -471,9 +471,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 deletedCalculation
             });
-            deletedfailureMechanism.Stub(fm => fm.InputComments).Return(new Commentable());
-            deletedfailureMechanism.Stub(fm => fm.OutputComments).Return(new Commentable());
-            deletedfailureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Commentable());
+            deletedfailureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
+            deletedfailureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            deletedfailureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
 
             mocks.ReplayAll();
 
@@ -496,16 +496,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var calculation = mocks.Stub<ICalculation>();
-            calculation.Stub(s => s.Comments).Return(new Commentable());
+            calculation.Stub(s => s.Comments).Return(new Comment());
             var failureMechanism = mocks.Stub<IFailureMechanism>();
 
             failureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation
             });
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Commentable());
+            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
 
             mocks.ReplayAll();
 
@@ -528,7 +528,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
-            viewDataCalculation.Stub(s => s.Comments).Return(new Commentable());
+            viewDataCalculation.Stub(s => s.Comments).Return(new Comment());
             var deletedCalculation = mocks.Stub<ICalculation>();
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
@@ -537,9 +537,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 deletedCalculation
             });
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Commentable());
+            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
 
             mocks.ReplayAll();
 
@@ -558,22 +558,22 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsCommentableButNotOfDeletedFailureMechanism_ReturnFalse()
+        public void CloseForData_ViewDataIsCommentButNotOfDeletedFailureMechanism_ReturnFalse()
         {
             // Setup
-            var viewDataCommentable = new Commentable();
+            var viewDataComment = new Comment();
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Commentable());
-            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Commentable());
+            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
 
             mocks.ReplayAll();
 
             using (var view = new CommentView
             {
-                Data = viewDataCommentable
+                Data = viewDataComment
             })
             {
                 // Call
@@ -590,7 +590,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
-            viewDataCalculation.Stub(c => c.Comments).Return(new Commentable());
+            viewDataCalculation.Stub(c => c.Comments).Return(new Comment());
             var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, IFailureMechanism>>();
 
             deletedCalculationContext.Expect(c => c.WrappedData).Return(viewDataCalculation);
@@ -616,9 +616,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var calculation = mocks.Stub<ICalculation>();
-            calculation.Stub(s => s.Comments).Return(new Commentable());
+            calculation.Stub(s => s.Comments).Return(new Comment());
             var viewDataCalculation = mocks.Stub<ICalculation>();
-            viewDataCalculation.Stub(s => s.Comments).Return(new Commentable());
+            viewDataCalculation.Stub(s => s.Comments).Return(new Comment());
             var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, IFailureMechanism>>();
 
             deletedCalculationContext.Expect(c => c.WrappedData).Return(calculation);
@@ -645,7 +645,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
-            viewDataCalculation.Stub(s => s.Comments).Return(new Commentable());
+            viewDataCalculation.Stub(s => s.Comments).Return(new Comment());
             var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, IFailureMechanism>>();
             var deletedGroup = new CalculationGroup
             {
@@ -678,9 +678,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
-            viewDataCalculation.Stub(s => s.Comments).Return(new Commentable());
+            viewDataCalculation.Stub(s => s.Comments).Return(new Comment());
             var deletedCalculation = mocks.Stub<ICalculation>();
-            deletedCalculation.Stub(s => s.Comments).Return(new Commentable());
+            deletedCalculation.Stub(s => s.Comments).Return(new Comment());
             var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, IFailureMechanism>>();
             var deletedGroup = new CalculationGroup
             {

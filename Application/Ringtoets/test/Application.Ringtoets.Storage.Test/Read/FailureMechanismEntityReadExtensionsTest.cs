@@ -66,9 +66,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsEmpty(failureMechanism.Sections);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Comments);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Comments);
-            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Comments);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             Assert.IsEmpty(failureMechanism.Sections);
         }
 
@@ -168,9 +168,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Comments);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Comments);
-            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Comments);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             Assert.IsEmpty(failureMechanism.StochasticSoilModels);
             Assert.IsEmpty(failureMechanism.Sections);
 
@@ -360,9 +360,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Comments);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Comments);
-            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Comments);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             Assert.IsEmpty(failureMechanism.Sections);
 
             Assert.AreEqual(3, failureMechanism.GeneralInput.N);
@@ -525,9 +525,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Comments);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Comments);
-            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Comments);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             Assert.IsEmpty(failureMechanism.Sections);
 
             Assert.AreEqual(3, failureMechanism.GeneralInput.N);

@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
             {
                 Order = order,
                 Name = calculation.Name.DeepClone(),
-                Comments = calculation.Comments.Comments.DeepClone()
+                Comments = calculation.Comments.Body.DeepClone()
             };
 
             SetInputParameters(entity, calculation, registry);

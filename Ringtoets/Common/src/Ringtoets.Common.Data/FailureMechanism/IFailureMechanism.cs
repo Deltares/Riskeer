@@ -51,17 +51,17 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets the comments associated with the input of the data object.
         /// </summary>
-        Commentable InputComments { get; }
+        Comment InputComments { get; }
         
         /// <summary>
         /// Gets the comments associated with the output of the data object.
         /// </summary>
-        Commentable OutputComments { get; }
+        Comment OutputComments { get; }
 
         /// <summary>
         /// Gets the comments associated when the failure mechanism is set to be not relevant.
         /// </summary>
-        Commentable NotRelevantComments { get; }
+        Comment NotRelevantComments { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this failure mechanism is relevant.
