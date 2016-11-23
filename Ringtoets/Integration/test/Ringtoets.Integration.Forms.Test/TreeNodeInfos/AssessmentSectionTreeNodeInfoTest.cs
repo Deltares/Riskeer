@@ -164,7 +164,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection, context.WrappedData);
 
                 var commentContext = (CommentContext<ICommentable>) objects[3];
-                Assert.AreSame(assessmentSection, commentContext.WrappedData);
+                Assert.AreSame(assessmentSection.Comments, commentContext.WrappedData);
 
                 var pipingFailureMechanismContext = (PipingFailureMechanismContext) objects[4];
                 Assert.AreSame(assessmentSection.PipingFailureMechanism, pipingFailureMechanismContext.WrappedData);

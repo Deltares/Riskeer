@@ -24,7 +24,6 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -110,10 +109,9 @@ namespace Ringtoets.Integration.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(section);
             Assert.IsInstanceOf<IAssessmentSection>(section);
-            Assert.IsInstanceOf<ICommentable>(section);
 
             Assert.AreEqual("Traject", section.Name);
-            Assert.IsNull(section.Comments);
+            Assert.IsNull(section.Comments.Comments);
             Assert.IsNull(section.ReferenceLine);
             Assert.AreEqual(composition, section.Composition);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
@@ -173,10 +171,10 @@ namespace Ringtoets.Integration.Data.Test
             const string newValue = "new comment value";
 
             // Call
-            section.Comments = newValue;
+            section.Comments.Comments = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, section.Comments);
+            Assert.AreEqual(newValue, section.Comments.Comments);
         }
 
         [Test]

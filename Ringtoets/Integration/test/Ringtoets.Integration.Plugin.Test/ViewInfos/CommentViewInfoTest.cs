@@ -162,11 +162,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+            assessmentSection.Stub(s => s.Comments).Return(new Commentable());
             mocks.ReplayAll();
 
             using (var view = new CommentView
             {
-                Data = assessmentSection
+                Data = assessmentSection.Comments
             })
             {
                 // Call
@@ -187,11 +188,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var viewDataAssessmentSection = mocks.Stub<IAssessmentSection>();
             viewDataAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+            viewDataAssessmentSection.Stub(s => s.Comments).Return(new Commentable());
             mocks.ReplayAll();
 
             using (var view = new CommentView
             {
-                Data = viewDataAssessmentSection
+                Data = viewDataAssessmentSection.Comments
             })
             {
                 // Call

@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -55,6 +56,7 @@ namespace Ringtoets.Integration.Data
         public AssessmentSection(AssessmentSectionComposition composition)
         {
             Name = Resources.AssessmentSection_DisplayName;
+            Comments = new Commentable();
 
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
@@ -174,7 +176,7 @@ namespace Ringtoets.Integration.Data
 
         public string Name { get; set; }
 
-        public string Comments { get; set; }
+        public Commentable Comments { get; private set; }
 
         public AssessmentSectionComposition Composition { get; private set; }
 

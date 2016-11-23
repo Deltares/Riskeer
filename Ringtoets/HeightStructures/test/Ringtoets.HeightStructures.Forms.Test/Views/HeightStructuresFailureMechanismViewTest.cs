@@ -812,7 +812,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         {
             public string Id { get; set; }
             public string Name { get; set; }
-            public string Comments { get; set; }
+            public Commentable Comments { get; private set; }
             public AssessmentSectionComposition Composition { get; private set; }
             public ReferenceLine ReferenceLine { get; set; }
             public FailureMechanismContribution FailureMechanismContribution { get; private set; }

@@ -420,28 +420,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             view.Data = locations;
             return view;
         }
-
-        private class TestAssessmentSection : Observable, IAssessmentSection
-        {
-            public TestAssessmentSection()
-            {
-                FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0, 300000);
-            }
-
-            public string Comments { get; set; }
-            public string Id { get; set; }
-            public string Name { get; set; }
-            public AssessmentSectionComposition Composition { get; private set; }
-            public ReferenceLine ReferenceLine { get; set; }
-            public FailureMechanismContribution FailureMechanismContribution { get; private set; }
-            public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
-
-            public IEnumerable<IFailureMechanism> GetFailureMechanisms()
-            {
-                yield break;
-            }
-
-            public void ChangeComposition(AssessmentSectionComposition newComposition) {}
-        }
     }
 }

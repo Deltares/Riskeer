@@ -1017,7 +1017,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static IEnumerable<ICommentable> GetCommentableElements(IAssessmentSection assessmentSection)
         {
-            yield return assessmentSection;
+            yield return assessmentSection.Comments;
             foreach (var commentable in assessmentSection.GetFailureMechanisms().SelectMany(GetCommentableElements))
             {
                 yield return commentable;
@@ -1046,7 +1046,7 @@ namespace Ringtoets.Integration.Plugin
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),
-                new CommentContext<ICommentable>(nodeData)
+                new CommentContext<ICommentable>(nodeData.Comments)
             };
 
             IEnumerable<object> failureMechanismContexts = WrapFailureMechanismsInContexts(nodeData);

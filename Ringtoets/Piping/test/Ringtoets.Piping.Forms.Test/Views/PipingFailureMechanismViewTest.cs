@@ -30,6 +30,7 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -866,7 +867,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             public string Id { get; set; }
             public string Name { get; set; }
-            public string Comments { get; set; }
+            public Commentable Comments { get; private set; }
             public AssessmentSectionComposition Composition { get; private set; }
             public ReferenceLine ReferenceLine { get; set; }
             public FailureMechanismContribution FailureMechanismContribution { get; private set; }

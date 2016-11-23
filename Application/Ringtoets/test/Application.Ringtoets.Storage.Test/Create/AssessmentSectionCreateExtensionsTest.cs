@@ -68,7 +68,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 Id = testId,
                 Name = testName,
-                Comments = comments,
+                Comments =
+                {
+                    Comments = comments
+                },
                 FailureMechanismContribution =
                 {
                     Norm = norm
@@ -124,7 +127,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             var section = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 Name = originalName,
-                Comments = originalComments
+                Comments =
+                {
+                    Comments = originalComments
+                }
             };
 
             var registry = new PersistenceRegistry();

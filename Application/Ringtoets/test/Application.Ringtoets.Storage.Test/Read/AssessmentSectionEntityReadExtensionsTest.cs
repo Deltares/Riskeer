@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(section);
             Assert.AreEqual(testId, section.Id);
             Assert.AreEqual(testName, section.Name);
-            Assert.AreEqual(comments, section.Comments);
+            Assert.AreEqual(comments, section.Comments.Comments);
             Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
             Assert.IsNull(section.HydraulicBoundaryDatabase);

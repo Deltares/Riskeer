@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
     /// <summary>
     /// Base implementation of assessment sections.
     /// </summary>
-    public interface IAssessmentSection : ICommentable, IObservable
+    public interface IAssessmentSection : IObservable
     {
         /// <summary>
         /// Gets the identifier of the assessment section.
@@ -41,6 +41,11 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// Gets or sets the name of the assessment section.
         /// </summary>
         string Name { get; set; }
+
+        /// <summary>
+        /// Gets the comments associated with the assessment section.
+        /// </summary>
+        Commentable Comments { get; }
 
         /// <summary>
         /// Gets the composition of the assessment section, i.e. what type of elements can 

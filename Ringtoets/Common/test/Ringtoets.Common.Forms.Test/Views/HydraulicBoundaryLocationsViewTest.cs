@@ -30,6 +30,7 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -361,7 +362,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private class TestAssessmentSection : Observable, IAssessmentSection
         {
-            public string Comments { get; set; }
+            public Commentable Comments { get; private set; }
 
             public string Id { get; set; }
 
