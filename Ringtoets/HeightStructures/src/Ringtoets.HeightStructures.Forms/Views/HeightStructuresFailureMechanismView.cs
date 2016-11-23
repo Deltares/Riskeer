@@ -123,20 +123,19 @@ namespace Ringtoets.HeightStructures.Forms.Views
                     calculationInputObserver.Observable = null;
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
-
-                    Map.ResetMapData();
-                    return;
                 }
-
-                failureMechanismObserver.Observable = data.WrappedData;
-                assessmentSectionObserver.Observable = data.Parent;
-                foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
-                structuresObserver.Observable = data.WrappedData.HeightStructures;
-                calculationObserver.Observable = data.WrappedData.CalculationsGroup;
-                calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
-                calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
-                calculationObserver.Observable = data.WrappedData.CalculationsGroup;
-
+                else
+                {
+                    failureMechanismObserver.Observable = data.WrappedData;
+                    assessmentSectionObserver.Observable = data.Parent;
+                    foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
+                    structuresObserver.Observable = data.WrappedData.HeightStructures;
+                    calculationObserver.Observable = data.WrappedData.CalculationsGroup;
+                    calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
+                    calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
+                    calculationObserver.Observable = data.WrappedData.CalculationsGroup;
+                }
+                
                 UpdateMapData();
             }
         }
@@ -167,34 +166,32 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         private void UpdateMapData()
         {
-            ReferenceLine referenceLine = null;
-            IEnumerable<FailureMechanismSection> failureMechanismSections = null;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = null;
-            IEnumerable<ForeshoreProfile> foreshoreProfiles = null;
-            IEnumerable<HeightStructure> structures = null;
-            CalculationGroup calculationGroup = null;
-
-            if (data != null)
+            if (data == null)
             {
-                referenceLine = data.Parent.ReferenceLine;
-                failureMechanismSections = data.WrappedData.Sections;
-                hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
-                foreshoreProfiles = data.WrappedData.ForeshoreProfiles;
-                structures = data.WrappedData.HeightStructures;
-                calculationGroup = data.WrappedData.CalculationsGroup;
+                Map.ResetMapData();
             }
+            else
+            {
+                ReferenceLine referenceLine = data.Parent.ReferenceLine;
+                IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
+                IEnumerable<ForeshoreProfile> foreshoreProfiles = data.WrappedData.ForeshoreProfiles;
+                IEnumerable<HeightStructure> structures = data.WrappedData.HeightStructures;
+                IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations = 
+                    data.WrappedData.CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
 
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
-            sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
-            sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
-            sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-            hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
-            foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
-            structuresMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
-            calculationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures
-                <HeightStructuresInput, HeightStructure>(calculationGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>());
+                referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
+                sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
+                sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
+                sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
+                hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
+                foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
+                structuresMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
+                calculationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures
+                    <HeightStructuresInput, HeightStructure>(calculations);
 
-            mapControl.Data.NotifyObservers();
+                mapControl.Data.NotifyObservers();
+            }
         }
     }
 }

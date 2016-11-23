@@ -139,7 +139,7 @@ namespace Ringtoets.Common.Forms.Test
             }
         }
 
-        public class TestStructure : StructureBase
+        private class TestStructure : StructureBase
         {
             public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) { }
         }

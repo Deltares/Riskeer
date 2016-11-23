@@ -82,7 +82,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Map, view.Controls[0]);
-                Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
+                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 Assert.AreEqual(StabilityStoneCoverDataResources.StabilityStoneCoverFailureMechanism_DisplayName, view.Map.Data.Name);
                 AssertEmptyMapData(view.Map.Data);
             }
@@ -165,7 +165,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Setup
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var geometryPoints = new[]
                 {
@@ -191,6 +191,26 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
+                var foreshoreProfileA = new TestForeshoreProfile(new Point2D(1.3, 1.3));
+                var foreshoreProfileB = new TestForeshoreProfile(new Point2D(1.5, 1.5));
+
+                var calculationA = new StabilityStoneCoverWaveConditionsCalculation
+                {
+                    InputParameters =
+                    {
+                        ForeshoreProfile = foreshoreProfileA,
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    }
+                };
+                var calculationB = new StabilityStoneCoverWaveConditionsCalculation
+                {
+                    InputParameters =
+                    {
+                        ForeshoreProfile = foreshoreProfileB,
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    }
+                };
+
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
@@ -198,6 +218,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
 
                 var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -218,6 +240,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase, mapDataList[hydraulicBoundaryDatabaseIndex]);
                 AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>(), mapDataList[calculationsIndex]);
             }
         }
 
@@ -227,7 +250,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Setup
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase
                 {
@@ -273,7 +296,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Setup
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var points1 = new List<Point2D>
                 {
@@ -317,16 +340,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Setup
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
 
                 view.Data = failureMechanismContext;
 
-                var sectionMapData = (MapLineData)map.Data.Collection.ElementAt(sectionsIndex);
-                var sectionStartsMapData = (MapPointData)map.Data.Collection.ElementAt(sectionsStartPointIndex);
-                var sectionsEndsMapData = (MapPointData)map.Data.Collection.ElementAt(sectionsEndPointIndex);
+                var sectionMapData = (MapLineData) map.Data.Collection.ElementAt(sectionsIndex);
+                var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
+                var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
                 // Call
                 failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
@@ -349,7 +372,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Setup
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
@@ -378,7 +401,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Setup
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
@@ -406,7 +429,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
                 view.Data = failureMechanismContext;
 
-                var calculationMapData = (MapLineData)map.Data.Collection.ElementAt(calculationsIndex);
+                var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
 
@@ -424,7 +447,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Setup
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
@@ -442,7 +465,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 };
                 view.Data = failureMechanismContext;
 
-                var calculationMapData = (MapLineData)map.Data.Collection.ElementAt(calculationsIndex);
+                var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 calculationA.InputParameters.ForeshoreProfile = foreshoreProfileB;
 
@@ -460,7 +483,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Setup
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
@@ -478,7 +501,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
                 view.Data = failureMechanismContext;
 
-                var calculationMapData = (MapLineData)map.Data.Collection.ElementAt(calculationsIndex);
+                var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 calculationA.Name = "new name";
 
@@ -504,7 +527,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var assessmentSection = new TestAssessmentSection();
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -514,32 +537,32 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
                 var mapData = map.Data;
 
-                var dataToMove = (MapLineData)map.Data.Collection.ElementAt(referenceLineIndex);
+                var dataToMove = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
                 mapData.Remove(dataToMove);
                 mapData.Add(dataToMove);
 
                 var mapDataList = mapData.Collection.ToList();
 
                 // Precondition
-                var referenceLineData = (MapLineData)mapDataList[updatedRefenceLineLayerIndex];
+                var referenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-                var sectionsData = (MapLineData)mapDataList[updatedSectionsLayerIndex];
+                var sectionsData = (MapLineData) mapDataList[updatedSectionsLayerIndex];
                 Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-                var sectionStartsData = (MapPointData)mapDataList[updateSectionStartLayerIndex];
+                var sectionStartsData = (MapPointData) mapDataList[updateSectionStartLayerIndex];
                 Assert.AreEqual("Vakindeling (startpunten)", sectionStartsData.Name);
 
-                var sectionEndsData = (MapPointData)mapDataList[updatedSectionEndLayerIndex];
+                var sectionEndsData = (MapPointData) mapDataList[updatedSectionEndLayerIndex];
                 Assert.AreEqual("Vakindeling (eindpunten)", sectionEndsData.Name);
 
-                var hydraulicLocationsData = (MapPointData)mapDataList[updatedHydraulicLocationsLayerIndex];
+                var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicLocationsData.Name);
 
-                var foreshoreProfilesData = (MapLineData)mapDataList[updatedForeshoreProfilesLayerIndex];
+                var foreshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", foreshoreProfilesData.Name);
 
-                var calculationsData = (MapLineData)mapDataList[updatedCalculationsIndex];
+                var calculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
                 Assert.AreEqual("Berekeningen", calculationsData.Name);
 
                 var points = new List<Point2D>
@@ -555,25 +578,25 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 assessmentSection.NotifyObservers();
 
                 // Call
-                var actualReferenceLineData = (MapLineData)mapDataList[updatedRefenceLineLayerIndex];
+                var actualReferenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-                var actualSectionsData = (MapLineData)mapDataList[updatedSectionsLayerIndex];
+                var actualSectionsData = (MapLineData) mapDataList[updatedSectionsLayerIndex];
                 Assert.AreEqual("Vakindeling", actualSectionsData.Name);
 
-                var actualSectionStartsData = (MapPointData)mapDataList[updateSectionStartLayerIndex];
+                var actualSectionStartsData = (MapPointData) mapDataList[updateSectionStartLayerIndex];
                 Assert.AreEqual("Vakindeling (startpunten)", actualSectionStartsData.Name);
 
-                var actualSectionEndsData = (MapPointData)mapDataList[updatedSectionEndLayerIndex];
+                var actualSectionEndsData = (MapPointData) mapDataList[updatedSectionEndLayerIndex];
                 Assert.AreEqual("Vakindeling (eindpunten)", actualSectionEndsData.Name);
 
-                var actualHydraulicLocationsData = (MapPointData)mapDataList[updatedHydraulicLocationsLayerIndex];
+                var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische randvoorwaarden", actualHydraulicLocationsData.Name);
 
-                var actualForeshoreProfilesData = (MapLineData)mapDataList[updatedForeshoreProfilesLayerIndex];
+                var actualForeshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", actualForeshoreProfilesData.Name);
 
-                var actualCalculationsData = (MapLineData)mapDataList[updatedCalculationsIndex];
+                var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
                 Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
             }
         }
@@ -596,7 +619,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             var newStabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(), newAssessmentSection);
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 view.Data = oldStabilityStoneCoverFailureMechanismContext;
                 view.Data = newStabilityStoneCoverFailureMechanismContext;
@@ -615,7 +638,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         private static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
-            var referenceLineData = (MapLineData)mapData;
+            var referenceLineData = (MapLineData) mapData;
             if (referenceLine == null)
             {
                 CollectionAssert.IsEmpty(referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
@@ -631,7 +654,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         {
             Assert.NotNull(foreshoreProfiles, "foreshoreProfiles should never be null.");
 
-            var foreshoreProfilesData = (MapLineData)mapData;
+            var foreshoreProfilesData = (MapLineData) mapData;
             var foreshoreProfileArray = foreshoreProfiles.ToArray();
 
             Assert.IsInstanceOf<MapLineData>(mapData);
@@ -649,7 +672,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         private static void AssertHydraulicBoundaryLocationsMapData(HydraulicBoundaryDatabase database, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
-            var hydraulicLocationsMapData = (MapPointData)mapData;
+            var hydraulicLocationsMapData = (MapPointData) mapData;
             if (database == null)
             {
                 CollectionAssert.IsEmpty(hydraulicLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
@@ -664,7 +687,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         private static void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
-            var sectionsStartPointData = (MapPointData)mapData;
+            var sectionsStartPointData = (MapPointData) mapData;
             CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
             Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
         }
@@ -672,7 +695,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         private static void AssertFailureMechanismSectionsEndPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
-            var sectionsStartPointData = (MapPointData)mapData;
+            var sectionsStartPointData = (MapPointData) mapData;
             CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
             Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
         }
@@ -680,11 +703,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         private static void AssertCalculationsMapData(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
-            var calculationsMapData = (MapLineData)mapData;
+            var calculationsMapData = (MapLineData) mapData;
             var calculationsArray = calculations.ToArray();
             var calculationsFeatures = calculationsMapData.Features.ToArray();
             Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
-
 
             for (int index = 0; index < calculationsArray.Length; index++)
             {
@@ -692,10 +714,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.AreEqual(1, geometries.Length);
 
                 StabilityStoneCoverWaveConditionsCalculation calculation = calculationsArray[index];
-                CollectionAssert.AreEquivalent(new[] {
-                        calculation.InputParameters.ForeshoreProfile.WorldReferencePoint, 
-                        calculation.InputParameters.HydraulicBoundaryLocation.Location
-                    },
+                CollectionAssert.AreEquivalent(new[]
+                {
+                    calculation.InputParameters.ForeshoreProfile.WorldReferencePoint,
+                    calculation.InputParameters.HydraulicBoundaryLocation.Location
+                },
                 geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
@@ -709,13 +732,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             Assert.AreEqual(7, mapDataList.Count);
 
-            var referenceLineMapData = (MapLineData)mapDataList[referenceLineIndex];
-            var sectionsMapData = (MapLineData)mapDataList[sectionsIndex];
-            var foreshoreProfilesMapData = (MapLineData)mapDataList[foreshoreProfilesIndex];
-            var sectionsStartPointMapData = (MapPointData)mapDataList[sectionsStartPointIndex];
-            var sectionsEndPointMapData = (MapPointData)mapDataList[sectionsEndPointIndex];
-            var hydraulicBoundaryDatabaseMapData = (MapPointData)mapDataList[hydraulicBoundaryDatabaseIndex];
-            var calculationsMapData = (MapLineData)mapDataList[calculationsIndex];
+            var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
+            var sectionsMapData = (MapLineData) mapDataList[sectionsIndex];
+            var foreshoreProfilesMapData = (MapLineData) mapDataList[foreshoreProfilesIndex];
+            var sectionsStartPointMapData = (MapPointData) mapDataList[sectionsStartPointIndex];
+            var sectionsEndPointMapData = (MapPointData) mapDataList[sectionsEndPointIndex];
+            var hydraulicBoundaryDatabaseMapData = (MapPointData) mapDataList[hydraulicBoundaryDatabaseIndex];
+            var calculationsMapData = (MapLineData) mapDataList[calculationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(sectionsMapData.Features);

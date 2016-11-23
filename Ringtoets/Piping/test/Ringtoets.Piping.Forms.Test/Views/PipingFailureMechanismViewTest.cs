@@ -785,7 +785,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var soilModelsMapData = (MapLineData) mapData;
             var soilModelsFeatures = soilModelsMapData.Features.ToArray();
             var stochasticSoilModelsArray = soilModels.ToArray();
-            Assert.AreEqual(stochasticSoilModelsArray.Length, soilModelsFeatures.Length);            
+            Assert.AreEqual(stochasticSoilModelsArray.Length, soilModelsFeatures.Length);
 
             for (int index = 0; index < stochasticSoilModelsArray.Length; index++)
             {
@@ -815,7 +815,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
                     calculation.InputParameters.HydraulicBoundaryLocation.Location
                 },
-                                               geometries[0].PointCollections.First());
+                geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
         }

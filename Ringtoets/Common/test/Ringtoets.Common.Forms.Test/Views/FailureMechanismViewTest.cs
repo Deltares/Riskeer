@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Map, view.Controls[0]);
-                Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
+                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 AssertEmptyMapData(view.Map.Data);
             }
         }
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             using (var view = new FailureMechanismView<TestFailureMechanism>())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var geometryPoints = new[]
                 {
@@ -217,7 +217,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             using (var view = new FailureMechanismView<TestFailureMechanism>())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase
                 {
@@ -263,7 +263,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             using (var view = new FailureMechanismView<TestFailureMechanism>())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var points1 = new List<Point2D>
                 {
@@ -307,16 +307,16 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             using (var view = new FailureMechanismView<TestFailureMechanism>())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new TestFailureMechanism();
                 var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(failureMechanism, new TestAssessmentSection());
 
                 view.Data = failureMechanismContext;
 
-                var sectionMapData = (MapLineData)map.Data.Collection.ElementAt(sectionsIndex);
-                var sectionStartsMapData = (MapPointData)map.Data.Collection.ElementAt(sectionsStartPointIndex);
-                var sectionsEndsMapData = (MapPointData)map.Data.Collection.ElementAt(sectionsEndPointIndex);
+                var sectionMapData = (MapLineData) map.Data.Collection.ElementAt(sectionsIndex);
+                var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
+                var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
                 // Call
                 failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
@@ -345,7 +345,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = new FailureMechanismView<TestFailureMechanism>())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var assessmentSection = new TestAssessmentSection();
                 var failureMechanism = new TestFailureMechanism();
@@ -355,26 +355,26 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 var mapData = map.Data;
 
-                var dataToMove = (MapLineData)map.Data.Collection.ElementAt(referenceLineIndex);
+                var dataToMove = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
                 mapData.Remove(dataToMove);
                 mapData.Add(dataToMove);
 
                 var mapDataList = mapData.Collection.ToList();
 
                 // Precondition
-                var referenceLineData = (MapLineData)mapDataList[updatedRefenceLineLayerIndex];
+                var referenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-                var sectionsData = (MapLineData)mapDataList[updatedSectionsLayerIndex];
+                var sectionsData = (MapLineData) mapDataList[updatedSectionsLayerIndex];
                 Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-                var sectionStartsData = (MapPointData)mapDataList[updateSectionStartLayerIndex];
+                var sectionStartsData = (MapPointData) mapDataList[updateSectionStartLayerIndex];
                 Assert.AreEqual("Vakindeling (startpunten)", sectionStartsData.Name);
 
-                var sectionEndsData = (MapPointData)mapDataList[updatedSectionEndLayerIndex];
+                var sectionEndsData = (MapPointData) mapDataList[updatedSectionEndLayerIndex];
                 Assert.AreEqual("Vakindeling (eindpunten)", sectionEndsData.Name);
 
-                var hydraulicLocationsData = (MapPointData)mapDataList[updatedHydraulicLocationsLayerIndex];
+                var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicLocationsData.Name);
 
                 var points = new List<Point2D>
@@ -390,19 +390,19 @@ namespace Ringtoets.Common.Forms.Test.Views
                 assessmentSection.NotifyObservers();
 
                 // Call
-                var actualReferenceLineData = (MapLineData)mapDataList[updatedRefenceLineLayerIndex];
+                var actualReferenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-                var actualSectionsData = (MapLineData)mapDataList[updatedSectionsLayerIndex];
+                var actualSectionsData = (MapLineData) mapDataList[updatedSectionsLayerIndex];
                 Assert.AreEqual("Vakindeling", actualSectionsData.Name);
 
-                var actualSectionStartsData = (MapPointData)mapDataList[updateSectionStartLayerIndex];
+                var actualSectionStartsData = (MapPointData) mapDataList[updateSectionStartLayerIndex];
                 Assert.AreEqual("Vakindeling (startpunten)", actualSectionStartsData.Name);
 
-                var actualSectionEndsData = (MapPointData)mapDataList[updatedSectionEndLayerIndex];
+                var actualSectionEndsData = (MapPointData) mapDataList[updatedSectionEndLayerIndex];
                 Assert.AreEqual("Vakindeling (eindpunten)", actualSectionEndsData.Name);
 
-                var actualHydraulicLocationsData = (MapPointData)mapDataList[updatedHydraulicLocationsLayerIndex];
+                var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische randvoorwaarden", actualHydraulicLocationsData.Name);
             }
         }
@@ -425,7 +425,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var newFailureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), newAssessmentSection);
             using (var view = new FailureMechanismView<TestFailureMechanism>())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 view.Data = oldFailureMechanismContext;
                 view.Data = newFailureMechanismContext;
@@ -444,7 +444,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         private static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
-            var referenceLineData = (MapLineData)mapData;
+            var referenceLineData = (MapLineData) mapData;
             if (referenceLine == null)
             {
                 CollectionAssert.IsEmpty(referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
@@ -459,7 +459,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         private static void AssertHydraulicBoundaryLocationsMapData(HydraulicBoundaryDatabase database, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
-            var hydraulicLocationsMapData = (MapPointData)mapData;
+            var hydraulicLocationsMapData = (MapPointData) mapData;
             if (database == null)
             {
                 CollectionAssert.IsEmpty(hydraulicLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
@@ -474,7 +474,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         private static void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
-            var sectionsStartPointData = (MapPointData)mapData;
+            var sectionsStartPointData = (MapPointData) mapData;
             CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
             Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
         }
@@ -482,7 +482,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         private static void AssertFailureMechanismSectionsEndPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
-            var sectionsStartPointData = (MapPointData)mapData;
+            var sectionsStartPointData = (MapPointData) mapData;
             CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
             Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
         }
@@ -495,11 +495,11 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             Assert.AreEqual(5, mapDataList.Count);
 
-            var referenceLineMapData = (MapLineData)mapDataList[referenceLineIndex];
-            var sectionsMapData = (MapLineData)mapDataList[sectionsIndex];
-            var sectionsStartPointMapData = (MapPointData)mapDataList[sectionsStartPointIndex];
-            var sectionsEndPointMapData = (MapPointData)mapDataList[sectionsEndPointIndex];
-            var hydraulicBoundaryDatabaseMapData = (MapPointData)mapDataList[hydraulicBoundaryDatabaseIndex];
+            var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
+            var sectionsMapData = (MapLineData) mapDataList[sectionsIndex];
+            var sectionsStartPointMapData = (MapPointData) mapDataList[sectionsStartPointIndex];
+            var sectionsEndPointMapData = (MapPointData) mapDataList[sectionsEndPointIndex];
+            var hydraulicBoundaryDatabaseMapData = (MapPointData) mapDataList[hydraulicBoundaryDatabaseIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(sectionsMapData.Features);

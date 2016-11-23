@@ -221,6 +221,31 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         }
 
         [Test]
+        public void Create_SurfaceLineWithDitchDikeSideAndDikeToeAtPolder_CreateSurfaceLineWithDitchDikeSideAndDikeToeAtPolderSet()
+        {
+            // Setup
+            const string name = "Surfaceline without points";
+            var point = new Point3D(1.0, 1.0, 2.2);
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = name
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                point
+            });
+            surfaceLine.SetDitchDikeSideAt(point);
+
+            // Call
+            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+
+            // Assert
+            Assert.AreEqual(name, actual.Name);
+            Assert.AreEqual(1, actual.Points.Count);
+            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DitchDikeSide);
+        }
+
+        [Test]
         public void Create_SurfaceLineWithBottomDitchDikeSide_CreateSurfaceLineWithBottomDitchDikeSideSet()
         {
             // Setup

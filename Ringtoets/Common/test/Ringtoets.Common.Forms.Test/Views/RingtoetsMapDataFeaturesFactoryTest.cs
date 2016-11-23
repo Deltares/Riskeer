@@ -719,7 +719,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
         }
 
-        public class SimpleStructure : StructureBase
+        private class SimpleStructure : StructureBase
         {
 
             public SimpleStructure(Point2D location)

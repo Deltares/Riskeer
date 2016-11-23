@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Forms.Views
 
             if (referenceLine != null)
             {
-                var feature = GetAsSingleMapFeature(referenceLine.Points);
+                MapFeature feature = GetAsSingleMapFeature(referenceLine.Points);
 
                 feature.MetaData[Resources.MetaData_ID] = id;
                 feature.MetaData[Resources.MetaData_Name] = name;
@@ -235,7 +235,7 @@ namespace Ringtoets.Common.Forms.Views
                 return new MapFeature[0];
             }
 
-            var calculationsWithLocationAndHydraulicBoundaryLocation = calculationInputs.Where(
+            IEnumerable<StructuresCalculation<T>> calculationsWithLocationAndHydraulicBoundaryLocation = calculationInputs.Where(
                 calculation =>
                 calculation.InputParameters.Structure != null &&
                 calculation.InputParameters.HydraulicBoundaryLocation != null);
@@ -250,6 +250,13 @@ namespace Ringtoets.Common.Forms.Views
             return CreateCalculationsFeatures(calculationData);
         }
 
+        /// <summary>
+        /// Create calculation features based on the provided <see cref="RingtoetsMapDataFeaturesFactory.MapCalculationData"/>.
+        /// </summary>
+        /// <param name="calculationData">The collection of <see cref="MapCalculationData"/> to create the 
+        /// calculation features for.</param>
+        /// <returns>An array of features or an empty array when <paramref name="calculationData"/> is <c>null</c> 
+        /// or empty.</returns>
         public static MapFeature[] CreateCalculationsFeatures(IEnumerable<MapCalculationData> calculationData)
         {
             if (calculationData == null || !calculationData.Any())
@@ -259,9 +266,9 @@ namespace Ringtoets.Common.Forms.Views
 
             var features = new List<MapFeature>();
 
-            foreach (var calculationItem in calculationData)
+            foreach (MapCalculationData calculationItem in calculationData)
             {
-                var feature = GetAsSingleMapFeature(new[]
+                MapFeature feature = GetAsSingleMapFeature(new[]
                 {
                     calculationItem.CalculationLocation,
                     calculationItem.HydraulicBoundaryLocation.Location
@@ -286,7 +293,7 @@ namespace Ringtoets.Common.Forms.Views
 
             if (hydraulicBoundaryDatabase != null)
             {
-                foreach (var location in hydraulicBoundaryDatabase.Locations)
+                foreach (HydraulicBoundaryLocation location in hydraulicBoundaryDatabase.Locations)
                 {
                     var feature = GetAsSingleMapFeature(location.Location);
 
@@ -373,6 +380,7 @@ namespace Ringtoets.Common.Forms.Views
             /// <param name="calculationLocation">The location of the calculation.</param>
             /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location 
             /// assigned to the calculation.</param>
+            /// <exception cref="ArgumentNullException">Thrown when any of the parameters is <c>null</c>.</exception>
             public MapCalculationData(string calculationName, Point2D calculationLocation, HydraulicBoundaryLocation hydraulicBoundaryLocation)
             {
                 if (calculationName == null)

@@ -192,6 +192,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
+                var dikeProfileA = new TestDikeProfile(new Point2D(1.3, 1.3));
+                var dikeProfileB = new TestDikeProfile(new Point2D(1.5, 1.5));
+
+                var calculationA = new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeProfile = dikeProfileA,
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    }
+                };
+                var calculationB = new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeProfile = dikeProfileB,
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    }
+                };
+
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
@@ -199,6 +219,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 failureMechanism.DikeProfiles.Add(new TestDikeProfile());
                 failureMechanism.DikeProfiles.Add(new TestDikeProfile());
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
+                failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -220,6 +242,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase, mapDataList[hydraulicBoundaryDatabaseIndex]);
                 AssertDikeProfiles(failureMechanism.DikeProfiles, mapDataList[dikeProfilesIndex]);
                 AssertForeshoreProfiles(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), mapDataList[foreshoreProfilesIndex]);
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), mapDataList[calculationsIndex]);
             }
         }
 
@@ -758,7 +781,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     calculation.InputParameters.DikeProfile.WorldReferencePoint,
                     calculation.InputParameters.HydraulicBoundaryLocation.Location
                 },
-                                               geometries[0].PointCollections.First());
+                geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
         }

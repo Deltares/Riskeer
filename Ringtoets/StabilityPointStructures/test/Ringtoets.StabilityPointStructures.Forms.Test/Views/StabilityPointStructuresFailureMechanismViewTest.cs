@@ -192,6 +192,30 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
+                var calculationLocationA = new Point2D(1.2, 2.3);
+                var calculationLocationB = new Point2D(2.7, 2.0);
+
+                var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
+                var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6);
+
+                var calculationA = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
+                        Structure = new TestStabilityPointStructure(calculationLocationA)
+                    }
+                };
+
+                var calculationB = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocationB,
+                        Structure = new TestStabilityPointStructure(calculationLocationB)
+                    }
+                };
+
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
                 failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
@@ -199,6 +223,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
+                failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
                 var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -219,6 +245,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase, mapDataList[hydraulicBoundaryDatabaseIndex]);
                 AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
+                AssertCalculationsMapData(
+                    failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
+                    mapDataList[calculationsIndex]);
             }
         }
 
@@ -760,7 +789,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                     calculation.InputParameters.Structure.Location,
                     calculation.InputParameters.HydraulicBoundaryLocation.Location
                 },
-                                               geometries[0].PointCollections.First());
+                geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
         }

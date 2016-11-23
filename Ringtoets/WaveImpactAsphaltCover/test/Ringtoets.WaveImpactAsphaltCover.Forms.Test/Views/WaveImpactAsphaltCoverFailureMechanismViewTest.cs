@@ -191,6 +191,26 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
+                var foreshoreProfileA = new TestForeshoreProfile(new Point2D(1.3, 1.3));
+                var foreshoreProfileB = new TestForeshoreProfile(new Point2D(1.5, 1.5));
+
+                var calculationA = new WaveImpactAsphaltCoverWaveConditionsCalculation
+                {
+                    InputParameters =
+                    {
+                        ForeshoreProfile = foreshoreProfileA,
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    }
+                };
+                var calculationB = new WaveImpactAsphaltCoverWaveConditionsCalculation
+                {
+                    InputParameters =
+                    {
+                        ForeshoreProfile = foreshoreProfileB,
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    }
+                };
+
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
@@ -198,6 +218,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
 
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -218,6 +240,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase, mapDataList[hydraulicBoundaryDatabaseIndex]);
                 AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>(),
+                    mapDataList[calculationsIndex]);
             }
         }
 
@@ -349,7 +373,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
@@ -378,7 +402,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
@@ -406,7 +430,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
                 view.Data = failureMechanismContext;
 
-                var calculationMapData = (MapLineData)map.Data.Collection.ElementAt(calculationsIndex);
+                var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
 
@@ -424,7 +448,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
@@ -442,7 +466,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 };
                 view.Data = failureMechanismContext;
 
-                var calculationMapData = (MapLineData)map.Data.Collection.ElementAt(calculationsIndex);
+                var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 calculationA.InputParameters.ForeshoreProfile = foreshoreProfileB;
 
@@ -460,7 +484,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {
-                var map = (MapControl)view.Controls[0];
+                var map = (MapControl) view.Controls[0];
 
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new TestAssessmentSection());
@@ -478,7 +502,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
                 view.Data = failureMechanismContext;
 
-                var calculationMapData = (MapLineData)map.Data.Collection.ElementAt(calculationsIndex);
+                var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 calculationA.Name = "new name";
 
@@ -536,10 +560,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicLocationsData.Name);
 
-                var foreshoreProfilesData = (MapLineData)mapDataList[updatedForeshoreProfilesLayerIndex];
+                var foreshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", foreshoreProfilesData.Name);
 
-                var calculationsData = (MapLineData)mapDataList[updatedCalculationsIndex];
+                var calculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
                 Assert.AreEqual("Berekeningen", calculationsData.Name);
 
                 var points = new List<Point2D>
@@ -573,7 +597,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 var actualForeshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", actualForeshoreProfilesData.Name);
 
-                var actualCalculationsData = (MapLineData)mapDataList[updatedCalculationsIndex];
+                var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
                 Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
             }
         }
@@ -680,11 +704,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         private static void AssertCalculationsMapData(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
-            var calculationsMapData = (MapLineData)mapData;
+            var calculationsMapData = (MapLineData) mapData;
             var calculationsArray = calculations.ToArray();
             var calculationsFeatures = calculationsMapData.Features.ToArray();
             Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
-
 
             for (int index = 0; index < calculationsArray.Length; index++)
             {
@@ -692,10 +715,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 Assert.AreEqual(1, geometries.Length);
 
                 WaveImpactAsphaltCoverWaveConditionsCalculation calculation = calculationsArray[index];
-                CollectionAssert.AreEquivalent(new[] {
-                        calculation.InputParameters.ForeshoreProfile.WorldReferencePoint, 
-                        calculation.InputParameters.HydraulicBoundaryLocation.Location
-                    },
+                CollectionAssert.AreEquivalent(new[]
+                {
+                    calculation.InputParameters.ForeshoreProfile.WorldReferencePoint,
+                    calculation.InputParameters.HydraulicBoundaryLocation.Location
+                },
                 geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
@@ -714,8 +738,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             var foreshoreProfilesMapData = (MapLineData) mapDataList[foreshoreProfilesIndex];
             var sectionsStartPointMapData = (MapPointData) mapDataList[sectionsStartPointIndex];
             var sectionsEndPointMapData = (MapPointData) mapDataList[sectionsEndPointIndex];
-            var hydraulicBoundaryDatabaseMapData = (MapPointData)mapDataList[hydraulicBoundaryDatabaseIndex];
-            var calculationsMapData = (MapLineData)mapDataList[calculationsIndex];
+            var hydraulicBoundaryDatabaseMapData = (MapPointData) mapDataList[hydraulicBoundaryDatabaseIndex];
+            var calculationsMapData = (MapLineData) mapDataList[calculationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(sectionsMapData.Features);

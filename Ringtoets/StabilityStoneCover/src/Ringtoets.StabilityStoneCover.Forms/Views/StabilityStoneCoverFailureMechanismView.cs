@@ -118,17 +118,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                     calculationInputObserver.Observable = null;
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
-
-                    Map.ResetMapData();
-                    return;
                 }
-
-                failureMechanismObserver.Observable = data.WrappedData;
-                assessmentSectionObserver.Observable = data.Parent;
-                foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
-                calculationInputObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
-                calculationGroupObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
-                calculationObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
+                else
+                {
+                    failureMechanismObserver.Observable = data.WrappedData;
+                    assessmentSectionObserver.Observable = data.Parent;
+                    foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
+                    calculationInputObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
+                    calculationGroupObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
+                    calculationObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
+                }
 
                 UpdateMapData();
             }
@@ -160,30 +159,29 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
 
         private void UpdateMapData()
         {
-            ReferenceLine referenceLine = null;
-            IEnumerable<FailureMechanismSection> failureMechanismSections = null;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = null;
-            IEnumerable<ForeshoreProfile> foreshoreProfiles = null;
-            CalculationGroup calculationGroup = null;
-
-            if (data != null)
+            if (data == null)
             {
-                referenceLine = data.Parent.ReferenceLine;
-                failureMechanismSections = data.WrappedData.Sections;
-                hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
-                foreshoreProfiles = data.WrappedData.ForeshoreProfiles;
-                calculationGroup = data.WrappedData.WaveConditionsCalculationGroup;
+                Map.ResetMapData();
             }
+            else
+            {
+                ReferenceLine referenceLine = data.Parent.ReferenceLine;
+                IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
+                IEnumerable<ForeshoreProfile> foreshoreProfiles = data.WrappedData.ForeshoreProfiles;
+                IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations = 
+                    data.WrappedData.WaveConditionsCalculationGroup.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>();
 
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
-            sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
-            sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
-            sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-            hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
-            foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
-            calculationsMapData.Features = StabilityStoneCoverMapDataFeaturesFactory.CreateCalculationFeatures(calculationGroup.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>());
+                referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
+                sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
+                sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
+                sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
+                hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
+                foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
+                calculationsMapData.Features = StabilityStoneCoverMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
 
-            mapControl.Data.NotifyObservers();
+                mapControl.Data.NotifyObservers();
+            }
         }
     }
 }
