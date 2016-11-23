@@ -29,7 +29,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Common.Forms.Test.UITypeEditors
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationCalculationInputItemTest
+    public class SelectableHydraulicBoundaryLocationTest
     {
         [Test]
         [TestCaseSource("ReferencePointLocations")]
@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Location", 0, 0);
 
             // Call
-            var inputItem = new HydraulicBoundaryLocationCalculationInputItem(hydraulicBoundaryLocation, referencePoint);
+            var inputItem = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint);
 
             // Assert 
             Assert.AreSame(hydraulicBoundaryLocation, inputItem.HydraulicBoundaryLocation);
@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             Point2D referencePoint = new Point2D(0, 0);
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationCalculationInputItem(null, referencePoint);
+            TestDelegate call = () => new SelectableHydraulicBoundaryLocation(null, referencePoint);
 
             // Assert 
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 0, 1);
-            var inputItem = new HydraulicBoundaryLocationCalculationInputItem(hydraulicBoundaryLocation, null);
+            var inputItem = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
 
             // Call
             bool areEqualObjects = inputItem.Equals(inputItem);
@@ -82,8 +82,8 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 0, 1);
-            var inputItem1 = new HydraulicBoundaryLocationCalculationInputItem(hydraulicBoundaryLocation, referencePoint1);
-            var inputItem2 = new HydraulicBoundaryLocationCalculationInputItem(hydraulicBoundaryLocation, referencePoint2);
+            var inputItem1 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint1);
+            var inputItem2 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint2);
 
             // Call
             bool areEqualObjects12 = inputItem1.Equals(inputItem2);
@@ -100,9 +100,9 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
                                                                                                                Point2D referencePoint2)
         {
             // Setup
-            var inputItem1 = new HydraulicBoundaryLocationCalculationInputItem(new HydraulicBoundaryLocation(1, "Name", 0, 1),
+            var inputItem1 = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1),
                                                                                referencePoint1);
-            var inputItem2 = new HydraulicBoundaryLocationCalculationInputItem(new HydraulicBoundaryLocation(2, "Name", 0, 1),
+            var inputItem2 = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "Name", 0, 1),
                                                                                referencePoint2);
 
             // Call
@@ -118,9 +118,9 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         public void Equals_Null_ReturnsFalse()
         {
             // Setup 
-            var inputWithRefPoint = new HydraulicBoundaryLocationCalculationInputItem(new HydraulicBoundaryLocation(1, "Name", 0, 1),
+            var inputWithRefPoint = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1),
                                                                                       new Point2D(0, 0));
-            var inputWithoutRefPoint = new HydraulicBoundaryLocationCalculationInputItem(new HydraulicBoundaryLocation(1, "Name", 0, 1),
+            var inputWithoutRefPoint = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1),
                                                                                          null);
 
             // Call
@@ -136,7 +136,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         public void Equals_OtherObject_ReturnsFalse()
         {
             // Setup
-            var calculationInput = new HydraulicBoundaryLocationCalculationInputItem(new HydraulicBoundaryLocation(1, "Name", 0, 1),
+            var calculationInput = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1),
                                                                                      null);
             var otherObject = new object();
 
@@ -154,9 +154,9 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         {
             // Setup 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 0, 1);
-            var calculationInput1 = new HydraulicBoundaryLocationCalculationInputItem(hydraulicBoundaryLocation, null);
-            var calculationInput2 = new HydraulicBoundaryLocationCalculationInputItem(hydraulicBoundaryLocation, null);
-            var calculationInput3 = new HydraulicBoundaryLocationCalculationInputItem(hydraulicBoundaryLocation, null);
+            var calculationInput1 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
+            var calculationInput2 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
+            var calculationInput3 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
 
             // Call
             bool areEqualObjects12 = calculationInput1.Equals(calculationInput2);
@@ -175,9 +175,9 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             // Setup 
             var referencePoint = new Point2D(0, 0);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 0, 1);
-            var calculationInput1 = new HydraulicBoundaryLocationCalculationInputItem(hydraulicBoundaryLocation, referencePoint);
-            var calculationInput2 = new HydraulicBoundaryLocationCalculationInputItem(hydraulicBoundaryLocation, null);
-            var calculationInput3 = new HydraulicBoundaryLocationCalculationInputItem(hydraulicBoundaryLocation, referencePoint);
+            var calculationInput1 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint);
+            var calculationInput2 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
+            var calculationInput3 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint);
 
             // Call
             bool areEqualObjects12 = calculationInput1.Equals(calculationInput2);
@@ -197,8 +197,8 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 0, 1);
-            var inputItem1 = new HydraulicBoundaryLocationCalculationInputItem(hydraulicBoundaryLocation, referencePoint1);
-            var inputItem2 = new HydraulicBoundaryLocationCalculationInputItem(hydraulicBoundaryLocation, referencePoint2);
+            var inputItem1 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint1);
+            var inputItem2 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint2);
 
             // Pre-condition
             Assert.AreEqual(inputItem1, inputItem2);
@@ -217,9 +217,9 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
                                                                     Point2D referencePoint2)
         {
             // Setup
-            var inputItem1 = new HydraulicBoundaryLocationCalculationInputItem(new HydraulicBoundaryLocation(1, "Name", 0, 1),
+            var inputItem1 = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1),
                                                                                referencePoint1);
-            var inputItem2 = new HydraulicBoundaryLocationCalculationInputItem(new HydraulicBoundaryLocation(2, "Name", 0, 1),
+            var inputItem2 = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "Name", 0, 1),
                                                                                referencePoint2);
 
             // Pre-condition
@@ -239,7 +239,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
                                                                             Point2D referencePoint, string expectedString)
         {
             // Setup
-            var inputItem = new HydraulicBoundaryLocationCalculationInputItem(location, referencePoint);
+            var inputItem = new SelectableHydraulicBoundaryLocation(location, referencePoint);
 
             // Call
             string stringRepresentation = inputItem.ToString();

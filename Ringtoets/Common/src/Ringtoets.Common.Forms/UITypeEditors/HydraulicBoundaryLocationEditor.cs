@@ -22,8 +22,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
-using Core.Common.Utils.Reflection;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.UITypeEditors
 {
@@ -31,24 +29,17 @@ namespace Ringtoets.Common.Forms.UITypeEditors
     /// This class defines a drop down list edit-control from which the user can select a
     /// hydraulic boundary location from a collection.
     /// </summary>
-    public class HydraulicBoundaryLocationEditor : SelectionEditor<IHasHydraulicBoundaryLocationProperty, HydraulicBoundaryLocation>
+    public class HydraulicBoundaryLocationEditor : SelectionEditor<IHasHydraulicBoundaryLocationProperty,
+                                                       SelectableHydraulicBoundaryLocation>
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationEditor"/>.
-        /// </summary>
-        public HydraulicBoundaryLocationEditor()
+        protected override IEnumerable<SelectableHydraulicBoundaryLocation> GetAvailableOptions(ITypeDescriptorContext context)
         {
-            DisplayMember = TypeUtils.GetMemberName<HydraulicBoundaryLocation>(hbl => hbl.Name);
+            return GetPropertiesObject(context).GetSelectableHydraulicBoundaryLocations();
         }
 
-        protected override IEnumerable<HydraulicBoundaryLocation> GetAvailableOptions(ITypeDescriptorContext context)
+        protected override SelectableHydraulicBoundaryLocation GetCurrentOption(ITypeDescriptorContext context)
         {
-            return GetPropertiesObject(context).GetAvailableHydraulicBoundaryLocations();
-        }
-
-        protected override HydraulicBoundaryLocation GetCurrentOption(ITypeDescriptorContext context)
-        {
-            return GetPropertiesObject(context).HydraulicBoundaryLocation;
+            return GetPropertiesObject(context).SelectedHydraulicBoundaryLocation;
         }
     }
 }

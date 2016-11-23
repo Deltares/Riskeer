@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -82,10 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput
-            {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0)
-            };
+            var input = new GrassCoverErosionInwardsInput();
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Call
@@ -105,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(0.0, properties.DikeHeight.Value);
             Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
-            Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
+            Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
             Assert.AreEqual(input.CalculateDikeHeight, properties.CalculateDikeHeight);
             Assert.IsNull(properties.WorldReferencePoint);
             mockRepository.VerifyAll();
@@ -144,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(0.0, properties.DikeHeight.Value);
             Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
-            Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
+            Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(input.CalculateDikeHeight, properties.CalculateDikeHeight);
             Assert.AreEqual(new Point2D(12, 57), properties.WorldReferencePoint);
             mockRepository.VerifyAll();
@@ -172,26 +170,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             DikeProfile newDikeProfile = new TestDikeProfile();
             var newDikeHeight = new RoundedDouble(2, 9);
             var newOrientation = new RoundedDouble(2, 5);
-            var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
+            var newSelectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(
+                new HydraulicBoundaryLocation(0, "name", 0.0, 1.1), null);
 
             // Call
             properties.DikeProfile = newDikeProfile;
             properties.Orientation = newOrientation;
             properties.DikeHeight = newDikeHeight;
-            properties.HydraulicBoundaryLocation = newHydraulicBoundaryLocation;
+            properties.SelectedHydraulicBoundaryLocation = newSelectableHydraulicBoundaryLocation;
             properties.CalculateDikeHeight = true;
 
             // Assert
             Assert.AreSame(newDikeProfile, input.DikeProfile);
             Assert.AreEqual(newOrientation, input.Orientation);
             Assert.AreEqual(newDikeHeight, input.DikeHeight);
-            Assert.AreSame(newHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreSame(newSelectableHydraulicBoundaryLocation.HydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             Assert.IsTrue(input.CalculateDikeHeight);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void GetAvailableHydraulicBoundaryLocations_InputWithLocations_ReturnsLocations()
+        public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoDikeProfile_ReturnsLocationsSortedByName()
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -199,7 +198,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(0, "", 1, 2)
+                    new HydraulicBoundaryLocation(0, "A", 0, 1),
+                    new HydraulicBoundaryLocation(0, "C", 0, 2),
+                    new HydraulicBoundaryLocation(0, "D", 0, 3),
+                    new HydraulicBoundaryLocation(0, "B", 0, 4),
                 }
             };
 
@@ -214,11 +216,61 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var availableHydraulicBoundaryLocations = properties.GetAvailableHydraulicBoundaryLocations();
+            var availableHydraulicBoundaryLocations = properties.GetSelectableHydraulicBoundaryLocations();
 
             // Assert
-            List<HydraulicBoundaryLocation> expectedHydraulicBoundaryLocations = assessmentSectionStub.HydraulicBoundaryDatabase.Locations;
-            Assert.AreSame(expectedHydraulicBoundaryLocations, availableHydraulicBoundaryLocations);
+            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
+                assessmentSectionStub.HydraulicBoundaryDatabase.Locations
+                                     .Select(location =>
+                                             new SelectableHydraulicBoundaryLocation(location, null))
+                                     .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoDikeProfile_ReturnsLocationsSortedByDistanceThenByName()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(0, "A", 0, 10),
+                    new HydraulicBoundaryLocation(0, "E", 0, 500),
+                    new HydraulicBoundaryLocation(0, "F", 0, 100),
+                    new HydraulicBoundaryLocation(0, "D", 0, 200),
+                    new HydraulicBoundaryLocation(0, "C", 0, 200),
+                    new HydraulicBoundaryLocation(0, "B", 0, 200)
+                }
+            };
+
+            mockRepository.ReplayAll();
+
+            var input = new GrassCoverErosionInwardsInput()
+            {
+                DikeProfile = new TestDikeProfile()
+            };
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var properties = new GrassCoverErosionInwardsInputContextProperties
+            {
+                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionStub)
+            };
+
+            // Call
+            var availableHydraulicBoundaryLocations = properties.GetSelectableHydraulicBoundaryLocations();
+
+            // Assert
+            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
+                assessmentSectionStub.HydraulicBoundaryDatabase.Locations
+                                     .Select(location =>
+                                             new SelectableHydraulicBoundaryLocation(
+                                                 location, input.DikeProfile.WorldReferencePoint))
+                                     .OrderBy(hbl => hbl.Distance.Value)
+                                     .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
 

@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using Core.Common.Gui.PropertyBag;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.UITypeEditors
 {
@@ -31,14 +30,14 @@ namespace Ringtoets.Common.Forms.UITypeEditors
     public interface IHasHydraulicBoundaryLocationProperty : IObjectProperties
     {
         /// <summary>
-        /// Gets the selected hydraulic boundary location.
+        /// Gets the selectable hydraulic boundary location that is selected.
         /// </summary>
-        HydraulicBoundaryLocation HydraulicBoundaryLocation { get; }
+        SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation { get; }
 
         /// <summary>
-        /// Returns the collection of available hydraulic boundary locations.
+        /// Returns the collection of selectable hydraulic boundary locations.
         /// </summary>
-        /// <returns>A collection of hydraulic boundary locations.</returns>
-        IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations();
+        /// <returns>A collection of selectable hydraulic boundary locations.</returns>
+        IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations();
     }
 }

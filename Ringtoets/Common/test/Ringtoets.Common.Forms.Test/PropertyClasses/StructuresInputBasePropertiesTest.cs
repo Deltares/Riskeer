@@ -117,21 +117,24 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<UseBreakWaterProperties>(properties.UseBreakWater);
             Assert.IsInstanceOf<UseForeshoreProperties>(properties.UseForeshore);
             Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
-            Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
+            Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
             Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
 
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void GetAvailableHydraulicBoundaryLocations_SetInputContextInstanceWithHydraulicBoundaryLocations_ReturnHydraulicBoundaryLocations()
+        public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoStructure_ReturnsLocationsSortedByName()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(0, "", 0, 0)
+                    new HydraulicBoundaryLocation(0, "A", 0, 1),
+                    new HydraulicBoundaryLocation(0, "C", 0, 2),
+                    new HydraulicBoundaryLocation(0, "D", 0, 3),
+                    new HydraulicBoundaryLocation(0, "B", 0, 4)
                 }
             };
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -146,16 +149,80 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
+            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure,
+                                                                     SimpleStructureInput,
+                                                                     StructuresCalculation<SimpleStructureInput>,
+                                                                     IFailureMechanism>.ConstructionProperties())
             {
                 Data = inputContext
             };
 
             // Call
-            var availableHydraulicBoundaryLocations = properties.GetAvailableHydraulicBoundaryLocations();
+            var availableHydraulicBoundaryLocations = properties.GetSelectableHydraulicBoundaryLocations();
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
+            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
+                hydraulicBoundaryDatabase.Locations
+                                         .Select(hbl =>
+                                                 new SelectableHydraulicBoundaryLocation(hbl, null))
+                                         .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndStructure_ReturnsLocationsSortByDistanceThenByName()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(0, "A", 0, 10),
+                    new HydraulicBoundaryLocation(0, "E", 0, 500),
+                    new HydraulicBoundaryLocation(0, "F", 0, 100),
+                    new HydraulicBoundaryLocation(0, "D", 0, 200),
+                    new HydraulicBoundaryLocation(0, "C", 0, 200),
+                    new HydraulicBoundaryLocation(0, "B", 0, 200),
+                }
+            };
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>()
+            {
+                InputParameters =
+                {
+                    Structure = new SimpleStructure()
+                }
+            };
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanismStub,
+                                                      assessmentSectionStub);
+            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure,
+                                                                     SimpleStructureInput,
+                                                                     StructuresCalculation<SimpleStructureInput>,
+                                                                     IFailureMechanism>.ConstructionProperties())
+            {
+                Data = inputContext
+            };
+
+            // Call
+            var availableHydraulicBoundaryLocations = properties.GetSelectableHydraulicBoundaryLocations();
+
+            // Assert
+            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
+                hydraulicBoundaryDatabase.Locations
+                                         .Select(hbl =>
+                                                 new SelectableHydraulicBoundaryLocation(hbl,
+                                                                                         calculation.InputParameters.Structure.Location))
+                                         .OrderBy(hbl => hbl.Distance.Value)
+                                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
 
@@ -195,12 +262,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var newStructure = new SimpleStructure();
             ForeshoreProfile newForeshoreProfile = new TestForeshoreProfile();
             HydraulicBoundaryLocation newHydraulicBoundaryLocation = CreateHydraulicBoundaryLocation();
+            var newSelectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newHydraulicBoundaryLocation, null);
 
             // Call
             properties.Structure = newStructure;
             properties.StructureNormalOrientation = (RoundedDouble) newStructureNormalOrientation;
             properties.FailureProbabilityStructureWithErosion = "1e-2";
-            properties.HydraulicBoundaryLocation = newHydraulicBoundaryLocation;
+            properties.SelectedHydraulicBoundaryLocation = newSelectableHydraulicBoundaryLocation;
             properties.ForeshoreProfile = newForeshoreProfile;
 
             // Assert
@@ -208,7 +276,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(newStructureNormalOrientation, properties.StructureNormalOrientation, properties.StructureNormalOrientation.GetAccuracy());
             Assert.AreEqual(0.01, inputContext.WrappedData.FailureProbabilityStructureWithErosion);
             Assert.AreEqual("1/100", properties.FailureProbabilityStructureWithErosion);
-            Assert.AreSame(newHydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
+            Assert.AreSame(newHydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreSame(newForeshoreProfile, properties.ForeshoreProfile);
             mockRepository.VerifyAll();
         }

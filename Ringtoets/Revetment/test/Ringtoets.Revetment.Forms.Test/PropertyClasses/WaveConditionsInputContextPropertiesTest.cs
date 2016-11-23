@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -169,7 +168,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             };
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(assessmentLevel.Value, properties.AssessmentLevel.Value, properties.AssessmentLevel.GetAccuracy());
             Assert.AreSame(foreshoreProfile, properties.ForeshoreProfile);
             Assert.AreEqual(worldX, properties.WorldReferencePoint.X, 0.5);
@@ -200,10 +199,11 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var newUpperBoundaryWaterLevels = newLowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
             var newStepSize = WaveConditionsInputStepSize.Half;
 
-            var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1)
             {
                 DesignWaterLevel = assessmentLevel
             };
+            var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
 
             var input = new WaveConditionsInput();
             input.Attach(observerMock);
@@ -229,11 +229,11 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             properties.UpperBoundaryWaterLevels = newUpperBoundaryWaterLevels;
             properties.LowerBoundaryWaterLevels = newLowerBoundaryWaterLevels;
             properties.StepSize = newStepSize;
-            properties.HydraulicBoundaryLocation = newHydraulicBoundaryLocation;
+            properties.SelectedHydraulicBoundaryLocation = selectableHydraulicBoundaryLocation;
             properties.Orientation = orientation;
 
             // Assert
-            Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
+            Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(input.HydraulicBoundaryLocation.DesignWaterLevel.Value, properties.AssessmentLevel.Value);
             Assert.AreEqual(assessmentLevel - 0.01, properties.UpperBoundaryDesignWaterLevel.Value, properties.UpperBoundaryDesignWaterLevel.GetAccuracy());
             Assert.AreEqual(2, properties.UpperBoundaryDesignWaterLevel.NumberOfDecimalPlaces);
@@ -252,12 +252,15 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetAvailableHydraulicBoundaryLocations_InputWithLocations_ReturnsLocations()
+        public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsNoReferencePoint_ReturnsLocationsSortedByName()
         {
             // Setup
             var locations = new List<HydraulicBoundaryLocation>()
             {
-                new HydraulicBoundaryLocation(0, string.Empty, 1, 2)
+                new HydraulicBoundaryLocation(0, "A", 0, 1),
+                new HydraulicBoundaryLocation(0, "C", 0, 2),
+                new HydraulicBoundaryLocation(0, "D", 0, 3),
+                new HydraulicBoundaryLocation(0, "B", 0, 4)
             };
 
             var input = new WaveConditionsInput();
@@ -269,10 +272,49 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             };
 
             // Call
-            var availableHydraulicBoundaryLocations = properties.GetAvailableHydraulicBoundaryLocations();
+            var availableHydraulicBoundaryLocations = properties.GetSelectableHydraulicBoundaryLocations();
 
             // Assert
-            Assert.AreSame(locations, availableHydraulicBoundaryLocations);
+            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
+                locations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
+                         .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
+        }
+
+        [Test]
+        public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndReferencePoint_ReturnsLocationsSortedByDistanceThenByName()
+        {
+            // Setup
+            var locations = new List<HydraulicBoundaryLocation>()
+            {
+                new HydraulicBoundaryLocation(0, "A", 0, 10),
+                new HydraulicBoundaryLocation(0, "E", 0, 500),
+                new HydraulicBoundaryLocation(0, "F", 0, 100),
+                new HydraulicBoundaryLocation(0, "D", 0, 200),
+                new HydraulicBoundaryLocation(0, "C", 0, 200),
+                new HydraulicBoundaryLocation(0, "B", 0, 200)
+            };
+
+            var input = new WaveConditionsInput()
+            {
+                ForeshoreProfile = new TestForeshoreProfile(string.Empty)
+            };
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], locations);
+
+            var properties = new TestWaveConditionsInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            var availableHydraulicBoundaryLocations = properties.GetSelectableHydraulicBoundaryLocations();
+
+            // Assert
+            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
+                locations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, input.ForeshoreProfile.WorldReferencePoint))
+                         .OrderBy(hbl => hbl.Distance.Value)
+                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
         }
 
         [Test]

@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
@@ -34,7 +35,6 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
 using Ringtoets.GrassCoverErosionInwards.Utils;
-using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
@@ -208,15 +208,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_Description")]
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
             {
-                return data.WrappedData.HydraulicBoundaryLocation;
+                return data.WrappedData.HydraulicBoundaryLocation != null
+                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation, WorldReferencePoint)
+                           : null;
             }
             set
             {
-                data.WrappedData.HydraulicBoundaryLocation = value;
+                data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation;
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -236,9 +238,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             return data.AvailableDikeProfiles;
         }
 
-        public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
+        public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
         {
-            return data.AvailableHydraulicBoundaryLocations;
+            var calculationLocation = data.WrappedData.DikeProfile != null ? data.WrappedData.DikeProfile.WorldReferencePoint : null;
+
+            return data.AvailableHydraulicBoundaryLocations
+                       .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, calculationLocation))
+                       .OrderBy(hbl => hbl.Distance.Value)
+                       .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
         }
     }
 }

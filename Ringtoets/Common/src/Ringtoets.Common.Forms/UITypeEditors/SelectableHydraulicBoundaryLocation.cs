@@ -27,15 +27,16 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Common.Forms.UITypeEditors
 {
     /// <summary>
-    /// Class that stores a <see cref="HydraulicBoundaryLocation"/> and its distance to a refence point.
+    /// Class that represents a <see cref="HydraulicBoundaryLocation"/> in the drop down list edit control for the 
+    /// collection of hydraulic boundary locations.
     /// </summary>
-    public class HydraulicBoundaryLocationCalculationInputItem
+    public class SelectableHydraulicBoundaryLocation
     {
         private readonly RoundedDouble distance;
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
 
         /// <summary>
-        /// Instantiates a <see cref="HydraulicBoundaryLocationCalculationInputItem"/>.
+        /// Instantiates a <see cref="SelectableHydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="referencePoint">A <see cref="Point2D"/> reference point to which the distance of
@@ -44,7 +45,7 @@ namespace Ringtoets.Common.Forms.UITypeEditors
         /// is <c>null</c>.</exception>
         /// <remarks>The distance between <paramref name="hydraulicBoundaryLocation"/> and its reference point is defined as 
         /// <see cref="double.NaN"/> when <paramref name="referencePoint"/>is <c>null</c>.</remarks>
-        public HydraulicBoundaryLocationCalculationInputItem(HydraulicBoundaryLocation hydraulicBoundaryLocation, Point2D referencePoint)
+        public SelectableHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, Point2D referencePoint)
         {
             if (hydraulicBoundaryLocation == null)
             {
@@ -96,7 +97,7 @@ namespace Ringtoets.Common.Forms.UITypeEditors
             {
                 return false;
             }
-            return Equals((HydraulicBoundaryLocationCalculationInputItem) obj);
+            return Equals((SelectableHydraulicBoundaryLocation) obj);
         }
 
         public override int GetHashCode()
@@ -116,7 +117,7 @@ namespace Ringtoets.Common.Forms.UITypeEditors
                        : string.Format("{0} ({1:f1} km)", hydraulicBoundaryLocation.Name, distance/1000);
         }
 
-        private bool Equals(HydraulicBoundaryLocationCalculationInputItem other)
+        private bool Equals(SelectableHydraulicBoundaryLocation other)
         {
             return Equals(hydraulicBoundaryLocation, other.hydraulicBoundaryLocation);
         }

@@ -110,7 +110,7 @@
     <Compile Include="UITypeEditors\IHasForeshoreProfileProperty.cs" />
     <Compile Include="UITypeEditors\IHasHydraulicBoundaryLocationProperty.cs" />
     <Compile Include="UITypeEditors\IHasStructureProperty.cs" />
-    <Compile Include="UITypeEditors\HydraulicBoundaryLocationCalculationInputItem.cs" />
+    <Compile Include="UITypeEditors\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\FailureMechanismView.cs">
       <SubType>UserControl</SubType>
