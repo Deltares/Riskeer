@@ -161,10 +161,13 @@ namespace Core.Components.Gis.IO.Readers
                 mapFeatureList.Add(feature);
             }
 
-            return new MapLineData(name)
+            var mapLineData = new MapLineData(name)
             {
                 Features = mapFeatureList.ToArray()
             };
+            mapLineData.SelectedMetaDataAttribute = mapLineData.MetaData.FirstOrDefault();
+
+            return mapLineData;
         }
 
         private static MapFeature CreateMapFeatureForLineFeature(IFeature lineFeature)

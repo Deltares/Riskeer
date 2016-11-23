@@ -393,6 +393,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual("1:1000", features[0].MetaData["Ondergrens"]);
                 Assert.AreEqual("1:3000", features[0].MetaData["Signalerin"]);
                 Assert.AreEqual("10-1", features[0].MetaData["TRAJECT_ID"]);
+                Assert.AreEqual("CATEGORIE", line.SelectedMetaDataAttribute);
             }
         }
 
@@ -413,6 +414,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 // Assert
                 MapFeature[] features = lines.Features.ToArray();
                 Assert.AreEqual(4, features.Length);
+                Assert.AreEqual("id", lines.SelectedMetaDataAttribute);
 
                 #region Assertions for 'line1'
 
