@@ -444,6 +444,10 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(30, polygonFirstPointCollection.Length);
                 Assert.AreEqual(-0.264, polygonFirstPointCollection[25].X, 1e-1);
                 Assert.AreEqual(0.169, polygonFirstPointCollection[25].Y, 1e-1);
+
+                Assert.AreEqual(1, polygonFeatures[0].MetaData.Count);
+                Assert.AreEqual(76, polygonFeatures[0].MetaData["id"]);
+                Assert.AreEqual("id", polygon.SelectedMetaDataAttribute);
             }
         }
 
@@ -474,6 +478,10 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(7, firstPointCollection.Length);
                 Assert.AreEqual(-2.257, firstPointCollection[4].X, 1e-1);
                 Assert.AreEqual(0.419, firstPointCollection[4].Y, 1e-1);
+
+                Assert.AreEqual(1, polygonFeatures[0].MetaData.Count);
+                Assert.AreEqual(1, polygonFeatures[0].MetaData["id"]);
+                Assert.AreEqual("id", polygon.SelectedMetaDataAttribute);
             }
         }
 
@@ -531,6 +539,8 @@ namespace Core.Components.Gis.IO.Test.Readers
                 // Assert
                 MapFeature[] features = polygons.Features.ToArray();
                 Assert.AreEqual(4, features.Length);
+                Assert.AreEqual(1, polygons.MetaData.Count());
+                Assert.AreEqual("id", polygons.SelectedMetaDataAttribute);
 
                 #region Assertsions for 'polygon1'
 
@@ -545,6 +555,9 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(6, polygon1FirstPointCollection.Length);
                 Assert.AreEqual(-1.070, polygon1FirstPointCollection[2].X, 1e-1);
                 Assert.AreEqual(0.066, polygon1FirstPointCollection[2].Y, 1e-1);
+
+                Assert.AreEqual(1, polygon1.MetaData.Count);
+                Assert.AreEqual(4, polygon1.MetaData["id"]);
 
                 #endregion
 
@@ -562,6 +575,9 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(-2.172, polygon2FirstPointCollection[23].X, 1e-1);
                 Assert.AreEqual(0.212, polygon2FirstPointCollection[23].Y, 1e-1);
 
+                Assert.AreEqual(1, polygon2.MetaData.Count);
+                Assert.AreEqual(3, polygon2.MetaData["id"]);
+
                 #endregion
 
                 #region Assertsions for 'polygon3'
@@ -578,6 +594,9 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(-1.091, polygon3FirstPointCollection[0].X, 1e-1);
                 Assert.AreEqual(0.566, polygon3FirstPointCollection[0].Y, 1e-1);
 
+                Assert.AreEqual(1, polygon3.MetaData.Count);
+                Assert.AreEqual(2, polygon3.MetaData["id"]);
+
                 #endregion
 
                 #region Assertsions for 'polygon4'
@@ -593,6 +612,9 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(9, polygon4FirstPointCollection.Length);
                 Assert.AreEqual(-1.917, polygon4FirstPointCollection[8].X, 1e-1);
                 Assert.AreEqual(0.759, polygon4FirstPointCollection[8].Y, 1e-1);
+
+                Assert.AreEqual(1, polygon4.MetaData.Count);
+                Assert.AreEqual(1, polygon4.MetaData["id"]);
 
                 #endregion
             }

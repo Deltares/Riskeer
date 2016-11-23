@@ -414,6 +414,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 // Assert
                 MapFeature[] features = lines.Features.ToArray();
                 Assert.AreEqual(4, features.Length);
+                Assert.AreEqual(1, lines.MetaData.Count());
                 Assert.AreEqual("id", lines.SelectedMetaDataAttribute);
 
                 #region Assertions for 'line1'
