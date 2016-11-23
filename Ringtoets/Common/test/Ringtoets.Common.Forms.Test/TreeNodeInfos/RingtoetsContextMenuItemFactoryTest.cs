@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -1352,7 +1353,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             public string Name { get; set; }
 
-            public string Comments { get; set; }
+            public Commentable Comments { get; private set; }
 
             public bool HasOutput
             {

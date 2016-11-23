@@ -41,7 +41,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             Assert.IsInstanceOf<StructuresCalculation<StabilityPointStructuresInput>>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
-            Assert.IsNull(calculation.Comments);
+            Assert.IsNull(calculation.Comments.Comments);
             Assert.IsFalse(calculation.HasOutput);
 
             Assert.IsNotNull(calculation.InputParameters.Structure);

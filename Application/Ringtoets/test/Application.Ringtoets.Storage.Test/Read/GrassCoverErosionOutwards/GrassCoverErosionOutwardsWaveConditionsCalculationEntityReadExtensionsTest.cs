@@ -141,7 +141,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.AreEqual(name, calculation.Name);
-            Assert.AreEqual(comments, calculation.Comments);
+            Assert.AreEqual(comments, calculation.Comments.Comments);
             Assert.AreEqual(useBreakWater, calculation.InputParameters.UseBreakWater);
             Assert.AreEqual(breakWaterType, calculation.InputParameters.BreakWater.Type);
             AssertRoundedDouble(breakWaterHeight, calculation.InputParameters.BreakWater.Height);

@@ -38,6 +38,7 @@ namespace Ringtoets.Common.Data.Structures
         {
             InputParameters = new T();
             Name = Resources.Calculation_DefaultName;
+            Comments = new Commentable();
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace Ringtoets.Common.Data.Structures
 
         public string Name { get; set; }
 
-        public string Comments { get; set; }
+        public Commentable Comments { get; private set; }
 
         public bool HasOutput
         {

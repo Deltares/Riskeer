@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             {
                 Order = order,
                 Name = calculation.Name.DeepClone(),
-                Comments = calculation.Comments.DeepClone(),
+                Comments = calculation.Comments.Comments.DeepClone(),
             };
 
             SetInputParameters(entity, calculation, registry);

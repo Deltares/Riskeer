@@ -610,7 +610,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(context.WrappedData),
+                new CommentContext<ICommentable>(context.WrappedData.Comments),
                 new GrassCoverErosionInwardsInputContext(context.WrappedData.InputParameters,
                                                          context.WrappedData,
                                                          context.FailureMechanism,

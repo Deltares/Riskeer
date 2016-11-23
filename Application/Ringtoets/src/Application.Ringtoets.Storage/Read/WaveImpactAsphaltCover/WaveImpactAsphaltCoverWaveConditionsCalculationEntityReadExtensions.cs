@@ -55,7 +55,10 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = entity.Name,
-                Comments = entity.Comments
+                Comments =
+                {
+                    Comments = entity.Comments
+                }
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
             ReadOutput(calculation, entity);

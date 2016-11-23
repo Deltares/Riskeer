@@ -90,7 +90,10 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = name,
-                Comments = comments,
+                Comments =
+                {
+                    Comments = comments
+                },
                 InputParameters =
                 {
                     Orientation = (RoundedDouble) orientation,
@@ -139,7 +142,10 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             var calculation = new StabilityStoneCoverWaveConditionsCalculation()
             {
                 Name = name,
-                Comments = comments
+                Comments =
+                {
+                    Comments = comments
+                }
             };
 
             var registry = new PersistenceRegistry();

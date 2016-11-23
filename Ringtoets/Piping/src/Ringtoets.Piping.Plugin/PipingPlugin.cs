@@ -635,7 +635,7 @@ namespace Ringtoets.Piping.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(pipingCalculationScenarioContext.WrappedData),
+                new CommentContext<ICommentable>(pipingCalculationScenarioContext.WrappedData.Comments),
                 new PipingInputContext(pipingCalculationScenarioContext.WrappedData.InputParameters,
                                        pipingCalculationScenarioContext.WrappedData,
                                        pipingCalculationScenarioContext.AvailablePipingSurfaceLines,

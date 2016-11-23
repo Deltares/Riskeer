@@ -131,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData, commentContext.WrappedData);
+            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
 
             var grassCoverErosionInwardsInputContext = children[1] as GrassCoverErosionInwardsInputContext;
             Assert.IsNotNull(grassCoverErosionInwardsInputContext);
@@ -162,7 +162,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData, commentContext.WrappedData);
+            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
 
             var grassCoverErosionInwardsInputContext = children[1] as GrassCoverErosionInwardsInputContext;
             Assert.IsNotNull(grassCoverErosionInwardsInputContext);

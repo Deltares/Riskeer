@@ -505,7 +505,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(context.WrappedData),
+                new CommentContext<ICommentable>(context.WrappedData.Comments),
                 new StabilityStoneCoverWaveConditionsInputContext(context.WrappedData.InputParameters,
                                                                   context.FailureMechanism.ForeshoreProfiles,
                                                                   context.AssessmentSection)

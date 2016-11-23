@@ -984,7 +984,11 @@ namespace Ringtoets.Integration.Plugin
             var calculationContext = o as ICalculationContext<ICalculationBase, IFailureMechanism>;
             if (calculationContext != null)
             {
-                return ReferenceEquals(commentView.Data, calculationContext.WrappedData);
+                var calculation = calculationContext.WrappedData as ICalculation;
+                if (calculation != null)
+                {
+                    return ReferenceEquals(commentView.Data, calculation.Comments);
+                }
             }
 
             var failureMechanism = o as IFailureMechanism;
@@ -1013,7 +1017,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static IEnumerable<ICommentable> GetCommentableElements(CalculationGroup calculationGroup)
         {
-            return calculationGroup.GetCalculations();
+            return calculationGroup.GetCalculations().Select(c => c.Comments);
         }
 
         private static IEnumerable<ICommentable> GetCommentableElements(IAssessmentSection assessmentSection)
@@ -1032,7 +1036,7 @@ namespace Ringtoets.Integration.Plugin
             yield return failureMechanism.NotRelevantComments;
             foreach (ICalculation commentableCalculation in failureMechanism.Calculations)
             {
-                yield return commentableCalculation;
+                yield return commentableCalculation.Comments;
             }
         }
 

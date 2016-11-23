@@ -55,7 +55,10 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = entity.Name,
-                Comments = entity.Comments
+                Comments =
+                {
+                    Comments = entity.Comments
+                }
             };
             ReadCalculationInputs(calculation.InputParameters, entity, collector);
             ReadCalculationOutputs(calculation, entity);

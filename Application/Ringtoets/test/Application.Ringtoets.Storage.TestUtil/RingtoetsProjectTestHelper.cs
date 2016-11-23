@@ -365,7 +365,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                     new StructuresCalculation<StabilityPointStructuresInput>
                     {
                         Name = "Calculation 1",
-                        Comments = "Fully configured for greatness!",
+                        Comments =
+                        {
+                            Comments = "Fully configured for greatness!"
+                        },
                         InputParameters =
                         {
                             BreakWater =
@@ -621,7 +624,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Name = "AA",
                         IsRelevant = true,
                         Contribution = (RoundedDouble) 1.0,
-                        Comments = "Nice comment about this calculation!",
+                        Comments =
+                        {
+                            Comments = "Nice comment about this calculation!"
+                        },
                         InputParameters =
                         {
                             SurfaceLine = pipingFailureMechanism.SurfaceLines.First(),
@@ -676,7 +682,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                 Name = "C",
                 IsRelevant = false,
                 Contribution = (RoundedDouble) 0.5,
-                Comments = "Another great comment",
+                Comments =
+                {
+                    Comments = "Another great comment"
+                },
                 InputParameters =
                 {
                     SurfaceLine = pipingFailureMechanism.SurfaceLines.First(),
@@ -812,7 +821,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                     new GrassCoverErosionInwardsCalculation
                     {
                         Name = "Calculation 1",
-                        Comments = "Comments for Calculation 1",
+                        Comments =
+                        {
+                            Comments = "Comments for Calculation 1"
+                        },
                         InputParameters =
                         {
                             DikeProfile = dikeProfile,
@@ -845,7 +857,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                 new GrassCoverErosionInwardsCalculation
                 {
                     Name = "Calculation 2",
-                    Comments = "Comments about Calculation 2"
+                    Comments =
+                    {
+                        Comments = "Comments about Calculation 2"
+                    }
                 });
         }
 
@@ -887,7 +902,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                     new GrassCoverErosionOutwardsWaveConditionsCalculation
                     {
                         Name = "Calculation 1",
-                        Comments = "Comments for Calculation 1",
+                        Comments =
+                        {
+                            Comments = "Comments for Calculation 1"
+                        },
                         InputParameters =
                         {
                             ForeshoreProfile = foreshoreProfile,
@@ -917,7 +935,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                 new GrassCoverErosionOutwardsWaveConditionsCalculation
                 {
                     Name = "Calculation 2",
-                    Comments = "Comments for Calculation 2",
+                    Comments =
+                    {
+                        Comments = "Comments for Calculation 2"
+                    },
                     InputParameters =
                     {
                         ForeshoreProfile = null,
@@ -970,7 +991,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                     new StabilityStoneCoverWaveConditionsCalculation
                     {
                         Name = "Calculation 1",
-                        Comments = "Comments for Calculation 1",
+                        Comments =
+                        {
+                            Comments = "Comments for Calculation 1"
+                        },
                         InputParameters =
                         {
                             ForeshoreProfile = foreshoreProfile,
@@ -1000,7 +1024,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                 new StabilityStoneCoverWaveConditionsCalculation
                 {
                     Name = "Calculation 2",
-                    Comments = "Comments for Calculation 2",
+                    Comments =
+                    {
+                        Comments = "Comments for Calculation 2"
+                    },
                     InputParameters =
                     {
                         ForeshoreProfile = null,
@@ -1057,7 +1084,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                     new WaveImpactAsphaltCoverWaveConditionsCalculation
                     {
                         Name = "Calculation 1",
-                        Comments = "Comments for Calculation 1",
+                        Comments =
+                        {
+                            Comments = "Comments for Calculation 1"
+                        },
                         InputParameters =
                         {
                             ForeshoreProfile = foreshoreProfile,
@@ -1087,7 +1117,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                 new WaveImpactAsphaltCoverWaveConditionsCalculation
                 {
                     Name = "Calculation 2",
-                    Comments = "Comments for Calculation 2",
+                    Comments =
+                    {
+                        Comments = "Comments for Calculation 2"
+                    },
                     InputParameters =
                     {
                         ForeshoreProfile = null,

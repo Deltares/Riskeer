@@ -70,7 +70,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = name,
-                Comments = comments,
+                Comments =
+                {
+                    Comments = comments
+                },
                 InputParameters =
                 {
                     StructureNormalOrientation = (RoundedDouble) random.GetFromRange(0, 360),
@@ -259,7 +262,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = name,
-                Comments = comment
+                Comments =
+                {
+                    Comments = comment
+                }
             };
 
             var registry = new PersistenceRegistry();
@@ -396,7 +402,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 Name = "A",
-                Comments = "B",
+                Comments =
+                {
+                    Comments = "B"
+                },
                 InputParameters =
                 {
                     StormDuration =
@@ -484,7 +493,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(calculation.Name, entity.Name);
-            Assert.AreEqual(calculation.Comments, entity.Comments);
+            Assert.AreEqual(calculation.Comments.Comments, entity.Comments);
 
             ClosingStructuresInput inputParameters = calculation.InputParameters;
             Assert.AreEqual(inputParameters.StormDuration.Mean.Value, entity.StormDurationMean);
@@ -758,7 +767,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 Name = "A",
-                Comments = "B",
+                Comments =
+                {
+                    Comments = "B"
+                },
                 InputParameters =
                 {
                     StormDuration =
@@ -898,7 +910,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(calculation.Name, entity.Name);
-            Assert.AreEqual(calculation.Comments, entity.Comments);
+            Assert.AreEqual(calculation.Comments.Comments, entity.Comments);
 
             StabilityPointStructuresInput inputParameters = calculation.InputParameters;
             Assert.AreEqual(inputParameters.StormDuration.Mean.Value, entity.StormDurationMean);

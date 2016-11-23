@@ -67,7 +67,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 IsRelevant = isRelevant,
                 Contribution = (RoundedDouble) contribution,
                 Name = name,
-                Comments = comments,
+                Comments =
+                {
+                    Comments = comments
+                },
                 InputParameters =
                 {
                     ExitPointL = (RoundedDouble) exitPoint,
@@ -139,7 +142,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Name = name,
-                Comments = comments
+                Comments =
+                {
+                    Comments = comments
+                }
             };
 
             var registry = new PersistenceRegistry();

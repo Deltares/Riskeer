@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -38,6 +39,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             Name = RingtoetsCommonDataResources.Calculation_DefaultName;
             InputParameters = new GrassCoverErosionInwardsInput();
+            Comments = new Commentable();
         }
 
         /// <summary>
@@ -50,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public GrassCoverErosionInwardsOutput Output { get; set; }
 
-        public string Comments { get; set; }
+        public Commentable Comments { get; private set; }
 
         public string Name { get; set; }
 

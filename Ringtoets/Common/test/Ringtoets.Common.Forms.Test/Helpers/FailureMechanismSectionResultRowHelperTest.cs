@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
@@ -79,7 +80,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         private class CalculationWithOutput : ICalculation
         {
             public string Name { get; set; }
-            public string Comments { get; set; }
+            public Commentable Comments { get; private set; }
 
             public bool HasOutput
             {
@@ -98,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         private class CalculationWithoutOutput : ICalculation
         {
             public string Name { get; set; }
-            public string Comments { get; set; }
+            public Commentable Comments { get; private set; }
 
             public bool HasOutput
             {

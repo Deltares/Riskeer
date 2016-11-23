@@ -144,7 +144,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData, commentContext.WrappedData);
+            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
 
             var closingStructuresInputContext = children[1] as ClosingStructuresInputContext;
             Assert.IsNotNull(closingStructuresInputContext);
@@ -175,7 +175,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData, commentContext.WrappedData);
+            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
 
             var closingStructuresInputContext = children[1] as ClosingStructuresInputContext;
             Assert.IsNotNull(closingStructuresInputContext);

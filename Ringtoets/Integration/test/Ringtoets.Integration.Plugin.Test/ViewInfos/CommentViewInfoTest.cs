@@ -211,6 +211,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var calculation = mocks.Stub<ICalculation>();
+            calculation.Stub(s => s.Comments).Return(new Commentable());
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(new[]
@@ -231,7 +232,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new CommentView
             {
-                Data = calculation
+                Data = calculation.Comments
             })
             {
                 // Call
@@ -248,6 +249,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
+            viewDataCalculation.Stub(s => s.Comments).Return(new Commentable());
 
             var deletedCalculation = mocks.Stub<ICalculation>();
 
@@ -270,7 +272,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new CommentView
             {
-                Data = viewDataCalculation
+                Data = viewDataCalculation.Comments
             })
             {
                 // Call
@@ -423,6 +425,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var calculation = mocks.Stub<ICalculation>();
+            calculation.Stub(s => s.Comments).Return(new Commentable());
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             var failureMechanismContext = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
 
@@ -439,7 +442,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new CommentView
             {
-                Data = calculation
+                Data = calculation.Comments
             })
             {
                 // Call
@@ -456,7 +459,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
+            viewDataCalculation.Stub(s => s.Comments).Return(new Commentable());
             var deletedCalculation = mocks.Stub<ICalculation>();
+            deletedCalculation.Stub(s => s.Comments).Return(new Commentable());
 
             var deletedfailureMechanism = mocks.Stub<IFailureMechanism>();
             var failureMechanismContext = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
@@ -474,7 +479,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new CommentView
             {
-                Data = viewDataCalculation
+                Data = viewDataCalculation.Comments
             })
             {
                 // Call
@@ -491,6 +496,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var calculation = mocks.Stub<ICalculation>();
+            calculation.Stub(s => s.Comments).Return(new Commentable());
             var failureMechanism = mocks.Stub<IFailureMechanism>();
 
             failureMechanism.Stub(fm => fm.Calculations).Return(new[]
@@ -505,7 +511,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new CommentView
             {
-                Data = calculation
+                Data = calculation.Comments
             })
             {
                 // Call
@@ -522,6 +528,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
+            viewDataCalculation.Stub(s => s.Comments).Return(new Commentable());
             var deletedCalculation = mocks.Stub<ICalculation>();
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
@@ -538,7 +545,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new CommentView
             {
-                Data = viewDataCalculation
+                Data = viewDataCalculation.Comments
             })
             {
                 // Call
@@ -583,15 +590,15 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
+            viewDataCalculation.Stub(c => c.Comments).Return(new Commentable());
             var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, IFailureMechanism>>();
 
             deletedCalculationContext.Expect(c => c.WrappedData).Return(viewDataCalculation);
-
             mocks.ReplayAll();
 
             using (var view = new CommentView
             {
-                Data = viewDataCalculation
+                Data = viewDataCalculation.Comments
             })
             {
                 // Call
@@ -609,7 +616,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var calculation = mocks.Stub<ICalculation>();
+            calculation.Stub(s => s.Comments).Return(new Commentable());
             var viewDataCalculation = mocks.Stub<ICalculation>();
+            viewDataCalculation.Stub(s => s.Comments).Return(new Commentable());
             var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, IFailureMechanism>>();
 
             deletedCalculationContext.Expect(c => c.WrappedData).Return(calculation);
@@ -618,7 +627,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new CommentView
             {
-                Data = viewDataCalculation
+                Data = viewDataCalculation.Comments
             })
             {
                 // Call
@@ -636,6 +645,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
+            viewDataCalculation.Stub(s => s.Comments).Return(new Commentable());
             var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, IFailureMechanism>>();
             var deletedGroup = new CalculationGroup
             {
@@ -651,7 +661,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new CommentView
             {
-                Data = viewDataCalculation
+                Data = viewDataCalculation.Comments
             })
             {
                 // Call
@@ -668,7 +678,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
+            viewDataCalculation.Stub(s => s.Comments).Return(new Commentable());
             var deletedCalculation = mocks.Stub<ICalculation>();
+            deletedCalculation.Stub(s => s.Comments).Return(new Commentable());
             var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, IFailureMechanism>>();
             var deletedGroup = new CalculationGroup
             {
@@ -684,7 +696,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new CommentView
             {
-                Data = viewDataCalculation
+                Data = viewDataCalculation.Comments
             })
             {
                 // Call

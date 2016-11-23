@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(isRelevant, calculation.IsRelevant);
             Assert.AreEqual(contribution, calculation.Contribution, 1e-6);
             Assert.AreEqual(name, calculation.Name);
-            Assert.AreEqual(comments, calculation.Comments);
+            Assert.AreEqual(comments, calculation.Comments.Comments);
 
             Assert.AreEqual(generalInputParameters.BeddingAngle, calculation.InputParameters.BeddingAngle);
             Assert.AreEqual(generalInputParameters.CriticalHeaveGradient, calculation.InputParameters.CriticalHeaveGradient);

@@ -24,7 +24,7 @@ namespace Ringtoets.Common.Data.Calculation
     /// <summary>
     /// A calculation related object.
     /// </summary>
-    public interface ICalculation : ICalculationBase, ICommentable
+    public interface ICalculation : ICalculationBase
     {
         /// <summary>
         /// Gets a value indicating whether or not this calculation item contains calculation output.
@@ -35,5 +35,10 @@ namespace Ringtoets.Common.Data.Calculation
         /// Clears the calculated output.
         /// </summary>
         void ClearOutput();
+
+        /// <summary>
+        /// Gets the comments associated with the calculation.
+        /// </summary>
+        Commentable Comments { get; }
     }
 }

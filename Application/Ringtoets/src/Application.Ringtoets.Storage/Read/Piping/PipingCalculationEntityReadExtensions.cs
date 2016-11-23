@@ -54,7 +54,10 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
                 Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
                 Name = entity.Name,
-                Comments = entity.Comments
+                Comments =
+                {
+                    Comments = entity.Comments
+                }
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
             ReadCalculationOutputs(calculation, entity);

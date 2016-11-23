@@ -57,7 +57,10 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 Name = entity.Name,
-                Comments = entity.Comments
+                Comments =
+                {
+                    Comments = entity.Comments
+                }
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
             ReadOutput(calculation, entity);

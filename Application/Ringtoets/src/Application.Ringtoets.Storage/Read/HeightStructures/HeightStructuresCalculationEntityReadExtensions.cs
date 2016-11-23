@@ -57,7 +57,10 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = entity.Name,
-                Comments = entity.Comments
+                Comments =
+                {
+                    Comments = entity.Comments
+                }
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
             ReadOutput(calculation, entity);

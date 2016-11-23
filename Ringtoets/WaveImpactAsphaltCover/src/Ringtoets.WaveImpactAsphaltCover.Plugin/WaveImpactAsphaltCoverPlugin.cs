@@ -511,7 +511,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(context.WrappedData),
+                new CommentContext<ICommentable>(context.WrappedData.Comments),
                 new WaveImpactAsphaltCoverWaveConditionsInputContext(context.WrappedData.InputParameters,
                                                                      context.FailureMechanism.ForeshoreProfiles,
                                                                      context.AssessmentSection)

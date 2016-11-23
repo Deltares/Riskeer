@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -40,8 +41,8 @@ namespace Ringtoets.Piping.Data
         public PipingCalculation(GeneralPipingInput generalInputParameters)
         {
             Name = RingtoetsCommonDataResources.Calculation_DefaultName;
-
             InputParameters = new PipingInput(generalInputParameters);
+            Comments = new Commentable();
         }
 
         /// <summary>
@@ -69,7 +70,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        public string Comments { get; set; }
+        public Commentable Comments { get; private set; }
 
         public void ClearOutput()
         {

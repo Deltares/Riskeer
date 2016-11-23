@@ -23,6 +23,7 @@ using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -143,7 +144,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             public string Name { get; set; }
 
-            public string Comments { get; set; }
+            public Commentable Comments { get; private set; }
 
             public bool HasOutput
             {

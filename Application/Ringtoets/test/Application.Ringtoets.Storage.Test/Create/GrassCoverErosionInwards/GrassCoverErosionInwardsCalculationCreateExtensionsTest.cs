@@ -60,7 +60,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
-                Comments = comment,
+                Comments =
+                {
+                    Comments = comment
+                },
                 InputParameters =
                 {
                     DikeProfile = null,
@@ -120,7 +123,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
-                Comments = comment
+                Comments =
+                {
+                    Comments = comment
+                }
             };
 
             var registry = new PersistenceRegistry();

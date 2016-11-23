@@ -131,7 +131,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData, commentContext.WrappedData);
+            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
 
             var heightStructuresInputContext = children[1] as HeightStructuresInputContext;
             Assert.IsNotNull(heightStructuresInputContext);
@@ -163,7 +163,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData, commentContext.WrappedData);
+            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
 
             var heightStructuresInputContext = children[1] as HeightStructuresInputContext;
             Assert.IsNotNull(heightStructuresInputContext);

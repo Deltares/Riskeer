@@ -90,7 +90,10 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = name,
-                Comments = comments,
+                Comments =
+                {
+                    Comments = comments
+                },
                 InputParameters =
                 {
                     Orientation = (RoundedDouble) orientation,
@@ -138,7 +141,10 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation()
             {
                 Name = name,
-                Comments = comments
+                Comments =
+                {
+                    Comments = comments
+                }
             };
 
             var registry = new PersistenceRegistry();

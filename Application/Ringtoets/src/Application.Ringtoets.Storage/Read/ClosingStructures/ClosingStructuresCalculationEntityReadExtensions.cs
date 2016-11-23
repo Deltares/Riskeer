@@ -57,7 +57,10 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 Name = entity.Name,
-                Comments = entity.Comments
+                Comments =
+                {
+                    Comments = entity.Comments
+                }
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
             ReadOutput(calculation, entity);

@@ -130,7 +130,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
             var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData, commentContext.WrappedData);
+            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
 
             var stabilityPointStructuresInputContext = children[1] as StabilityPointStructuresInputContext;
             Assert.IsNotNull(stabilityPointStructuresInputContext);
@@ -161,7 +161,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
             var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData, commentContext.WrappedData);
+            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
 
             var stabilityPointStructuresInputContext = children[1] as StabilityPointStructuresInputContext;
             Assert.IsNotNull(stabilityPointStructuresInputContext);

@@ -807,7 +807,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(context.WrappedData),
+                new CommentContext<ICommentable>(context.WrappedData.Comments),
                 new GrassCoverErosionOutwardsWaveConditionsInputContext(context.WrappedData.InputParameters,
                                                                         context.FailureMechanism)
             };

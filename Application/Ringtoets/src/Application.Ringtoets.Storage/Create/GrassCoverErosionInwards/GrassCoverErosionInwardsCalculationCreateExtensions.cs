@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 Name = calculation.Name.DeepClone(),
-                Comments = calculation.Comments.DeepClone(),
+                Comments = calculation.Comments.Comments.DeepClone(),
                 Order = order
             };
             SetInputValues(entity, calculation.InputParameters, registry);

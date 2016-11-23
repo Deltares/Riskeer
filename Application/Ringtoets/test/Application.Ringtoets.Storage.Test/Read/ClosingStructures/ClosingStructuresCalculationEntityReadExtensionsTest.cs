@@ -119,7 +119,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
 
             // Assert
             Assert.AreEqual(entity.Name, calculation.Name);
-            Assert.AreEqual(entity.Comments, calculation.Comments);
+            Assert.AreEqual(entity.Comments, calculation.Comments.Comments);
 
             ClosingStructuresInput inputParameters = calculation.InputParameters;
             Assert.IsNull(inputParameters.ForeshoreProfile);
