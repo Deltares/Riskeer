@@ -129,6 +129,24 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of deze kaartlaag moet worden getoond..
+        /// </summary>
+        public static string MapData_IsVisible_Description {
+            get {
+                return ResourceManager.GetString("MapData_IsVisible_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zichtbaar.
+        /// </summary>
+        public static string MapData_IsVisible_DisplayName {
+            get {
+                return ResourceManager.GetString("MapData_IsVisible_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De naam van de kaartlaag..
         /// </summary>
         public static string MapData_Name_Description {

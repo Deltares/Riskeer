@@ -39,8 +39,9 @@ namespace Core.Plugins.Map.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int typePropertyIndex = 1;
-        private const int showLabelsPropertyIndex = 2;
-        private const int selectedMetaDataAttributePropertyIndex = 3;
+        private const int isVisiblePropertyIndex = 2;
+        private const int showLabelsPropertyIndex = 3;
+        private const int selectedMetaDataAttributePropertyIndex = 4;
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
@@ -59,6 +60,23 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), "MapData_Type_DisplayName")]
         [ResourcesDescription(typeof(Resources), "MapData_Type_Description")]
         public abstract string Type { get; }
+
+        [PropertyOrder(isVisiblePropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "MapData_IsVisible_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "MapData_IsVisible_Description")]
+        public bool IsVisible
+        {
+            get
+            {
+                return data.IsVisible;
+            }
+            set
+            {
+                data.IsVisible = value;
+                data.NotifyObservers();
+            }
+        }
 
         [PropertyOrder(showLabelsPropertyIndex)]
         [DynamicReadOnly]

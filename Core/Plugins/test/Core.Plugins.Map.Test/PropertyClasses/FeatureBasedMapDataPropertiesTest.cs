@@ -38,8 +38,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int typePropertyIndex = 1;
-        private const int showLabelsPropertyIndex = 2;
-        private const int selectedMetaDataAttributePropertyIndex = 3;
+        private const int isVisiblePropertyIndex = 2;
+        private const int showLabelsPropertyIndex = 3;
+        private const int selectedMetaDataAttributePropertyIndex = 4;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -66,6 +67,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Assert
             Assert.AreEqual(mapPointData.Name, properties.Name);
             Assert.AreEqual("Test feature based map data", properties.Type);
+            Assert.AreEqual(mapPointData.IsVisible, properties.IsVisible);
             Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
         }
 
@@ -98,7 +100,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(showLabels ? 4 : 3, dynamicProperties.Count);
+            Assert.AreEqual(showLabels ? 5 : 4, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string labelCategory = "Label";
@@ -116,6 +118,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             "Type",
                                                                             "Type van de data dat wordt getoond op de kaartlaag.",
                                                                             true);
+
+            PropertyDescriptor isVisibleProperty = dynamicProperties[isVisiblePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isVisibleProperty,
+                                                                            generalCategory,
+                                                                            "Zichtbaar",
+                                                                            "Geeft aan of deze kaartlaag moet worden getoond.");
 
             PropertyDescriptor showlabelsProperty = dynamicProperties[showLabelsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(showlabelsProperty,
@@ -138,7 +146,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            const int numberOfChangedProperties = 2;
+            const int numberOfChangedProperties = 3;
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
@@ -157,10 +165,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
+            properties.IsVisible = false;
             properties.ShowLabels = false;
             properties.SelectedMetaDataAttribute = "ID";
 
             // Assert
+            Assert.AreEqual(properties.IsVisible, mapPointData.IsVisible);
             Assert.AreEqual(properties.ShowLabels, mapPointData.ShowLabels);
             Assert.AreEqual(properties.SelectedMetaDataAttribute, mapPointData.SelectedMetaDataAttribute);
             mocks.VerifyAll();
