@@ -147,7 +147,7 @@ namespace Core.Components.Gis.IO.Readers
             };
         }
 
-        private MapLineData ConvertMultiLineFeatureToMapLineData(List<IFeature> lineFeatures, string name)
+        private MapLineData ConvertMultiLineFeatureToMapLineData(IList<IFeature> lineFeatures, string name)
         {
             var mapFeatureList = new List<MapFeature>();
 

@@ -449,6 +449,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 // Assert
                 var features = points.Features.ToArray();
                 Assert.AreEqual(6, features.Length);
+                Assert.AreEqual("id", points.SelectedMetaDataAttribute);
 
                 #region Assertion for 'point1'
 
@@ -463,6 +464,9 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(1, point1FirstPointCollection.Length);
                 Assert.AreEqual(-1.750, point1FirstPointCollection[0].X, 1e-1);
                 Assert.AreEqual(-0.488, point1FirstPointCollection[0].Y, 1e-1);
+
+                Assert.AreEqual(1, point1.MetaData.Count);
+                Assert.AreEqual(6, point1.MetaData["id"]);
 
                 #endregion
 
@@ -480,6 +484,9 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(-0.790, point2FirstPointCollection[0].X, 1e-1);
                 Assert.AreEqual(-0.308, point2FirstPointCollection[0].Y, 1e-1);
 
+                Assert.AreEqual(1, point2.MetaData.Count);
+                Assert.AreEqual(5, point2.MetaData["id"]);
+
                 #endregion
 
                 #region Assertion for 'point3'
@@ -495,6 +502,9 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(1, point3FirstPointCollection.Length);
                 Assert.AreEqual(0.740, point3FirstPointCollection[0].X, 1e-1);
                 Assert.AreEqual(-0.577, point3FirstPointCollection[0].Y, 1e-1);
+
+                Assert.AreEqual(1, point3.MetaData.Count);
+                Assert.AreEqual(4, point3.MetaData["id"]);
 
                 #endregion
 
@@ -512,6 +522,9 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(0.787, point4FirstPointCollection[0].X, 1e-1);
                 Assert.AreEqual(0.759, point4FirstPointCollection[0].Y, 1e-1);
 
+                Assert.AreEqual(1, point4.MetaData.Count);
+                Assert.AreEqual(3, point4.MetaData["id"]);
+
                 #endregion
 
                 #region Assertion for 'point5'
@@ -528,6 +541,9 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(-0.544, point5FirstPointCollection[0].X, 1e-1);
                 Assert.AreEqual(0.283, point5FirstPointCollection[0].Y, 1e-1);
 
+                Assert.AreEqual(1, point5.MetaData.Count);
+                Assert.AreEqual(2, point5.MetaData["id"]);
+
                 #endregion
 
                 #region Assertion for 'point6'
@@ -543,6 +559,9 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(1, point6FirstPointCollection.Length);
                 Assert.AreEqual(-2.066, point6FirstPointCollection[0].X, 1e-1);
                 Assert.AreEqual(0.827, point6FirstPointCollection[0].Y, 1e-1);
+
+                Assert.AreEqual(1, point6.MetaData.Count);
+                Assert.AreEqual(1, point6.MetaData["id"]);
 
                 #endregion
             }

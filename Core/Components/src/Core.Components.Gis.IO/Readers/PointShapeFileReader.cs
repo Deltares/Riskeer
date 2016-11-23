@@ -143,14 +143,27 @@ namespace Core.Components.Gis.IO.Readers
             };
         }
 
-        private static FeatureBasedMapData ConvertPointFeaturesToMapPointData(IEnumerable<IFeature> featureList, string name)
+        private FeatureBasedMapData ConvertPointFeaturesToMapPointData(IList<IFeature> featureList, string name)
         {
-            MapFeature[] mapFeatures = featureList.Select(CreateMapFeatureForPointFeature).ToArray();
+            var mapFeatures = new List<MapFeature>();
 
-            return new MapPointData(name)
+            for (int i = 0; i < featureList.Count; i++)
             {
-                Features = mapFeatures
+                IFeature feature = featureList[i];
+                MapFeature mapFeature = CreateMapFeatureForPointFeature(feature);
+
+                CopyMetaDataIntoFeature(mapFeature, i);
+
+                mapFeatures.Add(mapFeature);
+            }
+
+            var mapPointData = new MapPointData(name)
+            {
+                Features = mapFeatures.ToArray()
             };
+            mapPointData.SelectedMetaDataAttribute = mapPointData.MetaData.FirstOrDefault();
+
+            return mapPointData;
         }
 
         private static MapFeature CreateMapFeatureForPointFeature(IFeature pointFeature)
