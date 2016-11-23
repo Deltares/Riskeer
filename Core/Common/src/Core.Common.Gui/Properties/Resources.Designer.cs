@@ -304,9 +304,9 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Nieuw Ringtoetsproject succesvol aangemaakt..
         /// </summary>
-        public static string Created_new_project_succesful {
+        public static string Created_new_project_successful {
             get {
-                return ResourceManager.GetString("Created_new_project_succesful", resourceCulture);
+                return ResourceManager.GetString("Created_new_project_successful", resourceCulture);
             }
         }
         
@@ -763,15 +763,6 @@ namespace Core.Common.Gui.Properties {
         public static string GuiCore_ShowSplashScreen_User_has_cancelled_start_Exiting {
             get {
                 return ResourceManager.GetString("GuiCore_ShowSplashScreen_User_has_cancelled_start_Exiting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Onbekend.
-        /// </summary>
-        public static string GuiCore_UpdateTitle_Unknown {
-            get {
-                return ResourceManager.GetString("GuiCore_UpdateTitle_Unknown", resourceCulture);
             }
         }
         
@@ -1409,7 +1400,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Openen van een nieuw Ringtoetsproject geannuleerd..
+        ///   Looks up a localized string similar to Aanmaken van een nieuw Ringtoetsproject geannuleerd..
         /// </summary>
         public static string StorageCommandHandler_NewProject_Creating_new_project_cancelled {
             get {

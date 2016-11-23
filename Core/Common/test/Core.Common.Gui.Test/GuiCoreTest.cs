@@ -165,7 +165,6 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectFactory = CreateProjectFactory(mocks);
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             var guiCoreSettings = new GuiCoreSettings();

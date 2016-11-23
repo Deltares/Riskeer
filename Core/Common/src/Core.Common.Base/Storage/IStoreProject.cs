@@ -25,7 +25,7 @@ using Core.Common.Base.Data;
 namespace Core.Common.Base.Storage
 {
     /// <summary>
-    /// Interface that describes the methods that need to be implemented on classes that provide a storage for Ringtoets projects.
+    /// Interface that describes the methods that need to be implemented on classes that provide a storage for projects.
     /// </summary>
     public interface IStoreProject
     {
@@ -52,7 +52,7 @@ namespace Core.Common.Base.Storage
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
         /// <item>No new storage was created.</item>
-        /// <item>The storage is no valid Ringtoets project.</item>
+        /// <item>The storage is no valid project.</item>
         /// <item>Saving the staged project to the storage failed.</item>
         /// <item>The connection to the storage failed.</item>
         /// </list>

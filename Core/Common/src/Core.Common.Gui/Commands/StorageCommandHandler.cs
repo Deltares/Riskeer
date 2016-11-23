@@ -46,7 +46,7 @@ namespace Core.Common.Gui.Commands
         /// Initializes a new instance of the <see cref="StorageCommandHandler"/> class.
         /// </summary>
         /// <param name="projectStorage">Class responsible to storing and loading the application project.</param>
-        /// <param name="projectFactory"></param>
+        /// <param name="projectFactory">The factory to use when creating new projects.</param>
         /// <param name="projectOwner">The class owning the application project.</param>
         /// <param name="dialogParent">Controller for UI.</param>
         public StorageCommandHandler(IStoreProject projectStorage, IProjectFactory projectFactory, IProjectOwner projectOwner, IWin32Window dialogParent)
@@ -57,11 +57,7 @@ namespace Core.Common.Gui.Commands
             this.projectFactory = projectFactory;
         }
 
-        /// <summary>
-        /// Checks if an action may continue when changes are detected.
-        /// </summary>
-        /// <returns><c>True</c> if the action should continue, <c>false</c> otherwise.</returns>
-        public bool AskConfirmationUnsavedChanges()
+        public bool HandleUnsavedChanges()
         {
             if (IsCurrentNew())
             {
@@ -84,34 +80,26 @@ namespace Core.Common.Gui.Commands
                 return false;
             }
 
-            var openSaveOrDiscardProjectDialog = OpenSaveOrDiscardProjectDialog();
+            var unsavedChangesHandled = ShowSaveUnsavedChangesDialog();
+
             if (projectPersistor.HasStagedProject)
             {
                 projectPersistor.UnstageProject();
             }
-            if (!openSaveOrDiscardProjectDialog)
-            {
-                log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_cancelled);
-            }
 
-            return openSaveOrDiscardProjectDialog;
-        }
-
-        private bool IsCurrentNew()
-        {
-            return projectOwner.Project.Equals(projectFactory.CreateNewProject());
+            return unsavedChangesHandled;
         }
 
         public void CreateNewProject()
         {
-            if (!AskConfirmationUnsavedChanges())
+            if (!HandleUnsavedChanges())
             {
                 log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_cancelled);
                 return;
             }
             log.Info(Resources.Creating_new_project);
             projectOwner.SetProject(projectFactory.CreateNewProject(), null);
-            log.Info(Resources.Created_new_project_succesful);
+            log.Info(Resources.Created_new_project_successful);
         }
 
         public bool OpenExistingProject()
@@ -122,13 +110,13 @@ namespace Core.Common.Gui.Commands
                 Title = Resources.OpenFileDialog_Title
             })
             {
-                if (openFileDialog.ShowDialog(dialogParent) != DialogResult.Cancel && AskConfirmationUnsavedChanges())
+                if (openFileDialog.ShowDialog(dialogParent) != DialogResult.Cancel && HandleUnsavedChanges())
                 {
                     return OpenExistingProject(openFileDialog.FileName);
                 }
             }
 
-            log.Warn(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project_cancelled);
+            log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project_cancelled);
             return false;
         }
 
@@ -158,12 +146,8 @@ namespace Core.Common.Gui.Commands
         public bool SaveProjectAs()
         {
             var project = projectOwner.Project;
-            if (project == null)
-            {
-                return false;
-            }
-
             var filePath = OpenProjectSaveFileDialog(project.Name);
+
             if (string.IsNullOrWhiteSpace(filePath))
             {
                 return false;
@@ -188,10 +172,6 @@ namespace Core.Common.Gui.Commands
         public bool SaveProject()
         {
             var project = projectOwner.Project;
-            if (project == null)
-            {
-                return false;
-            }
             var filePath = projectOwner.ProjectFilePath;
 
             // If filepath is not set, go to SaveAs
@@ -211,7 +191,12 @@ namespace Core.Common.Gui.Commands
             return true;
         }
 
-        private bool OpenSaveOrDiscardProjectDialog()
+        private bool IsCurrentNew()
+        {
+            return projectOwner.Project.Equals(projectFactory.CreateNewProject());
+        }
+
+        private bool ShowSaveUnsavedChangesDialog()
         {
             var confirmation = MessageBox.Show(
                 string.Format(CultureInfo.CurrentCulture,
@@ -278,7 +263,7 @@ namespace Core.Common.Gui.Commands
             {
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                 {
-                    log.Warn(Resources.StorageCommandHandler_SaveProject_Saving_project_cancelled);
+                    log.Info(Resources.StorageCommandHandler_SaveProject_Saving_project_cancelled);
                     return null;
                 }
                 return saveFileDialog.FileName;

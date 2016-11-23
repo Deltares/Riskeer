@@ -480,6 +480,25 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
+        public void HasStagedProjectChanges_InvalidPath_ThrowsArgumentException()
+        {
+            // Setup
+            var storage = new StorageSqLite();
+            storage.StageProject(new RingtoetsProject());
+
+            string path = Path.Combine(testDataPath, "ValidCharacteristics.csv");
+            char[] invalidCharacters = Path.GetInvalidPathChars();
+            string corruptPath = path.Replace('V', invalidCharacters[0]);
+
+
+            // Call
+            TestDelegate call = () => storage.HasStagedProjectChanges(corruptPath);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
         public void HasStagedProjectChanges_NoProjectStaged_ThrowInvalidOperationException()
         {
             // Setup

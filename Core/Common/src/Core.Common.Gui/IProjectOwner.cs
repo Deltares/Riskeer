@@ -40,15 +40,12 @@ namespace Core.Common.Gui
         event Action<IProject> ProjectOpened;
 
         /// <summary>
-        /// Gets or sets the project of the application.
+        /// Gets the project of the application.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when a <c>null</c> project is
-        /// assigned.</exception>
-        /// <remarks><c>null</c> is not a valid return value.</remarks>
         IProject Project { get; }
 
         /// <summary>
-        /// Gets or sets the project path of the application.
+        /// Gets the project path of the application.
         /// </summary>
         string ProjectFilePath { get; }
 

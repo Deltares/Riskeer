@@ -178,7 +178,7 @@ namespace Core.Common.Gui
             }
 
             // Store project?
-            if (!storageCommandHandler.AskConfirmationUnsavedChanges())
+            if (!storageCommandHandler.HandleUnsavedChanges())
             {
                 // User pressed cancel
                 return;
@@ -685,7 +685,7 @@ namespace Core.Common.Gui
         private readonly ViewCommandHandler viewCommandHandler;
         private readonly GuiImportHandler importCommandHandler;
         private readonly GuiExportHandler exportCommandHandler;
-        private readonly StorageCommandHandler storageCommandHandler;
+        private readonly IStorageCommands storageCommandHandler;
 
         public IApplicationFeatureCommands ApplicationCommands
         {
@@ -773,7 +773,7 @@ namespace Core.Common.Gui
             {
                 mainWindow.Title = string.Format(CultureInfo.CurrentCulture,
                                                  "{0} - {1} {2}",
-                                                 Project != null ? Project.Name : Resources.GuiCore_UpdateTitle_Unknown,
+                                                 Project.Name,
                                                  FixedSettings.MainWindowTitle,
                                                  SettingsHelper.ApplicationVersion);
             }

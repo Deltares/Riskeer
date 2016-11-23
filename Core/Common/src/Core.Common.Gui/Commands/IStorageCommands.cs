@@ -33,7 +33,13 @@ namespace Core.Common.Gui.Commands
         /// </summary>
         void CreateNewProject();
 
-        bool AskConfirmationUnsavedChanges();
+        /// <summary>
+        /// Checks whether the current project has unsaved changes. If so, these unsaved changes
+        /// will be handled.
+        /// </summary>
+        /// <returns><c>True</c> if there were no unsaved changes or when the changes were
+        /// successfully handled, <c>false</c> if the unsaved changes were not handled.</returns>
+        bool HandleUnsavedChanges();
 
         /// <summary>
         /// Asks the user for a file-location to save the current project, then proceeds

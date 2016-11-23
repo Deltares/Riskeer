@@ -208,7 +208,7 @@
   <data name="Ribbon_Messages" xml:space="preserve">
     <value>Berichten</value>
   </data>
-  <data name="Created_new_project_succesful" xml:space="preserve">
+  <data name="Created_new_project_successful" xml:space="preserve">
     <value>Nieuw Ringtoetsproject succesvol aangemaakt.</value>
   </data>
   <data name="Ribbon_TabItem_View" xml:space="preserve">
@@ -520,9 +520,6 @@
   <data name="SplashScreen_SupportTitle" xml:space="preserve">
     <value>Voor vragen: Helpdesk Water.</value>
   </data>
-  <data name="GuiCore_UpdateTitle_Unknown" xml:space="preserve">
-    <value>Onbekend</value>
-  </data>
   <data name="StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0" xml:space="preserve">
     <value>Sla wijzigingen in het project op: {0}?</value>
   </data>
@@ -530,7 +527,7 @@
     <value>Project aan het sluiten...</value>
   </data>
   <data name="StorageCommandHandler_NewProject_Creating_new_project_cancelled" xml:space="preserve">
-    <value>Openen van een nieuw Ringtoetsproject geannuleerd.</value>
+    <value>Aanmaken van een nieuw Ringtoetsproject geannuleerd.</value>
   </data>
   <data name="FailureMechanismContributionView_GridColumn_RelevancyFilter" xml:space="preserve">
     <value>Algemeen filter</value>
