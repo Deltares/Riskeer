@@ -24,10 +24,11 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.ReferenceLines;
-using Ringtoets.Integration.Service.Properties;
+using Ringtoets.Integration.Plugin.Properties;
+using Ringtoets.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Integration.Service
+namespace Ringtoets.Integration.Plugin.Handlers
 {
     /// <summary>
     /// Class responsible for replacing a <see cref="ReferenceLine"/> on a <see cref="IAssessmentSection"/>.

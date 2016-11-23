@@ -97,9 +97,9 @@
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
-      <Project>{28811c4a-6c18-42c1-88b2-a03a3784e2d0}</Project>
-      <Name>Ringtoets.Integration.Service</Name>
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
+      <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
+      <Name>Ringtoets.Integration.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.TestUtils\Ringtoets.Integration.TestUtils.csproj">
       <Project>{174ba68d-6176-4ac5-8dfd-98cdd2c4d971}</Project>

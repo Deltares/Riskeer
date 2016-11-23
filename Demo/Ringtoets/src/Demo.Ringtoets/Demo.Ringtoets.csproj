@@ -177,11 +177,6 @@
       <Name>Ringtoets.Integration.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
-      <Project>{28811c4a-6c18-42c1-88b2-a03a3784e2d0}</Project>
-      <Name>Ringtoets.Integration.Service</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>

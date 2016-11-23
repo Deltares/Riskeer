@@ -32,13 +32,15 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.Integration.Service;
 using Ringtoets.Integration.TestUtils;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.Integration.Service.Test
+namespace Ringtoets.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
     public class ReferenceLineReplacementHandlerTest : NUnitFormTest

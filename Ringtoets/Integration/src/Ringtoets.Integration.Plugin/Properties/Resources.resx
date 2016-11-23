@@ -142,4 +142,9 @@
   <data name="WaveHeight_Description" xml:space="preserve">
     <value>Hs(norm)</value>
   </data>
+  <data name="ReferenceLineReplacementHandler_Confirm_clear_referenceLine_dependent_data" xml:space="preserve">
+    <value>Na het importeren van een aangepaste ligging van de referentielijn zullen alle geimporteerde en berekende gegevens van faalmechanismen worden gewist.
+
+Wilt u doorgaan?</value>
+  </data>
 </root>
