@@ -90,7 +90,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var layer = layers[0];
             Assert.AreEqual(1, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPolygonLayer>(layer);
-            Assert.IsInstanceOf<MultiPolygon>(layer.DataSet.Features[0].BasicGeometry);
+            Assert.IsInstanceOf<Polygon>(layer.DataSet.Features[0].BasicGeometry);
             Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
         }
 
@@ -141,7 +141,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             layer = layers[2];
             Assert.AreEqual(1, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPolygonLayer>(layer);
-            Assert.IsInstanceOf<MultiPolygon>(layer.DataSet.Features[0].BasicGeometry);
+            Assert.IsInstanceOf<Polygon>(layer.DataSet.Features[0].BasicGeometry);
             Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
         }
 

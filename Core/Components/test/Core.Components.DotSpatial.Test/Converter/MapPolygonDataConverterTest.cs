@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -168,10 +169,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(FeatureType.Polygon, polygonLayer.FeatureSet.FeatureType);
             Assert.AreEqual(1, polygonLayer.FeatureSet.Features.Count);
 
-            var featureGeometry = (IMultiPolygon) polygonLayer.FeatureSet.Features[0].BasicGeometry;
-            Assert.AreEqual(1, featureGeometry.NumGeometries);
+            var polygonGeometry = (Polygon)polygonLayer.FeatureSet.Features[0].BasicGeometry;
+            Assert.AreEqual(1, polygonGeometry.NumGeometries);
 
-            var polygonGeometry = (IBasicPolygon) featureGeometry.Geometries[0];
             CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
             CollectionAssert.IsEmpty(polygonGeometry.Holes);
         }
@@ -212,12 +212,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(FeatureType.Polygon, polygonLayer.FeatureSet.FeatureType);
             Assert.AreEqual(1, polygonLayer.FeatureSet.Features.Count);
 
-            var featureGeometry = (IMultiPolygon) polygonLayer.FeatureSet.Features[0].BasicGeometry;
-            Assert.AreEqual(1, featureGeometry.NumGeometries);
-
-            var polygonGeometry = (IBasicPolygon) featureGeometry.Geometries[0];
+            var polygonGeometry = (Polygon)polygonLayer.FeatureSet.Features[0].BasicGeometry;
+            Assert.AreEqual(1, polygonGeometry.NumGeometries);
+            
             CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
-            Assert.AreEqual(2, polygonGeometry.Holes.Count);
+            Assert.AreEqual(2, polygonGeometry.Holes.Length);
             CollectionAssert.AreEqual(innerRing1Points, polygonGeometry.Holes.ElementAt(0).Coordinates.Select(c => new Point2D(c.X, c.Y)));
             CollectionAssert.AreEqual(innerRing2Points, polygonGeometry.Holes.ElementAt(1).Coordinates.Select(c => new Point2D(c.X, c.Y)));
         }
@@ -340,6 +339,273 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testMapData.GetType());
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void Convert_MapDataWithSingleGeometry_ReturnMapPolygonLayerWithPolygon()
+        {
+            // Setup
+            var converter = new MapPolygonDataConverter();
+            var random = new Random(21);
+            var features = new List<MapFeature>
+            {
+                new MapFeature(new[]
+                {
+                    new MapGeometry(new[]
+                    {
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        },
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
+                    })
+                })
+            };
+
+            var polygonData = new MapPolygonData("test data")
+            {
+                Features = features.ToArray()
+            };
+
+            // Call
+            var mapLayers = converter.Convert(polygonData);
+
+            // Assert
+            var layer = mapLayers[0];
+            Assert.IsInstanceOf<Polygon>(layer.DataSet.Features[0].BasicGeometry);
+        }
+
+        [Test]
+        public void Convert_MapDataWithMultipleGeometry_ReturnMapPolygonLayerWithMultiPolygon()
+        {
+            // Setup
+            var converter = new MapPolygonDataConverter();
+            var random = new Random(21);
+            var features = new List<MapFeature>
+            {
+                new MapFeature(new[]
+                {
+                    new MapGeometry(new[]
+                    {
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        },
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
+                    }),
+                    new MapGeometry(new[]
+                    {
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        },
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
+                    })
+                })
+            };
+
+            var lineData = new MapPolygonData("test data")
+            {
+                Features = features.ToArray()
+            };
+
+            // Call
+            var mapLayers = converter.Convert(lineData);
+
+            // Assert
+            var layer = mapLayers[0];
+            Assert.IsInstanceOf<MultiPolygon>(layer.DataSet.Features[0].BasicGeometry);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Convert_RandomPolygonDataWithoutAttributes_ReturnsNewMapPolygonLayerListWithDefaultLabelLayer(bool showLabels)
+        {
+            // Setup
+            var converter = new MapPolygonDataConverter();
+            var random = new Random(21);
+            var randomCount = random.Next(5, 10);
+            var features = new List<MapFeature>();
+
+            for (var i = 0; i < randomCount; i++)
+            {
+                features.Add(new MapFeature(new[]
+                {
+                    new MapGeometry(new[]
+                    {
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
+                    })
+                }));
+            }
+
+            var polygonData = new MapPolygonData("test data")
+            {
+                Features = features.ToArray(),
+                ShowLabels = showLabels
+            };
+
+            // Call
+            var mapLayers = converter.Convert(polygonData);
+
+            // Assert
+            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
+            var layer = mapLayers[0];
+
+            Assert.AreEqual(polygonData.Features.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapPolygonLayer>(layer);
+            Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
+            CollectionAssert.AreNotEqual(polygonData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
+            Assert.AreEqual(showLabels, layer.ShowLabels);
+            CollectionAssert.IsEmpty(layer.DataSet.GetColumns());
+
+            Assert.IsNotNull(layer.LabelLayer);
+            Assert.AreEqual("FID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
+            Assert.IsNull(layer.LabelLayer.Symbology.Categories[0].Expression);
+        }
+
+        [Test]
+        public void Convert_RandomPolygonDataWithAttributesShowLabelsFalse_ReturnsNewMapPolygonLayerListWithDefaultLabelLayer()
+        {
+            // Setup
+            var converter = new MapPolygonDataConverter();
+            var random = new Random(21);
+            var randomCount = random.Next(5, 10);
+            var features = new List<MapFeature>();
+
+            for (var i = 0; i < randomCount; i++)
+            {
+                var mapFeature = new MapFeature(new[]
+                {
+                    new MapGeometry(new[]
+                    {
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
+                    })
+                });
+                mapFeature.MetaData["ID"] = random.NextDouble();
+                mapFeature.MetaData["Name"] = string.Format("feature [{0}]", i);
+
+                features.Add(mapFeature);
+            }
+
+            var polygonData = new MapPolygonData("test data")
+            {
+                Features = features.ToArray(),
+                ShowLabels = false
+            };
+
+            // Call
+            IList<IMapFeatureLayer> mapLayers = converter.Convert(polygonData);
+
+            // Assert
+            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
+            IMapFeatureLayer layer = mapLayers[0];
+
+            Assert.AreEqual(polygonData.Features.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapPolygonLayer>(layer);
+            Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
+            CollectionAssert.AreNotEqual(polygonData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
+            Assert.IsFalse(layer.ShowLabels);
+            CollectionAssert.IsEmpty(layer.DataSet.GetColumns());
+
+            Assert.IsNotNull(layer.LabelLayer);
+            Assert.AreEqual("FID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
+            Assert.IsNull(layer.LabelLayer.Symbology.Categories[0].Expression);
+        }
+
+        [Test]
+        [TestCase("id")]
+        [TestCase("name")]
+        public void Convert_RandomPolygonDataWithAttributesShowLabelsTrue_ReturnsNewMapPolygonLayerListWithCustomLabelLayer(string selectedAttribute)
+        {
+            // Setup
+            var converter = new MapPolygonDataConverter();
+            var random = new Random(21);
+            var randomCount = random.Next(5, 10);
+            var features = new List<MapFeature>();
+
+            for (var i = 0; i < randomCount; i++)
+            {
+                var mapFeature = new MapFeature(new[]
+                {
+                    new MapGeometry(new[]
+                    {
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble()),
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
+                    })
+                });
+                mapFeature.MetaData["ID"] = random.NextDouble();
+                mapFeature.MetaData["Name"] = string.Format("feature [{0}]", i);
+
+                features.Add(mapFeature);
+            }
+
+            var polygonData = new MapPolygonData("test data")
+            {
+                Features = features.ToArray(),
+                ShowLabels = true,
+                SelectedMetaDataAttribute = selectedAttribute
+            };
+
+            // Call
+            IList<IMapFeatureLayer> mapLayers = converter.Convert(polygonData);
+
+            // Assert
+            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
+            IMapFeatureLayer layer = mapLayers[0];
+
+            Assert.AreEqual(polygonData.Features.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapPolygonLayer>(layer);
+            Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
+            CollectionAssert.AreNotEqual(polygonData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
+            Assert.IsTrue(layer.ShowLabels);
+
+            DataColumn[] dataColumns = layer.DataSet.GetColumns();
+            Assert.AreEqual(2, dataColumns.Length);
+            Assert.AreEqual("ID", dataColumns[0].ColumnName);
+            Assert.AreEqual("Name", dataColumns[1].ColumnName);
+
+            Assert.IsNotNull(layer.LabelLayer);
+            var labelCategory = layer.LabelLayer.Symbology.Categories[0];
+            Assert.AreEqual(selectedAttribute, labelCategory.Symbolizer.PriorityField);
+            Assert.AreEqual(ContentAlignment.MiddleRight, labelCategory.Symbolizer.Orientation);
+            Assert.AreEqual(5, labelCategory.Symbolizer.OffsetX);
+            Assert.AreEqual(string.Format("[{0}]", polygonData.SelectedMetaDataAttribute), labelCategory.Expression);
         }
 
         [Test]

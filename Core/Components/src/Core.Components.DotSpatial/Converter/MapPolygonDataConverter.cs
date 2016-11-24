@@ -43,7 +43,6 @@ namespace Core.Components.DotSpatial.Converter
 
             foreach (var mapFeature in data.Features)
             {
-                var feature = new Feature();
                 var geometryList = new List<IPolygon>();
 
                 foreach (var mapGeometry in mapFeature.MapGeometries)
@@ -64,16 +63,22 @@ namespace Core.Components.DotSpatial.Converter
                     geometryList.Add(polygon);
                 }
 
-                GeometryFactory factory = new GeometryFactory();
-                feature.BasicGeometry = factory.CreateMultiPolygon(geometryList.ToArray());
+                var feature = new Feature(GetGeometry(geometryList), featureSet);
 
-                featureSet.Features.Add(feature);
+                if (data.ShowLabels)
+                {
+                    AddMetaDataAsAttributes(mapFeature, featureSet, feature);
+                }
             }
+
+            featureSet.InitializeVertices();
 
             var layer = new MapPolygonLayer(featureSet)
             {
                 IsVisible = data.IsVisible,
-                Name = data.Name
+                Name = data.Name,
+                ShowLabels = data.ShowLabels,
+                LabelLayer = GetLabelLayer(featureSet, data.ShowLabels, data.SelectedMetaDataAttribute)
             };
 
             CreateStyle(layer, data.Style);
@@ -84,7 +89,33 @@ namespace Core.Components.DotSpatial.Converter
             };
         }
 
-        private void CreateStyle(MapPolygonLayer layer, PolygonStyle style)
+        private static IBasicGeometry GetGeometry(List<IPolygon> geometryList)
+        {
+            IBasicGeometry geometry;
+            var factory = new GeometryFactory();
+
+            if (geometryList.Count > 1)
+            {
+                geometry = factory.CreateMultiPolygon(geometryList.ToArray());
+            }
+            else
+            {
+                ILinearRing shell = null;
+                ILinearRing[] holes = {};
+
+                if (geometryList.Count == 1)
+                {
+                    IPolygon polygon = geometryList.First();
+                    shell = polygon.Shell;
+                    holes = polygon.Holes;
+                }
+
+                geometry = factory.CreatePolygon(shell, holes);
+            }
+            return geometry;
+        }
+
+        private static void CreateStyle(IPolygonLayer layer, PolygonStyle style)
         {
             if (style != null)
             {
