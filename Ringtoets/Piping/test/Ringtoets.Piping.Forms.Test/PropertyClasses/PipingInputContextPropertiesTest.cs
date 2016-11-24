@@ -1204,6 +1204,35 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void SelectedHydraulicBoundaryLocation_InputNoLocation_DoesNotThrowExceptionAndReturnsNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                 failureMechanism, assessmentSectionStub);
+            var properties = new PipingInputContextProperties
+            {
+                Data = context
+            };
+
+            SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
+
+            // Call
+            TestDelegate call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
+
+            // Assert
+            Assert.DoesNotThrow(call);
+            Assert.IsNull(selectedHydraulicBoundaryLocation);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void GetSelectableHydraulicBoundaryLocations_WithLocationsNoSurfaceLine_ReturnLocationsSortedByName()
         {
             // Setup

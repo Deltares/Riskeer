@@ -124,6 +124,35 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void SelectedHydraulicBoundaryLocation_InputNoLocation_DoesNotThrowExceptionAndReturnsNull()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>();
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanismStub,
+                                                      assessmentSectionStub);
+            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
+            {
+                Data = inputContext
+            };
+
+            SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
+
+            // Call
+            TestDelegate call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
+
+            // Assert
+            Assert.DoesNotThrow(call);
+            Assert.IsNull(selectedHydraulicBoundaryLocation);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoStructure_ReturnsLocationsSortedByName()
         {
             // Setup
@@ -149,10 +178,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure,
-                                                                     SimpleStructureInput,
-                                                                     StructuresCalculation<SimpleStructureInput>,
-                                                                     IFailureMechanism>.ConstructionProperties())
+            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
             {
                 Data = inputContext
             };
@@ -203,10 +229,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure,
-                                                                     SimpleStructureInput,
-                                                                     StructuresCalculation<SimpleStructureInput>,
-                                                                     IFailureMechanism>.ConstructionProperties())
+            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
             {
                 Data = inputContext
             };

@@ -252,6 +252,27 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void SelectedHydraulicBoundaryLocation_InputNoLocation_DoesNotThrowExceptionAndReturnsNull()
+        {
+            var input = new WaveConditionsInput();
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
+
+            var properties = new TestWaveConditionsInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
+
+            // Call
+            TestDelegate call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
+
+            // Assert
+            Assert.DoesNotThrow(call);
+            Assert.IsNull(selectedHydraulicBoundaryLocation);
+        }
+
+        [Test]
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsNoReferencePoint_ReturnsLocationsSortedByName()
         {
             // Setup

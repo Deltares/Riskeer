@@ -190,6 +190,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void SelectedHydraulicBoundaryLocation_InputNoLocation_DoesNotThrowExceptionAndReturnsNull()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var calculationInput = new GrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var inputContext = new GrassCoverErosionInwardsInputContext(calculationInput,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new GrassCoverErosionInwardsInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
+
+            // Call
+            TestDelegate call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
+
+            // Assert
+            Assert.DoesNotThrow(call);
+            Assert.IsNull(selectedHydraulicBoundaryLocation);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoDikeProfile_ReturnsLocationsSortedByName()
         {
             // Setup
