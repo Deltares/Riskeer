@@ -359,7 +359,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             Assert.IsNotNull(layer.LabelLayer);
             var labelCategory = layer.LabelLayer.Symbology.Categories[0];
-            Assert.AreEqual(selectedAttribute, labelCategory.Symbolizer.PriorityField);
+            Assert.AreEqual("FID", labelCategory.Symbolizer.PriorityField);
             Assert.AreEqual(ContentAlignment.MiddleRight, labelCategory.Symbolizer.Orientation);
             Assert.AreEqual(5, labelCategory.Symbolizer.OffsetX);
             Assert.AreEqual(string.Format("[{0}]", lineData.SelectedMetaDataAttribute), labelCategory.Expression);

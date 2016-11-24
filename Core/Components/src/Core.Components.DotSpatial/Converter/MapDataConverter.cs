@@ -92,8 +92,7 @@ namespace Core.Components.DotSpatial.Converter
                 labelLayer.Symbology.Categories[0].Symbolizer = new LabelSymbolizer
                 {
                     Orientation = ContentAlignment.MiddleRight,
-                    OffsetX = 5,
-                    PriorityField = labelToShow
+                    OffsetX = 5
                 };
                 labelLayer.Symbology.Categories[0].Expression = string.Format("[{0}]", labelToShow);
             }
