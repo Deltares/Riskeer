@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(3, children.Length);
-            var comment = children[0] as Comment;
+            var comment = (Comment)children[0];
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, comment);
 
             var pipingInputContext = (PipingInputContext) children[1];
@@ -158,7 +158,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(3, children.Length);
-            var comment = children[0] as Comment;
+            var comment = (Comment)children[0];
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, comment);
 
             var pipingInputContext = (PipingInputContext) children[1];

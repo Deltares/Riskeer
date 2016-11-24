@@ -22,12 +22,12 @@
 namespace Ringtoets.Common.Data
 {
     /// <summary>
-    /// This class represents an object about which some comments can be assigned.
+    /// This class represents a comment on some subject.
     /// </summary>
     public class Comment
     {
         /// <summary>
-        /// Gets or sets the comment body associated with the data object.
+        /// Gets or sets the comment body.
         /// </summary>
         public string Body { get; set; }
     }
