@@ -67,6 +67,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Handlers\FailureMechanismContributionNormChangeHandlerTest.cs" />
     <Compile Include="Handlers\ReferenceLineReplacementHandlerTest.cs" />
     <Compile Include="ImportInfos\DikeProfilesContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\FailureMechanismSectionsContextImportInfoTest.cs" />

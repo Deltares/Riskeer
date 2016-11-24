@@ -298,6 +298,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
                 CloseForData = CloseFailureMechanismContributionViewForData,
+                CreateInstance = () => new FailureMechanismContributionView(new FailureMechanismContributionNormChangeHandler()),
                 AfterCreate = (view, context) =>
                 {
                     view.AssessmentSection = context.Parent;

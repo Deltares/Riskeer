@@ -21,13 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
-using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -36,7 +36,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
@@ -57,6 +56,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private readonly Observer isFailureMechanismRelevantObserver;
         private readonly Observer closeViewsForIrrelevantFailureMechanismObserver;
+        private readonly IFailureMechanismContributionNormChangeHandler changeHandler;
         private FailureMechanismContribution data;
 
         private IAssessmentSection assessmentSection;
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
         /// </summary>
-        public FailureMechanismContributionView()
+        public FailureMechanismContributionView(IFailureMechanismContributionNormChangeHandler changeHandler)
         {
             InitializeComponent();
             InitializeGridColumns();
@@ -72,6 +72,8 @@ namespace Ringtoets.Integration.Forms.Views
             BindNormChange();
             BindNormInputLeave();
             SubscribeEvents();
+
+            this.changeHandler = changeHandler;
 
             isFailureMechanismRelevantObserver = new Observer(probabilityDistributionGrid.RefreshDataGridView);
             closeViewsForIrrelevantFailureMechanismObserver = new Observer(CloseViewsForIrrelevantFailureMechanism);
@@ -260,90 +262,21 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void BindNormChange()
         {
-            normInput.ValueChanged += NormValueChanged;
+            // Attaching to inner TextBox instead of 'normInput' control to capture all
+            // key presses. (This prevents some unexpected unresponsive behavior):
+            var innerTextBox = normInput.Controls.OfType<TextBox>().First();
+            innerTextBox.KeyDown += NormNumericUpDownInnerTextBox_KeyDown;
         }
 
         private void UnbindNormChange()
         {
-            normInput.ValueChanged -= NormValueChanged;
+            var innerTextBox = normInput.Controls.OfType<TextBox>().First();
+            innerTextBox.KeyDown -= NormNumericUpDownInnerTextBox_KeyDown;
         }
 
         private void BindNormInputLeave()
         {
             normInput.Leave += NormInputLeave;
-        }
-
-        private void NormInputLeave(object sender, EventArgs e)
-        {
-            ResetTextIfEmpty();
-        }
-
-        private void NormValueChanged(object sender, EventArgs eventArgs)
-        {
-            data.Norm = Convert.ToInt32(normInput.Value);
-            ClearAssessmentSectionData();
-
-            data.NotifyObservers();
-
-            foreach (var fm in AssessmentSection.GetFailureMechanisms())
-            {
-                fm.NotifyObservers();
-            }
-        }
-
-        private void ClearAssessmentSectionData()
-        {
-            IObservable[] affectedCalculations = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection).ToArray();
-            if (affectedCalculations.Length > 0)
-            {
-                affectedCalculations.ForEachElementDo(ac => ac.NotifyObservers());
-                log.InfoFormat(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared, affectedCalculations.Length);
-            }
-
-            if (assessmentSection.HydraulicBoundaryDatabase != null)
-            {
-                ClearAllHydraulicBoundaryLocationOutput();
-            }
-        }
-
-        private void ClearAllHydraulicBoundaryLocationOutput()
-        {
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                                                                                   .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                                                                                                   .First();
-
-            IEnumerable<IObservable> hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase,
-                                                                                                                                                  grassCoverErosionOutwardsFailureMechanism);
-            if (hydraulicBoundaryLocationAffected.Any())
-            {
-                grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.NotifyObservers();
-
-                assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
-                log.Info(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
-            }
-        }
-
-        private void ClearGrassCoverErosionOutwardsHydraulicBoundaryLocations()
-        {
-            var grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
-                .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                .First();
-            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations;
-            bool locationsAffected = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryLocations)
-                                                                              .Any();
-            if (locationsAffected)
-            {
-                hydraulicBoundaryLocations.NotifyObservers();
-                log.Info(RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwards_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
-            }
-        }
-
-        private void ResetTextIfEmpty()
-        {
-            if (string.IsNullOrEmpty(normInput.Text))
-            {
-                normInput.Text = normInput.Value.ToString(CultureInfo.CurrentCulture);
-            }
         }
 
         private void SetNormText()
@@ -388,6 +321,19 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         #region Event handling
+
+        private void NormInputLeave(object sender, EventArgs e)
+        {
+            ResetTextIfEmpty();
+        }
+
+        private void ResetTextIfEmpty()
+        {
+            if (string.IsNullOrEmpty(normInput.Text))
+            {
+                normInput.Text = normInput.Value.ToString(CultureInfo.CurrentCulture);
+            }
+        }
 
         private void ProbabilityDistributionGridOnCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -453,6 +399,67 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             assessmentSection.NotifyObservers();
+        }
+
+        private void ClearGrassCoverErosionOutwardsHydraulicBoundaryLocations()
+        {
+            var grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                                             .OfType<GrassCoverErosionOutwardsFailureMechanism>()
+                                                                             .First();
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations;
+            bool locationsAffected = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryLocations)
+                                                                              .Any();
+            if (locationsAffected)
+            {
+                hydraulicBoundaryLocations.NotifyObservers();
+                log.Info(RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwards_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
+            }
+        }
+
+        private void NormNumericUpDown_Validating(object sender, CancelEventArgs e)
+        {
+            if (normInput.Value != assessmentSection.FailureMechanismContribution.Norm)
+            {
+                if (!changeHandler.ConfirmNormChange())
+                {
+                    e.Cancel = true;
+                    RevertNormInputValue();
+                }
+            }
+        }
+
+        private void NormNumericUpDown_Validated(object sender, EventArgs e)
+        {
+            int newNormValue = Convert.ToInt32(normInput.Value);
+            IEnumerable<IObservable> changedObjects = changeHandler.ChangeNorm(assessmentSection, newNormValue);
+            foreach (IObservable changedObject in changedObjects)
+            {
+                changedObject.NotifyObservers();
+            }
+        }
+
+        private void NormNumericUpDownInnerTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                RevertNormInputValue();
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = null;
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void RevertNormInputValue()
+        {
+            SetNormText();
+            ActiveControl = null;
         }
 
         #endregion

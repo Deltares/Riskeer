@@ -78,6 +78,8 @@ namespace Ringtoets.Integration.Forms.Views
             0,
             0,
             0});
+            this.normInput.Validating += new System.ComponentModel.CancelEventHandler(this.NormNumericUpDown_Validating);
+            this.normInput.Validated += new System.EventHandler(this.NormNumericUpDown_Validated);
             // 
             // perYearLabel
             // 

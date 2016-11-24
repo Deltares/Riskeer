@@ -25,6 +25,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Test.Properties;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Plugin
 {
@@ -48,12 +49,17 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(viewInfo.GetViewData);
             Assert.IsNull(viewInfo.AfterCreate);
             Assert.IsNull(viewInfo.CloseForData);
+            Assert.IsNotNull(viewInfo.CreateInstance);
         }
 
         [Test]
         public void SimpleProperties_SetNewValues_GetNewlySetValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewInstance = mocks.Stub<IView>();
+            mocks.ReplayAll();
+
             var viewInfo = new ViewInfo();
 
             var newDataType = typeof(int);
@@ -69,6 +75,7 @@ namespace Core.Common.Gui.Test.Plugin
                 // Do something useful
             };
             Func<IView, object, bool> closeViewForDataDelegate = (view, o) => true;
+            Func<IView> createInstanceDelegate = () => viewInstance;
 
             // Call
             viewInfo.DataType = newDataType;
@@ -81,6 +88,7 @@ namespace Core.Common.Gui.Test.Plugin
             viewInfo.GetViewData = getViewDataDelegate;
             viewInfo.AfterCreate = afterCreateDelegate;
             viewInfo.CloseForData = closeViewForDataDelegate;
+            viewInfo.CreateInstance = createInstanceDelegate;
 
             // Assert
             Assert.AreEqual(newDataType, viewInfo.DataType);
@@ -93,6 +101,25 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual(getViewDataDelegate, viewInfo.GetViewData);
             Assert.AreEqual(afterCreateDelegate, viewInfo.AfterCreate);
             Assert.AreEqual(closeViewForDataDelegate, viewInfo.CloseForData);
+            Assert.AreEqual(createInstanceDelegate, viewInfo.CreateInstance);
+        }
+
+        [Test]
+        public void CreateInstance_ViewtypeWithDefaultConstructor_ReturnView()
+        {
+            // Setup
+            var viewInfo = new ViewInfo
+            {
+                DataType = typeof(int),
+                ViewDataType = typeof(string),
+                ViewType = typeof(StringView)
+            };
+
+            // Call
+            IView view = viewInfo.CreateInstance();
+
+            // Assert
+            Assert.IsInstanceOf<StringView>(view);
         }
 
         [Test]
@@ -132,6 +159,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(viewInfo.GetViewData);
             Assert.IsNull(viewInfo.AfterCreate);
             Assert.IsNull(viewInfo.CloseForData);
+            Assert.IsNotNull(viewInfo.CreateInstance);
         }
 
         [Test]
@@ -150,6 +178,7 @@ namespace Core.Common.Gui.Test.Plugin
                 // Do something useful
             };
             Func<IView, object, bool> closeViewForDataDelegate = (view, o) => true;
+            Func<StringView> createInstanceDelegate = () => new StringView();
 
             // Call
             viewInfo.Description = newDescription;
@@ -159,6 +188,7 @@ namespace Core.Common.Gui.Test.Plugin
             viewInfo.GetViewData = getViewDataDelegate;
             viewInfo.AfterCreate = afterCreateDelegate;
             viewInfo.CloseForData = closeViewForDataDelegate;
+            viewInfo.CreateInstance = createInstanceDelegate;
 
             // Assert
             Assert.AreEqual(newDescription, viewInfo.Description);
@@ -183,6 +213,19 @@ namespace Core.Common.Gui.Test.Plugin
             var expectedText = string.Format("{0} : {1} : {2}",
                                              viewInfo.DataType, viewInfo.ViewDataType, viewInfo.ViewType);
             Assert.AreEqual(expectedText, text);
+        }
+
+        [Test]
+        public void CreateInstance_ViewTypeHasDefaultConstructor_ReturnView()
+        {
+            // Setup
+            var viewInfo = new ViewInfo<int, string, StringView>();
+
+            // Call
+            StringView view = viewInfo.CreateInstance();
+
+            // Assert
+            Assert.IsNotNull(view);
         }
 
         [Test]
@@ -234,6 +277,10 @@ namespace Core.Common.Gui.Test.Plugin
             viewInfo.GetViewData = getViewDataDelegate;
             viewInfo.AfterCreate = afterCreateDelegate;
             viewInfo.CloseForData = closeViewForDataDelegate;
+            viewInfo.CreateInstance = () => new StringView
+            {
+                Text = "A"
+            };
 
             // Precondition
             Assert.IsInstanceOf<ViewInfo<int, string, StringView>>(viewInfo);
@@ -251,6 +298,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual(icon, info.Image);
             Assert.IsTrue(viewInfo.AdditionalDataCheck(dataObject));
             Assert.AreEqual(dataObject.ToString(), viewInfo.GetViewData(dataObject));
+            Assert.AreEqual("A", viewInfo.CreateInstance().Text);
 
             viewInfo.AfterCreate(stringView, dataObject);
             Assert.IsTrue(afterCreateDelegateCalled);

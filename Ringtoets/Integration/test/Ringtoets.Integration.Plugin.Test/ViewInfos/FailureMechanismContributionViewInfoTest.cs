@@ -60,7 +60,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var view = new FailureMechanismContributionView();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            mocks.ReplayAll();
+
+            var view = new FailureMechanismContributionView(handler);
 
             var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 1000);
 
@@ -69,6 +72,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Faalkansbegroting", viewName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -133,6 +137,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+
             var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 123456);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -145,7 +151,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView
+            using (var view = new FailureMechanismContributionView(handler)
             {
                 Data = contribution,
                 AssessmentSection = assessmentSection
@@ -164,6 +170,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+
             var contribution1 = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 123456);
             var contribution2 = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 789123);
 
@@ -184,7 +192,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                               .Return(Enumerable.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView
+            using (var view = new FailureMechanismContributionView(handler)
             {
                 Data = contribution1,
                 AssessmentSection = assessmentSection1
@@ -204,6 +212,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewWithoutData_ReturnsFalse()
         {
             // Setup
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+
             var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 789123);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -211,13 +221,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                              .Return(contribution);
             mocks.ReplayAll();
 
-            var view = new FailureMechanismContributionView();
+            using (var view = new FailureMechanismContributionView(handler))
+            {
+                // Call
+                var closeForData = info.CloseForData(view, assessmentSection);
 
-            // Call
-            var closeForData = info.CloseForData(view, assessmentSection);
-
-            // Assert
-            Assert.IsFalse(closeForData);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
             mocks.VerifyAll();
         }
 
@@ -225,6 +236,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void AfterCreate_WithGuiSet_SetsAssessmentSection()
         {
             // Setup
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+
             var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 789123);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -243,8 +256,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var context = new FailureMechanismContributionContext(contribution, assessmentSection);
-            var view = new FailureMechanismContributionView();
 
+            using (var view = new FailureMechanismContributionView(handler))
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismContributionView));

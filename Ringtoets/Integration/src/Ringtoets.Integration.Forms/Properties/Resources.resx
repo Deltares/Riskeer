@@ -279,12 +279,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName" xml:space="preserve">
     <value>Hs [m]</value>
   </data>
-  <data name="FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared" xml:space="preserve">
-    <value>De resultaten van {0} berekeningen zijn verwijderd.</value>
-  </data>
-  <data name="FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
-    <value>Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.</value>
-  </data>
   <data name="HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de toetspeil berekening?</value>
   </data>

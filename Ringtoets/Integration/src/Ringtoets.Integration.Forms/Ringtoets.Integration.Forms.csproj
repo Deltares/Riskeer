@@ -97,6 +97,7 @@
     <Compile Include="Views\DesignWaterLevelLocationsView.Designer.cs">
       <DependentUpon>DesignWaterLevelLocationsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\IFailureMechanismContributionNormChangeHandler.cs" />
     <Compile Include="Views\SectionResultRows\DuneErosionSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffInwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffOutwardsSectionResultRow.cs" />
@@ -218,11 +219,6 @@
     <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Forms\Ringtoets.GrassCoverErosionOutwards.Forms.csproj">
       <Project>{41b829c1-630f-40b0-8bee-b1c4c94ec8c4}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Forms</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Service\Ringtoets.GrassCoverErosionOutwards.Service.csproj">
-      <Project>{18E9F7C8-3170-4E9D-8D9F-1378225EED90}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Service</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">

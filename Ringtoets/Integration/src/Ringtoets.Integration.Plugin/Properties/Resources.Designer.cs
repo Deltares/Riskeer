@@ -88,6 +88,36 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Na het aanpassen van de norm zullen alle rekenresultaten van hydraulische randvoorwaarden en faalmechanismen verwijderd worden. Wilt u doorgaan?.
+        /// </summary>
+        public static string FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_data {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_depen" +
+                        "dent_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De resultaten van {0} berekeningen zijn verwijderd..
+        /// </summary>
+        public static string FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations" +
+                        "_0_calculations_cleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd..
+        /// </summary>
+        public static string FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_lev" +
+                        "el_results_cleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vakindeling komt niet overeen met de huidige referentielijn..
         /// </summary>
         public static string FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline {

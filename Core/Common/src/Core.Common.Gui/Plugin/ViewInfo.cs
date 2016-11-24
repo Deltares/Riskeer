@@ -31,6 +31,14 @@ namespace Core.Common.Gui.Plugin
     public class ViewInfo
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="ViewInfo"/> class.
+        /// </summary>
+        public ViewInfo()
+        {
+            CreateInstance = () => (IView)Activator.CreateInstance(ViewType);
+        }
+
+        /// <summary>
         /// Gets or sets the data type associated with this view info.
         /// </summary>
         public Type DataType { get; set; }
@@ -110,6 +118,13 @@ namespace Core.Common.Gui.Plugin
         {
             return DataType + " : " + ViewDataType + " : " + ViewType;
         }
+
+        /// <summary>
+        /// Gets or sets the optional method that allows for the construction of the view.
+        /// </summary>
+        /// <remarks>This property needs to be set if no default constructor is available
+        /// for the view type.</remarks>
+        public Func<IView> CreateInstance { get; set; }
     }
 
     /// <summary>
@@ -120,6 +135,14 @@ namespace Core.Common.Gui.Plugin
     /// <typeparam name="TView">Type of the view.</typeparam>
     public class ViewInfo<TData, TViewData, TView> where TView : IView
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewInfo{TData, TViewData, TView}"/> class.
+        /// </summary>
+        public ViewInfo()
+        {
+            CreateInstance = () => (TView)Activator.CreateInstance(ViewType);
+        }
+
         /// <summary>
         /// Gets the data type associated with this view info.
         /// </summary>
@@ -238,7 +261,8 @@ namespace Core.Common.Gui.Plugin
                         viewInfo.AfterCreate((TView) v, (TData) o);
                     }
                 },
-                GetViewName = (v, o) => viewInfo.GetViewName != null ? viewInfo.GetViewName((TView) v, (TViewData) o) : null
+                GetViewName = (v, o) => viewInfo.GetViewName != null ? viewInfo.GetViewName((TView) v, (TViewData) o) : null,
+                CreateInstance = () => viewInfo.CreateInstance()
             };
         }
 
@@ -246,6 +270,13 @@ namespace Core.Common.Gui.Plugin
         {
             return DataType + " : " + ViewDataType + " : " + ViewType;
         }
+
+        /// <summary>
+        /// Gets or sets the optional method that allows for the construction of the view.
+        /// </summary>
+        /// <remarks>This property needs to be set if no default constructor is available
+        /// for the view type.</remarks>
+        public Func<TView> CreateInstance { get; set; }
     }
 
     /// <summary>

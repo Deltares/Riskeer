@@ -179,7 +179,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private static IView CreateViewForData(object data, ViewInfo viewInfo)
         {
-            var view = (IView) Activator.CreateInstance(viewInfo.ViewType);
+            IView view = viewInfo.CreateInstance();
 
             view.Data = viewInfo.GetViewData(data);
 

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -38,6 +39,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
+using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -45,7 +47,7 @@ using Ringtoets.Piping.KernelWrapper.TestUtil;
 namespace Ringtoets.Integration.Forms.Test
 {
     [TestFixture]
-    public class FailureMechanismContributionViewIntegrationTest
+    public class FailureMechanismContributionViewIntegrationTest : NUnitFormTest
     {
         private const string messageAllHydraulicBoundaryLocationOutputCleared =
             "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.";
@@ -118,8 +120,17 @@ namespace Ringtoets.Integration.Forms.Test
             MockRepository mockRepository = new MockRepository();
             IObserver observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
-            IObserver calculationObserver = mockRepository.StrictMock<IObserver>();
-            calculationObserver.Expect(co => co.UpdateObserver()).Repeat.Times(numberOfCalculations);
+
+            IObserver pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
+            pipingCalculationObserver.Expect(o => o.UpdateObserver());
+            IObserver grassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
+            grassCoverErosionInwardsCalculationObserver.Expect(o => o.UpdateObserver());
+            IObserver heightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
+            heightStructuresCalculationObserver.Expect(o => o.UpdateObserver());
+            IObserver emptyPipingCalculationObserver = mockRepository.StrictMock<IObserver>();
+            IObserver emptyGrassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
+            IObserver emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
+
             IObserver hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
             hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
             IObserver grassCoverErosionOutwardsObserver = mockRepository.StrictMock<IObserver>();
@@ -129,18 +140,20 @@ namespace Ringtoets.Integration.Forms.Test
             failureMechanismContribution.Attach(observerMock);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
-            emptyPipingCalculation.Attach(calculationObserver);
-            emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
-            emptyHeightStructuresCalculation.Attach(calculationObserver);
+            emptyPipingCalculation.Attach(emptyPipingCalculationObserver);
+            emptyGrassCoverErosionInwardsCalculation.Attach(emptyGrassCoverErosionInwardsCalculationObserver);
+            emptyHeightStructuresCalculation.Attach(emptyHeightStructuresCalculationObserver);
 
-            pipingCalculation.Attach(calculationObserver);
-            grassCoverErosionInwardsCalculation.Attach(calculationObserver);
-            heightStructuresCalculation.Attach(calculationObserver);
+            pipingCalculation.Attach(pipingCalculationObserver);
+            grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
+            heightStructuresCalculation.Attach(heightStructuresCalculationObserver);
 
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserver);
 
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
             using (var form = new Form())
-            using (var distributionView = new FailureMechanismContributionView
+            using (var distributionView = new FailureMechanismContributionView(handler)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -163,8 +176,14 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNotNull(heightStructuresCalculation.Output);
 
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialogTester = new MessageBoxTester(wnd);
+                    dialogTester.ClickOk();
+                };
+
                 // Call
-                Action call = () => normTester.Properties.Text = normValue.ToString();
+                Action call = () => SimulateUserComittingNormValue(normTester, normValue);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, msgs =>
@@ -231,8 +250,10 @@ namespace Ringtoets.Integration.Forms.Test
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);
 
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -249,8 +270,15 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
                 Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
                 Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialogTester = new MessageBoxTester(wnd);
+                    dialogTester.ClickOk();
+                };
+
                 // Call
-                Action call = () => normTester.Properties.Text = normValue.ToString();
+                Action call = () => SimulateUserComittingNormValue(normTester, normValue);
 
                 // Assert
                 TestHelper.AssertLogMessageIsGenerated(call, messageAllHydraulicBoundaryLocationOutputCleared, 1);
@@ -306,24 +334,35 @@ namespace Ringtoets.Integration.Forms.Test
             MockRepository mockRepository = new MockRepository();
             IObserver observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
-            IObserver calculationObserver = mockRepository.StrictMock<IObserver>();
-            calculationObserver.Expect(co => co.UpdateObserver()).Repeat.Times(numberOfCalculations);
+
+            IObserver pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
+            pipingCalculationObserver.Expect(o => o.UpdateObserver());
+            IObserver grassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
+            grassCoverErosionInwardsCalculationObserver.Expect(o => o.UpdateObserver());
+            IObserver heightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
+            heightStructuresCalculationObserver.Expect(o => o.UpdateObserver());
+            IObserver emptyPipingCalculationObserver = mockRepository.StrictMock<IObserver>();
+            IObserver emptyGrassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
+            IObserver emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
+
             IObserver hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>(); // No update observer expected.
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
-            emptyPipingCalculation.Attach(calculationObserver);
-            emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
-            emptyHeightStructuresCalculation.Attach(calculationObserver);
+            emptyPipingCalculation.Attach(emptyPipingCalculationObserver);
+            emptyGrassCoverErosionInwardsCalculation.Attach(emptyGrassCoverErosionInwardsCalculationObserver);
+            emptyHeightStructuresCalculation.Attach(emptyHeightStructuresCalculationObserver);
 
-            pipingCalculation.Attach(calculationObserver);
-            grassCoverErosionInwardsCalculation.Attach(calculationObserver);
-            heightStructuresCalculation.Attach(calculationObserver);
+            pipingCalculation.Attach(pipingCalculationObserver);
+            grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
+            heightStructuresCalculation.Attach(heightStructuresCalculationObserver);
+
+            var handler = new FailureMechanismContributionNormChangeHandler();
 
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -341,8 +380,14 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNotNull(heightStructuresCalculation.Output);
 
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialogTester = new MessageBoxTester(wnd);
+                    dialogTester.ClickOk();
+                };
+
                 // Call
-                Action call = () => normTester.Properties.Text = normValue.ToString();
+                Action call = () => SimulateUserComittingNormValue(normTester, normValue);
 
                 // Assert
                 string expectedMessage = string.Format(messageCalculationsremoved,
@@ -396,22 +441,33 @@ namespace Ringtoets.Integration.Forms.Test
             MockRepository mockRepository = new MockRepository();
             IObserver observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
-            IObserver calculationObserver = mockRepository.StrictMock<IObserver>();
-            calculationObserver.Expect(co => co.UpdateObserver()).Repeat.Times(numberOfCalculations);
+
+            IObserver pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
+            pipingCalculationObserver.Expect(o => o.UpdateObserver());
+            IObserver grassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
+            grassCoverErosionInwardsCalculationObserver.Expect(o => o.UpdateObserver());
+            IObserver heightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
+            heightStructuresCalculationObserver.Expect(o => o.UpdateObserver());
+            IObserver emptyPipingCalculationObserver = mockRepository.StrictMock<IObserver>();
+            IObserver emptyGrassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
+            IObserver emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
+
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
 
-            emptyPipingCalculation.Attach(calculationObserver);
-            emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
-            emptyHeightStructuresCalculation.Attach(calculationObserver);
+            emptyPipingCalculation.Attach(emptyPipingCalculationObserver);
+            emptyGrassCoverErosionInwardsCalculation.Attach(emptyGrassCoverErosionInwardsCalculationObserver);
+            emptyHeightStructuresCalculation.Attach(emptyHeightStructuresCalculationObserver);
 
-            pipingCalculation.Attach(calculationObserver);
-            grassCoverErosionInwardsCalculation.Attach(calculationObserver);
-            heightStructuresCalculation.Attach(calculationObserver);
+            pipingCalculation.Attach(pipingCalculationObserver);
+            grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
+            heightStructuresCalculation.Attach(heightStructuresCalculationObserver);
+
+            var handler = new FailureMechanismContributionNormChangeHandler();
 
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -429,8 +485,14 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNotNull(heightStructuresCalculation.Output);
 
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialogTester = new MessageBoxTester(wnd);
+                    dialogTester.ClickOk();
+                };
+
                 // Call
-                Action call = () => normTester.Properties.Text = normValue.ToString();
+                Action call = () => SimulateUserComittingNormValue(normTester, normValue);
 
                 // Assert
                 string expectedMessage = string.Format(messageCalculationsremoved,
@@ -483,8 +545,10 @@ namespace Ringtoets.Integration.Forms.Test
             emptyHeightStructuresCalculation.Attach(calculationObserver);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -498,8 +562,14 @@ namespace Ringtoets.Integration.Forms.Test
                 // Precondition
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
 
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialogTester = new MessageBoxTester(wnd);
+                    dialogTester.ClickOk();
+                };
+
                 // Call
-                Action call = () => normTester.Properties.Text = normValue.ToString();
+                Action call = () => SimulateUserComittingNormValue(normTester, normValue);
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
@@ -537,8 +607,10 @@ namespace Ringtoets.Integration.Forms.Test
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);
 
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -552,8 +624,14 @@ namespace Ringtoets.Integration.Forms.Test
                 // Precondition
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
 
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialogTester = new MessageBoxTester(wnd);
+                    dialogTester.ClickOk();
+                };
+
                 // Call
-                Action call = () => normTester.Properties.Text = normValue.ToString();
+                Action call = () => SimulateUserComittingNormValue(normTester, normValue);
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
@@ -610,8 +688,10 @@ namespace Ringtoets.Integration.Forms.Test
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserverMock);
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
 
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
             using (var form = new Form())
-            using (var distributionView = new FailureMechanismContributionView
+            using (var distributionView = new FailureMechanismContributionView(handler)
             {
                 Data = assessmentSection.FailureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -689,8 +769,10 @@ namespace Ringtoets.Integration.Forms.Test
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserverMock);
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
 
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
             using (var form = new Form())
-            using (var distributionView = new FailureMechanismContributionView
+            using (var distributionView = new FailureMechanismContributionView(handler)
             {
                 Data = assessmentSection.FailureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -733,8 +815,10 @@ namespace Ringtoets.Integration.Forms.Test
             assessmentSection.Attach(observerMock);
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
 
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
             using (var form = new Form())
-            using (var distributionView = new FailureMechanismContributionView
+            using (var distributionView = new FailureMechanismContributionView(handler)
             {
                 Data = assessmentSection.FailureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -751,6 +835,18 @@ namespace Ringtoets.Integration.Forms.Test
 
             // Assert
             mockRepository.VerifyAll(); // Expect UpdateObserver call
+        }
+
+        private static void SimulateUserComittingNormValue(ControlTester normTester, int normValue)
+        {
+            var normInput = (NumericUpDown) normTester.TheObject;
+            normInput.Value = normValue;
+            var eventArgs = new CancelEventArgs();
+            EventHelper.RaiseEvent(normTester.TheObject, "Validating", eventArgs);
+            if (!eventArgs.Cancel)
+            {
+                normTester.FireEvent("Validated");
+            }
         }
     }
 }

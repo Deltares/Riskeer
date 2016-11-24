@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -70,7 +71,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [Test]
         public void DefaultConstructor_SetsDefaults()
         {
-            using (var contributionView = new FailureMechanismContributionView())
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            using (var contributionView = new FailureMechanismContributionView(handler))
             {
                 ShowFormWithView(contributionView);
 
@@ -88,17 +95,22 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 Assert.IsFalse(contributionView.AutoScroll);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void NormTextBox_Initialize_TextSetToData()
         {
             // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            mocks.ReplayAll();
+
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             // Call
-            using (var contributionView = new FailureMechanismContributionView
+            using (var contributionView = new FailureMechanismContributionView(handler)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -115,10 +127,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(1000000, normControl.Maximum);
                 Assert.AreEqual(100, normControl.Minimum);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void NormTextBox_ValueChanged_UpdatesDataWithNewValue()
+        public void NormTextBox_ValueChangedAndUserConfirmsChange_UpdatesDataWithNewValue()
         {
             // Setup
             const int normValue = 200;
@@ -127,13 +140,23 @@ namespace Ringtoets.Integration.Forms.Test.Views
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             MockRepository mockRepository = new MockRepository();
-            IObserver observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observable1 = mockRepository.StrictMock<IObservable>();
+            observable1.Expect(o => o.NotifyObservers());
+            var observable2 = mockRepository.StrictMock<IObservable>();
+            observable2.Expect(o => o.NotifyObservers());
+
+            var handler = mockRepository.StrictMock<IFailureMechanismContributionNormChangeHandler>();
+            handler.Expect(h => h.ConfirmNormChange()).Return(true);
+            handler.Expect(h => h.ChangeNorm(assessmentSection, normValue))
+                   .Return(new[]
+                   {
+                       observable1,
+                       observable2
+                   });
+
             mockRepository.ReplayAll();
 
-            failureMechanismContribution.Attach(observerMock);
-
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -146,10 +169,48 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
 
                 // Call
-                normTester.Properties.Text = normValue.ToString();
+                SimulateUserComittingNormValue(normTester, normValue);
+            }
+            // Assert
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void NormTextBox_ValueChangedAndUserDisallowsChange_NothingHappens()
+        {
+            // Setup
+            const int normValue = 200;
+
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+            int originalNormValue = failureMechanismContribution.Norm;
+
+            MockRepository mockRepository = new MockRepository();
+            var handler = mockRepository.StrictMock<IFailureMechanismContributionNormChangeHandler>();
+            handler.Expect(h => h.ConfirmNormChange()).Return(false);
+            handler.Expect(h => h.ChangeNorm(assessmentSection, normValue))
+                   .Return(Enumerable.Empty<IObservable>())
+                   .Repeat.Never();
+
+            mockRepository.ReplayAll();
+
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler)
+            {
+                Data = failureMechanismContribution,
+                AssessmentSection = assessmentSection
+            })
+            {
+                ShowFormWithView(distributionView);
+                ControlTester normTester = new ControlTester(normInputTextBoxName);
+
+                // Precondition
+                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
+
+                // Call
+                SimulateUserComittingNormValue(normTester, normValue);
 
                 // Assert
-                Assert.AreEqual(normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(originalNormValue.ToString(), normTester.Properties.Text);
             }
             mockRepository.VerifyAll();
         }
@@ -158,7 +219,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Data_Always_CorrectHeaders()
         {
             // Setup
-            using (var distributionView = new FailureMechanismContributionView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            mocks.ReplayAll();
+
+            using (var distributionView = new FailureMechanismContributionView(handler))
             {
                 // Call
                 ShowFormWithView(distributionView);
@@ -181,6 +246,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 string probabilitySpaceColumnHeaderText = dataGridView.Columns[probabilitySpaceColumnIndex].HeaderText;
                 Assert.AreEqual("Faalkansruimte [1/jaar]", probabilitySpaceColumnHeaderText);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -197,6 +263,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             double testContribution = 100 - otherContribution;
 
             var mockRepository = new MockRepository();
+            var handler = mockRepository.Stub<IFailureMechanismContributionNormChangeHandler>();
+
             var someMechanism = mockRepository.StrictMock<FailureMechanismBase>(testName, testCode);
             someMechanism.Contribution = testContribution;
 
@@ -207,7 +275,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 someMechanism
             }, otherContribution, 100);
 
-            using (var distributionView = new FailureMechanismContributionView
+            using (var distributionView = new FailureMechanismContributionView(handler)
             {
                 AssessmentSection = assessmentSection
             })
@@ -246,6 +314,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection2 = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var mockRepository = new MockRepository();
+            var handler = mockRepository.Stub<IFailureMechanismContributionNormChangeHandler>();
             var someMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
@@ -258,7 +327,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 someMechanism
             }, random.Next(0, 100), expectedValue);
 
-            using (var distributionView = new FailureMechanismContributionView
+            using (var distributionView = new FailureMechanismContributionView(handler)
             {
                 Data = initialContribution,
                 AssessmentSection = assessmentSection1
@@ -292,6 +361,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var mockRepository = new MockRepository();
+            var handler = mockRepository.Stub<IFailureMechanismContributionNormChangeHandler>();
             var someMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
@@ -300,7 +370,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 someMechanism
             }, random.Next(0, 100), initialValue);
 
-            using (var distributionView = new FailureMechanismContributionView
+            using (var distributionView = new FailureMechanismContributionView(handler)
             {
                 Data = contribution,
                 AssessmentSection = assessmentSection
@@ -332,6 +402,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var mockRepository = new MockRepository();
+            var handler = mockRepository.Stub<IFailureMechanismContributionNormChangeHandler>();
             var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             failureMechanismStub.Stub(fm => fm.Name).Return("A");
             failureMechanismStub.Stub(fm => fm.Code).Return("C");
@@ -339,7 +410,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             failureMechanismStub.IsRelevant = isFailureMechanismRelevant;
             mockRepository.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView())
+            using (var view = new FailureMechanismContributionView(handler))
             {
                 // When
                 var contributionData = new FailureMechanismContribution(new[]
@@ -368,13 +439,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var mockRepository = new MockRepository();
+            var handler = mockRepository.Stub<IFailureMechanismContributionNormChangeHandler>();
             var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             failureMechanismStub.Stub(fm => fm.Name).Return("A");
             failureMechanismStub.Stub(fm => fm.Code).Return("C");
             failureMechanismStub.Contribution = 0;
             mockRepository.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView())
+            using (var view = new FailureMechanismContributionView(handler))
             {
                 // When
                 var contributionData = new FailureMechanismContribution(new[]
@@ -406,14 +478,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var mockRepository = new MockRepository();
-
+            var handler = mockRepository.Stub<IFailureMechanismContributionNormChangeHandler>();
             var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             failureMechanismStub.Stub(fm => fm.Name).Return("A");
             failureMechanismStub.Stub(fm => fm.Code).Return("C");
             failureMechanismStub.Contribution = contribution;
             mockRepository.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView())
+            using (var view = new FailureMechanismContributionView(handler))
             {
                 // When
                 var contributionData = new FailureMechanismContribution(new[]
@@ -446,7 +518,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CompositionComboBox_WithDataSet_SelectedDisplayTextAndValueCorrect(AssessmentSectionComposition composition, string expectedDisplayText)
         {
             // Setup
-            using (var view = new FailureMechanismContributionView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            mocks.ReplayAll();
+
+            using (var view = new FailureMechanismContributionView(handler))
             {
                 ShowFormWithView(view);
 
@@ -462,6 +538,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(expectedDisplayText, compositionComboBox.Text);
                 Assert.AreEqual(composition, compositionComboBox.SelectedValue);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -474,7 +551,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CompositionComboBox_ChangeCompositionAndOk_UpdateAssessmentSectionContributionAndView(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
         {
             // Setup
-            using (var view = new FailureMechanismContributionView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            mocks.ReplayAll();
+
+            using (var view = new FailureMechanismContributionView(handler))
             {
                 var assessmentSection = new AssessmentSection(initialComposition);
 
@@ -502,6 +583,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                               "Expect the DataGridView to be flagged for redrawing.");
                 AssertDataGridViewDataSource(assessmentSection.FailureMechanismContribution.Distribution, contributionGridView);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -514,13 +596,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CompositionComboBox_ChangeComposition_NotifyAssessmentSectionObservers(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
         {
             // Setup
-            using (var view = new FailureMechanismContributionView())
-            {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
 
+            using (var view = new FailureMechanismContributionView(handler))
+            {
                 var assessmentSection = new AssessmentSection(initialComposition);
                 assessmentSection.Attach(observer);
 
@@ -535,24 +618,24 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 // Call
                 compositionComboBox.SelectedValue = newComposition;
-
-                // Assert
-                mocks.VerifyAll(); // Expect UpdateObserver call
             }
+            // Assert
+            mocks.VerifyAll(); // Expect UpdateObserver call
         }
 
         [Test]
         public void GivenView_WhenSettingRelevantFailureMechanism_RowIsStylesAsEnabled()
         {
             // Given
-            using (var view = new FailureMechanismContributionView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.IsRelevant = true;
+            mocks.ReplayAll();
+
+            using (var view = new FailureMechanismContributionView(handler))
             {
                 ShowFormWithView(view);
-
-                var mocks = new MockRepository();
-                var failureMechanism = mocks.Stub<IFailureMechanism>();
-                failureMechanism.IsRelevant = true;
-                mocks.ReplayAll();
 
                 var failureMechanisms = new[]
                 {
@@ -578,22 +661,23 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     DataGridViewCell cell = row.Cells[i];
                     AssertIsCellStyledAsEnabled(cell);
                 }
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenView_WhenSettingFailureMechanismThatIsIrrelevant_RowIsStylesAsGreyedOut()
         {
             // Given
-            using (var view = new FailureMechanismContributionView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.IsRelevant = false;
+            mocks.ReplayAll();
+
+            using (var view = new FailureMechanismContributionView(handler))
             {
                 ShowFormWithView(view);
-
-                var mocks = new MockRepository();
-                var failureMechanism = mocks.Stub<IFailureMechanism>();
-                failureMechanism.IsRelevant = false;
-                mocks.ReplayAll();
 
                 var failureMechanisms = new[]
                 {
@@ -619,8 +703,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     DataGridViewCell cell = row.Cells[i];
                     AssertIsCellStyleGreyedOut(cell);
                 }
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -631,6 +715,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Given
             List<IObserver> failureMechanismObservers = new List<IObserver>();
             var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return("A");
             failureMechanism.Stub(fm => fm.Code).Return("C");
@@ -654,7 +739,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView())
+            using (var view = new FailureMechanismContributionView(handler))
             {
                 ShowFormWithView(view);
 
@@ -714,6 +799,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Given
             List<IObserver> failureMechanismObservers = new List<IObserver>();
             var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return("A");
             failureMechanism.Stub(fm => fm.Code).Return("C");
@@ -765,7 +851,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             viewCommandsStub.Expect(vc => vc.RemoveAllViewsForItem(irrelevantFailureMechanism));
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView
+            using (var view = new FailureMechanismContributionView(handler)
             {
                 ViewCommands = viewCommandsStub
             })
@@ -789,7 +875,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenView_WhenSettingFailureMechanismThatIsAlwaysRelevant_IsRelevantFlagTrueAndReadonly()
         {
             // Given
-            using (var view = new FailureMechanismContributionView())
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            mocks.ReplayAll();
+
+            using (var view = new FailureMechanismContributionView(handler))
             {
                 ShowFormWithView(view);
 
@@ -811,6 +901,105 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 DataGridViewCell isRelevantCell = row.Cells[isRelevantColumnIndex];
                 Assert.IsTrue((bool) isRelevantCell.Value);
                 Assert.IsTrue(isRelevantCell.ReadOnly);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenView_WhenEscapeAfterEnteringDifferentNormNotCommited_RevertNormAndNoChangedToData()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            handler.Stub(h => h.ChangeNorm(null, 1))
+                   .IgnoreArguments()
+                   .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+
+            const int normValue = 200;
+            int originalNorm = failureMechanismContribution.Norm;
+
+            using (var view = new FailureMechanismContributionView(handler)
+            {
+                Data = failureMechanismContribution,
+                AssessmentSection = assessmentSection
+            })
+            {
+                ShowFormWithView(view);
+                ControlTester normTester = new ControlTester(normInputTextBoxName);
+
+                // When
+                var normInput = (NumericUpDown)normTester.TheObject;
+                view.ActiveControl = normInput;
+                normInput.Value = normValue;
+                var keyEventArgs = new KeyEventArgs(Keys.Escape);
+                EventHelper.RaiseEvent(normInput.Controls.OfType<TextBox>().First(), "KeyDown", keyEventArgs);
+
+                // Then
+                Assert.IsTrue(keyEventArgs.Handled);
+                Assert.IsTrue(keyEventArgs.SuppressKeyPress);
+
+                Assert.AreEqual(originalNorm, normInput.Value);
+                Assert.AreNotSame(normInput, view.ActiveControl);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenView_WhenEnterAfterEnteringDifferentNormNotCommited_CommitValueAndChangeData()
+        {
+            // Given
+            const int normValue = 200;
+
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
+            handler.Expect(h => h.ConfirmNormChange())
+                   .Return(true);
+            handler.Expect(h => h.ChangeNorm(assessmentSection, normValue))
+                   .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            using (var view = new FailureMechanismContributionView(handler)
+            {
+                Data = failureMechanismContribution,
+                AssessmentSection = assessmentSection
+            })
+            {
+                ShowFormWithView(view);
+                ControlTester normTester = new ControlTester(normInputTextBoxName);
+
+                // When
+                var normInput = (NumericUpDown)normTester.TheObject;
+                view.ActiveControl = normInput;
+                normInput.Value = normValue;
+                var keyEventArgs = new KeyEventArgs(Keys.Enter);
+                EventHelper.RaiseEvent(normInput.Controls.OfType<TextBox>().First(), "KeyDown", keyEventArgs);
+
+                // Then
+                Assert.IsTrue(keyEventArgs.Handled);
+                Assert.IsTrue(keyEventArgs.SuppressKeyPress);
+
+                Assert.AreEqual(normValue, normInput.Value);
+                Assert.AreNotSame(normInput, view.ActiveControl);
+            }
+            mocks.VerifyAll();
+        }
+
+        private static void SimulateUserComittingNormValue(ControlTester normTester, int normValue)
+        {
+            var normInput = (NumericUpDown) normTester.TheObject;
+            normInput.Value = normValue;
+            var eventArgs = new CancelEventArgs();
+            EventHelper.RaiseEvent(normTester.TheObject, "Validating", eventArgs);
+            if (!eventArgs.Cancel)
+            {
+                normTester.FireEvent("Validated");
             }
         }
 
