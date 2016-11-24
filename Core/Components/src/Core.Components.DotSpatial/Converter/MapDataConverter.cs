@@ -38,6 +38,19 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     public abstract class MapDataConverter<T> : IMapDataConverter where T : MapData
     {
+        // Needed because DotSpatial can't handle special characters.
+        // Therefor we create an id as column name for the data table in the featureSet.
+        // We need this lookup to match the selected attribute from the MapData with the created id.
+        private readonly Dictionary<string, string> columnLookup;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MapDataConverter{T}"/>
+        /// </summary>
+        protected MapDataConverter()
+        {
+            columnLookup = new Dictionary<string, string>();
+        }
+
         public bool CanConvertMapData(MapData data)
         {
             return data is T;
@@ -70,20 +83,30 @@ namespace Core.Components.DotSpatial.Converter
             return points.Select(point => new Coordinate(point.X, point.Y));
         }
 
-        protected static void AddMetaDataAsAttributes(MapFeature ringtoetsMapFeature, FeatureSet featureSet, Feature feature)
+        protected void AddMetaDataAsAttributes(MapFeature ringtoetsMapFeature, FeatureSet featureSet, Feature feature)
         {
+            var columnKey = 1;
             foreach (var attribute in ringtoetsMapFeature.MetaData)
             {
-                if (!featureSet.DataTable.Columns.Contains(attribute.Key))
+                var attributeName = attribute.Key;
+
+                var columnName = columnKey.ToString();
+                if (!columnLookup.ContainsKey(attributeName))
                 {
-                    featureSet.DataTable.Columns.Add(attribute.Key, typeof(string));
+                    columnLookup.Add(attributeName, columnName);
+
+                    if(!featureSet.DataTable.Columns.Contains(columnName))
+                    {
+                        featureSet.DataTable.Columns.Add(columnName, typeof(string));
+                    }
                 }
 
-                feature.DataRow[attribute.Key] = attribute.Value;
+                feature.DataRow[columnName] = attribute.Value;
+                columnKey++;
             }
         }
 
-        protected static MapLabelLayer GetLabelLayer(FeatureSet featureSet, bool showLabels, string labelToShow)
+        protected MapLabelLayer GetLabelLayer(FeatureSet featureSet, bool showLabels, string labelToShow)
         {
             var labelLayer = new MapLabelLayer();
 
@@ -94,7 +117,7 @@ namespace Core.Components.DotSpatial.Converter
                     Orientation = ContentAlignment.MiddleRight,
                     OffsetX = 5
                 };
-                labelLayer.Symbology.Categories[0].Expression = string.Format("[{0}]", labelToShow);
+                labelLayer.Symbology.Categories[0].Expression = string.Format("[{0}]", columnLookup[labelToShow]);
             }
 
             return labelLayer;

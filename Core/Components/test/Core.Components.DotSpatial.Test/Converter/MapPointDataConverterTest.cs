@@ -197,9 +197,9 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
         
         [Test]
-        [TestCase("id")]
-        [TestCase("name")]
-        public void Convert_RandomPointDataWithAttributesShowLabelsTrue_ReturnsNewMapPointLayerListWithCustomLabelLayer(string selectedAttribute)
+        [TestCase("ID", 1)]
+        [TestCase("Name", 2)]
+        public void Convert_RandomPointDataWithAttributesShowLabelsTrue_ReturnsNewMapPointLayerListWithCustomLabelLayer(string selectedAttribute, int selectedAttributeId)
         {
             // Setup
             var converter = new MapPointDataConverter();
@@ -247,15 +247,15 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             DataColumn[] dataColumns = layer.DataSet.GetColumns();
             Assert.AreEqual(2, dataColumns.Length);
-            Assert.AreEqual("ID", dataColumns[0].ColumnName);
-            Assert.AreEqual("Name", dataColumns[1].ColumnName);
+            Assert.AreEqual("1", dataColumns[0].ColumnName);
+            Assert.AreEqual("2", dataColumns[1].ColumnName);
 
             Assert.IsNotNull(layer.LabelLayer);
             var labelCategory = layer.LabelLayer.Symbology.Categories[0];
             Assert.AreEqual("FID", labelCategory.Symbolizer.PriorityField);
             Assert.AreEqual(ContentAlignment.MiddleRight, labelCategory.Symbolizer.Orientation);
             Assert.AreEqual(5, labelCategory.Symbolizer.OffsetX);
-            Assert.AreEqual(string.Format("[{0}]", pointData.SelectedMetaDataAttribute), labelCategory.Expression);
+            Assert.AreEqual(string.Format("[{0}]", selectedAttributeId), labelCategory.Expression);
         }
 
         [Test]

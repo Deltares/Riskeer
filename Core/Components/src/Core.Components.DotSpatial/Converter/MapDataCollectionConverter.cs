@@ -33,9 +33,7 @@ namespace Core.Components.DotSpatial.Converter
     {
         protected override IList<IMapFeatureLayer> Convert(MapDataCollection data)
         {
-            var factory = new MapFeatureLayerFactory();
-
-            return data.Collection.SelectMany(md => factory.Create(md)).ToList();
+            return data.Collection.SelectMany(MapFeatureLayerFactory.Create).ToList();
         }
     }
 }

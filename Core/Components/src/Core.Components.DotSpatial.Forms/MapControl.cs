@@ -39,7 +39,6 @@ namespace Core.Components.DotSpatial.Forms
     public sealed class MapControl : Control, IMapControl
     {
         private readonly Cursor defaultCursor = Cursors.Default;
-        private readonly MapFeatureLayerFactory mapFeatureLayerFactory = new MapFeatureLayerFactory();
 
         private Map map;
         private MapFunctionPan mapFunctionPan;
@@ -163,7 +162,7 @@ namespace Core.Components.DotSpatial.Forms
             map.ClearLayers();
             if (Data != null)
             {
-                foreach (IMapFeatureLayer mapLayer in mapFeatureLayerFactory.Create(Data))
+                foreach (IMapFeatureLayer mapLayer in MapFeatureLayerFactory.Create(Data))
                 {
                     map.Layers.Add(mapLayer);
                 }

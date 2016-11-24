@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
 
@@ -30,33 +31,27 @@ namespace Core.Components.DotSpatial.Converter
     /// <summary>
     /// A factory to create <see cref="IMapFeatureLayer"/> data from <see cref="MapData"/> which can be used on the map.
     /// </summary>
-    public class MapFeatureLayerFactory
+    public static class MapFeatureLayerFactory
     {
-        /// <summary>
-        /// Collection of converters that the <see cref="MapFeatureLayerFactory"/> can use to transform <see cref="MapData"/>.
-        /// </summary>
-        private readonly IEnumerable<IMapDataConverter> converters = new Collection<IMapDataConverter>
-        {
-            new MapDataCollectionConverter(),
-            new MapPointDataConverter(),
-            new MapLineDataConverter(),
-            new MapPolygonDataConverter()
-        };
-
         /// <summary>
         /// Creates one or more new <see cref="IMapFeatureLayer"/> from the given <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The <see cref="MapData"/> to base the creation of <see cref="IMapFeatureLayer"/> upon.</param>
         /// <returns>A new <see cref="List{T}"/> of <see cref="IMapFeatureLayer"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
-        public IList<IMapFeatureLayer> Create(MapData data)
+        public static IList<IMapFeatureLayer> Create(MapData data)
         {
-            foreach (var converter in converters)
+            var converters = new Collection<IMapDataConverter>
             {
-                if (converter.CanConvertMapData(data))
-                {
-                    return converter.Convert(data);
-                }
+                new MapDataCollectionConverter(),
+                new MapPointDataConverter(),
+                new MapLineDataConverter(),
+                new MapPolygonDataConverter()
+            };
+
+            foreach (var converter in converters.Where(c => c.CanConvertMapData(data)))  
+            {
+                return converter.Convert(data);
             }
 
             throw new NotSupportedException(string.Format("MapData of type {0} is not supported.", data.GetType().Name));

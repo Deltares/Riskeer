@@ -40,11 +40,8 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         public void Create_MapPointData_ReturnMapPointLayer()
         {
-            // Setup
-            var factory = new MapFeatureLayerFactory();
-
             // Call
-            IList<IMapFeatureLayer> layers = factory.Create(new MapPointData("test data")
+            IList<IMapFeatureLayer> layers = MapFeatureLayerFactory.Create(new MapPointData("test data")
             {
                 Features = CreateTestData()
             });
@@ -58,11 +55,8 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         public void Create_MapLineData_ReturnMapLineLayer()
         {
-            // Setup
-            var factory = new MapFeatureLayerFactory();
-
             // Call
-            IList<IMapFeatureLayer> layers = factory.Create(new MapLineData("test data")
+            IList<IMapFeatureLayer> layers = MapFeatureLayerFactory.Create(new MapLineData("test data")
             {
                 Features = CreateTestData()
             });
@@ -76,11 +70,8 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         public void Create_MapPolygonData_ReturnMapPolygonLayer()
         {
-            // Setup
-            var factory = new MapFeatureLayerFactory();
-
             // Call
-            IList<IMapFeatureLayer> layers = factory.Create(new MapPolygonData("test data")
+            IList<IMapFeatureLayer> layers = MapFeatureLayerFactory.Create(new MapPolygonData("test data")
             {
                 Features = CreateTestData()
             });
@@ -98,7 +89,6 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Create_MapDataCollection_ReturnMapLayersCorrespondingToListItems()
         {
             // Setup
-            var factory = new MapFeatureLayerFactory();
             var testData = CreateTestData();
             var mapDataCollection = new MapDataCollection("test data");
 
@@ -120,7 +110,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var points = testData.First().MapGeometries.First().PointCollections.First().ToArray();
 
             // Call
-            IList<IMapFeatureLayer> layers = factory.Create(mapDataCollection);
+            IList<IMapFeatureLayer> layers = MapFeatureLayerFactory.Create(mapDataCollection);
 
             // Assert
             Assert.IsInstanceOf<IList<IMapFeatureLayer>>(layers);
@@ -149,11 +139,10 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Create_OtherData_ThrownsNotSupportedException()
         {
             // Setup
-            var factory = new MapFeatureLayerFactory();
             var testData = new TestMapData("test data");
 
             // Call
-            TestDelegate test = () => factory.Create(testData);
+            TestDelegate test = () => MapFeatureLayerFactory.Create(testData);
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
