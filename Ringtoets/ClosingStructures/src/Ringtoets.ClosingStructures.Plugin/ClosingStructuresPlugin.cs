@@ -35,7 +35,6 @@ using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.ClosingStructures.IO;
 using Ringtoets.ClosingStructures.Service;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -312,7 +311,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             return new object[]
             {
-                new CommentContext(closingStructuresFailureMechanismContext.WrappedData.NotRelevantComments)
+                closingStructuresFailureMechanismContext.WrappedData.NotRelevantComments
             };
         }
 
@@ -323,7 +322,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection),
-                new CommentContext(failureMechanism.InputComments)
+                failureMechanism.InputComments
             };
         }
 
@@ -334,7 +333,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                new CommentContext(failureMechanism.OutputComments)
+                failureMechanism.OutputComments
             };
         }
 
@@ -587,7 +586,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext(context.WrappedData.Comments),
+                context.WrappedData.Comments,
                 new ClosingStructuresInputContext(context.WrappedData.InputParameters,
                                                   context.WrappedData,
                                                   context.FailureMechanism,

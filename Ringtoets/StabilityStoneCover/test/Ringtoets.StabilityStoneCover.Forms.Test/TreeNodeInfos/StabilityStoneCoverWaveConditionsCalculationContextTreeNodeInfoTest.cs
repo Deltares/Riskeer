@@ -42,7 +42,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
@@ -192,8 +191,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentsContext = (CommentContext) children[0];
-            Assert.AreSame(calculation.Comments, commentsContext.WrappedData);
+            var comments = (Comment) children[0];
+            Assert.AreSame(calculation.Comments, comments);
 
             var inputContext = (StabilityStoneCoverWaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
@@ -253,8 +252,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentsContext = (CommentContext) children[0];
-            Assert.AreSame(calculation.Comments, commentsContext.WrappedData);
+            var comment = (Comment) children[0];
+            Assert.AreSame(calculation.Comments, comment);
 
             var inputContext = (StabilityStoneCoverWaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);

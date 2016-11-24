@@ -53,7 +53,6 @@
     <Compile Include="IScenarioRow.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContext.cs" />
     <Compile Include="PresentationObjects\ICalculationContext.cs" />
-    <Compile Include="PresentationObjects\CommentContext.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolder.cs" />
     <Compile Include="PresentationObjects\FailureMechanismContext.cs">
       <SubType>Code</SubType>

@@ -390,10 +390,10 @@ namespace Ringtoets.Integration.Plugin
                 MacrostabilityOutwardsFailureMechanismSectionResult,
                 MacrostabilityOutwardsResultView>();
 
-            yield return new ViewInfo<CommentContext, Comment, CommentView>
+            yield return new ViewInfo<Comment, CommentView>
             {
                 GetViewName = (view, context) => RingtoetsIntegrationPluginResources.Comment_DisplayName,
-                GetViewData = context => context.WrappedData,
+                GetViewData = context => context,
                 Image = RingtoetsCommonFormsResources.EditDocumentIcon,
                 CloseForData = CloseCommentViewForData
             };
@@ -648,7 +648,7 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityInwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityOutwardsFailureMechanismSectionResult>();
 
-            yield return new TreeNodeInfo<CommentContext>
+            yield return new TreeNodeInfo<Comment>
             {
                 Text = comment => RingtoetsIntegrationPluginResources.Comment_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.EditDocumentIcon,
@@ -1051,7 +1051,7 @@ namespace Ringtoets.Integration.Plugin
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),
-                new CommentContext(nodeData.Comments)
+                nodeData.Comments
             };
 
             IEnumerable<object> failureMechanismContexts = WrapFailureMechanismsInContexts(nodeData);
@@ -1120,7 +1120,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new CommentContext(nodeData.WrappedData.NotRelevantComments)
+                nodeData.WrappedData.NotRelevantComments
             };
         }
 
@@ -1129,7 +1129,7 @@ namespace Ringtoets.Integration.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(nodeData, assessmentSection),
-                new CommentContext(nodeData.InputComments)
+                nodeData.InputComments
             };
         }
 
@@ -1221,7 +1221,7 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(stabilityPointConstruction.SectionResults, nodeData);
             }
-            failureMechanismSectionResultContexts[1] = new CommentContext(nodeData.OutputComments);
+            failureMechanismSectionResultContexts[1] = nodeData.OutputComments;
             return failureMechanismSectionResultContexts;
         }
 

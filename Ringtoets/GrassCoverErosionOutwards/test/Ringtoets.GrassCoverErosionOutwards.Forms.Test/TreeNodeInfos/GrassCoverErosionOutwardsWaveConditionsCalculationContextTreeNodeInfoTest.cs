@@ -42,7 +42,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
@@ -341,8 +340,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentsContext = (CommentContext) children[0];
-            Assert.AreSame(calculation.Comments, commentsContext.WrappedData);
+            var comment = (Comment) children[0];
+            Assert.AreSame(calculation.Comments, comment);
 
             var inputContext = (GrassCoverErosionOutwardsWaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
@@ -405,8 +404,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentsContext = (CommentContext) children[0];
-            Assert.AreSame(calculation.Comments, commentsContext.WrappedData);
+            var comment = (Comment) children[0];
+            Assert.AreSame(calculation.Comments, comment);
 
             var inputContext = (GrassCoverErosionOutwardsWaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);

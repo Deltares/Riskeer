@@ -28,7 +28,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -350,7 +349,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             return new object[]
             {
-                new CommentContext(grassCoverErosionInwardsFailureMechanismContext.WrappedData.NotRelevantComments)
+                grassCoverErosionInwardsFailureMechanismContext.WrappedData.NotRelevantComments
             };
         }
 
@@ -360,7 +359,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection),
-                new CommentContext(failureMechanism.InputComments)
+                failureMechanism.InputComments
             };
         }
 
@@ -371,7 +370,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                new CommentContext(failureMechanism.OutputComments)
+                failureMechanism.OutputComments
             };
         }
 
@@ -610,7 +609,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext(context.WrappedData.Comments),
+                context.WrappedData.Comments,
                 new GrassCoverErosionInwardsInputContext(context.WrappedData.InputParameters,
                                                          context.WrappedData,
                                                          context.FailureMechanism,

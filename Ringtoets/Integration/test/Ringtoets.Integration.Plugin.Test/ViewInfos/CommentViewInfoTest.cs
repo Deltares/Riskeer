@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(CommentContext), info.DataType);
+            Assert.AreEqual(typeof(Comment), info.DataType);
         }
 
         [Test]
@@ -84,15 +84,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var comment = new Comment();
-            var contextMock = mocks.StrictMock<CommentContext>(comment);
-            mocks.ReplayAll();
 
             // Call
-            var viewData = info.GetViewData(contextMock);
+            var viewData = info.GetViewData(comment);
 
             // Assert
             Assert.AreSame(comment, viewData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -112,7 +109,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(CommentContext), dataType);
+            Assert.AreEqual(typeof(Comment), dataType);
         }
 
         [Test]

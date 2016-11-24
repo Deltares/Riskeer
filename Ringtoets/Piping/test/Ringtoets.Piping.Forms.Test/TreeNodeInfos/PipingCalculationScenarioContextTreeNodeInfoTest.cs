@@ -39,7 +39,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -127,9 +126,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(3, children.Length);
-            var commentContext = children[0] as CommentContext;
-            Assert.IsNotNull(commentContext);
-            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, commentContext.WrappedData);
+            var comment = children[0] as Comment;
+            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, comment);
 
             var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
@@ -160,9 +158,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(3, children.Length);
-            var commentContext = children[0] as CommentContext;
-            Assert.IsNotNull(commentContext);
-            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, commentContext.WrappedData);
+            var comment = children[0] as Comment;
+            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, comment);
 
             var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
@@ -438,7 +435,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 {
                     // When
                     var calculateContextMenuItemIndex = 1;
-                    Action action = () => contextMenuStrip.Items[calculateContextMenuItemIndex].PerformClick(); 
+                    Action action = () => contextMenuStrip.Items[calculateContextMenuItemIndex].PerformClick();
 
                     // Then
                     var expectedValidationMessageCount = 5;

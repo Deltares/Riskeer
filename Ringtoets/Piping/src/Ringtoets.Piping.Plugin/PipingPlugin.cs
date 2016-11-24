@@ -30,7 +30,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
@@ -581,7 +580,7 @@ namespace Ringtoets.Piping.Plugin
         {
             return new object[]
             {
-                new CommentContext(pipingFailureMechanismContext.WrappedData.NotRelevantComments)
+                pipingFailureMechanismContext.WrappedData.NotRelevantComments
             };
         }
 
@@ -592,7 +591,7 @@ namespace Ringtoets.Piping.Plugin
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new RingtoetsPipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
-                new CommentContext(failureMechanism.InputComments)
+                failureMechanism.InputComments
             };
         }
 
@@ -603,7 +602,7 @@ namespace Ringtoets.Piping.Plugin
                 new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                new CommentContext(failureMechanism.OutputComments)
+                failureMechanism.OutputComments
             };
         }
 
@@ -635,7 +634,7 @@ namespace Ringtoets.Piping.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext(pipingCalculationScenarioContext.WrappedData.Comments),
+                pipingCalculationScenarioContext.WrappedData.Comments,
                 new PipingInputContext(pipingCalculationScenarioContext.WrappedData.InputParameters,
                                        pipingCalculationScenarioContext.WrappedData,
                                        pipingCalculationScenarioContext.AvailablePipingSurfaceLines,

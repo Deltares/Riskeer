@@ -28,7 +28,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms;
@@ -230,7 +229,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             return new object[]
             {
-                new CommentContext(failureMechanismContext.WrappedData.NotRelevantComments)
+                failureMechanismContext.WrappedData.NotRelevantComments
             };
         }
 
@@ -240,7 +239,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                new CommentContext(failureMechanism.InputComments)
+                failureMechanism.InputComments
             };
         }
 
@@ -250,7 +249,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             {
                 new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                new CommentContext(failureMechanism.OutputComments)
+                failureMechanism.OutputComments
             };
         }
 
@@ -505,7 +504,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext(context.WrappedData.Comments),
+                context.WrappedData.Comments,
                 new StabilityStoneCoverWaveConditionsInputContext(context.WrappedData.InputParameters,
                                                                   context.FailureMechanism.ForeshoreProfiles,
                                                                   context.AssessmentSection)

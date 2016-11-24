@@ -183,17 +183,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
                 Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-                var inputCommentContext = (CommentContext) inputFolder.Contents[1];
-                Assert.IsNotNull(inputCommentContext);
-                Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
+                var inputComment = (Comment) inputFolder.Contents[1];
+                Assert.AreSame(failureMechanism.InputComments, inputComment);
 
                 var outputFolder = (CategoryTreeFolder) children[1];
                 Assert.AreEqual("Oordeel", outputFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-                var outputCommentContext = (CommentContext) outputFolder.Contents[0];
-                Assert.IsNotNull(outputCommentContext);
-                Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
+                var outputComment = (Comment) outputFolder.Contents[0];
+                Assert.AreSame(failureMechanism.OutputComments, outputComment);
             }
             mocks.VerifyAll();
         }
@@ -259,8 +257,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual(1, children.Length);
-                var commentContext = (CommentContext) children[0];
-                Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
+                var comment = (Comment) children[0];
+                Assert.AreSame(failureMechanism.NotRelevantComments, comment);
             }
             mocks.VerifyAll();
         }

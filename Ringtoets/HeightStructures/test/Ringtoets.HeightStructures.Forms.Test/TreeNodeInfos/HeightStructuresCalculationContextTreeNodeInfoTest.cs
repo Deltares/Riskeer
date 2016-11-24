@@ -41,7 +41,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -129,9 +128,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentContext = children[0] as CommentContext;
-            Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
+            var comment = children[0] as Comment;
+            Assert.AreSame(calculationContext.WrappedData.Comments, comment);
 
             var heightStructuresInputContext = children[1] as HeightStructuresInputContext;
             Assert.IsNotNull(heightStructuresInputContext);
@@ -161,9 +159,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentContext = children[0] as CommentContext;
-            Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
+            var comment = children[0] as Comment;
+            Assert.AreSame(calculationContext.WrappedData.Comments, comment);
 
             var heightStructuresInputContext = children[1] as HeightStructuresInputContext;
             Assert.IsNotNull(heightStructuresInputContext);

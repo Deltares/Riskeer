@@ -29,7 +29,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -320,7 +319,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             var parentContext = (HeightStructuresContext) parentData;
             var changedObservables = HeightStructuresDataSynchronizationService.RemoveStructure(parentContext.FailureMechanism,
-                                                                                                      nodeData);
+                                                                                                nodeData);
             foreach (IObservable observable in changedObservables)
             {
                 observable.NotifyObservers();
@@ -349,7 +348,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection),
-                new CommentContext(failureMechanism.InputComments)
+                failureMechanism.InputComments
             };
         }
 
@@ -360,7 +359,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                new CommentContext(failureMechanism.OutputComments)
+                failureMechanism.OutputComments
             };
         }
 
@@ -368,7 +367,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             return new object[]
             {
-                new CommentContext(context.WrappedData.NotRelevantComments)
+                context.WrappedData.NotRelevantComments
             };
         }
 
@@ -608,7 +607,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext(context.WrappedData.Comments),
+                context.WrappedData.Comments,
                 new HeightStructuresInputContext(context.WrappedData.InputParameters,
                                                  context.WrappedData,
                                                  context.FailureMechanism,

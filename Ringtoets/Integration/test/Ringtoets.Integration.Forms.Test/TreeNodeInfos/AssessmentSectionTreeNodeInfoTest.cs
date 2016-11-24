@@ -163,8 +163,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.WrappedData.HydraulicBoundaryDatabase);
                 Assert.AreSame(assessmentSection, context.WrappedData);
 
-                var commentContext = (CommentContext) objects[3];
-                Assert.AreSame(assessmentSection.Comments, commentContext.WrappedData);
+                var comment = (Comment) objects[3];
+                Assert.AreSame(assessmentSection.Comments, comment);
 
                 var pipingFailureMechanismContext = (PipingFailureMechanismContext) objects[4];
                 Assert.AreSame(assessmentSection.PipingFailureMechanism, pipingFailureMechanismContext.WrappedData);

@@ -199,8 +199,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, foreshoreProfilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, foreshoreProfilesContext.ParentAssessmentSection);
 
-            var inputCommentContext = (CommentContext)inputsFolder.Contents[2];
-            Assert.AreSame(failureMechanism.InputComments, inputCommentContext.WrappedData);
+            var inputComment = (Comment) inputsFolder.Contents[2];
+            Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var hydraulicBoundariesGroupContext = (HydraulicBoundariesGroupContext) children[1];
             Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, hydraulicBoundariesGroupContext.WrappedData);
@@ -217,8 +217,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputCommentContext = (CommentContext)outputsFolder.Contents[1];
-            Assert.AreSame(failureMechanism.OutputComments, outputCommentContext.WrappedData);
+            var outputComment = (Comment) outputsFolder.Contents[1];
+            Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 
         [Test]
@@ -240,8 +240,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, children.Length);
-            var commentContext = (CommentContext) children[0];
-            Assert.AreSame(failureMechanism.NotRelevantComments, commentContext.WrappedData);
+            var comment = (Comment) children[0];
+            Assert.AreSame(failureMechanism.NotRelevantComments, comment);
         }
 
         [Test]

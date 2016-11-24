@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -56,7 +55,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(CommentContext), info.TagType);
+                Assert.AreEqual(typeof(Comment), info.TagType);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
                 Assert.IsNull(info.ChildNodeObjects);
                 Assert.IsNull(info.CanRename);
@@ -85,10 +84,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var info = GetInfo(plugin);
 
-                var context = new CommentContext(comment);
-
                 // Call
-                var text = info.Text(context);
+                var text = info.Text(comment);
 
                 // Assert
                 Assert.AreEqual("Opmerkingen", text);
@@ -104,10 +101,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
-                var context = new CommentContext(comment);
 
                 // Call
-                var image = info.Image(context);
+                var image = info.Image(comment);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.EditDocumentIcon, image);
@@ -146,7 +142,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
         private TreeNodeInfo GetInfo(PluginBase gui)
         {
-            return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CommentContext));
+            return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(Comment));
         }
     }
 }

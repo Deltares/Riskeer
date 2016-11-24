@@ -28,7 +28,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -351,7 +350,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             return new object[]
             {
-                new CommentContext(stabilityPointStructuresFailureMechanismContext.WrappedData.NotRelevantComments)
+                stabilityPointStructuresFailureMechanismContext.WrappedData.NotRelevantComments
             };
         }
 
@@ -363,7 +362,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, failureMechanism, assessmentSection),
-                new CommentContext(failureMechanism.InputComments)
+                failureMechanism.InputComments
             };
         }
 
@@ -374,7 +373,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                new CommentContext(failureMechanism.OutputComments)
+                failureMechanism.OutputComments
             };
         }
 
@@ -616,7 +615,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext(context.WrappedData.Comments),
+                context.WrappedData.Comments,
                 new StabilityPointStructuresInputContext(context.WrappedData.InputParameters,
                                                          context.WrappedData,
                                                          context.FailureMechanism,

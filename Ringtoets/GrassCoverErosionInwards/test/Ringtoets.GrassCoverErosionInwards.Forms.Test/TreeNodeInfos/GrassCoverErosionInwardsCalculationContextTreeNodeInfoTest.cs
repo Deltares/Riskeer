@@ -42,7 +42,6 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
@@ -129,9 +128,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentContext = children[0] as CommentContext;
-            Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
+            var comment = children[0] as Comment;
+            Assert.AreSame(calculationContext.WrappedData.Comments, comment);
 
             var grassCoverErosionInwardsInputContext = children[1] as GrassCoverErosionInwardsInputContext;
             Assert.IsNotNull(grassCoverErosionInwardsInputContext);
@@ -160,9 +158,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentContext = children[0] as CommentContext;
-            Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
+            var comment = children[0] as Comment;
+            Assert.AreSame(calculationContext.WrappedData.Comments, comment);
 
             var grassCoverErosionInwardsInputContext = children[1] as GrassCoverErosionInwardsInputContext;
             Assert.IsNotNull(grassCoverErosionInwardsInputContext);

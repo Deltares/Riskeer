@@ -41,7 +41,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityPointStructures.Data;
@@ -128,9 +127,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentContext = children[0] as CommentContext;
-            Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
+            var comment = children[0] as Comment;
+            Assert.AreSame(calculationContext.WrappedData.Comments, comment);
 
             var stabilityPointStructuresInputContext = children[1] as StabilityPointStructuresInputContext;
             Assert.IsNotNull(stabilityPointStructuresInputContext);
@@ -159,9 +157,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var commentContext = children[0] as CommentContext;
-            Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData.Comments, commentContext.WrappedData);
+            var comment = children[0] as Comment;
+            Assert.AreSame(calculationContext.WrappedData.Comments, comment);
 
             var stabilityPointStructuresInputContext = children[1] as StabilityPointStructuresInputContext;
             Assert.IsNotNull(stabilityPointStructuresInputContext);
