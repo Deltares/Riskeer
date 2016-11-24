@@ -1301,10 +1301,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var context = new PipingInputContext(calculation.InputParameters, calculation,
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
             var properties = new PipingInputContextProperties
             {
                 Data = context,
-                SurfaceLine = ValidSurfaceLine(0.0, 4.0)
+                SurfaceLine = surfaceLine
             };
 
             // Call
@@ -1313,10 +1315,71 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                hydraulicBoundaryDatabase.Locations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
+                hydraulicBoundaryDatabase.Locations.Select(hbl => new SelectableHydraulicBoundaryLocation(
+                                                                      hbl, surfaceLine.ReferenceLineIntersectionWorldPoint))
                                          .OrderBy(hbl => hbl.Distance.Value)
                                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenLocationAndReferencePoint_WhenUpdatingReferencePoint_ThenUpdateSelectableBoundaryLocations()
+        {
+            // Given
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(0, "A", 0, 10),
+                    new HydraulicBoundaryLocation(0, "E", 0, 500),
+                    new HydraulicBoundaryLocation(0, "F", 0, 100),
+                    new HydraulicBoundaryLocation(0, "D", 0, 200),
+                    new HydraulicBoundaryLocation(0, "C", 0, 200),
+                    new HydraulicBoundaryLocation(0, "B", 0, 200)
+                }
+            };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                 failureMechanism, assessmentSection);
+            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0, 0);
+            var properties = new PipingInputContextProperties
+            {
+                Data = context,
+                SurfaceLine = surfaceLine
+            };
+
+            IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
+                                                                                      .ToList();
+
+            var newSurfaceLine = ValidSurfaceLine(0.0, 5.0);
+            newSurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0, 190);
+
+            // When
+            properties.SurfaceLine = newSurfaceLine;
+
+            // Then
+            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
+                properties.GetSelectableHydraulicBoundaryLocations().ToList();
+            CollectionAssert.AreNotEqual(originalList, availableHydraulicBoundaryLocations);
+
+            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
+                hydraulicBoundaryDatabase.Locations
+                                         .Select(hbl =>
+                                                 new SelectableHydraulicBoundaryLocation(hbl,
+                                                                                         properties.SurfaceLine.ReferenceLineIntersectionWorldPoint))
+                                         .OrderBy(hbl => hbl.Distance.Value)
+                                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
 
