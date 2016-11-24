@@ -138,7 +138,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of deze kaartlaag moet worden weergegeven..
+        ///   Looks up a localized string similar to Geeft aan of deze kaartlaag wordt weergegeven..
         /// </summary>
         public static string MapData_IsVisible_Description {
             get {
@@ -174,7 +174,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan labels op deze kaartlaag worden weergegeven..
+        ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag..
         /// </summary>
         public static string Mapdata_SelectedMetaDataAttribute_Description {
             get {
@@ -192,7 +192,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of op deze kaartlaag labels moeten worden weergegeven..
+        ///   Looks up a localized string similar to Geeft aan of labels worden weergegeven op deze kaartlaag..
         /// </summary>
         public static string MapData_ShowLabels_Description {
             get {

@@ -224,7 +224,7 @@
     <value>Label</value>
   </data>
   <data name="MapData_ShowLabels_Description" xml:space="preserve">
-    <value>Geeft aan of op deze kaartlaag labels moeten worden weergegeven.</value>
+    <value>Geeft aan of labels worden weergegeven op deze kaartlaag.</value>
   </data>
   <data name="MapData_ShowLabels_DisplayName" xml:space="preserve">
     <value>Weergeven</value>
@@ -245,7 +245,7 @@
     <value>Polygonen</value>
   </data>
   <data name="Mapdata_SelectedMetaDataAttribute_Description" xml:space="preserve">
-    <value>Toont de eigenschap op basis waarvan labels op deze kaartlaag worden weergegeven.</value>
+    <value>Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag.</value>
   </data>
   <data name="Mapdata_SelectedMetaDataAttribute_DisplayName" xml:space="preserve">
     <value>Op basis van</value>
@@ -254,7 +254,7 @@
     <value>De naam van deze kaartlagenmap.</value>
   </data>
   <data name="MapData_IsVisible_Description" xml:space="preserve">
-    <value>Geeft aan of deze kaartlaag moet worden weergegeven.</value>
+    <value>Geeft aan of deze kaartlaag wordt weergegeven.</value>
   </data>
   <data name="MapData_IsVisible_DisplayName" xml:space="preserve">
     <value>Weergeven</value>

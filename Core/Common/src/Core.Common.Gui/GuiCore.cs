@@ -62,12 +62,12 @@ namespace Core.Common.Gui
         private static bool isAlreadyRunningInstanceOfIGui;
         private static string instanceCreationStackTrace;
 
+        private readonly Observer projectObserver;
+        private readonly IList<ISelectionProvider> selectionProviders = new List<ISelectionProvider>();
+
         private bool isExiting;
         private bool runFinished;
         private SplashScreen splashScreen;
-        private readonly Observer projectObserver;
-
-        private readonly IList<ISelectionProvider> selectionProviders = new List<ISelectionProvider>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiCore"/> class.
@@ -522,11 +522,15 @@ namespace Core.Common.Gui
                 selectionProviders.Remove(selectionProvider);
                 selectionProvider.SelectionChanged -= OnSelectionChanged;
 
-                // Clear the current selection if it's no longer applicable
-                if (Selection != null && !selectionProviders.Select(sp => sp.Selection).Any(s => Selection.Equals(s)))
-                {
-                    Selection = null;
-                }
+                ClearPossibleOutdatedSelection();
+            }
+        }
+
+        private void ClearPossibleOutdatedSelection()
+        {
+            if (Selection != null && !selectionProviders.Select(sp => sp.Selection).Any(s => Selection.Equals(s)))
+            {
+                Selection = null;
             }
         }
 

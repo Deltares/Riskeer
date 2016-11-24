@@ -123,13 +123,13 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isVisibleProperty,
                                                                             layerCategory,
                                                                             "Weergeven",
-                                                                            "Geeft aan of deze kaartlaag moet worden weergegeven.");
+                                                                            "Geeft aan of deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor showlabelsProperty = dynamicProperties[showLabelsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(showlabelsProperty,
                                                                             labelCategory,
                                                                             "Weergeven",
-                                                                            "Geeft aan of op deze kaartlaag labels moeten worden weergegeven.",
+                                                                            "Geeft aan of labels worden weergegeven op deze kaartlaag.",
                                                                             !hasMetaData);
 
             if (showLabels)
@@ -138,7 +138,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(selectedMetaDataAttributeProperty,
                                                                                 labelCategory,
                                                                                 "Op basis van",
-                                                                                "Toont de eigenschap op basis waarvan labels op deze kaartlaag worden weergegeven.");
+                                                                                "Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag.");
             }
         }
 
@@ -170,9 +170,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             properties.SelectedMetaDataAttribute = "ID";
 
             // Assert
-            Assert.AreEqual(properties.IsVisible, mapPointData.IsVisible);
-            Assert.AreEqual(properties.ShowLabels, mapPointData.ShowLabels);
-            Assert.AreEqual(properties.SelectedMetaDataAttribute, mapPointData.SelectedMetaDataAttribute);
+            Assert.IsFalse(mapPointData.IsVisible);
+            Assert.IsFalse(mapPointData.ShowLabels);
+            Assert.AreEqual("ID", mapPointData.SelectedMetaDataAttribute);
             mocks.VerifyAll();
         }
 

@@ -56,20 +56,6 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
-        public void HashCode_DifferentInstance_ReturnDifferentHashCode()
-        {
-            // Setup
-            var comparer = new ReferenceEqualityComparer<object>();
-
-            // Call
-            var codeFirst = comparer.GetHashCode(new TestObject());
-            var codeOther = comparer.GetHashCode(new TestObject());
-
-            // Assert
-            Assert.AreNotEqual(codeFirst, codeOther);
-        }
-
-        [Test]
         public void Equals_SameInstance_ReturnTrue()
         {
             // Setup

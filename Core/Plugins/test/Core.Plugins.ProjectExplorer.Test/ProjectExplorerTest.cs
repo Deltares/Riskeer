@@ -71,13 +71,10 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Call
             using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos))
             {
-                var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");
-
                 // Assert
                 Assert.IsInstanceOf<IProjectExplorer>(explorer);
                 Assert.IsInstanceOf<UserControl>(explorer);
                 Assert.IsNull(explorer.Data);
-                Assert.IsInstanceOf<TreeViewControl>(treeViewControl);
             }
             mocks.VerifyAll();
         }

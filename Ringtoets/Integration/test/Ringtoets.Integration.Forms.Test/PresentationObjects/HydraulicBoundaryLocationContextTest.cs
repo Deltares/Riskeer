@@ -182,48 +182,6 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             Assert.AreEqual(hashCode1, hashCode2);
         }
 
-        [Test]
-        public void GetHashCode_DifferentDatabaseAndSameLocation_ReturnDifferentHashCode()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase();
-            var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
-            var context1 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase1, hydraulicBoundaryLocation);
-            var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase2, hydraulicBoundaryLocation);
-
-            // Precondition
-            Assert.AreNotEqual(context1, context2);
-
-            // Call
-            var hashCode1 = context1.GetHashCode();
-            var hashCode2 = context2.GetHashCode();
-
-            // Assert
-            Assert.AreNotEqual(hashCode1, hashCode2);
-        }
-
-        [Test]
-        public void GetHashCode_SameDatabaseAndDifferentLocation_ReturnDifferentHashCode()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "First name", 2.0, 3.0);
-            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Second name", 4.0, 5.0);
-            var context1 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation1);
-            var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation2);
-
-            // Precondition
-            Assert.AreNotEqual(context1, context2);
-
-            // Call
-            var hashCode1 = context1.GetHashCode();
-            var hashCode2 = context2.GetHashCode();
-
-            // Assert
-            Assert.AreNotEqual(hashCode1, hashCode2);
-        }
-
         private class TestHydraulicBoundaryLocationContext : HydraulicBoundaryLocationContext
         {
             public TestHydraulicBoundaryLocationContext(HydraulicBoundaryDatabase wrappedData, HydraulicBoundaryLocation hydraulicBoundaryLocation)
