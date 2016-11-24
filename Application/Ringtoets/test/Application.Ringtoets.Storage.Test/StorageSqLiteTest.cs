@@ -490,7 +490,6 @@ namespace Application.Ringtoets.Storage.Test
             char[] invalidCharacters = Path.GetInvalidPathChars();
             string corruptPath = path.Replace('V', invalidCharacters[0]);
 
-
             // Call
             TestDelegate call = () => storage.HasStagedProjectChanges(corruptPath);
 
