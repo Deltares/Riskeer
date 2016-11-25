@@ -32,7 +32,8 @@ namespace Core.Common.Base.Data
     /// number of places.
     /// </summary>
     [TypeConverter(typeof(RoundedDoubleConverter))]
-    public struct RoundedDouble : IEquatable<RoundedDouble>, IEquatable<double>, IFormattable
+    public struct RoundedDouble : IEquatable<RoundedDouble>, IEquatable<double>, IFormattable, IComparable,
+                                  IComparable<RoundedDouble>, IComparable<double>
     {
         /// <summary>
         /// The maximum number of decimal places supported by this class.
@@ -173,6 +174,36 @@ namespace Core.Common.Base.Data
         public override string ToString()
         {
             return ToString(null, null);
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null)
+            {
+                return 1;
+            }
+
+            if (obj is RoundedDouble)
+            {
+                return CompareTo((RoundedDouble) obj);
+            }
+
+            if (obj is double)
+            {
+                return CompareTo((double) obj);
+            }
+
+            throw new ArgumentException("Arg must be double or RoundedDouble");
+        }
+
+        public int CompareTo(double other)
+        {
+            return value.CompareTo(other);
+        }
+
+        public int CompareTo(RoundedDouble other)
+        {
+            return value.CompareTo(other.value);
         }
 
         public bool Equals(double other)

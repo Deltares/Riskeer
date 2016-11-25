@@ -46,6 +46,9 @@ namespace Core.Common.Base.Test.Data
             Assert.IsInstanceOf<IEquatable<RoundedDouble>>(roundedDouble);
             Assert.IsInstanceOf<IEquatable<double>>(roundedDouble);
             Assert.IsInstanceOf<IFormattable>(roundedDouble);
+            Assert.IsInstanceOf<IComparable>(roundedDouble);
+            Assert.IsInstanceOf<IComparable<RoundedDouble>>(roundedDouble);
+            Assert.IsInstanceOf<IComparable<double>>(roundedDouble);
             Assert.AreEqual(numberOfDecimalPlaces, roundedDouble.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, roundedDouble.Value);
 
@@ -766,6 +769,148 @@ namespace Core.Common.Base.Test.Data
             // Assert
             Assert.AreEqual(result1.NumberOfDecimalPlaces, result2.NumberOfDecimalPlaces);
             Assert.AreEqual(result1.Value, result2.Value);
+        }
+
+        [Test]
+        public void CompareTo_Null_ReturnsExpectedResult()
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(1, 10);
+
+            // Call
+            var result = roundedDouble.CompareTo(null);
+
+            // Assert
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public void CompareTo_Object_ThrowsArgumentException()
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(1, 10);
+
+            // Call
+            TestDelegate call = () => roundedDouble.CompareTo(new object());
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Arg must be double or RoundedDouble");
+        }
+
+        [Test]
+        public void CompareTo_Itself_ReturnsZero()
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(1, 10);
+
+            // Call
+            int result = roundedDouble.CompareTo(roundedDouble);
+
+            // Assert
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        [TestCase(10, 10, 0)]
+        [TestCase(10.000005, 10, 0)]
+        [TestCase(10, -10, 1)]
+        [TestCase(10.05, 10, 1)]
+        [TestCase(-10, 10, -1)]
+        [TestCase(10, 10.05, -1)]
+        [TestCase(10, 10.000005, -1)]
+        [TestCase(10, double.NaN, 1)]
+        [TestCase(double.NaN, 10, -1)]
+        [TestCase(double.NaN, double.NaN, 0)]
+        public void CompareTo_RoundedDoubleToDouble_ReturnsExpectedResult(double roundedDoubleValue, double value,
+                                                                          int expectedRoundedDoubleIndex)
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
+
+            // Call
+            int roundedDoubleResult = roundedDouble.CompareTo(value);
+            int doubleResult = value.CompareTo(roundedDouble);
+
+            // Assert
+            Assert.AreEqual(expectedRoundedDoubleIndex, roundedDoubleResult);
+            Assert.AreEqual(-1*expectedRoundedDoubleIndex, doubleResult);
+        }
+
+        [Test]
+        [TestCase(10, 10, 0)]
+        [TestCase(10.000005, 10, 0)]
+        [TestCase(10, 10.000005, 0)]
+        [TestCase(10.005, 10, 0)]
+        [TestCase(10, 10.005, 0)]
+        [TestCase(10, -10, 1)]
+        [TestCase(10.05, 10, 1)]
+        [TestCase(-10, 10, -1)]
+        [TestCase(10, 10.05, -1)]
+        [TestCase(10, double.NaN, 1)]
+        [TestCase(double.NaN, 10, -1)]
+        [TestCase(double.NaN, double.NaN, 0)]
+        public void CompareTo_RoundedDoubleToRoundedDouble_ReturnsExpectedResult(double roundedDoubleValue, double roundedDoubleValue2,
+                                                                                 int expectedRoundedDoubleIndex)
+        {
+            // Setup
+            var roundedDouble1 = new RoundedDouble(1, roundedDoubleValue);
+            var roundedDouble2 = new RoundedDouble(1, roundedDoubleValue2);
+
+            // Call
+            int roundedDouble1Result = roundedDouble1.CompareTo(roundedDouble2);
+            int roundedDouble2Result = roundedDouble2.CompareTo(roundedDouble1);
+
+            // Assert
+            Assert.AreEqual(expectedRoundedDoubleIndex, roundedDouble1Result);
+            Assert.AreEqual(-1*expectedRoundedDoubleIndex, roundedDouble2Result);
+        }
+
+        [Test]
+        [TestCase(10, 10, 10, 0)]
+        [TestCase(10.005, 10, 10, 0)]
+        [TestCase(10, 10.005, 10, 0)]
+        [TestCase(10, 10, 10.005, 0)]
+        [TestCase(10, 11, 12, -1)]
+        [TestCase(12, 11, 10, 1)]
+        public void CompareTo_TransitiveRoundedDouble_ReturnsExpectedResult(double roundedDoubleValue1, double roundedDoubleValue2,
+                                                                            double roundedDoubleValue3, int expectedValue)
+        {
+            // Setup
+            var roundedDouble1 = new RoundedDouble(1, roundedDoubleValue1);
+            var roundedDouble2 = new RoundedDouble(1, roundedDoubleValue2);
+            var roundedDouble3 = new RoundedDouble(1, roundedDoubleValue3);
+
+            // Call
+            int roundedDoubleResult12 = roundedDouble1.CompareTo(roundedDouble2);
+            int roundedDoubleResult23 = roundedDouble2.CompareTo(roundedDouble3);
+            int roundedDoubleResult13 = roundedDouble1.CompareTo(roundedDouble3);
+
+            // Assert
+            Assert.AreEqual(expectedValue, roundedDoubleResult12);
+            Assert.AreEqual(expectedValue, roundedDoubleResult23);
+            Assert.AreEqual(expectedValue, roundedDoubleResult13);
+        }
+
+        [Test]
+        [TestCase(10, 10, 10, 0)]
+        [TestCase(10.005, 10, 10, 0)]
+        [TestCase(10, 11, 12, -1)]
+        [TestCase(12, 11, 10, 1)]
+        public void CompareTo_TransitiveDouble_ReturnsExpectedResult(double roundedDoubleValue, double value2,
+                                                                     double value3, int expectedValue)
+        {
+            // Setup
+            var roundedDouble1 = new RoundedDouble(1, roundedDoubleValue);
+
+            // Call
+            int roundedDoubleResult12 = roundedDouble1.CompareTo(value2);
+            int roundedDoubleResult23 = value2.CompareTo(value3);
+            int roundedDoubleResult13 = roundedDouble1.CompareTo(value3);
+
+            // Assert
+            Assert.AreEqual(expectedValue, roundedDoubleResult12);
+            Assert.AreEqual(expectedValue, roundedDoubleResult23);
+            Assert.AreEqual(expectedValue, roundedDoubleResult13);
         }
     }
 }

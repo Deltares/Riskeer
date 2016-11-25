@@ -179,7 +179,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 locations.Select(location =>
                                  new SelectableHydraulicBoundaryLocation(location, properties.ReferencePoint))
-                         .OrderBy(hbl => hbl.Distance.Value)
+                         .OrderBy(hbl => hbl.Distance)
                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
@@ -226,7 +226,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 locations.Select(hbl =>
                                  new SelectableHydraulicBoundaryLocation(hbl, properties.ReferencePoint))
-                         .OrderBy(hbl => hbl.Distance.Value)
+                         .OrderBy(hbl => hbl.Distance)
                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
