@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
 using Core.Components.Gis.Data;
@@ -62,7 +63,7 @@ namespace Ringtoets.Common.Forms.Views
 
                 feature.MetaData[Resources.MetaData_ID] = id;
                 feature.MetaData[Resources.MetaData_Name] = name;
-                feature.MetaData[Resources.MetaData_Length] = Math2D.Length(referenceLine.Points);
+                feature.MetaData[Resources.MetaData_Length] = new RoundedDouble(2, Math2D.Length(referenceLine.Points));
 
                 features.Add(feature);
             }
@@ -126,7 +127,7 @@ namespace Ringtoets.Common.Forms.Views
                     });
 
                     feature.MetaData[Resources.MetaData_Name] = section.Name;
-                    feature.MetaData[Resources.MetaData_Length] = Math2D.Length(section.Points);
+                    feature.MetaData[Resources.MetaData_Length] =new RoundedDouble(2, Math2D.Length(section.Points));
 
                     features.Add(feature);
                 }

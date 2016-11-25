@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Features;
@@ -32,6 +33,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
 
@@ -134,8 +136,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(id, mapFeature.MetaData["ID"]);
             Assert.AreEqual(name, mapFeature.MetaData["Naam"]);
 
-            var expectedLength = Math2D.Length(points);
-            Assert.AreEqual(expectedLength, mapFeature.MetaData["Lengte"]);
+            RoundedDouble expectedLength = new RoundedDouble(2, Math2D.Length(points));
+            Assert.AreEqual(expectedLength, (RoundedDouble) mapFeature.MetaData["Lengte"], expectedLength.GetAccuracy());
             AssertEqualPointCollections(points, mapFeature.MapGeometries.ElementAt(0));
         }
 
@@ -274,7 +276,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(2, features[i].MetaData.Keys.Count);
 
                 Assert.AreEqual(sections[i].Name, features[i].MetaData["Naam"]);
-                Assert.AreEqual(Math2D.Length(sections[i].Points), features[i].MetaData["Lengte"]);
+                RoundedDouble expectedLength = new RoundedDouble(2, Math2D.Length(sections[i].Points));
+                Assert.AreEqual(expectedLength, (RoundedDouble) features[i].MetaData["Lengte"], expectedLength.GetAccuracy());
 
                 AssertEqualPointCollections(sections[i].Points, features[i].MapGeometries.First());
             }
