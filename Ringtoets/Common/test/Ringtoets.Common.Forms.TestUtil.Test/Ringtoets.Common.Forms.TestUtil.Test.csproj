@@ -70,6 +70,14 @@
       <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
       <Name>Core.Components.Gis</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.DotSpatial.Test\Core.Components.DotSpatial.Test.csproj">
+      <Project>{DD7ECAFF-D8A1-4D92-99C0-27498ACB32D4}</Project>
+      <Name>Core.Components.DotSpatial.Test</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>

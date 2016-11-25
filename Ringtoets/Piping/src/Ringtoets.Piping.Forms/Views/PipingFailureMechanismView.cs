@@ -45,6 +45,7 @@ namespace Ringtoets.Piping.Forms.Views
     public partial class PipingFailureMechanismView : UserControl, IMapView
     {
         private readonly Observer failureMechanismObserver;
+        private readonly Observer hydraulicBoundaryDatabaseObserver;
         private readonly Observer assessmentSectionObserver;
         private readonly Observer surfaceLinesObserver;
         private readonly Observer stochasticSoilModelsObserver;
@@ -73,6 +74,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(UpdateMapData);
+            hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
             surfaceLinesObserver = new Observer(UpdateMapData);
             stochasticSoilModelsObserver = new Observer(UpdateMapData);
 
@@ -118,6 +120,7 @@ namespace Ringtoets.Piping.Forms.Views
                 {
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
+                    hydraulicBoundaryDatabaseObserver.Observable = null;
                     surfaceLinesObserver.Observable = null;
                     stochasticSoilModelsObserver.Observable = null;
                     calculationInputObserver.Observable = null;
@@ -128,6 +131,7 @@ namespace Ringtoets.Piping.Forms.Views
                 {
                     failureMechanismObserver.Observable = data.WrappedData;
                     assessmentSectionObserver.Observable = data.Parent;
+                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
                     surfaceLinesObserver.Observable = data.WrappedData.SurfaceLines;
                     stochasticSoilModelsObserver.Observable = data.WrappedData.StochasticSoilModels;
                     calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
@@ -151,6 +155,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
+            hydraulicBoundaryDatabaseObserver.Dispose();
             stochasticSoilModelsObserver.Dispose();
             surfaceLinesObserver.Dispose();
             calculationInputObserver.Dispose();

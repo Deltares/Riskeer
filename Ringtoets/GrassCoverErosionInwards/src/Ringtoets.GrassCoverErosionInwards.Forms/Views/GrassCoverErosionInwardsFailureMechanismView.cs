@@ -46,6 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
+        private readonly Observer hydraulicBoundaryDatabaseObserver;
         private readonly Observer dikeProfilesObserver;
 
         private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput> calculationInputObserver;
@@ -72,6 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(UpdateMapData);
+            hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
             dikeProfilesObserver = new Observer(UpdateMapData);
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput>(
@@ -116,6 +118,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 {
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
+                    hydraulicBoundaryDatabaseObserver.Observable = null;
                     dikeProfilesObserver.Observable = null;
                     calculationInputObserver.Observable = null;
                     calculationGroupObserver.Observable = null;
@@ -125,6 +128,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 {
                     failureMechanismObserver.Observable = data.WrappedData;
                     assessmentSectionObserver.Observable = data.Parent;
+                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
                     dikeProfilesObserver.Observable = data.WrappedData.DikeProfiles;
                     calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
@@ -147,6 +151,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
+            hydraulicBoundaryDatabaseObserver.Dispose();
             dikeProfilesObserver.Dispose();
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();

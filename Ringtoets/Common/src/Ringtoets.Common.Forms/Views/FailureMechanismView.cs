@@ -39,6 +39,7 @@ namespace Ringtoets.Common.Forms.Views
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
+        private readonly Observer hydraulicBoundaryLocationObserver;
 
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
@@ -57,6 +58,7 @@ namespace Ringtoets.Common.Forms.Views
 
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(UpdateMapData);
+            hydraulicBoundaryLocationObserver = new Observer(UpdateMapData);
 
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryDatabaseMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
@@ -88,6 +90,7 @@ namespace Ringtoets.Common.Forms.Views
                 {
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
+                    hydraulicBoundaryLocationObserver.Observable = null;
 
                     Map.ResetMapData();
                     return;
@@ -96,6 +99,7 @@ namespace Ringtoets.Common.Forms.Views
                 mapControl.Data.Name = data.WrappedData.Name;
                 failureMechanismObserver.Observable = data.WrappedData;
                 assessmentSectionObserver.Observable = data.Parent;
+                hydraulicBoundaryLocationObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
 
                 UpdateMapData();
             }
@@ -113,6 +117,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
+            hydraulicBoundaryLocationObserver.Dispose();
 
             if (disposing && (components != null))
             {

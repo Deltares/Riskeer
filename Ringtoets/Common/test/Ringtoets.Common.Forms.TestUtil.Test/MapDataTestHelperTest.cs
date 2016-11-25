@@ -26,12 +26,15 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.TestUtil.Test
 {
     [TestFixture]
     public class MapDataTestHelperTest
     {
+        #region AssertFailureMechanismSectionsMapData
+
         [Test]
         public void AssertFailureMechanismSectionsMapData_MapDataNotMapLineData_ThrowAssertionException()
         {
@@ -181,5 +184,175 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             // Assert
             Assert.DoesNotThrow(test);
         }
+
+        #endregion
+
+        #region AssertHydraulicBoundaryLocationsMapData
+
+        [Test]
+        public void AssertHydraulicBoundaryLocationsMapData_MapDataNotPointData_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("test");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(null, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertHydraulicBoundaryLocationsMapData_DatabaseNullMapDataHasFeatures_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("test")
+            {
+                Features = new []
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            Enumerable.Empty<Point2D>()
+                        })
+                    }),
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            Enumerable.Empty<Point2D>()
+                        })
+                    })
+                }
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(null, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertHydraulicBoundaryLocationsMapData_FeaturesNotSameAsLocations_ThrowAssertionException()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(1, "test1", 0, 0)
+                }
+            };
+
+            var mapData = new MapPointData("test");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertHydraulicBoundaryLocationsMapData_FeatureGeometryNotSameAsLocations_ThrowAssertionException()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(1, "test1", 1, 0)
+                }
+            };
+
+            var mapData = new MapPointData("test")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0, 0)
+                            }
+                        })
+                    })
+                }
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertHydraulicBoundaryLocationsMapData_MapDataNameNotCorrect_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("test");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(null, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertHydraulicBoundaryLocationsMapData_WithoutDatabaseMapDataCorrect_DoesNotThrow()
+        {
+            // Setup
+            var mapData = new MapPointData("Hydraulische randvoorwaarden");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(null, mapData);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void AssertHydraulicBoundaryLocationsMapData_WithDatabaseMapDataCorrect_DoesNotThrow()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(1, "test1", 1, 0)
+                }
+            };
+
+            var mapData = new MapPointData("Hydraulische randvoorwaarden")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(1, 0)
+                            }
+                        })
+                    })
+                }
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase, mapData);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        #endregion
     }
 }

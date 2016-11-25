@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.TestUtil
 {
@@ -59,6 +60,36 @@ namespace Ringtoets.Common.Forms.TestUtil
                 CollectionAssert.AreEquivalent(failureMechanismSection.Points, geometry.PointCollections.First());
             }
             Assert.AreEqual("Vakindeling", mapData.Name);
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the <see cref="HydraulicBoundaryDatabase"/>
+        /// </summary>
+        /// <param name="database">The <see cref="HydraulicBoundaryDatabase"/> that contains the original data.</param>
+        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>.</item>
+        /// <item>The number of <see cref="HydraulicBoundaryDatabase.Locations"/> and features 
+        /// in <see cref="MapData"/> are not the same.</item>
+        /// <item>The points of a location and the geometry of a feature are not the same.</item>
+        /// <item>The name of the <see cref="MapData"/> is not <c>"Hydraulische randvoorwaarden"</c>.</item>
+        /// </list></exception>
+        public static void AssertHydraulicBoundaryLocationsMapData(HydraulicBoundaryDatabase database, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapPointData>(mapData);
+            var hydraulicLocationsMapData = (MapPointData)mapData;
+            if (database == null)
+            {
+                CollectionAssert.IsEmpty(hydraulicLocationsMapData.Features);
+            }
+            else
+            {
+                Assert.AreEqual(database.Locations.Count, hydraulicLocationsMapData.Features.Length);
+                CollectionAssert.AreEqual(database.Locations.Select(hrp => hrp.Location),
+                    hydraulicLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
+            }
+            Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
         }
     }
 }

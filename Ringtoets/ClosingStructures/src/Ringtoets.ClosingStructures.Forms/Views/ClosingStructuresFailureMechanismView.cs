@@ -46,6 +46,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
+        private readonly Observer hydraulicBoundaryDatabaseObserver;
         private readonly Observer foreshoreProfilesObserver;
         private readonly Observer structuresObserver;
 
@@ -73,6 +74,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(UpdateMapData);
+            hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
             foreshoreProfilesObserver = new Observer(UpdateMapData);
             structuresObserver = new Observer(UpdateMapData);
 
@@ -118,6 +120,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 {
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
+                    hydraulicBoundaryDatabaseObserver.Observable = null;
                     foreshoreProfilesObserver.Observable = null;
                     structuresObserver.Observable = null;
                     calculationInputObserver.Observable = null;
@@ -128,6 +131,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 {
                     failureMechanismObserver.Observable = data.WrappedData;
                     assessmentSectionObserver.Observable = data.Parent;
+                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
                     foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     structuresObserver.Observable = data.WrappedData.ClosingStructures;
                     calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
@@ -150,6 +154,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
+            hydraulicBoundaryDatabaseObserver.Dispose();
             foreshoreProfilesObserver.Dispose();
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();

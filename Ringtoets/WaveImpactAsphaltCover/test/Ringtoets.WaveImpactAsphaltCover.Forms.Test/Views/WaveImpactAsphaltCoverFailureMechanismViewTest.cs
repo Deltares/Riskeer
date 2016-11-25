@@ -238,7 +238,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
-                AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase, mapDataList[hydraulicBoundaryDatabaseIndex]);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase, mapDataList[hydraulicBoundaryDatabaseIndex]);
                 AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>(),
                     mapDataList[calculationsIndex]);
@@ -246,7 +246,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_MapDataUpdated()
+        public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
         {
             // Setup
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
@@ -280,14 +280,54 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 var hydraulicBoundaryDatabaseMapData = map.Data.Collection.ElementAt(hydraulicBoundaryDatabaseIndex);
 
                 // Precondition
-                AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1, hydraulicBoundaryDatabaseMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1, hydraulicBoundaryDatabaseMapData);
 
                 // Call
                 assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase2;
                 assessmentSection.NotifyObservers();
 
                 // Assert
-                AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2, hydraulicBoundaryDatabaseMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2, hydraulicBoundaryDatabaseMapData);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            {
+                var map = (MapControl) view.Controls[0];
+
+                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                    }
+                };
+
+                var assessmentSection = new TestAssessmentSection
+                {
+                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                };
+
+                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
+
+                view.Data = failureMechanismContext;
+
+                var hydraulicBoundaryDatabaseMapData = map.Data.Collection.ElementAt(hydraulicBoundaryDatabaseIndex);
+
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase, hydraulicBoundaryDatabaseMapData);
+
+                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
+
+                // Call
+                hydraulicBoundaryDatabase.NotifyObservers();
+
+                // Assert
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase, hydraulicBoundaryDatabaseMapData);
             }
         }
 
@@ -668,21 +708,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             }
 
             Assert.AreEqual("Voorlandprofielen", mapData.Name);
-        }
-
-        private static void AssertHydraulicBoundaryLocationsMapData(HydraulicBoundaryDatabase database, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapPointData>(mapData);
-            var hydraulicLocationsMapData = (MapPointData) mapData;
-            if (database == null)
-            {
-                CollectionAssert.IsEmpty(hydraulicLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
-            }
-            else
-            {
-                CollectionAssert.AreEqual(database.Locations.Select(hrp => hrp.Location), hydraulicLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
-            }
-            Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
         }
 
         private static void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
