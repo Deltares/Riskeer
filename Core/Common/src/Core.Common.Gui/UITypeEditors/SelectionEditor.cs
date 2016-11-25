@@ -74,7 +74,8 @@ namespace Core.Common.Gui.UITypeEditors
 
     /// <summary>
     /// This class provides a base implementation of <see cref="UITypeEditor"/> and defines a drop down list 
-    /// edit-control used for calculation input data.
+    /// edit-control used for calculation input data. Allows the user to populate the list with internal presentation types and 
+    /// convert them to domain types.
     /// </summary>
     /// <typeparam name="TInternalPresentationType">The type of items that populate the list-edit control.</typeparam>
     /// <typeparam name="TDomainType">The type of item the list should return once selected.</typeparam>

@@ -27,8 +27,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Common.Forms.UITypeEditors
 {
     /// <summary>
-    /// Class that represents a <see cref="HydraulicBoundaryLocation"/> in the drop down list edit control for the 
-    /// collection of hydraulic boundary locations.
+    /// Class that represents a <see cref="HydraulicBoundaryLocation"/> with respect to a reference point.
     /// </summary>
     public class SelectableHydraulicBoundaryLocation
     {
@@ -112,7 +111,7 @@ namespace Ringtoets.Common.Forms.UITypeEditors
                 return hydraulicBoundaryLocation.Name;
             }
 
-            return distance/1000 < 1
+            return distance < 1000
                        ? string.Format("{0} ({1:f0} m)", hydraulicBoundaryLocation.Name, distance)
                        : string.Format("{0} ({1:f1} km)", hydraulicBoundaryLocation.Name, distance/1000);
         }

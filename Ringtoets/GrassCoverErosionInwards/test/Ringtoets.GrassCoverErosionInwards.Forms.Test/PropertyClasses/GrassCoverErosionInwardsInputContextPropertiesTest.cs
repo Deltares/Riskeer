@@ -142,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(0.0, properties.DikeHeight.Value);
             Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
-            Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+            Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation);
             Assert.AreEqual(input.CalculateDikeHeight, properties.CalculateDikeHeight);
             Assert.AreEqual(new Point2D(12, 57), properties.WorldReferencePoint);
             mockRepository.VerifyAll();
@@ -170,189 +170,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             DikeProfile newDikeProfile = new TestDikeProfile();
             var newDikeHeight = new RoundedDouble(2, 9);
             var newOrientation = new RoundedDouble(2, 5);
-            var newSelectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(
-                new HydraulicBoundaryLocation(0, "name", 0.0, 1.1), null);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
 
             // Call
             properties.DikeProfile = newDikeProfile;
             properties.Orientation = newOrientation;
             properties.DikeHeight = newDikeHeight;
-            properties.SelectedHydraulicBoundaryLocation = newSelectableHydraulicBoundaryLocation;
+            properties.SelectedHydraulicBoundaryLocation = hydraulicBoundaryLocation;
             properties.CalculateDikeHeight = true;
 
             // Assert
             Assert.AreSame(newDikeProfile, input.DikeProfile);
             Assert.AreEqual(newOrientation, input.Orientation);
             Assert.AreEqual(newDikeHeight, input.DikeHeight);
-            Assert.AreSame(newSelectableHydraulicBoundaryLocation.HydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             Assert.IsTrue(input.CalculateDikeHeight);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SelectedHydraulicBoundaryLocation_InputNoLocation_DoesNotThrowExceptionAndReturnsNull()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var calculationInput = new GrassCoverErosionInwardsInput();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var inputContext = new GrassCoverErosionInwardsInputContext(calculationInput,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionStub);
-            var properties = new GrassCoverErosionInwardsInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
-
-            // Call
-            TestDelegate call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
-
-            // Assert
-            Assert.DoesNotThrow(call);
-            Assert.IsNull(selectedHydraulicBoundaryLocation);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoDikeProfile_ReturnsLocationsSortedByName()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(0, "A", 0, 1),
-                    new HydraulicBoundaryLocation(0, "C", 0, 2),
-                    new HydraulicBoundaryLocation(0, "D", 0, 3),
-                    new HydraulicBoundaryLocation(0, "B", 0, 4),
-                }
-            };
-            mockRepository.ReplayAll();
-
-            var input = new GrassCoverErosionInwardsInput();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var properties = new GrassCoverErosionInwardsInputContextProperties
-            {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionStub)
-            };
-
-            // Call
-            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
-                properties.GetSelectableHydraulicBoundaryLocations();
-
-            // Assert
-            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                assessmentSectionStub.HydraulicBoundaryDatabase.Locations
-                                     .Select(location =>
-                                             new SelectableHydraulicBoundaryLocation(location, null))
-                                     .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Name);
-            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoDikeProfile_ReturnsLocationsSortedByDistanceThenByName()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(0, "A", 0, 10),
-                    new HydraulicBoundaryLocation(0, "E", 0, 500),
-                    new HydraulicBoundaryLocation(0, "F", 0, 100),
-                    new HydraulicBoundaryLocation(0, "D", 0, 200),
-                    new HydraulicBoundaryLocation(0, "C", 0, 200),
-                    new HydraulicBoundaryLocation(0, "B", 0, 200)
-                }
-            };
-            mockRepository.ReplayAll();
-
-            var input = new GrassCoverErosionInwardsInput()
-            {
-                DikeProfile = new TestDikeProfile()
-            };
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var properties = new GrassCoverErosionInwardsInputContextProperties
-            {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionStub)
-            };
-
-            // Call
-            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
-                properties.GetSelectableHydraulicBoundaryLocations();
-
-            // Assert
-            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                assessmentSectionStub.HydraulicBoundaryDatabase.Locations
-                                     .Select(location =>
-                                             new SelectableHydraulicBoundaryLocation(
-                                                 location, input.DikeProfile.WorldReferencePoint))
-                                     .OrderBy(hbl => hbl.Distance.Value)
-                                     .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
-            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void GivenLocationAndReferencePoint_WhenUpdatingReferencePoint_ThenUpdateSelectableBoundaryLocations()
-        {
-            // Given
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(0, "A", 0, 10),
-                    new HydraulicBoundaryLocation(0, "E", 0, 500),
-                    new HydraulicBoundaryLocation(0, "F", 0, 100),
-                    new HydraulicBoundaryLocation(0, "D", 0, 200),
-                    new HydraulicBoundaryLocation(0, "C", 0, 200),
-                    new HydraulicBoundaryLocation(0, "B", 0, 200)
-                }
-            };
-            mockRepository.ReplayAll();
-
-            var input = new GrassCoverErosionInwardsInput()
-            {
-                DikeProfile = new TestDikeProfile()
-            };
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var properties = new GrassCoverErosionInwardsInputContextProperties
-            {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionStub)
-            };
-
-            IEnumerable<SelectableHydraulicBoundaryLocation> originalList =
-                properties.GetSelectableHydraulicBoundaryLocations().ToList();
-
-            // When 
-            properties.DikeProfile = new TestDikeProfile(new Point2D(0.0, 190.0));
-
-            // Then
-            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
-                properties.GetSelectableHydraulicBoundaryLocations().ToList();
-            CollectionAssert.AreNotEqual(originalList, availableHydraulicBoundaryLocations);
-
-            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                assessmentSectionStub.HydraulicBoundaryDatabase.Locations
-                                     .Select(hbl =>
-                                             new SelectableHydraulicBoundaryLocation(hbl,
-                                                                                     properties.DikeProfile.WorldReferencePoint))
-                                     .OrderBy(hbl => hbl.Distance.Value)
-                                     .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
-            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
 

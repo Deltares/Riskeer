@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
-using System.Linq;
 using System.Linq.Expressions;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -41,6 +40,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
@@ -157,12 +157,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         public abstract IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles();
 
-        public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
+        public Point2D GetReferenceLocation()
         {
-            return data.AvailableHydraulicBoundaryLocations
-                       .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, StructureLocation))
-                       .OrderBy(hbl => hbl.Distance.Value)
-                       .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+            return StructureLocation;
+        }
+
+        public IEnumerable<HydraulicBoundaryLocation> GetHydraulicBoundaryLocations()
+        {
+            return data.AvailableHydraulicBoundaryLocations;
         }
 
         public abstract IEnumerable<TStructure> GetAvailableStructures();
@@ -508,17 +510,15 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocation_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocation_Description")]
-        public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
+        public HydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
             {
-                return data.WrappedData.HydraulicBoundaryLocation != null
-                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation, StructureLocation)
-                           : null;
+                return data.WrappedData.HydraulicBoundaryLocation;
             }
             set
             {
-                data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation;
+                data.WrappedData.HydraulicBoundaryLocation = value;
                 data.WrappedData.NotifyObservers();
             }
         }

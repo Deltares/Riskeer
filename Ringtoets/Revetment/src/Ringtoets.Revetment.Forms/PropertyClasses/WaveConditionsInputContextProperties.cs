@@ -33,6 +33,7 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.Properties;
@@ -277,18 +278,15 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_Description")]
-        public virtual SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
+        public virtual HydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
             {
-                return data.WrappedData.HydraulicBoundaryLocation != null
-                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation,
-                                                                     WorldReferencePoint)
-                           : null;
+                return data.WrappedData.HydraulicBoundaryLocation;
             }
             set
             {
-                data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation;
+                data.WrappedData.HydraulicBoundaryLocation = value;
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -298,12 +296,16 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             return data.ForeshoreProfiles;
         }
 
-        public virtual IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
+        public Point2D GetReferenceLocation()
         {
-            return data.HydraulicBoundaryLocations
-                       .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, WorldReferencePoint))
-                       .OrderBy(hbl => hbl.Distance.Value)
-                       .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+            return data.WrappedData.ForeshoreProfile != null
+                       ? data.WrappedData.ForeshoreProfile.WorldReferencePoint
+                       : null;
+        }
+
+        public virtual IEnumerable<HydraulicBoundaryLocation> GetHydraulicBoundaryLocations()
+        {
+            return data.HydraulicBoundaryLocations;
         }
     }
 }

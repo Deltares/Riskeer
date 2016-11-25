@@ -33,7 +33,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -167,7 +166,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             };
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation);
             Assert.AreEqual(assessmentLevel.Value, properties.AssessmentLevel.Value, properties.AssessmentLevel.GetAccuracy());
             Assert.AreSame(foreshoreProfile, properties.ForeshoreProfile);
             Assert.AreEqual(worldX, properties.WorldReferencePoint.X, 0.5);
@@ -202,7 +201,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 DesignWaterLevel = assessmentLevel
             };
-            var newSelectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newHydraulicBoundaryLocation, null);
 
             var input = new WaveConditionsInput();
             input.Attach(observerMock);
@@ -230,11 +228,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             properties.UpperBoundaryWaterLevels = newUpperBoundaryWaterLevels;
             properties.LowerBoundaryWaterLevels = newLowerBoundaryWaterLevels;
             properties.StepSize = newStepSize;
-            properties.SelectedHydraulicBoundaryLocation = newSelectableHydraulicBoundaryLocation;
+            properties.SelectedHydraulicBoundaryLocation = newHydraulicBoundaryLocation;
             properties.Orientation = orientation;
 
             // Assert
-            Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+            Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation);
             Assert.AreEqual(input.HydraulicBoundaryLocation.DesignWaterLevel.Value, properties.AssessmentLevel.Value);
             Assert.AreEqual(assessmentLevel - 0.01, properties.UpperBoundaryDesignWaterLevel.Value, properties.UpperBoundaryDesignWaterLevel.GetAccuracy());
             Assert.AreEqual(2, properties.UpperBoundaryDesignWaterLevel.NumberOfDecimalPlaces);

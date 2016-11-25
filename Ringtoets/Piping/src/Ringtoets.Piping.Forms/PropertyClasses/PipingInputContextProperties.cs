@@ -22,13 +22,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
@@ -74,13 +74,14 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             return data.WrappedData.StochasticSoilModel != null ? data.WrappedData.StochasticSoilModel.StochasticSoilProfiles : new List<StochasticSoilProfile>();
         }
 
-        public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
+        public Point2D GetReferenceLocation()
         {
-            Point2D referencePoint = SurfaceLine != null ? SurfaceLine.ReferenceLineIntersectionWorldPoint : null;
+            return SurfaceLine != null ? SurfaceLine.ReferenceLineIntersectionWorldPoint : null;
+        }
 
-            return data.AvailableHydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, referencePoint))
-                       .OrderBy(hbl => hbl.Distance.Value)
-                       .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+        public IEnumerable<HydraulicBoundaryLocation> GetHydraulicBoundaryLocations()
+        {
+            return data.AvailableHydraulicBoundaryLocations;
         }
 
         #region Hydraulic data
@@ -89,20 +90,15 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_HydraulicBoundaryLocation_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_HydraulicBoundaryLocation_Description")]
-        public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
+        public HydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
             {
-                Point2D referencePoint = SurfaceLine != null ? SurfaceLine.ReferenceLineIntersectionWorldPoint : null;
-
-                return data.WrappedData.HydraulicBoundaryLocation != null
-                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation,
-                                                                     referencePoint)
-                           : null;
+                return data.WrappedData.HydraulicBoundaryLocation;
             }
             set
             {
-                data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation;
+                data.WrappedData.HydraulicBoundaryLocation = value;
                 data.WrappedData.NotifyObservers();
             }
         }

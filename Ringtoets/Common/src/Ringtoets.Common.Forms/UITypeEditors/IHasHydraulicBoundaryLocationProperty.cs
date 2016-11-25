@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.UITypeEditors
 {
@@ -30,14 +32,19 @@ namespace Ringtoets.Common.Forms.UITypeEditors
     public interface IHasHydraulicBoundaryLocationProperty : IObjectProperties
     {
         /// <summary>
-        /// Gets the selectable hydraulic boundary location that is selected.
+        /// Gets the hydraulic boundary location that is selected.
         /// </summary>
-        SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation { get; }
+        HydraulicBoundaryLocation SelectedHydraulicBoundaryLocation { get; }
 
         /// <summary>
         /// Returns the collection of selectable hydraulic boundary locations.
         /// </summary>
         /// <returns>A collection of selectable hydraulic boundary locations.</returns>
-        IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations();
+        IEnumerable<HydraulicBoundaryLocation> GetHydraulicBoundaryLocations();
+
+        /// <summary>
+        /// Returns the reference location from which the hydraulic boundary location needs to be calculated.
+        /// </summary>
+        Point2D GetReferenceLocation();
     }
 }
