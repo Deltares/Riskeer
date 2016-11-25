@@ -31,7 +31,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test.UITypeEditors
 {
     [TestFixture]
-    public class PipingInputContextSelectionEditorTest
+    public class SelectionEditorTest
     {
         [Test]
         public void GetEditStyle_Always_ReturnDropDown()
