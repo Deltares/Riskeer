@@ -323,8 +323,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                                  "Be&rekenen",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.CalculateIcon,
                                                                   false);
                 }
@@ -478,8 +478,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
-                                                                  RingtoetsCommonFormsResources.Validate,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                                  "&Valideren",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.ValidateIcon,
                                                                   false);
                 }

@@ -385,9 +385,6 @@
   <data name="Plugin_AllDataAvailable_No_failure_mechanism_sections_imported" xml:space="preserve">
     <value>Er is geen vakindeling geïmporteerd.</value>
   </data>
-  <data name="Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported" xml:space="preserve">
-    <value>Er is geen hydraulische randvoorwaardendatabase geïmporteerd.</value>
-  </data>
   <data name="CalculationGroup_Generate_Scenarios" xml:space="preserve">
     <value>Genereer &amp;scenario's...</value>
   </data>

@@ -34,7 +34,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
-using Ringtoets.Common.IO.HydraRing;
+using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms;
@@ -386,19 +386,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
-            if (assessmentSection.HydraulicBoundaryDatabase == null)
-            {
-                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
-            }
-
-            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
-            if (!string.IsNullOrEmpty(validationProblem))
-            {
-                return string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
-                                     validationProblem);
-            }
-
-            return null;
+            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
         private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
