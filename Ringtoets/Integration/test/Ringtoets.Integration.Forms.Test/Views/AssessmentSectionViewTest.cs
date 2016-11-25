@@ -181,9 +181,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_MapDataUpdated()
+        public void GivenChangedHydraulicBoundaryDatabase_WhenAssessmentSectionObserversNotified_MapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new AssessmentSectionView())
             {
                 var assessmentSection = new TestAssessmentSection
@@ -201,10 +201,39 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
                 assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
 
-                // Call
+                // When
                 assessmentSection.NotifyObservers();
 
-                // Assert
+                // Then
+                AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
+            }
+        }
+
+        [Test]
+        public void GivenChangedHydraulicBoundaryDatabase_WhenObserversNotified_MapDataUpdated()
+        {
+            // Given
+            using (var view = new AssessmentSectionView())
+            {
+                var assessmentSection = new TestAssessmentSection
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                };
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+
+                view.Data = assessmentSection;
+                var mapData = view.Map.Data;
+
+                // Precondition
+                AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
+
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+
+                // When
+                assessmentSection.NotifyObservers();
+
+                // Then
                 AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
             }
         }

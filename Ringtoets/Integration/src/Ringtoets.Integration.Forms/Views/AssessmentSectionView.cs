@@ -37,6 +37,7 @@ namespace Ringtoets.Integration.Forms.Views
     public partial class AssessmentSectionView : UserControl, IMapView
     {
         private readonly Observer assessmentSectionObserver;
+        private readonly Observer hydraulicBoundaryDatabaseObserver;
 
         private readonly MapLineData referenceLineMapData;
         private readonly MapPointData hydraulicBoundaryDatabaseMapData;
@@ -51,6 +52,7 @@ namespace Ringtoets.Integration.Forms.Views
             InitializeComponent();
 
             assessmentSectionObserver = new Observer(UpdateMapData);
+            hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
 
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryDatabaseMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
@@ -73,6 +75,7 @@ namespace Ringtoets.Integration.Forms.Views
                 data = value as IAssessmentSection;
 
                 assessmentSectionObserver.Observable = data;
+                hydraulicBoundaryDatabaseObserver.Observable = data != null ? data.HydraulicBoundaryDatabase : null;
 
                 if (data == null)
                 {
@@ -95,6 +98,7 @@ namespace Ringtoets.Integration.Forms.Views
         protected override void Dispose(bool disposing)
         {
             assessmentSectionObserver.Dispose();
+            hydraulicBoundaryDatabaseObserver.Dispose();
 
             if (disposing && (components != null))
             {
