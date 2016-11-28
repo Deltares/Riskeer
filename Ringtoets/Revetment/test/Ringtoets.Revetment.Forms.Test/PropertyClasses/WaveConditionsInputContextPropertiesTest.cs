@@ -251,6 +251,30 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void GetAvailableHydraulicBoundaryLocations_InputWithLocations_ReturnsLocations()
+        {
+            // Setup
+            var locations = new List<HydraulicBoundaryLocation>
+            {
+                new HydraulicBoundaryLocation(0, string.Empty, 1, 2)
+            };
+
+            var input = new WaveConditionsInput();
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], locations);
+
+            var properties = new TestWaveConditionsInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations = properties.GetHydraulicBoundaryLocations();
+
+            // Assert
+            Assert.AreSame(locations, availableHydraulicBoundaryLocations);
+        }
+
+        [Test]
         public void GetAvailableForeshoreProfiles_InputWithLocations_ReturnsLocations()
         {
             // Setup
@@ -273,6 +297,47 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             // Assert
             Assert.AreSame(locations, availableForeshoreProfiles);
         }
+
+        [Test]
+        public void GetReferenceLocation_InputWithoutForeshore_ReturnsNull()
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
+
+            var properties = new TestWaveConditionsInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            Point2D referenceLocation = properties.GetReferenceLocation();
+
+            // Assert
+            Assert.IsNull(referenceLocation);
+        }
+
+        [Test]
+        public void GetReferenceLocation_InputWithForeshore_ReturnsLocation()
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
+
+            ForeshoreProfile foreshoreProfile = new TestForeshoreProfile();
+            var properties = new TestWaveConditionsInputContextProperties
+            {
+                Data = inputContext,
+                ForeshoreProfile = foreshoreProfile
+            };
+
+            // Call
+            Point2D referenceLocation = properties.GetReferenceLocation();
+
+            // Assert
+            Assert.AreSame(foreshoreProfile.WorldReferencePoint, referenceLocation);
+        }
+
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues(

@@ -449,6 +449,97 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void GetAvailableHydraulicBoundaryLocations_SetInputContextInstanceWithHydraulicBoundaryLocations_ReturnHydraulicBoundaryLocations()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(0, "", 0, 0)
+                }
+            };
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>();
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanismStub,
+                                                      assessmentSectionStub);
+            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
+            {
+                Data = inputContext
+            };
+
+            // Call
+            IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations = properties.GetHydraulicBoundaryLocations();
+
+            // Assert
+            Assert.AreSame(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetReferenceLocation_InputWithoutStructure_ReturnsNull()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>();
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanismStub,
+                                                      assessmentSectionStub);
+            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
+            {
+                Data = inputContext
+            };
+
+            // Call
+            Point2D referenceLocation = properties.GetReferenceLocation();
+
+            // Assert
+            Assert.IsNull(referenceLocation);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetReferenceLocation_InputWithStructure_ReturnsLocation()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>();
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanismStub,
+                                                      assessmentSectionStub);
+
+            var structure = new SimpleStructure();
+            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
+            {
+                Data = inputContext,
+                Structure = structure
+            };
+
+            // Call
+            Point2D referenceLocation = properties.GetReferenceLocation();
+
+            // Assert
+            Assert.AreEqual(structure.Location, referenceLocation);
+            mockRepository.VerifyAll();
+        }
+
         private StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties GetRandomConstructionProperties()
         {
             var structureObject = new object();
@@ -516,8 +607,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private class SimpleStructure : StructureBase
         {
             public SimpleStructure() : base("Name", "Id", new Point2D(0, 0), 0.0) {}
-
-            public SimpleStructure(Point2D location) : base("Name", "Id", location, 0.0) {}
         }
 
         private class SimpleStructureInput : StructuresInputBase<SimpleStructure>

@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -217,6 +216,97 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             List<DikeProfile> expectedHydraulicBoundaryLocations = failureMechanism.DikeProfiles;
             Assert.AreSame(expectedHydraulicBoundaryLocations, availableDikeProfiles);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryLocations_InputWithLocations_ReturnsLocations()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(0, "A", 0, 10),
+                    new HydraulicBoundaryLocation(0, "E", 0, 500),
+                    new HydraulicBoundaryLocation(0, "F", 0, 100),
+                    new HydraulicBoundaryLocation(0, "D", 0, 200),
+                    new HydraulicBoundaryLocation(0, "C", 0, 200),
+                    new HydraulicBoundaryLocation(0, "B", 0, 200)
+                }
+            };
+
+            mockRepository.ReplayAll();
+
+            var input = new GrassCoverErosionInwardsInput()
+            {
+                DikeProfile = new TestDikeProfile()
+            };
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var properties = new GrassCoverErosionInwardsInputContextProperties
+            {
+                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionStub)
+            };
+
+            // Call
+            var availableHydraulicBoundaryLocations = properties.GetHydraulicBoundaryLocations();
+
+            // Assert
+            Assert.AreSame(assessmentSectionStub.HydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
+            mockRepository.VerifyAll();
+        }
+
+
+        [Test]
+        public void GetReferenceLocation_InputWithoutDikeProfile_ReturnsNull()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var input = new GrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var properties = new GrassCoverErosionInwardsInputContextProperties
+            {
+                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionStub)
+            };
+
+            // Call
+            Point2D referencePoint = properties.GetReferenceLocation();
+
+            // Assert
+            Assert.IsNull(referencePoint);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetReferenceLocation_InputWithDikeProfile_ReturnsReferencePoint()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var input = new GrassCoverErosionInwardsInput()
+            {
+                DikeProfile = new TestDikeProfile()
+            };
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var properties = new GrassCoverErosionInwardsInputContextProperties
+            {
+                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionStub)
+            };
+
+            // Call
+            Point2D referencePoint = properties.GetReferenceLocation();
+
+            // Assert
+            Assert.AreSame(input.DikeProfile.WorldReferencePoint, referencePoint);
             mockRepository.VerifyAll();
         }
 

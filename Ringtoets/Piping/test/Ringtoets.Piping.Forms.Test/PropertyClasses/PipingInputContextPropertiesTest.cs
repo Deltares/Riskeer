@@ -1200,6 +1200,104 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GetReferenceLocation_InputWithoutSurfaceLine_ReturnsNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                 failureMechanism, assessmentSection);
+            var properties = new PipingInputContextProperties
+            {
+                Data = context,
+            };
+
+            // Call
+            Point2D referenceLocation = properties.GetReferenceLocation();
+
+            // Assert
+            Assert.IsNull(referenceLocation);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetReferenceLocation_InputWithSurfaceLine_ReturnsReferenceLocation()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                 failureMechanism, assessmentSection);
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
+            var properties = new PipingInputContextProperties
+            {
+                Data = context,
+                SurfaceLine = surfaceLine
+            };
+
+            // Call
+            Point2D referenceLocation = properties.GetReferenceLocation();
+
+            // Assert
+            Assert.AreSame(surfaceLine.ReferenceLineIntersectionWorldPoint, referenceLocation);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryLocations_InputWithLocations_ReturnLocations()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(0, "A", 0, 10),
+                    new HydraulicBoundaryLocation(0, "E", 0, 500),
+                    new HydraulicBoundaryLocation(0, "F", 0, 100),
+                    new HydraulicBoundaryLocation(0, "D", 0, 200),
+                    new HydraulicBoundaryLocation(0, "C", 0, 200),
+                    new HydraulicBoundaryLocation(0, "B", 0, 200)
+                }
+            };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                 failureMechanism, assessmentSection);
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
+            var properties = new PipingInputContextProperties
+            {
+                Data = context,
+                SurfaceLine = surfaceLine
+            };
+
+            // Call
+            IEnumerable<HydraulicBoundaryLocation> locations = properties.GetHydraulicBoundaryLocations();
+
+            // Assert
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, locations);
+            mocks.VerifyAll();
+        }
+
         private static StochasticSoilModel ValidStochasticSoilModel(double xMin, double xMax)
         {
             StochasticSoilModel stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
