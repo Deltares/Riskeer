@@ -44,9 +44,9 @@ namespace Core.Components.Gis.Forms
         bool IsMouseCoordinatesVisible { get; }
 
         /// <summary>
-        /// Gets the data to show in the <see cref="IMapControl"/>.
+        /// Gets or sets the data to show in the <see cref="IMapControl"/>.
         /// </summary>
-        MapDataCollection Data { get; }
+        MapDataCollection Data { get; set; }
 
         /// <summary>
         /// Zooms to a level so that all visible layers are in view.
@@ -67,10 +67,5 @@ namespace Core.Components.Gis.Forms
         /// Toggles the visibility mouse coordinates of the <see cref="IMapControl"/>.
         /// </summary>
         void ToggleMouseCoordinatesVisibility();
-
-        /// <summary>
-        /// Sets the data of the map to <c>null</c>.
-        /// </summary>
-        void ResetMapData();
     }
 }

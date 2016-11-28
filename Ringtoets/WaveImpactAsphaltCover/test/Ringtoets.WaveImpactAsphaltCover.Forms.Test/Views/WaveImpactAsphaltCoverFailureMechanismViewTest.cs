@@ -74,7 +74,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_Always_AddMapControlWithCollectionOfEmptyMapData()
+        public void DefaultConstructor_Always_AddEmptyMapControl()
         {
             // Call
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
@@ -82,9 +82,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Map, view.Controls[0]);
-                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-                Assert.AreEqual(WaveImpactAsphaltCoverDataResources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, view.Map.Data.Name);
-                AssertEmptyMapData(view.Map.Data);
+                Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
+                Assert.IsNull(view.Map.Data);
             }
         }
 

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Components.Gis.Data;
@@ -34,22 +33,21 @@ namespace Core.Components.DotSpatial.Converter
     public static class MapFeatureLayerFactory
     {
         /// <summary>
-        /// Creates one or more new <see cref="IMapFeatureLayer"/> from the given <paramref name="data"/>.
+        /// Creates a <see cref="IMapFeatureLayer"/> from the given <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The <see cref="MapData"/> to base the creation of <see cref="IMapFeatureLayer"/> upon.</param>
-        /// <returns>A new <see cref="List{T}"/> of <see cref="IMapFeatureLayer"/>.</returns>
+        /// <returns>A new <see cref="IMapFeatureLayer"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
-        public static IList<IMapFeatureLayer> Create(MapData data)
+        public static IMapFeatureLayer Create(MapData data)
         {
             var converters = new Collection<IMapDataConverter>
             {
-                new MapDataCollectionConverter(),
                 new MapPointDataConverter(),
                 new MapLineDataConverter(),
                 new MapPolygonDataConverter()
             };
 
-            foreach (var converter in converters.Where(c => c.CanConvertMapData(data)))  
+            foreach (var converter in converters.Where(c => c.CanConvertMapData(data)))
             {
                 return converter.Convert(data);
             }

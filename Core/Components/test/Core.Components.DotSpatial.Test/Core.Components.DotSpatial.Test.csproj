@@ -78,7 +78,6 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Converter\MapDataCollectionConverterTest.cs" />
     <Compile Include="Converter\MapDataHelperTest.cs" />
     <Compile Include="Converter\MapLineDataConverterTest.cs" />
     <Compile Include="Converter\MapPolygonDataConverterTest.cs" />

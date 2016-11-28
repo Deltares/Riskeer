@@ -20,15 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.MapFunctions;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Data;
+using DotSpatial.Symbology;
 using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Forms
@@ -39,13 +42,14 @@ namespace Core.Components.DotSpatial.Forms
     public sealed class MapControl : Control, IMapControl
     {
         private readonly Cursor defaultCursor = Cursors.Default;
+        private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
+        private readonly IList<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
 
         private Map map;
         private MapFunctionPan mapFunctionPan;
         private MapFunctionSelectionZoom mapFunctionSelectionZoom;
         private MouseCoordinatesMapExtension mouseCoordinatesMapExtension;
-
-        private readonly RecursiveObserver<MapDataCollection, MapData> mapDataObserver;
+        private MapDataCollection data;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -55,14 +59,7 @@ namespace Core.Components.DotSpatial.Forms
             InitializeMapView();
             TogglePanning();
 
-            Data = new MapDataCollection("Root");
-
-            mapDataObserver = new RecursiveObserver<MapDataCollection, MapData>(DrawFeatureSets, mdc => mdc.Collection)
-            {
-                Observable = Data
-            };
-
-            DrawFeatureSets();
+            mapDataCollectionObserver = new RecursiveObserver<MapDataCollection, MapDataCollection>(HandleMapDataCollectionChange, mdc => mdc.Collection);
         }
 
         public bool IsPanningEnabled { get; private set; }
@@ -71,7 +68,29 @@ namespace Core.Components.DotSpatial.Forms
 
         public bool IsMouseCoordinatesVisible { get; private set; }
 
-        public MapDataCollection Data { get; private set; }
+        public MapDataCollection Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                if (data != null)
+                {
+                    ClearMapData();
+                }
+
+                data = value;
+
+                mapDataCollectionObserver.Observable = data;
+
+                if (data != null)
+                {
+                    DrawInitialMapData();
+                }
+            }
+        }
 
         public void ZoomToAllVisibleLayers()
         {
@@ -116,16 +135,11 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        public void ResetMapData()
-        {
-            Data = null;
-        }
-
         protected override void Dispose(bool disposing)
         {
             map.Dispose();
             mouseCoordinatesMapExtension.Dispose();
-            mapDataObserver.Dispose();
+            mapDataCollectionObserver.Dispose();
 
             base.Dispose(disposing);
         }
@@ -157,18 +171,6 @@ namespace Core.Components.DotSpatial.Forms
             map.FunctionMode = FunctionMode.None;
         }
 
-        private void DrawFeatureSets()
-        {
-            map.ClearLayers();
-            if (Data != null)
-            {
-                foreach (IMapFeatureLayer mapLayer in MapFeatureLayerFactory.Create(Data))
-                {
-                    map.Layers.Add(mapLayer);
-                }
-            }
-        }
-
         private void InitializeMapView()
         {
             map = new DotSpatialMap
@@ -195,6 +197,136 @@ namespace Core.Components.DotSpatial.Forms
             ToggleMouseCoordinatesVisibility();
 
             Controls.Add(map);
+        }
+
+        private void DrawInitialMapData()
+        {
+            foreach (var featureBasedMapData in GetFeatureBasedMapDataRecursively(Data))
+            {
+                DrawMapData(featureBasedMapData);
+            }
+        }
+
+        private void ClearMapData()
+        {
+            foreach (DrawnMapData drawnMapData in drawnMapDataList)
+            {
+                drawnMapData.Observer.Dispose();
+            }
+
+            drawnMapDataList.Clear();
+
+            map.ClearLayers();
+        }
+
+        private void HandleMapDataCollectionChange()
+        {
+            var mapDataThatShouldBeDrawn = GetFeatureBasedMapDataRecursively(Data).ToList();
+            var drawnMapDataLookup = drawnMapDataList.ToDictionary(dmd => dmd.FeatureBasedMapData, dmd => dmd);
+
+            DrawMissingMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
+            RemoveRedundantMapDataOnCollectionChange(drawnMapDataLookup, mapDataThatShouldBeDrawn);
+
+            drawnMapDataLookup = drawnMapDataList.ToDictionary(le => le.FeatureBasedMapData, le => le);
+
+            MoveMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
+        }
+
+        private void DrawMissingMapDataOnCollectionChange(List<FeatureBasedMapData> mapDataThatShouldBeDrawn, Dictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
+        {
+            foreach (var mapDataToDraw in mapDataThatShouldBeDrawn)
+            {
+                if (!drawnMapDataLookup.ContainsKey(mapDataToDraw))
+                {
+                    DrawMapData(mapDataToDraw);
+                }
+            }
+        }
+
+        private void RemoveRedundantMapDataOnCollectionChange(Dictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup, List<FeatureBasedMapData> mapDataThatShouldBeDrawn)
+        {
+            foreach (var featureBasedMapData in drawnMapDataLookup.Keys.Except(mapDataThatShouldBeDrawn))
+            {
+                RemoveMapData(drawnMapDataLookup[featureBasedMapData]);
+            }
+        }
+
+        private void MoveMapDataOnCollectionChange(List<FeatureBasedMapData> mapDataThatShouldBeDrawn, Dictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
+        {
+            for (var i = 0; i < mapDataThatShouldBeDrawn.Count; i++)
+            {
+                map.Layers.Move(drawnMapDataLookup[mapDataThatShouldBeDrawn[i]].MapFeatureLayer, i);
+            }
+        }
+
+        private void DrawMapData(FeatureBasedMapData featureBasedMapData)
+        {
+            var mapFeatureLayer = MapFeatureLayerFactory.Create(featureBasedMapData);
+
+            var drawnMapData = new DrawnMapData
+            {
+                FeatureBasedMapData = featureBasedMapData,
+                Features = featureBasedMapData.Features,
+                MapFeatureLayer = mapFeatureLayer
+            };
+
+            drawnMapData.Observer = new Observer(() =>
+            {
+                var newMapFeatureLayer = MapFeatureLayerFactory.Create(drawnMapData.FeatureBasedMapData);
+
+                if (ReferenceEquals(drawnMapData.FeatureBasedMapData.Features, drawnMapData.Features))
+                {
+                    // Only update some properties when the array of drawn features is still the same
+                    drawnMapData.MapFeatureLayer.IsVisible = newMapFeatureLayer.IsVisible;
+                    ((FeatureLayer) drawnMapData.MapFeatureLayer).Name = ((FeatureLayer) drawnMapData.MapFeatureLayer).Name;
+                    drawnMapData.MapFeatureLayer.ShowLabels = newMapFeatureLayer.ShowLabels;
+                    drawnMapData.MapFeatureLayer.LabelLayer = newMapFeatureLayer.LabelLayer;
+                    drawnMapData.MapFeatureLayer.Symbolizer = newMapFeatureLayer.Symbolizer;
+                }
+                else
+                {
+                    // Otherwise redraw the feature layer and update the drawn map data lookup
+                    var replaceIndex = map.Layers.IndexOf(drawnMapData.MapFeatureLayer);
+                    map.Layers.RemoveAt(replaceIndex);
+                    map.Layers.Insert(replaceIndex, newMapFeatureLayer);
+                    drawnMapData.Features = drawnMapData.FeatureBasedMapData.Features;
+                    drawnMapData.MapFeatureLayer = newMapFeatureLayer;
+                }
+            })
+            {
+                Observable = featureBasedMapData
+            };
+
+            drawnMapDataList.Add(drawnMapData);
+
+            map.Layers.Add(mapFeatureLayer);
+        }
+
+        private void RemoveMapData(DrawnMapData drawnMapDataToRemove)
+        {
+            drawnMapDataToRemove.Observer.Dispose();
+            drawnMapDataList.Remove(drawnMapDataToRemove);
+
+            map.Layers.Remove(drawnMapDataToRemove.MapFeatureLayer);
+        }
+
+        private static IEnumerable<FeatureBasedMapData> GetFeatureBasedMapDataRecursively(MapDataCollection mapDataCollection)
+        {
+            var featureBaseMapDataList = new List<FeatureBasedMapData>();
+
+            foreach (MapData mapData in mapDataCollection.Collection)
+            {
+                var nestedMapDataCollection = mapData as MapDataCollection;
+                if (nestedMapDataCollection != null)
+                {
+                    featureBaseMapDataList.AddRange(GetFeatureBasedMapDataRecursively(nestedMapDataCollection));
+                    continue;
+                }
+
+                featureBaseMapDataList.Add((FeatureBasedMapData) mapData);
+            }
+
+            return featureBaseMapDataList;
         }
 
         private void MapFunctionActivateFunction(object sender, EventArgs e)
@@ -225,6 +357,17 @@ namespace Core.Components.DotSpatial.Forms
                                      : defaultCursor;
                     break;
             }
+        }
+
+        private class DrawnMapData
+        {
+            public FeatureBasedMapData FeatureBasedMapData { get; set; }
+
+            public MapFeature[] Features { get; set; }
+
+            public IMapFeatureLayer MapFeatureLayer { get; set; }
+
+            public Observer Observer { get; set; }
         }
     }
 }

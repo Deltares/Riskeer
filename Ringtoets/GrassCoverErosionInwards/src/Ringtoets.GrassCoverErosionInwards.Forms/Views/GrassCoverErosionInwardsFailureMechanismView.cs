@@ -53,6 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculation> calculationObserver;
 
+        private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
         private readonly MapPointData sectionsStartPointMapData;
@@ -81,27 +82,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
             calculationObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculation>(UpdateMapData, pcg => pcg.Children);
 
+            mapDataCollection = new MapDataCollection(GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryDatabaseMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
             dikeProfilesMapData = RingtoetsMapDataFactory.CreateDikeProfileMapData();
             foreshoreProfilesMapData = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
-
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
             calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
 
-            mapControl.Data.Add(referenceLineMapData);
-            mapControl.Data.Add(sectionsMapData);
-            mapControl.Data.Add(sectionsStartPointMapData);
-            mapControl.Data.Add(sectionsEndPointMapData);
-            mapControl.Data.Add(hydraulicBoundaryDatabaseMapData);
-            mapControl.Data.Add(dikeProfilesMapData);
-            mapControl.Data.Add(foreshoreProfilesMapData);
-            mapControl.Data.Add(calculationsMapData);
-
-            mapControl.Data.Name = GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsFailureMechanism_DisplayName;
-            mapControl.Data.NotifyObservers();
+            mapDataCollection.Add(referenceLineMapData);
+            mapDataCollection.Add(sectionsMapData);
+            mapDataCollection.Add(sectionsStartPointMapData);
+            mapDataCollection.Add(sectionsEndPointMapData);
+            mapDataCollection.Add(hydraulicBoundaryDatabaseMapData);
+            mapDataCollection.Add(dikeProfilesMapData);
+            mapDataCollection.Add(foreshoreProfilesMapData);
+            mapDataCollection.Add(calculationsMapData);
         }
 
         public object Data
@@ -123,6 +121,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                     calculationInputObserver.Observable = null;
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
+
+                    Map.Data = null;
                 }
                 else
                 {
@@ -133,9 +133,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                     calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationObserver.Observable = data.WrappedData.CalculationsGroup;
-                }
 
-                UpdateMapData();
+                    SetMapDataFeatures();
+
+                    Map.Data = mapDataCollection;
+                }
             }
         }
 
@@ -166,30 +168,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateMapData()
         {
-            if (data == null)
-            {
-                Map.ResetMapData();
-            }
-            else
-            {
-                ReferenceLine referenceLine = data.Parent.ReferenceLine;
-                IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
-                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
-                IEnumerable<DikeProfile> dikeProfiles = data.WrappedData.DikeProfiles;
-                IEnumerable<GrassCoverErosionInwardsCalculation> calculations = 
-                    data.WrappedData.CalculationsGroup.GetCalculations().Cast<GrassCoverErosionInwardsCalculation>();
+            SetMapDataFeatures();
 
-                referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
-                sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
-                sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
-                sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-                hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
-                dikeProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(dikeProfiles);
-                foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(dikeProfiles.Select(dp => dp.ForeshoreProfile));
-                calculationsMapData.Features = GrassCoverErosionInwardsMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
+            referenceLineMapData.NotifyObservers();
+            sectionsMapData.NotifyObservers();
+            sectionsStartPointMapData.NotifyObservers();
+            sectionsEndPointMapData.NotifyObservers();
+            hydraulicBoundaryDatabaseMapData.NotifyObservers();
+            dikeProfilesMapData.NotifyObservers();
+            foreshoreProfilesMapData.NotifyObservers();
+            calculationsMapData.NotifyObservers();
+        }
 
-                mapControl.Data.NotifyObservers();
-            }
+        private void SetMapDataFeatures()
+        {
+            ReferenceLine referenceLine = data.Parent.ReferenceLine;
+            IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
+            IEnumerable<DikeProfile> dikeProfiles = data.WrappedData.DikeProfiles;
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculations =
+                data.WrappedData.CalculationsGroup.GetCalculations().Cast<GrassCoverErosionInwardsCalculation>();
+
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
+            sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
+            sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
+            sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
+            hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
+            dikeProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(dikeProfiles);
+            foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(dikeProfiles.Select(dp => dp.ForeshoreProfile));
+            calculationsMapData.Features = GrassCoverErosionInwardsMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }
     }
 }

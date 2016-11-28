@@ -105,7 +105,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             TestDelegate test = () => testConverter.Convert(null);
 
             // Assert
-            const string expectedMessage = "Null data cannot be converted into feature sets.";
+            const string expectedMessage = "Null data cannot be converted into a feature layer.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
@@ -155,10 +155,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var mapLayers = converter.Convert(lineData);
+            IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            var layer = mapLayers[0];
             Assert.IsInstanceOf<LineString>(layer.DataSet.Features[0].BasicGeometry);
         }
 
@@ -199,10 +198,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var mapLayers = converter.Convert(lineData);
+            IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            var layer = mapLayers[0];
             Assert.IsInstanceOf<MultiLineString>(layer.DataSet.Features[0].BasicGeometry);
         }
 
@@ -237,12 +235,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var mapLayers = converter.Convert(lineData);
+            IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
-            var layer = mapLayers[0];
-
             Assert.AreEqual(lineData.Features.ToArray().Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapLineLayer>(layer);
             Assert.AreEqual(FeatureType.Line, layer.DataSet.FeatureType);
@@ -287,18 +282,19 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            IList<IMapFeatureLayer> mapLayers = converter.Convert(lineData);
+            IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
-            IMapFeatureLayer layer = mapLayers[0];
-
             Assert.AreEqual(lineData.Features.ToArray().Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapLineLayer>(layer);
             Assert.AreEqual(FeatureType.Line, layer.DataSet.FeatureType);
             CollectionAssert.AreNotEqual(lineData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
             Assert.IsFalse(layer.ShowLabels);
-            CollectionAssert.IsEmpty(layer.DataSet.GetColumns());
+
+            DataColumn[] dataColumns = layer.DataSet.GetColumns();
+            Assert.AreEqual(2, dataColumns.Length);
+            Assert.AreEqual("1", dataColumns[0].ColumnName);
+            Assert.AreEqual("2", dataColumns[1].ColumnName);
 
             Assert.IsNotNull(layer.LabelLayer);
             Assert.AreEqual("FID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
@@ -340,12 +336,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            IList<IMapFeatureLayer> mapLayers = converter.Convert(lineData);
+            IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
-            IMapFeatureLayer layer = mapLayers[0];
-
             Assert.AreEqual(lineData.Features.ToArray().Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapLineLayer>(layer);
             Assert.AreEqual(FeatureType.Line, layer.DataSet.FeatureType);
@@ -396,12 +389,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var mapLayers = converter.Convert(lineData);
+            IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
-            var layer = mapLayers[0];
-            Assert.AreEqual(1, mapLayers.Count);
             Assert.IsInstanceOf<MapLineLayer>(layer);
         }
 
@@ -423,11 +413,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var mapLayers = converter.Convert(lineData);
+            IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            Assert.AreEqual(1, mapLayers.Count);
-            var layer = mapLayers[0];
             Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
         }
 
@@ -483,11 +471,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var mapLayers = converter.Convert(lineData);
+            IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            Assert.AreEqual(1, mapLayers.Count);
-            var layer = mapLayers[0];
             Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
             layer.DataSet.InitializeVertices();
             var layerGeometries = layer.DataSet.ShapeIndices.First().Parts;
@@ -507,10 +493,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layers = converter.Convert(data);
+            IMapFeatureLayer layer = converter.Convert(data);
 
             // Assert
-            Assert.AreEqual(isVisible, layers.First().IsVisible);
+            Assert.AreEqual(isVisible, layer.IsVisible);
         }
 
         [Test]
@@ -522,10 +508,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             var data = new MapLineData(name);
 
             // Call
-            var layers = converter.Convert(data);
+            var layer = (MapLineLayer) converter.Convert(data);
 
             // Assert
-            var layer = (MapLineLayer) layers.First();
             Assert.AreEqual(name, layer.Name);
         }
 
@@ -545,10 +530,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layers = converter.Convert(data);
+            var layer = (MapLineLayer) converter.Convert(data);
 
             // Assert
-            var layer = (MapLineLayer) layers.First();
             AssertAreEqual(new LineSymbolizer(expectedColor, expectedColor, 3, DashStyle.Solid, LineCap.Round), layer.Symbolizer);
         }
 
@@ -567,10 +551,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layers = converter.Convert(data);
+            var layer = (MapLineLayer) converter.Convert(data);
 
             // Assert
-            var layer = (MapLineLayer) layers.First();
             AssertAreEqual(new LineSymbolizer(Color.AliceBlue, Color.AliceBlue, width, DashStyle.Solid, LineCap.Round), layer.Symbolizer);
         }
 
@@ -589,14 +572,13 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layers = converter.Convert(data);
+            var layer = (MapLineLayer) converter.Convert(data);
 
             // Assert
-            var layer = (MapLineLayer) layers.First();
             AssertAreEqual(new LineSymbolizer(Color.AliceBlue, Color.AliceBlue, 3, lineStyle, LineCap.Round), layer.Symbolizer);
         }
 
-        private void AssertAreEqual(ILineSymbolizer firstSymbolizer, ILineSymbolizer secondSymbolizer)
+        private static void AssertAreEqual(ILineSymbolizer firstSymbolizer, ILineSymbolizer secondSymbolizer)
         {
             var firstStrokes = firstSymbolizer.Strokes;
             var secondStrokes = secondSymbolizer.Strokes;

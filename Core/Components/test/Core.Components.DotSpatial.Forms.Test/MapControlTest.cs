@@ -48,9 +48,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Assert
                 Assert.IsInstanceOf<Control>(map);
                 Assert.IsInstanceOf<IMapControl>(map);
-                Assert.IsInstanceOf<MapDataCollection>(map.Data);
-                Assert.IsNotNull(map.Data);
-                CollectionAssert.IsEmpty(map.Data.Collection);
+                Assert.IsNull(map.Data);
                 Assert.IsTrue(map.IsPanningEnabled);
                 Assert.IsFalse(map.IsRectangleZoomingEnabled);
                 Assert.IsTrue(map.IsMouseCoordinatesVisible);
@@ -78,76 +76,87 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void Data_NotNull_ReturnsData()
-        {
-            // Setup
-            using (var map = new MapControl())
-            {
-                var testData = new MapPointData("test data");
-
-                // Call
-                map.Data.Add(testData);
-
-                // Assert
-                Assert.AreSame(testData, map.Data.Collection.First());
-            }
-        }
-
-        [Test]
-        public void GivenMapControlWithMapData_WhenNestedMapDataAdded_MapControlUpdated()
+        public void GivenMapControlWithoutData_WhenDataSetToMapDataCollection_MapControlUpdated()
         {
             // Given
             using (var map = new MapControl())
             {
                 var mapView = map.Controls.OfType<Map>().First();
-                var testData = new MapPointData("test data");
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
+                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(nestedMapDataCollection1);
+                nestedMapDataCollection1.Add(mapLineData);
+                nestedMapDataCollection1.Add(nestedMapDataCollection2);
+                nestedMapDataCollection2.Add(mapPolygonData);
 
                 // When
-                map.Data.Add(testData);
-                map.Data.NotifyObservers();
+                map.Data = mapDataCollection;
 
                 // Then
-                Assert.AreEqual(1, mapView.Layers.Count);
+                Assert.AreEqual(3, mapView.Layers.Count);
                 Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+                Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[1]);
+                Assert.IsInstanceOf<MapPolygonLayer>(mapView.Layers[2]);
             }
         }
 
         [Test]
-        public void GivenMapControlWithNestedMapData_WhenNestedMapDataChanged_MapControlUpdated()
+        public void GivenMapControlWithData_WhenMapDataNotifiesFeaturesChange_CorrespondingLayerReplaced()
         {
             // Given
             using (var map = new MapControl())
             {
-                var testData = new MapPointData("test data");
-                var view = map.Controls.OfType<Map>().First();
+                var mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
+                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
 
-                map.Data.Add(testData);
-                map.Data.NotifyObservers();
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(nestedMapDataCollection1);
+                nestedMapDataCollection1.Add(mapLineData);
+                nestedMapDataCollection1.Add(nestedMapDataCollection2);
+                nestedMapDataCollection2.Add(mapPolygonData);
 
-                var layers = view.Layers.ToList();
+                map.Data = mapDataCollection;
+
+                var layersBeforeUpdate = mapView.Layers.ToList();
 
                 // Call
-                testData.NotifyObservers();
+                mapLineData.Features = new MapFeature[0];
+                mapLineData.NotifyObservers();
 
                 // Assert
-                Assert.AreEqual(1, view.Layers.Count);
-                Assert.AreNotSame(layers[0], view.Layers[0]);
+                Assert.AreEqual(3, mapView.Layers.Count);
+                Assert.AreSame(layersBeforeUpdate[0], mapView.Layers[0]);
+                Assert.AreNotSame(layersBeforeUpdate[1], mapView.Layers[1]);
+                Assert.AreSame(layersBeforeUpdate[2], mapView.Layers[2]);
             }
         }
 
         [Test]
         [RequiresSTA]
-        public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataset_ViewInvalidatedLayersSame()
+        public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataSet_ViewInvalidatedLayersSame()
         {
             // Setup
             using (var map = new MapControl())
             {
-                var testData = new MapPointData("test data");
-                var mapView = map.Controls.OfType<Map>().First();
+                var mapDataCollection = new MapDataCollection("Collection");
+                var mapData = new MapPointData("Test data");
                 var invalidated = 0;
+                var mapView = map.Controls.OfType<Map>().First();
 
-                map.Data.Add(testData);
-                map.Data.NotifyObservers();
+                mapDataCollection.Add(mapData);
+
+                map.Data = mapDataCollection;
 
                 mapView.Invalidated += (sender, args) => { invalidated++; };
 
@@ -185,15 +194,18 @@ namespace Core.Components.DotSpatial.Forms.Test
                         })
                     })
                 };
-                var testData = new MapPointData("test data")
+                var mapDataCollection = new MapDataCollection("Collection");
+                var mapData = new MapPointData("Test data")
                 {
                     Features = mapFeatures
                 };
                 var mapView = map.Controls.OfType<Map>().First();
                 var invalidated = 0;
 
-                map.Data.Add(testData);
-                map.Data.NotifyObservers();
+                mapDataCollection.Add(mapData);
+
+                map.Data = mapDataCollection;
+
                 form.Controls.Add(map);
 
                 mapView.Invalidated += (sender, args) => { invalidated++; };
@@ -221,9 +233,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 var mapView = map.Controls.OfType<Map>().First();
-                var testData = GetTestData();
-                map.Data.Add(testData);
-                map.Data.NotifyObservers();
+
+                map.Data = GetTestData();
 
                 var expectedExtent = new Extent(0.0, 0.5, 1.6, 2.1);
                 var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
@@ -254,9 +265,9 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 var mapView = map.Controls.OfType<Map>().First();
-                var mapDataCollection = new MapDataCollection("test data");
+                var mapDataCollection = new MapDataCollection("Test data");
 
-                mapDataCollection.Add(new MapPointData("test data")
+                mapDataCollection.Add(new MapPointData("Test data")
                 {
                     Features = new[]
                     {
@@ -274,8 +285,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     }
                 });
 
-                map.Data.Add(mapDataCollection);
-                map.Data.NotifyObservers();
+                map.Data = mapDataCollection;
 
                 var expectedExtent = new Extent(0.0, 0.0, xMax, yMax);
                 var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
@@ -676,28 +686,11 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
-        [Test]
-        public void ResetMapData_Always_SetsDataToNull()
-        {
-            // Setup
-            using (var map = new MapControl())
-            {
-                // Precondition
-                Assert.IsNotNull(map.Data);
-
-                // Call
-                map.ResetMapData();
-
-                // Assert
-                Assert.IsNull(map.Data);
-            }
-        }
-
         private static MapDataCollection GetTestData()
         {
-            var mapDataCollection = new MapDataCollection("test data");
+            var mapDataCollection = new MapDataCollection("Test data");
 
-            mapDataCollection.Add(new MapPointData("test data")
+            mapDataCollection.Add(new MapPointData("Test data")
             {
                 Features = new[]
                 {
@@ -728,7 +721,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 }
             });
 
-            mapDataCollection.Add(new MapLineData("test data")
+            mapDataCollection.Add(new MapLineData("Test data")
             {
                 Features = new[]
                 {
@@ -747,7 +740,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 }
             });
 
-            mapDataCollection.Add(new MapPolygonData("test data")
+            mapDataCollection.Add(new MapPolygonData("Test data")
             {
                 Features = new[]
                 {

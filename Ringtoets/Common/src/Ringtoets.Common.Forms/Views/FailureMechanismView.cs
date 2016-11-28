@@ -37,10 +37,13 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class FailureMechanismView<T> : UserControl, IMapView where T : IFailureMechanism
     {
+        private const string defaultMapDataCollectionName = "-";
+
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryLocationObserver;
 
+        private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
         private readonly MapPointData sectionsStartPointMapData;
@@ -60,20 +63,18 @@ namespace Ringtoets.Common.Forms.Views
             assessmentSectionObserver = new Observer(UpdateMapData);
             hydraulicBoundaryLocationObserver = new Observer(UpdateMapData);
 
+            mapDataCollection = new MapDataCollection(defaultMapDataCollectionName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryDatabaseMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
-
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            mapControl.Data.Add(referenceLineMapData);
-            mapControl.Data.Add(sectionsMapData);
-            mapControl.Data.Add(sectionsStartPointMapData);
-            mapControl.Data.Add(sectionsEndPointMapData);
-            mapControl.Data.Add(hydraulicBoundaryDatabaseMapData);
-
-            mapControl.Data.NotifyObservers();
+            mapDataCollection.Add(referenceLineMapData);
+            mapDataCollection.Add(sectionsMapData);
+            mapDataCollection.Add(sectionsStartPointMapData);
+            mapDataCollection.Add(sectionsEndPointMapData);
+            mapDataCollection.Add(hydraulicBoundaryDatabaseMapData);
         }
 
         public object Data
@@ -92,16 +93,22 @@ namespace Ringtoets.Common.Forms.Views
                     assessmentSectionObserver.Observable = null;
                     hydraulicBoundaryLocationObserver.Observable = null;
 
-                    Map.ResetMapData();
-                    return;
-                }
+                    mapDataCollection.Name = defaultMapDataCollectionName;
 
-                mapControl.Data.Name = data.WrappedData.Name;
-                failureMechanismObserver.Observable = data.WrappedData;
-                assessmentSectionObserver.Observable = data.Parent;
+                    Map.Data = null;
+                }
+                else
+                {
+                    failureMechanismObserver.Observable = data.WrappedData;
+                    assessmentSectionObserver.Observable = data.Parent;
+
+                    mapDataCollection.Name = data.WrappedData.Name;
                 hydraulicBoundaryLocationObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
 
-                UpdateMapData();
+                    SetMapDataFeatures();
+
+                    Map.Data = mapDataCollection;
+                }
             }
         }
 
@@ -128,24 +135,26 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdateMapData()
         {
-            ReferenceLine referenceLine = null;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = null;
-            IEnumerable<FailureMechanismSection> failureMechanismSections = null;
+            SetMapDataFeatures();
 
-            if (data != null)
-            {
-                referenceLine = data.Parent.ReferenceLine;
-                hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
-                failureMechanismSections = data.WrappedData.Sections;
-            }
+            referenceLineMapData.NotifyObservers();
+            sectionsMapData.NotifyObservers();
+            sectionsStartPointMapData.NotifyObservers();
+            sectionsEndPointMapData.NotifyObservers();
+            hydraulicBoundaryDatabaseMapData.NotifyObservers();
+        }
+
+        private void SetMapDataFeatures()
+        {
+            ReferenceLine referenceLine = data.Parent.ReferenceLine;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
+            IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
 
             referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
             hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
-
-            mapControl.Data.NotifyObservers();
         }
     }
 }

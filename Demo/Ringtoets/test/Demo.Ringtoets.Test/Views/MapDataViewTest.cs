@@ -49,19 +49,16 @@ namespace Demo.Ringtoets.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_Always_AddsMapControl()
+        public void DefaultConstructor_Always_AddEmptyMapControl()
         {
             // Call
-            using (var mapView = new MapDataView())
+            using (var view = new MapDataView())
             {
                 // Assert
-                Assert.AreEqual(1, mapView.Controls.Count);
-                object mapObject = mapView.Controls[0];
-                Assert.IsInstanceOf<MapControl>(mapObject);
-
-                var map = (MapControl) mapObject;
-                Assert.AreEqual(DockStyle.Fill, map.Dock);
-                Assert.NotNull(mapView.Map);
+                Assert.AreEqual(1, view.Controls.Count);
+                Assert.AreSame(view.Map, view.Controls[0]);
+                Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
+                Assert.IsNull(view.Map.Data);
             }
         }
 
@@ -84,7 +81,7 @@ namespace Demo.Ringtoets.Test.Views
         }
 
         [Test]
-        public void Data_SetToObject_ThrowsInvalidCastException()
+        public void Data_SetToObject_DoesNotThrow()
         {
             // Setup
             using (var mapView = new MapDataView())
@@ -93,7 +90,8 @@ namespace Demo.Ringtoets.Test.Views
                 TestDelegate testDelegate = () => mapView.Data = new object();
 
                 // Assert
-                Assert.Throws<InvalidCastException>(testDelegate);
+                Assert.DoesNotThrow(testDelegate);
+                Assert.IsNull(mapView.Data);
             }
         }
 

@@ -37,18 +37,17 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     public class MapPointDataConverter : MapDataConverter<MapPointData>
     {
-        protected override IList<IMapFeatureLayer> Convert(MapPointData data)
+        protected override IMapFeatureLayer Convert(MapPointData data)
         {
             var featureSet = new FeatureSet(FeatureType.Point);
 
             foreach (var ringtoetsMapFeature in data.Features)
             {
                 foreach (var feature in GetAllMapFeatureCoordinates(ringtoetsMapFeature)
-                    .Select(c => new Feature(new Point(c.X, c.Y), featureSet))
-                    .Where(feature => data.ShowLabels))
-                    {
-                        AddMetaDataAsAttributes(ringtoetsMapFeature, featureSet, feature);
-                    }
+                    .Select(c => new Feature(new Point(c.X, c.Y), featureSet)))
+                {
+                    AddMetaDataAsAttributes(ringtoetsMapFeature, featureSet, feature);
+                }
             }
 
             featureSet.InitializeVertices();
@@ -63,10 +62,7 @@ namespace Core.Components.DotSpatial.Converter
 
             CreateStyle(layer, data.Style);
 
-            return new List<IMapFeatureLayer>
-            {
-                layer
-            };
+            return layer;
         }
 
         private static IEnumerable<Coordinate> GetAllMapFeatureCoordinates(MapFeature feature)

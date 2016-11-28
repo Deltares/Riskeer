@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_Always_AddMapControlWithCollectionOfEmptyMapData()
+        public void DefaultConstructor_Always_AddEmptyMapControl()
         {
             // Call
             using (var view = new FailureMechanismView<TestFailureMechanism>())
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Map, view.Controls[0]);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-                AssertEmptyMapData(view.Map.Data);
+                Assert.IsNull(view.Map.Data);
             }
         }
 

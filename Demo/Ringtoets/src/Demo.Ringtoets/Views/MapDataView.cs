@@ -30,8 +30,6 @@ namespace Demo.Ringtoets.Views
     /// </summary>
     public partial class MapDataView : UserControl, IMapView
     {
-        private MapDataCollection data;
-
         /// <summary>
         /// Creates a new instance of <see cref="MapDataView"/>.
         /// </summary>
@@ -44,22 +42,11 @@ namespace Demo.Ringtoets.Views
         {
             get
             {
-                return data;
+                return Map.Data;
             }
             set
             {
-                data = (MapDataCollection) value;
-
-                if (data != null)
-                {
-                    foreach (var mapData in data.Collection)
-                    {
-                        Map.Data.Add(mapData);
-                    }
-
-                    Map.Data.Name = data.Name;
-                    Map.Data.NotifyObservers();
-                }
+                Map.Data = value as MapDataCollection;
             }
         }
 

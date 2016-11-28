@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
-using DotSpatial.Data;
 
 namespace Core.Components.DotSpatial.Converter
 {
@@ -41,12 +39,12 @@ namespace Core.Components.DotSpatial.Converter
         bool CanConvertMapData(MapData data);
 
         /// <summary>
-        /// Creates a one or more <see cref="FeatureSet"/> based on the <paramref name="data"/> that was given.
+        /// Creates a <see cref="IMapFeatureLayer"/> based on the <paramref name="data"/> that was given.
         /// </summary>
-        /// <param name="data">The data to transform into one or more <see cref="IMapFeatureLayer"/>.</param>
-        /// <returns>A new <see cref="List{T}"/> of <see cref="IMapFeatureLayer"/>.</returns>
+        /// <param name="data">The data to transform into a <see cref="IMapFeatureLayer"/>.</param>
+        /// <returns>A new <see cref="IMapFeatureLayer"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when <see cref="CanConvertMapData"/> returns <c>false</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        IList<IMapFeatureLayer> Convert(MapData data);
+        IMapFeatureLayer Convert(MapData data);
     }
 }

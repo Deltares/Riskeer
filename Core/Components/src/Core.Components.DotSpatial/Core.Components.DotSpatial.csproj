@@ -64,7 +64,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Converter\IMapDataConverter.cs" />
-    <Compile Include="Converter\MapDataCollectionConverter.cs" />
     <Compile Include="Converter\MapDataConverter.cs" />
     <Compile Include="Converter\MapFeatureLayerFactory.cs" />
     <Compile Include="Converter\MapDataHelper.cs" />

@@ -37,7 +37,7 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     public class MapPolygonDataConverter : MapDataConverter<MapPolygonData>
     {
-        protected override IList<IMapFeatureLayer> Convert(MapPolygonData data)
+        protected override IMapFeatureLayer Convert(MapPolygonData data)
         {
             var featureSet = new FeatureSet(FeatureType.Polygon);
 
@@ -63,12 +63,7 @@ namespace Core.Components.DotSpatial.Converter
                     geometryList.Add(polygon);
                 }
 
-                var feature = new Feature(GetGeometry(geometryList), featureSet);
-
-                if (data.ShowLabels)
-                {
-                    AddMetaDataAsAttributes(mapFeature, featureSet, feature);
-                }
+                AddMetaDataAsAttributes(mapFeature, featureSet, new Feature(GetGeometry(geometryList), featureSet));
             }
 
             featureSet.InitializeVertices();
@@ -83,10 +78,7 @@ namespace Core.Components.DotSpatial.Converter
 
             CreateStyle(layer, data.Style);
 
-            return new List<IMapFeatureLayer>
-            {
-                layer
-            };
+            return layer;
         }
 
         private static IBasicGeometry GetGeometry(List<IPolygon> geometryList)

@@ -126,12 +126,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var mapLayers = converter.Convert(pointData);
+            IMapFeatureLayer layer = converter.Convert(pointData);
 
             // Assert
-            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
-            var layer = mapLayers[0];
-
             Assert.AreEqual(pointData.Features.ToArray().Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPointLayer>(layer);
             Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
@@ -143,7 +140,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual("FID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
             Assert.IsNull(layer.LabelLayer.Symbology.Categories[0].Expression);
         }
-        
+
         [Test]
         public void Convert_RandomPointDataWithAttributesShowLabelsFalse_ReturnsNewMapPointLayerListWithDefaultLabelLayer()
         {
@@ -178,24 +175,25 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            IList<IMapFeatureLayer> mapLayers = converter.Convert(pointData);
+            IMapFeatureLayer layer = converter.Convert(pointData);
 
             // Assert
-            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
-            IMapFeatureLayer layer = mapLayers[0];
-
             Assert.AreEqual(pointData.Features.ToArray().Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPointLayer>(layer);
             Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
             CollectionAssert.AreNotEqual(pointData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
             Assert.IsFalse(layer.ShowLabels);
-            CollectionAssert.IsEmpty(layer.DataSet.GetColumns());
+
+            DataColumn[] dataColumns = layer.DataSet.GetColumns();
+            Assert.AreEqual(2, dataColumns.Length);
+            Assert.AreEqual("1", dataColumns[0].ColumnName);
+            Assert.AreEqual("2", dataColumns[1].ColumnName);
 
             Assert.IsNotNull(layer.LabelLayer);
             Assert.AreEqual("FID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
             Assert.IsNull(layer.LabelLayer.Symbology.Categories[0].Expression);
         }
-        
+
         [Test]
         [TestCase("ID", 1)]
         [TestCase("Name", 2)]
@@ -233,12 +231,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            IList<IMapFeatureLayer> mapLayers = converter.Convert(pointData);
+            IMapFeatureLayer layer = converter.Convert(pointData);
 
             // Assert
-            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
-            IMapFeatureLayer layer = mapLayers[0];
-
             Assert.AreEqual(pointData.Features.ToArray().Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPointLayer>(layer);
             Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
@@ -303,10 +298,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layers = converter.Convert(pointData);
+            IMapFeatureLayer layer = converter.Convert(pointData);
 
             // Assert
-            var layer = layers.First();
             Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
             layer.DataSet.InitializeVertices();
             Assert.AreEqual(3, layer.DataSet.ShapeIndices.Count);
@@ -327,7 +321,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             TestDelegate test = () => testConverter.Convert(null);
 
             // Assert
-            const string expectedMessage = "Null data cannot be converted into feature sets.";
+            const string expectedMessage = "Null data cannot be converted into a feature layer.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
@@ -362,10 +356,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layers = converter.Convert(data);
+            IMapFeatureLayer layer = converter.Convert(data);
 
             // Assert
-            Assert.AreEqual(isVisible, layers.First().IsVisible);
+            Assert.AreEqual(isVisible, layer.IsVisible);
         }
 
         [Test]
@@ -377,10 +371,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             var data = new MapPointData(name);
 
             // Call
-            var layers = converter.Convert(data);
+            var layer = (MapPointLayer) converter.Convert(data);
 
             // Assert
-            var layer = (MapPointLayer) layers.First();
             Assert.AreEqual(name, layer.Name);
         }
 
@@ -400,10 +393,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layers = converter.Convert(data);
+            var layer = (MapPointLayer) converter.Convert(data);
 
             // Assert
-            var layer = (MapPointLayer) layers.First();
             AssertAreEqual(new PointSymbolizer(expectedColor, PointShape.Ellipse, 3), layer.Symbolizer);
         }
 
@@ -422,10 +414,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layers = converter.Convert(data);
+            var layer = (MapPointLayer) converter.Convert(data);
 
             // Assert
-            var layer = (MapPointLayer) layers.First();
             AssertAreEqual(new PointSymbolizer(Color.AliceBlue, PointShape.Ellipse, width), layer.Symbolizer);
         }
 
@@ -444,10 +435,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layers = converter.Convert(data);
+            var layer = (MapPointLayer) converter.Convert(data);
 
             // Assert
-            var layer = (MapPointLayer) layers.First();
             PointShape expectedPointShape = pointStyle == PointSymbol.Circle
                                                 ? PointShape.Ellipse
                                                 : pointStyle == PointSymbol.Square
@@ -456,7 +446,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             AssertAreEqual(new PointSymbolizer(Color.AliceBlue, expectedPointShape, 3), layer.Symbolizer);
         }
 
-        private void AssertAreEqual(IPointSymbolizer firstSymbolizer, IPointSymbolizer secondSymbolizer)
+        private static void AssertAreEqual(IPointSymbolizer firstSymbolizer, IPointSymbolizer secondSymbolizer)
         {
             var firstSymbols = firstSymbolizer.Symbols;
             var secondSymbols = secondSymbolizer.Symbols;

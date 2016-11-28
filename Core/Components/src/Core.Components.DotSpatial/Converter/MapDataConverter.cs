@@ -34,12 +34,12 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The abstract base class for transforming <see cref="MapData"/> in specific <see cref="IMapFeatureLayer"/> instances.
+    /// Abstract base class for transforming <see cref="MapData"/> into <see cref="IMapFeatureLayer"/>.
     /// </summary>
     public abstract class MapDataConverter<T> : IMapDataConverter where T : MapData
     {
         // Needed because DotSpatial can't handle special characters.
-        // Therefor we create an id as column name for the data table in the featureSet.
+        // Therefore we create an id as column name for the data table in the featureSet.
         // We need this lookup to match the selected attribute from the MapData with the created id.
         private readonly Dictionary<string, string> columnLookup;
 
@@ -56,11 +56,11 @@ namespace Core.Components.DotSpatial.Converter
             return data is T;
         }
 
-        public IList<IMapFeatureLayer> Convert(MapData data)
+        public IMapFeatureLayer Convert(MapData data)
         {
             if (data == null)
             {
-                throw new ArgumentNullException("data", @"Null data cannot be converted into feature sets.");
+                throw new ArgumentNullException("data", @"Null data cannot be converted into a feature layer.");
             }
 
             if (!CanConvertMapData(data))
@@ -68,15 +68,16 @@ namespace Core.Components.DotSpatial.Converter
                 var message = string.Format("The data of type {0} cannot be converted by this converter.", data.GetType());
                 throw new ArgumentException(message);
             }
+
             return Convert((T) data);
         }
 
         /// <summary>
-        /// Creates one or more <see cref="IMapFeatureLayer"/> based on the <paramref name="data"/> that was given.
+        /// Creates a <see cref="IMapFeatureLayer"/> based on the <paramref name="data"/> that was given.
         /// </summary>
-        /// <param name="data">The data to transform into one or more <see cref="IMapFeatureLayer"/>.</param>
-        /// <returns>A new <see cref="List{T}"/> of <see cref="IMapFeatureLayer"/>.</returns>
-        protected abstract IList<IMapFeatureLayer> Convert(T data);
+        /// <param name="data">The data to transform into a <see cref="IMapFeatureLayer"/>.</param>
+        /// <returns>A new <see cref="IMapFeatureLayer"/>.</returns>
+        protected abstract IMapFeatureLayer Convert(T data);
 
         protected static IEnumerable<Coordinate> ConvertPoint2DElementsToCoordinates(IEnumerable<Point2D> points)
         {

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
@@ -60,7 +59,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             TestDelegate test = () => testConverter.Convert(null);
 
             // Assert
-            const string expectedMessage = "Null data cannot be converted into feature sets.";
+            const string expectedMessage = "Null data cannot be converted into a feature layer.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
@@ -111,9 +110,9 @@ namespace Core.Components.DotSpatial.Test.Converter
 
         private class TestMapDataConverter<T> : MapDataConverter<T> where T : MapData
         {
-            protected override IList<IMapFeatureLayer> Convert(T data)
+            protected override IMapFeatureLayer Convert(T data)
             {
-                return new List<IMapFeatureLayer>(); // Dummy implementation
+                return new MapPointLayer();
             }
         }
     }

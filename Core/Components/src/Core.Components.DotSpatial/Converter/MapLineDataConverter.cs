@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -40,18 +39,13 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     public class MapLineDataConverter : MapDataConverter<MapLineData>
     {
-        protected override IList<IMapFeatureLayer> Convert(MapLineData data)
+        protected override IMapFeatureLayer Convert(MapLineData data)
         {
             var featureSet = new FeatureSet(FeatureType.Line);
 
             foreach (var mapFeature in data.Features)
             {
-                var feature = new Feature(GetGeometry(mapFeature), featureSet);
-
-                if (data.ShowLabels)
-                {
-                    AddMetaDataAsAttributes(mapFeature, featureSet, feature);
-                }
+                AddMetaDataAsAttributes(mapFeature, featureSet, new Feature(GetGeometry(mapFeature), featureSet));
             }
 
             featureSet.InitializeVertices();
@@ -66,10 +60,7 @@ namespace Core.Components.DotSpatial.Converter
 
             CreateStyle(layer, data.Style);
 
-            return new List<IMapFeatureLayer>
-            {
-                layer
-            };
+            return layer;
         }
 
         private static IBasicGeometry GetGeometry(MapFeature mapFeature)
@@ -96,7 +87,7 @@ namespace Core.Components.DotSpatial.Converter
             return lineString;
         }
 
-        private void CreateStyle(MapLineLayer layer, LineStyle style)
+        private static void CreateStyle(MapLineLayer layer, LineStyle style)
         {
             if (style != null)
             {
