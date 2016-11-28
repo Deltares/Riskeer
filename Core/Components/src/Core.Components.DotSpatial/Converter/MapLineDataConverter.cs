@@ -29,7 +29,6 @@ using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
-using LineStyle = Core.Components.Gis.Style.LineStyle;
 
 namespace Core.Components.DotSpatial.Converter
 {
@@ -41,26 +40,35 @@ namespace Core.Components.DotSpatial.Converter
     {
         protected override IMapFeatureLayer Convert(MapLineData data)
         {
-            var featureSet = new FeatureSet(FeatureType.Line);
+            var layer = new MapLineLayer();
 
-            foreach (MapFeature mapFeature in data.Features)
-            {
-                AddMetaDataAsAttributes(mapFeature, featureSet, new Feature(GetGeometry(mapFeature), featureSet));
-            }
-
-            featureSet.InitializeVertices();
-
-            var layer = new MapLineLayer(featureSet)
-            {
-                IsVisible = data.IsVisible,
-                Name = data.Name,
-                ShowLabels = data.ShowLabels,
-                LabelLayer = GetLabelLayer(featureSet, data.ShowLabels, data.SelectedMetaDataAttribute)
-            };
-
-            CreateStyle(layer, data.Style);
+            ConvertLayerFeatures(data, layer);
+            ConvertLayerProperties(data, layer);
 
             return layer;
+        }
+
+        private void ConvertLayerFeatures(MapLineData data, MapLineLayer layer)
+        {
+            foreach (MapFeature mapFeature in data.Features)
+            {
+                AddMetaDataAsAttributes(mapFeature, layer.FeatureSet, new Feature(GetGeometry(mapFeature), layer.FeatureSet));
+            }
+
+            layer.FeatureSet.InitializeVertices();
+        }
+
+        private void ConvertLayerProperties(MapLineData data, MapLineLayer layer)
+        {
+            layer.IsVisible = data.IsVisible;
+            layer.Name = data.Name;
+            layer.ShowLabels = data.ShowLabels;
+            layer.LabelLayer = GetLabelLayer(layer.FeatureSet, data.ShowLabels, data.SelectedMetaDataAttribute);
+
+            if (data.Style != null)
+            {
+                layer.Symbolizer = new LineSymbolizer(data.Style.Color, data.Style.Color, data.Style.Width, data.Style.Style, LineCap.Round);
+            }
         }
 
         private static IBasicGeometry GetGeometry(MapFeature mapFeature)
@@ -86,14 +94,6 @@ namespace Core.Components.DotSpatial.Converter
         private static IBasicLineString GetLineString(IGeometryFactory factory, IEnumerable<Point2D> points)
         {
             return factory.CreateLineString(ConvertPoint2DElementsToCoordinates(points).ToList());
-        }
-
-        private static void CreateStyle(MapLineLayer layer, LineStyle style)
-        {
-            if (style != null)
-            {
-                layer.Symbolizer = new LineSymbolizer(style.Color, style.Color, style.Width, style.Style, LineCap.Round);
-            }
         }
     }
 }

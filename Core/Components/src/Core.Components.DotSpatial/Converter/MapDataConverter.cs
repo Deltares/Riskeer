@@ -94,12 +94,12 @@ namespace Core.Components.DotSpatial.Converter
         }
 
         /// <summary>
-        /// Adds <see cref="MapFeature.MetaData"/> as attributes to the given <see cref="Feature"/> and to the <see cref="FeatureSet.DataTable"/>.
+        /// Adds <see cref="MapFeature.MetaData"/> as attributes to the given <see cref="Feature"/> and to the <see cref="IFeatureSet.DataTable"/>.
         /// </summary>
         /// <param name="ringtoetsMapFeature">The <see cref="MapFeature"/> to get the mete data from.</param>
-        /// <param name="featureSet">The <see cref="FeatureSet"/> to add the attributes to.</param>
+        /// <param name="featureSet">The <see cref="IFeatureSet"/> to add the attributes to.</param>
         /// <param name="feature">The <see cref="Feature"/> to add the attributes to.</param>
-        protected void AddMetaDataAsAttributes(MapFeature ringtoetsMapFeature, FeatureSet featureSet, Feature feature)
+        protected void AddMetaDataAsAttributes(MapFeature ringtoetsMapFeature, IFeatureSet featureSet, Feature feature)
         {
             var columnKey = 1;
             foreach (var attribute in ringtoetsMapFeature.MetaData)
@@ -125,11 +125,11 @@ namespace Core.Components.DotSpatial.Converter
         /// <summary>
         /// Gets a new <see cref="MapLabelLayer"/>.
         /// </summary>
-        /// <param name="featureSet">The <see cref="FeatureSet"/> to add the <see cref="MapLabelLayer"/> to.</param>
+        /// <param name="featureSet">The <see cref="IFeatureSet"/> to add the <see cref="MapLabelLayer"/> to.</param>
         /// <param name="showLabels">Indicator whether to show the labels or not.</param>
         /// <param name="labelToShow">The key of the attribute to show the labels for.</param>
         /// <returns>A new <see cref="MapLabelLayer"/>.</returns>
-        protected MapLabelLayer GetLabelLayer(FeatureSet featureSet, bool showLabels, string labelToShow)
+        protected MapLabelLayer GetLabelLayer(IFeatureSet featureSet, bool showLabels, string labelToShow)
         {
             var labelLayer = new MapLabelLayer();
 

@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Core.Components.Gis.Style;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -39,43 +38,44 @@ namespace Core.Components.DotSpatial.Converter
     {
         protected override IMapFeatureLayer Convert(MapPointData data)
         {
-            var featureSet = new FeatureSet(FeatureType.Point);
+            var layer = new MapPointLayer();
 
+            ConvertLayerFeatures(data, layer);
+            ConvertLayerProperties(data, layer);
+
+            return layer;
+        }
+
+        private void ConvertLayerFeatures(MapPointData data, MapPointLayer layer)
+        {
             foreach (var ringtoetsMapFeature in data.Features)
             {
                 foreach (var feature in GetAllMapFeatureCoordinates(ringtoetsMapFeature)
-                    .Select(c => new Feature(new Point(c.X, c.Y), featureSet)))
+                    .Select(c => new Feature(new Point(c.X, c.Y), layer.FeatureSet)))
                 {
-                    AddMetaDataAsAttributes(ringtoetsMapFeature, featureSet, feature);
+                    AddMetaDataAsAttributes(ringtoetsMapFeature, layer.FeatureSet, feature);
                 }
             }
 
-            featureSet.InitializeVertices();
+            layer.FeatureSet.InitializeVertices();
+        }
 
-            var layer = new MapPointLayer(featureSet)
+        private void ConvertLayerProperties(MapPointData data, MapPointLayer layer)
+        {
+            layer.IsVisible = data.IsVisible;
+            layer.Name = data.Name;
+            layer.ShowLabels = data.ShowLabels;
+            layer.LabelLayer = GetLabelLayer(layer.FeatureSet, data.ShowLabels, data.SelectedMetaDataAttribute);
+
+            if (data.Style != null)
             {
-                IsVisible = data.IsVisible,
-                Name = data.Name,
-                ShowLabels = data.ShowLabels,
-                LabelLayer = GetLabelLayer(featureSet, data.ShowLabels, data.SelectedMetaDataAttribute)
-            };
-
-            CreateStyle(layer, data.Style);
-
-            return layer;
+                layer.Symbolizer = new PointSymbolizer(data.Style.Color, MapDataHelper.Convert(data.Style.Symbol), data.Style.Size);
+            }
         }
 
         private static IEnumerable<Coordinate> GetAllMapFeatureCoordinates(MapFeature feature)
         {
             return feature.MapGeometries.SelectMany(mapGeometry => ConvertPoint2DElementsToCoordinates(mapGeometry.PointCollections.First()));
-        }
-
-        private static void CreateStyle(MapPointLayer layer, PointStyle style)
-        {
-            if (style != null)
-            {
-                layer.Symbolizer = new PointSymbolizer(style.Color, MapDataHelper.Convert(style.Symbol), style.Size);
-            }
         }
     }
 }

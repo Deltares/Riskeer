@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Style;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -39,8 +38,16 @@ namespace Core.Components.DotSpatial.Converter
     {
         protected override IMapFeatureLayer Convert(MapPolygonData data)
         {
-            var featureSet = new FeatureSet(FeatureType.Polygon);
+            var layer = new MapPolygonLayer();
 
+            ConvertLayerFeatures(data, layer);
+            ConvertLayerProperties(data, layer);
+
+            return layer;
+        }
+
+        private void ConvertLayerFeatures(MapPolygonData data, MapPolygonLayer layer)
+        {
             foreach (var mapFeature in data.Features)
             {
                 var geometryList = new List<IPolygon>();
@@ -63,22 +70,23 @@ namespace Core.Components.DotSpatial.Converter
                     geometryList.Add(polygon);
                 }
 
-                AddMetaDataAsAttributes(mapFeature, featureSet, new Feature(GetGeometry(geometryList), featureSet));
+                AddMetaDataAsAttributes(mapFeature, layer.FeatureSet, new Feature(GetGeometry(geometryList), layer.FeatureSet));
             }
 
-            featureSet.InitializeVertices();
+            layer.FeatureSet.InitializeVertices();
+        }
 
-            var layer = new MapPolygonLayer(featureSet)
+        private void ConvertLayerProperties(MapPolygonData data, MapPolygonLayer layer)
+        {
+            layer.IsVisible = data.IsVisible;
+            layer.Name = data.Name;
+            layer.ShowLabels = data.ShowLabels;
+            layer.LabelLayer = GetLabelLayer(layer.FeatureSet, data.ShowLabels, data.SelectedMetaDataAttribute);
+
+            if (data.Style != null)
             {
-                IsVisible = data.IsVisible,
-                Name = data.Name,
-                ShowLabels = data.ShowLabels,
-                LabelLayer = GetLabelLayer(featureSet, data.ShowLabels, data.SelectedMetaDataAttribute)
-            };
-
-            CreateStyle(layer, data.Style);
-
-            return layer;
+                layer.Symbolizer = new PolygonSymbolizer(data.Style.FillColor, data.Style.StrokeColor, data.Style.Width);
+            }
         }
 
         private static IBasicGeometry GetGeometry(List<IPolygon> geometryList)
@@ -93,7 +101,8 @@ namespace Core.Components.DotSpatial.Converter
             else
             {
                 ILinearRing shell = null;
-                ILinearRing[] holes = {};
+                ILinearRing[] holes =
+                {};
 
                 if (geometryList.Count == 1)
                 {
@@ -105,14 +114,6 @@ namespace Core.Components.DotSpatial.Converter
                 geometry = factory.CreatePolygon(shell, holes);
             }
             return geometry;
-        }
-
-        private static void CreateStyle(IPolygonLayer layer, PolygonStyle style)
-        {
-            if (style != null)
-            {
-                layer.Symbolizer = new PolygonSymbolizer(style.FillColor, style.StrokeColor, style.Width);
-            }
         }
     }
 }
