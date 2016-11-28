@@ -54,5 +54,52 @@ namespace Core.Components.DotSpatial.Converter
 
             throw new NotSupportedException(string.Format("MapData of type {0} is not supported.", data.GetType().Name));
         }
+
+        /// <summary>
+        /// Converts all feature related data from <param name="data"/> to <param name="layer"/>.
+        /// </summary>
+        /// <param name="data">The data to convert the feature related data from.</param>
+        /// <param name="layer">The layer to convert the feature related data to.</param>
+        /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
+        public static void ConvertLayerFeatures(MapData data, IMapFeatureLayer layer)
+        {
+            var converter = GetMapDataConverter(data);
+            if (converter != null)
+            {
+                converter.ConvertLayerFeatures(data, layer);
+            }
+            else
+            {
+                throw new NotSupportedException(string.Format("MapData of type {0} is not supported.", data.GetType().Name));
+            }
+        }
+
+        /// <summary>
+        /// Converts all general properties (like <see cref="MapData.Name"/> and <see cref="MapData.IsVisible"/>) from <param name="data"/> to <param name="layer"/>.
+        /// </summary>
+        /// <param name="data">The data to convert the general properties from.</param>
+        /// <param name="layer">The layer to convert the general properties to.</param>
+        public static void ConvertLayerProperties(MapData data, IMapFeatureLayer layer)
+        {
+            var converter = GetMapDataConverter(data);
+            if (converter != null)
+            {
+                converter.ConvertLayerProperties(data, layer);
+            }
+            else
+            {
+                throw new NotSupportedException(string.Format("MapData of type {0} is not supported.", data.GetType().Name));
+            }
+        }
+
+        private static IMapDataConverter GetMapDataConverter(MapData data)
+        {
+            return new Collection<IMapDataConverter>
+            {
+                new MapPointDataConverter(),
+                new MapLineDataConverter(),
+                new MapPolygonDataConverter()
+            }.FirstOrDefault(c => c.CanConvertMapData(data));
+        }
     }
 }
