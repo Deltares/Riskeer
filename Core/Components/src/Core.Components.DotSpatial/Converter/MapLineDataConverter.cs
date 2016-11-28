@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -43,7 +43,7 @@ namespace Core.Components.DotSpatial.Converter
         {
             var featureSet = new FeatureSet(FeatureType.Line);
 
-            foreach (var mapFeature in data.Features)
+            foreach (MapFeature mapFeature in data.Features)
             {
                 AddMetaDataAsAttributes(mapFeature, featureSet, new Feature(GetGeometry(mapFeature), featureSet));
             }
@@ -69,22 +69,23 @@ namespace Core.Components.DotSpatial.Converter
 
             if (mapFeature.MapGeometries.Count() > 1)
             {
-                return factory.CreateMultiLineString(mapFeature.MapGeometries.Select(AsLineString).ToArray());
+                return factory.CreateMultiLineString(mapFeature.MapGeometries
+                                                               .Select(mg => GetLineString(factory, mg.PointCollections.First()))
+                                                               .ToArray());
             }
 
-            Point2D[] pointsToConvert = {};
+            Point2D[] pointsToConvert =
+            {};
             if (mapFeature.MapGeometries.Count() == 1)
             {
                 pointsToConvert = mapFeature.MapGeometries.First().PointCollections.First().ToArray();
             }
-            return factory.CreateLineString(ConvertPoint2DElementsToCoordinates(pointsToConvert).ToList());
+            return GetLineString(factory, pointsToConvert);
         }
 
-        private static IBasicLineString AsLineString(MapGeometry mapGeometry)
+        private static IBasicLineString GetLineString(IGeometryFactory factory, IEnumerable<Point2D> points)
         {
-            var coordinates = ConvertPoint2DElementsToCoordinates(mapGeometry.PointCollections.First());
-            IBasicLineString lineString = new LineString(coordinates);
-            return lineString;
+            return factory.CreateLineString(ConvertPoint2DElementsToCoordinates(points).ToList());
         }
 
         private static void CreateStyle(MapLineLayer layer, LineStyle style)

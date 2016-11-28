@@ -149,7 +149,7 @@ namespace Core.Components.Gis.IO.Readers
 
         private MapLineData ConvertMultiLineFeatureToMapLineData(IList<IFeature> lineFeatures, string name)
         {
-            var mapFeatureList = new List<MapFeature>();
+            var mapFeatureList = new MapFeature[lineFeatures.Count];
 
             for (var featureIndex = 0; featureIndex < lineFeatures.Count; featureIndex++)
             {
@@ -158,12 +158,12 @@ namespace Core.Components.Gis.IO.Readers
 
                 CopyMetaDataIntoFeature(feature, featureIndex);
 
-                mapFeatureList.Add(feature);
+                mapFeatureList[featureIndex] = feature;
             }
 
             var mapLineData = new MapLineData(name)
             {
-                Features = mapFeatureList.ToArray()
+                Features = mapFeatureList
             };
             mapLineData.SelectedMetaDataAttribute = mapLineData.MetaData.FirstOrDefault();
 

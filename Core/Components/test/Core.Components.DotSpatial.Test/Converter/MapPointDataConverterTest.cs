@@ -33,9 +33,11 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using DotSpatial.Controls;
+using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
 using NUnit.Framework;
+using PointShape = DotSpatial.Symbology.PointShape;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {
@@ -56,7 +58,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void CanConvertMapData_MapPointData_ReturnsTrue()
         {
             // Setup
-            var feature = new[]
+            MapFeature[] feature = 
             {
                 new MapFeature(new[]
                 {
@@ -74,7 +76,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var canConvert = converter.CanConvertMapData(pointData);
+            bool canConvert = converter.CanConvertMapData(pointData);
 
             // Assert
             Assert.IsTrue(canConvert);
@@ -88,7 +90,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapData = new TestMapData("test data");
 
             // Call
-            var canConvert = converter.CanConvertMapData(mapData);
+            bool canConvert = converter.CanConvertMapData(mapData);
 
             // Assert
             Assert.IsFalse(canConvert);
@@ -129,10 +131,12 @@ namespace Core.Components.DotSpatial.Test.Converter
             IMapFeatureLayer layer = converter.Convert(pointData);
 
             // Assert
-            Assert.AreEqual(pointData.Features.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(pointData.Features.Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPointLayer>(layer);
             Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
-            CollectionAssert.AreNotEqual(pointData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
+            
+            IEnumerable<Point2D> points = pointData.Features.First().MapGeometries.First().PointCollections.First();
+            CollectionAssert.AreEqual(points.Select(p => new Coordinate(p.X, p.Y)), layer.DataSet.Features[0].Coordinates);            
             Assert.AreEqual(showLabels, layer.ShowLabels);
             CollectionAssert.IsEmpty(layer.DataSet.GetColumns());
 
@@ -178,10 +182,12 @@ namespace Core.Components.DotSpatial.Test.Converter
             IMapFeatureLayer layer = converter.Convert(pointData);
 
             // Assert
-            Assert.AreEqual(pointData.Features.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(pointData.Features.Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPointLayer>(layer);
             Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
-            CollectionAssert.AreNotEqual(pointData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
+            
+            IEnumerable<Point2D> points = pointData.Features.First().MapGeometries.First().PointCollections.First();
+            CollectionAssert.AreEqual(points.Select(p => new Coordinate(p.X, p.Y)), layer.DataSet.Features[0].Coordinates);
             Assert.IsFalse(layer.ShowLabels);
 
             DataColumn[] dataColumns = layer.DataSet.GetColumns();
@@ -234,10 +240,12 @@ namespace Core.Components.DotSpatial.Test.Converter
             IMapFeatureLayer layer = converter.Convert(pointData);
 
             // Assert
-            Assert.AreEqual(pointData.Features.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(pointData.Features.Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPointLayer>(layer);
             Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
-            CollectionAssert.AreNotEqual(pointData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
+
+            IEnumerable<Point2D> points = pointData.Features.First().MapGeometries.First().PointCollections.First();
+            CollectionAssert.AreEqual(points.Select(p => new Coordinate(p.X, p.Y)), layer.DataSet.Features[0].Coordinates);
             Assert.IsTrue(layer.ShowLabels);
 
             DataColumn[] dataColumns = layer.DataSet.GetColumns();
@@ -246,7 +254,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual("2", dataColumns[1].ColumnName);
 
             Assert.IsNotNull(layer.LabelLayer);
-            var labelCategory = layer.LabelLayer.Symbology.Categories[0];
+            ILabelCategory labelCategory = layer.LabelLayer.Symbology.Categories[0];
             Assert.AreEqual("FID", labelCategory.Symbolizer.PriorityField);
             Assert.AreEqual(ContentAlignment.MiddleRight, labelCategory.Symbolizer.Orientation);
             Assert.AreEqual(5, labelCategory.Symbolizer.OffsetX);
@@ -258,7 +266,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapPointDataConverter();
-            var features = new[]
+            MapFeature[] features = 
             {
                 new MapFeature(new[]
                 {
@@ -305,7 +313,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             layer.DataSet.InitializeVertices();
             Assert.AreEqual(3, layer.DataSet.ShapeIndices.Count);
 
-            foreach (var shapeIndex in layer.DataSet.ShapeIndices)
+            foreach (ShapeRange shapeIndex in layer.DataSet.ShapeIndices)
             {
                 Assert.AreEqual(1, shapeIndex.NumParts);
             }
@@ -371,7 +379,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var data = new MapPointData(name);
 
             // Call
-            var layer = (MapPointLayer) converter.Convert(data);
+            MapPointLayer layer = (MapPointLayer) converter.Convert(data);
 
             // Assert
             Assert.AreEqual(name, layer.Name);
@@ -393,7 +401,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layer = (MapPointLayer) converter.Convert(data);
+            MapPointLayer layer = (MapPointLayer) converter.Convert(data);
 
             // Assert
             AssertAreEqual(new PointSymbolizer(expectedColor, PointShape.Ellipse, 3), layer.Symbolizer);
@@ -414,7 +422,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layer = (MapPointLayer) converter.Convert(data);
+            MapPointLayer layer = (MapPointLayer) converter.Convert(data);
 
             // Assert
             AssertAreEqual(new PointSymbolizer(Color.AliceBlue, PointShape.Ellipse, width), layer.Symbolizer);
@@ -435,7 +443,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layer = (MapPointLayer) converter.Convert(data);
+            MapPointLayer layer = (MapPointLayer) converter.Convert(data);
 
             // Assert
             PointShape expectedPointShape = pointStyle == PointSymbol.Circle
@@ -448,13 +456,13 @@ namespace Core.Components.DotSpatial.Test.Converter
 
         private static void AssertAreEqual(IPointSymbolizer firstSymbolizer, IPointSymbolizer secondSymbolizer)
         {
-            var firstSymbols = firstSymbolizer.Symbols;
-            var secondSymbols = secondSymbolizer.Symbols;
+            IList<ISymbol> firstSymbols = firstSymbolizer.Symbols;
+            IList<ISymbol> secondSymbols = secondSymbolizer.Symbols;
             Assert.AreEqual(firstSymbols.Count, secondSymbols.Count, "Unequal amount of strokes defined.");
             for (var i = 0; i < firstSymbols.Count; i++)
             {
-                var firstStroke = (SimpleSymbol) firstSymbols[i];
-                var secondStroke = (SimpleSymbol) secondSymbols[i];
+                SimpleSymbol firstStroke = (SimpleSymbol) firstSymbols[i];
+                SimpleSymbol secondStroke = (SimpleSymbol) secondSymbols[i];
 
                 Assert.AreEqual(firstStroke.Color, secondStroke.Color);
                 Assert.AreEqual(firstStroke.PointShape, secondStroke.PointShape);

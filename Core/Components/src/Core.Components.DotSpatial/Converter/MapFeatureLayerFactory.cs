@@ -36,7 +36,7 @@ namespace Core.Components.DotSpatial.Converter
         /// Creates a <see cref="IMapFeatureLayer"/> from the given <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The <see cref="MapData"/> to base the creation of <see cref="IMapFeatureLayer"/> upon.</param>
-        /// <returns>A new <see cref="IMapFeatureLayer"/>.</returns>
+        /// <returns>A new layer based on <see cref="IMapFeatureLayer"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
         public static IMapFeatureLayer Create(MapData data)
         {
@@ -47,7 +47,7 @@ namespace Core.Components.DotSpatial.Converter
                 new MapPolygonDataConverter()
             };
 
-            foreach (var converter in converters.Where(c => c.CanConvertMapData(data)))
+            foreach (IMapDataConverter converter in converters.Where(c => c.CanConvertMapData(data)))
             {
                 return converter.Convert(data);
             }

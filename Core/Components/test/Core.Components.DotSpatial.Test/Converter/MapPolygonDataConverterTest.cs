@@ -34,6 +34,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using DotSpatial.Controls;
+using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
 using NUnit.Framework;
@@ -75,7 +76,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var canConvert = converter.CanConvertMapData(polygonData);
+            bool canConvert = converter.CanConvertMapData(polygonData);
 
             // Assert
             Assert.IsTrue(canConvert);
@@ -89,7 +90,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapData = new TestMapData("test data");
 
             // Call
-            var canConvert = converter.CanConvertMapData(mapData);
+            bool canConvert = converter.CanConvertMapData(mapData);
 
             // Assert
             Assert.IsFalse(canConvert);
@@ -109,7 +110,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 polygonPoints.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
-            var mapFeatures = new[]
+            MapFeature[] mapFeatures = 
             {
                 new MapFeature(new[]
                 {
@@ -132,7 +133,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(1, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPolygonLayer>(layer);
             Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
-            CollectionAssert.AreNotEqual(polygonData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
+            
+            IEnumerable<Point2D> points = polygonData.Features.First().MapGeometries.First().PointCollections.First();
+            List<Point2D> expectedPoints = points.ToList();
+            expectedPoints.Add(expectedPoints.First()); // Needed because DotSpatial adds the first point at the end of the collection.
+            CollectionAssert.AreEqual(expectedPoints.Select(p => new Coordinate(p.X, p.Y)), layer.DataSet.Features[0].Coordinates);
         }
 
         [Test]
@@ -140,7 +145,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             Point2D[] outerRingPoints = CreateRectangularRing(0.0, 10.0);
-            var mapFeatures = new[]
+            MapFeature[] mapFeatures = 
             {
                 new MapFeature(new[]
                 {
@@ -157,7 +162,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layer = (PolygonLayer) new MapPolygonDataConverter().Convert(polygonData);
+            PolygonLayer layer = (PolygonLayer) new MapPolygonDataConverter().Convert(polygonData);
 
             // Assert
             Assert.AreEqual(polygonData.IsVisible, layer.IsVisible);
@@ -165,7 +170,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(FeatureType.Polygon, layer.FeatureSet.FeatureType);
             Assert.AreEqual(1, layer.FeatureSet.Features.Count);
 
-            var polygonGeometry = (Polygon) layer.FeatureSet.Features[0].BasicGeometry;
+            Polygon polygonGeometry = (Polygon) layer.FeatureSet.Features[0].BasicGeometry;
             Assert.AreEqual(1, polygonGeometry.NumGeometries);
 
             CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
@@ -179,7 +184,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Point2D[] outerRingPoints = CreateRectangularRing(0.0, 10.0);
             Point2D[] innerRing1Points = CreateRectangularRing(2.0, 3.0);
             Point2D[] innerRing2Points = CreateRectangularRing(8.0, 5.0);
-            var mapFeatures = new[]
+            MapFeature[] mapFeatures = 
             {
                 new MapFeature(new[]
                 {
@@ -198,7 +203,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layer = (PolygonLayer) new MapPolygonDataConverter().Convert(polygonData);
+            PolygonLayer layer = (PolygonLayer) new MapPolygonDataConverter().Convert(polygonData);
 
             // Assert
             Assert.AreEqual(polygonData.IsVisible, layer.IsVisible);
@@ -206,7 +211,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(FeatureType.Polygon, layer.FeatureSet.FeatureType);
             Assert.AreEqual(1, layer.FeatureSet.Features.Count);
 
-            var polygonGeometry = (Polygon) layer.FeatureSet.Features[0].BasicGeometry;
+            Polygon polygonGeometry = (Polygon) layer.FeatureSet.Features[0].BasicGeometry;
             Assert.AreEqual(1, polygonGeometry.NumGeometries);
 
             CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
@@ -220,7 +225,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapPolygonDataConverter();
-            var features = new[]
+            MapFeature[] features = 
             {
                 new MapFeature(Enumerable.Empty<MapGeometry>()),
                 new MapFeature(Enumerable.Empty<MapGeometry>()),
@@ -244,7 +249,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapPolygonDataConverter();
-            var features = new[]
+            MapFeature[] features = 
             {
                 new MapFeature(new[]
                 {
@@ -282,7 +287,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                     })
                 })
             };
-            var geometries = features.First().MapGeometries.ToArray();
+            MapGeometry[] geometries = features.First().MapGeometries.ToArray();
 
             var polygonData = new MapPolygonData("test")
             {
@@ -295,7 +300,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
             layer.DataSet.InitializeVertices();
-            var layerGeometries = layer.DataSet.ShapeIndices.First().Parts;
+            List<PartRange> layerGeometries = layer.DataSet.ShapeIndices.First().Parts;
             Assert.AreEqual(geometries.Length, layerGeometries.Count);
         }
 
@@ -337,7 +342,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapPolygonDataConverter();
             var random = new Random(21);
-            var features = new List<MapFeature>
+            MapFeature[] features = 
             {
                 new MapFeature(new[]
                 {
@@ -361,7 +366,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             var polygonData = new MapPolygonData("test data")
             {
-                Features = features.ToArray()
+                Features = features
             };
 
             // Call
@@ -377,7 +382,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapPolygonDataConverter();
             var random = new Random(21);
-            var features = new List<MapFeature>
+            MapFeature[] features = 
             {
                 new MapFeature(new[]
                 {
@@ -416,7 +421,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             var lineData = new MapPolygonData("test data")
             {
-                Features = features.ToArray()
+                Features = features
             };
 
             // Call
@@ -463,7 +468,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             IMapFeatureLayer layer = converter.Convert(polygonData);
 
             // Assert
-            Assert.AreEqual(polygonData.Features.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(polygonData.Features.Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPolygonLayer>(layer);
             Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
             CollectionAssert.AreNotEqual(polygonData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
@@ -514,7 +519,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             IMapFeatureLayer layer = converter.Convert(polygonData);
 
             // Assert
-            Assert.AreEqual(polygonData.Features.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(polygonData.Features.Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPolygonLayer>(layer);
             Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
             CollectionAssert.AreNotEqual(polygonData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
@@ -572,7 +577,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             IMapFeatureLayer layer = converter.Convert(polygonData);
 
             // Assert
-            Assert.AreEqual(polygonData.Features.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(polygonData.Features.Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPolygonLayer>(layer);
             Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
             CollectionAssert.AreNotEqual(polygonData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
@@ -584,7 +589,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual("2", dataColumns[1].ColumnName);
 
             Assert.IsNotNull(layer.LabelLayer);
-            var labelCategory = layer.LabelLayer.Symbology.Categories[0];
+            ILabelCategory labelCategory = layer.LabelLayer.Symbology.Categories[0];
             Assert.AreEqual("FID", labelCategory.Symbolizer.PriorityField);
             Assert.AreEqual(ContentAlignment.MiddleRight, labelCategory.Symbolizer.Orientation);
             Assert.AreEqual(5, labelCategory.Symbolizer.OffsetX);
@@ -619,7 +624,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var data = new MapPolygonData(name);
 
             // Call
-            var layer = (MapPolygonLayer) converter.Convert(data);
+            MapPolygonLayer layer = (MapPolygonLayer) converter.Convert(data);
 
             // Assert
             Assert.AreEqual(name, layer.Name);
@@ -641,7 +646,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layer = (MapPolygonLayer) converter.Convert(data);
+            MapPolygonLayer layer = (MapPolygonLayer) converter.Convert(data);
 
             // Assert
             AssertAreEqual(new PolygonSymbolizer(expectedColor, Color.AliceBlue, 3), layer.Symbolizer);
@@ -663,7 +668,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layer = (MapPolygonLayer) converter.Convert(data);
+            MapPolygonLayer layer = (MapPolygonLayer) converter.Convert(data);
 
             // Assert
             AssertAreEqual(new PolygonSymbolizer(Color.AliceBlue, expectedColor, 3), layer.Symbolizer);
@@ -684,7 +689,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            var layer = (MapPolygonLayer) converter.Convert(data);
+            MapPolygonLayer layer = (MapPolygonLayer) converter.Convert(data);
 
             // Assert
             AssertAreEqual(new PolygonSymbolizer(Color.AliceBlue, Color.AliceBlue, width), layer.Symbolizer);
@@ -704,13 +709,13 @@ namespace Core.Components.DotSpatial.Test.Converter
 
         private static void AssertAreEqual(IPolygonSymbolizer firstSymbolizer, IPolygonSymbolizer secondSymbolizer)
         {
-            var firstSymbols = firstSymbolizer.Patterns;
-            var secondSymbols = secondSymbolizer.Patterns;
+            IList<IPattern> firstSymbols = firstSymbolizer.Patterns;
+            IList<IPattern> secondSymbols = secondSymbolizer.Patterns;
             Assert.AreEqual(firstSymbols.Count, secondSymbols.Count, "Unequal amount of strokes defined.");
             for (var i = 0; i < firstSymbols.Count; i++)
             {
-                var firstStroke = (SimplePattern) firstSymbols[i];
-                var secondStroke = (SimplePattern) secondSymbols[i];
+                SimplePattern firstStroke = (SimplePattern) firstSymbols[i];
+                SimplePattern secondStroke = (SimplePattern) secondSymbols[i];
 
                 Assert.AreEqual(firstStroke.FillColor, secondStroke.FillColor);
                 Assert.AreEqual(firstStroke.Outline.GetFillColor(), secondStroke.Outline.GetFillColor());

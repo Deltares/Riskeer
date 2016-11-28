@@ -140,7 +140,7 @@ namespace Core.Components.Gis.IO.Readers
 
         private FeatureBasedMapData ConvertPolygonFeaturesToMapPointData(IList<IFeature> featureList, string name)
         {
-            var mapFeatures = new List<MapFeature>();
+            var mapFeatures = new MapFeature[featureList.Count];
 
             for (int i = 0; i < featureList.Count; i++)
             {
@@ -149,12 +149,12 @@ namespace Core.Components.Gis.IO.Readers
 
                 CopyMetaDataIntoFeature(mapFeature, i);
 
-                mapFeatures.Add(mapFeature);
+                mapFeatures[i] = mapFeature;
             }
 
             var mapPolygonData = new MapPolygonData(name)
             {
-                Features = mapFeatures.ToArray()
+                Features = mapFeatures
             };
             mapPolygonData.SelectedMetaDataAttribute = mapPolygonData.MetaData.FirstOrDefault();
 
