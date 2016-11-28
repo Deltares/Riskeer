@@ -31,7 +31,6 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Data;
-using DotSpatial.Symbology;
 using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Forms
@@ -272,25 +271,13 @@ namespace Core.Components.DotSpatial.Forms
 
             drawnMapData.Observer = new Observer(() =>
             {
-                var newMapFeatureLayer = MapFeatureLayerFactory.Create(drawnMapData.FeatureBasedMapData);
+                MapFeatureLayerFactory.ConvertLayerProperties(drawnMapData.FeatureBasedMapData, drawnMapData.MapFeatureLayer);
 
-                if (ReferenceEquals(drawnMapData.FeatureBasedMapData.Features, drawnMapData.Features))
+                if (!ReferenceEquals(drawnMapData.FeatureBasedMapData.Features, drawnMapData.Features))
                 {
-                    // Only update some properties when the array of drawn features is still the same
-                    drawnMapData.MapFeatureLayer.IsVisible = newMapFeatureLayer.IsVisible;
-                    ((FeatureLayer) drawnMapData.MapFeatureLayer).Name = ((FeatureLayer) drawnMapData.MapFeatureLayer).Name;
-                    drawnMapData.MapFeatureLayer.ShowLabels = newMapFeatureLayer.ShowLabels;
-                    drawnMapData.MapFeatureLayer.LabelLayer = newMapFeatureLayer.LabelLayer;
-                    drawnMapData.MapFeatureLayer.Symbolizer = newMapFeatureLayer.Symbolizer;
-                }
-                else
-                {
-                    // Otherwise redraw the feature layer and update the drawn map data lookup
-                    var replaceIndex = map.Layers.IndexOf(drawnMapData.MapFeatureLayer);
-                    map.Layers.RemoveAt(replaceIndex);
-                    map.Layers.Insert(replaceIndex, newMapFeatureLayer);
+                    MapFeatureLayerFactory.ConvertLayerFeatures(drawnMapData.FeatureBasedMapData, drawnMapData.MapFeatureLayer);
+
                     drawnMapData.Features = drawnMapData.FeatureBasedMapData.Features;
-                    drawnMapData.MapFeatureLayer = newMapFeatureLayer;
                 }
             })
             {
