@@ -57,5 +57,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// Gets the <see cref="HydraRing.Data.HydraulicBoundaryLocation"/>.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
+
+        public override bool Equals(WrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>> other)
+        {
+            return base.Equals(other) && ReferenceEquals(((GrassCoverErosionOutwardsHydraulicBoundaryLocationContext) other).HydraulicBoundaryLocation, HydraulicBoundaryLocation);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ HydraulicBoundaryLocation.GetHashCode();
+        }
     }
 }

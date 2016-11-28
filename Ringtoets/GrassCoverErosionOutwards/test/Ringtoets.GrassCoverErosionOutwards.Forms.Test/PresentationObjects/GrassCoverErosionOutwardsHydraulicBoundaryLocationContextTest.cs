@@ -64,6 +64,114 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             Assert.AreSame(hydraulicBoundaryLocation, presentationObject.HydraulicBoundaryLocation);
         }
 
+        [Test]
+        public void Equals_ToNull_ReturnFalse()
+        {
+            // Setup
+            var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
+
+            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation);
+
+            // Call
+            var isEqual = context.Equals(null);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+        }
+
+        [Test]
+        public void Equals_ToItself_ReturnTrue()
+        {
+            // Setup
+            var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
+
+            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation);
+
+            // Call
+            var isEqual = context.Equals(context);
+
+            // Assert
+            Assert.IsTrue(isEqual);
+        }
+
+        [Test]
+        public void Equals_ToOtherWithDifferentLocationListAndSameLocation_ReturnFalse()
+        {
+            // Setup
+            var hydraulicBoundaryLocationList1 = new ObservableList<HydraulicBoundaryLocation>();
+            var hydraulicBoundaryLocationList2 = new ObservableList<HydraulicBoundaryLocation>();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
+            var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList1, hydraulicBoundaryLocation);
+            var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList2, hydraulicBoundaryLocation);
+
+            // Call
+            var isEqual1 = context1.Equals(context2);
+            var isEqual2 = context2.Equals(context1);
+
+            // Assert
+            Assert.IsFalse(isEqual1);
+            Assert.IsFalse(isEqual2);
+        }
+
+        [Test]
+        public void Equals_ToOtherWithSameLocationListAndDifferentLocation_ReturnFalse()
+        {
+            // Setup
+            var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "First name", 2.0, 3.0);
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Second name", 4.0, 5.0);
+            var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation1);
+            var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation2);
+
+            // Call
+            var isEqual1 = context1.Equals(context2);
+            var isEqual2 = context2.Equals(context1);
+
+            // Assert
+            Assert.IsFalse(isEqual1);
+            Assert.IsFalse(isEqual2);
+        }
+
+        [Test]
+        public void Equals_ToOtherWithSameLocationListAndSameLocation_ReturnTrue()
+        {
+            // Setup
+            var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
+            var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation);
+            var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation);
+
+            // Call
+            var isEqual1 = context1.Equals(context2);
+            var isEqual2 = context2.Equals(context1);
+
+            // Assert
+            Assert.IsTrue(isEqual1);
+            Assert.IsTrue(isEqual2);
+        }
+
+        [Test]
+        public void GetHashCode_EqualObjects_ReturnSameHashCode()
+        {
+            // Setup
+            var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
+            var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation);
+            var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation);
+
+            // Precondition
+            Assert.AreEqual(context1, context2);
+
+            // Call
+            var hashCode1 = context1.GetHashCode();
+            var hashCode2 = context2.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCode1, hashCode2);
+        }
+
         private class TestGrassCoverErosionOutwardsLocationContext : GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
         {
             public TestGrassCoverErosionOutwardsLocationContext(ObservableList<HydraulicBoundaryLocation> observable,
