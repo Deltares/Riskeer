@@ -31,10 +31,9 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapPolygonData"/> into a <see cref="IMapFeatureLayer"/>
-    /// containing a <see cref="Polygon"/>.
+    /// The converter that converts <see cref="MapPolygonData"/> into a <see cref="MapPolygonLayer"/>.
     /// </summary>
-    public class MapPolygonDataConverter : MapDataConverter<MapPolygonData>
+    public class MapPolygonDataConverter : MapDataConverter<MapPolygonData, MapPolygonLayer>
     {
         protected override IMapFeatureLayer Convert(MapPolygonData data)
         {

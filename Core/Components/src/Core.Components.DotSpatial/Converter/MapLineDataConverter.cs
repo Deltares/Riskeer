@@ -33,10 +33,9 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapLineData"/> into a <see cref="IMapFeatureLayer"/>
-    /// containing a <see cref="LineString"/>.
+    /// The converter that converts <see cref="MapLineData"/> into a <see cref="MapLineLayer"/>.
     /// </summary>
-    public class MapLineDataConverter : MapDataConverter<MapLineData>
+    public class MapLineDataConverter : MapDataConverter<MapLineData, MapLineLayer>
     {
         protected override IMapFeatureLayer Convert(MapLineData data)
         {

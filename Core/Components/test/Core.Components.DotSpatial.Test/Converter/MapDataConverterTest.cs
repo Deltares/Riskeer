@@ -108,9 +108,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             public Child(string name) : base(name) {}
         }
 
-        private class TestMapDataConverter<T> : MapDataConverter<T> where T : MapData
+        private class TestMapDataConverter<TMapData> : MapDataConverter<TMapData, MapPointLayer>
+            where TMapData : MapData
         {
-            protected override IMapFeatureLayer Convert(T data)
+            protected override IMapFeatureLayer Convert(TMapData data)
             {
                 return new MapPointLayer();
             }

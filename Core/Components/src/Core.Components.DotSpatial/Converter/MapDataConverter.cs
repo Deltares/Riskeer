@@ -37,7 +37,11 @@ namespace Core.Components.DotSpatial.Converter
     /// <summary>
     /// Abstract base class for transforming <see cref="MapData"/> into <see cref="IMapFeatureLayer"/>.
     /// </summary>
-    public abstract class MapDataConverter<T> : IMapDataConverter where T : MapData
+    /// <typeparam name="TMapData">The type of map data to convert.</typeparam>
+    /// <typeparam name="TMapFeatureLayer">The type of map feature layer to set the converted data to.</typeparam>
+    public abstract class MapDataConverter<TMapData, TMapFeatureLayer> : IMapDataConverter
+        where TMapData : MapData
+        where TMapFeatureLayer : IMapFeatureLayer
     {
         /// <summary>
         /// <remarks>Needed because DotSpatial can't handle special characters.
@@ -47,7 +51,7 @@ namespace Core.Components.DotSpatial.Converter
         private readonly Dictionary<string, string> columnLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MapDataConverter{T}"/>
+        /// Creates a new instance of <see cref="MapDataConverter{TMapData, TMapFeatureLayer}"/>
         /// </summary>
         protected MapDataConverter()
         {
@@ -56,23 +60,14 @@ namespace Core.Components.DotSpatial.Converter
 
         public bool CanConvertMapData(MapData data)
         {
-            return data is T;
+            return data is TMapData;
         }
 
         public IMapFeatureLayer Convert(MapData data)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException("data", @"Null data cannot be converted into a feature layer.");
-            }
+            ValidateParameters(data);
 
-            if (!CanConvertMapData(data))
-            {
-                var message = string.Format("The data of type {0} cannot be converted by this converter.", data.GetType());
-                throw new ArgumentException(message);
-            }
-
-            return Convert((T) data);
+            return Convert((TMapData) data);
         }
 
         /// <summary>
@@ -80,7 +75,7 @@ namespace Core.Components.DotSpatial.Converter
         /// </summary>
         /// <param name="data">The data to transform into a <see cref="IMapFeatureLayer"/>.</param>
         /// <returns>A new <see cref="IMapFeatureLayer"/>.</returns>
-        protected abstract IMapFeatureLayer Convert(T data);
+        protected abstract IMapFeatureLayer Convert(TMapData data);
 
         /// <summary>
         /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an
@@ -111,7 +106,7 @@ namespace Core.Components.DotSpatial.Converter
                 {
                     columnLookup.Add(attributeName, columnName);
 
-                    if(!featureSet.DataTable.Columns.Contains(columnName))
+                    if (!featureSet.DataTable.Columns.Contains(columnName))
                     {
                         featureSet.DataTable.Columns.Add(columnName, typeof(string));
                     }
@@ -144,6 +139,20 @@ namespace Core.Components.DotSpatial.Converter
             }
 
             return labelLayer;
+        }
+
+        private void ValidateParameters(MapData data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException("data", @"Null data cannot be converted into a feature layer.");
+            }
+
+            if (!CanConvertMapData(data))
+            {
+                var message = string.Format("The data of type {0} cannot be converted by this converter.", data.GetType());
+                throw new ArgumentException(message);
+            }
         }
     }
 }

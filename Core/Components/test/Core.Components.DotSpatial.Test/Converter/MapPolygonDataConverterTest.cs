@@ -51,7 +51,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapPolygonDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<MapDataConverter<MapPolygonData>>(converter);
+            Assert.IsInstanceOf<MapDataConverter<MapPolygonData, MapPolygonLayer>>(converter);
         }
 
         [Test]

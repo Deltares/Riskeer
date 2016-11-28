@@ -51,7 +51,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapPointDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<MapDataConverter<MapPointData>>(converter);
+            Assert.IsInstanceOf<MapDataConverter<MapPointData, MapPointLayer>>(converter);
         }
 
         [Test]
