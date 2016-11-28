@@ -310,9 +310,9 @@ namespace Core.Common.Controls.TreeView
                     placeholderLocation = PlaceholderLocation.Middle;
                 }
             }
-            else if (nodeOver.Parent != null
-                     && offsetY > nodeOver.Bounds.Height - nodeOver.Bounds.Height/3
-                     && nodeDragging.PrevNode != nodeOver)
+            else if (nodeOver.Parent != null &&
+                     offsetY > nodeOver.Bounds.Height - nodeOver.Bounds.Height/3 &&
+                     nodeDragging.PrevNode != nodeOver)
             {
                 TreeNodeInfo treeNodeInfo = getTreeNodeInfoForData(nodeOver.Parent.Tag);
                 if (treeNodeInfo.CanInsert != null && treeNodeInfo.CanInsert(nodeDragging.Tag, nodeOver.Parent.Tag))
@@ -330,9 +330,9 @@ namespace Core.Common.Controls.TreeView
                     placeholderLocation = PlaceholderLocation.Middle;
                 }
             }
-            else if (nodeDragging != nodeOver
-                     && offsetY < nodeOver.Bounds.Height - nodeOver.Bounds.Height/4
-                     && offsetY > nodeOver.Bounds.Height/4)
+            else if (nodeDragging != nodeOver &&
+                     offsetY < nodeOver.Bounds.Height - nodeOver.Bounds.Height/4 &&
+                     offsetY > nodeOver.Bounds.Height/4)
             {
                 nodeDropTarget = nodeOver;
                 dropAtLocation = 0;

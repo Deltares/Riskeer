@@ -100,8 +100,7 @@ namespace Core.Components.DotSpatial.Converter
             else
             {
                 ILinearRing shell = null;
-                ILinearRing[] holes =
-                {};
+                var holes = new ILinearRing[0];
 
                 if (geometryList.Count == 1)
                 {

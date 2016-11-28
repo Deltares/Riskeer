@@ -116,8 +116,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Equals_ObjectToEqualToIsCategoryTreeFolderWithDifferentAmountOfContents_ResultShouldNotBeEqual()
         {
             // Setup
-            var treeFolder1 = new CategoryTreeFolder("<name>", new object[]
-            {});
+            var treeFolder1 = new CategoryTreeFolder("<name>", new object[0]);
             var treeFolder2 = new CategoryTreeFolder("<name>", new[]
             {
                 new object()

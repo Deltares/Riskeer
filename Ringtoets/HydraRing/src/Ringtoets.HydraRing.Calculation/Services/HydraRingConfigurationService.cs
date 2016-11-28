@@ -438,8 +438,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
                                               : defaultHydraRingValue
                         },
                         {
-                            "Parameter2", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic
-                                          && hydraRingVariable.DeviationType == HydraRingDeviationType.Standard
+                            "Parameter2", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic &&
+                                          hydraRingVariable.DeviationType == HydraRingDeviationType.Standard
                                               ? GetHydraRingNullableValue(hydraRingVariable.Variability)
                                               : defaultHydraRingNullValue
                         },
@@ -455,8 +455,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
                             "DeviationType", (int?) hydraRingVariable.DeviationType
                         },
                         {
-                            "CoefficientOfVariation", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic
-                                                      && hydraRingVariable.DeviationType == HydraRingDeviationType.Variation
+                            "CoefficientOfVariation", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic &&
+                                                      hydraRingVariable.DeviationType == HydraRingDeviationType.Variation
                                                           ? GetHydraRingValue(hydraRingVariable.Variability)
                                                           : defaultHydraRingValue
                         },

@@ -809,9 +809,9 @@ namespace Ringtoets.Integration.Plugin
 
             var failureMechanismWithSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
 
-            return failureMechanism != null
-                   && failureMechanismWithSectionResults != null
-                   && ReferenceEquals(viewData, failureMechanismWithSectionResults.SectionResults);
+            return failureMechanism != null &&
+                   failureMechanismWithSectionResults != null &&
+                   ReferenceEquals(viewData, failureMechanismWithSectionResults.SectionResults);
         }
 
         #endregion

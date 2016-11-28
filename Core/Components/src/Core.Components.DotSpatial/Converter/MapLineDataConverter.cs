@@ -81,8 +81,7 @@ namespace Core.Components.DotSpatial.Converter
                                                                .ToArray());
             }
 
-            Point2D[] pointsToConvert =
-            {};
+            var pointsToConvert = new Point2D[0];
             if (mapFeature.MapGeometries.Count() == 1)
             {
                 pointsToConvert = mapFeature.MapGeometries.First().PointCollections.First().ToArray();

@@ -263,8 +263,8 @@ namespace Ringtoets.Common.Forms.Views
             where T : StructuresInputBase<U>, new()
             where U : StructureBase
         {
-            return calculation.InputParameters.Structure != null
-                   && calculation.InputParameters.HydraulicBoundaryLocation != null;
+            return calculation.InputParameters.Structure != null &&
+                   calculation.InputParameters.HydraulicBoundaryLocation != null;
         }
 
         private static MapFeature CreateFailureMechanismSectionMapFeature(FailureMechanismSection section)

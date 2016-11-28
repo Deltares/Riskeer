@@ -297,9 +297,9 @@ namespace Ringtoets.Revetment.Data
 
         private static void ValidateBoundaries(RoundedDouble lowerBoundary, RoundedDouble upperBoundary, string exceptionMessage)
         {
-            if (!double.IsNaN(lowerBoundary)
-                && !double.IsNaN(upperBoundary)
-                && lowerBoundary >= upperBoundary)
+            if (!double.IsNaN(lowerBoundary) &&
+                !double.IsNaN(upperBoundary) &&
+                lowerBoundary >= upperBoundary)
             {
                 throw new ArgumentOutOfRangeException(null, exceptionMessage);
             }
@@ -320,9 +320,9 @@ namespace Ringtoets.Revetment.Data
                                                                   ? LowerBoundaryWaterLevels
                                                                   : double.MinValue));
 
-            if (double.IsNaN(upperBoundary)
-                || double.IsNaN(lowerBoundary)
-                || (lowerBoundary >= upperBoundary))
+            if (double.IsNaN(upperBoundary) ||
+                double.IsNaN(lowerBoundary) ||
+                (lowerBoundary >= upperBoundary))
             {
                 return waterLevels;
             }

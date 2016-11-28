@@ -43,11 +43,11 @@ namespace Core.Components.DotSpatial.Converter
         where TMapData : MapData
         where TMapFeatureLayer : IMapFeatureLayer
     {
-        /// <summary>
-        /// <remarks>Needed because DotSpatial can't handle special characters.
+        /// <remarks>
+        /// Needed because DotSpatial can't handle special characters.
         /// Therefore we create an id as column name for the data table in the featureSet.
-        /// We need this lookup to match the selected attribute from the MapData with the created id.</remarks>
-        /// </summary>
+        /// We need this lookup to match the selected attribute from the MapData with the created id.
+        /// </remarks>
         private readonly Dictionary<string, string> columnLookup;
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <summary>
         /// Adds <see cref="MapFeature.MetaData"/> as attributes to the given <see cref="Feature"/> and to the <see cref="IFeatureSet.DataTable"/>.
         /// </summary>
-        /// <param name="ringtoetsMapFeature">The <see cref="MapFeature"/> to get the mete data from.</param>
+        /// <param name="ringtoetsMapFeature">The <see cref="MapFeature"/> to get the meta data from.</param>
         /// <param name="featureSet">The <see cref="IFeatureSet"/> to add the attributes to.</param>
         /// <param name="feature">The <see cref="Feature"/> to add the attributes to.</param>
         protected void AddMetaDataAsAttributes(MapFeature ringtoetsMapFeature, IFeatureSet featureSet, Feature feature)

@@ -553,8 +553,8 @@ namespace Core.Common.Controls.TreeView
                                      : Color.FromKnownColor(KnownColor.ControlText);
             SetTreeNodeImageKey(treeNode, treeNodeInfo);
 
-            if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(treeNode.Tag)
-                && treeNodeInfo.IsChecked != null)
+            if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(treeNode.Tag) &&
+                treeNodeInfo.IsChecked != null)
             {
                 if (treeNode.Checked != treeNodeInfo.IsChecked(treeNode.Tag))
                 {

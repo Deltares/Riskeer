@@ -119,9 +119,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return data == null
-                   || !propertyName.Equals(TypeUtils.GetMemberName<UseBreakWaterProperties>(i => i.UseBreakWater))
-                   && !UseBreakWater;
+            return data == null ||
+                   !propertyName.Equals(TypeUtils.GetMemberName<UseBreakWaterProperties>(i => i.UseBreakWater)) &&
+                   !UseBreakWater;
         }
 
         public override string ToString()
