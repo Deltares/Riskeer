@@ -358,7 +358,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const int hydraulicBoundaryLocationId = 700004;
 
             var section = new HydraRingSection(1, 2.2, 3.3);
-            const double norm = 1000;
+            const double returnPeriod = 1000;
             const double modelFactorCriticalOvertopping = 4.4;
             const double factorFbMean = 5.5;
             const double factorFbStandardDeviation = 6.6;
@@ -383,7 +383,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
-                new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, section,
+                new DikeHeightCalculationInput(hydraulicBoundaryLocationId, returnPeriod, section,
                                                profilePoints, forelandPoints, breakWater,
                                                modelFactorCriticalOvertopping,
                                                factorFbMean, factorFbStandardDeviation,
@@ -496,7 +496,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const int hydraulicBoundaryLocationId = 700004;
 
             var section = new HydraRingSection(1, 2.2, 3.3);
-            const double norm = 1000;
+            const double returnPeriod = 1000;
             const double dikeHeight = 4.4;
             const double modelFactorCriticalOvertopping = 5.5;
             const double factorFbMean = 6.6;
@@ -520,7 +520,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
-                new OvertoppingRateCalculationInput(hydraulicBoundaryLocationId, norm, section,
+                new OvertoppingRateCalculationInput(hydraulicBoundaryLocationId, returnPeriod, section,
                                                profilePoints, forelandPoints, breakWater,
                                                dikeHeight,
                                                modelFactorCriticalOvertopping,

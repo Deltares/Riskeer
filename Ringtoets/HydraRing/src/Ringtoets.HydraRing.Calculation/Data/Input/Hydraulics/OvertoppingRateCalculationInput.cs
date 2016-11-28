@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// Creates a new instance of the <see cref="OvertoppingRateCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="norm">The norm.</param>
+        /// <param name="returnPeriod">The return period.</param>
         /// <param name="section">The section.</param>
         /// <param name="profilePoints">The profile points.</param>
         /// <param name="forelandPoints">The foreland points.</param>
@@ -52,7 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// <param name="modelFactorFrunupStandardDeviation">The standard deviation of the factor frunup.</param>
         /// <param name="exponentModelFactorShallowMean">The mean of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowStandardDeviation">The standard deviation of the exponent model factor shallow.</param>
-        public OvertoppingRateCalculationInput(long hydraulicBoundaryLocationId, double norm,
+        public OvertoppingRateCalculationInput(long hydraulicBoundaryLocationId, double returnPeriod,
                                                HydraRingSection section,
                                                IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
                                                IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -64,7 +64,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
                                                double modelFactorOvertopping,
                                                double modelFactorFrunupMean, double modelFactorFrunupStandardDeviation,
                                                double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation)
-            : base(hydraulicBoundaryLocationId, norm,
+            : base(hydraulicBoundaryLocationId, returnPeriod,
                    section,
                    profilePoints,
                    forelandPoints,

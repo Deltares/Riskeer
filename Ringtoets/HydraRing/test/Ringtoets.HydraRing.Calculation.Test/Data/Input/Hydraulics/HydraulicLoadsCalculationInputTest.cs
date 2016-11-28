@@ -120,7 +120,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
 
         private class HydraulicLoadsCalculationInputImplementation : HydraulicLoadsCalculationInput
         {
-            public HydraulicLoadsCalculationInputImplementation(long hydraulicBoundaryLocationId, double norm,
+            public HydraulicLoadsCalculationInputImplementation(long hydraulicBoundaryLocationId, double returnPeriod,
                                                                 HydraRingSection section,
                                                                 IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
                                                                 IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -131,7 +131,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
                                                                 double modelFactorOvertopping,
                                                                 double modelFactorFrunupMean, double modelFactorFrunupStandardDeviation,
                                                                 double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation)
-                : base(hydraulicBoundaryLocationId, norm,
+                : base(hydraulicBoundaryLocationId, returnPeriod,
                        section,
                        profilePoints,
                        forelandPoints,
