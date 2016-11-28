@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="sectionId">The id of the section.</param>
         /// <param name="sectionNormal">The normal of the section.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="norm">The norm.</param>
+        /// <param name="returnPeriod">The return period.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="breakWater">The break water.</param>
         /// <param name="waterLevel">The water level to calculate the wave conditions for.</param>
@@ -47,7 +47,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         public WaveConditionsCosineCalculationInput(int sectionId,
                                                     double sectionNormal,
                                                     long hydraulicBoundaryLocationId,
-                                                    double norm,
+                                                    double returnPeriod,
                                                     IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                     HydraRingBreakWater breakWater,
                                                     double waterLevel,
@@ -57,7 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             : base(sectionId,
                    sectionNormal,
                    hydraulicBoundaryLocationId,
-                   norm,
+                   returnPeriod,
                    forelandPoints,
                    breakWater,
                    waterLevel,

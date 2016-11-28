@@ -405,7 +405,7 @@ namespace Ringtoets.Revetment.Service.Test
             RoundedDouble a = (RoundedDouble) 1.0;
             RoundedDouble b = (RoundedDouble) 0.8;
             RoundedDouble c = (RoundedDouble) 0.4;
-            int norm = 5;
+            int returnPeriod = 5;
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
@@ -430,14 +430,14 @@ namespace Ringtoets.Revetment.Service.Test
                 var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
 
                 // Call
-                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, ringId, calculationName);
+                new WaveConditionsCalculationService().PublicCalculate(a, b, c, returnPeriod, input, hcldFilePath, ringId, calculationName);
 
                 // Assert
                 Assert.AreEqual(Path.GetDirectoryName(hcldFilePath), testCalculator.HydraulicBoundaryDatabaseDirectory);
                 Assert.AreEqual(ringId, testCalculator.RingId);
                 for (int i = 0; i < input.WaterLevels.Count(); i++)
                 {
-                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, norm, input, useForeshore, useBreakWater);
+                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, returnPeriod, input, useForeshore, useBreakWater);
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, testCalculator.ReceivedInputs[i]);
                 }
             }
@@ -451,7 +451,7 @@ namespace Ringtoets.Revetment.Service.Test
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
-            int norm = 5;
+            int returnPeriod = 5;
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
@@ -479,7 +479,7 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     try
                     {
-                        new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, ringId, calculationName);
+                        new WaveConditionsCalculationService().PublicCalculate(a, b, c, returnPeriod, input, hcldFilePath, ringId, calculationName);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -509,7 +509,7 @@ namespace Ringtoets.Revetment.Service.Test
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
-            int norm = 5;
+            int returnPeriod =  5;
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
@@ -533,7 +533,7 @@ namespace Ringtoets.Revetment.Service.Test
                 testCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
-                service.PublicCalculate(a, b, c, norm, input, hcldFilePath, ringId, name);
+                service.PublicCalculate(a, b, c, returnPeriod, input, hcldFilePath, ringId, name);
 
                 // Assert
                 Assert.IsTrue(testCalculator.IsCanceled);
@@ -561,12 +561,12 @@ namespace Ringtoets.Revetment.Service.Test
             return input;
         }
 
-        private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, bool useForeshore, bool useBreakWater)
+        private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double returnPeriod, WaveConditionsInput input, bool useForeshore, bool useBreakWater)
         {
             return new WaveConditionsCosineCalculationInput(1,
                                                             input.Orientation,
                                                             input.HydraulicBoundaryLocation.Id,
-                                                            norm,
+                                                            returnPeriod,
                                                             useForeshore ?
                                                                 input.ForeshoreGeometry.Select(coordinate => new HydraRingForelandPoint(coordinate.X, coordinate.Y))
                                                                 : new HydraRingForelandPoint[0],
@@ -587,9 +587,9 @@ namespace Ringtoets.Revetment.Service.Test
             return ValidateWaveConditionsInput(waveConditionsInput, calculationName, dbFilePath, valueName);
         }
 
-        public void PublicCalculate(RoundedDouble a, RoundedDouble b, RoundedDouble c, int norm, WaveConditionsInput input, string dbFilePath, string ringId, string name)
+        public void PublicCalculate(RoundedDouble a, RoundedDouble b, RoundedDouble c, int returnPeriod, WaveConditionsInput input, string dbFilePath, string ringId, string name)
         {
-            CalculateWaveConditions(name, input, a, b, c, norm, ringId, dbFilePath);
+            CalculateWaveConditions(name, input, a, b, c, returnPeriod, ringId, dbFilePath);
         }
     }
 }

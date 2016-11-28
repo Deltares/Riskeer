@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
         ///     the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="returnPeriod">The return period to use during the calculation.</param>
         /// <param name="messageProvider">The message provider for the services.</param>
         /// <returns>True if the observers should be notified; false if otherwise</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/> 
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabasePath,
                                         IEnumerable<HydraulicBoundaryLocation> locations,
                                         string ringId,
-                                        double norm,
+                                        double returnPeriod,
                                         ICalculationMessageProvider messageProvider);
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
         ///     the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="returnPeriod">The return period to use during the calculation.</param>
         /// <param name="messageProvider">The message provider for the services.</param>
         /// <returns>True if the observers should be notified; false if otherwise</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/> 
@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         bool CalculateWaveHeights(string hydraulicBoundaryDatabasePath,
                                   IEnumerable<HydraulicBoundaryLocation> locations,
                                   string ringId,
-                                  double norm,
+                                  double returnPeriod,
                                   ICalculationMessageProvider messageProvider);
     }
 }

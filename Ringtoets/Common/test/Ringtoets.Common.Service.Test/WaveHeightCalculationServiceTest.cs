@@ -138,7 +138,7 @@ namespace Ringtoets.Common.Service.Test
             const string calculationName = "locationName";
             const string calculationNotConvergedMessage = "calculationNotConvergedMessage";
             const string ringId = "ringId";
-            const double norm = 30;
+            const double returnPeriod = 30;
 
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
@@ -158,14 +158,14 @@ namespace Ringtoets.Common.Service.Test
                 new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocation,
                                                              validFilePath,
                                                              ringId,
-                                                             norm,
+                                                             returnPeriod,
                                                              calculationMessageProviderMock);
 
                 // Assert
                 Assert.AreEqual(testDataPath, testCalculator.HydraulicBoundaryDatabaseDirectory);
                 Assert.AreEqual(ringId, testCalculator.RingId);
 
-                var expectedInput = CreateInput(hydraulicBoundaryLocation, norm);
+                var expectedInput = CreateInput(hydraulicBoundaryLocation, returnPeriod);
                 AssertInput(expectedInput, testCalculator.ReceivedInputs.First());
                 Assert.IsFalse(testCalculator.IsCanceled);
             }
@@ -402,9 +402,9 @@ namespace Ringtoets.Common.Service.Test
             Assert.AreEqual(expectedInput.Beta, hydraRingCalculationInput.Beta);
         }
 
-        private static AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
+        private static AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double returnPeriod)
         {
-            return new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
+            return new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, returnPeriod);
         }
     }
 }

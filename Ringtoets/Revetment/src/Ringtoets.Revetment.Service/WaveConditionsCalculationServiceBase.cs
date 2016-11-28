@@ -109,7 +109,7 @@ namespace Ringtoets.Revetment.Service
         /// <param name="a">The 'a' factor decided on failure mechanism level.</param>
         /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
-        /// <param name="norm">The norm to use as the target.</param>
+        /// <param name="returnPeriod">The return period to use as the target.</param>
         /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
         /// <param name="hrdFilePath">The filepath of the hydraulic boundary database.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
@@ -120,7 +120,7 @@ namespace Ringtoets.Revetment.Service
                                                                             RoundedDouble a,
                                                                             RoundedDouble b,
                                                                             RoundedDouble c,
-                                                                            double norm,
+                                                                            double returnPeriod,
                                                                             string ringId,
                                                                             string hrdFilePath)
         {
@@ -141,7 +141,7 @@ namespace Ringtoets.Revetment.Service
                                                      a,
                                                      b,
                                                      c,
-                                                     norm,
+                                                     returnPeriod,
                                                      waveConditionsInput,
                                                      hrdFilePath,
                                                      ringId,
@@ -201,7 +201,7 @@ namespace Ringtoets.Revetment.Service
         /// <param name="a">The 'a' factor decided on failure mechanism level.</param>
         /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
-        /// <param name="norm">The norm to use as the target.</param>
+        /// <param name="returnPeriod">The return period to use as the target.</param>
         /// <param name="input">The input that is different per calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
@@ -213,7 +213,7 @@ namespace Ringtoets.Revetment.Service
                                                          RoundedDouble a,
                                                          RoundedDouble b,
                                                          RoundedDouble c,
-                                                         double norm,
+                                                         double returnPeriod,
                                                          WaveConditionsInput input,
                                                          string hydraulicBoundaryDatabaseFilePath,
                                                          string ringId,
@@ -221,7 +221,7 @@ namespace Ringtoets.Revetment.Service
         {
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateWaveConditionsCosineCalculator(hlcdDirectory, ringId);
-            WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, norm, input, hydraulicBoundaryDatabaseFilePath);
+            WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, returnPeriod, input, hydraulicBoundaryDatabaseFilePath);
 
             var exceptionThrown = false;
             try
@@ -285,7 +285,7 @@ namespace Ringtoets.Revetment.Service
                                                                         RoundedDouble a,
                                                                         RoundedDouble b,
                                                                         RoundedDouble c,
-                                                                        double norm,
+                                                                        double returnPeriod,
                                                                         WaveConditionsInput input,
                                                                         string hydraulicBoundaryDatabaseFilePath)
         {
@@ -293,7 +293,7 @@ namespace Ringtoets.Revetment.Service
                 1,
                 input.Orientation,
                 input.HydraulicBoundaryLocation.Id,
-                norm,
+                returnPeriod,
                 HydraRingInputParser.ParseForeshore(input),
                 HydraRingInputParser.ParseBreakWater(input),
                 waterLevel,

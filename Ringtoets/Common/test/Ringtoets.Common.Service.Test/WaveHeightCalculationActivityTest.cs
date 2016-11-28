@@ -343,11 +343,11 @@ namespace Ringtoets.Common.Service.Test
             };
 
             string validFilePath = Path.Combine(testDataPath, validFile);
-            const int norm = 300;
+            const int returnPeriod = 300;
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
                                                              validFilePath,
                                                              string.Empty,
-                                                             norm, calculationMessageProviderMock);
+                                                             returnPeriod, calculationMessageProviderMock);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -394,12 +394,12 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
-            var norm = 30;
+            var returnPeriod = 30;
 
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
                                                              validFilePath,
                                                              string.Empty,
-                                                             norm,
+                                                             returnPeriod,
                                                              calculationMessageProviderMock);
 
             using (new HydraRingCalculatorFactoryConfig())

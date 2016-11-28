@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Service
     public class WaveHeightCalculationActivity : HydraRingActivityBase
     {
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
-        private readonly double norm;
+        private readonly double returnPeriod;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly string ringId;
         private readonly ICalculationMessageProvider messageProvider;
@@ -45,14 +45,14 @@ namespace Ringtoets.Common.Service
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="returnPeriod">The return period to use during the calculation.</param>
         /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
         /// or <paramref name="messageProvider"/> is <c>null</c>.</exception>
         public WaveHeightCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                              string hydraulicBoundaryDatabaseFilePath,
                                              string ringId,
-                                             double norm,
+                                             double returnPeriod,
                                              ICalculationMessageProvider messageProvider)
         {
             if (hydraulicBoundaryLocation == null)
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Service
 
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.ringId = ringId;
-            this.norm = norm;
+            this.returnPeriod = returnPeriod;
 
             Name = messageProvider.GetActivityName(hydraulicBoundaryLocation.Name);
             calculationService = new WaveHeightCalculationService();
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Service
                     hydraulicBoundaryLocation,
                     hydraulicBoundaryDatabaseFilePath,
                     ringId,
-                    norm,
+                    returnPeriod,
                     messageProvider);
             }
         }
