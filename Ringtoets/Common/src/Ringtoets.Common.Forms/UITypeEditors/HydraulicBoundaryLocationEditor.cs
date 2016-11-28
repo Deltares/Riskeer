@@ -43,16 +43,22 @@ namespace Ringtoets.Common.Forms.UITypeEditors
 
             return hydraulicBoundaryLocations.Select(hbl =>
                                                      new SelectableHydraulicBoundaryLocation(hbl, referencePoint))
-                                             .OrderBy(hbl => hbl.Distance.Value)
+                                             .OrderBy(hbl => hbl.Distance)
                                              .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
         }
 
         protected override SelectableHydraulicBoundaryLocation GetCurrentOption(ITypeDescriptorContext context)
         {
-            return GetPropertiesObject(context) != null
-                       ? new SelectableHydraulicBoundaryLocation(GetPropertiesObject(context).SelectedHydraulicBoundaryLocation,
-                                                                 GetPropertiesObject(context).GetReferenceLocation())
-                       : null;
+            if (GetPropertiesObject(context) != null)
+            {
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = GetPropertiesObject(context).SelectedHydraulicBoundaryLocation;
+                return hydraulicBoundaryLocation != null
+                           ? new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation,
+                                                                     GetPropertiesObject(context).GetReferenceLocation())
+                           : null;
+            }
+
+            return null;
         }
 
         protected override HydraulicBoundaryLocation ConvertToDomainType(object selectedItem)
