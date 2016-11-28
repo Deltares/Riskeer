@@ -98,6 +98,7 @@ namespace Core.Plugins.Map.PropertyClasses
 
         [PropertyOrder(selectedMetaDataAttributePropertyIndex)]
         [DynamicVisible]
+        [DynamicReadOnly]
         [Editor(typeof(MetaDataAttributeEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_Label")]
         [ResourcesDisplayName(typeof(Resources), "Mapdata_SelectedMetaDataAttribute_DisplayName")]

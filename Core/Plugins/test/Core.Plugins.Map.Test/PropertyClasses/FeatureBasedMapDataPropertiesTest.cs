@@ -176,7 +176,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ShowLabels_MapDataHasMetaData_ShowLabelsShouldNotBeReadOnly(bool hasMetaData)
+        public void ShowLabels_MapDataHasMetaData_ShowLabelsAndSelectedMetaDataAttributeShouldNotBeReadOnly(bool hasMetaData)
         {
             // Setup
             var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
@@ -190,7 +190,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 Features = new[]
                 {
                     feature
-                }
+                },
+                ShowLabels = true
             };
 
             // Call
@@ -208,6 +209,13 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             "Weergeven",
                                                                             "Geeft aan of labels worden weergegeven op deze kaartlaag.",
                                                                             !hasMetaData);
+
+            PropertyDescriptor selectedMetaDataAttributeProperty = dynamicProperties[selectedMetaDataAttributePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(selectedMetaDataAttributeProperty,
+                                                                            "Label",
+                                                                            "Op basis van",
+                                                                            "Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag.",
+                                                                            !hasMetaData);
         }
 
         [Test]
@@ -217,7 +225,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         {
             // Setup
             var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
-                feature.MetaData["key"] = "value";
+            feature.MetaData["key"] = "value";
 
             var mapPointData = new MapPointData("Test")
             {
