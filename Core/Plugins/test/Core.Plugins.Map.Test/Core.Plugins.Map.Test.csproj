@@ -92,6 +92,7 @@
       <DependentUpon>TestView.cs</DependentUpon>
     </Compile>
     <Compile Include="UITypeEditors\MetaDataAttributeEditorTest.cs" />
+    <Compile Include="UITypeEditors\SelectableMetaDataAttributeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">

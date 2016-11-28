@@ -28,6 +28,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Plugins.Map.PropertyClasses;
+using Core.Plugins.Map.UITypeEditors;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -58,7 +59,10 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Data_SetNewMapPointDataInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var mapPointData = new MapPointData("Test");
+            var mapPointData = new MapPointData("Test")
+            {
+                SelectedMetaDataAttribute = string.Empty
+            };
             var properties = new TestFeatureBasedMapDataProperties();
 
             // Call
@@ -69,7 +73,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual("Test feature based map data", properties.Type);
             Assert.AreEqual(mapPointData.IsVisible, properties.IsVisible);
             Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
-            Assert.AreEqual(mapPointData.SelectedMetaDataAttribute, properties.SelectedMetaDataAttribute);
+            Assert.AreEqual(mapPointData.SelectedMetaDataAttribute, properties.SelectedMetaDataAttribute.MetaDataAttribute);
             Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
         }
 
@@ -160,7 +164,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Call
             properties.IsVisible = false;
             properties.ShowLabels = false;
-            properties.SelectedMetaDataAttribute = "ID";
+            properties.SelectedMetaDataAttribute = new SelectableMetaDataAttribute("ID");
 
             // Assert
             Assert.IsFalse(mapPointData.IsVisible);

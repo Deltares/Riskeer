@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Gui.PropertyBag;
+using Core.Plugins.Map.UITypeEditors;
 
 namespace Core.Plugins.Map.PropertyClasses
 {
@@ -30,14 +31,14 @@ namespace Core.Plugins.Map.PropertyClasses
     public interface IHasMetaData : IObjectProperties
     {
         /// <summary>
-        /// Gets the selected meta data attribute.
+        /// Gets the selectable meta data attribute that is selected.
         /// </summary>
-        string SelectedMetaDataAttribute { get; }
+        SelectableMetaDataAttribute SelectedMetaDataAttribute { get; }
 
         /// <summary>
-        /// Return the collection of available meta data attributes.
+        /// Return the collection of available selectable meta data attributes.
         /// </summary>
-        /// <returns>The collection of available meta data attributes.</returns>
-        IEnumerable<string> GetAvailableMetaDataAttributes();
+        /// <returns>The collection of available selectable meta data attributes.</returns>
+        IEnumerable<SelectableMetaDataAttribute> GetAvailableMetaDataAttributes();
     }
 }

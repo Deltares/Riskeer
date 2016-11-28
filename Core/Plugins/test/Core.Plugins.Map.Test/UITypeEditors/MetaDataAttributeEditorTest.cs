@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms.Design;
@@ -45,19 +46,14 @@ namespace Core.Plugins.Map.Test.UITypeEditors
             var editor = new MetaDataAttributeEditor();
 
             // Assert
-            Assert.IsInstanceOf<SelectionEditor<IHasMetaData, string>>(editor);
+            Assert.IsInstanceOf<SelectionEditor<IHasMetaData, SelectableMetaDataAttribute>>(editor);
         }
 
         [Test]
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var mapData = new MapPointData("Name");
-
-            var properties = new MapPointDataProperties
-            {
-                Data = mapData
-            };
+            var properties = new ObjectPropertiesWithSelectableMetaDataAttribute(CreateSelectableMetaDataAttribute(), new SelectableMetaDataAttribute[0]);
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new MetaDataAttributeEditor();
             var someValue = new object();
@@ -82,27 +78,14 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            const string newValue = "Test 2";
-
-            var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
-            feature.MetaData["Test"] = "test";
-            feature.MetaData[newValue] = "test 2";
-
-            var mapData = new MapPointData("Name")
+            SelectableMetaDataAttribute selectableMetaDataAttribute = CreateSelectableMetaDataAttribute();
+            var properties = new ObjectPropertiesWithSelectableMetaDataAttribute(selectableMetaDataAttribute, new[]
             {
-                Features = new[]
-                {
-                    feature
-                }
-            };
-
-            var properties = new MapPointDataProperties
-            {
-                Data = mapData
-            };
+                selectableMetaDataAttribute
+            });
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new MetaDataAttributeEditor();
-
+            var someValue = new object();
             var mockRepository = new MockRepository();
             var serviceProviderStub = mockRepository.Stub<IServiceProvider>();
             var serviceStub = mockRepository.Stub<IWindowsFormsEditorService>();
@@ -112,11 +95,44 @@ namespace Core.Plugins.Map.Test.UITypeEditors
             mockRepository.ReplayAll();
 
             // Call
-            var result = editor.EditValue(descriptorContextStub, serviceProviderStub, newValue);
+            var result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
 
             // Assert
-            Assert.AreSame(newValue, result);
+            Assert.AreSame(selectableMetaDataAttribute, result);
             mockRepository.VerifyAll();
+        }
+
+        private static SelectableMetaDataAttribute CreateSelectableMetaDataAttribute()
+        {
+            return new SelectableMetaDataAttribute(string.Empty);
+        }
+
+        private class ObjectPropertiesWithSelectableMetaDataAttribute : IHasMetaData
+        {
+            private readonly SelectableMetaDataAttribute selectableMetaDataAttribute;
+            private readonly IEnumerable<SelectableMetaDataAttribute> selectableMetaDataAttributes;
+
+            public ObjectPropertiesWithSelectableMetaDataAttribute(SelectableMetaDataAttribute selectableMetaDataAttribute,
+                                                                   IEnumerable<SelectableMetaDataAttribute> selectableMetaDataAttributes)
+            {
+                this.selectableMetaDataAttribute = selectableMetaDataAttribute;
+                this.selectableMetaDataAttributes = selectableMetaDataAttributes;
+            }
+
+            public object Data { get; set; }
+
+            public SelectableMetaDataAttribute SelectedMetaDataAttribute
+            {
+                get
+                {
+                    return selectableMetaDataAttribute;
+                }
+            }
+
+            public IEnumerable<SelectableMetaDataAttribute> GetAvailableMetaDataAttributes()
+            {
+                return selectableMetaDataAttributes;
+            }
         }
     }
 }

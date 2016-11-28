@@ -30,14 +30,14 @@ namespace Core.Plugins.Map.UITypeEditors
     /// This class defines a drop down list edit-control from which the user can select a
     /// meta data attribute from a collection.
     /// </summary>
-    public class MetaDataAttributeEditor : SelectionEditor<IHasMetaData, string>
+    public class MetaDataAttributeEditor : SelectionEditor<IHasMetaData, SelectableMetaDataAttribute>
     {
-        protected override IEnumerable<string> GetAvailableOptions(ITypeDescriptorContext context)
+        protected override IEnumerable<SelectableMetaDataAttribute> GetAvailableOptions(ITypeDescriptorContext context)
         {
             return GetPropertiesObject(context).GetAvailableMetaDataAttributes();
         }
 
-        protected override string GetCurrentOption(ITypeDescriptorContext context)
+        protected override SelectableMetaDataAttribute GetCurrentOption(ITypeDescriptorContext context)
         {
             return GetPropertiesObject(context).SelectedMetaDataAttribute;
         }

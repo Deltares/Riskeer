@@ -102,22 +102,22 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Label")]
         [ResourcesDisplayName(typeof(Resources), "Mapdata_SelectedMetaDataAttribute_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Mapdata_SelectedMetaDataAttribute_Description")]
-        public string SelectedMetaDataAttribute
+        public SelectableMetaDataAttribute SelectedMetaDataAttribute
         {
             get
             {
-                return data.SelectedMetaDataAttribute;
+                return new SelectableMetaDataAttribute(data.SelectedMetaDataAttribute);
             }
             set
             {
-                data.SelectedMetaDataAttribute = value;
+                data.SelectedMetaDataAttribute = value.MetaDataAttribute;
                 data.NotifyObservers();
             }
         }
 
-        public IEnumerable<string> GetAvailableMetaDataAttributes()
+        public IEnumerable<SelectableMetaDataAttribute> GetAvailableMetaDataAttributes()
         {
-            return data.MetaData;
+            return data.MetaData.Select(md => new SelectableMetaDataAttribute(md));
         }
 
         [DynamicReadOnlyValidationMethod]
