@@ -68,7 +68,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionCalculationSchemes] VALUES (1, 1, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                            "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 9, 26, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545568);" + Environment.NewLine +
+                                            "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 9, 26, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545571);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -153,7 +153,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionCalculationSchemes] VALUES (1, 11, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                            "INSERT INTO [DesignTables] VALUES (1, 11, 1, 1, 9, 28, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545568);" + Environment.NewLine +
+                                            "INSERT INTO [DesignTables] VALUES (1, 11, 1, 1, 9, 28, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545571);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 11, 1, 1, 11, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -831,7 +831,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionCalculationSchemes] VALUES (1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                            "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 7.7, 8.8, 3.71901648545568);" + Environment.NewLine +
+                                            "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 7.7, 8.8, 3.71901648545571);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 3, 1, 1, 5, 4, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -942,7 +942,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionCalculationSchemes] VALUES (1, 3, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                            "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 8.8, 9.9, 3.71901648545568);" + Environment.NewLine +
+                                            "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 8.8, 9.9, 3.71901648545571);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 3, 1, 1, 5, 4, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -2026,7 +2026,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [SectionCalculationSchemes] VALUES (1, 1, 1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                            "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 2, 26, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545568);" + Environment.NewLine +
+                                            "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 2, 26, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545571);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 6, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
