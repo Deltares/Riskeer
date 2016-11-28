@@ -37,37 +37,31 @@ namespace Core.Common.Gui.Test.UITypeEditors
         public void GetEditStyle_Always_ReturnDropDown()
         {
             // Setup
-            var editorNoDomainType = new SelectionEditor<IObjectProperties, object>();
-            var editorWithDomainType = new SelectionEditor<IObjectProperties, object, object>();
+            var editor = new SelectionEditor<IObjectProperties, object>();
 
             // Call
-            var editStyleNoDomainType = editorNoDomainType.GetEditStyle();
-            var editStyleWithDomainType = editorWithDomainType.GetEditStyle();
+            var editStyle = editor.GetEditStyle();
 
             // Assert
-            Assert.AreEqual(UITypeEditorEditStyle.DropDown, editStyleNoDomainType);
-            Assert.AreEqual(UITypeEditorEditStyle.DropDown, editStyleWithDomainType);
+            Assert.AreEqual(UITypeEditorEditStyle.DropDown, editStyle);
         }
 
         [Test]
         public void EditValue_NoProviderNoContext_ReturnsOriginalValue()
         {
             // Setup
-            var editorNoDomainType = new SelectionEditor<IObjectProperties, object>();
-            var editorWithDomainType = new SelectionEditor<IObjectProperties, object, object>();
+            var editor = new SelectionEditor<IObjectProperties, object>();
             var someValue = new object();
 
             // Call
-            var editStyleNoDomainType = editorNoDomainType.EditValue(null, null, someValue);
-            var editStyleWithDomainType = editorWithDomainType.EditValue(null, null, someValue);
+            var result = editor.EditValue(null, null, someValue);
 
             // Assert
-            Assert.AreSame(someValue, editStyleNoDomainType);
-            Assert.AreSame(someValue, editStyleWithDomainType);
+            Assert.AreSame(someValue, result);
         }
 
         [Test]
-        public void EditValue_NoContextAndNoDomainType_ReturnsOriginalValue()
+        public void EditValue_NoContext_ReturnsOriginalValue()
         {
             // Setup
             var editor = new SelectionEditor<IObjectProperties, object>();
@@ -89,29 +83,7 @@ namespace Core.Common.Gui.Test.UITypeEditors
         }
 
         [Test]
-        public void EditValue_NoContextAndWithDomainType_ReturnsOriginalValue()
-        {
-            // Setup
-            var editor = new SelectionEditor<IObjectProperties, object, object>();
-            var mockRepository = new MockRepository();
-            var provider = mockRepository.StrictMock<IServiceProvider>();
-            var service = mockRepository.StrictMock<IWindowsFormsEditorService>();
-            provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
-            mockRepository.ReplayAll();
-
-            var someValue = new object();
-
-            // Call
-            var result = editor.EditValue(null, provider, someValue);
-
-            // Assert
-            Assert.AreSame(someValue, result);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void EditValue_NoDomainTypeAlways_ReturnsOriginalValue()
+        public void EditValue_Always_ReturnsOriginalValue()
         {
             // Setup
             var editor = new SelectionEditor<IObjectProperties, object>();
@@ -130,31 +102,6 @@ namespace Core.Common.Gui.Test.UITypeEditors
 
             // Assert
             Assert.AreSame(someValue, result);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void EditValue_WithDomainTypeAlways_ReturnsOriginalValueInDomainType()
-        {
-            // Setup
-            var editor = new SelectionEditor<IObjectProperties, TestClass, object>();
-            var mockRepository = new MockRepository();
-            var provider = mockRepository.StrictMock<IServiceProvider>();
-            var service = mockRepository.StrictMock<IWindowsFormsEditorService>();
-            var context = mockRepository.StrictMock<ITypeDescriptorContext>();
-            provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
-            service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            mockRepository.ReplayAll();
-
-            var someValue = new TestClass();
-
-            // Call
-            var result = editor.EditValue(context, provider, someValue);
-
-            // Assert
-            Assert.AreSame(someValue, result);
-            Assert.IsTrue(result.GetType() == typeof(TestClass));
 
             mockRepository.VerifyAll();
         }
@@ -182,14 +129,12 @@ namespace Core.Common.Gui.Test.UITypeEditors
             mockRepository.VerifyAll();
         }
 
-        private class TestSelectionEditor : SelectionEditor<IObjectProperties, object, object>
+        private class TestSelectionEditor : SelectionEditor<IObjectProperties, object>
         {
             public TestSelectionEditor(object nullItem)
             {
                 NullItem = nullItem;
             }
         }
-
-        private class TestClass {}
     }
 }

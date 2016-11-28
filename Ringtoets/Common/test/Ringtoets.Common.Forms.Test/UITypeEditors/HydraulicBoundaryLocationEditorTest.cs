@@ -22,9 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Forms.Design;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.UITypeEditors;
 using NUnit.Framework;
@@ -52,17 +50,17 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             var editor = new HydraulicBoundaryLocationEditor();
 
             // Assert
-            Assert.IsInstanceOf<SelectionEditor<IHasHydraulicBoundaryLocationProperty, HydraulicBoundaryLocation, SelectableHydraulicBoundaryLocation>>(editor);
+            Assert.IsInstanceOf<SelectionEditor<IHasHydraulicBoundaryLocationProperty, SelectableHydraulicBoundaryLocation>>(editor);
         }
 
         [Test]
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            HydraulicBoundaryLocation selectableHydraulicBoundaryLocationhydraulicBoundaryLocation =
+            SelectableHydraulicBoundaryLocation selectableHydraulicBoundaryLocationhydraulicBoundaryLocation =
                 CreateSelectableHydraulicBoundaryLocation();
-            var properties = new ObjectPropertiesWithHydraulicBoundaryLocation(
-                selectableHydraulicBoundaryLocationhydraulicBoundaryLocation, new HydraulicBoundaryLocation[0]);
+            var properties = new ObjectPropertiesWithSelectableHydraulicBoundaryLocation(
+                selectableHydraulicBoundaryLocationhydraulicBoundaryLocation, new SelectableHydraulicBoundaryLocation[0]);
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new HydraulicBoundaryLocationEditor();
             var someValue = new object();
@@ -85,8 +83,8 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = CreateSelectableHydraulicBoundaryLocation();
-            var properties = new ObjectPropertiesWithHydraulicBoundaryLocation(hydraulicBoundaryLocation, new[]
+            SelectableHydraulicBoundaryLocation hydraulicBoundaryLocation = CreateSelectableHydraulicBoundaryLocation();
+            var properties = new ObjectPropertiesWithSelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -105,178 +103,39 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, result);
-            Assert.IsInstanceOf<HydraulicBoundaryLocation>(result);
             mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void GetAvailableOptions_InputWithLocationsAndNoReferencePoint_ReturnsLocationsSortedByName()
+        private static SelectableHydraulicBoundaryLocation CreateSelectableHydraulicBoundaryLocation()
         {
-            // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = CreateSelectableHydraulicBoundaryLocation();
-            HydraulicBoundaryLocation[] locations =
-            {
-                hydraulicBoundaryLocation,
-                new HydraulicBoundaryLocation(0, "A", 0, 1),
-                new HydraulicBoundaryLocation(0, "C", 0, 2),
-                new HydraulicBoundaryLocation(0, "D", 0, 3),
-                new HydraulicBoundaryLocation(0, "B", 0, 4),
-            };
-
-            var properties = new ObjectPropertiesWithHydraulicBoundaryLocation(hydraulicBoundaryLocation, locations);
-            var propertyBag = new DynamicPropertyBag(properties);
-
-            var editor = new TestHydraulicBoundaryLocationEditor();
-            var descriptorContextStub = mockRepository.Stub<ITypeDescriptorContext>();
-            descriptorContextStub.Stub(c => c.Instance).Return(propertyBag);
-            mockRepository.ReplayAll();
-
-            // Call
-            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
-                editor.GetItems(descriptorContextStub);
-
-            // Assert
-            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                locations.Select(location =>
-                                 new SelectableHydraulicBoundaryLocation(location, null))
-                         .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Name);
-            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
+            return new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "", 0, 0), null);
         }
 
-        [Test]
-        public void GetAvailableOptions_InputWithLocationsAndReferencePoint_ReturnsLocationsSortedByDistanceThenByName()
+        private class ObjectPropertiesWithSelectableHydraulicBoundaryLocation : IHasHydraulicBoundaryLocationProperty
         {
-            // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = CreateSelectableHydraulicBoundaryLocation();
-            HydraulicBoundaryLocation[] locations =
+            private readonly SelectableHydraulicBoundaryLocation selectableHydraulicBoundaryLocation;
+            private readonly IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations;
+
+            public ObjectPropertiesWithSelectableHydraulicBoundaryLocation(SelectableHydraulicBoundaryLocation selectableHydraulicBoundaryLocation,
+                                                                           IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations)
             {
-                hydraulicBoundaryLocation,
-                new HydraulicBoundaryLocation(0, "A", 0, 10),
-                new HydraulicBoundaryLocation(0, "E", 0, 500),
-                new HydraulicBoundaryLocation(0, "F", 0, 100),
-                new HydraulicBoundaryLocation(0, "D", 0, 200),
-                new HydraulicBoundaryLocation(0, "C", 0, 200),
-                new HydraulicBoundaryLocation(0, "B", 0, 200)
-            };
-
-            var properties = new ObjectPropertiesWithHydraulicBoundaryLocation(hydraulicBoundaryLocation, locations)
-            {
-                ReferencePoint = new Point2D(0, 0)
-            };
-            var propertyBag = new DynamicPropertyBag(properties);
-
-            var editor = new TestHydraulicBoundaryLocationEditor();
-            var descriptorContextStub = mockRepository.Stub<ITypeDescriptorContext>();
-            descriptorContextStub.Stub(c => c.Instance).Return(propertyBag);
-            mockRepository.ReplayAll();
-
-            // Call
-            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
-                editor.GetItems(descriptorContextStub);
-
-            // Assert
-            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                locations.Select(location =>
-                                 new SelectableHydraulicBoundaryLocation(location, properties.ReferencePoint))
-                         .OrderBy(hbl => hbl.Distance)
-                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
-            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void GivenLocationAndReferencePoint_WhenUpdatingReferencePoint_ThenUpdateSelectableBoundaryLocations()
-        {
-            // Given
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = CreateSelectableHydraulicBoundaryLocation();
-            HydraulicBoundaryLocation[] locations =
-            {
-                hydraulicBoundaryLocation,
-                new HydraulicBoundaryLocation(0, "A", 0, 10),
-                new HydraulicBoundaryLocation(0, "E", 0, 500),
-                new HydraulicBoundaryLocation(0, "F", 0, 100),
-                new HydraulicBoundaryLocation(0, "D", 0, 200),
-                new HydraulicBoundaryLocation(0, "C", 0, 200),
-                new HydraulicBoundaryLocation(0, "B", 0, 200)
-            };
-
-            var properties = new ObjectPropertiesWithHydraulicBoundaryLocation(hydraulicBoundaryLocation, locations)
-            {
-                ReferencePoint = new Point2D(0, 0)
-            };
-            var propertyBag = new DynamicPropertyBag(properties);
-
-            var editor = new TestHydraulicBoundaryLocationEditor();
-            var descriptorContextStub = mockRepository.Stub<ITypeDescriptorContext>();
-            descriptorContextStub.Stub(c => c.Instance).Return(propertyBag);
-            mockRepository.ReplayAll();
-
-            IEnumerable<SelectableHydraulicBoundaryLocation> originalList =
-                editor.GetItems(descriptorContextStub).ToList();
-
-            // When
-            properties.ReferencePoint = new Point2D(0, 190);
-
-            // Then
-            IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
-                editor.GetItems(descriptorContextStub).ToList();
-            CollectionAssert.AreNotEqual(originalList, availableHydraulicBoundaryLocations);
-
-            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
-                locations.Select(hbl =>
-                                 new SelectableHydraulicBoundaryLocation(hbl, properties.ReferencePoint))
-                         .OrderBy(hbl => hbl.Distance)
-                         .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
-            CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
-        }
-
-        private static HydraulicBoundaryLocation CreateSelectableHydraulicBoundaryLocation()
-        {
-            return new HydraulicBoundaryLocation(1, "", 0, 0);
-        }
-
-        private class ObjectPropertiesWithHydraulicBoundaryLocation : IHasHydraulicBoundaryLocationProperty
-        {
-            private readonly HydraulicBoundaryLocation selectedHydraulicBoundaryLocation;
-            private readonly IEnumerable<HydraulicBoundaryLocation> selectableHydraulicBoundaryLocations;
-
-            public ObjectPropertiesWithHydraulicBoundaryLocation(HydraulicBoundaryLocation selectedHydraulicBoundaryLocation,
-                                                                 IEnumerable<HydraulicBoundaryLocation> selectableHydraulicBoundaryLocations)
-            {
-                this.selectedHydraulicBoundaryLocation = selectedHydraulicBoundaryLocation;
+                this.selectableHydraulicBoundaryLocation = selectableHydraulicBoundaryLocation;
                 this.selectableHydraulicBoundaryLocations = selectableHydraulicBoundaryLocations;
             }
 
             public object Data { get; set; }
 
-            public Point2D ReferencePoint { get; set; }
-
-            public HydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
+            public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
             {
                 get
                 {
-                    return selectedHydraulicBoundaryLocation;
+                    return selectableHydraulicBoundaryLocation;
                 }
             }
 
-            public IEnumerable<HydraulicBoundaryLocation> GetHydraulicBoundaryLocations()
+            public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
             {
                 return selectableHydraulicBoundaryLocations;
-            }
-
-            public Point2D GetReferenceLocation()
-            {
-                return ReferencePoint;
-            }
-        }
-
-        private class TestHydraulicBoundaryLocationEditor : HydraulicBoundaryLocationEditor
-        {
-            public IEnumerable<SelectableHydraulicBoundaryLocation> GetItems(ITypeDescriptorContext context)
-            {
-                return GetAvailableOptions(context);
             }
         }
     }

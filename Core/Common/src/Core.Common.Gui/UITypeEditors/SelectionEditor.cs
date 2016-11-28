@@ -34,58 +34,13 @@ namespace Core.Common.Gui.UITypeEditors
     /// This class provides a base implementation of <see cref="UITypeEditor"/> and defines a drop down list 
     /// edit-control used for calculation input data.
     /// </summary>
-    /// <typeparam name="TInternalPresentationType">The type of items that populate the list-edit control.</typeparam>
-    /// <typeparam name="TPropertiesClass">The type which properties populates the dropdown editor.</typeparam>
-    public class SelectionEditor<TPropertiesClass, TInternalPresentationType> :
-        SelectionEditor<TPropertiesClass, TInternalPresentationType, TInternalPresentationType>
-        where TInternalPresentationType : class
+    /// <typeparam name="TProperty">The type of items that populate the list-edit control.</typeparam>
+    /// <typeparam name="TPropertiesClass">The type which' properties populates the dropdown editor.</typeparam>
+    public class SelectionEditor<TPropertiesClass, TProperty> : UITypeEditor
+        where TProperty : class
         where TPropertiesClass : IObjectProperties
     {
-        protected override ListBox CreateSelectionControl(ITypeDescriptorContext context)
-        {
-            var listBox = new ListBox
-            {
-                SelectionMode = SelectionMode.One,
-                DisplayMember = DisplayMember
-            };
-            listBox.SelectedValueChanged += (sender, eventArgs) => EditorService.CloseDropDown();
-
-            TInternalPresentationType currentOption = GetCurrentOption(context);
-            if (NullItem != null)
-            {
-                int index = listBox.Items.Add(NullItem);
-                if (currentOption == null)
-                {
-                    listBox.SelectedIndex = index;
-                }
-            }
-
-            foreach (TInternalPresentationType option in GetAvailableOptions(context))
-            {
-                int index = listBox.Items.Add(option);
-                if (ReferenceEquals(currentOption, option))
-                {
-                    listBox.SelectedIndex = index;
-                }
-            }
-            return listBox;
-        }
-    }
-
-    /// <summary>
-    /// This class provides a base implementation of <see cref="UITypeEditor"/> and defines a drop down list 
-    /// edit-control used for calculation input data. Allows the user to populate the list with internal presentation types and 
-    /// convert them to domain types.
-    /// </summary>
-    /// <typeparam name="TInternalPresentationType">The type of items that populate the list-edit control.</typeparam>
-    /// <typeparam name="TDomainType">The type of item the list should return once selected.</typeparam>
-    /// <typeparam name="TPropertiesClass">The type which properties populates the dropdown editor.</typeparam>
-    public class SelectionEditor<TPropertiesClass, TDomainType, TInternalPresentationType> : UITypeEditor
-        where TDomainType : class
-        where TInternalPresentationType : class
-        where TPropertiesClass : IObjectProperties
-    {
-        protected IWindowsFormsEditorService EditorService;
+        private IWindowsFormsEditorService editorService;
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {
@@ -96,69 +51,60 @@ namespace Core.Common.Gui.UITypeEditors
         {
             if (provider != null)
             {
-                EditorService = (IWindowsFormsEditorService) provider.GetService(typeof(IWindowsFormsEditorService));
+                editorService = (IWindowsFormsEditorService) provider.GetService(typeof(IWindowsFormsEditorService));
             }
 
-            if (EditorService != null && context != null)
+            if (editorService != null && context != null)
             {
                 // Create editor:
-                ListBox listBox = CreateSelectionControl(context);
-
-                // Open editor for user to select an item:
-                EditorService.DropDownControl(listBox);
-
-                // Return user selected object, or original value if user did not select anything:
-                if (listBox.SelectedItem == null)
+                using (ListBox listBox = CreateSelectionControl(context))
                 {
-                    return originalValue;
-                }
+                    // Open editor for user to select an item:
+                    editorService.DropDownControl(listBox);
 
-                if (ReferenceEquals(listBox.SelectedItem, NullItem))
-                {
-                    return null;
-                }
+                    // Return user selected object, or original value if user did not select anything:
+                    if (listBox.SelectedItem == null)
+                    {
+                        return originalValue;
+                    }
 
-                return ConvertToDomainType(listBox.SelectedItem);
+                    if (ReferenceEquals(listBox.SelectedItem, NullItem))
+                    {
+                        return null;
+                    }
+
+                    return listBox.SelectedItem;
+                }
             }
             return base.EditValue(context, provider, originalValue);
         }
 
         /// <summary>
-        /// Sets which member to show of <typeparamref name="TInternalPresentationType"/> in the dropdown editor.
+        /// Sets which member to show of <typeparamref name="TProperty"/> in the dropdown editor.
         /// </summary>
-        protected string DisplayMember { get; set; }
+        protected string DisplayMember { private get; set; }
 
         /// <summary>
         /// Gets or sets the item to show which represents a null value.
         /// </summary>
-        protected TInternalPresentationType NullItem { get; set; }
-
-        /// <summary>
-        /// Converts an <see cref="object"/> to a <see cref="TDomainType"/> object.
-        /// </summary>
-        /// <param name="selectedItem">The item to convert.</param>
-        /// <returns>A converted item to <see cref="TDomainType"/>.</returns>
-        protected virtual TDomainType ConvertToDomainType(object selectedItem)
-        {
-            return (TDomainType) selectedItem;
-        }
+        protected TProperty NullItem { get; set; }
 
         /// <summary>
         /// Gets the available options which populate the dropdown editor.
         /// </summary>
         /// <param name="context">The context on which to base the available options.</param>
-        /// <returns>A <see cref="IEnumerable{T}"/> of objects of type <typeparamref name="TInternalPresentationType"/> which contains all the available options.</returns>
-        protected virtual IEnumerable<TInternalPresentationType> GetAvailableOptions(ITypeDescriptorContext context)
+        /// <returns>A <see cref="IEnumerable{T}"/> of objects of type <typeparamref name="TProperty"/> which contains all the available options.</returns>
+        protected virtual IEnumerable<TProperty> GetAvailableOptions(ITypeDescriptorContext context)
         {
-            return Enumerable.Empty<TInternalPresentationType>();
+            return Enumerable.Empty<TProperty>();
         }
 
         /// <summary>
         /// Gets the current option which should be selected in the dropdown editor.
         /// </summary>
         /// <param name="context">The context on which to base the current option.</param>
-        /// <returns>The object of type <typeparamref name="TInternalPresentationType"/> which is currently selected.</returns>
-        protected virtual TInternalPresentationType GetCurrentOption(ITypeDescriptorContext context)
+        /// <returns>The object of type <typeparamref name="TProperty"/> which is currently selected.</returns>
+        protected virtual TProperty GetCurrentOption(ITypeDescriptorContext context)
         {
             return null;
         }
@@ -173,33 +119,34 @@ namespace Core.Common.Gui.UITypeEditors
             return (TPropertiesClass) ((DynamicPropertyBag) context.Instance).WrappedObject;
         }
 
-        protected virtual ListBox CreateSelectionControl(ITypeDescriptorContext context)
+        private ListBox CreateSelectionControl(ITypeDescriptorContext context)
         {
             var listBox = new ListBox
             {
                 SelectionMode = SelectionMode.One,
                 DisplayMember = DisplayMember
             };
-            listBox.SelectedValueChanged += (sender, eventArgs) => EditorService.CloseDropDown();
+            listBox.SelectedValueChanged += (sender, eventArgs) => editorService.CloseDropDown();
 
-            TInternalPresentationType currentOption = GetCurrentOption(context);
             if (NullItem != null)
             {
                 int index = listBox.Items.Add(NullItem);
-                if (currentOption == null)
+                if (GetCurrentOption(context) == null)
                 {
                     listBox.SelectedIndex = index;
                 }
             }
 
-            foreach (TInternalPresentationType option in GetAvailableOptions(context))
+            listBox.BeginUpdate();
+            foreach (TProperty option in GetAvailableOptions(context))
             {
                 int index = listBox.Items.Add(option);
-                if (Equals(currentOption, option))
+                if (ReferenceEquals(GetCurrentOption(context), option))
                 {
                     listBox.SelectedIndex = index;
                 }
             }
+            listBox.EndUpdate();
             return listBox;
         }
     }

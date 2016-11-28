@@ -21,10 +21,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.UITypeEditors;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.UITypeEditors
 {
@@ -33,38 +30,18 @@ namespace Ringtoets.Common.Forms.UITypeEditors
     /// hydraulic boundary location from a collection.
     /// </summary>
     public class HydraulicBoundaryLocationEditor : SelectionEditor<IHasHydraulicBoundaryLocationProperty,
-                                                       HydraulicBoundaryLocation, SelectableHydraulicBoundaryLocation>
+                                                       SelectableHydraulicBoundaryLocation>
     {
         protected override IEnumerable<SelectableHydraulicBoundaryLocation> GetAvailableOptions(ITypeDescriptorContext context)
         {
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations =
-                GetPropertiesObject(context).GetHydraulicBoundaryLocations();
-            Point2D referencePoint = GetPropertiesObject(context).GetReferenceLocation();
-
-            return hydraulicBoundaryLocations.Select(hbl =>
-                                                     new SelectableHydraulicBoundaryLocation(hbl, referencePoint))
-                                             .OrderBy(hbl => hbl.Distance)
-                                             .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
+            return GetPropertiesObject(context).GetSelectableHydraulicBoundaryLocations();
         }
 
         protected override SelectableHydraulicBoundaryLocation GetCurrentOption(ITypeDescriptorContext context)
         {
-            if (GetPropertiesObject(context) != null)
-            {
-                HydraulicBoundaryLocation hydraulicBoundaryLocation = GetPropertiesObject(context).SelectedHydraulicBoundaryLocation;
-                return hydraulicBoundaryLocation != null
-                           ? new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation,
-                                                                     GetPropertiesObject(context).GetReferenceLocation())
-                           : null;
-            }
-
-            return null;
-        }
-
-        protected override HydraulicBoundaryLocation ConvertToDomainType(object selectedItem)
-        {
-            var selected = (SelectableHydraulicBoundaryLocation) selectedItem;
-            return selected.HydraulicBoundaryLocation;
+            return GetPropertiesObject(context) != null
+                       ? GetPropertiesObject(context).SelectedHydraulicBoundaryLocation
+                       : null;
         }
     }
 }
