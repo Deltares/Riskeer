@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            var norm = 10000;
+            var returnPeriod = 10000;
             int hydraulicBoundaryLocationId = 1000;
             HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
 
@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             var expectedRingBreakWater = new HydraRingBreakWater(2, 3.3);
 
             // Call
-            var input = new HydraulicLoadsCalculationInputImplementation(hydraulicBoundaryLocationId, norm, section,
+            var input = new HydraulicLoadsCalculationInputImplementation(hydraulicBoundaryLocationId, returnPeriod, section,
                                                                          expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
                                                                          modelFactorCriticalOvertopping,
                                                                          factorFbMean, factorFbStandardDeviation,
@@ -73,7 +73,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
                                                                          exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation);
 
             // Assert
-            double expectedBeta = StatisticsConverter.NormToBeta(norm);
+            double expectedBeta = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
             Assert.IsInstanceOf<ReliabilityIndexCalculationInput>(input);
             Assert.AreEqual(9, input.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);

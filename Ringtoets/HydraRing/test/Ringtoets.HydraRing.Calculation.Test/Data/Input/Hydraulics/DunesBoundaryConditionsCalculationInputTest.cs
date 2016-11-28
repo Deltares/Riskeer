@@ -23,7 +23,6 @@ using System.Linq;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
@@ -35,15 +34,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const int norm = 10000;
+            const int returnPeriod = 10000;
             const int sectionId = 1;
             const long hydraulicBoundaryLocationId = 1234;
 
             // Call
-            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(sectionId, hydraulicBoundaryLocationId, norm);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(sectionId, hydraulicBoundaryLocationId, returnPeriod);
 
             // Assert
-            double expectedBeta = StatisticsConverter.NormToBeta(norm);
+            double expectedBeta = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
             Assert.IsInstanceOf<AssessmentLevelCalculationInput>(dunesBoundaryConditionsCalculationInput);
             Assert.AreEqual(HydraRingFailureMechanismType.DunesBoundaryConditions, dunesBoundaryConditionsCalculationInput.FailureMechanismType);
             Assert.AreEqual(2, dunesBoundaryConditionsCalculationInput.CalculationTypeId);

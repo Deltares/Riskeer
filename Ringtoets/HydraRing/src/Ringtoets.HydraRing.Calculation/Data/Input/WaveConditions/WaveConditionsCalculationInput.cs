@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
                                                  double b)
             : base(hydraulicBoundaryLocationId)
         {
-            beta = StatisticsConverter.NormToBeta(norm);
+            beta = StatisticsConverter.ReturnPeriodToReliability(norm);
             this.forelandPoints = forelandPoints;
             this.breakWater = breakWater;
             this.waterLevel = waterLevel;

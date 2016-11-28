@@ -40,7 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             const int sectionId = 111;
             const double sectionNormal = 90;
             const int hydraulicBoundaryLocationId = 222;
-            const int norm = 333;
+            const int returnPeriod = 333;
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
             var breakWater = new HydraRingBreakWater(1, 4.4);
             const double waterLevel = 5.5;
@@ -51,7 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             var waveConditionsCalculationInput = new WaveConditionsCalculationInputImplementation(sectionId,
                                                                                                   sectionNormal,
                                                                                                   hydraulicBoundaryLocationId,
-                                                                                                  norm,
+                                                                                                  returnPeriod,
                                                                                                   forelandPoints,
                                                                                                   breakWater,
                                                                                                   waterLevel,
@@ -59,7 +59,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
                                                                                                   b);
 
             // Assert
-            double expectedBeta = StatisticsConverter.NormToBeta(norm);
+            double expectedBeta = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
             Assert.IsInstanceOf<HydraRingCalculationInput>(waveConditionsCalculationInput);
             Assert.AreEqual(HydraRingFailureMechanismType.QVariant, waveConditionsCalculationInput.FailureMechanismType);
             Assert.AreEqual(8, waveConditionsCalculationInput.CalculationTypeId);

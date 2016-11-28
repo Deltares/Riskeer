@@ -33,11 +33,11 @@ namespace Ringtoets.Common.Service.Test
         public void CalculationConverged_WithConvergedResults_CalculationConvergedTrue()
         {
             // Setup
-            double norm = 1.0e3;
-            double reliabilityIndex = StatisticsConverter.NormToBeta(norm);
+            double returnPeriod = 1.0e3;
+            double reliabilityIndex = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
 
             // Call
-            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.CalculationConverged(reliabilityIndex, norm);
+            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.CalculationConverged(reliabilityIndex, returnPeriod);
 
             // Assert
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, calculationConverged);
@@ -48,10 +48,10 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var output = new ReliabilityIndexCalculationOutput(5.0e-3, 5.0e-3);
-            double norm = 1;
+            double returnPeriod = 1;
 
             // Call
-            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.CalculationConverged(output.CalculatedReliabilityIndex, norm);
+            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.CalculationConverged(output.CalculatedReliabilityIndex, returnPeriod);
 
             // Assert
             Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, calculationConverged);

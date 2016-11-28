@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
         protected ReliabilityIndexCalculationInput(long hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId)
         {
-            beta = StatisticsConverter.NormToBeta(norm);
+            beta = StatisticsConverter.ReturnPeriodToReliability(norm);
         }
 
         public override int CalculationTypeId

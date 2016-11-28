@@ -29,13 +29,33 @@ namespace Core.Common.Utils
     public static class StatisticsConverter
     {
         /// <summary>
-        /// Calculates the probability from a norm.
+        /// Calculates the reliability from a return period.
         /// </summary>
-        /// <param name="norm">The norm to convert.</param>
-        /// <returns>The probability.</returns>
-        public static double NormToBeta(double norm)
+        /// <param name="returnPeriod">The return period to convert.</param>
+        /// <returns>The reliability.</returns>
+        public static double ReturnPeriodToReliability(double returnPeriod)
         {
-            return -Normal.InvCDF(0.0, 1.0, 1.0/norm);
+            return ProbabilityToReliability(1.0/returnPeriod);
+        }
+
+        /// <summary>
+        /// Calculates the probability from a reliability.
+        /// </summary>
+        /// <param name="reliability">The reliability to convert.</param>
+        /// <returns>The probability.</returns>
+        public static double ReliabilityToProbability(double reliability)
+        {
+            return Normal.CDF(0, 1, -reliability);
+        }
+
+        /// <summary>
+        /// Calculates the reliability from a probability.
+        /// </summary>
+        /// <param name="probability">The probability to convert.</param>
+        /// <returns>The reliability.</returns>
+        public static double ProbabilityToReliability(double probability)
+        {
+            return Normal.InvCDF(0, 1, 1 - probability);
         }
     }
 }

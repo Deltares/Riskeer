@@ -27,13 +27,13 @@ namespace Core.Common.Utils.Test
     public class StatisticsConverterTest
     {
         [Test]
-        public void NormToBeta_ConvertNorm_CorrectBeta()
+        public void ReturnPeriodToReliability_ConvertReturnPeriod_CorrectReliability()
         {
             // Call
-            double normToBeta = StatisticsConverter.NormToBeta(1.1);
+            double reliability = StatisticsConverter.ReturnPeriodToReliability(1.1);
 
             // Assert
-            Assert.AreEqual(-1.335177736, normToBeta, 1.0e-6);
+            Assert.AreEqual(-1.335177736, reliability, 1.0e-6);
         }
     }
 }

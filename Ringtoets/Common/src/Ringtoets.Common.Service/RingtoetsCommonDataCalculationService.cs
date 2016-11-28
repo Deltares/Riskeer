@@ -32,14 +32,14 @@ namespace Ringtoets.Common.Service
     {
         /// <summary>
         /// Determines whether the calculated output is converged,
-        /// based on the <paramref name="reliabilityIndex"/> and the <paramref name="norm"/>
+        /// based on the <paramref name="reliabilityIndex"/> and the <paramref name="returnPeriod"/>
         /// </summary>
         /// <param name="reliabilityIndex">The resultant reliability index after a calculation.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
-        /// <returns>True if the solution converged, false if otherwise</returns>
-        public static CalculationConvergence CalculationConverged(double reliabilityIndex, double norm)
+        /// <param name="returnPeriod">The return period to use during the calculation.</param>
+        /// <returns><c>True</c> if the solution converged, <c>false</c> if otherwise</returns>
+        public static CalculationConvergence CalculationConverged(double reliabilityIndex, double returnPeriod)
         {
-            return Math.Abs(reliabilityIndex - StatisticsConverter.NormToBeta(norm)) <= 1.0e-3 ?
+            return Math.Abs(reliabilityIndex - StatisticsConverter.ReturnPeriodToReliability(returnPeriod)) <= 1.0e-3 ?
                        CalculationConvergence.CalculatedConverged :
                        CalculationConvergence.CalculatedNotConverged;
         }
