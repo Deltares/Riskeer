@@ -333,7 +333,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 locations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, input.ForeshoreProfile.WorldReferencePoint))
-                         .OrderBy(hbl => hbl.Distance )
+                         .OrderBy(hbl => hbl.Distance)
                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
         }
