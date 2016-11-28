@@ -73,7 +73,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             InitializeComponent();
 
             failureMechanismObserver = new Observer(UpdateMapData);
-            assessmentSectionObserver = new Observer(UpdateMapData);
+            assessmentSectionObserver = new Observer(() =>
+            {
+                if (hydraulicBoundaryDatabaseObserver.Observable == null && data.Parent.HydraulicBoundaryDatabase != null)
+                {
+                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
+                }
+                UpdateMapData();
+            });
             hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
             foreshoreProfilesObserver = new Observer(UpdateMapData);
 

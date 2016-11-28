@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryLocationObserver;
+        private readonly Observer hydraulicBoundaryDatabaseObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
@@ -60,8 +60,15 @@ namespace Ringtoets.Common.Forms.Views
             InitializeComponent();
 
             failureMechanismObserver = new Observer(UpdateMapData);
-            assessmentSectionObserver = new Observer(UpdateMapData);
-            hydraulicBoundaryLocationObserver = new Observer(UpdateMapData);
+            assessmentSectionObserver = new Observer(() =>
+            {
+                if (hydraulicBoundaryDatabaseObserver.Observable == null && data.Parent.HydraulicBoundaryDatabase != null)
+                {
+                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
+                }
+                UpdateMapData();
+            });
+            hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
 
             mapDataCollection = new MapDataCollection(defaultMapDataCollectionName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -91,7 +98,7 @@ namespace Ringtoets.Common.Forms.Views
                 {
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
-                    hydraulicBoundaryLocationObserver.Observable = null;
+                    hydraulicBoundaryDatabaseObserver.Observable = null;
 
                     mapDataCollection.Name = defaultMapDataCollectionName;
 
@@ -103,7 +110,7 @@ namespace Ringtoets.Common.Forms.Views
                     assessmentSectionObserver.Observable = data.Parent;
 
                     mapDataCollection.Name = data.WrappedData.Name;
-                hydraulicBoundaryLocationObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
+                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
 
                     SetMapDataFeatures();
 
@@ -124,7 +131,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
-            hydraulicBoundaryLocationObserver.Dispose();
+            hydraulicBoundaryDatabaseObserver.Dispose();
 
             if (disposing && (components != null))
             {
