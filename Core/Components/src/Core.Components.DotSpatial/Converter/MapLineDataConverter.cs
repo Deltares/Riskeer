@@ -47,7 +47,7 @@ namespace Core.Components.DotSpatial.Converter
             return layer;
         }
 
-        private void ConvertLayerFeatures(MapLineData data, MapLineLayer layer)
+        protected override void ConvertLayerFeatures(MapLineData data, MapLineLayer layer)
         {
             foreach (MapFeature mapFeature in data.Features)
             {
@@ -57,7 +57,7 @@ namespace Core.Components.DotSpatial.Converter
             layer.FeatureSet.InitializeVertices();
         }
 
-        private void ConvertLayerProperties(MapLineData data, MapLineLayer layer)
+        protected override void ConvertLayerProperties(MapLineData data, MapLineLayer layer)
         {
             layer.IsVisible = data.IsVisible;
             layer.Name = data.Name;

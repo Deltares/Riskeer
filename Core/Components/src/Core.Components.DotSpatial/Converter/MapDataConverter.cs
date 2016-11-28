@@ -70,12 +70,40 @@ namespace Core.Components.DotSpatial.Converter
             return Convert((TMapData) data);
         }
 
+        public void ConvertLayerFeatures(MapData data, IMapFeatureLayer layer)
+        {
+            ValidateParameters(data);
+
+            ConvertLayerFeatures((TMapData) data, (TMapFeatureLayer) layer);
+        }
+
+        public void ConvertLayerProperties(MapData data, IMapFeatureLayer layer)
+        {
+            ValidateParameters(data);
+
+            ConvertLayerProperties((TMapData) data, (TMapFeatureLayer) layer);
+        }
+
         /// <summary>
         /// Creates a <see cref="IMapFeatureLayer"/> based on the <paramref name="data"/> that was given.
         /// </summary>
         /// <param name="data">The data to transform into a <see cref="IMapFeatureLayer"/>.</param>
         /// <returns>A new <see cref="IMapFeatureLayer"/>.</returns>
         protected abstract IMapFeatureLayer Convert(TMapData data);
+
+        /// <summary>
+        /// Converts all feature related data from <param name="data"/> to <param name="layer"/>.
+        /// </summary>
+        /// <param name="data">The data to convert the feature related data from.</param>
+        /// <param name="layer">The layer to convert the feature related data to.</param>
+        protected abstract void ConvertLayerFeatures(TMapData data, TMapFeatureLayer layer);
+
+        /// <summary>
+        /// Converts all general properties (like <see cref="MapData.Name"/> and <see cref="MapData.IsVisible"/>) from <param name="data"/> to <param name="layer"/>.
+        /// </summary>
+        /// <param name="data">The data to convert the general properties from.</param>
+        /// <param name="layer">The layer to convert the general properties to.</param>
+        protected abstract void ConvertLayerProperties(TMapData data, TMapFeatureLayer layer);
 
         /// <summary>
         /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an

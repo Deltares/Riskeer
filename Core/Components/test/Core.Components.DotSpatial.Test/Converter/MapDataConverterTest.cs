@@ -111,6 +111,16 @@ namespace Core.Components.DotSpatial.Test.Converter
         private class TestMapDataConverter<TMapData> : MapDataConverter<TMapData, MapPointLayer>
             where TMapData : MapData
         {
+            protected override void ConvertLayerFeatures(TMapData data, MapPointLayer layer)
+            {
+                throw new NotImplementedException();
+            }
+
+            protected override void ConvertLayerProperties(TMapData data, MapPointLayer layer)
+            {
+                throw new NotImplementedException();
+            }
+
             protected override IMapFeatureLayer Convert(TMapData data)
             {
                 return new MapPointLayer();

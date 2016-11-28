@@ -45,7 +45,7 @@ namespace Core.Components.DotSpatial.Converter
             return layer;
         }
 
-        private void ConvertLayerFeatures(MapPolygonData data, MapPolygonLayer layer)
+        protected override void ConvertLayerFeatures(MapPolygonData data, MapPolygonLayer layer)
         {
             foreach (var mapFeature in data.Features)
             {
@@ -75,7 +75,7 @@ namespace Core.Components.DotSpatial.Converter
             layer.FeatureSet.InitializeVertices();
         }
 
-        private void ConvertLayerProperties(MapPolygonData data, MapPolygonLayer layer)
+        protected override void ConvertLayerProperties(MapPolygonData data, MapPolygonLayer layer)
         {
             layer.IsVisible = data.IsVisible;
             layer.Name = data.Name;

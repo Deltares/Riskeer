@@ -46,5 +46,19 @@ namespace Core.Components.DotSpatial.Converter
         /// <exception cref="ArgumentException">Thrown when <see cref="CanConvertMapData"/> returns <c>false</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         IMapFeatureLayer Convert(MapData data);
+
+        /// <summary>
+        /// Converts all feature related data from <param name="data"/> to <param name="layer"/>.
+        /// </summary>
+        /// <param name="data">The data to convert the feature related data from.</param>
+        /// <param name="layer">The layer to convert the feature related data to.</param>
+        void ConvertLayerFeatures(MapData data, IMapFeatureLayer layer);
+
+        /// <summary>
+        /// Converts all general properties (like <see cref="MapData.Name"/> and <see cref="MapData.IsVisible"/>) from <param name="data"/> to <param name="layer"/>.
+        /// </summary>
+        /// <param name="data">The data to convert the general properties from.</param>
+        /// <param name="layer">The layer to convert the general properties to.</param>
+        void ConvertLayerProperties(MapData data, IMapFeatureLayer layer);
     }
 }

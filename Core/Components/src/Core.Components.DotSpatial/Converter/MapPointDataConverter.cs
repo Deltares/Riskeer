@@ -45,7 +45,7 @@ namespace Core.Components.DotSpatial.Converter
             return layer;
         }
 
-        private void ConvertLayerFeatures(MapPointData data, MapPointLayer layer)
+        protected override void ConvertLayerFeatures(MapPointData data, MapPointLayer layer)
         {
             foreach (var ringtoetsMapFeature in data.Features)
             {
@@ -59,7 +59,7 @@ namespace Core.Components.DotSpatial.Converter
             layer.FeatureSet.InitializeVertices();
         }
 
-        private void ConvertLayerProperties(MapPointData data, MapPointLayer layer)
+        protected override void ConvertLayerProperties(MapPointData data, MapPointLayer layer)
         {
             layer.IsVisible = data.IsVisible;
             layer.Name = data.Name;
