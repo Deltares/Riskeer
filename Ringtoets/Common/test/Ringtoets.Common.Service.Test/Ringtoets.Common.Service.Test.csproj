@@ -67,7 +67,7 @@
     <Compile Include="ProbabilityAssessmentServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RingtoetsCommonDataCalculationServiceTest.cs" />
-    <Compile Include="RingtoetsCommonDataSynchronizationServices.Test.cs" />
+    <Compile Include="RingtoetsCommonDataSynchronizationServicesTest.cs" />
     <Compile Include="ValidationRules\NumericInputRuleTest.cs" />
     <Compile Include="ValidationRules\UseBreakWaterRuleTest.cs" />
     <Compile Include="ValidationRules\VariationCoefficientLogNormalDistributionRuleTest.cs" />
@@ -112,6 +112,10 @@
     <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Data.TestUtil\Ringtoets.HydraRing.Data.TestUtil.csproj">
+      <Project>{c033c69a-a1e3-4438-9c2c-eecca27bcba3}</Project>
+      <Name>Ringtoets.HydraRing.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>

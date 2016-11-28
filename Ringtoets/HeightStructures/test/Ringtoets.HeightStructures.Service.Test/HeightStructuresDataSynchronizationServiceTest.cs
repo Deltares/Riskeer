@@ -76,10 +76,10 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
+            // the return result, no ToArray() should be called before these assertions:
+            foreach (ICalculation calculation in failureMechanism.Calculations)
             {
-                Assert.IsNull(calculation.Output);
+                Assert.IsFalse(calculation.HasOutput);
             }
 
             CollectionAssert.AreEqual(new[]
@@ -101,7 +101,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -136,22 +136,24 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
                 Assert.IsNull(calculation.Output);
             }
 
-            CollectionAssert.AreEqual(new[]
+            CollectionAssert.AreEquivalent(new IObservable[]
             {
                 calculation1,
-                calculation2
+                calculation1.InputParameters,
+                calculation2,
+                calculation2.InputParameters
             }, affectedItems);
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedInputs()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -184,7 +186,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
@@ -192,8 +194,8 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             CollectionAssert.AreEqual(new[]
             {
-                calculation1,
-                calculation2
+                calculation1.InputParameters,
+                calculation2.InputParameters
             }, affectedItems);
         }
 
@@ -224,10 +226,10 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
+            // the return result, no ToArray() should be called before these assertions:
+            foreach (ICalculation calculation in failureMechanism.Calculations)
             {
-                Assert.IsNull(calculation.Output);
+                Assert.IsFalse(calculation.HasOutput);
             }
 
             CollectionAssert.AreEqual(new[]
@@ -280,7 +282,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
@@ -301,16 +303,21 @@ namespace Ringtoets.HeightStructures.Service.Test
             // Setup
             HeightStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
             HeightStructure structure = failureMechanism.HeightStructures[0];
-            StructuresCalculation<HeightStructuresInput>[] calculatiosnWithStructure = failureMechanism.Calculations
+            StructuresCalculation<HeightStructuresInput>[] calculationsWithStructure = failureMechanism.Calculations
                                                                                                        .Cast<StructuresCalculation<HeightStructuresInput>>()
                                                                                                        .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                                                                                                        .ToArray();
             HeightStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
-                                                                                                          .Where(sr => calculatiosnWithStructure.Contains(sr.Calculation))
+                                                                                                          .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
                                                                                                           .ToArray();
 
+            int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
+            HeightStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
+                                                                                             .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
+                                                                                             .ToArray();
+
             // Precondition
-            CollectionAssert.IsNotEmpty(calculatiosnWithStructure);
+            CollectionAssert.IsNotEmpty(calculationsWithStructure);
             CollectionAssert.IsNotEmpty(sectionResultsWithStructure);
 
             // Call
@@ -318,9 +325,9 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.HeightStructures, structure);
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculatiosnWithStructure)
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationsWithStructure)
             {
                 Assert.IsNull(calculation.InputParameters.Structure);
             }
@@ -330,10 +337,10 @@ namespace Ringtoets.HeightStructures.Service.Test
             }
 
             IObservable[] array = affectedObjects.ToArray();
-            Assert.AreEqual(1 + calculatiosnWithStructure.Length + sectionResultsWithStructure.Length,
+            Assert.AreEqual(1 + calculationsWithStructure.Length + sectionResultsWithStructure.Length,
                             array.Length);
             CollectionAssert.Contains(array, failureMechanism.HeightStructures);
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculatiosnWithStructure)
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationsWithStructure)
             {
                 CollectionAssert.Contains(array, calculation.InputParameters);
             }
@@ -341,6 +348,8 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 CollectionAssert.Contains(array, result);
             }
+            Assert.AreEqual(originalNumberOfSectionResultAssignments - sectionResults.Length, failureMechanism.SectionResults.Count(sr => sr.Calculation != null),
+                            "Other section results with a different calculation/structure should still have their association.");
         }
 
         private HeightStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
@@ -413,9 +422,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             failureMechanism.AddSection(section1);
             failureMechanism.AddSection(section2);
             HeightStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
-                            .First(sr => ReferenceEquals(sr.Section, section1));
+                                                                                    .First(sr => ReferenceEquals(sr.Section, section1));
             HeightStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults
-                .First(sr => ReferenceEquals(sr.Section, section2));
+                                                                                    .First(sr => ReferenceEquals(sr.Section, section2));
             result1.Calculation = calculation1;
             result2.Calculation = calculation2;
 

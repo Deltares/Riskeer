@@ -81,7 +81,7 @@ namespace Core.Common.Base.IO
                 observableTarget.NotifyObservers();
             }
 
-            foreach (var changedObservableObject in AffectedNonTargetObservableInstances.Where(o => !ReferenceEquals(o, ImportTarget)))
+            foreach (var changedObservableObject in AffectedNonTargetObservableInstances)
             {
                 changedObservableObject.NotifyObservers();
             }
@@ -108,7 +108,7 @@ namespace Core.Common.Base.IO
 
         /// <summary>
         /// Gets all objects that have been affected during the <see cref="Import"/> call
-        /// that implement <see cref="IObservable"/> and which are were not the targeted object
+        /// that implement <see cref="IObservable"/> and which are not the targeted object
         /// to import the data to.
         /// </summary>
         /// <remarks>If no changes were made to the data model (for example during a cancel),

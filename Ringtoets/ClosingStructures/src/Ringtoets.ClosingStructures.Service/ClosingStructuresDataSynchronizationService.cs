@@ -63,30 +63,23 @@ namespace Ringtoets.ClosingStructures.Service
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations
         /// in the <see cref="StructuresCalculation{T}"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="StructuresCalculation{T}"/>
+        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/>
         /// which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
-        /// removing data.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<StructuresCalculation<ClosingStructuresInput>> ClearAllCalculationOutputAndHydraulicBoundaryLocations(ClosingStructuresFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(ClosingStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var affectedItems = new Collection<StructuresCalculation<ClosingStructuresInput>>();
-
+            var affectedItems = new List<IObservable>();
             foreach (var calculation in failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
-                var calculationChanged = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
-                                                                                  .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters))
-                                                                                  .Any();
-                if (calculationChanged)
-                {
-                    affectedItems.Add(calculation);
-                }
+                affectedItems.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
+                                                                                .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
             return affectedItems;
@@ -125,16 +118,16 @@ namespace Ringtoets.ClosingStructures.Service
         /// Removes the given closing structure and all dependent data, either directly or indirectly,
         /// from the failure mechanism.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism with at least 1 structure.</param>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="structure"/>.</param>
         /// <param name="structure">The structure to be removed.</param>
         /// <returns>All objects affected by the removal.</returns>
         public static IEnumerable<IObservable> RemoveStructure(ClosingStructuresFailureMechanism failureMechanism, ClosingStructure structure)
         {
             var changedObservables = new HashSet<IObservable>();
-            StructuresCalculation<ClosingStructuresInput>[] heightStructureCalculations = failureMechanism.Calculations
-                                                                                                          .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                                                                                          .ToArray();
-            StructuresCalculation<ClosingStructuresInput>[] calculationWithRemovedClosingStructure = heightStructureCalculations
+            StructuresCalculation<ClosingStructuresInput>[] closingStructureCalculations = failureMechanism.Calculations
+                                                                                                           .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                                                                           .ToArray();
+            StructuresCalculation<ClosingStructuresInput>[] calculationWithRemovedClosingStructure = closingStructureCalculations
                 .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                 .ToArray();
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedClosingStructure)
@@ -142,7 +135,7 @@ namespace Ringtoets.ClosingStructures.Service
                 calculation.InputParameters.Structure = null;
 
                 IEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> affectedSectionResults =
-                    StructuresHelper.Delete(failureMechanism.SectionResults, calculation, heightStructureCalculations);
+                    StructuresHelper.Delete(failureMechanism.SectionResults, calculation, closingStructureCalculations);
                 foreach (StructuresFailureMechanismSectionResult<ClosingStructuresInput> result in affectedSectionResults)
                 {
                     changedObservables.Add(result);

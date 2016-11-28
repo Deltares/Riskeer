@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearWaveConditionsCalculation_WithCalculation_OutputNull()
+        public void ClearWaveConditionsCalculation_WithCalculation_OutputNullAndReturnAffectedCalculation()
         {
             // Setup
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -62,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsNull(calculation.Output);
 
             CollectionAssert.AreEqual(new[]
@@ -72,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearWaveConditionsCalculation_CalculationWithoutOutput_OutputNull()
+        public void ClearWaveConditionsCalculation_CalculationWithoutOutput_DoNothing()
         {
             // Setup
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -99,13 +99,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsOutputAndReturnsAffectedCalculations()
+        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsOutputAndReturnsAffectedObjects()
         {
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            GrassCoverErosionOutwardsWaveConditionsCalculation[] expectedAffectedCalculations = failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                                                                                .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
-                                                                                                                .ToArray();
+            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>().ToArray();
+            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
+                                                                     .Cast<IObservable>()
+                                                                     .ToArray();
+            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
+                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
+                                                                          .Cast<IObservable>()
+                                                                          .ToArray();
 
             // Call
             IEnumerable<IObservable> affectedItems =
@@ -113,12 +118,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null &&
                                                     !c.HasOutput));
 
-            CollectionAssert.AreEqual(expectedAffectedCalculations, affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
+                                           affectedItems);
         }
 
         [Test]
@@ -147,7 +153,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
 
             CollectionAssert.AreEqual(expectedAffectedCalculations, affectedItems);
@@ -175,7 +181,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);

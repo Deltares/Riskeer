@@ -62,7 +62,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
@@ -80,25 +80,31 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedObjects()
         {
             // Setup
             StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            StructuresCalculation<StabilityPointStructuresInput>[] expectedAffectedCalculations = failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                                                                                  .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
-                                                                                                                  .ToArray();
+            StructuresCalculation<StabilityPointStructuresInput>[] calculations = failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
+            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
+                                                                     .Cast<IObservable>()
+                                                                     .ToArray();
+            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
+                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
+                                                                          .Cast<IObservable>()
+                                                                          .ToArray();
 
             // Call
-            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> affectedItems =
+            IEnumerable<IObservable> affectedItems =
                 StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
 
-            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
+                                           affectedItems);
         }
 
         [Test]
@@ -123,7 +129,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
@@ -144,16 +150,21 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Setup
             StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
             StabilityPointStructure structure = failureMechanism.StabilityPointStructures[0];
-            StructuresCalculation<StabilityPointStructuresInput>[] calculatiosnWithStructure = failureMechanism.Calculations
+            StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithStructure = failureMechanism.Calculations
                                                                                                                .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
                                                                                                                .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                                                                                                                .ToArray();
             StabilityPointStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
-                                                                                                                  .Where(sr => calculatiosnWithStructure.Contains(sr.Calculation))
+                                                                                                                  .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
                                                                                                                   .ToArray();
 
+            int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
+            StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
+                                                                                              .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
+                                                                                              .ToArray();
+
             // Precondition
-            CollectionAssert.IsNotEmpty(calculatiosnWithStructure);
+            CollectionAssert.IsNotEmpty(calculationsWithStructure);
             CollectionAssert.IsNotEmpty(sectionResultsWithStructure);
 
             // Call
@@ -161,9 +172,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.StabilityPointStructures, structure);
-            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculatiosnWithStructure)
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationsWithStructure)
             {
                 Assert.IsNull(calculation.InputParameters.Structure);
             }
@@ -173,10 +184,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             }
 
             IObservable[] array = affectedObjects.ToArray();
-            Assert.AreEqual(1 + calculatiosnWithStructure.Length + sectionResultsWithStructure.Length,
+            Assert.AreEqual(1 + calculationsWithStructure.Length + sectionResultsWithStructure.Length,
                             array.Length);
             CollectionAssert.Contains(array, failureMechanism.StabilityPointStructures);
-            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculatiosnWithStructure)
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationsWithStructure)
             {
                 CollectionAssert.Contains(array, calculation.InputParameters);
             }
@@ -184,6 +195,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 CollectionAssert.Contains(array, result);
             }
+            Assert.AreEqual(originalNumberOfSectionResultAssignments - sectionResults.Length, failureMechanism.SectionResults.Count(sr => sr.Calculation != null),
+                            "Other section results with a different calculation/structure should still have their association.");
         }
 
         private StabilityPointStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()

@@ -155,11 +155,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
             handler.Expect(h => h.ConfirmReplace())
-                   .Return(true)
                    .Repeat.Never();
-            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
-                                          Arg<ReferenceLine>.Is.NotNull))
-                   .Return(Enumerable.Empty<IObservable>())
+            handler.Expect(h => h.Replace(null, null))
+                   .IgnoreArguments()
                    .Repeat.Never();
             mocks.ReplayAll();
 
@@ -187,11 +185,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
             handler.Expect(h => h.ConfirmReplace())
-                   .Return(true)
                    .Repeat.Never();
-            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
-                                          Arg<ReferenceLine>.Is.NotNull))
-                   .Return(Enumerable.Empty<IObservable>())
+            handler.Expect(h => h.Replace(null, null))
+                   .IgnoreArguments()
                    .Repeat.Never();
             mocks.ReplayAll();
 
@@ -222,9 +218,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             assessmentSection.ReferenceLine = originalReferenceLine;
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
             handler.Expect(h => h.ConfirmReplace()).Return(false);
-            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
-                                          Arg<ReferenceLine>.Is.NotNull))
-                   .Return(Enumerable.Empty<IObservable>())
+            handler.Expect(h => h.Replace(null, null))
+                   .IgnoreArguments()
                    .Repeat.Never();
             mocks.ReplayAll();
 
@@ -257,9 +252,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             handler.Expect(h => h.ConfirmReplace())
                    .WhenCalled(invocation => importer.Cancel())
                    .Return(acceptRemovalOfReferenceLineDependentData);
-            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Anything,
-                                          Arg<ReferenceLine>.Is.Anything))
-                   .Return(Enumerable.Empty<IObservable>())
+            handler.Expect(h => h.Replace(null, null))
+                   .IgnoreArguments()
                    .Repeat.Never();
             mocks.ReplayAll();
 
@@ -279,7 +273,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
             handler.Expect(h => h.ConfirmReplace())
-                   .Return(true)
                    .Repeat.Never();
             handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
                                           Arg<ReferenceLine>.Is.NotNull))
@@ -378,9 +371,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             handler.Expect(h => h.ConfirmReplace())
                    .WhenCalled(invocation => importer.Cancel())
                    .Return(true);
-            handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
-                                          Arg<ReferenceLine>.Is.NotNull))
-                   .Return(Enumerable.Empty<IObservable>())
+            handler.Expect(h => h.Replace(null, null))
+                   .IgnoreArguments()
                    .Repeat.Never();
 
             mocks.ReplayAll();

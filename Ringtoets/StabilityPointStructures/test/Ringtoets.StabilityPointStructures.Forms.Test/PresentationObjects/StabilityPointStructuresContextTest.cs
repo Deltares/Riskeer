@@ -68,8 +68,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             TestDelegate call = () => new StabilityPointStructuresContext(structures, null, assessmentSection);
 
             // Assert
-            string parmaName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", parmaName);
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
             mocks.VerifyAll();
         }
 

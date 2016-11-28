@@ -212,7 +212,7 @@ namespace Ringtoets.Integration.Service
         /// </summary>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <returns>All observable objects affected by this method.</returns>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearReferenceLine(IAssessmentSection assessmentSection)
         {
@@ -272,7 +272,6 @@ namespace Ringtoets.Integration.Service
                 }
             }
 
-            // Lastly: clear the reference line:
             assessmentSection.ReferenceLine = null;
             list.Add(assessmentSection);
 
@@ -283,11 +282,11 @@ namespace Ringtoets.Integration.Service
         /// Removes a given <see cref="ForeshoreProfile"/> from the <see cref="HeightStructuresFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="profile"/>.</param>
         /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
         /// that should be removed.</param>
         /// <returns>All observable objects affected by this method.</returns>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="profile"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveForeshoreProfile(HeightStructuresFailureMechanism failureMechanism, ForeshoreProfile profile)
         {
@@ -301,17 +300,8 @@ namespace Ringtoets.Integration.Service
             }
 
             var changedObservables = new List<IObservable>();
-            StructuresCalculation<HeightStructuresInput>[] calculations = failureMechanism.Calculations
-                                                                                          .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                                                                          .ToArray();
-            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedForeshoreProfile = calculations
-                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
-                .ToArray();
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedForeshoreProfile)
-            {
-                calculation.InputParameters.ForeshoreProfile = null;
-                changedObservables.Add(calculation.InputParameters);
-            }
+            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations = failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>();
+            changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearForeshoreProfile<HeightStructuresInput, HeightStructure>(calculations, profile));
 
             failureMechanism.ForeshoreProfiles.Remove(profile);
             changedObservables.Add(failureMechanism.ForeshoreProfiles);
@@ -323,11 +313,11 @@ namespace Ringtoets.Integration.Service
         /// Removes a given <see cref="ForeshoreProfile"/> from the <see cref="ClosingStructuresFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="profile"/>.</param>
         /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
         /// that should be removed.</param>
         /// <returns>All observable objects affected by this method.</returns>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="profile"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveForeshoreProfile(ClosingStructuresFailureMechanism failureMechanism, ForeshoreProfile profile)
         {
@@ -341,17 +331,8 @@ namespace Ringtoets.Integration.Service
             }
 
             var changedObservables = new List<IObservable>();
-            StructuresCalculation<ClosingStructuresInput>[] calculations = failureMechanism.Calculations
-                                                                                           .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                                                                           .ToArray();
-            StructuresCalculation<ClosingStructuresInput>[] calculationWithRemovedForeshoreProfile = calculations
-                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
-                .ToArray();
-            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedForeshoreProfile)
-            {
-                calculation.InputParameters.ForeshoreProfile = null;
-                changedObservables.Add(calculation.InputParameters);
-            }
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations = failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>();
+            changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearForeshoreProfile<ClosingStructuresInput, ClosingStructure>(calculations, profile));
 
             failureMechanism.ForeshoreProfiles.Remove(profile);
             changedObservables.Add(failureMechanism.ForeshoreProfiles);
@@ -363,11 +344,11 @@ namespace Ringtoets.Integration.Service
         /// Removes a given <see cref="ForeshoreProfile"/> from the <see cref="StabilityPointStructuresFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="profile"/>.</param>
         /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
         /// that should be removed.</param>
         /// <returns>All observable objects affected by this method.</returns>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="profile"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveForeshoreProfile(StabilityPointStructuresFailureMechanism failureMechanism, ForeshoreProfile profile)
         {
@@ -381,17 +362,8 @@ namespace Ringtoets.Integration.Service
             }
 
             var changedObservables = new List<IObservable>();
-            StructuresCalculation<StabilityPointStructuresInput>[] calculations = failureMechanism.Calculations
-                                                                                                  .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                                                                  .ToArray();
-            StructuresCalculation<StabilityPointStructuresInput>[] calculationWithRemovedForeshoreProfile = calculations
-                .Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile))
-                .ToArray();
-            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedForeshoreProfile)
-            {
-                calculation.InputParameters.ForeshoreProfile = null;
-                changedObservables.Add(calculation.InputParameters);
-            }
+            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations = failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>();
+            changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearForeshoreProfile<StabilityPointStructuresInput, StabilityPointStructure>(calculations, profile));
 
             failureMechanism.ForeshoreProfiles.Remove(profile);
             changedObservables.Add(failureMechanism.ForeshoreProfiles);
@@ -403,11 +375,11 @@ namespace Ringtoets.Integration.Service
         /// Removes a given <see cref="ForeshoreProfile"/> from the <see cref="StabilityStoneCoverFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="profile"/>.</param>
         /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
         /// that should be removed.</param>
         /// <returns>All observable objects affected by this method.</returns>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="profile"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveForeshoreProfile(StabilityStoneCoverFailureMechanism failureMechanism, ForeshoreProfile profile)
         {
@@ -437,11 +409,11 @@ namespace Ringtoets.Integration.Service
         /// Removes a given <see cref="ForeshoreProfile"/> from the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="profile"/>.</param>
         /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
         /// that should be removed.</param>
         /// <returns>All observable objects affected by this method.</returns>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="profile"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveForeshoreProfile(WaveImpactAsphaltCoverFailureMechanism failureMechanism, ForeshoreProfile profile)
         {
@@ -471,11 +443,11 @@ namespace Ringtoets.Integration.Service
         /// Removes a given <see cref="ForeshoreProfile"/> from the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="profile"/>.</param>
         /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
         /// that should be removed.</param>
         /// <returns>All observable objects affected by this method.</returns>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="profile"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveForeshoreProfile(GrassCoverErosionOutwardsFailureMechanism failureMechanism, ForeshoreProfile profile)
         {
@@ -505,11 +477,11 @@ namespace Ringtoets.Integration.Service
         /// Removes a given <see cref="DikeProfile"/> from the <see cref="GrassCoverErosionInwardsFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism containing at least one profile.</param>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="profile"/>.</param>
         /// <param name="profile">The profile residing in <paramref name="failureMechanism"/>
         /// that should be removed.</param>
         /// <returns>All observable objects affected by this method.</returns>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="profile"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveDikeProfile(GrassCoverErosionInwardsFailureMechanism failureMechanism, DikeProfile profile)
         {
@@ -532,7 +504,7 @@ namespace Ringtoets.Integration.Service
             foreach (GrassCoverErosionInwardsCalculation calculation in calculationWithRemovedDikeProfile)
             {
                 calculation.InputParameters.DikeProfile = null;
-                IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> changedSectionResults = 
+                IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> changedSectionResults =
                     GrassCoverErosionInwardsHelper.Delete(failureMechanism.SectionResults, calculation, calculations);
                 foreach (GrassCoverErosionInwardsFailureMechanismSectionResult result in changedSectionResults)
                 {

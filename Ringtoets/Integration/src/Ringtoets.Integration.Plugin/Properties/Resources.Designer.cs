@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Na het importeren van een aangepaste ligging van de referentielijn zullen alle geimporteerde en berekende gegevens van faalmechanismen worden gewist.
+        ///   Looks up a localized string similar to Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van faalmechanismen worden gewist.
         ///
         ///Wilt u doorgaan?.
         /// </summary>

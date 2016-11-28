@@ -46,7 +46,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        public void ClearWaveConditionsCalculation_WithCalculation_OutputNull()
+        public void ClearWaveConditionsCalculation_WithCalculation_OutputNullAndReturnAffectedCalculations()
         {
             // Setup
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -62,7 +62,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsNull(calculation.Output);
 
             CollectionAssert.AreEqual(new[]
@@ -100,13 +100,19 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsOutputAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsOutputAndReturnsAffectedObjects()
         {
             // Setup
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            WaveImpactAsphaltCoverWaveConditionsCalculation[] expectedAffectedCalculations = failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                                                                             .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
-                                                                                                             .ToArray();
+            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().ToArray();
+            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
+                                                                     .Cast<IObservable>()
+                                                                     .ToArray();
+            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
+                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
+                                                                          .Cast<IObservable>()
+                                                                          .ToArray();
+
 
             // Call
             IEnumerable<IObservable> affectedItems =
@@ -114,12 +120,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null &&
                                                     !c.HasOutput));
 
-            CollectionAssert.AreEqual(expectedAffectedCalculations, affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
+                                           affectedItems);
         }
 
         [Test]
@@ -147,7 +154,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
@@ -175,7 +182,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);

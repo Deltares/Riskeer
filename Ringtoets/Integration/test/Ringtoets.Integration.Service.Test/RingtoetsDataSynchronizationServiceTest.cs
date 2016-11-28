@@ -74,10 +74,10 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms()
-                .SelectMany(f => f.Calculations)
-                .Where(c => c.HasOutput));
+                                                      .SelectMany(f => f.Calculations)
+                                                      .Where(c => c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
@@ -94,58 +94,90 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_VariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_VariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
             var assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
-            var expectedAffectedItems = new List<ICalculation>();
+            var expectedAffectedItems = new List<IObservable>();
             expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
                                                             .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
+                                                            .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
             expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
                                                             .Cast<GrassCoverErosionInwardsCalculation>()
-                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
+                                                            .Cast<GrassCoverErosionInwardsCalculation>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
             expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
                                                             .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                            .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
             expectedAffectedItems.AddRange(assessmentSection.HeightStructures.Calculations
                                                             .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.HeightStructures.Calculations
+                                                            .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
             expectedAffectedItems.AddRange(assessmentSection.PipingFailureMechanism.Calculations
                                                             .Cast<PipingCalculation>()
-                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.PipingFailureMechanism.Calculations
+                                                            .Cast<PipingCalculation>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
             expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
                                                             .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
+                                                            .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
             expectedAffectedItems.AddRange(assessmentSection.StabilityStoneCover.Calculations
                                                             .Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                            .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
             expectedAffectedItems.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
                                                             .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput));
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                            .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
 
             // Call
             IEnumerable<IObservable> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(assessmentSection.ClosingStructures.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.GrassCoverErosionInwards.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
-                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.GrassCoverErosionOutwards.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.HeightStructures.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
-                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.PipingFailureMechanism.Calculations.Cast<PipingCalculation>()
-                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.StabilityPointStructures.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.StabilityStoneCover.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
@@ -182,7 +214,7 @@ namespace Ringtoets.Integration.Service.Test
         [TestCase(1.0, 3.0)]
         [TestCase(3.8, double.NaN)]
         [TestCase(double.NaN, 6.9)]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsTrue(
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsAffectedHydraulicBoundaryLocations(
             double waveHeight, double designWaterLevel)
         {
             // Setup
@@ -203,7 +235,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
@@ -216,7 +248,7 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryDatabaseWithoutLocations_ReturnsFalse()
+        public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryDatabaseWithoutLocations_DoNothing()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -232,7 +264,7 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutWaveHeightAndDesignWaterLevel_ReturnsFalse()
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutWaveHeightAndDesignWaterLevel_DoNothing()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -252,7 +284,7 @@ namespace Ringtoets.Integration.Service.Test
         [Test]
         [TestCase(3.5, double.NaN)]
         [TestCase(double.NaN, 8.3)]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnTrue(
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnAffectedHydraulicBoundaryLocations(
             double designWaterLevel, double waveHeight)
         {
             // Setup
@@ -282,7 +314,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
@@ -295,7 +327,7 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassCoverErosionOutwardsLocationWithoutData_ReturnFalse()
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassCoverErosionOutwardsLocationWithoutData_DoNothing()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
@@ -325,7 +357,7 @@ namespace Ringtoets.Integration.Service.Test
         [Test]
         [TestCase(3.5, double.NaN)]
         [TestCase(double.NaN, 8.3)]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnTrue(
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnAffectedHydraulicBoundaryLocations(
             double designWaterLevel, double waveHeight)
         {
             // Setup
@@ -346,7 +378,8 @@ namespace Ringtoets.Integration.Service.Test
             {
                 DesignWaterLevel = (RoundedDouble) designWaterLevel,
                 WaveHeight = (RoundedDouble) waveHeight
-            };;
+            };
+            ;
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
@@ -361,14 +394,14 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
 
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
@@ -388,8 +421,8 @@ namespace Ringtoets.Integration.Service.Test
             TestDelegate call = () => RingtoetsDataSynchronizationService.ClearReferenceLine(null);
 
             // Assert
-            string parmaName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", parmaName);
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
         }
 
         [Test]
@@ -403,7 +436,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResults);
@@ -556,8 +589,6 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism.StabilityPointStructures);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
-            CollectionAssert.IsEmpty(duneErosionFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, duneErosionFailureMechanism);
 
             MacrostabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacrostabilityInwards;
@@ -587,7 +618,6 @@ namespace Ringtoets.Integration.Service.Test
             TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
             CollectionAssert.Contains(observables, technicalInnovationFailureMechanism);
 
-            Assert.IsNull(assessmentSection.ReferenceLine);
             CollectionAssert.Contains(observables, assessmentSection);
         }
 
@@ -639,7 +669,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
@@ -703,7 +733,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
@@ -767,7 +797,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
             {
@@ -831,7 +861,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculations)
             {
@@ -895,7 +925,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculations)
             {
@@ -960,7 +990,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ForeshoreProfiles, profile);
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculations)
             {
@@ -1029,7 +1059,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.DikeProfiles, profile);
             foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
             {

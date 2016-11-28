@@ -76,7 +76,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.Output);
@@ -101,7 +101,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -132,26 +132,28 @@ namespace Ringtoets.ClosingStructures.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
                 Assert.IsNull(calculation.Output);
             }
 
-            CollectionAssert.AreEqual(new[]
+            CollectionAssert.AreEquivalent(new IObservable[]
             {
                 calculation1,
-                calculation2
+                calculation1.InputParameters,
+                calculation2,
+                calculation2.InputParameters
             }, affectedItems);
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedInputs()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -180,11 +182,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
@@ -192,8 +194,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             CollectionAssert.AreEqual(new[]
             {
-                calculation1,
-                calculation2
+                calculation1.InputParameters,
+                calculation2.InputParameters
             }, affectedItems);
         }
 
@@ -220,11 +222,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.Output);
@@ -252,7 +254,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<IObservable> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             CollectionAssert.IsEmpty(affectedItems);
@@ -280,7 +282,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
@@ -301,16 +303,21 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Setup
             ClosingStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
             ClosingStructure structure = failureMechanism.ClosingStructures[0];
-            StructuresCalculation<ClosingStructuresInput>[] calculatiosnWithStructure = failureMechanism.Calculations
+            StructuresCalculation<ClosingStructuresInput>[] calculationsWithStructure = failureMechanism.Calculations
                                                                                                         .Cast<StructuresCalculation<ClosingStructuresInput>>()
                                                                                                         .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                                                                                                         .ToArray();
             ClosingStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
-                                                                                                           .Where(sr => calculatiosnWithStructure.Contains(sr.Calculation))
+                                                                                                           .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
                                                                                                            .ToArray();
 
+            int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
+            ClosingStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
+                                                                                              .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
+                                                                                              .ToArray();
+
             // Precondition
-            CollectionAssert.IsNotEmpty(calculatiosnWithStructure);
+            CollectionAssert.IsNotEmpty(calculationsWithStructure);
             CollectionAssert.IsNotEmpty(sectionResultsWithStructure);
 
             // Call
@@ -318,9 +325,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.ClosingStructures, structure);
-            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculatiosnWithStructure)
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationsWithStructure)
             {
                 Assert.IsNull(calculation.InputParameters.Structure);
             }
@@ -330,10 +337,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
             }
 
             IObservable[] array = affectedObjects.ToArray();
-            Assert.AreEqual(1 + calculatiosnWithStructure.Length + sectionResultsWithStructure.Length,
+            Assert.AreEqual(1 + calculationsWithStructure.Length + sectionResultsWithStructure.Length,
                             array.Length);
             CollectionAssert.Contains(array, failureMechanism.ClosingStructures);
-            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculatiosnWithStructure)
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationsWithStructure)
             {
                 CollectionAssert.Contains(array, calculation.InputParameters);
             }
@@ -341,6 +348,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 CollectionAssert.Contains(array, result);
             }
+            Assert.AreEqual(originalNumberOfSectionResultAssignments - sectionResults.Length, failureMechanism.SectionResults.Count(sr => sr.Calculation != null),
+                "Other section results with a different calculation/structure should still have their association.");
         }
 
         private ClosingStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()

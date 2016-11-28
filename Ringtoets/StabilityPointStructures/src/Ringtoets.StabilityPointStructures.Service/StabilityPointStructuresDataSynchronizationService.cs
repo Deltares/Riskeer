@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Structures;
@@ -66,11 +65,10 @@ namespace Ringtoets.StabilityPointStructures.Service
         /// </summary>
         /// <param name="failureMechanism">The <see cref="StabilityPointStructuresFailureMechanism"/>
         /// which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
-        /// removing data.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> ClearAllCalculationOutputAndHydraulicBoundaryLocations(
+        public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(
             StabilityPointStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
@@ -78,17 +76,11 @@ namespace Ringtoets.StabilityPointStructures.Service
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var affectedItems = new Collection<StructuresCalculation<StabilityPointStructuresInput>>();
-
+            var affectedItems = new List<IObservable>();
             foreach (var calculation in failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>())
             {
-                var calculationChanged = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
-                                                                                  .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters))
-                                                                                  .Any();
-                if (calculationChanged)
-                {
-                    affectedItems.Add(calculation);
-                }
+                affectedItems.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
+                                                                                .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
             return affectedItems;
@@ -127,17 +119,17 @@ namespace Ringtoets.StabilityPointStructures.Service
         /// Removes the given stability point structure and all dependent data, either
         /// directly or indirectly, from the failure mechanism.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism with at least 1 structure.</param>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="structure"/>.</param>
         /// <param name="structure">The structure to be removed.</param>
         /// <returns>All objects affected by the removal.</returns>
         public static IEnumerable<IObservable> RemoveStructure(StabilityPointStructuresFailureMechanism failureMechanism,
                                                                StabilityPointStructure structure)
         {
             var changedObservables = new HashSet<IObservable>();
-            StructuresCalculation<StabilityPointStructuresInput>[] heightStructureCalculations = failureMechanism.Calculations
-                                                                                                         .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                                                                         .ToArray();
-            StructuresCalculation<StabilityPointStructuresInput>[] calculationWithRemovedStabilityPointStructure = heightStructureCalculations
+            StructuresCalculation<StabilityPointStructuresInput>[] stabilityPointStructureCalculations = failureMechanism.Calculations
+                                                                                                                         .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                                                         .ToArray();
+            StructuresCalculation<StabilityPointStructuresInput>[] calculationWithRemovedStabilityPointStructure = stabilityPointStructureCalculations
                 .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                 .ToArray();
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedStabilityPointStructure)
@@ -145,7 +137,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 calculation.InputParameters.Structure = null;
 
                 IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> affectedSectionResults =
-                    StructuresHelper.Delete(failureMechanism.SectionResults, calculation, heightStructureCalculations);
+                    StructuresHelper.Delete(failureMechanism.SectionResults, calculation, stabilityPointStructureCalculations);
                 foreach (StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> result in affectedSectionResults)
                 {
                     changedObservables.Add(result);

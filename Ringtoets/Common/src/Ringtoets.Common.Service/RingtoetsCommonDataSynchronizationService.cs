@@ -21,10 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Data;
 
@@ -74,6 +77,27 @@ namespace Ringtoets.Common.Service
                 };
             }
             return Enumerable.Empty<IObservable>();
+        }
+
+        /// <summary>
+        /// Clears the given foreshore profile from a <see cref="StructuresCalculation{T}"/> collection.
+        /// </summary>
+        /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
+        /// <typeparam name="TStructure">Object type of the structure property of <typeparamref name="TStructureInput"/>.</typeparam>
+        /// <param name="calculations">The calculations.</param>
+        /// <param name="profile">The profile to be cleared.</param>
+        /// <returns>All affected objects by the clear.</returns>
+        public static IEnumerable<IObservable> ClearForeshoreProfile<TStructureInput, TStructure>(IEnumerable<StructuresCalculation<TStructureInput>> calculations, ForeshoreProfile profile)
+            where TStructureInput : StructuresInputBase<TStructure>, new()
+            where TStructure : StructureBase
+        {
+            var affectedObjects = new Collection<IObservable>();
+            foreach (StructuresCalculation<TStructureInput> calculation in calculations.Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile)))
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                affectedObjects.Add(calculation.InputParameters);
+            }
+            return affectedObjects;
         }
 
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation location)

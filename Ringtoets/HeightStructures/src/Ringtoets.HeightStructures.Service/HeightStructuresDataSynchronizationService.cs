@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Structures;
@@ -65,8 +64,7 @@ namespace Ringtoets.HeightStructures.Service
         /// </summary>
         /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/>
         /// which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
-        /// removing data.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
@@ -76,16 +74,11 @@ namespace Ringtoets.HeightStructures.Service
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var affectedItems = new Collection<StructuresCalculation<HeightStructuresInput>>();
+            var affectedItems = new List<IObservable>();
             foreach (var calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
             {
-                var calculationChanged = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
-                                                                                  .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters))
-                                                                                  .Any();
-                if (calculationChanged)
-                {
-                    affectedItems.Add(calculation);
-                }
+                affectedItems.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
+                                                                                .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
             return affectedItems;
         }
@@ -125,7 +118,7 @@ namespace Ringtoets.HeightStructures.Service
         /// Removes the given height structure and all dependent data, either directly or indirectly,
         /// from the failure mechanism.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism with at least 1 structure.</param>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="structure"/>.</param>
         /// <param name="structure">The structure to be removed.</param>
         /// <returns>All objects affected by the removal.</returns>
         public static IEnumerable<IObservable> RemoveStructure(HeightStructuresFailureMechanism failureMechanism, HeightStructure structure)

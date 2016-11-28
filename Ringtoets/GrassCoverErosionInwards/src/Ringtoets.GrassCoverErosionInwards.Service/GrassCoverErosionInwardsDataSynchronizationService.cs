@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -88,8 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/>
         /// which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
-        /// removal of data.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removal of data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(GrassCoverErosionInwardsFailureMechanism failureMechanism)
@@ -99,16 +97,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var affectedItems = new Collection<IObservable>();
+            var affectedItems = new List<IObservable>();
             foreach (var calculation in failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>())
             {
-                bool calculationChanged = ClearCalculationOutput(calculation)
-                    .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters))
-                    .Any();
-                if (calculationChanged)
-                {
-                    affectedItems.Add(calculation);
-                }
+                affectedItems.AddRange(ClearCalculationOutput(calculation)
+                                           .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
             return affectedItems;

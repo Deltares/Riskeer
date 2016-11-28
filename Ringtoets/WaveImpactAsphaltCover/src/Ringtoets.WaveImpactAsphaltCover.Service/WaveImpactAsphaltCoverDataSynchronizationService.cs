@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.HydraRing.Data;
@@ -67,8 +66,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         /// </summary>
         /// <param name="failureMechanism">The <see cref="WaveImpactAsphaltCoverFailureMechanism"/>
         /// which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
-        /// removing data.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
@@ -79,17 +77,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            Collection<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems = new Collection<WaveImpactAsphaltCoverWaveConditionsCalculation>();
-
+            var affectedItems = new List<IObservable>();
             foreach (var calculation in failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
             {
-                var calculationChanged = ClearWaveConditionsCalculationOutput(calculation)
-                    .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters))
-                    .Any();
-                if (calculationChanged)
-                {
-                    affectedItems.Add(calculation);
-                }
+                affectedItems.AddRange(ClearWaveConditionsCalculationOutput(calculation)
+                                           .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
             return affectedItems;

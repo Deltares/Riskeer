@@ -23,11 +23,15 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.Data.TestUtil;
 
 namespace Ringtoets.Common.Service.Test
 {
@@ -97,7 +101,7 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             var locations = new ObservableList<HydraulicBoundaryLocation>
             {
-                new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                new TestHydraulicBoundaryLocation()
             };
 
             // Call
@@ -135,7 +139,7 @@ namespace Ringtoets.Common.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsNull(calculation.Output);
 
             CollectionAssert.AreEqual(new[]
@@ -160,6 +164,47 @@ namespace Ringtoets.Common.Service.Test
             CollectionAssert.IsEmpty(changedObjects);
         }
 
+        [Test]
+        public void ClearForeshoreProfile_CalculationsWithForeshoreProfile_ClearForeshoreProfileAndReturnAffectedInputs()
+        {
+            // Setup
+            var foreshoreProfileToBeRemoved = new TestForeshoreProfile(new Point2D(0,0));
+            var foreshoreProfile = new TestForeshoreProfile(new Point2D(1, 1));
+
+            var calculation1 = new StructuresCalculation<SimpleStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = foreshoreProfile
+                }
+            };
+            var calculation2 = new StructuresCalculation<SimpleStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = foreshoreProfileToBeRemoved
+                }
+            };
+            var calculations = new[]
+            {
+                calculation1,
+                calculation2
+            };
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearForeshoreProfile<SimpleStructuresInput, StructureBase>(
+                calculations, foreshoreProfileToBeRemoved);
+
+            // Assert
+            Assert.IsNull(calculation2.InputParameters.ForeshoreProfile);
+            Assert.IsNotNull(calculation1.InputParameters.ForeshoreProfile);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation2.InputParameters
+            }, affectedObjects);
+        }
+
         private class TestInput : ICalculationInput
         {
             public void Attach(IObserver observer)
@@ -175,6 +220,14 @@ namespace Ringtoets.Common.Service.Test
             public void NotifyObservers()
             {
                 throw new NotImplementedException();
+            }
+        }
+
+        private class SimpleStructuresInput : StructuresInputBase<StructureBase>
+        {
+            protected override void UpdateStructureParameters()
+            {
+                
             }
         }
     }

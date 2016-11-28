@@ -41,9 +41,9 @@ namespace Ringtoets.Integration.Test
     public class ReferenceLineImporterIntegrationTest : NUnitFormsAssertTest
     {
         [Test]
-        public void Import_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToCancel_NoChanges()
+        public void GivenAssessmentSectionWithReferenceLine_WhenCancellingReferenceLineImport_ThenKeepOriginalReferenceLine()
         {
-            // Setup
+            // Given
             var originalReferenceLine = new ReferenceLine();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -66,21 +66,21 @@ namespace Ringtoets.Integration.Test
                 messageBoxTester.ClickCancel();
             };
 
-            // Call
+            // When
             bool importSuccesful = importer.Import();
 
-            // Assert
+            // Then
             Assert.IsFalse(importSuccesful);
             Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
-            var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geimporteerde en berekende gegevens van faalmechanismen worden gewist." + Environment.NewLine +
+            var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van faalmechanismen worden gewist." + Environment.NewLine +
                                Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
         }
 
         [Test]
-        public void Import_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToContinue_ClearDataDependentOnReferenceLine()
+        public void GivenAssessmentSectionWithReferenceLineAndOtherData_WhenImportingReferenceLine_ThenReferenceLineReplacedAndReferenceLineDependentDataCleared()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -153,43 +153,11 @@ namespace Ringtoets.Integration.Test
             CollectionAssert.IsEmpty(assessmentSection.PipingFailureMechanism.CalculationsGroup.Children);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
-            var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geimporteerde en berekende gegevens van faalmechanismen worden gewist." + Environment.NewLine +
+            var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van faalmechanismen worden gewist." + Environment.NewLine +
                                Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Import_CancellingImport_ReturnFalseAndNoChanges()
-        {
-            // Setup
-            var originalReferenceLine = new ReferenceLine();
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                ReferenceLine = originalReferenceLine
-            };
-
-            var handler = new ReferenceLineReplacementHandler();
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
-
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                importer.Cancel();
-
-                var messageBoxTester = new MessageBoxTester(wnd);
-                messageBoxTester.ClickOk();
-            };
-
-            // Call
-            bool importSuccesful = importer.Import();
-
-            // Assert
-            Assert.IsFalse(importSuccesful);
-            Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
         }
     }
 }

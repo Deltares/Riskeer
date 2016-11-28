@@ -60,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsNull(calculation.Output);
 
             CollectionAssert.AreEqual(new[]
@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
@@ -128,13 +128,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedObjects()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            GrassCoverErosionInwardsCalculation[] expectedAffectedCalculations = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
-                                                                                                 .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
-                                                                                                 .ToArray();
+            IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations =
+                failureMechanism.Calculations
+                                .Cast<GrassCoverErosionInwardsCalculation>()
+                                .ToArray();
+            IObservable[] expectedAffectedCalculations = grassCoverErosionInwardsCalculations
+                .Where(c => c.HasOutput)
+                .Cast<IObservable>()
+                .ToArray();
+            IObservable[] expectedAffectedCalculationInputs = grassCoverErosionInwardsCalculations
+                .Select(c => c.InputParameters)
+                .Where(i => i.HydraulicBoundaryLocation != null)
+                .Cast<IObservable>()
+                .ToArray();
 
             // Call
             IEnumerable<IObservable> affectedItems =
@@ -142,12 +152,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null &&
                                                     !c.HasOutput));
 
-            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
+                                           affectedItems);
         }
 
         [Test]
@@ -172,7 +183,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);

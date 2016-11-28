@@ -82,8 +82,7 @@ namespace Ringtoets.Piping.Service
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations in the <see cref="PipingFailureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
-        /// removing data.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearAllCalculationOutputAndHydraulicBoundaryLocations(PipingFailureMechanism failureMechanism)
         {
@@ -92,16 +91,11 @@ namespace Ringtoets.Piping.Service
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var affectedItems = new Collection<IObservable>();
+            var affectedItems = new List<IObservable>();
             foreach (var calculation in failureMechanism.Calculations.Cast<PipingCalculation>())
             {
-                bool calculationChanged = ClearCalculationOutput(calculation)
-                    .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters))
-                    .Any();
-                if (calculationChanged)
-                {
-                    affectedItems.Add(calculation);
-                }
+                affectedItems.AddRange(ClearCalculationOutput(calculation)
+                                           .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
             return affectedItems;
@@ -142,11 +136,11 @@ namespace Ringtoets.Piping.Service
         /// Removes a given <see cref="RingtoetsPipingSurfaceLine"/> from the <see cref="PipingFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism containing at least one surfaceline.</param>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="surfaceLine"/>.</param>
         /// <param name="surfaceLine">The surfaceline residing in <paramref name="failureMechanism"/>
         /// that should be removed.</param>
         /// <returns>All observable objects affected by this method.</returns>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="surfaceLine"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveSurfaceLine(PipingFailureMechanism failureMechanism, RingtoetsPipingSurfaceLine surfaceLine)
         {
@@ -178,11 +172,11 @@ namespace Ringtoets.Piping.Service
         /// Removes a given <see cref="StochasticSoilModel"/> from the <see cref="PipingFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism containing at least one stochastic soil model.</param>
+        /// <param name="failureMechanism">The failure mechanism containing <paramref name="soilModel"/>.</param>
         /// <param name="soilModel">The soil model residing in <paramref name="failureMechanism"/>
         /// that should be removed.</param>
         /// <returns>All observable objects affected by this method.</returns>
-        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="soilModel"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveStochasticSoilModel(PipingFailureMechanism failureMechanism, StochasticSoilModel soilModel)
         {

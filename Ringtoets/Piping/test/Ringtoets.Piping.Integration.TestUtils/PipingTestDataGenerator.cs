@@ -30,12 +30,12 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Integration.TestUtils
 {
     /// <summary>
-    /// class responsible for generating test data configurations.
+    /// Class responsible for generating test data configurations.
     /// </summary>
     public static class PipingTestDataGenerator
     {
         /// <summary>
-        /// Gets a fully configured piping failure mechanism.
+        /// Gets a fully configured <see cref="PipingFailureMechanism"/>.
         /// </summary>
         public static PipingFailureMechanism GetFullyConfiguredPipingFailureMechanism()
         {

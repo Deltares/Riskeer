@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void ClearWaveConditionsCalculationOutput_WithCalculation_OutputNull()
+        public void ClearWaveConditionsCalculationOutput_WithCalculation_OutputNullAndReturnAffectedCalculations()
         {
             // Setup
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
@@ -68,7 +68,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsNull(calculation.Output);
 
             CollectionAssert.AreEqual(new[]
@@ -105,13 +105,18 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsCalculationsAndReturnsAffectedCalculations()
+        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_WithVariousCalculations_ClearsCalculationsAndReturnsAffectedObjects()
         {
             // Setup
             StabilityStoneCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            StabilityStoneCoverWaveConditionsCalculation[] expectedAffectedCalculations = failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                                                                                          .Where(c => c.InputParameters.HydraulicBoundaryLocation != null || c.HasOutput)
-                                                                                                          .ToArray();
+            StabilityStoneCoverWaveConditionsCalculation[] calculations = failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>().ToArray();
+            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
+                                                                     .Cast<IObservable>()
+                                                                     .ToArray();
+            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
+                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
+                                                                          .Cast<IObservable>()
+                                                                          .ToArray();
 
             // Call
             IEnumerable<IObservable> affectedItems =
@@ -119,11 +124,12 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
 
-            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
+                                           affectedItems);
         }
 
         [Test]
@@ -152,7 +158,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
@@ -185,7 +191,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void ClearReferenceLineDependentData_FullyConfiguredFailureMechanism_RemoveFailureMechanismDependentData()
+        public void ClearReferenceLineDependentData_FullyConfiguredFailureMechanism_RemoveFailureMechanismDependentDataAndReturnAffectedObjects()
         {
             // Setup
             StabilityStoneCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
@@ -195,7 +201,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should not be called before these assertions:
+            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);

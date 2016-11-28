@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.TestUtils
     public static class TestDataGenerator
     {
         /// <summary>
-        /// Gets a fully configured assessment section.
+        /// Gets a fully configured <see cref="AssessmentSection"/>.
         /// </summary>
         public static AssessmentSection GetFullyConfiguredAssessmentSection()
         {
@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured stability stone cover failure mechanism.
+        /// Gets a fully configured <see cref="StabilityStoneCoverFailureMechanism"/>.
         /// </summary>
         public static StabilityStoneCoverFailureMechanism GetFullyConfiguredStabilityStoneCoverFailureMechanism()
         {
@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured asphalt cover failure mechanism.
+        /// Gets a fully configured <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
         /// </summary>
         public static WaveImpactAsphaltCoverFailureMechanism GetFullyConfiguredWaveImpactAsphaltCoverFailureMechanism()
         {
@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured grass cover erosion outwards failure mechanism.
+        /// Gets a fully configured <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
         /// </summary>
         public static GrassCoverErosionOutwardsFailureMechanism GetFullyConfiguredGrassCoverErosionOutwardsFailureMechanism()
         {
@@ -111,7 +111,7 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured height structures failure mechanism.
+        /// Gets a fully configured <see cref="HeightStructuresFailureMechanism"/>.
         /// </summary>
         public static HeightStructuresFailureMechanism GetFullyConfiguredHeightStructuresFailureMechanism()
         {
@@ -123,7 +123,7 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured closing structures failure mechanism.
+        /// Gets a fully configured <see cref="ClosingStructuresFailureMechanism"/>.
         /// </summary>
         public static ClosingStructuresFailureMechanism GetFullyConfiguredClosingStructuresFailureMechanism()
         {
@@ -135,7 +135,7 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured stability point structures failure mechanism.
+        /// Gets a fully configured <see cref="StabilityPointStructuresFailureMechanism"/>.
         /// </summary>
         public static StabilityPointStructuresFailureMechanism GetFullyConfiguredStabilityPointStructuresFailureMechanism()
         {
@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured grass cover erosion inwards failure mechanism.
+        /// Gets a fully configured <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
         public static GrassCoverErosionInwardsFailureMechanism GetFullyConfiguredGrassCoverErosionInwardsFailureMechanism()
         {
