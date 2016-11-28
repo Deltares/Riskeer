@@ -22,6 +22,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
@@ -48,15 +50,15 @@ namespace Ringtoets.Common.Forms.TestUtil
         public static void AssertFailureMechanismSectionsMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
-            var sectionsMapLinesData = (MapLineData) mapData;
-            var sectionMapLinesFeatures = sectionsMapLinesData.Features.ToArray();
-            var sectionsArray = sections.ToArray();
+            MapLineData sectionsMapLinesData = (MapLineData) mapData;
+            MapFeature[] sectionMapLinesFeatures = sectionsMapLinesData.Features.ToArray();
+            FailureMechanismSection[] sectionsArray = sections.ToArray();
             Assert.AreEqual(sectionsArray.Length, sectionMapLinesFeatures.Length);
 
             for (int index = 0; index < sectionsArray.Length; index++)
             {
-                var geometry = sectionMapLinesFeatures[index].MapGeometries.First();
-                var failureMechanismSection = sectionsArray[index];
+                MapGeometry geometry = sectionMapLinesFeatures[index].MapGeometries.First();
+                FailureMechanismSection failureMechanismSection = sectionsArray[index];
                 CollectionAssert.AreEquivalent(failureMechanismSection.Points, geometry.PointCollections.First());
             }
             Assert.AreEqual("Vakindeling", mapData.Name);
@@ -78,7 +80,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public static void AssertHydraulicBoundaryLocationsMapData(HydraulicBoundaryDatabase database, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
-            var hydraulicLocationsMapData = (MapPointData)mapData;
+            MapPointData hydraulicLocationsMapData = (MapPointData)mapData;
             if (database == null)
             {
                 CollectionAssert.IsEmpty(hydraulicLocationsMapData.Features);

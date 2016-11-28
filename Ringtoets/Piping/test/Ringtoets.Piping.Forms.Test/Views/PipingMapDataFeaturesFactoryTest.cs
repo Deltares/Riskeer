@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void CreateSurfaceLineFeatures_NoSurfaceLines_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = PipingMapDataFeaturesFactory.CreateSurfaceLineFeatures(Enumerable.Empty<RingtoetsPipingSurfaceLine>());
+            MapFeature[] features = PipingMapDataFeaturesFactory.CreateSurfaceLineFeatures(new RingtoetsPipingSurfaceLine[0]);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void CreateStochasticSoilModelFeatures_NoStochasticSoilModels_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = PipingMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(Enumerable.Empty<StochasticSoilModel>());
+            MapFeature[] features = PipingMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(new StochasticSoilModel[0]);
 
             // Assert
             CollectionAssert.IsEmpty(features);

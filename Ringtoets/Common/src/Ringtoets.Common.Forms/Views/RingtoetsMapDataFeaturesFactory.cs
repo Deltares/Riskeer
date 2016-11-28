@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -33,6 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 
@@ -55,8 +55,6 @@ namespace Ringtoets.Common.Forms.Views
         /// is <c>null</c>.</returns>
         public static MapFeature[] CreateReferenceLineFeatures(ReferenceLine referenceLine, string id, string name)
         {
-            var features = new List<MapFeature>();
-
             if (referenceLine != null)
             {
                 MapFeature feature = GetAsSingleMapFeature(referenceLine.Points);
@@ -65,10 +63,13 @@ namespace Ringtoets.Common.Forms.Views
                 feature.MetaData[Resources.MetaData_Name] = name;
                 feature.MetaData[Resources.MetaData_Length] = new RoundedDouble(2, Math2D.Length(referenceLine.Points));
 
-                features.Add(feature);
+                return new[]
+                {
+                    feature
+                };
             }
 
-            return features.ToArray();
+            return new MapFeature[0];
         }
 
         /// <summary>
@@ -112,28 +113,9 @@ namespace Ringtoets.Common.Forms.Views
         /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateFailureMechanismSectionFeatures(IEnumerable<FailureMechanismSection> sections)
         {
-            var features = new List<MapFeature>();
-
-            if (sections != null && sections.Any())
-            {
-                foreach (var section in sections)
-                {
-                    var feature = new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            section.Points.Select(p => new Point2D(p.X, p.Y))
-                        })
-                    });
-
-                    feature.MetaData[Resources.MetaData_Name] = section.Name;
-                    feature.MetaData[Resources.MetaData_Length] =new RoundedDouble(2, Math2D.Length(section.Points));
-
-                    features.Add(feature);
-                }
-            }
-
-            return features.ToArray();
+            return sections != null && sections.Any()
+                       ? sections.Select(CreateFailureMechanismSectionMapFeature).ToArray()
+                       : new MapFeature[0];
         }
 
         /// <summary>
@@ -178,12 +160,9 @@ namespace Ringtoets.Common.Forms.Views
         /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateDikeProfilesFeatures(IEnumerable<DikeProfile> dikeProfiles)
         {
-            if (dikeProfiles == null || !dikeProfiles.Any())
-            {
-                return new MapFeature[0];
-            }
-
-            return dikeProfiles.Select(dikeProfile => GetAsSingleMapFeature(GetWorldPoints(dikeProfile))).ToArray();
+            return dikeProfiles != null && dikeProfiles.Any()
+                       ? dikeProfiles.Select(dikeProfile => GetAsSingleMapFeature(GetWorldPoints(dikeProfile))).ToArray()
+                       : new MapFeature[0];
         }
 
         /// <summary>
@@ -194,12 +173,9 @@ namespace Ringtoets.Common.Forms.Views
         /// is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateForeshoreProfilesFeatures(IEnumerable<ForeshoreProfile> foreshoreProfiles)
         {
-            if (foreshoreProfiles == null || !foreshoreProfiles.Any())
-            {
-                return new MapFeature[0];
-            }
-
-            return foreshoreProfiles.Select(foreshoreProfile => GetAsSingleMapFeature(GetWorldPoints(foreshoreProfile))).ToArray();
+            return foreshoreProfiles != null && foreshoreProfiles.Any()
+                       ? foreshoreProfiles.Select(foreshoreProfile => GetAsSingleMapFeature(GetWorldPoints(foreshoreProfile))).ToArray()
+                       : new MapFeature[0];
         }
 
         /// <summary>
@@ -210,92 +186,114 @@ namespace Ringtoets.Common.Forms.Views
         /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateStructuresFeatures(IEnumerable<StructureBase> structures)
         {
-            if (structures == null || !structures.Any())
-            {
-                return new MapFeature[0];
-            }
-
-            return structures.Select(structure => GetAsSingleMapFeature(structure.Location)).ToArray();
+            return structures != null && structures.Any()
+                       ? structures.Select(structure => GetAsSingleMapFeature(structure.Location)).ToArray()
+                       : new MapFeature[0];
         }
 
         /// <summary>
-        /// Create calculation features based on the provided <paramref name="calculationInputs"/>.
+        /// Create calculation features based on the provided <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="calculationInputs">The collection of <see cref="StructuresCalculation{T}"/> to create the 
+        /// <param name="calculations">The collection of <see cref="StructuresCalculation{T}"/> to create the 
         /// calculation features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="calculationInputs"/> is <c>null</c> 
+        /// <returns>An array of features or an empty array when <paramref name="calculations"/> is <c>null</c> 
         /// or empty.</returns>
-        public static MapFeature[] CreateStructureCalculationsFeatures<T, U>(IEnumerable<StructuresCalculation<T>> calculationInputs)
+        public static MapFeature[] CreateStructureCalculationsFeatures<T, U>(IEnumerable<StructuresCalculation<T>> calculations)
             where T : StructuresInputBase<U>, new()
             where U : StructureBase
         {
-            var hasCalculations = calculationInputs != null && calculationInputs.Any();
-
-            if (!hasCalculations)
+            if ((calculations != null && calculations.Any()))
             {
-                return new MapFeature[0];
+                MapCalculationData[] calculationData = calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<T, U>)
+                                                                        .Select(CreatemapCalculationData<T, U>)
+                                                                        .ToArray();
+
+                return CreateCalculationFeatures(calculationData);
             }
 
-            IEnumerable<StructuresCalculation<T>> calculationsWithLocationAndHydraulicBoundaryLocation = calculationInputs.Where(
-                calculation =>
-                calculation.InputParameters.Structure != null &&
-                calculation.InputParameters.HydraulicBoundaryLocation != null);
-
-            IList<MapCalculationData> calculationData =
-                calculationsWithLocationAndHydraulicBoundaryLocation.Select(
-                    calculation => new MapCalculationData(
-                                       calculation.Name,
-                                       calculation.InputParameters.Structure.Location,
-                                       calculation.InputParameters.HydraulicBoundaryLocation)).ToList();
-
-            return CreateCalculationsFeatures(calculationData);
+            return new MapFeature[0];
         }
 
         /// <summary>
-        /// Create calculation features based on the provided <see cref="RingtoetsMapDataFeaturesFactory.MapCalculationData"/>.
+        /// Create calculation features based on the provided <see cref="MapCalculationData"/>.
         /// </summary>
         /// <param name="calculationData">The collection of <see cref="MapCalculationData"/> to create the 
         /// calculation features for.</param>
         /// <returns>An array of features or an empty array when <paramref name="calculationData"/> is <c>null</c> 
         /// or empty.</returns>
-        public static MapFeature[] CreateCalculationsFeatures(IEnumerable<MapCalculationData> calculationData)
+        public static MapFeature[] CreateCalculationFeatures(MapCalculationData[] calculationData)
         {
-            if (calculationData == null || !calculationData.Any())
+            if (calculationData != null && calculationData.Any())
             {
-                return new MapFeature[0];
-            }
+                var features = new MapFeature[calculationData.Count()];
 
-            var features = new List<MapFeature>();
-
-            foreach (MapCalculationData calculationItem in calculationData)
-            {
-                MapFeature feature = GetAsSingleMapFeature(new[]
+                for (int i = 0; i < calculationData.Length; i++)
                 {
-                    calculationItem.CalculationLocation,
-                    calculationItem.HydraulicBoundaryLocation.Location
-                });
+                    MapCalculationData calculationItem = calculationData[i];
+                    MapFeature feature = GetAsSingleMapFeature(new[]
+                    {
+                        calculationItem.CalculationLocation,
+                        calculationItem.HydraulicBoundaryLocation.Location
+                    });
 
-                feature.MetaData[Resources.MetaData_Name] = calculationItem.Name;
-                feature.MetaData[Resources.MetaData_Couple_distance] = 
-                    calculationItem.CalculationLocation.GetEuclideanDistanceTo(
-                        calculationItem.HydraulicBoundaryLocation.Location);
+                    feature.MetaData[Resources.MetaData_Name] = calculationItem.Name;
+                    feature.MetaData[Resources.MetaData_Couple_distance] =
+                        calculationItem.CalculationLocation.GetEuclideanDistanceTo(
+                            calculationItem.HydraulicBoundaryLocation.Location);
 
-                features.Add(feature);
+                    features[i] = feature;
+                }
+                return features;
             }
-            return features.ToArray();
+
+            return new MapFeature[0];
         }
 
-        private static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-            string designWaterLevelAttributeName,
-            string waveheightAttributeName)
+        private static MapCalculationData CreatemapCalculationData<T, U>(StructuresCalculation<T> calculation)
+            where T : StructuresInputBase<U>, new()
+            where U : StructureBase
         {
-            var features = new List<MapFeature>();
+            return new MapCalculationData(
+                calculation.Name,
+                calculation.InputParameters.Structure.Location,
+                calculation.InputParameters.HydraulicBoundaryLocation);
+        }
 
+        private static bool CalculationHasStructureAndHydraulicBoundaryLocation<T, U>(StructuresCalculation<T> calculation)
+            where T : StructuresInputBase<U>, new()
+            where U : StructureBase
+        {
+            return calculation.InputParameters.Structure != null
+                   && calculation.InputParameters.HydraulicBoundaryLocation != null;
+        }
+
+        private static MapFeature CreateFailureMechanismSectionMapFeature(FailureMechanismSection section)
+        {
+            var feature = new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    section.Points.Select(p => new Point2D(p.X, p.Y))
+                })
+            });
+
+            feature.MetaData[Resources.MetaData_Name] = section.Name;
+            feature.MetaData[Resources.MetaData_Length] = new RoundedDouble(2, Math2D.Length(section.Points));
+
+            return feature;
+        }
+
+        private static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                            string designWaterLevelAttributeName,
+                                                                            string waveheightAttributeName)
+        {
             if (hydraulicBoundaryDatabase != null)
             {
-                foreach (HydraulicBoundaryLocation location in hydraulicBoundaryDatabase.Locations)
+                var features = new MapFeature[hydraulicBoundaryDatabase.Locations.Count];
+
+                for (int i = 0; i < hydraulicBoundaryDatabase.Locations.Count; i++)
                 {
+                    HydraulicBoundaryLocation location = hydraulicBoundaryDatabase.Locations[i];
                     var feature = GetAsSingleMapFeature(location.Location);
 
                     feature.MetaData[Resources.MetaData_ID] = location.Id;
@@ -303,11 +301,12 @@ namespace Ringtoets.Common.Forms.Views
                     feature.MetaData[designWaterLevelAttributeName] = location.DesignWaterLevel;
                     feature.MetaData[waveheightAttributeName] = location.WaveHeight;
 
-                    features.Add(feature);
+                    features[i] = feature;
                 }
+                return features;
             }
 
-            return features.ToArray();
+            return new MapFeature[0];
         }
 
         private static Point2D[] GetWorldPoints(DikeProfile dikeProfile)
@@ -351,55 +350,6 @@ namespace Ringtoets.Common.Forms.Views
                     }
                 })
             });
-        }
-
-        /// <summary>
-        /// This class holds information to be able to present calculations coupled to
-        /// hydraulic boundary locations on the map.
-        /// </summary>
-        public class MapCalculationData
-        {
-            /// <summary>
-            /// Gets the name of the calculation.
-            /// </summary>
-            public string Name { get; private set; }
-
-            /// <summary>
-            /// Gets the location of the calculation.
-            /// </summary>
-            public Point2D CalculationLocation { get; private set; }
-
-            /// <summary>
-            /// Gets the hydraulic boundary location assigned to the calculation.
-            /// </summary>
-            public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
-
-            /// <summary>
-            /// Creates a new instance of <see cref="MapCalculationData"/>.
-            /// </summary>
-            /// <param name="calculationName">The name of the calculation.</param>
-            /// <param name="calculationLocation">The location of the calculation.</param>
-            /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location 
-            /// assigned to the calculation.</param>
-            /// <exception cref="ArgumentNullException">Thrown when any of the parameters is <c>null</c>.</exception>
-            public MapCalculationData(string calculationName, Point2D calculationLocation, HydraulicBoundaryLocation hydraulicBoundaryLocation)
-            {
-                if (calculationName == null)
-                {
-                    throw new ArgumentNullException("calculationName", @"A calculation name is required.");
-                }
-                if (calculationLocation == null)
-                {
-                    throw new ArgumentNullException("calculationLocation", @"A location for the calculation is required.");
-                }
-                if (hydraulicBoundaryLocation == null)
-                {
-                    throw new ArgumentNullException("hydraulicBoundaryLocation", @"A hydraulic boundary location is required.");
-                }
-                Name = calculationName;
-                CalculationLocation = calculationLocation;
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-            }
         }
     }
 }

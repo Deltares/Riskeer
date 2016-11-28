@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
@@ -51,14 +52,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 calculation.InputParameters.ForeshoreProfile != null &&
                 calculation.InputParameters.HydraulicBoundaryLocation != null);
 
-            IList<RingtoetsMapDataFeaturesFactory.MapCalculationData> calculationData =
+            MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(
-                    calculation => new RingtoetsMapDataFeaturesFactory.MapCalculationData(
+                    calculation => new MapCalculationData(
                         calculation.Name,
                         calculation.InputParameters.ForeshoreProfile.WorldReferencePoint,
-                        calculation.InputParameters.HydraulicBoundaryLocation)).ToList();
+                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
-            return RingtoetsMapDataFeaturesFactory.CreateCalculationsFeatures(calculationData);
+            return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }
     }
 }

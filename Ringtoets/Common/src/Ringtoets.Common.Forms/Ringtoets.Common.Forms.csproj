@@ -62,6 +62,7 @@
     <Compile Include="PresentationObjects\FailureMechanismSectionsContext.cs" />
     <Compile Include="PresentationObjects\IFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\InputContextBase.cs" />
+    <Compile Include="PresentationObjects\MapCalculationData.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismItemContextBase.cs" />
     <Compile Include="PropertyClasses\StructuresInputBaseProperties.cs" />

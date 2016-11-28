@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
@@ -43,14 +44,15 @@ namespace Ringtoets.Piping.Forms.Views
         /// </summary>
         /// <param name="surfaceLines">The collection of <see cref="RingtoetsPipingSurfaceLine"/> to create the surface line features for.</param>
         /// <returns>An array of features or an empty array when <paramref name="surfaceLines"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateSurfaceLineFeatures(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines)
+        public static MapFeature[] CreateSurfaceLineFeatures(RingtoetsPipingSurfaceLine[] surfaceLines)
         {
-            var features = new List<MapFeature>();
-
             if (surfaceLines != null && surfaceLines.Any())
             {
-                foreach (var surfaceLine in surfaceLines)
+                var features = new MapFeature[surfaceLines.Length];
+
+                for (int i = 0; i < surfaceLines.Length; i++)
                 {
+                    var surfaceLine = surfaceLines[i];
                     var feature = new MapFeature(new[]
                     {
                         new MapGeometry(new[]
@@ -61,11 +63,13 @@ namespace Ringtoets.Piping.Forms.Views
 
                     feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = surfaceLine.Name;
 
-                    features.Add(feature);
+                    features[i] = feature;
                 }
+
+                return features;
             }
 
-            return features.ToArray();
+            return new MapFeature[0];
         }
 
         /// <summary>
@@ -73,14 +77,15 @@ namespace Ringtoets.Piping.Forms.Views
         /// </summary>
         /// <param name="stochasticSoilModels">The collection of <see cref="StochasticSoilModel"/> to create the stochastic soil model features for.</param>
         /// <returns>An array of features or an empty array when <paramref name="stochasticSoilModels"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateStochasticSoilModelFeatures(IEnumerable<StochasticSoilModel> stochasticSoilModels)
+        public static MapFeature[] CreateStochasticSoilModelFeatures(StochasticSoilModel[] stochasticSoilModels)
         {
-            var features = new List<MapFeature>();
-
             if (stochasticSoilModels != null && stochasticSoilModels.Any())
             {
-                foreach (var stochasticSoilModel in stochasticSoilModels)
+                var features = new MapFeature[stochasticSoilModels.Length];
+
+                for (int i = 0; i < stochasticSoilModels.Length; i++)
                 {
+                    var stochasticSoilModel = stochasticSoilModels[i];
                     var feature = new MapFeature(new[]
                     {
                         new MapGeometry(new[]
@@ -91,11 +96,13 @@ namespace Ringtoets.Piping.Forms.Views
 
                     feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = stochasticSoilModel.Name;
 
-                    features.Add(feature);
+                    features[i] = feature;
                 }
+
+                return features;
             }
 
-            return features.ToArray();
+            return new MapFeature[0];
         }
 
         /// <summary>
@@ -116,14 +123,14 @@ namespace Ringtoets.Piping.Forms.Views
                 c.InputParameters.SurfaceLine != null &&
                 c.InputParameters.HydraulicBoundaryLocation != null);
 
-            IList<RingtoetsMapDataFeaturesFactory.MapCalculationData> calculationData = 
+            MapCalculationData[] calculationData = 
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(
-                    calculation => new RingtoetsMapDataFeaturesFactory.MapCalculationData(
+                    calculation => new MapCalculationData(
                         calculation.Name, 
                         calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint, 
-                        calculation.InputParameters.HydraulicBoundaryLocation)).ToList();
+                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
-            return RingtoetsMapDataFeaturesFactory.CreateCalculationsFeatures(calculationData);
+            return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }
     }
 }

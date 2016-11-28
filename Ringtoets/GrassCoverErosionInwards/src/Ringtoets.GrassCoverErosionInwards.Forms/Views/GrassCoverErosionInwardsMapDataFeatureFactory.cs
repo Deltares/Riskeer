@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -31,7 +32,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// <summary>
     /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="MapData"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsMapDataFeaturesFactory
+    public static class GrassCoverErosionInwardsMapDataFeaturesFactory
     {
         /// <summary>
         /// Create calculation features based on the provided <paramref name="calculations"/>.
@@ -51,14 +52,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 c.InputParameters.DikeProfile != null &&
                 c.InputParameters.HydraulicBoundaryLocation != null);
 
-            IList<RingtoetsMapDataFeaturesFactory.MapCalculationData> calculationData =
+            MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(
-                    calculation => new RingtoetsMapDataFeaturesFactory.MapCalculationData(
+                    calculation => new MapCalculationData(
                         calculation.Name,
                         calculation.InputParameters.DikeProfile.WorldReferencePoint,
-                        calculation.InputParameters.HydraulicBoundaryLocation)).ToList();
+                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
-            return RingtoetsMapDataFeaturesFactory.CreateCalculationsFeatures(calculationData);
+            return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }
     }
 }
