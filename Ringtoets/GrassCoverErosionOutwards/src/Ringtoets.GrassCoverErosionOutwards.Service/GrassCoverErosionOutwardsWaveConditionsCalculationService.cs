@@ -78,7 +78,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             var b = failureMechanism.GeneralInput.GeneralWaveConditionsInput.B;
             var c = failureMechanism.GeneralInput.GeneralWaveConditionsInput.C;
             var ringId = assessmentSection.Id;
-            var mechanismSpecificReturnPeriod = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+            var mechanismSpecificReturnPeriod = failureMechanism.GetMechanismSpecificReturnPeriod(assessmentSection);
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count();
 
             try

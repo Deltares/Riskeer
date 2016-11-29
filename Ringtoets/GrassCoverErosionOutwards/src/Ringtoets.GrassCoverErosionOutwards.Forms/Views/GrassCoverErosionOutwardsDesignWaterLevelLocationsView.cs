@@ -94,14 +94,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 return;
             }
 
-            var mechanismSpecificNorm = GetMechanismSpecificNorm();
+            var mechanismSpecificReturnPeriod = GetMechanismSpecificReturnPeriod();
 
-            if (!double.IsNaN(mechanismSpecificNorm))
+            if (!double.IsNaN(mechanismSpecificReturnPeriod))
             {
                 bool successfulCalculation = CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                               locations,
                                                                                               AssessmentSection.Id,
-                                                                                              mechanismSpecificNorm,
+                                                                                              mechanismSpecificReturnPeriod,
                                                                                               new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
                 if (successfulCalculation)
                 {
@@ -141,18 +141,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             return false;
         }
 
-        private double GetMechanismSpecificNorm()
+        private double GetMechanismSpecificReturnPeriod()
         {
-            var mechanismSpecificNorm = double.NaN;
+            var mechanismSpecificReturnPeriod = double.NaN;
             try
             {
-                mechanismSpecificNorm = FailureMechanism.GetMechanismSpecificNorm(AssessmentSection);
+                mechanismSpecificReturnPeriod = FailureMechanism.GetMechanismSpecificReturnPeriod(AssessmentSection);
             }
             catch (ArgumentException e)
             {
                 log.ErrorFormat(e.Message);
             }
-            return mechanismSpecificNorm;
+            return mechanismSpecificReturnPeriod;
         }
     }
 }

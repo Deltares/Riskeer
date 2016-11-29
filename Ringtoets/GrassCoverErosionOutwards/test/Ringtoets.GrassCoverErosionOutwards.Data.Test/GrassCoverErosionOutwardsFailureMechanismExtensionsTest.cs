@@ -87,13 +87,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void GetMechanismSpecificNorm_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void GetMechanismSpecificReturnPeriod_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.GetMechanismSpecificNorm(null);
+            TestDelegate test = () => failureMechanism.GetMechanismSpecificReturnPeriod(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void GetMechanismSpecificNorm_WithAssessmentSection_ReturnMechanismSpecificNorm()
+        public void GetMechanismSpecificReturnPeriod_WithAssessmentSection_ReturnMechanismSpecificReturnPeriod()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -122,14 +122,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+            double mechanismSpecificReturnPeriod = failureMechanism.GetMechanismSpecificReturnPeriod(assessmentSection);
 
             // Assert
-            Assert.AreEqual(6000, mechanismSpecificNorm);
+            Assert.AreEqual(6000, mechanismSpecificReturnPeriod);
         }
 
         [Test]
-        public void GetMechanismSpecificNorm_WithZeroContributionForFailureMechanism_ThrowsArgumentException()
+        public void GetMechanismSpecificReturnPeriod_WithZeroContributionForFailureMechanism_ThrowsArgumentException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -150,7 +150,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate action = () => failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+            TestDelegate action = () => failureMechanism.GetMechanismSpecificReturnPeriod(assessmentSection);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
