@@ -27,13 +27,54 @@ namespace Core.Common.Utils.Test
     public class StatisticsConverterTest
     {
         [Test]
-        public void ReturnPeriodToReliability_ConvertReturnPeriod_CorrectReliability()
+        [TestCase(1.1, -1.335177736118940)]
+        [TestCase(3000, 3.402932835385330)]
+        [TestCase(20000, 3.890591886413120)]
+        [TestCase(30000, 3.987878936606940)]
+        [TestCase(600000, 4.649132934007460)]
+        [TestCase(1000000, 4.75342430881709)]
+        [TestCase(6000000, 5.103554002888150)]
+        public void ReturnPeriodToReliability_ConvertReturnPeriod_CorrectReliability(double returnPeriod, double expectedReliability)
         {
             // Call
-            double reliability = StatisticsConverter.ReturnPeriodToReliability(1.1);
+            double reliability = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
 
             // Assert
-            Assert.AreEqual(-1.335177736, reliability, 1.0e-6);
+            Assert.AreEqual(expectedReliability, reliability, 1.0e-6);
+        }
+
+        [Test]
+        [TestCase(-1.335177736118940, 9.090909E-01)]
+        [TestCase(3.402932835385330, 3.333333E-04)]
+        [TestCase(3.890591886413120, 5.000000E-05)]
+        [TestCase(3.987878936606940, 3.333333E-05)]
+        [TestCase(4.649132934007460, 1.666667E-06)]
+        [TestCase(4.753424308817090, 1.000000E-06)]
+        [TestCase(5.103554002888150, 1.666667E-07)]
+        public void ReliabilityToProbability_ConvertReliability_CorrectProbability(double reliability, double expectedProbability)
+        {
+            // Call 
+            double probability = StatisticsConverter.ReliabilityToProbability(reliability);
+
+            // Assert 
+            Assert.AreEqual(expectedProbability, probability, 1.0e-6);
+        }
+
+        [Test]
+        [TestCase(9.090909E-01, -1.335177736118940)]
+        [TestCase(3.333333E-04, 3.402932835385330)]
+        [TestCase(5.000000E-05, 3.890591886413120)]
+        [TestCase(3.333333E-05, 3.987878936606940)]
+        [TestCase(1.666667E-06, 4.649132934007460)]
+        [TestCase(1.000000E-06, 4.753424308817090)]
+        [TestCase(1.666667E-07, 5.103554002888150)]
+        public void ProbabilityToReliability_ConvertProbability_CorrectReliability(double probability, double expectedReliability)
+        {
+            // Call
+            double reliability = StatisticsConverter.ProbabilityToReliability(probability);
+
+            // Assert
+            Assert.AreEqual(expectedReliability, reliability, 1.0e-6);
         }
     }
 }
