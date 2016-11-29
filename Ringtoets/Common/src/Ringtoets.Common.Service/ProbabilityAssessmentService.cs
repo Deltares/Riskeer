@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using MathNet.Numerics.Distributions;
+using Core.Common.Utils;
 using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.Common.Service
@@ -41,8 +41,8 @@ namespace Ringtoets.Common.Service
         public static ProbabilityAssessmentOutput Calculate(int returnPeriod, double contribution, double lengthEffectN, double reliability)
         {
             var requiredProbability = RequiredProbability(contribution/100.0, returnPeriod, lengthEffectN);
-            var probability = ReliabilityToProbability(reliability);
-            var requiredReliability = ProbabilityToReliability(requiredProbability);
+            var probability = StatisticsConverter.ReliabilityToProbability(reliability);
+            var requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
             var factorOfSafety = FactorOfSafety(reliability, requiredReliability);
 
             return new ProbabilityAssessmentOutput(requiredProbability,
@@ -55,16 +55,6 @@ namespace Ringtoets.Common.Service
         private static double RequiredProbability(double contribution, int returnPeriod, double lengthEffectN)
         {
             return contribution*(1.0/returnPeriod)/lengthEffectN;
-        }
-
-        private static double ReliabilityToProbability(double reliability)
-        {
-            return Normal.CDF(0, 1, -reliability);
-        }
-
-        private static double ProbabilityToReliability(double probability)
-        {
-            return Normal.InvCDF(0, 1, 1 - probability);
         }
 
         private static double FactorOfSafety(double reliability, double requiredReliability)

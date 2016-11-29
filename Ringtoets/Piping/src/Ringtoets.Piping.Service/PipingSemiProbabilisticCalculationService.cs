@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using MathNet.Numerics.Distributions;
+using Core.Common.Utils;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service.Properties;
 
@@ -150,7 +150,7 @@ namespace Ringtoets.Piping.Service
         private void CalculateRequiredReliability()
         {
             requiredProbability = RequiredProbability();
-            requiredReliability = ProbabilityToReliability(requiredProbability);
+            requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
         }
 
         /// <summary>
@@ -159,16 +159,16 @@ namespace Ringtoets.Piping.Service
         private void CalculatePipingReliability()
         {
             upliftReliability = SubMechanismReliability(upliftFactorOfSafety, upliftFactors);
-            upliftProbability = ReliabilityToProbability(upliftReliability);
+            upliftProbability = StatisticsConverter.ReliabilityToProbability(upliftReliability);
 
             heaveReliability = SubMechanismReliability(heaveFactorOfSafety, heaveFactors);
-            heaveProbability = ReliabilityToProbability(heaveReliability);
+            heaveProbability = StatisticsConverter.ReliabilityToProbability(heaveReliability);
 
             sellmeijerReliability = SubMechanismReliability(sellmeijerFactorOfSafety, sellmeijerFactors);
-            sellmeijerProbability = ReliabilityToProbability(sellmeijerReliability);
+            sellmeijerProbability = StatisticsConverter.ReliabilityToProbability(sellmeijerReliability);
 
             pipingProbability = PipingProbability(upliftProbability, heaveProbability, sellmeijerProbability);
-            pipingReliability = ProbabilityToReliability(pipingProbability);
+            pipingReliability = StatisticsConverter.ProbabilityToReliability(pipingProbability);
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.Service
         private double SubMechanismReliability(double factorOfSafety, SubCalculationFactors factors)
         {
             var norm = (1.0/returnPeriod);
-            var bNorm = ProbabilityToReliability(norm);
+            var bNorm = StatisticsConverter.ProbabilityToReliability(norm);
 
             return (1/factors.A)*(Math.Log(factorOfSafety/factors.B) + (factors.C*bNorm));
         }
@@ -206,16 +206,6 @@ namespace Ringtoets.Piping.Service
             {
                 throw new ArgumentException(Resources.PipingSemiProbabilisticCalculationService_ValidateOutputOnCalculation_Factor_of_safety_cannot_be_calculated);
             }
-        }
-
-        private static double ReliabilityToProbability(double reliability)
-        {
-            return Normal.CDF(0, 1, -reliability);
-        }
-
-        private static double ProbabilityToReliability(double probability)
-        {
-            return Normal.InvCDF(0, 1, 1 - probability);
         }
 
         #region sub-calculation constants
