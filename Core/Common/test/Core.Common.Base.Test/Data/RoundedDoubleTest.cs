@@ -330,8 +330,8 @@ namespace Core.Common.Base.Test.Data
             object someOtherObject = new object();
 
             // Call
-            var isEqual1 = roundedDouble.Equals(someOtherObject);
-            var isEqual2 = someOtherObject.Equals(roundedDouble);
+            bool isEqual1 = roundedDouble.Equals(someOtherObject);
+            bool isEqual2 = someOtherObject.Equals(roundedDouble);
 
             // Assert
             Assert.IsFalse(isEqual1);
@@ -350,8 +350,8 @@ namespace Core.Common.Base.Test.Data
             object comparisonRoundedDouble = new RoundedDouble(numberOfPlaces, value);
 
             // Call
-            var isEqual1 = baseRoundedDouble.Equals(comparisonRoundedDouble);
-            var isEqual2 = comparisonRoundedDouble.Equals(baseRoundedDouble);
+            bool isEqual1 = baseRoundedDouble.Equals(comparisonRoundedDouble);
+            bool isEqual2 = comparisonRoundedDouble.Equals(baseRoundedDouble);
 
             // Assert
             Assert.IsTrue(isEqual1);
@@ -385,8 +385,8 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble2 = new RoundedDouble(1, 1.2);
 
             // Call
-            var isEqual1 = roundedDouble1 == roundedDouble2;
-            var isEqual2 = roundedDouble2 == roundedDouble1;
+            bool isEqual1 = roundedDouble1 == roundedDouble2;
+            bool isEqual2 = roundedDouble2 == roundedDouble1;
 
             // Assert
             Assert.IsFalse(isEqual1);
@@ -401,8 +401,8 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble2 = new RoundedDouble(1, 1.2);
 
             // Call
-            var isEqual1 = roundedDouble1 == roundedDouble2;
-            var isEqual2 = roundedDouble2 == roundedDouble1;
+            bool isEqual1 = roundedDouble1 == roundedDouble2;
+            bool isEqual2 = roundedDouble2 == roundedDouble1;
 
             // Assert
             Assert.IsTrue(isEqual1);
@@ -420,8 +420,8 @@ namespace Core.Common.Base.Test.Data
             Assert.IsFalse(roundedDouble1.Equals(roundedDouble2));
 
             // Call
-            var isNotEqual1 = roundedDouble1 != roundedDouble2;
-            var isNotEqual2 = roundedDouble2 != roundedDouble1;
+            bool isNotEqual1 = roundedDouble1 != roundedDouble2;
+            bool isNotEqual2 = roundedDouble2 != roundedDouble1;
 
             // Assert
             Assert.IsTrue(isNotEqual1);
@@ -439,8 +439,8 @@ namespace Core.Common.Base.Test.Data
             Assert.IsTrue(roundedDouble1.Equals(roundedDouble2));
 
             // Call
-            var isNotEqual1 = roundedDouble1 != roundedDouble2;
-            var isNotEqual2 = roundedDouble2 != roundedDouble1;
+            bool isNotEqual1 = roundedDouble1 != roundedDouble2;
+            bool isNotEqual2 = roundedDouble2 != roundedDouble1;
 
             // Assert
             Assert.IsFalse(isNotEqual1);
@@ -457,8 +457,8 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble = new RoundedDouble(numberOfDecimalPlaces, value);
 
             // Call
-            var isEqual1 = roundedDouble.Equals(value);
-            var isEqual2 = value.Equals(roundedDouble);
+            bool isEqual1 = roundedDouble.Equals(value);
+            bool isEqual2 = value.Equals(roundedDouble);
 
             // Assert
             Assert.IsTrue(isEqual1);
@@ -475,8 +475,8 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble = new RoundedDouble(numberOfDecimalPlaces, value);
 
             // Call
-            var isEqual1 = roundedDouble.Equals(value);
-            var isEqual2 = value.Equals(roundedDouble);
+            bool isEqual1 = roundedDouble.Equals(value);
+            bool isEqual2 = value.Equals(roundedDouble);
 
             // Assert
             Assert.IsFalse(isEqual1);
@@ -491,8 +491,8 @@ namespace Core.Common.Base.Test.Data
             double otherValue = 4.56;
 
             // Call
-            var isEqual1 = roundedDouble.Equals(otherValue);
-            var isEqual2 = otherValue.Equals(roundedDouble);
+            bool isEqual1 = roundedDouble.Equals(otherValue);
+            bool isEqual2 = otherValue.Equals(roundedDouble);
 
             // Assert
             Assert.IsFalse(isEqual1);
@@ -510,8 +510,8 @@ namespace Core.Common.Base.Test.Data
             Assert.IsTrue(otherValue.Equals(roundedDouble));
 
             // Call
-            var hash1 = roundedDouble.GetHashCode();
-            var hash2 = otherValue.GetHashCode();
+            int hash1 = roundedDouble.GetHashCode();
+            int hash2 = otherValue.GetHashCode();
 
             // Assert
             Assert.AreEqual(hash1, hash2);
@@ -528,8 +528,8 @@ namespace Core.Common.Base.Test.Data
             Assert.IsTrue(roundedDouble.Equals(value));
 
             // Call
-            var isEqual1 = value == roundedDouble;
-            var isEqual2 = roundedDouble == value;
+            bool isEqual1 = value == roundedDouble;
+            bool isEqual2 = roundedDouble == value;
 
             // Assert
             Assert.IsTrue(isEqual1);
@@ -547,8 +547,8 @@ namespace Core.Common.Base.Test.Data
             Assert.IsFalse(roundedDouble.Equals(value));
 
             // Call
-            var isEqual1 = value == roundedDouble;
-            var isEqual2 = roundedDouble == value;
+            bool isEqual1 = value == roundedDouble;
+            bool isEqual2 = roundedDouble == value;
 
             // Assert
             Assert.IsFalse(isEqual1);
@@ -566,8 +566,8 @@ namespace Core.Common.Base.Test.Data
             Assert.IsTrue(roundedDouble.Equals(value));
 
             // Call
-            var isEqual1 = value != roundedDouble;
-            var isEqual2 = roundedDouble != value;
+            bool isEqual1 = value != roundedDouble;
+            bool isEqual2 = roundedDouble != value;
 
             // Assert
             Assert.IsFalse(isEqual1);
@@ -585,8 +585,8 @@ namespace Core.Common.Base.Test.Data
             Assert.IsFalse(roundedDouble.Equals(value));
 
             // Call
-            var isEqual1 = value != roundedDouble;
-            var isEqual2 = roundedDouble != value;
+            bool isEqual1 = value != roundedDouble;
+            bool isEqual2 = roundedDouble != value;
 
             // Assert
             Assert.IsTrue(isEqual1);
@@ -778,7 +778,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble = new RoundedDouble(1, 10);
 
             // Call
-            var result = roundedDouble.CompareTo(null);
+            int result = roundedDouble.CompareTo(null);
 
             // Assert
             Assert.AreEqual(1, result);
