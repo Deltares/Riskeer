@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.Service
     /// </summary>
     public class PipingCalculationActivity : Activity
     {
-        private readonly int norm;
+        private readonly int returnPeriod;
         private readonly double contribution;
         private readonly PipingCalculation calculation;
         private readonly PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput;
@@ -41,12 +41,12 @@ namespace Ringtoets.Piping.Service
         /// <param name="calculation">The piping data used for the calculation.</param>
         /// <param name="pipingProbabilityAssessmentInput">General input that influences the probability estimate for a piping
         /// assessment.</param>
-        /// <param name="norm">The return period to assess for.</param>
+        /// <param name="returnPeriod">The return period to assess for.</param>
         /// <param name="contribution">The contribution of piping as a percentage (0-100) to the total of the failure probability
         /// of the assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any <paramref name="calculation"/> 
         /// or <paramref name="pipingProbabilityAssessmentInput"/> is <c>null</c>.</exception>
-        public PipingCalculationActivity(PipingCalculation calculation, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput, int norm, double contribution)
+        public PipingCalculationActivity(PipingCalculation calculation, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput, int returnPeriod, double contribution)
         {
             if (calculation == null)
             {
@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Service
 
             this.calculation = calculation;
             this.pipingProbabilityAssessmentInput = pipingProbabilityAssessmentInput;
-            this.norm = norm;
+            this.returnPeriod = returnPeriod;
             this.contribution = contribution;
 
             Name = calculation.Name;
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Service
             PipingDataSynchronizationService.ClearCalculationOutput(calculation);
 
             PipingCalculationService.Calculate(calculation);
-            PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, norm, contribution);
+            PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, returnPeriod, contribution);
         }
 
         protected override void OnCancel()

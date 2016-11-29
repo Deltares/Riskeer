@@ -32,15 +32,15 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Calculates <see cref="ProbabilityAssessmentOutput"/> based on the provided parameters.
         /// </summary>
-        /// <param name="norm">The return period to assess for.</param>
+        /// <param name="returnPeriod">The return period to assess for.</param>
         /// <param name="contribution">The contribution of the failure mechanism as a percentage (0-100)
         /// to the total of the failure probability of the assessment section.</param>
         /// <param name="lengthEffectN">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <param name="reliability">The reliability to use for the calculation.</param>
         /// <returns>The calculated <see cref="ProbabilityAssessmentOutput"/>.</returns>
-        public static ProbabilityAssessmentOutput Calculate(int norm, double contribution, double lengthEffectN, double reliability)
+        public static ProbabilityAssessmentOutput Calculate(int returnPeriod, double contribution, double lengthEffectN, double reliability)
         {
-            var requiredProbability = RequiredProbability(contribution/100.0, norm, lengthEffectN);
+            var requiredProbability = RequiredProbability(contribution/100.0, returnPeriod, lengthEffectN);
             var probability = ReliabilityToProbability(reliability);
             var requiredReliability = ProbabilityToReliability(requiredProbability);
             var factorOfSafety = FactorOfSafety(reliability, requiredReliability);
@@ -52,9 +52,9 @@ namespace Ringtoets.Common.Service
                                                    factorOfSafety);
         }
 
-        private static double RequiredProbability(double contribution, int norm, double lengthEffectN)
+        private static double RequiredProbability(double contribution, int returnPeriod, double lengthEffectN)
         {
-            return contribution*(1.0/norm)/lengthEffectN;
+            return contribution*(1.0/returnPeriod)/lengthEffectN;
         }
 
         private static double ReliabilityToProbability(double reliability)

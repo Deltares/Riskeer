@@ -435,20 +435,20 @@ namespace Ringtoets.Piping.Plugin
         {
             var calculations = GetAllPipingCalculations(failureMechanismContext.WrappedData);
             var assessmentInput = failureMechanismContext.WrappedData.PipingProbabilityAssessmentInput;
-            var norm = failureMechanismContext.Parent.FailureMechanismContribution.Norm;
+            var returnPeriod = failureMechanismContext.Parent.FailureMechanismContribution.Norm;
             var contribution = failureMechanismContext.WrappedData.Contribution;
 
-            CalculateAll(calculations, assessmentInput, norm, contribution);
+            CalculateAll(calculations, assessmentInput, returnPeriod, contribution);
         }
 
         private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
         {
             var calculations = group.GetCalculations().OfType<PipingCalculation>().ToArray();
             var assessmentInput = context.FailureMechanism.PipingProbabilityAssessmentInput;
-            var norm = context.AssessmentSection.FailureMechanismContribution.Norm;
+            var returnPeriod = context.AssessmentSection.FailureMechanismContribution.Norm;
             var contribution = context.FailureMechanism.Contribution;
 
-            CalculateAll(calculations, assessmentInput, norm, contribution);
+            CalculateAll(calculations, assessmentInput, returnPeriod, contribution);
         }
 
         private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations)
@@ -459,14 +459,14 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private void CalculateAll(IEnumerable<PipingCalculation> calculations, PipingProbabilityAssessmentInput assessmentInput, int norm, double contribution)
+        private void CalculateAll(IEnumerable<PipingCalculation> calculations, PipingProbabilityAssessmentInput assessmentInput, int returnPeriod, double contribution)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
                 calculations
                     .Select(pc => new PipingCalculationActivity(pc,
                                                                 assessmentInput,
-                                                                norm,
+                                                                returnPeriod,
                                                                 contribution))
                     .ToList());
         }

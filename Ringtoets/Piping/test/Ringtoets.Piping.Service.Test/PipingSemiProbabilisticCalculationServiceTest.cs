@@ -36,13 +36,13 @@ namespace Ringtoets.Piping.Service.Test
         [TestCase(30000, 1.0, 4.13743266617776E-05)]
         [TestCase(20000, 1.2, 9.53352884976163E-06)]
         [TestCase(20000, 1.0, 5.24016937211752E-05)]
-        public void UpliftProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
+        public void UpliftProbability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double factorOfSafety, double expectedResult)
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, factorOfSafety, double.NaN, double.NaN, double.NaN, double.NaN);
             var calculation = AsPipingCalculation(calculatorResult);
 
-            PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
+            PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), returnPeriod, double.NaN);
 
             // Call
             double result = calculation.SemiProbabilisticOutput.UpliftProbability;
@@ -56,13 +56,13 @@ namespace Ringtoets.Piping.Service.Test
         [TestCase(30000, 0.4, 0.003967252123066)]
         [TestCase(20000, 0.6, 0.000292193848324)]
         [TestCase(20000, 0.4, 0.004742775184826)]
-        public void HeaveProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
+        public void HeaveProbability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double factorOfSafety, double expectedResult)
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, factorOfSafety, double.NaN, double.NaN);
             var calculation = AsPipingCalculation(calculatorResult);
 
-            PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
+            PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), returnPeriod, double.NaN);
 
             // Call
             double result = calculation.SemiProbabilisticOutput.HeaveProbability;
@@ -76,13 +76,13 @@ namespace Ringtoets.Piping.Service.Test
         [TestCase(30000, 0.6, 8.22098269097995E-04)]
         [TestCase(20000, 0.9, 1.80799783465546E-05)]
         [TestCase(20000, 0.6, 1.20312928722076E-03)]
-        public void SellmeijerProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
+        public void SellmeijerProbability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double factorOfSafety, double expectedResult)
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, factorOfSafety);
             var calculation = AsPipingCalculation(calculatorResult);
 
-            PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
+            PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), returnPeriod, double.NaN);
 
             // Call
             double result = calculation.SemiProbabilisticOutput.SellmeijerProbability;
@@ -98,13 +98,13 @@ namespace Ringtoets.Piping.Service.Test
         [TestCase(20000, 1.2, 0.6, 0.9, 4.275544655)]
         [TestCase(20000, 1.2, 1.4, 0.9, 5.203962658)]
         [TestCase(20000, 1.2, 0.6, 1.1, 4.673091832)]
-        public void PipingReliability_DifferentInputs_ReturnsExpectedValue(int norm, double fosUplift, double fosHeave, double fosSellmeijer, double expectedResult)
+        public void PipingReliability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double fosUplift, double fosHeave, double fosSellmeijer, double expectedResult)
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
             var calculation = AsPipingCalculation(calculatorResult);
 
-            PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
+            PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), returnPeriod, double.NaN);
 
             // Call
             RoundedDouble result = calculation.SemiProbabilisticOutput.PipingReliability;
@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Service.Test
         [TestCase(30000, 6000, 24, 4.777)]
         [TestCase(20000, 6000, 12, 4.835)]
         [TestCase(20000, 8000, 24, 4.748)]
-        public void RequiredReliability_DifferentInputs_ReturnsExpectedValue(int norm, double assessmentSectionLength, double contribution, double expectedResult)
+        public void RequiredReliability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double assessmentSectionLength, double contribution, double expectedResult)
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.Service.Test
             };
             var calculation = AsPipingCalculation(calculatorResult);
 
-            PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, norm, contribution);
+            PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, returnPeriod, contribution);
 
             // Call
             RoundedDouble result = calculation.SemiProbabilisticOutput.RequiredReliability;
@@ -140,7 +140,7 @@ namespace Ringtoets.Piping.Service.Test
         public void PipingFactorOfSafety_SampleInput_ReturnsExpectedValue()
         {
             // Setup
-            int norm = 30000;
+            int returnPeriod = 30000;
             double assessmentSectionLength = 6000;
             double contribution = 24;
             double fosUplift = 1.2;
@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.Service.Test
             };
             var calculation = AsPipingCalculation(calculatorResult);
 
-            PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, norm, contribution);
+            PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, returnPeriod, contribution);
 
             // Call
             RoundedDouble result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
@@ -167,7 +167,7 @@ namespace Ringtoets.Piping.Service.Test
         [Test]
         [Combinatorial]
         public void PipingFactorOfSafety_DifferentInputs_ReturnsExpectedValue(
-            [Values(20000, 30000)] int norm,
+            [Values(20000, 30000)] int returnPeriod,
             [Values(6000, 8000)] double assessmentSectionLength,
             [Values(12, 24)] double contribution,
             [Values(1.2, 1.0)] double fosUplift,
@@ -182,7 +182,7 @@ namespace Ringtoets.Piping.Service.Test
             };
             var calculation = AsPipingCalculation(calculatorResult);
 
-            PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, norm, contribution);
+            PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, returnPeriod, contribution);
 
             // Call
             RoundedDouble result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
