@@ -104,7 +104,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(5, dynamicProperties.Count);
 
             const string layerCategory = "Kaartlaag";
-            const string labelCategory = "Label";
+            const string labelCategory = "Labels";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -205,14 +205,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             PropertyDescriptor showlabelsProperty = dynamicProperties[showLabelsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(showlabelsProperty,
-                                                                            "Label",
+                                                                            "Labels",
                                                                             "Weergeven",
                                                                             "Geeft aan of labels worden weergegeven op deze kaartlaag.",
                                                                             !hasMetaData);
 
             PropertyDescriptor selectedMetaDataAttributeProperty = dynamicProperties[selectedMetaDataAttributePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(selectedMetaDataAttributeProperty,
-                                                                            "Label",
+                                                                            "Labels",
                                                                             "Op basis van",
                                                                             "Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag.",
                                                                             !hasMetaData);
@@ -250,7 +250,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             {
                 PropertyDescriptor selectedMetaDataAttributeProperty = dynamicProperties[selectedMetaDataAttributePropertyIndex];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(selectedMetaDataAttributeProperty,
-                                                                                "Label",
+                                                                                "Labels",
                                                                                 "Op basis van",
                                                                                 "Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag.");
             }

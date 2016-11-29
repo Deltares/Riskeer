@@ -221,7 +221,7 @@
     <value>Naam</value>
   </data>
   <data name="Categories_Label" xml:space="preserve">
-    <value>Label</value>
+    <value>Labels</value>
   </data>
   <data name="MapData_ShowLabels_Description" xml:space="preserve">
     <value>Geeft aan of labels worden weergegeven op deze kaartlaag.</value>
