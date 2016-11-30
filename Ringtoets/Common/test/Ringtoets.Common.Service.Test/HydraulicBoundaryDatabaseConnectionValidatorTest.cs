@@ -29,6 +29,8 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class HydraulicBoundaryDatabaseConnectionValidatorTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+
         [Test]
         public void Validate_DatabaseNull_ReturnErrorMessage()
         {
@@ -73,8 +75,6 @@ namespace Ringtoets.Common.Service.Test
             const string expectedMessage = "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand 'I_do_not_exist.db': het bestand bestaat niet.";
             Assert.AreEqual(expectedMessage, message);
         }
-
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         [Test]
         public void Validate_ExistingFileWithHlcd_ReturnsNull()
