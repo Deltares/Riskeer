@@ -48,14 +48,15 @@ namespace Core.Components.DotSpatial.Converter
         IMapFeatureLayer Convert(MapData data);
 
         /// <summary>
-        /// Converts all feature related data from <param name="data"/> to <param name="layer"/>.
+        /// Converts all feature related data from <paramref name="data"/> to <paramref name="layer"/>.
         /// </summary>
         /// <param name="data">The data to convert the feature related data from.</param>
         /// <param name="layer">The layer to convert the feature related data to.</param>
         void ConvertLayerFeatures(MapData data, IMapFeatureLayer layer);
 
         /// <summary>
-        /// Converts all general properties (like <see cref="MapData.Name"/> and <see cref="MapData.IsVisible"/>) from <param name="data"/> to <param name="layer"/>.
+        /// Converts all general properties (like <see cref="MapData.Name"/> and <see cref="MapData.IsVisible"/>) 
+        /// from <paramref name="data"/> to <paramref name="layer"/>.
         /// </summary>
         /// <param name="data">The data to convert the general properties from.</param>
         /// <param name="layer">The layer to convert the general properties to.</param>
