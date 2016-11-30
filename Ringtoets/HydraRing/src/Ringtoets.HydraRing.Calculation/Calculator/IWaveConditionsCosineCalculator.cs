@@ -31,18 +31,33 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     {
         /// <summary>
         /// Gets the height of the wave.
+        /// [m]
         /// </summary>
         double WaveHeight { get; }
 
         /// <summary>
-        /// Gets the angle of the wave.
+        /// Gets the angle of the wave with respect to the dike normal.
+        /// [deg]
         /// </summary>
         double WaveAngle { get; }
 
         /// <summary>
+        /// Gets the direction of the wave with respect to the North.
+        /// [deg]
+        /// </summary>
+        double WaveDirection { get; }
+
+        /// <summary>
         /// Gets the peak period of the wave.
+        /// [s]
         /// </summary>
         double WavePeakPeriod { get; }
+        
+        /// <summary>
+        /// Gets the calculated reliability index.
+		/// [-]
+        /// </summary>
+        double ReliabilityIndex { get; }
 
         /// <summary>
         /// Gets the temporary output directory that is generated during the Hydra-Ring calculation.s

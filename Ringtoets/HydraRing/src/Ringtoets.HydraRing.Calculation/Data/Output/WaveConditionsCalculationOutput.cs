@@ -31,12 +31,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
         /// </summary>
         /// <param name="waveHeight">The calculated wave height.</param>
         /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
-        /// <param name="waveAngle">The calculated wave angle.</param>
-        public WaveConditionsCalculationOutput(double waveHeight, double wavePeakPeriod, double waveAngle)
+        /// <param name="waveAngle">The calculated wave angle with respect to the dike normal..</param>
+        /// <param name="waveDirection">The calculated wave direction with respect to North.</param>
+        public WaveConditionsCalculationOutput(double waveHeight, double wavePeakPeriod, double waveAngle, double waveDirection)
         {
             WaveHeight = waveHeight;
             WavePeakPeriod = wavePeakPeriod;
             WaveAngle = waveAngle;
+            WaveDirection = waveDirection;
         }
 
         /// <summary>
@@ -50,8 +52,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
         public double WavePeakPeriod { get; private set; }
 
         /// <summary>
-        /// Gets the calculated wave angle.
+        /// Gets the calculated wave angle with respect to the dike normal.
         /// </summary>
         public double WaveAngle { get; private set; }
+
+        /// <summary>
+        /// Gets the calculated wave direction with respect to North.
+        /// </summary>
+        public double WaveDirection { get; set; }
     }
 }

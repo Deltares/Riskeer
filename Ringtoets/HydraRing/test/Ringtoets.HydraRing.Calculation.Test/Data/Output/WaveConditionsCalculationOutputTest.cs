@@ -32,16 +32,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
         {
             // Setup
             const double waveAngle = 3.0;
+            const double waveDirection = 5.0;
             const double waveHeight = 9.93;
             const double wavePeakPeriod = 18;
-
+            
             // Call
-            var output = new WaveConditionsCalculationOutput(waveHeight, wavePeakPeriod, waveAngle);
+            var output = new WaveConditionsCalculationOutput(waveHeight, wavePeakPeriod, waveAngle, waveDirection);
 
             // Assert
             Assert.AreEqual(waveHeight, output.WaveHeight);
             Assert.AreEqual(wavePeakPeriod, output.WavePeakPeriod);
             Assert.AreEqual(waveAngle, output.WaveAngle);
+            Assert.AreEqual(waveDirection, output.WaveDirection);
         }
     }
 }

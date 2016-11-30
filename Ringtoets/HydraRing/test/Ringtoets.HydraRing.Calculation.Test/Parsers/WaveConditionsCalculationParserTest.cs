@@ -86,6 +86,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             Assert.AreEqual(22.01300, parser.Output.WaveAngle);
             Assert.AreEqual(1.87957, parser.Output.WaveHeight);
             Assert.AreEqual(11.15140, parser.Output.WavePeakPeriod);
+            Assert.AreEqual(337.98700, parser.Output.WaveDirection);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
         }
 
@@ -95,6 +96,22 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Setup
             var parser = new WaveConditionsCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "output-no-waveAngle");
+
+            // Call
+            parser.Parse(workingDirectory, sectionId);
+
+            // Assert
+            Assert.IsNull(parser.Output);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
+        }
+
+
+        [Test]
+        public void Parse_InvalidHydraRingOutputFileWaveDirectionMissing_OutputNull()
+        {
+            // Setup
+            var parser = new WaveConditionsCalculationParser();
+            var workingDirectory = Path.Combine(testDataPath, "output-no-waveDirection");
 
             // Call
             parser.Parse(workingDirectory, sectionId);

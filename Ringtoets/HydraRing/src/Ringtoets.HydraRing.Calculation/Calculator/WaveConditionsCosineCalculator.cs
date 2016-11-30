@@ -34,6 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     internal class WaveConditionsCosineCalculator : HydraRingCalculatorBase, IWaveConditionsCosineCalculator
     {
         private readonly WaveConditionsCalculationParser waveConditionsCalculationParser;
+        private readonly ReliabilityIndexCalculationParser reliabilityIndexCalculationParser;
 
         /// <summary>
         /// Create a new instance of <see cref="WaveConditionsCosineCalculator"/>.
@@ -45,15 +46,20 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             : base(hlcdDirectory, ringId)
         {
             waveConditionsCalculationParser = new WaveConditionsCalculationParser();
+            reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();
 
             WaveHeight = double.NaN;
             WaveAngle = double.NaN;
             WavePeakPeriod = double.NaN;
+            WaveDirection = double.NaN;
+            ReliabilityIndex = double.NaN;
         }
 
         public double WaveHeight { get; private set; }
         public double WaveAngle { get; private set; }
         public double WavePeakPeriod { get; private set; }
+        public double WaveDirection { get; private set; }
+        public double ReliabilityIndex { get; private set; }
 
         public void Calculate(WaveConditionsCosineCalculationInput input)
         {
@@ -63,6 +69,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         protected override IEnumerable<IHydraRingFileParser> GetParsers()
         {
             yield return waveConditionsCalculationParser;
+            yield return reliabilityIndexCalculationParser;
         }
 
         protected override void SetOutputs()
@@ -71,7 +78,13 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             {
                 WaveHeight = waveConditionsCalculationParser.Output.WaveHeight;
                 WaveAngle = waveConditionsCalculationParser.Output.WaveAngle;
+				WaveDirection = waveConditionsCalculationParser.Output.WaveDirection;
                 WavePeakPeriod = waveConditionsCalculationParser.Output.WavePeakPeriod;
+            }
+
+            if (reliabilityIndexCalculationParser.Output != null)
+            {
+                ReliabilityIndex = reliabilityIndexCalculationParser.Output.CalculatedReliabilityIndex;
             }
         }
     }

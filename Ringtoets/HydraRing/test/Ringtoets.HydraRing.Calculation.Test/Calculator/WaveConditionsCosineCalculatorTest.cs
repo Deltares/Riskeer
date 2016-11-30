@@ -37,7 +37,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
             Assert.IsNaN(calculator.WaveHeight);
             Assert.IsNaN(calculator.WaveAngle);
+            Assert.IsNaN(calculator.WaveDirection);
             Assert.IsNaN(calculator.WavePeakPeriod);
+            Assert.IsNaN(calculator.ReliabilityIndex);
             Assert.IsNull(calculator.OutputDirectory);
         }
     }

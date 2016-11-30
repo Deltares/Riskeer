@@ -33,6 +33,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     public class WaveConditionsCalculationParser : IHydraRingFileParser
     {
         private const string waveAngleText = "Wave angle";
+        private const string waveDirectionText = "Wave direction";
         private const string waveHeightText = "Wave height";
         private const string wavePeakPeriodText = "Wave period";
         private const string reductionFactorText = "reduction factor";
@@ -40,6 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private const char equalsCharacter = '=';
 
         private double? waveAngle;
+        private double? waveDirection;
         private double? waveHeight;
         private double? wavePeakPeriod;
 
@@ -65,9 +67,10 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         private void SetOutput()
         {
-            if (waveAngle != null && waveHeight != null && wavePeakPeriod != null)
+            if (waveAngle != null && waveHeight != null && wavePeakPeriod != null && waveDirection != null)
             {
-                Output = new WaveConditionsCalculationOutput(waveHeight.Value, wavePeakPeriod.Value, waveAngle.Value);
+                Output = new WaveConditionsCalculationOutput(waveHeight.Value, wavePeakPeriod.Value, waveAngle.Value,
+                                                             waveDirection.Value);
             }
         }
 
@@ -82,6 +85,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                         string currentLine = file.ReadLine();
 
                         waveAngle = TryParseWaveAngle(currentLine) ?? waveAngle;
+                        waveDirection = TryParseWaveDirection(currentLine) ?? waveDirection;
                         waveHeight = TryParseWaveHeight(currentLine) ?? waveHeight;
                         wavePeakPeriod = TryParseWavePeakPeriod(currentLine) ?? wavePeakPeriod;
                     }
@@ -96,6 +100,17 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 string resultAsString = line.Split(equalsCharacter)[1].Trim();
                 return ParseStringResult(resultAsString);
             }
+            return null;
+        }
+
+        private static double? TryParseWaveDirection(string line)
+        {
+            if (line.Contains(waveDirectionText))
+            {
+                string resultAsString = line.Split(equalsCharacter)[1].Trim();
+                return ParseStringResult(resultAsString);
+            }
+
             return null;
         }
 

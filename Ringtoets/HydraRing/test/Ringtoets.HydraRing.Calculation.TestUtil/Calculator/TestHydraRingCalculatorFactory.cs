@@ -110,6 +110,8 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 
     public class TestWaveConditionsCosineCalculator : TestHydraRingCalculator<WaveConditionsCosineCalculationInput>, IWaveConditionsCosineCalculator
     {
+        public double WaveDirection { get; private set; }
+        public double ReliabilityIndex { get; private set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
         public double WaveHeight { get; set; }
