@@ -379,7 +379,6 @@ namespace Ringtoets.Integration.Service.Test
                 DesignWaterLevel = (RoundedDouble) designWaterLevel,
                 WaveHeight = (RoundedDouble) waveHeight
             };
-            ;
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {

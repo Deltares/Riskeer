@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Test
         [Test]
         public void GivenAssessmentSectionWithReferenceLineAndOtherData_WhenImportingReferenceLine_ThenReferenceLineReplacedAndReferenceLineDependentDataCleared()
         {
-            // Setup
+            // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var mocks = new MockRepository();
@@ -132,11 +132,11 @@ namespace Ringtoets.Integration.Test
             assessmentSection.PipingFailureMechanism.StochasticSoilModels.Attach(stochasticSoilModelsObserver);
             assessmentSection.PipingFailureMechanism.SurfaceLines.Attach(surfaceLinesObserver);
 
-            // Call
+            // When
             bool importSuccesful = importer.Import();
             importer.DoPostImportUpdates();
 
-            // Assert
+            // Then
             Assert.IsTrue(importSuccesful);
             Assert.AreNotSame(originalReferenceLine, assessmentSection.ReferenceLine);
             Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
