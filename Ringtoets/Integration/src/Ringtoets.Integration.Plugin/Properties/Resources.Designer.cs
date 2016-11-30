@@ -88,7 +88,9 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Na het aanpassen van de norm zullen alle rekenresultaten van hydraulische randvoorwaarden en faalmechanismen verwijderd worden. Wilt u doorgaan?.
+        ///   Looks up a localized string similar to Na het aanpassen van de norm zullen alle rekenresultaten van hydraulische randvoorwaarden en faalmechanismen verwijderd worden.
+        ///
+        ///Wilt u doorgaan?.
         /// </summary>
         public static string FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_data {
             get {
@@ -100,20 +102,20 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De resultaten van {0} berekeningen zijn verwijderd..
         /// </summary>
-        public static string FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared {
+        public static string FailureMechanismContributionNormChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared {
             get {
-                return ResourceManager.GetString("FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations" +
-                        "_0_calculations_cleared", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismContributionNormChangeHandler_Results_of_NumberOfCalculations_0_c" +
+                        "alculations_cleared", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd..
         /// </summary>
-        public static string FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared {
+        public static string FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared {
             get {
-                return ResourceManager.GetString("FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_lev" +
-                        "el_results_cleared", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_r" +
+                        "esults_cleared", resourceCulture);
             }
         }
         

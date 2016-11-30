@@ -19,14 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base;
+using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.Integration.TestUtils;
 
 namespace Ringtoets.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
-    public class FailureMechanismContributionNormChangeHandlerTest
+    public class FailureMechanismContributionNormChangeHandlerTest : NUnitFormTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -36,6 +46,146 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.IsInstanceOf<IFailureMechanismContributionNormChangeHandler>(handler);
+        }
+
+        [Test]
+        public void ConfirmNormChange_ShownMessageBoxForConfirmation()
+        {
+            // Setup
+            string title = "", message = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                title = tester.Title;
+                message = tester.Text;
+                tester.ClickOk();
+            };
+
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
+            // Call
+            handler.ConfirmNormChange();
+
+            // Assert
+            Assert.AreEqual("Bevestigen", title);
+            string expectedMessage = "Na het aanpassen van de norm zullen alle rekenresultaten van hydraulische randvoorwaarden en faalmechanismen verwijderd worden." + Environment.NewLine
+                                     + Environment.NewLine +
+                                     "Wilt u doorgaan?";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void ConfirmNormChange_MessageBoxOk_ReturnTrue()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickOk();
+            };
+
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
+            // Call
+            bool isConfirmed = handler.ConfirmNormChange();
+
+            // Assert
+            Assert.IsTrue(isConfirmed);
+        }
+
+        [Test]
+        public void ConfirmNormChange_MessageBoxCancelOk_ReturnFalse()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickCancel();
+            };
+
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
+            // Call
+            bool isConfirmed = handler.ConfirmNormChange();
+
+            // Assert
+            Assert.IsFalse(isConfirmed);
+        }
+
+        [Test]
+        public void ChangeNorm_AssessmentSectionNull_ThrownArgumentNullException()
+        {
+            // Setup
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
+            // Call
+            TestDelegate call = () => handler.ChangeNorm(null, 1000);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
+        }
+
+        [Test]
+        [TestCase(-123456)]
+        [TestCase(0)]
+        public void ChangeNorm_InvalidNorm_ThrowArgumentOutOfRangeException(int invalidNorm)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
+            // Call
+            TestDelegate call = () => handler.ChangeNorm(assessmentSection, invalidNorm);
+
+            // Assert
+            const string expectedMessage = "De faalkansbijdrage kan alleen bepaald worden als de norm van het traject groter is dan 0.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void ChangeNorm_FullyConfiguredAssessmentSection_AllCalculationOutputClearedAndContributionsUpdatedAndReturnsAllAffectedObjects()
+        {
+            // Setup
+            AssessmentSection section = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            var expectedAffectedCalculations = section.GetFailureMechanisms()
+                                                      .SelectMany(fm => fm.Calculations)
+                                                      .Where(c => c.HasOutput)
+                                                      .ToArray();
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = null;
+            Action call = () => affectedObjects = handler.ChangeNorm(section, 1000);
+
+            // Assert
+            var expectedMessages = new[]
+            {
+                "De resultaten van 32 berekeningen zijn verwijderd.",
+                "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
+
+            CollectionAssert.IsEmpty(section.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
+                                     "There should be no calculations with output.");
+
+            var expectedAffectedObjects = expectedAffectedCalculations.Cast<IObservable>()
+                                                                      .Concat(section.GetFailureMechanisms())
+                                                                      .Concat(new IObservable[]
+                                                                      {
+                                                                          section.FailureMechanismContribution,
+                                                                          section.GrassCoverErosionOutwards.HydraulicBoundaryLocations,
+                                                                          section.HydraulicBoundaryDatabase
+                                                                      });
+            foreach (HydraulicBoundaryLocation location in section.HydraulicBoundaryDatabase.Locations
+                                                                  .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
+            {
+                Assert.IsNaN(location.DesignWaterLevel);
+                Assert.IsNaN(location.WaveHeight);
+                Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
+                Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
+            }
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
     }
 }

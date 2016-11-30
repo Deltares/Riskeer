@@ -283,7 +283,8 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (data != null)
             {
-                normInput.Value = data.Norm;
+                // Note: Set the Text instead of value to ensure Value property is correct when handling Validating events.
+                normInput.Text = data.Norm.ToString(CultureInfo.CurrentCulture);
             }
         }
 
@@ -418,7 +419,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void NormNumericUpDown_Validating(object sender, CancelEventArgs e)
         {
-            if (normInput.Value != assessmentSection.FailureMechanismContribution.Norm)
+            if (Convert.ToInt32(normInput.Value) != assessmentSection.FailureMechanismContribution.Norm)
             {
                 if (!changeHandler.ConfirmNormChange())
                 {

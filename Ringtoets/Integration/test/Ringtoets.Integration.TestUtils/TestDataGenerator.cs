@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
@@ -53,7 +54,13 @@ namespace Ringtoets.Integration.TestUtils
         public static AssessmentSection GetFullyConfiguredAssessmentSection()
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+            {
+                DesignWaterLevel = (RoundedDouble) 1.1,
+                DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged,
+                WaveHeight = (RoundedDouble) 2.2,
+                WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged
+            };
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -685,6 +692,17 @@ namespace Ringtoets.Integration.TestUtils
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
+            HydraulicBoundaryLocation internalHydroLocation = new HydraulicBoundaryLocation(hydraulicBoundaryLocation.Id,
+                                                                                            hydraulicBoundaryLocation.Name,
+                                                                                            hydraulicBoundaryLocation.Location.X,
+                                                                                            hydraulicBoundaryLocation.Location.Y)
+            {
+                WaveHeight = (RoundedDouble) (hydraulicBoundaryLocation.WaveHeight + 0.2),
+                WaveHeightCalculationConvergence = hydraulicBoundaryLocation.WaveHeightCalculationConvergence,
+                DesignWaterLevel = (RoundedDouble) (hydraulicBoundaryLocation.DesignWaterLevel + 0.3),
+                DesignWaterLevelCalculationConvergence = hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence
+            };
+            failureMechanism.HydraulicBoundaryLocations.Add(internalHydroLocation);
             var profile1 = new ForeshoreProfile(new Point2D(0, 0),
                                                 new[]
                                                 {
@@ -718,7 +736,7 @@ namespace Ringtoets.Integration.TestUtils
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    HydraulicBoundaryLocation = internalHydroLocation,
                     ForeshoreProfile = profile1
                 },
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
@@ -727,7 +745,7 @@ namespace Ringtoets.Integration.TestUtils
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    HydraulicBoundaryLocation = internalHydroLocation,
                     ForeshoreProfile = profile2
                 },
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
@@ -736,7 +754,7 @@ namespace Ringtoets.Integration.TestUtils
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = internalHydroLocation
                 }
             };
 
@@ -745,7 +763,7 @@ namespace Ringtoets.Integration.TestUtils
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    HydraulicBoundaryLocation = internalHydroLocation,
                     ForeshoreProfile = profile2
                 },
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
@@ -754,7 +772,7 @@ namespace Ringtoets.Integration.TestUtils
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    HydraulicBoundaryLocation = internalHydroLocation,
                     ForeshoreProfile = profile1
                 },
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
@@ -763,7 +781,7 @@ namespace Ringtoets.Integration.TestUtils
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = internalHydroLocation
                 }
             };
 

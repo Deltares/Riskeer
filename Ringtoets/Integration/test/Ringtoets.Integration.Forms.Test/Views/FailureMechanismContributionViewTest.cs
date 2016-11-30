@@ -949,7 +949,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenView_WhenEnterAfterEnteringDifferentNormNotCommited_CommitValueAndChangeData()
+        public void GivenView_WhenEnterAfterEnteringDifferentNormNotCommitted_CommitValueAndChangeData()
         {
             // Given
             const int normValue = 200;

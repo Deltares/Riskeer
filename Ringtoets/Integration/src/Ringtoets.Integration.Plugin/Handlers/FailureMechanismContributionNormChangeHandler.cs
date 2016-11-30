@@ -19,11 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Utils.Extensions;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
@@ -52,28 +52,31 @@ namespace Ringtoets.Integration.Plugin.Handlers
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> ChangeNorm(IAssessmentSection section, int newNormValue)
+        public IEnumerable<IObservable> ChangeNorm(IAssessmentSection assessmentSection, int newNormValue)
         {
-            var changedObjects = new List<IObservable>();
-
-            if (section.FailureMechanismContribution.Norm != newNormValue)
+            if (assessmentSection == null)
             {
-                section.FailureMechanismContribution.Norm = newNormValue;
-
-                changedObjects.AddRange(ClearAssessmentSectionData(section));
-                changedObjects.Add(section.FailureMechanismContribution);
-                changedObjects.AddRange(section.GetFailureMechanisms());
+                throw new ArgumentNullException("assessmentSection");
             }
 
+            var changedObjects = new List<IObservable>();
+            if (assessmentSection.FailureMechanismContribution.Norm != newNormValue)
+            {
+                assessmentSection.FailureMechanismContribution.Norm = newNormValue;
+
+                changedObjects.AddRange(ClearAllNormDependentCalculationOutput(assessmentSection));
+                changedObjects.Add(assessmentSection.FailureMechanismContribution);
+                changedObjects.AddRange(assessmentSection.GetFailureMechanisms());
+            }
             return changedObjects;
         }
 
-        private IEnumerable<IObservable> ClearAssessmentSectionData(IAssessmentSection assessmentSection)
+        private IEnumerable<IObservable> ClearAllNormDependentCalculationOutput(IAssessmentSection assessmentSection)
         {
             List<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection).ToList();
             if (affectedObjects.Count > 0)
             {
-                log.InfoFormat(Resources.FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared,
+                log.InfoFormat(Resources.FailureMechanismContributionNormChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared,
                                affectedObjects.Count);
             }
 
@@ -94,7 +97,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
                                                                                                                                                   grassCoverErosionOutwardsFailureMechanism);
             if (hydraulicBoundaryLocationAffected.Any())
             {
-                log.Info(Resources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
+                log.Info(Resources.FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared);
                 return new IObservable[]
                 {
                     grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,

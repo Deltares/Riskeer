@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -44,9 +45,13 @@ namespace Ringtoets.Integration.Forms.Views
         /// of the given <see cref="IAssessmentSection"/> and propagates the changes to
         /// underlying data structure.
         /// </summary>
-        /// <param name="section">The section to be updated.</param>
+        /// <param name="assessmentSection">The section to be updated.</param>
         /// <param name="newNormValue">The new norm value.</param>
         /// <returns>All objects that have been affected by the change.</returns>
-        IEnumerable<IObservable> ChangeNorm(IAssessmentSection section, int newNormValue);
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="newNormValue"/>
+        /// is an invalid norm value.</exception>
+        IEnumerable<IObservable> ChangeNorm(IAssessmentSection assessmentSection, int newNormValue);
     }
 }
