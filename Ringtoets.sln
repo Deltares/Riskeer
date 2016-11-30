@@ -1189,6 +1189,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Data.Te
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Revetment.Data.TestUtil", "Ringtoets\Revetment\test\Ringtoets.Revetment.Data.TestUtil\Ringtoets.Revetment.Data.TestUtil.csproj", "{3706200E-48C6-4B86-B48C-4E45C69ABE95}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Revetment.Data.TestUtil.Test", "Ringtoets\Revetment\test\Ringtoets.Revetment.Data.TestUtil.Test\Ringtoets.Revetment.Data.TestUtil.Test.csproj", "{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -2986,6 +2996,26 @@ Global
 		{085197CB-E9EF-4ED2-9420-AA7BE780EED5}.Release|x86.Build.0 = Release|x86
 		{085197CB-E9EF-4ED2-9420-AA7BE780EED5}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{085197CB-E9EF-4ED2-9420-AA7BE780EED5}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{3706200E-48C6-4B86-B48C-4E45C69ABE95}.CreateInstaller|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{3706200E-48C6-4B86-B48C-4E45C69ABE95}.CreateInstaller|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{3706200E-48C6-4B86-B48C-4E45C69ABE95}.CreateInstallerWithDemoProject|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{3706200E-48C6-4B86-B48C-4E45C69ABE95}.CreateInstallerWithDemoProject|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{3706200E-48C6-4B86-B48C-4E45C69ABE95}.Debug|x86.ActiveCfg = Debug|x86
+		{3706200E-48C6-4B86-B48C-4E45C69ABE95}.Debug|x86.Build.0 = Debug|x86
+		{3706200E-48C6-4B86-B48C-4E45C69ABE95}.Release|x86.ActiveCfg = Release|x86
+		{3706200E-48C6-4B86-B48C-4E45C69ABE95}.Release|x86.Build.0 = Release|x86
+		{3706200E-48C6-4B86-B48C-4E45C69ABE95}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{3706200E-48C6-4B86-B48C-4E45C69ABE95}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}.CreateInstaller|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}.CreateInstaller|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}.CreateInstallerWithDemoProject|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}.CreateInstallerWithDemoProject|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}.Debug|x86.ActiveCfg = Debug|x86
+		{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}.Debug|x86.Build.0 = Debug|x86
+		{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}.Release|x86.ActiveCfg = Release|x86
+		{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}.Release|x86.Build.0 = Release|x86
+		{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3215,6 +3245,8 @@ Global
 		{8F48BA03-37C6-4909-8D97-171D3907295D} = {E4FB8F4B-D49C-4858-A6C1-1D5EB7EF54D4}
 		{58463630-E5FD-431F-9C2E-52E88641C63E} = {E4FB8F4B-D49C-4858-A6C1-1D5EB7EF54D4}
 		{0006A9D2-BDA8-412D-A12F-0102389131DD} = {E4FB8F4B-D49C-4858-A6C1-1D5EB7EF54D4}
+		{3706200E-48C6-4B86-B48C-4E45C69ABE95} = {E4FB8F4B-D49C-4858-A6C1-1D5EB7EF54D4}
+		{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04} = {E4FB8F4B-D49C-4858-A6C1-1D5EB7EF54D4}
 		{034E8094-C070-4330-9DEA-C7A0517E05EB} = {C8AD3DB4-C8CF-4E09-9CB8-15CC52140878}
 		{056EB867-151E-40DE-9808-A6F7F3746C62} = {C8AD3DB4-C8CF-4E09-9CB8-15CC52140878}
 		{C6309704-D67B-434C-BC98-9F8910BC1D10} = {034E8094-C070-4330-9DEA-C7A0517E05EB}
