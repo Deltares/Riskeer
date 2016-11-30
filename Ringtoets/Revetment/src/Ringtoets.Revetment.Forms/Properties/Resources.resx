@@ -189,6 +189,36 @@
   <data name="WaveConditionsInput_WaterLevels_DisplayName" xml:space="preserve">
     <value>Waterstanden in berekening [m+NAP]</value>
   </data>
+  <data name="WaveConditionsOutput_CalculatedProbability_Description" xml:space="preserve">
+    <value>De berekende kans van voorkomen van het berekende resultaat.</value>
+  </data>
+  <data name="WaveConditionsOutput_CalculatedProbability_DisplayName" xml:space="preserve">
+    <value>Berekende kans [1/jaar]</value>
+  </data>
+  <data name="WaveConditionsOutput_CalculatedReliability_Description" xml:space="preserve">
+    <value>Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.</value>
+  </data>
+  <data name="WaveConditionsOutput_CalculatedReliability_DisplayName" xml:space="preserve">
+    <value>Betrouwbaarheidsindex berekende kans [-]</value>
+  </data>
+  <data name="WaveConditionsOutput_Convergence_Description" xml:space="preserve">
+    <value>Is convergentie bereikt voor de berekening?</value>
+  </data>
+  <data name="WaveConditionsOutput_Convergence_DisplayName" xml:space="preserve">
+    <value>Convergentie</value>
+  </data>
+  <data name="WaveConditionsOutput_TargetProbability_Description" xml:space="preserve">
+    <value>De ingevoerde kans waarvoor het resultaat moet worden berekend.</value>
+  </data>
+  <data name="WaveConditionsOutput_TargetProbability_DisplayName" xml:space="preserve">
+    <value>Doelkans [1/jaar]</value>
+  </data>
+  <data name="WaveConditionsOutput_TargetReliability_Description" xml:space="preserve">
+    <value>Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.</value>
+  </data>
+  <data name="WaveConditionsOutput_TargetReliability_DisplayName" xml:space="preserve">
+    <value>Betrouwbaarheidsindex doelkans [-]</value>
+  </data>
   <data name="WaveConditionsOutput_WaterLevel_Description" xml:space="preserve">
     <value>De waterstand waarvoor de golfhoogte, -periode en -richting zijn berekend.</value>
   </data>
@@ -196,10 +226,16 @@
     <value>Waterstand [m+NAP]</value>
   </data>
   <data name="WaveConditionsOutput_WaveAngle_Description" xml:space="preserve">
-    <value>Berekende golfrichting ten opzichte van dijknormaal.</value>
+    <value>Berekende maatgevende golfrichting ten opzichte van de dijknormaal.</value>
   </data>
   <data name="WaveConditionsOutput_WaveAngle_DisplayName" xml:space="preserve">
-    <value>Golfrichting [°]</value>
+    <value>Golfrichting t.o.v. dijknormaal [°]</value>
+  </data>
+  <data name="WaveConditionsOutput_WaveDirection_Description" xml:space="preserve">
+    <value>Berekende maatgevende golfrichting ten opzichte van het noorden.</value>
+  </data>
+  <data name="WaveConditionsOutput_WaveDirection_DisplayName" xml:space="preserve">
+    <value>Golfrichting t.o.v. Noord [°]</value>
   </data>
   <data name="WaveConditionsOutput_WaveHeight_Description" xml:space="preserve">
     <value>Berekende golfhoogte.</value>

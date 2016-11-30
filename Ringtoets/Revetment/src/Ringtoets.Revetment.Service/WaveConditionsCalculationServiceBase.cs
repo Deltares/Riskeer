@@ -228,10 +228,15 @@ namespace Ringtoets.Revetment.Service
             {
                 calculator.Calculate(calculationInput);
 
-                return new WaveConditionsOutput(waterLevel,
-                                                calculator.WaveHeight,
-                                                calculator.WavePeakPeriod,
-                                                calculator.WaveAngle);
+                var output = new WaveConditionsOutput(waterLevel,
+                                                      calculator.WaveHeight,
+                                                      calculator.WavePeakPeriod,
+                                                      calculator.WaveAngle,
+                                                      calculator.WaveDirection,
+                                                      returnPeriod,
+                                                      calculator.ReliabilityIndex);
+                output.CalculationConvergence = RingtoetsCommonDataCalculationService.CalculationConverged(calculator.ReliabilityIndex, returnPeriod);
+                return output;
             }
             catch (HydraRingFileParserException)
             {

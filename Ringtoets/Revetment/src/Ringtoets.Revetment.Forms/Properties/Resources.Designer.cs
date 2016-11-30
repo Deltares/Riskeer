@@ -298,6 +298,96 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De berekende kans van voorkomen van het berekende resultaat..
+        /// </summary>
+        public static string WaveConditionsOutput_CalculatedProbability_Description {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_CalculatedProbability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende kans [1/jaar].
+        /// </summary>
+        public static string WaveConditionsOutput_CalculatedProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_CalculatedProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat..
+        /// </summary>
+        public static string WaveConditionsOutput_CalculatedReliability_Description {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_CalculatedReliability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex berekende kans [-].
+        /// </summary>
+        public static string WaveConditionsOutput_CalculatedReliability_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_CalculatedReliability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is convergentie bereikt voor de berekening?.
+        /// </summary>
+        public static string WaveConditionsOutput_Convergence_Description {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_Convergence_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convergentie.
+        /// </summary>
+        public static string WaveConditionsOutput_Convergence_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_Convergence_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingevoerde kans waarvoor het resultaat moet worden berekend..
+        /// </summary>
+        public static string WaveConditionsOutput_TargetProbability_Description {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_TargetProbability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doelkans [1/jaar].
+        /// </summary>
+        public static string WaveConditionsOutput_TargetProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_TargetProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend..
+        /// </summary>
+        public static string WaveConditionsOutput_TargetReliability_Description {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_TargetReliability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex doelkans [-].
+        /// </summary>
+        public static string WaveConditionsOutput_TargetReliability_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_TargetReliability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waterstand waarvoor de golfhoogte, -periode en -richting zijn berekend..
         /// </summary>
         public static string WaveConditionsOutput_WaterLevel_Description {
@@ -316,7 +406,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende golfrichting ten opzichte van dijknormaal..
+        ///   Looks up a localized string similar to Berekende maatgevende golfrichting ten opzichte van de dijknormaal..
         /// </summary>
         public static string WaveConditionsOutput_WaveAngle_Description {
             get {
@@ -325,11 +415,29 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfrichting [°].
+        ///   Looks up a localized string similar to Golfrichting t.o.v. dijknormaal [°].
         /// </summary>
         public static string WaveConditionsOutput_WaveAngle_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsOutput_WaveAngle_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende maatgevende golfrichting ten opzichte van het noorden..
+        /// </summary>
+        public static string WaveConditionsOutput_WaveDirection_Description {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_WaveDirection_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfrichting t.o.v. Noord [°].
+        /// </summary>
+        public static string WaveConditionsOutput_WaveDirection_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsOutput_WaveDirection_DisplayName", resourceCulture);
             }
         }
         

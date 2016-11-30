@@ -22,8 +22,11 @@
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -74,6 +77,18 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_WaveDirection_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_WaveDirection_Description")]
+        public RoundedDouble WaveDirection
+        {
+            get
+            {
+                return data.WaveDirection;
+            }
+        }
+
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_WaveAngle_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_WaveAngle_Description")]
         public RoundedDouble WaveAngle
@@ -81,6 +96,63 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             get
             {
                 return data.WaveAngle;
+            }
+        }
+
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_TargetProbability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_TargetProbability_Description")]
+        public string TargetProbability
+        {
+            get
+            {
+                double probability = StatisticsConverter.ReliabilityToProbability(data.TargetReliability);
+                return ProbabilityFormattingHelper.Format(probability);
+            }
+        }
+
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_TargetReliability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_TargetReliability_Description")]
+        public RoundedDouble TargetReliability
+        {
+            get
+            {
+                return new RoundedDouble(3, data.TargetReliability);
+            } 
+        }
+
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_CalculatedProbability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_CalculatedProbability_Description")]
+        public string CalculatedProbability
+        {
+            get
+            {
+                double probability = StatisticsConverter.ReliabilityToProbability(data.CalculatedReliability);
+                return ProbabilityFormattingHelper.Format(probability);
+            }
+        }
+
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_CalculatedReliability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_CalculatedReliability_Description")]
+        public RoundedDouble CalculatedReliability
+        {
+            get
+            {
+                return new RoundedDouble(3, data.CalculatedReliability);
+            }
+        }
+
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_Convergence_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_Convergence_Description")]
+        public string Convergence
+        {
+            get
+            {
+                return new EnumDisplayWrapper<CalculationConvergence>(data.CalculationConvergence).DisplayName;
             }
         }
 

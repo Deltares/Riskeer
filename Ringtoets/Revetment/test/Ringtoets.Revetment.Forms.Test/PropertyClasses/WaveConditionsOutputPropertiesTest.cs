@@ -22,8 +22,11 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
@@ -35,7 +38,13 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         private const int requiredWaterLevelPropertyIndex = 0;
         private const int requiredWaveHeightPropertyIndex = 1;
         private const int requiredWavePeakPeriodPropertyIndex = 2;
-        private const int requiredWaveAnglePropertyIndex = 3;
+        private const int requiredWaveDirectionPropertyIndex = 3;
+        private const int requiredWaveAnglePropertyIndex = 4;
+        private const int requiredTargetProbabilityPropertyIndex = 5;
+        private const int requiredTargetReliabilityPropertyIndex = 6;
+        private const int requiredCalculatedProbabilityPropertyIndex = 7;
+        private const int requiredCalculatedReliabilityPropertyIndex = 8;
+        private const int requiredConvergencePropertyIndex = 9;
 
         [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
@@ -45,11 +54,15 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             const double waveHeight = 4.29884;
             const double wavePeakPeriod = 0.19435;
             const double waveAngle = 180.62353;
+            const double waveDirection = 230.5326;
+            const double returnPeriod = 3000;
+            const double calculatedBeta = 67.856;
 
             // Call
             var properties = new WaveConditionsOutputProperties
             {
-                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle)
+                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, returnPeriod,
+                                                calculatedBeta)
             };
 
             // Assert
@@ -57,6 +70,20 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(waveHeight, properties.WaveHeight, properties.WaveHeight.GetAccuracy());
             Assert.AreEqual(wavePeakPeriod, properties.WavePeakPeriod, properties.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(waveAngle, properties.WaveAngle, properties.WaveAngle.GetAccuracy());
+            Assert.AreEqual(waveDirection, properties.WaveDirection, properties.WaveDirection.GetAccuracy());
+
+            const double accuracy = 1e-3;
+            double expectedTargetReliability = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+            double targetProbability = StatisticsConverter.ReliabilityToProbability(expectedTargetReliability);
+            
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(targetProbability), properties.TargetProbability);
+            Assert.AreEqual(expectedTargetReliability, properties.TargetReliability, accuracy);
+
+            double expectedCalculatedProbability = StatisticsConverter.ReliabilityToProbability(calculatedBeta);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedCalculatedProbability), properties.CalculatedProbability);
+            Assert.AreEqual(calculatedBeta, properties.CalculatedReliability, accuracy);
+
+            Assert.AreEqual(string.Empty, properties.Convergence);
         }
 
         [Test]
@@ -67,22 +94,15 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             const double waveHeight = 4.29884;
             const double wavePeakPeriod = 0.19435;
             const double waveAngle = 180.62353;
-
-            const string expectedCategory = "Algemeen";
-            const string expectedWaterLevelDisplayName = "Waterstand [m+NAP]";
-            const string expectedWaveHeightDisplayName = "Golfhoogte (Hs) [m]";
-            const string expectedWavePeakPeriodDisplayName = "Golfperiode (Tp) [s]";
-            const string expectedWaveAngleDisplayName = "Golfrichting [°]";
-
-            const string expectedWaterLevelDescription = "De waterstand waarvoor de golfhoogte, -periode en -richting zijn berekend.";
-            const string expectedWaveHeightDescription = "Berekende golfhoogte.";
-            const string expectedWavePeakPeriodDescription = "Berekende golfperiode.";
-            const string expectedWaveAngleDescription = "Berekende golfrichting ten opzichte van dijknormaal.";
+            const double waveDirection = 230.5326;
+            const double returnPeriod = 3000;
+            const double calculatedBeta = 67.856;
 
             // Call
             var properties = new WaveConditionsOutputProperties
             {
-                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle)
+                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, returnPeriod,
+                                                calculatedBeta)
             };
 
             // Assert
@@ -94,36 +114,87 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 new BrowsableAttribute(true)
             });
 
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(10, dynamicProperties.Count);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptor waterLevelProperty = dynamicProperties[requiredWaterLevelPropertyIndex];
             Assert.IsNotNull(waterLevelProperty);
-            Assert.IsTrue(waterLevelProperty.IsReadOnly);
-            Assert.AreEqual(expectedCategory, waterLevelProperty.Category);
-            Assert.AreEqual(expectedWaterLevelDisplayName, waterLevelProperty.DisplayName);
-            Assert.AreEqual(expectedWaterLevelDescription, waterLevelProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterLevelProperty,
+                                                                            "Algemeen",
+                                                                            "Waterstand [m+NAP]",
+                                                                            "De waterstand waarvoor de golfhoogte, -periode en -richting zijn berekend.",
+                                                                            true);
 
             PropertyDescriptor waveHeightProperty = dynamicProperties[requiredWaveHeightPropertyIndex];
             Assert.IsNotNull(waveHeightProperty);
-            Assert.IsTrue(waveHeightProperty.IsReadOnly);
-            Assert.AreEqual(expectedCategory, waveHeightProperty.Category);
-            Assert.AreEqual(expectedWaveHeightDisplayName, waveHeightProperty.DisplayName);
-            Assert.AreEqual(expectedWaveHeightDescription, waveHeightProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
+                                                                            "Algemeen",
+                                                                            "Golfhoogte (Hs) [m]",
+                                                                            "Berekende golfhoogte.",
+                                                                            true);
 
             PropertyDescriptor wavePeakPeriodProperty = dynamicProperties[requiredWavePeakPeriodPropertyIndex];
             Assert.IsNotNull(wavePeakPeriodProperty);
-            Assert.IsTrue(wavePeakPeriodProperty.IsReadOnly);
-            Assert.AreEqual(expectedCategory, wavePeakPeriodProperty.Category);
-            Assert.AreEqual(expectedWavePeakPeriodDisplayName, wavePeakPeriodProperty.DisplayName);
-            Assert.AreEqual(expectedWavePeakPeriodDescription, wavePeakPeriodProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(wavePeakPeriodProperty,
+                                                                            "Algemeen",
+                                                                            "Golfperiode (Tp) [s]",
+                                                                            "Berekende golfperiode.",
+                                                                            true);
+            PropertyDescriptor waveDirectionProperty = dynamicProperties[requiredWaveDirectionPropertyIndex];
+            Assert.IsNotNull(waveDirectionProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveDirectionProperty,
+                                                                            "Algemeen",
+                                                                            "Golfrichting t.o.v. Noord [°]",
+                                                                            "Berekende maatgevende golfrichting ten opzichte van het noorden.",
+                                                                            true);
 
             PropertyDescriptor waveAngleProperty = dynamicProperties[requiredWaveAnglePropertyIndex];
             Assert.IsNotNull(waveAngleProperty);
-            Assert.IsTrue(waveAngleProperty.IsReadOnly);
-            Assert.AreEqual(expectedCategory, waveAngleProperty.Category);
-            Assert.AreEqual(expectedWaveAngleDisplayName, waveAngleProperty.DisplayName);
-            Assert.AreEqual(expectedWaveAngleDescription, waveAngleProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveAngleProperty,
+                                                                            "Algemeen",
+                                                                            "Golfrichting t.o.v. dijknormaal [°]",
+                                                                            "Berekende maatgevende golfrichting ten opzichte van de dijknormaal.",
+                                                                            true);
+
+            PropertyDescriptor targetProbabilityProperty = dynamicProperties[requiredTargetProbabilityPropertyIndex];
+            Assert.IsNotNull(targetProbabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
+                                                                            "Algemeen",
+                                                                            "Doelkans [1/jaar]",
+                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor targetReliabilityProperty = dynamicProperties[requiredTargetReliabilityPropertyIndex];
+            Assert.IsNotNull(targetReliabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliabilityProperty,
+                                                                            "Algemeen",
+                                                                            "Betrouwbaarheidsindex doelkans [-]",
+                                                                            "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor calculatedProbabilityProperty= dynamicProperties[requiredCalculatedProbabilityPropertyIndex];
+            Assert.IsNotNull(calculatedProbabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbabilityProperty,
+                                                                            "Algemeen",
+                                                                            "Berekende kans [1/jaar]",
+                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor calculatedReliabilityProperty = dynamicProperties[requiredCalculatedReliabilityPropertyIndex];
+            Assert.IsNotNull(calculatedReliabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliabilityProperty,
+                                                                            "Algemeen",
+                                                                            "Betrouwbaarheidsindex berekende kans [-]",
+                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor calculationConvergenceProperty = dynamicProperties[requiredConvergencePropertyIndex];
+            Assert.IsNotNull(calculationConvergenceProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculationConvergenceProperty,
+                                                                            "Algemeen",
+                                                                            "Convergentie",
+                                                                            "Is convergentie bereikt voor de berekening?",
+                                                                            true);
         }
     }
 }
