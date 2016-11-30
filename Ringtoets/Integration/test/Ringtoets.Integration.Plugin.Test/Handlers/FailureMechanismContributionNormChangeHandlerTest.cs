@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void ConfirmNormChange_ShownMessageBoxForConfirmation()
+        public void ConfirmNormChange_Always_ShownMessageBoxForConfirmation()
         {
             // Setup
             string title = "", message = "";
@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void ConfirmNormChange_MessageBoxCancelOk_ReturnFalse()
+        public void ConfirmNormChange_MessageBoxCancel_ReturnFalse()
         {
             // Setup
             DialogBoxHandler = (name, wnd) =>
@@ -113,7 +113,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void ChangeNorm_AssessmentSectionNull_ThrownArgumentNullException()
+        public void ChangeNorm_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
             var handler = new FailureMechanismContributionNormChangeHandler();
@@ -154,8 +154,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                       .ToArray();
             var handler = new FailureMechanismContributionNormChangeHandler();
 
-            // Call
             IEnumerable<IObservable> affectedObjects = null;
+
+            // Call
             Action call = () => affectedObjects = handler.ChangeNorm(section, 1000);
 
             // Assert
