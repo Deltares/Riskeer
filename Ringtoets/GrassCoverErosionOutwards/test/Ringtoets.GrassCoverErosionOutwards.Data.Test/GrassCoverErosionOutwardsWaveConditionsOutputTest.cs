@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 {
@@ -45,8 +45,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             // Setup
             var outputItems = new[]
             {
-                new WaveConditionsOutput(1, 0, 3, 5),
-                new WaveConditionsOutput(8, 2, 6, 1)
+                new TestWaveConditionsOutput(1, 0, 3, 5),
+                new TestWaveConditionsOutput(8, 2, 6, 1)
             };
 
             // Call

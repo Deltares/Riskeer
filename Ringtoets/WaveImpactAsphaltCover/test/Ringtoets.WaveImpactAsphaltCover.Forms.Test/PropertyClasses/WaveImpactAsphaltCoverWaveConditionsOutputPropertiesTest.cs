@@ -23,9 +23,13 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
+using Ringtoets.Revetment.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 
@@ -51,7 +55,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             // Setup
             var items = new[]
             {
-                new WaveConditionsOutput(6, 2, 9, 4),
+                new TestWaveConditionsOutput()
             };
 
             var waveImpactAsphaltCoverWaveConditionsOutput = new WaveImpactAsphaltCoverWaveConditionsOutput(items);
@@ -72,6 +76,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedOutputProperty.WaveHeight, firstOutputProperties.WaveHeight);
             Assert.AreEqual(expectedOutputProperty.WavePeakPeriod, firstOutputProperties.WavePeakPeriod);
             Assert.AreEqual(expectedOutputProperty.WaveAngle, firstOutputProperties.WaveAngle);
+            Assert.AreEqual(expectedOutputProperty.WaveDirection, firstOutputProperties.WaveDirection);
+
+            double expectedTargetReliability = expectedOutputProperty.TargetReliability;
+            double expectedTargetProbability = StatisticsConverter.ReliabilityToProbability(expectedTargetReliability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedTargetProbability), firstOutputProperties.TargetProbability);
+            Assert.AreEqual(expectedTargetReliability, firstOutputProperties.TargetReliability,
+                            firstOutputProperties.TargetReliability.GetAccuracy());
+
+            double expectedCalculatedReliability = expectedOutputProperty.TargetReliability;
+            double expectedCalculatedProbability = StatisticsConverter.ReliabilityToProbability(expectedCalculatedReliability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedCalculatedProbability), firstOutputProperties.TargetProbability);
+            Assert.AreEqual(expectedTargetReliability, firstOutputProperties.TargetReliability,
+                            firstOutputProperties.TargetReliability.GetAccuracy());
+            Assert.AreEqual(string.Empty, firstOutputProperties.Convergence);
         }
 
         [Test]
@@ -80,7 +98,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             // Setup
             var items = new[]
             {
-                new WaveConditionsOutput(1, 0, 3, 5),
+                new TestWaveConditionsOutput()
             };
 
             var waveImpactAsphaltCoverWaveConditionsOutput = new WaveImpactAsphaltCoverWaveConditionsOutput(items);

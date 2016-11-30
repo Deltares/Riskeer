@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
@@ -37,15 +38,15 @@ namespace Ringtoets.Revetment.TestUtil.Test
             WaveConditionsOutput output = new TestWaveConditionsOutput();
 
             // Assert
-            Assert.AreEqual(1.0, output.WaterLevel, output.WaterLevel.GetAccuracy());
-            Assert.AreEqual(2.0, output.WaveHeight, output.WaveHeight.GetAccuracy());
-            Assert.AreEqual(3.0, output.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
-            Assert.AreEqual(4.0, output.WaveAngle, output.WaveAngle.GetAccuracy());
-            Assert.AreEqual(5.0, output.WaveDirection, output.WaveDirection.GetAccuracy());
+            Assert.AreEqual(1.1, output.WaterLevel, output.WaterLevel.GetAccuracy());
+            Assert.AreEqual(2.2, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.AreEqual(3.3, output.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
+            Assert.AreEqual(4.4, output.WaveAngle, output.WaveAngle.GetAccuracy());
+            Assert.AreEqual(5.5, output.WaveDirection, output.WaveDirection.GetAccuracy());
 
             double expectedTargetReliability = StatisticsConverter.ReturnPeriodToReliability(3000);
             Assert.AreEqual(expectedTargetReliability, output.TargetReliability);
-            Assert.AreEqual(35.0, output.CalculatedReliability);
+            Assert.AreEqual(12.3, output.CalculatedReliability);
             Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
         }
 
@@ -53,12 +54,28 @@ namespace Ringtoets.Revetment.TestUtil.Test
         [TestCase(CalculationConvergence.NotCalculated)]
         [TestCase(CalculationConvergence.CalculatedConverged)]
         [TestCase(CalculationConvergence.CalculatedNotConverged)]
-        public void Constructor_CalculationConvergence_ReturnsWithExpectedCalculationConvergence(CalculationConvergence convergence)
+        public void Constructor_WithParameters_ReturnsWithExpectedCalculationConvergence(CalculationConvergence convergence)
         {
+            // Setup 
+            var random = new Random(21);
+            double waterLevel = random.NextDouble();
+            double waveHeight = random.NextDouble();
+            double wavePeakPeriod = random.NextDouble();
+            double waveAngle = random.NextDouble();
+
             // Call
-            WaveConditionsOutput output = new TestWaveConditionsOutput(convergence);
+            WaveConditionsOutput output = new TestWaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, convergence);
 
             // Assert
+            Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
+            Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.AreEqual(wavePeakPeriod, output.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
+            Assert.AreEqual(waveAngle, output.WaveAngle, output.WaveAngle.GetAccuracy());
+            Assert.AreEqual(5.5, output.WaveDirection, output.WaveDirection.GetAccuracy());
+
+            double expectedTargetReliability = StatisticsConverter.ReturnPeriodToReliability(3000);
+            Assert.AreEqual(expectedTargetReliability, output.TargetReliability);
+            Assert.AreEqual(12.3, output.CalculatedReliability);
             Assert.AreEqual(convergence, output.CalculationConvergence);
         }
     }

@@ -23,11 +23,14 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
 {
@@ -51,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
             // Setup
             var items = new[]
             {
-                new WaveConditionsOutput(6, 2, 9, 4),
+                new TestWaveConditionsOutput()
             };
 
             var grassCoverErosionOutwardsWaveConditionsOutput = new GrassCoverErosionOutwardsWaveConditionsOutput(items);
@@ -72,6 +75,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
             Assert.AreEqual(firstOutput.WaveHeight, firstOutputProperties.WaveHeight);
             Assert.AreEqual(firstOutput.WavePeakPeriod, firstOutputProperties.WavePeakPeriod);
             Assert.AreEqual(firstOutput.WaveAngle, firstOutputProperties.WaveAngle);
+            Assert.AreEqual(firstOutput.WaveDirection, firstOutputProperties.WaveDirection);
+
+            double expectedTargetReliability = firstOutput.TargetReliability;
+            double expectedTargetProbability = StatisticsConverter.ReliabilityToProbability(expectedTargetReliability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedTargetProbability), firstOutputProperties.TargetProbability);
+            Assert.AreEqual(expectedTargetReliability, firstOutputProperties.TargetReliability,
+                            firstOutputProperties.TargetReliability.GetAccuracy());
+
+            double expectedCalculatedReliability = firstOutput.TargetReliability;
+            double expectedCalculatedProbability = StatisticsConverter.ReliabilityToProbability(expectedCalculatedReliability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedCalculatedProbability), firstOutputProperties.TargetProbability);
+            Assert.AreEqual(expectedTargetReliability, firstOutputProperties.TargetReliability,
+                            firstOutputProperties.TargetReliability.GetAccuracy());
+            Assert.AreEqual(string.Empty, firstOutputProperties.Convergence);
         }
 
         [Test]
@@ -80,7 +97,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
             // Setup
             var items = new[]
             {
-                new WaveConditionsOutput(1, 0, 3, 5),
+                new TestWaveConditionsOutput()
             };
 
             var grassCoverErosionOutwardsOutputProperties = new GrassCoverErosionOutwardsWaveConditionsOutput(items);

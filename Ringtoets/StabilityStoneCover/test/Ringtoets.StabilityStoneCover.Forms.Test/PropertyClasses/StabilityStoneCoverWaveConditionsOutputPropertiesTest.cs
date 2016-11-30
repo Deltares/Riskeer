@@ -23,9 +23,12 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using NUnit.Framework;
-using Ringtoets.Revetment.Data;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Revetment.Forms.PropertyClasses;
+using Ringtoets.Revetment.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 
@@ -54,12 +57,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             // Setup
             var blocksOutput = new[]
             {
-                new WaveConditionsOutput(6, 2, 9, 4),
+                new TestWaveConditionsOutput(6, 2, 9, 4)
             };
 
             var columnsOutput = new[]
             {
-                new WaveConditionsOutput(1, 0, 3, 5),
+                new TestWaveConditionsOutput(1, 0, 3, 5)
             };
 
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
@@ -80,7 +83,22 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual(firstBlocksOutput.WaveHeight, firstBlocksProperties.WaveHeight);
             Assert.AreEqual(firstBlocksOutput.WavePeakPeriod, firstBlocksProperties.WavePeakPeriod);
             Assert.AreEqual(firstBlocksOutput.WaveAngle, firstBlocksProperties.WaveAngle);
+            Assert.AreEqual(firstBlocksOutput.WaveDirection, firstBlocksProperties.WaveDirection);
 
+            double expectedBlocksTargerReliability = firstBlocksOutput.TargetReliability;
+            double expectedBlocksTargetProbability = StatisticsConverter.ReliabilityToProbability(expectedBlocksTargerReliability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedBlocksTargetProbability), firstBlocksProperties.TargetProbability);
+            Assert.AreEqual(expectedBlocksTargerReliability, firstBlocksProperties.TargetReliability,
+                            firstBlocksProperties.TargetReliability.GetAccuracy());
+
+            double expectedBlocksCalculatedReliability = firstBlocksOutput.TargetReliability;
+            double expectedBlocksCalculatedProbability = StatisticsConverter.ReliabilityToProbability(expectedBlocksCalculatedReliability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedBlocksCalculatedProbability), firstBlocksProperties.TargetProbability);
+            Assert.AreEqual(expectedBlocksTargerReliability, firstBlocksProperties.TargetReliability,
+                            firstBlocksProperties.TargetReliability.GetAccuracy());
+
+            Assert.AreEqual(string.Empty, firstBlocksProperties.Convergence);
+            
             CollectionAssert.AllItemsAreInstancesOfType(properties.Columns, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(columnsOutput.Length, properties.Columns.Length);
 
@@ -90,6 +108,22 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual(firstColumnsOutput.WaveHeight, firstColumnsProperties.WaveHeight);
             Assert.AreEqual(firstColumnsOutput.WavePeakPeriod, firstColumnsProperties.WavePeakPeriod);
             Assert.AreEqual(firstColumnsOutput.WaveAngle, firstColumnsProperties.WaveAngle);
+            Assert.AreEqual(firstColumnsOutput.WaveDirection, firstColumnsProperties.WaveDirection);
+
+            double expectedColumnsTargerReliability = firstBlocksOutput.TargetReliability;
+            double expectedColumnsTargetProbability = StatisticsConverter.ReliabilityToProbability(expectedColumnsTargerReliability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedColumnsTargetProbability), firstBlocksProperties.TargetProbability);
+            Assert.AreEqual(expectedColumnsTargerReliability, firstBlocksProperties.TargetReliability,
+                            firstBlocksProperties.TargetReliability.GetAccuracy());
+
+            double expectedColumnsCalculatedReliability = firstBlocksOutput.TargetReliability;
+            double expectedColumnsCalculatedProbability = StatisticsConverter.ReliabilityToProbability(expectedColumnsCalculatedReliability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedColumnsCalculatedProbability), firstBlocksProperties.TargetProbability);
+            Assert.AreEqual(expectedColumnsTargerReliability, firstBlocksProperties.TargetReliability,
+                            firstBlocksProperties.TargetReliability.GetAccuracy());
+
+            Assert.AreEqual(string.Empty, firstBlocksProperties.Convergence);
+
         }
 
         [Test]
@@ -98,12 +132,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             // Setup
             var blocksOutput = new[]
             {
-                new WaveConditionsOutput(6, 2, 9, 4),
+                new TestWaveConditionsOutput(6, 2, 9, 4),
             };
 
             var columnsOutput = new[]
             {
-                new WaveConditionsOutput(1, 0, 3, 5),
+                new TestWaveConditionsOutput(1, 0, 3, 5),
             };
 
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);

@@ -29,8 +29,8 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
 {
@@ -121,8 +121,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             {
                 var output = new[]
                 {
-                    new WaveConditionsOutput(1, 0, 3, 5),
-                    new WaveConditionsOutput(8, 2, 6, 1)
+                    new TestWaveConditionsOutput(1, 0, 3, 5),
+                    new TestWaveConditionsOutput(8, 2, 6, 1)
                 };
 
                 calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(output);
@@ -156,15 +156,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var calculationGroup = new CalculationGroup();
-            var output = new[]
-            {
-                new WaveConditionsOutput(1, 0, 3, 5),
-                new WaveConditionsOutput(8, 2, 6, 1)
-            };
 
             GrassCoverErosionOutwardsWaveConditionsOutput grassCoverErosionOutwardsWaveConditionsOutput = null;
             if (hasOutput)
             {
+                var output = new[]
+                {
+                    new TestWaveConditionsOutput(1, 0, 3, 5),
+                    new TestWaveConditionsOutput(8, 2, 6, 1)
+                };
                 grassCoverErosionOutwardsWaveConditionsOutput = new GrassCoverErosionOutwardsWaveConditionsOutput(output);
             }
             calculationGroup.Children.Add(
