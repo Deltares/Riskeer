@@ -227,10 +227,9 @@ namespace Ringtoets.Integration.Data
                     PipingFailureMechanism.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
                     MacrostabilityInwards.Contribution = 4;
-                    StabilityStoneCover.Contribution = 3;
-                    WaveImpactAsphaltCover.Contribution = 1;
+                    StabilityStoneCover.Contribution = 5;
+                    WaveImpactAsphaltCover.Contribution = 5;
                     GrassCoverErosionOutwards.Contribution = 5;
-                    GrassCoverSlipOffOutwards.Contribution = 1;
                     HeightStructures.Contribution = 24;
                     ClosingStructures.Contribution = 4;
                     PipingStructure.Contribution = 2;
@@ -245,7 +244,6 @@ namespace Ringtoets.Integration.Data
                     StabilityStoneCover.Contribution = 0;
                     WaveImpactAsphaltCover.Contribution = 0;
                     GrassCoverErosionOutwards.Contribution = 0;
-                    GrassCoverSlipOffOutwards.Contribution = 0;
                     HeightStructures.Contribution = 0;
                     ClosingStructures.Contribution = 0;
                     PipingStructure.Contribution = 0;
@@ -257,10 +255,9 @@ namespace Ringtoets.Integration.Data
                     PipingFailureMechanism.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
                     MacrostabilityInwards.Contribution = 4;
-                    StabilityStoneCover.Contribution = 3;
-                    WaveImpactAsphaltCover.Contribution = 1;
+                    StabilityStoneCover.Contribution = 5;
+                    WaveImpactAsphaltCover.Contribution = 5;
                     GrassCoverErosionOutwards.Contribution = 5;
-                    GrassCoverSlipOffOutwards.Contribution = 1;
                     HeightStructures.Contribution = 24;
                     ClosingStructures.Contribution = 4;
                     PipingStructure.Contribution = 2;
@@ -284,7 +281,6 @@ namespace Ringtoets.Integration.Data
             yield return StabilityStoneCover;
             yield return WaveImpactAsphaltCover;
             yield return GrassCoverErosionOutwards;
-            yield return GrassCoverSlipOffOutwards;
             yield return HeightStructures;
             yield return ClosingStructures;
             yield return PipingStructure;

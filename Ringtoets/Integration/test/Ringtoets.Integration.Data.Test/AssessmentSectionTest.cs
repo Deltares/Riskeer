@@ -36,9 +36,9 @@ namespace Ringtoets.Integration.Data.Test
     public class AssessmentSectionTest
     {
         [Test]
-        [TestCase(AssessmentSectionComposition.Dike, 124)]
+        [TestCase(AssessmentSectionComposition.Dike, 129)]
         [TestCase(AssessmentSectionComposition.Dune, 100)]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, 124)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, 129)]
         public void Constructor_ExpectedValues(AssessmentSectionComposition composition, int sum)
         {
             // Call
@@ -50,7 +50,6 @@ namespace Ringtoets.Integration.Data.Test
             const string stoneRevetmentName = "Dijken en dammen - Stabiliteit steenzetting";
             const string waveImpactAsphaltName = "Dijken en dammen - Golfklappen op asfaltbekleding";
             const string grassCoverErosionOutwardsName = "Dijken en dammen - Grasbekleding erosie buitentalud";
-            const string grassCoverSlipOffOutsideName = "Dijken en dammen - Grasbekleding afschuiven buitentalud";
             const string heightStructuresName = "Kunstwerken - Hoogte kunstwerk";
             const string closingStructuresName = "Kunstwerken - Betrouwbaarheid sluiting kunstwerk";
             const string pipingStructuresName = "Kunstwerken - Piping bij kunstwerk";
@@ -64,7 +63,6 @@ namespace Ringtoets.Integration.Data.Test
             const string stoneRevetmentCode = "ZST";
             const string waveImpactAsphaltCode = "AGK";
             const string grassCoverErosionOutwardsCode = "GEBU";
-            const string grassCoverSlipOffOutsideCode = "GABU";
             const string heightStructuresCode = "HTKW";
             const string closingStructuresCode = "BSKW";
             const string pipingStructuresCode = "PKW";
@@ -80,7 +78,6 @@ namespace Ringtoets.Integration.Data.Test
                 stoneRevetmentName,
                 waveImpactAsphaltName,
                 grassCoverErosionOutwardsName,
-                grassCoverSlipOffOutsideName,
                 heightStructuresName,
                 closingStructuresName,
                 pipingStructuresName,
@@ -97,7 +94,6 @@ namespace Ringtoets.Integration.Data.Test
                 stoneRevetmentCode,
                 waveImpactAsphaltCode,
                 grassCoverErosionOutwardsCode,
-                grassCoverSlipOffOutsideCode,
                 heightStructuresCode,
                 closingStructuresCode,
                 pipingStructuresCode,
@@ -142,7 +138,7 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
             Assert.AreEqual(codes, section.FailureMechanismContribution.Distribution.Select(d => d.AssessmentCode));
-            Assert.AreEqual(Enumerable.Repeat(30000.0, 13), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
+            Assert.AreEqual(Enumerable.Repeat(30000.0, 12), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
 
             Assert.AreEqual(double.NaN, section.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
 
@@ -218,7 +214,8 @@ namespace Ringtoets.Integration.Data.Test
         [TestCase(AssessmentSectionComposition.Dike)]
         [TestCase(AssessmentSectionComposition.Dune)]
         [TestCase(AssessmentSectionComposition.DikeAndDune)]
-        public void FailureMechanismContribution_DefaultConstructed_FailureMechanismContributionWithItemsForFailureMechanismsAndOther(AssessmentSectionComposition composition)
+        public void FailureMechanismContribution_DefaultConstructed_FailureMechanismContributionWithItemsForFailureMechanismsAndOther(
+            AssessmentSectionComposition composition)
         {
             // Setup
             var assessmentSection = new AssessmentSection(composition);
@@ -231,16 +228,15 @@ namespace Ringtoets.Integration.Data.Test
             // Assert
             var failureMechanisms = GetExpectedContributingFailureMechanisms(assessmentSection);
 
-            Assert.AreEqual(13, contribution.Length);
-
-            for (int i = 0; i < 12; i++)
+            Assert.AreEqual(12, contribution.Length);
+            for (int i = 0; i < 11; i++)
             {
                 Assert.AreEqual(failureMechanisms[i].Name, contribution[i].Assessment);
                 Assert.AreEqual(failureMechanisms[i].Contribution, contribution[i].Contribution);
                 Assert.AreEqual(norm, contribution[i].Norm);
                 Assert.AreEqual((norm/contribution[i].Contribution)*100, contribution[i].ProbabilitySpace);
             }
-            var otherContributionItem = contribution[12];
+            var otherContributionItem = contribution[11];
             Assert.AreEqual("Overig", otherContributionItem.Assessment);
             double expectedOtherContribution = composition == AssessmentSectionComposition.DikeAndDune ? 20.0 : 30.0;
             Assert.AreEqual(expectedOtherContribution, otherContributionItem.Contribution);
@@ -348,7 +344,6 @@ namespace Ringtoets.Integration.Data.Test
                 section.StabilityStoneCover,
                 section.WaveImpactAsphaltCover,
                 section.GrassCoverErosionOutwards,
-                section.GrassCoverSlipOffOutwards,
                 section.HeightStructures,
                 section.ClosingStructures,
                 section.PipingStructure,
@@ -367,12 +362,11 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(contributions[3], assessmentSection.StabilityStoneCover.Contribution);
             Assert.AreEqual(contributions[4], assessmentSection.WaveImpactAsphaltCover.Contribution);
             Assert.AreEqual(contributions[5], assessmentSection.GrassCoverErosionOutwards.Contribution);
-            Assert.AreEqual(contributions[6], assessmentSection.GrassCoverSlipOffOutwards.Contribution);
-            Assert.AreEqual(contributions[7], assessmentSection.HeightStructures.Contribution);
-            Assert.AreEqual(contributions[8], assessmentSection.ClosingStructures.Contribution);
-            Assert.AreEqual(contributions[9], assessmentSection.PipingStructure.Contribution);
-            Assert.AreEqual(contributions[10], assessmentSection.StabilityPointStructures.Contribution);
-            Assert.AreEqual(contributions[11], assessmentSection.DuneErosion.Contribution);
+            Assert.AreEqual(contributions[6], assessmentSection.HeightStructures.Contribution);
+            Assert.AreEqual(contributions[7], assessmentSection.ClosingStructures.Contribution);
+            Assert.AreEqual(contributions[8], assessmentSection.PipingStructure.Contribution);
+            Assert.AreEqual(contributions[9], assessmentSection.StabilityPointStructures.Contribution);
+            Assert.AreEqual(contributions[10], assessmentSection.DuneErosion.Contribution);
 
             CollectionAssert.AreEqual(contributions, assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
         }
@@ -388,10 +382,9 @@ namespace Ringtoets.Integration.Data.Test
                         24,
                         24,
                         4,
-                        3,
-                        1,
                         5,
-                        1,
+                        5,
+                        5,
                         24,
                         4,
                         2,
@@ -413,7 +406,6 @@ namespace Ringtoets.Integration.Data.Test
                         0,
                         0,
                         0,
-                        0,
                         70,
                         30
                     };
@@ -424,10 +416,9 @@ namespace Ringtoets.Integration.Data.Test
                         24,
                         24,
                         4,
-                        3,
-                        1,
                         5,
-                        1,
+                        5,
+                        5,
                         24,
                         4,
                         2,
