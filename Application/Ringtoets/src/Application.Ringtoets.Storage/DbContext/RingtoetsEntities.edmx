@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Checkout_Dev\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -344,6 +344,12 @@
           <Property Name="WaveHeight" Type="real" />
           <Property Name="WavePeakPeriod" Type="real" />
           <Property Name="WaveAngle" Type="real" />
+          <Property Name="WaveDirection" Type="real" />
+          <Property Name="TargetProbability" Type="real" />
+          <Property Name="TargetReliability" Type="real" />
+          <Property Name="CalculatedProbability" Type="real" />
+          <Property Name="CalculatedReliability" Type="real" />
+          <Property Name="CalculationConvergence" Type="tinyint" />
         </EntityType>
         <EntityType Name="GrassCoverSlipOffInwardsSectionResultEntity">
           <Key>
@@ -819,6 +825,12 @@
           <Property Name="WaveHeight" Type="real" />
           <Property Name="WavePeakPeriod" Type="real" />
           <Property Name="WaveAngle" Type="real" />
+          <Property Name="WaveDirection" Type="real" />
+          <Property Name="TargetProbability" Type="real" />
+          <Property Name="TargetReliability" Type="real" />
+          <Property Name="CalculatedProbability" Type="real" />
+          <Property Name="CalculatedReliability" Type="real" />
+          <Property Name="CalculationConvergence" Type="tinyint" />
         </EntityType>
         <EntityType Name="StochasticSoilModelEntity">
           <Key>
@@ -932,6 +944,12 @@
           <Property Name="WaveHeight" Type="real" />
           <Property Name="WavePeakPeriod" Type="real" />
           <Property Name="WaveAngle" Type="real" />
+          <Property Name="WaveDirection" Type="real" />
+          <Property Name="TargetProbability" Type="real" />
+          <Property Name="TargetReliability" Type="real" />
+          <Property Name="CalculatedProbability" Type="real" />
+          <Property Name="CalculatedReliability" Type="real" />
+          <Property Name="CalculationConvergence" Type="tinyint" />
         </EntityType>
         <Association Name="FK_AssessmentSectionEntity_0_0">
           <End Role="ProjectEntity" Type="Self.ProjectEntity" Multiplicity="1" />
@@ -3150,6 +3168,12 @@
           <Property Name="WaveHeight" Type="Double" />
           <Property Name="WavePeakPeriod" Type="Double" />
           <Property Name="WaveAngle" Type="Double" />
+          <Property Name="WaveDirection" Type="Double" />
+          <Property Name="TargetProbability" Type="Double" />
+          <Property Name="TargetReliability" Type="Double" />
+          <Property Name="CalculatedProbability" Type="Double" />
+          <Property Name="CalculatedReliability" Type="Double" />
+          <Property Name="CalculationConvergence" Type="Byte" />
           <NavigationProperty Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsOutputEntity_0_0" FromRole="GrassCoverErosionOutwardsWaveConditionsOutputEntity" ToRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
         </EntityType>
         <EntityType Name="GrassCoverSlipOffInwardsSectionResultEntity">
@@ -3683,6 +3707,12 @@
           <Property Name="WaveHeight" Type="Double" />
           <Property Name="WavePeakPeriod" Type="Double" />
           <Property Name="WaveAngle" Type="Double" />
+          <Property Name="WaveDirection" Type="Double" />
+          <Property Name="TargetProbability" Type="Double" />
+          <Property Name="TargetReliability" Type="Double" />
+          <Property Name="CalculatedProbability" Type="Double" />
+          <Property Name="CalculatedReliability" Type="Double" />
+          <Property Name="CalculationConvergence" Type="Byte" />
           <NavigationProperty Name="StabilityStoneCoverWaveConditionsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsOutputEntity_0_0" FromRole="StabilityStoneCoverWaveConditionsOutputEntity" ToRole="StabilityStoneCoverWaveConditionsCalculationEntity" />
         </EntityType>
         <EntityType Name="StochasticSoilModelEntity">
@@ -3813,6 +3843,12 @@
           <Property Name="WaveHeight" Type="Double" />
           <Property Name="WavePeakPeriod" Type="Double" />
           <Property Name="WaveAngle" Type="Double" />
+          <Property Name="WaveDirection" Type="Double" />
+          <Property Name="TargetProbability" Type="Double" />
+          <Property Name="TargetReliability" Type="Double" />
+          <Property Name="CalculatedProbability" Type="Double" />
+          <Property Name="CalculatedReliability" Type="Double" />
+          <Property Name="CalculationConvergence" Type="Byte" />
           <NavigationProperty Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsOutputEntity_0_0" FromRole="WaveImpactAsphaltCoverWaveConditionsOutputEntity" ToRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
         </EntityType>
         <Association Name="FK_AssessmentSectionEntity_0_0">
@@ -5169,6 +5205,12 @@
           <EntitySetMapping Name="GrassCoverErosionOutwardsWaveConditionsOutputEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsOutputEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsWaveConditionsOutputEntity">
+                <ScalarProperty Name="CalculationConvergence" ColumnName="CalculationConvergence" />
+                <ScalarProperty Name="CalculatedReliability" ColumnName="CalculatedReliability" />
+                <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
+                <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
+                <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="WaveDirection" ColumnName="WaveDirection" />
                 <ScalarProperty Name="WaveAngle" ColumnName="WaveAngle" />
                 <ScalarProperty Name="WavePeakPeriod" ColumnName="WavePeakPeriod" />
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
@@ -5671,6 +5713,12 @@
           <EntitySetMapping Name="StabilityStoneCoverWaveConditionsOutputEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsOutputEntity">
               <MappingFragment StoreEntitySet="StabilityStoneCoverWaveConditionsOutputEntity">
+                <ScalarProperty Name="CalculationConvergence" ColumnName="CalculationConvergence" />
+                <ScalarProperty Name="CalculatedReliability" ColumnName="CalculatedReliability" />
+                <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
+                <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
+                <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="WaveDirection" ColumnName="WaveDirection" />
                 <ScalarProperty Name="WaveAngle" ColumnName="WaveAngle" />
                 <ScalarProperty Name="WavePeakPeriod" ColumnName="WavePeakPeriod" />
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
@@ -5795,6 +5843,12 @@
           <EntitySetMapping Name="WaveImpactAsphaltCoverWaveConditionsOutputEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsOutputEntity">
               <MappingFragment StoreEntitySet="WaveImpactAsphaltCoverWaveConditionsOutputEntity">
+                <ScalarProperty Name="CalculationConvergence" ColumnName="CalculationConvergence" />
+                <ScalarProperty Name="CalculatedReliability" ColumnName="CalculatedReliability" />
+                <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
+                <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
+                <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="WaveDirection" ColumnName="WaveDirection" />
                 <ScalarProperty Name="WaveAngle" ColumnName="WaveAngle" />
                 <ScalarProperty Name="WavePeakPeriod" ColumnName="WavePeakPeriod" />
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />

@@ -41,6 +41,12 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> WaveHeight { get; set; }
         public Nullable<double> WavePeakPeriod { get; set; }
         public Nullable<double> WaveAngle { get; set; }
+        public Nullable<double> WaveDirection { get; set; }
+        public Nullable<double> TargetProbability { get; set; }
+        public Nullable<double> TargetReliability { get; set; }
+        public Nullable<double> CalculatedProbability { get; set; }
+        public Nullable<double> CalculatedReliability { get; set; }
+        public Nullable<byte> CalculationConvergence { get; set; }
 
         public virtual GrassCoverErosionOutwardsWaveConditionsCalculationEntity GrassCoverErosionOutwardsWaveConditionsCalculationEntity { get; set; }
     }
