@@ -74,11 +74,9 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(waveDirection, properties.WaveDirection, properties.WaveDirection.GetAccuracy());
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(targetProbability), properties.TargetProbability);
-            Assert.AreEqual(6, properties.TargetReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(calculatedProbability), properties.CalculatedProbability);
-            Assert.AreEqual(6, properties.CalculatedReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
 
             Assert.AreEqual(string.Empty, properties.Convergence);

@@ -52,9 +52,12 @@ namespace Ringtoets.Common.Data.Test.Probability
 
             Assert.IsNotNull(output);
             Assert.AreEqual(requiredProbability, output.RequiredProbability);
+            Assert.AreEqual(5, output.RequiredReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(requiredReliability, output.RequiredReliability);
             Assert.AreEqual(probability, output.Probability);
+            Assert.AreEqual(5, output.Reliability.NumberOfDecimalPlaces);
             Assert.AreEqual(reliability, output.Reliability);
+            Assert.AreEqual(3, output.FactorOfSafety.NumberOfDecimalPlaces);
             Assert.AreEqual(factorOfSafety, output.FactorOfSafety);
         }
 

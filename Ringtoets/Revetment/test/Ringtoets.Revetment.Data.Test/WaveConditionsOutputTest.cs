@@ -61,10 +61,10 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(waveDirection, output.WaveDirection, output.WaveDirection.GetAccuracy());
 
             Assert.AreEqual(targetProbability, output.TargetProbability);
-            Assert.AreEqual(6, output.TargetReliability.NumberOfDecimalPlaces);
+            Assert.AreEqual(5, output.TargetReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
-            Assert.AreEqual(6, output.CalculatedReliability.NumberOfDecimalPlaces);
+            Assert.AreEqual(5, output.CalculatedReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
         }

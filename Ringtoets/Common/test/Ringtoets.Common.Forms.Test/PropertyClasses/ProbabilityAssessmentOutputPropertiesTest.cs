@@ -25,6 +25,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 
@@ -71,10 +72,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
-            Assert.AreEqual(requiredReliability, properties.RequiredReliability, 1e-3);
+            Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
-            Assert.AreEqual(reliability, properties.Reliability, 1e-3);
-            Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, 1e-3);
+            Assert.AreEqual(reliability, properties.Reliability, properties.Reliability.GetAccuracy());
+            Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
         }
 
         [Test]

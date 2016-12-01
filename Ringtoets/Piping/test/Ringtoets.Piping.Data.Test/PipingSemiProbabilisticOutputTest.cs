@@ -77,9 +77,12 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(sellmeijerReliability, output.SellmeijerReliability, output.SellmeijerReliability.GetAccuracy());
             Assert.AreEqual(sellmeijerProbability, output.SellmeijerProbability);
             Assert.AreEqual(requiredProbability, output.RequiredProbability);
+            Assert.AreEqual(5, output.RequiredReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(requiredReliability, output.RequiredReliability, output.RequiredReliability.GetAccuracy());
             Assert.AreEqual(pipingProbability, output.PipingProbability);
+            Assert.AreEqual(5, output.PipingReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(pipingReliability, output.PipingReliability, output.PipingReliability.GetAccuracy());
+            Assert.AreEqual(3, output.PipingFactorOfSafety.NumberOfDecimalPlaces);
             Assert.AreEqual(pipingFactorOfSafety, output.PipingFactorOfSafety, output.PipingFactorOfSafety.GetAccuracy());
         }
 

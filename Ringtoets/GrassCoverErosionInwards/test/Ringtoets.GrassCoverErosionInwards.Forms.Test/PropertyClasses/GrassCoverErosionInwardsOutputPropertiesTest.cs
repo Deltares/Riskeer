@@ -80,15 +80,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(2, properties.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(waveHeight, properties.WaveHeight, properties.WaveHeight.GetAccuracy());
-            Assert.AreEqual(3, properties.Reliability.NumberOfDecimalPlaces);
             Assert.AreEqual(reliability, properties.Reliability, properties.Reliability.GetAccuracy());
-            Assert.AreEqual(3, properties.RequiredReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
             Assert.AreEqual(3, properties.FactorOfSafety.NumberOfDecimalPlaces);
             Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
-            Assert.AreEqual(requiredReliability, properties.RequiredReliability, 1e-3);
+            Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
 
             Assert.AreEqual(isOvertoppingDominant, properties.IsOvertoppingDominant);

@@ -118,9 +118,9 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        [TestCase(30000, 6000, 24, 4.777)]
-        [TestCase(20000, 6000, 12, 4.835)]
-        [TestCase(20000, 8000, 24, 4.748)]
+        [TestCase(30000, 6000, 24, 4.777171914)]
+        [TestCase(20000, 6000, 12, 4.834719763)]
+        [TestCase(20000, 8000, 24, 4.747728143)]
         public void RequiredReliability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double assessmentSectionLength, double contribution, double expectedResult)
         {
             // Setup

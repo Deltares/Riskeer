@@ -62,10 +62,10 @@ namespace Ringtoets.Revetment.Data
             WaveDirection = new RoundedDouble(2, waveDirection);
 
             TargetProbability = targetProbability;
-            TargetReliability = new RoundedDouble(6, targetReliability);
+            TargetReliability = new RoundedDouble(5, targetReliability);
 
             CalculatedProbability = calculatedProbability;
-            CalculatedReliability = new RoundedDouble(6, calculatedReliability);
+            CalculatedReliability = new RoundedDouble(5, calculatedReliability);
         }
 
         /// <summary>

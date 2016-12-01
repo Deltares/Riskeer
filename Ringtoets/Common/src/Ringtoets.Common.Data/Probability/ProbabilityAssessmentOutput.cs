@@ -48,9 +48,9 @@ namespace Ringtoets.Common.Data.Probability
         public ProbabilityAssessmentOutput(double requiredProbability, double requiredReliability, double probability, double reliability, double factorOfSafety)
         {
             RequiredProbability = requiredProbability;
-            RequiredReliability = new RoundedDouble(3, requiredReliability);
+            RequiredReliability = new RoundedDouble(5, requiredReliability);
             Probability = probability;
-            Reliability = new RoundedDouble(3, reliability);
+            Reliability = new RoundedDouble(5, reliability);
             FactorOfSafety = new RoundedDouble(3, factorOfSafety);
         }
 

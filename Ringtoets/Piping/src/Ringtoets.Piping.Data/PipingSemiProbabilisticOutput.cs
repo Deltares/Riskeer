@@ -73,9 +73,9 @@ namespace Ringtoets.Piping.Data
             SellmeijerProbability = sellmeijerProbability;
 
             RequiredProbability = requiredProbability;
-            RequiredReliability = new RoundedDouble(3, requiredReliability);
+            RequiredReliability = new RoundedDouble(5, requiredReliability);
             PipingProbability = pipingProbability;
-            PipingReliability = new RoundedDouble(3, pipingReliability);
+            PipingReliability = new RoundedDouble(5, pipingReliability);
             PipingFactorOfSafety = new RoundedDouble(3, pipingFactorOfSafety);
         }
 
