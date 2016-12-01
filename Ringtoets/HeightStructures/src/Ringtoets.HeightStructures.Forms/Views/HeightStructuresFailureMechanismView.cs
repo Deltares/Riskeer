@@ -93,7 +93,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
             mapDataCollection = new MapDataCollection(HeightStructuresDataResources.HeightStructuresFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
+            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             foreshoreProfilesMapData = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
             structuresMapData = RingtoetsMapDataFactory.CreateStructuresMapData();
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();

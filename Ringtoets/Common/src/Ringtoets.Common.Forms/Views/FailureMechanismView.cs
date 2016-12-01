@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Forms.Views
 
             mapDataCollection = new MapDataCollection(defaultMapDataCollectionName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
+            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();

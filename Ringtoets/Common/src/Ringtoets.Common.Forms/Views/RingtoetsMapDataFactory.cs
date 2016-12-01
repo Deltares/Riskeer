@@ -59,10 +59,10 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Create <see cref="MapPointData"/> with default styling for a <see cref="HydraulicBoundaryDatabase"/>.
+        /// Create <see cref="MapPointData"/> with default styling for a collection of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         /// <returns>The created <see cref="MapPointData"/>.</returns>
-        public static MapPointData CreateHydraulicBoundaryDatabaseMapData()
+        public static MapPointData CreateHydraulicBoundaryLocationsMapData()
         {
             return new MapPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName)
             {

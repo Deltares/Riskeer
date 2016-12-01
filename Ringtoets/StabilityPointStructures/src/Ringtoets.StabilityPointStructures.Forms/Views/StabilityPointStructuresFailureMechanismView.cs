@@ -93,7 +93,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
             mapDataCollection = new MapDataCollection(StabilityPointStructuresDataResources.StabilityPointStructuresFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
+            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             foreshoreProfilesMapData = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
             structuresMapData = RingtoetsMapDataFactory.CreateStructuresMapData();
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();

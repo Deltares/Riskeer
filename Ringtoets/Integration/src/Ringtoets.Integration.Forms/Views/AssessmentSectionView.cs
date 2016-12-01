@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Forms.Views
 
             mapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
+            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
             mapDataCollection.Add(referenceLineMapData);
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);

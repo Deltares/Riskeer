@@ -82,10 +82,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CreateHydraulicBoundaryDatabaseMapData_ReturnsEmptyMapPointDataWithDefaultStyling()
+        public void CreateHydraulicBoundaryLocationsMapData_ReturnsEmptyMapPointDataWithDefaultStyling()
         {
             // Call
-            MapPointData data = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
+            MapPointData data = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
             // Assert
             Assert.IsEmpty(data.Features);
