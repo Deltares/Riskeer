@@ -59,7 +59,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         private readonly MapLineData sectionsMapData;
         private readonly MapPointData sectionsStartPointMapData;
         private readonly MapPointData sectionsEndPointMapData;
-        private readonly MapPointData hydraulicBoundaryDatabaseMapData;
+        private readonly MapPointData hydraulicBoundaryLocationsMapData;
         private readonly MapLineData foreshoreProfilesMapData;
         private readonly MapLineData calculationsMapData;
 
@@ -91,7 +91,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
 
             mapDataCollection = new MapDataCollection(WaveImpactAsphaltCoverDataResources.WaveImpactAsphaltCoverFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryDatabaseMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
+            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
             foreshoreProfilesMapData = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
@@ -102,7 +102,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             mapDataCollection.Add(sectionsMapData);
             mapDataCollection.Add(sectionsStartPointMapData);
             mapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(hydraulicBoundaryDatabaseMapData);
+            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             mapDataCollection.Add(foreshoreProfilesMapData);
             mapDataCollection.Add(calculationsMapData);
         }
@@ -179,7 +179,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
-            hydraulicBoundaryDatabaseMapData.NotifyObservers();
+            hydraulicBoundaryLocationsMapData.NotifyObservers();
             foreshoreProfilesMapData.NotifyObservers();
             calculationsMapData.NotifyObservers();
         }
@@ -197,7 +197,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-            hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
+            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
             foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
             calculationsMapData.Features = WaveImpactAsphaltCoverMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }

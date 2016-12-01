@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly MapLineData surfaceLinesMapData;
         private readonly MapPointData sectionsStartPointMapData;
         private readonly MapPointData sectionsEndPointMapData;
-        private readonly MapPointData hydraulicBoundaryDatabaseMapData;
+        private readonly MapPointData hydraulicBoundaryLocationsMapData;
         private readonly MapLineData calculationsMapData;
 
         private PipingFailureMechanismContext data;
@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             mapDataCollection = new MapDataCollection(PipingDataResources.PipingFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryDatabaseMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
+            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             stochasticSoilModelsMapData = PipingMapDataFactory.CreateStochasticSoilModelsMapData();
             surfaceLinesMapData = PipingMapDataFactory.CreateSurfaceLinesMapData();
@@ -107,7 +107,7 @@ namespace Ringtoets.Piping.Forms.Views
             mapDataCollection.Add(surfaceLinesMapData);
             mapDataCollection.Add(sectionsStartPointMapData);
             mapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(hydraulicBoundaryDatabaseMapData);
+            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             mapDataCollection.Add(calculationsMapData);
         }
 
@@ -188,7 +188,7 @@ namespace Ringtoets.Piping.Forms.Views
             surfaceLinesMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
-            hydraulicBoundaryDatabaseMapData.NotifyObservers();
+            hydraulicBoundaryLocationsMapData.NotifyObservers();
             calculationsMapData.NotifyObservers();
         }
 
@@ -208,7 +208,7 @@ namespace Ringtoets.Piping.Forms.Views
             surfaceLinesMapData.Features = PipingMapDataFeaturesFactory.CreateSurfaceLineFeatures(ringtoetsPipingSurfaceLines.ToArray());
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-            hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
+            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
             calculationsMapData.Features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }
     }

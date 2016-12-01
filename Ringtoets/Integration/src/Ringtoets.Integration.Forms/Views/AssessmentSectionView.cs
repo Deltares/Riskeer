@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
-        private readonly MapPointData hydraulicBoundaryDatabaseMapData;
+        private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
         private IAssessmentSection data;
 
@@ -63,10 +63,10 @@ namespace Ringtoets.Integration.Forms.Views
 
             mapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryDatabaseMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
+            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryDatabaseMapData();
 
             mapDataCollection.Add(referenceLineMapData);
-            mapDataCollection.Add(hydraulicBoundaryDatabaseMapData);
+            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
         }
 
         public object Data
@@ -120,13 +120,13 @@ namespace Ringtoets.Integration.Forms.Views
             SetMapDataFeatures();
 
             referenceLineMapData.NotifyObservers();
-            hydraulicBoundaryDatabaseMapData.NotifyObservers();
+            hydraulicBoundaryLocationsMapData.NotifyObservers();
         }
 
         private void SetMapDataFeatures()
         {
             referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(data.ReferenceLine, data.Id, data.Name);
-            hydraulicBoundaryDatabaseMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(data.HydraulicBoundaryDatabase);
+            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(data.HydraulicBoundaryDatabase);
         }
     }
 }
