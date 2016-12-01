@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Forms.Views
         /// is <c>null</c>.</returns>
         public static MapFeature[] CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase != null
+            return CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryDatabase != null
                                                                ? hydraulicBoundaryDatabase.Locations.ToArray()
                                                                : new HydraulicBoundaryLocation[0],
                                                            Resources.MetaData_DesignWaterLevel,
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Forms.Views
         /// is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateHydraulicBoundaryLocationFeaturesWithOptionalLabels(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
         {
-            return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryLocations ?? new HydraulicBoundaryLocation[0],
+            return CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryLocations ?? new HydraulicBoundaryLocation[0],
                                                            Resources.MetaData_DesignWaterLevel_GrassOutwards,
                                                            Resources.MetaData_WaveHeight_GrassOutwards);
         }
@@ -284,7 +284,7 @@ namespace Ringtoets.Common.Forms.Views
             return feature;
         }
 
-        private static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryLocation[] hydraulicBoundaryLocations,
+        private static MapFeature[] CreateHydraulicBoundaryLocationFeatures(HydraulicBoundaryLocation[] hydraulicBoundaryLocations,
                                                                             string designWaterLevelAttributeName,
                                                                             string waveheightAttributeName)
         {

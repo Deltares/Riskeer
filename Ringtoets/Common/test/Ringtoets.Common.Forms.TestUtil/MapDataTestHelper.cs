@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <list type="bullet">
         /// <item><paramref name="mapData"/> is not <see cref="MapLineData"/>.</item>
         /// <item>The number of sections and features in <see cref="MapData"/> are not the same.</item>
-        /// <item>The points of a section and the geometry of a feature are not the same.</item>
+        /// <item>The points of a section and the geometry of a corresponding feature are not the same.</item>
         /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling"</c>.</item>
         /// </list></exception>
         public static void AssertFailureMechanismSectionsMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
@@ -65,30 +65,31 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the <see cref="HydraulicBoundaryDatabase"/>
+        /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
-        /// <param name="database">The <see cref="HydraulicBoundaryDatabase"/> that contains the original data.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations that contain the original data.</param>
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>.</item>
-        /// <item>The number of <see cref="HydraulicBoundaryDatabase.Locations"/> and features 
-        /// in <see cref="MapData"/> are not the same.</item>
-        /// <item>The points of a location and the geometry of a feature are not the same.</item>
+        /// <item>The number of hydraulic boundary locations and features in <see cref="MapData"/> are not the same.</item>
+        /// <item>The point of a hydraulic boundary location and the geometry of a corresponding feature are not the same.</item>
         /// <item>The name of the <see cref="MapData"/> is not <c>"Hydraulische randvoorwaarden"</c>.</item>
         /// </list></exception>
-        public static void AssertHydraulicBoundaryLocationsMapData(HydraulicBoundaryDatabase database, MapData mapData)
+        public static void AssertHydraulicBoundaryLocationsMapData(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
-            MapPointData hydraulicLocationsMapData = (MapPointData)mapData;
-            if (database == null)
+            MapPointData hydraulicLocationsMapData = (MapPointData) mapData;
+            if (hydraulicBoundaryLocations == null)
             {
                 CollectionAssert.IsEmpty(hydraulicLocationsMapData.Features);
             }
             else
             {
-                Assert.AreEqual(database.Locations.Count, hydraulicLocationsMapData.Features.Length);
-                CollectionAssert.AreEqual(database.Locations.Select(hrp => hrp.Location),
+                var hydraulicBoundaryLocationsArray = hydraulicBoundaryLocations.ToArray();
+
+                Assert.AreEqual(hydraulicBoundaryLocationsArray.Length, hydraulicLocationsMapData.Features.Length);
+                CollectionAssert.AreEqual(hydraulicBoundaryLocationsArray.Select(hrp => hrp.Location),
                     hydraulicLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
             }
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);

@@ -249,7 +249,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var mapData = new MapPointData("test");
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -285,7 +285,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -347,7 +347,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapData);
 
             // Assert
             Assert.DoesNotThrow(test);

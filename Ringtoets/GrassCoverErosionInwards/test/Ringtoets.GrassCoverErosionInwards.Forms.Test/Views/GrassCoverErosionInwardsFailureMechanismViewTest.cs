@@ -83,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Map, view.Controls[0]);
-                Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
+                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 Assert.IsNull(view.Map.Data);
             }
         }
@@ -238,7 +238,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase, mapDataList[hydraulicBoundaryLocationsIndex]);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapDataList[hydraulicBoundaryLocationsIndex]);
                 AssertDikeProfiles(failureMechanism.DikeProfiles, mapDataList[dikeProfilesIndex]);
                 AssertForeshoreProfiles(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), mapDataList[foreshoreProfilesIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), mapDataList[calculationsIndex]);
@@ -280,7 +280,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1.Locations, hydraulicBoundaryLocationsMapData);
 
                 assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase2;
 
@@ -288,10 +288,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 assessmentSection.NotifyObservers();
 
                 // Assert
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2.Locations, hydraulicBoundaryLocationsMapData);
             }
         }
-        
+
         [Test]
         public void NotifyObservers_HydraulicBoundaryDatabaseUpdated_MapDataUpdated()
         {
@@ -320,15 +320,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase, hydraulicBoundaryLocationsMapData);
-                
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+
                 hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
 
                 // Call
                 hydraulicBoundaryDatabase.NotifyObservers();
 
                 // Assert
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
             }
         }
 
@@ -805,7 +805,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     calculation.InputParameters.DikeProfile.WorldReferencePoint,
                     calculation.InputParameters.HydraulicBoundaryLocation.Location
                 },
-                geometries[0].PointCollections.First());
+                                               geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
         }
