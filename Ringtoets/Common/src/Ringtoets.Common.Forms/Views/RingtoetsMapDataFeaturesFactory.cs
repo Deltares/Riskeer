@@ -91,19 +91,17 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Create hydraulic boundary database location features based on the provided
-        /// <paramref name="hydraulicBoundaryDatabase"/> with optional labels for design
+        /// Create hydraulic boundary location features based on the provided
+        /// <paramref name="hydraulicBoundaryLocations"/> with optional labels for design
         /// water level and wave height.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
+        /// <param name="hydraulicBoundaryLocations">The array of <see cref="HydraulicBoundaryLocation"/>
         /// to create the location features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryDatabase"/>
-        /// is <c>null</c>.</returns>
-        public static MapFeature[] CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryLocations"/>
+        /// is <c>null</c> or empty.</returns>
+        public static MapFeature[] CreateHydraulicBoundaryLocationFeaturesWithOptionalLabels(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
         {
-            return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase != null
-                                                               ? hydraulicBoundaryDatabase.Locations.ToArray()
-                                                               : new HydraulicBoundaryLocation[0],
+            return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryLocations ?? new HydraulicBoundaryLocation[0],
                                                            Resources.MetaData_DesignWaterLevel_GrassOutwards,
                                                            Resources.MetaData_WaveHeight_GrassOutwards);
         }

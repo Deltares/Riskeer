@@ -121,17 +121,17 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels_HydraulicBoundaryDatabaseNull_ReturnsEmptyFeaturesArray()
+        public void CreateHydraulicBoundaryLocationsFeaturesWithOptionalLabels_HydraulicBoundaryLocationsNull_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels(null);
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeaturesWithOptionalLabels(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels_GivenHydraulicBoundaryDatabase_ReturnsLocationFeaturesArray()
+        public void CreateHydraulicBoundaryLocationFeaturesWithOptionalLabels_GivenHydraulicBoundaryLocations_ReturnsLocationFeaturesArray()
         {
             // Setup
             var points = new[]
@@ -139,16 +139,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new Point2D(1.2, 2.3),
                 new Point2D(2.7, 2.0)
             };
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.AddRange(points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)));
+            var hydraulicBoundaryLocations = points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)).ToArray();
 
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels(hydraulicBoundaryDatabase);
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeaturesWithOptionalLabels(hydraulicBoundaryLocations);
 
             // Assert
-            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
-            Assert.AreEqual(hydraulicBoundaryLocations.Count, features.Length);
-            for (int i = 0; i < hydraulicBoundaryLocations.Count; i++)
+            Assert.AreEqual(hydraulicBoundaryLocations.Length, features.Length);
+            for (int i = 0; i < hydraulicBoundaryLocations.Length; i++)
             {
                 Assert.AreEqual(4, features[i].MetaData.Keys.Count);
                 Assert.AreEqual(hydraulicBoundaryLocations[i].Id, features[i].MetaData["ID"]);
@@ -631,7 +629,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
         }
 
-        private void CollectionElementsAlmostEquals(IEnumerable<Point2D> expected, Point2D[] actual)
+        private static void CollectionElementsAlmostEquals(IEnumerable<Point2D> expected, Point2D[] actual)
         {
             Assert.AreEqual(expected.Count(), actual.Length);
 
