@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.Revetment.IO.Test
 {
@@ -35,7 +36,7 @@ namespace Ringtoets.Revetment.IO.Test
     {
         private readonly WaveConditionsOutput[] waveConditionsOutputCollection =
         {
-            new WaveConditionsOutput(0.0, 1.1, 2.2, 3.3)
+            new TestWaveConditionsOutput(0.0, 1.1, 2.2, 3.3)
         };
 
         private readonly WaveConditionsInput emptyWaveConditionsInput = new WaveConditionsInput();

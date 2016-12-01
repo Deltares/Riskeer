@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO;
+using Ringtoets.Revetment.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.IO.Test
@@ -155,10 +156,10 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
                     },
                     Output = new StabilityStoneCoverWaveConditionsOutput(new[]
                     {
-                        new WaveConditionsOutput(1.11111, 2.22222, 3.33333, 4.44444)
+                        new TestWaveConditionsOutput(1.11111, 2.22222, 3.33333, 4.44444)
                     }, new[]
                     {
-                        new WaveConditionsOutput(3.33333, 1.11111, 4.44444, 2.22222)
+                        new TestWaveConditionsOutput(3.33333, 1.11111, 4.44444, 2.22222)
                     })
                 }
             };

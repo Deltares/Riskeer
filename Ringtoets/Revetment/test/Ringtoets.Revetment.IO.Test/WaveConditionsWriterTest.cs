@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.Revetment.IO.Test
 {
@@ -133,7 +134,7 @@ namespace Ringtoets.Revetment.IO.Test
                     LowerBoundaryWaterLevels = (RoundedDouble) 2.689,
                     UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247,
                     UseBreakWater = true
-                }, new WaveConditionsOutput(1.11111, 2.22222, 3.33333, 4.44444), CoverType.StoneCoverBlocks),
+                }, new TestWaveConditionsOutput(1.11111, 2.22222, 3.33333, 4.44444), CoverType.StoneCoverBlocks),
                 new ExportableWaveConditions("columnsName", new WaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
@@ -145,7 +146,7 @@ namespace Ringtoets.Revetment.IO.Test
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                     UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
-                }, new WaveConditionsOutput(3.33333, 1.11111, 4.44444, 2.22222), CoverType.StoneCoverColumns)
+                }, new TestWaveConditionsOutput(3.33333, 1.11111, 4.44444, 2.22222), CoverType.StoneCoverColumns)
             };
 
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,

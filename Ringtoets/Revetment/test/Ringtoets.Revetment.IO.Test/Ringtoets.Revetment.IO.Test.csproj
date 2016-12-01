@@ -93,6 +93,10 @@
       <Project>{E3347B16-BB18-41C1-8D34-FBCBF20DB695}</Project>
       <Name>Ringtoets.Revetment.IO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Revetment.Data.TestUtil\Ringtoets.Revetment.Data.TestUtil.csproj">
+      <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
+      <Name>Ringtoets.Revetment.Data.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
