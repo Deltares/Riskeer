@@ -25,8 +25,8 @@ using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO;
+using Ringtoets.Revetment.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Plugin;
@@ -113,8 +113,8 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var output = new[]
             {
-                new WaveConditionsOutput(1, 0, 3, 5),
-                new WaveConditionsOutput(8, 2, 6, 1)
+                new TestWaveConditionsOutput(1, 0, 3, 5),
+                new TestWaveConditionsOutput(8, 2, 6, 1)
             };
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(

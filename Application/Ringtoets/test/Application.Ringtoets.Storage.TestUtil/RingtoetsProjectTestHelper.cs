@@ -959,8 +959,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                     },
                     Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
                     {
-                        new WaveConditionsOutput(1, 2, 3, 4),
-                        new WaveConditionsOutput(2, 3, 4, 5)
+                        new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9), 
+                        new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8)
                     })
                 });
         }
@@ -1048,12 +1048,12 @@ namespace Application.Ringtoets.Storage.TestUtil
                     },
                     Output = new StabilityStoneCoverWaveConditionsOutput(new[]
                     {
-                        new WaveConditionsOutput(5, 6, 7, 8),
-                        new WaveConditionsOutput(4, 4, 2, 2)
+                        new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9), 
+                        new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8)
                     }, new[]
                     {
-                        new WaveConditionsOutput(7, 4, 1, 2),
-                        new WaveConditionsOutput(8, 3, 2, 1)
+                        new WaveConditionsOutput(10, 9, 8, 7, 6, 0.5, 0.4, 0.3, 0.2), 
+                        new WaveConditionsOutput(9, 8, 7, 6, 5, 0.4, 0.3, 0.2, 0.1)
                     })
                 });
         }
@@ -1141,8 +1141,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                     },
                     Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
                     {
-                        new WaveConditionsOutput(5, 6, 7, 8),
-                        new WaveConditionsOutput(4, 4, 2, 2)
+                        new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9), 
+                        new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8)
                     })
                 });
         }

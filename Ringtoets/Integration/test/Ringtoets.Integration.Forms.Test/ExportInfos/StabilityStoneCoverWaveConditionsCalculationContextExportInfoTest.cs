@@ -25,8 +25,8 @@ using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO;
+using Ringtoets.Revetment.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Plugin;
@@ -113,14 +113,14 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var columnsOutput = new[]
             {
-                new WaveConditionsOutput(1, 0, 3, 5),
-                new WaveConditionsOutput(8, 2, 6, 1)
+                new TestWaveConditionsOutput(1, 0, 3, 5),
+                new TestWaveConditionsOutput(8, 2, 6, 1)
             };
 
             var blocksOutput = new[]
             {
-                new WaveConditionsOutput(6, 2, 9, 4),
-                new WaveConditionsOutput(4, 1, 7, 3)
+                new TestWaveConditionsOutput(6, 2, 9, 4),
+                new TestWaveConditionsOutput(4, 1, 7, 3)
             };
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(

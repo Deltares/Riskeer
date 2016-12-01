@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
@@ -44,9 +43,10 @@ namespace Ringtoets.Revetment.TestUtil.Test
             Assert.AreEqual(4.4, output.WaveAngle, output.WaveAngle.GetAccuracy());
             Assert.AreEqual(5.5, output.WaveDirection, output.WaveDirection.GetAccuracy());
 
-            double expectedTargetReliability = StatisticsConverter.ReturnPeriodToReliability(3000);
-            Assert.AreEqual(expectedTargetReliability, output.TargetReliability);
-            Assert.AreEqual(12.3, output.CalculatedReliability);
+            Assert.AreEqual(0.1, output.TargetProbability);
+            Assert.AreEqual(1.282, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(0.4, output.CalculatedProbability);
+            Assert.AreEqual(0.253, output.CalculatedReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
         }
 
@@ -54,7 +54,7 @@ namespace Ringtoets.Revetment.TestUtil.Test
         [TestCase(CalculationConvergence.NotCalculated)]
         [TestCase(CalculationConvergence.CalculatedConverged)]
         [TestCase(CalculationConvergence.CalculatedNotConverged)]
-        public void Constructor_WithParameters_ReturnsWithExpectedCalculationConvergence(CalculationConvergence convergence)
+        public void Constructor_WithParameters_ReturnsWithExpectedValues(CalculationConvergence convergence)
         {
             // Setup 
             var random = new Random(21);
@@ -73,9 +73,10 @@ namespace Ringtoets.Revetment.TestUtil.Test
             Assert.AreEqual(waveAngle, output.WaveAngle, output.WaveAngle.GetAccuracy());
             Assert.AreEqual(5.5, output.WaveDirection, output.WaveDirection.GetAccuracy());
 
-            double expectedTargetReliability = StatisticsConverter.ReturnPeriodToReliability(3000);
-            Assert.AreEqual(expectedTargetReliability, output.TargetReliability);
-            Assert.AreEqual(12.3, output.CalculatedReliability);
+            Assert.AreEqual(0.1, output.TargetProbability);
+            Assert.AreEqual(1.282, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(0.4, output.CalculatedProbability);
+            Assert.AreEqual(0.253, output.CalculatedReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
         }
     }

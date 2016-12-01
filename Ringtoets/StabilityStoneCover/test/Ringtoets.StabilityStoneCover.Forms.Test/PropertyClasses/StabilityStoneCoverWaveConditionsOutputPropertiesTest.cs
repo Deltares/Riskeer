@@ -84,21 +84,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual(firstBlocksOutput.WavePeakPeriod, firstBlocksProperties.WavePeakPeriod);
             Assert.AreEqual(firstBlocksOutput.WaveAngle, firstBlocksProperties.WaveAngle);
             Assert.AreEqual(firstBlocksOutput.WaveDirection, firstBlocksProperties.WaveDirection);
-
-            double expectedBlocksTargerReliability = firstBlocksOutput.TargetReliability;
-            double expectedBlocksTargetProbability = StatisticsConverter.ReliabilityToProbability(expectedBlocksTargerReliability);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedBlocksTargetProbability), firstBlocksProperties.TargetProbability);
-            Assert.AreEqual(expectedBlocksTargerReliability, firstBlocksProperties.TargetReliability,
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(firstBlocksOutput.TargetProbability),
+                            firstBlocksProperties.TargetProbability);
+            Assert.AreEqual(firstBlocksOutput.TargetReliability, firstBlocksProperties.TargetReliability,
                             firstBlocksProperties.TargetReliability.GetAccuracy());
-
-            double expectedBlocksCalculatedReliability = firstBlocksOutput.TargetReliability;
-            double expectedBlocksCalculatedProbability = StatisticsConverter.ReliabilityToProbability(expectedBlocksCalculatedReliability);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedBlocksCalculatedProbability), firstBlocksProperties.TargetProbability);
-            Assert.AreEqual(expectedBlocksTargerReliability, firstBlocksProperties.TargetReliability,
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(firstBlocksOutput.CalculatedProbability),
+                            firstBlocksProperties.CalculatedProbability);
+            Assert.AreEqual(firstBlocksOutput.TargetReliability, firstBlocksProperties.TargetReliability,
                             firstBlocksProperties.TargetReliability.GetAccuracy());
-
             Assert.AreEqual(string.Empty, firstBlocksProperties.Convergence);
-            
+
             CollectionAssert.AllItemsAreInstancesOfType(properties.Columns, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(columnsOutput.Length, properties.Columns.Length);
 
@@ -109,21 +104,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual(firstColumnsOutput.WavePeakPeriod, firstColumnsProperties.WavePeakPeriod);
             Assert.AreEqual(firstColumnsOutput.WaveAngle, firstColumnsProperties.WaveAngle);
             Assert.AreEqual(firstColumnsOutput.WaveDirection, firstColumnsProperties.WaveDirection);
-
-            double expectedColumnsTargerReliability = firstBlocksOutput.TargetReliability;
-            double expectedColumnsTargetProbability = StatisticsConverter.ReliabilityToProbability(expectedColumnsTargerReliability);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedColumnsTargetProbability), firstBlocksProperties.TargetProbability);
-            Assert.AreEqual(expectedColumnsTargerReliability, firstBlocksProperties.TargetReliability,
-                            firstBlocksProperties.TargetReliability.GetAccuracy());
-
-            double expectedColumnsCalculatedReliability = firstBlocksOutput.TargetReliability;
-            double expectedColumnsCalculatedProbability = StatisticsConverter.ReliabilityToProbability(expectedColumnsCalculatedReliability);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedColumnsCalculatedProbability), firstBlocksProperties.TargetProbability);
-            Assert.AreEqual(expectedColumnsTargerReliability, firstBlocksProperties.TargetReliability,
-                            firstBlocksProperties.TargetReliability.GetAccuracy());
-
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(firstColumnsOutput.TargetProbability),
+                            firstColumnsProperties.TargetProbability);
+            Assert.AreEqual(firstColumnsOutput.TargetReliability, firstColumnsProperties.TargetReliability,
+                            firstColumnsProperties.TargetReliability.GetAccuracy());
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(firstBlocksOutput.CalculatedProbability),
+                            firstColumnsProperties.CalculatedProbability);
+            Assert.AreEqual(firstColumnsOutput.TargetReliability, firstColumnsProperties.TargetReliability,
+                            firstColumnsProperties.TargetReliability.GetAccuracy());
             Assert.AreEqual(string.Empty, firstBlocksProperties.Convergence);
-
         }
 
         [Test]

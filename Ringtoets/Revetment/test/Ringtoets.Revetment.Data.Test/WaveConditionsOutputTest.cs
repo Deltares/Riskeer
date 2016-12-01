@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
@@ -43,14 +42,14 @@ namespace Ringtoets.Revetment.Data.Test
             const double wavePeakPeriod = 0.19435;
             const double waveAngle = 180.62353;
             const double waveDirection = 230.67893;
-            const double returnPeriod = 6000000;
-
-            var random = new Random(21);
-            double calculatedBeta = random.NextDouble();
+            const double targetProbability = 0.5;
+            const double targetReliability = 3000;
+            const double calculatedProbability = 0.7;
+            const double calculatedReliability = 4000;
 
             // Call
-            var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, returnPeriod,
-                                                  calculatedBeta);
+            var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
+                                                  targetReliability, calculatedProbability, calculatedReliability);
 
             // Assert
             Assert.IsInstanceOf<Observable>(output);
@@ -61,9 +60,80 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(waveAngle, output.WaveAngle, output.WaveAngle.GetAccuracy());
             Assert.AreEqual(waveDirection, output.WaveDirection, output.WaveDirection.GetAccuracy());
 
-            Assert.AreEqual(StatisticsConverter.ReturnPeriodToReliability(returnPeriod), output.TargetReliability);
-            Assert.AreEqual(calculatedBeta, output.CalculatedReliability);
+            Assert.AreEqual(targetProbability, output.TargetProbability);
+            Assert.AreEqual(6, output.TargetReliability.NumberOfDecimalPlaces);
+            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
+            Assert.AreEqual(6, output.CalculatedReliability.NumberOfDecimalPlaces);
+            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
+        }
+
+        [Test]
+        [TestCase(0.0)]
+        [TestCase(1.0)]
+        [TestCase(0.5)]
+        [TestCase(double.NaN)]
+        public void TargetProbability_ValidValues_ReturnsExpectedValue(double targetProbability)
+        {
+            // Call 
+            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, targetProbability,
+                                                  double.NaN, double.NaN, double.NaN);
+
+            // Assert
+            Assert.AreEqual(targetProbability, output.TargetProbability);
+        }
+
+        [Test]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(-100)]
+        [TestCase(100)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
+        public void TargetProbability_InvalidValues_ThrowsArgumentOutOfRangeException(double targetProbability)
+        {
+            // Call 
+            TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, targetProbability,
+                                                               double.NaN, double.NaN, double.NaN);
+
+            // Assert
+            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+
+        [Test]
+        [TestCase(0.0)]
+        [TestCase(1.0)]
+        [TestCase(0.5)]
+        [TestCase(double.NaN)]
+        public void CalculatedProbability_ValidValues_ReturnsExpectedValue(double calculatedProbability)
+        {
+            // Call 
+            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                  double.NaN, calculatedProbability, double.NaN);
+
+            // Assert
+            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
+        }
+
+        [Test]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(-100)]
+        [TestCase(100)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
+        public void CalculatedProbability_InvalidValues_ThrowsArgumentOutOfRangeException(double calculatedProbability)
+        {
+            // Call 
+            TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                               double.NaN, calculatedProbability, double.NaN);
+
+            // Assert
+            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -73,18 +143,8 @@ namespace Ringtoets.Revetment.Data.Test
         public void CalculationConvergence_ValidValues_SetsCalculationConvergence(CalculationConvergence convergence)
         {
             // Setup
-            const double waterLevel = 3.09378;
-            const double waveHeight = 4.29884;
-            const double wavePeakPeriod = 0.19435;
-            const double waveAngle = 180.62353;
-            const double waveDirection = 230.67893;
-
-            var random = new Random(21);
-            double returnPeriod = random.NextDouble();
-            double calculatedBeta = random.NextDouble();
-
-            var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, returnPeriod,
-                                                  calculatedBeta);
+            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                  double.NaN, double.NaN, double.NaN);
 
             // Call
             output.CalculationConvergence = convergence;
@@ -97,18 +157,8 @@ namespace Ringtoets.Revetment.Data.Test
         public void CalculationConvergence_Invalidvalue_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            const double waterLevel = 3.09378;
-            const double waveHeight = 4.29884;
-            const double wavePeakPeriod = 0.19435;
-            const double waveAngle = 180.62353;
-            const double waveDirection = 230.67893;
-            const double returnPeriod = 6000000;
-
-            var random = new Random(21);
-            double calculatedBeta = random.NextDouble();
-
-            var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, returnPeriod,
-                                                  calculatedBeta);
+            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                  double.NaN, double.NaN, double.NaN);
 
             // Call
             TestDelegate call = () => output.CalculationConvergence = (CalculationConvergence) 9001;

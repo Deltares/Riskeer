@@ -23,9 +23,9 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Utils;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HydraRing.Data;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Revetment.Data
 {
@@ -35,6 +35,8 @@ namespace Ringtoets.Revetment.Data
     public class WaveConditionsOutput : Observable, ICalculationOutput
     {
         private CalculationConvergence calculationConvergence;
+        private double targetProbability;
+        private double calculatedProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsOutput"/>.
@@ -44,12 +46,14 @@ namespace Ringtoets.Revetment.Data
         /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
         /// <param name="waveAngle">The calculated wave angle with respect to the dike normal.</param>
         /// <param name="waveDirection">The calculated wave direction with respect to North.</param>
-        /// <param name="returnPeriod">The return period.</param>
-        /// <param name="calculatedReliability">The calculated beta.</param>
-        /// <remarks>All provided output values will be rounded to 2 decimals, except for <see cref="TargetReliability"/>
-        /// and <see cref="CalculatedReliability"/>.</remarks>
+        /// <param name="targetProbability">The target probability.</param>
+        /// <param name="targetReliability">The target beta (reliability).</param>
+        /// <param name="calculatedProbability">The calculated probability.</param>
+        /// <param name="calculatedReliability">The calculated beta (reliability).</param>
         public WaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveAngle,
-                                    double waveDirection = double.NaN, double returnPeriod = double.NaN, double calculatedReliability = double.NaN)
+                                    double waveDirection = double.NaN,
+                                    double targetProbability = double.NaN, double targetReliability = double.NaN,
+                                    double calculatedProbability = double.NaN, double calculatedReliability = double.NaN)
         {
             WaterLevel = new RoundedDouble(2, waterLevel);
             WaveHeight = new RoundedDouble(2, waveHeight);
@@ -57,8 +61,11 @@ namespace Ringtoets.Revetment.Data
             WaveAngle = new RoundedDouble(2, waveAngle);
             WaveDirection = new RoundedDouble(2, waveDirection);
 
-            TargetReliability = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
-            CalculatedReliability = calculatedReliability;
+            TargetProbability = targetProbability;
+            TargetReliability = new RoundedDouble(6, targetReliability);
+
+            CalculatedProbability = calculatedProbability;
+            CalculatedReliability = new RoundedDouble(6, calculatedReliability);
         }
 
         /// <summary>
@@ -95,13 +102,65 @@ namespace Ringtoets.Revetment.Data
         /// Gets the target beta.
         /// [-]
         /// </summary>
-        public double TargetReliability { get; private set; }
+        public RoundedDouble TargetReliability { get; private set; }
+
+        /// <summary>
+        /// Gets the target probability.
+        /// </summary>
+        /// [-]
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
+        /// outside the [0.0, 1.0] range and isn't <see cref="double.NaN"/>.</exception>
+        public double TargetProbability
+        {
+            get
+            {
+                return targetProbability;
+            }
+            private set
+            {
+                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
+                {
+                    targetProbability = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("value",
+                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the calculated beta.
         /// [-]
         /// </summary>
-        public double CalculatedReliability { get; private set; }
+        public RoundedDouble CalculatedReliability { get; private set; }
+
+        /// <summary>
+        /// Gets the target probability.
+        /// </summary>
+        /// [-]
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
+        /// outside the [0.0, 1.0] range and isn't <see cref="double.NaN"/>.</exception>
+        public double CalculatedProbability
+        {
+            get
+            {
+                return calculatedProbability;
+            }
+            private set
+            {
+                if (double.IsNaN(value) || (0.0 <= value && value <= 1.0))
+                {
+                    calculatedProbability = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("value",
+                                                          RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the convergence status of the calculation.

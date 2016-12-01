@@ -106,8 +106,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                double probability = StatisticsConverter.ReliabilityToProbability(data.TargetReliability);
-                return ProbabilityFormattingHelper.Format(probability);
+                return ProbabilityFormattingHelper.Format(data.TargetProbability);
             }
         }
 
@@ -118,7 +117,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(3, data.TargetReliability);
+                return data.TargetReliability;
             } 
         }
 
@@ -129,8 +128,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                double probability = StatisticsConverter.ReliabilityToProbability(data.CalculatedReliability);
-                return ProbabilityFormattingHelper.Format(probability);
+                return ProbabilityFormattingHelper.Format(data.CalculatedProbability);
             }
         }
 
@@ -141,7 +139,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(3, data.CalculatedReliability);
+                return data.CalculatedReliability;
             }
         }
 

@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
@@ -76,17 +75,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
             Assert.AreEqual(firstOutput.WavePeakPeriod, firstOutputProperties.WavePeakPeriod);
             Assert.AreEqual(firstOutput.WaveAngle, firstOutputProperties.WaveAngle);
             Assert.AreEqual(firstOutput.WaveDirection, firstOutputProperties.WaveDirection);
-
-            double expectedTargetReliability = firstOutput.TargetReliability;
-            double expectedTargetProbability = StatisticsConverter.ReliabilityToProbability(expectedTargetReliability);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedTargetProbability), firstOutputProperties.TargetProbability);
-            Assert.AreEqual(expectedTargetReliability, firstOutputProperties.TargetReliability,
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(firstOutput.TargetProbability), firstOutputProperties.TargetProbability);
+            Assert.AreEqual(firstOutput.TargetReliability, firstOutputProperties.TargetReliability,
                             firstOutputProperties.TargetReliability.GetAccuracy());
-
-            double expectedCalculatedReliability = firstOutput.TargetReliability;
-            double expectedCalculatedProbability = StatisticsConverter.ReliabilityToProbability(expectedCalculatedReliability);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedCalculatedProbability), firstOutputProperties.TargetProbability);
-            Assert.AreEqual(expectedTargetReliability, firstOutputProperties.TargetReliability,
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(firstOutput.CalculatedProbability), firstOutputProperties.CalculatedProbability);
+            Assert.AreEqual(firstOutput.TargetReliability, firstOutputProperties.TargetReliability,
                             firstOutputProperties.TargetReliability.GetAccuracy());
             Assert.AreEqual(string.Empty, firstOutputProperties.Convergence);
         }

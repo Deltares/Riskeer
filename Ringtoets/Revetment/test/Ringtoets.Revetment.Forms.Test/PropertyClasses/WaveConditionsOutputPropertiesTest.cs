@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
@@ -55,14 +54,16 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             const double wavePeakPeriod = 0.19435;
             const double waveAngle = 180.62353;
             const double waveDirection = 230.5326;
-            const double returnPeriod = 3000;
-            const double calculatedBeta = 67.856;
+            const double targetProbability = 0.5;
+            const double targetReliability = 3000;
+            const double calculatedProbability = 0.4;
+            const double calculatedReliability = 6000;
 
             // Call
             var properties = new WaveConditionsOutputProperties
             {
-                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, returnPeriod,
-                                                calculatedBeta)
+                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
+                                                targetReliability, calculatedProbability, calculatedReliability)
             };
 
             // Assert
@@ -72,16 +73,13 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(waveAngle, properties.WaveAngle, properties.WaveAngle.GetAccuracy());
             Assert.AreEqual(waveDirection, properties.WaveDirection, properties.WaveDirection.GetAccuracy());
 
-            const double accuracy = 1e-3;
-            double expectedTargetReliability = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
-            double targetProbability = StatisticsConverter.ReliabilityToProbability(expectedTargetReliability);
-            
             Assert.AreEqual(ProbabilityFormattingHelper.Format(targetProbability), properties.TargetProbability);
-            Assert.AreEqual(expectedTargetReliability, properties.TargetReliability, accuracy);
+            Assert.AreEqual(6, properties.TargetReliability.NumberOfDecimalPlaces);
+            Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
 
-            double expectedCalculatedProbability = StatisticsConverter.ReliabilityToProbability(calculatedBeta);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedCalculatedProbability), properties.CalculatedProbability);
-            Assert.AreEqual(calculatedBeta, properties.CalculatedReliability, accuracy);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(calculatedProbability), properties.CalculatedProbability);
+            Assert.AreEqual(6, properties.CalculatedReliability.NumberOfDecimalPlaces);
+            Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
 
             Assert.AreEqual(string.Empty, properties.Convergence);
         }
@@ -95,14 +93,16 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             const double wavePeakPeriod = 0.19435;
             const double waveAngle = 180.62353;
             const double waveDirection = 230.5326;
-            const double returnPeriod = 3000;
-            const double calculatedBeta = 67.856;
+            const double targetProbability = 0.5;
+            const double targetReliability = 3000;
+            const double calculatedProbability = 0.4;
+            const double calculatedReliability = 6000;
 
             // Call
             var properties = new WaveConditionsOutputProperties
             {
-                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, returnPeriod,
-                                                calculatedBeta)
+                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
+                                                targetReliability, calculatedProbability, calculatedReliability)
             };
 
             // Assert
@@ -172,7 +172,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                                                                             "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
-            PropertyDescriptor calculatedProbabilityProperty= dynamicProperties[requiredCalculatedProbabilityPropertyIndex];
+            PropertyDescriptor calculatedProbabilityProperty = dynamicProperties[requiredCalculatedProbabilityPropertyIndex];
             Assert.IsNotNull(calculatedProbabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbabilityProperty,
                                                                             "Algemeen",
