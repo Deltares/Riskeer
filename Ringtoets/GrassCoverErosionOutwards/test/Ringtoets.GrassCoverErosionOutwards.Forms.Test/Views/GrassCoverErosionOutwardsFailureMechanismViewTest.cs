@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Map, view.Controls[0]);
-                Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
+                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 Assert.IsNull(view.Map.Data);
             }
         }
@@ -174,9 +174,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     new Point2D(6.0, 4.0)
                 };
 
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
-
                 var referenceLine = new ReferenceLine();
                 referenceLine.SetGeometry(new[]
                 {
@@ -186,7 +183,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 var assessmentSection = new TestAssessmentSection
                 {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
                     ReferenceLine = referenceLine
                 };
 
@@ -219,6 +215,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
+                failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
 
                 var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -237,96 +234,45 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapDataList[hydraulicBoundaryLocationsIndex]);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism.HydraulicBoundaryLocations, mapDataList[hydraulicBoundaryLocationsIndex]);
                 AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(),
-                    mapDataList[calculationsIndex]);
+                                          mapDataList[calculationsIndex]);
             }
         }
 
         [Test]
-        public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
+        public void UpdateObserver_HydraulicBoundaryLocationsUpdated_MapDataUpdated()
         {
             // Setup
             using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
             {
                 var map = (MapControl) view.Controls[0];
 
-                var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase
+                var assessmentSection = new TestAssessmentSection();
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
                 {
-                    Locations =
+                    HydraulicBoundaryLocations =
                     {
                         new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
                     }
                 };
-                var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
-                    }
-                };
-
-                var assessmentSection = new TestAssessmentSection
-                {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase1
-                };
-
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
+                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 view.Data = failureMechanismContext;
 
                 var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism.HydraulicBoundaryLocations, hydraulicBoundaryLocationsMapData);
+
 
                 // Call
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase2;
-                assessmentSection.NotifyObservers();
+                failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
+                failureMechanism.HydraulicBoundaryLocations.NotifyObservers();
 
                 // Assert
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2.Locations, hydraulicBoundaryLocationsMapData);
-            }
-        }
-
-        [Test]
-        public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_MapDataUpdated()
-        {
-            // Setup
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
-            {
-                var map = (MapControl) view.Controls[0];
-
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-                    }
-                };
-
-                var assessmentSection = new TestAssessmentSection
-                {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
-                };
-
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
-                var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-                // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
-
-                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
-
-                // Call
-                hydraulicBoundaryDatabase.NotifyObservers();
-
-                // Assert
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism.HydraulicBoundaryLocations, hydraulicBoundaryLocationsMapData);
             }
         }
 
@@ -735,8 +681,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 {
                     calculation.InputParameters.ForeshoreProfile.WorldReferencePoint,
                     calculation.InputParameters.HydraulicBoundaryLocation.Location
-                }, 
-                geometries[0].PointCollections.First());
+                },
+                                               geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
         }

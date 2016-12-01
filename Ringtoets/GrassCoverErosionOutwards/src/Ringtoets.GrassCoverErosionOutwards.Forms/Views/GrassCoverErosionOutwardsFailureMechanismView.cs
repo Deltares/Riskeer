@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryDatabaseObserver;
+        private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly Observer foreshoreProfilesObserver;
 
         private readonly RecursiveObserver<CalculationGroup, WaveConditionsInput> calculationInputObserver;
@@ -73,15 +73,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             InitializeComponent();
 
             failureMechanismObserver = new Observer(UpdateMapData);
-            assessmentSectionObserver = new Observer(() =>
-            {
-                if (hydraulicBoundaryDatabaseObserver.Observable == null && data.Parent.HydraulicBoundaryDatabase != null)
-                {
-                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
-                }
-                UpdateMapData();
-            });
-            hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
+            assessmentSectionObserver = new Observer(UpdateMapData);
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData);
             foreshoreProfilesObserver = new Observer(UpdateMapData);
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, WaveConditionsInput>(
@@ -121,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 {
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
-                    hydraulicBoundaryDatabaseObserver.Observable = null;
+                    hydraulicBoundaryLocationsObserver.Observable = null;
                     foreshoreProfilesObserver.Observable = null;
                     calculationInputObserver.Observable = null;
                     calculationGroupObserver.Observable = null;
@@ -133,7 +126,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 {
                     failureMechanismObserver.Observable = data.WrappedData;
                     assessmentSectionObserver.Observable = data.Parent;
-                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
+                    hydraulicBoundaryLocationsObserver.Observable = data.WrappedData.HydraulicBoundaryLocations;
                     foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     calculationInputObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
                     calculationGroupObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
@@ -158,7 +151,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         {
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
-            hydraulicBoundaryDatabaseObserver.Dispose();
+            hydraulicBoundaryLocationsObserver.Dispose();
             foreshoreProfilesObserver.Dispose();
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
@@ -188,7 +181,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         {
             ReferenceLine referenceLine = data.Parent.ReferenceLine;
             IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
+            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = data.WrappedData.HydraulicBoundaryLocations.ToArray();
             IEnumerable<ForeshoreProfile> foreshoreProfiles = data.WrappedData.ForeshoreProfiles;
             IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations =
                 data.WrappedData.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
@@ -197,9 +190,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeaturesWithOptionalLabels(hydraulicBoundaryDatabase != null
-                ? hydraulicBoundaryDatabase.Locations.ToArray()
-                : new HydraulicBoundaryLocation[0]);
+            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeaturesWithOptionalLabels(hydraulicBoundaryLocations);
             foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
             calculationsMapData.Features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }
