@@ -115,12 +115,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public double OvertoppingModelFactor { get; private set; }
 
         /// <summary>
-        /// Gets the Model factor frunup variable.
+        /// Gets the model factor frunup variable.
         /// </summary>
         public NormalDistribution FrunupModelFactor { get; private set; }
 
         /// <summary>
-        /// Gets the Model factor fshallow variable.
+        /// Gets the model factor fshallow variable.
         /// </summary>
         public NormalDistribution FshallowModelFactor { get; private set; }
 

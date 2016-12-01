@@ -83,7 +83,9 @@ namespace Ringtoets.Common.Forms.Views
         /// is <c>null</c>.</returns>
         public static MapFeature[] CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase,
+            return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase != null
+                                                               ? hydraulicBoundaryDatabase.Locations.ToArray()
+                                                               : new HydraulicBoundaryLocation[0],
                                                            Resources.MetaData_DesignWaterLevel,
                                                            Resources.MetaData_WaveHeight);
         }
@@ -99,7 +101,9 @@ namespace Ringtoets.Common.Forms.Views
         /// is <c>null</c>.</returns>
         public static MapFeature[] CreateHydraulicBoundaryDatabaseFeaturesWithOptionalLabels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase,
+            return CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase != null
+                                                               ? hydraulicBoundaryDatabase.Locations.ToArray()
+                                                               : new HydraulicBoundaryLocation[0],
                                                            Resources.MetaData_DesignWaterLevel_GrassOutwards,
                                                            Resources.MetaData_WaveHeight_GrassOutwards);
         }
@@ -204,9 +208,8 @@ namespace Ringtoets.Common.Forms.Views
         {
             if ((calculations != null && calculations.Any()))
             {
-                MapCalculationData[] calculationData = calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<T, U>)
-                                                                        .Select(CreatemapCalculationData<T, U>)
-                                                                        .ToArray();
+                MapCalculationData[] calculationData = Enumerable.ToArray<MapCalculationData>(calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<T, U>)
+                                                                                                          .Select(CreatemapCalculationData<T, U>));
 
                 return CreateCalculationFeatures(calculationData);
             }
@@ -283,30 +286,26 @@ namespace Ringtoets.Common.Forms.Views
             return feature;
         }
 
-        private static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+        private static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryLocation[] hydraulicBoundaryLocations,
                                                                             string designWaterLevelAttributeName,
                                                                             string waveheightAttributeName)
         {
-            if (hydraulicBoundaryDatabase != null)
+            var features = new MapFeature[hydraulicBoundaryLocations.Length];
+
+            for (int i = 0; i < hydraulicBoundaryLocations.Length; i++)
             {
-                var features = new MapFeature[hydraulicBoundaryDatabase.Locations.Count];
+                HydraulicBoundaryLocation location = hydraulicBoundaryLocations[i];
+                var feature = GetAsSingleMapFeature(location.Location);
 
-                for (int i = 0; i < hydraulicBoundaryDatabase.Locations.Count; i++)
-                {
-                    HydraulicBoundaryLocation location = hydraulicBoundaryDatabase.Locations[i];
-                    var feature = GetAsSingleMapFeature(location.Location);
+                feature.MetaData[Resources.MetaData_ID] = location.Id;
+                feature.MetaData[Resources.MetaData_Name] = location.Name;
+                feature.MetaData[designWaterLevelAttributeName] = location.DesignWaterLevel;
+                feature.MetaData[waveheightAttributeName] = location.WaveHeight;
 
-                    feature.MetaData[Resources.MetaData_ID] = location.Id;
-                    feature.MetaData[Resources.MetaData_Name] = location.Name;
-                    feature.MetaData[designWaterLevelAttributeName] = location.DesignWaterLevel;
-                    feature.MetaData[waveheightAttributeName] = location.WaveHeight;
-
-                    features[i] = feature;
-                }
-                return features;
+                features[i] = feature;
             }
 
-            return new MapFeature[0];
+            return features;
         }
 
         private static Point2D[] GetWorldPoints(DikeProfile dikeProfile)
