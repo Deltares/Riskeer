@@ -80,17 +80,6 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets <see cref="FailureMechanismContributionItem.Norm"/>.
-        /// </summary>
-        public int Norm
-        {
-            get
-            {
-                return contributionItem.Norm;
-            }
-        }
-
-        /// <summary>
         /// Gets <see cref="FailureMechanismContributionItem.ProbabilitySpace"/>.
         /// </summary>
         public double ProbabilitySpace

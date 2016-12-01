@@ -124,12 +124,13 @@ namespace Ringtoets.Common.Data.Test.Contribution
         [TestCase(20, 2000, 10000)]
         [TestCase(3, 100, 10000/3.0)]
         [TestCase(25.5, 2550, 10000)]
-        public void ProbabilitySpace_DifferentContributionAndNorm_ReturnsExpectedValue(double contribution, int norm, double expectedResult)
+        public void ProbabilitySpace_DifferentContributionAndNorm_ReturnsExpectedValue(double contribution, int returnPeriod, double expectedResult)
         {
             // Setup
             var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
             failureMechanism.Expect(fm => fm.Contribution).Return(contribution);
             mockRepository.ReplayAll();
+            double norm = 1.0/returnPeriod;
 
             var contributionItem = new FailureMechanismContributionItem(failureMechanism, norm);
 

@@ -122,8 +122,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var normTester = new ControlTester(normInputTextBoxName);
                 var normControl = normTester.TheObject as NumericUpDown;
 
+                int returnPeriod = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+
                 Assert.NotNull(normControl);
-                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
+                Assert.AreEqual(returnPeriod.ToString(), normTester.Text);
                 Assert.AreEqual(1000000, normControl.Maximum);
                 Assert.AreEqual(100, normControl.Minimum);
             }
@@ -134,10 +136,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void NormTextBox_ValueChangedAndUserConfirmsChange_UpdatesDataWithNewValue()
         {
             // Setup
-            const int normValue = 200;
+            const int returnPeriod = 200;
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+            int initialReturnPeriod = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
 
             MockRepository mockRepository = new MockRepository();
             var observable1 = mockRepository.StrictMock<IObservable>();
@@ -147,7 +150,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var handler = mockRepository.StrictMock<IFailureMechanismContributionNormChangeHandler>();
             handler.Expect(h => h.ConfirmNormChange()).Return(true);
-            handler.Expect(h => h.ChangeNorm(assessmentSection, normValue))
+            handler.Expect(h => h.ChangeNorm(assessmentSection, returnPeriod))
                    .Return(new[]
                    {
                        observable1,
@@ -166,10 +169,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ControlTester normTester = new ControlTester(normInputTextBoxName);
 
                 // Precondition
-                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
+                Assert.AreEqual(initialReturnPeriod.ToString(), normTester.Text);
 
                 // Call
-                SimulateUserComittingNormValue(normTester, normValue);
+                SimulateUserCommittingNormValue(normTester, returnPeriod);
             }
             // Assert
             mockRepository.VerifyAll();
@@ -179,16 +182,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void NormTextBox_ValueChangedAndUserDisallowsChange_NothingHappens()
         {
             // Setup
-            const int normValue = 200;
+            const int newReturnPeriod = 200;
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-            int originalNormValue = failureMechanismContribution.Norm;
+            int initialReturnPeriod = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
 
             MockRepository mockRepository = new MockRepository();
             var handler = mockRepository.StrictMock<IFailureMechanismContributionNormChangeHandler>();
             handler.Expect(h => h.ConfirmNormChange()).Return(false);
-            handler.Expect(h => h.ChangeNorm(assessmentSection, normValue))
+            handler.Expect(h => h.ChangeNorm(assessmentSection, newReturnPeriod))
                    .Return(Enumerable.Empty<IObservable>())
                    .Repeat.Never();
 
@@ -204,13 +207,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ControlTester normTester = new ControlTester(normInputTextBoxName);
 
                 // Precondition
-                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
+                Assert.AreEqual(initialReturnPeriod.ToString(), normTester.Text);
 
                 // Call
-                SimulateUserComittingNormValue(normTester, normValue);
+                SimulateUserCommittingNormValue(normTester, newReturnPeriod);
 
                 // Assert
-                Assert.AreEqual(originalNormValue.ToString(), normTester.Properties.Text);
+                Assert.AreEqual(initialReturnPeriod.ToString(), normTester.Properties.Text);
             }
             mockRepository.VerifyAll();
         }
@@ -306,8 +309,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Data_SetNewData_DetachesFromOldData()
         {
             // Setup
-            var aValue = 100;
-            var expectedValue = 200;
+            const int initialReturnPeriod = 100;
+            const int newReturnPeriod = 200;
             var random = new Random(21);
 
             var assessmentSection1 = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -321,11 +324,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var initialContribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, random.Next(0, 100), aValue);
+            }, random.Next(0, 100), 1.0/initialReturnPeriod);
             var newContribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, random.Next(0, 100), expectedValue);
+            }, random.Next(0, 100), 1.0/newReturnPeriod);
 
             using (var distributionView = new FailureMechanismContributionView(handler)
             {
@@ -337,14 +340,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var normTester = new ControlTester(normInputTextBoxName);
 
                 // Precondition
-                Assert.AreEqual(aValue.ToString(), normTester.Properties.Text);
+                Assert.AreEqual(initialReturnPeriod.ToString(), normTester.Properties.Text);
 
                 // Call
                 distributionView.Data = newContribution;
                 distributionView.AssessmentSection = assessmentSection2;
 
                 // Assert
-                Assert.AreEqual(expectedValue.ToString(), normTester.Properties.Text);
+                Assert.AreEqual(newReturnPeriod.ToString(), normTester.Properties.Text);
             }
 
             mockRepository.VerifyAll();
@@ -354,8 +357,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void UpdateObserver_ChangeNormAndNotify_UpdateNormTextBox()
         {
             // Setup
-            const int initialValue = 100;
-            const int expectedValue = 200;
+            const int initialNormValue = 100;
+            const int newNormValue = 200;
             var random = new Random(21);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -368,7 +371,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var contribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, random.Next(0, 100), initialValue);
+            }, random.Next(0, 100), 1.0/initialNormValue);
 
             using (var distributionView = new FailureMechanismContributionView(handler)
             {
@@ -380,14 +383,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var normTester = new ControlTester(normInputTextBoxName);
 
                 // Precondition
-                Assert.AreEqual(initialValue.ToString(), normTester.Properties.Text);
+                Assert.AreEqual(initialNormValue.ToString(), normTester.Properties.Text);
 
                 // Call
-                contribution.Norm = expectedValue;
+                contribution.Norm = 1.0/newNormValue;
                 contribution.NotifyObservers();
 
                 // Assert
-                Assert.AreEqual(expectedValue.ToString(), normTester.Properties.Text);
+                Assert.AreEqual(newNormValue.ToString(), normTester.Properties.Text);
             }
 
             mockRepository.VerifyAll();
@@ -919,8 +922,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
-            const int normValue = 200;
-            int originalNorm = failureMechanismContribution.Norm;
+            const int returnPeriod = 200;
+            int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
 
             using (var view = new FailureMechanismContributionView(handler)
             {
@@ -932,9 +935,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ControlTester normTester = new ControlTester(normInputTextBoxName);
 
                 // When
-                var normInput = (NumericUpDown)normTester.TheObject;
+                var normInput = (NumericUpDown) normTester.TheObject;
                 view.ActiveControl = normInput;
-                normInput.Value = normValue;
+                normInput.Value = returnPeriod;
                 var keyEventArgs = new KeyEventArgs(Keys.Escape);
                 EventHelper.RaiseEvent(normInput.Controls.OfType<TextBox>().First(), "KeyDown", keyEventArgs);
 
@@ -942,7 +945,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsTrue(keyEventArgs.Handled);
                 Assert.IsTrue(keyEventArgs.SuppressKeyPress);
 
-                Assert.AreEqual(originalNorm, normInput.Value);
+                Assert.AreEqual(originalReturnPeriodValue, normInput.Value);
+                Assert.AreEqual(originalReturnPeriodValue, normInput.Value);
                 Assert.AreNotSame(normInput, view.ActiveControl);
             }
             mocks.VerifyAll();
@@ -975,7 +979,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ControlTester normTester = new ControlTester(normInputTextBoxName);
 
                 // When
-                var normInput = (NumericUpDown)normTester.TheObject;
+                var normInput = (NumericUpDown) normTester.TheObject;
                 view.ActiveControl = normInput;
                 normInput.Value = normValue;
                 var keyEventArgs = new KeyEventArgs(Keys.Enter);
@@ -991,7 +995,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private static void SimulateUserComittingNormValue(ControlTester normTester, int normValue)
+        private static void SimulateUserCommittingNormValue(ControlTester normTester, int normValue)
         {
             var normInput = (NumericUpDown) normTester.TheObject;
             normInput.Value = normValue;

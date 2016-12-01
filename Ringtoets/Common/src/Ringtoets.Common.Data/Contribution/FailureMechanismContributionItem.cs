@@ -21,7 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
-using CommonResources = Ringtoets.Common.Data.Properties.Resources;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Contribution
 {
@@ -43,11 +43,11 @@ namespace Ringtoets.Common.Data.Contribution
         /// the corresponding failure mechanism is always relevant. When <c>true</c>, then
         /// <see cref="IsRelevant"/> cannot be set to <c>false</c>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public FailureMechanismContributionItem(IFailureMechanism failureMechanism, int norm, bool isFailureMechanismAlwaysRelevant = false)
+        public FailureMechanismContributionItem(IFailureMechanism failureMechanism, double norm, bool isFailureMechanismAlwaysRelevant = false)
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism", CommonResources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
+                throw new ArgumentNullException("failureMechanism",Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
             }
             this.failureMechanism = failureMechanism;
 
@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// <summary>
         /// Gets or sets the norm of the complete assessment section.
         /// </summary>
-        public int Norm { get; internal set; }
+        public double Norm { get; internal set; }
 
         /// <summary>
         /// Gets the probability space per year for the <see cref="FailureMechanismContribution"/>.
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return (Norm/Contribution)*100;
+                return (1.0/Norm/Contribution)*100;
             }
         }
 

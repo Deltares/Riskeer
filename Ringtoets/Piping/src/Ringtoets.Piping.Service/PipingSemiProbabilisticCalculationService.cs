@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Service
         private readonly double heaveFactorOfSafety;
         private readonly double sellmeijerFactorOfSafety;
 
-        private readonly int returnPeriod;
+        private readonly double norm;
         private readonly double constantA;
         private readonly double constantB;
         private readonly double assessmentSectionLength;
@@ -65,19 +65,19 @@ namespace Ringtoets.Piping.Service
         /// <param name="upliftFactorOfSafety">The factor of safety for the uplift sub calculation.</param>
         /// <param name="heaveFactorOfSafety">The factor of safety for the heave sub calculation.</param>
         /// <param name="sellmeijerFactorOfSafety">The factor of safety for the Sellmeijer sub calculation.</param>
-        /// <param name="returnPeriod">The return period.</param>
+        /// <param name="norm">The norm.</param>
         /// <param name="constantA">The constant a.</param>
         /// <param name="constantB">The constant b.</param>
         /// <param name="assessmentSectionLength">The length of the assessment section.</param>
         /// <param name="contribution">The contribution of piping to the total failure.</param>
         private PipingSemiProbabilisticCalculationService(double upliftFactorOfSafety, double heaveFactorOfSafety,
-                                                          double sellmeijerFactorOfSafety, int returnPeriod, double constantA,
+                                                          double sellmeijerFactorOfSafety, double norm, double constantA,
                                                           double constantB, double assessmentSectionLength, double contribution)
         {
             this.heaveFactorOfSafety = heaveFactorOfSafety;
             this.upliftFactorOfSafety = upliftFactorOfSafety;
             this.sellmeijerFactorOfSafety = sellmeijerFactorOfSafety;
-            this.returnPeriod = returnPeriod;
+            this.norm = norm;
             this.constantA = constantA;
             this.constantB = constantB;
             this.assessmentSectionLength = assessmentSectionLength;
@@ -91,12 +91,12 @@ namespace Ringtoets.Piping.Service
         /// probabilistic calculation is successful, <see cref="PipingCalculation.SemiProbabilisticOutput"/> is set.</param>
         /// <param name="pipingProbabilityAssessmentInput">General input that influences the probability estimate for a piping
         /// assessment.</param>
-        /// <param name="returnPeriod">The return period to assess for.</param>
+        /// <param name="norm">The norm to assess for.</param>
         /// <param name="contribution">The contribution of piping as a percentage (0-100) to the total of the failure probability
         /// of the assessment section.</param>
         /// <exception cref="ArgumentException">Thrown when calculation has no output from a piping calculation.</exception>
         public static void Calculate(PipingCalculation calculation, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput,
-                                     int returnPeriod, double contribution)
+                                     double norm, double contribution)
         {
             ValidateOutputOnCalculation(calculation);
 
@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Service
                 pipingOutput.UpliftFactorOfSafety,
                 pipingOutput.HeaveFactorOfSafety,
                 pipingOutput.SellmeijerFactorOfSafety,
-                returnPeriod,
+                norm,
                 pipingProbabilityAssessmentInput.A,
                 pipingProbabilityAssessmentInput.B,
                 pipingProbabilityAssessmentInput.SectionLength,
@@ -189,12 +189,12 @@ namespace Ringtoets.Piping.Service
         /// <returns>A value representing the required probability.</returns>
         private double RequiredProbability()
         {
+            var returnPeriod = 1/norm;
             return (contribution/returnPeriod)/(1 + (constantA*assessmentSectionLength)/constantB);
         }
 
         private double SubMechanismReliability(double factorOfSafety, SubCalculationFactors factors)
         {
-            var norm = (1.0/returnPeriod);
             var bNorm = StatisticsConverter.ProbabilityToReliability(norm);
 
             return (1/factors.A)*(Math.Log(factorOfSafety/factors.B) + (factors.C*bNorm));

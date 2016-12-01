@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
             Assert.AreEqual(codes, section.FailureMechanismContribution.Distribution.Select(d => d.AssessmentCode));
-            Assert.AreEqual(Enumerable.Repeat(30000.0, 12), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
+            Assert.AreEqual(Enumerable.Repeat(1.0/30000.0, 12), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
 
             Assert.AreEqual(double.NaN, section.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
 
@@ -220,7 +220,7 @@ namespace Ringtoets.Integration.Data.Test
             // Setup
             var assessmentSection = new AssessmentSection(composition);
 
-            const int norm = 30000;
+            const double norm = 1.0/30000;
 
             // Call
             var contribution = assessmentSection.FailureMechanismContribution.Distribution.ToArray();
@@ -234,7 +234,7 @@ namespace Ringtoets.Integration.Data.Test
                 Assert.AreEqual(failureMechanisms[i].Name, contribution[i].Assessment);
                 Assert.AreEqual(failureMechanisms[i].Contribution, contribution[i].Contribution);
                 Assert.AreEqual(norm, contribution[i].Norm);
-                Assert.AreEqual((norm/contribution[i].Contribution)*100, contribution[i].ProbabilitySpace);
+                Assert.AreEqual((1.0/norm/contribution[i].Contribution)*100, contribution[i].ProbabilitySpace);
             }
             var otherContributionItem = contribution[11];
             Assert.AreEqual("Overig", otherContributionItem.Assessment);

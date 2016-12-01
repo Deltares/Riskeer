@@ -82,7 +82,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-200)]
-        public void Constructor_WithInvalidNorm_ThrowsArgumentException(int norm)
+        public void Constructor_WithInvalidNorm_ThrowsArgumentOutOfRangeException(int norm)
         {
             // Setup
             var random = new Random(21);
@@ -183,7 +183,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             CollectionAssert.AreEqual(failureMechanismNames, result.Distribution.Select(d => d.Assessment));
             CollectionAssert.AreEqual(failureMechanismContributions, result.Distribution.Select(d => d.Contribution));
-            CollectionAssert.AreEqual(failureMechanismContributions.Select(c => (norm/c)*100), result.Distribution.Select(d => d.ProbabilitySpace));
+            CollectionAssert.AreEqual(failureMechanismContributions.Select(c => (1.0/norm/c)*100), result.Distribution.Select(d => d.ProbabilitySpace));
             var expectedIsAlwaysRelevant = Enumerable.Repeat(false, failureMechanismCount)
                                                      .Concat(Enumerable.Repeat(true, 1));
             CollectionAssert.AreEqual(expectedIsAlwaysRelevant, result.Distribution.Select(d => d.IsAlwaysRelevant));
@@ -197,13 +197,13 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void UpdateContributions_NoFailureMechanismsAndValidOtherContribution_UpdateDistribution(double newOtherContribution)
         {
             // Setup
-            IEnumerable<IFailureMechanism> failuireMechanisms = Enumerable.Empty<IFailureMechanism>();
+            IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
 
             const int norm = 30000;
-            var failureMechanismContribution = new FailureMechanismContribution(failuireMechanisms, 12.34, norm);
+            var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 12.34, norm);
 
             // Call
-            failureMechanismContribution.UpdateContributions(failuireMechanisms, newOtherContribution);
+            failureMechanismContribution.UpdateContributions(failureMechanisms, newOtherContribution);
 
             // Assert
             Assert.AreEqual(1, failureMechanismContribution.Distribution.Count());
@@ -238,7 +238,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             failureMechanism4.Stub(fm => fm.Name).Return(name4);
             mocks.ReplayAll();
 
-            List<IFailureMechanism> failuireMechanisms = new List<IFailureMechanism>
+            List<IFailureMechanism> failureMechanisms = new List<IFailureMechanism>
             {
                 failureMechanism1,
                 failureMechanism2
@@ -246,12 +246,12 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             const int norm = 30000;
             const double otherContribution = 12.34;
-            var failureMechanismContribution = new FailureMechanismContribution(failuireMechanisms, otherContribution, norm);
+            var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, otherContribution, norm);
 
             // Change failureMechanisms after construction of FailureMechanismContribution:
-            failuireMechanisms.RemoveAt(1);
-            failuireMechanisms.Add(failureMechanism3);
-            failuireMechanisms.Add(failureMechanism4);
+            failureMechanisms.RemoveAt(1);
+            failureMechanisms.Add(failureMechanism3);
+            failureMechanisms.Add(failureMechanism4);
 
             // Precondition
             Assert.AreEqual(3, failureMechanismContribution.Distribution.Count());
@@ -271,7 +271,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             CollectionAssert.AreEqual(originalContributionValues, failureMechanismContribution.Distribution.Select(d => d.Contribution));
 
             // Call
-            failureMechanismContribution.UpdateContributions(failuireMechanisms, newOtherContribution);
+            failureMechanismContribution.UpdateContributions(failureMechanisms, newOtherContribution);
 
             // Assert
             Assert.AreEqual(4, failureMechanismContribution.Distribution.Count());
@@ -302,8 +302,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
             // Setup
             var random = new Random(21);
             var otherContribution = random.Next(1, 100);
-            var norm = 20000;
-            var newNorm = 30000;
+            const double norm = 1.0/20000;
+            const double newNorm = 1.0 / 30000;
 
             var failureMechanism = mockRepository.Stub<IFailureMechanism>();
 
@@ -322,9 +322,9 @@ namespace Ringtoets.Common.Data.Test.Contribution
             mockRepository.VerifyAll();
         }
 
-        private void AssertFailureProbabilitySpace(double newOtherContribution, int norm, double probabilitySpace)
+        private static void AssertFailureProbabilitySpace(double newOtherContribution, int norm, double probabilitySpace)
         {
-            double expectedProbabilitySpace = (norm/newOtherContribution)*100.0;
+            double expectedProbabilitySpace = (1.0/norm/newOtherContribution)*100.0;
             Assert.AreEqual(expectedProbabilitySpace, probabilitySpace);
         }
     }

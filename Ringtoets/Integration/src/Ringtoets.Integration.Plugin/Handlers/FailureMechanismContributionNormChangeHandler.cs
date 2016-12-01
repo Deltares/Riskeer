@@ -60,9 +60,12 @@ namespace Ringtoets.Integration.Plugin.Handlers
             }
 
             var changedObjects = new List<IObservable>();
-            if (assessmentSection.FailureMechanismContribution.Norm != newNormValue)
+            var returnPeriod = Convert.ToInt32(1/assessmentSection.FailureMechanismContribution.Norm);
+            if (returnPeriod != newNormValue)
             {
-                assessmentSection.FailureMechanismContribution.Norm = newNormValue;
+                assessmentSection.FailureMechanismContribution.Norm = newNormValue == 0
+                                                                          ? newNormValue
+                                                                          : 1.0/newNormValue;
 
                 changedObjects.AddRange(ClearAllNormDependentCalculationOutput(assessmentSection));
                 changedObjects.Add(assessmentSection.FailureMechanismContribution);

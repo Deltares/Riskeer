@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var norm = 10;
+            const double norm = 0.1;
             var contributionItem = new FailureMechanismContributionItem(pipingFailureMechanism, norm);
 
             // Call
@@ -59,7 +59,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(contributionItem.Assessment, row.Assessment);
             Assert.AreEqual(contributionItem.AssessmentCode, row.Code);
             Assert.AreEqual(contributionItem.IsRelevant, row.IsRelevant);
-            Assert.AreEqual(contributionItem.Norm, row.Norm);
             Assert.AreEqual(contributionItem.ProbabilitySpace, row.ProbabilitySpace);
         }
 
@@ -77,7 +76,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.Attach(observer);
 
-            var norm = 10;
+            const double norm = 0.1;
             var contributionItem = new FailureMechanismContributionItem(pipingFailureMechanism, norm);
 
             var row = new FailureMechanismContributionItemRow(contributionItem);

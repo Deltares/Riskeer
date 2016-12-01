@@ -14,7 +14,7 @@
           <Property Name="Id" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="Norm" Type="int" Nullable="false" />
+          <Property Name="Norm" Type="real" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicDatabaseLocation" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Composition" Type="smallint" Nullable="false" />
@@ -2730,7 +2730,7 @@
           <Property Name="Id" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="Norm" Type="Int32" Nullable="false" />
+          <Property Name="Norm" Type="Double" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicDatabaseLocation" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Composition" Type="Int16" Nullable="false" />

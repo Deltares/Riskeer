@@ -165,7 +165,8 @@ namespace Ringtoets.Integration.Forms.Test
                 var normTester = new ControlTester("normInput");
 
                 // Precondition
-                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
+                int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+                Assert.AreEqual(originalReturnPeriodValue.ToString(), normTester.Text);
                 Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
                 Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
                 Assert.AreEqual(waveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight.GetAccuracy());
@@ -183,7 +184,7 @@ namespace Ringtoets.Integration.Forms.Test
                 };
 
                 // Call
-                Action call = () => SimulateUserComittingNormValue(normTester, normValue);
+                Action call = () => SimulateUserCommittingNormValue(normTester, normValue);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, msgs =>
@@ -192,7 +193,7 @@ namespace Ringtoets.Integration.Forms.Test
                     Assert.AreEqual(string.Format(messageCalculationsremoved, numberOfCalculations), messages[0]);
                     Assert.AreEqual(messageAllHydraulicBoundaryLocationOutputCleared, messages[1]);
                 });
-                Assert.AreEqual(normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(normValue, Convert.ToInt32(1.0/failureMechanismContribution.Norm));
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
                 Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
                 Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
@@ -267,7 +268,8 @@ namespace Ringtoets.Integration.Forms.Test
                 HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
 
                 // Precondition
-                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
+                int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+                Assert.AreEqual(originalReturnPeriodValue.ToString(), normTester.Text);
                 Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
                 Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
 
@@ -278,12 +280,12 @@ namespace Ringtoets.Integration.Forms.Test
                 };
 
                 // Call
-                Action call = () => SimulateUserComittingNormValue(normTester, normValue);
+                Action call = () => SimulateUserCommittingNormValue(normTester, normValue);
 
                 // Assert
                 TestHelper.AssertLogMessageIsGenerated(call, messageAllHydraulicBoundaryLocationOutputCleared, 1);
 
-                Assert.AreEqual(normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(normValue, Convert.ToInt32(1.0/failureMechanismContribution.Norm));
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
                 Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
             }
@@ -374,7 +376,8 @@ namespace Ringtoets.Integration.Forms.Test
                 ControlTester normTester = new ControlTester("normInput");
 
                 // Precondition
-                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
+                int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+                Assert.AreEqual(originalReturnPeriodValue.ToString(), normTester.Text);
                 Assert.IsNotNull(pipingCalculation.Output);
                 Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
@@ -387,14 +390,14 @@ namespace Ringtoets.Integration.Forms.Test
                 };
 
                 // Call
-                Action call = () => SimulateUserComittingNormValue(normTester, normValue);
+                Action call = () => SimulateUserCommittingNormValue(normTester, normValue);
 
                 // Assert
                 string expectedMessage = string.Format(messageCalculationsremoved,
                                                        numberOfCalculations);
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
-                Assert.AreEqual(normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(normValue, Convert.ToInt32(1.0/failureMechanismContribution.Norm));
                 Assert.IsNull(pipingCalculation.Output);
                 Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
@@ -479,7 +482,8 @@ namespace Ringtoets.Integration.Forms.Test
                 ControlTester normTester = new ControlTester("normInput");
 
                 // Precondition
-                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
+                int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+                Assert.AreEqual(originalReturnPeriodValue.ToString(), normTester.Text);
                 Assert.IsNotNull(pipingCalculation.Output);
                 Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
@@ -492,14 +496,14 @@ namespace Ringtoets.Integration.Forms.Test
                 };
 
                 // Call
-                Action call = () => SimulateUserComittingNormValue(normTester, normValue);
+                Action call = () => SimulateUserCommittingNormValue(normTester, normValue);
 
                 // Assert
                 string expectedMessage = string.Format(messageCalculationsremoved,
                                                        numberOfCalculations);
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
-                Assert.AreEqual(normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(normValue, Convert.ToInt32(1.0/failureMechanismContribution.Norm));
                 Assert.IsNull(pipingCalculation.Output);
                 Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
@@ -560,7 +564,8 @@ namespace Ringtoets.Integration.Forms.Test
                 ControlTester normTester = new ControlTester("normInput");
 
                 // Precondition
-                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
+                int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+                Assert.AreEqual(originalReturnPeriodValue.ToString(), normTester.Text);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -569,11 +574,11 @@ namespace Ringtoets.Integration.Forms.Test
                 };
 
                 // Call
-                Action call = () => SimulateUserComittingNormValue(normTester, normValue);
+                Action call = () => SimulateUserCommittingNormValue(normTester, normValue);
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
-                Assert.AreEqual(normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(normValue, Convert.ToInt32(1.0/failureMechanismContribution.Norm));
             }
             mockRepository.VerifyAll(); // No update observer expected.
         }
@@ -622,7 +627,8 @@ namespace Ringtoets.Integration.Forms.Test
                 ControlTester normTester = new ControlTester("normInput");
 
                 // Precondition
-                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
+                int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
+                Assert.AreEqual(originalReturnPeriodValue.ToString(), normTester.Text);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -631,11 +637,11 @@ namespace Ringtoets.Integration.Forms.Test
                 };
 
                 // Call
-                Action call = () => SimulateUserComittingNormValue(normTester, normValue);
+                Action call = () => SimulateUserCommittingNormValue(normTester, normValue);
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
-                Assert.AreEqual(normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(normValue, Convert.ToInt32(1.0/failureMechanismContribution.Norm));
             }
             mockRepository.VerifyAll(); // No update observer expected.
         }
@@ -837,7 +843,7 @@ namespace Ringtoets.Integration.Forms.Test
             mockRepository.VerifyAll(); // Expect UpdateObserver call
         }
 
-        private static void SimulateUserComittingNormValue(ControlTester normTester, int normValue)
+        private static void SimulateUserCommittingNormValue(ControlTester normTester, int normValue)
         {
             var normInput = (NumericUpDown) normTester.TheObject;
             normInput.Value = normValue;

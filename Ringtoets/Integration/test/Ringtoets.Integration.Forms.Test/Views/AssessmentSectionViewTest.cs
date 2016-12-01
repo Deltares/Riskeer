@@ -33,7 +33,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 

@@ -459,14 +459,15 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private void CalculateAll(IEnumerable<PipingCalculation> calculations, PipingProbabilityAssessmentInput assessmentInput, int returnPeriod, double contribution)
+        private void CalculateAll(IEnumerable<PipingCalculation> calculations, PipingProbabilityAssessmentInput assessmentInput,
+                                  double norm, double contribution)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
                 calculations
                     .Select(pc => new PipingCalculationActivity(pc,
                                                                 assessmentInput,
-                                                                returnPeriod,
+                                                                norm,
                                                                 contribution))
                     .ToList());
         }
