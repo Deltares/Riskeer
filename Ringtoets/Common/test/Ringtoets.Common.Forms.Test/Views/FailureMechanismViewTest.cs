@@ -169,8 +169,13 @@ namespace Ringtoets.Common.Forms.Test.Views
                     new Point2D(6.0, 4.0)
                 };
 
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                    }
+                };
 
                 var referenceLine = new ReferenceLine();
                 referenceLine.SetGeometry(new[]
@@ -256,7 +261,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2.Locations, hydraulicBoundaryLocationsMapData);
             }
         }
-        
+
         [Test]
         public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_MapDataUpdated()
         {
@@ -287,9 +292,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
 
-                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
-
                 // Call
+                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
                 hydraulicBoundaryDatabase.NotifyObservers();
 
                 // Assert

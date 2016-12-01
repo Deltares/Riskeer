@@ -266,7 +266,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism.HydraulicBoundaryLocations, hydraulicBoundaryLocationsMapData);
 
-
                 // Call
                 failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
                 failureMechanism.HydraulicBoundaryLocations.NotifyObservers();
