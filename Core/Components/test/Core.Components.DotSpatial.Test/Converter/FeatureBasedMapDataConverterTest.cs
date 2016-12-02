@@ -98,7 +98,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.IsNotNull(result);
         }
 
-        private class Class : MapData
+        private class Class : FeatureBasedMapData
         {
             public Class(string name) : base(name) {}
         }
@@ -108,20 +108,20 @@ namespace Core.Components.DotSpatial.Test.Converter
             public Child(string name) : base(name) {}
         }
 
-        private class TestFeatureBasedMapDataConverter<TMapData> : FeatureBasedMapDataConverter<TMapData, MapPointLayer>
-            where TMapData : MapData
+        private class TestFeatureBasedMapDataConverter<TFeatureBasedMapData> : FeatureBasedMapDataConverter<TFeatureBasedMapData, MapPointLayer>
+            where TFeatureBasedMapData : FeatureBasedMapData
         {
-            protected override void ConvertLayerFeatures(TMapData data, MapPointLayer layer)
+            protected override void ConvertLayerFeatures(TFeatureBasedMapData data, MapPointLayer layer)
             {
                 throw new NotImplementedException();
             }
 
-            protected override void ConvertLayerProperties(TMapData data, MapPointLayer layer)
+            protected override void ConvertLayerProperties(TFeatureBasedMapData data, MapPointLayer layer)
             {
                 throw new NotImplementedException();
             }
 
-            protected override IMapFeatureLayer Convert(TMapData data)
+            protected override IMapFeatureLayer Convert(TFeatureBasedMapData data)
             {
                 return new MapPointLayer();
             }

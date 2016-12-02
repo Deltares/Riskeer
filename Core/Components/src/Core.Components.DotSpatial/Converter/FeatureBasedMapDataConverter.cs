@@ -35,53 +35,53 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// Abstract base class for transforming <see cref="MapData"/> into <see cref="IMapFeatureLayer"/>.
+    /// Abstract base class for transforming <see cref="FeatureBasedMapData"/> into <see cref="IMapFeatureLayer"/>.
     /// </summary>
-    /// <typeparam name="TMapData">The type of map data to convert.</typeparam>
+    /// <typeparam name="TFeatureBasedMapData">The type of feature based map data to convert.</typeparam>
     /// <typeparam name="TMapFeatureLayer">The type of map feature layer to set the converted data to.</typeparam>
-    public abstract class FeatureBasedMapDataConverter<TMapData, TMapFeatureLayer> : IFeatureBasedMapDataConverter
-        where TMapData : MapData
+    public abstract class FeatureBasedMapDataConverter<TFeatureBasedMapData, TMapFeatureLayer> : IFeatureBasedMapDataConverter
+        where TFeatureBasedMapData : FeatureBasedMapData
         where TMapFeatureLayer : IMapFeatureLayer
     {
         /// <remarks>
         /// Needed because DotSpatial can't handle special characters.
         /// Therefore we create an id as column name for the data table in the featureSet.
-        /// We need this lookup to match the selected attribute from the MapData with the created id.
+        /// We need this lookup to match the selected attribute from the FeatureBasedMapData with the created id.
         /// </remarks>
         private readonly Dictionary<string, string> columnLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FeatureBasedMapDataConverter{TMapData,TMapFeatureLayer}"/>
+        /// Creates a new instance of <see cref="FeatureBasedMapDataConverter{FeatureBasedMapData,TMapFeatureLayer}"/>
         /// </summary>
         protected FeatureBasedMapDataConverter()
         {
             columnLookup = new Dictionary<string, string>();
         }
 
-        public bool CanConvertMapData(MapData data)
+        public bool CanConvertMapData(FeatureBasedMapData data)
         {
-            return data is TMapData;
+            return data is TFeatureBasedMapData;
         }
 
-        public IMapFeatureLayer Convert(MapData data)
+        public IMapFeatureLayer Convert(FeatureBasedMapData data)
         {
             ValidateParameters(data);
 
-            return Convert((TMapData) data);
+            return Convert((TFeatureBasedMapData) data);
         }
 
-        public void ConvertLayerFeatures(MapData data, IMapFeatureLayer layer)
+        public void ConvertLayerFeatures(FeatureBasedMapData data, IMapFeatureLayer layer)
         {
             ValidateParameters(data);
 
-            ConvertLayerFeatures((TMapData) data, (TMapFeatureLayer) layer);
+            ConvertLayerFeatures((TFeatureBasedMapData) data, (TMapFeatureLayer) layer);
         }
 
-        public void ConvertLayerProperties(MapData data, IMapFeatureLayer layer)
+        public void ConvertLayerProperties(FeatureBasedMapData data, IMapFeatureLayer layer)
         {
             ValidateParameters(data);
 
-            ConvertLayerProperties((TMapData) data, (TMapFeatureLayer) layer);
+            ConvertLayerProperties((TFeatureBasedMapData) data, (TMapFeatureLayer) layer);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Core.Components.DotSpatial.Converter
         /// </summary>
         /// <param name="data">The data to transform into a <see cref="IMapFeatureLayer"/>.</param>
         /// <returns>A new <see cref="IMapFeatureLayer"/>.</returns>
-        protected abstract IMapFeatureLayer Convert(TMapData data);
+        protected abstract IMapFeatureLayer Convert(TFeatureBasedMapData data);
 
         /// <summary>
         /// Converts all feature related data from <paramref name="data"/> to <paramref name="layer"/>.
@@ -97,15 +97,15 @@ namespace Core.Components.DotSpatial.Converter
         /// </summary>
         /// <param name="data">The data to convert the feature related data from.</param>
         /// <param name="layer">The layer to convert the feature related data to.</param>
-        protected abstract void ConvertLayerFeatures(TMapData data, TMapFeatureLayer layer);
+        protected abstract void ConvertLayerFeatures(TFeatureBasedMapData data, TMapFeatureLayer layer);
 
         /// <summary>
-        /// Converts all general properties (like <see cref="MapData.Name"/> and <see cref="MapData.IsVisible"/>) 
+        /// Converts all general properties (like <see cref="FeatureBasedMapData.Name"/> and <see cref="FeatureBasedMapData.IsVisible"/>) 
         /// from <paramref name="data"/> to <paramref name="layer"/>.
         /// </summary>
         /// <param name="data">The data to convert the general properties from.</param>
         /// <param name="layer">The layer to convert the general properties to.</param>
-        protected abstract void ConvertLayerProperties(TMapData data, TMapFeatureLayer layer);
+        protected abstract void ConvertLayerProperties(TFeatureBasedMapData data, TMapFeatureLayer layer);
 
         /// <summary>
         /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an
@@ -171,7 +171,7 @@ namespace Core.Components.DotSpatial.Converter
             return labelLayer;
         }
 
-        private void ValidateParameters(MapData data)
+        private void ValidateParameters(FeatureBasedMapData data)
         {
             if (data == null)
             {

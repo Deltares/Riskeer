@@ -28,17 +28,17 @@ using DotSpatial.Controls;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// A factory to create <see cref="IMapFeatureLayer"/> data from <see cref="MapData"/> which can be used on the map.
+    /// A factory to create <see cref="IMapFeatureLayer"/> data from <see cref="FeatureBasedMapData"/> which can be used on the map.
     /// </summary>
     public static class MapFeatureLayerFactory
     {
         /// <summary>
         /// Creates a <see cref="IMapFeatureLayer"/> from the given <paramref name="data"/>.
         /// </summary>
-        /// <param name="data">The <see cref="MapData"/> to base the creation of <see cref="IMapFeatureLayer"/> upon.</param>
+        /// <param name="data">The <see cref="FeatureBasedMapData"/> to base the creation of <see cref="IMapFeatureLayer"/> upon.</param>
         /// <returns>A new layer based on <see cref="IMapFeatureLayer"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
-        public static IMapFeatureLayer Create(MapData data)
+        public static IMapFeatureLayer Create(FeatureBasedMapData data)
         {
             var converters = new Collection<IFeatureBasedMapDataConverter>
             {
@@ -52,7 +52,7 @@ namespace Core.Components.DotSpatial.Converter
                 return converter.Convert(data);
             }
 
-            throw new NotSupportedException(string.Format("MapData of type {0} is not supported.", data.GetType().Name));
+            throw new NotSupportedException(string.Format("FeatureBasedMapData of type {0} is not supported.", data.GetType().Name));
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="data">The data to convert the feature related data from.</param>
         /// <param name="layer">The layer to convert the feature related data to.</param>
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
-        public static void ConvertLayerFeatures(MapData data, IMapFeatureLayer layer)
+        public static void ConvertLayerFeatures(FeatureBasedMapData data, IMapFeatureLayer layer)
         {
             var converter = GetFeatureBasedMapDataConverter(data);
             if (converter != null)
@@ -70,17 +70,17 @@ namespace Core.Components.DotSpatial.Converter
             }
             else
             {
-                throw new NotSupportedException(string.Format("MapData of type {0} is not supported.", data.GetType().Name));
+                throw new NotSupportedException(string.Format("FeatureBasedMapData of type {0} is not supported.", data.GetType().Name));
             }
         }
 
         /// <summary>
-        /// Converts all general properties (like <see cref="MapData.Name"/> and <see cref="MapData.IsVisible"/>) 
+        /// Converts all general properties (like <see cref="FeatureBasedMapData.Name"/> and <see cref="FeatureBasedMapData.IsVisible"/>) 
         /// from <paramref name="data"/> to <paramref name="layer"/>.
         /// </summary>
         /// <param name="data">The data to convert the general properties from.</param>
         /// <param name="layer">The layer to convert the general properties to.</param>
-        public static void ConvertLayerProperties(MapData data, IMapFeatureLayer layer)
+        public static void ConvertLayerProperties(FeatureBasedMapData data, IMapFeatureLayer layer)
         {
             var converter = GetFeatureBasedMapDataConverter(data);
             if (converter != null)
@@ -89,11 +89,11 @@ namespace Core.Components.DotSpatial.Converter
             }
             else
             {
-                throw new NotSupportedException(string.Format("MapData of type {0} is not supported.", data.GetType().Name));
+                throw new NotSupportedException(string.Format("FeatureBasedMapData of type {0} is not supported.", data.GetType().Name));
             }
         }
 
-        private static IFeatureBasedMapDataConverter GetFeatureBasedMapDataConverter(MapData data)
+        private static IFeatureBasedMapDataConverter GetFeatureBasedMapDataConverter(FeatureBasedMapData data)
         {
             return new Collection<IFeatureBasedMapDataConverter>
             {
