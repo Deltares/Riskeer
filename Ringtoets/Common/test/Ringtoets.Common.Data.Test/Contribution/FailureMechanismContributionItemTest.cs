@@ -83,6 +83,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             Assert.AreEqual(norm, result.Norm);
             Assert.IsFalse(result.IsAlwaysRelevant);
             Assert.AreEqual(isRelevant, result.IsRelevant);
+            Assert.AreSame(failureMechanism, result.FailureMechanism);
 
             mockRepository.VerifyAll();
         }

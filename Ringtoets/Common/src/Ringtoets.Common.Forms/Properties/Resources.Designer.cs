@@ -400,16 +400,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weet u zeker dat u alles binnen deze Berekeningen map wilt verwijderen?.
-        /// </summary>
-        public static string CalculationGroup_RemoveAllChildrenFromGroup_Are_you_sure_you_want_to_remove_everything_from_this_group {
-            get {
-                return ResourceManager.GetString("CalculationGroup_RemoveAllChildrenFromGroup_Are_you_sure_you_want_to_remove_every" +
-                        "thing_from_this_group", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Valideer alle berekeningen binnen deze berekeningsmap..
         /// </summary>
         public static string CalculationGroup_Validate_all_ToolTip {

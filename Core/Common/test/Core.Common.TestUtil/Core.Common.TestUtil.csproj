@@ -72,6 +72,9 @@
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NUnitForms">
+      <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -88,6 +91,7 @@
     <Compile Include="..\..\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ControlsTestHelper.cs" />
     <Compile Include="DoubleWithToleranceComparer.cs" />
     <Compile Include="FileDisposeHelper.cs" />
     <Compile Include="DirectoryPermissionsRevoker.cs" />

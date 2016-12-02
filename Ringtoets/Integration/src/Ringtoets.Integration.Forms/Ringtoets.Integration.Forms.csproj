@@ -97,6 +97,7 @@
     <Compile Include="Views\DesignWaterLevelLocationsView.Designer.cs">
       <DependentUpon>DesignWaterLevelLocationsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\IAssessmentSectionCompositionChangeHandler.cs" />
     <Compile Include="Views\IFailureMechanismContributionNormChangeHandler.cs" />
     <Compile Include="Views\SectionResultRows\DuneErosionSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffInwardsSectionResultRow.cs" />

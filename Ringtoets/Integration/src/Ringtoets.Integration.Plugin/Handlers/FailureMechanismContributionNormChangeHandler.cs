@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             List<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection).ToList();
             if (affectedObjects.Count > 0)
             {
-                log.InfoFormat(Resources.FailureMechanismContributionNormChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared,
+                log.InfoFormat(Resources.ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared,
                                affectedObjects.Count);
             }
 

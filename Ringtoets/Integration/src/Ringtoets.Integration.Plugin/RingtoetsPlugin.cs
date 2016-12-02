@@ -298,11 +298,12 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
                 CloseForData = CloseFailureMechanismContributionViewForData,
-                CreateInstance = () => new FailureMechanismContributionView(new FailureMechanismContributionNormChangeHandler()),
+                CreateInstance = () => new FailureMechanismContributionView(new FailureMechanismContributionNormChangeHandler(),
+                                                                            new AssessmentSectionCompositionChangeHandler(),
+                                                                            Gui.ViewCommands),
                 AfterCreate = (view, context) =>
                 {
                     view.AssessmentSection = context.Parent;
-                    view.ViewCommands = Gui.ViewCommands;
                 }
             };
 

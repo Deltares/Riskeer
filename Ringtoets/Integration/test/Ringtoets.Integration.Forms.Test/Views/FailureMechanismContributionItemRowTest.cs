@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Contribution;
@@ -35,24 +36,49 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [Test]
         public void Constructor_WithoutFailureMechanismContributionItem_ThrowsArgumentNullException()
         {
+            // setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new FailureMechanismContributionItemRow(null);
+            TestDelegate test = () => new FailureMechanismContributionItemRow(null, viewCommands);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("contributionItem", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithoutViewCommands_ThrowsArgumentNullException()
+        {
+            // Setup
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var contributionItem = new FailureMechanismContributionItem(pipingFailureMechanism, 1000);
+
+            // Call
+            TestDelegate call = () => new FailureMechanismContributionItemRow(contributionItem, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreSame("viewCommands", paramName);
         }
 
         [Test]
         public void Constructor_WithFailureMechanismContributionItem_PropertiesFromFailureMechanismContributionItem()
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             var pipingFailureMechanism = new PipingFailureMechanism();
             const double norm = 0.1;
             var contributionItem = new FailureMechanismContributionItem(pipingFailureMechanism, norm);
 
             // Call
-            var row = new FailureMechanismContributionItemRow(contributionItem);
+            var row = new FailureMechanismContributionItemRow(contributionItem, viewCommands);
 
             // Assert
             Assert.AreEqual(contributionItem.Contribution, row.Contribution);
@@ -60,6 +86,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(contributionItem.AssessmentCode, row.Code);
             Assert.AreEqual(contributionItem.IsRelevant, row.IsRelevant);
             Assert.AreEqual(contributionItem.ProbabilitySpace, row.ProbabilitySpace);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -68,18 +96,24 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void IsRelevant_AlwaysOnChange_NotifyFailureMechanismObserversAndCalculationPropertyChanged(bool newValue)
         {
             // Setup
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
             var mocks = new MockRepository();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            if (!newValue)
+            {
+                viewCommands.Expect(c => c.RemoveAllViewsForItem(pipingFailureMechanism));
+            }
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.Attach(observer);
 
             const double norm = 0.1;
             var contributionItem = new FailureMechanismContributionItem(pipingFailureMechanism, norm);
 
-            var row = new FailureMechanismContributionItemRow(contributionItem);
+            var row = new FailureMechanismContributionItemRow(contributionItem, viewCommands);
 
             // Call
             row.IsRelevant = newValue;

@@ -31,6 +31,7 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.Integration.Service;
 using Ringtoets.Integration.TestUtils;
 
 namespace Ringtoets.Integration.Plugin.Test.Handlers
@@ -158,6 +159,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             IEnumerable<IObservable> affectedObjects = null;
             const double norm = 1.0/1000;
 
+            const int newNormValue = 1000;
+
             // Call
             Action call = () => affectedObjects = handler.ChangeNorm(section, norm);
 
@@ -168,6 +171,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
+
+            Assert.AreEqual(1.0/newNormValue, section.FailureMechanismContribution.Norm);
 
             CollectionAssert.IsEmpty(section.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
                                      "There should be no calculations with output.");
@@ -180,6 +185,48 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                           section.GrassCoverErosionOutwards.HydraulicBoundaryLocations,
                                                                           section.HydraulicBoundaryDatabase
                                                                       });
+            foreach (HydraulicBoundaryLocation location in section.HydraulicBoundaryDatabase.Locations
+                                                                  .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
+            {
+                Assert.IsNaN(location.DesignWaterLevel);
+                Assert.IsNaN(location.WaveHeight);
+                Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
+                Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
+            }
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        public void ChangeNorm_FullyConfiguredAssessmentSectionWithoutCalculationOutput_NormChangedContributionsUpdatedAndReturnsAllAffectedObjects()
+        {
+            // Setup
+            AssessmentSection section = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(section);
+
+            // Precondition
+            CollectionAssert.IsEmpty(section.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput));
+            
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
+            IEnumerable<IObservable> affectedObjects = null;
+
+            const double newNormValue = 0.1234;
+
+            // Call
+            Action call = () => affectedObjects = handler.ChangeNorm(section, newNormValue);
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.", 1);
+
+            Assert.AreEqual(newNormValue, section.FailureMechanismContribution.Norm);
+
+            var expectedAffectedObjects = section.GetFailureMechanisms()
+                                                 .Concat(new IObservable[]
+                                                 {
+                                                     section.FailureMechanismContribution,
+                                                     section.GrassCoverErosionOutwards.HydraulicBoundaryLocations,
+                                                     section.HydraulicBoundaryDatabase
+                                                 });
             foreach (HydraulicBoundaryLocation location in section.HydraulicBoundaryDatabase.Locations
                                                                   .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
             {

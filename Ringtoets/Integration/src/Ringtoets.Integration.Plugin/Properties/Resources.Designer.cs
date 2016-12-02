@@ -61,6 +61,27 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Na het aanpassen van het trajecttype zullen alle rekenresultaten van alle toetssporen gewist worden.
+        ///
+        ///Wilt u doorgaan?.
+        /// </summary>
+        public static string AssessmentSectionCompositionChangeHandler_Confirm_change_composition_and_clear_dependent_data {
+            get {
+                return ResourceManager.GetString("AssessmentSectionCompositionChangeHandler_Confirm_change_composition_and_clear_de" +
+                        "pendent_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De resultaten van {0} berekeningen zijn verwijderd..
+        /// </summary>
+        public static string ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared {
+            get {
+                return ResourceManager.GetString("ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opmerkingen.
         /// </summary>
         public static string Comment_DisplayName {
@@ -96,16 +117,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
             get {
                 return ResourceManager.GetString("FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_depen" +
                         "dent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De resultaten van {0} berekeningen zijn verwijderd..
-        /// </summary>
-        public static string FailureMechanismContributionNormChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionNormChangeHandler_Results_of_NumberOfCalculations_0_c" +
-                        "alculations_cleared", resourceCulture);
             }
         }
         

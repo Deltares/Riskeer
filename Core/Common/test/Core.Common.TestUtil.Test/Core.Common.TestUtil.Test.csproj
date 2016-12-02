@@ -51,13 +51,16 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ControlsTestHelperTest.cs" />
     <Compile Include="DoubleWithToleranceComparerTest.cs" />
     <Compile Include="FileDisposeHelperTest.cs" />
     <Compile Include="DirectoryPermissionsRevokerTest.cs" />

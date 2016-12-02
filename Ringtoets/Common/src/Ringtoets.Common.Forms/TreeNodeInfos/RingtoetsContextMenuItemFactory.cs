@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -366,21 +365,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                     failureMechanismContext.WrappedData.IsRelevant = !isRelevant;
                     failureMechanismContext.WrappedData.NotifyObservers();
                 });
-        }
-
-        private static void RemoveAllChildrenFromGroup(CalculationGroup calculationGroup, IViewCommands viewCommands)
-        {
-            if (MessageBox.Show(Resources.CalculationGroup_RemoveAllChildrenFromGroup_Are_you_sure_you_want_to_remove_everything_from_this_group, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
-            {
-                return;
-            }
-            foreach (var calculation in calculationGroup.GetCalculations())
-            {
-                viewCommands.RemoveAllViewsForItem(calculation);
-            }
-            calculationGroup.Children.Clear();
-
-            calculationGroup.NotifyObservers();
         }
 
         private static void SetStateWithEnableFunction<T>(T context, Func<T, string> enableFunction, StrictContextMenuItem menuItem)

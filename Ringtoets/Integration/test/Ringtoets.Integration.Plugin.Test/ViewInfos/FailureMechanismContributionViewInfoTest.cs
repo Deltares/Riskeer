@@ -60,11 +60,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var handler1 = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var handler2 = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             mocks.ReplayAll();
 
-            var view = new FailureMechanismContributionView(handler);
+            var view = new FailureMechanismContributionView(handler1, handler2, viewCommands);
 
             // Call
             var viewName = info.GetViewName(view, assessmentSectionStub.FailureMechanismContribution);
@@ -135,14 +137,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var handler1 = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var handler2 = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             assessmentSectionStub.Stub(section => section.Composition)
                                  .Return(AssessmentSectionComposition.Dike);
 
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(handler)
+            using (var view = new FailureMechanismContributionView(handler1, handler2, viewCommands)
             {
                 Data = assessmentSectionStub.FailureMechanismContribution,
                 AssessmentSection = assessmentSectionStub
@@ -161,7 +165,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var handler1 = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var handler2 = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var viewCommands = mocks.Stub<IViewCommands>();
 
             IAssessmentSection assessmentSection1 = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             assessmentSection1.Stub(section => section.Composition)
@@ -172,7 +178,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                               .Return(AssessmentSectionComposition.DikeAndDune);
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(handler)
+            using (var view = new FailureMechanismContributionView(handler1, handler2, viewCommands)
             {
                 Data = assessmentSection1.FailureMechanismContribution,
                 AssessmentSection = assessmentSection1
@@ -192,12 +198,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewWithoutData_ReturnsFalse()
         {
             // Setup
-            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var handler1 = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var handler2 = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var viewCommands = mocks.Stub<IViewCommands>();
 
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(handler))
+            using (var view = new FailureMechanismContributionView(handler1, handler2, viewCommands))
             {
                 // Call
                 var closeForData = info.CloseForData(view, assessmentSectionStub);
@@ -212,7 +220,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void AfterCreate_WithGuiSet_SetsAssessmentSection()
         {
             // Setup
-            var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var handler1 = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var handler2 = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var viewCommands = mocks.Stub<IViewCommands>();
 
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             assessmentSectionStub.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
@@ -220,13 +230,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             IGui guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
             mocks.ReplayAll();
 
             var context = new FailureMechanismContributionContext(assessmentSectionStub.FailureMechanismContribution, assessmentSectionStub);
 
-            using (var view = new FailureMechanismContributionView(handler))
+            using (var view = new FailureMechanismContributionView(handler1, handler2, viewCommands))
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismContributionView));

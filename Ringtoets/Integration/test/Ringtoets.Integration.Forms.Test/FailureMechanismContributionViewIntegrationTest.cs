@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Gui.Commands;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -52,10 +54,16 @@ namespace Ringtoets.Integration.Forms.Test
         private const string messageAllHydraulicBoundaryLocationOutputCleared =
             "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.";
 
-        private const string messageGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputCleared =
-            "De berekende waterstanden en golfhoogtes bij doorsnede-eis voor alle hydraulische randvoorwaarden locaties zijn verwijderd.";
-
         private const string messageCalculationsremoved = "De resultaten van {0} berekeningen zijn verwijderd.";
+
+        private const string normInputTextBoxName = "normInput";
+        private const string dataGridViewControlName = "dataGridView";
+        private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
+        private const int isRelevantColumnIndex = 0;
+        private const int nameColumnIndex = 1;
+        private const int codeColumnIndex = 2;
+        private const int contributionColumnIndex = 3;
+        private const int probabilitySpaceColumnIndex = 4;
 
         [Test]
         public void NormTextBox_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
@@ -135,6 +143,8 @@ namespace Ringtoets.Integration.Forms.Test
             hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
             IObserver grassCoverErosionOutwardsObserver = mockRepository.StrictMock<IObserver>();
             grassCoverErosionOutwardsObserver.Expect(o => o.UpdateObserver());
+
+            var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -150,10 +160,11 @@ namespace Ringtoets.Integration.Forms.Test
 
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserver);
 
-            var handler = new FailureMechanismContributionNormChangeHandler();
+            var handler1 = new FailureMechanismContributionNormChangeHandler();
+            var handler2 = new AssessmentSectionCompositionChangeHandler();
 
             using (var form = new Form())
-            using (var distributionView = new FailureMechanismContributionView(handler)
+            using (var distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -162,7 +173,7 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                var normTester = new ControlTester("normInput");
+                var normTester = new ControlTester(normInputTextBoxName);
 
                 // Precondition
                 int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
@@ -242,6 +253,8 @@ namespace Ringtoets.Integration.Forms.Test
             IObserver calculationObserver = mockRepository.StrictMock<IObserver>(); // No update observers expected.
             IObserver hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
             hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
+
+            var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -251,10 +264,11 @@ namespace Ringtoets.Integration.Forms.Test
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);
 
-            var handler = new FailureMechanismContributionNormChangeHandler();
+            var handler1 = new FailureMechanismContributionNormChangeHandler();
+            var handler2 = new AssessmentSectionCompositionChangeHandler();
 
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler)
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -263,7 +277,7 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                ControlTester normTester = new ControlTester("normInput");
+                ControlTester normTester = new ControlTester(normInputTextBoxName);
 
                 HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
 
@@ -348,6 +362,8 @@ namespace Ringtoets.Integration.Forms.Test
             IObserver emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
 
             IObserver hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>(); // No update observer expected.
+
+            var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -361,10 +377,11 @@ namespace Ringtoets.Integration.Forms.Test
             grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
             heightStructuresCalculation.Attach(heightStructuresCalculationObserver);
 
-            var handler = new FailureMechanismContributionNormChangeHandler();
+            var handler1 = new FailureMechanismContributionNormChangeHandler();
+            var handler2 = new AssessmentSectionCompositionChangeHandler();
 
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler)
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -373,7 +390,7 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                ControlTester normTester = new ControlTester("normInput");
+                ControlTester normTester = new ControlTester(normInputTextBoxName);
 
                 // Precondition
                 int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
@@ -455,6 +472,7 @@ namespace Ringtoets.Integration.Forms.Test
             IObserver emptyGrassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
             IObserver emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
 
+            var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -467,10 +485,11 @@ namespace Ringtoets.Integration.Forms.Test
             grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
             heightStructuresCalculation.Attach(heightStructuresCalculationObserver);
 
-            var handler = new FailureMechanismContributionNormChangeHandler();
+            var handler1 = new FailureMechanismContributionNormChangeHandler();
+            var handler2 = new AssessmentSectionCompositionChangeHandler();
 
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler)
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -479,7 +498,7 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                ControlTester normTester = new ControlTester("normInput");
+                ControlTester normTester = new ControlTester(normInputTextBoxName);
 
                 // Precondition
                 int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
@@ -541,6 +560,8 @@ namespace Ringtoets.Integration.Forms.Test
             observerMock.Expect(o => o.UpdateObserver());
             IObserver calculationObserver = mockRepository.StrictMock<IObserver>();
             IObserver hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
+
+            var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -549,10 +570,11 @@ namespace Ringtoets.Integration.Forms.Test
             emptyHeightStructuresCalculation.Attach(calculationObserver);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
-            var handler = new FailureMechanismContributionNormChangeHandler();
+            var handler1 = new FailureMechanismContributionNormChangeHandler();
+            var handler2 = new AssessmentSectionCompositionChangeHandler();
 
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler)
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -561,7 +583,7 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                ControlTester normTester = new ControlTester("normInput");
+                ControlTester normTester = new ControlTester(normInputTextBoxName);
 
                 // Precondition
                 int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
@@ -605,6 +627,8 @@ namespace Ringtoets.Integration.Forms.Test
             IObserver observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
             IObserver calculationObserver = mockRepository.StrictMock<IObserver>();
+
+            var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -612,10 +636,11 @@ namespace Ringtoets.Integration.Forms.Test
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);
 
-            var handler = new FailureMechanismContributionNormChangeHandler();
+            var handler1 = new FailureMechanismContributionNormChangeHandler();
+            var handler2 = new AssessmentSectionCompositionChangeHandler();
 
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler)
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -624,7 +649,7 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                ControlTester normTester = new ControlTester("normInput");
+                ControlTester normTester = new ControlTester(normInputTextBoxName);
 
                 // Precondition
                 int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
@@ -647,200 +672,75 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void AssessmentSectionCompositionComboBox_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune)]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune)]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
+        public void GivenViewWithAssessmentSection_WhenChangingCompositionComboBoxAndOk_ThenUpdateAssessmentSectionContributionAndView(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
         {
-            // Setup
-            var waveHeight = (RoundedDouble) 3.0;
-            var designWaterLevel = (RoundedDouble) 4.2;
+            // Given
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
-            {
-                WaveHeight = waveHeight,
-                DesignWaterLevel = designWaterLevel
-            };
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
-            };
+            var assessmentSection = new AssessmentSection(initialComposition);
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
-            };
-
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new HydraulicBoundaryLocation(hydraulicBoundaryLocation.Id,
-                                                                                                   hydraulicBoundaryLocation.Name,
-                                                                                                   hydraulicBoundaryLocation.Location.X,
-                                                                                                   hydraulicBoundaryLocation.Location.Y)
-            {
-                WaveHeight = waveHeight,
-                DesignWaterLevel = designWaterLevel
-            };
-
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
-
-            var mockRepository = new MockRepository();
-            IObserver observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-            IObserver hydraulicBoundaryDatabaseObserverMock = mockRepository.StrictMock<IObserver>();
-            IObserver grassCoverErosionOutwardsObserverMock = mockRepository.StrictMock<IObserver>();
-            grassCoverErosionOutwardsObserverMock.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
-            assessmentSection.Attach(observerMock);
-            hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserverMock);
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
-
-            var handler = new FailureMechanismContributionNormChangeHandler();
+            var handler1 = new FailureMechanismContributionNormChangeHandler();
+            var handler2 = new AssessmentSectionCompositionChangeHandler();
 
             using (var form = new Form())
-            using (var distributionView = new FailureMechanismContributionView(handler)
+            using (var view = new FailureMechanismContributionView(handler1, handler2, viewCommands)
             {
                 Data = assessmentSection.FailureMechanismContribution,
                 AssessmentSection = assessmentSection
             })
             {
-                form.Controls.Add(distributionView);
+                form.Controls.Add(view);
                 form.Show();
-
-                var compositionTester = (ComboBox) new ControlTester("assessmentSectionCompositionComboBox").TheObject;
 
                 // Precondition
-                Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
-                Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-                Assert.AreEqual(waveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight.GetAccuracy());
-                Assert.AreEqual(designWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+                Assert.AreNotEqual(assessmentSection.Composition, newComposition);
 
-                // Call
-                Action call = () => compositionTester.SelectedValue = AssessmentSectionComposition.DikeAndDune;
+                bool dataGridInvalidated = false;
+                var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
+                contributionGridView.Invalidated += (sender, args) => dataGridInvalidated = true;
 
-                // Assert
-                TestHelper.AssertLogMessages(call, msgs =>
+                var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
+
+                // When
+                DialogBoxHandler = (name, wnd) =>
                 {
-                    string[] messages = msgs.ToArray();
-                    Assert.AreEqual(1, messages.Length);
-                    Assert.AreEqual(messageGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputCleared, messages[0]);
-                });
-                Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
-                Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
-                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
+                    var tester = new MessageBoxTester(wnd);
+                    tester.ClickOk();
+                };
+                ControlsTestHelper.FakeUserSelectingNewValue(compositionComboBox, newComposition);
+
+                // Then
+                Assert.AreEqual(newComposition, compositionComboBox.SelectedValue);
+
+                Assert.IsTrue(dataGridInvalidated,
+                              "Expect the DataGridView to be flagged for redrawing.");
+                AssertDataGridViewDataSource(assessmentSection.FailureMechanismContribution.Distribution, contributionGridView);
             }
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
-        [Test]
-        public void AssessmentSectionCompositionComboBox_HydraulicBoundaryDatabaseAndNoLocationsWithOutputAndValueChanged_NoObserversNotified()
+        private void AssertDataGridViewDataSource(IEnumerable<FailureMechanismContributionItem> expectedDistributionElements, DataGridView dataGridView)
         {
-            // Setup
-            var waveHeight = (RoundedDouble) 3.0;
-            var designWaterLevel = (RoundedDouble) 4.2;
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
+            FailureMechanismContributionItem[] itemArray = expectedDistributionElements.ToArray();
+            Assert.AreEqual(itemArray.Length, dataGridView.RowCount);
+            for (int i = 0; i < itemArray.Length; i++)
             {
-                WaveHeight = waveHeight,
-                DesignWaterLevel = designWaterLevel
-            };
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
-            };
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
-            };
-
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new HydraulicBoundaryLocation(hydraulicBoundaryLocation.Id,
-                                                                                                   hydraulicBoundaryLocation.Name,
-                                                                                                   hydraulicBoundaryLocation.Location.X,
-                                                                                                   hydraulicBoundaryLocation.Location.Y);
-
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
-
-            var mockRepository = new MockRepository();
-            IObserver observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-            IObserver hydraulicBoundaryDatabaseObserverMock = mockRepository.StrictMock<IObserver>();
-            IObserver grassCoverErosionOutwardsObserverMock = mockRepository.StrictMock<IObserver>();
-            mockRepository.ReplayAll();
-
-            assessmentSection.Attach(observerMock);
-            hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserverMock);
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
-
-            var handler = new FailureMechanismContributionNormChangeHandler();
-
-            using (var form = new Form())
-            using (var distributionView = new FailureMechanismContributionView(handler)
-            {
-                Data = assessmentSection.FailureMechanismContribution,
-                AssessmentSection = assessmentSection
-            })
-            {
-                form.Controls.Add(distributionView);
-                form.Show();
-
-                var compositionTester = (ComboBox) new ControlTester("assessmentSectionCompositionComboBox").TheObject;
-
-                // Precondition
-                Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
-                Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
-                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
-
-                // Call
-                compositionTester.SelectedValue = AssessmentSectionComposition.DikeAndDune;
-
-                // Assert
-                Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
-                Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
-                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
+                FailureMechanismContributionItem expectedElement = itemArray[i];
+                DataGridViewRow row = dataGridView.Rows[i];
+                Assert.AreEqual(expectedElement.IsRelevant, row.Cells[isRelevantColumnIndex].Value);
+                Assert.AreEqual(expectedElement.Assessment, row.Cells[nameColumnIndex].Value);
+                Assert.AreEqual(expectedElement.AssessmentCode, row.Cells[codeColumnIndex].Value);
+                Assert.AreEqual(expectedElement.Contribution, row.Cells[contributionColumnIndex].Value);
+                Assert.AreEqual(expectedElement.ProbabilitySpace, row.Cells[probabilitySpaceColumnIndex].Value);
             }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentSectionCompositionComboBox_NoHydraulicBoundaryDatabaseAndValueChanged_NoObserversNotified()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            IObserver observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-            IObserver grassCoverErosionOutwardsObserverMock = mockRepository.StrictMock<IObserver>();
-            mockRepository.ReplayAll();
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.Attach(observerMock);
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
-
-            var handler = new FailureMechanismContributionNormChangeHandler();
-
-            using (var form = new Form())
-            using (var distributionView = new FailureMechanismContributionView(handler)
-            {
-                Data = assessmentSection.FailureMechanismContribution,
-                AssessmentSection = assessmentSection
-            })
-            {
-                form.Controls.Add(distributionView);
-                form.Show();
-
-                var compositionTester = (ComboBox) new ControlTester("assessmentSectionCompositionComboBox").TheObject;
-
-                // Call
-                compositionTester.SelectedValue = AssessmentSectionComposition.DikeAndDune;
-            }
-
-            // Assert
-            mockRepository.VerifyAll(); // Expect UpdateObserver call
         }
 
         private static void SimulateUserCommittingNormValue(ControlTester normTester, int normValue)

@@ -418,9 +418,6 @@
   <data name="RingtoetsProject_ToolTip" xml:space="preserve">
     <value>Voeg een nieuw traject toe aan het project.</value>
   </data>
-  <data name="CalculationGroup_RemoveAllChildrenFromGroup_Are_you_sure_you_want_to_remove_everything_from_this_group" xml:space="preserve">
-    <value>Weet u zeker dat u alles binnen deze Berekeningen map wilt verwijderen?</value>
-  </data>
   <data name="CalculationGroup_Generate_calculations" xml:space="preserve">
     <value>Genereer &amp;berekeningen...</value>
   </data>

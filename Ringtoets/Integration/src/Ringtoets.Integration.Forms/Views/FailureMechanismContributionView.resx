@@ -289,7 +289,7 @@
     <value>probabilityDistributionGrid</value>
   </data>
   <data name="&gt;&gt;probabilityDistributionGrid.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=16.4.1.6923, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=16.4.1.6918, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;probabilityDistributionGrid.Parent" xml:space="preserve">
     <value>tableLayoutPanel</value>

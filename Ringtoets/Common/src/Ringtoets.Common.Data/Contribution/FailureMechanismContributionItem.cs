@@ -26,8 +26,8 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.Contribution
 {
     /// <summary>
-    /// This class represents an amount for which a failure mechanism will contribute to the 
-    /// overall verdict of an assessment section.
+    /// This class represents an amount for which a <see cref="IFailureMechanism"/> will 
+    /// contribute to the overall verdict of an assessment section.
     /// </summary>
     public class FailureMechanismContributionItem
     {
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Data.Contribution
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism",Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
+                throw new ArgumentNullException("failureMechanism", Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
             }
             this.failureMechanism = failureMechanism;
 
@@ -124,10 +124,21 @@ namespace Ringtoets.Common.Data.Contribution
         }
 
         /// <summary>
-        /// Gets a value indicating whether the corresponding failure mechanism is always
-        /// relevant. When <c>true</c>, then <see cref="IsRelevant"/> cannot be set to <c>false</c>.
+        /// Gets a value indicating whether the corresponding <see cref="IFailureMechanism"/>
+        /// is always relevant. When <c>true</c>, then <see cref="IsRelevant"/> cannot be set to <c>false</c>.
         /// </summary>
         public bool IsAlwaysRelevant { get; private set; }
+
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public IFailureMechanism FailureMechanism
+        {
+            get
+            {
+                return failureMechanism;
+            }
+        }
 
         /// <summary>
         /// Notifies the observers for the wrapped <see cref="IFailureMechanism"/>.

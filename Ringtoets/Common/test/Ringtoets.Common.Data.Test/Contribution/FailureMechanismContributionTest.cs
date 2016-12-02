@@ -228,6 +228,27 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
+        public void UpdateContributions_MultipleChanges_AllFailureMechanismContributionItemsHaveLatestContribution()
+        {
+            // Given
+            IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
+            var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 12.34, 0.00001);
+
+            const double latestContribution = 2.3;
+
+            // When
+            failureMechanismContribution.UpdateContributions(failureMechanisms, 1);
+            var item1 = failureMechanismContribution.Distribution.Single();
+            failureMechanismContribution.UpdateContributions(failureMechanisms, latestContribution);
+            var item2 = failureMechanismContribution.Distribution.Single();
+
+            // Then
+            Assert.AreEqual(latestContribution, item1.Contribution);
+            Assert.AreEqual(latestContribution, item2.Contribution);
+            Assert.AreEqual(item1.Assessment, item2.Assessment);
+        }
+
+        [Test]
         [TestCase(0)]
         [TestCase(34.6)]
         [TestCase(100)]

@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Controls.Views;
+using Core.Common.Gui.Commands;
 using Ringtoets.Common.Data.Contribution;
 
 namespace Ringtoets.Integration.Forms.Views
@@ -30,20 +32,28 @@ namespace Ringtoets.Integration.Forms.Views
     internal class FailureMechanismContributionItemRow
     {
         private readonly FailureMechanismContributionItem contributionItem;
+        private readonly IViewCommands viewCommands;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionItemRow"/>.
         /// </summary>
         /// <param name="contributionItem">The <see cref="FailureMechanismContributionItem"/> this row contains.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="contributionItem"/> is <c>null</c>.</exception>
-        internal FailureMechanismContributionItemRow(FailureMechanismContributionItem contributionItem)
+        /// <param name="viewCommands">Class responsible for exposing high level <see cref="IView"/>
+        /// related commands.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input arguments is <c>null</c>.</exception>
+        internal FailureMechanismContributionItemRow(FailureMechanismContributionItem contributionItem, IViewCommands viewCommands)
         {
             if (contributionItem == null)
             {
                 throw new ArgumentNullException("contributionItem");
             }
+            if (viewCommands == null)
+            {
+                throw new ArgumentNullException("viewCommands");
+            }
 
             this.contributionItem = contributionItem;
+            this.viewCommands = viewCommands;
         }
 
         /// <summary>
@@ -101,6 +111,11 @@ namespace Ringtoets.Integration.Forms.Views
             }
             set
             {
+                if (!value)
+                {
+                    viewCommands.RemoveAllViewsForItem(contributionItem.FailureMechanism);
+                }
+
                 contributionItem.IsRelevant = value;
                 contributionItem.NotifyFailureMechanismObservers();
             }

@@ -29,13 +29,9 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Core.Common.Utils.Reflection;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Service;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HydraRing.Data;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
@@ -52,11 +48,19 @@ namespace Ringtoets.Integration.Forms.Views
     {
         private const int isRelevantColumnIndex = 0;
         private const int probabilityPerYearColumnIndex = 4;
-        private static readonly ILog log = LogManager.GetLogger(typeof(FailureMechanismContributionView));
 
-        private readonly Observer isFailureMechanismRelevantObserver;
-        private readonly Observer closeViewsForIrrelevantFailureMechanismObserver;
-        private readonly IFailureMechanismContributionNormChangeHandler changeHandler;
+        /// <summary>
+        /// This observer is listening for changes to:
+        /// <list type="bullet">
+        /// <item><see cref="IFailureMechanism.IsRelevant"/></item>
+        /// <item><see cref="IFailureMechanism.Contribution"/></item>
+        /// </list>
+        /// </summary>
+        private readonly Observer failureMechanismObserver;
+
+        private readonly IFailureMechanismContributionNormChangeHandler normChangeHandler;
+        private readonly IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
+        private readonly IViewCommands viewCommands;
         private FailureMechanismContribution data;
 
         private IAssessmentSection assessmentSection;
@@ -64,8 +68,29 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
         /// </summary>
-        public FailureMechanismContributionView(IFailureMechanismContributionNormChangeHandler changeHandler)
+        /// <param name="normChangeHandler">The object responsible for handling the change
+        /// in the <see cref="FailureMechanismContribution.Norm"/>.</param>
+        /// <param name="compositionChangeHandler">The object responsible for handling the
+        /// change in the <see cref="IAssessmentSection.Composition"/>.</param>
+        /// <param name="viewCommands">Objects exposing high level <see cref="IView"/> related commands.</param>
+        /// <exception cref="ArgumentNullException">When any input argument is null.</exception>
+        public FailureMechanismContributionView(IFailureMechanismContributionNormChangeHandler normChangeHandler,
+                                                IAssessmentSectionCompositionChangeHandler compositionChangeHandler,
+            IViewCommands viewCommands)
         {
+            if (normChangeHandler == null)
+            {
+                throw new ArgumentNullException("normChangeHandler");
+            }
+            if (compositionChangeHandler == null)
+            {
+                throw new ArgumentNullException("compositionChangeHandler");
+            }
+            if (viewCommands == null)
+            {
+                throw new ArgumentNullException("viewCommands");
+            }
+
             InitializeComponent();
             InitializeGridColumns();
             InitializeAssessmentSectionCompositionComboBox();
@@ -73,10 +98,11 @@ namespace Ringtoets.Integration.Forms.Views
             BindNormInputLeave();
             SubscribeEvents();
 
-            this.changeHandler = changeHandler;
+            this.normChangeHandler = normChangeHandler;
+            this.compositionChangeHandler = compositionChangeHandler;
+            this.viewCommands = viewCommands;
 
-            isFailureMechanismRelevantObserver = new Observer(probabilityDistributionGrid.RefreshDataGridView);
-            closeViewsForIrrelevantFailureMechanismObserver = new Observer(CloseViewsForIrrelevantFailureMechanism);
+            failureMechanismObserver = new Observer(probabilityDistributionGrid.RefreshDataGridView);
         }
 
         /// <summary>
@@ -93,8 +119,6 @@ namespace Ringtoets.Integration.Forms.Views
                 HandleNewAssessmentSectionSet(value);
             }
         }
-
-        public IViewCommands ViewCommands { private get; set; }
 
         public object Data
         {
@@ -127,8 +151,8 @@ namespace Ringtoets.Integration.Forms.Views
                     components.Dispose();
                 }
                 UnsubscribeEvents();
+                UnbindAssessmentSectionCompositionChange();
                 DetachFromFailureMechanisms();
-                ViewCommands = null;
             }
             base.Dispose(disposing);
         }
@@ -191,11 +215,9 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
                 {
-                    failureMechanism.Detach(isFailureMechanismRelevantObserver);
-                    failureMechanism.Detach(closeViewsForIrrelevantFailureMechanismObserver);
+                    failureMechanism.Detach(failureMechanismObserver);
 
-                    isFailureMechanismRelevantObserver.Dispose();
-                    closeViewsForIrrelevantFailureMechanismObserver.Dispose();
+                    failureMechanismObserver.Dispose();
                 }
             }
         }
@@ -206,21 +228,7 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
                 {
-                    failureMechanism.Attach(isFailureMechanismRelevantObserver);
-                    failureMechanism.Attach(closeViewsForIrrelevantFailureMechanismObserver);
-                }
-            }
-        }
-
-        private void CloseViewsForIrrelevantFailureMechanism()
-        {
-            if (ViewCommands != null)
-            {
-                var irrelevantFailureMechanisms = assessmentSection.GetFailureMechanisms().Where(failureMechanism => !failureMechanism.IsRelevant);
-
-                foreach (var failureMechanism in irrelevantFailureMechanisms)
-                {
-                    ViewCommands.RemoveAllViewsForItem(failureMechanism);
+                    failureMechanism.Attach(failureMechanismObserver);
                 }
             }
         }
@@ -229,7 +237,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (data != null)
             {
-                probabilityDistributionGrid.SetDataSource(data.Distribution.Select(ci => new FailureMechanismContributionItemRow(ci)).ToArray());
+                probabilityDistributionGrid.SetDataSource(data.Distribution.Select(ci => new FailureMechanismContributionItemRow(ci, viewCommands)).ToArray());
                 probabilityDistributionGrid.RefreshDataGridView();
             }
         }
@@ -252,12 +260,12 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void BindAssessmentSectionCompositionChange()
         {
-            assessmentSectionCompositionComboBox.SelectedIndexChanged += AssessmentSectionCompositionComboBoxSelectedIndexChanged;
+            assessmentSectionCompositionComboBox.SelectionChangeCommitted += AssessmentSectionCompositionComboBoxSelectionChangeComitted;
         }
 
         private void UnbindAssessmentSectionCompositionChange()
         {
-            assessmentSectionCompositionComboBox.SelectedIndexChanged -= AssessmentSectionCompositionComboBoxSelectedIndexChanged;
+            assessmentSectionCompositionComboBox.SelectionChangeCommitted -= AssessmentSectionCompositionComboBoxSelectionChangeComitted;
         }
 
         private void BindNormChange()
@@ -389,31 +397,20 @@ namespace Ringtoets.Integration.Forms.Views
             return rowData.IsAlwaysRelevant;
         }
 
-        private void AssessmentSectionCompositionComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        private void AssessmentSectionCompositionComboBoxSelectionChangeComitted(object sender, EventArgs e)
         {
-            assessmentSection.ChangeComposition((AssessmentSectionComposition) assessmentSectionCompositionComboBox.SelectedValue);
-            SetGridDataSource();
-
-            if (assessmentSection.HydraulicBoundaryDatabase != null)
+            var newComposition = (AssessmentSectionComposition)assessmentSectionCompositionComboBox.SelectedValue;
+            if (assessmentSection.Composition != newComposition && compositionChangeHandler.ConfirmCompositionChange())
             {
-                ClearGrassCoverErosionOutwardsHydraulicBoundaryLocations();
+                IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(assessmentSection, newComposition);
+                foreach (IObservable changedObject in changedObjects)
+                {
+                    changedObject.NotifyObservers();
+                }
             }
-
-            assessmentSection.NotifyObservers();
-        }
-
-        private void ClearGrassCoverErosionOutwardsHydraulicBoundaryLocations()
-        {
-            var grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                                             .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                                                             .First();
-            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations;
-            bool locationsAffected = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryLocations)
-                                                                              .Any();
-            if (locationsAffected)
+            else
             {
-                hydraulicBoundaryLocations.NotifyObservers();
-                log.Info(RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwards_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
+                assessmentSectionCompositionComboBox.SelectedValue = assessmentSection.Composition;
             }
         }
 
@@ -422,7 +419,7 @@ namespace Ringtoets.Integration.Forms.Views
             int returnPeriod = Convert.ToInt32(normInput.Value);
             if (returnPeriod != 0 && assessmentSection.FailureMechanismContribution.Norm.CompareTo(1.0/returnPeriod) != 0)
             {
-                if (!changeHandler.ConfirmNormChange())
+                if (!normChangeHandler.ConfirmNormChange())
                 {
                     e.Cancel = true;
                     RevertNormInputValue();
@@ -433,7 +430,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void NormNumericUpDown_Validated(object sender, EventArgs e)
         {
             double newNormValue = 1.0/Convert.ToInt32(normInput.Value);
-            IEnumerable<IObservable> changedObjects = changeHandler.ChangeNorm(assessmentSection, newNormValue);
+            IEnumerable<IObservable> changedObjects = normChangeHandler.ChangeNorm(assessmentSection, newNormValue);
             foreach (IObservable changedObject in changedObjects)
             {
                 changedObject.NotifyObservers();

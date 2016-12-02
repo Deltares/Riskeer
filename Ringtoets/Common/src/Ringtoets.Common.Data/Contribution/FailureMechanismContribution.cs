@@ -35,6 +35,7 @@ namespace Ringtoets.Common.Data.Contribution
     {
         private readonly ICollection<FailureMechanismContributionItem> distribution = new List<FailureMechanismContributionItem>();
         private double norm;
+        private readonly OtherFailureMechanism otherFailureMechanism = new OtherFailureMechanism();
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContribution"/>. Values are taken from the 
@@ -139,10 +140,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// <exception cref="ArgumentException">Thrown when <paramref name="otherContribution"/> is not in the interval [0, 100]</exception>
         private void AddOtherContributionItem(double otherContribution)
         {
-            var otherFailureMechanism = new OtherFailureMechanism
-            {
-                Contribution = otherContribution
-            };
+            otherFailureMechanism.Contribution = otherContribution;
             var otherContributionItem = new FailureMechanismContributionItem(otherFailureMechanism, norm, true);
             distribution.Add(otherContributionItem);
         }
