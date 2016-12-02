@@ -419,8 +419,8 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void NormNumericUpDown_Validating(object sender, CancelEventArgs e)
         {
-            var returnPeriod = 1.0/assessmentSection.FailureMechanismContribution.Norm;
-            if (Convert.ToInt32(normInput.Value) != Convert.ToInt32(returnPeriod))
+            int returnPeriod = Convert.ToInt32(normInput.Value);
+            if (returnPeriod != 0 && assessmentSection.FailureMechanismContribution.Norm.CompareTo(1.0/returnPeriod) != 0)
             {
                 if (!changeHandler.ConfirmNormChange())
                 {
@@ -432,7 +432,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void NormNumericUpDown_Validated(object sender, EventArgs e)
         {
-            int newNormValue = Convert.ToInt32(normInput.Value);
+            double newNormValue = 1.0/Convert.ToInt32(normInput.Value);
             IEnumerable<IObservable> changedObjects = changeHandler.ChangeNorm(assessmentSection, newNormValue);
             foreach (IObservable changedObject in changedObjects)
             {

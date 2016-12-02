@@ -38,8 +38,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -769,20 +769,19 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     new Point2D(0, 0)
                 }));
 
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                    pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
-                                                                 assessmentSectionMock);
+                                                                 assessmentSectionStub);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
-                                                                       assessmentSectionMock);
-
-                assessmentSectionMock.Stub(s => s.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 20000));
+                                                                       assessmentSectionStub);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -847,18 +846,19 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                    pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
-                                                                 assessmentSectionMock);
+                                                                 assessmentSectionStub);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 

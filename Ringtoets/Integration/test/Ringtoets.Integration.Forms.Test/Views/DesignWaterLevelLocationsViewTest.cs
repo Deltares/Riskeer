@@ -351,7 +351,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             public TestAssessmentSection()
             {
-                FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0, 300000);
+                FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0, 1.0/300000);
             }
 
             public Comment Comments { get; private set; }

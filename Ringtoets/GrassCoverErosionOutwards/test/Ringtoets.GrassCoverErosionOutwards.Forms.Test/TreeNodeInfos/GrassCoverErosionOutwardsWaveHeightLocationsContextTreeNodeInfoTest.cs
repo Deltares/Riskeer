@@ -36,8 +36,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
@@ -312,31 +311,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         {
             // Given
             var guiMock = mockRepository.DynamicMock<IGui>();
-            var location = new HydraulicBoundaryLocation(1, "HydraulicBoundaryLocation", 1.1, 2.2);
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.Expect(a => a.Id).Return("Id");
-            assessmentSectionMock.Expect(a => a.GetFailureMechanisms()).Return(new[]
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    Contribution = 1
-                }
-            });
-            assessmentSectionMock.Expect(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"),
-                Locations =
-                {
-                    location
-                }
+                Contribution = 1
             };
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = location;
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations[0];
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
-            }, assessmentSectionMock, new GrassCoverErosionOutwardsFailureMechanism());
+            }, assessmentSectionStub, new GrassCoverErosionOutwardsFailureMechanism());
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -371,35 +357,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void CalculateWaveHeightsFromContextMenu_Always_SendsRightInputToCalculationService()
         {
             // Setup
-            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             var guiMock = mockRepository.DynamicMock<IGui>();
-            var location = new HydraulicBoundaryLocation(1, "HydraulicBoundaryLocation", 1.1, 2.2);
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 1
             };
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.Stub(a => a.Id).Return("Id");
-            assessmentSectionMock.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-            assessmentSectionMock.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = filePath,
-                Locations =
-                {
-                    location
-                }
-            };
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = location;
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations[0];
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
-            }, assessmentSectionMock, new GrassCoverErosionOutwardsFailureMechanism());
+            }, assessmentSectionStub, new GrassCoverErosionOutwardsFailureMechanism());
 
             var observer = mockRepository.StrictMock<IObserver>();
             context.Attach(observer);
@@ -430,10 +400,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         var waveHeightCalculationInput = testWaveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(testDataPath, testWaveHeightCalculator.HydraulicBoundaryDatabaseDirectory);
-                        Assert.AreEqual(assessmentSectionMock.Id, testWaveHeightCalculator.RingId);
+                        Assert.AreEqual(assessmentSectionStub.Id, testWaveHeightCalculator.RingId);
 
                         Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        var expectedReturnPeriod = assessmentSectionMock.FailureMechanismContribution.Norm/
+                        var expectedReturnPeriod = 1.0/assessmentSectionStub.FailureMechanismContribution.Norm/
                                                    (failureMechanism.Contribution/100)*
                                                    failureMechanism.GeneralInput.N;
                         Assert.AreEqual(StatisticsConverter.ReturnPeriodToReliability(expectedReturnPeriod), waveHeightCalculationInput.Beta);
@@ -447,34 +417,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void CalculateWaveHeightsFromContextMenu_ContributionZero_DoesNotCalculateAndLog()
         {
             // Setup
-            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             var guiMock = mockRepository.DynamicMock<IGui>();
-            var location = new HydraulicBoundaryLocation(1, "HydraulicBoundaryLocation", 1.1, 2.2);
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 0
             };
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-            assessmentSectionMock.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = filePath,
-                Locations =
-                {
-                    location
-                }
-            };
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = location;
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations[0];
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
-            }, assessmentSectionMock, new GrassCoverErosionOutwardsFailureMechanism());
+            }, assessmentSectionStub, new GrassCoverErosionOutwardsFailureMechanism());
 
             var contextObserverMock = mockRepository.StrictMock<IObserver>();
             context.Attach(contextObserverMock);
@@ -499,7 +454,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
                         // Assert
                         TestHelper.AssertLogMessageIsGenerated(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
-                        Assert.IsNaN(location.WaveHeight);
+                        Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
                     }
                 }
             }

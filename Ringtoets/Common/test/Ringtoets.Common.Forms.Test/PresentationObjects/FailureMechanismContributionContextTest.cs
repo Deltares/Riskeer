@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
     public class FailureMechanismContributionContextTest
     {
         [Test]
-        public void Contructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 30000);
+            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0/30000);
 
             // Call
             var context = new FailureMechanismContributionContext(contribution, assessmentSectionMock);
@@ -56,11 +56,11 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Contructor_AssessmentSectionIsNull_ThrowArgumentNullException()
+        public void Constructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
             // Setup
             var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 30000);
+            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0/30000);
 
             // Call
             TestDelegate call = () => new FailureMechanismContributionContext(contribution, null);

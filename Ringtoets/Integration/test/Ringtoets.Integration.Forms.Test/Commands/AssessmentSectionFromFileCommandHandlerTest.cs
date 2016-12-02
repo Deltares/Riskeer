@@ -529,7 +529,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Name = "Traject 1-2",
                 FailureMechanismContribution =
                 {
-                    Norm = (useSignalingValue) ? 3000 : 1000
+                    Norm = (useSignalingValue) ? 1.0/3000 : 1.0/1000
                 }
             };
             assessmentSection.GrassCoverErosionInwards.GeneralInput.N = 2;
@@ -560,7 +560,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Name = "Traject 2-1",
                 FailureMechanismContribution =
                 {
-                    Norm = 300
+                    Norm = 1.0/300
                 },
                 ReferenceLine = referenceLine,
                 GrassCoverErosionInwards =
@@ -597,7 +597,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Name = "Traject 3-3",
                 FailureMechanismContribution =
                 {
-                    Norm = 300
+                    Norm = 1.0/300
                 }
             };
             assessmentSection.ReferenceLine = new ReferenceLine();

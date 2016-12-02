@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithAssessmentSection_ReturnsNewProjectWithAssessmentSections()
         {
             // Setup
-            const int norm = 10000;
+            const double norm = 0.0001;
             var entity = new ProjectEntity
             {
                 Description = "testName",

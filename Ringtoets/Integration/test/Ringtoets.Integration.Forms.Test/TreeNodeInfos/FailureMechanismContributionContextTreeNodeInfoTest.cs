@@ -31,8 +31,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
-using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
-using RingtoetsIntegrationDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
@@ -92,7 +90,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual(RingtoetsIntegrationDataResources.FailureMechanismContribution_DisplayName, text);
+                Assert.AreEqual("Faalkansbegroting", text);
             }
             mocks.VerifyAll();
         }
@@ -120,7 +118,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 150000);
+            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 1.0/150000);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new FailureMechanismContributionContext(contribution, assessmentSection);

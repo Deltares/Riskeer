@@ -52,6 +52,6 @@ namespace Ringtoets.Integration.Forms.Views
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="newNormValue"/>
         /// is an invalid norm value.</exception>
-        IEnumerable<IObservable> ChangeNorm(IAssessmentSection assessmentSection, int newNormValue);
+        IEnumerable<IObservable> ChangeNorm(IAssessmentSection assessmentSection, double newNormValue);
     }
 }

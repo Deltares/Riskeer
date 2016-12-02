@@ -68,7 +68,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.AreEqual("Bevestigen", title);
-            string expectedMessage = "Na het aanpassen van de norm zullen alle rekenresultaten van hydraulische randvoorwaarden en faalmechanismen verwijderd worden." + Environment.NewLine
+            string expectedMessage = "Na het aanpassen van de norm zullen alle rekenresultaten van hydraulische randvoorwaarden en faalmechanismen verwijderd worden."
+                                     + Environment.NewLine
                                      + Environment.NewLine +
                                      "Wilt u doorgaan?";
             Assert.AreEqual(expectedMessage, message);
@@ -117,9 +118,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             var handler = new FailureMechanismContributionNormChangeHandler();
+            const double norm = 1.0/1000;
 
             // Call
-            TestDelegate call = () => handler.ChangeNorm(null, 1000);
+            TestDelegate call = () => handler.ChangeNorm(null, norm);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -128,7 +130,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
         [Test]
         [TestCase(-123456)]
-        [TestCase(0)]
         public void ChangeNorm_InvalidNorm_ThrowArgumentOutOfRangeException(int invalidNorm)
         {
             // Setup
@@ -155,9 +156,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler();
 
             IEnumerable<IObservable> affectedObjects = null;
+            const double norm = 1.0/1000;
 
             // Call
-            Action call = () => affectedObjects = handler.ChangeNorm(section, 1000);
+            Action call = () => affectedObjects = handler.ChangeNorm(section, norm);
 
             // Assert
             var expectedMessages = new[]

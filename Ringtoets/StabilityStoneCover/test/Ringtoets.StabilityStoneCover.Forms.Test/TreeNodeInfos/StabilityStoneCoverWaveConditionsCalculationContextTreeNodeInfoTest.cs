@@ -38,9 +38,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
@@ -667,14 +665,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                                                                        Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHydroDatabasePath
-            };
-            assessmentSection.Stub(a => a.Id).Return("someId");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydroDatabasePath);
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -697,7 +689,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   failureMechanism,
-                                                                                  assessmentSection);
+                                                                                  assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -867,20 +859,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                                                                        Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHydroDatabasePath
-            };
-            assessmentSection.Stub(a => a.Id).Return("someId");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydroDatabasePath);
 
             var calculation = GetValidCalculation();
             calculation.Name = "A";
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   failureMechanism,
-                                                                                  assessmentSection);
+                                                                                  assessmentSectionStub);
 
             DialogBoxHandler = (name, wnd) =>
             {

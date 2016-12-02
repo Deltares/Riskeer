@@ -39,8 +39,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -645,13 +643,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Setup
             string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
-            };
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             var calculationA = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -693,14 +687,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
-                                                                                        assessmentSection);
+                                                                                        assessmentSectionStub);
             var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                               failureMechanism,
-                                                                                              assessmentSection);
+                                                                                              assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -738,14 +731,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Setup
             string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
-            };
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
-            assessmentSection.Stub(a => a.Id).Return("someId");
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             var observerA = mocks.StrictMock<IObserver>();
             observerA.Expect(o => o.UpdateObserver());
@@ -760,14 +748,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
-                                                                                        assessmentSection);
+                                                                                        assessmentSectionStub);
             var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                               failureMechanism,
-                                                                                              assessmentSection);
+                                                                                              assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -820,25 +807,19 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Setup
             string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
-            };
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
-            assessmentSection.Stub(a => a.Id).Return("someId");
-
-            var group = new CalculationGroup();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var group = new CalculationGroup();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
+
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
-                                                                                        assessmentSection);
+                                                                                        assessmentSectionStub);
             var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                               failureMechanism,
-                                                                                              assessmentSection);
+                                                                                              assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -872,14 +853,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Setup
             string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
-            };
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
-            assessmentSection.Stub(a => a.Id).Return("someId");
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             var group = new CalculationGroup();
             var calculationA = GetValidCalculation();
@@ -887,14 +864,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
-                                                                                        assessmentSection);
+                                                                                        assessmentSectionStub);
             var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                               failureMechanism,
-                                                                                              assessmentSection);
+                                                                                              assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -923,21 +899,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true, TestName = "Menu_TwoCalculationsAndOuputClickClearAllOutput_ClearAllOutputAfterConfirmation(true)")]
-        [TestCase(false, TestName = "Menu_TwoCalculationsAndOuputClickClearAllOutput_ClearAllOutputAfterConfirmation(false)")]
+        [TestCase(true, TestName = "Menu_TwoCalculationsAndOutputClickClearAllOutput_ClearAllOutputAfterConfirmation(true)")]
+        [TestCase(false, TestName = "Menu_TwoCalculationsAndOutputClickClearAllOutput_ClearAllOutputAfterConfirmation(false)")]
         public void ContextMenuStrip_TwoCalculationsWithOutputClickOnClearAllOutput_OutputRemovedForCalculationsAfterConfirmation(bool confirm)
         {
             // Setup
             string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
-            };
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
-            assessmentSection.Stub(a => a.Id).Return("someId");
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             var observerA = mocks.StrictMock<IObserver>();
             var observerB = mocks.StrictMock<IObserver>();
@@ -961,15 +932,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             calculationA.Attach(observerA);
             calculationB.Attach(observerB);
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
-                                                                                        assessmentSection);
+                                                                                        assessmentSectionStub);
             var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                               failureMechanism,
-                                                                                              assessmentSection);
+                                                                                              assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 

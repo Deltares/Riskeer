@@ -192,16 +192,19 @@ namespace Ringtoets.Integration.Forms.Commands
                 assessmentSection.ReferenceLine = selectedItem.ReferenceLine;
             }
 
-            if (norm.HasValue)
+            if (!norm.HasValue || norm.Value == 0)
             {
-                try
-                {
-                    assessmentSection.FailureMechanismContribution.Norm = norm.Value;
-                }
-                catch (ArgumentOutOfRangeException exception)
-                {
-                    log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0, norm.Value), exception);
-                }
+                log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0, 0));
+                return assessmentSection;
+            }
+
+            try
+            {
+                assessmentSection.FailureMechanismContribution.Norm = 1.0/norm.Value;
+            }
+            catch (ArgumentOutOfRangeException exception)
+            {
+                log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0, norm.Value), exception);
             }
             return assessmentSection;
         }

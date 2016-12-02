@@ -38,7 +38,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -56,9 +55,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
     public class WaveImpactAsphaltCoverWaveConditionsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int validateMenuItemIndex = 2;
-
         private const int clearOutputMenuItemIndex = 4;
-
         private const int calculateMenuItemIndex = 3;
         private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
@@ -633,14 +630,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHydroDatabasePath
-            };
-            assessmentSection.Stub(a => a.Id).Return("someId");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydroDatabasePath);
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -663,7 +654,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                      failureMechanism,
-                                                                                     assessmentSection);
+                                                                                     assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -838,20 +829,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHydroDatabasePath
-            };
-            assessmentSection.Stub(a => a.Id).Return("someId");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydroDatabasePath);
 
             var calculation = GetValidCalculation();
             calculation.Name = "A";
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                      failureMechanism,
-                                                                                     assessmentSection);
+                                                                                     assessmentSectionStub);
 
             DialogBoxHandler = (name, wnd) =>
             {

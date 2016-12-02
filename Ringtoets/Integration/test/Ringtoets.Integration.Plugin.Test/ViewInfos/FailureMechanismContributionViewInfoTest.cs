@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -61,14 +61,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             mocks.ReplayAll();
 
             var view = new FailureMechanismContributionView(handler);
 
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 1000);
-
             // Call
-            var viewName = info.GetViewName(view, failureMechanismContribution);
+            var viewName = info.GetViewName(view, assessmentSectionStub.FailureMechanismContribution);
 
             // Assert
             Assert.AreEqual("Faalkansbegroting", viewName);
@@ -119,17 +118,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_Returns_FailureMechanismContribution()
         {
             // Setup
-            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 123456);
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
-
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             mocks.ReplayAll();
+
+            var context = new FailureMechanismContributionContext(assessmentSectionStub.FailureMechanismContribution, assessmentSectionStub);
 
             // Call
             var viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(viewData, contribution);
+            Assert.AreSame(viewData, assessmentSectionStub.FailureMechanismContribution);
             mocks.VerifyAll();
         }
 
@@ -138,27 +136,20 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
-
-            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 123456);
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms())
-                             .Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(section => section.Composition)
-                             .Return(AssessmentSectionComposition.Dike);
-            assessmentSection.Stub(section => section.FailureMechanismContribution)
-                             .Return(contribution);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
+            assessmentSectionStub.Stub(section => section.Composition)
+                                 .Return(AssessmentSectionComposition.Dike);
 
             mocks.ReplayAll();
 
             using (var view = new FailureMechanismContributionView(handler)
             {
-                Data = contribution,
-                AssessmentSection = assessmentSection
+                Data = assessmentSectionStub.FailureMechanismContribution,
+                AssessmentSection = assessmentSectionStub
             })
             {
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                var closeForData = info.CloseForData(view, assessmentSectionStub);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -172,29 +163,18 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
 
-            var contribution1 = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 123456);
-            var contribution2 = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 789123);
-
-            var assessmentSection1 = mocks.Stub<IAssessmentSection>();
-            assessmentSection1.Stub(section => section.FailureMechanismContribution)
-                              .Return(contribution1);
+            IAssessmentSection assessmentSection1 = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             assessmentSection1.Stub(section => section.Composition)
                               .Return(AssessmentSectionComposition.DikeAndDune);
-            assessmentSection1.Stub(section => section.GetFailureMechanisms())
-                              .Return(Enumerable.Empty<IFailureMechanism>());
 
-            var assessmentSection2 = mocks.Stub<IAssessmentSection>();
-            assessmentSection2.Stub(section => section.FailureMechanismContribution)
-                              .Return(contribution2);
+            IAssessmentSection assessmentSection2 = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             assessmentSection2.Stub(section => section.Composition)
                               .Return(AssessmentSectionComposition.DikeAndDune);
-            assessmentSection2.Stub(section => section.GetFailureMechanisms())
-                              .Return(Enumerable.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
             using (var view = new FailureMechanismContributionView(handler)
             {
-                Data = contribution1,
+                Data = assessmentSection1.FailureMechanismContribution,
                 AssessmentSection = assessmentSection1
             })
             {
@@ -214,17 +194,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
 
-            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 789123);
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.FailureMechanismContribution)
-                             .Return(contribution);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             mocks.ReplayAll();
 
             using (var view = new FailureMechanismContributionView(handler))
             {
                 // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
+                var closeForData = info.CloseForData(view, assessmentSectionStub);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -238,15 +214,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var handler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
 
-            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 789123);
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms())
-                             .Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(section => section.Composition)
-                             .Return(AssessmentSectionComposition.Dike);
-            assessmentSection.Stub(section => section.FailureMechanismContribution)
-                             .Return(contribution);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
+            assessmentSectionStub.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
 
             IGui guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
@@ -255,7 +224,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
+            var context = new FailureMechanismContributionContext(assessmentSectionStub.FailureMechanismContribution, assessmentSectionStub);
 
             using (var view = new FailureMechanismContributionView(handler))
             using (var ringtoetsPlugin = new RingtoetsPlugin())
@@ -267,7 +236,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 info.AfterCreate(view, context);
 
                 // Assert
-                Assert.AreSame(view.AssessmentSection, assessmentSection);
+                Assert.AreSame(view.AssessmentSection, assessmentSectionStub);
             }
             mocks.VerifyAll();
         }

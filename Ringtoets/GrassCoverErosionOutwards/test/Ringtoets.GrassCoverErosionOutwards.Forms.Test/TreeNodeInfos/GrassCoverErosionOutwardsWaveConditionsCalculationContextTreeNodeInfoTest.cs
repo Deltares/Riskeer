@@ -38,9 +38,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -627,14 +625,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                        Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHydroDatabasePath
-            };
-            assessmentSection.Stub(a => a.Id).Return("someId");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydroDatabasePath);
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -657,7 +649,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         failureMechanism,
-                                                                                        assessmentSection);
+                                                                                        assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -830,20 +822,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             {
                 Contribution = 10
             };
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHydroDatabasePath
-            };
-            assessmentSection.Stub(a => a.Id).Return("someId");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, validHydroDatabasePath);
 
             var calculation = GetValidCalculation();
             calculation.Name = "A";
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         failureMechanism,
-                                                                                        assessmentSection);
+                                                                                        assessmentSectionStub);
 
             DialogBoxHandler = (name, wnd) =>
             {

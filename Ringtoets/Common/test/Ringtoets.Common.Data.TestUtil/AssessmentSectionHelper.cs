@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
@@ -32,6 +33,17 @@ namespace Ringtoets.Common.Data.TestUtil
     /// </summary>
     public static class AssessmentSectionHelper
     {
+        /// <summary>
+        /// Creates a stub of <see cref="IAssessmentSection"/> without <see cref="HydraulicBoundaryDatabase"/> 
+        /// or <see cref="IFailureMechanism"/> set.
+        /// </summary>
+        /// <param name="mockRepository">The mock repository to create the stub with.</param>
+        /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
+        public static IAssessmentSection CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(MockRepository mockRepository)
+        {
+            return CreateAssessmentSectionStub(null, mockRepository, false, null);
+        }
+
         /// <summary>
         /// Creates a stub of <see cref="IAssessmentSection"/> without the <see cref="HydraulicBoundaryDatabase"/> set.
         /// </summary>
@@ -63,12 +75,18 @@ namespace Ringtoets.Common.Data.TestUtil
                                                                       bool addBoundaryDatabase,
                                                                       string filePath)
         {
+            var failureMechanisms = failureMechanism == null
+                                        ? Enumerable.Empty<IFailureMechanism>().ToArray()
+                                        : new[]
+                                        {
+                                            failureMechanism
+                                        };
+
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             assessmentSectionStub.Stub(a => a.Id).Return("21");
-            assessmentSectionStub.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
-            {
-                failureMechanism
-            }, 1, 2));
+            assessmentSectionStub.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
+                                                                                       failureMechanisms, 1, 0.5));
+            assessmentSectionStub.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
 
             if (addBoundaryDatabase)
             {

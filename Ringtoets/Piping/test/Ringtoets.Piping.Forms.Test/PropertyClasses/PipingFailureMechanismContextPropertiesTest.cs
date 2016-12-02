@@ -26,8 +26,7 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -55,13 +54,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingFailureMechanismContextProperties();
 
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            var norm = 300;
-            assessmentSection.Stub(sec => sec.FailureMechanismContribution).Return(new FailureMechanismContribution(new IFailureMechanism[0], 100, norm));
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                failureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             // Call
-            properties.Data = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            properties.Data = new PipingFailureMechanismContext(failureMechanism, assessmentSectionStub);
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);

@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string testId = "testId";
             const string testName = "testName";
             const string comments = "Some text";
-            const int norm = int.MaxValue;
+            const double norm = 0.05;
             int order = new Random(65).Next();
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {

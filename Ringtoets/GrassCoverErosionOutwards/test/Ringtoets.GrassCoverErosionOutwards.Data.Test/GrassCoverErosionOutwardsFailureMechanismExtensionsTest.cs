@@ -118,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
             {
                 failureMechanism
-            }, 1, 300));
+            }, 1, 1.0/300));
             mocks.ReplayAll();
 
             // Call
@@ -146,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
             {
                 failureMechanism
-            }, 1, 300));
+            }, 1, 1.0/300));
             mocks.ReplayAll();
 
             // Call

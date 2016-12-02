@@ -41,18 +41,20 @@ namespace Ringtoets.Common.Data.Contribution
         /// <paramref name="failureMechanisms"/> and one item is added with a value of <paramref name="otherContribution"/>
         /// which represents the contribution of any other failure mechanisms.
         /// </summary>
-        /// <param name="failureMechanisms">The <see cref="IEnumerable{T}"/> of <see cref="IFailureMechanism"/> on which to base
-        /// the <see cref="FailureMechanismContribution"/>.</param>
+        /// <param name="failureMechanisms">The <see cref="IEnumerable{T}"/> of <see cref="IFailureMechanism"/> 
+        /// on which to base the <see cref="FailureMechanismContribution"/>.</param>
         /// <param name="otherContribution">The collective contribution for other failure mechanisms.</param>
         /// <param name="norm">The norm defined on the assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item>any of the <paramref name="failureMechanisms"/> has a value for <see cref="IFailureMechanism.Contribution"/> not in the interval [0, 100].</item>
+        /// <item>any of the <paramref name="failureMechanisms"/> has a value for <see cref="IFailureMechanism.Contribution"/> 
+        /// not in the interval [0, 100].</item>
         /// <item>the value of <paramref name="otherContribution"/> is not in the interval [0, 100]</item>
         /// </list>
         /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="norm"/> is not in the interval (0.0, 1.0) and is not <see cref="double.NaN"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="norm"/> 
+        /// is not in the interval [0.0, 1.0] or is <see cref="double.NaN"/>.</exception>
         public FailureMechanismContribution(IEnumerable<IFailureMechanism> failureMechanisms, double otherContribution, double norm)
         {
             Norm = norm;
@@ -62,7 +64,8 @@ namespace Ringtoets.Common.Data.Contribution
         /// <summary>
         /// Gets or sets the norm which has been defined on the assessment section.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value is lower than or equal to <c>0</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value is not in 
+        /// the interval [0.0, 1.0] or is <see cref="double.NaN"/>.</exception>
         public double Norm
         {
             get

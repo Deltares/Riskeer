@@ -37,8 +37,6 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -47,6 +45,7 @@ using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.Data.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -331,32 +330,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var guiMock = mockRepository.DynamicMock<IGui>();
-            var location = new HydraulicBoundaryLocation(1, "HydraulicBoundaryLocation", 1.1, 2.2);
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 1
             };
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.Stub(a => a.Id).Return("Id");
-            assessmentSectionMock.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-            assessmentSectionMock.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = filePath,
-                Locations =
-                {
-                    location
-                }
-            };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = location;
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, filePath);
+            HydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First();
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
-            }, assessmentSectionMock, failureMechanism);
+            }, assessmentSectionStub, failureMechanism);
 
             var observer = mockRepository.StrictMock<IObserver>();
             context.Attach(observer);
@@ -387,10 +371,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         var designWaterLevelCalculationInput = testDesignWaterLevelCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(testDataPath, testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory);
-                        Assert.AreEqual(assessmentSectionMock.Id, testDesignWaterLevelCalculator.RingId);
+                        Assert.AreEqual(assessmentSectionStub.Id, testDesignWaterLevelCalculator.RingId);
 
                         Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        var expectedReturnPeriod = assessmentSectionMock.FailureMechanismContribution.Norm/
+                        var expectedReturnPeriod = 1.0/assessmentSectionStub.FailureMechanismContribution.Norm/
                                                    (failureMechanism.Contribution/100)*
                                                    failureMechanism.GeneralInput.N;
                         Assert.AreEqual(StatisticsConverter.ReturnPeriodToReliability(expectedReturnPeriod), designWaterLevelCalculationInput.Beta);
@@ -407,29 +391,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Given
             var guiMock = mockRepository.DynamicMock<IGui>();
             RoundedDouble designWaterLevel = (RoundedDouble) 4.2;
+            string filePath = "D:/nonExistingDirectory/nonExistingFile";
 
-            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
-            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = "D:/nonExistingDirectory/nonExistingFile"
-            };
-
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.Expect(a => a.Id).Return("Id");
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 1
             };
-            assessmentSectionMock
-                .Expect(a => a.FailureMechanismContribution)
-                .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 5));
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mockRepository, filePath);
 
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation1 = hydraulicBoundaryLocation1;
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation2 = hydraulicBoundaryLocation2;
-            grassCoverErosionOutwardsHydraulicBoundaryLocation2.DesignWaterLevel = designWaterLevel;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSectionStub.HydraulicBoundaryDatabase;
+            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation(designWaterLevel));
 
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation1 = hydraulicBoundaryDatabase.Locations[0];
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation2 = hydraulicBoundaryDatabase.Locations[1];
             var grassCoverErosionOutwardsHydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation1,
@@ -437,7 +412,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             };
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                 grassCoverErosionOutwardsHydraulicBoundaryLocations,
-                assessmentSectionMock,
+                assessmentSectionStub,
                 failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
@@ -459,7 +434,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
                         // Then
                         string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                       hydraulicBoundaryDatabase.FilePath);
+                                                       filePath);
                         TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
 
                         Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation1.DesignWaterLevel); // No result set
@@ -479,28 +454,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         {
             // Given
             var guiMock = mockRepository.DynamicMock<IGui>();
-            var location = new HydraulicBoundaryLocation(1, "HydraulicBoundaryLocation", 1.1, 2.2);
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.Expect(a => a.Id).Return("Id");
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 1
             };
-            assessmentSectionMock.Expect(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"),
-                Locations =
-                {
-                    location
-                }
-            };
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = location;
+            var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations[0];
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
-                grassCoverErosionOutwardsHydraulicBoundaryLocation
-            }, assessmentSectionMock, failureMechanism);
+                hydraulicBoundaryLocation
+            }, assessmentSectionStub, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -525,16 +490,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         {
                             var msgs = messages.ToArray();
                             Assert.AreEqual(7, msgs.Length);
-                            StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie '{0}'' gestart om: ", location.Name), msgs[0]);
-                            StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie '{0}'' beëindigd om: ", location.Name), msgs[1]);
-                            StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie '{0}'' gestart om: ", location.Name), msgs[2]);
-                            Assert.AreEqual(string.Format("Waterstand bij doorsnede-eis berekening voor locatie '{0}' is niet geconvergeerd.", location.Name), msgs[3]);
-                            StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                            StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie '{0}'' beëindigd om: ", location.Name), msgs[5]);
-                            StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is gelukt.", location.Name), msgs[6]);
+                            StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie '{0}'' gestart om: ",
+                                                                  hydraulicBoundaryLocation.Name), msgs[0]);
+                            StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie '{0}'' beëindigd om: ",
+                                                                  hydraulicBoundaryLocation.Name), msgs[1]);
+                            StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie '{0}'' gestart om: ",
+                                                                  hydraulicBoundaryLocation.Name), msgs[2]);
+                            Assert.AreEqual(string.Format("Waterstand bij doorsnede-eis berekening voor locatie '{0}' is niet geconvergeerd.",
+                                                          hydraulicBoundaryLocation.Name), msgs[3]);
+                            StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie",
+                                                    msgs[4]);
+                            StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie '{0}'' beëindigd om: ",
+                                                                  hydraulicBoundaryLocation.Name), msgs[5]);
+                            StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is gelukt.",
+                                                                               hydraulicBoundaryLocation.Name), msgs[6]);
                         });
-                        Assert.AreEqual(0, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+                        Assert.AreEqual(0, hydraulicBoundaryLocation.DesignWaterLevel,
+                                        hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
                     }
                 }
             }
@@ -545,30 +518,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void CalculateDesignWaterLevelsFromContextMenu_ContributionZero_DoesNotCalculateAndLog()
         {
             // Setup
-            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             var guiMock = mockRepository.DynamicMock<IGui>();
-            var location = new HydraulicBoundaryLocation(1, "HydraulicBoundaryLocation", 1.1, 2.2);
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 0
             };
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = filePath,
-                Locations =
-                {
-                    location
-                }
-            };
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = location;
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations[0];
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
-            }, assessmentSectionMock, failureMechanism);
+            }, assessmentSectionStub, failureMechanism);
 
             var contextObserverMock = mockRepository.StrictMock<IObserver>();
             context.Attach(contextObserverMock);

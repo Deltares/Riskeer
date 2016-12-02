@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> ChangeNorm(IAssessmentSection assessmentSection, int newNormValue)
+        public IEnumerable<IObservable> ChangeNorm(IAssessmentSection assessmentSection, double newNormValue)
         {
             if (assessmentSection == null)
             {
@@ -60,12 +60,9 @@ namespace Ringtoets.Integration.Plugin.Handlers
             }
 
             var changedObjects = new List<IObservable>();
-            var returnPeriod = Convert.ToInt32(1/assessmentSection.FailureMechanismContribution.Norm);
-            if (returnPeriod != newNormValue)
+            if (assessmentSection.FailureMechanismContribution.Norm.CompareTo(newNormValue) != 0)
             {
-                assessmentSection.FailureMechanismContribution.Norm = newNormValue == 0
-                                                                          ? newNormValue
-                                                                          : 1.0/newNormValue;
+                assessmentSection.FailureMechanismContribution.Norm = newNormValue;
 
                 changedObjects.AddRange(ClearAllNormDependentCalculationOutput(assessmentSection));
                 changedObjects.Add(assessmentSection.FailureMechanismContribution);

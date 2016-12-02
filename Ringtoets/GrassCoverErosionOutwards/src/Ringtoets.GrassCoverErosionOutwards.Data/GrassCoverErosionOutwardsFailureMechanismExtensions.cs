@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                 throw new ArgumentException(Resources.GrassCoverErosionOutwardsFailureMechanismExtensions_GetMechanismSpecificNorm_Contribution_is_zero);
             }
 
-            return assessmentSection.FailureMechanismContribution.Norm/
+            return 1.0/assessmentSection.FailureMechanismContribution.Norm/
                    (failureMechanism.Contribution/100)*
                    failureMechanism.GeneralInput.N;
         }

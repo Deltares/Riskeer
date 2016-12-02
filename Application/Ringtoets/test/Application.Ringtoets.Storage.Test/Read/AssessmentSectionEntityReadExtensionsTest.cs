@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string testId = "testId";
             const string testName = "testName";
             const string comments = "Some text";
-            const int norm = int.MaxValue;
+            const double norm = 0.05;
             var entity = new AssessmentSectionEntity
             {
                 Id = testId,
@@ -1016,7 +1016,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             return new AssessmentSectionEntity
             {
-                Norm = 30000
+                Norm = 1.0/30000
             };
         }
 

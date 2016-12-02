@@ -37,8 +37,8 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(3, children.Length);
-            var comment = (Comment)children[0];
+            var comment = (Comment) children[0];
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, comment);
 
             var pipingInputContext = (PipingInputContext) children[1];
@@ -158,7 +158,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(3, children.Length);
-            var comment = (Comment)children[0];
+            var comment = (Comment) children[0];
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, comment);
 
             var pipingInputContext = (PipingInputContext) children[1];
@@ -402,14 +402,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 {
                     new Point2D(0, 0)
                 }));
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                assessmentSectionMock.Stub(s => s.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 20000));
-
+                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                    pipingFailureMechanism, mocks);
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                     Enumerable.Empty<StochasticSoilModel>(),
                                                                                     pipingFailureMechanism,
-                                                                                    assessmentSectionMock);
+                                                                                    assessmentSectionStub);
 
                 var mainWindow = mocks.DynamicMock<IMainWindow>();
 
@@ -513,14 +512,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 {
                     new Point2D(0, 0)
                 }));
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                assessmentSectionMock.Stub(s => s.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 20000));
+                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                    pipingFailureMechanism, mocks);
 
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                     Enumerable.Empty<StochasticSoilModel>(),
                                                                                     pipingFailureMechanism,
-                                                                                    assessmentSectionMock);
+                                                                                    assessmentSectionStub);
 
                 var mainWindow = mocks.DynamicMock<IMainWindow>();
 

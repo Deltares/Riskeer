@@ -137,6 +137,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             const int returnPeriod = 200;
+            const double norm = 1.0/returnPeriod;
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
@@ -150,7 +151,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var handler = mockRepository.StrictMock<IFailureMechanismContributionNormChangeHandler>();
             handler.Expect(h => h.ConfirmNormChange()).Return(true);
-            handler.Expect(h => h.ChangeNorm(assessmentSection, returnPeriod))
+            handler.Expect(h => h.ChangeNorm(assessmentSection, norm))
                    .Return(new[]
                    {
                        observable1,
@@ -276,7 +277,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var initialContribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, otherContribution, 100);
+            }, otherContribution, 0.01);
 
             using (var distributionView = new FailureMechanismContributionView(handler)
             {
@@ -956,7 +957,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenView_WhenEnterAfterEnteringDifferentNormNotCommitted_CommitValueAndChangeData()
         {
             // Given
-            const int normValue = 200;
+            const int returnPeriod = 200;
+            const double norm = 1.0/returnPeriod;
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
@@ -965,7 +967,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var handler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
             handler.Expect(h => h.ConfirmNormChange())
                    .Return(true);
-            handler.Expect(h => h.ChangeNorm(assessmentSection, normValue))
+            handler.Expect(h => h.ChangeNorm(assessmentSection, norm))
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
@@ -981,7 +983,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // When
                 var normInput = (NumericUpDown) normTester.TheObject;
                 view.ActiveControl = normInput;
-                normInput.Value = normValue;
+                normInput.Value = returnPeriod;
                 var keyEventArgs = new KeyEventArgs(Keys.Enter);
                 EventHelper.RaiseEvent(normInput.Controls.OfType<TextBox>().First(), "KeyDown", keyEventArgs);
 
@@ -989,7 +991,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsTrue(keyEventArgs.Handled);
                 Assert.IsTrue(keyEventArgs.SuppressKeyPress);
 
-                Assert.AreEqual(normValue, normInput.Value);
+                Assert.AreEqual(returnPeriod, normInput.Value);
                 Assert.AreNotSame(normInput, view.ActiveControl);
             }
             mocks.VerifyAll();
