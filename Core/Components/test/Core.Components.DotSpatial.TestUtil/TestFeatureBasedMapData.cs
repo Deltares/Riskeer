@@ -26,8 +26,8 @@ namespace Core.Components.DotSpatial.TestUtil
     /// <summary>
     /// A class representing a <see cref="FeatureBasedMapData"/> implementation which is not in the regular codebase.
     /// </summary>
-    public class TestMapData : FeatureBasedMapData
+    public class TestFeatureBasedMapData : FeatureBasedMapData
     {
-        public TestMapData(string name) : base(name) {}
+        public TestFeatureBasedMapData(string name) : base(name) {}
     }
 }

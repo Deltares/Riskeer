@@ -80,7 +80,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Create_OtherData_ThrownsNotSupportedException()
         {
             // Setup
-            var testData = new TestMapData("test data");
+            var testData = new TestFeatureBasedMapData("test data");
 
             // Call
             TestDelegate test = () => MapFeatureLayerFactory.Create(testData);

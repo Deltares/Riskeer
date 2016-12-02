@@ -39,12 +39,12 @@ namespace Core.Components.DotSpatial.Test.Converter
             var testConverter = new TestFeatureBasedMapDataConverter<Class>();
 
             // Call
-            var mapDataResult = testConverter.CanConvertMapData(new TestMapData("test data"));
+            var featureBasedMapDataResult = testConverter.CanConvertMapData(new TestFeatureBasedMapData("test data"));
             var classResult = testConverter.CanConvertMapData(new Class("test data"));
             var childResult = testConverter.CanConvertMapData(new Child("test data"));
 
             // Assert
-            Assert.IsFalse(mapDataResult);
+            Assert.IsFalse(featureBasedMapDataResult);
             Assert.IsTrue(classResult);
             Assert.IsTrue(childResult);
         }
@@ -68,16 +68,16 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var testConverter = new TestFeatureBasedMapDataConverter<Class>();
-            var testMapData = new TestMapData("test data");
+            var testFeatureBasedMapData = new TestFeatureBasedMapData("test data");
 
             // Precondition
-            Assert.IsFalse(testConverter.CanConvertMapData(testMapData));
+            Assert.IsFalse(testConverter.CanConvertMapData(testFeatureBasedMapData));
 
             // Call
-            TestDelegate test = () => testConverter.Convert(testMapData);
+            TestDelegate test = () => testConverter.Convert(testFeatureBasedMapData);
 
             // Assert
-            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testMapData.GetType());
+            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testFeatureBasedMapData.GetType());
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
@@ -85,14 +85,14 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Convert_DataCanBeConverted_ReturnsResult()
         {
             // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestMapData>();
-            var testMapData = new TestMapData("test data");
+            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testFeatureBasedMapData = new TestFeatureBasedMapData("test data");
 
             // Precondition
-            Assert.IsTrue(testConverter.CanConvertMapData(testMapData));
+            Assert.IsTrue(testConverter.CanConvertMapData(testFeatureBasedMapData));
 
             // Call
-            var result = testConverter.Convert(testMapData);
+            var result = testConverter.Convert(testFeatureBasedMapData);
 
             // Assert
             Assert.IsNotNull(result);

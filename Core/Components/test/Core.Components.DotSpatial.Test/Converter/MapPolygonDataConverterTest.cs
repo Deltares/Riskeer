@@ -83,14 +83,14 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void CanConvertMapData_TestMapData_ReturnsFalse()
+        public void CanConvertMapData_DataCannotBeConverted_ReturnsFalse()
         {
             // Setup
             var converter = new MapPolygonDataConverter();
-            var mapData = new TestMapData("test data");
+            var featureBasedMapData = new TestFeatureBasedMapData("test data");
 
             // Call
-            bool canConvert = converter.CanConvertMapData(mapData);
+            bool canConvert = converter.CanConvertMapData(featureBasedMapData);
 
             // Assert
             Assert.IsFalse(canConvert);
@@ -323,16 +323,16 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var testConverter = new MapPolygonDataConverter();
-            var testMapData = new TestMapData("test data");
+            var testFeatureBasedMapData = new TestFeatureBasedMapData("test data");
 
             // Precondition
-            Assert.IsFalse(testConverter.CanConvertMapData(testMapData));
+            Assert.IsFalse(testConverter.CanConvertMapData(testFeatureBasedMapData));
 
             // Call
-            TestDelegate test = () => testConverter.Convert(testMapData);
+            TestDelegate test = () => testConverter.Convert(testFeatureBasedMapData);
 
             // Assert
-            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testMapData.GetType());
+            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testFeatureBasedMapData.GetType());
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
