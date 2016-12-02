@@ -47,6 +47,9 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override void ConvertLayerFeatures(MapPolygonData data, MapPolygonLayer layer)
         {
+            layer.FeatureSet.Features.Clear();
+            layer.FeatureSet.DataTable.Clear();
+
             foreach (var mapFeature in data.Features)
             {
                 var geometryList = new List<IPolygon>();

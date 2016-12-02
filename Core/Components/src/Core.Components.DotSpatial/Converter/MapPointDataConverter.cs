@@ -47,6 +47,9 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override void ConvertLayerFeatures(MapPointData data, MapPointLayer layer)
         {
+            layer.FeatureSet.Features.Clear();
+            layer.FeatureSet.DataTable.Clear();
+
             foreach (var ringtoetsMapFeature in data.Features)
             {
                 foreach (var feature in GetAllMapFeatureCoordinates(ringtoetsMapFeature)

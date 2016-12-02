@@ -93,6 +93,7 @@ namespace Core.Components.DotSpatial.Converter
 
         /// <summary>
         /// Converts all feature related data from <paramref name="data"/> to <paramref name="layer"/>.
+        /// Any features already part of <paramref name="layer"/> are cleared.
         /// </summary>
         /// <param name="data">The data to convert the feature related data from.</param>
         /// <param name="layer">The layer to convert the feature related data to.</param>

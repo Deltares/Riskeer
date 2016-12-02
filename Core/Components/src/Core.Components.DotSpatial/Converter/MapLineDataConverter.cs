@@ -49,6 +49,9 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override void ConvertLayerFeatures(MapLineData data, MapLineLayer layer)
         {
+            layer.FeatureSet.Features.Clear();
+            layer.FeatureSet.DataTable.Clear();
+
             foreach (MapFeature mapFeature in data.Features)
             {
                 AddMetaDataAsAttributes(mapFeature, layer.FeatureSet, new Feature(GetGeometry(mapFeature), layer.FeatureSet));
