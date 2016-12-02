@@ -58,9 +58,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <summary>
         /// Gets the norm which is needed in the calculations within <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to get the failure mechanism return period for.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the assessment section return period.</param>
-        /// <returns>The value of the failure mechanism return period.</returns>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to get the failure mechanism norm for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the assessment section norm</param>
+        /// <returns>The value of the failure mechanism norm.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="failureMechanism"/> has no (0) contribution.</exception>
         public static double GetMechanismSpecificNorm(this GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
@@ -74,9 +74,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                 throw new ArgumentException(Resources.GrassCoverErosionOutwardsFailureMechanismExtensions_GetMechanismSpecificNorm_Contribution_is_zero);
             }
 
-            return 1.0/assessmentSection.FailureMechanismContribution.Norm/
-                   (failureMechanism.Contribution/100)*
-                   failureMechanism.GeneralInput.N;
+            return assessmentSection.FailureMechanismContribution.Norm
+                   *(failureMechanism.Contribution/100)
+                   /failureMechanism.GeneralInput.N;
         }
     }
 }

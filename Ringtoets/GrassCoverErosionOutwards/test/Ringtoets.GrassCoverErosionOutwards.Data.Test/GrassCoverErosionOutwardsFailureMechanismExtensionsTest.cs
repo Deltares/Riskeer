@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void GetMechanismSpecificReturnPeriod_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void GetMechanismSpecificNorm_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -101,12 +101,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void GetMechanismSpecificReturnPeriod_WithAssessmentSection_ReturnMechanismSpecificReturnPeriod()
+        public void GetMechanismSpecificNorm_WithAssessmentSection_ReturnMechanismSpecificNorm()
         {
             // Setup
+            const double norm = 1.0/300;
+            const double contribution = 10;
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                Contribution = 10
+                Contribution = contribution
             };
 
             var mocks = new MockRepository();
@@ -118,18 +120,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
             {
                 failureMechanism
-            }, 1, 1.0/300));
+            }, 1, norm));
             mocks.ReplayAll();
 
             // Call
-            double mechanismSpecificReturnPeriod = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
 
             // Assert
-            Assert.AreEqual(6000, mechanismSpecificReturnPeriod);
+            double expectedNorm = norm*(contribution/100)/failureMechanism.GeneralInput.N;
+            Assert.AreEqual(expectedNorm, mechanismSpecificNorm);
         }
 
         [Test]
-        public void GetMechanismSpecificReturnPeriod_WithZeroContributionForFailureMechanism_ThrowsArgumentException()
+        public void GetMechanismSpecificNorm_WithZeroContributionForFailureMechanism_ThrowsArgumentException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism

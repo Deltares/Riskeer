@@ -189,8 +189,7 @@ namespace Ringtoets.Piping.Service
         /// <returns>A value representing the required probability.</returns>
         private double RequiredProbability()
         {
-            var returnPeriod = 1/norm;
-            return (contribution/returnPeriod)/(1 + (constantA*assessmentSectionLength)/constantB);
+            return (norm*contribution)/(1 + (constantA*assessmentSectionLength)/constantB);
         }
 
         private double SubMechanismReliability(double factorOfSafety, SubCalculationFactors factors)

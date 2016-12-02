@@ -94,14 +94,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 return;
             }
 
-            var mechanismSpecificReturnPeriod = GetMechanismSpecificReturnPeriod();
+            var mechanismSpecificNorm = GetMechanismSpecificNorm();
 
-            if (!double.IsNaN(mechanismSpecificReturnPeriod))
+            if (!double.IsNaN(mechanismSpecificNorm))
             {
                 bool successfulCalculation = CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                               locations,
                                                                                               AssessmentSection.Id,
-                                                                                              mechanismSpecificReturnPeriod,
+                                                                                              mechanismSpecificNorm,
                                                                                               new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
                 if (successfulCalculation)
                 {
@@ -141,18 +141,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             return false;
         }
 
-        private double GetMechanismSpecificReturnPeriod()
+        private double GetMechanismSpecificNorm()
         {
-            var mechanismSpecificReturnPeriod = double.NaN;
+            var mechanismSpecificNorm = double.NaN;
             try
             {
-                mechanismSpecificReturnPeriod = FailureMechanism.GetMechanismSpecificNorm(AssessmentSection);
+                mechanismSpecificNorm = FailureMechanism.GetMechanismSpecificNorm(AssessmentSection);
             }
             catch (ArgumentException e)
             {
                 log.ErrorFormat(e.Message);
             }
-            return mechanismSpecificReturnPeriod;
+            return mechanismSpecificNorm;
         }
     }
 }
