@@ -69,5 +69,10 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         {
             return new PiezoHeadCalculator();
         }
+
+        public IPipingProfilePropertyCalculator CreatePipingProfilePropertyCalculator()
+        {
+            return new PipingProfilePropertyCalculator();
+        }
     }
 }

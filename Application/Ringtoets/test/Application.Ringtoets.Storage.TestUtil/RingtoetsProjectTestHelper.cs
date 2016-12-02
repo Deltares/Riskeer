@@ -664,7 +664,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 StandardDeviation = (RoundedDouble) 11.11
                             }
                         },
-                        Output = new PipingOutput(1.1, 2.2, 3.3, 4.4, 5.5, 6.6),
+                        Output = new TestPipingOutput(),
                         SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(7.7, 8.8, 0.9,
                                                                                     10.10, 11.11, 0.12,
                                                                                     13.13, 14.14, 0.15,

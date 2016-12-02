@@ -34,6 +34,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public SellmeijerCalculatorStub LastCreatedSellmeijerCalculator { get; private set; }
         public HeaveCalculatorStub LastCreatedHeaveCalculator { get; private set; }
         public PiezoHeadCalculatorStub LastCreatedPiezometricHeadAtExitCalculator { get; private set; }
+        public PipingProfilePropertyCalculatorStub LastCreatedPipingProfilePropertyCalculator { get; private set; }
 
         public IUpliftCalculator CreateUpliftCalculator()
         {
@@ -63,6 +64,12 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         {
             LastCreatedPiezometricHeadAtExitCalculator = new PiezoHeadCalculatorStub();
             return LastCreatedPiezometricHeadAtExitCalculator;
+        }
+
+        public IPipingProfilePropertyCalculator CreatePipingProfilePropertyCalculator()
+        {
+            LastCreatedPipingProfilePropertyCalculator = new PipingProfilePropertyCalculatorStub();
+            return LastCreatedPipingProfilePropertyCalculator;
         }
     }
 }

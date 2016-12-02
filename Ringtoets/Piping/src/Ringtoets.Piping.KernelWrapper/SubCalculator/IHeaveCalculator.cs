@@ -59,12 +59,22 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         double RExit { set; }
 
         /// <summary>
-        /// Returns the Zh property of the heave calculation.
+        /// Sets the BottomLevelAquitardAboveExitPointZ property to use in the heave calculation.
+        /// </summary>
+        double BottomLevelAquitardAboveExitPointZ { set; }
+
+        /// <summary>
+        /// Gets the Gradient property to use in the heave calculation.
+        /// </summary>
+        double Gradient { get; }
+
+        /// <summary>
+        /// Gets the Zh property of the heave calculation.
         /// </summary>
         double Zh { get; }
 
         /// <summary>
-        /// Returns the FoSh property of the heave calculation.
+        /// Gets the FoSh property of the heave calculation.
         /// </summary>
         double FoSh { get; }
 

@@ -19,47 +19,46 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using Deltares.WTIPiping;
+
 namespace Ringtoets.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
-    /// Factory responsible for creating the sub calculators required for a piping calculation.
+    /// Interface with operations for calculating properties for combinations of piping profiles and
+    /// surface line.
     /// </summary>
-    public interface IPipingSubCalculatorFactory
+    public interface IPipingProfilePropertyCalculator
     {
         /// <summary>
-        /// Creates the uplift calculator.
+        /// Sets the <see cref="PipingProfile"/> to use in the calculation.
         /// </summary>
-        /// <returns>A new <see cref="IUpliftCalculator"/>.</returns>
-        IUpliftCalculator CreateUpliftCalculator();
+        PipingProfile SoilProfile { set; }
+        
+        /// <summary>
+        /// Sets the <see cref="PipingSurfaceLine"/> to use in the calculation.
+        /// </summary>
+        PipingSurfaceLine SurfaceLine { set; }
 
         /// <summary>
-        /// Creates the heave calculator.
+        /// Sets the x-coordinate of the exit point.
         /// </summary>
-        /// <returns>A new <see cref="IHeaveCalculator"/>.</returns>
-        IHeaveCalculator CreateHeaveCalculator();
+        double ExitPointX { set; }
 
         /// <summary>
-        /// Creates the Sellmeijer calculator.
+        /// Gets the BottomAquitardLayerAboveExitPointZ property of the piping profile property calculator.
         /// </summary>
-        /// <returns>A new <see cref="ISellmeijerCalculator"/>.</returns>
-        ISellmeijerCalculator CreateSellmeijerCalculator();
+        double BottomAquitardLayerAboveExitPointZ { get; }
 
         /// <summary>
-        /// Creates the effective thickness calculator.
+        /// Performs the piping profile property calculation.
         /// </summary>
-        /// <returns>A new <see cref="IEffectiveThicknessCalculator"/>.</returns>
-        IEffectiveThicknessCalculator CreateEffectiveThicknessCalculator();
+        void Calculate();
 
         /// <summary>
-        /// Creates the piezometric head at exit calculator.
+        /// Performs the validation of the input properties.
         /// </summary>
-        /// <returns>A new <see cref="IPiezoHeadCalculator"/>.</returns>
-        IPiezoHeadCalculator CreatePiezometricHeadAtExitCalculator();
-
-        /// <summary>
-        /// Creates the piping profile property calculator.
-        /// </summary>
-        /// <returns>A new <see cref="IPipingProfilePropertyCalculator"/>.</returns>
-        IPipingProfilePropertyCalculator CreatePipingProfilePropertyCalculator();
+        /// <returns>A list of validation strings.</returns>
+        List<string> Validate();
     }
 }

@@ -66,10 +66,12 @@
     <Compile Include="SubCalculator\IEffectiveThicknessCalculator.cs" />
     <Compile Include="SubCalculator\IHeaveCalculator.cs" />
     <Compile Include="SubCalculator\IPiezoHeadCalculator.cs" />
+    <Compile Include="SubCalculator\IPipingProfilePropertyCalculator.cs" />
     <Compile Include="SubCalculator\IPipingSubCalculatorFactory.cs" />
     <Compile Include="SubCalculator\ISellmeijerCalculator.cs" />
     <Compile Include="SubCalculator\IUpliftCalculator.cs" />
     <Compile Include="SubCalculator\PiezoHeadCalculator.cs" />
+    <Compile Include="SubCalculator\PipingProfilePropertyCalculator.cs" />
     <Compile Include="SubCalculator\PipingSubCalculatorFactory.cs" />
     <Compile Include="SubCalculator\SellmeijerCalculator.cs" />
     <Compile Include="SubCalculator\UpliftCalculator.cs" />

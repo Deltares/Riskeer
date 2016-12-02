@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Service.Test
         public void UpliftProbability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double factorOfSafety, double expectedResult)
         {
             // Setup
-            var calculatorResult = new PipingOutput(double.NaN, factorOfSafety, double.NaN, double.NaN, double.NaN, double.NaN);
+            var calculatorResult = new PipingOutput(double.NaN, factorOfSafety, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var calculation = AsPipingCalculation(calculatorResult);
             double norm = 1.0/returnPeriod;
 
@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Service.Test
         public void HeaveProbability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double factorOfSafety, double expectedResult)
         {
             // Setup
-            var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, factorOfSafety, double.NaN, double.NaN);
+            var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, factorOfSafety, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var calculation = AsPipingCalculation(calculatorResult);
             double norm = 1.0/returnPeriod;
 
@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Service.Test
         public void SellmeijerProbability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double factorOfSafety, double expectedResult)
         {
             // Setup
-            var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, factorOfSafety);
+            var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, factorOfSafety, double.NaN, double.NaN, double.NaN, double.NaN);
             var calculation = AsPipingCalculation(calculatorResult);
             double norm = 1.0/returnPeriod;
 
@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.Service.Test
         public void PipingReliability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double fosUplift, double fosHeave, double fosSellmeijer, double expectedResult)
         {
             // Setup
-            var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
+            var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer, double.NaN, double.NaN, double.NaN, double.NaN);
             var calculation = AsPipingCalculation(calculatorResult);
             double norm = 1.0/returnPeriod;
 
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Service.Test
         public void RequiredReliability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double assessmentSectionLength, double contribution, double expectedResult)
         {
             // Setup
-            var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput
             {
                 SectionLength = assessmentSectionLength
@@ -153,7 +153,7 @@ namespace Ringtoets.Piping.Service.Test
             const double fosSellmeijer = 0.9;
             const double expectedResult = 0.907;
 
-            var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
+            var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer, double.NaN, double.NaN, double.NaN, double.NaN);
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput
             {
                 SectionLength = assessmentSectionLength
@@ -181,7 +181,7 @@ namespace Ringtoets.Piping.Service.Test
             [Values(0.9, 1.1)] double fosSellmeijer)
         {
             // Setup
-            var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
+            var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer, double.NaN, double.NaN, double.NaN, double.NaN);
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput
             {
                 SectionLength = assessmentSectionLength

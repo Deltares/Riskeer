@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_AllOutputValuesSet_ReturnEntity()
         {
             // Setup
-            var pipingOutput = new PipingOutput(1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
+            var pipingOutput = new PipingOutput(1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.10);
 
             // Call
             PipingCalculationOutputEntity entity = pipingOutput.Create();
@@ -55,7 +55,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var pipingOutput = new PipingOutput(double.NaN, double.NaN, double.NaN,
-                                                double.NaN, double.NaN, double.NaN);
+                                                double.NaN, double.NaN, double.NaN,
+                                                double.NaN, double.NaN, double.NaN,
+                                                double.NaN);
 
             // Call
             PipingCalculationOutputEntity entity = pipingOutput.Create();

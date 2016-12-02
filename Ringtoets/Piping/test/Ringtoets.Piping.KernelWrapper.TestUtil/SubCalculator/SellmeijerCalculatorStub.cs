@@ -45,6 +45,10 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public double SeepageLength { get; set; }
         public double VolumetricWeightOfWater { get; set; }
         public double WhitesDragCoefficient { get; set; }
+        public double BottomLevelAquitardAboveExitPointZ { get; set; }
+        public double CreepCoefficient { get; private set; }
+        public double CriticalFall { get; private set; }
+        public double ReducedFall { get; private set; }
         public double Zp { get; private set; }
         public double FoSp { get; private set; }
 

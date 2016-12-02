@@ -167,6 +167,38 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
             }
         }
 
+        public double BottomLevelAquitardAboveExitPointZ
+        {
+            set
+            {
+                wrappedCalculator.BottomLevelAquitardAboveExitPointZ = value;
+            }
+        }
+
+        public double CreepCoefficient
+        {
+            get
+            {
+                return wrappedCalculator.CCreep;
+            }
+        }
+
+        public double CriticalFall
+        {
+            get
+            {
+                return wrappedCalculator.Hc;
+            }
+        }
+
+        public double ReducedFall
+        {
+            get
+            {
+                return wrappedCalculator.ReducedFall;
+            }
+        }
+
         public double Zp
         {
             get

@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.AreEqual("Kwelweglengte heeft ongeldige waarde (0 of negatief)", validationMessages[0]);
+            Assert.AreEqual("Kwelweglengte heeft ongeldige waarde (0 of negatief).", validationMessages[0]);
         }
 
         [Test]
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.AreEqual("Rolweerstandshoek heeft ongeldige waarde (0 of negatief).", validationMessages[0]);
+            Assert.AreEqual("Rolweerstandshoek heeft een ongeldige waarde (0 of negatief).", validationMessages[0]);
         }
 
         [Test]
@@ -193,26 +193,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.AreEqual("Parameter 'Rexit' (Dempingsfactor bij uittredepunt) mag niet nul zijn.", validationMessages[0]);
-        }
-
-        [Test]
-        public void Validate_ThicknessCoverageLayerZero_ValidationMessageForDTotal()
-        {
-            // Setup
-            PipingCalculatorInput input = new TestPipingInput
-            {
-                ThicknessCoverageLayer = 0
-            }.AsRealInput();
-
-            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
-
-            // Call
-            List<string> validationMessages = calculation.Validate();
-
-            // Assert
-            Assert.AreEqual(1, validationMessages.Count);
-            Assert.AreEqual("Parameter 'Dtotal' (totale deklaagdikte bij uittredepunt) mag niet nul zijn.", validationMessages[0]);
+            Assert.AreEqual("Parameter 'RExit' (Dempingsfactor bij uittredepunt) mag niet nul zijn.", validationMessages[0]);
         }
 
         [Test]
@@ -250,7 +231,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.AreEqual("Volumiek gewicht water heeft ongeldige waarde (=0).", validationMessages[0]);
+            Assert.AreEqual("Volumiek gewicht water heeft ongeldige waarde (mag niet nul zijn).", validationMessages[0]);
         }
 
         [Test] // Validate_DifferenceAssessmentLevelAndPhreaticLevelExitEqualToSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidationMessageForHRiverHExitRcDTotal

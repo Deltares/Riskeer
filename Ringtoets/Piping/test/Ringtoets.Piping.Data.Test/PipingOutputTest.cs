@@ -39,8 +39,21 @@ namespace Ringtoets.Piping.Data.Test
             var foShValue = random.NextDouble();
             var zsValue = random.NextDouble();
             var foSsValue = random.NextDouble();
+            var heaveGradient = random.NextDouble();
+            var sellmeijerCreepCoefficient = random.NextDouble();
+            var sellmeijerCriticalFall = random.NextDouble();
+            var sellmeijerReducedFall = random.NextDouble();
 
-            var output = new PipingOutput(zuValue, foSuValue, zhValue, foShValue, zsValue, foSsValue);
+            var output = new PipingOutput(zuValue,
+                                          foSuValue,
+                                          zhValue,
+                                          foShValue,
+                                          zsValue,
+                                          foSsValue,
+                                          heaveGradient,
+                                          sellmeijerCreepCoefficient,
+                                          sellmeijerCriticalFall,
+                                          sellmeijerReducedFall);
 
             Assert.IsInstanceOf<Observable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
@@ -51,6 +64,10 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(foShValue, output.HeaveFactorOfSafety);
             Assert.AreEqual(zsValue, output.SellmeijerZValue);
             Assert.AreEqual(foSsValue, output.SellmeijerFactorOfSafety);
+            Assert.AreEqual(heaveGradient, output.HeaveGradient);
+            Assert.AreEqual(sellmeijerCreepCoefficient, output.SellmeijerCreepCoefficient);
+            Assert.AreEqual(sellmeijerCriticalFall, output.SellmeijerCriticalFall);
+            Assert.AreEqual(sellmeijerReducedFall, output.SellmeijerReducedFall);
         }
     }
 }

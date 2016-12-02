@@ -25,33 +25,27 @@ using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
 {
     [TestFixture]
-    public class HeaveCalculatorStubTest
+    public class PipingProfilePropertyCalculatorStubTest
     {
         [Test]
         public void DefaultConstructor_PropertiesSet()
         {
             // Call
-            var stub = new HeaveCalculatorStub();
+            var stub = new PipingProfilePropertyCalculatorStub();
 
             // Assert
-            Assert.AreEqual(0, stub.DTotal);
-            Assert.AreEqual(0, stub.HExit);
-            Assert.AreEqual(0, stub.Ich);
-            Assert.AreEqual(0, stub.PhiExit);
-            Assert.AreEqual(0, stub.PhiPolder);
-            Assert.AreEqual(0, stub.RExit);
-            Assert.AreEqual(0, stub.BottomLevelAquitardAboveExitPointZ);
+            Assert.IsNull(stub.SoilProfile);
+            Assert.IsNull(stub.SurfaceLine);
+            Assert.AreEqual(0, stub.ExitPointX);
 
-            Assert.AreEqual(0, stub.Gradient);
-            Assert.AreEqual(0, stub.FoSh);
-            Assert.AreEqual(0, stub.Zh);
+            Assert.AreEqual(0, stub.BottomAquitardLayerAboveExitPointZ);
         }
 
         [Test]
         public void Validate_Always_EmptyList()
         {
             // Setup
-            var stub = new HeaveCalculatorStub();
+            var stub = new PipingProfilePropertyCalculatorStub();
 
             // Call
             var result = stub.Validate();
@@ -64,7 +58,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         public void Calculate_Always_DoesNotThrow()
         {
             // Setup
-            var stub = new HeaveCalculatorStub();
+            var stub = new PipingProfilePropertyCalculatorStub();
 
             // Call
             TestDelegate call = () => stub.Calculate();

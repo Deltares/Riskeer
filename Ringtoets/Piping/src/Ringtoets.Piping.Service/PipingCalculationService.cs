@@ -84,7 +84,11 @@ namespace Ringtoets.Piping.Service
                                                       pipingResult.HeaveZValue,
                                                       pipingResult.HeaveFactorOfSafety,
                                                       pipingResult.SellmeijerZValue,
-                                                      pipingResult.SellmeijerFactorOfSafety);
+                                                      pipingResult.SellmeijerFactorOfSafety,
+                                                      pipingResult.HeaveGradient,
+                                                      pipingResult.SellmeijerCreepCoefficient,
+                                                      pipingResult.SellmeijerCriticalFall,
+                                                      pipingResult.SellmeijerReducedFall);
             }
             catch (PipingCalculatorException e)
             {

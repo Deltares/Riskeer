@@ -37,15 +37,33 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var foShValue = random.NextDouble();
             var zsValue = random.NextDouble();
             var foSsValue = random.NextDouble();
+            var heaveGradient = random.NextDouble();
+            var sellmeijerCreepCoefficient = random.NextDouble();
+            var sellmeijerCriticalFall = random.NextDouble();
+            var sellmeijerReducedFall = random.NextDouble();
 
-            var actual = new PipingCalculatorResult(zuValue, foSuValue, zhValue, foShValue, zsValue, foSsValue);
+            var actual = new PipingCalculatorResult(
+                zuValue,
+                foSuValue,
+                zhValue,
+                foShValue,
+                zsValue,
+                foSsValue,
+                heaveGradient,
+                sellmeijerCreepCoefficient,
+                sellmeijerCriticalFall,
+                sellmeijerReducedFall);
 
-            Assert.That(actual.UpliftZValue, Is.EqualTo(zuValue));
-            Assert.That(actual.UpliftFactorOfSafety, Is.EqualTo(foSuValue));
-            Assert.That(actual.HeaveZValue, Is.EqualTo(zhValue));
-            Assert.That(actual.HeaveFactorOfSafety, Is.EqualTo(foShValue));
-            Assert.That(actual.SellmeijerZValue, Is.EqualTo(zsValue));
-            Assert.That(actual.SellmeijerFactorOfSafety, Is.EqualTo(foSsValue));
+            Assert.AreEqual(zuValue, actual.UpliftZValue);
+            Assert.AreEqual(foSuValue, actual.UpliftFactorOfSafety);
+            Assert.AreEqual(zhValue, actual.HeaveZValue);
+            Assert.AreEqual(foShValue, actual.HeaveFactorOfSafety);
+            Assert.AreEqual(zsValue, actual.SellmeijerZValue);
+            Assert.AreEqual(foSsValue, actual.SellmeijerFactorOfSafety);
+            Assert.AreEqual(heaveGradient, actual.HeaveGradient);
+            Assert.AreEqual(sellmeijerCreepCoefficient, actual.SellmeijerCreepCoefficient);
+            Assert.AreEqual(sellmeijerCriticalFall, actual.SellmeijerCriticalFall);
+            Assert.AreEqual(sellmeijerReducedFall, actual.SellmeijerReducedFall);
         }
     }
 }

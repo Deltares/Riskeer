@@ -79,8 +79,11 @@ namespace Ringtoets.Piping.KernelWrapper
                 heaveResult.Zh,
                 heaveResult.FoSh,
                 sellmeijerResult.Zp,
-                sellmeijerResult.FoSp
-                );
+                sellmeijerResult.FoSp,
+                heaveResult.Gradient,
+                sellmeijerResult.CreepCoefficient,
+                sellmeijerResult.CriticalFall,
+                sellmeijerResult.ReducedFall);
         }
 
         /// <summary>

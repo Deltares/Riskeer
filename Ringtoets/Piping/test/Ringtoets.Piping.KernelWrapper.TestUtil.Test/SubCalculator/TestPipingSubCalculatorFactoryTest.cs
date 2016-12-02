@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         }
 
         [Test]
-        public void CreatePiezometricHeadAtExitCalculator_Always_LastCreatedPiezometricHeadAtExitSetToReturnValue()
+        public void CreatePiezometricHeadAtExitCalculator_Always_LastCreatedPiezometricHeadAtExitCalculatorSetToReturnValue()
         {
             // Setup
             var factory = new TestPipingSubCalculatorFactory();
@@ -105,6 +105,19 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
 
             // Assert
             Assert.AreSame(factory.LastCreatedPiezometricHeadAtExitCalculator, subCalculator);
+        }
+
+        [Test]
+        public void CreatePipingProfilePropertyCalculator_Always_LastCreatedPipingProfilePropertyCalculatorSetToReturnValue()
+        {
+            // Setup
+            var factory = new TestPipingSubCalculatorFactory();
+
+            // Call
+            var subCalculator = factory.CreatePipingProfilePropertyCalculator();
+
+            // Assert
+            Assert.AreSame(factory.LastCreatedPipingProfilePropertyCalculator, subCalculator);
         }
     }
 }

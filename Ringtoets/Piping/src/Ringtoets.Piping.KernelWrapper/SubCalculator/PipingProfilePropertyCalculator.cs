@@ -20,101 +20,54 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Deltares.WTIPiping;
 
 namespace Ringtoets.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
-    /// Class which wraps a <see cref="Deltares.WTIPiping.HeaveCalculator"/>.
+    /// Class which wraps a <see cref="Deltares.WTIPiping.PipingProfilePropertyCalculator"/>.
     /// </summary>
-    public class HeaveCalculator : IHeaveCalculator
+    public class PipingProfilePropertyCalculator : IPipingProfilePropertyCalculator
     {
-        private readonly Deltares.WTIPiping.HeaveCalculator wrappedCalculator;
+        private readonly Deltares.WTIPiping.PipingProfilePropertyCalculator wrappedCalculator;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HeaveCalculator"/>.
+        /// Creates a new instance of <see cref="PipingProfilePropertyCalculator"/>.
         /// </summary>
-        public HeaveCalculator()
+        public PipingProfilePropertyCalculator()
         {
-            wrappedCalculator = new Deltares.WTIPiping.HeaveCalculator();
+            wrappedCalculator = new Deltares.WTIPiping.PipingProfilePropertyCalculator();
         }
 
-        public double DTotal
-        {
-            set
-            {
-                wrappedCalculator.DTotal = value;
-            }
-        }
-
-        public double HExit
+        public PipingProfile SoilProfile
         {
             set
             {
-                wrappedCalculator.HExit = value;
+                wrappedCalculator.SoilProfile = value;
             }
         }
 
-        public double Ich
+        public PipingSurfaceLine SurfaceLine
         {
             set
             {
-                wrappedCalculator.Ich = value;
+                wrappedCalculator.SurfaceLine = value;
             }
         }
 
-        public double PhiExit
+        public double ExitPointX
         {
             set
             {
-                wrappedCalculator.PhiExit = value;
+                wrappedCalculator.ExitPointX = value;
             }
         }
 
-        public double PhiPolder
-        {
-            set
-            {
-                wrappedCalculator.PhiPolder = value;
-            }
-        }
-
-        public double RExit
-        {
-            set
-            {
-                wrappedCalculator.RExit = value;
-            }
-        }
-
-        public double BottomLevelAquitardAboveExitPointZ
-        {
-            set
-            {
-                 wrappedCalculator.BottomLevelAquitardAboveExitPointZ = value;
-            }
-        }
-
-        public double Gradient
+        public double BottomAquitardLayerAboveExitPointZ
         {
             get
             {
-                return wrappedCalculator.Gradient;
-            }
-        }
-
-        public double Zh
-        {
-            get
-            {
-                return wrappedCalculator.Zh;
-            }
-        }
-
-        public double FoSh
-        {
-            get
-            {
-                return wrappedCalculator.FoSh;
+                return wrappedCalculator.BottomLevelAquitardAboveExitPoint;
             }
         }
 

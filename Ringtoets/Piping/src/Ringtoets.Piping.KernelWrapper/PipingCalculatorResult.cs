@@ -32,6 +32,10 @@ namespace Ringtoets.Piping.KernelWrapper
         private readonly double heaveFactorOfSafety;
         private readonly double sellmeijerZValue;
         private readonly double sellmeijerFactorOfSafety;
+        private readonly double heaveGradient;
+        private readonly double sellmeijerCreepCoefficient;
+        private readonly double sellmeijerCriticalFall;
+        private readonly double sellmeijerReducedFall;
 
         /// <summary>
         /// Constructs a new <see cref="PipingCalculatorResult"/>. The result will hold all the values which were given.
@@ -42,7 +46,21 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <param name="heaveFactorOfSafety">The factory of safety of the Heave sub calculation.</param>
         /// <param name="sellmeijerZValue">The z-value of the Sellmeijer sub calculation.</param>
         /// <param name="sellmeijerFactorOfSafety">The factory of safety of the Sellmeijer sub calculation.</param>
-        public PipingCalculatorResult(double upliftZValue, double upliftFactorOfSafety, double heaveZValue, double heaveFactorOfSafety, double sellmeijerZValue, double sellmeijerFactorOfSafety)
+        /// <param name="heaveGradient">The gradient calculated for the heave sub calculation.</param>
+        /// <param name="sellmeijerCreepCoefficient">The creep coefficient calculated for the Sellmeijer sub calculation.</param>
+        /// <param name="sellmeijerCriticalFall">The critical fall calculated for the Sellmeijer sub calculation.</param>
+        /// <param name="sellmeijerReducedFall">The reduced fall calculated for the Sellmeijer sub calculation.</param>
+        public PipingCalculatorResult(
+            double upliftZValue, 
+            double upliftFactorOfSafety, 
+            double heaveZValue, 
+            double heaveFactorOfSafety, 
+            double sellmeijerZValue,
+            double sellmeijerFactorOfSafety,
+            double heaveGradient,
+            double sellmeijerCreepCoefficient,
+            double sellmeijerCriticalFall,
+            double sellmeijerReducedFall)
         {
             this.upliftZValue = upliftZValue;
             this.upliftFactorOfSafety = upliftFactorOfSafety;
@@ -50,6 +68,10 @@ namespace Ringtoets.Piping.KernelWrapper
             this.heaveFactorOfSafety = heaveFactorOfSafety;
             this.sellmeijerZValue = sellmeijerZValue;
             this.sellmeijerFactorOfSafety = sellmeijerFactorOfSafety;
+            this.heaveGradient = heaveGradient;
+            this.sellmeijerCreepCoefficient = sellmeijerCreepCoefficient;
+            this.sellmeijerCriticalFall = sellmeijerCriticalFall;
+            this.sellmeijerReducedFall = sellmeijerReducedFall;
         }
 
         #region properties
@@ -117,6 +139,50 @@ namespace Ringtoets.Piping.KernelWrapper
             get
             {
                 return sellmeijerFactorOfSafety;
+            }
+        }
+
+        /// <summary>
+        /// The gradient that was calculated for the heave sub calculation.
+        /// </summary>
+        public double HeaveGradient
+        {
+            get
+            {
+                return heaveGradient;
+            }
+        }
+
+        /// <summary>
+        /// The creep coefficient that was calculated for the Sellmeijer sub calculation.
+        /// </summary>
+        public double SellmeijerCreepCoefficient
+        {
+            get
+            {
+                return sellmeijerCreepCoefficient;
+            }
+        }
+
+        /// <summary>
+        /// The critical fall that was calculated for the Sellmeijer sub calculation.
+        /// </summary>
+        public double SellmeijerCriticalFall
+        {
+            get
+            {
+                return sellmeijerCriticalFall;
+            }
+        }
+
+        /// <summary>
+        /// The reduced fall that was calculated for the Sellmeijer sub calculation.
+        /// </summary>
+        public double SellmeijerReducedFall
+        {
+            get
+            {
+                return sellmeijerReducedFall;
             }
         }
 

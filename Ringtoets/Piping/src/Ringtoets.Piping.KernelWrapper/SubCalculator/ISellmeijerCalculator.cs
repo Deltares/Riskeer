@@ -109,6 +109,26 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         double WhitesDragCoefficient { set; }
 
         /// <summary>
+        /// Sets the BottomLevelAquitardAboveExitPointZ property to use in the Sellmeijer calculation.
+        /// </summary>
+        double BottomLevelAquitardAboveExitPointZ { set; }
+
+        /// <summary>
+        /// Gets the CreepCoefficient property of the Sellmeijer calculation. 
+        /// </summary>
+        double CreepCoefficient { get; }
+
+        /// <summary>
+        /// Gets the CriticalFall property of the Sellmeijer calculation. 
+        /// </summary>
+        double CriticalFall { get; }
+
+        /// <summary>
+        /// Gets the ReducedFall property of the Sellmeijer calculation. 
+        /// </summary>
+        double ReducedFall { get; }
+
+        /// <summary>
         /// Gets the Zp property of the Sellmeijer calculation.
         /// </summary>
         double Zp { get; }

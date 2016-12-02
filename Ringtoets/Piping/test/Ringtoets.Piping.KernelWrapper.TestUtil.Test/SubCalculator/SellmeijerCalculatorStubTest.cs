@@ -50,7 +50,11 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             Assert.AreEqual(0, stub.SeepageLength);
             Assert.AreEqual(0, stub.VolumetricWeightOfWater);
             Assert.AreEqual(0, stub.WhitesDragCoefficient);
+            Assert.AreEqual(0, stub.BottomLevelAquitardAboveExitPointZ);
 
+            Assert.AreEqual(0, stub.CreepCoefficient);
+            Assert.AreEqual(0, stub.CriticalFall);
+            Assert.AreEqual(0, stub.ReducedFall);
             Assert.AreEqual(0, stub.FoSp);
             Assert.AreEqual(0, stub.Zp);
         }

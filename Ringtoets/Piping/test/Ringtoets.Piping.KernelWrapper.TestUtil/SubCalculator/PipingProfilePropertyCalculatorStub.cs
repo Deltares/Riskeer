@@ -19,19 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Piping.Data;
+using System.Collections.Generic;
+using Deltares.WTIPiping;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
-namespace Ringtoets.Piping.KernelWrapper.TestUtil
+namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
 {
     /// <summary>
-    /// A <see cref="PipingOutput"/> configured to be used immediately for testing purposes.
+    /// Stub for the real piping profile property calculator.
     /// </summary>
-    /// <seealso cref="Ringtoets.Piping.Data.PipingOutput" />
-    public class TestPipingOutput : PipingOutput
+    public class PipingProfilePropertyCalculatorStub : IPipingProfilePropertyCalculator
     {
-        /// <summary>
-        /// Creates a new instance of the <see cref="TestPipingOutput"/> class.
-        /// </summary>
-        public TestPipingOutput() : base(0, 0, 0, 0, 0, 0, 0, 0, 0, 0) {}
+        public PipingProfile SoilProfile { get; set; }
+        public PipingSurfaceLine SurfaceLine { get; set; }
+        public double ExitPointX { get; set; }
+        public double BottomAquitardLayerAboveExitPointZ { get; private set; }
+
+        public void Calculate() {}
+
+        public List<string> Validate()
+        {
+            return new List<string>();
+        }
     }
 }

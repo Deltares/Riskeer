@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.TestUtil
@@ -61,13 +62,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 random.NextDouble(),
                 random.NextDouble());
 
-            scenario.Output = new PipingOutput(
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble());
+            scenario.Output = new TestPipingOutput();
 
             return scenario;
         }
