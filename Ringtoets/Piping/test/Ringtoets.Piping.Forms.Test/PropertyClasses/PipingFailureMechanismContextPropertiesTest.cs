@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PropertyDescriptor volumicWeightOfWaterProperty = dynamicProperties[2];
             Assert.IsNotNull(volumicWeightOfWaterProperty);
-            Assert.IsTrue(volumicWeightOfWaterProperty.IsReadOnly);
+            Assert.IsFalse(volumicWeightOfWaterProperty.IsReadOnly);
             Assert.AreEqual(generalCategory, volumicWeightOfWaterProperty.Category);
             Assert.AreEqual("Volumiek gewicht van water [kN/m³]", volumicWeightOfWaterProperty.DisplayName);
             Assert.AreEqual("Volumiek gewicht van water.", volumicWeightOfWaterProperty.Description);
@@ -273,6 +273,33 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WaterVolumetricWeight_SetValue_SetsValueAndUpdatesObservers()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var properties = new PipingFailureMechanismContextProperties
+            {
+                Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>())
+            };
+
+            failureMechanism.Attach(observerMock);
+
+            const double newValue = 5;
+
+            // Call            
+            properties.WaterVolumetricWeight = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, failureMechanism.GeneralInput.WaterVolumetricWeight);
             mocks.VerifyAll();
         }
     }

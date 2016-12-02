@@ -85,6 +85,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return data.WrappedData.GeneralInput.WaterVolumetricWeight;
             }
+            set
+            {
+                data.WrappedData.GeneralInput.WaterVolumetricWeight = value;
+                data.WrappedData.NotifyObservers();
+            }
         }
 
         #endregion

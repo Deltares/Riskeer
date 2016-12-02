@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Data
         /// Gets the volumetric weight of water.
         /// [kN/m³]
         /// </summary>
-        public double WaterVolumetricWeight { get; private set; }
+        public double WaterVolumetricWeight { get; set; }
 
         #endregion
 
