@@ -53,10 +53,11 @@ namespace Ringtoets.Integration.Forms.Views
 
             assessmentSectionObserver = new Observer(() =>
             {
-                if (hydraulicBoundaryDatabaseObserver.Observable == null && data.HydraulicBoundaryDatabase != null)
+                if (!ReferenceEquals(hydraulicBoundaryDatabaseObserver.Observable, data.HydraulicBoundaryDatabase))
                 {
                     hydraulicBoundaryDatabaseObserver.Observable = data.HydraulicBoundaryDatabase;
                 }
+
                 UpdateMapData();
             });
             hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);

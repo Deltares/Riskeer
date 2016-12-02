@@ -62,10 +62,11 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(() =>
             {
-                if (hydraulicBoundaryDatabaseObserver.Observable == null && data.Parent.HydraulicBoundaryDatabase != null)
+                if (!ReferenceEquals(hydraulicBoundaryDatabaseObserver.Observable, data.Parent.HydraulicBoundaryDatabase))
                 {
                     hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
                 }
+
                 UpdateMapData();
             });
             hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);

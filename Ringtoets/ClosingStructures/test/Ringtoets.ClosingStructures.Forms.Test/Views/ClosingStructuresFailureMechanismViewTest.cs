@@ -342,6 +342,52 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
+        public void GivenAssessmentSectionWithHydraulicBoundaryDatabase_WhenNewDatabaseIsSetAndNotified_ThenMapDataUpdated()
+        {
+            // Given
+            using (var view = new ClosingStructuresFailureMechanismView())
+            {
+                var map = (MapControl) view.Controls[0];
+
+                var currentHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "old 1", 1, 2)
+                    }
+                };
+                var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "new 1", 1, 2)
+                    }
+                };
+
+                var assessmentSection = new TestAssessmentSection
+                {
+                    HydraulicBoundaryDatabase = currentHydraulicBoundaryDatabase
+                };
+
+                view.Data = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
+
+                var hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(currentHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+
+                // When
+                assessmentSection.HydraulicBoundaryDatabase = newHydraulicBoundaryDatabase;
+                assessmentSection.NotifyObservers();
+                newHydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "new 2", 2, 3));
+                newHydraulicBoundaryDatabase.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+            }
+        }
+
+        [Test]
         public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
         {
             // Setup
@@ -817,8 +863,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 {
                     calculation.InputParameters.Structure.Location,
                     calculation.InputParameters.HydraulicBoundaryLocation.Location
-                },
-                geometries[0].PointCollections.First());
+                }, geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
         }

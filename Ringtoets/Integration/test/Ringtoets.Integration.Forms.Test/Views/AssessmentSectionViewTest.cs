@@ -213,7 +213,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenChangedHydraulicBoundaryDatabase_WhenObserversNotified_MapDataUpdated()
+        public void GivenChangedHydraulicBoundaryDatabase_WhenHydraulicBoundaryDatabaseObserversNotified_MapDataUpdated()
         {
             // Given
             using (var view = new AssessmentSectionView())
@@ -231,10 +231,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
 
                 assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+                assessmentSection.NotifyObservers();
 
                 // When
-                assessmentSection.NotifyObservers();
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "new 2", 2, 3));
+                assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
 
                 // Then
                 AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
