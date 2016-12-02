@@ -35,7 +35,7 @@ namespace Core.Components.DotSpatial.Converter
     /// <summary>
     /// The converter that converts <see cref="MapLineData"/> into a <see cref="MapLineLayer"/>.
     /// </summary>
-    public class MapLineDataConverter : MapDataConverter<MapLineData, MapLineLayer>
+    public class MapLineDataConverter : FeatureBasedMapDataConverter<MapLineData, MapLineLayer>
     {
         protected override IMapFeatureLayer Convert(MapLineData data)
         {

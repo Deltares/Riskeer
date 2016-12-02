@@ -28,14 +28,14 @@ namespace Core.Components.DotSpatial.Converter
     /// <summary>
     /// The interface for a converter which converts <see cref="MapData"/> into <see cref="IMapFeatureLayer"/>.
     /// </summary>
-    public interface IMapDataConverter
+    public interface IFeatureBasedMapDataConverter
     {
         /// <summary>
-        /// Checks whether the <see cref="IMapDataConverter"/> can convert the <paramref name="data"/>.
+        /// Checks whether the <see cref="IFeatureBasedMapDataConverter"/> can convert the <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The <see cref="MapData"/> to check for.</param>
         /// <returns><c>true</c> if the <paramref name="data"/> can be converted by the
-        /// <see cref="IMapDataConverter"/>, <c>false</c> otherwise.</returns>
+        /// <see cref="IFeatureBasedMapDataConverter"/>, <c>false</c> otherwise.</returns>
         bool CanConvertMapData(MapData data);
 
         /// <summary>

@@ -33,7 +33,7 @@ namespace Core.Components.DotSpatial.Converter
     /// <summary>
     /// The converter that converts <see cref="MapPolygonData"/> into a <see cref="MapPolygonLayer"/>.
     /// </summary>
-    public class MapPolygonDataConverter : MapDataConverter<MapPolygonData, MapPolygonLayer>
+    public class MapPolygonDataConverter : FeatureBasedMapDataConverter<MapPolygonData, MapPolygonLayer>
     {
         protected override IMapFeatureLayer Convert(MapPolygonData data)
         {

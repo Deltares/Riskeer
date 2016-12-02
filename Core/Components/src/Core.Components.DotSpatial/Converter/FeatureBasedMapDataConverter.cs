@@ -39,7 +39,7 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     /// <typeparam name="TMapData">The type of map data to convert.</typeparam>
     /// <typeparam name="TMapFeatureLayer">The type of map feature layer to set the converted data to.</typeparam>
-    public abstract class MapDataConverter<TMapData, TMapFeatureLayer> : IMapDataConverter
+    public abstract class FeatureBasedMapDataConverter<TMapData, TMapFeatureLayer> : IFeatureBasedMapDataConverter
         where TMapData : MapData
         where TMapFeatureLayer : IMapFeatureLayer
     {
@@ -51,9 +51,9 @@ namespace Core.Components.DotSpatial.Converter
         private readonly Dictionary<string, string> columnLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MapDataConverter{TMapData, TMapFeatureLayer}"/>
+        /// Creates a new instance of <see cref="FeatureBasedMapDataConverter{TMapData,TMapFeatureLayer}"/>
         /// </summary>
-        protected MapDataConverter()
+        protected FeatureBasedMapDataConverter()
         {
             columnLookup = new Dictionary<string, string>();
         }

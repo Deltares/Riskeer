@@ -40,14 +40,14 @@ namespace Core.Components.DotSpatial.Converter
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
         public static IMapFeatureLayer Create(MapData data)
         {
-            var converters = new Collection<IMapDataConverter>
+            var converters = new Collection<IFeatureBasedMapDataConverter>
             {
                 new MapPointDataConverter(),
                 new MapLineDataConverter(),
                 new MapPolygonDataConverter()
             };
 
-            foreach (IMapDataConverter converter in converters.Where(c => c.CanConvertMapData(data)))
+            foreach (IFeatureBasedMapDataConverter converter in converters.Where(c => c.CanConvertMapData(data)))
             {
                 return converter.Convert(data);
             }
@@ -63,7 +63,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
         public static void ConvertLayerFeatures(MapData data, IMapFeatureLayer layer)
         {
-            var converter = GetMapDataConverter(data);
+            var converter = GetFeatureBasedMapDataConverter(data);
             if (converter != null)
             {
                 converter.ConvertLayerFeatures(data, layer);
@@ -82,7 +82,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="layer">The layer to convert the general properties to.</param>
         public static void ConvertLayerProperties(MapData data, IMapFeatureLayer layer)
         {
-            var converter = GetMapDataConverter(data);
+            var converter = GetFeatureBasedMapDataConverter(data);
             if (converter != null)
             {
                 converter.ConvertLayerProperties(data, layer);
@@ -93,9 +93,9 @@ namespace Core.Components.DotSpatial.Converter
             }
         }
 
-        private static IMapDataConverter GetMapDataConverter(MapData data)
+        private static IFeatureBasedMapDataConverter GetFeatureBasedMapDataConverter(MapData data)
         {
-            return new Collection<IMapDataConverter>
+            return new Collection<IFeatureBasedMapDataConverter>
             {
                 new MapPointDataConverter(),
                 new MapLineDataConverter(),

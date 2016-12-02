@@ -33,7 +33,7 @@ namespace Core.Components.DotSpatial.Converter
     /// <summary>
     /// The converter that converts <see cref="MapPointData"/> into a <see cref="MapPointLayer"/>.
     /// </summary>
-    public class MapPointDataConverter : MapDataConverter<MapPointData, MapPointLayer>
+    public class MapPointDataConverter : FeatureBasedMapDataConverter<MapPointData, MapPointLayer>
     {
         protected override IMapFeatureLayer Convert(MapPointData data)
         {

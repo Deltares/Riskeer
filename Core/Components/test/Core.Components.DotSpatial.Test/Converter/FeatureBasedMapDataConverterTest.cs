@@ -30,13 +30,13 @@ using NUnit.Framework;
 namespace Core.Components.DotSpatial.Test.Converter
 {
     [TestFixture]
-    public class MapDataConverterTest
+    public class FeatureBasedMapDataConverterTest
     {
         [Test]
         public void CanConvertMapData_DifferentInheritingTypes_OnlySupportsExactType()
         {
             // Setup
-            var testConverter = new TestMapDataConverter<Class>();
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
 
             // Call
             var mapDataResult = testConverter.CanConvertMapData(new TestMapData("test data"));
@@ -53,7 +53,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Convert_DataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var testConverter = new TestMapDataConverter<Class>();
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
 
             // Call
             TestDelegate test = () => testConverter.Convert(null);
@@ -67,7 +67,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Convert_DataCannotBeConverted_ThrowsArgumentException()
         {
             // Setup
-            var testConverter = new TestMapDataConverter<Class>();
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
             var testMapData = new TestMapData("test data");
 
             // Precondition
@@ -85,7 +85,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Convert_DataCanBeConverted_ReturnsResult()
         {
             // Setup
-            var testConverter = new TestMapDataConverter<TestMapData>();
+            var testConverter = new TestFeatureBasedMapDataConverter<TestMapData>();
             var testMapData = new TestMapData("test data");
 
             // Precondition
@@ -108,7 +108,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             public Child(string name) : base(name) {}
         }
 
-        private class TestMapDataConverter<TMapData> : MapDataConverter<TMapData, MapPointLayer>
+        private class TestFeatureBasedMapDataConverter<TMapData> : FeatureBasedMapDataConverter<TMapData, MapPointLayer>
             where TMapData : MapData
         {
             protected override void ConvertLayerFeatures(TMapData data, MapPointLayer layer)

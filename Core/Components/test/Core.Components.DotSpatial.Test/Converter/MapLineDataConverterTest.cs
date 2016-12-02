@@ -52,7 +52,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapLineDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<MapDataConverter<MapLineData, MapLineLayer>>(converter);
+            Assert.IsInstanceOf<FeatureBasedMapDataConverter<MapLineData, MapLineLayer>>(converter);
         }
 
         [Test]
