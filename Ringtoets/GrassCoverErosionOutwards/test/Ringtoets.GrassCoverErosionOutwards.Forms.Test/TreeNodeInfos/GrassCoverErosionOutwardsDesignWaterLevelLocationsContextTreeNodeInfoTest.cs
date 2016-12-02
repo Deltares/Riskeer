@@ -374,10 +374,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         Assert.AreEqual(assessmentSectionStub.Id, testDesignWaterLevelCalculator.RingId);
 
                         Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        var expectedReturnPeriod = 1.0/assessmentSectionStub.FailureMechanismContribution.Norm/
+                        var expectedProbability = 1.0/assessmentSectionStub.FailureMechanismContribution.Norm/
                                                    (failureMechanism.Contribution/100)*
                                                    failureMechanism.GeneralInput.N;
-                        Assert.AreEqual(StatisticsConverter.ReturnPeriodToReliability(expectedReturnPeriod), designWaterLevelCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
                     }
                 }
             }

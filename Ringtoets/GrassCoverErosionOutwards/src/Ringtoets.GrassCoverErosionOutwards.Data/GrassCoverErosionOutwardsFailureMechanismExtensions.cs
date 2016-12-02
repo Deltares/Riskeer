@@ -63,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <returns>The value of the failure mechanism return period.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="failureMechanism"/> has no (0) contribution.</exception>
-        public static double GetMechanismSpecificReturnPeriod(this GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public static double GetMechanismSpecificNorm(this GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {

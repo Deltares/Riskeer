@@ -74,14 +74,14 @@ namespace Ringtoets.Common.Service
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location used in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="ringId">The id of the assessment section.</param>
-        /// <param name="returnPeriod">The return period of the assessment section.</param>
+        /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                               string hydraulicBoundaryDatabaseFilePath,
                               string ringId,
-                              double returnPeriod,
+                              double norm,
                               ICalculationMessageProvider messageProvider)
         {
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
@@ -95,13 +95,13 @@ namespace Ringtoets.Common.Service
 
             try
             {
-                calculator.Calculate(CreateInput(hydraulicBoundaryLocation, returnPeriod, hydraulicBoundaryDatabaseFilePath));
+                calculator.Calculate(CreateInput(hydraulicBoundaryLocation, norm, hydraulicBoundaryDatabaseFilePath));
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
                     hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)calculator.DesignWaterLevel;
                     hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence =
-                        RingtoetsCommonDataCalculationService.CalculationConverged(calculator.ReliabilityIndex, returnPeriod);
+                        RingtoetsCommonDataCalculationService.CalculationConverged(calculator.ReliabilityIndex, norm);
 
                     if (hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence != CalculationConvergence.CalculatedConverged)
                     {

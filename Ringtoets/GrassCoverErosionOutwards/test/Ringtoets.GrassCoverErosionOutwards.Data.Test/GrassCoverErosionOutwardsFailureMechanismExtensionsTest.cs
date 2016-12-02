@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.GetMechanismSpecificReturnPeriod(null);
+            TestDelegate test = () => failureMechanism.GetMechanismSpecificNorm(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -122,7 +122,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            double mechanismSpecificReturnPeriod = failureMechanism.GetMechanismSpecificReturnPeriod(assessmentSection);
+            double mechanismSpecificReturnPeriod = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
 
             // Assert
             Assert.AreEqual(6000, mechanismSpecificReturnPeriod);
@@ -150,7 +150,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate action = () => failureMechanism.GetMechanismSpecificReturnPeriod(assessmentSection);
+            TestDelegate action = () => failureMechanism.GetMechanismSpecificNorm(assessmentSection);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");

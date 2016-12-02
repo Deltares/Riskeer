@@ -38,8 +38,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            var returnPeriod = 10000;
-            int hydraulicBoundaryLocationId = 1000;
+            const double norm = 1.0/10000;
+            const int hydraulicBoundaryLocationId = 1000;
             HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
 
             const double modelFactorCriticalOvertopping = 1.1;
@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             var expectedRingBreakWater = new HydraRingBreakWater(2, 3.3);
 
             // Call
-            var input = new HydraulicLoadsCalculationInputImplementation(hydraulicBoundaryLocationId, returnPeriod, section,
+            var input = new HydraulicLoadsCalculationInputImplementation(hydraulicBoundaryLocationId, norm, section,
                                                                          expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
                                                                          modelFactorCriticalOvertopping,
                                                                          factorFbMean, factorFbStandardDeviation,
@@ -73,7 +73,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
                                                                          exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation);
 
             // Assert
-            double expectedBeta = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+            double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
             Assert.IsInstanceOf<ReliabilityIndexCalculationInput>(input);
             Assert.AreEqual(9, input.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
@@ -98,7 +98,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
 
             // Call
-            var input = new HydraulicLoadsCalculationInputImplementation(1, 1000, section,
+            var input = new HydraulicLoadsCalculationInputImplementation(1, 1.0/1000, section,
                                                                          new List<HydraRingRoughnessProfilePoint>(),
                                                                          new List<HydraRingForelandPoint>(),
                                                                          new HydraRingBreakWater(0, 1.1),
@@ -120,7 +120,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
 
         private class HydraulicLoadsCalculationInputImplementation : HydraulicLoadsCalculationInput
         {
-            public HydraulicLoadsCalculationInputImplementation(long hydraulicBoundaryLocationId, double returnPeriod,
+            public HydraulicLoadsCalculationInputImplementation(long hydraulicBoundaryLocationId, double norm,
                                                                 HydraRingSection section,
                                                                 IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
                                                                 IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -131,7 +131,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
                                                                 double modelFactorOvertopping,
                                                                 double modelFactorFrunupMean, double modelFactorFrunupStandardDeviation,
                                                                 double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation)
-                : base(hydraulicBoundaryLocationId, returnPeriod,
+                : base(hydraulicBoundaryLocationId, norm,
                        section,
                        profilePoints,
                        forelandPoints,

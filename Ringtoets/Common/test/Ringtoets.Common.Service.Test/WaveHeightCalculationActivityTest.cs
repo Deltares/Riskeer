@@ -154,7 +154,7 @@ namespace Ringtoets.Common.Service.Test
             const string activityName = "GetActivityName";
             const string calculationName = "locationName";
             const string ringId = "11-1";
-            const double returnPeriod = 30;
+            const double norm = 1.0/30;
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
             {
@@ -169,12 +169,12 @@ namespace Ringtoets.Common.Service.Test
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
                                                              validFilePath,
                                                              ringId,
-                                                             returnPeriod, calculationMessageProviderMock);
+                                                             norm, calculationMessageProviderMock);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var testWaveHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
-                testWaveHeightCalculator.ReliabilityIndex = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+                testWaveHeightCalculator.ReliabilityIndex = StatisticsConverter.ProbabilityToReliability(norm);
 
                 // Call
                 Action call = () => activity.Run();
@@ -195,7 +195,7 @@ namespace Ringtoets.Common.Service.Test
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(testDataPath, testWaveHeightCalculator.HydraulicBoundaryDatabaseDirectory);
                 Assert.AreEqual(ringId, testWaveHeightCalculator.RingId);
-                Assert.AreEqual(StatisticsConverter.ReturnPeriodToReliability(returnPeriod), waveHeightCalculationInput.Beta);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
             }
             Assert.AreEqual(ActivityState.Executed, activity.State);
             mockRepository.VerifyAll();
@@ -253,20 +253,20 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
-            var returnPeriod = 30;
+            const double norm = 1.0/30;
             double expectedWaveHeight = 3.5;
 
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
                                                              validFilePath,
                                                              string.Empty,
-                                                             returnPeriod,
+                                                             norm,
                                                              calculationMessageProviderMock);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var testWaveHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 testWaveHeightCalculator.WaveHeight = expectedWaveHeight;
-                testWaveHeightCalculator.ReliabilityIndex = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+                testWaveHeightCalculator.ReliabilityIndex = StatisticsConverter.ProbabilityToReliability(norm);
 
                 // Call
                 activity.Run();

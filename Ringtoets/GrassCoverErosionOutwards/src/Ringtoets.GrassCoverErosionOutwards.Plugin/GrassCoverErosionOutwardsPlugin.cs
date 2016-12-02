@@ -880,7 +880,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             var mechanismSpecificReturnPeriod = double.NaN;
             try
             {
-                mechanismSpecificReturnPeriod = failureMechanism.GetMechanismSpecificReturnPeriod(assessmentSection);
+                mechanismSpecificReturnPeriod = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
             }
             catch (ArgumentException e)
             {

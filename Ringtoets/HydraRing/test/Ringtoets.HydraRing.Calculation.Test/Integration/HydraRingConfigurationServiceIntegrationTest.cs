@@ -46,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
 
-            hydraRingConfigurationService.AddHydraRingCalculationInput(new AssessmentLevelCalculationInput(1, 700004, 10000)
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new AssessmentLevelCalculationInput(1, 700004, 1.0/10000)
             {
                 DesignTablesSetting = new DesignTablesSetting(1.1, 2.2),
                 NumericsSettings = new Dictionary<int, NumericsSetting>
@@ -131,7 +131,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
 
-            hydraRingConfigurationService.AddHydraRingCalculationInput(new WaveHeightCalculationInput(1, 700004, 10000)
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new WaveHeightCalculationInput(1, 700004, 1.0/10000)
             {
                 DesignTablesSetting = new DesignTablesSetting(1.1, 2.2),
                 NumericsSettings = new Dictionary<int, NumericsSetting>
@@ -358,7 +358,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const int hydraulicBoundaryLocationId = 700004;
 
             var section = new HydraRingSection(1, 2.2, 3.3);
-            const double returnPeriod = 1000;
+            const double norm = 1.0/1000;
             const double modelFactorCriticalOvertopping = 4.4;
             const double factorFbMean = 5.5;
             const double factorFbStandardDeviation = 6.6;
@@ -383,7 +383,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
-                new DikeHeightCalculationInput(hydraulicBoundaryLocationId, returnPeriod, section,
+                new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, section,
                                                profilePoints, forelandPoints, breakWater,
                                                modelFactorCriticalOvertopping,
                                                factorFbMean, factorFbStandardDeviation,
@@ -496,7 +496,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const int hydraulicBoundaryLocationId = 700004;
 
             var section = new HydraRingSection(1, 2.2, 3.3);
-            const double returnPeriod = 1000;
+            const double norm = 1.0/1000;
             const double dikeHeight = 4.4;
             const double modelFactorCriticalOvertopping = 5.5;
             const double factorFbMean = 6.6;
@@ -520,15 +520,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
-                new OvertoppingRateCalculationInput(hydraulicBoundaryLocationId, returnPeriod, section,
-                                               profilePoints, forelandPoints, breakWater,
-                                               dikeHeight,
-                                               modelFactorCriticalOvertopping,
-                                               factorFbMean, factorFbStandardDeviation,
-                                               factorFnMean, factorFnStandardDeviation,
-                                               modelFactorOvertopping,
-                                               modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
-                                               exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation)
+                new OvertoppingRateCalculationInput(hydraulicBoundaryLocationId, norm, section,
+                                                    profilePoints, forelandPoints, breakWater,
+                                                    dikeHeight,
+                                                    modelFactorCriticalOvertopping,
+                                                    factorFbMean, factorFbStandardDeviation,
+                                                    factorFnMean, factorFnStandardDeviation,
+                                                    modelFactorOvertopping,
+                                                    modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
+                                                    exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation)
                 {
                     DesignTablesSetting = new DesignTablesSetting(15.15, 16.16),
                     NumericsSettings = new Dictionary<int, NumericsSetting>
@@ -803,7 +803,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 new WaveConditionsCosineCalculationInput(1,
                                                          56.23,
                                                          hydraulicBoundaryLocationId,
-                                                         10000,
+                                                         1.0/10000,
                                                          forelandPoints,
                                                          breakWater,
                                                          3.3,
@@ -913,7 +913,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 new WaveConditionsTrapezoidCalculationInput(1,
                                                             86.48,
                                                             hydraulicBoundaryLocationId,
-                                                            10000,
+                                                            1.0/10000,
                                                             forelandPoints,
                                                             breakWater,
                                                             3.3,
@@ -2004,7 +2004,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
 
-            hydraRingConfigurationService.AddHydraRingCalculationInput(new DunesBoundaryConditionsCalculationInput(1, 700004, 10000)
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new DunesBoundaryConditionsCalculationInput(1, 700004, 1.0/10000)
             {
                 DesignTablesSetting = new DesignTablesSetting(1.1, 2.2),
                 NumericsSettings = new Dictionary<int, NumericsSetting>

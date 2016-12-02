@@ -35,11 +35,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         /// Creates a new instance of the <see cref="ReliabilityIndexCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location to use during the calculation.</param>
-        /// <param name="returnPeriod">The return period to use during the calculation.</param>
-        /// <remarks>As a part of the constructor, the <paramref name="returnPeriod"/> is automatically converted into a reliability index.</remarks>
-        protected ReliabilityIndexCalculationInput(long hydraulicBoundaryLocationId, double returnPeriod) : base(hydraulicBoundaryLocationId)
+        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
+        protected ReliabilityIndexCalculationInput(long hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId)
         {
-            beta = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+            beta = StatisticsConverter.ProbabilityToReliability(norm);
         }
 
         public override int CalculationTypeId

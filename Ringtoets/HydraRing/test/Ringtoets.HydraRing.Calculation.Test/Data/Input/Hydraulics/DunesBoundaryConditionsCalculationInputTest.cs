@@ -34,15 +34,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const int returnPeriod = 10000;
+            const double norm = 1.0/10000;
             const int sectionId = 1;
             const long hydraulicBoundaryLocationId = 1234;
 
             // Call
-            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(sectionId, hydraulicBoundaryLocationId, returnPeriod);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(sectionId, hydraulicBoundaryLocationId, norm);
 
             // Assert
-            double expectedBeta = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+            double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
             Assert.IsInstanceOf<AssessmentLevelCalculationInput>(dunesBoundaryConditionsCalculationInput);
             Assert.AreEqual(HydraRingFailureMechanismType.DunesBoundaryConditions, dunesBoundaryConditionsCalculationInput.FailureMechanismType);
             Assert.AreEqual(2, dunesBoundaryConditionsCalculationInput.CalculationTypeId);

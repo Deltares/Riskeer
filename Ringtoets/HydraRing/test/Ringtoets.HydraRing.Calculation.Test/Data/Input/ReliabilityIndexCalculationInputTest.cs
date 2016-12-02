@@ -31,18 +31,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
     public class ReliabilityIndexCalculationInputTest
     {
         [Test]
-        [TestCase(2, 10000)]
-        [TestCase(-50, 1)]
-        [TestCase(0, -90)]
+        [TestCase(2, 1.0/10000)]
+        [TestCase(-50, 1.0 / 1)]
+        [TestCase(0, 1.0 / -90)]
         [TestCase(200000, double.NaN)]
-        public void Constructed_UsingDifferentReturnPeriodAndLocationId_ReturnDifferentBetaAndDefaultValues(int locationId, double returnPeriod)
+        public void Constructed_UsingDifferentReturnPeriodAndLocationId_ReturnDifferentBetaAndDefaultValues(int locationId, double norm)
         {
             // Call
-            var reliabilityIndexCalculationInput = new SimpleReliabilityIndexCalculationInput(locationId, returnPeriod);
+            var reliabilityIndexCalculationInput = new SimpleReliabilityIndexCalculationInput(locationId, norm);
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculationInput>(reliabilityIndexCalculationInput);
-            double expectedBeta = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+            double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
             Assert.AreEqual(locationId, reliabilityIndexCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(9, reliabilityIndexCalculationInput.CalculationTypeId);
             CollectionAssert.IsEmpty(reliabilityIndexCalculationInput.Variables);
@@ -54,8 +54,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
 
         private class SimpleReliabilityIndexCalculationInput : ReliabilityIndexCalculationInput
         {
-            public SimpleReliabilityIndexCalculationInput(int i, double returnPeriod)
-                : base(i, returnPeriod) {}
+            public SimpleReliabilityIndexCalculationInput(int i, double norm)
+                : base(i, norm) {}
 
             public override HydraRingFailureMechanismType FailureMechanismType
             {

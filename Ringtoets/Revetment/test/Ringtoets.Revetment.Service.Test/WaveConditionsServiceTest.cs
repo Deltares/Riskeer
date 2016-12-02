@@ -56,12 +56,12 @@ namespace Ringtoets.Revetment.Service.Test
         public void CalculationConverged_WithConvergedResults_CalculationConvergedTrue()
         {
             // Setup
-            double returnPeriod = 1.0e3;
-            double calculatedReliability = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+            const double norm = 0.001;
+            double calculatedReliability = StatisticsConverter.ProbabilityToReliability(norm);
 
             // Call
             WaveConditionsOutput output = WaveConditionsService.Calculate(double.NaN, double.NaN, double.NaN, double.NaN,
-                                                                          double.NaN, returnPeriod, calculatedReliability);
+                                                                          double.NaN, norm, calculatedReliability);
 
             // Assert
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, output.CalculationConvergence);

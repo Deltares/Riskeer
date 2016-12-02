@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             const int sectionId = 111;
             const double sectionNormal = 90;
             const int hydraulicBoundaryLocationId = 222;
-            const int returnPeriod = 333;
+            const double norm = 0.333;
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
             var breakWater = new HydraRingBreakWater(1, 4.4);
 
@@ -52,7 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             var waveConditionsCosineCalculationInput = new WaveConditionsCosineCalculationInput(sectionId,
                                                                                                 sectionNormal,
                                                                                                 hydraulicBoundaryLocationId,
-                                                                                                returnPeriod,
+                                                                                                norm,
                                                                                                 forelandPoints,
                                                                                                 breakWater,
                                                                                                 waterLevel,
@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
                                                                                                 c);
 
             // Assert
-            double expectedBeta = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+            double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
             Assert.IsInstanceOf<WaveConditionsCalculationInput>(waveConditionsCosineCalculationInput);
             Assert.AreEqual(HydraRingFailureMechanismType.QVariant, waveConditionsCosineCalculationInput.FailureMechanismType);
             Assert.AreEqual(8, waveConditionsCosineCalculationInput.CalculationTypeId);

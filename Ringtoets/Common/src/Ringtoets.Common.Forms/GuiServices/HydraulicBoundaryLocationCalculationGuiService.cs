@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.GuiServices
 
         public bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabasePath,
                                                IEnumerable<HydraulicBoundaryLocation> locations,
-                                               string ringId, double returnPeriod,
+                                               string ringId, double norm,
                                                ICalculationMessageProvider messageProvider)
         {
             if (messageProvider == null)
@@ -74,13 +74,13 @@ namespace Ringtoets.Common.Forms.GuiServices
             var activities = locations.Select(location => new DesignWaterLevelCalculationActivity(location,
                                                                                                   hydraulicBoundaryDatabasePath,
                                                                                                   ringId,
-                                                                                                  returnPeriod, messageProvider)).ToArray();
+                                                                                                  norm, messageProvider)).ToArray();
             return RunActivities(hydraulicBoundaryDatabasePath, activities);
         }
 
         public bool CalculateWaveHeights(string hydraulicBoundaryDatabasePath,
                                          IEnumerable<HydraulicBoundaryLocation> locations,
-                                         string ringId, double returnPeriod,
+                                         string ringId, double norm,
                                          ICalculationMessageProvider messageProvider)
         {
             if (messageProvider == null)
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.GuiServices
             var activities = locations.Select(location => new WaveHeightCalculationActivity(location,
                                                                                             hydraulicBoundaryDatabasePath,
                                                                                             ringId,
-                                                                                            returnPeriod, messageProvider)).ToArray();
+                                                                                            norm, messageProvider)).ToArray();
             return RunActivities(hydraulicBoundaryDatabasePath, activities);
         }
 

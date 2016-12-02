@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             const int sectionId = 111;
             const double sectionNormal = 90;
             const int hydraulicBoundaryLocationId = 222;
-            const int returnPeriod = 333;
+            const double norm = 1.0/333;
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
             var breakWater = new HydraRingBreakWater(1, 4.4);
             const double waterLevel = 5.5;
@@ -52,7 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             var waveConditionsTrapezoidCalculationInput = new WaveConditionsTrapezoidCalculationInput(sectionId,
                                                                                                       sectionNormal,
                                                                                                       hydraulicBoundaryLocationId,
-                                                                                                      returnPeriod,
+                                                                                                      norm,
                                                                                                       forelandPoints,
                                                                                                       breakWater,
                                                                                                       waterLevel,
@@ -62,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
                                                                                                       beta2);
 
             // Assert
-            double expectedBeta = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+            double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
             Assert.IsInstanceOf<WaveConditionsCalculationInput>(waveConditionsTrapezoidCalculationInput);
             Assert.AreEqual(HydraRingFailureMechanismType.QVariant, waveConditionsTrapezoidCalculationInput.FailureMechanismType);
             Assert.AreEqual(8, waveConditionsTrapezoidCalculationInput.CalculationTypeId);
@@ -87,7 +87,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             var waveConditionsTrapezoidCalculationInput = new WaveConditionsTrapezoidCalculationInput(111,
                                                                                                       1.1,
                                                                                                       222,
-                                                                                                      333,
+                                                                                                      0.3333,
                                                                                                       Enumerable.Empty<HydraRingForelandPoint>(),
                                                                                                       new HydraRingBreakWater(1, 4.4),
                                                                                                       5.5,

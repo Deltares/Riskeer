@@ -35,9 +35,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// </summary>
         /// <param name="sectionId">The id of the section.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="returnPeriod">The return period.</param>
-        public AssessmentLevelCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double returnPeriod)
-            : base(hydraulicBoundaryLocationId, returnPeriod)
+        /// <param name="norm">The norm.</param>
+        public AssessmentLevelCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm)
+            : base(hydraulicBoundaryLocationId, norm)
         {
             section = new HydraRingSection(sectionId, double.NaN, double.NaN);
         }

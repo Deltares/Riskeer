@@ -171,7 +171,7 @@ namespace Ringtoets.Common.Service.Test
             const string activityName = "GetActivityName";
             const string calculationName = "locationName";
             const string ringId = "11-1";
-            const double returnPeriod = 30;
+            const double norm = 1.0/30;
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
             {
@@ -186,13 +186,13 @@ namespace Ringtoets.Common.Service.Test
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
                                                                    ringId,
-                                                                   returnPeriod,
+                                                                   norm,
                                                                    calculationMessageProviderMock);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
-                testDesignWaterLevelCalculator.ReliabilityIndex = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+                testDesignWaterLevelCalculator.ReliabilityIndex = StatisticsConverter.ProbabilityToReliability(norm);
 
                 // Call
                 Action call = () => activity.Run();
@@ -214,7 +214,7 @@ namespace Ringtoets.Common.Service.Test
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(testDataPath, testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory);
                 Assert.AreEqual(ringId, testDesignWaterLevelCalculator.RingId);
-                Assert.AreEqual(StatisticsConverter.ReturnPeriodToReliability(returnPeriod), designWaterLevelCalculationInput.Beta);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
             }
             Assert.AreEqual(ActivityState.Executed, activity.State);
             mockRepository.VerifyAll();
@@ -271,20 +271,20 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
-            var returnPeriod = 30;
+            const double norm = 1.0/30;
             double expectedDesignWaterLevel = 3.5;
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
                                                                    string.Empty,
-                                                                   returnPeriod,
+                                                                   norm,
                                                                    calculationMessageProviderMock);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                 testDesignWaterLevelCalculator.DesignWaterLevel = expectedDesignWaterLevel;
-                testDesignWaterLevelCalculator.ReliabilityIndex = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+                testDesignWaterLevelCalculator.ReliabilityIndex = StatisticsConverter.ProbabilityToReliability(norm);
 
                 // Call
                 activity.Run();
