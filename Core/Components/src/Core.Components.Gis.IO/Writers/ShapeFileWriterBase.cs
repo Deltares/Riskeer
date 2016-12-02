@@ -42,30 +42,30 @@ namespace Core.Components.Gis.IO.Writers
         private bool hasPropertyTable;
 
         /// <summary>
-        /// Creates a new feature from <paramref name="mapData"/> and adds it to the in-memory shapefile.
+        /// Creates a new feature from <paramref name="featureBasedMapData"/> and adds it to the in-memory shapefile.
         /// </summary>
-        /// <param name="mapData">The <see cref="FeatureBasedMapData"/> to add to the in-memory shapefile as a feature.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapData"/> is <c>null</c>.</exception>
+        /// <param name="featureBasedMapData">The <see cref="FeatureBasedMapData"/> to add to the in-memory shapefile as a feature.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="featureBasedMapData"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item>A <paramref name="mapData"/> contains different metadata keys
-        /// than the <paramref name="mapData"/> of the first call to <see cref="CopyToFeature"/>.</item>
-        /// <item><paramref name="mapData"/> does not contain exactly one <see cref="Feature"/>.</item>
+        /// <item>A <paramref name="featureBasedMapData"/> contains different metadata keys
+        /// than the <paramref name="featureBasedMapData"/> of the first call to <see cref="CopyToFeature"/>.</item>
+        /// <item><paramref name="featureBasedMapData"/> does not contain exactly one <see cref="Feature"/>.</item>
         /// </list>
         /// </exception>
-        public void CopyToFeature(FeatureBasedMapData mapData)
+        public void CopyToFeature(FeatureBasedMapData featureBasedMapData)
         {
-            if (mapData == null)
+            if (featureBasedMapData == null)
             {
-                throw new ArgumentNullException("mapData");
+                throw new ArgumentNullException("featureBasedMapData");
             }
 
-            if (mapData.Features.Length != 1)
+            if (featureBasedMapData.Features.Length != 1)
             {
                 throw new ArgumentException(Resources.ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature);
             }
 
-            MapFeature mapFeature = mapData.Features.First();
+            MapFeature mapFeature = featureBasedMapData.Features.First();
             EnsureAttributeTableExists(mapFeature);
             IFeature feature = AddFeature(mapFeature);
             CopyMetaDataFromMapFeatureToAttributeTable(mapFeature, feature);

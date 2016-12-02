@@ -33,7 +33,7 @@ namespace Core.Plugins.Map.PropertyClasses
         {
             get
             {
-                return Resources.MapData_Type_Lines;
+                return Resources.FeatureBasedMapData_Type_Lines;
             }
         }
     }

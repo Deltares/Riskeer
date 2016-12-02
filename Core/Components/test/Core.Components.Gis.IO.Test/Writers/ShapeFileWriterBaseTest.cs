@@ -58,7 +58,7 @@ namespace Core.Components.Gis.IO.Test.Writers
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("mapData", exception.ParamName);
+                Assert.AreEqual("featureBasedMapData", exception.ParamName);
             }
         }
 

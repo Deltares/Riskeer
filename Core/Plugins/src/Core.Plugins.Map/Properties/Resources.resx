@@ -223,31 +223,31 @@
   <data name="Categories_Label" xml:space="preserve">
     <value>Labels</value>
   </data>
-  <data name="MapData_ShowLabels_Description" xml:space="preserve">
+  <data name="FeatureBasedMapData_ShowLabels_Description" xml:space="preserve">
     <value>Geeft aan of labels worden weergegeven op deze kaartlaag.</value>
   </data>
-  <data name="MapData_ShowLabels_DisplayName" xml:space="preserve">
+  <data name="FeatureBasedMapData_ShowLabels_DisplayName" xml:space="preserve">
     <value>Weergeven</value>
   </data>
-  <data name="MapData_Type_Description" xml:space="preserve">
+  <data name="FeatureBasedMapData_Type_Description" xml:space="preserve">
     <value>Het type van de data die wordt weergegeven op deze kaartlaag.</value>
   </data>
-  <data name="MapData_Type_DisplayName" xml:space="preserve">
+  <data name="FeatureBasedMapData_Type_DisplayName" xml:space="preserve">
     <value>Type</value>
   </data>
-  <data name="MapData_Type_Lines" xml:space="preserve">
+  <data name="FeatureBasedMapData_Type_Lines" xml:space="preserve">
     <value>Lijnen</value>
   </data>
-  <data name="MapData_Type_Points" xml:space="preserve">
+  <data name="FeatureBasedMapData_Type_Points" xml:space="preserve">
     <value>Punten</value>
   </data>
-  <data name="MapData_Type_Polygons" xml:space="preserve">
+  <data name="FeatureBasedMapData_Type_Polygons" xml:space="preserve">
     <value>Polygonen</value>
   </data>
-  <data name="Mapdata_SelectedMetaDataAttribute_Description" xml:space="preserve">
+  <data name="FeatureBasedMapdata_SelectedMetaDataAttribute_Description" xml:space="preserve">
     <value>Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag.</value>
   </data>
-  <data name="Mapdata_SelectedMetaDataAttribute_DisplayName" xml:space="preserve">
+  <data name="FeatureBasedMapdata_SelectedMetaDataAttribute_DisplayName" xml:space="preserve">
     <value>Op basis van</value>
   </data>
   <data name="MapDataCollection_Name_Description" xml:space="preserve">
