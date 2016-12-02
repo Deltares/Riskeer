@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
             var sectionResultEntity = new WaveImpactAsphaltCoverSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerTwoA = result.AssessmentLayerTwoA.Value.ToNaNAsNull(),
+                LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA),
                 LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
 

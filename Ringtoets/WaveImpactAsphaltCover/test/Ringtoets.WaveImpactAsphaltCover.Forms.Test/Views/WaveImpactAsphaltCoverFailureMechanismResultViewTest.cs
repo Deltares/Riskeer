@@ -58,7 +58,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                     Assert.AreEqual(4, dataGridView.ColumnCount);
 
                     Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
-                    Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
+                    Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                     Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
                     Assert.AreEqual("Toetslaag 1", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
@@ -92,19 +92,19 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             var result1 = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
+                AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             var result2 = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
-                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
+                AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             var result3 = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
+                AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
@@ -132,7 +132,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                     Assert.AreEqual(4, cells.Count);
                     Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                     Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(result1.AssessmentLayerTwoA.ToString(), cells[assessmentLayerTwoAIndex].FormattedValue);
+                    Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                     Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                     DataGridViewCellTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
@@ -142,7 +142,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                     Assert.AreEqual(4, cells.Count);
                     Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                     Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(result2.AssessmentLayerTwoA.ToString(), cells[assessmentLayerTwoAIndex].FormattedValue);
+                    Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                     Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                     DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
@@ -152,7 +152,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                     Assert.AreEqual(4, cells.Count);
                     Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
                     Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(result3.AssessmentLayerTwoA.ToString(), cells[assessmentLayerTwoAIndex].FormattedValue);
+                    Assert.AreEqual(result3.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                     Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                     DataGridViewCellTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
@@ -176,7 +176,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = assessmentLayerOneState,
-                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
+                AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             using (var form = new Form())

@@ -19,14 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
@@ -49,26 +44,23 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<WaveImpactAsphaltCoverFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveImpactAsphaltCoverFailureMechanismSectionResultRow,
-                              NoValueRoundedDoubleConverter>(
-                                  r => r.AssessmentLayerTwoA));
         }
 
         [Test]
         public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
         {
             // Setup
-            var random = new Random(21);
-            var newValue = random.NextDouble();
+            const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
+
             FailureMechanismSection section = CreateSection();
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section);
             var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result);
 
             // Call
-            row.AssessmentLayerTwoA = (RoundedDouble) newValue;
+            row.AssessmentLayerTwoA = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA, row.AssessmentLayerTwoA.GetAccuracy());
+            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
         }
 
         private static FailureMechanismSection CreateSection()

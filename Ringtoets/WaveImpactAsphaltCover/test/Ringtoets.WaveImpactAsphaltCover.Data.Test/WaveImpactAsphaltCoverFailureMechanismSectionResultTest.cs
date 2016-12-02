@@ -43,7 +43,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
-            Assert.IsNaN(result.AssessmentLayerTwoA);
+            Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
         }
     }
 }

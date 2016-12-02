@@ -51,7 +51,8 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
         public void Read_ParameterValues_SectionResultWithParameterValues(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,
-            [Values(0.1, 0.2, null)] double? layerTwoA,
+            [Values(AssessmentLayerTwoAResult.Failed, AssessmentLayerTwoAResult.NotCalculated,
+                AssessmentLayerTwoAResult.Successful)] AssessmentLayerTwoAResult layerTwoA,
             [Values(0.11, 0.22, null)] double? layerThree)
         {
             // Setup
@@ -62,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
             var entity = new WaveImpactAsphaltCoverSectionResultEntity
             {
                 LayerThree = layerThree,
-                LayerTwoA = layerTwoA,
+                LayerTwoA = Convert.ToByte(layerTwoA),
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
@@ -74,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
             // Assert
             Assert.IsNotNull(sectionResult);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerTwoA ?? double.NaN, sectionResult.AssessmentLayerTwoA, 1e-6);
+            Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA);
             Assert.AreEqual(layerThree ?? double.NaN, sectionResult.AssessmentLayerThree, 1e-6);
         }
     }

@@ -19,8 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -56,9 +60,18 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         {
             base.AddDataGridColumns();
 
-            DataGridViewControl.AddTextBoxColumn(
+            EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
+               Enum.GetValues(typeof(AssessmentLayerTwoAResult))
+                   .OfType<AssessmentLayerTwoAResult>()
+                   .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
+                   .ToArray();
+
+            DataGridViewControl.AddComboBoxColumn(
                 TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                twoAResultDataSource,
+                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.Value),
+                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.DisplayName));
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);

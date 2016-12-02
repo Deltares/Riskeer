@@ -36,7 +36,8 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
-            [Values(0.2, 0.523)] double assessmentLayerTwoAResult,
+            [Values(AssessmentLayerTwoAResult.Failed, AssessmentLayerTwoAResult.NotCalculated,
+                AssessmentLayerTwoAResult.Successful)] AssessmentLayerTwoAResult assessmentLayerTwoAResult,
             [Values(3.2, 4.5)] double assessmentLayerThreeResult
             )
         {
@@ -44,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerTwoA = (RoundedDouble) assessmentLayerTwoAResult,
+                AssessmentLayerTwoA = assessmentLayerTwoAResult,
                 AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
             };
 
@@ -53,24 +54,8 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(assessmentLayerTwoAResult, result.LayerTwoA);
+            Assert.AreEqual(Convert.ToByte(assessmentLayerTwoAResult), result.LayerTwoA);
             Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
-        }
-
-        [Test]
-        public void Create_WithNaNLevel2aResult_ReturnsEntityWithExpectedResults()
-        {
-            // Setup
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
-            {
-                AssessmentLayerTwoA = RoundedDouble.NaN
-            };
-
-            // Call
-            var result = sectionResult.Create();
-
-            // Assert
-            Assert.IsNull(result.LayerTwoA);
         }
 
         [Test]

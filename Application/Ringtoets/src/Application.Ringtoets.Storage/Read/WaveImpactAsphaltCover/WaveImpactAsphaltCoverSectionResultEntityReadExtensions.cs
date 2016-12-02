@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
             }
 
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.AssessmentLayerTwoA = (RoundedDouble) entity.LayerTwoA.ToNullAsNaN();
+            sectionResult.AssessmentLayerTwoA = (AssessmentLayerTwoAResult) entity.LayerTwoA;
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
         }
     }

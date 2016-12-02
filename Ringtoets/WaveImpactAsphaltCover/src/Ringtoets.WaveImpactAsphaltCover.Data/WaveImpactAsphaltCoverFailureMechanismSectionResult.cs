@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Data
@@ -39,12 +38,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            AssessmentLayerTwoA = RoundedDouble.NaN;
+            AssessmentLayerTwoA = AssessmentLayerTwoAResult.NotCalculated;
         }
 
         /// <summary>
-        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section.
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section, for which
+        /// the result is a value of <see cref="AssessmentLayerTwoAResult"/>.
         /// </summary>
-        public RoundedDouble AssessmentLayerTwoA { get; set; }
+        public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
     }
 }

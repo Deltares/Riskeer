@@ -28,10 +28,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class ClosingStructuresSectionResultEntity
     {
         public long ClosingStructuresSectionResultEntityId { get; set; }
@@ -39,7 +40,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<long> ClosingStructuresCalculationEntityId { get; set; }
         public byte LayerOne { get; set; }
         public Nullable<double> LayerThree { get; set; }
-
+    
         public virtual ClosingStructuresCalculationEntity ClosingStructuresCalculationEntity { get; set; }
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }

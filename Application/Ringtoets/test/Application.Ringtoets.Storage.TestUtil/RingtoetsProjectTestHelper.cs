@@ -1153,7 +1153,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
+                sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }

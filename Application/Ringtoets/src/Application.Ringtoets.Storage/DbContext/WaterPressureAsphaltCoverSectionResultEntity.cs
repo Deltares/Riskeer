@@ -28,17 +28,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class WaterPressureAsphaltCoverSectionResultEntity
     {
         public long WaterPressureAsphaltCoverSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
         public byte LayerOne { get; set; }
         public Nullable<double> LayerThree { get; set; }
-
+    
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }
