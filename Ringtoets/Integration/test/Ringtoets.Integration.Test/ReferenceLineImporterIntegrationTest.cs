@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Test
             Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
-            var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van faalmechanismen worden gewist." + Environment.NewLine +
+            var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
                                Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
         }
@@ -153,7 +153,7 @@ namespace Ringtoets.Integration.Test
             CollectionAssert.IsEmpty(assessmentSection.PipingFailureMechanism.CalculationsGroup.Children);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
-            var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van faalmechanismen worden gewist." + Environment.NewLine +
+            var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
                                Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
 
