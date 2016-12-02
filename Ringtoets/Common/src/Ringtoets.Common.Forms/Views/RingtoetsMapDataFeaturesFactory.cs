@@ -40,7 +40,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="MapData"/>
+    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>
     /// (created via <see cref="RingtoetsMapDataFactory"/>).
     /// </summary>
     public static class RingtoetsMapDataFeaturesFactory

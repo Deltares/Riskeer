@@ -34,7 +34,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Forms.Views
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="MapData"/>
+    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>
     /// (created via <see cref="PipingMapDataFactory"/>).
     /// </summary>
     public static class PipingMapDataFeaturesFactory

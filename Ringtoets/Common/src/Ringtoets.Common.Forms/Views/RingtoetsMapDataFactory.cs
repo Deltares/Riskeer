@@ -36,7 +36,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// Factory for creating <see cref="MapData"/> for data used as input in the assessment section.
+    /// Factory for creating <see cref="FeatureBasedMapData"/> for data used as input in the assessment section.
     /// </summary>
     public static class RingtoetsMapDataFactory
     {

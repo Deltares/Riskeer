@@ -30,7 +30,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="MapData"/>.
+    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>.
     /// </summary>
     public static class GrassCoverErosionInwardsMapDataFeaturesFactory
     {
