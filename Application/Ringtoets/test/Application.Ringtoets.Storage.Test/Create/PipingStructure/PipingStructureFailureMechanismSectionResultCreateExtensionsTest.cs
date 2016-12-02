@@ -34,7 +34,7 @@ namespace Application.Ringtoets.Storage.Test.Create.PipingStructure
     {
         [Test]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
             [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerTwoAResult.Successful)] AssessmentLayerTwoAResult assessmentLayerTwoAResult,

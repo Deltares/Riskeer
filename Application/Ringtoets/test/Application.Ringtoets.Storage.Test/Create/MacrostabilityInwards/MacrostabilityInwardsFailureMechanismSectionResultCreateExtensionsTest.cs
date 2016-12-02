@@ -34,7 +34,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
     {
         [Test]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
             [Values(0.2, 0.523)] double assessmentLayerTwoAResult,
             [Values(3.2, 4.5)] double assessmentLayerThreeResult)

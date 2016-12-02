@@ -103,7 +103,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             };
             var result3 = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section3)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
@@ -163,7 +163,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenFormWithSimpleFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
             AssessmentLayerOneState assessmentLayerOneState)
         {

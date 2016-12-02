@@ -152,7 +152,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         [Test]
         [SetCulture("nl-NL")]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         [TestCase(AssessmentLayerOneState.Sufficient)]
         public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(
             AssessmentLayerOneState assessmentLayerOneState)
@@ -251,7 +251,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             };
             var result3 = new StabilityPointStructuresFailureMechanismSectionResult(section3)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
@@ -305,7 +305,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
             AssessmentLayerOneState assessmentLayerOneState)
         {
@@ -371,7 +371,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
@@ -403,7 +403,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip(
             AssessmentLayerOneState assessmentLayerOneState)
         {
@@ -439,7 +439,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
@@ -539,7 +539,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
             AssessmentLayerOneState assessmentLayerOneState)
         {

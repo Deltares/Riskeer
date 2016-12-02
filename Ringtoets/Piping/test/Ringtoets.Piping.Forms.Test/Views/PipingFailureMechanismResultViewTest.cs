@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         [TestCase(AssessmentLayerOneState.Sufficient)]
         public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(
             AssessmentLayerOneState assessmentLayerOneState)
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void FailureMechanismResultView_TotalContributionNotHundred_ShowsErrorTooltip(
             AssessmentLayerOneState assessmentLayerOneState)
         {
@@ -303,7 +303,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void FailureMechanismResultView_AssessmentLayerTwoAHasValue_DoesNotShowsErrorTooltip(
             AssessmentLayerOneState assessmentLayerOneState)
         {
@@ -337,7 +337,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void FailureMechanismResultView_AssessmentLayerTwoANull_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
@@ -368,7 +368,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
@@ -400,7 +400,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void FailureMechanismResultView_NoCalculationScenarios_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
@@ -426,7 +426,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void FailureMechanismResultView_NoCalculationScenariosRelevant_ShowsErrorTooltip(
             AssessmentLayerOneState assessmentLayerOneState)
         {

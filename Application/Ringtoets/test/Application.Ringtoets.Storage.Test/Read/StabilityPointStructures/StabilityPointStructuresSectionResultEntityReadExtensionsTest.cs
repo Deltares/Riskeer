@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
 
         [Test]
         public void Read_ParameterValues_SectionResultWithParameterValues(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,
             [Values(0.1, 0.2, null)] double? layerThree)
         {

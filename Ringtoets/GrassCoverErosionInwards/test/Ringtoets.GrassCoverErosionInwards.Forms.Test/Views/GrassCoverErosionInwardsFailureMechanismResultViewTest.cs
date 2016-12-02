@@ -174,7 +174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [SetCulture("nl-NL")]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         [TestCase(AssessmentLayerOneState.Sufficient)]
         public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(
             AssessmentLayerOneState assessmentLayerOneState)
@@ -268,7 +268,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
@@ -300,7 +300,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip(
             AssessmentLayerOneState assessmentLayerOneState)
         {
@@ -336,7 +336,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
@@ -375,7 +375,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
@@ -440,7 +440,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
             AssessmentLayerOneState assessmentLayerOneState)
         {

@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
             var result3 = new DuneErosionFailureMechanismSectionResult(section3)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };

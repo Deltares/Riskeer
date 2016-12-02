@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
         [Test]
         public void Read_ParameterValues_SectionResultWithParameterValues(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,
             [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerTwoAResult.Successful)] AssessmentLayerTwoAResult layerTwoA,

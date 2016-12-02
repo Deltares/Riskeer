@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             };
             var result3 = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section3)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
@@ -166,7 +166,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenFormWithGrassCoverErosionOutwardsFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
             AssessmentLayerOneState assessmentLayerOneState)
         {

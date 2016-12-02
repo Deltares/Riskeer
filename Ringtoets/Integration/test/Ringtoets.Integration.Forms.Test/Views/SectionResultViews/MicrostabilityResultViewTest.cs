@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
             var result3 = new MicrostabilityFailureMechanismSectionResult(section3)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
@@ -162,7 +162,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenFormWithMicrostabilityFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
             AssessmentLayerOneState assessmentLayerOneState)
         {

@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
             var result3 = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section3)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NeedsDetailedAssessment,
+                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void GivenFormWithStrengthStabilityLengthwiseConstructionFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
             AssessmentLayerOneState assessmentLayerOneState)
         {

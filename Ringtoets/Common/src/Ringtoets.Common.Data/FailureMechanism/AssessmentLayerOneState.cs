@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// The assessment of the failure mechanism section requires a detailed assessment.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "AssessmentLayerOneState_NeedsDetailedAssessment")]
-        NeedsDetailedAssessment = 3
+        [ResourcesDisplayName(typeof(Resources), "AssessmentLayerOneState_NoVerdict")]
+        NoVerdict = 3
     }
 }

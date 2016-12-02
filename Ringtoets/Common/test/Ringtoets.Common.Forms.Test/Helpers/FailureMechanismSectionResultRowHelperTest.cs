@@ -158,10 +158,10 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                                           "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
                 .SetName("NotAssessedWithValidLayerTwoAAndNoCalculation");
 
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NeedsDetailedAssessment, double.NaN, null,
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NoVerdict, double.NaN, null,
                                           "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
                 .SetName("NeedsDetailedAssessmentWithInvalidLayerTwoAAndNoCalculation");
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NeedsDetailedAssessment, 0.0, null,
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NoVerdict, 0.0, null,
                                           "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
                 .SetName("NeedsDetailedAssessmentWithValidLayerTwoAAndNoCalculation");
         }
@@ -181,11 +181,11 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
                 .SetName("NotAssessedWithValidLayerTwoAAndCalculationWithoutOutput");
 
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NeedsDetailedAssessment, double.NaN,
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NoVerdict, double.NaN,
                                           new CalculationWithoutOutput(),
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
                 .SetName("NeedsDetailedAssessmentWithInvalidLayerTwoAAndCalculationWithoutOutput");
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NeedsDetailedAssessment, 0.0,
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NoVerdict, 0.0,
                                           new CalculationWithoutOutput(),
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
                 .SetName("NeedsDetailedAssessmentValidLayerTwoAAndCalculationWithoutOutput");
@@ -206,11 +206,11 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                                           string.Empty)
                 .SetName("NotAssessedWithValidLayerTwoAAndCalculationWithOutput");
 
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NeedsDetailedAssessment, double.NaN,
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NoVerdict, double.NaN,
                                           new CalculationWithOutput(),
                                           "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.")
                 .SetName("NeedsDetailedAssessmentWithInvalidLayerTwoAAndCalculationWithOutput");
-            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NeedsDetailedAssessment, 0.0,
+            yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NoVerdict, 0.0,
                                           new CalculationWithOutput(), string.Empty)
                 .SetName("NeedsDetailedAssessmentWithValidLayerTwoAAndCalculationWithOutput");
         }

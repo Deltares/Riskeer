@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
         [TestCase(AssessmentLayerOneState.Sufficient)]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(AssessmentLayerOneState newValue)
         {
             // Setup

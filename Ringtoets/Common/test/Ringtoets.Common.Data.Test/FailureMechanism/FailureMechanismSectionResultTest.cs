@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NeedsDetailedAssessment)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
         [TestCase(AssessmentLayerOneState.Sufficient)]
         public void AssessmentLayerOne_SetNewValue_ReturnsNewValue(AssessmentLayerOneState newValue)

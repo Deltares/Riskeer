@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
         [Test]
         public void Read_ParameterValues_SectionResultWithParameterValues(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NeedsDetailedAssessment,
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,
             [Values(1.1, 2.2, null)] double? layerThree)
         {
