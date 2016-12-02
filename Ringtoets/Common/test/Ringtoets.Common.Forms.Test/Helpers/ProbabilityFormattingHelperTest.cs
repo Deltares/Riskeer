@@ -46,10 +46,33 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [TestCase(0.000000123456789, "1/8.100.000")]
         public void Format_ProbabilityNotZero_ReturnOneOverReturnPeriod(double probability, string expectedText)
         {
-            // Setup
-
             // Call
             string text = ProbabilityFormattingHelper.Format(probability);
+
+            // Assert
+            Assert.AreEqual(expectedText, text);
+        }
+
+        [Test]
+        public void FormatFromReturnPeriod_ReturnPeriodIsZero_ReturnOneOverInfinity()
+        {
+            // Call
+            string text = ProbabilityFormattingHelper.FormatFromReturnPeriod(0);
+
+            // Assert
+            Assert.AreEqual("1/Oneindig", text);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(1, "1/1")]
+        [TestCase(2, "1/2")]
+        [TestCase(10000, "1/10.000")]
+        [TestCase(8100000, "1/8.100.000")]
+        public void FormatFromReturnPeriod_ReturnPeriodNotZero_ReturnOneOverReturnPeriod(int returnPeriod, string expectedText)
+        {
+            // Call
+            string text = ProbabilityFormattingHelper.FormatFromReturnPeriod(returnPeriod);
 
             // Assert
             Assert.AreEqual(expectedText, text);

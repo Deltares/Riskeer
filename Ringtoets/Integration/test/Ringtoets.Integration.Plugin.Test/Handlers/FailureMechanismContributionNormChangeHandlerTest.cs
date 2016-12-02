@@ -129,8 +129,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        [TestCase(-123456)]
-        public void ChangeNorm_InvalidNorm_ThrowArgumentOutOfRangeException(int invalidNorm)
+        public void ChangeNorm_InvalidNorm_ThrowArgumentOutOfRangeException(
+            [Values(150, 1e+6, -1e-6, -150, double.NaN)] double invalidNorm)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);

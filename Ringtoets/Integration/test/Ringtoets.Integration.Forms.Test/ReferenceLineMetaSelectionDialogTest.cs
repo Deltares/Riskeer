@@ -28,12 +28,17 @@ using Core.Common.Controls.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.Integration.Forms.Test
 {
     [TestFixture]
     public class ReferenceLineMetaSelectionDialogTest : NUnitFormTest
     {
+        private const int assessmentSectionIdColumn = 0;
+        private const int signalingValueColumn = 1;
+        private const int lowerLimitValueColumn = 2;
+
         [Test]
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
@@ -61,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void Constructor_WithParentAndReferenceLineMeta_DefaultProperties()
+        public void Constructor_WithParentAndEmptyReferenceLineMeta_DefaultProperties()
         {
             // Setup
             using (var viewParent = new Form())
@@ -128,7 +133,7 @@ namespace Ringtoets.Integration.Forms.Test
                     var assessmentIdValuesInGrid = new List<string>();
                     for (var i = 0; i < dataGridView.Rows.Count; i++)
                     {
-                        object currentIdValue = dataGridView[0, i].FormattedValue;
+                        object currentIdValue = dataGridView[assessmentSectionIdColumn, i].FormattedValue;
                         if (currentIdValue != null)
                         {
                             assessmentIdValuesInGrid.Add(currentIdValue.ToString());
@@ -146,6 +151,54 @@ namespace Ringtoets.Integration.Forms.Test
                         "101b-1",
                         "102-1"
                     }, assessmentIdValuesInGrid);
+                }
+            }
+        }
+
+        [Test]
+        public void Constructor_WithParentAndReferenceLineMetas_ShowsExpectedGrid(
+            [Values("", "10")] string assessmentSectionId,
+            [Values(null, int.MinValue, -1, 0, 1, int.MaxValue)] int? signalingValue,
+            [Values(null, int.MinValue, -1, 0, 1, int.MaxValue)] int? lowerLimitValue)
+        {
+            // Setup
+            var referenceLineMetas = new[]
+            {
+                new ReferenceLineMeta
+                {
+                    AssessmentSectionId = assessmentSectionId,
+                    SignalingValue = signalingValue,
+                    LowerLimitValue = lowerLimitValue
+                }
+            };
+
+            using (var viewParent = new Form())
+            {
+                // Call
+                using (var dialog = new ReferenceLineMetaSelectionDialog(viewParent, referenceLineMetas))
+                {
+                    // Assert
+                    DataGridViewControl grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", dialog).TheObject;
+                    DataGridView dataGridView = grid.Controls.OfType<DataGridView>().First();
+
+                    Assert.AreEqual(1, dataGridView.Rows.Count);
+                    object currentIdValue = dataGridView[assessmentSectionIdColumn, 0].FormattedValue;
+                    Assert.IsNotNull(currentIdValue);
+                    Assert.AreEqual(assessmentSectionId, currentIdValue.ToString());
+
+                    object currentSignalingValue = dataGridView[signalingValueColumn, 0].FormattedValue;
+                    Assert.IsNotNull(currentSignalingValue);
+                    string expectedSignalingValue = signalingValue.HasValue && signalingValue.Value != 0
+                                                        ? ProbabilityFormattingHelper.FormatFromReturnPeriod(signalingValue.Value)
+                                                        : string.Empty;
+                    Assert.AreEqual(expectedSignalingValue, currentSignalingValue.ToString());
+
+                    object currentLowerLimitValue = dataGridView[lowerLimitValueColumn, 0].FormattedValue;
+                    Assert.IsNotNull(currentLowerLimitValue);
+                    string expectedLowerLimitValue = lowerLimitValue.HasValue && lowerLimitValue.Value != 0
+                                                         ? ProbabilityFormattingHelper.FormatFromReturnPeriod(lowerLimitValue.Value)
+                                                         : string.Empty;
+                    Assert.AreEqual(expectedLowerLimitValue, currentLowerLimitValue.ToString());
                 }
             }
         }

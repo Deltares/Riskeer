@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Data.Contribution
             }
             set
             {
-                if (value <= 0)
+                if (double.IsNaN(value) || value < 0.0 || value > 1.0)
                 {
                     throw new ArgumentOutOfRangeException("value", Resources.FailureMechanismContributionItem_Norm_must_be_larger_than_zero);
                 }

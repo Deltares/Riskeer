@@ -44,5 +44,21 @@ namespace Ringtoets.Common.Forms.Helpers
             return string.Format(Resources.ProbabilityPerYearFormat,
                                  1.0/probability);
         }
+
+        /// <summary>
+        /// Formats the specified return period to a probability.
+        /// </summary>
+        /// <param name="returnPeriod">The return period.</param>
+        /// <returns>The formatted text.</returns>
+        public static string FormatFromReturnPeriod(int returnPeriod)
+        {
+            if (returnPeriod == 0)
+            {
+                return string.Format(Resources.ProbabilityPerYearFormat,
+                                     CommonBaseResources.RoundedDouble_ToString_PositiveInfinity);
+            }
+            return string.Format(Resources.ProbabilityPerYearFormat,
+                                 returnPeriod);
+        }
     }
 }

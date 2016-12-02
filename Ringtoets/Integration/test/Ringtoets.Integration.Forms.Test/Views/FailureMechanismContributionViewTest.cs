@@ -420,7 +420,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var contributionData = new FailureMechanismContribution(new[]
                 {
                     failureMechanismStub
-                }, 100, 500);
+                }, 100, 1.0/500);
 
                 view.Data = contributionData;
                 view.AssessmentSection = assessmentSection;
@@ -456,7 +456,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var contributionData = new FailureMechanismContribution(new[]
                 {
                     failureMechanismStub
-                }, 100, 500);
+                }, 100, 1.0/500);
 
                 view.Data = contributionData;
                 view.AssessmentSection = assessmentSection;
@@ -477,7 +477,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             const double contribution = 25.0;
-            const int norm = 500;
+            const double norm = 1.0/500;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -646,7 +646,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     failureMechanism
                 };
 
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 30000);
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0/30000);
 
                 // When
                 view.Data = contribution;
@@ -688,7 +688,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     failureMechanism
                 };
 
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 30000);
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0/30000);
 
                 // When
                 view.Data = contribution;
@@ -747,7 +747,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 30000);
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0/30000);
 
                 view.Data = contribution;
                 view.AssessmentSection = assessmentSection;
@@ -862,7 +862,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 30000);
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0/30000);
 
                 view.Data = contribution;
                 view.AssessmentSection = assessmentSection;
@@ -888,7 +888,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(view);
 
                 var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 30000);
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0/30000);
 
                 // Precondition:
                 FailureMechanismContributionItem[] contributionItems = contribution.Distribution.ToArray();

@@ -449,61 +449,6 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void AddAssessmentSectionFromFile_ShapeWithoutInvalidNormOkClicked_LogsAndSetsAssessmentSectionWithoutNorm()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var parentDialogStub = mockRepository.Stub<IWin32Window>();
-            var project = new RingtoetsProject();
-            var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
-            projectOwnerStub.Stub(po => po.Project).Return(project);
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
-            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
-            mockRepository.ReplayAll();
-
-            var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
-            string pathValidFolder = Path.Combine(testDataPath, "ShapeFileWithInvalidNormValue");
-            SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
-                var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
-                var dataGridView = grid.Controls.OfType<DataGridView>().First();
-                dataGridView[0, 0].Selected = true;
-
-                new ButtonTester("Ok", selectionDialog).Click();
-            };
-
-            // Call
-            Action call = () => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile();
-
-            // Assert
-            string expectedMessage = string.Format("De waarde '{0}' kan niet gezet.", "0");
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
-            var assessmentSection = project.AssessmentSections.FirstOrDefault();
-            Assert.IsNotNull(assessmentSection);
-
-            var expectedAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                Id = "1-2", Name = "Traject 1-2"
-            };
-            expectedAssessmentSection.GrassCoverErosionInwards.GeneralInput.N = 2;
-            expectedAssessmentSection.GrassCoverErosionOutwards.GeneralInput.N = 2;
-            expectedAssessmentSection.HeightStructures.GeneralInput.N = 2;
-            expectedAssessmentSection.ReferenceLine = new ReferenceLine();
-            expectedAssessmentSection.ReferenceLine.SetGeometry(new[]
-            {
-                new Point2D(160679.9250, 475072.583),
-                new Point2D(160892.0751, 474315.4917)
-            });
-
-            AssertAssessmentSection(expectedAssessmentSection, assessmentSection);
-            mockRepository.VerifyAll();
-        }
-
         private static void SetShapeFileDirectory(AssessmentSectionFromFileCommandHandler commandHandler, string nonExistingFolder)
         {
             string privateShapeFileDirectoryName = "shapeFileDirectory";

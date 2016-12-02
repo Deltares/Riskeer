@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
         [Test]
         public void Constructor_WithInvalidNorm_ThrowsArgumentOutOfRangeException(
-            [Values(-1e-6, -150)] double norm)
+            [Values(150, 1e+6, -1e-6, -150, double.NaN)] double norm)
         {
             // Setup
             var random = new Random(21);
@@ -186,6 +186,22 @@ namespace Ringtoets.Common.Data.Test.Contribution
                                                      .Concat(Enumerable.Repeat(true, 1));
             CollectionAssert.AreEqual(expectedIsAlwaysRelevant, result.Distribution.Select(d => d.IsAlwaysRelevant));
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateContribution_FailureMechanismsIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
+            const double norm = 1.0/30000;
+            var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 12.34, norm);
+
+            // Call
+            TestDelegate call = () => failureMechanismContribution.UpdateContributions(null, 0);
+
+            // Assert
+            var message = "Kan geen bijdrageoverzicht maken zonder toetsspoor.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, message);
         }
 
         [Test]

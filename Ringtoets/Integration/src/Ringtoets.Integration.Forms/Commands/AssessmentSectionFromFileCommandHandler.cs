@@ -164,7 +164,7 @@ namespace Ringtoets.Integration.Forms.Commands
             return duneAssessmentSection;
         }
 
-        private AssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem, int? norm)
+        private AssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem, double norm)
         {
             AssessmentSection assessmentSection;
             var settingOfSelectedAssessmentSection = settings.FirstOrDefault(s => s.AssessmentSectionId == selectedItem.AssessmentSectionId);
@@ -192,19 +192,16 @@ namespace Ringtoets.Integration.Forms.Commands
                 assessmentSection.ReferenceLine = selectedItem.ReferenceLine;
             }
 
-            if (!norm.HasValue || norm.Value == 0)
-            {
-                log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0, 0));
-                return assessmentSection;
-            }
-
             try
             {
-                assessmentSection.FailureMechanismContribution.Norm = 1.0/norm.Value;
+                if (!double.IsNaN(norm))
+                {
+                    assessmentSection.FailureMechanismContribution.Norm = norm;
+                }
             }
             catch (ArgumentOutOfRangeException exception)
             {
-                log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0, norm.Value), exception);
+                log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0, norm), exception);
             }
             return assessmentSection;
         }
