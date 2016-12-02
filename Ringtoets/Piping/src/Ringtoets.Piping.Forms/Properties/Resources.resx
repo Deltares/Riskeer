@@ -208,10 +208,10 @@
     <value>Modelfactor opbarsten [-]</value>
   </data>
   <data name="GeneralPipingInput_WaterKinematicViscosity_Description" xml:space="preserve">
-    <value>Kinematische viscositeit van water bij 10° C.</value>
+    <value>Kinematische viscositeit van water bij 12° C.</value>
   </data>
   <data name="GeneralPipingInput_WaterKinematicViscosity_DisplayName" xml:space="preserve">
-    <value>Kinematische viscositeit van water bij 10° C [m²/s]</value>
+    <value>Kinematische viscositeit van water bij 12° C [m²/s]</value>
   </data>
   <data name="GeneralPipingInput_WaterVolumetricWeight_Description" xml:space="preserve">
     <value>Volumiek gewicht van water.</value>
