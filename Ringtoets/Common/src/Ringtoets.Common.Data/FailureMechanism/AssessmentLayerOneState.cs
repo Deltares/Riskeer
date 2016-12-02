@@ -36,13 +36,13 @@ namespace Ringtoets.Common.Data.FailureMechanism
         NotAssessed = 1,
 
         /// <summary>
-        /// The assessment of the failure mechanism section was sufficient.
+        /// The assessment of the failure mechanism section was sufficient or not relevant.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), "AssessmentLayerOneState_Sufficient")]
         Sufficient = 2,
 
         /// <summary>
-        /// The assessment of the failure mechanism section requires a detailed assessment.
+        /// The assessment of the failure mechanism section has not reached a verdict yet.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), "AssessmentLayerOneState_NoVerdict")]
         NoVerdict = 3
