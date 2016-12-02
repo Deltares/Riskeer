@@ -29,16 +29,6 @@ namespace Core.Common.Utils
     public static class StatisticsConverter
     {
         /// <summary>
-        /// Calculates the reliability from a return period.
-        /// </summary>
-        /// <param name="returnPeriod">The return period to convert.</param>
-        /// <returns>The reliability.</returns>
-        public static double ReturnPeriodToReliability(double returnPeriod)
-        {
-            return ProbabilityToReliability(1.0/returnPeriod);
-        }
-
-        /// <summary>
         /// Calculates the probability from a reliability.
         /// </summary>
         /// <param name="reliability">The reliability to convert.</param>

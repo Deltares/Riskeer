@@ -27,23 +27,6 @@ namespace Core.Common.Utils.Test
     public class StatisticsConverterTest
     {
         [Test]
-        [TestCase(1.1, -1.335177736118940)]
-        [TestCase(3000, 3.402932835385330)]
-        [TestCase(20000, 3.890591886413120)]
-        [TestCase(30000, 3.987878936606940)]
-        [TestCase(600000, 4.649132934007460)]
-        [TestCase(1000000, 4.75342430881709)]
-        [TestCase(6000000, 5.103554002888150)]
-        public void ReturnPeriodToReliability_ConvertReturnPeriod_CorrectReliability(double returnPeriod, double expectedReliability)
-        {
-            // Call
-            double reliability = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
-
-            // Assert
-            Assert.AreEqual(expectedReliability, reliability, 1.0e-6);
-        }
-
-        [Test]
         [TestCase(-1.335177736118940, 9.090909E-01)]
         [TestCase(3.402932835385330, 3.333333E-04)]
         [TestCase(3.890591886413120, 5.000000E-05)]

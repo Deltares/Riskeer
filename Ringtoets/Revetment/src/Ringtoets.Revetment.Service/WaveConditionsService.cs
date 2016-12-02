@@ -38,14 +38,14 @@ namespace Ringtoets.Revetment.Service
         /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
         /// <param name="waveAngle">The calculated wave angle w.r.t the dike normal.</param>
         /// <param name="waveDirection">The calculated wave direction w.r.t. North.</param>
-        /// <param name="returnPeriod">The target return period to calculate for.</param>
+        /// <param name="norm">The target norm to calculate for.</param>
         /// <param name="calculatedReliability">The calculated reliability.</param>
         /// <returns>The calculated <see cref="WaveConditionsOutput"/>.</returns>
         public static WaveConditionsOutput Calculate(double waterLevel, double waveHeight, double wavePeakPeriod,
                                                      double waveAngle, double waveDirection,
-                                                     double returnPeriod, double calculatedReliability)
+                                                     double norm, double calculatedReliability)
         {
-            double targetReliability = StatisticsConverter.ReturnPeriodToReliability(returnPeriod);
+            double targetReliability = StatisticsConverter.ProbabilityToReliability(norm);
             double targetProbability = StatisticsConverter.ReliabilityToProbability(targetReliability);
 
             double calculatedProbability = StatisticsConverter.ReliabilityToProbability(calculatedReliability);
@@ -53,7 +53,7 @@ namespace Ringtoets.Revetment.Service
             return new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
                                             targetReliability, calculatedProbability, calculatedReliability)
             {
-                CalculationConvergence = RingtoetsCommonDataCalculationService.CalculationConverged(calculatedReliability, returnPeriod)
+                CalculationConvergence = RingtoetsCommonDataCalculationService.CalculationConverged(calculatedReliability, norm)
             };
         }
     }

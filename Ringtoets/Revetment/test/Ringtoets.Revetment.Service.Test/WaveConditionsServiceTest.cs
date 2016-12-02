@@ -88,9 +88,12 @@ namespace Ringtoets.Revetment.Service.Test
         [TestCase(6000000, 5.103554002888150)]
         public void TargetReliability_DifferentReturnPeriods_ReturnsExpectedValues(double returnPeriod, double expectedReliability)
         {
+            // Setup
+            double norm = 1.0/returnPeriod;
+
             // Call 
             WaveConditionsOutput output = WaveConditionsService.Calculate(double.NaN, double.NaN, double.NaN, double.NaN,
-                                                                          double.NaN, returnPeriod, double.NaN);
+                                                                          double.NaN, norm, double.NaN);
 
             // Assert
             Assert.AreEqual(expectedReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
@@ -106,9 +109,12 @@ namespace Ringtoets.Revetment.Service.Test
         [TestCase(6000000, 1.666667E-07)]
         public void TargetProbability_DifferentReturnPeriods_ReturnsExpectedValues(double returnPeriod, double expectedProbability)
         {
+            // Setup
+            double norm = 1.0/returnPeriod;
+
             // Call 
             WaveConditionsOutput output = WaveConditionsService.Calculate(double.NaN, double.NaN, double.NaN, double.NaN,
-                                                                          double.NaN, returnPeriod, double.NaN);
+                                                                          double.NaN, norm, double.NaN);
 
             // Assert
             Assert.AreEqual(expectedProbability, output.TargetProbability, 1e-6);
@@ -116,7 +122,7 @@ namespace Ringtoets.Revetment.Service.Test
 
         [Test]
         [TestCase(-1.335177736118940, -1.335177736118940)]
-        [TestCase(3.402932835385330, 3.402932835385330)] 
+        [TestCase(3.402932835385330, 3.402932835385330)]
         public void CalculatedReliability_DifferentReliabilities_ReturnsExpectedValues(double reliability, double expectedReliability)
         {
             // Call 
