@@ -230,7 +230,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual((RoundedDouble) 7.41, locations[14].DesignWaterLevel, locations[14].DesignWaterLevel.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 6.91, locations[15].DesignWaterLevel, locations[15].DesignWaterLevel.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 7.53, locations[16].DesignWaterLevel, locations[16].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.81, locations[17].DesignWaterLevel, locations[17].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 7.80, locations[17].DesignWaterLevel, locations[17].DesignWaterLevel.GetAccuracy());
         }
 
         private static void AssertDesignWaterLevelConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(HydraulicBoundaryLocation[] locations)

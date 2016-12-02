@@ -561,12 +561,12 @@ namespace Ringtoets.Revetment.Service.Test
             return input;
         }
 
-        private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double returnPeriod, WaveConditionsInput input, bool useForeshore, bool useBreakWater)
+        private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, bool useForeshore, bool useBreakWater)
         {
             return new WaveConditionsCosineCalculationInput(1,
                                                             input.Orientation,
                                                             input.HydraulicBoundaryLocation.Id,
-                                                            returnPeriod,
+                                                            norm,
                                                             useForeshore ?
                                                                 input.ForeshoreGeometry.Select(coordinate => new HydraRingForelandPoint(coordinate.X, coordinate.Y))
                                                                 : new HydraRingForelandPoint[0],

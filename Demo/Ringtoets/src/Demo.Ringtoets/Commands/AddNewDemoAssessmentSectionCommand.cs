@@ -203,7 +203,7 @@ namespace Demo.Ringtoets.Commands
             locations.ElementAt(14).DesignWaterLevel = (RoundedDouble) 7.41;
             locations.ElementAt(15).DesignWaterLevel = (RoundedDouble) 6.91;
             locations.ElementAt(16).DesignWaterLevel = (RoundedDouble) 7.53;
-            locations.ElementAt(17).DesignWaterLevel = (RoundedDouble) 7.81;
+            locations.ElementAt(17).DesignWaterLevel = (RoundedDouble) 7.80;
         }
 
         private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(ICollection<HydraulicBoundaryLocation> locations)

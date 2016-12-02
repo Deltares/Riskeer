@@ -118,8 +118,8 @@ namespace Ringtoets.Piping.Service.Test
             validPipingCalculation.Output = null;
             validPipingCalculation.SemiProbabilisticOutput = null;
 
-            int returnPeriod = new Random(21).Next(100, 300000);
-            var activity = new PipingCalculationActivity(validPipingCalculation, new PipingProbabilityAssessmentInput(), returnPeriod, double.NaN);
+            double norm = new Random(21).NextDouble();
+            var activity = new PipingCalculationActivity(validPipingCalculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
             activity.Run();
 
             // Call

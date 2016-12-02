@@ -502,15 +502,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
                     GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
 
-                    var mechanismSpecificReturnPeriod = GetMechanismSpecificReturnPeriod(failureMechanism, assessmentSection);
+                    var mechanismSpecificNorm = GetMechanismSpecificNorm(failureMechanism, assessmentSection);
 
-                    if (!double.IsNaN(mechanismSpecificReturnPeriod))
+                    if (!double.IsNaN(mechanismSpecificNorm))
                     {
                         bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
                             assessmentSection.HydraulicBoundaryDatabase.FilePath,
                             nodeData.WrappedData,
                             assessmentSection.Id,
-                            mechanismSpecificReturnPeriod,
+                            mechanismSpecificNorm,
                             new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
 
                         if (successfulCalculation)
@@ -560,15 +560,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    var mechanismSpecificReturnPeriod = GetMechanismSpecificReturnPeriod(failureMechanism, assessmentSection);
+                    var mechanismSpecificNorm = GetMechanismSpecificNorm(failureMechanism, assessmentSection);
 
-                    if (!double.IsNaN(mechanismSpecificReturnPeriod))
+                    if (!double.IsNaN(mechanismSpecificNorm))
                     {
                         bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
                             assessmentSection.HydraulicBoundaryDatabase.FilePath,
                             nodeData.WrappedData,
                             assessmentSection.Id,
-                            mechanismSpecificReturnPeriod,
+                            mechanismSpecificNorm,
                             new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
 
                         if (successfulCalculation)
@@ -875,18 +875,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #endregion
 
-        private static double GetMechanismSpecificReturnPeriod(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static double GetMechanismSpecificNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var mechanismSpecificReturnPeriod = double.NaN;
+            var mechanismSpecificNorm = double.NaN;
             try
             {
-                mechanismSpecificReturnPeriod = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+                mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
             }
             catch (ArgumentException e)
             {
                 log.ErrorFormat(e.Message);
             }
-            return mechanismSpecificReturnPeriod;
+            return mechanismSpecificNorm;
         }
 
         #endregion

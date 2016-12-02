@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.Service
         }
 
         /// <summary>
-        /// Calculates the required reliability based on the return period and length of the assessment section and the contribution of piping.
+        /// Calculates the required reliability based on the norm and length of the assessment section and the contribution of piping.
         /// </summary>
         private void CalculateRequiredReliability()
         {

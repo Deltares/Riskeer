@@ -48,10 +48,10 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var output = new ReliabilityIndexCalculationOutput(5.0e-3, 5.0e-3);
-            double returnPeriod = 1;
+            const double norm = 1;
 
             // Call
-            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.CalculationConverged(output.CalculatedReliabilityIndex, returnPeriod);
+            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.CalculationConverged(output.CalculatedReliabilityIndex, norm);
 
             // Assert
             Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, calculationConverged);
