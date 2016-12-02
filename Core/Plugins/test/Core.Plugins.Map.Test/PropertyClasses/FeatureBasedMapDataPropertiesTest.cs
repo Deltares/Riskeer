@@ -59,10 +59,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Data_SetNewMapPointDataInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var mapPointData = new MapPointData("Test")
-            {
-                SelectedMetaDataAttribute = string.Empty
-            };
+            var mapPointData = new MapPointData("Test");
             var properties = new TestFeatureBasedMapDataProperties();
 
             // Call
@@ -73,7 +70,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual("Test feature based map data", properties.Type);
             Assert.AreEqual(mapPointData.IsVisible, properties.IsVisible);
             Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
-            Assert.AreEqual(mapPointData.SelectedMetaDataAttribute, properties.SelectedMetaDataAttribute.MetaDataAttribute);
+            Assert.AreEqual(string.Empty, properties.SelectedMetaDataAttribute.MetaDataAttribute);
             Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
         }
 

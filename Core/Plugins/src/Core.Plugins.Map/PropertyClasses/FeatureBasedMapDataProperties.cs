@@ -107,7 +107,7 @@ namespace Core.Plugins.Map.PropertyClasses
         {
             get
             {
-                return new SelectableMetaDataAttribute(data.SelectedMetaDataAttribute);
+                return new SelectableMetaDataAttribute(data.SelectedMetaDataAttribute ?? string.Empty);
             }
             set
             {

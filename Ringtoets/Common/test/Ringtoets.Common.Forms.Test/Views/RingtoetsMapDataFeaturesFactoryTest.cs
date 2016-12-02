@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -81,17 +82,17 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels_HydraulicBoundaryDatabaseNull_ReturnsEmptyFeaturesArray()
+        public void CreateHydraulicBoundaryDatabaseFeatures_HydraulicBoundaryDatabaseNull_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(null);
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels_GivenHydraulicBoundaryDatabase_ReturnsLocationFeaturesArray()
+        public void CreateHydraulicBoundaryDatabaseFeatures_GivenHydraulicBoundaryDatabase_ReturnsLocationFeaturesArray()
         {
             // Setup
             var points = new[]
@@ -103,7 +104,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             hydraulicBoundaryDatabase.Locations.AddRange(points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)));
 
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(hydraulicBoundaryDatabase);
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
 
             // Assert
             List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
@@ -121,38 +122,78 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationsFeaturesWithOptionalLabels_HydraulicBoundaryLocationsNull_ReturnsEmptyFeaturesArray()
+        public void CreateHydraulicBoundaryLocationFeatures_HydraulicBoundaryLocationsArrayEmpty_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeaturesWithOptionalLabels(null);
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(new HydraulicBoundaryLocation[0], string.Empty, string.Empty);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationFeaturesWithOptionalLabels_GivenHydraulicBoundaryLocations_ReturnsLocationFeaturesArray()
+        public void CreateHydraulicBoundaryLocationFeatures_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(null, string.Empty, string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryLocationFeatures_designWaterLevelAttributeNameNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(new HydraulicBoundaryLocation[0], null, string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("designWaterLevelAttributeName", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryLocationFeatures_WaveHeightAtrtributeNameNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(new HydraulicBoundaryLocation[0], string.Empty, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("waveHeightAttributeName", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryLocationFeatures_GivenHydraulicBoundaryLocations_ReturnsLocationFeaturesArray()
         {
             // Setup
+            const string designWaterLevelAttributeName = "Toetspeil";
+            const string waveheightAttributeName = "Golfhoogte";
+
             var points = new[]
             {
                 new Point2D(1.2, 2.3),
                 new Point2D(2.7, 2.0)
             };
-            var hydraulicBoundaryLocations = points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)).ToArray();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.AddRange(points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)));
 
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeaturesWithOptionalLabels(hydraulicBoundaryLocations);
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryDatabase.Locations.ToArray(),
+                                                                                                            designWaterLevelAttributeName,
+                                                                                                            waveheightAttributeName);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryLocations.Length, features.Length);
-            for (int i = 0; i < hydraulicBoundaryLocations.Length; i++)
+            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
+            Assert.AreEqual(hydraulicBoundaryLocations.Count, features.Length);
+            for (int i = 0; i < hydraulicBoundaryLocations.Count; i++)
             {
                 Assert.AreEqual(4, features[i].MetaData.Keys.Count);
                 Assert.AreEqual(hydraulicBoundaryLocations[i].Id, features[i].MetaData["ID"]);
                 Assert.AreEqual(hydraulicBoundaryLocations[i].Name, features[i].MetaData["Naam"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].DesignWaterLevel, features[i].MetaData["Waterstand bij doorsnede-eis"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].WaveHeight, features[i].MetaData["Golfhoogte bij doorsnede-eis"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].DesignWaterLevel, features[i].MetaData[designWaterLevelAttributeName]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].WaveHeight, features[i].MetaData[waveheightAttributeName]);
             }
 
             AssertEqualFeatureCollections(points, features);

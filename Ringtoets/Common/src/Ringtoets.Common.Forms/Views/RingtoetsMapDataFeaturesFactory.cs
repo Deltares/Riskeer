@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -73,15 +74,13 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Create hydraulic boundary database location features based on the provided 
-        /// <paramref name="hydraulicBoundaryDatabase"/> with default labels for design 
-        /// water level and wave height.
+        /// Create hydraulic boundary database location features based on the provided <paramref name="hydraulicBoundaryDatabase"/>..
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
         /// to create the location features for.</param>
         /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryDatabase"/> 
         /// is <c>null</c>.</returns>
-        public static MapFeature[] CreateHydraulicBoundaryDatabaseFeaturesWithDefaultLabels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             return CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryDatabase != null
                                                                ? hydraulicBoundaryDatabase.Locations.ToArray()
@@ -91,19 +90,48 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Create hydraulic boundary location features based on the provided
-        /// <paramref name="hydraulicBoundaryLocations"/> with optional labels for design
-        /// water level and wave height.
+        ///  Create hydraulic boundary database location features based on the provided 
+        /// <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The array of <see cref="HydraulicBoundaryLocation"/>
-        /// to create the location features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryLocations"/>
-        /// is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateHydraulicBoundaryLocationFeaturesWithOptionalLabels(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
+        /// <param name="hydraulicBoundaryLocations">The locations to create the features for.</param>
+        /// <param name="designWaterLevelAttributeName">The name of the design water level attribute.</param>
+        /// <param name="waveHeightAttributeName">The name of the wave height attribute.</param>
+        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryLocations"/> 
+        /// is empty.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any is <c>null</c>.</exception>
+        public static MapFeature[] CreateHydraulicBoundaryLocationFeatures(HydraulicBoundaryLocation[] hydraulicBoundaryLocations,
+                                                                           string designWaterLevelAttributeName,
+                                                                           string waveHeightAttributeName)
         {
-            return CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryLocations ?? new HydraulicBoundaryLocation[0],
-                                                           Resources.MetaData_DesignWaterLevel_GrassOutwards,
-                                                           Resources.MetaData_WaveHeight_GrassOutwards);
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException("hydraulicBoundaryLocations");
+            }
+            if (designWaterLevelAttributeName == null)
+            {
+                throw new ArgumentNullException("designWaterLevelAttributeName");
+            }
+            if (waveHeightAttributeName == null)
+            {
+                throw new ArgumentNullException("waveHeightAttributeName");
+            }
+
+            var features = new MapFeature[hydraulicBoundaryLocations.Length];
+
+            for (int i = 0; i < hydraulicBoundaryLocations.Length; i++)
+            {
+                HydraulicBoundaryLocation location = hydraulicBoundaryLocations[i];
+                var feature = GetAsSingleMapFeature(location.Location);
+
+                feature.MetaData[Resources.MetaData_ID] = location.Id;
+                feature.MetaData[Resources.MetaData_Name] = location.Name;
+                feature.MetaData[designWaterLevelAttributeName] = location.DesignWaterLevel;
+                feature.MetaData[waveHeightAttributeName] = location.WaveHeight;
+
+                features[i] = feature;
+            }
+
+            return features;
         }
 
         /// <summary>
@@ -282,28 +310,6 @@ namespace Ringtoets.Common.Forms.Views
             feature.MetaData[Resources.MetaData_Length] = new RoundedDouble(2, Math2D.Length(section.Points));
 
             return feature;
-        }
-
-        private static MapFeature[] CreateHydraulicBoundaryLocationFeatures(HydraulicBoundaryLocation[] hydraulicBoundaryLocations,
-                                                                            string designWaterLevelAttributeName,
-                                                                            string waveheightAttributeName)
-        {
-            var features = new MapFeature[hydraulicBoundaryLocations.Length];
-
-            for (int i = 0; i < hydraulicBoundaryLocations.Length; i++)
-            {
-                HydraulicBoundaryLocation location = hydraulicBoundaryLocations[i];
-                var feature = GetAsSingleMapFeature(location.Location);
-
-                feature.MetaData[Resources.MetaData_ID] = location.Id;
-                feature.MetaData[Resources.MetaData_Name] = location.Name;
-                feature.MetaData[designWaterLevelAttributeName] = location.DesignWaterLevel;
-                feature.MetaData[waveheightAttributeName] = location.WaveHeight;
-
-                features[i] = feature;
-            }
-
-            return features;
         }
 
         private static Point2D[] GetWorldPoints(DikeProfile dikeProfile)

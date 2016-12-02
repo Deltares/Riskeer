@@ -177,4 +177,10 @@
   <data name="GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType" xml:space="preserve">
     <value>Gras</value>
   </data>
+  <data name="MetaData_DesignWaterLevel" xml:space="preserve">
+    <value>Waterstand bij doorsnede-eis</value>
+  </data>
+  <data name="MetaData_WaveHeight" xml:space="preserve">
+    <value>Golfhoogte bij doorsnede-eis</value>
+  </data>
 </root>

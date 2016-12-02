@@ -26,6 +26,8 @@ using Core.Components.Gis.Features;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
@@ -60,6 +62,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                         calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
             return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
+        }
+
+        /// <summary>
+        /// Create hydraulic boundary location features based on the provided <paramref name="hydraulicBoundaryLocations"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocations">The array of <see cref="HydraulicBoundaryLocation"/>
+        /// to create the location features for.</param>
+        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryLocations"/>
+        /// is <c>null</c> or empty.</returns>
+        public static MapFeature[] CreateHydraulicBoundaryLocationFeatures(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
+        {
+            return RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryLocations ?? new HydraulicBoundaryLocation[0],
+                                                                                           Resources.MetaData_DesignWaterLevel,
+                                                                                           Resources.MetaData_WaveHeight);
         }
     }
 }

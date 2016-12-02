@@ -111,7 +111,7 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        public void MetaData_Always_ReturnAllAvailableMetaDataAttributesFromFeatures()
+        public void MetaData_Always_ReturnAllUniqueAvailableMetaDataAttributesFromFeatures()
         {
             // Setup
             var feature1 = new MapFeature(Enumerable.Empty<MapGeometry>());

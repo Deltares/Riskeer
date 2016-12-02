@@ -72,7 +72,7 @@ namespace Core.Plugins.Map.UITypeEditors
             {
                 return false;
             }
-            return Equals((SelectableMetaDataAttribute)obj);
+            return Equals((SelectableMetaDataAttribute) obj);
         }
 
         public override int GetHashCode()
@@ -80,14 +80,14 @@ namespace Core.Plugins.Map.UITypeEditors
             return metaDataAttribute.GetHashCode();
         }
 
-        private bool Equals(SelectableMetaDataAttribute other)
-        {
-            return Equals(metaDataAttribute, other.MetaDataAttribute);
-        }
-
         public override string ToString()
         {
             return metaDataAttribute;
+        }
+
+        private bool Equals(SelectableMetaDataAttribute other)
+        {
+            return Equals(metaDataAttribute, other.MetaDataAttribute);
         }
     }
 }

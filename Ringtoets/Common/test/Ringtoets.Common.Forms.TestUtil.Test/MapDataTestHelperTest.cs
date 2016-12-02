@@ -196,7 +196,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var mapData = new MapLineData("test");
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(null, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(Enumerable.Empty<HydraulicBoundaryLocation>(), mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);

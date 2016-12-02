@@ -838,9 +838,6 @@
   <data name="MetaData_DesignWaterLevel" xml:space="preserve">
     <value>Toetspeil</value>
   </data>
-  <data name="MetaData_DesignWaterLevel_GrassOutwards" xml:space="preserve">
-    <value>Waterstand bij doorsnede-eis</value>
-  </data>
   <data name="MetaData_ID" xml:space="preserve">
     <value>ID</value>
   </data>
@@ -849,9 +846,6 @@
   </data>
   <data name="MetaData_WaveHeight" xml:space="preserve">
     <value>Golfhoogte</value>
-  </data>
-  <data name="MetaData_WaveHeight_GrassOutwards" xml:space="preserve">
-    <value>Golfhoogte bij doorsnede-eis</value>
   </data>
   <data name="MetaData_Couple_distance" xml:space="preserve">
     <value>Koppelingsafstand</value>

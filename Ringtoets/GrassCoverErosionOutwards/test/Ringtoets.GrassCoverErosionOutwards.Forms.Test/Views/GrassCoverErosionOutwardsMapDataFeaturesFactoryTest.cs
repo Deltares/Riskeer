@@ -91,9 +91,59 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             }, features[1].MapGeometries.ElementAt(0));
         }
 
+        [Test]
+        public void CreateHydraulicBoundaryLocationsFeatures_HydraulicBoundaryLocationsNull_ReturnsEmptyFeaturesArray()
+        {
+            // Call
+            MapFeature[] features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryLocationFeatures_GivenHydraulicBoundaryLocations_ReturnsLocationFeaturesArray()
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point2D(1.2, 2.3),
+                new Point2D(2.7, 2.0)
+            };
+            var hydraulicBoundaryLocations = points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)).ToArray();
+
+            // Call
+            MapFeature[] features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryLocations);
+
+            // Assert
+            Assert.AreEqual(hydraulicBoundaryLocations.Length, features.Length);
+            for (int i = 0; i < hydraulicBoundaryLocations.Length; i++)
+            {
+                Assert.AreEqual(4, features[i].MetaData.Keys.Count);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].Id, features[i].MetaData["ID"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].Name, features[i].MetaData["Naam"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].DesignWaterLevel, features[i].MetaData["Waterstand bij doorsnede-eis"]);
+                Assert.AreEqual(hydraulicBoundaryLocations[i].WaveHeight, features[i].MetaData["Golfhoogte bij doorsnede-eis"]);
+            }
+
+            AssertEqualFeatureCollections(points, features);
+        }
+
         private static void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)
         {
             CollectionAssert.AreEqual(points.Select(p => new Point2D(p.X, p.Y)), geometry.PointCollections.First());
+        }
+
+        private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
+        {
+            Assert.AreEqual(points.Length, features.Length);
+            for (int i = 0; i < points.Length; i++)
+            {
+                CollectionAssert.AreEqual(new[]
+                {
+                    points[i]
+                }, features[i].MapGeometries.First().PointCollections.First());
+            }
         }
     }
 }

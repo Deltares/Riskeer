@@ -22,13 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Forms.Design;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.UITypeEditors;
-using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
-using Core.Components.Gis.Geometries;
 using Core.Plugins.Map.PropertyClasses;
 using Core.Plugins.Map.UITypeEditors;
 using NUnit.Framework;
