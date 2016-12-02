@@ -229,6 +229,14 @@ namespace Ringtoets.Piping.Service
                 {
                     warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_Attempt_to_determine_value_from_combination);
                 }
+                if (!double.IsNaN(inputParameters.Diameter70.Mean) && !double.IsNaN(inputParameters.Diameter70.StandardDeviation))
+                {
+                    var diameter70Value = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue();
+                    if (diameter70Value < 6.3e-5|| diameter70Value > 0.5e-3)
+                    {
+                        warnings.Add(string.Format(Resources.PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model, diameter70Value));
+                    }
+                }
             }
 
             return warnings;

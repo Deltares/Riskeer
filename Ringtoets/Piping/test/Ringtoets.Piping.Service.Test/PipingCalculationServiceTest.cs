@@ -318,8 +318,8 @@ namespace Ringtoets.Piping.Service.Test
                                                     new PipingSoilLayer(2.0)
                                                     {
                                                         IsAquifer = true,
-                                                        DiameterD70Deviation = random.NextDouble(),
-                                                        DiameterD70Mean = 0.1 + random.NextDouble(),
+                                                        DiameterD70Deviation = 0,
+                                                        DiameterD70Mean = 0.1e-3,
                                                         PermeabilityDeviation = random.NextDouble(),
                                                         PermeabilityMean = 0.1 + random.NextDouble()
                                                     }
@@ -365,8 +365,8 @@ namespace Ringtoets.Piping.Service.Test
                                                     new PipingSoilLayer(11.0)
                                                     {
                                                         IsAquifer = true,
-                                                        DiameterD70Deviation = random.NextDouble(),
-                                                        DiameterD70Mean = 0.1 + random.NextDouble(),
+                                                        DiameterD70Deviation = 0,
+                                                        DiameterD70Mean = 0.1e-3,
                                                         PermeabilityDeviation = random.NextDouble(),
                                                         PermeabilityMean = 0.1 + random.NextDouble()
                                                     }
@@ -468,8 +468,8 @@ namespace Ringtoets.Piping.Service.Test
             var incompletePipingSoilLayer = new PipingSoilLayer(5.0)
             {
                 IsAquifer = true,
-                DiameterD70Deviation = random.NextDouble(),
-                DiameterD70Mean = 0.1 + random.NextDouble()
+                DiameterD70Deviation = 0,
+                DiameterD70Mean = 0.1e-3
             };
             if (meanSet)
             {
@@ -552,8 +552,8 @@ namespace Ringtoets.Piping.Service.Test
                                                         IsAquifer = true,
                                                         PermeabilityDeviation = random.NextDouble(),
                                                         PermeabilityMean = 0.1 + random.NextDouble(),
-                                                        DiameterD70Deviation = random.NextDouble(),
-                                                        DiameterD70Mean = 0.1 + random.NextDouble()
+                                                        DiameterD70Deviation = 0,
+                                                        DiameterD70Mean = 0.1e-3
                                                     }
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
@@ -610,8 +610,8 @@ namespace Ringtoets.Piping.Service.Test
                                                         IsAquifer = true,
                                                         PermeabilityDeviation = random.NextDouble(),
                                                         PermeabilityMean = 0.1 + random.NextDouble(),
-                                                        DiameterD70Deviation = random.NextDouble(),
-                                                        DiameterD70Mean = 0.1 + random.NextDouble()
+                                                        DiameterD70Deviation = 0,
+                                                        DiameterD70Mean = 0.1e-3
                                                     }
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
@@ -635,6 +635,57 @@ namespace Ringtoets.Piping.Service.Test
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsTrue(isValid);
+        }
+
+        [Test]
+        [TestCase(6.2e-5)]
+        [TestCase(5.1e-3)]
+        public void Validate_CalculationWithInvalidDiameterD70Value_LogsWarningAndReturnsTrue(double diameter70Value)
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            var random = new Random(21);
+            var soilLayer = new PipingSoilLayer(5.0)
+            {
+                IsAquifer = true,
+                PermeabilityDeviation = random.NextDouble(),
+                PermeabilityMean = 0.1 + random.NextDouble(),
+                DiameterD70Mean = diameter70Value,
+                DiameterD70Deviation = 0
+            };
+
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    new PipingSoilLayer(10.5)
+                                                    {
+                                                        IsAquifer = false,
+                                                        BelowPhreaticLevelDeviation = random.GetFromRange(1e-6, 999.999),
+                                                        BelowPhreaticLevelMean = random.GetFromRange(10.0, 999.999),
+                                                        BelowPhreaticLevelShift = random.GetFromRange(1e-6, 10.0)
+                                                    },
+                                                    soilLayer
+                                                },
+                                                SoilProfileType.SoilProfile1D, -1);
+
+            PipingCalculation pipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            pipingCalculation.Name = name;
+            pipingCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+
+            // Call
+            Action call = () => PipingCalculationService.Validate(pipingCalculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                Assert.AreEqual(string.Format("Gespecificeerde waarde voor d70 ({0} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m.",
+                                              new RoundedDouble(6, diameter70Value)), msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
         }
 
         [Test]
