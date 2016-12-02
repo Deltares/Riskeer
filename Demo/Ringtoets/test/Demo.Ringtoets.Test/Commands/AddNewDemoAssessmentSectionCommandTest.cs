@@ -414,9 +414,9 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
             Assert.AreEqual(5.78, inputParameters.HydraulicBoundaryLocation.DesignWaterLevel, 1e-3);
 
-            Assert.AreEqual(0.7, PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
+            Assert.AreEqual(0.875, PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DampingFactorExit));
-            Assert.AreEqual(1.355, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
+            Assert.AreEqual(2.836, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.PhreaticLevelExit));
             Assert.AreEqual(0.011453, PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.Diameter70));
@@ -425,7 +425,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(17.5, PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.SaturatedVolumicWeightOfCoverageLayer));
 
-            Assert.AreEqual(4.45, inputParameters.PiezometricHeadExit, 1e-2);
+            Assert.AreEqual(5.41, inputParameters.PiezometricHeadExit, 1e-2);
             Assert.AreEqual(106.13, inputParameters.ExitPointL, 1e-2);
             Assert.AreEqual(81.18, PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DampingFactorExit));
@@ -444,12 +444,12 @@ namespace Demo.Ringtoets.Test.Commands
 
             PipingCalculationService.Calculate(calculation);
             Assert.IsTrue(calculation.HasOutput);
-            Assert.AreEqual(0.568, calculation.Output.HeaveFactorOfSafety, 1e-3);
-            Assert.AreEqual(-0.228, calculation.Output.HeaveZValue, 1e-3);
-            Assert.AreEqual(1.484, calculation.Output.UpliftFactorOfSafety, 1e-3);
-            Assert.AreEqual(1.499, calculation.Output.UpliftZValue, 1e-3);
-            Assert.AreEqual(0.425, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
-            Assert.AreEqual(-1.535, calculation.Output.SellmeijerZValue, 1e-3);
+            Assert.AreEqual(0.683, calculation.Output.HeaveFactorOfSafety, 1e-3);
+            Assert.AreEqual(-0.139, calculation.Output.HeaveZValue, 1e-3);
+            Assert.AreEqual(1.784, calculation.Output.UpliftFactorOfSafety, 1e-3);
+            Assert.AreEqual(2.019, calculation.Output.UpliftZValue, 1e-3);
+            Assert.AreEqual(0.955, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
+            Assert.AreEqual(-0.053, calculation.Output.SellmeijerZValue, 1e-3);
         }
 
         private static void AssertCalculationInFailureMechanismSectionResult(PipingCalculationScenario calculation, PipingFailureMechanismSectionResult[] sectionResults, IEnumerable<PipingCalculationScenario> calculations)

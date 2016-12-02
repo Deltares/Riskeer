@@ -47,13 +47,13 @@ namespace Ringtoets.Piping.Data.Test
             var phreaticLevelExit = new NormalDistribution(3)
             {
                 Mean = (RoundedDouble) 0,
-                StandardDeviation = (RoundedDouble) 1
+                StandardDeviation = (RoundedDouble) 0.1
             };
 
             var dampingFactorExit = new LogNormalDistribution(3)
             {
                 Mean = (RoundedDouble) 0.7,
-                StandardDeviation = (RoundedDouble) 0.0
+                StandardDeviation = (RoundedDouble) 0.1
             };
 
             var diameter70 = new LogNormalDistribution(6)

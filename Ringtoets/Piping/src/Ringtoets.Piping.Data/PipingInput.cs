@@ -64,11 +64,14 @@ namespace Ringtoets.Piping.Data
             exitPointL = new RoundedDouble(2, double.NaN);
             entryPointL = new RoundedDouble(2, double.NaN);
 
-            phreaticLevelExit = new NormalDistribution(3);
+            phreaticLevelExit = new NormalDistribution(3)
+            {
+                StandardDeviation = (RoundedDouble) 0.1
+            };
             dampingFactorExit = new LogNormalDistribution(3)
             {
                 Mean = (RoundedDouble) 0.7,
-                StandardDeviation = (RoundedDouble) 0.0
+                StandardDeviation = (RoundedDouble) 0.1
             };
         }
 
