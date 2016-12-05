@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -39,6 +40,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Plugin.Handlers;
@@ -56,7 +58,7 @@ namespace Ringtoets.Integration.Forms.Test
 
         private const string messageCalculationsremoved = "De resultaten van {0} berekeningen zijn verwijderd.";
 
-        private const string normInputTextBoxName = "normInput";
+        private const string returnPeriodInputTextBoxName = "returnPeriodInput";
         private const string dataGridViewControlName = "dataGridView";
         private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
         private const int isRelevantColumnIndex = 0;
@@ -66,16 +68,16 @@ namespace Ringtoets.Integration.Forms.Test
         private const int probabilitySpaceColumnIndex = 4;
 
         [Test]
-        public void NormTextBox_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
+        public void ReturnPeriodTextBox_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
         {
             // Setup
-            const int normValue = 200;
+            const int newReturnPeriod = 200;
             const int numberOfCalculations = 3;
 
             var waveHeight = (RoundedDouble) 3.0;
             var designWaterLevel = (RoundedDouble) 4.2;
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
             {
                 WaveHeight = waveHeight,
                 DesignWaterLevel = designWaterLevel
@@ -173,11 +175,11 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                var normTester = new ControlTester(normInputTextBoxName);
+                var returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
 
                 // Precondition
                 int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
-                Assert.AreEqual(originalReturnPeriodValue.ToString(), normTester.Text);
+                Assert.AreEqual(originalReturnPeriodValue.ToString(), returnPeriodTester.Text);
                 Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
                 Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
                 Assert.AreEqual(waveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight.GetAccuracy());
@@ -195,7 +197,7 @@ namespace Ringtoets.Integration.Forms.Test
                 };
 
                 // Call
-                Action call = () => SimulateUserCommittingNormValue(normTester, normValue);
+                Action call = () => SimulateUserCommittingReturnPeriodValue(returnPeriodTester, newReturnPeriod);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, msgs =>
@@ -204,7 +206,7 @@ namespace Ringtoets.Integration.Forms.Test
                     Assert.AreEqual(string.Format(messageCalculationsremoved, numberOfCalculations), messages[0]);
                     Assert.AreEqual(messageAllHydraulicBoundaryLocationOutputCleared, messages[1]);
                 });
-                Assert.AreEqual(1.0/normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
                 Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
                 Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
@@ -218,15 +220,15 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void NormTextBox_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryDatabaseObserversNotifiedAndMessagesLogged()
+        public void ReturnPeriodTextBox_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryDatabaseObserversNotifiedAndMessagesLogged()
         {
             // Setup
-            const int normValue = 200;
+            const int newReturnPeriod = 200;
 
             var waveHeight = (RoundedDouble) 3.0;
             var designWaterLevel = (RoundedDouble) 4.2;
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
+            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation
             {
                 WaveHeight = waveHeight,
                 DesignWaterLevel = designWaterLevel
@@ -277,13 +279,13 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                ControlTester normTester = new ControlTester(normInputTextBoxName);
+                ControlTester returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
 
                 HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
 
                 // Precondition
                 int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
-                Assert.AreEqual(originalReturnPeriodValue.ToString(), normTester.Text);
+                Assert.AreEqual(originalReturnPeriodValue.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Text);
                 Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
                 Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
 
@@ -294,12 +296,12 @@ namespace Ringtoets.Integration.Forms.Test
                 };
 
                 // Call
-                Action call = () => SimulateUserCommittingNormValue(normTester, normValue);
+                Action call = () => SimulateUserCommittingReturnPeriodValue(returnPeriodTester, newReturnPeriod);
 
                 // Assert
                 TestHelper.AssertLogMessageIsGenerated(call, messageAllHydraulicBoundaryLocationOutputCleared, 1);
 
-                Assert.AreEqual(1.0/normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
                 Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
             }
@@ -307,14 +309,14 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void NormTextBox_HydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
+        public void ReturnPeriodTextBox_HydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
         {
             // Setup
-            const int normValue = 200;
+            const int newReturnPeriod = 200;
             const int numberOfCalculations = 3;
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 0.0, 0.0));
+            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
@@ -390,11 +392,11 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                ControlTester normTester = new ControlTester(normInputTextBoxName);
+                ControlTester returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
 
                 // Precondition
                 int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
-                Assert.AreEqual(originalReturnPeriodValue.ToString(), normTester.Text);
+                Assert.AreEqual(originalReturnPeriodValue.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Text);
                 Assert.IsNotNull(pipingCalculation.Output);
                 Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
@@ -407,14 +409,14 @@ namespace Ringtoets.Integration.Forms.Test
                 };
 
                 // Call
-                Action call = () => SimulateUserCommittingNormValue(normTester, normValue);
+                Action call = () => SimulateUserCommittingReturnPeriodValue(returnPeriodTester, newReturnPeriod);
 
                 // Assert
                 string expectedMessage = string.Format(messageCalculationsremoved,
                                                        numberOfCalculations);
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
-                Assert.AreEqual(1.0/normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
                 Assert.IsNull(pipingCalculation.Output);
                 Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
@@ -424,10 +426,10 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void NormTextBox_NoHydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
+        public void ReturnPeriodTextBox_NoHydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
         {
             // Setup
-            const int normValue = 200;
+            const int newReturnPeriod = 200;
             const int numberOfCalculations = 3;
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -498,11 +500,11 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                ControlTester normTester = new ControlTester(normInputTextBoxName);
+                ControlTester returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
 
                 // Precondition
                 int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
-                Assert.AreEqual(originalReturnPeriodValue.ToString(), normTester.Text);
+                Assert.AreEqual(originalReturnPeriodValue.ToString(), returnPeriodTester.Text);
                 Assert.IsNotNull(pipingCalculation.Output);
                 Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
@@ -515,14 +517,14 @@ namespace Ringtoets.Integration.Forms.Test
                 };
 
                 // Call
-                Action call = () => SimulateUserCommittingNormValue(normTester, normValue);
+                Action call = () => SimulateUserCommittingReturnPeriodValue(returnPeriodTester, newReturnPeriod);
 
                 // Assert
                 string expectedMessage = string.Format(messageCalculationsremoved,
                                                        numberOfCalculations);
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
-                Assert.AreEqual(1.0/normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
                 Assert.IsNull(pipingCalculation.Output);
                 Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
                 Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
@@ -532,13 +534,13 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void NormTextBox_HydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        public void ReturnPeriodTextBox_HydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
         {
             // Setup
-            const int normValue = 200;
+            const int newReturnPeriod = 200;
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 0.0, 0.0));
+            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
@@ -583,11 +585,11 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                ControlTester normTester = new ControlTester(normInputTextBoxName);
+                ControlTester normTester = new ControlTester(returnPeriodInputTextBoxName);
 
                 // Precondition
                 int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
-                Assert.AreEqual(originalReturnPeriodValue.ToString(), normTester.Text);
+                Assert.AreEqual(originalReturnPeriodValue.ToString(CultureInfo.CurrentCulture), normTester.Text);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -596,20 +598,20 @@ namespace Ringtoets.Integration.Forms.Test
                 };
 
                 // Call
-                Action call = () => SimulateUserCommittingNormValue(normTester, normValue);
+                Action call = () => SimulateUserCommittingReturnPeriodValue(normTester, newReturnPeriod);
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
-                Assert.AreEqual(1.0/normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
             }
             mockRepository.VerifyAll(); // No update observer expected.
         }
 
         [Test]
-        public void NormTextBox_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        public void ReturnPeriodTextBox_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
         {
             // Setup
-            const int normValue = 200;
+            const int newReturnPeriod = 200;
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -649,11 +651,11 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                ControlTester normTester = new ControlTester(normInputTextBoxName);
+                ControlTester returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
 
                 // Precondition
                 int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
-                Assert.AreEqual(originalReturnPeriodValue.ToString(), normTester.Text);
+                Assert.AreEqual(originalReturnPeriodValue.ToString(), returnPeriodTester.Text);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -662,11 +664,11 @@ namespace Ringtoets.Integration.Forms.Test
                 };
 
                 // Call
-                Action call = () => SimulateUserCommittingNormValue(normTester, normValue);
+                Action call = () => SimulateUserCommittingReturnPeriodValue(returnPeriodTester, newReturnPeriod);
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
-                Assert.AreEqual(1.0/normValue, failureMechanismContribution.Norm);
+                Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
             }
             mockRepository.VerifyAll(); // No update observer expected.
         }
@@ -678,7 +680,9 @@ namespace Ringtoets.Integration.Forms.Test
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
-        public void GivenViewWithAssessmentSection_WhenChangingCompositionComboBoxAndOk_ThenUpdateAssessmentSectionContributionAndView(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
+        public void GivenViewWithAssessmentSection_WhenChangingCompositionComboBoxAndOk_ThenUpdateAssessmentSectionContributionAndView(
+            AssessmentSectionComposition initialComposition,
+            AssessmentSectionComposition newComposition)
         {
             // Given
             var mocks = new MockRepository();
@@ -743,15 +747,15 @@ namespace Ringtoets.Integration.Forms.Test
             }
         }
 
-        private static void SimulateUserCommittingNormValue(ControlTester normTester, int normValue)
+        private static void SimulateUserCommittingReturnPeriodValue(ControlTester returnPeriodTester, int returnPeriod)
         {
-            var normInput = (NumericUpDown) normTester.TheObject;
-            normInput.Value = normValue;
+            var returnPeriodInput = (NumericUpDown) returnPeriodTester.TheObject;
+            returnPeriodInput.Value = returnPeriod;
             var eventArgs = new CancelEventArgs();
-            EventHelper.RaiseEvent(normTester.TheObject, "Validating", eventArgs);
+            EventHelper.RaiseEvent(returnPeriodTester.TheObject, "Validating", eventArgs);
             if (!eventArgs.Cancel)
             {
-                normTester.FireEvent("Validated");
+                returnPeriodTester.FireEvent("Validated");
             }
         }
     }

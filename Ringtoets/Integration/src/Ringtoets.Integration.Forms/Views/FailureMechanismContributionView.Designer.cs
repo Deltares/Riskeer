@@ -25,8 +25,8 @@ namespace Ringtoets.Integration.Forms.Views
 {
     partial class FailureMechanismContributionView
     {
-        private Label normLabel;
-        private NumericUpDown normInput;
+        private Label returnPeriodLabel;
+        private NumericUpDown returnPeriodInput;
         private Label perYearLabel;
 
         /// <summary> 
@@ -43,43 +43,43 @@ namespace Ringtoets.Integration.Forms.Views
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismContributionView));
-            this.normLabel = new System.Windows.Forms.Label();
-            this.normInput = new System.Windows.Forms.NumericUpDown();
+            this.returnPeriodLabel = new System.Windows.Forms.Label();
+            this.returnPeriodInput = new System.Windows.Forms.NumericUpDown();
             this.perYearLabel = new System.Windows.Forms.Label();
             this.assessmentSectionConfigurationLabel = new System.Windows.Forms.Label();
             this.assessmentSectionCompositionComboBox = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.probabilityDistributionGrid = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            ((System.ComponentModel.ISupportInitialize)(this.normInput)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.returnPeriodInput)).BeginInit();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // normLabel
+            // returnPeriodLabel
             // 
-            resources.ApplyResources(this.normLabel, "normLabel");
-            this.normLabel.Name = "normLabel";
+            resources.ApplyResources(this.returnPeriodLabel, "returnPeriodLabel");
+            this.returnPeriodLabel.Name = "returnPeriodLabel";
             // 
-            // normInput
+            // returnPeriodInput
             // 
-            resources.ApplyResources(this.normInput, "normInput");
-            this.normInput.Maximum = new decimal(new int[] {
+            resources.ApplyResources(this.returnPeriodInput, "returnPeriodInput");
+            this.returnPeriodInput.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
-            this.normInput.Minimum = new decimal(new int[] {
+            this.returnPeriodInput.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.normInput.Name = "normInput";
-            this.normInput.Value = new decimal(new int[] {
+            this.returnPeriodInput.Name = "returnPeriodInput";
+            this.returnPeriodInput.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.normInput.Validating += new System.ComponentModel.CancelEventHandler(this.NormNumericUpDown_Validating);
-            this.normInput.Validated += new System.EventHandler(this.NormNumericUpDown_Validated);
+            this.returnPeriodInput.Validating += new System.ComponentModel.CancelEventHandler(this.ReturnPeriodNumericUpDown_Validating);
+            this.returnPeriodInput.Validated += new System.EventHandler(this.ReturnPeriodNumericUpDown_Validated);
             // 
             // perYearLabel
             // 
@@ -103,8 +103,8 @@ namespace Ringtoets.Integration.Forms.Views
             resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
             this.tableLayoutPanel.Controls.Add(this.assessmentSectionConfigurationLabel, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.assessmentSectionCompositionComboBox, 1, 0);
-            this.tableLayoutPanel.Controls.Add(this.normLabel, 2, 0);
-            this.tableLayoutPanel.Controls.Add(this.normInput, 3, 0);
+            this.tableLayoutPanel.Controls.Add(this.returnPeriodLabel, 2, 0);
+            this.tableLayoutPanel.Controls.Add(this.returnPeriodInput, 3, 0);
             this.tableLayoutPanel.Controls.Add(this.perYearLabel, 4, 0);
             this.tableLayoutPanel.Controls.Add(this.probabilityDistributionGrid, 0, 1);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.Controls.Add(this.tableLayoutPanel);
             this.Name = "FailureMechanismContributionView";
             resources.ApplyResources(this, "$this");
-            ((System.ComponentModel.ISupportInitialize)(this.normInput)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.returnPeriodInput)).EndInit();
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);

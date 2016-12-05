@@ -225,7 +225,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual((RoundedDouble) 7.40, locations[9].DesignWaterLevel, locations[9].DesignWaterLevel.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 7.40, locations[10].DesignWaterLevel, locations[10].DesignWaterLevel.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 7.40, locations[11].DesignWaterLevel, locations[11].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.41, locations[12].DesignWaterLevel, locations[12].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 7.40, locations[12].DesignWaterLevel, locations[12].DesignWaterLevel.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 7.41, locations[13].DesignWaterLevel, locations[13].DesignWaterLevel.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 7.41, locations[14].DesignWaterLevel, locations[14].DesignWaterLevel.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 6.91, locations[15].DesignWaterLevel, locations[15].DesignWaterLevel.GetAccuracy());
@@ -258,7 +258,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual((RoundedDouble) 4.63, locations[12].WaveHeight, locations[12].WaveHeight.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 4.68, locations[13].WaveHeight, locations[13].WaveHeight.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 4.17, locations[14].WaveHeight, locations[14].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 11.14, locations[15].WaveHeight, locations[15].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 11.13, locations[15].WaveHeight, locations[15].WaveHeight.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 9.24, locations[16].WaveHeight, locations[16].WaveHeight.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 5.34, locations[17].WaveHeight, locations[17].WaveHeight.GetAccuracy());
         }
@@ -638,24 +638,24 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertWaveHeightValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] locations)
         {
-            Assert.AreEqual((RoundedDouble) 4.13374, locations[0].WaveHeight, locations[0].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.19044, locations[1].WaveHeight, locations[1].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.01717, locations[2].WaveHeight, locations[2].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.87408, locations[3].WaveHeight, locations[3].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.73281, locations[4].WaveHeight, locations[4].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 2.65268, locations[5].WaveHeight, locations[5].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.04333, locations[6].WaveHeight, locations[6].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.19952, locations[7].WaveHeight, locations[7].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.3554, locations[8].WaveHeight, locations[8].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.52929, locations[9].WaveHeight, locations[9].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.62194, locations[10].WaveHeight, locations[10].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.6851, locations[11].WaveHeight, locations[11].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.72909, locations[12].WaveHeight, locations[12].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.74794, locations[13].WaveHeight, locations[13].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.29686, locations[14].WaveHeight, locations[14].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 9.57558, locations[15].WaveHeight, locations[15].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 8.01959, locations[16].WaveHeight, locations[16].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.11447, locations[17].WaveHeight, locations[17].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 4.13, locations[0].WaveHeight, locations[0].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 4.19, locations[1].WaveHeight, locations[1].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 4.02, locations[2].WaveHeight, locations[2].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.87, locations[3].WaveHeight, locations[3].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.73, locations[4].WaveHeight, locations[4].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 2.65, locations[5].WaveHeight, locations[5].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.04, locations[6].WaveHeight, locations[6].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.20, locations[7].WaveHeight, locations[7].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.35, locations[8].WaveHeight, locations[8].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.53, locations[9].WaveHeight, locations[9].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.62, locations[10].WaveHeight, locations[10].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.68, locations[11].WaveHeight, locations[11].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.73, locations[12].WaveHeight, locations[12].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.75, locations[13].WaveHeight, locations[13].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.30, locations[14].WaveHeight, locations[14].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 9.57, locations[15].WaveHeight, locations[15].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 8.02, locations[16].WaveHeight, locations[16].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 4.11, locations[17].WaveHeight, locations[17].WaveHeight.GetAccuracy());
         }
 
         private static void AssertWaveHeightCalculationConvergenceOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] locations)

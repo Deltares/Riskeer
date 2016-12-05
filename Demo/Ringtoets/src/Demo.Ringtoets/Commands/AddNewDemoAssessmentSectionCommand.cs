@@ -198,7 +198,7 @@ namespace Demo.Ringtoets.Commands
             locations.ElementAt(9).DesignWaterLevel = (RoundedDouble) 7.40;
             locations.ElementAt(10).DesignWaterLevel = (RoundedDouble) 7.40;
             locations.ElementAt(11).DesignWaterLevel = (RoundedDouble) 7.40;
-            locations.ElementAt(12).DesignWaterLevel = (RoundedDouble) 7.41;
+            locations.ElementAt(12).DesignWaterLevel = (RoundedDouble) 7.40;
             locations.ElementAt(13).DesignWaterLevel = (RoundedDouble) 7.41;
             locations.ElementAt(14).DesignWaterLevel = (RoundedDouble) 7.41;
             locations.ElementAt(15).DesignWaterLevel = (RoundedDouble) 6.91;
@@ -232,7 +232,7 @@ namespace Demo.Ringtoets.Commands
             locations.ElementAt(12).WaveHeight = (RoundedDouble) 4.63;
             locations.ElementAt(13).WaveHeight = (RoundedDouble) 4.68;
             locations.ElementAt(14).WaveHeight = (RoundedDouble) 4.17;
-            locations.ElementAt(15).WaveHeight = (RoundedDouble) 11.14;
+            locations.ElementAt(15).WaveHeight = (RoundedDouble) 11.13;
             locations.ElementAt(16).WaveHeight = (RoundedDouble) 9.24;
             locations.ElementAt(17).WaveHeight = (RoundedDouble) 5.34;
         }
@@ -649,24 +649,24 @@ namespace Demo.Ringtoets.Commands
 
         private static void SetHydraulicBoundaryLocationWaveHeightValues(ICollection<HydraulicBoundaryLocation> locations)
         {
-            locations.ElementAt(0).WaveHeight = (RoundedDouble) 4.13374;
-            locations.ElementAt(1).WaveHeight = (RoundedDouble) 4.19044;
-            locations.ElementAt(2).WaveHeight = (RoundedDouble) 4.01717;
-            locations.ElementAt(3).WaveHeight = (RoundedDouble) 3.87408;
-            locations.ElementAt(4).WaveHeight = (RoundedDouble) 3.73281;
-            locations.ElementAt(5).WaveHeight = (RoundedDouble) 2.65268;
-            locations.ElementAt(6).WaveHeight = (RoundedDouble) 3.04333;
-            locations.ElementAt(7).WaveHeight = (RoundedDouble) 3.19952;
-            locations.ElementAt(8).WaveHeight = (RoundedDouble) 3.3554;
-            locations.ElementAt(9).WaveHeight = (RoundedDouble) 3.52929;
-            locations.ElementAt(10).WaveHeight = (RoundedDouble) 3.62194;
-            locations.ElementAt(11).WaveHeight = (RoundedDouble) 3.6851;
-            locations.ElementAt(12).WaveHeight = (RoundedDouble) 3.72909;
-            locations.ElementAt(13).WaveHeight = (RoundedDouble) 3.74794;
-            locations.ElementAt(14).WaveHeight = (RoundedDouble) 3.29686;
-            locations.ElementAt(15).WaveHeight = (RoundedDouble) 9.57558;
-            locations.ElementAt(16).WaveHeight = (RoundedDouble) 8.01959;
-            locations.ElementAt(17).WaveHeight = (RoundedDouble) 4.11447;
+            locations.ElementAt(0).WaveHeight = (RoundedDouble) 4.13;
+            locations.ElementAt(1).WaveHeight = (RoundedDouble) 4.19;
+            locations.ElementAt(2).WaveHeight = (RoundedDouble) 4.02;
+            locations.ElementAt(3).WaveHeight = (RoundedDouble) 3.87;
+            locations.ElementAt(4).WaveHeight = (RoundedDouble) 3.73;
+            locations.ElementAt(5).WaveHeight = (RoundedDouble) 2.65;
+            locations.ElementAt(6).WaveHeight = (RoundedDouble) 3.04;
+            locations.ElementAt(7).WaveHeight = (RoundedDouble) 3.20;
+            locations.ElementAt(8).WaveHeight = (RoundedDouble) 3.35;
+            locations.ElementAt(9).WaveHeight = (RoundedDouble) 3.53;
+            locations.ElementAt(10).WaveHeight = (RoundedDouble) 3.62;
+            locations.ElementAt(11).WaveHeight = (RoundedDouble) 3.68;
+            locations.ElementAt(12).WaveHeight = (RoundedDouble) 3.73;
+            locations.ElementAt(13).WaveHeight = (RoundedDouble) 3.75;
+            locations.ElementAt(14).WaveHeight = (RoundedDouble) 3.30;
+            locations.ElementAt(15).WaveHeight = (RoundedDouble) 9.57;
+            locations.ElementAt(16).WaveHeight = (RoundedDouble) 8.02;
+            locations.ElementAt(17).WaveHeight = (RoundedDouble) 4.11;
         }
 
         private static void SetHydraulicBoundaryLocationWaveHeightCalculationConvergence(ICollection<HydraulicBoundaryLocation> locations)

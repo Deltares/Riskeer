@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -43,7 +44,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismContributionViewTest : NUnitFormTest
     {
-        private const string normInputTextBoxName = "normInput";
+        private const string returnPeriodInputTextBoxName = "returnPeriodInput";
         private const string dataGridViewControlName = "dataGridView";
         private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
         private const int isRelevantColumnIndex = 0;
@@ -159,7 +160,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void NormTextBox_Initialize_TextSetToData()
+        public void ReturnPeriodTextBox_Initialize_TextSetToData()
         {
             // Setup
             var mocks = new MockRepository();
@@ -181,21 +182,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(contributionView);
 
                 // Assert
-                var normTester = new ControlTester(normInputTextBoxName);
-                var normControl = normTester.TheObject as NumericUpDown;
+                var returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
+                var returnPeriodControl = returnPeriodTester.TheObject as NumericUpDown;
 
                 int returnPeriod = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
 
-                Assert.NotNull(normControl);
-                Assert.AreEqual(returnPeriod.ToString(), normTester.Text);
-                Assert.AreEqual(1000000, normControl.Maximum);
-                Assert.AreEqual(100, normControl.Minimum);
+                Assert.NotNull(returnPeriodControl);
+                Assert.AreEqual(returnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Text);
+                Assert.AreEqual(1000000, returnPeriodControl.Maximum);
+                Assert.AreEqual(100, returnPeriodControl.Minimum);
             }
             mocks.VerifyAll();
         }
 
         [Test]
-        public void NormTextBox_ValueChangedAndUserConfirmsChange_UpdatesDataWithNewValue()
+        public void ReturnPeriodTextBox_ValueChangedAndUserConfirmsChange_UpdatesDataWithNewValue()
         {
             // Setup
             const int returnPeriod = 200;
@@ -230,20 +231,20 @@ namespace Ringtoets.Integration.Forms.Test.Views
             })
             {
                 ShowFormWithView(distributionView);
-                ControlTester normTester = new ControlTester(normInputTextBoxName);
+                ControlTester returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
 
                 // Precondition
-                Assert.AreEqual(initialReturnPeriod.ToString(), normTester.Text);
+                Assert.AreEqual(initialReturnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Text);
 
                 // Call
-                SimulateUserCommittingNormValue(normTester, returnPeriod);
+                SimulateUserCommittingReturnPeriodValue(returnPeriodTester, returnPeriod);
             }
             // Assert
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void NormTextBox_ValueChangedAndUserDisallowsChange_NothingHappens()
+        public void ReturnPeriodTextBox_ValueChangedAndUserDisallowsChange_NothingHappens()
         {
             // Setup
             const int newReturnPeriod = 200;
@@ -269,16 +270,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
             })
             {
                 ShowFormWithView(distributionView);
-                ControlTester normTester = new ControlTester(normInputTextBoxName);
+                ControlTester returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
 
                 // Precondition
-                Assert.AreEqual(initialReturnPeriod.ToString(), normTester.Text);
+                Assert.AreEqual(initialReturnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Text);
 
                 // Call
-                SimulateUserCommittingNormValue(normTester, newReturnPeriod);
+                SimulateUserCommittingReturnPeriodValue(returnPeriodTester, newReturnPeriod);
 
                 // Assert
-                Assert.AreEqual(initialReturnPeriod.ToString(), normTester.Properties.Text);
+                Assert.AreEqual(initialReturnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Properties.Text);
             }
             mockRepository.VerifyAll();
         }
@@ -328,8 +329,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            var testName = "testName";
-            var testCode = "testCode";
+            const string testName = "testName";
+            const string testCode = "testCode";
             double testContribution = 100 - otherContribution;
 
             var mockRepository = new MockRepository();
@@ -408,28 +409,28 @@ namespace Ringtoets.Integration.Forms.Test.Views
             })
             {
                 ShowFormWithView(distributionView);
-                var normTester = new ControlTester(normInputTextBoxName);
+                var returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
 
                 // Precondition
-                Assert.AreEqual(initialReturnPeriod.ToString(), normTester.Properties.Text);
+                Assert.AreEqual(initialReturnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Properties.Text);
 
                 // Call
                 distributionView.Data = newContribution;
                 distributionView.AssessmentSection = assessmentSection2;
 
                 // Assert
-                Assert.AreEqual(newReturnPeriod.ToString(), normTester.Properties.Text);
+                Assert.AreEqual(newReturnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Properties.Text);
             }
 
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void UpdateObserver_ChangeNormAndNotify_UpdateNormTextBox()
+        public void UpdateObserver_ChangeReturnPeriodAndNotify_UpdateReturnPeriodTextBox()
         {
             // Setup
-            const int initialNormValue = 100;
-            const int newNormValue = 200;
+            const int initialReturnPeriod = 100;
+            const int newReturnPeriod = 200;
             var random = new Random(21);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -444,7 +445,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var contribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, random.Next(0, 100), 1.0/initialNormValue);
+            }, random.Next(0, 100), 1.0/initialReturnPeriod);
 
             using (var distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
             {
@@ -453,17 +454,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
             })
             {
                 ShowFormWithView(distributionView);
-                var normTester = new ControlTester(normInputTextBoxName);
+                var returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
 
                 // Precondition
-                Assert.AreEqual(initialNormValue.ToString(), normTester.Properties.Text);
+                Assert.AreEqual(initialReturnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Properties.Text);
 
                 // Call
-                contribution.Norm = 1.0/newNormValue;
+                contribution.Norm = 1.0/newReturnPeriod;
                 contribution.NotifyObservers();
 
                 // Assert
-                Assert.AreEqual(newNormValue.ToString(), normTester.Properties.Text);
+                Assert.AreEqual(newReturnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Properties.Text);
             }
 
             mockRepository.VerifyAll();
@@ -916,10 +917,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             var failureMechanisms = new[]
-                {
-                    failureMechanism
-                };
-            var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0 / 30000);
+            {
+                failureMechanism
+            };
+            var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0/30000);
 
             using (var view = new FailureMechanismContributionView(handler1, handler2, viewCommands))
             {
@@ -927,7 +928,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 view.Data = contribution;
 
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 DataGridViewRow row = dataGridView.Rows[0];
 
                 // When
@@ -1001,7 +1002,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             })
             {
                 ShowFormWithView(view);
-                ControlTester normTester = new ControlTester(normInputTextBoxName);
+                ControlTester normTester = new ControlTester(returnPeriodInputTextBoxName);
 
                 // When
                 var normInput = (NumericUpDown) normTester.TheObject;
@@ -1022,7 +1023,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenView_WhenEnterAfterEnteringDifferentNormNotCommitted_CommitValueAndChangeData()
+        public void GivenView_WhenEnterAfterEnteringDifferentReturnPeriodNotCommitted_CommitValueAndChangeData()
         {
             // Given
             const int returnPeriod = 200;
@@ -1050,34 +1051,34 @@ namespace Ringtoets.Integration.Forms.Test.Views
             })
             {
                 ShowFormWithView(view);
-                ControlTester normTester = new ControlTester(normInputTextBoxName);
+                ControlTester normTester = new ControlTester(returnPeriodInputTextBoxName);
 
                 // When
-                var normInput = (NumericUpDown) normTester.TheObject;
-                view.ActiveControl = normInput;
-                normInput.Value = returnPeriod;
+                var returnPeriodInput = (NumericUpDown) normTester.TheObject;
+                view.ActiveControl = returnPeriodInput;
+                returnPeriodInput.Value = returnPeriod;
                 var keyEventArgs = new KeyEventArgs(Keys.Enter);
-                EventHelper.RaiseEvent(normInput.Controls.OfType<TextBox>().First(), "KeyDown", keyEventArgs);
+                EventHelper.RaiseEvent(returnPeriodInput.Controls.OfType<TextBox>().First(), "KeyDown", keyEventArgs);
 
                 // Then
                 Assert.IsTrue(keyEventArgs.Handled);
                 Assert.IsTrue(keyEventArgs.SuppressKeyPress);
 
-                Assert.AreEqual(returnPeriod, normInput.Value);
-                Assert.AreNotSame(normInput, view.ActiveControl);
+                Assert.AreEqual(returnPeriod, returnPeriodInput.Value);
+                Assert.AreNotSame(returnPeriodInput, view.ActiveControl);
             }
             mocks.VerifyAll();
         }
 
-        private static void SimulateUserCommittingNormValue(ControlTester normTester, int normValue)
+        private static void SimulateUserCommittingReturnPeriodValue(ControlTester returnPeriodTester, int returnPeriod)
         {
-            var normInput = (NumericUpDown) normTester.TheObject;
-            normInput.Value = normValue;
+            var returnPeriodInput = (NumericUpDown) returnPeriodTester.TheObject;
+            returnPeriodInput.Value = returnPeriod;
             var eventArgs = new CancelEventArgs();
-            EventHelper.RaiseEvent(normTester.TheObject, "Validating", eventArgs);
+            EventHelper.RaiseEvent(returnPeriodTester.TheObject, "Validating", eventArgs);
             if (!eventArgs.Cancel)
             {
-                normTester.FireEvent("Validated");
+                returnPeriodTester.FireEvent("Validated");
             }
         }
 

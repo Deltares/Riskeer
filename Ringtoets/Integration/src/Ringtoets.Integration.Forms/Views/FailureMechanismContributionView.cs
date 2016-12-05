@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <exception cref="ArgumentNullException">When any input argument is null.</exception>
         public FailureMechanismContributionView(IFailureMechanismContributionNormChangeHandler normChangeHandler,
                                                 IAssessmentSectionCompositionChangeHandler compositionChangeHandler,
-            IViewCommands viewCommands)
+                                                IViewCommands viewCommands)
         {
             if (normChangeHandler == null)
             {
@@ -94,8 +94,8 @@ namespace Ringtoets.Integration.Forms.Views
             InitializeComponent();
             InitializeGridColumns();
             InitializeAssessmentSectionCompositionComboBox();
-            BindNormChange();
-            BindNormInputLeave();
+            BindReturnPeriodChange();
+            BindReturnPeriodInputLeave();
             SubscribeEvents();
 
             this.normChangeHandler = normChangeHandler;
@@ -134,7 +134,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         public void UpdateObserver()
         {
-            SetNormText();
+            SetReturnPeriodText();
             probabilityDistributionGrid.RefreshDataGridView();
         }
 
@@ -183,16 +183,16 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void HandleNewDataSet(FailureMechanismContribution value)
         {
-            UnbindNormChange();
+            UnbindReturnPeriodChange();
             DetachFromData();
 
             data = value;
 
             SetGridDataSource();
-            SetNormText();
+            SetReturnPeriodText();
 
             AttachToData();
-            BindNormChange();
+            BindReturnPeriodChange();
 
             probabilityDistributionGrid.RefreshDataGridView();
         }
@@ -260,39 +260,39 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void BindAssessmentSectionCompositionChange()
         {
-            assessmentSectionCompositionComboBox.SelectionChangeCommitted += AssessmentSectionCompositionComboBoxSelectionChangeComitted;
+            assessmentSectionCompositionComboBox.SelectionChangeCommitted += AssessmentSectionCompositionComboBoxSelectionChangeCommitted;
         }
 
         private void UnbindAssessmentSectionCompositionChange()
         {
-            assessmentSectionCompositionComboBox.SelectionChangeCommitted -= AssessmentSectionCompositionComboBoxSelectionChangeComitted;
+            assessmentSectionCompositionComboBox.SelectionChangeCommitted -= AssessmentSectionCompositionComboBoxSelectionChangeCommitted;
         }
 
-        private void BindNormChange()
+        private void BindReturnPeriodChange()
         {
-            // Attaching to inner TextBox instead of 'normInput' control to capture all
+            // Attaching to inner TextBox instead of 'returnPeriodInput' control to capture all
             // key presses. (This prevents some unexpected unresponsive behavior):
-            var innerTextBox = normInput.Controls.OfType<TextBox>().First();
-            innerTextBox.KeyDown += NormNumericUpDownInnerTextBox_KeyDown;
+            var innerTextBox = returnPeriodInput.Controls.OfType<TextBox>().First();
+            innerTextBox.KeyDown += ReturnPeriodNumericUpDownInnerTextBox_KeyDown;
         }
 
-        private void UnbindNormChange()
+        private void UnbindReturnPeriodChange()
         {
-            var innerTextBox = normInput.Controls.OfType<TextBox>().First();
-            innerTextBox.KeyDown -= NormNumericUpDownInnerTextBox_KeyDown;
+            var innerTextBox = returnPeriodInput.Controls.OfType<TextBox>().First();
+            innerTextBox.KeyDown -= ReturnPeriodNumericUpDownInnerTextBox_KeyDown;
         }
 
-        private void BindNormInputLeave()
+        private void BindReturnPeriodInputLeave()
         {
-            normInput.Leave += NormInputLeave;
+            returnPeriodInput.Leave += ReturnPeriodInputLeave;
         }
 
-        private void SetNormText()
+        private void SetReturnPeriodText()
         {
             if (data != null)
             {
                 // Note: Set the Text instead of value to ensure Value property is correct when handling Validating events.
-                normInput.Text = Convert.ToInt32(1.0/data.Norm).ToString(CultureInfo.CurrentCulture);
+                returnPeriodInput.Text = Convert.ToInt32(1.0/data.Norm).ToString(CultureInfo.CurrentCulture);
             }
         }
 
@@ -331,16 +331,16 @@ namespace Ringtoets.Integration.Forms.Views
 
         #region Event handling
 
-        private void NormInputLeave(object sender, EventArgs e)
+        private void ReturnPeriodInputLeave(object sender, EventArgs e)
         {
             ResetTextIfEmpty();
         }
 
         private void ResetTextIfEmpty()
         {
-            if (string.IsNullOrEmpty(normInput.Text))
+            if (string.IsNullOrEmpty(returnPeriodInput.Text))
             {
-                normInput.Text = normInput.Value.ToString(CultureInfo.CurrentCulture);
+                returnPeriodInput.Text = returnPeriodInput.Value.ToString(CultureInfo.CurrentCulture);
             }
         }
 
@@ -397,9 +397,9 @@ namespace Ringtoets.Integration.Forms.Views
             return rowData.IsAlwaysRelevant;
         }
 
-        private void AssessmentSectionCompositionComboBoxSelectionChangeComitted(object sender, EventArgs e)
+        private void AssessmentSectionCompositionComboBoxSelectionChangeCommitted(object sender, EventArgs e)
         {
-            var newComposition = (AssessmentSectionComposition)assessmentSectionCompositionComboBox.SelectedValue;
+            var newComposition = (AssessmentSectionComposition) assessmentSectionCompositionComboBox.SelectedValue;
             if (assessmentSection.Composition != newComposition && compositionChangeHandler.ConfirmCompositionChange())
             {
                 IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(assessmentSection, newComposition);
@@ -414,22 +414,22 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        private void NormNumericUpDown_Validating(object sender, CancelEventArgs e)
+        private void ReturnPeriodNumericUpDown_Validating(object sender, CancelEventArgs e)
         {
-            int returnPeriod = Convert.ToInt32(normInput.Value);
+            int returnPeriod = Convert.ToInt32(returnPeriodInput.Value);
             if (returnPeriod != 0 && assessmentSection.FailureMechanismContribution.Norm.CompareTo(1.0/returnPeriod) != 0)
             {
                 if (!normChangeHandler.ConfirmNormChange())
                 {
                     e.Cancel = true;
-                    RevertNormInputValue();
+                    RevertReturnPeriodInputValue();
                 }
             }
         }
 
-        private void NormNumericUpDown_Validated(object sender, EventArgs e)
+        private void ReturnPeriodNumericUpDown_Validated(object sender, EventArgs e)
         {
-            double newNormValue = 1.0/Convert.ToInt32(normInput.Value);
+            double newNormValue = 1.0/Convert.ToInt32(returnPeriodInput.Value);
             IEnumerable<IObservable> changedObjects = normChangeHandler.ChangeNorm(assessmentSection, newNormValue);
             foreach (IObservable changedObject in changedObjects)
             {
@@ -437,11 +437,11 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        private void NormNumericUpDownInnerTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void ReturnPeriodNumericUpDownInnerTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
-                RevertNormInputValue();
+                RevertReturnPeriodInputValue();
 
                 e.Handled = true;
                 e.SuppressKeyPress = true;
@@ -455,9 +455,9 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        private void RevertNormInputValue()
+        private void RevertReturnPeriodInputValue()
         {
-            SetNormText();
+            SetReturnPeriodText();
             ActiveControl = null;
         }
 
