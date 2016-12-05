@@ -51,7 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             const double modelFactorFrunupMean = 7.7;
             const double modelFactorFrunupStandardDeviation = 8.8;
             const double exponentModelFactorShallowMean = 9.9;
-            const double exponentModelFactorShallowStandardDeviation = 10.10;
+            const double exponentModelFactorShallowStandardDeviation = 10.0;
             var expectedRingProfilePoints = new List<HydraRingRoughnessProfilePoint>
             {
                 new HydraRingRoughnessProfilePoint(1.1, 2.2, 3.3)
@@ -79,7 +79,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.HydraulicLoads, input.FailureMechanismType);
             Assert.IsNotNull(input.Section);
-            HydraRingDataEqualityHelper.AreEqual(GetDefaultHydraulicLoadsVariables().ToArray(), input.Variables.ToArray());
+            HydraRingDataEqualityHelper.AreEqual(GetDefaultHydraulicLoadsVariables().ToArray(), input.NewVariables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, input.ProfilePoints);
             CollectionAssert.AreEqual(expectedRingForelandPoints, input.ForelandsPoints);
             Assert.AreEqual(expectedRingBreakWater, input.BreakWater);
@@ -108,14 +108,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(expectedSubMechanismModelId, input.GetSubMechanismModelId(subMechanismModelId));
         }
 
-        private static IEnumerable<HydraRingVariable> GetDefaultHydraulicLoadsVariables()
+        private static IEnumerable<HydraRingVariable2> GetDefaultHydraulicLoadsVariables()
         {
-            yield return new HydraRingVariable(8, HydraRingDistributionType.Deterministic, 1.1, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(10, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 2.2, 3.3, double.NaN);
-            yield return new HydraRingVariable(11, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 4.4, 5.5, double.NaN);
-            yield return new HydraRingVariable(12, HydraRingDistributionType.Deterministic, 6.6, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(120, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 7.7, 8.8, double.NaN);
-            yield return new HydraRingVariable(123, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 9.9, 10.10, double.NaN);
+            yield return new DeterministicHydraRingVariable(8, 1.1);
+            yield return new NormalHydraRingVariable(10, HydraRingDeviationType.Standard, 2.2, 3.3);
+            yield return new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 4.4, 5.5);
+            yield return new DeterministicHydraRingVariable(12, 6.6);
+            yield return new NormalHydraRingVariable(120, HydraRingDeviationType.Standard, 7.7, 8.8);
+            yield return new NormalHydraRingVariable(123, HydraRingDeviationType.Standard, 9.9, 10.0);
         }
 
         private class HydraulicLoadsCalculationInputImplementation : HydraulicLoadsCalculationInput

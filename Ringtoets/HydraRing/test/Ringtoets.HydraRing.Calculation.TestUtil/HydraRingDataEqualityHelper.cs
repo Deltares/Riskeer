@@ -54,7 +54,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
             AreEqual(expectedInput.BreakWater, actualInput.BreakWater);
             AreEqual(expectedInput.Section, actualInput.Section);
             AreEqual(expectedInput.ForelandsPoints.ToArray(), actualInput.ForelandsPoints.ToArray());
-            AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
+            AreEqual(expectedInput.NewVariables.ToArray(), actualInput.NewVariables.ToArray());
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
             AreEqual(expectedInput.BreakWater, actualInput.BreakWater);
             AreEqual(expectedInput.Section, actualInput.Section);
             AreEqual(expectedInput.ForelandsPoints.ToArray(), actualInput.ForelandsPoints.ToArray());
-            AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
+            AreEqual(expectedInput.NewVariables.ToArray(), actualInput.NewVariables.ToArray());
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
             AreEqual(expectedInput.BreakWater, actualInput.BreakWater);
             AreEqual(expectedInput.Section, actualInput.Section);
             AreEqual(expectedInput.ForelandsPoints.ToArray(), actualInput.ForelandsPoints.ToArray());
-            AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
+            AreEqual(expectedInput.NewVariables.ToArray(), actualInput.NewVariables.ToArray());
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
             AreEqual(expectedInput.BreakWater, actualInput.BreakWater);
             AreEqual(expectedInput.Section, actualInput.Section);
             AreEqual(expectedInput.ForelandsPoints.ToArray(), actualInput.ForelandsPoints.ToArray());
-            AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
+            AreEqual(expectedInput.NewVariables.ToArray(), actualInput.NewVariables.ToArray());
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         /// </summary>
         /// <param name="expected">The array of expected <see cref="HydraRingVariable"/>.</param>
         /// <param name="actual">The array of actual <see cref="HydraRingVariable"/>.</param>
-        public static void AreEqual(HydraRingVariable[] expected, HydraRingVariable[] actual)
+        public static void AreEqual(HydraRingVariable2[] expected, HydraRingVariable2[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
 
@@ -169,15 +169,17 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
             }
         }
 
-        private static void AreEqual(HydraRingVariable expected, HydraRingVariable actual)
+        private static void AreEqual(HydraRingVariable2 expected, HydraRingVariable2 actual)
         {
             Assert.AreEqual(expected.DeviationType, actual.DeviationType);
             Assert.AreEqual(expected.DistributionType, actual.DistributionType);
             Assert.AreEqual(expected.Value, actual.Value, accuracy);
-            Assert.AreEqual(expected.Mean, actual.Mean, accuracy);
-            Assert.AreEqual(expected.Shift, actual.Shift, accuracy);
-            Assert.AreEqual(expected.Variability, actual.Variability, accuracy);
+            Assert.AreEqual(expected.Parameter1, actual.Parameter1, accuracy);
+            Assert.AreEqual(expected.Parameter2, actual.Parameter2);
+            Assert.AreEqual(expected.Parameter3, actual.Parameter3);
+            Assert.AreEqual(expected.Parameter4, actual.Parameter4);
             Assert.AreEqual(expected.VariableId, actual.VariableId, accuracy);
+            Assert.AreEqual(expected.CoefficientOfVariation, actual.CoefficientOfVariation, accuracy);
         }
     }
 }

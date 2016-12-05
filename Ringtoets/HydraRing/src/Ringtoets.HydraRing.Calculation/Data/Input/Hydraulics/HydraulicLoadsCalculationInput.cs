@@ -132,26 +132,16 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             }
         }
 
-        public override IEnumerable<HydraRingVariable> Variables
+        public override IEnumerable<HydraRingVariable2> NewVariables
         {
             get
             {
-                yield return new HydraRingVariable(8, HydraRingDistributionType.Deterministic, modelFactorCriticalOvertopping,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(10, HydraRingDistributionType.Normal, double.NaN,
-                                                   HydraRingDeviationType.Standard, factorFbMean, factorFbStandardDeviation,
-                                                   double.NaN);
-                yield return new HydraRingVariable(11, HydraRingDistributionType.Normal, double.NaN,
-                                                   HydraRingDeviationType.Standard, factorFnMean, factorFnStandardDeviation,
-                                                   double.NaN);
-                yield return new HydraRingVariable(12, HydraRingDistributionType.Deterministic, modelFactorOvertopping,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(120, HydraRingDistributionType.Normal, double.NaN,
-                                                   HydraRingDeviationType.Standard, modelFactorFrunupMean,
-                                                   modelFactorFrunupStandardDeviation, double.NaN);
-                yield return new HydraRingVariable(123, HydraRingDistributionType.Normal, double.NaN,
-                                                   HydraRingDeviationType.Standard, exponentModelFactorShallowMean,
-                                                   exponentModelFactorShallowStandardDeviation, double.NaN);
+                yield return new DeterministicHydraRingVariable(8, modelFactorCriticalOvertopping);
+                yield return new NormalHydraRingVariable(10, HydraRingDeviationType.Standard, factorFbMean, factorFbStandardDeviation);
+                yield return new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, factorFnMean, factorFnStandardDeviation);
+                yield return new DeterministicHydraRingVariable(12, modelFactorOvertopping);
+                yield return new NormalHydraRingVariable(120, HydraRingDeviationType.Standard, modelFactorFrunupMean, modelFactorFrunupStandardDeviation);
+                yield return new NormalHydraRingVariable(123, HydraRingDeviationType.Standard, exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation);
             }
         }
 

@@ -71,16 +71,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             this.beta2 = beta2;
         }
 
-        public override IEnumerable<HydraRingVariable> Variables
+        public override IEnumerable<HydraRingVariable2> NewVariables
         {
             get
             {
-                var variables = base.Variables.ToList();
+                var variables = base.NewVariables.ToList();
 
-                variables.Add(new HydraRingVariable(117, HydraRingDistributionType.Deterministic, beta1,
-                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN));
-                variables.Add(new HydraRingVariable(118, HydraRingDistributionType.Deterministic, beta2,
-                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN));
+                variables.Add(new DeterministicHydraRingVariable(117, beta1));
+                variables.Add(new DeterministicHydraRingVariable(118, beta2));
 
                 return variables;
             }

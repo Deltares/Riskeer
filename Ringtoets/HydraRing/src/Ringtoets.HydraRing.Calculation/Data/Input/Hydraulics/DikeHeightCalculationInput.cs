@@ -90,24 +90,24 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             }
         }
 
-        public override IEnumerable<HydraRingVariable> Variables
+        public override IEnumerable<HydraRingVariable2> NewVariables
         {
             get
             {
-                var variables = base.Variables.ToList();
+                var variables = base.NewVariables.ToList();
                 variables.AddRange(GetVariables());
 
                 return variables.OrderBy(v => v.VariableId);
             }
         }
 
-        private IEnumerable<HydraRingVariable> GetVariables()
+        private IEnumerable<HydraRingVariable2> GetVariables()
         {
-            yield return new HydraRingVariable(1, HydraRingDistributionType.Deterministic, 0.0,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(17, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Standard, criticalOvertoppingMean,
-                                               criticalOvertoppingStandardDeviation, double.NaN);
+            yield return new DeterministicHydraRingVariable(1, 0.0);
+            yield return new LogNormalHydraRingVariable(17,
+                                                        HydraRingDeviationType.Standard,
+                                                        criticalOvertoppingMean,
+                                                        criticalOvertoppingStandardDeviation);
         }
     }
 }

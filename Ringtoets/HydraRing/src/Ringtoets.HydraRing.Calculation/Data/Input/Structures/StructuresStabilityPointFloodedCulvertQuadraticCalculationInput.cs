@@ -188,11 +188,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.stabilityQuadraticLoadModelVariation = stabilityQuadraticLoadModelVariation;
         }
 
-        public override IEnumerable<HydraRingVariable> Variables
+        public override IEnumerable<HydraRingVariable2> NewVariables
         {
             get
             {
-                var variables = base.Variables.ToList();
+                var variables = base.NewVariables.ToList();
                 variables.AddRange(GetVariables());
 
                 return variables.OrderBy(v => v.VariableId);
@@ -216,20 +216,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             }
         }
 
-        private IEnumerable<HydraRingVariable> GetVariables()
+        private IEnumerable<HydraRingVariable2> GetVariables()
         {
-            yield return new HydraRingVariable(66, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, drainCoefficientMean,
-                                               drainCoefficientStandardDeviation, double.NaN);
-            yield return new HydraRingVariable(67, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Standard, areaFlowAperturesMean,
-                                               areaFlowAperturesStandardDeviation, double.NaN);
-            yield return new HydraRingVariable(81, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Variation, constructiveStrengthQuadraticLoadModelMean,
-                                               constructiveStrengthQuadraticLoadModelVariation, double.NaN);
-            yield return new HydraRingVariable(84, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Variation, stabilityQuadraticLoadModelMean,
-                                               stabilityQuadraticLoadModelVariation, double.NaN);
+            yield return new NormalHydraRingVariable(66, HydraRingDeviationType.Standard, drainCoefficientMean, drainCoefficientStandardDeviation);
+            yield return new LogNormalHydraRingVariable(67, HydraRingDeviationType.Standard, areaFlowAperturesMean, areaFlowAperturesStandardDeviation);
+            yield return new LogNormalHydraRingVariable(81, HydraRingDeviationType.Variation, constructiveStrengthQuadraticLoadModelMean, constructiveStrengthQuadraticLoadModelVariation);
+            yield return new LogNormalHydraRingVariable(84, HydraRingDeviationType.Variation, stabilityQuadraticLoadModelMean, stabilityQuadraticLoadModelVariation);
         }
     }
 }

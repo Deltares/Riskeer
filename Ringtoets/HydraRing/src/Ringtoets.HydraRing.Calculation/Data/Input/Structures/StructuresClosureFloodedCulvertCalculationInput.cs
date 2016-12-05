@@ -114,11 +114,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.insideWaterLevelStandardDeviation = insideWaterLevelStandardDeviation;
         }
 
-        public override IEnumerable<HydraRingVariable> Variables
+        public override IEnumerable<HydraRingVariable2> NewVariables
         {
             get
             {
-                var variables = base.Variables.ToList();
+                var variables = base.NewVariables.ToList();
                 variables.AddRange(GetVariables());
 
                 return variables.OrderBy(v => v.VariableId);
@@ -138,17 +138,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             }
         }
 
-        private IEnumerable<HydraRingVariable> GetVariables()
+        private IEnumerable<HydraRingVariable2> GetVariables()
         {
-            yield return new HydraRingVariable(66, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, drainCoefficientMean,
-                                               drainCoefficientStandardDeviation, double.NaN);
-            yield return new HydraRingVariable(67, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Standard, areaFlowAperturesMean,
-                                               areaFlowAperturesStandardDeviation, double.NaN);
-            yield return new HydraRingVariable(93, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, insideWaterLevelMean,
-                                               insideWaterLevelStandardDeviation, double.NaN);
+            yield return new NormalHydraRingVariable(66, HydraRingDeviationType.Standard, drainCoefficientMean, drainCoefficientStandardDeviation);
+            yield return new LogNormalHydraRingVariable(67, HydraRingDeviationType.Standard, areaFlowAperturesMean, areaFlowAperturesStandardDeviation);
+            yield return new NormalHydraRingVariable(93, HydraRingDeviationType.Standard, insideWaterLevelMean, insideWaterLevelStandardDeviation);
         }
     }
 }

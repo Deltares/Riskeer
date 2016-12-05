@@ -129,11 +129,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.deviationWaveDirection = deviationWaveDirection;
         }
 
-        public override IEnumerable<HydraRingVariable> Variables
+        public override IEnumerable<HydraRingVariable2> NewVariables
         {
             get
             {
-                var variables = base.Variables.ToList();
+                var variables = base.NewVariables.ToList();
                 variables.AddRange(GetVariables());
 
                 return variables.OrderBy(v => v.VariableId);
@@ -153,24 +153,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             }
         }
 
-        private IEnumerable<HydraRingVariable> GetVariables()
+        private IEnumerable<HydraRingVariable2> GetVariables()
         {
-            yield return new HydraRingVariable(59, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Standard, modelFactorOvertoppingFlowMean,
-                                               modelFactorOvertoppingFlowStandardDeviation, double.NaN);
-            yield return new HydraRingVariable(61, HydraRingDistributionType.Deterministic, structureNormalOrientation,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(62, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean,
-                                               modelFactorSuperCriticalFlowStandardDeviation, double.NaN);
-            yield return new HydraRingVariable(72, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, levelCrestStructureNotClosingMean,
-                                               levelCrestStructureNotClosingStandardDeviation, double.NaN);
-            yield return new HydraRingVariable(106, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Variation, widthFlowAperturesMean,
-                                               widthFlowAperturesVariation, double.NaN);
-            yield return new HydraRingVariable(107, HydraRingDistributionType.Deterministic, deviationWaveDirection,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new LogNormalHydraRingVariable(59, HydraRingDeviationType.Standard, modelFactorOvertoppingFlowMean, modelFactorOvertoppingFlowStandardDeviation);
+            yield return new DeterministicHydraRingVariable(61, structureNormalOrientation);
+            yield return new NormalHydraRingVariable(62, HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation);
+            yield return new NormalHydraRingVariable(72, HydraRingDeviationType.Standard, levelCrestStructureNotClosingMean, levelCrestStructureNotClosingStandardDeviation);
+            yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Variation, widthFlowAperturesMean, widthFlowAperturesVariation);
+            yield return new DeterministicHydraRingVariable(107, deviationWaveDirection);
         }
     }
 }

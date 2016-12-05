@@ -28,7 +28,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
     /// <summary>
     /// Container for all data necessary for performing an overtopping rate calculation via Hydra-Ring.
     /// </summary>
-    public class OvertoppingRateCalculationInput : HydraulicLoadsCalculationInput
+    public class 
+        OvertoppingRateCalculationInput : HydraulicLoadsCalculationInput
     {
         private readonly double dikeHeight;
 
@@ -87,23 +88,21 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             }
         }
 
-        public override IEnumerable<HydraRingVariable> Variables
+        public override IEnumerable<HydraRingVariable2> NewVariables
         {
             get
             {
-                var variables = base.Variables.ToList();
+                var variables = base.NewVariables.ToList();
                 variables.AddRange(GetVariables());
 
                 return variables.OrderBy(v => v.VariableId);
             }
         }
 
-        private IEnumerable<HydraRingVariable> GetVariables()
+        private IEnumerable<HydraRingVariable2> GetVariables()
         {
-            yield return new HydraRingVariable(1, HydraRingDistributionType.Deterministic, dikeHeight,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(17, HydraRingDistributionType.Deterministic, 0.0,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new DeterministicHydraRingVariable(1, dikeHeight);
+            yield return new DeterministicHydraRingVariable(17, 0.0);
         }
     }
 }

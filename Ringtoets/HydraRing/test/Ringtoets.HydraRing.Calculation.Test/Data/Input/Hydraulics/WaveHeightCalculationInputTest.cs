@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Utils;
 using NUnit.Framework;
@@ -49,8 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(9, waveHeightCalculationInput.CalculationTypeId);
             Assert.AreEqual(28, waveHeightCalculationInput.VariableId);
             Assert.AreEqual(hydraulicBoundaryLocationId, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-            Assert.IsNotNull(waveHeightCalculationInput.Section);
-            Assert.AreEqual(1, waveHeightCalculationInput.Variables.Count());
+            Assert.IsNotNull(waveHeightCalculationInput.Section);            
             CollectionAssert.IsEmpty(waveHeightCalculationInput.ProfilePoints);
             CollectionAssert.IsEmpty(waveHeightCalculationInput.ForelandsPoints);
             Assert.IsNull(waveHeightCalculationInput.BreakWater);
@@ -61,14 +61,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsNaN(section.SectionLength);
             Assert.IsNaN(section.CrossSectionNormal);
 
-            var waveHeightVariable = waveHeightCalculationInput.Variables.First();
+            HydraRingVariable2[] variables = waveHeightCalculationInput.NewVariables.ToArray();
+            Assert.AreEqual(1, variables.Length);
+            var waveHeightVariable = variables.First();
             Assert.AreEqual(28, waveHeightVariable.VariableId);
             Assert.AreEqual(HydraRingDistributionType.Deterministic, waveHeightVariable.DistributionType);
             Assert.AreEqual(0.0, waveHeightVariable.Value);
             Assert.AreEqual(HydraRingDeviationType.Standard, waveHeightVariable.DeviationType);
-            Assert.IsNaN(waveHeightVariable.Mean);
-            Assert.IsNaN(waveHeightVariable.Variability);
-            Assert.IsNaN(waveHeightVariable.Shift);
         }
 
         [Test]

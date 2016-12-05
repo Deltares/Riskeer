@@ -147,44 +147,24 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             }
         }
 
-        public override IEnumerable<HydraRingVariable> Variables
+        public override IEnumerable<HydraRingVariable2> NewVariables
         {
             get
             {
-                yield return new HydraRingVariable(58, HydraRingDistributionType.Deterministic, gravitationalAcceleration,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(63, HydraRingDistributionType.Deterministic, factorStormDurationOpenStructure,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(68, HydraRingDistributionType.Deterministic, failureProbabilityOpenStructure,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(69, HydraRingDistributionType.Deterministic, failureProbabilityReparation,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(71, HydraRingDistributionType.Deterministic, identicalApertures,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(94, HydraRingDistributionType.LogNormal, double.NaN,
-                                                   HydraRingDeviationType.Standard, allowedLevelIncreaseStorageMean,
-                                                   allowedLevelIncreaseStorageStandardDeviation, double.NaN);
-                yield return new HydraRingVariable(95, HydraRingDistributionType.LogNormal, double.NaN,
-                                                   HydraRingDeviationType.Standard, modelFactorStorageVolumeMean,
-                                                   modelFactorStorageVolumeStandardDeviation, double.NaN);
-                yield return new HydraRingVariable(96, HydraRingDistributionType.LogNormal, double.NaN,
-                                                   HydraRingDeviationType.Variation, storageStructureAreaMean,
-                                                   storageStructureAreaVariation, double.NaN);
-                yield return new HydraRingVariable(97, HydraRingDistributionType.Deterministic, modelFactorInflowVolume,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(103, HydraRingDistributionType.LogNormal, double.NaN,
-                                                   HydraRingDeviationType.Standard, flowWidthAtBottomProtectionMean,
-                                                   flowWidthAtBottomProtectionStandardDeviation, double.NaN);
-                yield return new HydraRingVariable(104, HydraRingDistributionType.LogNormal, double.NaN,
-                                                   HydraRingDeviationType.Variation, criticalOvertoppingDischargeMean,
-                                                   criticalOvertoppingDischargeVariation, double.NaN);
-                yield return new HydraRingVariable(105, HydraRingDistributionType.Deterministic, failureProbabilityStructureWithErosion,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(108, HydraRingDistributionType.LogNormal, double.NaN,
-                                                   HydraRingDeviationType.Variation, stormDurationMean,
-                                                   stormDurationVariation, double.NaN);
-                yield return new HydraRingVariable(129, HydraRingDistributionType.Deterministic, probabilityOpenStructureBeforeFlooding,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+                yield return new DeterministicHydraRingVariable(58, gravitationalAcceleration);
+                yield return new DeterministicHydraRingVariable(63, factorStormDurationOpenStructure);
+                yield return new DeterministicHydraRingVariable(68, failureProbabilityOpenStructure);
+                yield return new DeterministicHydraRingVariable(69, failureProbabilityReparation);
+                yield return new DeterministicHydraRingVariable(71, identicalApertures);
+                yield return new LogNormalHydraRingVariable(94, HydraRingDeviationType.Standard, allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation);
+                yield return new LogNormalHydraRingVariable(95, HydraRingDeviationType.Standard, modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation);
+                yield return new LogNormalHydraRingVariable(96, HydraRingDeviationType.Variation, storageStructureAreaMean, storageStructureAreaVariation);
+                yield return new DeterministicHydraRingVariable(97, modelFactorInflowVolume);
+                yield return new LogNormalHydraRingVariable(103, HydraRingDeviationType.Standard, flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation);
+                yield return new LogNormalHydraRingVariable(104, HydraRingDeviationType.Variation, criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation);
+                yield return new DeterministicHydraRingVariable(105, failureProbabilityStructureWithErosion);
+                yield return new LogNormalHydraRingVariable(108, HydraRingDeviationType.Variation, stormDurationMean, stormDurationVariation);
+                yield return new DeterministicHydraRingVariable(129, probabilityOpenStructureBeforeFlooding);
             }
         }
 

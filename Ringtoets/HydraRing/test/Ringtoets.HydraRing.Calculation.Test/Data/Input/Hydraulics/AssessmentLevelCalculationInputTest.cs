@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Utils;
 using NUnit.Framework;
@@ -50,7 +51,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(26, assessmentLevelCalculationInput.VariableId);
             Assert.AreEqual(hydraulicBoundaryLocationId, assessmentLevelCalculationInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(assessmentLevelCalculationInput.Section);
-            Assert.AreEqual(1, assessmentLevelCalculationInput.Variables.Count());
             CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ProfilePoints);
             CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ForelandsPoints);
             Assert.IsNull(assessmentLevelCalculationInput.BreakWater);
@@ -61,14 +61,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsNaN(section.SectionLength);
             Assert.IsNaN(section.CrossSectionNormal);
 
-            var waterLevelVariable = assessmentLevelCalculationInput.Variables.First();
+            HydraRingVariable2[] variables = assessmentLevelCalculationInput.NewVariables.ToArray();
+            Assert.AreEqual(1, variables.Length);
+            var waterLevelVariable = variables.First();
+            Assert.IsInstanceOf<DeterministicHydraRingVariable>(waterLevelVariable);
             Assert.AreEqual(26, waterLevelVariable.VariableId);
-            Assert.AreEqual(HydraRingDistributionType.Deterministic, waterLevelVariable.DistributionType);
             Assert.AreEqual(0.0, waterLevelVariable.Value);
-            Assert.AreEqual(HydraRingDeviationType.Standard, waterLevelVariable.DeviationType);
-            Assert.IsNaN(waterLevelVariable.Mean);
-            Assert.IsNaN(waterLevelVariable.Variability);
-            Assert.IsNaN(waterLevelVariable.Shift);
         }
 
         [Test]

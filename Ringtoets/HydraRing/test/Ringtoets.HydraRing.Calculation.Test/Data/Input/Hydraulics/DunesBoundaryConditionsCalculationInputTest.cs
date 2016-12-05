@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Utils;
 using NUnit.Framework;
@@ -48,8 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(2, dunesBoundaryConditionsCalculationInput.CalculationTypeId);
             Assert.AreEqual(26, dunesBoundaryConditionsCalculationInput.VariableId);
             Assert.AreEqual(hydraulicBoundaryLocationId, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-            Assert.IsNotNull(dunesBoundaryConditionsCalculationInput.Section);
-            Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.Variables.Count());
+            Assert.IsNotNull(dunesBoundaryConditionsCalculationInput.Section);            
             CollectionAssert.IsEmpty(dunesBoundaryConditionsCalculationInput.ProfilePoints);
             CollectionAssert.IsEmpty(dunesBoundaryConditionsCalculationInput.ForelandsPoints);
             Assert.IsNull(dunesBoundaryConditionsCalculationInput.BreakWater);
@@ -60,14 +60,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsNaN(section.SectionLength);
             Assert.IsNaN(section.CrossSectionNormal);
 
-            var waterLevelVariable = dunesBoundaryConditionsCalculationInput.Variables.First();
+            HydraRingVariable2[] hydraRingVariables = dunesBoundaryConditionsCalculationInput.NewVariables.ToArray();
+            Assert.AreEqual(1, hydraRingVariables.Length);
+            var waterLevelVariable = hydraRingVariables.First();
             Assert.AreEqual(26, waterLevelVariable.VariableId);
             Assert.AreEqual(HydraRingDistributionType.Deterministic, waterLevelVariable.DistributionType);
             Assert.AreEqual(0.0, waterLevelVariable.Value);
-            Assert.AreEqual(HydraRingDeviationType.Standard, waterLevelVariable.DeviationType);
-            Assert.IsNaN(waterLevelVariable.Mean);
-            Assert.IsNaN(waterLevelVariable.Variability);
-            Assert.IsNaN(waterLevelVariable.Shift);
         }
 
         [Test]

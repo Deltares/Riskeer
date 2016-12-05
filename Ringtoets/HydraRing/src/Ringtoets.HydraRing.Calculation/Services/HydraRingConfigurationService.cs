@@ -405,7 +405,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             {
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
 
-                foreach (HydraRingVariable hydraRingVariable in hydraRingCalculationInput.Variables)
+                foreach (HydraRingVariable2 hydraRingVariable in hydraRingCalculationInput.NewVariables)
                 {
                     var variableDefaults = variableDefaultsProvider.GetVariableDefaults(hydraRingCalculationInput.FailureMechanismType, hydraRingVariable.VariableId);
 
@@ -433,32 +433,22 @@ namespace Ringtoets.HydraRing.Calculation.Services
                             "DistributionType", (int?) hydraRingVariable.DistributionType
                         },
                         {
-                            "Parameter1", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic
-                                              ? GetHydraRingValue(hydraRingVariable.Mean)
-                                              : defaultHydraRingValue
+                            "Parameter1", hydraRingVariable.Parameter1
                         },
                         {
-                            "Parameter2", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic &&
-                                          hydraRingVariable.DeviationType == HydraRingDeviationType.Standard
-                                              ? GetHydraRingNullableValue(hydraRingVariable.Variability)
-                                              : defaultHydraRingNullValue
+                            "Parameter2", hydraRingVariable.Parameter2
                         },
                         {
-                            "Parameter3", hydraRingVariable.DistributionType == HydraRingDistributionType.LogNormal
-                                              ? GetHydraRingNullableValue(hydraRingVariable.Shift)
-                                              : defaultHydraRingNullValue
+                            "Parameter3", hydraRingVariable.Parameter3
                         },
                         {
-                            "Parameter4", defaultHydraRingNullValue // Fixed: Not relevant
+                            "Parameter4", hydraRingVariable.Parameter4
                         },
                         {
                             "DeviationType", (int?) hydraRingVariable.DeviationType
                         },
                         {
-                            "CoefficientOfVariation", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic &&
-                                                      hydraRingVariable.DeviationType == HydraRingDeviationType.Variation
-                                                          ? GetHydraRingValue(hydraRingVariable.Variability)
-                                                          : defaultHydraRingValue
+                            "CoefficientOfVariation", hydraRingVariable.CoefficientOfVariation
                         },
                         {
                             "CorrelationLength", GetHydraRingValue(variableDefaults.CorrelationLength)

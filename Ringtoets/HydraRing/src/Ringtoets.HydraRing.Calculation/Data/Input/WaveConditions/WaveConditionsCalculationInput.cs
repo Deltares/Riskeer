@@ -102,18 +102,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             }
         }
 
-        public override IEnumerable<HydraRingVariable> Variables
+        public override IEnumerable<HydraRingVariable2> NewVariables
         {
             get
             {
-                yield return new HydraRingVariable(113, HydraRingDistributionType.Deterministic, waterLevel,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(114, HydraRingDistributionType.Deterministic, 1.0,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(115, HydraRingDistributionType.Deterministic, a,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(116, HydraRingDistributionType.Deterministic, b,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+                yield return new DeterministicHydraRingVariable(113, waterLevel);
+                yield return new DeterministicHydraRingVariable(114, 1.0);
+                yield return new DeterministicHydraRingVariable(115, a);
+                yield return new DeterministicHydraRingVariable(116, b);
             }
         }
 

@@ -66,12 +66,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             }
         }
 
-        public override IEnumerable<HydraRingVariable> Variables
+        public override IEnumerable<HydraRingVariable2> NewVariables
         {
             get
             {
-                yield return new HydraRingVariable(26, HydraRingDistributionType.Deterministic, 0,
-                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+                yield return new DeterministicHydraRingVariable(26, 0);
             }
         }
     }

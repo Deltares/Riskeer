@@ -30,16 +30,16 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         [Test]
         public void AreEqual_EqualHydraRingVariables_DoesNotThrowAssertionException()
         {
-            var expected = new[]
+            var expected = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.22, 33.33)
             };
 
-            var actual = new[]
+            var actual = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.22, 33.33)
             };
 
             HydraRingDataEqualityHelper.AreEqual(expected, actual);
@@ -48,15 +48,15 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         [Test]
         public void AreEqual_DifferentNumberOfHydraRingVariables_ThrowsAssertionException()
         {
-            var expected = new[]
+            var expected = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
             };
 
-            var actual = new[]
+            var actual = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.22, 33.33)
             };
 
             Assert.Throws<AssertionException>(() => HydraRingDataEqualityHelper.AreEqual(expected, actual));
@@ -65,16 +65,16 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         [Test]
         public void AreEqual_DifferentVariableIds_ThrowsAssertionException()
         {
-            var expected = new[]
+            var expected = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.22, 33.33)
             };
 
-            var actual = new[]
+            var actual = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(111, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(111, HydraRingDeviationType.Standard, 22.22, 33.33)
             };
 
             Assert.Throws<AssertionException>(() => HydraRingDataEqualityHelper.AreEqual(expected, actual));
@@ -83,16 +83,16 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         [Test]
         public void AreEqual_DifferentDistributionTypes_ThrowsAssertionException()
         {
-            var expected = new[]
+            var expected = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.22, 33.33)
             };
 
-            var actual = new[]
+            var actual = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Deterministic, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new DeterministicHydraRingVariable(11, 22.22), 
             };
 
             Assert.Throws<AssertionException>(() => HydraRingDataEqualityHelper.AreEqual(expected, actual));
@@ -101,16 +101,16 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         [Test]
         public void AreEqual_DifferentValues_ThrowsAssertionException()
         {
-            var expected = new[]
+            var expected = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.22, 33.33)
             };
 
-            var actual = new[]
+            var actual = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 222.222, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.222, 33.33)
             };
 
             Assert.Throws<AssertionException>(() => HydraRingDataEqualityHelper.AreEqual(expected, actual));
@@ -119,16 +119,16 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         [Test]
         public void AreEqual_DifferentDeviationTypes_ThrowsAssertionException()
         {
-            var expected = new[]
+            var expected = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.22, 33.33)
             };
 
-            var actual = new[]
+            var actual = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Variation, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Variation, 22.22, 33.33)
             };
 
             Assert.Throws<AssertionException>(() => HydraRingDataEqualityHelper.AreEqual(expected, actual));
@@ -137,16 +137,16 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         [Test]
         public void AreEqual_DifferentMeans_ThrowsAssertionException()
         {
-            var expected = new[]
+            var expected = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.22, 33.33)
             };
 
-            var actual = new[]
+            var actual = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 333.333, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.222, 33.33)
             };
 
             Assert.Throws<AssertionException>(() => HydraRingDataEqualityHelper.AreEqual(expected, actual));
@@ -155,16 +155,16 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         [Test]
         public void AreEqual_DifferentVariabilities_ThrowsAssertionException()
         {
-            var expected = new[]
+            var expected = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.22, 33.33)
             };
 
-            var actual = new[]
+            var actual = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 444.444, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.22, 33.333)
             };
 
             Assert.Throws<AssertionException>(() => HydraRingDataEqualityHelper.AreEqual(expected, actual));
@@ -173,16 +173,16 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         [Test]
         public void AreEqual_DifferentShifts_ThrowsAssertionException()
         {
-            var expected = new[]
+            var expected = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 55.55)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.4),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.22, 33.33)
             };
 
-            var actual = new[]
+            var actual = new HydraRingVariable2[]
             {
-                new HydraRingVariable(1, HydraRingDistributionType.LogNormal, 2.2, HydraRingDeviationType.Variation, 3.3, 4.4, 5.5),
-                new HydraRingVariable(11, HydraRingDistributionType.Normal, 22.22, HydraRingDeviationType.Standard, 33.33, 44.44, 555.555)
+                new LogNormalHydraRingVariable(1, HydraRingDeviationType.Variation, 2.2, 3.3, 4.44),
+                new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 22.22, 33.33)
             };
 
             Assert.Throws<AssertionException>(() => HydraRingDataEqualityHelper.AreEqual(expected, actual));

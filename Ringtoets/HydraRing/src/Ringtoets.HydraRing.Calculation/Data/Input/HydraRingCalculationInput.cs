@@ -98,6 +98,17 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         }
 
         /// <summary>
+        /// Gets the variables to use during the calculation.
+        /// </summary>
+        public virtual IEnumerable<HydraRingVariable2> NewVariables
+        {
+            get
+            {
+                yield break;
+            }
+        }
+
+        /// <summary>
         /// Gets the profile points to use during the calculation.
         /// </summary>
         public virtual IEnumerable<HydraRingProfilePoint> ProfilePoints

@@ -71,7 +71,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             Assert.IsNotNull(waveConditionsTrapezoidCalculationInput.Section);
             Assert.AreEqual(sectionId, waveConditionsTrapezoidCalculationInput.Section.SectionId);
             Assert.AreEqual(sectionNormal, waveConditionsTrapezoidCalculationInput.Section.CrossSectionNormal);
-            HydraRingDataEqualityHelper.AreEqual(GetExpectedVariables(waterLevel, a, b, beta1, beta2).ToArray(), waveConditionsTrapezoidCalculationInput.Variables.ToArray());
+            HydraRingDataEqualityHelper.AreEqual(GetExpectedVariables(waterLevel, a, b, beta1, beta2).ToArray(), waveConditionsTrapezoidCalculationInput.NewVariables.ToArray());
             Assert.AreSame(forelandPoints, waveConditionsTrapezoidCalculationInput.ForelandsPoints);
             Assert.AreSame(breakWater, waveConditionsTrapezoidCalculationInput.BreakWater);
             Assert.AreEqual(expectedBeta, waveConditionsTrapezoidCalculationInput.Beta);
@@ -100,14 +100,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             Assert.AreEqual(expectedSubMechanismModelId, waveConditionsTrapezoidCalculationInput.GetSubMechanismModelId(subMechanismModelId));
         }
 
-        private static IEnumerable<HydraRingVariable> GetExpectedVariables(double waterLevel, double a, double b, double beta1, double beta2)
+        private static IEnumerable<HydraRingVariable2> GetExpectedVariables(double waterLevel, double a, double b, double beta1, double beta2)
         {
-            yield return new HydraRingVariable(113, HydraRingDistributionType.Deterministic, waterLevel, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(114, HydraRingDistributionType.Deterministic, 1.0, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(115, HydraRingDistributionType.Deterministic, a, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(116, HydraRingDistributionType.Deterministic, b, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(117, HydraRingDistributionType.Deterministic, beta1, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(118, HydraRingDistributionType.Deterministic, beta2, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new DeterministicHydraRingVariable(113, waterLevel);
+            yield return new DeterministicHydraRingVariable(114, 1.0);
+            yield return new DeterministicHydraRingVariable(115, a);
+            yield return new DeterministicHydraRingVariable(116, b);
+            yield return new DeterministicHydraRingVariable(117, beta1);
+            yield return new DeterministicHydraRingVariable(118, beta2);
         }
     }
 }

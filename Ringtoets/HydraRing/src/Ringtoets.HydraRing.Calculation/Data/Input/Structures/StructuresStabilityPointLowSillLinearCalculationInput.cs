@@ -188,11 +188,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.widthFlowAperturesVariation = widthFlowAperturesVariation;
         }
 
-        public override IEnumerable<HydraRingVariable> Variables
+        public override IEnumerable<HydraRingVariable2> NewVariables
         {
             get
             {
-                var variables = base.Variables.ToList();
+                var variables = base.NewVariables.ToList();
                 variables.AddRange(GetVariables());
 
                 return variables.OrderBy(v => v.VariableId);
@@ -216,20 +216,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             }
         }
 
-        private IEnumerable<HydraRingVariable> GetVariables()
+        private IEnumerable<HydraRingVariable2> GetVariables()
         {
-            yield return new HydraRingVariable(62, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean,
-                                               modelFactorSuperCriticalFlowStandardDeviation, double.NaN);
-            yield return new HydraRingVariable(80, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Variation, constructiveStrengthLinearLoadModelMean,
-                                               constructiveStrengthLinearLoadModelVariation, double.NaN);
-            yield return new HydraRingVariable(83, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Variation, stabilityLinearLoadModelMean,
-                                               stabilityLinearLoadModelVariation, double.NaN);
-            yield return new HydraRingVariable(106, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Variation, widthFlowAperturesMean,
-                                               widthFlowAperturesVariation, double.NaN);
+            yield return new NormalHydraRingVariable(62, HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation);
+            yield return new LogNormalHydraRingVariable(80, HydraRingDeviationType.Variation, constructiveStrengthLinearLoadModelMean, constructiveStrengthLinearLoadModelVariation);
+            yield return new LogNormalHydraRingVariable(83, HydraRingDeviationType.Variation, stabilityLinearLoadModelMean, stabilityLinearLoadModelVariation);
+            yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Variation, widthFlowAperturesMean, widthFlowAperturesVariation);
         }
     }
 }
