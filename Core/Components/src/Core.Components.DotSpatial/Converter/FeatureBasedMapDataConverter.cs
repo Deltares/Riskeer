@@ -64,6 +64,7 @@ namespace Core.Components.DotSpatial.Converter
             ConvertLayerFeatures((TFeatureBasedMapData) data, (TMapFeatureLayer) layer);
 
             layer.DataSet.InitializeVertices();
+            layer.AssignFastDrawnStates();
         }
 
         public void ConvertLayerProperties(FeatureBasedMapData data, IFeatureLayer layer)
@@ -110,7 +111,7 @@ namespace Core.Components.DotSpatial.Converter
         protected static void ClearLayerData(IFeatureLayer layer)
         {
             layer.DataSet.Features.Clear();
-            layer.DataSet.DataTable.Clear();
+            layer.DataSet.DataTable.Reset();
         }
 
         protected static void SetDataTableColumns(FeatureBasedMapData data, IFeatureLayer layer)

@@ -107,7 +107,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithData_WhenMapDataNotifiesFeaturesChange_CorrespondingLayerReplaced()
+        public void GivenMapControlWithData_WhenMapDataNotifiesFeaturesChange_CorrespondingLayerReused()
         {
             // Given
             using (var map = new MapControl())
@@ -137,7 +137,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Assert
                 Assert.AreEqual(3, mapView.Layers.Count);
                 Assert.AreSame(layersBeforeUpdate[0], mapView.Layers[0]);
-                Assert.AreNotSame(layersBeforeUpdate[1], mapView.Layers[1]);
+                Assert.AreSame(layersBeforeUpdate[1], mapView.Layers[1]);
                 Assert.AreSame(layersBeforeUpdate[2], mapView.Layers[2]);
             }
         }
