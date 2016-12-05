@@ -65,7 +65,7 @@ All rights reserved.
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <fluent:Ribbon Focusable="False" x:Name="Ribbon" AutomaticStateManagement="False" x:FieldModifier="protected">
+        <fluent:Ribbon Focusable="True" x:Name="Ribbon" AutomaticStateManagement="False" x:FieldModifier="protected">
             <!--Backstage-->
             <fluent:Ribbon.Menu>
                 <fluent:Backstage Background="#008fc5" x:Name="Menu" x:FieldModifier="private">
