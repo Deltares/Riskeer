@@ -125,7 +125,7 @@ namespace Core.Components.DotSpatial.Converter
             ClearLayerData(layer);
             SetDataTableColumns(data, layer);
 
-            var columnNameLookup = GetColumnNameLookup(data);
+            var attributeMapping = GetAttributeMapping(data);
 
             foreach (MapFeature mapFeature in data.Features)
             {
@@ -137,7 +137,7 @@ namespace Core.Components.DotSpatial.Converter
 
                     foreach (var attribute in mapFeature.MetaData)
                     {
-                        feature.DataRow[columnNameLookup[attribute.Key].ToString()] = attribute.Value;
+                        feature.DataRow[attributeMapping[attribute.Key].ToString()] = attribute.Value;
                     }
                 }
             }
@@ -151,7 +151,7 @@ namespace Core.Components.DotSpatial.Converter
             layer.IsVisible = data.IsVisible;
             ((TMapFeatureLayer) layer).Name = data.Name;
             layer.ShowLabels = data.ShowLabels;
-            layer.LabelLayer = GetLabelLayer(GetColumnNameLookup(data), layer.DataSet, data.ShowLabels, data.SelectedMetaDataAttribute);
+            layer.LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
             layer.Symbolizer = CreateSymbolizer((TFeatureBasedMapData) data);
         }
 
@@ -173,24 +173,26 @@ namespace Core.Components.DotSpatial.Converter
         /// This method is used for obtaining a mapping between map data attribute names and DotSpatial
         /// attribute names. This mapping is needed because DotSpatial can't handle special characters.
         /// </remarks>
-        private static Dictionary<string, int> GetColumnNameLookup(FeatureBasedMapData data)
+        private static Dictionary<string, int> GetAttributeMapping(FeatureBasedMapData data)
         {
             return Enumerable.Range(0, data.MetaData.Count())
                              .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
         }
 
-        private static MapLabelLayer GetLabelLayer(IDictionary<string, int> metaDataLookup, IFeatureSet featureSet, bool showLabels, string labelToShow)
+        private static MapLabelLayer GetLabelLayer(IDictionary<string, int> attributeMapping, IFeatureSet featureSet, string labelToShow)
         {
             var labelLayer = new MapLabelLayer();
 
-            if (featureSet.DataTable.Columns.Count > 0 && showLabels)
+            if (!string.IsNullOrEmpty(labelToShow)
+                && attributeMapping.ContainsKey(labelToShow)
+                && featureSet.DataTable.Columns.Contains(attributeMapping[labelToShow].ToString()))
             {
                 labelLayer.Symbology.Categories[0].Symbolizer = new LabelSymbolizer
                 {
                     Orientation = ContentAlignment.MiddleRight,
                     OffsetX = 5
                 };
-                labelLayer.Symbology.Categories[0].Expression = string.Format(CultureInfo.CurrentCulture, "[{0}]", metaDataLookup[labelToShow]);
+                labelLayer.Symbology.Categories[0].Expression = string.Format(CultureInfo.CurrentCulture, "[{0}]", attributeMapping[labelToShow]);
             }
 
             return labelLayer;
