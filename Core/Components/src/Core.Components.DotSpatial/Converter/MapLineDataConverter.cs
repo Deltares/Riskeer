@@ -50,8 +50,8 @@ namespace Core.Components.DotSpatial.Converter
         protected override IFeatureSymbolizer CreateSymbolizer(MapLineData mapData)
         {
             return mapData.Style != null
-                ? new LineSymbolizer(mapData.Style.Color, mapData.Style.Color, mapData.Style.Width, mapData.Style.Style, LineCap.Round)
-                : new LineSymbolizer();
+                       ? new LineSymbolizer(mapData.Style.Color, mapData.Style.Color, mapData.Style.Width, mapData.Style.Style, LineCap.Round)
+                       : new LineSymbolizer();
         }
 
         private static IBasicGeometry GetGeometry(MapFeature mapFeature)

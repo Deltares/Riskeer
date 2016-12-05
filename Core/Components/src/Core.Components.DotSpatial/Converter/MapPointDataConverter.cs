@@ -48,8 +48,8 @@ namespace Core.Components.DotSpatial.Converter
         protected override IFeatureSymbolizer CreateSymbolizer(MapPointData mapData)
         {
             return mapData.Style != null
-                ? new PointSymbolizer(mapData.Style.Color, MapDataHelper.Convert(mapData.Style.Symbol), mapData.Style.Size)
-                : new PointSymbolizer();
+                       ? new PointSymbolizer(mapData.Style.Color, MapDataHelper.Convert(mapData.Style.Symbol), mapData.Style.Size)
+                       : new PointSymbolizer();
         }
 
         private static IEnumerable<Coordinate> GetAllMapFeatureCoordinates(MapFeature feature)

@@ -54,16 +54,74 @@ namespace Core.Components.DotSpatial.Converter
 
             var layer = CreateLayer();
 
-            ConvertLayerFeatures(data, layer);
-            ConvertLayerProperties(data, layer);
+            ConvertLayerFeaturesInternal(data, layer);
+            ConvertLayerPropertiesInternal(data, layer);
 
             return layer;
         }
 
-        public void ConvertLayerFeatures(FeatureBasedMapData data, IFeatureLayer layer)
+        public void ConvertLayerFeatures(FeatureBasedMapData data, IMapFeatureLayer layer)
         {
             ValidateParameters(data);
 
+            ConvertLayerFeaturesInternal(data, layer);
+        }
+
+        public void ConvertLayerProperties(FeatureBasedMapData data, IMapFeatureLayer layer)
+        {
+            ValidateParameters(data);
+
+            ConvertLayerPropertiesInternal(data, layer);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="IMapFeatureLayer"/>.
+        /// </summary>
+        /// <returns>The newly created <see cref="IMapFeatureLayer"/>.</returns>
+        protected abstract IMapFeatureLayer CreateLayer();
+
+        /// <summary>
+        /// Creates an <see cref="IEnumerable{T}"/> of <see cref="IFeature"/> based on <paramref name="mapFeature"/>.
+        /// </summary>
+        /// <param name="mapFeature">The <see cref="MapFeature"/> to create features for.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="IFeature"/>.</returns>
+        protected abstract IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature);
+
+        /// <summary>
+        /// Creates a new <see cref="IFeatureSymbolizer"/>.
+        /// </summary>
+        /// <param name="mapData">The map data to create the symbolizer for.</param>
+        /// <returns>The newly created <see cref="IFeatureSymbolizer"/>.</returns>
+        /// <remarks><c>Null</c> should never be returned as this will break DotSpatial.</remarks>
+        protected abstract IFeatureSymbolizer CreateSymbolizer(TFeatureBasedMapData mapData);
+
+        /// <summary>
+        /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an
+        /// <see cref="IEnumerable{T}"/> of <see cref="Coordinate"/>.
+        /// </summary>
+        /// <param name="points">The <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to convert.</param>
+        /// <returns>The converted <see cref="IEnumerable{T}"/> of <see cref="Coordinate"/>.</returns>
+        protected static IEnumerable<Coordinate> ConvertPoint2DElementsToCoordinates(IEnumerable<Point2D> points)
+        {
+            return points.Select(point => new Coordinate(point.X, point.Y));
+        }
+
+        private void ValidateParameters(FeatureBasedMapData data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException("data", @"Null data cannot be converted into a feature layer.");
+            }
+
+            if (!CanConvertMapData(data))
+            {
+                var message = string.Format("The data of type {0} cannot be converted by this converter.", data.GetType());
+                throw new ArgumentException(message);
+            }
+        }
+
+        private void ConvertLayerFeaturesInternal(FeatureBasedMapData data, IFeatureLayer layer)
+        {
             ClearLayerData(layer);
             SetDataTableColumns(data, layer);
 
@@ -88,32 +146,13 @@ namespace Core.Components.DotSpatial.Converter
             layer.AssignFastDrawnStates();
         }
 
-        public void ConvertLayerProperties(FeatureBasedMapData data, IFeatureLayer layer)
+        private void ConvertLayerPropertiesInternal(FeatureBasedMapData data, IFeatureLayer layer)
         {
-            ValidateParameters(data);
-
             layer.IsVisible = data.IsVisible;
             ((TMapFeatureLayer) layer).Name = data.Name;
             layer.ShowLabels = data.ShowLabels;
             layer.LabelLayer = GetLabelLayer(GetColumnNameLookup(data), layer.DataSet, data.ShowLabels, data.SelectedMetaDataAttribute);
             layer.Symbolizer = CreateSymbolizer((TFeatureBasedMapData) data);
-        }
-
-        protected abstract IMapFeatureLayer CreateLayer();
-
-        protected abstract IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature);
-
-        protected abstract IFeatureSymbolizer CreateSymbolizer(TFeatureBasedMapData mapData);
-
-        /// <summary>
-        /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an
-        /// <see cref="IEnumerable{T}"/> of <see cref="Coordinate"/>.
-        /// </summary>
-        /// <param name="points">The <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to convert.</param>
-        /// <returns>The converted <see cref="IEnumerable{T}"/> of <see cref="Coordinate"/>.</returns>
-        protected static IEnumerable<Coordinate> ConvertPoint2DElementsToCoordinates(IEnumerable<Point2D> points)
-        {
-            return points.Select(point => new Coordinate(point.X, point.Y));
         }
 
         private static void ClearLayerData(IFeatureLayer layer)
@@ -130,20 +169,16 @@ namespace Core.Components.DotSpatial.Converter
             }
         }
 
+        /// <remarks>
+        /// This method is used for obtaining a mapping between map data attribute names and DotSpatial
+        /// attribute names. This mapping is needed because DotSpatial can't handle special characters.
+        /// </remarks>
         private static Dictionary<string, int> GetColumnNameLookup(FeatureBasedMapData data)
         {
             return Enumerable.Range(0, data.MetaData.Count())
                              .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
         }
 
-        /// <summary>
-        /// Gets a new <see cref="MapLabelLayer"/>.
-        /// </summary>
-        /// <param name="metaDataLookup">The lookup to use for determining the label layer expression.</param>
-        /// <param name="featureSet">The <see cref="IFeatureSet"/> to add the <see cref="MapLabelLayer"/> to.</param>
-        /// <param name="showLabels">Indicator whether to show the labels or not.</param>
-        /// <param name="labelToShow">The key of the attribute to show the labels for.</param>
-        /// <returns>A new <see cref="MapLabelLayer"/>.</returns>
         private static MapLabelLayer GetLabelLayer(IDictionary<string, int> metaDataLookup, IFeatureSet featureSet, bool showLabels, string labelToShow)
         {
             var labelLayer = new MapLabelLayer();
@@ -159,20 +194,6 @@ namespace Core.Components.DotSpatial.Converter
             }
 
             return labelLayer;
-        }
-
-        private void ValidateParameters(FeatureBasedMapData data)
-        {
-            if (data == null)
-            {
-                throw new ArgumentNullException("data", @"Null data cannot be converted into a feature layer.");
-            }
-
-            if (!CanConvertMapData(data))
-            {
-                var message = string.Format("The data of type {0} cannot be converted by this converter.", data.GetType());
-                throw new ArgumentException(message);
-            }
         }
     }
 }
