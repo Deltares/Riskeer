@@ -50,6 +50,13 @@ namespace Core.Components.DotSpatial.Converter
             layer.FeatureSet.Features.Clear();
             layer.FeatureSet.DataTable.Clear();
 
+            for (var i = 1; i <= data.MetaData.Count(); i++)
+            {
+                layer.FeatureSet.DataTable.Columns.Add(i.ToString(), typeof(string));
+            }
+
+            var metaDataLookup = GetMetaDataLookup(data);
+
             foreach (var mapFeature in data.Features)
             {
                 var geometryList = new List<IPolygon>();
@@ -72,7 +79,12 @@ namespace Core.Components.DotSpatial.Converter
                     geometryList.Add(polygon);
                 }
 
-                AddMetaDataAsAttributes(mapFeature, layer.FeatureSet, new Feature(GetGeometry(geometryList), layer.FeatureSet));
+                var feature = new Feature(GetGeometry(geometryList), layer.FeatureSet);
+
+                foreach (var attribute in mapFeature.MetaData)
+                {
+                    feature.DataRow[metaDataLookup[attribute.Key].ToString()] = attribute.Value;
+                }
             }
 
             layer.FeatureSet.InitializeVertices();
@@ -83,12 +95,18 @@ namespace Core.Components.DotSpatial.Converter
             layer.IsVisible = data.IsVisible;
             layer.Name = data.Name;
             layer.ShowLabels = data.ShowLabels;
-            layer.LabelLayer = GetLabelLayer(layer.FeatureSet, data.ShowLabels, data.SelectedMetaDataAttribute);
+            layer.LabelLayer = GetLabelLayer(GetMetaDataLookup(data), layer.FeatureSet, data.ShowLabels, data.SelectedMetaDataAttribute);
 
             if (data.Style != null)
             {
                 layer.Symbolizer = new PolygonSymbolizer(data.Style.FillColor, data.Style.StrokeColor, data.Style.Width);
             }
+        }
+
+        private static Dictionary<string, int> GetMetaDataLookup(MapPolygonData data)
+        {
+            return Enumerable.Range(0, data.MetaData.Count())
+                             .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
         }
 
         private static IBasicGeometry GetGeometry(List<IPolygon> geometryList)

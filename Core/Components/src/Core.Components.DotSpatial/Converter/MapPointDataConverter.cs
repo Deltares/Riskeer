@@ -50,12 +50,22 @@ namespace Core.Components.DotSpatial.Converter
             layer.FeatureSet.Features.Clear();
             layer.FeatureSet.DataTable.Clear();
 
-            foreach (var ringtoetsMapFeature in data.Features)
+            for (var i = 1; i <= data.MetaData.Count(); i++)
             {
-                foreach (var feature in GetAllMapFeatureCoordinates(ringtoetsMapFeature)
+                layer.FeatureSet.DataTable.Columns.Add(i.ToString(), typeof(string));
+            }
+
+            var metaDataLookup = GetMetaDataLookup(data);
+
+            foreach (MapFeature mapFeature in data.Features)
+            {
+                foreach (var feature in GetAllMapFeatureCoordinates(mapFeature)
                     .Select(c => new Feature(new Point(c.X, c.Y), layer.FeatureSet)))
                 {
-                    AddMetaDataAsAttributes(ringtoetsMapFeature, layer.FeatureSet, feature);
+                    foreach (var attribute in mapFeature.MetaData)
+                    {
+                        feature.DataRow[metaDataLookup[attribute.Key].ToString()] = attribute.Value;
+                    }
                 }
             }
 
@@ -67,12 +77,18 @@ namespace Core.Components.DotSpatial.Converter
             layer.IsVisible = data.IsVisible;
             layer.Name = data.Name;
             layer.ShowLabels = data.ShowLabels;
-            layer.LabelLayer = GetLabelLayer(layer.FeatureSet, data.ShowLabels, data.SelectedMetaDataAttribute);
+            layer.LabelLayer = GetLabelLayer(GetMetaDataLookup(data), layer.FeatureSet, data.ShowLabels, data.SelectedMetaDataAttribute);
 
             if (data.Style != null)
             {
                 layer.Symbolizer = new PointSymbolizer(data.Style.Color, MapDataHelper.Convert(data.Style.Symbol), data.Style.Size);
             }
+        }
+
+        private static Dictionary<string, int> GetMetaDataLookup(MapPointData data)
+        {
+            return Enumerable.Range(0, data.MetaData.Count())
+                             .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
         }
 
         private static IEnumerable<Coordinate> GetAllMapFeatureCoordinates(MapFeature feature)

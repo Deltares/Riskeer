@@ -26,7 +26,6 @@ using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -43,21 +42,6 @@ namespace Core.Components.DotSpatial.Converter
         where TFeatureBasedMapData : FeatureBasedMapData
         where TMapFeatureLayer : IMapFeatureLayer
     {
-        /// <remarks>
-        /// Needed because DotSpatial can't handle special characters.
-        /// Therefore we create an id as column name for the data table in the featureSet.
-        /// We need this lookup to match the selected attribute from the FeatureBasedMapData with the created id.
-        /// </remarks>
-        private readonly Dictionary<string, string> columnLookup;
-
-        /// <summary>
-        /// Creates a new instance of <see cref="FeatureBasedMapDataConverter{FeatureBasedMapData,TMapFeatureLayer}"/>
-        /// </summary>
-        protected FeatureBasedMapDataConverter()
-        {
-            columnLookup = new Dictionary<string, string>();
-        }
-
         public bool CanConvertMapData(FeatureBasedMapData data)
         {
             return data is TFeatureBasedMapData;
@@ -119,42 +103,14 @@ namespace Core.Components.DotSpatial.Converter
         }
 
         /// <summary>
-        /// Adds <see cref="MapFeature.MetaData"/> as attributes to the given <see cref="Feature"/> and to the <see cref="IFeatureSet.DataTable"/>.
-        /// </summary>
-        /// <param name="ringtoetsMapFeature">The <see cref="MapFeature"/> to get the meta data from.</param>
-        /// <param name="featureSet">The <see cref="IFeatureSet"/> to add the attributes to.</param>
-        /// <param name="feature">The <see cref="Feature"/> to add the attributes to.</param>
-        protected void AddMetaDataAsAttributes(MapFeature ringtoetsMapFeature, IFeatureSet featureSet, Feature feature)
-        {
-            var columnKey = 1;
-            foreach (var attribute in ringtoetsMapFeature.MetaData)
-            {
-                string attributeName = attribute.Key;
-
-                var columnName = columnKey.ToString();
-                if (!columnLookup.ContainsKey(attributeName))
-                {
-                    columnLookup.Add(attributeName, columnName);
-
-                    if (!featureSet.DataTable.Columns.Contains(columnName))
-                    {
-                        featureSet.DataTable.Columns.Add(columnName, typeof(string));
-                    }
-                }
-
-                feature.DataRow[columnName] = attribute.Value;
-                columnKey++;
-            }
-        }
-
-        /// <summary>
         /// Gets a new <see cref="MapLabelLayer"/>.
         /// </summary>
+        /// <param name="metaDataLookup">The lookup to use for determining the label layer expression.</param>
         /// <param name="featureSet">The <see cref="IFeatureSet"/> to add the <see cref="MapLabelLayer"/> to.</param>
         /// <param name="showLabels">Indicator whether to show the labels or not.</param>
         /// <param name="labelToShow">The key of the attribute to show the labels for.</param>
         /// <returns>A new <see cref="MapLabelLayer"/>.</returns>
-        protected MapLabelLayer GetLabelLayer(IFeatureSet featureSet, bool showLabels, string labelToShow)
+        protected MapLabelLayer GetLabelLayer(IDictionary<string, int> metaDataLookup, IFeatureSet featureSet, bool showLabels, string labelToShow)
         {
             var labelLayer = new MapLabelLayer();
 
@@ -165,7 +121,7 @@ namespace Core.Components.DotSpatial.Converter
                     Orientation = ContentAlignment.MiddleRight,
                     OffsetX = 5
                 };
-                labelLayer.Symbology.Categories[0].Expression = string.Format(CultureInfo.CurrentCulture, "[{0}]", columnLookup[labelToShow]);
+                labelLayer.Symbology.Categories[0].Expression = string.Format(CultureInfo.CurrentCulture, "[{0}]", metaDataLookup[labelToShow]);
             }
 
             return labelLayer;
