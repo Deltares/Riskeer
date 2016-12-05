@@ -25,7 +25,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
@@ -61,59 +60,6 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssessmentLevel_InputHasNewHydraulicBoundaryLocationSet_AssessmentLevelUpdated()
-        {
-            // Setup
-            var input = new PipingInput(new GeneralPipingInput());
-            var derivedInput = new DerivedPipingInput(input);
-
-            RoundedDouble testLevel = (RoundedDouble) new Random(21).NextDouble();
-
-            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
-            {
-                DesignWaterLevel = testLevel
-            };
-
-            // Call
-            var calculatedAssessmentLevel = derivedInput.AssessmentLevel;
-
-            // Assert
-            Assert.AreEqual(testLevel, calculatedAssessmentLevel, derivedInput.AssessmentLevel.GetAccuracy());
-        }
-
-        [Test]
-        public void AssessmentLevel_InputWithoutHydraulicBoundaryLocationSet_AssessmentLevelSetToNaN()
-        {
-            // Setup
-            var input = new PipingInput(new GeneralPipingInput());
-            var derivedInput = new DerivedPipingInput(input);
-
-            input.HydraulicBoundaryLocation = null;
-
-            // Call
-            var calculatedAssessmentLevel = derivedInput.AssessmentLevel;
-
-            // Assert
-            Assert.IsNaN(calculatedAssessmentLevel);
-        }
-
-        [Test]
-        public void AssessmentLevel_HydraulicBoundaryCalculationUncalculated_AssessmentLevelNaN()
-        {
-            // Setup
-            var input = new PipingInput(new GeneralPipingInput());
-            var derivedInput = new DerivedPipingInput(input);
-
-            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0);
-
-            // Call
-            var calculatedAssessmentLevel = derivedInput.AssessmentLevel;
-
-            // Assert
-            Assert.IsNaN(calculatedAssessmentLevel);
-        }
-
-        [Test]
         public void PiezometricHeadExit_ValidInput_SetsParametersForCalculatorAndReturnsPiezometricHead()
         {
             // Setup
@@ -132,7 +78,7 @@ namespace Ringtoets.Piping.Data.Test
                 var factory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
                 var piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
 
-                Assert.AreEqual(piezometricHeadAtExitCalculator.HRiver, derivedInput.AssessmentLevel, derivedInput.AssessmentLevel.GetAccuracy());
+                Assert.AreEqual(piezometricHeadAtExitCalculator.HRiver, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
                 Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
                                 input.PhreaticLevelExit.GetAccuracy());
                 Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.RExit,

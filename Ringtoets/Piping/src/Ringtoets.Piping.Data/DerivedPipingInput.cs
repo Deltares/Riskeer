@@ -55,19 +55,6 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the assessment level from the <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        public RoundedDouble AssessmentLevel
-        {
-            get
-            {
-                return input.HydraulicBoundaryLocation == null ?
-                           new RoundedDouble(2, double.NaN) :
-                           input.HydraulicBoundaryLocation.DesignWaterLevel;
-            }
-        }
-
-        /// <summary>
         /// Gets the piezometric head at the exit point.
         /// [m]
         /// </summary>
@@ -78,7 +65,9 @@ namespace Ringtoets.Piping.Data
                 var dampingFactorExit = PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue();
                 var phreaticLevelExit = PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue();
 
-                return new RoundedDouble(2, InputParameterCalculationService.CalculatePiezometricHeadAtExit(AssessmentLevel, dampingFactorExit, phreaticLevelExit));
+                return new RoundedDouble(2, InputParameterCalculationService.CalculatePiezometricHeadAtExit(input.AssessmentLevel,
+                                                                                                            dampingFactorExit,
+                                                                                                            phreaticLevelExit));
             }
         }
 

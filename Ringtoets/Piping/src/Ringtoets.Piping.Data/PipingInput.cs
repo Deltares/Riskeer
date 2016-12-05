@@ -44,6 +44,8 @@ namespace Ringtoets.Piping.Data
         private RoundedDouble exitPointL;
         private RoundedDouble entryPointL;
         private RingtoetsPipingSurfaceLine surfaceLine;
+        private HydraulicBoundaryLocation hydraulicBoundaryLocation;
+        private RoundedDouble assessmentLevel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -73,6 +75,8 @@ namespace Ringtoets.Piping.Data
                 Mean = (RoundedDouble) 0.7,
                 StandardDeviation = (RoundedDouble) 0.1
             };
+
+            assessmentLevel = new RoundedDouble(2, double.NaN);
         }
 
         /// <summary>
@@ -182,7 +186,18 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or sets the hydraulic boundary location from which to use the assessment level.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        {
+            get
+            {
+                return hydraulicBoundaryLocation;
+            }
+            set
+            {
+                hydraulicBoundaryLocation = value;
+                UpdateAssessmentLevel();
+            }
+        }
 
         private void ValidateEntryExitPoint(RoundedDouble entryPointLocalXCoordinate, RoundedDouble exitPointLocalXCoordinate)
         {
@@ -234,6 +249,13 @@ namespace Ringtoets.Piping.Data
             }
         }
 
+        private void UpdateAssessmentLevel()
+        {
+            assessmentLevel = hydraulicBoundaryLocation != null
+                                  ? hydraulicBoundaryLocation.DesignWaterLevel
+                                  : new RoundedDouble(2, double.NaN);
+        }
+
         #region Derived input
 
         /// <summary>
@@ -244,7 +266,11 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return new DerivedPipingInput(this).AssessmentLevel;
+                return assessmentLevel;
+            }
+            set
+            {
+                assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
         }
 

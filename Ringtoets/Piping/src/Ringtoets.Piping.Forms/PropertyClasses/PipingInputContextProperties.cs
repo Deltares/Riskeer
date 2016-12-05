@@ -116,6 +116,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return data.WrappedData.AssessmentLevel;
             }
+            set
+            {
+                data.WrappedData.AssessmentLevel = value;
+                data.WrappedData.NotifyObservers();
+            }
         }
 
         [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
