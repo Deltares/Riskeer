@@ -24,7 +24,9 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
 {
@@ -37,7 +39,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
         public void Create_AllOutputValuesSet_ReturnEntity(WaveConditionsOutputType outputType)
         {
             // Setup
-            var output = new WaveConditionsOutput(1.1, 2.2, 3.3, 4.4);
+            var output = new TestWaveConditionsOutput();
             int order = 22;
 
             // Call
@@ -50,6 +52,12 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             Assert.AreEqual(output.WavePeakPeriod, entity.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(output.WaveAngle, entity.WaveAngle, output.WaveAngle.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(outputType), entity.OutputType);
+            Assert.AreEqual(output.WaveDirection, entity.WaveDirection, output.WaveDirection.GetAccuracy());
+            Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
+            Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
+            Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(output.CalculationConvergence, (CalculationConvergence) entity.CalculationConvergence);
 
             Assert.AreEqual(0, entity.StabilityStoneCoverWaveConditionsOutputEntityId);
             Assert.AreEqual(0, entity.StabilityStoneCoverWaveConditionsCalculationEntityId);
@@ -61,7 +69,8 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
         public void Create_AllOutputValuesNaN_ReturnEntityWithNullValues(WaveConditionsOutputType outputType)
         {
             // Setup
-            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN);
+            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                  double.NaN, double.NaN, double.NaN);
 
             // Call
             StabilityStoneCoverWaveConditionsOutputEntity entity = output.CreateStabilityStoneCoverWaveConditionsOutputEntity(outputType, 22);
@@ -72,6 +81,11 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             Assert.IsNull(entity.WavePeakPeriod);
             Assert.IsNull(entity.WaveAngle);
             Assert.AreEqual(Convert.ToByte(outputType), entity.OutputType);
+            Assert.IsNull(entity.WaveDirection);
+            Assert.IsNull(entity.TargetProbability);
+            Assert.IsNull(entity.TargetReliability);
+            Assert.IsNull(entity.CalculatedProbability);
+            Assert.IsNull(entity.CalculatedReliability);
 
             Assert.AreEqual(0, entity.StabilityStoneCoverWaveConditionsOutputEntityId);
             Assert.AreEqual(0, entity.StabilityStoneCoverWaveConditionsCalculationEntityId);

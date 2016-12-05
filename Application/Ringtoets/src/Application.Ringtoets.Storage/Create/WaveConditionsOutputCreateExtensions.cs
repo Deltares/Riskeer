@@ -47,7 +47,13 @@ namespace Application.Ringtoets.Storage.Create
                 WaterLevel = output.WaterLevel.Value.ToNaNAsNull(),
                 WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
                 WavePeakPeriod = output.WavePeakPeriod.Value.ToNaNAsNull(),
-                WaveAngle = output.WaveAngle.Value.ToNaNAsNull()
+                WaveAngle = output.WaveAngle.Value.ToNaNAsNull(),
+                WaveDirection = output.WaveDirection.Value.ToNaNAsNull(),
+                TargetProbability = output.TargetProbability.ToNaNAsNull(),
+                TargetReliability = output.TargetReliability.Value.ToNaNAsNull(),
+                CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
+                CalculatedReliability = output.CalculatedReliability.Value.ToNaNAsNull(),
+                CalculationConvergence = (byte) output.CalculationConvergence
             };
             return entity;
         }
@@ -71,7 +77,13 @@ namespace Application.Ringtoets.Storage.Create
                 WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
                 WavePeakPeriod = output.WavePeakPeriod.Value.ToNaNAsNull(),
                 WaveAngle = output.WaveAngle.Value.ToNaNAsNull(),
-                OutputType = (byte) type
+                OutputType = (byte) type,
+                WaveDirection = output.WaveDirection.Value.ToNaNAsNull(),
+                TargetProbability = output.TargetProbability.ToNaNAsNull(),
+                TargetReliability = output.TargetReliability.Value.ToNaNAsNull(),
+                CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
+                CalculatedReliability = output.CalculatedReliability.Value.ToNaNAsNull(),
+                CalculationConvergence = (byte) output.CalculationConvergence
             };
             return entity;
         }
@@ -93,7 +105,13 @@ namespace Application.Ringtoets.Storage.Create
                 WaterLevel = output.WaterLevel.Value.ToNaNAsNull(),
                 WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
                 WavePeakPeriod = output.WavePeakPeriod.Value.ToNaNAsNull(),
-                WaveAngle = output.WaveAngle.Value.ToNaNAsNull()
+                WaveAngle = output.WaveAngle.Value.ToNaNAsNull(),
+                WaveDirection = output.WaveDirection.Value.ToNaNAsNull(),
+                TargetProbability = output.TargetProbability.ToNaNAsNull(),
+                TargetReliability = output.TargetReliability.Value.ToNaNAsNull(),
+                CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
+                CalculatedReliability = output.CalculatedReliability.Value.ToNaNAsNull(),
+                CalculationConvergence = (byte) output.CalculationConvergence
             };
             return entity;
         }

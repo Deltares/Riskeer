@@ -180,7 +180,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual("Project", gui.Project.Name);
                 Assert.IsEmpty(gui.Project.Description);
                 Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
-                CollectionAssert.IsEmpty(((RingtoetsProject)gui.Project).AssessmentSections);
+                CollectionAssert.IsEmpty(((RingtoetsProject) gui.Project).AssessmentSections);
             }
         }
 
@@ -764,6 +764,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight, expectedOutput.WaveHeight.GetAccuracy());
             Assert.AreEqual(expectedOutput.WavePeakPeriod, actualOutput.WavePeakPeriod, expectedOutput.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(expectedOutput.WaveAngle, actualOutput.WaveAngle, expectedOutput.WaveAngle.GetAccuracy());
+            Assert.AreEqual(expectedOutput.WaveDirection, actualOutput.WaveDirection, expectedOutput.WaveDirection.GetAccuracy());
+            Assert.AreEqual(expectedOutput.TargetProbability, actualOutput.TargetProbability);
+            Assert.AreEqual(expectedOutput.TargetReliability, actualOutput.TargetReliability, expectedOutput.TargetReliability.GetAccuracy());
+            Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);
+            Assert.AreEqual(expectedOutput.CalculatedReliability, actualOutput.CalculatedReliability, expectedOutput.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(expectedOutput.CalculationConvergence, actualOutput.CalculationConvergence);
         }
 
         private static void AssertDikeProfiles(IList<DikeProfile> expectedDikeProfiles, IList<DikeProfile> actualDikeProfiles)
@@ -1300,7 +1306,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedPipingCalculation.Contribution, actualPipingCalculation.Contribution);
             Assert.AreEqual(expectedPipingCalculation.Name, actualPipingCalculation.Name);
             AssertComments(expectedPipingCalculation.Comments, actualPipingCalculation.Comments);
-            
+
             AssertPipingInput(expectedPipingCalculation.InputParameters, actualPipingCalculation.InputParameters);
             AssertPipingOutput(expectedPipingCalculation.Output, actualPipingCalculation.Output);
             AssertPipingSemiProbabilisticOutput(expectedPipingCalculation.SemiProbabilisticOutput, actualPipingCalculation.SemiProbabilisticOutput);

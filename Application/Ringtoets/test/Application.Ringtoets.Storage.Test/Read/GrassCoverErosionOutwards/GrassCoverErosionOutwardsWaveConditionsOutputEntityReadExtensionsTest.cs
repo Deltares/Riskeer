@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
@@ -41,7 +42,13 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
                 WaterLevel = random.NextDouble(),
                 WaveHeight = random.NextDouble(),
                 WavePeakPeriod = random.NextDouble(),
-                WaveAngle = random.NextDouble()
+                WaveAngle = random.NextDouble(),
+                WaveDirection = random.NextDouble(),
+                TargetProbability = random.NextDouble(),
+                TargetReliability = random.NextDouble(),
+                CalculatedProbability = random.NextDouble(),
+                CalculatedReliability = random.NextDouble(),
+                CalculationConvergence = (byte) CalculationConvergence.CalculatedConverged
             };
 
             // Call
@@ -59,6 +66,24 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             Assert.IsNotNull(entity.WaveAngle);
             Assert.AreEqual(entity.WaveAngle.Value, output.WaveAngle, output.WaveAngle.GetAccuracy());
+
+            Assert.IsNotNull(entity.WaveDirection);
+            Assert.AreEqual(entity.WaveDirection.Value, output.WaveDirection, output.WaveDirection.GetAccuracy());
+
+            Assert.IsNotNull(entity.TargetProbability);
+            Assert.AreEqual(entity.TargetProbability.Value, output.TargetProbability);
+
+            Assert.IsNotNull(entity.TargetReliability);
+            Assert.AreEqual(entity.TargetReliability.Value, output.TargetReliability, output.TargetReliability.GetAccuracy());
+
+            Assert.IsNotNull(entity.CalculatedProbability);
+            Assert.AreEqual(entity.CalculatedProbability.Value, output.CalculatedProbability);
+
+            Assert.IsNotNull(entity.CalculatedReliability);
+            Assert.AreEqual(entity.CalculatedReliability.Value, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+
+            Assert.IsNotNull(entity.CalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, output.CalculationConvergence);
         }
 
         [Test]
@@ -70,7 +95,12 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
                 WaterLevel = null,
                 WaveHeight = null,
                 WavePeakPeriod = null,
-                WaveAngle = null
+                WaveAngle = null,
+                WaveDirection = null,
+                TargetProbability = null,
+                TargetReliability = null,
+                CalculatedProbability = null,
+                CalculatedReliability = null,
             };
 
             // Call
@@ -81,6 +111,11 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             Assert.IsNaN(output.WaveHeight);
             Assert.IsNaN(output.WavePeakPeriod);
             Assert.IsNaN(output.WaveAngle);
+            Assert.IsNaN(output.WaveDirection);
+            Assert.IsNaN(output.TargetProbability);
+            Assert.IsNaN(output.TargetReliability);
+            Assert.IsNaN(output.CalculatedProbability);
+            Assert.IsNaN(output.CalculatedReliability);
         }
     }
 }

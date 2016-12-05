@@ -23,7 +23,9 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
 {
@@ -34,7 +36,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
         public void Create_AllOutputValuesSet_ReturnEntity()
         {
             // Setup
-            var output = new WaveConditionsOutput(1.1, 2.2, 3.3, 4.4);
+            var output = new TestWaveConditionsOutput();
             var order = 22;
 
             // Call
@@ -46,6 +48,12 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             Assert.AreEqual(output.WaveHeight, entity.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.AreEqual(output.WavePeakPeriod, entity.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(output.WaveAngle, entity.WaveAngle, output.WaveAngle.GetAccuracy());
+            Assert.AreEqual(output.WaveDirection, entity.WaveDirection, output.WaveDirection.GetAccuracy());
+            Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
+            Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
+            Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(output.CalculationConvergence, (CalculationConvergence) entity.CalculationConvergence);
 
             Assert.IsNull(entity.WaveImpactAsphaltCoverWaveConditionsCalculationEntity);
         }
@@ -54,7 +62,8 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
         public void Create_AllOutputValuesNaN_ReturnEntityWithNullValues()
         {
             // Setup
-            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN);
+            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                  double.NaN, double.NaN, double.NaN);
 
             // Call
             WaveImpactAsphaltCoverWaveConditionsOutputEntity entity = output.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(22);
@@ -64,6 +73,11 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             Assert.IsNull(entity.WaveHeight);
             Assert.IsNull(entity.WavePeakPeriod);
             Assert.IsNull(entity.WaveAngle);
+            Assert.IsNull(entity.WaveDirection);
+            Assert.IsNull(entity.TargetProbability);
+            Assert.IsNull(entity.TargetReliability);
+            Assert.IsNull(entity.CalculatedProbability);
+            Assert.IsNull(entity.CalculatedReliability);
 
             Assert.IsNull(entity.WaveImpactAsphaltCoverWaveConditionsCalculationEntity);
         }

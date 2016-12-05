@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
@@ -219,10 +220,10 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             {
                 Output = new StabilityStoneCoverWaveConditionsOutput(new[]
                 {
-                    new WaveConditionsOutput(1, 2, 3, 4)
+                    new TestWaveConditionsOutput(1, 2, 3, 4)
                 }, new[]
                 {
-                    new WaveConditionsOutput(1, 2, 3, 4)
+                    new TestWaveConditionsOutput(1, 2, 3, 4)
                 })
             };
 

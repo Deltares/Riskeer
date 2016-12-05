@@ -21,6 +21,7 @@
 
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
@@ -43,7 +44,15 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
             return new WaveConditionsOutput(entity.WaterLevel.ToNullAsNaN(),
                                             entity.WaveHeight.ToNullAsNaN(),
                                             entity.WavePeakPeriod.ToNullAsNaN(),
-                                            entity.WaveAngle.ToNullAsNaN());
+                                            entity.WaveAngle.ToNullAsNaN(),
+                                            entity.WaveDirection.ToNullAsNaN(),
+                                            entity.TargetProbability.ToNullAsNaN(),
+                                            entity.TargetReliability.ToNullAsNaN(),
+                                            entity.CalculatedProbability.ToNullAsNaN(),
+                                            entity.CalculatedReliability.ToNullAsNaN())
+            {
+                CalculationConvergence = (CalculationConvergence) entity.CalculationConvergence
+            };
         }
     }
 }

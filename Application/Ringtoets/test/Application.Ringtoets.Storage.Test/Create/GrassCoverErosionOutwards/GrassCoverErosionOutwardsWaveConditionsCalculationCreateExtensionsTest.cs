@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
 {
@@ -220,7 +221,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             {
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
                 {
-                    new WaveConditionsOutput(1, 2, 3, 4)
+                    new TestWaveConditionsOutput(1, 2, 3, 4)
                 })
             };
 

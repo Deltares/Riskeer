@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
@@ -218,8 +219,8 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             {
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
                 {
-                    new WaveConditionsOutput(1, 2, 3, 4),
-                    new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN)
+                    new TestWaveConditionsOutput(1, 2, 3, 4),
+                    new TestWaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN)
                 })
             };
 

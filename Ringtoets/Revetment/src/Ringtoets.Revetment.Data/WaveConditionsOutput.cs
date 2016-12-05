@@ -51,9 +51,9 @@ namespace Ringtoets.Revetment.Data
         /// <param name="calculatedProbability">The calculated probability.</param>
         /// <param name="calculatedReliability">The calculated beta (reliability).</param>
         public WaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveAngle,
-                                    double waveDirection = double.NaN,
-                                    double targetProbability = double.NaN, double targetReliability = double.NaN,
-                                    double calculatedProbability = double.NaN, double calculatedReliability = double.NaN)
+                                    double waveDirection,
+                                    double targetProbability, double targetReliability,
+                                    double calculatedProbability, double calculatedReliability)
         {
             WaterLevel = new RoundedDouble(2, waterLevel);
             WaveHeight = new RoundedDouble(2, waveHeight);
@@ -66,6 +66,8 @@ namespace Ringtoets.Revetment.Data
 
             CalculatedProbability = calculatedProbability;
             CalculatedReliability = new RoundedDouble(5, calculatedReliability);
+
+            CalculationConvergence = CalculationConvergence.NotCalculated;
         }
 
         /// <summary>
