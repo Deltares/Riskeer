@@ -103,9 +103,9 @@ namespace Ringtoets.Piping.Forms.Views
             calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
 
             mapDataCollection.Add(referenceLineMapData);
-            mapDataCollection.Add(sectionsMapData);
             mapDataCollection.Add(stochasticSoilModelsMapData);
             mapDataCollection.Add(surfaceLinesMapData);
+            mapDataCollection.Add(sectionsMapData);
             mapDataCollection.Add(sectionsStartPointMapData);
             mapDataCollection.Add(sectionsEndPointMapData);
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
@@ -204,9 +204,9 @@ namespace Ringtoets.Piping.Forms.Views
                 data.WrappedData.CalculationsGroup.GetCalculations().Cast<PipingCalculationScenario>();
 
             referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
-            sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             stochasticSoilModelsMapData.Features = PipingMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(stochasticSoilModels.ToArray());
             surfaceLinesMapData.Features = PipingMapDataFeaturesFactory.CreateSurfaceLineFeatures(ringtoetsPipingSurfaceLines.ToArray());
+            sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
             hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);

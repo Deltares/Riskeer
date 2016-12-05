@@ -52,9 +52,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
     public class PipingFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
-        private const int sectionsIndex = 1;
-        private const int stochasticSoilModelsIndex = 2;
-        private const int surfaceLinesIndex = 3;
+        private const int stochasticSoilModelsIndex = 1;
+        private const int surfaceLinesIndex = 2;
+        private const int sectionsIndex = 3;
         private const int sectionsStartPointIndex = 4;
         private const int sectionsEndPointIndex = 5;
         private const int hydraulicBoundaryLocationsIndex = 6;
