@@ -39,17 +39,17 @@ namespace Core.Components.DotSpatial.Converter
         {
             var layer = new MapPolygonLayer();
 
+            ClearLayerData(layer);
+            SetDataTableColumns(data, layer);
             ConvertLayerFeatures(data, layer);
             ConvertLayerProperties(data, layer);
+            layer.DataSet.InitializeVertices();
 
             return layer;
         }
 
         protected override void ConvertLayerFeatures(MapPolygonData data, MapPolygonLayer layer)
         {
-            ClearLayerData(layer);
-            SetDataTableColumns(data, layer);
-
             var columnNameLookup = GetColumnNameLookup(data);
 
             foreach (var mapFeature in data.Features)
@@ -81,8 +81,6 @@ namespace Core.Components.DotSpatial.Converter
                     feature.DataRow[columnNameLookup[attribute.Key].ToString()] = attribute.Value;
                 }
             }
-
-            layer.FeatureSet.InitializeVertices();
         }
 
         protected override void ConvertLayerProperties(MapPolygonData data, MapPolygonLayer layer)

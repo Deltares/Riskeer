@@ -22,11 +22,12 @@
 using System;
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
+using DotSpatial.Symbology;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The interface for a converter which converts <see cref="FeatureBasedMapData"/> into <see cref="IMapFeatureLayer"/>.
+    /// The interface for a converter which converts <see cref="FeatureBasedMapData"/> into <see cref="IFeatureLayer"/>.
     /// </summary>
     public interface IFeatureBasedMapDataConverter
     {
@@ -52,7 +53,7 @@ namespace Core.Components.DotSpatial.Converter
         /// </summary>
         /// <param name="data">The data to convert the feature related data from.</param>
         /// <param name="layer">The layer to convert the feature related data to.</param>
-        void ConvertLayerFeatures(FeatureBasedMapData data, IMapFeatureLayer layer);
+        void ConvertLayerFeatures(FeatureBasedMapData data, IFeatureLayer layer);
 
         /// <summary>
         /// Converts all general properties (like <see cref="FeatureBasedMapData.Name"/> and <see cref="FeatureBasedMapData.IsVisible"/>) 
@@ -60,6 +61,6 @@ namespace Core.Components.DotSpatial.Converter
         /// </summary>
         /// <param name="data">The data to convert the general properties from.</param>
         /// <param name="layer">The layer to convert the general properties to.</param>
-        void ConvertLayerProperties(FeatureBasedMapData data, IMapFeatureLayer layer);
+        void ConvertLayerProperties(FeatureBasedMapData data, IFeatureLayer layer);
     }
 }

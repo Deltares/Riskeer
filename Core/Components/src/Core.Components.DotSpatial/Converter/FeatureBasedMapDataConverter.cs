@@ -54,14 +54,19 @@ namespace Core.Components.DotSpatial.Converter
             return Convert((TFeatureBasedMapData) data);
         }
 
-        public void ConvertLayerFeatures(FeatureBasedMapData data, IMapFeatureLayer layer)
+        public void ConvertLayerFeatures(FeatureBasedMapData data, IFeatureLayer layer)
         {
             ValidateParameters(data);
 
+            ClearLayerData(layer);
+            SetDataTableColumns(data, layer);
+
             ConvertLayerFeatures((TFeatureBasedMapData) data, (TMapFeatureLayer) layer);
+
+            layer.DataSet.InitializeVertices();
         }
 
-        public void ConvertLayerProperties(FeatureBasedMapData data, IMapFeatureLayer layer)
+        public void ConvertLayerProperties(FeatureBasedMapData data, IFeatureLayer layer)
         {
             ValidateParameters(data);
 
@@ -102,17 +107,17 @@ namespace Core.Components.DotSpatial.Converter
             return points.Select(point => new Coordinate(point.X, point.Y));
         }
 
-        protected static void ClearLayerData(FeatureLayer layer)
+        protected static void ClearLayerData(IFeatureLayer layer)
         {
-            layer.FeatureSet.Features.Clear();
-            layer.FeatureSet.DataTable.Clear();
+            layer.DataSet.Features.Clear();
+            layer.DataSet.DataTable.Clear();
         }
 
-        protected static void SetDataTableColumns(FeatureBasedMapData data, FeatureLayer layer)
+        protected static void SetDataTableColumns(FeatureBasedMapData data, IFeatureLayer layer)
         {
             for (var i = 1; i <= data.MetaData.Count(); i++)
             {
-                layer.FeatureSet.DataTable.Columns.Add(i.ToString(), typeof(string));
+                layer.DataSet.DataTable.Columns.Add(i.ToString(), typeof(string));
             }
         }
 

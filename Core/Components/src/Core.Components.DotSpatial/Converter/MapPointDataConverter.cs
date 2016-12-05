@@ -39,17 +39,17 @@ namespace Core.Components.DotSpatial.Converter
         {
             var layer = new MapPointLayer();
 
+            ClearLayerData(layer);
+            SetDataTableColumns(data, layer);
             ConvertLayerFeatures(data, layer);
             ConvertLayerProperties(data, layer);
+            layer.DataSet.InitializeVertices();
 
             return layer;
         }
 
         protected override void ConvertLayerFeatures(MapPointData data, MapPointLayer layer)
         {
-            ClearLayerData(layer);
-            SetDataTableColumns(data, layer);
-
             var columnNameLookup = GetColumnNameLookup(data);
 
             foreach (MapFeature mapFeature in data.Features)
@@ -63,8 +63,6 @@ namespace Core.Components.DotSpatial.Converter
                     }
                 }
             }
-
-            layer.FeatureSet.InitializeVertices();
         }
 
         protected override void ConvertLayerProperties(MapPointData data, MapPointLayer layer)
