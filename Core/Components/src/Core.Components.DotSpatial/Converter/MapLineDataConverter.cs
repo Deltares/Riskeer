@@ -49,15 +49,10 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override void ConvertLayerFeatures(MapLineData data, MapLineLayer layer)
         {
-            layer.FeatureSet.Features.Clear();
-            layer.FeatureSet.DataTable.Clear();
+            ClearLayerData(layer);
+            SetDataTableColumns(data, layer);
 
-            for (var i = 1; i <= data.MetaData.Count(); i++)
-            {
-                layer.FeatureSet.DataTable.Columns.Add(i.ToString(), typeof(string));
-            }
-
-            var metaDataLookup = GetMetaDataLookup(data);
+            var columnNameLookup = GetColumnNameLookup(data);
 
             foreach (MapFeature mapFeature in data.Features)
             {
@@ -65,7 +60,7 @@ namespace Core.Components.DotSpatial.Converter
 
                 foreach (var attribute in mapFeature.MetaData)
                 {
-                    feature.DataRow[metaDataLookup[attribute.Key].ToString()] = attribute.Value;
+                    feature.DataRow[columnNameLookup[attribute.Key].ToString()] = attribute.Value;
                 }
             }
 
@@ -77,18 +72,12 @@ namespace Core.Components.DotSpatial.Converter
             layer.IsVisible = data.IsVisible;
             layer.Name = data.Name;
             layer.ShowLabels = data.ShowLabels;
-            layer.LabelLayer = GetLabelLayer(GetMetaDataLookup(data), layer.FeatureSet, data.ShowLabels, data.SelectedMetaDataAttribute);
+            layer.LabelLayer = GetLabelLayer(GetColumnNameLookup(data), layer.FeatureSet, data.ShowLabels, data.SelectedMetaDataAttribute);
 
             if (data.Style != null)
             {
                 layer.Symbolizer = new LineSymbolizer(data.Style.Color, data.Style.Color, data.Style.Width, data.Style.Style, LineCap.Round);
             }
-        }
-
-        private static Dictionary<string, int> GetMetaDataLookup(MapLineData data)
-        {
-            return Enumerable.Range(0, data.MetaData.Count())
-                             .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
         }
 
         private static IBasicGeometry GetGeometry(MapFeature mapFeature)

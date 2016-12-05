@@ -102,6 +102,26 @@ namespace Core.Components.DotSpatial.Converter
             return points.Select(point => new Coordinate(point.X, point.Y));
         }
 
+        protected static void ClearLayerData(FeatureLayer layer)
+        {
+            layer.FeatureSet.Features.Clear();
+            layer.FeatureSet.DataTable.Clear();
+        }
+
+        protected static void SetDataTableColumns(FeatureBasedMapData data, FeatureLayer layer)
+        {
+            for (var i = 1; i <= data.MetaData.Count(); i++)
+            {
+                layer.FeatureSet.DataTable.Columns.Add(i.ToString(), typeof(string));
+            }
+        }
+
+        protected static Dictionary<string, int> GetColumnNameLookup(FeatureBasedMapData data)
+        {
+            return Enumerable.Range(0, data.MetaData.Count())
+                             .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
+        }
+
         /// <summary>
         /// Gets a new <see cref="MapLabelLayer"/>.
         /// </summary>
