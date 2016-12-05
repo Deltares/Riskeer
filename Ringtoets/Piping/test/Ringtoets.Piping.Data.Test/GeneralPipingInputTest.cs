@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.AreEqual(0.3, inputParameters.CriticalHeaveGradient);
 
-            Assert.AreEqual(16.2, inputParameters.SandParticlesVolumicWeight);
+            Assert.AreEqual(16.19, inputParameters.SandParticlesVolumicWeight, 1e-6);
             Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient);
             Assert.AreEqual(37, inputParameters.BeddingAngle);
             Assert.AreEqual(1.33e-6, inputParameters.WaterKinematicViscosity);
@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void WaterVolumetricWeight_SetValidValue_ValueSet()
+        public void WaterVolumetricWeight_SetValidValue_ValueSetAndSandParticlesVolumicWeightUpdated()
         {
             // Setup
             const double newValue = 5.69;
@@ -78,6 +78,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(newValue, inputParameters.WaterVolumetricWeight);
+            Assert.AreEqual(26.0 - newValue, inputParameters.SandParticlesVolumicWeight);
         }
     }
 }

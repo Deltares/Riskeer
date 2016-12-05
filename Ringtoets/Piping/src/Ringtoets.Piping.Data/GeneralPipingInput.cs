@@ -41,7 +41,6 @@ namespace Ringtoets.Piping.Data
             SellmeijerModelFactor = 1.0;
             WaterVolumetricWeight = 9.81;
             CriticalHeaveGradient = 0.3;
-            SandParticlesVolumicWeight = 16.2;
             WhitesDragCoefficient = 0.25;
             BeddingAngle = 37;
             WaterKinematicViscosity = 1.33e-6;
@@ -106,7 +105,13 @@ namespace Ringtoets.Piping.Data
         /// under water.
         /// [kN/m³]
         /// </summary>
-        public double SandParticlesVolumicWeight { get; private set; }
+        public double SandParticlesVolumicWeight 
+        {
+            get
+            {
+                return 26.0 - waterVolumetricWeight;
+            }
+        }
 
         /// <summary>
         /// Gets the White's drag coefficient.
