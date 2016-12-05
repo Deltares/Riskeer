@@ -32,6 +32,13 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     public static class MapFeatureLayerFactory
     {
+        private static readonly Collection<IFeatureBasedMapDataConverter> converters = new Collection<IFeatureBasedMapDataConverter>
+            {
+                new MapPointDataConverter(),
+                new MapLineDataConverter(),
+                new MapPolygonDataConverter()
+            };
+
         /// <summary>
         /// Creates a <see cref="IMapFeatureLayer"/> from the given <paramref name="data"/>.
         /// </summary>
@@ -40,13 +47,6 @@ namespace Core.Components.DotSpatial.Converter
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
         public static IMapFeatureLayer Create(FeatureBasedMapData data)
         {
-            var converters = new Collection<IFeatureBasedMapDataConverter>
-            {
-                new MapPointDataConverter(),
-                new MapLineDataConverter(),
-                new MapPolygonDataConverter()
-            };
-
             foreach (IFeatureBasedMapDataConverter converter in converters.Where(c => c.CanConvertMapData(data)))
             {
                 return converter.Convert(data);
@@ -63,7 +63,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
         public static void ConvertLayerFeatures(FeatureBasedMapData data, IMapFeatureLayer layer)
         {
-            var converter = GetFeatureBasedMapDataConverter(data);
+            var converter = converters.FirstOrDefault(c => c.CanConvertMapData(data));
             if (converter != null)
             {
                 converter.ConvertLayerFeatures(data, layer);
@@ -82,7 +82,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="layer">The layer to convert the general properties to.</param>
         public static void ConvertLayerProperties(FeatureBasedMapData data, IMapFeatureLayer layer)
         {
-            var converter = GetFeatureBasedMapDataConverter(data);
+            var converter = converters.FirstOrDefault(c => c.CanConvertMapData(data));
             if (converter != null)
             {
                 converter.ConvertLayerProperties(data, layer);
@@ -91,16 +91,6 @@ namespace Core.Components.DotSpatial.Converter
             {
                 throw new NotSupportedException(string.Format("FeatureBasedMapData of type {0} is not supported.", data.GetType().Name));
             }
-        }
-
-        private static IFeatureBasedMapDataConverter GetFeatureBasedMapDataConverter(FeatureBasedMapData data)
-        {
-            return new Collection<IFeatureBasedMapDataConverter>
-            {
-                new MapPointDataConverter(),
-                new MapLineDataConverter(),
-                new MapPolygonDataConverter()
-            }.FirstOrDefault(c => c.CanConvertMapData(data));
         }
     }
 }
