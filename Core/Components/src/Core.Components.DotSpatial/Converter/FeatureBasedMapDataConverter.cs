@@ -96,21 +96,14 @@ namespace Core.Components.DotSpatial.Converter
             ((TMapFeatureLayer) layer).Name = data.Name;
             layer.ShowLabels = data.ShowLabels;
             layer.LabelLayer = GetLabelLayer(GetColumnNameLookup(data), layer.DataSet, data.ShowLabels, data.SelectedMetaDataAttribute);
-
-            ConvertLayerProperties((TFeatureBasedMapData) data, (TMapFeatureLayer) layer);
+            layer.Symbolizer = CreateSymbolizer((TFeatureBasedMapData) data);
         }
 
         protected abstract IMapFeatureLayer CreateLayer();
 
         protected abstract IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature);
 
-        /// <summary>
-        /// Converts all general properties (like <see cref="FeatureBasedMapData.Name"/> and <see cref="FeatureBasedMapData.IsVisible"/>) 
-        /// from <paramref name="data"/> to <paramref name="layer"/>.
-        /// </summary>
-        /// <param name="data">The data to convert the general properties from.</param>
-        /// <param name="layer">The layer to convert the general properties to.</param>
-        protected abstract void ConvertLayerProperties(TFeatureBasedMapData data, TMapFeatureLayer layer);
+        protected abstract IFeatureSymbolizer CreateSymbolizer(TFeatureBasedMapData mapData);
 
         /// <summary>
         /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an

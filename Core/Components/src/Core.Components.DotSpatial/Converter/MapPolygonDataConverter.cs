@@ -66,12 +66,11 @@ namespace Core.Components.DotSpatial.Converter
             yield return new Feature(GetGeometry(geometryList));
         }
 
-        protected override void ConvertLayerProperties(MapPolygonData data, MapPolygonLayer layer)
+        protected override IFeatureSymbolizer CreateSymbolizer(MapPolygonData mapData)
         {
-            if (data.Style != null)
-            {
-                layer.Symbolizer = new PolygonSymbolizer(data.Style.FillColor, data.Style.StrokeColor, data.Style.Width);
-            }
+            return mapData.Style != null
+                       ? new PolygonSymbolizer(mapData.Style.FillColor, mapData.Style.StrokeColor, mapData.Style.Width)
+                       : new PolygonSymbolizer();
         }
 
         private static IBasicGeometry GetGeometry(List<IPolygon> geometryList)

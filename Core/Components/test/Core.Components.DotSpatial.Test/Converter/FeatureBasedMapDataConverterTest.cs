@@ -28,6 +28,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using DotSpatial.Controls;
 using DotSpatial.Data;
+using DotSpatial.Symbology;
 using NUnit.Framework;
 
 namespace Core.Components.DotSpatial.Test.Converter
@@ -114,9 +115,9 @@ namespace Core.Components.DotSpatial.Test.Converter
         private class TestFeatureBasedMapDataConverter<TFeatureBasedMapData> : FeatureBasedMapDataConverter<TFeatureBasedMapData, MapPointLayer>
             where TFeatureBasedMapData : FeatureBasedMapData
         {
-            protected override void ConvertLayerProperties(TFeatureBasedMapData data, MapPointLayer layer)
+            protected override IFeatureSymbolizer CreateSymbolizer(TFeatureBasedMapData mapData)
             {
-
+                return new PointSymbolizer();
             }
 
             protected override IMapFeatureLayer CreateLayer()

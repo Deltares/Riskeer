@@ -45,12 +45,11 @@ namespace Core.Components.DotSpatial.Converter
             return GetAllMapFeatureCoordinates(mapFeature).Select(c => new Feature(new Point(c.X, c.Y)));
         }
 
-        protected override void ConvertLayerProperties(MapPointData data, MapPointLayer layer)
+        protected override IFeatureSymbolizer CreateSymbolizer(MapPointData mapData)
         {
-            if (data.Style != null)
-            {
-                layer.Symbolizer = new PointSymbolizer(data.Style.Color, MapDataHelper.Convert(data.Style.Symbol), data.Style.Size);
-            }
+            return mapData.Style != null
+                ? new PointSymbolizer(mapData.Style.Color, MapDataHelper.Convert(mapData.Style.Symbol), mapData.Style.Size)
+                : new PointSymbolizer();
         }
 
         private static IEnumerable<Coordinate> GetAllMapFeatureCoordinates(MapFeature feature)

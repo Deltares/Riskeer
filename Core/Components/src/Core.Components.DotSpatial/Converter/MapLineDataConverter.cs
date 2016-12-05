@@ -47,12 +47,11 @@ namespace Core.Components.DotSpatial.Converter
             yield return new Feature(GetGeometry(mapFeature));
         }
 
-        protected override void ConvertLayerProperties(MapLineData data, MapLineLayer layer)
+        protected override IFeatureSymbolizer CreateSymbolizer(MapLineData mapData)
         {
-            if (data.Style != null)
-            {
-                layer.Symbolizer = new LineSymbolizer(data.Style.Color, data.Style.Color, data.Style.Width, data.Style.Style, LineCap.Round);
-            }
+            return mapData.Style != null
+                ? new LineSymbolizer(mapData.Style.Color, mapData.Style.Color, mapData.Style.Width, mapData.Style.Style, LineCap.Round)
+                : new LineSymbolizer();
         }
 
         private static IBasicGeometry GetGeometry(MapFeature mapFeature)
