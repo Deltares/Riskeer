@@ -28,11 +28,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class PipingSemiProbabilisticOutputEntity
     {
         public long PipingSemiProbabilisticOutputEntityId { get; set; }
@@ -52,7 +51,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> PipingProbability { get; set; }
         public Nullable<double> PipingReliability { get; set; }
         public Nullable<double> PipingFactorOfSafety { get; set; }
-    
+
         public virtual PipingCalculationEntity PipingCalculationEntity { get; set; }
     }
 }

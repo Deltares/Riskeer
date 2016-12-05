@@ -28,11 +28,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class GrassCoverErosionInwardsOutputEntity
     {
         public long GrassCoverErosionInwardsOutputEntityId { get; set; }
@@ -47,7 +46,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> Probability { get; set; }
         public Nullable<double> Reliability { get; set; }
         public Nullable<double> FactorOfSafety { get; set; }
-    
+
         public virtual GrassCoverErosionInwardsCalculationEntity GrassCoverErosionInwardsCalculationEntity { get; set; }
     }
 }
