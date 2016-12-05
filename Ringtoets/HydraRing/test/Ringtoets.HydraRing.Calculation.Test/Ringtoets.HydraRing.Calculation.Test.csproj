@@ -90,6 +90,7 @@
     <Compile Include="Data\Input\Overtopping\OvertoppingCalculationInputTest.cs" />
     <Compile Include="Data\Input\Structures\StructuresOvertoppingCalculationInputTest.cs" />
     <Compile Include="Data\Input\WaveConditions\WaveConditionsTrapezoidCalculationInputTest.cs" />
+    <Compile Include="Data\LogNormalHydraRingVariableTest.cs" />
     <Compile Include="Data\NormalHydraRingVariableTest.cs" />
     <Compile Include="Data\Output\OvertoppingCalculationWaveHeightOutputTest.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationAlphaOutputTest.cs" />
