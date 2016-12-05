@@ -26,31 +26,32 @@ namespace Ringtoets.HydraRing.Calculation.Data
     /// </summary>
     public class LogNormalHydraRingVariable : HydraRingVariable2
     {
-        private readonly double parameter1;
-        private readonly double parameter2;
-        private readonly double parameter3;
+        private readonly double mean;
+        private readonly double variance;
+        private readonly double shift;
 
         /// <summary>
         /// Creates a new instance of <see cref="LogNormalHydraRingVariable"/>.
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
         /// <param name="deviationType">The deviation type in case the variable is random.</param>
-        /// <param name="parameter1">The parameter1 value of the variable.</param>
-        /// <param name="parameter2">The parameter2 value of the variable.</param>
-        /// <param name="parameter3">The parameter3 value of the variable.</param>
-        public LogNormalHydraRingVariable(int variableId, HydraRingDeviationType deviationType, double parameter1, double parameter2, double parameter3) 
+        /// <param name="mean">The mean value of the variable.</param>
+        /// <param name="variance">The variance value of the variable.</param>
+        /// <param name="shift">The shift value of the variable.</param>
+        public LogNormalHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
+                                          double mean, double variance, double shift = double.NaN)
             : base(variableId, deviationType)
         {
-            this.parameter1 = parameter1;
-            this.parameter2 = parameter2;
-            this.parameter3 = parameter3;
+            this.mean = mean;
+            this.variance = variance;
+            this.shift = shift;
         }
 
         public override double Parameter1
         {
             get
             {
-                return parameter1;
+                return mean;
             }
         }
 
@@ -59,7 +60,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
             get
             {
                 return DeviationType == HydraRingDeviationType.Standard
-                           ? parameter2
+                           ? variance
                            : base.Parameter2;
             }
         }
@@ -68,7 +69,9 @@ namespace Ringtoets.HydraRing.Calculation.Data
         {
             get
             {
-                return parameter3;
+                return !double.IsNaN(shift)
+                           ? shift
+                           : base.Parameter3;
             }
         }
 
@@ -77,7 +80,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
             get
             {
                 return DeviationType == HydraRingDeviationType.Variation
-                           ? parameter2
+                           ? variance
                            : base.CoefficientOfVariation;
             }
         }

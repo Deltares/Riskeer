@@ -46,5 +46,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
             Assert.IsNull(hydraRingVariable.Parameter4);
             Assert.AreEqual(expectedCoefficientOfVariation, hydraRingVariable.CoefficientOfVariation);
         }
+
+        [Test]
+        public void Constructor_ShiftNotSet_Parameter3Null()
+        {
+            // Call
+            var hydraRingVariable = new LogNormalHydraRingVariable(1, HydraRingDeviationType.Standard, 2.2, 3.3);
+
+            // Assert
+            Assert.IsNull(hydraRingVariable.Parameter3);
+        }
     }
 }

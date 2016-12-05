@@ -23,35 +23,35 @@ namespace Ringtoets.HydraRing.Calculation.Data
 {
     public class TruncatedNormalHydraRingVariable : HydraRingVariable2
     {
-        private readonly double parameter1;
-        private readonly double parameter2;
-        private readonly double parameter3;
-        private readonly double parameter4;
+        private readonly double mean;
+        private readonly double variance;
+        private readonly double lowerBoundary;
+        private readonly double upperBoundary;
 
         /// <summary>
         /// Creates a new instance of <see cref="TruncatedNormalHydraRingVariable"/>.
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
         /// <param name="deviationType">The deviation type in case the variable is random.</param>
-        /// <param name="parameter1">The parameter1 value of the variable.</param>
-        /// <param name="parameter2">The parameter2 value of the variable.</param>
-        /// <param name="parameter3">The parameter3 value of the variable.</param>
-        /// <param name="parameter4">The parameter4 value of the variable.</param>
+        /// <param name="mean">The mean value of the variable.</param>
+        /// <param name="variance">The variance value of the variable.</param>
+        /// <param name="lowerBoundary">The lowerBoundary value of the variable.</param>
+        /// <param name="upperBoundary">The upperBoundary value of the variable.</param>
         public TruncatedNormalHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
-                                                double parameter1, double parameter2, double parameter3, double parameter4)
+                                                double mean, double variance, double lowerBoundary, double upperBoundary)
             : base(variableId, deviationType)
         {
-            this.parameter1 = parameter1;
-            this.parameter2 = parameter2;
-            this.parameter3 = parameter3;
-            this.parameter4 = parameter4;
+            this.mean = mean;
+            this.variance = variance;
+            this.lowerBoundary = lowerBoundary;
+            this.upperBoundary = upperBoundary;
         }
 
         public override double Parameter1
         {
             get
             {
-                return parameter1;
+                return mean;
             }
         }
 
@@ -60,7 +60,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
             get
             {
                 return DeviationType == HydraRingDeviationType.Standard
-                           ? parameter2
+                           ? variance
                            : base.Parameter2;
             }
         }
@@ -69,7 +69,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         {
             get
             {
-                return parameter3;
+                return lowerBoundary;
             }
         }
 
@@ -77,7 +77,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         {
             get
             {
-                return parameter4;
+                return upperBoundary;
             }
         }
 
@@ -86,7 +86,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
             get
             {
                 return DeviationType == HydraRingDeviationType.Variation
-                           ? parameter2
+                           ? variance
                            : base.CoefficientOfVariation;
             }
         }
