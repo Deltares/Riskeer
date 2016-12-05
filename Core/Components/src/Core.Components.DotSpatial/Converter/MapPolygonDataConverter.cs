@@ -36,6 +36,11 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     public class MapPolygonDataConverter : FeatureBasedMapDataConverter<MapPolygonData, MapPolygonLayer>
     {
+        protected override IFeatureLayer CreateLayer()
+        {
+            return new MapPolygonLayer();
+        }
+
         protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
         {
             var geometryList = new List<IPolygon>();

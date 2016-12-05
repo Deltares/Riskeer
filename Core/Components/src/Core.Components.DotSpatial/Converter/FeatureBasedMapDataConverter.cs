@@ -75,6 +75,8 @@ namespace Core.Components.DotSpatial.Converter
             ConvertLayerProperties((TFeatureBasedMapData) data, (TMapFeatureLayer) layer);
         }
 
+        protected abstract IFeatureLayer CreateLayer();
+
         protected abstract IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature);
 
         /// <summary>
