@@ -26,6 +26,7 @@ using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -73,6 +74,8 @@ namespace Core.Components.DotSpatial.Converter
 
             ConvertLayerProperties((TFeatureBasedMapData) data, (TMapFeatureLayer) layer);
         }
+
+        protected abstract IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature);
 
         /// <summary>
         /// Creates a <see cref="IMapFeatureLayer"/> based on the <paramref name="data"/> that was given.
