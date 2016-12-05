@@ -47,11 +47,6 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override void ConvertLayerProperties(MapPointData data, MapPointLayer layer)
         {
-            layer.IsVisible = data.IsVisible;
-            layer.Name = data.Name;
-            layer.ShowLabels = data.ShowLabels;
-            layer.LabelLayer = GetLabelLayer(GetColumnNameLookup(data), layer.FeatureSet, data.ShowLabels, data.SelectedMetaDataAttribute);
-
             if (data.Style != null)
             {
                 layer.Symbolizer = new PointSymbolizer(data.Style.Color, MapDataHelper.Convert(data.Style.Symbol), data.Style.Size);

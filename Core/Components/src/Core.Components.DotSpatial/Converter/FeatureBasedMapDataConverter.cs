@@ -41,7 +41,7 @@ namespace Core.Components.DotSpatial.Converter
     /// <typeparam name="TMapFeatureLayer">The type of map feature layer to set the converted data to.</typeparam>
     public abstract class FeatureBasedMapDataConverter<TFeatureBasedMapData, TMapFeatureLayer> : IFeatureBasedMapDataConverter
         where TFeatureBasedMapData : FeatureBasedMapData
-        where TMapFeatureLayer : IMapFeatureLayer
+        where TMapFeatureLayer : FeatureLayer, IMapFeatureLayer
     {
         public bool CanConvertMapData(FeatureBasedMapData data)
         {
@@ -92,6 +92,11 @@ namespace Core.Components.DotSpatial.Converter
         {
             ValidateParameters(data);
 
+            layer.IsVisible = data.IsVisible;
+            ((TMapFeatureLayer) layer).Name = data.Name;
+            layer.ShowLabels = data.ShowLabels;
+            layer.LabelLayer = GetLabelLayer(GetColumnNameLookup(data), layer.DataSet, data.ShowLabels, data.SelectedMetaDataAttribute);
+
             ConvertLayerProperties((TFeatureBasedMapData) data, (TMapFeatureLayer) layer);
         }
 
@@ -132,7 +137,7 @@ namespace Core.Components.DotSpatial.Converter
             }
         }
 
-        protected static Dictionary<string, int> GetColumnNameLookup(FeatureBasedMapData data)
+        private static Dictionary<string, int> GetColumnNameLookup(FeatureBasedMapData data)
         {
             return Enumerable.Range(0, data.MetaData.Count())
                              .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
@@ -146,7 +151,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="showLabels">Indicator whether to show the labels or not.</param>
         /// <param name="labelToShow">The key of the attribute to show the labels for.</param>
         /// <returns>A new <see cref="MapLabelLayer"/>.</returns>
-        protected MapLabelLayer GetLabelLayer(IDictionary<string, int> metaDataLookup, IFeatureSet featureSet, bool showLabels, string labelToShow)
+        private static MapLabelLayer GetLabelLayer(IDictionary<string, int> metaDataLookup, IFeatureSet featureSet, bool showLabels, string labelToShow)
         {
             var labelLayer = new MapLabelLayer();
 

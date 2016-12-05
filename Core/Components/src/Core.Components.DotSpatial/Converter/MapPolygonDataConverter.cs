@@ -68,11 +68,6 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override void ConvertLayerProperties(MapPolygonData data, MapPolygonLayer layer)
         {
-            layer.IsVisible = data.IsVisible;
-            layer.Name = data.Name;
-            layer.ShowLabels = data.ShowLabels;
-            layer.LabelLayer = GetLabelLayer(GetColumnNameLookup(data), layer.FeatureSet, data.ShowLabels, data.SelectedMetaDataAttribute);
-
             if (data.Style != null)
             {
                 layer.Symbolizer = new PolygonSymbolizer(data.Style.FillColor, data.Style.StrokeColor, data.Style.Width);

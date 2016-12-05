@@ -49,11 +49,6 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override void ConvertLayerProperties(MapLineData data, MapLineLayer layer)
         {
-            layer.IsVisible = data.IsVisible;
-            layer.Name = data.Name;
-            layer.ShowLabels = data.ShowLabels;
-            layer.LabelLayer = GetLabelLayer(GetColumnNameLookup(data), layer.FeatureSet, data.ShowLabels, data.SelectedMetaDataAttribute);
-
             if (data.Style != null)
             {
                 layer.Symbolizer = new LineSymbolizer(data.Style.Color, data.Style.Color, data.Style.Width, data.Style.Style, LineCap.Round);
