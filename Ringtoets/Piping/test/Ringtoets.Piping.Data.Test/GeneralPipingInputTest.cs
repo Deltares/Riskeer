@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.Piping.Data.Test
@@ -47,6 +49,35 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(9.81, inputParameters.Gravity);
             Assert.AreEqual(2.08e-4, inputParameters.MeanDiameter70);
             Assert.AreEqual(0.3, inputParameters.SellmeijerReductionFactor);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(-1)]
+        public void WaterVolumetricWeight_SetInvalidValue_ThrowArgumentException(double newValue)
+        {
+            // Setup
+            var inputParameters = new GeneralPipingInput();
+
+            // Call
+            TestDelegate test = () => inputParameters.WaterVolumetricWeight = newValue;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "De waarde moet een positief getal zijn.");
+        }
+
+        [Test]
+        public void WaterVolumetricWeight_SetValidValue_ValueSet()
+        {
+            // Setup
+            const double newValue = 5.69;
+            var inputParameters = new GeneralPipingInput();
+
+            // Call
+            inputParameters.WaterVolumetricWeight = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, inputParameters.WaterVolumetricWeight);
         }
     }
 }

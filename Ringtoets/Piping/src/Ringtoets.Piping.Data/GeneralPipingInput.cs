@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Ringtoets.Piping.Data.Properties;
+
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
@@ -27,6 +30,8 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class GeneralPipingInput
     {
+        private double waterVolumetricWeight;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralPipingInput"/> class.
         /// </summary>
@@ -51,7 +56,23 @@ namespace Ringtoets.Piping.Data
         /// Gets the volumetric weight of water.
         /// [kN/m³]
         /// </summary>
-        public double WaterVolumetricWeight { get; set; }
+        /// <exception cref="ArgumentException">Thrown when value is set to <c>double.NaN</c> or a negative number.</exception>
+        public double WaterVolumetricWeight
+        {
+            get
+            {
+                return waterVolumetricWeight;
+            }
+            set
+            {
+                if (double.IsNaN(value) || value < 0)
+                {
+                    throw new ArgumentException(Resources.GeneralPipingInput_WaterVolumetricWeight_must_be_positive_number);
+                }
+
+                waterVolumetricWeight = value;
+            }
+        }
 
         #endregion
 

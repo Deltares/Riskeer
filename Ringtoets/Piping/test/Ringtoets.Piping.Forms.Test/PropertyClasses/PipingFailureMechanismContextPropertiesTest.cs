@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -96,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Call
             var properties = new PipingFailureMechanismContextProperties
             {
-                Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>())
+                Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().Stub<IAssessmentSection>())
             };
 
             // Assert
@@ -226,13 +227,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
             var properties = new PipingFailureMechanismContextProperties
             {
-                Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>())
+                Data = new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>())
             };
+            mocks.ReplayAll();
 
             failureMechanism.Attach(observerMock);
 
@@ -257,14 +258,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            observerMock.Expect(o => o.UpdateObserver());            
 
             var failureMechanism = new PipingFailureMechanism();
             var properties = new PipingFailureMechanismContextProperties
             {
-                Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>())
+                Data = new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>())
             };
+            mocks.ReplayAll();
 
             failureMechanism.Attach(observerMock);
 
@@ -277,19 +278,19 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void WaterVolumetricWeight_SetValue_SetsValueAndUpdatesObservers()
+        public void WaterVolumetricWeight_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            observerMock.Expect(o => o.UpdateObserver());            
 
             var failureMechanism = new PipingFailureMechanism();
             var properties = new PipingFailureMechanismContextProperties
             {
-                Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>())
+                Data = new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>())
             };
+            mocks.ReplayAll();
 
             failureMechanism.Attach(observerMock);
 
@@ -301,6 +302,32 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newValue, failureMechanism.GeneralInput.WaterVolumetricWeight);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(-0.1)]
+        public void WaterVolumetricWeight_SetValidValue_ThrowArgumentExceptionAndDoesNotUpdateObservers(double newValue)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var properties = new PipingFailureMechanismContextProperties
+            {
+                Data = new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>())
+            };
+            mocks.ReplayAll();
+            
+            failureMechanism.Attach(observerMock);
+            
+            // Call            
+            TestDelegate test = () => properties.WaterVolumetricWeight = newValue;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "De waarde moet een positief getal zijn.");
+            mocks.VerifyAll(); // Does not expect notify observers.
         }
     }
 }
