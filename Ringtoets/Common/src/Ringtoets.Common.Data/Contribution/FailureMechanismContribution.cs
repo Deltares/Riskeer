@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Data.Contribution
             {
                 if (double.IsNaN(value) || value < 0.0 || value > 1.0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.FailureMechanismContributionItem_Norm_must_be_larger_than_zero);
+                    throw new ArgumentOutOfRangeException("value", Resources.Probability_Must_be_in_range_zero_to_one);
                 }
                 norm = value;
                 distribution.ForEachElementDo(d => d.Norm = norm);

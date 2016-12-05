@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate test = () => new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
 
             // Assert
-            const string expectedMessage = "De faalkansbijdrage kan alleen bepaald worden als de norm van het traject groter is dan 0.";
+            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -329,6 +329,24 @@ namespace Ringtoets.Common.Data.Test.Contribution
             CollectionAssert.AreEqual(contributionValues, failureMechanismContribution.Distribution.Select(d => d.Contribution));
             CollectionAssert.AreEqual(Enumerable.Repeat(norm, 4), failureMechanismContribution.Distribution.Select(d => d.Norm));
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Norm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(
+            [Values(150, 1e+6, -1e-6, -150, double.NaN)] double newNorm)
+        {
+            // Setup
+            var random = new Random(21);
+            var contribution = random.Next(1, 100);
+            var norm = random.NextDouble();
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
+
+            // Call
+            TestDelegate test = () => failureMechanismContribution.Norm = newNorm;
+
+            // Assert
+            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]

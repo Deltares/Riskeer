@@ -141,7 +141,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             TestDelegate call = () => handler.ChangeNorm(assessmentSection, invalidNorm);
 
             // Assert
-            const string expectedMessage = "De faalkansbijdrage kan alleen bepaald worden als de norm van het traject groter is dan 0.";
+            const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -205,7 +205,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Precondition
             CollectionAssert.IsEmpty(section.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput));
-            
+
             var handler = new FailureMechanismContributionNormChangeHandler();
 
             IEnumerable<IObservable> affectedObjects = null;

@@ -93,8 +93,8 @@ namespace Ringtoets.Integration.Plugin.Handlers
                                                                                                                    .OfType<GrassCoverErosionOutwardsFailureMechanism>()
                                                                                                                    .First();
 
-            IEnumerable<IObservable> hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase,
-                                                                                                                                                  grassCoverErosionOutwardsFailureMechanism);
+            IEnumerable<IObservable> hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
+                assessmentSection.HydraulicBoundaryDatabase, grassCoverErosionOutwardsFailureMechanism);
             if (hydraulicBoundaryLocationAffected.Any())
             {
                 log.Info(Resources.FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared);
