@@ -36,7 +36,7 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     public class MapPolygonDataConverter : FeatureBasedMapDataConverter<MapPolygonData, MapPolygonLayer>
     {
-        protected override IFeatureLayer CreateLayer()
+        protected override IMapFeatureLayer CreateLayer()
         {
             return new MapPolygonLayer();
         }
@@ -64,19 +64,6 @@ namespace Core.Components.DotSpatial.Converter
             }
 
             yield return new Feature(GetGeometry(geometryList));
-        }
-
-        protected override IMapFeatureLayer Convert(MapPolygonData data)
-        {
-            var layer = new MapPolygonLayer();
-
-            ClearLayerData(layer);
-            SetDataTableColumns(data, layer);
-            ConvertLayerFeatures(data, layer);
-            ConvertLayerProperties(data, layer);
-            layer.DataSet.InitializeVertices();
-
-            return layer;
         }
 
         protected override void ConvertLayerFeatures(MapPolygonData data, MapPolygonLayer layer)

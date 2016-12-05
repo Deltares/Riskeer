@@ -35,7 +35,7 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     public class MapPointDataConverter : FeatureBasedMapDataConverter<MapPointData, MapPointLayer>
     {
-        protected override IFeatureLayer CreateLayer()
+        protected override IMapFeatureLayer CreateLayer()
         {
             return new MapPointLayer();
         }
@@ -43,19 +43,6 @@ namespace Core.Components.DotSpatial.Converter
         protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
         {
             return GetAllMapFeatureCoordinates(mapFeature).Select(c => new Feature(new Point(c.X, c.Y)));
-        }
-
-        protected override IMapFeatureLayer Convert(MapPointData data)
-        {
-            var layer = new MapPointLayer();
-
-            ClearLayerData(layer);
-            SetDataTableColumns(data, layer);
-            ConvertLayerFeatures(data, layer);
-            ConvertLayerProperties(data, layer);
-            layer.DataSet.InitializeVertices();
-
-            return layer;
         }
 
         protected override void ConvertLayerFeatures(MapPointData data, MapPointLayer layer)

@@ -52,7 +52,12 @@ namespace Core.Components.DotSpatial.Converter
         {
             ValidateParameters(data);
 
-            return Convert((TFeatureBasedMapData) data);
+            var layer = CreateLayer();
+
+            ConvertLayerFeatures(data, layer);
+            ConvertLayerProperties(data, layer);
+
+            return layer;
         }
 
         public void ConvertLayerFeatures(FeatureBasedMapData data, IFeatureLayer layer)
@@ -75,16 +80,9 @@ namespace Core.Components.DotSpatial.Converter
             ConvertLayerProperties((TFeatureBasedMapData) data, (TMapFeatureLayer) layer);
         }
 
-        protected abstract IFeatureLayer CreateLayer();
+        protected abstract IMapFeatureLayer CreateLayer();
 
         protected abstract IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature);
-
-        /// <summary>
-        /// Creates a <see cref="IMapFeatureLayer"/> based on the <paramref name="data"/> that was given.
-        /// </summary>
-        /// <param name="data">The data to transform into a <see cref="IMapFeatureLayer"/>.</param>
-        /// <returns>A new <see cref="IMapFeatureLayer"/>.</returns>
-        protected abstract IMapFeatureLayer Convert(TFeatureBasedMapData data);
 
         /// <summary>
         /// Converts all feature related data from <paramref name="data"/> to <paramref name="layer"/>.
@@ -113,13 +111,13 @@ namespace Core.Components.DotSpatial.Converter
             return points.Select(point => new Coordinate(point.X, point.Y));
         }
 
-        protected static void ClearLayerData(IFeatureLayer layer)
+        private static void ClearLayerData(IFeatureLayer layer)
         {
             layer.DataSet.Features.Clear();
             layer.DataSet.DataTable.Reset();
         }
 
-        protected static void SetDataTableColumns(FeatureBasedMapData data, IFeatureLayer layer)
+        private static void SetDataTableColumns(FeatureBasedMapData data, IFeatureLayer layer)
         {
             for (var i = 1; i <= data.MetaData.Count(); i++)
             {

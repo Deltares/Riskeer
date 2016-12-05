@@ -28,7 +28,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using DotSpatial.Controls;
 using DotSpatial.Data;
-using DotSpatial.Symbology;
 using NUnit.Framework;
 
 namespace Core.Components.DotSpatial.Test.Converter
@@ -117,27 +116,22 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             protected override void ConvertLayerFeatures(TFeatureBasedMapData data, MapPointLayer layer)
             {
-                throw new NotImplementedException();
+
             }
 
             protected override void ConvertLayerProperties(TFeatureBasedMapData data, MapPointLayer layer)
             {
-                throw new NotImplementedException();
+
             }
 
-            protected override IFeatureLayer CreateLayer()
+            protected override IMapFeatureLayer CreateLayer()
             {
-                throw new NotImplementedException();
+                return new MapPointLayer();
             }
 
             protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
             {
                 throw new NotImplementedException();
-            }
-
-            protected override IMapFeatureLayer Convert(TFeatureBasedMapData data)
-            {
-                return new MapPointLayer();
             }
         }
     }
