@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsNaN(section.SectionLength);
             Assert.IsNaN(section.CrossSectionNormal);
 
-            HydraRingVariable2[] variables = assessmentLevelCalculationInput.NewVariables.ToArray();
+            HydraRingVariable[] variables = assessmentLevelCalculationInput.Variables.ToArray();
             Assert.AreEqual(1, variables.Length);
             var waterLevelVariable = variables.First();
             Assert.IsInstanceOf<DeterministicHydraRingVariable>(waterLevelVariable);

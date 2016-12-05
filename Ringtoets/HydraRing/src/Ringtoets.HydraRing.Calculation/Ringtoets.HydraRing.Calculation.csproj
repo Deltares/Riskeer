@@ -69,7 +69,7 @@
     <Compile Include="Data\HydraRingSection.cs" />
     <Compile Include="Data\HydraRingForelandPoint.cs" />
     <Compile Include="Data\HydraRingProfilePoint.cs" />
-    <Compile Include="Data\HydraRingVariable2.cs" />
+    <Compile Include="Data\HydraRingVariable.cs" />
     <Compile Include="Data\Input\Hydraulics\OvertoppingRateCalculationInput.cs" />
     <Compile Include="Data\Input\Hydraulics\HydraulicLoadsCalculationInput.cs" />
     <Compile Include="Data\Input\Hydraulics\DikeHeightCalculationInput.cs" />
@@ -121,7 +121,6 @@
     <Compile Include="Providers\VariableDefaultsProvider.cs" />
     <Compile Include="Data\HydraRingDistributionType.cs" />
     <Compile Include="Data\HydraRingDeviationType.cs" />
-    <Compile Include="Data\HydraRingVariable.cs" />
     <Compile Include="Data\Defaults\FailureMechanismDefaults.cs" />
     <Compile Include="Providers\FailureMechanismDefaultsProvider.cs" />
     <Compile Include="Data\Settings\DesignTablesSetting.cs" />

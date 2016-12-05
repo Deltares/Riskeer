@@ -24,7 +24,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
     /// <summary>
     /// Class for Normal Hydra-Ring variable related data.
     /// </summary>
-    public class NormalHydraRingVariable : HydraRingVariable2
+    public class NormalHydraRingVariable : HydraRingVariable
     {
         private readonly double mean;
         private readonly double variance;

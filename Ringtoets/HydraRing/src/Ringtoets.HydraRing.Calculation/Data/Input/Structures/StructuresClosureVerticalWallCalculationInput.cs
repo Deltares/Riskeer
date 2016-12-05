@@ -129,11 +129,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.deviationWaveDirection = deviationWaveDirection;
         }
 
-        public override IEnumerable<HydraRingVariable2> NewVariables
+        public override IEnumerable<HydraRingVariable> Variables
         {
             get
             {
-                var variables = base.NewVariables.ToList();
+                var variables = base.Variables.ToList();
                 variables.AddRange(GetVariables());
 
                 return variables.OrderBy(v => v.VariableId);
@@ -153,7 +153,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             }
         }
 
-        private IEnumerable<HydraRingVariable2> GetVariables()
+        private IEnumerable<HydraRingVariable> GetVariables()
         {
             yield return new LogNormalHydraRingVariable(59, HydraRingDeviationType.Standard, modelFactorOvertoppingFlowMean, modelFactorOvertoppingFlowStandardDeviation);
             yield return new DeterministicHydraRingVariable(61, structureNormalOrientation);

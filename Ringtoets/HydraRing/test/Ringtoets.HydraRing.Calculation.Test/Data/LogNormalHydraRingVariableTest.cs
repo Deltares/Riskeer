@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
             var hydraRingVariable = new LogNormalHydraRingVariable(1, deviationType, 2.2, 3.3, 4.4);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingVariable2>(hydraRingVariable);
+            Assert.IsInstanceOf<HydraRingVariable>(hydraRingVariable);
             Assert.AreEqual(1, hydraRingVariable.VariableId);
             Assert.AreEqual(HydraRingDistributionType.LogNormal, hydraRingVariable.DistributionType);
             Assert.AreEqual(deviationType, hydraRingVariable.DeviationType);

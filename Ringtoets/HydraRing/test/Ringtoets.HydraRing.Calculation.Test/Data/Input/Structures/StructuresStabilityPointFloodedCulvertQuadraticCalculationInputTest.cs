@@ -149,7 +149,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreSame(section, input.Section);
             Assert.AreSame(forelandPoints, input.ForelandsPoints);
             Assert.AreSame(breakWater, input.BreakWater);
-            HydraRingDataEqualityHelper.AreEqual(GetDefaultVariables().ToArray(), input.NewVariables.ToArray());
+            HydraRingDataEqualityHelper.AreEqual(GetDefaultVariables().ToArray(), input.Variables.ToArray());
         }
 
         [Test]
@@ -181,7 +181,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(expectedSubMechanismModelId, actualSubmechanismModelId);
         }
 
-        private static IEnumerable<HydraRingVariable2> GetDefaultVariables()
+        private static IEnumerable<HydraRingVariable> GetDefaultVariables()
         {
             yield return new DeterministicHydraRingVariable(43, 1.1);
             yield return new DeterministicHydraRingVariable(58, 2.2);

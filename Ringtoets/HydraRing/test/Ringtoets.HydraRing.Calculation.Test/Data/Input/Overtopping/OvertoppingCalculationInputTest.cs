@@ -84,7 +84,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             Assert.AreEqual(HydraRingFailureMechanismType.DikesOvertopping, overtoppingCalculationInput.FailureMechanismType);
             Assert.AreEqual(expectedVariableId, overtoppingCalculationInput.VariableId);
             Assert.IsNotNull(overtoppingCalculationInput.Section);
-            HydraRingDataEqualityHelper.AreEqual(GetDefaultOvertoppingVariables().ToArray(), overtoppingCalculationInput.NewVariables.ToArray());
+            HydraRingDataEqualityHelper.AreEqual(GetDefaultOvertoppingVariables().ToArray(), overtoppingCalculationInput.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, overtoppingCalculationInput.ProfilePoints);
             CollectionAssert.AreEqual(expectedRingForelandPoints, overtoppingCalculationInput.ForelandsPoints);
             Assert.AreEqual(expectedRingBreakWater, overtoppingCalculationInput.BreakWater);
@@ -115,7 +115,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             Assert.AreEqual(expectedSubMechanismModelId, overtoppingCalculationInput.GetSubMechanismModelId(subMechanismModelId));
         }
 
-        private static IEnumerable<HydraRingVariable2> GetDefaultOvertoppingVariables()
+        private static IEnumerable<HydraRingVariable> GetDefaultOvertoppingVariables()
         {
             yield return new DeterministicHydraRingVariable(1, 1.1);
             yield return new DeterministicHydraRingVariable(8, 2.2);

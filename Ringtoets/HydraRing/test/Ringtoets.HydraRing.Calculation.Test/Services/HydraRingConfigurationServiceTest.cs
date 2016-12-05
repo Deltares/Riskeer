@@ -389,7 +389,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                 }
             }
 
-            public override IEnumerable<HydraRingVariable2> NewVariables
+            public override IEnumerable<HydraRingVariable> Variables
             {
                 get
                 {

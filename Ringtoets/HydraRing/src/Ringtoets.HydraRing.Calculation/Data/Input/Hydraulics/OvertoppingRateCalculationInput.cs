@@ -88,18 +88,18 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             }
         }
 
-        public override IEnumerable<HydraRingVariable2> NewVariables
+        public override IEnumerable<HydraRingVariable> Variables
         {
             get
             {
-                var variables = base.NewVariables.ToList();
+                var variables = base.Variables.ToList();
                 variables.AddRange(GetVariables());
 
                 return variables.OrderBy(v => v.VariableId);
             }
         }
 
-        private IEnumerable<HydraRingVariable2> GetVariables()
+        private IEnumerable<HydraRingVariable> GetVariables()
         {
             yield return new DeterministicHydraRingVariable(1, dikeHeight);
             yield return new DeterministicHydraRingVariable(17, 0.0);

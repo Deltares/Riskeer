@@ -102,7 +102,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             }
         }
 
-        public override IEnumerable<HydraRingVariable2> NewVariables
+        public override IEnumerable<HydraRingVariable> Variables
         {
             get
             {

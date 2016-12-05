@@ -67,7 +67,7 @@
     <Compile Include="Data\DeterministicHydraRingVariableTest.cs" />
     <Compile Include="Data\HydraRingBreakWaterTest.cs" />
     <Compile Include="Data\HydraRingForelandPointTest.cs" />
-    <Compile Include="Data\HydraRingVariable2Test.cs" />
+    <Compile Include="Data\HydraRingVariableTest.cs" />
     <Compile Include="Data\Input\Hydraulics\OvertoppingRateCalculationInputTest.cs" />
     <Compile Include="Data\Input\Hydraulics\HydraulicLoadsCalculationInputTest.cs" />
     <Compile Include="Data\Input\Hydraulics\DunesBoundaryConditionsCalculationInputTest.cs" />
@@ -111,7 +111,6 @@
     <Compile Include="Services\HydraRingConfigurationServiceTest.cs" />
     <Compile Include="Data\HydraRingSectionTest.cs" />
     <Compile Include="Data\HydraRingProfilePointTest.cs" />
-    <Compile Include="Data\HydraRingVariableTest.cs" />
     <Compile Include="Integration\HydraRingConfigurationServiceIntegrationTest.cs" />
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInputTest.cs" />
     <Compile Include="Data\Input\ReliabilityIndexCalculationInputTest.cs" />

@@ -98,10 +98,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(section, input.Section);
             Assert.AreSame(forelandPoints, input.ForelandsPoints);
             Assert.AreSame(breakWater, input.BreakWater);
-            HydraRingDataEqualityHelper.AreEqual(GetDefaultOvertoppingVariables().ToArray(), input.NewVariables.ToArray());
+            HydraRingDataEqualityHelper.AreEqual(GetDefaultOvertoppingVariables().ToArray(), input.Variables.ToArray());
         }
 
-        private static IEnumerable<HydraRingVariable2> GetDefaultOvertoppingVariables()
+        private static IEnumerable<HydraRingVariable> GetDefaultOvertoppingVariables()
         {
             yield return new DeterministicHydraRingVariable(58, 1.1);
             yield return new LogNormalHydraRingVariable(59, HydraRingDeviationType.Standard, 2.2, 3.3);

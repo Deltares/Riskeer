@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsNaN(section.SectionLength);
             Assert.IsNaN(section.CrossSectionNormal);
 
-            HydraRingVariable2[] variables = waveHeightCalculationInput.NewVariables.ToArray();
+            HydraRingVariable[] variables = waveHeightCalculationInput.Variables.ToArray();
             Assert.AreEqual(1, variables.Length);
             var waveHeightVariable = variables.First();
             Assert.AreEqual(28, waveHeightVariable.VariableId);

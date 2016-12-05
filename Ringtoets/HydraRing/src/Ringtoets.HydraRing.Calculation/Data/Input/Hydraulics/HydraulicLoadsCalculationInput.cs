@@ -132,7 +132,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             }
         }
 
-        public override IEnumerable<HydraRingVariable2> NewVariables
+        public override IEnumerable<HydraRingVariable> Variables
         {
             get
             {

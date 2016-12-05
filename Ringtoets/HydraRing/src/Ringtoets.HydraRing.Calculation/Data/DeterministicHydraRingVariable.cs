@@ -24,7 +24,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
     /// <summary>
     /// Class for Deterministic Hydra-Ring variable related data.
     /// </summary>
-    public class DeterministicHydraRingVariable : HydraRingVariable2
+    public class DeterministicHydraRingVariable : HydraRingVariable
     {
         private readonly double value;
 

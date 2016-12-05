@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
             var hydraRingVariable = new DeterministicHydraRingVariable(1, 2.2);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingVariable2>(hydraRingVariable);
+            Assert.IsInstanceOf<HydraRingVariable>(hydraRingVariable);
             Assert.AreEqual(1, hydraRingVariable.VariableId);
             Assert.AreEqual(2.2, hydraRingVariable.Value);
             Assert.AreEqual(HydraRingDistributionType.Deterministic, hydraRingVariable.DistributionType);

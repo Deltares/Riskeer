@@ -60,7 +60,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsNaN(section.SectionLength);
             Assert.IsNaN(section.CrossSectionNormal);
 
-            HydraRingVariable2[] hydraRingVariables = dunesBoundaryConditionsCalculationInput.NewVariables.ToArray();
+            HydraRingVariable[] hydraRingVariables = dunesBoundaryConditionsCalculationInput.Variables.ToArray();
             Assert.AreEqual(1, hydraRingVariables.Length);
             var waterLevelVariable = hydraRingVariables.First();
             Assert.AreEqual(26, waterLevelVariable.VariableId);

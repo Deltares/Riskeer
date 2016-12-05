@@ -405,7 +405,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             {
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
 
-                foreach (HydraRingVariable2 hydraRingVariable in hydraRingCalculationInput.NewVariables)
+                foreach (HydraRingVariable hydraRingVariable in hydraRingCalculationInput.Variables)
                 {
                     var variableDefaults = variableDefaultsProvider.GetVariableDefaults(hydraRingCalculationInput.FailureMechanismType, hydraRingVariable.VariableId);
 
