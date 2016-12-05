@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Create hydraulic boundary database location features based on the provided <paramref name="hydraulicBoundaryDatabase"/>..
+        /// Create hydraulic boundary database location features based on the provided <paramref name="hydraulicBoundaryDatabase"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
         /// to create the location features for.</param>
@@ -90,15 +90,14 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        ///  Create hydraulic boundary database location features based on the provided 
-        /// <paramref name="hydraulicBoundaryLocations"/>.
+        /// Create hydraulic boundary location features based on the provided <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The locations to create the features for.</param>
         /// <param name="designWaterLevelAttributeName">The name of the design water level attribute.</param>
         /// <param name="waveHeightAttributeName">The name of the wave height attribute.</param>
         /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryLocations"/> 
         /// is empty.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public static MapFeature[] CreateHydraulicBoundaryLocationFeatures(HydraulicBoundaryLocation[] hydraulicBoundaryLocations,
                                                                            string designWaterLevelAttributeName,
                                                                            string waveHeightAttributeName)
@@ -143,7 +142,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateFailureMechanismSectionFeatures(IEnumerable<FailureMechanismSection> sections)
         {
-            return sections != null && sections.Any()
+            return sections != null 
                        ? sections.Select(CreateFailureMechanismSectionMapFeature).ToArray()
                        : new MapFeature[0];
         }

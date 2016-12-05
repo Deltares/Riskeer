@@ -125,7 +125,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CreateHydraulicBoundaryLocationFeatures_HydraulicBoundaryLocationsArrayEmpty_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(new HydraulicBoundaryLocation[0], string.Empty, string.Empty);
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(
+                new HydraulicBoundaryLocation[0], string.Empty, string.Empty);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -135,7 +136,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CreateHydraulicBoundaryLocationFeatures_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(null, string.Empty, string.Empty);
+            TestDelegate test = () => RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(
+                null, string.Empty, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -143,10 +145,11 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationFeatures_designWaterLevelAttributeNameNull_ThrowArgumentNullException()
+        public void CreateHydraulicBoundaryLocationFeatures_DesignWaterLevelAttributeNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(new HydraulicBoundaryLocation[0], null, string.Empty);
+            TestDelegate test = () => RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(
+                new HydraulicBoundaryLocation[0], null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -154,10 +157,11 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationFeatures_WaveHeightAtrtributeNameNull_ThrowArgumentNullException()
+        public void CreateHydraulicBoundaryLocationFeatures_WaveHeightAttributeNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(new HydraulicBoundaryLocation[0], string.Empty, null);
+            TestDelegate test = () => RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(
+                new HydraulicBoundaryLocation[0], string.Empty, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -213,7 +217,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CreateFailureMechanismSectionFeatures_NoSections_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(Enumerable.Empty<FailureMechanismSection>());
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(
+                Enumerable.Empty<FailureMechanismSection>());
 
             // Assert
             CollectionAssert.IsEmpty(features);

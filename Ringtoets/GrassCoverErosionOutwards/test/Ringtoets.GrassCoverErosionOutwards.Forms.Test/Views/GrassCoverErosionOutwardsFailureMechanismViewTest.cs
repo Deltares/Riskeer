@@ -125,7 +125,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
             {
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(
+                    new GrassCoverErosionOutwardsFailureMechanism(), new TestAssessmentSection());
 
                 view.Data = failureMechanismContext;
 
@@ -147,7 +148,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
             {
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(
+                    new GrassCoverErosionOutwardsFailureMechanism(), new TestAssessmentSection());
 
                 // Call
                 view.Data = failureMechanismContext;

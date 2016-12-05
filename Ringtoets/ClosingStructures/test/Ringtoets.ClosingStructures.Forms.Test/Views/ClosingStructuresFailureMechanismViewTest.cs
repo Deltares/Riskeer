@@ -95,7 +95,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Setup
             using (var view = new ClosingStructuresFailureMechanismView())
             {
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
+                    new ClosingStructuresFailureMechanism(), new TestAssessmentSection());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -127,7 +128,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Setup
             using (var view = new ClosingStructuresFailureMechanismView())
             {
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
+                    new ClosingStructuresFailureMechanism(), 
+                    new TestAssessmentSection());
 
                 view.Data = failureMechanismContext;
 
@@ -149,7 +152,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Setup
             using (var view = new ClosingStructuresFailureMechanismView())
             {
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), new TestAssessmentSection());
+                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
+                    new ClosingStructuresFailureMechanism(), 
+                    new TestAssessmentSection());
 
                 // Call
                 view.Data = failureMechanismContext;

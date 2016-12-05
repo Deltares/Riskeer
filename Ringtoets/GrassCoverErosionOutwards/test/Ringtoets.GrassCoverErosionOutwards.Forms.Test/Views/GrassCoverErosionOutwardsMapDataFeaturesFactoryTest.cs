@@ -49,7 +49,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void CreateCalculationFeatures_NoCalculations_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateCalculationFeatures(Enumerable.Empty<GrassCoverErosionOutwardsWaveConditionsCalculation>());
+            MapFeature[] features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateCalculationFeatures(
+                Enumerable.Empty<GrassCoverErosionOutwardsWaveConditionsCalculation>());
 
             // Assert
             CollectionAssert.IsEmpty(features);
