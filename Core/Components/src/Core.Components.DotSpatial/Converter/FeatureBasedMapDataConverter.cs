@@ -62,14 +62,14 @@ namespace Core.Components.DotSpatial.Converter
 
         public void ConvertLayerFeatures(FeatureBasedMapData data, IMapFeatureLayer layer)
         {
-            ValidateParameters(data);
+            ValidateParameters(data, layer);
 
             ConvertLayerFeaturesInternal(data, layer);
         }
 
         public void ConvertLayerProperties(FeatureBasedMapData data, IMapFeatureLayer layer)
         {
-            ValidateParameters(data);
+            ValidateParameters(data, layer);
 
             ConvertLayerPropertiesInternal(data, layer);
         }
@@ -117,6 +117,16 @@ namespace Core.Components.DotSpatial.Converter
             {
                 var message = string.Format("The data of type {0} cannot be converted by this converter.", data.GetType());
                 throw new ArgumentException(message);
+            }
+        }
+
+        private void ValidateParameters(FeatureBasedMapData data, IMapFeatureLayer layer)
+        {
+            ValidateParameters(data);
+
+            if (layer == null)
+            {
+                throw new ArgumentNullException("layer", @"Null data cannot be used as conversion target.");
             }
         }
 
