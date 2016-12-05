@@ -25,37 +25,25 @@ using Ringtoets.HydraRing.Calculation.Data;
 namespace Ringtoets.HydraRing.Calculation.Test.Data
 {
     [TestFixture]
-    public class HydraRingVariable2Test
+    public class DeterministicHydraRingVariableTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingVariable = new TestHydraRingVariable(1, 2.2, HydraRingDeviationType.Variation);
+            var hydraRingVariable = new DeterministicHydraRingVariable(1, 2.2);
 
             // Assert
+            Assert.IsInstanceOf<HydraRingVariable2>(hydraRingVariable);
             Assert.AreEqual(1, hydraRingVariable.VariableId);
             Assert.AreEqual(2.2, hydraRingVariable.Value);
-            Assert.AreEqual(HydraRingDeviationType.Variation, hydraRingVariable.DeviationType);
+            Assert.AreEqual(HydraRingDistributionType.Deterministic, hydraRingVariable.DistributionType);
+            Assert.AreEqual(HydraRingDeviationType.Standard, hydraRingVariable.DeviationType);
             Assert.AreEqual(0, hydraRingVariable.Parameter1);
             Assert.IsNull(hydraRingVariable.Parameter2);
             Assert.IsNull(hydraRingVariable.Parameter3);
             Assert.IsNull(hydraRingVariable.Parameter4);
             Assert.AreEqual(0, hydraRingVariable.CoefficientOfVariation);
-        }
-
-        private class TestHydraRingVariable : HydraRingVariable2
-        {
-            public TestHydraRingVariable(int variableId, double value, HydraRingDeviationType deviationType) 
-                : base(variableId, value, deviationType) {}
-
-            public override HydraRingDistributionType DistributionType
-            {
-                get
-                {
-                    return HydraRingDistributionType.Normal;
-                }
-            }
         }
     }
 }

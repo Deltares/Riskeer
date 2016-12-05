@@ -64,6 +64,7 @@
     <Compile Include="Calculator\StructuresStabilityPointCalculatorTest.cs" />
     <Compile Include="Calculator\WaveConditionsCosineCalculatorTest.cs" />
     <Compile Include="Calculator\WaveHeightCalculatorTest.cs" />
+    <Compile Include="Data\DeterministicHydraRingVariableTest.cs" />
     <Compile Include="Data\HydraRingBreakWaterTest.cs" />
     <Compile Include="Data\HydraRingForelandPointTest.cs" />
     <Compile Include="Data\HydraRingVariable2Test.cs" />

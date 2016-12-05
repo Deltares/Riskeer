@@ -133,5 +133,16 @@ namespace Ringtoets.HydraRing.Calculation.Data
                 return defaultHydraRingNullValue;
             }
         }
+
+        /// <summary>
+        /// Gets the coefficientOfVariation in case the variable is random.
+        /// </summary>
+        public virtual double CoefficientOfVariation
+        {
+            get
+            {
+                return defaultHydraRingValue;
+            }
+        }
     }
 }
