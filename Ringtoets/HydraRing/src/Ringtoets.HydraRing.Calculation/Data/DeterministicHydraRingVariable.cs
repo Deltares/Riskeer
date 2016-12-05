@@ -26,13 +26,26 @@ namespace Ringtoets.HydraRing.Calculation.Data
     /// </summary>
     public class DeterministicHydraRingVariable : HydraRingVariable2
     {
+        private readonly double value;
+
         /// <summary>
         /// Creates a new instance of <see cref="DeterministicHydraRingVariable"/>.
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
-        /// <param name="value">The value in case the variable is deterministic.</param>
-        public DeterministicHydraRingVariable(int variableId, double value) 
-            : base(variableId, value, HydraRingDeviationType.Standard) {}
+        /// <param name="value">The value of the variable.</param>
+        public DeterministicHydraRingVariable(int variableId, double value)
+            : base(variableId, HydraRingDeviationType.Standard)
+        {
+            this.value = value;
+        }
+
+        public override double Value
+        {
+            get
+            {
+                return value;
+            }
+        }
 
         public override HydraRingDistributionType DistributionType
         {

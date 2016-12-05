@@ -25,37 +25,26 @@ using Ringtoets.HydraRing.Calculation.Data;
 namespace Ringtoets.HydraRing.Calculation.Test.Data
 {
     [TestFixture]
-    public class HydraRingVariable2Test
+    public class NormalHydraRingVariableTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        [TestCase(HydraRingDeviationType.Standard, 3.3, 0)]
+        [TestCase(HydraRingDeviationType.Variation, null, 3.3)]
+        public void Constructor_ExpectedValues(HydraRingDeviationType deviationType, double? expectedParameter2, double expectedCoefficientOfVariation)
         {
             // Call
-            var hydraRingVariable = new TestHydraRingVariable(1, HydraRingDeviationType.Variation);
+            var hydraRingVariable = new NormalHydraRingVariable(1, deviationType, 2.2, 3.3);
 
             // Assert
+            Assert.IsInstanceOf<HydraRingVariable2>(hydraRingVariable);
             Assert.AreEqual(1, hydraRingVariable.VariableId);
-            Assert.AreEqual(0, hydraRingVariable.Value);
-            Assert.AreEqual(HydraRingDeviationType.Variation, hydraRingVariable.DeviationType);
-            Assert.AreEqual(0, hydraRingVariable.Parameter1);
-            Assert.IsNull(hydraRingVariable.Parameter2);
+            Assert.AreEqual(HydraRingDistributionType.Normal, hydraRingVariable.DistributionType);
+            Assert.AreEqual(deviationType, hydraRingVariable.DeviationType);
+            Assert.AreEqual(2.2, hydraRingVariable.Parameter1);
+            Assert.AreEqual(expectedParameter2, hydraRingVariable.Parameter2);
             Assert.IsNull(hydraRingVariable.Parameter3);
             Assert.IsNull(hydraRingVariable.Parameter4);
-            Assert.AreEqual(0, hydraRingVariable.CoefficientOfVariation);
-        }
-
-        private class TestHydraRingVariable : HydraRingVariable2
-        {
-            public TestHydraRingVariable(int variableId, HydraRingDeviationType deviationType) 
-                : base(variableId, deviationType) {}
-
-            public override HydraRingDistributionType DistributionType
-            {
-                get
-                {
-                    return HydraRingDistributionType.Normal;
-                }
-            }
+            Assert.AreEqual(expectedCoefficientOfVariation, hydraRingVariable.CoefficientOfVariation);
         }
     }
 }

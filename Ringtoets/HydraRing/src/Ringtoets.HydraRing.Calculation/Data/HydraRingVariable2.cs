@@ -30,19 +30,16 @@ namespace Ringtoets.HydraRing.Calculation.Data
         private readonly double? defaultHydraRingNullValue = null;
 
         private readonly int variableId;
-        private readonly double value;
         private readonly HydraRingDeviationType deviationType;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingVariable2"/> class.
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
-        /// <param name="value">The value in case the variable is deterministic.</param>
         /// <param name="deviationType">The deviation type in case the variable is random.</param>
-        protected HydraRingVariable2(int variableId, double value, HydraRingDeviationType deviationType)
+        protected HydraRingVariable2(int variableId, HydraRingDeviationType deviationType)
         {
             this.variableId = variableId;
-            this.value = value;
             this.deviationType = deviationType;
         }
 
@@ -63,11 +60,11 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// <remarks>
         /// This property is only relevant when <see cref="DistributionType"/> equals <see cref="HydraRingDistributionType.Deterministic"/>.
         /// </remarks>
-        public double Value
+        public virtual double Value
         {
             get
             {
-                return value;
+                return defaultHydraRingValue;
             }
         }
 
