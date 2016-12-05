@@ -114,11 +114,6 @@ namespace Core.Components.DotSpatial.Test.Converter
         private class TestFeatureBasedMapDataConverter<TFeatureBasedMapData> : FeatureBasedMapDataConverter<TFeatureBasedMapData, MapPointLayer>
             where TFeatureBasedMapData : FeatureBasedMapData
         {
-            protected override void ConvertLayerFeatures(TFeatureBasedMapData data, MapPointLayer layer)
-            {
-
-            }
-
             protected override void ConvertLayerProperties(TFeatureBasedMapData data, MapPointLayer layer)
             {
 

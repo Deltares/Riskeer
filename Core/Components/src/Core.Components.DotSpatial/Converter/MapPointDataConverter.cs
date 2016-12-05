@@ -45,23 +45,6 @@ namespace Core.Components.DotSpatial.Converter
             return GetAllMapFeatureCoordinates(mapFeature).Select(c => new Feature(new Point(c.X, c.Y)));
         }
 
-        protected override void ConvertLayerFeatures(MapPointData data, MapPointLayer layer)
-        {
-            var columnNameLookup = GetColumnNameLookup(data);
-
-            foreach (MapFeature mapFeature in data.Features)
-            {
-                foreach (var feature in GetAllMapFeatureCoordinates(mapFeature)
-                    .Select(c => new Feature(new Point(c.X, c.Y), layer.FeatureSet)))
-                {
-                    foreach (var attribute in mapFeature.MetaData)
-                    {
-                        feature.DataRow[columnNameLookup[attribute.Key].ToString()] = attribute.Value;
-                    }
-                }
-            }
-        }
-
         protected override void ConvertLayerProperties(MapPointData data, MapPointLayer layer)
         {
             layer.IsVisible = data.IsVisible;

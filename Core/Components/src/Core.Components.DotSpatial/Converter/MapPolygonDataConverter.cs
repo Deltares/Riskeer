@@ -66,41 +66,6 @@ namespace Core.Components.DotSpatial.Converter
             yield return new Feature(GetGeometry(geometryList));
         }
 
-        protected override void ConvertLayerFeatures(MapPolygonData data, MapPolygonLayer layer)
-        {
-            var columnNameLookup = GetColumnNameLookup(data);
-
-            foreach (var mapFeature in data.Features)
-            {
-                var geometryList = new List<IPolygon>();
-
-                foreach (var mapGeometry in mapFeature.MapGeometries)
-                {
-                    IEnumerable<Point2D>[] pointCollections = mapGeometry.PointCollections.ToArray();
-
-                    IEnumerable<Coordinate> outerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[0]);
-                    ILinearRing outerRing = new LinearRing(outerRingCoordinates);
-
-                    ILinearRing[] innerRings = new ILinearRing[pointCollections.Length - 1];
-                    for (int i = 1; i < pointCollections.Length; i++)
-                    {
-                        IEnumerable<Coordinate> innerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[i]);
-                        innerRings[i - 1] = new LinearRing(innerRingCoordinates);
-                    }
-
-                    IPolygon polygon = new Polygon(outerRing, innerRings);
-                    geometryList.Add(polygon);
-                }
-
-                var feature = new Feature(GetGeometry(geometryList), layer.FeatureSet);
-
-                foreach (var attribute in mapFeature.MetaData)
-                {
-                    feature.DataRow[columnNameLookup[attribute.Key].ToString()] = attribute.Value;
-                }
-            }
-        }
-
         protected override void ConvertLayerProperties(MapPolygonData data, MapPolygonLayer layer)
         {
             layer.IsVisible = data.IsVisible;

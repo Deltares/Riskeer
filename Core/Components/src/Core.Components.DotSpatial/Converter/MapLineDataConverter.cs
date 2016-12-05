@@ -47,21 +47,6 @@ namespace Core.Components.DotSpatial.Converter
             yield return new Feature(GetGeometry(mapFeature));
         }
 
-        protected override void ConvertLayerFeatures(MapLineData data, MapLineLayer layer)
-        {
-            var columnNameLookup = GetColumnNameLookup(data);
-
-            foreach (MapFeature mapFeature in data.Features)
-            {
-                var feature = new Feature(GetGeometry(mapFeature), layer.FeatureSet);
-
-                foreach (var attribute in mapFeature.MetaData)
-                {
-                    feature.DataRow[columnNameLookup[attribute.Key].ToString()] = attribute.Value;
-                }
-            }
-        }
-
         protected override void ConvertLayerProperties(MapLineData data, MapLineLayer layer)
         {
             layer.IsVisible = data.IsVisible;

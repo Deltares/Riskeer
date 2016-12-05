@@ -67,7 +67,22 @@ namespace Core.Components.DotSpatial.Converter
             ClearLayerData(layer);
             SetDataTableColumns(data, layer);
 
-            ConvertLayerFeatures((TFeatureBasedMapData) data, (TMapFeatureLayer) layer);
+            var columnNameLookup = GetColumnNameLookup(data);
+
+            foreach (MapFeature mapFeature in data.Features)
+            {
+                IEnumerable<IFeature> features = CreateFeatures(mapFeature);
+
+                foreach (var feature in features)
+                {
+                    layer.DataSet.Features.Add(feature);
+
+                    foreach (var attribute in mapFeature.MetaData)
+                    {
+                        feature.DataRow[columnNameLookup[attribute.Key].ToString()] = attribute.Value;
+                    }
+                }
+            }
 
             layer.DataSet.InitializeVertices();
             layer.AssignFastDrawnStates();
@@ -83,14 +98,6 @@ namespace Core.Components.DotSpatial.Converter
         protected abstract IMapFeatureLayer CreateLayer();
 
         protected abstract IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature);
-
-        /// <summary>
-        /// Converts all feature related data from <paramref name="data"/> to <paramref name="layer"/>.
-        /// Any features already part of <paramref name="layer"/> are cleared.
-        /// </summary>
-        /// <param name="data">The data to convert the feature related data from.</param>
-        /// <param name="layer">The layer to convert the feature related data to.</param>
-        protected abstract void ConvertLayerFeatures(TFeatureBasedMapData data, TMapFeatureLayer layer);
 
         /// <summary>
         /// Converts all general properties (like <see cref="FeatureBasedMapData.Name"/> and <see cref="FeatureBasedMapData.IsVisible"/>) 
