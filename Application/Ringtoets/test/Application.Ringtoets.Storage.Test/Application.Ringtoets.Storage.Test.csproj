@@ -150,7 +150,6 @@
     <Compile Include="Create\Piping\PipingFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\Piping\PipingFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\Piping\PipingOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\Piping\PipingProbabilityAssessmentInputCreateExtensionsTest.cs" />
     <Compile Include="Create\Piping\PipingSemiProbabilisticOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\Piping\PipingSoilLayerCreateExtensionsTest.cs" />
     <Compile Include="Create\Piping\PipingSoilProfileCreateExtensionsTest.cs" />

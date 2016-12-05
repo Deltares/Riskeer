@@ -30,7 +30,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
     public class PipingFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void ReadAsPipingProbabilityAssessmentInput_Always_ReturnsNewPipingProbabilityAssessmentInputWithPropertiesSet()
+        public void ReadPipingProbabilityAssessmentInput_Always_ReturnsNewPipingProbabilityAssessmentInputWithPropertiesSet()
         {
             // Setup
             var entity = new PipingFailureMechanismMetaEntity
@@ -39,11 +39,28 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             };
 
             // Call
-            PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput = entity.Read();
+            PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput = entity.ReadPipingProbabilityAssessmentInput();
 
             // Assert
             Assert.IsNotNull(pipingProbabilityAssessmentInput);
             Assert.AreEqual(entity.A, pipingProbabilityAssessmentInput.A);
+        }
+
+        [Test]
+        public void ReadGeneralPipingInput_Always_ReturnsNewGeneralPipingInputWithPropertiesSet()
+        {
+            // Setup
+            var entity = new PipingFailureMechanismMetaEntity
+            {
+                WaterVolumetricWeight = 5.39
+            };
+
+            // Call
+            GeneralPipingInput generalPipingInput = entity.ReadGeneralPipingInput();
+
+            // Assert
+            Assert.IsNotNull(generalPipingInput);
+            Assert.AreEqual(entity.WaterVolumetricWeight, generalPipingInput.WaterVolumetricWeight);
         }
     }
 }

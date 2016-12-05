@@ -115,6 +115,7 @@ namespace Application.Ringtoets.Storage.Read
             if (entity.PipingFailureMechanismMetaEntities.Count > 0)
             {
                 ReadProbabilityAssessmentInput(entity.PipingFailureMechanismMetaEntities, failureMechanism.PipingProbabilityAssessmentInput);
+                ReadGeneralPipingInput(entity.PipingFailureMechanismMetaEntities, failureMechanism.GeneralInput);
             }
 
             foreach (var stochasticSoilModelEntity in entity.StochasticSoilModelEntities.OrderBy(ssm => ssm.Order))
@@ -133,10 +134,18 @@ namespace Application.Ringtoets.Storage.Read
                                            failureMechanism.GeneralInput, collector);
         }
 
+        private static void ReadGeneralPipingInput(ICollection<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities,
+                                                   GeneralPipingInput generalPipingInput)
+        {
+            GeneralPipingInput generalInput = pipingFailureMechanismMetaEntities.ElementAt(0).ReadGeneralPipingInput();
+
+            generalPipingInput.WaterVolumetricWeight = generalInput.WaterVolumetricWeight;
+        }
+
         private static void ReadProbabilityAssessmentInput(ICollection<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities,
                                                            PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
         {
-            PipingProbabilityAssessmentInput probabilityAssessmentInput = pipingFailureMechanismMetaEntities.ElementAt(0).Read();
+            PipingProbabilityAssessmentInput probabilityAssessmentInput = pipingFailureMechanismMetaEntities.ElementAt(0).ReadPipingProbabilityAssessmentInput();
 
             pipingProbabilityAssessmentInput.A = probabilityAssessmentInput.A;
         }

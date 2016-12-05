@@ -35,11 +35,24 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// </summary>
         /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to create <see cref="PipingProbabilityAssessmentInput"/> for.</param>
         /// <returns>A new <see cref="PipingProbabilityAssessmentInput"/>.</returns>
-        internal static PipingProbabilityAssessmentInput Read(this PipingFailureMechanismMetaEntity entity)
+        internal static PipingProbabilityAssessmentInput ReadPipingProbabilityAssessmentInput(this PipingFailureMechanismMetaEntity entity)
         {
             return new PipingProbabilityAssessmentInput
             {
                 A = entity.A,
+            };
+        }
+
+        /// <summary>
+        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to construct a <see cref="GeneralPipingInput"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to create <see cref="GeneralPipingInput"/> for.</param>
+        /// <returns>A new <see cref="GeneralPipingInput"/>.</returns>
+        internal static GeneralPipingInput ReadGeneralPipingInput(this PipingFailureMechanismMetaEntity entity)
+        {
+            return new GeneralPipingInput
+            {
+                WaterVolumetricWeight = entity.WaterVolumetricWeight
             };
         }
     }

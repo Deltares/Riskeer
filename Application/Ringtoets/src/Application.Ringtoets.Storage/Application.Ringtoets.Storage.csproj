@@ -322,7 +322,6 @@
     <Compile Include="Create\Piping\PipingFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\Piping\PipingFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\Piping\PipingOutputCreateExtensions.cs" />
-    <Compile Include="Create\Piping\PipingProbabilityAssessmentInputCreateExtensions.cs" />
     <Compile Include="Create\Piping\PipingSemiProbabilisticOutputCreateExtensions.cs" />
     <Compile Include="Create\Piping\PipingSoilLayerCreateExtensions.cs" />
     <Compile Include="Create\Piping\PipingSoilProfileCreateExtensions.cs" />

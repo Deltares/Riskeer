@@ -156,6 +156,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new PipingFailureMechanismMetaEntity
                     {
                         A = 0.95,
+                        WaterVolumetricWeight = 5.48
                     }
                 }
             };
@@ -175,8 +176,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsEmpty(failureMechanism.Sections);
 
             var pipingFailureMechanismMetaEntities = entity.PipingFailureMechanismMetaEntities.ToArray();
-            var probabilityAssessmentInput = pipingFailureMechanismMetaEntities[0];
-            Assert.AreEqual(probabilityAssessmentInput.A, failureMechanism.PipingProbabilityAssessmentInput.A);
+            var pipingFailureMechanismMetaEntity = pipingFailureMechanismMetaEntities[0];
+            Assert.AreEqual(pipingFailureMechanismMetaEntity.A, failureMechanism.PipingProbabilityAssessmentInput.A);
+            Assert.AreEqual(pipingFailureMechanismMetaEntity.WaterVolumetricWeight, failureMechanism.GeneralInput.WaterVolumetricWeight);
         }
 
         [Test]

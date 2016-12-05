@@ -67,7 +67,13 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
         private static void AddEntitiesForFailureMechanismMeta(PipingFailureMechanism mechanism, FailureMechanismEntity entity)
         {
-            entity.PipingFailureMechanismMetaEntities.Add(mechanism.PipingProbabilityAssessmentInput.Create());
+            var metaEntity = new PipingFailureMechanismMetaEntity
+            {
+                A = mechanism.PipingProbabilityAssessmentInput.A,
+                WaterVolumetricWeight = mechanism.GeneralInput.WaterVolumetricWeight
+            };
+
+            entity.PipingFailureMechanismMetaEntities.Add(metaEntity);
         }
 
         private static void AddEntitiesForStochasticSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)

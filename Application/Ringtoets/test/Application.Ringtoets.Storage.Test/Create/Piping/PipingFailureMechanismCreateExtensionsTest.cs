@@ -74,6 +74,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 PipingProbabilityAssessmentInput =
                 {
                     A = 0.9876
+                },
+                GeneralInput =
+                {
+                    WaterVolumetricWeight = 4.29
                 }
             };
             var registry = new PersistenceRegistry();
@@ -92,6 +96,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             var failureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.ToArray()[0];
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
+            Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight, failureMechanismMetaEntity.WaterVolumetricWeight);
         }
 
         [Test]
