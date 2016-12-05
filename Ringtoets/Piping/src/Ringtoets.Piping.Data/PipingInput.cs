@@ -256,6 +256,11 @@ namespace Ringtoets.Piping.Data
                                   : new RoundedDouble(2, double.NaN);
         }
 
+        private void UpdateHydraulicBoundaryLocation()
+        {
+            hydraulicBoundaryLocation = null;
+        }
+
         #region Derived input
 
         /// <summary>
@@ -271,6 +276,7 @@ namespace Ringtoets.Piping.Data
             set
             {
                 assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
+                UpdateHydraulicBoundaryLocation();
             }
         }
 

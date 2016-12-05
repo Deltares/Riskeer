@@ -760,7 +760,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenAssessmentLevelSetWithHydraulicBoundaryLocation_WhenNewAssessmentLevel_UpdateAssessmentLevel()
+        public void GivenAssessmentLevelSetWithHydraulicBoundaryLocation_WhenNewAssessmentLevel_UpdateAssessmentLevelAndRemovesLocation()
         {
             // Given
             var mocks = new MockRepository();
@@ -796,9 +796,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(2, properties.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreSame(inputParameters.HydraulicBoundaryLocation,
-                           properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(testLevel, properties.AssessmentLevel, properties.AssessmentLevel.GetAccuracy());
+            Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
 
             mocks.VerifyAll();
         }
@@ -880,6 +879,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(2, properties.AssessmentLevel.NumberOfDecimalPlaces);
+            Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(testLevel, properties.AssessmentLevel, properties.AssessmentLevel.GetAccuracy());
 
             mocks.VerifyAll();

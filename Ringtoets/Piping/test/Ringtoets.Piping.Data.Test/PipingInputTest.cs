@@ -417,7 +417,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             PipingInput input = new PipingInput(new GeneralPipingInput());
 
-            RoundedDouble testLevel = (RoundedDouble)new Random(21).NextDouble();
+            RoundedDouble testLevel = (RoundedDouble) new Random(21).NextDouble();
 
             // Call
             input.AssessmentLevel = testLevel;
@@ -425,6 +425,55 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(testLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
+        }
+
+        [Test]
+        public void GivenAssessmentLevelSetWithHydraulicBoundaryLocation_WhenNewAssessmentLevelSet_ThenAssessmentLevelUpdatedAndLocationRemoved()
+        {
+            // Given
+            PipingInput input = new PipingInput(new GeneralPipingInput());
+
+            var random = new Random(21);
+            RoundedDouble testLevel = (RoundedDouble) random.NextDouble();
+            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
+            {
+                DesignWaterLevel = testLevel
+            };
+
+            var newLevel = (RoundedDouble) random.NextDouble();
+
+            // When
+            input.AssessmentLevel = newLevel;
+
+            // Then
+            Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(newLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
+            Assert.IsNull(input.HydraulicBoundaryLocation);
+        }
+
+        [Test]
+        public void GivenAssessmentLevelSet_WhenNewHydraulicBoundaryLocationSet_ThenAssessmentLevelUpdatedAndLocationSet()
+        {
+            // Given
+            PipingInput input = new PipingInput(new GeneralPipingInput());
+
+            var random = new Random(21);
+            var testLevel = (RoundedDouble) random.NextDouble();
+            input.AssessmentLevel = testLevel;
+
+            var newLevel = (RoundedDouble) random.NextDouble();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
+            {
+                DesignWaterLevel = newLevel
+            };
+
+            // When
+            input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+
+            // Then
+            Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
+            Assert.AreSame(hydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreEqual(newLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
         }
 
         [Test]
