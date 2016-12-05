@@ -29,9 +29,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
     public class HydraRingDistributionTypeTest
     {
         [Test]
-        public void Values_HasThree()
+        public void Values_HasFive()
         {
-            Assert.AreEqual(4, Enum.GetValues(typeof(HydraRingDistributionType)).Length);
+            Assert.AreEqual(5, Enum.GetValues(typeof(HydraRingDistributionType)).Length);
         }
 
         [Test]
@@ -41,6 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
             Assert.AreEqual(2, (int) HydraRingDistributionType.Normal);
             Assert.AreEqual(4, (int) HydraRingDistributionType.LogNormal);
             Assert.AreEqual(18, (int) HydraRingDistributionType.RayleighN);
+            Assert.AreEqual(19, (int) HydraRingDistributionType.TruncatedNormal);
         }
     }
 }
