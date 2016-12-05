@@ -98,6 +98,7 @@
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputTest.cs" />
     <Compile Include="Data\Output\ReliabilityIndexCalculationOutputTest.cs" />
     <Compile Include="Data\Output\WaveConditionsCalculationOutputTest.cs" />
+    <Compile Include="Data\RayleighNHydraRingVariableTest.cs" />
     <Compile Include="Data\Settings\TimeIntegrationSettingTest.cs" />
     <Compile Include="Data\TruncatedNormalHydraRingVariableTest.cs" />
     <Compile Include="Exceptions\HydraRingCalculationExceptionTest.cs" />

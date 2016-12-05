@@ -99,6 +99,7 @@
     <Compile Include="Data\Output\ReliabilityIndexCalculationOutput.cs" />
     <Compile Include="Data\Output\OvertoppingCalculationWaveHeightOutput.cs" />
     <Compile Include="Data\Output\WaveConditionsCalculationOutput.cs" />
+    <Compile Include="Data\RayleighNHydraRingVariable.cs" />
     <Compile Include="Data\Settings\TimeIntegrationSetting.cs" />
     <Compile Include="Data\TruncatedNormalHydraRingVariable.cs" />
     <Compile Include="Exceptions\HydraRingCalculationException.cs" />
