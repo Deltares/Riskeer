@@ -25,21 +25,23 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class PipingSemiProbabilisticOutputPropertiesTest
+    public class PipingOutputContextPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new PipingSemiProbabilisticOutputProperties();
+            var properties = new PipingOutputContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PipingSemiProbabilisticOutput>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<PipingOutputContext>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -63,7 +65,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             double pipingReliability = random.NextDouble();
             double pipingFactorOfSafety = random.NextDouble();
 
-            // Call
+            double heaveGradient = random.NextDouble();
+            double sellmeijerCreepCoefficient = random.NextDouble();
+            double sellmeijerCriticalFall = random.NextDouble();
+            double sellmeijerReducedFall = random.NextDouble();
+
             var semiProbabilisticOutput = new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
@@ -80,9 +86,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 pipingReliability,
                 pipingFactorOfSafety);
 
-            var properties = new PipingSemiProbabilisticOutputProperties
+            var output = new PipingOutput(0, 0, 0, 0, 0, 0, heaveGradient, sellmeijerCreepCoefficient, sellmeijerCriticalFall, sellmeijerReducedFall);
+
+            // Call
+            var properties = new PipingOutputContextProperties
             {
-                Data = semiProbabilisticOutput
+                Data = new PipingOutputContext(output, semiProbabilisticOutput)
             };
 
             // Call & Assert
@@ -101,6 +110,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(string.Format(probabilityFormat, 1.0/pipingProbability), properties.PipingProbability);
             Assert.AreEqual(pipingReliability, properties.PipingReliability, properties.PipingReliability.GetAccuracy());
             Assert.AreEqual(pipingFactorOfSafety, properties.PipingFactorOfSafety, properties.PipingFactorOfSafety.GetAccuracy());
+
+            Assert.AreEqual(heaveGradient, properties.HeaveGradient, properties.HeaveGradient.GetAccuracy());
+            Assert.AreEqual(sellmeijerCreepCoefficient, properties.SellmeijerCreepCoefficient, properties.SellmeijerCreepCoefficient.GetAccuracy());
+            Assert.AreEqual(sellmeijerCriticalFall, properties.SellmeijerCriticalFall, properties.SellmeijerCriticalFall.GetAccuracy());
+            Assert.AreEqual(sellmeijerReducedFall, properties.SellmeijerReducedFall, properties.SellmeijerReducedFall.GetAccuracy());
         }
 
         [Test]
@@ -141,9 +155,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 pipingReliability,
                 pipingFactorOfSafety);
 
-            var properties = new PipingSemiProbabilisticOutputProperties
+            var properties = new PipingOutputContextProperties
             {
-                Data = semiProbabilisticOutput
+                Data = new PipingOutputContext(new TestPipingOutput(), semiProbabilisticOutput)
             };
 
             // Call & Assert
@@ -192,9 +206,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 pipingFactorOfSafety);
 
             // Call
-            var properties = new PipingSemiProbabilisticOutputProperties
+            var properties = new PipingOutputContextProperties
             {
-                Data = semiProbabilisticOutput
+                Data = new PipingOutputContext(new TestPipingOutput(), semiProbabilisticOutput)
             };
 
             // Assert
@@ -203,7 +217,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 BrowsableAttribute.Yes
             });
-            Assert.AreEqual(14, dynamicProperties.Count);
+            Assert.AreEqual(18, dynamicProperties.Count);
 
             var heaveCategory = "\t\tHeave";
             var upliftCategory = "\t\t\tOpbarsten";
@@ -231,77 +245,106 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Kans van voorkomen [1/jaar]", upliftProbabilityProperty.DisplayName);
             Assert.AreEqual("De kans dat het submechanisme opbarsten optreedt voor deze berekening.", upliftProbabilityProperty.Description);
 
-            PropertyDescriptor heaveFactorOfSafetyProperty = dynamicProperties[3];
+            PropertyDescriptor heaveGradientProperty = dynamicProperties[3];
+            Assert.IsNotNull(heaveGradientProperty);
+            Assert.IsTrue(heaveGradientProperty.IsReadOnly);
+            Assert.AreEqual(heaveCategory, heaveGradientProperty.Category);
+            Assert.AreEqual("Heave gradiënt [-]", heaveGradientProperty.DisplayName);
+            Assert.AreEqual("Het optredende verticale gradiënt in het opbarstkanaal.", heaveGradientProperty.Description);
+
+            PropertyDescriptor heaveFactorOfSafetyProperty = dynamicProperties[4];
             Assert.IsNotNull(heaveFactorOfSafetyProperty);
             Assert.IsTrue(heaveFactorOfSafetyProperty.IsReadOnly);
             Assert.AreEqual(heaveCategory, heaveFactorOfSafetyProperty.Category);
             Assert.AreEqual("Veiligheidsfactor [-]", heaveFactorOfSafetyProperty.DisplayName);
             Assert.AreEqual("De veiligheidsfactor voor het submechanisme heave voor deze berekening.", heaveFactorOfSafetyProperty.Description);
 
-            PropertyDescriptor heaveReliabilityProperty = dynamicProperties[4];
+            PropertyDescriptor heaveReliabilityProperty = dynamicProperties[5];
             Assert.IsNotNull(heaveReliabilityProperty);
             Assert.IsTrue(heaveReliabilityProperty.IsReadOnly);
             Assert.AreEqual(heaveCategory, heaveReliabilityProperty.Category);
             Assert.AreEqual("Betrouwbaarheidsindex [-]", heaveReliabilityProperty.DisplayName);
             Assert.AreEqual("De betrouwbaarheidsindex voor het submechanisme heave voor deze berekening.", heaveReliabilityProperty.Description);
 
-            PropertyDescriptor heaveProbabilityProperty = dynamicProperties[5];
+            PropertyDescriptor heaveProbabilityProperty = dynamicProperties[6];
             Assert.IsNotNull(heaveProbabilityProperty);
             Assert.IsTrue(heaveProbabilityProperty.IsReadOnly);
             Assert.AreEqual(heaveCategory, heaveProbabilityProperty.Category);
             Assert.AreEqual("Kans van voorkomen [1/jaar]", heaveProbabilityProperty.DisplayName);
             Assert.AreEqual("De kans dat het submechanisme heave optreedt voor deze berekening.", heaveProbabilityProperty.Description);
 
-            PropertyDescriptor sellmeijerFactorOfSafetyProperty = dynamicProperties[6];
+            PropertyDescriptor sellmeijerCreepCoefficientProperty = dynamicProperties[7];
+            Assert.IsNotNull(sellmeijerCreepCoefficientProperty);
+            Assert.IsTrue(sellmeijerCreepCoefficientProperty.IsReadOnly);
+            Assert.AreEqual(sellmeijerCategory, sellmeijerCreepCoefficientProperty.Category);
+            Assert.AreEqual("Creep coëfficiënt [-]", sellmeijerCreepCoefficientProperty.DisplayName);
+            Assert.AreEqual("De verhouding tussen de kwelweglengte en het berekende kritieke verval op basis van de regel van Sellmeijer (analoog aan de vuistregel van Bligh).", 
+                sellmeijerCreepCoefficientProperty.Description);
+
+            PropertyDescriptor sellmeijerCriticalFallProperty = dynamicProperties[8];
+            Assert.IsNotNull(sellmeijerCriticalFallProperty);
+            Assert.IsTrue(sellmeijerCriticalFallProperty.IsReadOnly);
+            Assert.AreEqual(sellmeijerCategory, sellmeijerCriticalFallProperty.Category);
+            Assert.AreEqual("Kritiek verval [m]", sellmeijerCriticalFallProperty.DisplayName);
+            Assert.AreEqual("Het kritieke verval over de waterkering.", sellmeijerCriticalFallProperty.Description);
+
+            PropertyDescriptor sellmeijerReducedFallProperty = dynamicProperties[9];
+            Assert.IsNotNull(sellmeijerReducedFallProperty);
+            Assert.IsTrue(sellmeijerReducedFallProperty.IsReadOnly);
+            Assert.AreEqual(sellmeijerCategory, sellmeijerReducedFallProperty.Category);
+            Assert.AreEqual("Gereduceerd verval [m]", sellmeijerReducedFallProperty.DisplayName);
+            Assert.AreEqual("Het verschil tussen de buitenwaterstand en de binnenwaterstand, gecorrigeerd voor de drukval in het opbarstkanaal.", sellmeijerReducedFallProperty.Description);
+
+            PropertyDescriptor sellmeijerFactorOfSafetyProperty = dynamicProperties[10];
             Assert.IsNotNull(sellmeijerFactorOfSafetyProperty);
             Assert.IsTrue(sellmeijerFactorOfSafetyProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, sellmeijerFactorOfSafetyProperty.Category);
             Assert.AreEqual("Veiligheidsfactor [-]", sellmeijerFactorOfSafetyProperty.DisplayName);
             Assert.AreEqual("De veiligheidsfactor voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening.", sellmeijerFactorOfSafetyProperty.Description);
 
-            PropertyDescriptor sellmeijerReliabilityProperty = dynamicProperties[7];
+            PropertyDescriptor sellmeijerReliabilityProperty = dynamicProperties[11];
             Assert.IsNotNull(sellmeijerReliabilityProperty);
             Assert.IsTrue(sellmeijerReliabilityProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, sellmeijerReliabilityProperty.Category);
             Assert.AreEqual("Betrouwbaarheidsindex [-]", sellmeijerReliabilityProperty.DisplayName);
             Assert.AreEqual("De betrouwbaarheidsindex voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening.", sellmeijerReliabilityProperty.Description);
 
-            PropertyDescriptor sellmeijerProbabilityProperty = dynamicProperties[8];
+            PropertyDescriptor sellmeijerProbabilityProperty = dynamicProperties[12];
             Assert.IsNotNull(sellmeijerProbabilityProperty);
             Assert.IsTrue(sellmeijerProbabilityProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, sellmeijerProbabilityProperty.Category);
             Assert.AreEqual("Kans van voorkomen [1/jaar]", sellmeijerProbabilityProperty.DisplayName);
             Assert.AreEqual("De kans dat het submechanisme terugschrijdende erosie (Sellmeijer) optreedt voor deze berekening.", sellmeijerProbabilityProperty.Description);
 
-            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[9];
+            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[13];
             Assert.IsNotNull(requiredProbabilityProperty);
             Assert.IsTrue(requiredProbabilityProperty.IsReadOnly);
             Assert.AreEqual(pipingCategory, requiredProbabilityProperty.Category);
             Assert.AreEqual("Faalkanseis [1/jaar]", requiredProbabilityProperty.DisplayName);
             Assert.AreEqual("De maximaal toegestane kans dat het toetsspoor piping optreedt.", requiredProbabilityProperty.Description);
 
-            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[10];
+            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[14];
             Assert.IsNotNull(requiredReliabilityProperty);
             Assert.IsTrue(requiredReliabilityProperty.IsReadOnly);
             Assert.AreEqual(pipingCategory, requiredReliabilityProperty.Category);
             Assert.AreEqual("Betrouwbaarheidsindex faalkanseis [-]", requiredReliabilityProperty.DisplayName);
             Assert.AreEqual("De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor piping.", requiredReliabilityProperty.Description);
 
-            PropertyDescriptor pipingProbabilityProperty = dynamicProperties[11];
+            PropertyDescriptor pipingProbabilityProperty = dynamicProperties[15];
             Assert.IsNotNull(pipingProbabilityProperty);
             Assert.IsTrue(pipingProbabilityProperty.IsReadOnly);
             Assert.AreEqual(pipingCategory, pipingProbabilityProperty.Category);
             Assert.AreEqual("Benaderde faalkans [1/jaar]", pipingProbabilityProperty.DisplayName);
             Assert.AreEqual("De benaderde kans dat het toetsspoor piping optreedt voor deze berekening.", pipingProbabilityProperty.Description);
 
-            PropertyDescriptor pipingReliabilityProperty = dynamicProperties[12];
+            PropertyDescriptor pipingReliabilityProperty = dynamicProperties[16];
             Assert.IsNotNull(pipingReliabilityProperty);
             Assert.IsTrue(pipingReliabilityProperty.IsReadOnly);
             Assert.AreEqual(pipingCategory, pipingReliabilityProperty.Category);
             Assert.AreEqual("Betrouwbaarheidsindex faalkans [-]", pipingReliabilityProperty.DisplayName);
             Assert.AreEqual("De betrouwbaarheidsindex van de faalkans voor deze berekening.", pipingReliabilityProperty.Description);
 
-            PropertyDescriptor pipingFactorOfSafetyProperty = dynamicProperties[13];
+            PropertyDescriptor pipingFactorOfSafetyProperty = dynamicProperties[17];
             Assert.IsNotNull(pipingFactorOfSafetyProperty);
             Assert.IsTrue(pipingFactorOfSafetyProperty.IsReadOnly);
             Assert.AreEqual(pipingCategory, pipingFactorOfSafetyProperty.Category);

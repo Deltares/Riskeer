@@ -225,22 +225,22 @@
   <data name="GeneralPipingInput_WhitesDragCoefficient_DisplayName" xml:space="preserve">
     <value>Coëfficiënt van White [-]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_HeaveFactorOfSafety_Description" xml:space="preserve">
+  <data name="PipingOutputContext_HeaveFactorOfSafety_Description" xml:space="preserve">
     <value>De veiligheidsfactor voor het submechanisme heave voor deze berekening.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_HeaveFactorOfSafety_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_HeaveFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor [-]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_SellmeijerFactorOfSafety_Description" xml:space="preserve">
+  <data name="PipingOutputContext_SellmeijerFactorOfSafety_Description" xml:space="preserve">
     <value>De veiligheidsfactor voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_SellmeijerFactorOfSafety_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_SellmeijerFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor [-]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_UpliftFactorOfSafety_Description" xml:space="preserve">
+  <data name="PipingOutputContext_UpliftFactorOfSafety_Description" xml:space="preserve">
     <value>De veiligheidsfactor voor het submechanisme opbarsten voor deze berekening.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_UpliftFactorOfSafety_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_UpliftFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor [-]</value>
   </data>
   <data name="PipingSurfaceLinesCollection_DisplayName" xml:space="preserve">
@@ -412,76 +412,76 @@
   <data name="GeneralPipingInput_B_DisplayName" xml:space="preserve">
     <value>b [m]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_PipingFactorOfSafety_Description" xml:space="preserve">
+  <data name="PipingOutputContext_PipingFactorOfSafety_Description" xml:space="preserve">
     <value>De veiligheidsfactor voor deze berekening.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_PipingFactorOfSafety_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_PipingFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor [-]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_HeaveProbability_Description" xml:space="preserve">
+  <data name="PipingOutputContext_HeaveProbability_Description" xml:space="preserve">
     <value>De kans dat het submechanisme heave optreedt voor deze berekening.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_HeaveProbability_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_HeaveProbability_DisplayName" xml:space="preserve">
     <value>Kans van voorkomen [1/jaar]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_Categories_Piping" xml:space="preserve">
+  <data name="PipingOutputContext_Categories_Piping" xml:space="preserve">
     <value>Piping</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_Categories_Uplift" xml:space="preserve">
+  <data name="PipingOutputContext_Categories_Uplift" xml:space="preserve">
     <value>Opbarsten</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_HeaveReliability_Description" xml:space="preserve">
+  <data name="PipingOutputContext_HeaveReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex voor het submechanisme heave voor deze berekening.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_HeaveReliability_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_HeaveReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex [-]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_PipingProbability_Description" xml:space="preserve">
+  <data name="PipingOutputContext_PipingProbability_Description" xml:space="preserve">
     <value>De benaderde kans dat het toetsspoor piping optreedt voor deze berekening.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_PipingProbability_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_PipingProbability_DisplayName" xml:space="preserve">
     <value>Benaderde faalkans [1/jaar]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_PipingReliability_Description" xml:space="preserve">
+  <data name="PipingOutputContext_PipingReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex van de faalkans voor deze berekening.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_PipingReliability_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_PipingReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex faalkans [-]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_RequiredProbability_Description" xml:space="preserve">
+  <data name="PipingOutputContext_RequiredProbability_Description" xml:space="preserve">
     <value>De maximaal toegestane kans dat het toetsspoor piping optreedt.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_RequiredProbability_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_RequiredProbability_DisplayName" xml:space="preserve">
     <value>Faalkanseis [1/jaar]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_RequiredReliability_Description" xml:space="preserve">
+  <data name="PipingOutputContext_RequiredReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor piping.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_RequiredReliability_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_RequiredReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex faalkanseis [-]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_SellmeijerProbability_Description" xml:space="preserve">
+  <data name="PipingOutputContext_SellmeijerProbability_Description" xml:space="preserve">
     <value>De kans dat het submechanisme terugschrijdende erosie (Sellmeijer) optreedt voor deze berekening.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_SellmeijerProbability_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_SellmeijerProbability_DisplayName" xml:space="preserve">
     <value>Kans van voorkomen [1/jaar]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_SellmeijerReliability_Description" xml:space="preserve">
+  <data name="PipingOutputContext_SellmeijerReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_SellmeijerReliability_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_SellmeijerReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex [-]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_UpliftProbability_Description" xml:space="preserve">
+  <data name="PipingOutputContext_UpliftProbability_Description" xml:space="preserve">
     <value>De kans dat het submechanisme opbarsten optreedt voor deze berekening.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_UpliftProbability_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_UpliftProbability_DisplayName" xml:space="preserve">
     <value>Kans van voorkomen [1/jaar]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_UpliftReliability_Description" xml:space="preserve">
+  <data name="PipingOutputContext_UpliftReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex voor het submechanisme opbarsten voor deze berekening.</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_UpliftReliability_DisplayName" xml:space="preserve">
+  <data name="PipingOutputContext_UpliftReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex [-]</value>
   </data>
   <data name="PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description" xml:space="preserve">
@@ -576,5 +576,29 @@
   </data>
   <data name="PipingSurfaceLineSelectionDialog_Select_SurfaceLines" xml:space="preserve">
     <value>Selecteer profielschematisaties</value>
+  </data>
+  <data name="PipingOutputContext_HeaveGradient_Description" xml:space="preserve">
+    <value>Het optredende verticale gradiënt in het opbarstkanaal.</value>
+  </data>
+  <data name="PipingOutputContext_HeaveGradient_DisplayName" xml:space="preserve">
+    <value>Heave gradiënt [-]</value>
+  </data>
+  <data name="PipingOutputContext_SellmeijerCreepCoefficient_Description" xml:space="preserve">
+    <value>De verhouding tussen de kwelweglengte en het berekende kritieke verval op basis van de regel van Sellmeijer (analoog aan de vuistregel van Bligh).</value>
+  </data>
+  <data name="PipingOutputContext_SellmeijerCreepCoefficient_DisplayName" xml:space="preserve">
+    <value>Creep coëfficiënt [-]</value>
+  </data>
+  <data name="PipingOutputContext_SellmeijerCriticalFall_Description" xml:space="preserve">
+    <value>Het kritieke verval over de waterkering.</value>
+  </data>
+  <data name="PipingOutputContext_SellmeijerCriticalFall_DisplayName" xml:space="preserve">
+    <value>Kritiek verval [m]</value>
+  </data>
+  <data name="PipingOutputContext_SellmeijerReducedFall_Description" xml:space="preserve">
+    <value>Het verschil tussen de buitenwaterstand en de binnenwaterstand, gecorrigeerd voor de drukval in het opbarstkanaal.</value>
+  </data>
+  <data name="PipingOutputContext_SellmeijerReducedFall_DisplayName" xml:space="preserve">
+    <value>Gereduceerd verval [m]</value>
   </data>
 </root>

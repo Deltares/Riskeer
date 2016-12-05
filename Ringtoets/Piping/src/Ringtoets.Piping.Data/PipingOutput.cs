@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data
@@ -59,10 +60,10 @@ namespace Ringtoets.Piping.Data
             UpliftZValue = upliftZValue;
             SellmeijerFactorOfSafety = sellmeijerFactorOfSafety;
             SellmeijerZValue = sellmeijerZValue;
-            HeaveGradient = heaveGradient;
-            SellmeijerCreepCoefficient = sellmeijerCreepCoefficient;
-            SellmeijerCriticalFall = sellmeijerCriticalFall;
-            SellmeijerReducedFall = sellmeijerReducedFall;
+            HeaveGradient = new RoundedDouble(2, heaveGradient);
+            SellmeijerCreepCoefficient = new RoundedDouble(1, sellmeijerCreepCoefficient);
+            SellmeijerCriticalFall = new RoundedDouble(2, sellmeijerCriticalFall);
+            SellmeijerReducedFall = new RoundedDouble(2, sellmeijerReducedFall);
         }
 
         /// <summary>
@@ -98,21 +99,21 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// The gradient that was calculated for the heave sub calculation.
         /// </summary>
-        public double HeaveGradient { get; private set; }
+        public RoundedDouble HeaveGradient { get; private set; }
 
         /// <summary>
         /// The creep coefficient that was calculated for the Sellmeijer sub calculation.
         /// </summary>
-        public double SellmeijerCreepCoefficient { get; private set; }
+        public RoundedDouble SellmeijerCreepCoefficient { get; private set; }
 
         /// <summary>
         /// The critical fall that was calculated for the Sellmeijer sub calculation.
         /// </summary>
-        public double SellmeijerCriticalFall { get; private set; }
+        public RoundedDouble SellmeijerCriticalFall { get; private set; }
 
         /// <summary>
         /// The reduced fall that was calculated for the Sellmeijer sub calculation.
         /// </summary>
-        public double SellmeijerReducedFall { get; private set; }
+        public RoundedDouble SellmeijerReducedFall { get; private set; }
     }
 }

@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -64,10 +65,15 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(foShValue, output.HeaveFactorOfSafety);
             Assert.AreEqual(zsValue, output.SellmeijerZValue);
             Assert.AreEqual(foSsValue, output.SellmeijerFactorOfSafety);
-            Assert.AreEqual(heaveGradient, output.HeaveGradient);
-            Assert.AreEqual(sellmeijerCreepCoefficient, output.SellmeijerCreepCoefficient);
-            Assert.AreEqual(sellmeijerCriticalFall, output.SellmeijerCriticalFall);
-            Assert.AreEqual(sellmeijerReducedFall, output.SellmeijerReducedFall);
+
+            Assert.AreEqual(2, output.HeaveGradient.NumberOfDecimalPlaces);
+            Assert.AreEqual(heaveGradient, output.HeaveGradient, output.HeaveGradient.GetAccuracy());
+            Assert.AreEqual(1, output.SellmeijerCreepCoefficient.NumberOfDecimalPlaces);
+            Assert.AreEqual(sellmeijerCreepCoefficient, output.SellmeijerCreepCoefficient, output.SellmeijerCreepCoefficient.GetAccuracy());
+            Assert.AreEqual(2, output.SellmeijerCriticalFall.NumberOfDecimalPlaces);
+            Assert.AreEqual(sellmeijerCriticalFall, output.SellmeijerCriticalFall, output.SellmeijerCriticalFall.GetAccuracy());
+            Assert.AreEqual(2, output.SellmeijerReducedFall.NumberOfDecimalPlaces);
+            Assert.AreEqual(sellmeijerReducedFall, output.SellmeijerReducedFall, output.SellmeijerReducedFall.GetAccuracy());
         }
     }
 }

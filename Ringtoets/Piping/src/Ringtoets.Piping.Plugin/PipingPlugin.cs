@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismContextProperties>();
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>();
-            yield return new PropertyInfo<PipingSemiProbabilisticOutput, PipingSemiProbabilisticOutputProperties>();
+            yield return new PropertyInfo<PipingOutputContext, PipingOutputContextProperties>();
             yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
             yield return new PropertyInfo<StochasticSoilModel, StochasticSoilModelProperties>();
             yield return new PropertyInfo<StochasticSoilProfile, StochasticSoilProfileProperties>();
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<PipingSemiProbabilisticOutput>
+            yield return new TreeNodeInfo<PipingOutputContext>
             {
                 Text = pipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = pipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
@@ -646,7 +646,9 @@ namespace Ringtoets.Piping.Plugin
 
             if (pipingCalculationScenarioContext.WrappedData.HasOutput)
             {
-                childNodes.Add(pipingCalculationScenarioContext.WrappedData.SemiProbabilisticOutput);
+                childNodes.Add(new PipingOutputContext(
+                    pipingCalculationScenarioContext.WrappedData.Output,
+                    pipingCalculationScenarioContext.WrappedData.SemiProbabilisticOutput));
             }
             else
             {

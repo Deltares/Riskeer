@@ -64,11 +64,12 @@
     <Compile Include="PipingCalculationConfigurationHelperTest.cs" />
     <Compile Include="PipingSurfaceLineSelectionDialogTest.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\PipingOutputContextTest.cs" />
     <Compile Include="PresentationObjects\PipingScenariosContextTest.cs" />
     <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLinesContextTest.cs" />
     <Compile Include="PresentationObjects\StochasticSoilModelsContextTest.cs" />
     <Compile Include="PropertyClasses\PipingFailureMechanismContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\PipingSemiProbabilisticOutputPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\PipingOutputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />
@@ -81,7 +82,7 @@
     <Compile Include="TreeNodeInfos\StochasticSoilModelsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationScenarioContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingFailureMechanismContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingSemiProbabilisticOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingOutputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StochasticSoilModelTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StochasticSoilProfileTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsPipingSurfaceLineCollectionTreeNodeInfoTest.cs" />

@@ -88,8 +88,8 @@ namespace Ringtoets.Piping.Plugin.Test
 
                 PropertyInfo pipingOutputProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(PipingSemiProbabilisticOutput),
-                    typeof(PipingSemiProbabilisticOutputProperties));
+                    typeof(PipingOutputContext),
+                    typeof(PipingOutputContextProperties));
                 Assert.IsNull(pipingOutputProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingOutputProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingOutputProperties.AfterCreate);
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSemiProbabilisticOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingOutputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingScenariosContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyPipingOutput)));
             }

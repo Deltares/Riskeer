@@ -133,7 +133,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
-            Assert.AreSame(pipingCalculationContext.WrappedData.SemiProbabilisticOutput, children[2]);
+
+            var pipingOutputContext = (PipingOutputContext)children[2];
+            Assert.AreSame(pipingCalculationContext.WrappedData.SemiProbabilisticOutput, pipingOutputContext.SemiProbabilisticOutput);
+            Assert.AreSame(pipingCalculationContext.WrappedData.Output, pipingOutputContext.WrappedData);
         }
 
         [Test]

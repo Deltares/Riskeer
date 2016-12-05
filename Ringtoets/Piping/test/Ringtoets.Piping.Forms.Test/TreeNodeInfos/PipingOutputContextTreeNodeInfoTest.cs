@@ -27,13 +27,14 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingSemiProbabilisticOutputTreeNodeInfoTest
+    public class PipingOutputContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -44,7 +45,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingSemiProbabilisticOutput));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingOutputContext));
         }
 
         [TearDown]
@@ -61,7 +62,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(PipingSemiProbabilisticOutput), info.TagType);
+            Assert.AreEqual(typeof(PipingOutputContext), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
@@ -81,13 +82,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsTextFromResource()
         {
-            // Setup
-            var pipingOutput = mocks.StrictMock<PipingSemiProbabilisticOutput>(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
-            mocks.ReplayAll();
-
             // Call
-            var text = info.Text(pipingOutput);
+            var text = info.Text(null);
 
             // Assert
             Assert.AreEqual(RingtoetsCommonFormsResources.CalculationOutput_DisplayName, text);
@@ -96,13 +92,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-            // Setup
-            var pipingOutput = mocks.StrictMock<PipingSemiProbabilisticOutput>(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
-            mocks.ReplayAll();
-
             // Call
-            var image = info.Image(pipingOutput);
+            var image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, image);
