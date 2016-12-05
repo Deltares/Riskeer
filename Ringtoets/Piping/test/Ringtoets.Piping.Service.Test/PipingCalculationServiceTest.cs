@@ -426,8 +426,8 @@ namespace Ringtoets.Piping.Service.Test
                                                     new PipingSoilLayer(10.5)
                                                     {
                                                         IsAquifer = false,
-                                                        BelowPhreaticLevelDeviation = random.GetFromRange(1e-6, 999.999),
-                                                        BelowPhreaticLevelMean = random.GetFromRange(10.0, 999.999),
+                                                        BelowPhreaticLevelDeviation = random.GetFromRange(1e-6, 5.0),
+                                                        BelowPhreaticLevelMean = random.GetFromRange(15.0, 999.999),
                                                         BelowPhreaticLevelShift = random.GetFromRange(1e-6, 10.0)
                                                     },
                                                     incompletePipingSoilLayer
@@ -588,6 +588,7 @@ namespace Ringtoets.Piping.Service.Test
             var random = new Random(21);
             var belowPhreaticLevelDeviation = random.NextDouble();
             var belowPhreaticLevelShift = random.NextDouble();
+            var belowPhreaticLevelMeanBase = 15.0;
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
                                                 {
@@ -596,14 +597,14 @@ namespace Ringtoets.Piping.Service.Test
                                                         IsAquifer = false,
                                                         BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
                                                         BelowPhreaticLevelShift = belowPhreaticLevelShift,
-                                                        BelowPhreaticLevelMean = 0.1 + belowPhreaticLevelShift + random.NextDouble()
+                                                        BelowPhreaticLevelMean = belowPhreaticLevelMeanBase + belowPhreaticLevelShift + random.NextDouble()
                                                     },
                                                     new PipingSoilLayer(8.5)
                                                     {
                                                         IsAquifer = false,
                                                         BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
                                                         BelowPhreaticLevelShift = belowPhreaticLevelShift,
-                                                        BelowPhreaticLevelMean = 0.1 + belowPhreaticLevelShift + random.NextDouble()
+                                                        BelowPhreaticLevelMean = belowPhreaticLevelMeanBase + belowPhreaticLevelShift + random.NextDouble()
                                                     },
                                                     new PipingSoilLayer(5.0)
                                                     {
@@ -661,8 +662,8 @@ namespace Ringtoets.Piping.Service.Test
                                                     new PipingSoilLayer(10.5)
                                                     {
                                                         IsAquifer = false,
-                                                        BelowPhreaticLevelDeviation = random.GetFromRange(1e-6, 999.999),
-                                                        BelowPhreaticLevelMean = random.GetFromRange(10.0, 999.999),
+                                                        BelowPhreaticLevelDeviation = random.GetFromRange(1e-6, 5.0),
+                                                        BelowPhreaticLevelMean = random.GetFromRange(15.0, 999.999),
                                                         BelowPhreaticLevelShift = random.GetFromRange(1e-6, 10.0)
                                                     },
                                                     soilLayer
@@ -686,6 +687,132 @@ namespace Ringtoets.Piping.Service.Test
                                               new RoundedDouble(6, diameter70Value)), msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
+        }
+
+        [Test]
+        public void Validate_CalculationWithSaturatedCoverageLayerVolumicWeightLessThanWaterVolumicWeight_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            var random = new Random(21);
+
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    new PipingSoilLayer(10.5)
+                                                    {
+                                                        IsAquifer = false,
+                                                        BelowPhreaticLevelMean = 9.81,
+                                                        BelowPhreaticLevelDeviation = 2,
+                                                        BelowPhreaticLevelShift = 0
+                                                    },
+                                                    new PipingSoilLayer(5.0)
+                                                    {
+                                                        IsAquifer = true,
+                                                        PermeabilityDeviation = random.NextDouble(),
+                                                        PermeabilityMean = 0.1 + random.NextDouble(),
+                                                        DiameterD70Mean = 0.0002,
+                                                        DiameterD70Deviation = 0
+                                                    }
+                                                },
+                                                SoilProfileType.SoilProfile1D, -1);
+
+            PipingCalculation pipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            pipingCalculation.Name = name;
+            pipingCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = PipingCalculationService.Validate(pipingCalculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                Assert.AreEqual(
+                    "Validatie mislukt: Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water.",
+                    msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_CalculationSaturatedCoverageLayerHeavierThanWaterLayerMissingSaturatedParameter_LogsNoErrorForSaturatedValue()
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            var random = new Random(21);
+
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    new PipingSoilLayer(10.5)
+                                                    {
+                                                        IsAquifer = false,
+                                                        BelowPhreaticLevelMean = 5,
+                                                        BelowPhreaticLevelDeviation = 2,
+                                                        BelowPhreaticLevelShift = 0
+                                                    },
+                                                    new PipingSoilLayer(8.5)
+                                                    {
+                                                        IsAquifer = false,
+                                                        BelowPhreaticLevelMean = 5,
+                                                        BelowPhreaticLevelDeviation = 2,
+                                                        BelowPhreaticLevelShift = double.NaN
+                                                    },
+                                                    new PipingSoilLayer(5.0)
+                                                    {
+                                                        IsAquifer = true,
+                                                        PermeabilityDeviation = random.NextDouble(),
+                                                        PermeabilityMean = 0.1 + random.NextDouble(),
+                                                        DiameterD70Mean = 0.0002,
+                                                        DiameterD70Deviation = 0
+                                                    }
+                                                },
+                                                SoilProfileType.SoilProfile1D, -1);
+
+            PipingCalculation pipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            pipingCalculation.Name = name;
+            pipingCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+
+            // Call
+            Action call = () => PipingCalculationService.Validate(pipingCalculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                Assert.AreEqual(
+                    "Validatie mislukt: Kan de definitie voor het verzadigd gewicht van de deklaag niet (volledig) afleiden.",
+                    msgs[2]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+        }
+
+        [Test]
+        public void Validate_CompleteInput_InputSetOnSubCalculators()
+        {
+            // Setup
+            PipingCalculation validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingInput input = validPipingCalculation.InputParameters;
+
+            using (new PipingSubCalculatorFactoryConfig())
+            {
+                // Call
+                PipingCalculationService.Validate(validPipingCalculation);
+
+                // Assert
+                AssertSubCalculatorInputs(input);
+            }
         }
 
         [Test]
@@ -752,23 +879,6 @@ namespace Ringtoets.Piping.Service.Test
 
             // Assert
             Assert.AreNotSame(output, validPipingCalculation.Output);
-        }
-
-        [Test]
-        public void Validate_CompleteInput_InputSetOnSubCalculators()
-        {
-            // Setup
-            PipingCalculation validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            PipingInput input = validPipingCalculation.InputParameters;
-
-            using (new PipingSubCalculatorFactoryConfig())
-            {
-                // Call
-                PipingCalculationService.Validate(validPipingCalculation);
-
-                // Assert
-                AssertSubCalculatorInputs(input);
-            }
         }
 
         [Test]

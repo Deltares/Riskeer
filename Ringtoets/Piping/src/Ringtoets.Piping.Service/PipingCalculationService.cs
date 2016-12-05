@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper;
@@ -199,6 +200,16 @@ namespace Ringtoets.Piping.Service
                             || double.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift))
                         {
                             validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight);
+                        }
+                        else
+                        {
+                            var saturatedVolumicWeightOfCoverageLayer =
+                                PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue();
+
+                            if (saturatedVolumicWeightOfCoverageLayer < inputParameters.WaterVolumetricWeight)
+                            {
+                                validationResult.Add(Resources.PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight);
+                            }
                         }
                     }
                 }

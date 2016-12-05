@@ -249,6 +249,16 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water..
+        /// </summary>
+        internal static string PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight {
+            get {
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_b" +
+                        "e_larger_than_WaterVolumetricWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Veiligheidsfactor voor piping kan niet worden berekend..
         /// </summary>
         internal static string PipingSemiProbabilisticCalculationService_ValidateOutputOnCalculation_Factor_of_safety_cannot_be_calculated {
