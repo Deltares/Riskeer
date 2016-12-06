@@ -238,7 +238,7 @@
     <value>Nog geen oordeel</value>
   </data>
   <data name="AssessmentLayerOneState_NotAssessed" xml:space="preserve">
-    <value>Nog niet beoordeeld</value>
+    <value>Toets niet uitgevoerd</value>
   </data>
   <data name="AssessmentLayerOneState_Sufficient" xml:space="preserve">
     <value>Voldoende / Niet relevant</value>
