@@ -49,13 +49,13 @@ namespace Ringtoets.Integration.Forms.Views
         private const int isRelevantColumnIndex = 0;
         private const int probabilityPerYearColumnIndex = 4;
 
-        /// <summary>
-        /// This observer is listening for changes to:
+        /// <remarks>
+        /// Actually only interested in the following changes:
         /// <list type="bullet">
         /// <item><see cref="IFailureMechanism.IsRelevant"/></item>
         /// <item><see cref="IFailureMechanism.Contribution"/></item>
         /// </list>
-        /// </summary>
+        /// </remarks>
         private readonly Observer failureMechanismObserver;
 
         private readonly IFailureMechanismContributionNormChangeHandler normChangeHandler;
@@ -400,7 +400,12 @@ namespace Ringtoets.Integration.Forms.Views
         private void AssessmentSectionCompositionComboBoxSelectionChangeCommitted(object sender, EventArgs e)
         {
             var newComposition = (AssessmentSectionComposition) assessmentSectionCompositionComboBox.SelectedValue;
-            if (assessmentSection.Composition != newComposition && compositionChangeHandler.ConfirmCompositionChange())
+            if (assessmentSection.Composition == newComposition)
+            {
+                return;
+            }
+
+            if (compositionChangeHandler.ConfirmCompositionChange())
             {
                 IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(assessmentSection, newComposition);
                 foreach (IObservable changedObject in changedObjects)

@@ -31,7 +31,7 @@ namespace Core.Common.TestUtil
     public static class ControlsTestHelper
     {
         /// <summary>
-        /// Emulates the user selecting new value a <see cref="ComboBox"/>.
+        /// Emulates the user selecting new value for a <see cref="ComboBox"/>.
         /// </summary>
         /// <param name="comboBox">The combo box to be edited.</param>
         /// <param name="newValue">The new value to be selected.</param>

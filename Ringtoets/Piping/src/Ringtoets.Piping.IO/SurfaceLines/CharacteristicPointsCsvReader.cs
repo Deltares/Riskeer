@@ -324,7 +324,8 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <exception cref="CriticalFileReadException">Thrown when an I/O exception occurred.</exception>
         private int CountNonEmptyLines(TextReader reader, int currentLine)
         {
-            int count = 0, lineNumberForMessage = currentLine;
+            int count = 0;
+            int lineNumberForMessage = currentLine;
             string line;
             while ((line = ReadLineAndHandleIOExceptions(reader, lineNumberForMessage)) != null)
             {

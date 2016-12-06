@@ -42,7 +42,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void ConfirmCompositionChange_Always_ShowMessageBox()
         {
             // Setup
-            string title = "", message = "";
+            string title = "";
+            string message = "";
             DialogBoxHandler = (name, wnd) =>
             {
                 var tester = new MessageBoxTester(wnd);

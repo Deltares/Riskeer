@@ -255,8 +255,14 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void UpdateContributions_FailureMechanismsChangesAfterConstruction_UpdateDistribution(double newOtherContribution)
         {
             // Setup
-            string name1 = "A", name2 = "B", name3 = "C", name4 = "D";
-            double contribution1 = 1.1, contribution2 = 5.5, contribution3 = 23.45, contribution4 = 67.89;
+            string name1 = "A";
+            string name2 = "B";
+            string name3 = "C";
+            string name4 = "D";
+            double contribution1 = 1.1;
+            double contribution2 = 5.5;
+            double contribution3 = 23.45;
+            double contribution4 = 67.89;
 
             var mocks = new MockRepository();
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();

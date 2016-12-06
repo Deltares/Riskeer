@@ -60,13 +60,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var handler1 = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
-            var handler2 = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var normChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var compositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             var viewCommands = mocks.Stub<IViewCommands>();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             mocks.ReplayAll();
 
-            var view = new FailureMechanismContributionView(handler1, handler2, viewCommands);
+            var view = new FailureMechanismContributionView(normChangeHandler, compositionChangeHandler, viewCommands);
 
             // Call
             var viewName = info.GetViewName(view, assessmentSectionStub.FailureMechanismContribution);
@@ -137,8 +137,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var handler1 = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
-            var handler2 = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var normChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var compositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             var viewCommands = mocks.Stub<IViewCommands>();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             assessmentSectionStub.Stub(section => section.Composition)
@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(handler1, handler2, viewCommands)
+            using (var view = new FailureMechanismContributionView(normChangeHandler, compositionChangeHandler, viewCommands)
             {
                 Data = assessmentSectionStub.FailureMechanismContribution,
                 AssessmentSection = assessmentSectionStub
@@ -165,8 +165,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var handler1 = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
-            var handler2 = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var normChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var compositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             var viewCommands = mocks.Stub<IViewCommands>();
 
             IAssessmentSection assessmentSection1 = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
@@ -178,7 +178,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                               .Return(AssessmentSectionComposition.DikeAndDune);
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(handler1, handler2, viewCommands)
+            using (var view = new FailureMechanismContributionView(normChangeHandler, compositionChangeHandler, viewCommands)
             {
                 Data = assessmentSection1.FailureMechanismContribution,
                 AssessmentSection = assessmentSection1
@@ -198,14 +198,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewWithoutData_ReturnsFalse()
         {
             // Setup
-            var handler1 = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
-            var handler2 = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var normChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var compositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             var viewCommands = mocks.Stub<IViewCommands>();
 
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(handler1, handler2, viewCommands))
+            using (var view = new FailureMechanismContributionView(normChangeHandler, compositionChangeHandler, viewCommands))
             {
                 // Call
                 var closeForData = info.CloseForData(view, assessmentSectionStub);
@@ -220,8 +220,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void AfterCreate_WithGuiSet_SetsAssessmentSection()
         {
             // Setup
-            var handler1 = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
-            var handler2 = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var normChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var compositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             var viewCommands = mocks.Stub<IViewCommands>();
 
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
@@ -235,7 +235,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var context = new FailureMechanismContributionContext(assessmentSectionStub.FailureMechanismContribution, assessmentSectionStub);
 
-            using (var view = new FailureMechanismContributionView(handler1, handler2, viewCommands))
+            using (var view = new FailureMechanismContributionView(normChangeHandler, compositionChangeHandler, viewCommands))
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismContributionView));

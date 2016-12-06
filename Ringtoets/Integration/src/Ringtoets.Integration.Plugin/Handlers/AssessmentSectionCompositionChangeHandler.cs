@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
 {
     /// <summary>
     /// Class responsible for changing the <see cref="AssessmentSection.Composition"/>
-    /// value clearing all data dependent on the original norm value.
+    /// value clearing all data dependent on the original composition value.
     /// </summary>
     public class AssessmentSectionCompositionChangeHandler : IAssessmentSectionCompositionChangeHandler
     {

@@ -53,7 +53,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void ConfirmNormChange_Always_ShownMessageBoxForConfirmation()
         {
             // Setup
-            string title = "", message = "";
+            string title = "";
+            string message = "";
             DialogBoxHandler = (name, wnd) =>
             {
                 var tester = new MessageBoxTester(wnd);
@@ -159,8 +160,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             IEnumerable<IObservable> affectedObjects = null;
             const double norm = 1.0/1000;
 
-            const int newNormValue = 1000;
-
             // Call
             Action call = () => affectedObjects = handler.ChangeNorm(section, norm);
 
@@ -172,7 +171,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
 
-            Assert.AreEqual(1.0/newNormValue, section.FailureMechanismContribution.Norm);
+            Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);
 
             CollectionAssert.IsEmpty(section.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
                                      "There should be no calculations with output.");
@@ -236,6 +235,52 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
             }
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        public void ChangeNorm_FullyConfiguredAssessmentSectionWithoutCalculatedHydraulicBoundaryLocations_AllFailureMechanismCalculationOutputClearedAndContributionsUpdatedAndReturnsAllAffectedObjects()
+        {
+            // Setup
+            AssessmentSection section = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(section.HydraulicBoundaryDatabase,
+                                                                                     section.GrassCoverErosionOutwards);
+
+            // Precondition
+            CollectionAssert.IsEmpty(section.HydraulicBoundaryDatabase.Locations.Where(HasCalculatedHydraulicBoundaryLocationValues));
+            CollectionAssert.IsEmpty(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Where(HasCalculatedHydraulicBoundaryLocationValues));
+
+            var expectedAffectedCalculations = section.GetFailureMechanisms()
+                                                      .SelectMany(fm => fm.Calculations)
+                                                      .Where(c => c.HasOutput)
+                                                      .ToArray();
+            var handler = new FailureMechanismContributionNormChangeHandler();
+
+            IEnumerable<IObservable> affectedObjects = null;
+            const double norm = 1.0 / 1000;
+
+            // Call
+            Action call = () => affectedObjects = handler.ChangeNorm(section, norm);
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "De resultaten van 32 berekeningen zijn verwijderd.", 1);
+
+            Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);
+
+            CollectionAssert.IsEmpty(section.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
+                                     "There should be no calculations with output.");
+
+            var expectedAffectedObjects = expectedAffectedCalculations.Cast<IObservable>()
+                                                                      .Concat(section.GetFailureMechanisms())
+                                                                      .Concat(new IObservable[]
+                                                                      {
+                                                                          section.FailureMechanismContribution,
+                                                                      });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        private bool HasCalculatedHydraulicBoundaryLocationValues(HydraulicBoundaryLocation l)
+        {
+            return !double.IsNaN(l.DesignWaterLevel) || !double.IsNaN(l.WaveHeight);
         }
     }
 }

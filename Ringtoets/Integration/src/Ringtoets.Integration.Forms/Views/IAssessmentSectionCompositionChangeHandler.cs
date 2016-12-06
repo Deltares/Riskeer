@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// and propagates the changes to underlying data structure.
         /// </summary>
         /// <param name="assessmentSection">The section to be updated.</param>
-        /// <param name="newComposition">The new norm value.</param>
+        /// <param name="newComposition">The new composition value.</param>
         /// <returns>All objects that have been affected by the change.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>

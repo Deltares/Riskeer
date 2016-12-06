@@ -162,11 +162,11 @@ namespace Ringtoets.Integration.Forms.Test
 
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserver);
 
-            var handler1 = new FailureMechanismContributionNormChangeHandler();
-            var handler2 = new AssessmentSectionCompositionChangeHandler();
+            var normChangeHandler = new FailureMechanismContributionNormChangeHandler();
+            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
 
             using (var form = new Form())
-            using (var distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
+            using (var distributionView = new FailureMechanismContributionView(normChangeHandler, compositionChangeHandler, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -266,11 +266,11 @@ namespace Ringtoets.Integration.Forms.Test
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);
 
-            var handler1 = new FailureMechanismContributionNormChangeHandler();
-            var handler2 = new AssessmentSectionCompositionChangeHandler();
+            var normChangeHandler = new FailureMechanismContributionNormChangeHandler();
+            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
 
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(normChangeHandler, compositionChangeHandler, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -379,11 +379,11 @@ namespace Ringtoets.Integration.Forms.Test
             grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
             heightStructuresCalculation.Attach(heightStructuresCalculationObserver);
 
-            var handler1 = new FailureMechanismContributionNormChangeHandler();
-            var handler2 = new AssessmentSectionCompositionChangeHandler();
+            var normChangeHandler = new FailureMechanismContributionNormChangeHandler();
+            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
 
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(normChangeHandler, compositionChangeHandler, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -487,11 +487,11 @@ namespace Ringtoets.Integration.Forms.Test
             grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
             heightStructuresCalculation.Attach(heightStructuresCalculationObserver);
 
-            var handler1 = new FailureMechanismContributionNormChangeHandler();
-            var handler2 = new AssessmentSectionCompositionChangeHandler();
+            var normChangeHandler = new FailureMechanismContributionNormChangeHandler();
+            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
 
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(normChangeHandler, compositionChangeHandler, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -572,11 +572,11 @@ namespace Ringtoets.Integration.Forms.Test
             emptyHeightStructuresCalculation.Attach(calculationObserver);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
-            var handler1 = new FailureMechanismContributionNormChangeHandler();
-            var handler2 = new AssessmentSectionCompositionChangeHandler();
+            var normChangeHandler = new FailureMechanismContributionNormChangeHandler();
+            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
 
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(normChangeHandler, compositionChangeHandler, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -638,11 +638,11 @@ namespace Ringtoets.Integration.Forms.Test
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);
 
-            var handler1 = new FailureMechanismContributionNormChangeHandler();
-            var handler2 = new AssessmentSectionCompositionChangeHandler();
+            var normChangeHandler = new FailureMechanismContributionNormChangeHandler();
+            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
 
             using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(handler1, handler2, viewCommands)
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView(normChangeHandler, compositionChangeHandler, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -691,11 +691,11 @@ namespace Ringtoets.Integration.Forms.Test
 
             var assessmentSection = new AssessmentSection(initialComposition);
 
-            var handler1 = new FailureMechanismContributionNormChangeHandler();
-            var handler2 = new AssessmentSectionCompositionChangeHandler();
+            var normChangeHandler = new FailureMechanismContributionNormChangeHandler();
+            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
 
             using (var form = new Form())
-            using (var view = new FailureMechanismContributionView(handler1, handler2, viewCommands)
+            using (var view = new FailureMechanismContributionView(normChangeHandler, compositionChangeHandler, viewCommands)
             {
                 Data = assessmentSection.FailureMechanismContribution,
                 AssessmentSection = assessmentSection
