@@ -99,11 +99,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FrunupModelFactor_Description")]
-        public NormalDistributionProperties FrunupModelFactor
+        public TruncatedNormalDistributionProperties FrunupModelFactor
         {
             get
             {
-                return new NormalDistributionProperties
+                return new TruncatedNormalDistributionProperties
                 {
                     Data = data.WrappedData.GeneralInput.FrunupModelFactor
                 };
@@ -115,11 +115,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FbFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FbFactor_Description")]
-        public NormalDistributionProperties FbFactor
+        public TruncatedNormalDistributionProperties FbFactor
         {
             get
             {
-                return new NormalDistributionProperties
+                return new TruncatedNormalDistributionProperties
                 {
                     Data = data.WrappedData.GeneralInput.FbFactor
                 };
@@ -131,11 +131,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FnFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FnFactor_Description")]
-        public NormalDistributionProperties FnFactor
+        public TruncatedNormalDistributionProperties FnFactor
         {
             get
             {
-                return new NormalDistributionProperties
+                return new TruncatedNormalDistributionProperties
                 {
                     Data = data.WrappedData.GeneralInput.FnFactor
                 };
@@ -147,11 +147,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FshallowModelFactor_Description")]
-        public NormalDistributionProperties FshallowModelFactor
+        public TruncatedNormalDistributionProperties FshallowModelFactor
         {
             get
             {
-                return new NormalDistributionProperties
+                return new TruncatedNormalDistributionProperties
                 {
                     Data = data.WrappedData.GeneralInput.FshallowModelFactor
                 };
