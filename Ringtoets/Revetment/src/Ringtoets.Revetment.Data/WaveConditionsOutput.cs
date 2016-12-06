@@ -50,6 +50,8 @@ namespace Ringtoets.Revetment.Data
         /// <param name="targetReliability">The target beta (reliability).</param>
         /// <param name="calculatedProbability">The calculated probability.</param>
         /// <param name="calculatedReliability">The calculated beta (reliability).</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> or 
+        /// <paramref name="calculatedProbability"/>lies outside[0,1] and is not <see cref="double.NaN"/>.</exception>
         public WaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveAngle,
                                     double waveDirection,
                                     double targetProbability, double targetReliability,
