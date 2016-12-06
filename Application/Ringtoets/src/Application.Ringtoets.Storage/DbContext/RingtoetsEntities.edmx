@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Repos\Ringtoets\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Checkout_Dev\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -527,6 +527,7 @@
           <Property Name="DampingFactorExitStandardDeviation" Type="real" />
           <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
           <Property Name="ScenarioContribution" Type="real" />
+          <Property Name="AssessmentLevel" Type="real" />
         </EntityType>
         <EntityType Name="PipingCalculationOutputEntity">
           <Key>
@@ -3378,6 +3379,7 @@
           <Property Name="DampingFactorExitStandardDeviation" Type="Double" />
           <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
           <Property Name="ScenarioContribution" Type="Double" />
+          <Property Name="AssessmentLevel" Type="Double" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_3_0" FromRole="PipingCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" FromRole="PipingCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0" FromRole="PipingCalculationEntity" ToRole="SurfaceLineEntity" />
@@ -5393,6 +5395,7 @@
           <EntitySetMapping Name="PipingCalculationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.PipingCalculationEntity">
               <MappingFragment StoreEntitySet="PipingCalculationEntity">
+                <ScalarProperty Name="AssessmentLevel" ColumnName="AssessmentLevel" />
                 <ScalarProperty Name="ScenarioContribution" ColumnName="ScenarioContribution" />
                 <ScalarProperty Name="RelevantForScenario" ColumnName="RelevantForScenario" />
                 <ScalarProperty Name="DampingFactorExitStandardDeviation" ColumnName="DampingFactorExitStandardDeviation" />
