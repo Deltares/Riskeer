@@ -246,8 +246,8 @@ namespace Ringtoets.Piping.Service
                 }
                 if (!double.IsNaN(inputParameters.Diameter70.Mean) && !double.IsNaN(inputParameters.Diameter70.StandardDeviation))
                 {
-                    var diameter70Value = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue();
-                    if (diameter70Value < 6.3e-5|| diameter70Value > 0.5e-3)
+                    RoundedDouble diameter70Value = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue();
+                    if (diameter70Value < 6.3e-5 || diameter70Value > 0.5e-3)
                     {
                         warnings.Add(string.Format(Resources.PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model, diameter70Value));
                     }

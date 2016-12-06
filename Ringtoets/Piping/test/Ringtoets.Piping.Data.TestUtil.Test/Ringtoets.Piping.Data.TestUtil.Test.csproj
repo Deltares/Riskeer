@@ -71,6 +71,10 @@
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
+      <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
+      <Name>Ringtoets.Piping.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
       <Name>Ringtoets.Piping.Data.TestUtil</Name>

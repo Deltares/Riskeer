@@ -116,8 +116,8 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            PipingCalculationScenario calculationScenario1 = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(section);
-            PipingCalculationScenario calculationScenario2 = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(section);
+            PipingCalculationScenario calculationScenario1 = PipingCalculationScenarioFactory.CreateIrrelevantPipingCalculationScenario(section);
+            PipingCalculationScenario calculationScenario2 = PipingCalculationScenarioFactory.CreateIrrelevantPipingCalculationScenario(section);
 
             var calculationScenarios = new[]
             {
@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingCalculationScenario pipingCalculationScenario2 = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
             pipingCalculationScenario2.Contribution = (RoundedDouble) 0.5;
 
-            PipingCalculationScenario pipingCalculationScenario3 = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(section);
+            PipingCalculationScenario pipingCalculationScenario3 = PipingCalculationScenarioFactory.CreateIrrelevantPipingCalculationScenario(section);
 
             var calculationScenarios = new[]
             {

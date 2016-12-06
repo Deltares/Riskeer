@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Data.TestUtil.Test
 {
@@ -88,10 +89,10 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateIrreleveantPipingCalculationScenario_WithNoSection_ThrowsArgumentNullException()
+        public void CreateIrrelevantPipingCalculationScenario_WithNoSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(null);
+            TestDelegate test = () => PipingCalculationScenarioFactory.CreateIrrelevantPipingCalculationScenario(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -99,13 +100,13 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateIrreleveantPipingCalculationScenario_WithSection_CreatesIrrelevantCalculation()
+        public void CreateIrrelevantPipingCalculationScenario_WithSection_CreatesIrrelevantCalculation()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
 
             // Call
-            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(section);
+            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreateIrrelevantPipingCalculationScenario(section);
 
             // Assert
             Assert.IsFalse(scenario.IsRelevant);
@@ -135,6 +136,26 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             Assert.IsNull(scenario.Output);
             Assert.IsNull(scenario.SemiProbabilisticOutput);
             Assert.IsTrue(scenario.IsRelevant);
+        }
+
+        [Test]
+        public void CreatePipingCalculationScenarioWithInvalidInput_CreatesPipingCalculationScenarioWithInvalidInput()
+        {
+            // Call
+            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
+
+            // Assert
+            Assert.IsFalse(PipingCalculationService.Validate(scenario));
+        }
+
+        [Test]
+        public void CreatePipingCalculationScenarioWithValidInput_CreatesPipingCalculationScenarioWithValidInput()
+        {
+            // Call
+            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+
+            // Assert
+            Assert.IsTrue(PipingCalculationService.Validate(scenario));
         }
 
         private static FailureMechanismSection CreateSection()

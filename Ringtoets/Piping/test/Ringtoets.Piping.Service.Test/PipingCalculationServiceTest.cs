@@ -524,7 +524,7 @@ namespace Ringtoets.Piping.Service.Test
         [TestCase(false, true, true)]
         [TestCase(true, false, true)]
         [TestCase(true, true, false)]
-        public void Validate_CalculationWithIncompletSaturatedVolumicWeightDefinition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet, bool shiftSet)
+        public void Validate_CalculationWithIncompleteSaturatedVolumicWeightDefinition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet, bool shiftSet)
         {
             // Setup
             const string name = "<very nice name>";
@@ -678,8 +678,10 @@ namespace Ringtoets.Piping.Service.Test
             pipingCalculation.Name = name;
             pipingCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
 
+            bool isValid = false;
+
             // Call
-            Action call = () => PipingCalculationService.Validate(pipingCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(pipingCalculation);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -691,6 +693,7 @@ namespace Ringtoets.Piping.Service.Test
                                               new RoundedDouble(6, diameter70Value)), msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
+            Assert.IsTrue(isValid);
         }
 
         [Test]

@@ -436,7 +436,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateIrrelevantPipingCalculationScenario(
                     pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
