@@ -39,15 +39,29 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     /// <typeparam name="TFeatureBasedMapData">The type of feature based map data to convert.</typeparam>
     /// <typeparam name="TMapFeatureLayer">The type of map feature layer to set the converted data to.</typeparam>
-    public abstract class FeatureBasedMapDataConverter<TFeatureBasedMapData, TMapFeatureLayer> : IFeatureBasedMapDataConverter
+    public abstract class FeatureBasedMapDataConverter<TFeatureBasedMapData, TMapFeatureLayer>
         where TFeatureBasedMapData : FeatureBasedMapData
         where TMapFeatureLayer : FeatureLayer, IMapFeatureLayer
     {
+        /// <summary>
+        /// Checks whether the <see cref="FeatureBasedMapDataConverter{TFeatureBasedMapData, TMapFeatureLayer}"/> can convert the <paramref name="data"/>.
+        /// </summary>
+        /// <param name="data">The <see cref="FeatureBasedMapData"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref name="data"/> can be converted by the
+        /// <see cref="FeatureBasedMapDataConverter{TFeatureBasedMapData, TMapFeatureLayer}"/>,
+        /// <c>false</c> otherwise.</returns>
         public bool CanConvertMapData(FeatureBasedMapData data)
         {
             return data is TFeatureBasedMapData;
         }
 
+        /// <summary>
+        /// Creates a <see cref="IMapFeatureLayer"/> based on the <paramref name="data"/> that was given.
+        /// </summary>
+        /// <param name="data">The data to transform into a <see cref="IMapFeatureLayer"/>.</param>
+        /// <returns>A new <see cref="IMapFeatureLayer"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <see cref="CanConvertMapData"/> returns <c>false</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         public IMapFeatureLayer Convert(FeatureBasedMapData data)
         {
             ValidateParameters(data);
@@ -60,6 +74,13 @@ namespace Core.Components.DotSpatial.Converter
             return layer;
         }
 
+        /// <summary>
+        /// Converts all feature related data from <paramref name="data"/> to <paramref name="layer"/>.
+        /// </summary>
+        /// <param name="data">The data to convert the feature related data from.</param>
+        /// <param name="layer">The layer to convert the feature related data to.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="CanConvertMapData"/> returns <c>false</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or <paramref name="layer"/> is <c>null</c>.</exception>
         public void ConvertLayerFeatures(FeatureBasedMapData data, IMapFeatureLayer layer)
         {
             ValidateParameters(data, layer);
@@ -67,6 +88,14 @@ namespace Core.Components.DotSpatial.Converter
             ConvertLayerFeaturesInternal(data, layer);
         }
 
+        /// <summary>
+        /// Converts all general properties (like <see cref="FeatureBasedMapData.Name"/> and <see cref="FeatureBasedMapData.IsVisible"/>) 
+        /// from <paramref name="data"/> to <paramref name="layer"/>.
+        /// </summary>
+        /// <param name="data">The data to convert the general properties from.</param>
+        /// <param name="layer">The layer to convert the general properties to.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="CanConvertMapData"/> returns <c>false</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or <paramref name="layer"/> is <c>null</c>.</exception>
         public void ConvertLayerProperties(FeatureBasedMapData data, IMapFeatureLayer layer)
         {
             ValidateParameters(data, layer);

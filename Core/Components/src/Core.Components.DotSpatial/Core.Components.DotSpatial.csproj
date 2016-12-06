@@ -64,7 +64,6 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Converter\IFeatureBasedMapDataConverter.cs" />
     <Compile Include="Converter\FeatureBasedMapDataConverter.cs" />
     <Compile Include="Layer\IFeatureBasedMapDataLayer.cs" />
     <Compile Include="Layer\FeatureBasedMapDataLayerFactory.cs" />

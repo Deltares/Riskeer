@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.Layer;
 using Core.Components.DotSpatial.MapFunctions;
 using Core.Components.Gis.Data;
@@ -255,32 +254,29 @@ namespace Core.Components.DotSpatial.Forms
         {
             for (var i = 0; i < mapDataThatShouldBeDrawn.Count; i++)
             {
-                map.Layers.Move(drawnMapDataLookup[mapDataThatShouldBeDrawn[i]].MapFeatureLayer, i);
+                map.Layers.Move(drawnMapDataLookup[mapDataThatShouldBeDrawn[i]].FeatureBasedMapDataLayer, i);
             }
         }
 
         private void DrawMapData(FeatureBasedMapData featureBasedMapData)
         {
-            var mapFeatureLayer = FeatureBasedMapDataLayerFactory.Create(featureBasedMapData);
+            var featureBasedMapDataLayer = FeatureBasedMapDataLayerFactory.Create(featureBasedMapData);
 
             var drawnMapData = new DrawnMapData
             {
                 FeatureBasedMapData = featureBasedMapData,
                 Features = featureBasedMapData.Features,
-                MapFeatureLayer = mapFeatureLayer
+                FeatureBasedMapDataLayer = featureBasedMapDataLayer
             };
 
-            drawnMapData.Observer = new Observer(() =>
-            {
-                drawnMapData.MapFeatureLayer.Update();
-            })
+            drawnMapData.Observer = new Observer(() => { drawnMapData.FeatureBasedMapDataLayer.Update(); })
             {
                 Observable = featureBasedMapData
             };
 
             drawnMapDataList.Add(drawnMapData);
 
-            map.Layers.Add(mapFeatureLayer);
+            map.Layers.Add(featureBasedMapDataLayer);
         }
 
         private void RemoveMapData(DrawnMapData drawnMapDataToRemove)
@@ -288,7 +284,7 @@ namespace Core.Components.DotSpatial.Forms
             drawnMapDataToRemove.Observer.Dispose();
             drawnMapDataList.Remove(drawnMapDataToRemove);
 
-            map.Layers.Remove(drawnMapDataToRemove.MapFeatureLayer);
+            map.Layers.Remove(drawnMapDataToRemove.FeatureBasedMapDataLayer);
         }
 
         private static IEnumerable<FeatureBasedMapData> GetFeatureBasedMapDataRecursively(MapDataCollection mapDataCollection)
@@ -346,7 +342,7 @@ namespace Core.Components.DotSpatial.Forms
 
             public MapFeature[] Features { get; set; }
 
-            public IFeatureBasedMapDataLayer MapFeatureLayer { get; set; }
+            public IFeatureBasedMapDataLayer FeatureBasedMapDataLayer { get; set; }
 
             public Observer Observer { get; set; }
         }
