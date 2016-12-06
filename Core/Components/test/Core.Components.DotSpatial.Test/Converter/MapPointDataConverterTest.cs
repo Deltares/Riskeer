@@ -74,53 +74,50 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapPointDataConverter();
-
-            MapFeature[] features =
-            {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(1, 2)
-                        }
-                    })
-                }),
-                new MapFeature(Enumerable.Empty<MapGeometry>()),
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(2, 3)
-                        }
-                    })
-                }),
-                new MapFeature(Enumerable.Empty<MapGeometry>()),
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(3, 4)
-                        }
-                    }),
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(5, 6)
-                        }
-                    })
-                })
-            };
-
             var pointData = new MapPointData("test")
             {
-                Features = features
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(1, 2)
+                            }
+                        })
+                    }),
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(2, 3)
+                            }
+                        })
+                    }),
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(3, 4)
+                            }
+                        }),
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(5, 6)
+                            }
+                        })
+                    })
+                }
             };
 
             // Call
@@ -146,14 +143,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                 })
             });
 
-            MapFeature[] features =
-            {
-                mapFeature
-            };
-
             var pointData = new MapPointData("test")
             {
-                Features = features
+                Features = new[]
+                {
+                    mapFeature
+                }
             };
 
             // Call
@@ -161,7 +156,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             IFeature feature = layer.DataSet.Features[0];
-            Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(pointData.Features.Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<Point>(feature.BasicGeometry);
 
             var expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y));

@@ -74,23 +74,21 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapLineDataConverter();
-            MapFeature[] features =
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>()),
-                new MapFeature(Enumerable.Empty<MapGeometry>()),
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
-
             var lineData = new MapLineData("test")
             {
-                Features = features
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                }
             };
 
             // Call
             IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(lineData.Features.Length, layer.DataSet.Features.Count);
         }
 
         [Test]
@@ -112,14 +110,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                 })
             });
 
-            MapFeature[] features =
-            {
-                mapFeature
-            };
-
             var lineData = new MapLineData("test data")
             {
-                Features = features
+                Features = new[]
+                {
+                    mapFeature
+                }
             };
 
             // Call
@@ -127,7 +123,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             IFeature feature = layer.DataSet.Features[0];
-            Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(lineData.Features.Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<LineString>(feature.BasicGeometry);
 
             var expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y));
@@ -162,14 +158,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                 })
             });
 
-            MapFeature[] features =
-            {
-                mapFeature
-            };
-
             var lineData = new MapLineData("test data")
             {
-                Features = features
+                Features = new[]
+                {
+                    mapFeature
+                }
             };
 
             // Call
@@ -177,7 +171,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             IFeature feature = layer.DataSet.Features[0];
-            Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(lineData.Features.Length, layer.DataSet.Features.Count);
             Assert.AreEqual(mapFeature.MapGeometries.Count(), layer.DataSet.ShapeIndices.First().Parts.Count);
             Assert.IsInstanceOf<MultiLineString>(feature.BasicGeometry);
 
