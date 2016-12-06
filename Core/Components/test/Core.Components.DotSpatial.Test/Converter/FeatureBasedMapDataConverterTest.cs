@@ -63,7 +63,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             TestDelegate test = () => testConverter.Convert(null);
 
             // Assert
-            const string expectedMessage = "Null data cannot be converted into a feature layer.";
+            const string expectedMessage = "Null data cannot be converted into a feature layer data.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
@@ -100,6 +100,100 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void ConvertLayerFeatures_DataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
+
+            // Call
+            TestDelegate test = () => testConverter.ConvertLayerFeatures(null, new MapPointLayer());
+
+            // Assert
+            const string expectedMessage = "Null data cannot be converted into a feature layer data.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void ConvertLayerFeatures_DataCannotBeConverted_ThrowsArgumentException()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
+            var testFeatureBasedMapData = new TestFeatureBasedMapData("test data");
+
+            // Precondition
+            Assert.IsFalse(testConverter.CanConvertMapData(testFeatureBasedMapData));
+
+            // Call
+            TestDelegate test = () => testConverter.ConvertLayerFeatures(testFeatureBasedMapData, new MapPointLayer());
+
+            // Assert
+            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testFeatureBasedMapData.GetType());
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void ConvertLayerFeatures_TargetLayerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testFeatureBasedMapData = new TestFeatureBasedMapData("test data");
+
+            // Call
+            TestDelegate test = () => testConverter.ConvertLayerFeatures(testFeatureBasedMapData, null);
+
+            // Assert
+            const string expectedMessage = "Null data cannot be used as conversion target.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_DataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
+
+            // Call
+            TestDelegate test = () => testConverter.ConvertLayerProperties(null, new MapPointLayer());
+
+            // Assert
+            const string expectedMessage = "Null data cannot be converted into a feature layer data.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_DataCannotBeConverted_ThrowsArgumentException()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
+            var testFeatureBasedMapData = new TestFeatureBasedMapData("test data");
+
+            // Precondition
+            Assert.IsFalse(testConverter.CanConvertMapData(testFeatureBasedMapData));
+
+            // Call
+            TestDelegate test = () => testConverter.ConvertLayerProperties(testFeatureBasedMapData, new MapPointLayer());
+
+            // Assert
+            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testFeatureBasedMapData.GetType());
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_TargetLayerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testFeatureBasedMapData = new TestFeatureBasedMapData("test data");
+
+            // Call
+            TestDelegate test = () => testConverter.ConvertLayerProperties(testFeatureBasedMapData, null);
+
+            // Assert
+            const string expectedMessage = "Null data cannot be used as conversion target.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         private class Class : FeatureBasedMapData

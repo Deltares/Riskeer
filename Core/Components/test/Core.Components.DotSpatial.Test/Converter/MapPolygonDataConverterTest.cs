@@ -26,7 +26,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
@@ -288,38 +287,6 @@ namespace Core.Components.DotSpatial.Test.Converter
             layer.DataSet.InitializeVertices();
             List<PartRange> layerGeometries = layer.DataSet.ShapeIndices.First().Parts;
             Assert.AreEqual(geometries.Length, layerGeometries.Count);
-        }
-
-        [Test]
-        public void Convert_DataNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var testConverter = new MapPolygonDataConverter();
-
-            // Call
-            TestDelegate test = () => testConverter.Convert(null);
-
-            // Assert
-            const string expectedMessage = "Null data cannot be converted into a feature layer.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void Convert_DataCannotBeConverted_ThrowsArgumentException()
-        {
-            // Setup
-            var testConverter = new MapPolygonDataConverter();
-            var testFeatureBasedMapData = new TestFeatureBasedMapData("test data");
-
-            // Precondition
-            Assert.IsFalse(testConverter.CanConvertMapData(testFeatureBasedMapData));
-
-            // Call
-            TestDelegate test = () => testConverter.Convert(testFeatureBasedMapData);
-
-            // Assert
-            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testFeatureBasedMapData.GetType());
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
