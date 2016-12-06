@@ -18,7 +18,6 @@
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
-
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
@@ -29,7 +28,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 

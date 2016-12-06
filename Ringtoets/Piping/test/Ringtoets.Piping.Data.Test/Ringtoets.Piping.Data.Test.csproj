@@ -99,6 +99,10 @@
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Data.TestUtil\Ringtoets.HydraRing.Data.TestUtil.csproj">
+      <Project>{c033c69a-a1e3-4438-9c2c-eecca27bcba3}</Project>
+      <Name>Ringtoets.HydraRing.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
       <Name>Ringtoets.Piping.KernelWrapper</Name>

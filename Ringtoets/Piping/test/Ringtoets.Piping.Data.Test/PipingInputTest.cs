@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.Data.TestUtil;
 using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
@@ -383,7 +383,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = new PipingInput(new GeneralPipingInput());
-            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0);
+            input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
             var calculatedAssessmentLevel = input.AssessmentLevel;
@@ -399,10 +399,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = new PipingInput(new GeneralPipingInput());
 
             RoundedDouble testLevel = (RoundedDouble) new Random(21).NextDouble();
-            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
-            {
-                DesignWaterLevel = testLevel
-            };
+            input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(testLevel);
 
             // Call
             RoundedDouble calculatedAssessmentLevel = input.AssessmentLevel;
@@ -435,10 +432,7 @@ namespace Ringtoets.Piping.Data.Test
 
             var random = new Random(21);
             RoundedDouble testLevel = (RoundedDouble) random.NextDouble();
-            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
-            {
-                DesignWaterLevel = testLevel
-            };
+            input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(testLevel);
 
             var newLevel = (RoundedDouble) random.NextDouble();
 
@@ -462,10 +456,7 @@ namespace Ringtoets.Piping.Data.Test
             input.AssessmentLevel = testLevel;
 
             var newLevel = (RoundedDouble) random.NextDouble();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
-            {
-                DesignWaterLevel = newLevel
-            };
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(newLevel);
 
             // When
             input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
