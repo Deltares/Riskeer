@@ -222,15 +222,23 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const double modelFactorCriticalOvertopping = 5.5;
             const double factorFbMean = 6.6;
             const double factorFbStandardDeviation = 7.7;
+            const double factorFbLowerBoundary = 17.7;
+            const double factorFbUpperBoundary = 18.8;
             const double factorFnMean = 8.8;
             const double factorFnStandardDeviation = 9.9;
+            const double factorFnLowerBoundary = 19.9;
+            const double factorFnUpperBoundary = 20.0;
             const double modelFactorOvertopping = 10.10;
             const double criticalOvertoppingMean = 11.11;
             const double criticalOvertoppingStandardDeviation = 12.12;
             const double modelFactorFrunupMean = 13.13;
             const double modelFactorFrunupStandardDeviation = 14.14;
+            const double modelFactorFrunupLowerBoundary = 21.1;
+            const double modelFactorFrunupUpperBoundary = 22.2;
             const double exponentModelFactorShallowMean = 15.15;
             const double exponentModelFactorShallowStandardDeviation = 16.16;
+            const double exponentModelFactorShallowLowerBoundary = 23.3;
+            const double exponentModelFactorShallowUpperBoundary = 24.4;
             var profilePoints = new List<HydraRingRoughnessProfilePoint>
             {
                 new HydraRingRoughnessProfilePoint(1.1, 2.2, 3.3)
@@ -249,11 +257,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                     dikeHeight,
                     modelFactorCriticalOvertopping,
                     factorFbMean, factorFbStandardDeviation,
+                    factorFbLowerBoundary, factorFbUpperBoundary,
                     factorFnMean, factorFnStandardDeviation,
+                    factorFnLowerBoundary, factorFnUpperBoundary,
                     modelFactorOvertopping,
                     criticalOvertoppingMean, criticalOvertoppingStandardDeviation,
                     modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
-                    exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation)
+                    modelFactorFrunupLowerBoundary, modelFactorFrunupUpperBoundary,
+                    exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
+                    exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary)
                 {
                     DesignTablesSetting = new DesignTablesSetting(17.17, 18.18),
                     NumericsSettings = new Dictionary<int, NumericsSetting>
@@ -287,12 +299,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 1, 4.4, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 8, 5.5, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 10, 0, 2, 6.6, 7.7, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 11, 0, 2, 8.8, 9.9, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 10, 0, 19, 6.6, 7.7, 17.7, 18.8, 1, 0, 300);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 11, 0, 19, 8.8, 9.9, 19.9, 20, 1, 0, 300);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 12, 10.1, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 17, 0, 4, 11.11, 12.12, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 120, 0, 2, 13.13, 14.14, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 123, 0, 2, 15.15, 16.16, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 120, 0, 19, 13.13, 14.14, 21.1, 22.2, 1, 0, 300);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 123, 0, 19, 15.15, 16.16, 23.3, 24.4, 1, 0, 300);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                             "INSERT INTO [CalculationProfiles] VALUES (1, 1, 1.1, 2.2, 3.3);" + Environment.NewLine +

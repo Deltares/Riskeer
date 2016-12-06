@@ -43,15 +43,24 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             const double modelFactorCriticalOvertopping = 2.2;
             const double factorFbMean = 3.3;
             const double factorFbStandardDeviation = 4.4;
+            const double factorFbLowerBoundary = 14.4;
+            const double factorFbUpperBoundary = 15.5;
             const double factorFnMean = 5.5;
             const double factorFnStandardDeviation = 6.6;
+            const double factorFnLowerBoundary = 16.6;
+            const double factorFnUpperBoundary = 17.7;
             const double modelFactorOvertopping = 7.7;
             const double criticalOvertoppingMean = 8.8;
             const double criticalOvertoppingStandardDeviation = 9.9;
             const double modelFactorFrunupMean = 10.0;
             const double modelFactorFrunupStandardDeviation = 11.1;
+            const double modelFactorFrunupLowerBoundary = 18.8;
+            const double modelFactorFrunupUpperBoundary = 19.9;
             const double exponentModelFactorShallowMean = 12.2;
             const double exponentModelFactorShallowStandardDeviation = 13.3;
+            const double exponentModelFactorShallowLowerBoundary = 20.0;
+            const double exponentModelFactorShallowUpperBoundary = 21.1;
+
             var expectedRingProfilePoints = new List<HydraRingRoughnessProfilePoint>
             {
                 new HydraRingRoughnessProfilePoint(1.1, 2.2, 3.3)
@@ -69,11 +78,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
                                                                                                       dikeHeight,
                                                                                                       modelFactorCriticalOvertopping,
                                                                                                       factorFbMean, factorFbStandardDeviation,
+                                                                                                      factorFbLowerBoundary, factorFbUpperBoundary,
                                                                                                       factorFnMean, factorFnStandardDeviation,
+                                                                                                      factorFnLowerBoundary, factorFnUpperBoundary,
                                                                                                       modelFactorOvertopping,
                                                                                                       criticalOvertoppingMean, criticalOvertoppingStandardDeviation,
                                                                                                       modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
-                                                                                                      exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation);
+                                                                                                      modelFactorFrunupLowerBoundary, modelFactorFrunupUpperBoundary,
+                                                                                                      exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
+                                                                                                      exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary);
 
             // Assert
             const int expectedCalculationTypeId = 1;
@@ -109,7 +122,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
                                                                                                       new List<HydraRingRoughnessProfilePoint>(),
                                                                                                       new List<HydraRingForelandPoint>(),
                                                                                                       new HydraRingBreakWater(0, 1.1),
-                                                                                                      2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+                                                                                                      2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+                                                                                                      15, 16, 17, 18, 19, 20, 21, 22);
 
             // Assert
             Assert.AreEqual(expectedSubMechanismModelId, overtoppingCalculationInput.GetSubMechanismModelId(subMechanismModelId));
@@ -119,12 +133,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
         {
             yield return new DeterministicHydraRingVariable(1, 1.1);
             yield return new DeterministicHydraRingVariable(8, 2.2);
-            yield return new NormalHydraRingVariable(10, HydraRingDeviationType.Standard, 3.3, 4.4);
-            yield return new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 5.5, 6.6);
+            yield return new TruncatedNormalHydraRingVariable(10, HydraRingDeviationType.Standard, 3.3, 4.4, 14.4, 15.5);
+            yield return new TruncatedNormalHydraRingVariable(11, HydraRingDeviationType.Standard, 5.5, 6.6, 16.6, 17.7);
             yield return new DeterministicHydraRingVariable(12, 7.7);
             yield return new LogNormalHydraRingVariable(17, HydraRingDeviationType.Standard, 8.8, 9.9);
-            yield return new NormalHydraRingVariable(120, HydraRingDeviationType.Standard, 10.0, 11.1);
-            yield return new NormalHydraRingVariable(123, HydraRingDeviationType.Standard, 12.2, 13.3);
+            yield return new TruncatedNormalHydraRingVariable(120, HydraRingDeviationType.Standard, 10.0, 11.1, 18.8, 19.9);
+            yield return new TruncatedNormalHydraRingVariable(123, HydraRingDeviationType.Standard, 12.2, 13.3, 20.0, 21.1);
         }
     }
 }

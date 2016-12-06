@@ -36,14 +36,22 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         private readonly double modelFactorCriticalOvertopping;
         private readonly double factorFbMean;
         private readonly double factorFbStandardDeviation;
+        private readonly double factorFbLowerBoundary;
+        private readonly double factorFbUpperBoundary;
         private readonly double factorFnMean;
         private readonly double factorFnStandardDeviation;
+        private readonly double factorFnLowerBoundary;
+        private readonly double factorFnUpperBoundary;
         private readonly double modelFactorOvertopping;
         private readonly double criticalOvertoppingMean;
         private readonly double criticalOvertoppingStandardDeviation;
         private readonly double modelFactorFrunupStandardDeviation;
+        private readonly double modelFactorFrunupLowerBoundary;
+        private readonly double modelFactorFrunupUpperBoundary;
         private readonly double modelFactorFrunupMean;
         private readonly double exponentModelFactorShallowStandardDeviation;
+        private readonly double exponentModelFactorShallowLowerBoundary;
+        private readonly double exponentModelFactorShallowUpperBoundary;
         private readonly double exponentModelFactorShallowMean;
 
         /// <summary>
@@ -58,15 +66,23 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         /// <param name="modelFactorCriticalOvertopping">The model factor critical overtopping.</param>
         /// <param name="factorFbMean">The mean of the factor Fb</param>
         /// <param name="factorFbStandardDeviation">The standard deviation of the factor Fb.</param>
+        /// <param name="factorFbLowerBoundary">The lower boundary of the factor Fb.</param>
+        /// <param name="factorFbUpperBoundary">The upper boundary of the factor Fb.</param>
         /// <param name="factorFnMean">The mean of the factor Fn.</param>
-        /// <param name="factorFnStandardDeviation">The standard deviation of the factor Fn.</param>
+        /// <param name="factorFnStandardDeviation">The standard deviation of the factor Fn.</param>    
+        /// <param name="factorFnLowerBoundary">The lower boundary of the factor Fn.</param>
+        /// <param name="factorFnUpperBoundary">The upper boundary of the factor Fn.</param>    
         /// <param name="modelFactorOvertopping">The factor overtopping.</param>
         /// <param name="criticalOvertoppingMean">The mean of the critical overtopping.</param>
         /// <param name="criticalOvertoppingStandardDeviation">The standard deviation of the critical overtopping.</param>
         /// <param name="modelFactorFrunupMean">The mean of the factor frunup.</param>
         /// <param name="modelFactorFrunupStandardDeviation">The standard deviation of the factor frunup.</param>
+        /// <param name="modelFactorFrunupLowerBoundary">Thw lower boundary of the factor frunup.</param>
+        /// <param name="modelFactorFrunupUpperBoundary">Thw upper boundary of the factor frunup.</param>
         /// <param name="exponentModelFactorShallowMean">The mean of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowStandardDeviation">The standard deviation of the exponent model factor shallow.</param>
+        /// <param name="exponentModelFactorShallowLowerBoundary">Thw lower boundary of the exponent model factor shallow.</param>
+        /// <param name="exponentModelFactorShallowUpperBoundary">Thw upper boundary of the exponent model factor shallow.</param>
         public OvertoppingCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
                                            IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
                                            IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -74,11 +90,15 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
                                            double dikeHeight,
                                            double modelFactorCriticalOvertopping,
                                            double factorFbMean, double factorFbStandardDeviation,
+                                           double factorFbLowerBoundary, double factorFbUpperBoundary,
                                            double factorFnMean, double factorFnStandardDeviation,
+                                           double factorFnLowerBoundary, double factorFnUpperBoundary,
                                            double modelFactorOvertopping,
                                            double criticalOvertoppingMean, double criticalOvertoppingStandardDeviation,
                                            double modelFactorFrunupMean, double modelFactorFrunupStandardDeviation,
-                                           double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation)
+                                           double modelFactorFrunupLowerBoundary, double modelFactorFrunupUpperBoundary,
+                                           double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation,
+                                           double exponentModelFactorShallowLowerBoundary, double exponentModelFactorShallowUpperBoundary)
             : base(hydraulicBoundaryLocationId)
         {
             this.section = section;
@@ -89,13 +109,21 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
             this.modelFactorCriticalOvertopping = modelFactorCriticalOvertopping;
             this.factorFbMean = factorFbMean;
             this.factorFbStandardDeviation = factorFbStandardDeviation;
+            this.factorFbLowerBoundary = factorFbLowerBoundary;
+            this.factorFbUpperBoundary = factorFbUpperBoundary;
             this.factorFnMean = factorFnMean;
             this.factorFnStandardDeviation = factorFnStandardDeviation;
+            this.factorFnLowerBoundary = factorFnLowerBoundary;
+            this.factorFnUpperBoundary = factorFnUpperBoundary;
             this.modelFactorOvertopping = modelFactorOvertopping;
             this.modelFactorFrunupMean = modelFactorFrunupMean;
             this.modelFactorFrunupStandardDeviation = modelFactorFrunupStandardDeviation;
+            this.modelFactorFrunupLowerBoundary = modelFactorFrunupLowerBoundary;
+            this.modelFactorFrunupUpperBoundary = modelFactorFrunupUpperBoundary;
             this.exponentModelFactorShallowMean = exponentModelFactorShallowMean;
             this.exponentModelFactorShallowStandardDeviation = exponentModelFactorShallowStandardDeviation;
+            this.exponentModelFactorShallowLowerBoundary = exponentModelFactorShallowLowerBoundary;
+            this.exponentModelFactorShallowUpperBoundary = exponentModelFactorShallowUpperBoundary;
             this.criticalOvertoppingMean = criticalOvertoppingMean;
             this.criticalOvertoppingStandardDeviation = criticalOvertoppingStandardDeviation;
         }
@@ -130,12 +158,17 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
             {
                 yield return new DeterministicHydraRingVariable(1, dikeHeight);
                 yield return new DeterministicHydraRingVariable(8, modelFactorCriticalOvertopping);
-                yield return new NormalHydraRingVariable(10, HydraRingDeviationType.Standard, factorFbMean, factorFbStandardDeviation);
-                yield return new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, factorFnMean, factorFnStandardDeviation);
+                yield return new TruncatedNormalHydraRingVariable(10, HydraRingDeviationType.Standard, factorFbMean, factorFbStandardDeviation,
+                                                                  factorFbLowerBoundary, factorFbUpperBoundary);
+                yield return new TruncatedNormalHydraRingVariable(11, HydraRingDeviationType.Standard, factorFnMean, factorFnStandardDeviation,
+                                                                  factorFnLowerBoundary, factorFnUpperBoundary);
                 yield return new DeterministicHydraRingVariable(12, modelFactorOvertopping);
                 yield return new LogNormalHydraRingVariable(17, HydraRingDeviationType.Standard, criticalOvertoppingMean, criticalOvertoppingStandardDeviation);
-                yield return new NormalHydraRingVariable(120, HydraRingDeviationType.Standard, modelFactorFrunupMean, modelFactorFrunupStandardDeviation);
-                yield return new NormalHydraRingVariable(123, HydraRingDeviationType.Standard, exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation);
+                yield return new TruncatedNormalHydraRingVariable(120, HydraRingDeviationType.Standard, modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
+                                                                  modelFactorFrunupLowerBoundary, modelFactorFrunupUpperBoundary);
+                yield return new TruncatedNormalHydraRingVariable(123, HydraRingDeviationType.Standard, exponentModelFactorShallowMean,
+                                                                  exponentModelFactorShallowStandardDeviation, exponentModelFactorShallowLowerBoundary,
+                                                                  exponentModelFactorShallowUpperBoundary);
             }
         }
 
