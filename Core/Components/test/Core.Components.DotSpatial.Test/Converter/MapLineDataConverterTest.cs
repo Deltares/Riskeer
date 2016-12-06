@@ -189,15 +189,14 @@ namespace Core.Components.DotSpatial.Test.Converter
         [TestCase(KnownColor.AliceBlue)]
         [TestCase(KnownColor.Azure)]
         [TestCase(KnownColor.Beige)]
-        public void Convert_WithDifferentColors_AppliesStyleToLayer(KnownColor color)
+        public void Convert_MapDataStyleSetWithDifferentColors_AppliesStyleToLayer(KnownColor color)
         {
             // Setup
             var converter = new MapLineDataConverter();
             var expectedColor = Color.FromKnownColor(color);
-            var style = new LineStyle(expectedColor, 3, DashStyle.Solid);
             var data = new MapLineData("test")
             {
-                Style = style
+                Style = new LineStyle(expectedColor, 3, DashStyle.Solid)
             };
 
             // Call
@@ -211,14 +210,13 @@ namespace Core.Components.DotSpatial.Test.Converter
         [TestCase(1)]
         [TestCase(5)]
         [TestCase(7)]
-        public void Convert_WithDifferentWidths_AppliesStyleToLayer(int width)
+        public void Convert_MapDataStyleSetWithDifferentWidths_AppliesStyleToLayer(int width)
         {
             // Setup
             var converter = new MapLineDataConverter();
-            var style = new LineStyle(Color.AliceBlue, width, DashStyle.Solid);
             var data = new MapLineData("test")
             {
-                Style = style
+                Style = new LineStyle(Color.AliceBlue, width, DashStyle.Solid)
             };
 
             // Call
@@ -232,14 +230,13 @@ namespace Core.Components.DotSpatial.Test.Converter
         [TestCase(DashStyle.Solid)]
         [TestCase(DashStyle.Dash)]
         [TestCase(DashStyle.Dot)]
-        public void Convert_WithDifferentLineStyles_AppliesStyleToLayer(DashStyle lineStyle)
+        public void Convert_MapDataStyleSetWithDifferentLineStyles_AppliesStyleToLayer(DashStyle lineStyle)
         {
             // Setup
             var converter = new MapLineDataConverter();
-            var style = new LineStyle(Color.AliceBlue, 3, lineStyle);
             var data = new MapLineData("test")
             {
-                Style = style
+                Style = new LineStyle(Color.AliceBlue, 3, lineStyle)
             };
 
             // Call

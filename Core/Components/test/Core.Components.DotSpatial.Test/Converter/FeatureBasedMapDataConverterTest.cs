@@ -89,23 +89,6 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_DataCanBeConverted_ReturnsResult()
-        {
-            // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
-            var testFeatureBasedMapData = new TestFeatureBasedMapData("test data");
-
-            // Precondition
-            Assert.IsTrue(testConverter.CanConvertMapData(testFeatureBasedMapData));
-
-            // Call
-            var result = testConverter.Convert(testFeatureBasedMapData);
-
-            // Assert
-            Assert.IsNotNull(result);
-        }
-
-        [Test]
         public void ConvertLayerFeatures_DataNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -434,7 +417,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             protected override IMapFeatureLayer CreateLayer()
             {
-                return new MapPointLayer();
+                throw new NotImplementedException();
             }
 
             protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
