@@ -489,4 +489,10 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="FailureMechanismSectionReader_File_has_section_without_sectionName" xml:space="preserve">
     <value>Voor één of meerdere vakken is geen naam opgegeven.</value>
   </data>
+  <data name="HydraulicBoundaryLocation_Name" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="HydraulicBoundaryLocation_Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
 </root>

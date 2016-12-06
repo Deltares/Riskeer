@@ -27,9 +27,10 @@ using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.Common.IO.Test
+namespace Ringtoets.Common.IO.Test.Hydraulics
 {
     public class HydraulicBoundaryLocationsExporterTest
     {

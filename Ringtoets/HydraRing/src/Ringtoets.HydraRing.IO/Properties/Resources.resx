@@ -129,12 +129,6 @@
   <data name="HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception" xml:space="preserve">
     <value>Het bevragen van de database is mislukt.</value>
   </data>
-  <data name="HydraulicBoundaryLocation_Name" xml:space="preserve">
-    <value>Naam</value>
-  </data>
-  <data name="HydraulicBoundaryLocation_Id" xml:space="preserve">
-    <value>ID</value>
-  </data>
   <data name="HydraulicDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_" xml:space="preserve">
     <value>Het opgegeven bestandspad ({0}) is niet geldig.</value>
   </data>

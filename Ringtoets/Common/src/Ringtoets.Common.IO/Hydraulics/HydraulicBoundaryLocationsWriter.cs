@@ -28,10 +28,10 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Writers;
+using Ringtoets.Common.IO.Properties;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.IO.Properties;
 
-namespace Ringtoets.HydraRing.IO
+namespace Ringtoets.Common.IO.Hydraulics
 {
     /// <summary>
     /// Shapefile writer that writes the locations of a collection of <see cref="HydraulicBoundaryLocation"/> as point features.

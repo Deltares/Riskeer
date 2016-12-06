@@ -100,24 +100,6 @@ namespace Ringtoets.HydraRing.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID.
-        /// </summary>
-        public static string HydraulicBoundaryLocation_Id {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocation_Id", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string HydraulicBoundaryLocation_Name {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocation_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het opgegeven bestandspad ({0}) is niet geldig..
         /// </summary>
         public static string HydraulicDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_ {

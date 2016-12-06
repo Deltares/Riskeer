@@ -68,7 +68,8 @@
     <Compile Include="HydraRing\HydraulicDatabaseHelperTest.cs" />
     <Compile Include="HydraRing\TimeIntegrationSettingsProviderTest.cs" />
     <Compile Include="HydraRing\NumericsSettingsProviderTest.cs" />
-    <Compile Include="HydraulicBoundaryLocationsExporterTest.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryLocationsExporterTest.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryLocationsWriterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLinesMetaReaderTest.cs" />

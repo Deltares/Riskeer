@@ -27,9 +27,8 @@ using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.IO;
 
-namespace Ringtoets.Common.IO
+namespace Ringtoets.Common.IO.Hydraulics
 {
     /// <summary>
     /// Exports hydraulic boundary locations and stores them as a shapefile.

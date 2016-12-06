@@ -584,6 +584,24 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string HydraulicBoundaryLocation_Id {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocation_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string HydraulicBoundaryLocation_Name {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocation_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd..
         /// </summary>
         public static string HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported {

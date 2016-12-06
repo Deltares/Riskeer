@@ -72,7 +72,8 @@
     <Compile Include="HydraRing\HydraulicDatabaseHelper.cs" />
     <Compile Include="HydraRing\TimeIntegrationSettingsProvider.cs" />
     <Compile Include="HydraRing\NumericsSettingsProvider.cs" />
-    <Compile Include="HydraulicBoundaryLocationsExporter.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryLocationsExporter.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryLocationsWriter.cs" />
     <Compile Include="ReferenceLines\IReferenceLineReplaceHandler.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporter.cs" />
