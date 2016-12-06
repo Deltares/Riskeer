@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service.MessageProviders;
@@ -96,7 +97,8 @@ namespace Ringtoets.Common.Service
 
             try
             {
-                calculator.Calculate(CreateInput(hydraulicBoundaryLocation, norm, hydraulicBoundaryDatabaseFilePath));
+                WaveHeightCalculationInput calculationInput = CreateInput(hydraulicBoundaryLocation, norm, hydraulicBoundaryDatabaseFilePath);
+                calculator.Calculate(calculationInput);
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
@@ -104,10 +106,10 @@ namespace Ringtoets.Common.Service
                     hydraulicBoundaryLocation.WaveHeightCalculationConvergence =
                         RingtoetsCommonDataCalculationService.CalculationConverged(calculator.ReliabilityIndex, norm);
 
-                    if (hydraulicBoundaryLocation.WaveHeightCalculationConvergence != CalculationConvergence.CalculatedConverged)
-                    {
-                        log.Warn(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocation.Name));
-                    }
+                    hydraulicBoundaryLocation.WaveHeightOutput = CreateHydraulicBoundaryLocationOutput(messageProvider,
+                                                                                                             hydraulicBoundaryLocation.Name,
+                                                                                                             calculationInput.Beta,
+                                                                                                             norm);
                 }
             }
             catch (HydraRingFileParserException)
@@ -152,6 +154,32 @@ namespace Ringtoets.Common.Service
                 calculator.Cancel();
                 canceled = true;
             }
+        }
+
+        private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(ICalculationMessageProvider messageProvider,
+                                                                                      string hydraulicBoundaryLocationName,
+                                                                                      double targetReliability,
+                                                                                      double targetProbability)
+        {
+            var designWaterLevel = calculator.WaveHeight;
+            var reliability = calculator.ReliabilityIndex;
+            var probability = StatisticsConverter.ReliabilityToProbability(reliability);
+
+            CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(
+                calculator.ReliabilityIndex, targetProbability);
+
+            if (converged != CalculationConvergence.CalculatedConverged)
+            {
+                log.Warn(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocationName));
+            }
+
+            return new HydraulicBoundaryLocationOutput(
+                designWaterLevel,
+                targetProbability,
+                targetReliability,
+                probability,
+                reliability,
+                converged);
         }
 
         private WaveHeightCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm, string hydraulicBoundaryDatabaseFilePath)

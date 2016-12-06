@@ -26,7 +26,7 @@ using Ringtoets.HydraRing.Data.Properties;
 namespace Ringtoets.HydraRing.Data
 {
     /// <summary>
-    /// This class contains the result of assessment level calculation for an <see cref="HydraulicBoundaryLocation"/>.
+    /// This class contains the result a calculation for a <see cref="HydraulicBoundaryLocation"/>.
     /// </summary>
     public class HydraulicBoundaryLocationOutput
     {

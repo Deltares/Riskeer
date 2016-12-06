@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.HydraRing.Data.TestUtil
@@ -35,14 +34,15 @@ namespace Ringtoets.HydraRing.Data.TestUtil
         /// specified design water level.
         /// </summary>
         /// <param name="designWaterLevel">The design water level of the location.</param>
-        public TestHydraulicBoundaryLocation(RoundedDouble designWaterLevel) : base(0, String.Empty, 0, 0)
+        public TestHydraulicBoundaryLocation(RoundedDouble designWaterLevel) : base(0, string.Empty, 0, 0)
         {
+            DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(designWaterLevel, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
             DesignWaterLevel = designWaterLevel;
         }
 
         /// <summary>
         /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/>.
         /// </summary>
-        public TestHydraulicBoundaryLocation() : this(RoundedDouble.NaN) { }
+        public TestHydraulicBoundaryLocation() : this(RoundedDouble.NaN) {}
     }
 }

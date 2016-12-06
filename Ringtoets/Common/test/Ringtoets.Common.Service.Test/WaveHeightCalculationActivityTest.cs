@@ -123,10 +123,10 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)
-            {
-                WaveHeight = new RoundedDouble(2, double.NaN)
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0);
+
+            // Precondition
+            Assert.AreEqual((RoundedDouble)double.NaN, hydraulicBoundaryLocation.WaveHeight);
 
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, inValidFilePath, string.Empty, 1, calculationMessageProviderMock);
 
@@ -156,10 +156,10 @@ namespace Ringtoets.Common.Service.Test
             const string ringId = "11-1";
             const double norm = 1.0/30;
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
-            {
-                WaveHeight = new RoundedDouble(2, double.NaN)
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0);
+
+            // Precondition
+            Assert.AreEqual((RoundedDouble)double.NaN, hydraulicBoundaryLocation.WaveHeight);
 
             var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(activityName);
