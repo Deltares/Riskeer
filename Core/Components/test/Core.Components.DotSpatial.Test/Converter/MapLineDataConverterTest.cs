@@ -189,7 +189,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         [TestCase(KnownColor.AliceBlue)]
         [TestCase(KnownColor.Azure)]
         [TestCase(KnownColor.Beige)]
-        public void Convert_MapDataStyleSetWithDifferentColors_AppliesStyleToLayer(KnownColor color)
+        public void Convert_LineStyleSetWithDifferentColors_AppliesStyleToLayer(KnownColor color)
         {
             // Setup
             var converter = new MapLineDataConverter();
@@ -210,7 +210,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         [TestCase(1)]
         [TestCase(5)]
         [TestCase(7)]
-        public void Convert_MapDataStyleSetWithDifferentWidths_AppliesStyleToLayer(int width)
+        public void Convert_LineStyleSetWithDifferentWidths_AppliesStyleToLayer(int width)
         {
             // Setup
             var converter = new MapLineDataConverter();
@@ -230,7 +230,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         [TestCase(DashStyle.Solid)]
         [TestCase(DashStyle.Dash)]
         [TestCase(DashStyle.Dot)]
-        public void Convert_MapDataStyleSetWithDifferentLineStyles_AppliesStyleToLayer(DashStyle lineStyle)
+        public void Convert_LineStyleSetWithDifferentLineStyles_AppliesStyleToLayer(DashStyle lineStyle)
         {
             // Setup
             var converter = new MapLineDataConverter();

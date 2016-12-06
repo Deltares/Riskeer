@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -35,6 +33,7 @@ using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
 using NUnit.Framework;
+using Point = DotSpatial.Topology.Point;
 using PointShape = DotSpatial.Symbology.PointShape;
 
 namespace Core.Components.DotSpatial.Test.Converter
@@ -53,176 +52,30 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Convert_RandomPointDataWithoutAttributes_ReturnsNewMapPointLayerWithDefaultLabelLayer(bool showLabels)
+        public void Convert_SimpleMapPointData_ReturnMapPointLayer()
         {
             // Setup
             var converter = new MapPointDataConverter();
-            var random = new Random(21);
-            var randomCount = random.Next(5, 10);
-            var features = new List<MapFeature>();
-
-            for (var i = 0; i < randomCount; i++)
-            {
-                features.Add(new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(random.NextDouble(), random.NextDouble())
-                        }
-                    })
-                }));
-            }
-
             var pointData = new MapPointData("test data")
             {
-                Features = features.ToArray(),
-                ShowLabels = showLabels
+                Features = new MapFeature[0]
             };
 
             // Call
             IMapFeatureLayer layer = converter.Convert(pointData);
 
             // Assert
-            Assert.AreEqual(pointData.Features.Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPointLayer>(layer);
             Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
-            
-            IEnumerable<Point2D> points = pointData.Features.First().MapGeometries.First().PointCollections.First();
-            CollectionAssert.AreEqual(points.Select(p => new Coordinate(p.X, p.Y)), layer.DataSet.Features[0].Coordinates);            
-            Assert.AreEqual(showLabels, layer.ShowLabels);
-            CollectionAssert.IsEmpty(layer.DataSet.GetColumns());
-
-            Assert.IsNotNull(layer.LabelLayer);
-            Assert.AreEqual("FID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
-            Assert.IsNull(layer.LabelLayer.Symbology.Categories[0].Expression);
         }
 
         [Test]
-        public void Convert_RandomPointDataWithAttributesShowLabelsFalse_ReturnsNewMapPointLayerWithDefaultLabelLayer()
+        public void Convert_MapPointDataWithMultipleFeatures_ConvertsEachGeometryAsSingleFeature()
         {
             // Setup
             var converter = new MapPointDataConverter();
-            var random = new Random(21);
-            var randomCount = random.Next(5, 10);
-            var features = new List<MapFeature>();
 
-            for (var i = 0; i < randomCount; i++)
-            {
-                var mapFeature = new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(random.NextDouble(), random.NextDouble())
-                        }
-                    })
-                });
-                mapFeature.MetaData["ID"] = random.NextDouble();
-                mapFeature.MetaData["Name"] = string.Format("feature [{0}]", i);
-
-                features.Add(mapFeature);
-            }
-
-            var pointData = new MapPointData("test data")
-            {
-                Features = features.ToArray(),
-                ShowLabels = false
-            };
-
-            // Call
-            IMapFeatureLayer layer = converter.Convert(pointData);
-
-            // Assert
-            Assert.AreEqual(pointData.Features.Length, layer.DataSet.Features.Count);
-            Assert.IsInstanceOf<MapPointLayer>(layer);
-            Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
-            
-            IEnumerable<Point2D> points = pointData.Features.First().MapGeometries.First().PointCollections.First();
-            CollectionAssert.AreEqual(points.Select(p => new Coordinate(p.X, p.Y)), layer.DataSet.Features[0].Coordinates);
-            Assert.IsFalse(layer.ShowLabels);
-
-            DataColumn[] dataColumns = layer.DataSet.GetColumns();
-            Assert.AreEqual(2, dataColumns.Length);
-            Assert.AreEqual("1", dataColumns[0].ColumnName);
-            Assert.AreEqual("2", dataColumns[1].ColumnName);
-
-            Assert.IsNotNull(layer.LabelLayer);
-            Assert.AreEqual("FID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
-            Assert.IsNull(layer.LabelLayer.Symbology.Categories[0].Expression);
-        }
-
-        [Test]
-        [TestCase("ID", 1)]
-        [TestCase("Name", 2)]
-        public void Convert_RandomPointDataWithAttributesShowLabelsTrue_ReturnsNewMapPointLayerWithCustomLabelLayer(string selectedAttribute, int selectedAttributeId)
-        {
-            // Setup
-            var converter = new MapPointDataConverter();
-            var random = new Random(21);
-            var randomCount = random.Next(5, 10);
-            var features = new List<MapFeature>();
-
-            for (var i = 0; i < randomCount; i++)
-            {
-                var mapFeature = new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(random.NextDouble(), random.NextDouble())
-                        }
-                    })
-                });
-                mapFeature.MetaData["ID"] = random.NextDouble();
-                mapFeature.MetaData["Name"] = string.Format("feature [{0}]", i);
-
-                features.Add(mapFeature);
-            }
-
-            var pointData = new MapPointData("test data")
-            {
-                Features = features.ToArray(),
-                ShowLabels = true,
-                SelectedMetaDataAttribute = selectedAttribute
-            };
-
-            // Call
-            IMapFeatureLayer layer = converter.Convert(pointData);
-
-            // Assert
-            Assert.AreEqual(pointData.Features.Length, layer.DataSet.Features.Count);
-            Assert.IsInstanceOf<MapPointLayer>(layer);
-            Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
-
-            IEnumerable<Point2D> points = pointData.Features.First().MapGeometries.First().PointCollections.First();
-            CollectionAssert.AreEqual(points.Select(p => new Coordinate(p.X, p.Y)), layer.DataSet.Features[0].Coordinates);
-            Assert.IsTrue(layer.ShowLabels);
-
-            DataColumn[] dataColumns = layer.DataSet.GetColumns();
-            Assert.AreEqual(2, dataColumns.Length);
-            Assert.AreEqual("1", dataColumns[0].ColumnName);
-            Assert.AreEqual("2", dataColumns[1].ColumnName);
-
-            Assert.IsNotNull(layer.LabelLayer);
-            ILabelCategory labelCategory = layer.LabelLayer.Symbology.Categories[0];
-            Assert.AreEqual("FID", labelCategory.Symbolizer.PriorityField);
-            Assert.AreEqual(ContentAlignment.MiddleRight, labelCategory.Symbolizer.Orientation);
-            Assert.AreEqual(5, labelCategory.Symbolizer.OffsetX);
-            Assert.AreEqual(string.Format("[{0}]", selectedAttributeId), labelCategory.Expression);
-        }
-
-        [Test]
-        public void Convert_MultipleFeatures_ReturnsAllFeaturesWithOneGeometry()
-        {
-            // Setup
-            var converter = new MapPointDataConverter();
-            MapFeature[] features = 
+            MapFeature[] features =
             {
                 new MapFeature(new[]
                 {
@@ -234,6 +87,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                         }
                     })
                 }),
+                new MapFeature(Enumerable.Empty<MapGeometry>()),
                 new MapFeature(new[]
                 {
                     new MapGeometry(new[]
@@ -244,13 +98,21 @@ namespace Core.Components.DotSpatial.Test.Converter
                         }
                     })
                 }),
+                new MapFeature(Enumerable.Empty<MapGeometry>()),
                 new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
                         new[]
                         {
-                            new Point2D(4, 6)
+                            new Point2D(3, 4)
+                        }
+                    }),
+                    new MapGeometry(new[]
+                    {
+                        new[]
+                        {
+                            new Point2D(5, 6)
                         }
                     })
                 })
@@ -265,29 +127,59 @@ namespace Core.Components.DotSpatial.Test.Converter
             IMapFeatureLayer layer = converter.Convert(pointData);
 
             // Assert
-            Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
-            layer.DataSet.InitializeVertices();
-            Assert.AreEqual(3, layer.DataSet.ShapeIndices.Count);
+            Assert.AreEqual(4, layer.DataSet.Features.Count);
+        }
 
-            foreach (ShapeRange shapeIndex in layer.DataSet.ShapeIndices)
+        [Test]
+        public void Convert_MapPointDataWithFeature_ReturnMapPointLayerWithPointData()
+        {
+            // Setup
+            var converter = new MapPointDataConverter();
+            var mapFeature = new MapFeature(new[]
             {
-                Assert.AreEqual(1, shapeIndex.NumParts);
-            }
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(1, 2)
+                    }
+                })
+            });
+
+            MapFeature[] features =
+            {
+                mapFeature
+            };
+
+            var pointData = new MapPointData("test")
+            {
+                Features = features
+            };
+
+            // Call
+            IMapFeatureLayer layer = converter.Convert(pointData);
+
+            // Assert
+            IFeature feature = layer.DataSet.Features[0];
+            Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<Point>(feature.BasicGeometry);
+
+            var expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y));
+            CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
         }
 
         [Test]
         [TestCase(KnownColor.AliceBlue)]
         [TestCase(KnownColor.Azure)]
         [TestCase(KnownColor.Beige)]
-        public void Convert_WithDifferentColors_AppliesStyleToLayer(KnownColor color)
+        public void Convert_PointStyleSetWithDifferentColors_AppliesStyleToLayer(KnownColor color)
         {
             // Setup
             var converter = new MapPointDataConverter();
             var expectedColor = Color.FromKnownColor(color);
-            var style = new PointStyle(expectedColor, 3, PointSymbol.Circle);
             var data = new MapPointData("test")
             {
-                Style = style
+                Style = new PointStyle(expectedColor, 3, PointSymbol.Circle)
             };
 
             // Call
@@ -301,14 +193,13 @@ namespace Core.Components.DotSpatial.Test.Converter
         [TestCase(1)]
         [TestCase(5)]
         [TestCase(7)]
-        public void Convert_WithDifferentWidths_AppliesStyleToLayer(int width)
+        public void Convert_PointStyleSetWithDifferentWidths_AppliesStyleToLayer(int width)
         {
             // Setup
             var converter = new MapPointDataConverter();
-            var style = new PointStyle(Color.AliceBlue, width, PointSymbol.Circle);
             var data = new MapPointData("test")
             {
-                Style = style
+                Style = new PointStyle(Color.AliceBlue, width, PointSymbol.Circle)
             };
 
             // Call
@@ -322,14 +213,13 @@ namespace Core.Components.DotSpatial.Test.Converter
         [TestCase(PointSymbol.Circle)]
         [TestCase(PointSymbol.Square)]
         [TestCase(PointSymbol.Triangle)]
-        public void Convert_WithDifferentPointStyles_AppliesStyleToLayer(PointSymbol pointStyle)
+        public void Convert_PointStyleSetWithDifferentPointStyles_AppliesStyleToLayer(PointSymbol pointStyle)
         {
             // Setup
             var converter = new MapPointDataConverter();
-            var style = new PointStyle(Color.AliceBlue, 3, pointStyle);
             var data = new MapPointData("test")
             {
-                Style = style
+                Style = new PointStyle(Color.AliceBlue, 3, pointStyle)
             };
 
             // Call
