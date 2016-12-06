@@ -31,15 +31,10 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapPointData"/> into a <see cref="MapPointLayer"/>.
+    /// The converter that converts <see cref="MapPointData"/> data into <see cref="MapPointLayer"/> data.
     /// </summary>
     public class MapPointDataConverter : FeatureBasedMapDataConverter<MapPointData, MapPointLayer>
     {
-        protected override MapPointLayer CreateLayer()
-        {
-            return new MapPointLayer();
-        }
-
         protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
         {
             return GetAllMapFeatureCoordinates(mapFeature).Select(c => new Feature(new Point(c.X, c.Y)));

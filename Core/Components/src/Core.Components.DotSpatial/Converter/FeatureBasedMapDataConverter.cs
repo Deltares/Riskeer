@@ -35,7 +35,7 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// Abstract base class for transforming <see cref="FeatureBasedMapData"/> into <see cref="IMapFeatureLayer"/>.
+    /// Abstract base class for transforming <see cref="FeatureBasedMapData"/> data into <see cref="IMapFeatureLayer"/> data.
     /// </summary>
     /// <typeparam name="TFeatureBasedMapData">The type of feature based map data to convert.</typeparam>
     /// <typeparam name="TMapFeatureLayer">The type of map feature layer to set the converted data to.</typeparam>
@@ -43,27 +43,6 @@ namespace Core.Components.DotSpatial.Converter
         where TFeatureBasedMapData : FeatureBasedMapData
         where TMapFeatureLayer : FeatureLayer, IMapFeatureLayer
     {
-        /// <summary>
-        /// Creates a <see cref="IMapFeatureLayer"/> based on the <paramref name="data"/> that was given.
-        /// </summary>
-        /// <param name="data">The data to transform into a <see cref="IMapFeatureLayer"/>.</param>
-        /// <returns>A new <see cref="IMapFeatureLayer"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public TMapFeatureLayer Convert(TFeatureBasedMapData data)
-        {
-            if (data == null)
-            {
-                throw new ArgumentNullException("data", @"Null data cannot be converted into a feature layer data.");
-            }
-
-            var layer = CreateLayer();
-
-            ConvertLayerFeaturesInternal(data, layer);
-            ConvertLayerPropertiesInternal(data, layer);
-
-            return layer;
-        }
-
         /// <summary>
         /// Converts all feature related data from <paramref name="data"/> to <paramref name="layer"/>.
         /// </summary>
@@ -74,7 +53,28 @@ namespace Core.Components.DotSpatial.Converter
         {
             ValidateParameters(data, layer);
 
-            ConvertLayerFeaturesInternal(data, layer);
+            ClearLayerData(layer);
+            SetDataTableColumns(data, layer);
+
+            var attributeMapping = GetAttributeMapping(data);
+
+            foreach (MapFeature mapFeature in data.Features)
+            {
+                IEnumerable<IFeature> features = CreateFeatures(mapFeature);
+
+                foreach (var feature in features)
+                {
+                    layer.DataSet.Features.Add(feature);
+
+                    foreach (var attribute in mapFeature.MetaData)
+                    {
+                        feature.DataRow[attributeMapping[attribute.Key].ToString()] = attribute.Value;
+                    }
+                }
+            }
+
+            layer.DataSet.InitializeVertices();
+            layer.AssignFastDrawnStates();
         }
 
         /// <summary>
@@ -88,14 +88,12 @@ namespace Core.Components.DotSpatial.Converter
         {
             ValidateParameters(data, layer);
 
-            ConvertLayerPropertiesInternal(data, layer);
+            layer.IsVisible = data.IsVisible;
+            layer.Name = data.Name;
+            layer.ShowLabels = data.ShowLabels;
+            ((IMapFeatureLayer) layer).LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
+            layer.Symbolizer = CreateSymbolizer(data);
         }
-
-        /// <summary>
-        /// Creates a new <see cref="IMapFeatureLayer"/>.
-        /// </summary>
-        /// <returns>The newly created <see cref="IMapFeatureLayer"/>.</returns>
-        protected abstract TMapFeatureLayer CreateLayer();
 
         /// <summary>
         /// Creates an <see cref="IEnumerable{T}"/> of <see cref="IFeature"/> based on <paramref name="mapFeature"/>.
@@ -134,41 +132,6 @@ namespace Core.Components.DotSpatial.Converter
             {
                 throw new ArgumentNullException("layer", @"Null data cannot be used as conversion target.");
             }
-        }
-
-        private void ConvertLayerFeaturesInternal(TFeatureBasedMapData data, IFeatureLayer layer)
-        {
-            ClearLayerData(layer);
-            SetDataTableColumns(data, layer);
-
-            var attributeMapping = GetAttributeMapping(data);
-
-            foreach (MapFeature mapFeature in data.Features)
-            {
-                IEnumerable<IFeature> features = CreateFeatures(mapFeature);
-
-                foreach (var feature in features)
-                {
-                    layer.DataSet.Features.Add(feature);
-
-                    foreach (var attribute in mapFeature.MetaData)
-                    {
-                        feature.DataRow[attributeMapping[attribute.Key].ToString()] = attribute.Value;
-                    }
-                }
-            }
-
-            layer.DataSet.InitializeVertices();
-            layer.AssignFastDrawnStates();
-        }
-
-        private void ConvertLayerPropertiesInternal(TFeatureBasedMapData data, IFeatureLayer layer)
-        {
-            layer.IsVisible = data.IsVisible;
-            ((TMapFeatureLayer) layer).Name = data.Name;
-            layer.ShowLabels = data.ShowLabels;
-            layer.LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
-            layer.Symbolizer = CreateSymbolizer(data);
         }
 
         private static void ClearLayerData(IFeatureLayer layer)

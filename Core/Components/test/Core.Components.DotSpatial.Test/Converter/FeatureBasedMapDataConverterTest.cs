@@ -325,11 +325,6 @@ namespace Core.Components.DotSpatial.Test.Converter
                 return new PointSymbolizer();
             }
 
-            protected override MapPointLayer CreateLayer()
-            {
-                throw new NotImplementedException();
-            }
-
             protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
             {
                 throw new NotImplementedException();
