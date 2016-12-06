@@ -26,7 +26,6 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Converter;
-using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
@@ -51,34 +50,6 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.IsInstanceOf<FeatureBasedMapDataConverter<MapPointData, MapPointLayer>>(converter);
-        }
-
-        [Test]
-        public void CanConvertMapData_MapPointData_ReturnsTrue()
-        {
-            // Setup
-            var converter = new MapPointDataConverter();
-            var pointData = new MapPointData("test data");
-
-            // Call
-            bool canConvert = converter.CanConvertMapData(pointData);
-
-            // Assert
-            Assert.IsTrue(canConvert);
-        }
-
-        [Test]
-        public void CanConvertMapData_DataThatCannotBeConverted_ReturnsFalse()
-        {
-            // Setup
-            var converter = new MapPointDataConverter();
-            var featureBasedMapData = new TestFeatureBasedMapData("test data");
-
-            // Call
-            bool canConvert = converter.CanConvertMapData(featureBasedMapData);
-
-            // Assert
-            Assert.IsFalse(canConvert);
         }
 
         [Test]

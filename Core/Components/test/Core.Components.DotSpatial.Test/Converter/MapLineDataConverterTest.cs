@@ -28,7 +28,6 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Converter;
-using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
@@ -55,53 +54,15 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void CanConvertMapData_MapLineData_ReturnTrue()
-        {
-            // Setup
-            var converter = new MapLineDataConverter();
-            var lineData = new MapLineData("test data");
-
-            // Call
-            bool canConvert = converter.CanConvertMapData(lineData);
-
-            // Assert
-            Assert.IsTrue(canConvert);
-        }
-
-        [Test]
-        public void CanConvertMapData_DataThatCannotBeConverted_ReturnsFalse()
-        {
-            // Setup
-            var converter = new MapLineDataConverter();
-            var featureBasedMapData = new TestFeatureBasedMapData("test data");
-
-            // Call
-            bool canConvert = converter.CanConvertMapData(featureBasedMapData);
-
-            // Assert
-            Assert.IsFalse(canConvert);
-        }
-
-        [Test]
-        public void Convert_MapDataWithSingleGeometry_ReturnMapLineLayerWithLineString()
+        public void Convert_MapDataWithSingleGeometry_ReturnMapLineLayerWithLineStringData()
         {
             // Setup
             var converter = new MapLineDataConverter();
             var random = new Random(21);
-            MapFeature[] features = 
+            MapFeature[] features =
             {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble())
-                        }
-                    })
-                })
+                CreateSingleGeometryMapFeature(random),
+                CreateSingleGeometryMapFeature(random)
             };
 
             var lineData = new MapLineData("test data")
@@ -113,38 +74,23 @@ namespace Core.Components.DotSpatial.Test.Converter
             IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            Assert.IsInstanceOf<LineString>(layer.DataSet.Features[0].BasicGeometry);
+            Assert.AreEqual(lineData.Features.Length, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapLineLayer>(layer);
+            Assert.AreEqual(FeatureType.Line, layer.DataSet.FeatureType);
+            AssertLineStringData(lineData.Features[0], layer.DataSet.Features[0]);
+            AssertLineStringData(lineData.Features[1], layer.DataSet.Features[1]);
         }
 
         [Test]
-        public void Convert_MapDataWithMultipleGeometry_ReturnMapLineLayerWithMultiLineString()
+        public void Convert_MapDataWithMultipleGeometry_ReturnMapLineLayerWithMultiLineStringData()
         {
             // Setup
             var converter = new MapLineDataConverter();
             var random = new Random(21);
-            MapFeature[] features = 
+            MapFeature[] features =
             {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble())
-                        }
-                    }),
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble())
-                        }
-                    })
-                })
+                CreateMultipleGeometryMapFeature(random),
+                CreateMultipleGeometryMapFeature(random)
             };
 
             var lineData = new MapLineData("test data")
@@ -156,7 +102,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
+            Assert.AreEqual(lineData.Features.Length, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapLineLayer>(layer);
+            Assert.AreEqual(FeatureType.Line, layer.DataSet.FeatureType);
             Assert.IsInstanceOf<MultiLineString>(layer.DataSet.Features[0].BasicGeometry);
+            Assert.IsInstanceOf<MultiLineString>(layer.DataSet.Features[1].BasicGeometry);
         }
 
         [Test]
@@ -167,7 +117,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapLineDataConverter();
             var random = new Random(21);
-            MapFeature[] features = 
+            MapFeature[] features =
             {
                 new MapFeature(new[]
                 {
@@ -208,7 +158,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_RandomPointDataWithAttributesShowLabelsFalse_ReturnsNewMapPointLayerWithDefaultLabelLayer()
+        public void Convert_RandomLineDataWithAttributesShowLabelsFalse_ReturnsNewMapPointLayerWithDefaultLabelLayer()
         {
             // Setup
             var converter = new MapLineDataConverter();
@@ -331,7 +281,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
-            MapFeature[] mapFeatures = 
+            MapFeature[] mapFeatures =
             {
                 new MapFeature(new[]
                 {
@@ -359,7 +309,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapLineDataConverter();
-            MapFeature[] features = 
+            MapFeature[] features =
             {
                 new MapFeature(Enumerable.Empty<MapGeometry>()),
                 new MapFeature(Enumerable.Empty<MapGeometry>()),
@@ -383,7 +333,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapLineDataConverter();
-            MapFeature[] features = 
+            MapFeature[] features =
             {
                 new MapFeature(new[]
                 {
@@ -535,6 +485,56 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             AssertAreEqual(new LineSymbolizer(Color.AliceBlue, Color.AliceBlue, 3, lineStyle, LineCap.Round), layer.Symbolizer);
+        }
+
+        private static void AssertLineStringData(MapFeature mapFeature, IFeature feature)
+        {
+            Assert.IsInstanceOf<LineString>(feature.BasicGeometry);
+
+            var expectedCoordinates = mapFeature.MapGeometries.First().PointCollections.First().Select(p => new Coordinate(p.X, p.Y));
+
+            CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
+        }
+
+        private static MapFeature CreateMultipleGeometryMapFeature(Random random)
+        {
+            return new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(random.NextDouble(), random.NextDouble()),
+                        new Point2D(random.NextDouble(), random.NextDouble()),
+                        new Point2D(random.NextDouble(), random.NextDouble())
+                    }
+                }),
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(random.NextDouble(), random.NextDouble()),
+                        new Point2D(random.NextDouble(), random.NextDouble()),
+                        new Point2D(random.NextDouble(), random.NextDouble())
+                    }
+                })
+            });
+        }
+
+        private static MapFeature CreateSingleGeometryMapFeature(Random random)
+        {
+            return new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(random.NextDouble(), random.NextDouble()),
+                        new Point2D(random.NextDouble(), random.NextDouble()),
+                        new Point2D(random.NextDouble(), random.NextDouble())
+                    }
+                })
+            });
         }
 
         private static void AssertAreEqual(ILineSymbolizer firstSymbolizer, ILineSymbolizer secondSymbolizer)
