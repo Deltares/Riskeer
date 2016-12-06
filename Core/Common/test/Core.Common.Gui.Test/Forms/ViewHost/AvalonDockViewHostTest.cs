@@ -109,11 +109,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             Assert.IsFalse(IsAnyViewFocussed(avalonDockViewHost));
         }
 
-        private class TestView : UserControl, IView
-        {
-            public object Data { get; set; }
-        }
-
         [Test]
         public void GivenHostWithView_WhenHostFocusLost_ViewChildrenAreValidated()
         {
@@ -988,5 +983,10 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         #endregion
+
+        private class TestView : UserControl, IView
+        {
+            public object Data { get; set; }
+        }
     }
 }
