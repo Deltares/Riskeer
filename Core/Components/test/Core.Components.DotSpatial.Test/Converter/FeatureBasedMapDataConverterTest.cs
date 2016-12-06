@@ -21,11 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -201,12 +204,12 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var name = "<Some name>";
-            var converter = new TestFeatureBasedMapDataConverter<Class>();
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
             var data = new Class(name);
             var layer = new MapPointLayer();
 
             // Call
-            converter.ConvertLayerProperties(data, layer);
+            testConverter.ConvertLayerProperties(data, layer);
 
             // Assert
             Assert.AreEqual(name, layer.Name);
@@ -217,15 +220,15 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_MapData_ShowLabelsSetToLayer(bool showLabels)
         {
             // Setup
-            var converter = new TestFeatureBasedMapDataConverter<Class>();
-            var data = new Class("test")
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
+            var data = new Class("test data")
             {
                 ShowLabels = showLabels
             };
             var layer = new MapPointLayer();
 
             // Call
-            converter.ConvertLayerProperties(data, layer);
+            testConverter.ConvertLayerProperties(data, layer);
 
             // Assert
             Assert.AreEqual(showLabels, layer.ShowLabels);
@@ -236,18 +239,179 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_MapData_IsVisibleSetToLayer(bool isVisible)
         {
             // Setup
-            var converter = new TestFeatureBasedMapDataConverter<Class>();
-            var data = new Class("test")
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
+            var data = new Class("test data")
             {
                 IsVisible = isVisible
             };
             var layer = new MapPointLayer();
 
             // Call
-            converter.ConvertLayerProperties(data, layer);
+            testConverter.ConvertLayerProperties(data, layer);
 
             // Assert
             Assert.AreEqual(isVisible, layer.IsVisible);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_LayerWithoutDataColumns_DefaultLabelLayerSetToLayer()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
+            var data = new Class("test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                    {
+                        MetaData =
+                        {
+                            { "Id", 1.1 },
+                            { "Name", "Feature" }
+                        }
+                    }
+                },
+                SelectedMetaDataAttribute = "Name"
+            };
+            var layer = new MapPointLayer();
+
+            // Call
+            testConverter.ConvertLayerProperties(data, layer);
+
+            // Assert
+            Assert.IsNotNull(layer.LabelLayer);
+            Assert.AreEqual("FID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
+            Assert.IsNull(layer.LabelLayer.Symbology.Categories[0].Expression);
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("Unknown")]
+        public void ConvertLayerProperties_SelectedMetaDataAttributeEmptyOrUnknown_DefaultLabelLayerSetToLayer(string selectedMetaDataAttribute)
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
+            var data = new Class("test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                    {
+                        MetaData =
+                        {
+                            { "Id", 1.1 },
+                            { "Name", "Feature" }
+                        }
+                    }
+                },
+                SelectedMetaDataAttribute = selectedMetaDataAttribute
+            };
+            var layer = new MapPointLayer
+            {
+                DataSet =
+                {
+                    DataTable =
+                    {
+                        Columns =
+                        {
+                            "1",
+                            "2"
+                        }
+                    }
+                }
+            };
+
+            // Call
+            testConverter.ConvertLayerProperties(data, layer);
+
+            // Assert
+            Assert.IsNotNull(layer.LabelLayer);
+            Assert.AreEqual("FID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
+            Assert.IsNull(layer.LabelLayer.Symbology.Categories[0].Expression);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_MapDataWithoutMetaData_DefaultLabelLayerSetToLayer()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
+            var data = new Class("test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                },
+                SelectedMetaDataAttribute = "Name"
+            };
+            var layer = new MapPointLayer
+            {
+                DataSet =
+                {
+                    DataTable =
+                    {
+                        Columns =
+                        {
+                            "1",
+                            "2"
+                        }
+                    }
+                }
+            };
+
+            // Call
+            testConverter.ConvertLayerProperties(data, layer);
+
+            // Assert
+            Assert.IsNotNull(layer.LabelLayer);
+            Assert.AreEqual("FID", layer.LabelLayer.Symbology.Categories[0].Symbolizer.PriorityField);
+            Assert.IsNull(layer.LabelLayer.Symbology.Categories[0].Expression);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_MapDataWithMetaAndSelectedMetaDataAttributeInDataColumns_CustomLabelLayerSetToLayer()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
+            var data = new Class("test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                    {
+                        MetaData =
+                        {
+                            { "Id", 1.1 },
+                            { "Name", "Feature" }
+                        }
+                    }
+                },
+                SelectedMetaDataAttribute = "Name"
+            };
+            var layer = new MapPointLayer
+            {
+                DataSet =
+                {
+                    DataTable =
+                    {
+                        Columns =
+                        {
+                            "1",
+                            "2"
+                        }
+                    }
+                }
+            };
+
+            // Call
+            testConverter.ConvertLayerProperties(data, layer);
+
+            // Assert
+            Assert.IsNotNull(layer.LabelLayer);
+            ILabelCategory labelCategory = layer.LabelLayer.Symbology.Categories[0];
+            Assert.AreEqual("FID", labelCategory.Symbolizer.PriorityField);
+            Assert.AreEqual(ContentAlignment.MiddleRight, labelCategory.Symbolizer.Orientation);
+            Assert.AreEqual(5, labelCategory.Symbolizer.OffsetX);
+            Assert.AreEqual(string.Format("[{0}]", "2"), labelCategory.Expression);
         }
 
         private class Class : FeatureBasedMapData
