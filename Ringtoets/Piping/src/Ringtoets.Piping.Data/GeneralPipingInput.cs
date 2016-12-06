@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
@@ -30,7 +31,7 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class GeneralPipingInput
     {
-        private double waterVolumetricWeight;
+        private RoundedDouble waterVolumetricWeight;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralPipingInput"/> class.
@@ -39,7 +40,7 @@ namespace Ringtoets.Piping.Data
         {
             UpliftModelFactor = 1.0;
             SellmeijerModelFactor = 1.0;
-            WaterVolumetricWeight = 9.81;
+            waterVolumetricWeight = new RoundedDouble(2, 9.81);
             CriticalHeaveGradient = 0.3;
             WhitesDragCoefficient = 0.25;
             BeddingAngle = 37;
@@ -56,7 +57,7 @@ namespace Ringtoets.Piping.Data
         /// [kN/m³]
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when value is set to <c>double.NaN</c> or a negative number.</exception>
-        public double WaterVolumetricWeight
+        public RoundedDouble WaterVolumetricWeight
         {
             get
             {
@@ -64,12 +65,14 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                if (double.IsNaN(value) || value < 0)
+                var newValue = value.ToPrecision(waterVolumetricWeight.NumberOfDecimalPlaces);
+
+                if (double.IsNaN(newValue) || newValue < 0)
                 {
                     throw new ArgumentException(Resources.GeneralPipingInput_WaterVolumetricWeight_must_be_positive_number);
                 }
 
-                waterVolumetricWeight = value;
+                waterVolumetricWeight = newValue;
             }
         }
 
@@ -105,11 +108,11 @@ namespace Ringtoets.Piping.Data
         /// under water.
         /// [kN/m³]
         /// </summary>
-        public double SandParticlesVolumicWeight 
+        public RoundedDouble SandParticlesVolumicWeight 
         {
             get
             {
-                return 26.0 - waterVolumetricWeight;
+                return new RoundedDouble(2, 26.0 - waterVolumetricWeight.Value);
             }
         }
 

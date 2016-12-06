@@ -178,7 +178,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var pipingFailureMechanismMetaEntities = entity.PipingFailureMechanismMetaEntities.ToArray();
             var pipingFailureMechanismMetaEntity = pipingFailureMechanismMetaEntities[0];
             Assert.AreEqual(pipingFailureMechanismMetaEntity.A, failureMechanism.PipingProbabilityAssessmentInput.A);
-            Assert.AreEqual(pipingFailureMechanismMetaEntity.WaterVolumetricWeight, failureMechanism.GeneralInput.WaterVolumetricWeight);
+            Assert.AreEqual(pipingFailureMechanismMetaEntity.WaterVolumetricWeight, failureMechanism.GeneralInput.WaterVolumetricWeight.Value);
         }
 
         [Test]

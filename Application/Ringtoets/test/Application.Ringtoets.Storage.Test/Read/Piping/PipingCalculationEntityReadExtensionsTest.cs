@@ -90,12 +90,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(generalInputParameters.CriticalHeaveGradient, calculation.InputParameters.CriticalHeaveGradient);
             Assert.AreEqual(generalInputParameters.Gravity, calculation.InputParameters.Gravity);
             Assert.AreEqual(generalInputParameters.MeanDiameter70, calculation.InputParameters.MeanDiameter70);
-            Assert.AreEqual(generalInputParameters.SandParticlesVolumicWeight, calculation.InputParameters.SandParticlesVolumicWeight);
+            Assert.AreEqual(generalInputParameters.SandParticlesVolumicWeight.Value, calculation.InputParameters.SandParticlesVolumicWeight);
             Assert.AreEqual(generalInputParameters.SellmeijerModelFactor, calculation.InputParameters.SellmeijerModelFactor);
             Assert.AreEqual(generalInputParameters.SellmeijerReductionFactor, calculation.InputParameters.SellmeijerReductionFactor);
             Assert.AreEqual(generalInputParameters.UpliftModelFactor, calculation.InputParameters.UpliftModelFactor);
             Assert.AreEqual(generalInputParameters.WaterKinematicViscosity, calculation.InputParameters.WaterKinematicViscosity);
-            Assert.AreEqual(generalInputParameters.WaterVolumetricWeight, calculation.InputParameters.WaterVolumetricWeight);
+            Assert.AreEqual(generalInputParameters.WaterVolumetricWeight.Value, calculation.InputParameters.WaterVolumetricWeight);
             Assert.AreEqual(generalInputParameters.WhitesDragCoefficient, calculation.InputParameters.WhitesDragCoefficient);
 
             AssertRoundedDouble(entryPoint, calculation.InputParameters.EntryPointL);

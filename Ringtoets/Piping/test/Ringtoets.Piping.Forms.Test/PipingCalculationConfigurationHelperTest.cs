@@ -41,12 +41,12 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(generalInput.CriticalHeaveGradient, calculationInput.InputParameters.CriticalHeaveGradient);
             Assert.AreEqual(generalInput.Gravity, calculationInput.InputParameters.Gravity);
             Assert.AreEqual(generalInput.MeanDiameter70, calculationInput.InputParameters.MeanDiameter70);
-            Assert.AreEqual(generalInput.SandParticlesVolumicWeight, calculationInput.InputParameters.SandParticlesVolumicWeight);
+            Assert.AreEqual(generalInput.SandParticlesVolumicWeight.Value, calculationInput.InputParameters.SandParticlesVolumicWeight);
             Assert.AreEqual(generalInput.SellmeijerModelFactor, calculationInput.InputParameters.SellmeijerModelFactor);
             Assert.AreEqual(generalInput.SellmeijerReductionFactor, calculationInput.InputParameters.SellmeijerReductionFactor);
             Assert.AreEqual(generalInput.UpliftModelFactor, calculationInput.InputParameters.UpliftModelFactor);
             Assert.AreEqual(generalInput.WaterKinematicViscosity, calculationInput.InputParameters.WaterKinematicViscosity);
-            Assert.AreEqual(generalInput.WaterVolumetricWeight, calculationInput.InputParameters.WaterVolumetricWeight);
+            Assert.AreEqual(generalInput.WaterVolumetricWeight.Value, calculationInput.InputParameters.WaterVolumetricWeight);
             Assert.AreEqual(generalInput.WhitesDragCoefficient, calculationInput.InputParameters.WhitesDragCoefficient);
         }
 

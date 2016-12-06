@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.IsNotNull(generalPipingInput);
-            Assert.AreEqual(entity.WaterVolumetricWeight, generalPipingInput.WaterVolumetricWeight);
+            Assert.AreEqual(entity.WaterVolumetricWeight, generalPipingInput.WaterVolumetricWeight.Value);
         }
     }
 }

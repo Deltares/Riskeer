@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Read.Piping
@@ -52,7 +53,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         {
             return new GeneralPipingInput
             {
-                WaterVolumetricWeight = entity.WaterVolumetricWeight
+                WaterVolumetricWeight = (RoundedDouble) entity.WaterVolumetricWeight
             };
         }
     }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -87,7 +88,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.GeneralInput.WaterVolumetricWeight = value;
+                data.WrappedData.GeneralInput.WaterVolumetricWeight = (RoundedDouble) value;
                 data.WrappedData.NotifyObservers();
             }
         }

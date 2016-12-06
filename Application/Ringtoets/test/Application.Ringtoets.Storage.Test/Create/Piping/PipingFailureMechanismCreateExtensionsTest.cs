@@ -25,9 +25,11 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -77,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 },
                 GeneralInput =
                 {
-                    WaterVolumetricWeight = 4.29
+                    WaterVolumetricWeight = (RoundedDouble) 4.29
                 }
             };
             var registry = new PersistenceRegistry();
@@ -96,7 +98,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             var failureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.ToArray()[0];
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
-            Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight, failureMechanismMetaEntity.WaterVolumetricWeight);
+            Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight.Value, failureMechanismMetaEntity.WaterVolumetricWeight);
         }
 
         [Test]

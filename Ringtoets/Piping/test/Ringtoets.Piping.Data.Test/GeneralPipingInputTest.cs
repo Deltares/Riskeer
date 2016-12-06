@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -38,11 +40,12 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(1.0, inputParameters.UpliftModelFactor);
             Assert.AreEqual(1.0, inputParameters.SellmeijerModelFactor);
 
-            Assert.AreEqual(9.81, inputParameters.WaterVolumetricWeight);
+            Assert.AreEqual(9.81, inputParameters.WaterVolumetricWeight.Value);
+            Assert.AreEqual(2, inputParameters.WaterVolumetricWeight.NumberOfDecimalPlaces);
 
             Assert.AreEqual(0.3, inputParameters.CriticalHeaveGradient);
 
-            Assert.AreEqual(16.19, inputParameters.SandParticlesVolumicWeight, 1e-6);
+            Assert.AreEqual(16.19, inputParameters.SandParticlesVolumicWeight, inputParameters.SandParticlesVolumicWeight.GetAccuracy());
             Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient);
             Assert.AreEqual(37, inputParameters.BeddingAngle);
             Assert.AreEqual(1.33e-6, inputParameters.WaterKinematicViscosity);
@@ -54,31 +57,33 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         [TestCase(double.NaN)]
         [TestCase(-1)]
+        [TestCase(-0.005)]
         public void WaterVolumetricWeight_SetInvalidValue_ThrowArgumentException(double newValue)
         {
             // Setup
             var inputParameters = new GeneralPipingInput();
 
             // Call
-            TestDelegate test = () => inputParameters.WaterVolumetricWeight = newValue;
+            TestDelegate test = () => inputParameters.WaterVolumetricWeight = (RoundedDouble) newValue;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "De waarde moet een positief getal zijn.");
         }
 
         [Test]
-        public void WaterVolumetricWeight_SetValidValue_ValueSetAndSandParticlesVolumicWeightUpdated()
+        [TestCase(5.69)]
+        [TestCase(-0.004)]
+        public void WaterVolumetricWeight_SetValidValue_ValueSetAndSandParticlesVolumicWeightUpdated(double newValue)
         {
             // Setup
-            const double newValue = 5.69;
             var inputParameters = new GeneralPipingInput();
 
             // Call
-            inputParameters.WaterVolumetricWeight = newValue;
+            inputParameters.WaterVolumetricWeight = (RoundedDouble) newValue;
 
             // Assert
-            Assert.AreEqual(newValue, inputParameters.WaterVolumetricWeight);
-            Assert.AreEqual(26.0 - newValue, inputParameters.SandParticlesVolumicWeight);
+            Assert.AreEqual(newValue, inputParameters.WaterVolumetricWeight, inputParameters.WaterVolumetricWeight.GetAccuracy());
+            Assert.AreEqual(26.0 - newValue, inputParameters.SandParticlesVolumicWeight, inputParameters.SandParticlesVolumicWeight.GetAccuracy());
         }
     }
 }

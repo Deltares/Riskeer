@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -70,11 +71,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             Assert.AreEqual(failureMechanism.GeneralInput.SellmeijerModelFactor, properties.SellmeijerModelFactor);
 
-            Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
+            Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight.Value, properties.WaterVolumetricWeight);
 
             Assert.AreEqual(failureMechanism.GeneralInput.CriticalHeaveGradient, properties.CriticalHeaveGradient);
 
-            Assert.AreEqual(failureMechanism.GeneralInput.SandParticlesVolumicWeight, properties.SandParticlesVolumicWeight);
+            Assert.AreEqual(failureMechanism.GeneralInput.SandParticlesVolumicWeight.Value, properties.SandParticlesVolumicWeight);
             Assert.AreEqual(failureMechanism.GeneralInput.WhitesDragCoefficient, properties.WhitesDragCoefficient);
             Assert.AreEqual(failureMechanism.GeneralInput.BeddingAngle, properties.BeddingAngle);
             Assert.AreEqual(failureMechanism.GeneralInput.WaterKinematicViscosity, properties.WaterKinematicViscosity);
@@ -278,7 +279,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void WaterVolumetricWeight_SetValidValue_SetsValueAndUpdatesObservers()
+        [TestCase(5)]
+        [TestCase(-0.004)]
+        public void WaterVolumetricWeight_SetValidValue_SetsValueRoundedAndUpdatesObservers(double newValue)
         {
             // Setup
             var mocks = new MockRepository();
@@ -292,15 +295,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
             mocks.ReplayAll();
 
-            failureMechanism.Attach(observerMock);
-
-            const double newValue = 5;
+            failureMechanism.Attach(observerMock);            
 
             // Call            
             properties.WaterVolumetricWeight = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, failureMechanism.GeneralInput.WaterVolumetricWeight);
+            Assert.AreEqual(new RoundedDouble(2, newValue), failureMechanism.GeneralInput.WaterVolumetricWeight);
             mocks.VerifyAll();
         }
 
