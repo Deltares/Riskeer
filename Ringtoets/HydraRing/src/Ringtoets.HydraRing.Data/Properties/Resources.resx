@@ -126,4 +126,7 @@
   <data name="CalculationConvergence_NotCalculated" xml:space="preserve">
     <value />
   </data>
+  <data name="Probability_Must_be_in_range_zero_to_one" xml:space="preserve">
+    <value>Kans moet in het bereik [0, 1] liggen.</value>
+  </data>
 </root>

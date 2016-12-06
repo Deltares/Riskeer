@@ -66,6 +66,8 @@ namespace Ringtoets.HydraRing.Data.Test
             Assert.AreEqual(2, hydraulicBoundaryLocation.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+            Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
+            Assert.IsNull(hydraulicBoundaryLocation.WaveHeightOutput);
         }
 
         [Test]

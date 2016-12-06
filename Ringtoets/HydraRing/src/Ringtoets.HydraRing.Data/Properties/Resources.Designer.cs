@@ -107,5 +107,14 @@ namespace Ringtoets.HydraRing.Data.Properties {
                 return ResourceManager.GetString("CalculationConvergence_NotCalculated", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kans moet in het bereik [0, 1] liggen..
+        /// </summary>
+        internal static string Probability_Must_be_in_range_zero_to_one {
+            get {
+                return ResourceManager.GetString("Probability_Must_be_in_range_zero_to_one", resourceCulture);
+            }
+        }
     }
 }

@@ -56,7 +56,22 @@ namespace Ringtoets.HydraRing.Data
         }
 
         /// <summary>
-        /// Gets or sets the design water level of <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the database id of the hydraulic boundary location.
+        /// </summary>
+        public long Id { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the hydraulic boundary location.
+        /// </summary>
+        public string Name { get; private set; }
+
+        /// <summary>
+        /// Gets the coordinates of the hydraulic boundary location.
+        /// </summary>
+        public Point2D Location { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the design water level of the hydraulic boundary location.
         /// </summary>
         public RoundedDouble DesignWaterLevel
         {
@@ -71,7 +86,22 @@ namespace Ringtoets.HydraRing.Data
         }
 
         /// <summary>
-        /// Gets or sets the wave height of <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets or sets the output of a design water level calculation.
+        /// </summary>
+        public HydraulicBoundaryLocationOutput DesignWaterLevelOutput { get; set; }
+
+        /// <summary>
+        /// Gets or sets the output of a wave height calculation.
+        /// </summary>
+        public HydraulicBoundaryLocationOutput WaveHeightOutput { get; set; }
+
+        /// <summary>
+        /// Gets or sets the convergence status of the design waterlevel calculation.
+        /// </summary>
+        public CalculationConvergence DesignWaterLevelCalculationConvergence { get; set; }
+
+        /// <summary>
+        /// Gets or sets the wave height of the hydraulic boundary location.
         /// </summary>
         public RoundedDouble WaveHeight
         {
@@ -86,20 +116,9 @@ namespace Ringtoets.HydraRing.Data
         }
 
         /// <summary>
-        /// Gets or sets the convergence status of the design waterlevel calculation.
-        /// </summary>
-        public CalculationConvergence DesignWaterLevelCalculationConvergence { get; set; }
-
-        /// <summary>
         /// Gets or sets the convergence status of the waveheight calculation.
         /// </summary>
         public CalculationConvergence WaveHeightCalculationConvergence { get; set; }
-
-        public long Id { get; private set; }
-
-        public string Name { get; private set; }
-
-        public Point2D Location { get; private set; }
 
         public override string ToString()
         {
