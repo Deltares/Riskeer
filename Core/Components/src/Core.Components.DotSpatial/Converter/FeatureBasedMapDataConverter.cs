@@ -49,7 +49,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="data">The data to transform into a <see cref="IMapFeatureLayer"/>.</param>
         /// <returns>A new <see cref="IMapFeatureLayer"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public IMapFeatureLayer Convert(TFeatureBasedMapData data)
+        public TMapFeatureLayer Convert(TFeatureBasedMapData data)
         {
             if (data == null)
             {
@@ -70,7 +70,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="data">The data to convert the feature related data from.</param>
         /// <param name="layer">The layer to convert the feature related data to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or <paramref name="layer"/> is <c>null</c>.</exception>
-        public void ConvertLayerFeatures(TFeatureBasedMapData data, IMapFeatureLayer layer)
+        public void ConvertLayerFeatures(TFeatureBasedMapData data, TMapFeatureLayer layer)
         {
             ValidateParameters(data, layer);
 
@@ -84,7 +84,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="data">The data to convert the general properties from.</param>
         /// <param name="layer">The layer to convert the general properties to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or <paramref name="layer"/> is <c>null</c>.</exception>
-        public void ConvertLayerProperties(TFeatureBasedMapData data, IMapFeatureLayer layer)
+        public void ConvertLayerProperties(TFeatureBasedMapData data, TMapFeatureLayer layer)
         {
             ValidateParameters(data, layer);
 
@@ -95,7 +95,7 @@ namespace Core.Components.DotSpatial.Converter
         /// Creates a new <see cref="IMapFeatureLayer"/>.
         /// </summary>
         /// <returns>The newly created <see cref="IMapFeatureLayer"/>.</returns>
-        protected abstract IMapFeatureLayer CreateLayer();
+        protected abstract TMapFeatureLayer CreateLayer();
 
         /// <summary>
         /// Creates an <see cref="IEnumerable{T}"/> of <see cref="IFeature"/> based on <paramref name="mapFeature"/>.
@@ -123,7 +123,7 @@ namespace Core.Components.DotSpatial.Converter
             return points.Select(point => new Coordinate(point.X, point.Y));
         }
 
-        private static void ValidateParameters(TFeatureBasedMapData data, IMapFeatureLayer layer)
+        private static void ValidateParameters(TFeatureBasedMapData data, TMapFeatureLayer layer)
         {
             if (data == null)
             {

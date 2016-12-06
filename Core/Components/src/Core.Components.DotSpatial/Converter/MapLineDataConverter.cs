@@ -37,7 +37,7 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     public class MapLineDataConverter : FeatureBasedMapDataConverter<MapLineData, MapLineLayer>
     {
-        protected override IMapFeatureLayer CreateLayer()
+        protected override MapLineLayer CreateLayer()
         {
             return new MapLineLayer();
         }
