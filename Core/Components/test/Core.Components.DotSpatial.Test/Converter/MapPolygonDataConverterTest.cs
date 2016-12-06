@@ -58,22 +58,8 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void CanConvertMapData_MapPolygonData_ReturnsTrue()
         {
             // Setup
-            var mapFeatures = new[]
-            {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        Enumerable.Empty<Point2D>()
-                    })
-                })
-            };
-
             var converter = new MapPolygonDataConverter();
-            var polygonData = new MapPolygonData("test data")
-            {
-                Features = mapFeatures
-            };
+            var polygonData = new MapPolygonData("test data");
 
             // Call
             bool canConvert = converter.CanConvertMapData(polygonData);
@@ -83,7 +69,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void CanConvertMapData_DataCannotBeConverted_ReturnsFalse()
+        public void CanConvertMapData_DataThatCannotBeConverted_ReturnsFalse()
         {
             // Setup
             var converter = new MapPolygonDataConverter();
@@ -97,7 +83,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_RandomPolygonData_ReturnsNewFeatureSetList()
+        public void Convert_RandomPolygonData_ReturnsNewMapPolygonLayer()
         {
             // Setup
             var converter = new MapPolygonDataConverter();
@@ -434,7 +420,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Convert_RandomPolygonDataWithoutAttributes_ReturnsNewMapPolygonLayerListWithDefaultLabelLayer(bool showLabels)
+        public void Convert_RandomPolygonDataWithoutAttributes_ReturnsNewMapPolygonLayerWithDefaultLabelLayer(bool showLabels)
         {
             // Setup
             var converter = new MapPolygonDataConverter();
@@ -481,7 +467,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_RandomPolygonDataWithAttributesShowLabelsFalse_ReturnsNewMapPolygonLayerListWithDefaultLabelLayer()
+        public void Convert_RandomPolygonDataWithAttributesShowLabelsFalse_ReturnsNewMapPolygonLayerWithDefaultLabelLayer()
         {
             // Setup
             var converter = new MapPolygonDataConverter();
@@ -538,7 +524,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         [TestCase("ID", 1)]
         [TestCase("Name", 2)]
-        public void Convert_RandomPolygonDataWithAttributesShowLabelsTrue_ReturnsNewMapPolygonLayerListWithCustomLabelLayer(string selectedAttribute, int selectedAttributeId)
+        public void Convert_RandomPolygonDataWithAttributesShowLabelsTrue_ReturnsNewMapPolygonLayerWithCustomLabelLayer(string selectedAttribute, int selectedAttributeId)
         {
             // Setup
             var converter = new MapPolygonDataConverter();

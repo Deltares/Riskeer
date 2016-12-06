@@ -58,22 +58,8 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void CanConvertMapData_MapPointData_ReturnsTrue()
         {
             // Setup
-            MapFeature[] feature = 
-            {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        Enumerable.Empty<Point2D>()
-                    })
-                })
-            };
-
             var converter = new MapPointDataConverter();
-            var pointData = new MapPointData("test data")
-            {
-                Features = feature
-            };
+            var pointData = new MapPointData("test data");
 
             // Call
             bool canConvert = converter.CanConvertMapData(pointData);
@@ -83,7 +69,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void CanConvertMapData_DataCannotBeConverted_ReturnsFalse()
+        public void CanConvertMapData_DataThatCannotBeConverted_ReturnsFalse()
         {
             // Setup
             var converter = new MapPointDataConverter();
@@ -99,7 +85,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Convert_RandomPointDataWithoutAttributes_ReturnsNewMapPointLayerListWithDefaultLabelLayer(bool showLabels)
+        public void Convert_RandomPointDataWithoutAttributes_ReturnsNewMapPointLayerWithDefaultLabelLayer(bool showLabels)
         {
             // Setup
             var converter = new MapPointDataConverter();
@@ -146,7 +132,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_RandomPointDataWithAttributesShowLabelsFalse_ReturnsNewMapPointLayerListWithDefaultLabelLayer()
+        public void Convert_RandomPointDataWithAttributesShowLabelsFalse_ReturnsNewMapPointLayerWithDefaultLabelLayer()
         {
             // Setup
             var converter = new MapPointDataConverter();
@@ -203,7 +189,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         [TestCase("ID", 1)]
         [TestCase("Name", 2)]
-        public void Convert_RandomPointDataWithAttributesShowLabelsTrue_ReturnsNewMapPointLayerListWithCustomLabelLayer(string selectedAttribute, int selectedAttributeId)
+        public void Convert_RandomPointDataWithAttributesShowLabelsTrue_ReturnsNewMapPointLayerWithCustomLabelLayer(string selectedAttribute, int selectedAttributeId)
         {
             // Setup
             var converter = new MapPointDataConverter();
