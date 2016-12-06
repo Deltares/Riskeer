@@ -52,6 +52,27 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         /// <summary>
+        /// Determines if the properties of the actual <see cref="TruncatedNormalDistribution"/> are the same 
+        /// as the expected <see cref="TruncatedNormalDistribution"/>.
+        /// </summary>
+        /// <param name="expectedDistribution">The expected <see cref="TruncatedNormalDistribution"/>.</param>
+        /// <param name="actualDistribution">The actual <see cref="TruncatedNormalDistribution"/>.</param>
+        /// <exception cref="AssertionException">Thrown when the following differences are found between 
+        /// the <paramref name="expectedDistribution"/> and <paramref name="actualDistribution"/>:
+        /// <list type="bullet">
+        /// <item>The probabilistic distribution types.</item>
+        /// <item>The values for the mean, the standard deviation, the lower boundary and/or the upper boundary.</item>
+        /// <item>The precision for the mean, the standard deviation, the lower boundary and/or the upper boundary.</item>
+        /// </list></exception>
+        public static void AreEqual(TruncatedNormalDistribution expectedDistribution, TruncatedNormalDistribution actualDistribution)
+        {
+            AreEqual((IDistribution) expectedDistribution, actualDistribution);
+
+            AreEqualValue(expectedDistribution.LowerBoundary, actualDistribution.LowerBoundary);
+            AreEqualValue(expectedDistribution.UpperBoundary, actualDistribution.UpperBoundary);
+        }
+
+        /// <summary>
         /// Determines if the properties of the actual <see cref="IVariationCoefficientDistribution"/> are the same as 
         /// the expected <see cref="IVariationCoefficientDistribution"/>.
         /// </summary>

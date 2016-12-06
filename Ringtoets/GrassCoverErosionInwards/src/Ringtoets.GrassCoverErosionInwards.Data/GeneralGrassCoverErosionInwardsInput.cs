@@ -40,26 +40,34 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             n = 2;
             CriticalOvertoppingModelFactor = 1.0;
-            FbFactor = new NormalDistribution(2)
+            FbFactor = new TruncatedNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 4.75,
-                StandardDeviation = (RoundedDouble) 0.0
+                StandardDeviation = (RoundedDouble) 0.5,
+                LowerBoundary = (RoundedDouble) 0.0,
+                UpperBoundary = (RoundedDouble) 99.0
             };
-            FnFactor = new NormalDistribution(2)
+            FnFactor = new TruncatedNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 2.6,
-                StandardDeviation = (RoundedDouble) 0.0
+                StandardDeviation = (RoundedDouble) 0.35,
+                LowerBoundary = (RoundedDouble) 0.0,
+                UpperBoundary = (RoundedDouble) 99.0
             };
             OvertoppingModelFactor = 1.0;
-            FrunupModelFactor = new NormalDistribution(2)
+            FrunupModelFactor = new TruncatedNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
-                StandardDeviation = (RoundedDouble) 0.0
+                StandardDeviation = (RoundedDouble) 0.07,
+                LowerBoundary = (RoundedDouble) 0.0,
+                UpperBoundary = (RoundedDouble) 99.0
             };
-            FshallowModelFactor = new NormalDistribution(2)
+            FshallowModelFactor = new TruncatedNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 0.92,
-                StandardDeviation = (RoundedDouble) 0.0
+                StandardDeviation = (RoundedDouble) 0.24,
+                LowerBoundary = (RoundedDouble) 0.0,
+                UpperBoundary = (RoundedDouble) 99.0
             };
         }
 
@@ -93,12 +101,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the factor fb variable.
         /// </summary>
-        public NormalDistribution FbFactor { get; private set; }
+        public TruncatedNormalDistribution FbFactor { get; private set; }
 
         /// <summary>
         /// Gets the factor fn variable.
         /// </summary>
-        public NormalDistribution FnFactor { get; private set; }
+        public TruncatedNormalDistribution FnFactor { get; private set; }
 
         #endregion
 
@@ -117,12 +125,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the model factor frunup variable.
         /// </summary>
-        public NormalDistribution FrunupModelFactor { get; private set; }
+        public TruncatedNormalDistribution FrunupModelFactor { get; private set; }
 
         /// <summary>
         /// Gets the model factor fshallow variable.
         /// </summary>
-        public NormalDistribution FshallowModelFactor { get; private set; }
+        public TruncatedNormalDistribution FshallowModelFactor { get; private set; }
 
         #endregion
     }

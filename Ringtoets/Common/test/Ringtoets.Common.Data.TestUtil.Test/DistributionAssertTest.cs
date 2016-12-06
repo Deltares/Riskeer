@@ -42,6 +42,18 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
+        [TestCaseSource("IdenticalTruncatedNormalDistributionProperties")]
+        public void AreDistributionPropertiesEqual_IdenticalTruncatedNormalDistributionProperties_DoesNotThrowException(TruncatedNormalDistribution distributionOne,
+                                                                                                                        TruncatedNormalDistribution distributionTwo)
+        {
+            // Call
+            TestDelegate call = () => DistributionAssert.AreEqual(distributionOne, distributionTwo);
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        [Test]
         [TestCaseSource("IdenticalVariationCoefficientDistributionProperties")]
         public void AreDistributionPropertiesEqual_IdenticalVariationCoefficientDistributionProperties_DoesNotThrowException(IVariationCoefficientDistribution distributionOne,
                                                                                                                              IVariationCoefficientDistribution distributionTwo)
@@ -57,6 +69,18 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         [TestCaseSource("DifferentDistributionProperties")]
         public void AreDistributionPropertiesEqual_DifferentDistributionProperties_ThrowsAssertionException(IDistribution distributionOne,
                                                                                                             IDistribution distributionTwo)
+        {
+            // Call
+            TestDelegate call = () => DistributionAssert.AreEqual(distributionOne, distributionTwo);
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        [TestCaseSource("DifferentTruncatedNormalDistributionProperties")]
+        public void AreDistributionPropertiesEqual_DifferentTruncatedNormalDistributionProperties_DoesNotThrowException(TruncatedNormalDistribution distributionOne,
+                                                                                                                        TruncatedNormalDistribution distributionTwo)
         {
             // Call
             TestDelegate call = () => DistributionAssert.AreEqual(distributionOne, distributionTwo);
@@ -105,6 +129,28 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
                     }).SetName("IdenticalLogNormalDistribution");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> IdenticalTruncatedNormalDistributionProperties
+        {
+            get
+            {
+                yield return new TestCaseData(
+                    new TruncatedNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        StandardDeviation = (RoundedDouble) 2,
+                        LowerBoundary = (RoundedDouble) 3,
+                        UpperBoundary = (RoundedDouble) 4
+                    },
+                    new TruncatedNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble)1,
+                        StandardDeviation = (RoundedDouble)2,
+                        LowerBoundary = (RoundedDouble)3,
+                        UpperBoundary = (RoundedDouble)4
+                    }).SetName("IdenticalTruncatedNormalDistribution");
             }
         }
 
@@ -218,6 +264,88 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
                     }).SetName("DifferentStandardDeviationLogNormalDistribution");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> DifferentTruncatedNormalDistributionProperties
+        {
+            get
+            {
+                yield return new TestCaseData(
+                     new TruncatedNormalDistribution(2)
+                     {
+                         Mean = (RoundedDouble)1,
+                         StandardDeviation = (RoundedDouble)2,
+                         LowerBoundary = (RoundedDouble)3,
+                         UpperBoundary = (RoundedDouble)4
+                     },
+                    new TruncatedNormalDistribution(3)
+                    {
+                        Mean = (RoundedDouble)1,
+                        StandardDeviation = (RoundedDouble)2,
+                        LowerBoundary = (RoundedDouble)3,
+                        UpperBoundary = (RoundedDouble)4
+                    }).SetName("DifferentRoundingTruncatedNormalDistribution");
+                yield return new TestCaseData(
+                     new TruncatedNormalDistribution(2)
+                     {
+                         Mean = (RoundedDouble)1,
+                         StandardDeviation = (RoundedDouble)2,
+                         LowerBoundary = (RoundedDouble)3,
+                         UpperBoundary = (RoundedDouble)4
+                     },
+                    new TruncatedNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble)2,
+                        StandardDeviation = (RoundedDouble)2,
+                        LowerBoundary = (RoundedDouble)3,
+                        UpperBoundary = (RoundedDouble)4
+                    }).SetName("DifferentMeanTruncatedNormalDistribution");
+                yield return new TestCaseData(
+                     new TruncatedNormalDistribution(2)
+                     {
+                         Mean = (RoundedDouble)1,
+                         StandardDeviation = (RoundedDouble)2,
+                         LowerBoundary = (RoundedDouble)3,
+                         UpperBoundary = (RoundedDouble)4
+                     },
+                    new TruncatedNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble)1,
+                        StandardDeviation = (RoundedDouble)3,
+                        LowerBoundary = (RoundedDouble)3,
+                        UpperBoundary = (RoundedDouble)4
+                    }).SetName("DifferentStandardDeviationTruncatedNormalDistribution");
+                yield return new TestCaseData(
+                     new TruncatedNormalDistribution(2)
+                     {
+                         Mean = (RoundedDouble)1,
+                         StandardDeviation = (RoundedDouble)2,
+                         LowerBoundary = (RoundedDouble)3,
+                         UpperBoundary = (RoundedDouble)4
+                     },
+                    new TruncatedNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble)1,
+                        StandardDeviation = (RoundedDouble)2,
+                        LowerBoundary = (RoundedDouble)4,
+                        UpperBoundary = (RoundedDouble)4
+                    }).SetName("DifferentLowerBoundaryTruncatedNormalDistribution");
+                yield return new TestCaseData(
+                     new TruncatedNormalDistribution(2)
+                     {
+                         Mean = (RoundedDouble)1,
+                         StandardDeviation = (RoundedDouble)2,
+                         LowerBoundary = (RoundedDouble)3,
+                         UpperBoundary = (RoundedDouble)4
+                     },
+                    new TruncatedNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble)1,
+                        StandardDeviation = (RoundedDouble)2,
+                        LowerBoundary = (RoundedDouble)3,
+                        UpperBoundary = (RoundedDouble)5
+                    }).SetName("DifferentUpperBoundaryTruncatedNormalDistribution");
             }
         }
 

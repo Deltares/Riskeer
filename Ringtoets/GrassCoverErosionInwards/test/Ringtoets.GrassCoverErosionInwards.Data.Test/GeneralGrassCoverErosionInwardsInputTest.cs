@@ -36,28 +36,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var fbFactor = new NormalDistribution(2)
+            var fbFactor = new TruncatedNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 4.75,
-                StandardDeviation = (RoundedDouble) 0.0
+                StandardDeviation = (RoundedDouble) 0.5,
+                LowerBoundary = (RoundedDouble) 0.0,
+                UpperBoundary = (RoundedDouble) 99.0
             };
 
-            var fnFactor = new NormalDistribution(2)
+            var fnFactor = new TruncatedNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 2.6,
-                StandardDeviation = (RoundedDouble) 0.0
+                StandardDeviation = (RoundedDouble) 0.35,
+                LowerBoundary = (RoundedDouble) 0.0,
+                UpperBoundary = (RoundedDouble) 99.0
             };
 
-            var fshallow = new NormalDistribution(2)
+            var fshallow = new TruncatedNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 0.92,
-                StandardDeviation = (RoundedDouble) 0.0
+                StandardDeviation = (RoundedDouble) 0.24,
+                LowerBoundary = (RoundedDouble) 0.0,
+                UpperBoundary = (RoundedDouble) 99.0
             };
 
-            var frunupModelFactor = new NormalDistribution(2)
+            var frunupModelFactor = new TruncatedNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
-                StandardDeviation = (RoundedDouble) 0.0
+                StandardDeviation = (RoundedDouble) 0.07,
+                LowerBoundary = (RoundedDouble) 0.0,
+                UpperBoundary = (RoundedDouble) 99.0
             };
 
             // Call
