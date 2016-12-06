@@ -44,27 +44,17 @@ namespace Core.Components.DotSpatial.Converter
         where TMapFeatureLayer : FeatureLayer, IMapFeatureLayer
     {
         /// <summary>
-        /// Checks whether the <see cref="FeatureBasedMapDataConverter{TFeatureBasedMapData, TMapFeatureLayer}"/> can convert the <paramref name="data"/>.
-        /// </summary>
-        /// <param name="data">The <see cref="FeatureBasedMapData"/> to check for.</param>
-        /// <returns><c>true</c> if the <paramref name="data"/> can be converted by the
-        /// <see cref="FeatureBasedMapDataConverter{TFeatureBasedMapData, TMapFeatureLayer}"/>,
-        /// <c>false</c> otherwise.</returns>
-        public bool CanConvertMapData(FeatureBasedMapData data)
-        {
-            return data is TFeatureBasedMapData;
-        }
-
-        /// <summary>
         /// Creates a <see cref="IMapFeatureLayer"/> based on the <paramref name="data"/> that was given.
         /// </summary>
         /// <param name="data">The data to transform into a <see cref="IMapFeatureLayer"/>.</param>
         /// <returns>A new <see cref="IMapFeatureLayer"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when <see cref="CanConvertMapData"/> returns <c>false</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public IMapFeatureLayer Convert(FeatureBasedMapData data)
+        public IMapFeatureLayer Convert(TFeatureBasedMapData data)
         {
-            ValidateParameters(data);
+            if (data == null)
+            {
+                throw new ArgumentNullException("data", @"Null data cannot be converted into a feature layer data.");
+            }
 
             var layer = CreateLayer();
 
@@ -79,9 +69,8 @@ namespace Core.Components.DotSpatial.Converter
         /// </summary>
         /// <param name="data">The data to convert the feature related data from.</param>
         /// <param name="layer">The layer to convert the feature related data to.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="CanConvertMapData"/> returns <c>false</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or <paramref name="layer"/> is <c>null</c>.</exception>
-        public void ConvertLayerFeatures(FeatureBasedMapData data, IMapFeatureLayer layer)
+        public void ConvertLayerFeatures(TFeatureBasedMapData data, IMapFeatureLayer layer)
         {
             ValidateParameters(data, layer);
 
@@ -94,9 +83,8 @@ namespace Core.Components.DotSpatial.Converter
         /// </summary>
         /// <param name="data">The data to convert the general properties from.</param>
         /// <param name="layer">The layer to convert the general properties to.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="CanConvertMapData"/> returns <c>false</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or <paramref name="layer"/> is <c>null</c>.</exception>
-        public void ConvertLayerProperties(FeatureBasedMapData data, IMapFeatureLayer layer)
+        public void ConvertLayerProperties(TFeatureBasedMapData data, IMapFeatureLayer layer)
         {
             ValidateParameters(data, layer);
 
@@ -135,23 +123,12 @@ namespace Core.Components.DotSpatial.Converter
             return points.Select(point => new Coordinate(point.X, point.Y));
         }
 
-        private void ValidateParameters(FeatureBasedMapData data)
+        private static void ValidateParameters(TFeatureBasedMapData data, IMapFeatureLayer layer)
         {
             if (data == null)
             {
                 throw new ArgumentNullException("data", @"Null data cannot be converted into a feature layer data.");
             }
-
-            if (!CanConvertMapData(data))
-            {
-                var message = string.Format("The data of type {0} cannot be converted by this converter.", data.GetType());
-                throw new ArgumentException(message);
-            }
-        }
-
-        private void ValidateParameters(FeatureBasedMapData data, IMapFeatureLayer layer)
-        {
-            ValidateParameters(data);
 
             if (layer == null)
             {
@@ -159,7 +136,7 @@ namespace Core.Components.DotSpatial.Converter
             }
         }
 
-        private void ConvertLayerFeaturesInternal(FeatureBasedMapData data, IFeatureLayer layer)
+        private void ConvertLayerFeaturesInternal(TFeatureBasedMapData data, IFeatureLayer layer)
         {
             ClearLayerData(layer);
             SetDataTableColumns(data, layer);
@@ -185,13 +162,13 @@ namespace Core.Components.DotSpatial.Converter
             layer.AssignFastDrawnStates();
         }
 
-        private void ConvertLayerPropertiesInternal(FeatureBasedMapData data, IFeatureLayer layer)
+        private void ConvertLayerPropertiesInternal(TFeatureBasedMapData data, IFeatureLayer layer)
         {
             layer.IsVisible = data.IsVisible;
             ((TMapFeatureLayer) layer).Name = data.Name;
             layer.ShowLabels = data.ShowLabels;
             layer.LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
-            layer.Symbolizer = CreateSymbolizer((TFeatureBasedMapData) data);
+            layer.Symbolizer = CreateSymbolizer(data);
         }
 
         private static void ClearLayerData(IFeatureLayer layer)
@@ -200,7 +177,7 @@ namespace Core.Components.DotSpatial.Converter
             layer.DataSet.DataTable.Reset();
         }
 
-        private static void SetDataTableColumns(FeatureBasedMapData data, IFeatureLayer layer)
+        private static void SetDataTableColumns(TFeatureBasedMapData data, IFeatureLayer layer)
         {
             for (var i = 1; i <= data.MetaData.Count(); i++)
             {
@@ -212,7 +189,7 @@ namespace Core.Components.DotSpatial.Converter
         /// This method is used for obtaining a mapping between map data attribute names and DotSpatial
         /// attribute names. This mapping is needed because DotSpatial can't handle special characters.
         /// </remarks>
-        private static Dictionary<string, int> GetAttributeMapping(FeatureBasedMapData data)
+        private static Dictionary<string, int> GetAttributeMapping(TFeatureBasedMapData data)
         {
             return Enumerable.Range(0, data.MetaData.Count())
                              .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);

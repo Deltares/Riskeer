@@ -27,7 +27,6 @@ using Core.Common.Base;
 using Core.Components.DotSpatial.Layer;
 using Core.Components.DotSpatial.MapFunctions;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Data;
@@ -265,7 +264,6 @@ namespace Core.Components.DotSpatial.Forms
             var drawnMapData = new DrawnMapData
             {
                 FeatureBasedMapData = featureBasedMapData,
-                Features = featureBasedMapData.Features,
                 FeatureBasedMapDataLayer = featureBasedMapDataLayer
             };
 
@@ -339,8 +337,6 @@ namespace Core.Components.DotSpatial.Forms
         private class DrawnMapData
         {
             public FeatureBasedMapData FeatureBasedMapData { get; set; }
-
-            public MapFeature[] Features { get; set; }
 
             public IFeatureBasedMapDataLayer FeatureBasedMapDataLayer { get; set; }
 

@@ -40,23 +40,6 @@ namespace Core.Components.DotSpatial.Test.Converter
     public class FeatureBasedMapDataConverterTest
     {
         [Test]
-        public void CanConvertMapData_DifferentInheritingTypes_OnlySupportsExactType()
-        {
-            // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
-
-            // Call
-            var featureBasedMapDataResult = testConverter.CanConvertMapData(new TestFeatureBasedMapData("test data"));
-            var classResult = testConverter.CanConvertMapData(new Class("test data"));
-            var childResult = testConverter.CanConvertMapData(new Child("test data"));
-
-            // Assert
-            Assert.IsFalse(featureBasedMapDataResult);
-            Assert.IsTrue(classResult);
-            Assert.IsTrue(childResult);
-        }
-
-        [Test]
         public void Convert_DataNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -71,24 +54,6 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_DataCannotBeConverted_ThrowsArgumentException()
-        {
-            // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
-            var testFeatureBasedMapData = new TestFeatureBasedMapData("test data");
-
-            // Precondition
-            Assert.IsFalse(testConverter.CanConvertMapData(testFeatureBasedMapData));
-
-            // Call
-            TestDelegate test = () => testConverter.Convert(testFeatureBasedMapData);
-
-            // Assert
-            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testFeatureBasedMapData.GetType());
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
         public void ConvertLayerFeatures_DataNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -100,24 +65,6 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             const string expectedMessage = "Null data cannot be converted into a feature layer data.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void ConvertLayerFeatures_DataCannotBeConverted_ThrowsArgumentException()
-        {
-            // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
-            var testFeatureBasedMapData = new TestFeatureBasedMapData("test data");
-
-            // Precondition
-            Assert.IsFalse(testConverter.CanConvertMapData(testFeatureBasedMapData));
-
-            // Call
-            TestDelegate test = () => testConverter.ConvertLayerFeatures(testFeatureBasedMapData, new MapPointLayer());
-
-            // Assert
-            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testFeatureBasedMapData.GetType());
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -147,24 +94,6 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             const string expectedMessage = "Null data cannot be converted into a feature layer data.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void ConvertLayerProperties_DataCannotBeConverted_ThrowsArgumentException()
-        {
-            // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
-            var testFeatureBasedMapData = new TestFeatureBasedMapData("test data");
-
-            // Precondition
-            Assert.IsFalse(testConverter.CanConvertMapData(testFeatureBasedMapData));
-
-            // Call
-            TestDelegate test = () => testConverter.ConvertLayerProperties(testFeatureBasedMapData, new MapPointLayer());
-
-            // Assert
-            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testFeatureBasedMapData.GetType());
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -400,11 +329,6 @@ namespace Core.Components.DotSpatial.Test.Converter
         private class Class : FeatureBasedMapData
         {
             public Class(string name) : base(name) {}
-        }
-
-        private class Child : Class
-        {
-            public Child(string name) : base(name) {}
         }
 
         private class TestFeatureBasedMapDataConverter<TFeatureBasedMapData> : FeatureBasedMapDataConverter<TFeatureBasedMapData, MapPointLayer>
