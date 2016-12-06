@@ -40,20 +40,6 @@ namespace Core.Components.DotSpatial.Test.Converter
     public class FeatureBasedMapDataConverterTest
     {
         [Test]
-        public void Convert_DataNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
-
-            // Call
-            TestDelegate test = () => testConverter.Convert(null);
-
-            // Assert
-            const string expectedMessage = "Null data cannot be converted into a feature layer data.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
         public void ConvertLayerFeatures_DataNull_ThrowsArgumentNullException()
         {
             // Setup

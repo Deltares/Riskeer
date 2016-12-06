@@ -52,29 +52,12 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_SimpleMapLineData_ReturnMapLineLayer()
+        public void ConvertLayerFeatures_MapLineDataWithMultipleFeatures_ConvertsAllFeaturesToMapLineLayer()
         {
             // Setup
             var converter = new MapLineDataConverter();
-            var lineData = new MapLineData("test data")
-            {
-                Features = new MapFeature[0]
-            };
-
-            // Call
-            IMapFeatureLayer layer = converter.Convert(lineData);
-
-            // Assert
-            Assert.IsInstanceOf<MapLineLayer>(layer);
-            Assert.AreEqual(FeatureType.Line, layer.DataSet.FeatureType);
-        }
-
-        [Test]
-        public void Convert_MapLineDataWithMultipleFeatures_ConvertsAllFeatures()
-        {
-            // Setup
-            var converter = new MapLineDataConverter();
-            var lineData = new MapLineData("test")
+            var mapLineLayer = new MapLineLayer();
+            var mapLineData = new MapLineData("test")
             {
                 Features = new[]
                 {
@@ -85,17 +68,18 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            IMapFeatureLayer layer = converter.Convert(lineData);
+            converter.ConvertLayerFeatures(mapLineData, mapLineLayer);
 
             // Assert
-            Assert.AreEqual(lineData.Features.Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(mapLineData.Features.Length, mapLineLayer.DataSet.Features.Count);
         }
 
         [Test]
-        public void Convert_MapLineDataWithSingleGeometryFeature_ReturnMapLineLayerWithLineStringData()
+        public void ConvertLayerFeatures_MapLineDataWithSingleGeometryFeature_ConvertsFeaturesToMapLineLayerAsLineStringData()
         {
             // Setup
             var converter = new MapLineDataConverter();
+            var mapLineLayer = new MapLineLayer();
             var random = new Random(21);
             var mapFeature = new MapFeature(new[]
             {
@@ -110,7 +94,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 })
             });
 
-            var lineData = new MapLineData("test data")
+            var mapLineData = new MapLineData("test data")
             {
                 Features = new[]
                 {
@@ -119,11 +103,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            IMapFeatureLayer layer = converter.Convert(lineData);
+            converter.ConvertLayerFeatures(mapLineData, mapLineLayer);
 
             // Assert
-            IFeature feature = layer.DataSet.Features[0];
-            Assert.AreEqual(lineData.Features.Length, layer.DataSet.Features.Count);
+            IFeature feature = mapLineLayer.DataSet.Features[0];
+            Assert.AreEqual(mapLineData.Features.Length, mapLineLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<LineString>(feature.BasicGeometry);
 
             var expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0)
@@ -132,10 +116,11 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_MapLineDataWithMultipleGeometryFeature_ReturnMapLineLayerWithMultiLineStringData()
+        public void ConvertLayerFeatures_MapLineDataWithMultipleGeometryFeature_ConvertsFeaturesToMapLineLayerAsMultiLineStringData()
         {
             // Setup
             var converter = new MapLineDataConverter();
+            var mapLineLayer = new MapLineLayer();
             var random = new Random(21);
             var mapFeature = new MapFeature(new[]
             {
@@ -159,7 +144,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 })
             });
 
-            var lineData = new MapLineData("test data")
+            var mapLineData = new MapLineData("test data")
             {
                 Features = new[]
                 {
@@ -168,12 +153,12 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            IMapFeatureLayer layer = converter.Convert(lineData);
+            converter.ConvertLayerFeatures(mapLineData, mapLineLayer);
 
             // Assert
-            IFeature feature = layer.DataSet.Features[0];
-            Assert.AreEqual(lineData.Features.Length, layer.DataSet.Features.Count);
-            Assert.AreEqual(mapFeature.MapGeometries.Count(), layer.DataSet.ShapeIndices.First().Parts.Count);
+            IFeature feature = mapLineLayer.DataSet.Features[0];
+            Assert.AreEqual(mapLineData.Features.Length, mapLineLayer.DataSet.Features.Count);
+            Assert.AreEqual(mapFeature.MapGeometries.Count(), mapLineLayer.DataSet.ShapeIndices.First().Parts.Count);
             Assert.IsInstanceOf<MultiLineString>(feature.BasicGeometry);
 
             var expectedCoordinates = mapFeature.MapGeometries.SelectMany(mg => mg.PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y)));
@@ -181,64 +166,26 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        [TestCase(KnownColor.AliceBlue)]
-        [TestCase(KnownColor.Azure)]
-        [TestCase(KnownColor.Beige)]
-        public void Convert_LineStyleSetWithDifferentColors_AppliesStyleToLayer(KnownColor color)
+        [Combinatorial]
+        public void ConvertLayerProperties_MapLineDataWithStyle_ConvertsStyleToMapLineLayer(
+            [Values(KnownColor.AliceBlue, KnownColor.Azure, KnownColor.Beige)] KnownColor color,
+            [Values(1, 5, 7)] int width,
+            [Values(DashStyle.Solid, DashStyle.Dash, DashStyle.Dot)] DashStyle lineStyle)
         {
             // Setup
-            var converter = new MapLineDataConverter();
             var expectedColor = Color.FromKnownColor(color);
-            var data = new MapLineData("test")
+            var converter = new MapLineDataConverter();
+            var mapLineLayer = new MapLineLayer();
+            var mapLineData = new MapLineData("test")
             {
                 Style = new LineStyle(expectedColor, 3, DashStyle.Solid)
             };
 
             // Call
-            MapLineLayer layer = (MapLineLayer) converter.Convert(data);
+            converter.ConvertLayerProperties(mapLineData, mapLineLayer);
 
             // Assert
-            AssertAreEqual(new LineSymbolizer(expectedColor, expectedColor, 3, DashStyle.Solid, LineCap.Round), layer.Symbolizer);
-        }
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(5)]
-        [TestCase(7)]
-        public void Convert_LineStyleSetWithDifferentWidths_AppliesStyleToLayer(int width)
-        {
-            // Setup
-            var converter = new MapLineDataConverter();
-            var data = new MapLineData("test")
-            {
-                Style = new LineStyle(Color.AliceBlue, width, DashStyle.Solid)
-            };
-
-            // Call
-            MapLineLayer layer = (MapLineLayer) converter.Convert(data);
-
-            // Assert
-            AssertAreEqual(new LineSymbolizer(Color.AliceBlue, Color.AliceBlue, width, DashStyle.Solid, LineCap.Round), layer.Symbolizer);
-        }
-
-        [Test]
-        [TestCase(DashStyle.Solid)]
-        [TestCase(DashStyle.Dash)]
-        [TestCase(DashStyle.Dot)]
-        public void Convert_LineStyleSetWithDifferentLineStyles_AppliesStyleToLayer(DashStyle lineStyle)
-        {
-            // Setup
-            var converter = new MapLineDataConverter();
-            var data = new MapLineData("test")
-            {
-                Style = new LineStyle(Color.AliceBlue, 3, lineStyle)
-            };
-
-            // Call
-            MapLineLayer layer = (MapLineLayer) converter.Convert(data);
-
-            // Assert
-            AssertAreEqual(new LineSymbolizer(Color.AliceBlue, Color.AliceBlue, 3, lineStyle, LineCap.Round), layer.Symbolizer);
+            AssertAreEqual(new LineSymbolizer(expectedColor, expectedColor, width, lineStyle, LineCap.Round), mapLineLayer.Symbolizer);
         }
 
         private static void AssertAreEqual(ILineSymbolizer firstSymbolizer, ILineSymbolizer secondSymbolizer)
