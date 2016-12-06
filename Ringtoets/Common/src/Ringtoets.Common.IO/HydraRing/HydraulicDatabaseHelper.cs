@@ -24,7 +24,7 @@ using System.Globalization;
 using System.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
 using Ringtoets.HydraRing.IO.Properties;

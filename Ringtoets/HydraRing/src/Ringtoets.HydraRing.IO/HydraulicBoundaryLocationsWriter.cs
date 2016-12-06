@@ -34,7 +34,7 @@ using Ringtoets.HydraRing.IO.Properties;
 namespace Ringtoets.HydraRing.IO
 {
     /// <summary>
-    /// Shapefile writer that writes the locations of a <see cref="HydraulicBoundaryDatabase"/> as point features.
+    /// Shapefile writer that writes the locations of a collection of <see cref="HydraulicBoundaryLocation"/> as point features.
     /// </summary>
     public class HydraulicBoundaryLocationsWriter
     {
@@ -66,7 +66,7 @@ namespace Ringtoets.HydraRing.IO
         }
 
         /// <summary>
-        /// Writes the locations of a <see cref="HydraulicBoundaryDatabase"/> as point features in a shapefile.
+        /// Writes the collection of <see cref="HydraulicBoundaryLocation"/> as point features in a shapefile.
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to be written to file.</param>
         /// <param name="filePath">The path to the shapefile.</param>

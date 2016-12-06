@@ -21,8 +21,9 @@
 
 using System.Collections.Generic;
 using Core.Common.Base;
+using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.HydraRing.Data
+namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
     /// The data object for the hydraulic boundary database.

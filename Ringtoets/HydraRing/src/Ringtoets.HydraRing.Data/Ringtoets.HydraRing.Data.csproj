@@ -40,7 +40,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="CalculationConvergence.cs" />
-    <Compile Include="HydraulicBoundaryDatabase.cs" />
     <Compile Include="HydraulicBoundaryLocation.cs" />
     <Compile Include="HydraulicBoundaryLocationOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

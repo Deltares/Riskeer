@@ -51,6 +51,7 @@
     <Compile Include="DikeProfiles\IUseBreakWater.cs" />
     <Compile Include="DikeProfiles\IUseForeshore.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerOneState.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />
     <Compile Include="Probabilistics\IVariationCoefficientDistribution.cs" />
     <Compile Include="Probabilistics\TruncatedNormalDistribution.cs" />
     <Compile Include="Probabilistics\VariationCoefficientLogNormalDistribution.cs" />

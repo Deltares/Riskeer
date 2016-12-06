@@ -33,6 +33,7 @@ using Core.Common.Gui.Plugin;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Helpers;
