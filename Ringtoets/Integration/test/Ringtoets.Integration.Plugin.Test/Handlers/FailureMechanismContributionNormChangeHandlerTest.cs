@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
         [Test]
         public void ChangeNorm_InvalidNorm_ThrowArgumentOutOfRangeException(
-            [Values(150, 1e+6, -1e-6, -150, double.NaN)] double invalidNorm)
+            [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double invalidNorm)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -256,7 +256,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler();
 
             IEnumerable<IObservable> affectedObjects = null;
-            const double norm = 1.0 / 1000;
+            const double norm = 1.0/1000;
 
             // Call
             Action call = () => affectedObjects = handler.ChangeNorm(section, norm);

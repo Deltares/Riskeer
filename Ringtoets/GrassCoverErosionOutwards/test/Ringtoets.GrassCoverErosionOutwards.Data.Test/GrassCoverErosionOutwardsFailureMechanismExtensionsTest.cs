@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         public void GetMechanismSpecificNorm_WithAssessmentSection_ReturnMechanismSpecificNorm()
         {
             // Setup
-            const double norm = 1.0/300;
+            const double norm = 1.0/200;
             const double contribution = 10;
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
@@ -127,8 +127,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
 
             // Assert
-            double expectedNorm = norm*(contribution/100)/failureMechanism.GeneralInput.N;
-            Assert.AreEqual(expectedNorm, mechanismSpecificNorm);
+            Assert.AreEqual(0.00025, mechanismSpecificNorm);
         }
 
         [Test]

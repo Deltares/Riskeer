@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
         [Test]
         public void Constructor_WithInvalidNorm_ThrowsArgumentOutOfRangeException(
-            [Values(150, 1e+6, -1e-6, -150, double.NaN)] double norm)
+            [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double norm)
         {
             // Setup
             var random = new Random(21);
@@ -181,7 +181,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             CollectionAssert.AreEqual(failureMechanismNames, result.Distribution.Select(d => d.Assessment));
             CollectionAssert.AreEqual(failureMechanismContributions, result.Distribution.Select(d => d.Contribution));
-            CollectionAssert.AreEqual(failureMechanismContributions.Select(c => (1.0/norm/c)*100), result.Distribution.Select(d => d.ProbabilitySpace));
+            CollectionAssert.AreEqual(failureMechanismContributions.Select(c => 100.0/(norm*c)), result.Distribution.Select(d => d.ProbabilitySpace));
             var expectedIsAlwaysRelevant = Enumerable.Repeat(false, failureMechanismCount)
                                                      .Concat(Enumerable.Repeat(true, 1));
             CollectionAssert.AreEqual(expectedIsAlwaysRelevant, result.Distribution.Select(d => d.IsAlwaysRelevant));
@@ -339,7 +339,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
         [Test]
         public void Norm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(
-            [Values(150, 1e+6, -1e-6, -150, double.NaN)] double newNorm)
+            [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double newNorm)
         {
             // Setup
             var random = new Random(21);
@@ -383,7 +383,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
         private static void AssertFailureProbabilitySpace(double newOtherContribution, double norm, double probabilitySpace)
         {
-            double expectedProbabilitySpace = (1.0/norm/newOtherContribution)*100.0;
+            double expectedProbabilitySpace = 100.0/(norm*newOtherContribution);
             Assert.AreEqual(expectedProbabilitySpace, probabilitySpace);
         }
     }

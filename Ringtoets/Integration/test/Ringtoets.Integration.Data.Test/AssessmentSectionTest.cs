@@ -234,7 +234,7 @@ namespace Ringtoets.Integration.Data.Test
                 Assert.AreEqual(failureMechanisms[i].Name, contribution[i].Assessment);
                 Assert.AreEqual(failureMechanisms[i].Contribution, contribution[i].Contribution);
                 Assert.AreEqual(norm, contribution[i].Norm);
-                Assert.AreEqual((1.0/norm/contribution[i].Contribution)*100, contribution[i].ProbabilitySpace);
+                Assert.AreEqual(100.0/(norm*contribution[i].Contribution), contribution[i].ProbabilitySpace);
             }
             var otherContributionItem = contribution[11];
             Assert.AreEqual("Overig", otherContributionItem.Assessment);
@@ -242,7 +242,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(expectedOtherContribution, otherContributionItem.Contribution);
             Assert.AreEqual(norm, otherContributionItem.Norm);
             double expectedNorm = composition == AssessmentSectionComposition.DikeAndDune ? 150000 : 100000;
-            Assert.AreEqual(expectedNorm, otherContributionItem.ProbabilitySpace);
+            Assert.AreEqual(expectedNorm, otherContributionItem.ProbabilitySpace, 1e-6);
         }
 
         [Test]

@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             }
 
             var changedObjects = new List<IObservable>();
-            if (assessmentSection.FailureMechanismContribution.Norm.CompareTo(newNormValue) != 0)
+            if (!assessmentSection.FailureMechanismContribution.Norm.Equals(newNormValue))
             {
                 assessmentSection.FailureMechanismContribution.Norm = newNormValue;
 

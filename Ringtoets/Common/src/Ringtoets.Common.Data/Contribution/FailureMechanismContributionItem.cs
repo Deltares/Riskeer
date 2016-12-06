@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return (1.0/Norm/Contribution)*100;
+                return 100.0/(Norm*Contribution);
             }
         }
 

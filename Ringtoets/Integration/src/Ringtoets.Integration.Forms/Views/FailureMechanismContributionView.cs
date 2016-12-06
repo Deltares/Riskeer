@@ -422,13 +422,14 @@ namespace Ringtoets.Integration.Forms.Views
         private void ReturnPeriodNumericUpDown_Validating(object sender, CancelEventArgs e)
         {
             int returnPeriod = Convert.ToInt32(returnPeriodInput.Value);
-            if (returnPeriod != 0 && assessmentSection.FailureMechanismContribution.Norm.CompareTo(1.0/returnPeriod) != 0)
+            if (returnPeriod == 0 || assessmentSection.FailureMechanismContribution.Norm.Equals(1.0/returnPeriod))
             {
-                if (!normChangeHandler.ConfirmNormChange())
-                {
-                    e.Cancel = true;
-                    RevertReturnPeriodInputValue();
-                }
+                return;
+            }
+            if (!normChangeHandler.ConfirmNormChange())
+            {
+                e.Cancel = true;
+                RevertReturnPeriodInputValue();
             }
         }
 

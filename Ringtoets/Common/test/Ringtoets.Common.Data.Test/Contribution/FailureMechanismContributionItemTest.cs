@@ -139,7 +139,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var result = contributionItem.ProbabilitySpace;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, double.Epsilon);
+            Assert.AreEqual(expectedResult, result, 1e-6);
 
             mockRepository.VerifyAll();
         }
