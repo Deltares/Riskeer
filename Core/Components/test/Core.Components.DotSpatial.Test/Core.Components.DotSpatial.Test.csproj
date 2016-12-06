@@ -83,7 +83,7 @@
     <Compile Include="Converter\MapLineDataConverterTest.cs" />
     <Compile Include="Converter\MapPolygonDataConverterTest.cs" />
     <Compile Include="Converter\FeatureBasedMapDataConverterTest.cs" />
-    <Compile Include="Converter\MapFeatureLayerFactoryTest.cs" />
+    <Compile Include="Layer\FeatureBasedMapDataLayerFactoryTest.cs" />
     <Compile Include="Converter\MapPointDataConverterTest.cs" />
     <Compile Include="MapFunctions\MapFunctionSelectionZoomTest.cs" />
     <Compile Include="MouseCoordinatesMapExtensionTest.cs" />

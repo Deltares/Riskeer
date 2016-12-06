@@ -67,7 +67,7 @@
     <Compile Include="Converter\IFeatureBasedMapDataConverter.cs" />
     <Compile Include="Converter\FeatureBasedMapDataConverter.cs" />
     <Compile Include="Layer\IFeatureBasedMapDataLayer.cs" />
-    <Compile Include="Converter\MapFeatureLayerFactory.cs" />
+    <Compile Include="Layer\FeatureBasedMapDataLayerFactory.cs" />
     <Compile Include="Converter\MapDataHelper.cs" />
     <Compile Include="Converter\MapLineDataConverter.cs" />
     <Compile Include="Layer\MapLineDataLayer.cs" />

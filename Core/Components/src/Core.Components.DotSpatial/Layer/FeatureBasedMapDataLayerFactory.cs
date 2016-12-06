@@ -20,27 +20,22 @@
 // All rights reserved.
 
 using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Core.Components.DotSpatial.Layer;
 using Core.Components.Gis.Data;
-using DotSpatial.Controls;
 
-namespace Core.Components.DotSpatial.Converter
+namespace Core.Components.DotSpatial.Layer
 {
     /// <summary>
-    /// A factory to create <see cref="IMapFeatureLayer"/> data from <see cref="FeatureBasedMapData"/> which can be used on the map.
+    /// A factory to create <see cref="IFeatureBasedMapDataLayer"/> based on <see cref="FeatureBasedMapData"/>.
     /// </summary>
-    public static class MapFeatureLayerFactory
+    public static class FeatureBasedMapDataLayerFactory
     {
-        private static readonly Collection<IFeatureBasedMapDataConverter> converters = new Collection<IFeatureBasedMapDataConverter>
-        {
-            new MapPointDataConverter(),
-            new MapLineDataConverter(),
-            new MapPolygonDataConverter()
-        };
-
-        public static IFeatureBasedMapDataLayer CreateLayer(FeatureBasedMapData data)
+        /// <summary>
+        /// Creates a <see cref="IFeatureBasedMapDataLayer"/> based on <paramref name="data"/>.
+        /// </summary>
+        /// <param name="data">The <see cref="FeatureBasedMapData"/> to create a <see cref="IFeatureBasedMapDataLayer"/> from.</param>
+        /// <returns>A <see cref="IFeatureBasedMapDataLayer"/> instance.</returns>
+        /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
+        public static IFeatureBasedMapDataLayer Create(FeatureBasedMapData data)
         {
             var mapPointData = data as MapPointData;
             if (mapPointData != null)
@@ -58,23 +53,6 @@ namespace Core.Components.DotSpatial.Converter
             if (mapPolygonData != null)
             {
                 return new MapPolygonDataLayer(mapPolygonData);
-            }
-
-            throw new NotSupportedException(string.Format("FeatureBasedMapData of type {0} is not supported.", data.GetType().Name));
-        }
-
-        /// <summary>
-        /// Creates a <see cref="IMapFeatureLayer"/> from the given <paramref name="data"/>.
-        /// </summary>
-        /// <param name="data">The <see cref="FeatureBasedMapData"/> to base the creation of <see cref="IMapFeatureLayer"/> upon.</param>
-        /// <returns>A new layer based on <see cref="FeatureBasedMapData"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
-        public static IMapFeatureLayer Create(FeatureBasedMapData data)
-        {
-            var converter = converters.FirstOrDefault(c => c.CanConvertMapData(data));
-            if (converter != null)
-            {
-                return converter.Convert(data);
             }
 
             throw new NotSupportedException(string.Format("FeatureBasedMapData of type {0} is not supported.", data.GetType().Name));

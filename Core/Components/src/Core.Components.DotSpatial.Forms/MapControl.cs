@@ -261,7 +261,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private void DrawMapData(FeatureBasedMapData featureBasedMapData)
         {
-            var mapFeatureLayer = MapFeatureLayerFactory.CreateLayer(featureBasedMapData);
+            var mapFeatureLayer = FeatureBasedMapDataLayerFactory.Create(featureBasedMapData);
 
             var drawnMapData = new DrawnMapData
             {
