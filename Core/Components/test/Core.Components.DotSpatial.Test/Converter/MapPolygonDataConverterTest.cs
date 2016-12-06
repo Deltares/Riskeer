@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -93,19 +91,10 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_MapPolygonDataWithFeature_ReturnMapPolygonLayerWithPointData()
+        public void Convert_MapPolygonDataWithSingleGeometryFeature_ReturnMapPolygonLayerWithPolygonData()
         {
             // Setup
             var converter = new MapPolygonDataConverter();
-            var random = new Random(21);
-            var randomCount = random.Next(5, 10);
-            var polygonPoints = new Collection<Point2D>();
-
-            for (var i = 0; i < randomCount; i++)
-            {
-                polygonPoints.Add(new Point2D(random.NextDouble(), random.NextDouble()));
-            }
-
             var polygonData = new MapPolygonData("test data")
             {
                 Features = new[]
@@ -114,7 +103,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                     {
                         new MapGeometry(new[]
                         {
-                            polygonPoints
+                            CreateRectangularRing(0.0, 10.0)
                         })
                     })
                 }
@@ -128,14 +117,49 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(polygonData.Features.Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
 
-            IEnumerable<Point2D> points = polygonData.Features.First().MapGeometries.First().PointCollections.First();
-            List<Point2D> expectedPoints = points.ToList();
-            expectedPoints.Add(expectedPoints.First()); // Needed because DotSpatial adds the first point at the end of the collection.
-            CollectionAssert.AreEqual(expectedPoints.Select(p => new Coordinate(p.X, p.Y)), layer.DataSet.Features[0].Coordinates);
+            IEnumerable<Coordinate> expectedCoordinates = polygonData.Features.First().MapGeometries.First().PointCollections.First().Select(p => new Coordinate(p.X, p.Y));
+            CollectionAssert.AreEqual(expectedCoordinates, layer.DataSet.Features[0].Coordinates);
         }
 
         [Test]
-        public void Convert_MapFeatureWithSimplePolygon_ReturnPolygonLayerWithOnePolygonFeature()
+        public void Convert_MapPolygonDataWithMultipleGeometryFeature_ReturnMapPolygonLayerWithMultiPolygonData()
+        {
+            // Setup
+            var converter = new MapPolygonDataConverter();
+            var mapFeature = new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    CreateRectangularRing(2.0, 4.0)
+                }),
+                new MapGeometry(new[]
+                {
+                    CreateRectangularRing(6.0, 8.0)
+                })
+            });
+
+            var polygonData = new MapPolygonData("test data")
+            {
+                Features = new[]
+                {
+                    mapFeature
+                }
+            };
+
+            // Call
+            IMapFeatureLayer layer = converter.Convert(polygonData);
+
+            // Assert
+            IFeature feature = layer.DataSet.Features[0];
+            Assert.AreEqual(polygonData.Features.Length, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MultiPolygon>(feature.BasicGeometry);
+
+            var expectedCoordinates = mapFeature.MapGeometries.SelectMany(mg => mg.PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y)));
+            CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
+        }
+
+        [Test]
+        public void Convert_MapPolygonDataWithRingFeature_ReturnMapPolygonLayerWithPolygonData()
         {
             // Setup
             Point2D[] outerRingPoints = CreateRectangularRing(0.0, 10.0);
@@ -149,8 +173,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                     })
                 })
             };
-            const string layerName = "test data";
-            var polygonData = new MapPolygonData(layerName)
+            var polygonData = new MapPolygonData("test data")
             {
                 Features = mapFeatures
             };
@@ -159,20 +182,18 @@ namespace Core.Components.DotSpatial.Test.Converter
             PolygonLayer layer = (PolygonLayer) new MapPolygonDataConverter().Convert(polygonData);
 
             // Assert
-            Assert.AreEqual(polygonData.IsVisible, layer.IsVisible);
-            Assert.AreEqual(layerName, layer.Name);
-            Assert.AreEqual(FeatureType.Polygon, layer.FeatureSet.FeatureType);
-            Assert.AreEqual(1, layer.FeatureSet.Features.Count);
+            IFeature feature = layer.DataSet.Features[0];
+            Assert.AreEqual(polygonData.Features.Length, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
 
             Polygon polygonGeometry = (Polygon) layer.FeatureSet.Features[0].BasicGeometry;
             Assert.AreEqual(1, polygonGeometry.NumGeometries);
-
             CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
             CollectionAssert.IsEmpty(polygonGeometry.Holes);
         }
 
         [Test]
-        public void Convert_MapFeatureWithPolygonWithHoles_ReturnPolygonLayerWithOnePolygonFeature()
+        public void Convert_MapPolygonDataWithRingFeatureAndHoles_ReturnMapPolygonLayerWithPolygonData()
         {
             // Setup
             Point2D[] outerRingPoints = CreateRectangularRing(0.0, 10.0);
@@ -190,8 +211,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                     })
                 })
             };
-            const string layerName = "test data";
-            var polygonData = new MapPolygonData(layerName)
+            var polygonData = new MapPolygonData("test data")
             {
                 Features = mapFeatures
             };
@@ -200,173 +220,16 @@ namespace Core.Components.DotSpatial.Test.Converter
             PolygonLayer layer = (PolygonLayer) new MapPolygonDataConverter().Convert(polygonData);
 
             // Assert
-            Assert.AreEqual(polygonData.IsVisible, layer.IsVisible);
-            Assert.AreEqual(layerName, layer.Name);
-            Assert.AreEqual(FeatureType.Polygon, layer.FeatureSet.FeatureType);
-            Assert.AreEqual(1, layer.FeatureSet.Features.Count);
+            IFeature feature = layer.DataSet.Features[0];
+            Assert.AreEqual(polygonData.Features.Length, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
 
             Polygon polygonGeometry = (Polygon) layer.FeatureSet.Features[0].BasicGeometry;
             Assert.AreEqual(1, polygonGeometry.NumGeometries);
-
             CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
             Assert.AreEqual(2, polygonGeometry.Holes.Length);
             CollectionAssert.AreEqual(innerRing1Points, polygonGeometry.Holes.ElementAt(0).Coordinates.Select(c => new Point2D(c.X, c.Y)));
             CollectionAssert.AreEqual(innerRing2Points, polygonGeometry.Holes.ElementAt(1).Coordinates.Select(c => new Point2D(c.X, c.Y)));
-        }
-
-        [Test]
-        public void Convert_MultipleGeometriesInFeature_ReturnsOneFeatureWithAllGeometries()
-        {
-            // Setup
-            var converter = new MapPolygonDataConverter();
-            MapFeature[] features =
-            {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(1.0, 2.0),
-                            new Point2D(2.0, 1.0)
-                        }
-                    }),
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(2.0, 2.0),
-                            new Point2D(3.0, 2.0)
-                        }
-                    }),
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(1.0, 3.0),
-                            new Point2D(1.0, 4.0)
-                        }
-                    }),
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(3.0, 2.0),
-                            new Point2D(4.0, 1.0)
-                        }
-                    })
-                })
-            };
-            MapGeometry[] geometries = features.First().MapGeometries.ToArray();
-
-            var polygonData = new MapPolygonData("test")
-            {
-                Features = features
-            };
-
-            // Call
-            IMapFeatureLayer layer = converter.Convert(polygonData);
-
-            // Assert
-            Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
-            layer.DataSet.InitializeVertices();
-            List<PartRange> layerGeometries = layer.DataSet.ShapeIndices.First().Parts;
-            Assert.AreEqual(geometries.Length, layerGeometries.Count);
-        }
-
-        [Test]
-        public void Convert_MapDataWithSingleGeometry_ReturnMapPolygonLayerWithPolygon()
-        {
-            // Setup
-            var converter = new MapPolygonDataConverter();
-            var random = new Random(21);
-            MapFeature[] features =
-            {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble())
-                        },
-                        new[]
-                        {
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble())
-                        }
-                    })
-                })
-            };
-
-            var polygonData = new MapPolygonData("test data")
-            {
-                Features = features
-            };
-
-            // Call
-            IMapFeatureLayer layer = converter.Convert(polygonData);
-
-            // Assert
-            Assert.IsInstanceOf<Polygon>(layer.DataSet.Features[0].BasicGeometry);
-        }
-
-        [Test]
-        public void Convert_MapDataWithMultipleGeometry_ReturnMapPolygonLayerWithMultiPolygon()
-        {
-            // Setup
-            var converter = new MapPolygonDataConverter();
-            var random = new Random(21);
-            MapFeature[] features =
-            {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble())
-                        },
-                        new[]
-                        {
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble())
-                        }
-                    }),
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble())
-                        },
-                        new[]
-                        {
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble()),
-                            new Point2D(random.NextDouble(), random.NextDouble())
-                        }
-                    })
-                })
-            };
-
-            var polygonData = new MapPolygonData("test data")
-            {
-                Features = features
-            };
-
-            // Call
-            IMapFeatureLayer layer = converter.Convert(polygonData);
-
-            // Assert
-            Assert.IsInstanceOf<MultiPolygon>(layer.DataSet.Features[0].BasicGeometry);
         }
 
         [Test]

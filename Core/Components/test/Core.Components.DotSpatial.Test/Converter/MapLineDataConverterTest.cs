@@ -126,12 +126,13 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(lineData.Features.Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<LineString>(feature.BasicGeometry);
 
-            var expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y));
+            var expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0)
+                                                .Select(p => new Coordinate(p.X, p.Y));
             CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
         }
 
         [Test]
-        public void Convert_MapDataWithMultipleGeometryFeature_ReturnMapLineLayerWithMultiLineStringData()
+        public void Convert_MapLineDataWithMultipleGeometryFeature_ReturnMapLineLayerWithMultiLineStringData()
         {
             // Setup
             var converter = new MapLineDataConverter();
