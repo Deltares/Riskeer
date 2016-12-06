@@ -90,6 +90,10 @@ namespace Application.Ringtoets.Storage.Read.Piping
             {
                 inputParameters.HydraulicBoundaryLocation = entity.HydraulicLocationEntity.Read(collector);
             }
+            else
+            {
+                inputParameters.AssessmentLevel = (RoundedDouble) entity.AssessmentLevel.ToNullAsNaN();
+            }
             if (entity.StochasticSoilProfileEntity != null)
             {
                 inputParameters.StochasticSoilModel = entity.StochasticSoilProfileEntity.StochasticSoilModelEntity.Read(collector);

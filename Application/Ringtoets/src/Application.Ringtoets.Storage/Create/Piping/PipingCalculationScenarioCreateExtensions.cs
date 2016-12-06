@@ -72,6 +72,10 @@ namespace Application.Ringtoets.Storage.Create.Piping
             {
                 entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(inputParameters.HydraulicBoundaryLocation);
             }
+            else
+            {
+                entity.AssessmentLevel = inputParameters.AssessmentLevel.Value.ToNaNAsNull();
+            }
             if (inputParameters.StochasticSoilProfile != null)
             {
                 entity.StochasticSoilProfileEntity = registry.Get(inputParameters.StochasticSoilProfile);
