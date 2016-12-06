@@ -33,21 +33,22 @@ namespace Core.Components.DotSpatial.Converter
     public static class MapFeatureLayerFactory
     {
         private static readonly Collection<IFeatureBasedMapDataConverter> converters = new Collection<IFeatureBasedMapDataConverter>
-            {
-                new MapPointDataConverter(),
-                new MapLineDataConverter(),
-                new MapPolygonDataConverter()
-            };
+        {
+            new MapPointDataConverter(),
+            new MapLineDataConverter(),
+            new MapPolygonDataConverter()
+        };
 
         /// <summary>
         /// Creates a <see cref="IMapFeatureLayer"/> from the given <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The <see cref="FeatureBasedMapData"/> to base the creation of <see cref="IMapFeatureLayer"/> upon.</param>
-        /// <returns>A new layer based on <see cref="IMapFeatureLayer"/>.</returns>
+        /// <returns>A new layer based on <see cref="FeatureBasedMapData"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
         public static IMapFeatureLayer Create(FeatureBasedMapData data)
         {
-            foreach (IFeatureBasedMapDataConverter converter in converters.Where(c => c.CanConvertMapData(data)))
+            var converter = converters.FirstOrDefault(c => c.CanConvertMapData(data));
+            if (converter != null)
             {
                 return converter.Convert(data);
             }

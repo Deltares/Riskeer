@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Style;
 using DotSpatial.Symbology;
@@ -57,6 +58,16 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.AreEqual(PointShape.Triangle, symbol);
+        }
+
+        [Test]
+        public void Convert_InvalidPointSymbol_ThrowsInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => MapDataHelper.Convert((PointSymbol) 4);
+
+            // Assert
+            Assert.Throws<InvalidEnumArgumentException>(test);
         }
     }
 }
