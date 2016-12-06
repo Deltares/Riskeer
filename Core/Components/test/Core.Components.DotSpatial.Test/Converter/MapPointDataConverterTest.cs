@@ -52,29 +52,12 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_SimpleMapPointData_ReturnMapPointLayer()
+        public void ConvertLayerFeatures_MapPointDataWithMultipleFeatures_ConvertsEachGeometryToMapPointLayerAsSingleFeature()
         {
             // Setup
             var converter = new MapPointDataConverter();
-            var pointData = new MapPointData("test data")
-            {
-                Features = new MapFeature[0]
-            };
-
-            // Call
-            IMapFeatureLayer layer = converter.Convert(pointData);
-
-            // Assert
-            Assert.IsInstanceOf<MapPointLayer>(layer);
-            Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
-        }
-
-        [Test]
-        public void Convert_MapPointDataWithMultipleFeatures_ConvertsEachGeometryAsSingleFeature()
-        {
-            // Setup
-            var converter = new MapPointDataConverter();
-            var pointData = new MapPointData("test")
+            var mapPointLayer = new MapPointLayer();
+            var mapPointData = new MapPointData("test")
             {
                 Features = new[]
                 {
@@ -121,17 +104,18 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            IMapFeatureLayer layer = converter.Convert(pointData);
+            converter.ConvertLayerFeatures(mapPointData, mapPointLayer);
 
             // Assert
-            Assert.AreEqual(4, layer.DataSet.Features.Count);
+            Assert.AreEqual(4, mapPointLayer.DataSet.Features.Count);
         }
 
         [Test]
-        public void Convert_MapPointDataWithFeature_ReturnMapPointLayerWithPointData()
+        public void ConvertLayerFeatures_MapPointDataWithFeature_ConvertsFeatureToMapPointLayerAsPointData()
         {
             // Setup
             var converter = new MapPointDataConverter();
+            var mapPointLayer = new MapPointLayer();
             var mapFeature = new MapFeature(new[]
             {
                 new MapGeometry(new[]
@@ -143,7 +127,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 })
             });
 
-            var pointData = new MapPointData("test")
+            var mapPointData = new MapPointData("test")
             {
                 Features = new[]
                 {
@@ -152,11 +136,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            IMapFeatureLayer layer = converter.Convert(pointData);
+            converter.ConvertLayerFeatures(mapPointData, mapPointLayer);
 
             // Assert
-            IFeature feature = layer.DataSet.Features[0];
-            Assert.AreEqual(pointData.Features.Length, layer.DataSet.Features.Count);
+            IFeature feature = mapPointLayer.DataSet.Features[0];
+            Assert.AreEqual(mapPointData.Features.Length, mapPointLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<Point>(feature.BasicGeometry);
 
             var expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y));
@@ -164,69 +148,30 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        [TestCase(KnownColor.AliceBlue)]
-        [TestCase(KnownColor.Azure)]
-        [TestCase(KnownColor.Beige)]
-        public void Convert_PointStyleSetWithDifferentColors_AppliesStyleToLayer(KnownColor color)
+        [Combinatorial]
+        public void ConvertLayerProperties_MapPointDataWithStyle_ConvertsStyleToMapPointLayer(
+            [Values(KnownColor.AliceBlue, KnownColor.Azure)] KnownColor color,
+            [Values(1, 5)] int width,
+            [Values(PointSymbol.Circle, PointSymbol.Square)] PointSymbol pointStyle)
         {
             // Setup
             var converter = new MapPointDataConverter();
+            var mapPointLayer = new MapPointLayer();
             var expectedColor = Color.FromKnownColor(color);
-            var data = new MapPointData("test")
+            var mapPointData = new MapPointData("test")
             {
-                Style = new PointStyle(expectedColor, 3, PointSymbol.Circle)
+                Style = new PointStyle(expectedColor, width, pointStyle)
             };
 
             // Call
-            MapPointLayer layer = (MapPointLayer) converter.Convert(data);
-
-            // Assert
-            AssertAreEqual(new PointSymbolizer(expectedColor, PointShape.Ellipse, 3), layer.Symbolizer);
-        }
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(5)]
-        [TestCase(7)]
-        public void Convert_PointStyleSetWithDifferentWidths_AppliesStyleToLayer(int width)
-        {
-            // Setup
-            var converter = new MapPointDataConverter();
-            var data = new MapPointData("test")
-            {
-                Style = new PointStyle(Color.AliceBlue, width, PointSymbol.Circle)
-            };
-
-            // Call
-            MapPointLayer layer = (MapPointLayer) converter.Convert(data);
-
-            // Assert
-            AssertAreEqual(new PointSymbolizer(Color.AliceBlue, PointShape.Ellipse, width), layer.Symbolizer);
-        }
-
-        [Test]
-        [TestCase(PointSymbol.Circle)]
-        [TestCase(PointSymbol.Square)]
-        [TestCase(PointSymbol.Triangle)]
-        public void Convert_PointStyleSetWithDifferentPointStyles_AppliesStyleToLayer(PointSymbol pointStyle)
-        {
-            // Setup
-            var converter = new MapPointDataConverter();
-            var data = new MapPointData("test")
-            {
-                Style = new PointStyle(Color.AliceBlue, 3, pointStyle)
-            };
-
-            // Call
-            MapPointLayer layer = (MapPointLayer) converter.Convert(data);
+            converter.ConvertLayerProperties(mapPointData, mapPointLayer);
 
             // Assert
             PointShape expectedPointShape = pointStyle == PointSymbol.Circle
                                                 ? PointShape.Ellipse
-                                                : pointStyle == PointSymbol.Square
-                                                      ? PointShape.Rectangle
-                                                      : PointShape.Triangle;
-            AssertAreEqual(new PointSymbolizer(Color.AliceBlue, expectedPointShape, 3), layer.Symbolizer);
+                                                : PointShape.Rectangle;
+
+            AssertAreEqual(new PointSymbolizer(expectedColor, expectedPointShape, width), mapPointLayer.Symbolizer);
         }
 
         private static void AssertAreEqual(IPointSymbolizer firstSymbolizer, IPointSymbolizer secondSymbolizer)
