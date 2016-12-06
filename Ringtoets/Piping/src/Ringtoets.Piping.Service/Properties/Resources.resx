@@ -166,7 +166,7 @@
     <value>Kan de definitie voor het verzadigd gewicht van de deklaag niet (volledig) afleiden.</value>
   </data>
   <data name="PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model" xml:space="preserve">
-    <value>Gespecificeerde waarde voor d70 ({0} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m.</value>
+    <value>Rekenwaarde voor d70 ({0} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m.</value>
   </data>
   <data name="PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight" xml:space="preserve">
     <value>Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water.</value>
