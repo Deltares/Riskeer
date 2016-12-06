@@ -187,9 +187,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Convert_RandomLineDataWithoutAttributes_ReturnsNewMapLineLayerWithDefaultLabelLayer(bool showLabels)
+        public void Convert_RandomLineDataWithoutAttributes_ReturnsNewMapLineLayerWithDefaultLabelLayer()
         {
             // Setup
             var converter = new MapLineDataConverter();
@@ -212,21 +210,13 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             var lineData = new MapLineData("test data")
             {
-                Features = features,
-                ShowLabels = showLabels
+                Features = features
             };
 
             // Call
             IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            Assert.AreEqual(lineData.Features.Length, layer.DataSet.Features.Count);
-            Assert.IsInstanceOf<MapLineLayer>(layer);
-            Assert.AreEqual(FeatureType.Line, layer.DataSet.FeatureType);
-
-            IEnumerable<Point2D> points = lineData.Features.First().MapGeometries.First().PointCollections.First();
-            CollectionAssert.AreEqual(points.Select(p => new Coordinate(p.X, p.Y)), layer.DataSet.Features[0].Coordinates);
-            Assert.AreEqual(showLabels, layer.ShowLabels);
             CollectionAssert.IsEmpty(layer.DataSet.GetColumns());
 
             Assert.IsNotNull(layer.LabelLayer);
@@ -235,7 +225,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_RandomLineDataWithAttributesShowLabelsFalse_ReturnsNewMapPointLayerWithDefaultLabelLayer()
+        public void Convert_RandomLineDataWithAttributes_ReturnsNewMapPointLayerWithDefaultLabelLayer()
         {
             // Setup
             var converter = new MapLineDataConverter();
@@ -261,21 +251,13 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             var lineData = new MapLineData("test data")
             {
-                Features = features,
-                ShowLabels = false
+                Features = features
             };
 
             // Call
             IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            Assert.AreEqual(lineData.Features.Length, layer.DataSet.Features.Count);
-            Assert.IsInstanceOf<MapLineLayer>(layer);
-            Assert.AreEqual(FeatureType.Line, layer.DataSet.FeatureType);
-            IEnumerable<Point2D> points = lineData.Features.First().MapGeometries.First().PointCollections.First();
-            CollectionAssert.AreEqual(points.Select(p => new Coordinate(p.X, p.Y)), layer.DataSet.Features[0].Coordinates);
-            Assert.IsFalse(layer.ShowLabels);
-
             DataColumn[] dataColumns = layer.DataSet.GetColumns();
             Assert.AreEqual(2, dataColumns.Length);
             Assert.AreEqual("1", dataColumns[0].ColumnName);
@@ -316,7 +298,6 @@ namespace Core.Components.DotSpatial.Test.Converter
             var lineData = new MapLineData("test data")
             {
                 Features = features,
-                ShowLabels = true,
                 SelectedMetaDataAttribute = selectedAttribute
             };
 
@@ -324,13 +305,6 @@ namespace Core.Components.DotSpatial.Test.Converter
             IMapFeatureLayer layer = converter.Convert(lineData);
 
             // Assert
-            Assert.AreEqual(lineData.Features.Length, layer.DataSet.Features.Count);
-            Assert.IsInstanceOf<MapLineLayer>(layer);
-            Assert.AreEqual(FeatureType.Line, layer.DataSet.FeatureType);
-            IEnumerable<Point2D> points = lineData.Features.First().MapGeometries.First().PointCollections.First();
-            CollectionAssert.AreEqual(points.Select(p => new Coordinate(p.X, p.Y)), layer.DataSet.Features[0].Coordinates);
-            Assert.IsTrue(layer.ShowLabels);
-
             DataColumn[] dataColumns = layer.DataSet.GetColumns();
             Assert.AreEqual(2, dataColumns.Length);
             Assert.AreEqual("1", dataColumns[0].ColumnName);
@@ -342,40 +316,6 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(ContentAlignment.MiddleRight, labelCategory.Symbolizer.Orientation);
             Assert.AreEqual(5, labelCategory.Symbolizer.OffsetX);
             Assert.AreEqual(string.Format("[{0}]", selectedAttributeId), labelCategory.Expression);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Convert_DataIsVisible_LayerIsVisibleSameAsData(bool isVisible)
-        {
-            // Setup
-            var converter = new MapLineDataConverter();
-            var data = new MapLineData("test")
-            {
-                IsVisible = isVisible
-            };
-
-            // Call
-            IMapFeatureLayer layer = converter.Convert(data);
-
-            // Assert
-            Assert.AreEqual(isVisible, layer.IsVisible);
-        }
-
-        [Test]
-        public void Convert_DataName_LayerNameSameAsData()
-        {
-            // Setup
-            var name = "<Some name>";
-            var converter = new MapLineDataConverter();
-            var data = new MapLineData(name);
-
-            // Call
-            MapLineLayer layer = (MapLineLayer) converter.Convert(data);
-
-            // Assert
-            Assert.AreEqual(name, layer.Name);
         }
 
         [Test]

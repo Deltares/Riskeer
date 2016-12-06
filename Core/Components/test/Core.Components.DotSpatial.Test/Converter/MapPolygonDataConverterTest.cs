@@ -521,40 +521,6 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Convert_DataIsVisible_LayerIsVisibleSameAsData(bool isVisible)
-        {
-            // Setup
-            var converter = new MapPolygonDataConverter();
-            var data = new MapPolygonData("test")
-            {
-                IsVisible = isVisible
-            };
-
-            // Call
-            IMapFeatureLayer layer = converter.Convert(data);
-
-            // Assert
-            Assert.AreEqual(isVisible, layer.IsVisible);
-        }
-
-        [Test]
-        public void Convert_DataName_LayerNameSameAsData()
-        {
-            // Setup
-            var name = "<Some name>";
-            var converter = new MapPolygonDataConverter();
-            var data = new MapPolygonData(name);
-
-            // Call
-            MapPolygonLayer layer = (MapPolygonLayer) converter.Convert(data);
-
-            // Assert
-            Assert.AreEqual(name, layer.Name);
-        }
-
-        [Test]
         [TestCase(KnownColor.AliceBlue)]
         [TestCase(KnownColor.Azure)]
         [TestCase(KnownColor.Beige)]

@@ -196,6 +196,60 @@ namespace Core.Components.DotSpatial.Test.Converter
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
+        [Test]
+        public void ConvertLayerProperties_MapData_NameSetToLayer()
+        {
+            // Setup
+            var name = "<Some name>";
+            var converter = new TestFeatureBasedMapDataConverter<Class>();
+            var data = new Class(name);
+            var layer = new MapPointLayer();
+
+            // Call
+            converter.ConvertLayerProperties(data, layer);
+
+            // Assert
+            Assert.AreEqual(name, layer.Name);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ConvertLayerProperties_MapData_ShowLabelsSetToLayer(bool showLabels)
+        {
+            // Setup
+            var converter = new TestFeatureBasedMapDataConverter<Class>();
+            var data = new Class("test")
+            {
+                ShowLabels = showLabels
+            };
+            var layer = new MapPointLayer();
+
+            // Call
+            converter.ConvertLayerProperties(data, layer);
+
+            // Assert
+            Assert.AreEqual(showLabels, layer.ShowLabels);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ConvertLayerProperties_MapData_IsVisibleSetToLayer(bool isVisible)
+        {
+            // Setup
+            var converter = new TestFeatureBasedMapDataConverter<Class>();
+            var data = new Class("test")
+            {
+                IsVisible = isVisible
+            };
+            var layer = new MapPointLayer();
+
+            // Call
+            converter.ConvertLayerProperties(data, layer);
+
+            // Assert
+            Assert.AreEqual(isVisible, layer.IsVisible);
+        }
+
         private class Class : FeatureBasedMapData
         {
             public Class(string name) : base(name) {}
