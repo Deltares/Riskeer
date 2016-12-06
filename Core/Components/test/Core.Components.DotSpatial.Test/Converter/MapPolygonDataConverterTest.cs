@@ -50,29 +50,11 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_SimpleMapPolygonData_ReturnMapPolygonLayer()
+        public void ConvertLayerFeatures_MapPolygonDataWithMultipleFeatures_ConvertsAllFeaturesToMapPolygonLayer()
         {
             // Setup
             var converter = new MapPolygonDataConverter();
-            var mapPolygon = new MapPolygonData("test data")
-            {
-                Features = new MapFeature[0]
-            };
-
-            // Call
-            IMapFeatureLayer layer = converter.Convert(mapPolygon);
-
-            // Assert
-            Assert.IsInstanceOf<MapPolygonLayer>(layer);
-            Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
-        }
-
-        [Test]
-        public void Convert_MapPolygonDataWithMultipleFeatures_ConvertsAllFeatures()
-        {
-            // Setup
-            var converter = new MapPolygonDataConverter();
-
+            var mapPolygonLayer = new MapPolygonLayer();
             var mapPolygonData = new MapPolygonData("test")
             {
                 Features = new[]
@@ -84,18 +66,19 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            IMapFeatureLayer layer = converter.Convert(mapPolygonData);
+            converter.ConvertLayerFeatures(mapPolygonData, mapPolygonLayer);
 
             // Assert
-            Assert.AreEqual(mapPolygonData.Features.Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
         }
 
         [Test]
-        public void Convert_MapPolygonDataWithSingleGeometryFeature_ReturnMapPolygonLayerWithPolygonData()
+        public void ConvertLayerFeatures_MapPolygonDataWithSingleGeometryFeature_ConvertsFeatureToMapPolygonLayerAsPolygonData()
         {
             // Setup
             var converter = new MapPolygonDataConverter();
-            var polygonData = new MapPolygonData("test data")
+            var mapPolygonLayer = new MapPolygonLayer();
+            var mapPolygonData = new MapPolygonData("test data")
             {
                 Features = new[]
                 {
@@ -110,22 +93,23 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            IMapFeatureLayer layer = converter.Convert(polygonData);
+            converter.ConvertLayerFeatures(mapPolygonData, mapPolygonLayer);
 
             // Assert
-            IFeature feature = layer.DataSet.Features[0];
-            Assert.AreEqual(polygonData.Features.Length, layer.DataSet.Features.Count);
+            IFeature feature = mapPolygonLayer.DataSet.Features[0];
+            Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
 
-            IEnumerable<Coordinate> expectedCoordinates = polygonData.Features.First().MapGeometries.First().PointCollections.First().Select(p => new Coordinate(p.X, p.Y));
-            CollectionAssert.AreEqual(expectedCoordinates, layer.DataSet.Features[0].Coordinates);
+            IEnumerable<Coordinate> expectedCoordinates = mapPolygonData.Features.First().MapGeometries.First().PointCollections.First().Select(p => new Coordinate(p.X, p.Y));
+            CollectionAssert.AreEqual(expectedCoordinates, mapPolygonLayer.DataSet.Features[0].Coordinates);
         }
 
         [Test]
-        public void Convert_MapPolygonDataWithMultipleGeometryFeature_ReturnMapPolygonLayerWithMultiPolygonData()
+        public void ConvertLayerFeatures_MapPolygonDataWithMultipleGeometryFeature_ConvertsFeatureToMapPolygonLayerAsMultiPolygonData()
         {
             // Setup
             var converter = new MapPolygonDataConverter();
+            var mapPolygonLayer = new MapPolygonLayer();
             var mapFeature = new MapFeature(new[]
             {
                 new MapGeometry(new[]
@@ -138,7 +122,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 })
             });
 
-            var polygonData = new MapPolygonData("test data")
+            var mapPolygonData = new MapPolygonData("test data")
             {
                 Features = new[]
                 {
@@ -147,11 +131,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // Call
-            IMapFeatureLayer layer = converter.Convert(polygonData);
+            converter.ConvertLayerFeatures(mapPolygonData, mapPolygonLayer);
 
             // Assert
-            IFeature feature = layer.DataSet.Features[0];
-            Assert.AreEqual(polygonData.Features.Length, layer.DataSet.Features.Count);
+            IFeature feature = mapPolygonLayer.DataSet.Features[0];
+            Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<MultiPolygon>(feature.BasicGeometry);
 
             var expectedCoordinates = mapFeature.MapGeometries.SelectMany(mg => mg.PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y)));
@@ -159,9 +143,11 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_MapPolygonDataWithRingFeature_ReturnMapPolygonLayerWithPolygonData()
+        public void ConvertLayerFeatures_MapPolygonDataWithRingFeature_ConvertsFeatureToMapPolygonLayerAsPolygonData()
         {
             // Setup
+            var converter = new MapPolygonDataConverter();
+            var mapPolygonLayer = new MapPolygonLayer();
             Point2D[] outerRingPoints = CreateRectangularRing(0.0, 10.0);
             MapFeature[] mapFeatures =
             {
@@ -173,29 +159,31 @@ namespace Core.Components.DotSpatial.Test.Converter
                     })
                 })
             };
-            var polygonData = new MapPolygonData("test data")
+            var mapPolygonData = new MapPolygonData("test data")
             {
                 Features = mapFeatures
             };
 
             // Call
-            PolygonLayer layer = (PolygonLayer) new MapPolygonDataConverter().Convert(polygonData);
+            converter.ConvertLayerFeatures(mapPolygonData, mapPolygonLayer);
 
             // Assert
-            IFeature feature = layer.DataSet.Features[0];
-            Assert.AreEqual(polygonData.Features.Length, layer.DataSet.Features.Count);
+            IFeature feature = mapPolygonLayer.DataSet.Features[0];
+            Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
 
-            Polygon polygonGeometry = (Polygon) layer.FeatureSet.Features[0].BasicGeometry;
+            Polygon polygonGeometry = (Polygon) mapPolygonLayer.FeatureSet.Features[0].BasicGeometry;
             Assert.AreEqual(1, polygonGeometry.NumGeometries);
             CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
             CollectionAssert.IsEmpty(polygonGeometry.Holes);
         }
 
         [Test]
-        public void Convert_MapPolygonDataWithRingFeatureAndHoles_ReturnMapPolygonLayerWithPolygonData()
+        public void ConvertLayerFeatures_MapPolygonDataWithRingFeatureAndHoles_ConvertsFeatureToMapPolygonLayerAsPolygonData()
         {
             // Setup
+            var converter = new MapPolygonDataConverter();
+            var mapPolygonLayer = new MapPolygonLayer();
             Point2D[] outerRingPoints = CreateRectangularRing(0.0, 10.0);
             Point2D[] innerRing1Points = CreateRectangularRing(2.0, 3.0);
             Point2D[] innerRing2Points = CreateRectangularRing(8.0, 5.0);
@@ -211,20 +199,20 @@ namespace Core.Components.DotSpatial.Test.Converter
                     })
                 })
             };
-            var polygonData = new MapPolygonData("test data")
+            var mapPolygonData = new MapPolygonData("test data")
             {
                 Features = mapFeatures
             };
 
             // Call
-            PolygonLayer layer = (PolygonLayer) new MapPolygonDataConverter().Convert(polygonData);
+            converter.ConvertLayerFeatures(mapPolygonData, mapPolygonLayer);
 
             // Assert
-            IFeature feature = layer.DataSet.Features[0];
-            Assert.AreEqual(polygonData.Features.Length, layer.DataSet.Features.Count);
+            IFeature feature = mapPolygonLayer.DataSet.Features[0];
+            Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
 
-            Polygon polygonGeometry = (Polygon) layer.FeatureSet.Features[0].BasicGeometry;
+            Polygon polygonGeometry = (Polygon) mapPolygonLayer.FeatureSet.Features[0].BasicGeometry;
             Assert.AreEqual(1, polygonGeometry.NumGeometries);
             CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
             Assert.AreEqual(2, polygonGeometry.Holes.Length);
@@ -233,65 +221,27 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        [TestCase(KnownColor.AliceBlue)]
-        [TestCase(KnownColor.Azure)]
-        [TestCase(KnownColor.Beige)]
-        public void Convert_PolygonStyleSetWithDifferentFillColors_AppliesStyleToLayer(KnownColor color)
+        [Combinatorial]
+        public void ConvertLayerProperties_MapPolygonDataWithStyle_ConvertsStyleToMapPolygonLayer(
+            [Values(KnownColor.AliceBlue, KnownColor.Azure)] KnownColor fillColor,
+            [Values(KnownColor.AppWorkspace, KnownColor.BlueViolet)] KnownColor strokeColor,
+            [Values(1, 5)] int width)
         {
             // Setup
             var converter = new MapPolygonDataConverter();
-            var expectedColor = Color.FromKnownColor(color);
-            var data = new MapPolygonData("test")
+            var mapPolygonLayer = new MapPolygonLayer();
+            var expectedFillColor = Color.FromKnownColor(fillColor);
+            var expectedStrokeColor = Color.FromKnownColor(strokeColor);
+            var mapPolygonData = new MapPolygonData("test")
             {
-                Style = new PolygonStyle(expectedColor, Color.AliceBlue, 3)
+                Style = new PolygonStyle(expectedFillColor, expectedStrokeColor, width)
             };
 
             // Call
-            MapPolygonLayer layer = (MapPolygonLayer) converter.Convert(data);
+            converter.ConvertLayerProperties(mapPolygonData, mapPolygonLayer);
 
             // Assert
-            AssertAreEqual(new PolygonSymbolizer(expectedColor, Color.AliceBlue, 3), layer.Symbolizer);
-        }
-
-        [Test]
-        [TestCase(KnownColor.AliceBlue)]
-        [TestCase(KnownColor.Azure)]
-        [TestCase(KnownColor.Beige)]
-        public void Convert_PolygonStyleSetWithDifferentStrokeColors_AppliesStyleToLayer(KnownColor color)
-        {
-            // Setup
-            var converter = new MapPolygonDataConverter();
-            var expectedColor = Color.FromKnownColor(color);
-            var data = new MapPolygonData("test")
-            {
-                Style = new PolygonStyle(Color.AliceBlue, expectedColor, 3)
-            };
-
-            // Call
-            MapPolygonLayer layer = (MapPolygonLayer) converter.Convert(data);
-
-            // Assert
-            AssertAreEqual(new PolygonSymbolizer(Color.AliceBlue, expectedColor, 3), layer.Symbolizer);
-        }
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(5)]
-        [TestCase(7)]
-        public void Convert_PolygonStyleSetWithDifferentWidths_AppliesStyleToLayer(int width)
-        {
-            // Setup
-            var converter = new MapPolygonDataConverter();
-            var data = new MapPolygonData("test")
-            {
-                Style = new PolygonStyle(Color.AliceBlue, Color.AliceBlue, width)
-            };
-
-            // Call
-            MapPolygonLayer layer = (MapPolygonLayer) converter.Convert(data);
-
-            // Assert
-            AssertAreEqual(new PolygonSymbolizer(Color.AliceBlue, Color.AliceBlue, width), layer.Symbolizer);
+            AssertAreEqual(new PolygonSymbolizer(expectedFillColor, expectedStrokeColor, width), mapPolygonLayer.Symbolizer);
         }
 
         private static Point2D[] CreateRectangularRing(double xy1, double xy2)
