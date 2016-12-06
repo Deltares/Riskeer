@@ -31,18 +31,18 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class NormalDistributionPropertiesTest
+    public class TruncatedNormalDistributionPropertiesTest
     {
         [Test]
         public void Constructor_WithoutParameters_ExpectedValues()
         {
             // Call
-            var properties = new NormalDistributionProperties();
+            var properties = new TruncatedNormalDistributionProperties();
 
             // Assert
-            Assert.IsInstanceOf<DistributionPropertiesBase<NormalDistribution>>(properties);
+            Assert.IsInstanceOf<DistributionPropertiesBase<TruncatedNormalDistribution>>(properties);
             Assert.IsNull(properties.Data);
-            Assert.AreEqual("Normaal", properties.DistributionType);
+            Assert.AreEqual("Normaal (afgekapt)", properties.DistributionType);
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             DistributionPropertiesReadOnly flags)
         {
             // Call
-            TestDelegate call = () => new NormalDistributionProperties(flags, null);
+            TestDelegate call = () => new TruncatedNormalDistributionProperties(flags, null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Observable must be specified unless no property can be set.");
@@ -68,12 +68,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new NormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
+            var properties = new TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
 
             // Assert
-            Assert.IsInstanceOf<DistributionPropertiesBase<NormalDistribution>>(properties);
+            Assert.IsInstanceOf<DistributionPropertiesBase<TruncatedNormalDistribution>>(properties);
             Assert.IsNull(properties.Data);
-            Assert.AreEqual("Normaal", properties.DistributionType);
+            Assert.AreEqual("Normaal (afgekapt)", properties.DistributionType);
             mockRepository.VerifyAll();
         }
 
@@ -86,11 +86,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new NormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
+            var properties = new TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             PropertyDescriptor distributionTypeProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(distributionTypeProperty,
@@ -103,13 +103,27 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanProperty,
                                                                             "Misc",
                                                                             "Verwachtingswaarde",
-                                                                            "De gemiddelde waarde van de normale verdeling.");
+                                                                            "De gemiddelde waarde van de afgekapte normale verdeling.");
 
             PropertyDescriptor standardProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(standardProperty,
                                                                             "Misc",
                                                                             "Standaardafwijking",
-                                                                            "De standaardafwijking van de normale verdeling.");
+                                                                            "De standaardafwijking van de afgekapte normale verdeling.");
+            
+            PropertyDescriptor lowerBoundaryProperty = dynamicProperties[3];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerBoundaryProperty,
+                                                                            "Misc",
+                                                                            "Ondergrens",
+                                                                            "De ondergrens van de afgekapte normale verdeling.",
+                                                                            true);
+
+            PropertyDescriptor upperBoundaryProperty = dynamicProperties[4];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryProperty,
+                                                                            "Misc",
+                                                                            "Bovengrens",
+                                                                            "De bovengrens van de afgekapte normale verdeling.",
+                                                                            true);
             mockRepository.VerifyAll();
         }
     }

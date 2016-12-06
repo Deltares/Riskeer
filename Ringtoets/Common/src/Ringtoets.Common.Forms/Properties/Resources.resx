@@ -850,4 +850,25 @@
   <data name="MetaData_Length" xml:space="preserve">
     <value>Lengte</value>
   </data>
+  <data name="DistributionType_TruncatedNormal" xml:space="preserve">
+    <value>Normaal (afgekapt)</value>
+  </data>
+  <data name="TruncatedNormalDistribution_LowerBoundary_Description" xml:space="preserve">
+    <value>De ondergrens van de afgekapte normale verdeling.</value>
+  </data>
+  <data name="TruncatedNormalDistribution_LowerBoundary_DisplayName" xml:space="preserve">
+    <value>Ondergrens</value>
+  </data>
+  <data name="TruncatedNormalDistribution_Mean_Description" xml:space="preserve">
+    <value>De gemiddelde waarde van de afgekapte normale verdeling.</value>
+  </data>
+  <data name="TruncatedNormalDistribution_StandardDeviation_Description" xml:space="preserve">
+    <value>De standaardafwijking van de afgekapte normale verdeling.</value>
+  </data>
+  <data name="TruncatedNormalDistribution_UpperBoundary_Description" xml:space="preserve">
+    <value>De bovengrens van de afgekapte normale verdeling.</value>
+  </data>
+  <data name="TruncatedNormalDistribution_UpperBoundary_DisplayName" xml:space="preserve">
+    <value>Bovengrens</value>
+  </data>
 </root>

@@ -649,6 +649,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Normaal (afgekapt).
+        /// </summary>
+        public static string DistributionType_TruncatedNormal {
+            get {
+                return ResourceManager.GetString("DistributionType_TruncatedNormal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap EditDocumentIcon {
@@ -2222,6 +2231,60 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string StructuresPlugin_No_structures_to_generate_for {
             get {
                 return ResourceManager.GetString("StructuresPlugin_No_structures_to_generate_for", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ondergrens van de afgekapte normale verdeling..
+        /// </summary>
+        public static string TruncatedNormalDistribution_LowerBoundary_Description {
+            get {
+                return ResourceManager.GetString("TruncatedNormalDistribution_LowerBoundary_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondergrens.
+        /// </summary>
+        public static string TruncatedNormalDistribution_LowerBoundary_DisplayName {
+            get {
+                return ResourceManager.GetString("TruncatedNormalDistribution_LowerBoundary_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De gemiddelde waarde van de afgekapte normale verdeling..
+        /// </summary>
+        public static string TruncatedNormalDistribution_Mean_Description {
+            get {
+                return ResourceManager.GetString("TruncatedNormalDistribution_Mean_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De standaardafwijking van de afgekapte normale verdeling..
+        /// </summary>
+        public static string TruncatedNormalDistribution_StandardDeviation_Description {
+            get {
+                return ResourceManager.GetString("TruncatedNormalDistribution_StandardDeviation_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De bovengrens van de afgekapte normale verdeling..
+        /// </summary>
+        public static string TruncatedNormalDistribution_UpperBoundary_Description {
+            get {
+                return ResourceManager.GetString("TruncatedNormalDistribution_UpperBoundary_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bovengrens.
+        /// </summary>
+        public static string TruncatedNormalDistribution_UpperBoundary_DisplayName {
+            get {
+                return ResourceManager.GetString("TruncatedNormalDistribution_UpperBoundary_DisplayName", resourceCulture);
             }
         }
         
