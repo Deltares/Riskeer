@@ -193,8 +193,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsNotNull(waterKinematicViscosityProperty);
             Assert.IsTrue(waterKinematicViscosityProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, waterKinematicViscosityProperty.Category);
-            Assert.AreEqual("Kinematische viscositeit van water bij 12° C [m²/s]", waterKinematicViscosityProperty.DisplayName);
-            Assert.AreEqual("Kinematische viscositeit van water bij 12° C.", waterKinematicViscosityProperty.Description);
+            Assert.AreEqual("Kinematische viscositeit van water bij 10° C [m²/s]", waterKinematicViscosityProperty.DisplayName);
+            Assert.AreEqual("Kinematische viscositeit van water bij 10° C.", waterKinematicViscosityProperty.Description);
 
             PropertyDescriptor gravityProperty = dynamicProperties[12];
             Assert.IsNotNull(gravityProperty);
