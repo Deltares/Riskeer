@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.DotSpatial.Converter;
+using Core.Components.DotSpatial.Layer;
 using Core.Components.DotSpatial.MapFunctions;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -260,7 +261,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private void DrawMapData(FeatureBasedMapData featureBasedMapData)
         {
-            var mapFeatureLayer = MapFeatureLayerFactory.Create(featureBasedMapData);
+            var mapFeatureLayer = MapFeatureLayerFactory.CreateLayer(featureBasedMapData);
 
             var drawnMapData = new DrawnMapData
             {
@@ -271,14 +272,7 @@ namespace Core.Components.DotSpatial.Forms
 
             drawnMapData.Observer = new Observer(() =>
             {
-                if (!ReferenceEquals(drawnMapData.FeatureBasedMapData.Features, drawnMapData.Features))
-                {
-                    MapFeatureLayerFactory.ConvertLayerFeatures(drawnMapData.FeatureBasedMapData, drawnMapData.MapFeatureLayer);
-
-                    drawnMapData.Features = drawnMapData.FeatureBasedMapData.Features;
-                }
-
-                MapFeatureLayerFactory.ConvertLayerProperties(drawnMapData.FeatureBasedMapData, drawnMapData.MapFeatureLayer);
+                drawnMapData.MapFeatureLayer.Update();
             })
             {
                 Observable = featureBasedMapData
@@ -352,7 +346,7 @@ namespace Core.Components.DotSpatial.Forms
 
             public MapFeature[] Features { get; set; }
 
-            public IMapFeatureLayer MapFeatureLayer { get; set; }
+            public IFeatureBasedMapDataLayer MapFeatureLayer { get; set; }
 
             public Observer Observer { get; set; }
         }

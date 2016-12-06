@@ -44,6 +44,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="DotSpatial.Projections, Version=1.8.0.0, Culture=neutral, PublicKeyToken=272632bddd08a38b, processorArchitecture=MSIL" />
     <Reference Include="DotSpatial.Symbology, Version=1.8.0.0, Culture=neutral, PublicKeyToken=6178c08da7998387, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Symbology.dll</HintPath>
@@ -65,11 +66,15 @@
     </Compile>
     <Compile Include="Converter\IFeatureBasedMapDataConverter.cs" />
     <Compile Include="Converter\FeatureBasedMapDataConverter.cs" />
+    <Compile Include="Layer\IFeatureBasedMapDataLayer.cs" />
     <Compile Include="Converter\MapFeatureLayerFactory.cs" />
     <Compile Include="Converter\MapDataHelper.cs" />
     <Compile Include="Converter\MapLineDataConverter.cs" />
+    <Compile Include="Layer\MapLineDataLayer.cs" />
     <Compile Include="Converter\MapPointDataConverter.cs" />
+    <Compile Include="Layer\MapPointDataLayer.cs" />
     <Compile Include="Converter\MapPolygonDataConverter.cs" />
+    <Compile Include="Layer\MapPolygonDataLayer.cs" />
     <Compile Include="MapFunctions\MapFunctionSelectionZoom.cs" />
     <Compile Include="MouseCoordinatesMapExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
