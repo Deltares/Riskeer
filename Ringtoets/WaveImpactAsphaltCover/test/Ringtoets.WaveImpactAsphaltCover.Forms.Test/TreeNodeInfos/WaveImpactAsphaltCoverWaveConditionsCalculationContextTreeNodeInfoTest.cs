@@ -700,7 +700,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 
                         if (!validCalculation)
                         {
-                            StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
+                            Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
                         }
 
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages.Last());
