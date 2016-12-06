@@ -168,9 +168,9 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         [Combinatorial]
         public void ConvertLayerProperties_MapLineDataWithStyle_ConvertsStyleToMapLineLayer(
-            [Values(KnownColor.AliceBlue, KnownColor.Azure, KnownColor.Beige)] KnownColor color,
-            [Values(1, 5, 7)] int width,
-            [Values(DashStyle.Solid, DashStyle.Dash, DashStyle.Dot)] DashStyle lineStyle)
+            [Values(KnownColor.AliceBlue, KnownColor.Azure)] KnownColor color,
+            [Values(1, 5)] int width,
+            [Values(DashStyle.Solid, DashStyle.Dash)] DashStyle lineStyle)
         {
             // Setup
             var expectedColor = Color.FromKnownColor(color);
@@ -178,7 +178,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapLineLayer = new MapLineLayer();
             var mapLineData = new MapLineData("test")
             {
-                Style = new LineStyle(expectedColor, 3, DashStyle.Solid)
+                Style = new LineStyle(expectedColor, width, lineStyle)
             };
 
             // Call
