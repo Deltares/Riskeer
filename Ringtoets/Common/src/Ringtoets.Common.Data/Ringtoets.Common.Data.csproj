@@ -52,6 +52,7 @@
     <Compile Include="DikeProfiles\IUseForeshore.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerOneState.cs" />
     <Compile Include="Probabilistics\IVariationCoefficientDistribution.cs" />
+    <Compile Include="Probabilistics\TruncatedNormalDistribution.cs" />
     <Compile Include="Probabilistics\VariationCoefficientLogNormalDistribution.cs" />
     <Compile Include="Probabilistics\VariationCoefficientNormalDistribution.cs" />
     <Compile Include="Probability\EmptyProbabilityAssessmentOutput.cs" />

@@ -23,8 +23,15 @@ using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.Probabilistics
 {
+    /// <summary>
+    /// This class defines a design variable for a normal distribution.
+    /// </summary>
     public class NormalDistributionDesignVariable : DesignVariable<NormalDistribution>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NormalDistributionDesignVariable"/> class.
+        /// </summary>
+        /// <param name="distribution">A normal distribution.</param>
         public NormalDistributionDesignVariable(NormalDistribution distribution) : base(distribution) {}
 
         public override RoundedDouble GetDesignValue()
