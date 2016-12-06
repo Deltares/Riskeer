@@ -29,6 +29,7 @@ using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service.Properties;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Service
 {
@@ -105,16 +106,11 @@ namespace Ringtoets.Piping.Service
         {
             List<string> validationResult = new List<string>();
 
-            var isHydraulicBoundaryLocationMissing = inputParameters.HydraulicBoundaryLocation == null;
             var isSoilProfileMissing = inputParameters.StochasticSoilProfile == null;
             var isSurfaceLineMissing = inputParameters.SurfaceLine == null;
             var isExitPointLMissing = double.IsNaN(inputParameters.ExitPointL);
             var isEntryPointLMissing = double.IsNaN(inputParameters.EntryPointL);
 
-            if (isHydraulicBoundaryLocationMissing)
-            {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
-            }
 
             if (isSurfaceLineMissing)
             {
@@ -136,16 +132,14 @@ namespace Ringtoets.Piping.Service
                 validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_ExitPointL);
             }
 
-            if (!isHydraulicBoundaryLocationMissing)
+            if (double.IsNaN(inputParameters.AssessmentLevel) || double.IsInfinity(inputParameters.AssessmentLevel))
             {
-                if (double.IsNaN(inputParameters.AssessmentLevel))
-                {
-                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
-                }
-                if (double.IsNaN(inputParameters.PiezometricHeadExit))
-                {
-                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
-                }
+                validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
+                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.AssessmentLevel_DisplayName)));
+            }
+            if (double.IsNaN(inputParameters.PiezometricHeadExit) || double.IsInfinity(inputParameters.PiezometricHeadExit))
+            {
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
             }
 
             if (!isSurfaceLineMissing && !isSoilProfileMissing && !isExitPointLMissing)

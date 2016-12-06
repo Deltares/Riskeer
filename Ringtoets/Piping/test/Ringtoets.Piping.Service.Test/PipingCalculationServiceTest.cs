@@ -94,39 +94,14 @@ namespace Ringtoets.Piping.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
-                Assert.AreEqual(7, msgs.Length);
+                Assert.AreEqual(8, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
-                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[2]);
-                StringAssert.StartsWith("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[3]);
-                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Intredepunt'.", msgs[4]);
-                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Uittredepunt'.", msgs[5]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
-            });
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
-        public void Validate_CalculationWithoutHydraulicBoundaryLocation_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            const string name = "<very nice name>";
-
-            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            calculation.InputParameters.HydraulicBoundaryLocation = null;
-            calculation.Name = name;
-
-            // Call
-            bool isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(calculation);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
-                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[2]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Intredepunt'.", msgs[3]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Uittredepunt'.", msgs[4]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'toetspeil'.", msgs[5]);
+                StringAssert.StartsWith("Validatie mislukt: Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[6]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
@@ -155,7 +130,37 @@ namespace Ringtoets.Piping.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
-                StringAssert.StartsWith("Validatie mislukt: Kan het toetspeil niet afleiden op basis van de invoer.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'toetspeil'.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
+        public void Validate_CalculationWithInvalidAssessmentLevel_LogsErrorAndReturnsFalse(double assessmentLevel)
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            calculation.InputParameters.AssessmentLevel = (RoundedDouble) assessmentLevel;
+            calculation.Name = name;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'toetspeil'.", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
