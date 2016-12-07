@@ -163,15 +163,114 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 var layersBeforeUpdate = mapView.Layers.ToList();
 
-                // Call
+                // When
                 mapLineData.Features = new MapFeature[0];
                 mapLineData.NotifyObservers();
 
-                // Assert
+                // Then
                 Assert.AreEqual(3, mapView.Layers.Count);
                 Assert.AreSame(layersBeforeUpdate[0], mapView.Layers[0]);
                 Assert.AreSame(layersBeforeUpdate[1], mapView.Layers[1]);
                 Assert.AreSame(layersBeforeUpdate[2], mapView.Layers[2]);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithData_WhenMapDataRemoved_CorrespondingLayerRemoved()
+        {
+            // Given
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
+                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(nestedMapDataCollection1);
+                nestedMapDataCollection1.Add(mapLineData);
+                nestedMapDataCollection1.Add(nestedMapDataCollection2);
+                nestedMapDataCollection2.Add(mapPolygonData);
+
+                map.Data = mapDataCollection;
+
+                // When
+                nestedMapDataCollection1.Remove(mapLineData);
+                nestedMapDataCollection1.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(2, mapView.Layers.Count);
+                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+                Assert.IsInstanceOf<MapPolygonLayer>(mapView.Layers[1]);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithData_WhenMapDataAdded_CorrespondingLayerAdded()
+        {
+            // Given
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
+                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(nestedMapDataCollection1);
+                nestedMapDataCollection1.Add(mapLineData);
+                nestedMapDataCollection1.Add(nestedMapDataCollection2);
+                nestedMapDataCollection2.Add(mapPolygonData);
+
+                map.Data = mapDataCollection;
+
+                // When
+                nestedMapDataCollection1.Insert(0, new MapPolygonData("Additional polygons"));
+                nestedMapDataCollection1.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(4, mapView.Layers.Count);
+                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+                Assert.IsInstanceOf<MapPolygonLayer>(mapView.Layers[1]);
+                Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[2]);
+                Assert.IsInstanceOf<MapPolygonLayer>(mapView.Layers[3]);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithData_WhenMapDataMoved_CorrespondingLayerMoved()
+        {
+            // Given
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(mapLineData);
+                mapDataCollection.Add(mapPolygonData);
+
+                map.Data = mapDataCollection;
+
+                // When
+                mapDataCollection.Remove(mapPointData);
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(3, mapView.Layers.Count);
+                Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[0]);
+                Assert.IsInstanceOf<MapPolygonLayer>(mapView.Layers[1]);
+                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[2]);
             }
         }
 
