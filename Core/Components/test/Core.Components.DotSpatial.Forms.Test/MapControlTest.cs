@@ -29,6 +29,7 @@ using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Data;
+using DotSpatial.Symbology;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 
@@ -76,7 +77,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithoutData_WhenDataSetToMapDataCollection_MapControlUpdated()
+        public void GivenMapControlWithoutData_WhenDataSetToMapDataCollection_ThenMapControlUpdated()
         {
             // Given
             using (var map = new MapControl())
@@ -100,14 +101,15 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Then
                 Assert.AreEqual(3, mapView.Layers.Count);
-                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
-                Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[1]);
-                Assert.IsInstanceOf<MapPolygonLayer>(mapView.Layers[2]);
+                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual("Points", featureLayers[0].Name);
+                Assert.AreEqual("Lines", featureLayers[1].Name);
+                Assert.AreEqual("Polygons", featureLayers[2].Name);
             }
         }
 
         [Test]
-        public void GivenMapControlWithData_WhenDataSetToOtherMapDataCollection_MapControlUpdated()
+        public void GivenMapControlWithData_WhenDataSetToOtherMapDataCollection_ThenMapControlUpdated()
         {
             // Given
             using (var map = new MapControl())
@@ -127,20 +129,21 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Precondition
                 Assert.AreEqual(1, mapView.Layers.Count);
-                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+                Assert.AreEqual("Points", ((FeatureLayer) mapView.Layers[0]).Name);
 
                 // When
                 map.Data = mapDataCollection2;
 
                 // Then
                 Assert.AreEqual(2, mapView.Layers.Count);
-                Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[0]);
-                Assert.IsInstanceOf<MapPolygonLayer>(mapView.Layers[1]);
+                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual("Lines", featureLayers[0].Name);
+                Assert.AreEqual("Polygons", featureLayers[1].Name);
             }
         }
 
         [Test]
-        public void GivenMapControlWithData_WhenMapDataNotifiesChange_CorrespondingLayerReused()
+        public void GivenMapControlWithData_WhenMapDataNotifiesChange_ThenAllLayersReused()
         {
             // Given
             using (var map = new MapControl())
@@ -168,15 +171,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 mapLineData.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(3, mapView.Layers.Count);
-                Assert.AreSame(layersBeforeUpdate[0], mapView.Layers[0]);
-                Assert.AreSame(layersBeforeUpdate[1], mapView.Layers[1]);
-                Assert.AreSame(layersBeforeUpdate[2], mapView.Layers[2]);
+                Assert.AreEqual(0, layersBeforeUpdate.Except(mapView.Layers).Count());
             }
         }
 
         [Test]
-        public void GivenMapControlWithData_WhenMapDataRemoved_CorrespondingLayerRemoved()
+        public void GivenMapControlWithData_WhenMapDataRemoved_ThenCorrespondingLayerRemovedAndOtherLayersReused()
         {
             // Given
             using (var map = new MapControl())
@@ -196,6 +196,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 nestedMapDataCollection2.Add(mapPolygonData);
 
                 map.Data = mapDataCollection;
+
+                var layersBeforeUpdate = mapView.Layers.ToList();
 
                 // When
                 nestedMapDataCollection1.Remove(mapLineData);
@@ -203,13 +205,15 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Then
                 Assert.AreEqual(2, mapView.Layers.Count);
-                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
-                Assert.IsInstanceOf<MapPolygonLayer>(mapView.Layers[1]);
+                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual("Points", featureLayers[0].Name);
+                Assert.AreEqual("Polygons", featureLayers[1].Name);
+                Assert.AreEqual(0, mapView.Layers.Except(layersBeforeUpdate).Count());
             }
         }
 
         [Test]
-        public void GivenMapControlWithData_WhenMapDataAdded_CorrespondingLayerAdded()
+        public void GivenMapControlWithData_WhenMapDataAdded_ThenCorrespondingLayerAddedAndOtherLayersReused()
         {
             // Given
             using (var map = new MapControl())
@@ -230,21 +234,25 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 map.Data = mapDataCollection;
 
+                var layersBeforeUpdate = mapView.Layers.ToList();
+
                 // When
                 nestedMapDataCollection1.Insert(0, new MapPolygonData("Additional polygons"));
                 nestedMapDataCollection1.NotifyObservers();
 
                 // Then
                 Assert.AreEqual(4, mapView.Layers.Count);
-                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
-                Assert.IsInstanceOf<MapPolygonLayer>(mapView.Layers[1]);
-                Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[2]);
-                Assert.IsInstanceOf<MapPolygonLayer>(mapView.Layers[3]);
+                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual("Points", featureLayers[0].Name);
+                Assert.AreEqual("Additional polygons", featureLayers[1].Name);
+                Assert.AreEqual("Lines", featureLayers[2].Name);
+                Assert.AreEqual("Polygons", featureLayers[3].Name);
+                Assert.AreEqual(0, layersBeforeUpdate.Except(mapView.Layers).Count());
             }
         }
 
         [Test]
-        public void GivenMapControlWithData_WhenMapDataMoved_CorrespondingLayerMoved()
+        public void GivenMapControlWithData_WhenMapDataMoved_ThenCorrespondingLayerMovedAndAllLayersReused()
         {
             // Given
             using (var map = new MapControl())
@@ -261,6 +269,8 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 map.Data = mapDataCollection;
 
+                var layersBeforeUpdate = mapView.Layers.ToList();
+
                 // When
                 mapDataCollection.Remove(mapPointData);
                 mapDataCollection.Add(mapPointData);
@@ -268,9 +278,11 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Then
                 Assert.AreEqual(3, mapView.Layers.Count);
-                Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[0]);
-                Assert.IsInstanceOf<MapPolygonLayer>(mapView.Layers[1]);
-                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[2]);
+                var featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual("Lines", featureLayers[0].Name);
+                Assert.AreEqual("Polygons", featureLayers[1].Name);
+                Assert.AreEqual("Points", featureLayers[2].Name);
+                Assert.AreEqual(0, layersBeforeUpdate.Except(mapView.Layers).Count());
             }
         }
 
