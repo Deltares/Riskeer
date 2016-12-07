@@ -36,39 +36,43 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public PiezoHeadCalculatorStub LastCreatedPiezometricHeadAtExitCalculator { get; private set; }
         public PipingProfilePropertyCalculatorStub LastCreatedPipingProfilePropertyCalculator { get; private set; }
 
-        public IUpliftCalculator CreateUpliftCalculator()
+        public TestPipingSubCalculatorFactory()
         {
             LastCreatedUpliftCalculator = new UpliftCalculatorStub();
+            LastCreatedHeaveCalculator = new HeaveCalculatorStub();
+            LastCreatedSellmeijerCalculator = new SellmeijerCalculatorStub();
+            LastCreatedEffectiveThicknessCalculator = new EffectiveThicknessCalculatorStub();
+            LastCreatedPiezometricHeadAtExitCalculator = new PiezoHeadCalculatorStub();
+            LastCreatedPipingProfilePropertyCalculator = new PipingProfilePropertyCalculatorStub();
+        }
+
+        public IUpliftCalculator CreateUpliftCalculator()
+        {
             return LastCreatedUpliftCalculator;
         }
 
         public IHeaveCalculator CreateHeaveCalculator()
         {
-            LastCreatedHeaveCalculator = new HeaveCalculatorStub();
             return LastCreatedHeaveCalculator;
         }
 
         public ISellmeijerCalculator CreateSellmeijerCalculator()
         {
-            LastCreatedSellmeijerCalculator = new SellmeijerCalculatorStub();
             return LastCreatedSellmeijerCalculator;
         }
 
         public IEffectiveThicknessCalculator CreateEffectiveThicknessCalculator()
         {
-            LastCreatedEffectiveThicknessCalculator = new EffectiveThicknessCalculatorStub();
             return LastCreatedEffectiveThicknessCalculator;
         }
 
         public IPiezoHeadCalculator CreatePiezometricHeadAtExitCalculator()
         {
-            LastCreatedPiezometricHeadAtExitCalculator = new PiezoHeadCalculatorStub();
             return LastCreatedPiezometricHeadAtExitCalculator;
         }
 
         public IPipingProfilePropertyCalculator CreatePipingProfilePropertyCalculator()
         {
-            LastCreatedPipingProfilePropertyCalculator = new PipingProfilePropertyCalculatorStub();
             return LastCreatedPipingProfilePropertyCalculator;
         }
     }

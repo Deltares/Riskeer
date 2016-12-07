@@ -35,6 +35,8 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public PipingProfile SoilProfile { get; set; }
         public PipingSurfaceLine SurfaceLine { get; set; }
 
+        public bool Calculated { get; private set; }
+
         public double EffectiveHeight
         {
             get
@@ -43,6 +45,9 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
             }
         }
 
-        public void Calculate() {}
+        public void Calculate()
+        {
+            Calculated = true;
+        }
     }
 }

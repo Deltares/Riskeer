@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
 namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
@@ -33,6 +34,11 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public double HRiver { get; set; }
         public double PhiExit { get; private set; }
 
-        public void Calculate() {}
+        public bool Calculated { get; private set; }
+
+        public void Calculate()
+        {
+            Calculated = true;
+        }
     }
 }

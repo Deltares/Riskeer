@@ -36,10 +36,12 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
 
             // Assert
             Assert.IsInstanceOf<IPipingSubCalculatorFactory>(factory);
-            Assert.IsNull(factory.LastCreatedEffectiveThicknessCalculator);
-            Assert.IsNull(factory.LastCreatedUpliftCalculator);
-            Assert.IsNull(factory.LastCreatedSellmeijerCalculator);
-            Assert.IsNull(factory.LastCreatedHeaveCalculator);
+            Assert.NotNull(factory.LastCreatedEffectiveThicknessCalculator);
+            Assert.NotNull(factory.LastCreatedUpliftCalculator);
+            Assert.NotNull(factory.LastCreatedSellmeijerCalculator);
+            Assert.NotNull(factory.LastCreatedHeaveCalculator);
+            Assert.NotNull(factory.LastCreatedPiezometricHeadAtExitCalculator);
+            Assert.NotNull(factory.LastCreatedPipingProfilePropertyCalculator);
         }
 
         [Test]

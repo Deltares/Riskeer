@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         }
 
         [Test]
-        public void Validate_Always_EmptyList()
+        public void Validate_Always_EmptyListValidatedTrue()
         {
             // Setup
             var stub = new SellmeijerCalculatorStub();
@@ -70,19 +70,20 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
 
             // Assert
             Assert.IsEmpty(result);
+            Assert.IsTrue(stub.Validated);
         }
 
         [Test]
-        public void Calculate_Always_DoesNotThrow()
+        public void Calculate_Always_CalculatedTrue()
         {
             // Setup
             var stub = new SellmeijerCalculatorStub();
 
             // Call
-            TestDelegate call = () => stub.Calculate();
+            stub.Calculate();
 
             // Assert
-            Assert.DoesNotThrow(call);
+            Assert.IsTrue(stub.Calculated);
         }
     }
 }

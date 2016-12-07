@@ -275,6 +275,53 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
+        public void Validate_CalculationWithStochasticSoilProfileBelowSurfaceLine_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    new PipingSoilLayer(10.56 - 1e-6)
+                                                    {
+                                                        IsAquifer = false,
+                                                        BelowPhreaticLevelMean = 15,
+                                                        BelowPhreaticLevelDeviation = 2,
+                                                        BelowPhreaticLevelShift = 0
+                                                    },
+                                                    new PipingSoilLayer(2.0)
+                                                    {
+                                                        IsAquifer = true,
+                                                        DiameterD70Deviation = 0,
+                                                        DiameterD70Mean = 1e-4,
+                                                        PermeabilityDeviation = 0.5,
+                                                        PermeabilityMean = 0.1
+                                                    }
+                                                },
+                                                SoilProfileType.SoilProfile1D, -1);
+            calculation.Name = name;
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                Assert.AreEqual("Validatie mislukt: Profielschematisch ligt (deels) boven de ondergrondschematisatie.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
         public void Validate_CalculationWithoutAquiferLayer_LogsErrorAndReturnsFalse()
         {
             // Setup
@@ -328,7 +375,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     {
                                                         IsAquifer = true,
                                                         DiameterD70Deviation = 0,
-                                                        DiameterD70Mean = 0.1e-3,
+                                                        DiameterD70Mean = 1e-4,
                                                         PermeabilityDeviation = random.NextDouble(),
                                                         PermeabilityMean = 0.1 + random.NextDouble()
                                                     }
@@ -375,7 +422,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     {
                                                         IsAquifer = true,
                                                         DiameterD70Deviation = 0,
-                                                        DiameterD70Mean = 0.1e-3,
+                                                        DiameterD70Mean = 1e-4,
                                                         PermeabilityDeviation = random.NextDouble(),
                                                         PermeabilityMean = 0.1 + random.NextDouble()
                                                     }
@@ -432,7 +479,7 @@ namespace Ringtoets.Piping.Service.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
                                                 {
-                                                    new PipingSoilLayer(10.5)
+                                                    new PipingSoilLayer(10.56)
                                                     {
                                                         IsAquifer = false,
                                                         BelowPhreaticLevelDeviation = random.GetFromRange(1e-6, 5.0),
@@ -478,7 +525,7 @@ namespace Ringtoets.Piping.Service.Test
             {
                 IsAquifer = true,
                 DiameterD70Deviation = 0,
-                DiameterD70Mean = 0.1e-3
+                DiameterD70Mean = 1e-4
             };
             if (meanSet)
             {
@@ -492,7 +539,7 @@ namespace Ringtoets.Piping.Service.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
                                                 {
-                                                    new PipingSoilLayer(10.5)
+                                                    new PipingSoilLayer(10.56)
                                                     {
                                                         IsAquifer = false,
                                                         BelowPhreaticLevelDeviation = random.GetFromRange(1e-6, 999.999),
@@ -535,7 +582,7 @@ namespace Ringtoets.Piping.Service.Test
             const string name = "<very nice name>";
 
             var random = new Random(21);
-            var incompletePipingSoilLayer = new PipingSoilLayer(10.5)
+            var incompletePipingSoilLayer = new PipingSoilLayer(10.56)
             {
                 IsAquifer = false
             };
@@ -562,7 +609,7 @@ namespace Ringtoets.Piping.Service.Test
                                                         PermeabilityDeviation = random.NextDouble(),
                                                         PermeabilityMean = 0.1 + random.NextDouble(),
                                                         DiameterD70Deviation = 0,
-                                                        DiameterD70Mean = 0.1e-3
+                                                        DiameterD70Mean = 1e-4
                                                     }
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
@@ -621,7 +668,7 @@ namespace Ringtoets.Piping.Service.Test
                                                         PermeabilityDeviation = random.NextDouble(),
                                                         PermeabilityMean = 0.1 + random.NextDouble(),
                                                         DiameterD70Deviation = 0,
-                                                        DiameterD70Mean = 0.1e-3
+                                                        DiameterD70Mean = 1e-4
                                                     }
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
@@ -712,7 +759,7 @@ namespace Ringtoets.Piping.Service.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
                                                 {
-                                                    new PipingSoilLayer(10.5)
+                                                    new PipingSoilLayer(10.56)
                                                     {
                                                         IsAquifer = false,
                                                         BelowPhreaticLevelMean = 9.81,
@@ -765,7 +812,7 @@ namespace Ringtoets.Piping.Service.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
                                                 {
-                                                    new PipingSoilLayer(10.5)
+                                                    new PipingSoilLayer(10.56)
                                                     {
                                                         IsAquifer = false,
                                                         BelowPhreaticLevelMean = 5,

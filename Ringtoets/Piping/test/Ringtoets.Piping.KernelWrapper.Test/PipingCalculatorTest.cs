@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.KernelWrapper.Test
@@ -61,9 +62,10 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             PipingCalculatorInput input = new TestPipingInput().AsRealInput();
+            var testPipingSubCalculatorFactory = new TestPipingSubCalculatorFactory();
 
             // Call
-            PipingCalculatorResult actual = new PipingCalculator(input, PipingSubCalculatorFactory.Instance).Calculate();
+            PipingCalculatorResult actual = new PipingCalculator(input, testPipingSubCalculatorFactory).Calculate();
 
             // Assert
             Assert.IsNotNull(actual);
@@ -73,6 +75,30 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             Assert.IsFalse(double.IsNaN(actual.HeaveFactorOfSafety));
             Assert.IsFalse(double.IsNaN(actual.SellmeijerZValue));
             Assert.IsFalse(double.IsNaN(actual.SellmeijerFactorOfSafety));
+
+            Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedHeaveCalculator.Calculated);
+            Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedSellmeijerCalculator.Calculated);
+            Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedUpliftCalculator.Calculated);
+            Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedPipingProfilePropertyCalculator.Calculated);
+            Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedPiezometricHeadAtExitCalculator.Calculated);
+            Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedEffectiveThicknessCalculator.Calculated);
+        }
+
+        [Test]
+        public void Calculate_CompleteValidInput_BottomLevelAquitardLayerAboveExitPointZUsedFromCalculator()
+        {
+            // Setup
+            PipingCalculatorInput input = new TestPipingInput().AsRealInput();
+            var testPipingSubCalculatorFactory = new TestPipingSubCalculatorFactory();
+            var bottomAquitardLayerAboveExitPointZ = new Random(21).NextDouble() * 10;
+            testPipingSubCalculatorFactory.LastCreatedPipingProfilePropertyCalculator.BottomAquitardLayerAboveExitPointZ = bottomAquitardLayerAboveExitPointZ;
+
+            // Call
+            new PipingCalculator(input, testPipingSubCalculatorFactory).Calculate();
+
+            // Assert
+            Assert.AreEqual(bottomAquitardLayerAboveExitPointZ, testPipingSubCalculatorFactory.LastCreatedHeaveCalculator.BottomLevelAquitardAboveExitPointZ);
+            Assert.AreEqual(bottomAquitardLayerAboveExitPointZ, testPipingSubCalculatorFactory.LastCreatedSellmeijerCalculator.BottomLevelAquitardAboveExitPointZ);
         }
 
         [Test]
@@ -87,6 +113,24 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(0, validationMessages.Count);
+        }
+
+        [Test]
+        public void Validate_CompleteValidInput_CalculatorsValidated()
+        {
+            // Setup
+            PipingCalculatorInput input = new TestPipingInput().AsRealInput();
+            var testPipingSubCalculatorFactory = new TestPipingSubCalculatorFactory();
+            var calculation = new PipingCalculator(input, testPipingSubCalculatorFactory);
+
+            // Call
+            calculation.Validate();
+
+            // Assert
+            Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedHeaveCalculator.Validated);
+            Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedSellmeijerCalculator.Validated);
+            Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedUpliftCalculator.Validated);
+            Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedPipingProfilePropertyCalculator.Validated);
         }
 
         [Test]
@@ -362,6 +406,27 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         }
 
         [Test]
+        public void CalculateThicknessCoverageLayer_WithValidInput_UsedEffectiveThicknessCalculator()
+        {
+            // Setup
+            PipingCalculatorInput input = new TestPipingInput().AsRealInput();
+
+            var testPipingSubCalculatorFactory = new TestPipingSubCalculatorFactory();
+            var calculation = new PipingCalculator(input, testPipingSubCalculatorFactory);
+
+            // Call
+            calculation.CalculateThicknessCoverageLayer();
+
+            // Assert
+            Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedHeaveCalculator.Calculated);
+            Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedSellmeijerCalculator.Calculated);
+            Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedUpliftCalculator.Calculated);
+            Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedPipingProfilePropertyCalculator.Calculated);
+            Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedPiezometricHeadAtExitCalculator.Calculated);
+            Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedEffectiveThicknessCalculator.Calculated);
+        }
+
+        [Test]
         public void CalculateThicknessCoverageLayer_WithValidInputWithAquiferAboveSurfaceLine_ReturnsNegativeThickness()
         {
             // Setup
@@ -413,6 +478,27 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.IsFalse(double.IsNaN(result));
+        }
+
+        [Test]
+        public void CalculateThicknessCoverageLayer_WithValidInput_UsedPiezometricHeadAtExitCalculator()
+        {
+            // Setup
+            PipingCalculatorInput input = new TestPipingInput().AsRealInput();
+
+            var testPipingSubCalculatorFactory = new TestPipingSubCalculatorFactory();
+            var calculation = new PipingCalculator(input, testPipingSubCalculatorFactory);
+
+            // Call
+            calculation.CalculatePiezometricHeadAtExit();
+
+            // Assert
+            Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedHeaveCalculator.Calculated);
+            Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedSellmeijerCalculator.Calculated);
+            Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedUpliftCalculator.Calculated);
+            Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedPipingProfilePropertyCalculator.Calculated);
+            Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedPiezometricHeadAtExitCalculator.Calculated);
+            Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedEffectiveThicknessCalculator.Calculated);
         }
     }
 }

@@ -33,12 +33,20 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public PipingProfile SoilProfile { get; set; }
         public PipingSurfaceLine SurfaceLine { get; set; }
         public double ExitPointX { get; set; }
-        public double BottomAquitardLayerAboveExitPointZ { get; private set; }
+        
+        public double BottomAquitardLayerAboveExitPointZ { get; set; }
 
-        public void Calculate() {}
+        public bool Calculated { get; private set; }
+        public bool Validated { get; private set; }
+
+        public void Calculate()
+        {
+            Calculated = true;
+        }
 
         public List<string> Validate()
         {
+            Validated = true;
             return new List<string>();
         }
     }
