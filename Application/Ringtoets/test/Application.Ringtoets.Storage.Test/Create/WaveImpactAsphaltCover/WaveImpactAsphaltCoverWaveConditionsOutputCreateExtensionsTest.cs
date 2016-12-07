@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
         {
             // Setup
             var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                  double.NaN, double.NaN, double.NaN);
+                                                  double.NaN, double.NaN, double.NaN, CalculationConvergence.NotCalculated);
 
             // Call
             WaveImpactAsphaltCoverWaveConditionsOutputEntity entity = output.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(22);

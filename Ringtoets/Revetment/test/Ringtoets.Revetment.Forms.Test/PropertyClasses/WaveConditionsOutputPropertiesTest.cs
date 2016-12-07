@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Revetment.Data;
@@ -63,7 +64,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var properties = new WaveConditionsOutputProperties
             {
                 Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
-                                                targetReliability, calculatedProbability, calculatedReliability)
+                                                targetReliability, calculatedProbability, calculatedReliability, CalculationConvergence.NotCalculated)
             };
 
             // Assert
@@ -100,7 +101,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var properties = new WaveConditionsOutputProperties
             {
                 Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
-                                                targetReliability, calculatedProbability, calculatedReliability)
+                                                targetReliability, calculatedProbability, calculatedReliability, CalculationConvergence.NotCalculated)
             };
 
             // Assert

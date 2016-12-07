@@ -46,10 +46,11 @@ namespace Ringtoets.Revetment.Data.Test
             const double targetReliability = 3000;
             const double calculatedProbability = 0.7;
             const double calculatedReliability = 4000;
+            const CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated;
 
             // Call
             var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
-                                                  targetReliability, calculatedProbability, calculatedReliability);
+                                                  targetReliability, calculatedProbability, calculatedReliability, calculationConvergence);
 
             // Assert
             Assert.IsInstanceOf<Observable>(output);
@@ -66,22 +67,7 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(5, output.CalculatedReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
-        }
-
-        [Test]
-        [TestCase(0.0)]
-        [TestCase(1.0)]
-        [TestCase(0.5)]
-        [TestCase(double.NaN)]
-        public void TargetProbability_ValidValues_ReturnsExpectedValue(double targetProbability)
-        {
-            // Call 
-            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, targetProbability,
-                                                  double.NaN, double.NaN, double.NaN);
-
-            // Assert
-            Assert.AreEqual(targetProbability, output.TargetProbability);
+            Assert.AreEqual(calculationConvergence, output.CalculationConvergence);
         }
 
         [Test]
@@ -91,31 +77,15 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(100)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
-        public void TargetProbability_InvalidValues_ThrowsArgumentOutOfRangeException(double targetProbability)
+        public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
         {
             // Call 
             TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, targetProbability,
-                                                               double.NaN, double.NaN, double.NaN);
+                                                               double.NaN, double.NaN, double.NaN, CalculationConvergence.NotCalculated);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-        }
-
-
-        [Test]
-        [TestCase(0.0)]
-        [TestCase(1.0)]
-        [TestCase(0.5)]
-        [TestCase(double.NaN)]
-        public void CalculatedProbability_ValidValues_ReturnsExpectedValue(double calculatedProbability)
-        {
-            // Call 
-            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                  double.NaN, calculatedProbability, double.NaN);
-
-            // Assert
-            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
         }
 
         [Test]
@@ -125,11 +95,11 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(100)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
-        public void CalculatedProbability_InvalidValues_ThrowsArgumentOutOfRangeException(double calculatedProbability)
+        public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(double calculatedProbability)
         {
             // Call 
             TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                               double.NaN, calculatedProbability, double.NaN);
+                                                               double.NaN, calculatedProbability, double.NaN, CalculationConvergence.NotCalculated);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0, 1] liggen.";
@@ -137,27 +107,10 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        [TestCase(CalculationConvergence.NotCalculated)]
-        [TestCase(CalculationConvergence.CalculatedConverged)]
-        [TestCase(CalculationConvergence.CalculatedNotConverged)]
-        public void CalculationConvergence_ValidValues_SetsCalculationConvergence(CalculationConvergence convergence)
+        public void Constructor_WithInvalidCalculationConvergenceValue_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                  double.NaN, double.NaN, double.NaN, convergence);
-
-            // Call
-            CalculationConvergence setConvergence = output.CalculationConvergence;
-
-            // Assert
-            Assert.AreEqual(convergence, setConvergence);
-        }
-
-        [Test]
-        public void CalculationConvergence_Invalidvalue_ThrowsInvalidEnumArgumentException()
-        {
-            // Setup
-            var invalidEnumValue = (CalculationConvergence) 9001;
+            var invalidEnumValue = (CalculationConvergence)9001;
 
             // Call
             TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,

@@ -54,11 +54,13 @@ namespace Ringtoets.Revetment.Data
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> or 
         /// <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not 
         /// <see cref="double.NaN"/>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationConvergence"/> 
+        /// has an invalid enum value of type <see cref="CalculationConvergence"/>.</exception>
         public WaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveAngle,
                                     double waveDirection,
                                     double targetProbability, double targetReliability,
                                     double calculatedProbability, double calculatedReliability, 
-                                    CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated)
+                                    CalculationConvergence calculationConvergence)
         {
             WaterLevel = new RoundedDouble(2, waterLevel);
             WaveHeight = new RoundedDouble(2, waveHeight);
@@ -170,7 +172,7 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or sets the convergence status of the calculation.
+        /// Gets the convergence status of the calculation.
         /// </summary>
         /// <exception cref="InvalidEnumArgumentException">Thrown when attempting to set invalid enum value 
         /// of type <see cref="CalculationConvergence"/>.</exception>
