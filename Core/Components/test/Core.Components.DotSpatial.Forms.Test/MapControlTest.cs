@@ -107,7 +107,40 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithData_WhenMapDataNotifiesFeaturesChange_CorrespondingLayerReused()
+        public void GivenMapControlWithData_WhenDataSetToOtherMapDataCollection_MapControlUpdated()
+        {
+            // Given
+            using (var map = new MapControl())
+            {
+                var mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection1 = new MapDataCollection("Collection 1");
+                var mapDataCollection2 = new MapDataCollection("Collection 2");
+
+                mapDataCollection1.Add(mapPointData);
+                mapDataCollection2.Add(mapLineData);
+                mapDataCollection2.Add(mapPolygonData);
+
+                map.Data = mapDataCollection1;
+
+                // Precondition
+                Assert.AreEqual(1, mapView.Layers.Count);
+                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+
+                // When
+                map.Data = mapDataCollection2;
+
+                // Then
+                Assert.AreEqual(2, mapView.Layers.Count);
+                Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[0]);
+                Assert.IsInstanceOf<MapPolygonLayer>(mapView.Layers[1]);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithData_WhenMapDataNotifiesChange_CorrespondingLayerReused()
         {
             // Given
             using (var map = new MapControl())
