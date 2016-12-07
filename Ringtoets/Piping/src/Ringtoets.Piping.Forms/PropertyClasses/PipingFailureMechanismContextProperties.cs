@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_WaterVolumetricWeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralPipingInput_WaterVolumetricWeight_Description")]
-        public double WaterVolumetricWeight
+        public RoundedDouble WaterVolumetricWeight
         {
             get
             {
@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.GeneralInput.WaterVolumetricWeight = (RoundedDouble) value;
+                data.WrappedData.GeneralInput.WaterVolumetricWeight = value;
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -162,7 +162,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
         [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_SandParticlesVolumicWeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralPipingInput_SandParticlesVolumicWeight_Description")]
-        public double SandParticlesVolumicWeight
+        public RoundedDouble SandParticlesVolumicWeight
         {
             get
             {

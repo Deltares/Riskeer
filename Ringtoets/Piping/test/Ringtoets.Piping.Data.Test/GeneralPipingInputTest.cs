@@ -46,6 +46,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0.3, inputParameters.CriticalHeaveGradient);
 
             Assert.AreEqual(16.19, inputParameters.SandParticlesVolumicWeight, inputParameters.SandParticlesVolumicWeight.GetAccuracy());
+            Assert.AreEqual(2, inputParameters.SandParticlesVolumicWeight.NumberOfDecimalPlaces);
             Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient);
             Assert.AreEqual(37, inputParameters.BeddingAngle);
             Assert.AreEqual(1.33e-6, inputParameters.WaterKinematicViscosity);
@@ -56,8 +57,10 @@ namespace Ringtoets.Piping.Data.Test
 
         [Test]
         [TestCase(double.NaN)]
-        [TestCase(-1)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
         [TestCase(-0.005)]
+        [TestCase(20.005)]
         public void WaterVolumetricWeight_SetInvalidValue_ThrowArgumentException(double newValue)
         {
             // Setup
@@ -67,12 +70,13 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => inputParameters.WaterVolumetricWeight = (RoundedDouble) newValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "De waarde moet een positief getal zijn.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde moet binnen het bereik [0, 20] liggen.");
         }
 
         [Test]
-        [TestCase(5.69)]
+        [TestCase(10.69)]
         [TestCase(-0.004)]
+        [TestCase(20.004)]
         public void WaterVolumetricWeight_SetValidValue_ValueSetAndSandParticlesVolumicWeightUpdated(double newValue)
         {
             // Setup

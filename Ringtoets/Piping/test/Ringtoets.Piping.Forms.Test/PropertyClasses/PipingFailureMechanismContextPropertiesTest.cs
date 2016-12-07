@@ -71,11 +71,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             Assert.AreEqual(failureMechanism.GeneralInput.SellmeijerModelFactor, properties.SellmeijerModelFactor);
 
-            Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight.Value, properties.WaterVolumetricWeight);
+            Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
 
             Assert.AreEqual(failureMechanism.GeneralInput.CriticalHeaveGradient, properties.CriticalHeaveGradient);
 
-            Assert.AreEqual(failureMechanism.GeneralInput.SandParticlesVolumicWeight.Value, properties.SandParticlesVolumicWeight);
+            Assert.AreEqual(failureMechanism.GeneralInput.SandParticlesVolumicWeight, properties.SandParticlesVolumicWeight);
             Assert.AreEqual(failureMechanism.GeneralInput.WhitesDragCoefficient, properties.WhitesDragCoefficient);
             Assert.AreEqual(failureMechanism.GeneralInput.BeddingAngle, properties.BeddingAngle);
             Assert.AreEqual(failureMechanism.GeneralInput.WaterKinematicViscosity, properties.WaterKinematicViscosity);
@@ -281,6 +281,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         [Test]
         [TestCase(5)]
         [TestCase(-0.004)]
+        [TestCase(20.004)]
         public void WaterVolumetricWeight_SetValidValue_SetsValueRoundedAndUpdatesObservers(double newValue)
         {
             // Setup
@@ -298,16 +299,19 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             failureMechanism.Attach(observerMock);            
 
             // Call            
-            properties.WaterVolumetricWeight = newValue;
+            properties.WaterVolumetricWeight = (RoundedDouble) newValue;
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(2, newValue), failureMechanism.GeneralInput.WaterVolumetricWeight);
+            Assert.AreEqual(newValue, failureMechanism.GeneralInput.WaterVolumetricWeight.Value, failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
             mocks.VerifyAll();
         }
 
         [Test]
         [TestCase(double.NaN)]
-        [TestCase(-0.1)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(-0.005)]
+        [TestCase(20.005)]
         public void WaterVolumetricWeight_SetValidValue_ThrowArgumentExceptionAndDoesNotUpdateObservers(double newValue)
         {
             // Setup
@@ -324,10 +328,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             failureMechanism.Attach(observerMock);
             
             // Call            
-            TestDelegate test = () => properties.WaterVolumetricWeight = newValue;
+            TestDelegate test = () => properties.WaterVolumetricWeight = (RoundedDouble) newValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "De waarde moet een positief getal zijn.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde moet binnen het bereik [0, 20] liggen.");
             mocks.VerifyAll(); // Does not expect notify observers.
         }
     }

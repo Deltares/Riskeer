@@ -153,7 +153,7 @@
   <data name="PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_range_LowerLimit_0_UpperLimit_1_" xml:space="preserve">
     <value>Het gespecificeerde punt moet op het profiel liggen (bereik [{0}, {1}]).</value>
   </data>
-  <data name="GeneralPipingInput_WaterVolumetricWeight_must_be_positive_number" xml:space="preserve">
-    <value>De waarde moet een positief getal zijn.</value>
+  <data name="GeneralPipingInput_WaterVolumetricWeight_must_be_in_range_zero_to_twenty" xml:space="preserve">
+    <value>De waarde moet binnen het bereik [0, 20] liggen.</value>
   </data>
 </root>

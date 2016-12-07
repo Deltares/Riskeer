@@ -56,7 +56,8 @@ namespace Ringtoets.Piping.Data
         /// Gets the volumetric weight of water.
         /// [kN/m³]
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when value is set to <c>double.NaN</c> or a negative number.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value
+        /// is set to <see cref="double.NaN"/> or falls out of range [0, 20].</exception>
         public RoundedDouble WaterVolumetricWeight
         {
             get
@@ -67,9 +68,9 @@ namespace Ringtoets.Piping.Data
             {
                 var newValue = value.ToPrecision(waterVolumetricWeight.NumberOfDecimalPlaces);
 
-                if (double.IsNaN(newValue) || newValue < 0)
+                if (double.IsNaN(newValue) || newValue < 0 || newValue > 20)
                 {
-                    throw new ArgumentException(Resources.GeneralPipingInput_WaterVolumetricWeight_must_be_positive_number);
+                    throw new ArgumentOutOfRangeException("value", Resources.GeneralPipingInput_WaterVolumetricWeight_must_be_in_range_zero_to_twenty);
                 }
 
                 waterVolumetricWeight = newValue;

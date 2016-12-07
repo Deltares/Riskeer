@@ -136,11 +136,11 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde moet een positief getal zijn..
+        ///   Looks up a localized string similar to De waarde moet binnen het bereik [0, 20] liggen..
         /// </summary>
-        public static string GeneralPipingInput_WaterVolumetricWeight_must_be_positive_number {
+        public static string GeneralPipingInput_WaterVolumetricWeight_must_be_in_range_zero_to_twenty {
             get {
-                return ResourceManager.GetString("GeneralPipingInput_WaterVolumetricWeight_must_be_positive_number", resourceCulture);
+                return ResourceManager.GetString("GeneralPipingInput_WaterVolumetricWeight_must_be_in_range_zero_to_twenty", resourceCulture);
             }
         }
         
