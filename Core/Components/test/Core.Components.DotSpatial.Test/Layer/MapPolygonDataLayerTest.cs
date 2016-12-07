@@ -20,7 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
+using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Layer;
+using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
+using Core.Components.Gis.Style;
+using DotSpatial.Symbology;
 using NUnit.Framework;
 
 namespace Core.Components.DotSpatial.Test.Layer
@@ -37,6 +44,111 @@ namespace Core.Components.DotSpatial.Test.Layer
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("mapPolygonData", parameter);
+        }
+
+        [Test]
+        public void Constructor_MapPolygonDataWithTestProperties_MapPolygonDataLayerCreatedAccordingly()
+        {
+            // Setup
+            var mapPolygonData = new MapPolygonData("Test name");
+
+            SetMapPolygonDataTestProperties(mapPolygonData);
+
+            // Call
+            var mapPolygonDataLayer = new MapPolygonDataLayer(mapPolygonData);
+
+            // Assert
+            AssertMapPolygonDataLayerTestProperties(mapPolygonDataLayer);
+        }
+
+        [Test]
+        public void Update_MapPolygonDataWithTestProperties_MapPolygonDataLayerUpdatedAccordingly()
+        {
+            // Setup
+            var mapPolygonData = new MapPolygonData("Test name");
+            var mapPolygonDataLayer = new MapPolygonDataLayer(mapPolygonData);
+
+            SetMapPolygonDataTestProperties(mapPolygonData);
+
+            // Precondition
+            AssertMapPolygonDataLayerDefaultProperties(mapPolygonDataLayer);
+
+            // Call
+            mapPolygonDataLayer.Update();
+
+            // Assert
+            AssertMapPolygonDataLayerTestProperties(mapPolygonDataLayer);
+        }
+
+        private static void SetMapPolygonDataTestProperties(MapPolygonData mapPolygonData)
+        {
+            mapPolygonData.Name = "Another test name";
+            mapPolygonData.IsVisible = false;
+            mapPolygonData.ShowLabels = true;
+            mapPolygonData.SelectedMetaDataAttribute = "Name";
+            mapPolygonData.Style = new PolygonStyle(Color.AliceBlue, Color.Azure, 2);
+            mapPolygonData.Features = new[]
+            {
+                CreateTestMapFeature()
+            };
+        }
+
+        private static void AssertMapPolygonDataLayerTestProperties(MapPolygonDataLayer mapPolygonDataLayer)
+        {
+            Assert.AreEqual("Another test name", mapPolygonDataLayer.Name);
+            Assert.IsFalse(mapPolygonDataLayer.IsVisible);
+            Assert.IsTrue(mapPolygonDataLayer.ShowLabels);
+
+            Assert.IsNotNull(mapPolygonDataLayer.LabelLayer);
+            Assert.AreEqual(string.Format("[{0}]", "2"), mapPolygonDataLayer.LabelLayer.Symbology.Categories[0].Expression);
+
+            var firstPattern = (SimplePattern) mapPolygonDataLayer.Symbolizer.Patterns[0];
+            Assert.AreEqual(Color.AliceBlue, firstPattern.FillColor);
+            Assert.AreEqual(Color.Azure, firstPattern.Outline.GetFillColor());
+            Assert.AreEqual(2, firstPattern.Outline.GetWidth());
+
+            Assert.AreEqual(1, mapPolygonDataLayer.DataSet.Features.Count);
+        }
+
+        private static void AssertMapPolygonDataLayerDefaultProperties(MapPolygonDataLayer mapPolygonDataLayer)
+        {
+            Assert.AreEqual("Test name", mapPolygonDataLayer.Name);
+            Assert.IsTrue(mapPolygonDataLayer.IsVisible);
+            Assert.IsFalse(mapPolygonDataLayer.ShowLabels);
+
+            Assert.IsNotNull(mapPolygonDataLayer.LabelLayer);
+            Assert.IsNull(mapPolygonDataLayer.LabelLayer.Symbology.Categories[0].Expression);
+
+            var firstPattern = (SimplePattern) mapPolygonDataLayer.Symbolizer.Patterns[0];
+            Assert.AreEqual(1, firstPattern.Outline.GetWidth());
+
+            Assert.AreEqual(0, mapPolygonDataLayer.DataSet.Features.Count);
+        }
+
+        private static MapFeature CreateTestMapFeature()
+        {
+            return new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(1, 2),
+                        new Point2D(2, 3)
+                    }
+                })
+            })
+            {
+                MetaData =
+                {
+                    {
+                        "Id", 1.1
+                    },
+                    {
+                        "Name", "Feature"
+                    }
+                }
+            };
         }
     }
 }

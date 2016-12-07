@@ -29,7 +29,6 @@ using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using DotSpatial.Symbology;
 using NUnit.Framework;
-using PointShape = DotSpatial.Symbology.PointShape;
 
 namespace Core.Components.DotSpatial.Test.Layer
 {

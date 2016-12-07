@@ -152,6 +152,5 @@ namespace Core.Components.DotSpatial.Test.Layer
                 }
             };
         }
-
     }
 }
