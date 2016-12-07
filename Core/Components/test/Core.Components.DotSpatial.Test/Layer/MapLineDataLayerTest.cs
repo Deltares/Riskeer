@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Layer;
 using Core.Components.Gis.Data;
@@ -79,6 +80,54 @@ namespace Core.Components.DotSpatial.Test.Layer
 
             // Assert
             AssertMapLineDataLayerTestProperties(mapLineDataLayer);
+        }
+
+        [Test]
+        public void GivenMapLineDataLayer_WhenUpdatedAfterMapLineDataFeaturesChanged_MapLineDataLayerFeaturesChanged()
+        {
+            // Given
+            var mapLineData = new MapLineData("Test name")
+            {
+                Features = new[]
+                {
+                    CreateTestMapFeature()
+                }
+            };
+
+            var mapLineDataLayer = new MapLineDataLayer(mapLineData);
+            var drawnFeatures = mapLineDataLayer.DataSet.Features.ToArray();
+
+            // When
+            mapLineData.Features = new[]
+            {
+                CreateTestMapFeature()
+            };
+            mapLineDataLayer.Update();
+
+            // Then
+            CollectionAssert.AreNotEqual(drawnFeatures, mapLineDataLayer.DataSet.Features);
+        }
+
+        [Test]
+        public void GivenMapLineDataLayer_WhenUpdatedAndMapLineDataFeaturesNotChanged_PreviousMapLineDataLayerFeaturesPreserved()
+        {
+            // Given
+            var mapLineData = new MapLineData("Test name")
+            {
+                Features = new[]
+                {
+                    CreateTestMapFeature()
+                }
+            };
+
+            var mapLineDataLayer = new MapLineDataLayer(mapLineData);
+            var drawnFeatures = mapLineDataLayer.DataSet.Features.ToArray();
+
+            // When
+            mapLineDataLayer.Update();
+
+            // Then
+            CollectionAssert.AreEqual(drawnFeatures, mapLineDataLayer.DataSet.Features);
         }
 
         private static void SetMapLineDataTestProperties(MapLineData mapLineData)

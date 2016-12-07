@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Layer;
 using Core.Components.Gis.Data;
@@ -78,6 +79,54 @@ namespace Core.Components.DotSpatial.Test.Layer
 
             // Assert
             AssertMapPolygonDataLayerTestProperties(mapPolygonDataLayer);
+        }
+
+        [Test]
+        public void GivenMapPolygonDataLayer_WhenUpdatedAfterMapPolygonDataFeaturesChanged_MapPolygonDataLayerFeaturesChanged()
+        {
+            // Given
+            var mapPolygonData = new MapPolygonData("Test name")
+            {
+                Features = new[]
+                {
+                    CreateTestMapFeature()
+                }
+            };
+
+            var mapPolygonDataLayer = new MapPolygonDataLayer(mapPolygonData);
+            var drawnFeatures = mapPolygonDataLayer.DataSet.Features.ToArray();
+
+            // When
+            mapPolygonData.Features = new[]
+            {
+                CreateTestMapFeature()
+            };
+            mapPolygonDataLayer.Update();
+
+            // Then
+            CollectionAssert.AreNotEqual(drawnFeatures, mapPolygonDataLayer.DataSet.Features);
+        }
+
+        [Test]
+        public void GivenMapPolygonDataLayer_WhenUpdatedAndMapPolygonDataFeaturesNotChanged_PreviousMapPolygonDataLayerFeaturesPreserved()
+        {
+            // Given
+            var mapPolygonData = new MapPolygonData("Test name")
+            {
+                Features = new[]
+                {
+                    CreateTestMapFeature()
+                }
+            };
+
+            var mapPolygonDataLayer = new MapPolygonDataLayer(mapPolygonData);
+            var drawnFeatures = mapPolygonDataLayer.DataSet.Features.ToArray();
+
+            // When
+            mapPolygonDataLayer.Update();
+
+            // Then
+            CollectionAssert.AreEqual(drawnFeatures, mapPolygonDataLayer.DataSet.Features);
         }
 
         private static void SetMapPolygonDataTestProperties(MapPolygonData mapPolygonData)

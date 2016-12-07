@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Layer;
 using Core.Components.Gis.Data;
@@ -78,6 +79,54 @@ namespace Core.Components.DotSpatial.Test.Layer
 
             // Assert
             AssertMapPointDataLayerTestProperties(mapPointDataLayer);
+        }
+
+        [Test]
+        public void GivenMapPointDataLayer_WhenUpdatedAfterMapPointDataFeaturesChanged_MapPointDataLayerFeaturesChanged()
+        {
+            // Given
+            var mapPointData = new MapPointData("Test name")
+            {
+                Features = new[]
+                {
+                    CreateTestMapFeature()
+                }
+            };
+
+            var mapPointDataLayer = new MapPointDataLayer(mapPointData);
+            var drawnFeatures = mapPointDataLayer.DataSet.Features.ToArray();
+
+            // When
+            mapPointData.Features = new[]
+            {
+                CreateTestMapFeature()
+            };
+            mapPointDataLayer.Update();
+
+            // Then
+            CollectionAssert.AreNotEqual(drawnFeatures, mapPointDataLayer.DataSet.Features);
+        }
+
+        [Test]
+        public void GivenMapPointDataLayer_WhenUpdatedAndMapPointDataFeaturesNotChanged_PreviousMapPointDataLayerFeaturesPreserved()
+        {
+            // Given
+            var mapPointData = new MapPointData("Test name")
+            {
+                Features = new[]
+                {
+                    CreateTestMapFeature()
+                }
+            };
+
+            var mapPointDataLayer = new MapPointDataLayer(mapPointData);
+            var drawnFeatures = mapPointDataLayer.DataSet.Features.ToArray();
+
+            // When
+            mapPointDataLayer.Update();
+
+            // Then
+            CollectionAssert.AreEqual(drawnFeatures, mapPointDataLayer.DataSet.Features);
         }
 
         private static void SetMapPointDataTestProperties(MapPointData mapPointData)

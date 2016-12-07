@@ -91,7 +91,7 @@ namespace Core.Components.DotSpatial.Converter
             layer.IsVisible = data.IsVisible;
             layer.Name = data.Name;
             layer.ShowLabels = data.ShowLabels;
-            ((IMapFeatureLayer) layer).LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
+            layer.LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
             layer.Symbolizer = CreateSymbolizer(data);
         }
 
@@ -111,8 +111,8 @@ namespace Core.Components.DotSpatial.Converter
         protected abstract IFeatureSymbolizer CreateSymbolizer(TFeatureBasedMapData mapData);
 
         /// <summary>
-        /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an
-        /// <see cref="IEnumerable{T}"/> of <see cref="Coordinate"/>.
+        /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an <see cref="IEnumerable{T}"/>
+        /// of <see cref="Coordinate"/>.
         /// </summary>
         /// <param name="points">The <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to convert.</param>
         /// <returns>The converted <see cref="IEnumerable{T}"/> of <see cref="Coordinate"/>.</returns>

@@ -331,7 +331,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
             {
-                throw new NotImplementedException();
+                return Enumerable.Empty<IFeature>();
             }
         }
     }
