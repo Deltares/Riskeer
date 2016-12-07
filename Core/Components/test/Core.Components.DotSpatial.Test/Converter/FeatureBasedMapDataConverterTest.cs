@@ -33,6 +33,7 @@ using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using NUnit.Framework;
+using Point = DotSpatial.Topology.Point;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {
@@ -95,6 +96,52 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void ConvertLayerFeatures_MapDataWithMetaData_MetaDataSetToLayer()
+        {
+            // Setup
+            var testConverter = new TestFeatureBasedMapDataConverter<Class>();
+            var mapPointLayer = new MapPointLayer();
+            var mapData = new Class("test")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                    {
+                        MetaData =
+                        {
+                            { "Id", 1.1 },
+                            { "Name", "Feature 1" }
+                        }
+                    },
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                    {
+                        MetaData =
+                        {
+                            { "Id", 2.2 },
+                            { "Name", "Feature 2" }
+                        }
+                    }
+                }
+            };
+
+            // Call
+            testConverter.ConvertLayerFeatures(mapData, mapPointLayer);
+
+            // Assert
+            var dataColumnCollection = mapPointLayer.DataSet.DataTable.Columns;
+            Assert.AreEqual(2, dataColumnCollection.Count);
+            Assert.AreEqual("1", dataColumnCollection[0].ToString());
+            Assert.AreEqual("2", dataColumnCollection[1].ToString());
+
+            var dataRowCollection = mapPointLayer.DataSet.DataTable.Rows;
+            Assert.AreEqual(2, dataRowCollection.Count);
+            Assert.AreEqual("1.1", dataRowCollection[0][0]);
+            Assert.AreEqual("Feature 1", dataRowCollection[0][1]);
+            Assert.AreEqual("2.2", dataRowCollection[1][0]);
+            Assert.AreEqual("Feature 2", dataRowCollection[1][1]);
         }
 
         [Test]
@@ -331,7 +378,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
             {
-                return Enumerable.Empty<IFeature>();
+                yield return new Feature(new Point(1.1, 2.2));
             }
         }
     }

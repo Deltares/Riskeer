@@ -74,6 +74,7 @@ namespace Core.Components.DotSpatial.Converter
             }
 
             layer.DataSet.InitializeVertices();
+            layer.DataSet.UpdateExtent();
             layer.AssignFastDrawnStates();
         }
 
