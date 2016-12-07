@@ -156,7 +156,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                         IsAquifer = true,
                         DiameterD70Deviation = 0,
                         DiameterD70Mean = 4.0e-4,
-                        PermeabilityDeviation = 0,
+                        PermeabilityDeviation = 0.5,
                         PermeabilityMean = 1.0
                     }
                 }, SoilProfileType.SoilProfile1D, 0)

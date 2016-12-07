@@ -298,7 +298,7 @@ namespace Ringtoets.Piping.Service.Test
                                                         DiameterD70Deviation = 0,
                                                         DiameterD70Mean = 1e-4,
                                                         PermeabilityDeviation = 0.5,
-                                                        PermeabilityMean = 0.1
+                                                        PermeabilityMean = 1
                                                     }
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
@@ -367,7 +367,6 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            var random = new Random(21);
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
                                                 {
@@ -376,8 +375,8 @@ namespace Ringtoets.Piping.Service.Test
                                                         IsAquifer = true,
                                                         DiameterD70Deviation = 0,
                                                         DiameterD70Mean = 1e-4,
-                                                        PermeabilityDeviation = random.NextDouble(),
-                                                        PermeabilityMean = 0.1 + random.NextDouble()
+                                                        PermeabilityDeviation = 0.5,
+                                                        PermeabilityMean = 1
                                                     }
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
@@ -410,7 +409,6 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            var random = new Random(21);
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
                                                 {
@@ -423,8 +421,8 @@ namespace Ringtoets.Piping.Service.Test
                                                         IsAquifer = true,
                                                         DiameterD70Deviation = 0,
                                                         DiameterD70Mean = 1e-4,
-                                                        PermeabilityDeviation = random.NextDouble(),
-                                                        PermeabilityMean = 0.1 + random.NextDouble()
+                                                        PermeabilityDeviation = 0.5,
+                                                        PermeabilityMean = 1
                                                     }
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
@@ -464,8 +462,8 @@ namespace Ringtoets.Piping.Service.Test
             var incompletePipingSoilLayer = new PipingSoilLayer(5.0)
             {
                 IsAquifer = true,
-                PermeabilityDeviation = random.NextDouble(),
-                PermeabilityMean = 0.1 + random.NextDouble()
+                PermeabilityDeviation = 0.5,
+                PermeabilityMean = 1
             };
             if (meanSet)
             {
@@ -606,8 +604,8 @@ namespace Ringtoets.Piping.Service.Test
                                                     new PipingSoilLayer(5.0)
                                                     {
                                                         IsAquifer = true,
-                                                        PermeabilityDeviation = random.NextDouble(),
-                                                        PermeabilityMean = 0.1 + random.NextDouble(),
+                                                        PermeabilityDeviation = 0.5,
+                                                        PermeabilityMean = 1,
                                                         DiameterD70Deviation = 0,
                                                         DiameterD70Mean = 1e-4
                                                     }
@@ -642,8 +640,8 @@ namespace Ringtoets.Piping.Service.Test
             const string name = "<very nice name>";
 
             var random = new Random(21);
-            var belowPhreaticLevelDeviation = random.NextDouble();
-            var belowPhreaticLevelShift = random.NextDouble();
+            var belowPhreaticLevelDeviation = 0.5;
+            var belowPhreaticLevelShift = 1;
             var belowPhreaticLevelMeanBase = 15.0;
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
@@ -665,8 +663,8 @@ namespace Ringtoets.Piping.Service.Test
                                                     new PipingSoilLayer(5.0)
                                                     {
                                                         IsAquifer = true,
-                                                        PermeabilityDeviation = random.NextDouble(),
-                                                        PermeabilityMean = 0.1 + random.NextDouble(),
+                                                        PermeabilityDeviation = 0.5,
+                                                        PermeabilityMean = 1,
                                                         DiameterD70Deviation = 0,
                                                         DiameterD70Mean = 1e-4
                                                     }
@@ -706,8 +704,8 @@ namespace Ringtoets.Piping.Service.Test
             var soilLayer = new PipingSoilLayer(5.0)
             {
                 IsAquifer = true,
-                PermeabilityDeviation = random.NextDouble(),
-                PermeabilityMean = 0.1 + random.NextDouble(),
+                PermeabilityDeviation = 0.5,
+                PermeabilityMean = 1,
                 DiameterD70Mean = diameter70Value,
                 DiameterD70Deviation = 0
             };
@@ -754,8 +752,6 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            var random = new Random(21);
-
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
                                                 {
@@ -769,8 +765,8 @@ namespace Ringtoets.Piping.Service.Test
                                                     new PipingSoilLayer(5.0)
                                                     {
                                                         IsAquifer = true,
-                                                        PermeabilityDeviation = random.NextDouble(),
-                                                        PermeabilityMean = 0.1 + random.NextDouble(),
+                                                        PermeabilityDeviation = 0.5,
+                                                        PermeabilityMean = 1,
                                                         DiameterD70Mean = 0.0002,
                                                         DiameterD70Deviation = 0
                                                     }
@@ -807,8 +803,6 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            var random = new Random(21);
-
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
                                                 {
@@ -829,8 +823,8 @@ namespace Ringtoets.Piping.Service.Test
                                                     new PipingSoilLayer(5.0)
                                                     {
                                                         IsAquifer = true,
-                                                        PermeabilityDeviation = random.NextDouble(),
-                                                        PermeabilityMean = 0.1 + random.NextDouble(),
+                                                        PermeabilityDeviation = 0.3,
+                                                        PermeabilityMean = 0.6,
                                                         DiameterD70Mean = 0.0002,
                                                         DiameterD70Deviation = 0
                                                     }

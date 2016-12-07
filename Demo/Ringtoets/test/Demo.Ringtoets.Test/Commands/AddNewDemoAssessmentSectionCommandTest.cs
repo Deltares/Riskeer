@@ -420,7 +420,7 @@ namespace Demo.Ringtoets.Test.Commands
                             GetAccuracy(inputParameters.PhreaticLevelExit));
             Assert.AreEqual(0.011453, PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.Diameter70));
-            Assert.AreEqual(2.345281, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
+            Assert.AreEqual(1.186644, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DarcyPermeability));
             Assert.AreEqual(17.5, PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.SaturatedVolumicWeightOfCoverageLayer));
@@ -448,8 +448,8 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(-0.139, calculation.Output.HeaveZValue, 1e-3);
             Assert.AreEqual(1.784, calculation.Output.UpliftFactorOfSafety, 1e-3);
             Assert.AreEqual(2.019, calculation.Output.UpliftZValue, 1e-3);
-            Assert.AreEqual(0.955, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
-            Assert.AreEqual(-0.054, calculation.Output.SellmeijerZValue, 1e-3);
+            Assert.AreEqual(1.198, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
+            Assert.AreEqual(0.234, calculation.Output.SellmeijerZValue, 1e-3);
         }
 
         private static void AssertCalculationInFailureMechanismSectionResult(PipingCalculationScenario calculation, PipingFailureMechanismSectionResult[] sectionResults, IEnumerable<PipingCalculationScenario> calculations)

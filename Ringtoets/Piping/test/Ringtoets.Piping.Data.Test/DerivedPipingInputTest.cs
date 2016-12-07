@@ -931,7 +931,71 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void DarcyPermeability_SingleAquiferLayers_ReturnsWithParametersFromLayer()
+        public void DarcyPermeability_SingleAquiferLayer_ReturnsWithWeightedMean()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            var random = new Random(21);
+            double mean = random.NextDouble();
+            double deviation = mean/2;
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", 0.0, new[]
+            {
+                new PipingSoilLayer(0.5)
+                {
+                    IsAquifer = true,
+                    PermeabilityDeviation = deviation,
+                    PermeabilityMean = mean
+                }
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.DarcyPermeability;
+
+            // Assert
+            var weightedMean = 0.35 / 0.5;
+            Assert.AreEqual(weightedMean, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual(weightedMean/2, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+        }
+
+        [Test]
+        public void DarcyPermeability_MultipleAquiferLayers_ReturnsWithWeightedMean()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            var random = new Random(21);
+            double mean = random.NextDouble();
+            double deviation = mean / 2;
+            double mean2 = random.NextDouble();
+            double deviation2 = mean2/2;
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", 0.0, new[]
+            {
+                new PipingSoilLayer(0.5)
+                {
+                    IsAquifer = true,
+                    PermeabilityDeviation = deviation,
+                    PermeabilityMean = mean
+                },
+                new PipingSoilLayer(1.5)
+                {
+                    IsAquifer = true,
+                    PermeabilityDeviation = deviation2,
+                    PermeabilityMean = mean2
+                }
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.DarcyPermeability;
+
+            // Assert
+            var weightedMean = new RoundedDouble(2, 1.33 / 1.5);
+            Assert.AreEqual(weightedMean, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual(weightedMean / 2, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+        }
+
+        [Test]
+        public void DarcyPermeability_SingleAquiferLayerWithRandomMeanAndDeviation_ReturnsNaNForParameters()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -953,12 +1017,12 @@ namespace Ringtoets.Piping.Data.Test
             var result = derivedInput.DarcyPermeability;
 
             // Assert
-            Assert.AreEqual(permeabilityMean, result.Mean, result.Mean.GetAccuracy());
-            Assert.AreEqual(permeabilityDeviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.StandardDeviation);
         }
 
         [Test]
-        public void DarcyPermeability_MultipleAquiferLayers_ReturnsWithParametersFromTopmostLayer()
+        public void DarcyPermeability_MultipleAquiferLayersWithRandomMeanAndDeviation_ReturnsNaNForParameters()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -985,8 +1049,8 @@ namespace Ringtoets.Piping.Data.Test
             var result = derivedInput.DarcyPermeability;
 
             // Assert
-            Assert.AreEqual(permeabilityMean, result.Mean, result.Mean.GetAccuracy());
-            Assert.AreEqual(permeabilityDeviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.StandardDeviation);
         }
 
         [Test]
