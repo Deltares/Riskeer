@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.HydraRing.Data.Properties;
+using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.HydraRing.Data
+namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
     /// This class contains the result a calculation for a <see cref="HydraulicBoundaryLocation"/>.

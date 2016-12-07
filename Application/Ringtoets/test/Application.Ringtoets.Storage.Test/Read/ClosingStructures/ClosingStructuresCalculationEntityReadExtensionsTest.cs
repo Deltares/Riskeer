@@ -28,8 +28,8 @@ using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
 {

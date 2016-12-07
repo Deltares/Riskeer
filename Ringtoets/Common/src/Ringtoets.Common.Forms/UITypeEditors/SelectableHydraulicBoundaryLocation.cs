@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Forms.UITypeEditors
 {

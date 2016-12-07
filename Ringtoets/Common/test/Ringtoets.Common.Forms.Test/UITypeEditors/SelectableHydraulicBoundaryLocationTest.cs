@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.Test.UITypeEditors
 {

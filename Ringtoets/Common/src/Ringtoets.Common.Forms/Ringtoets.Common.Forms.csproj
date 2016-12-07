@@ -225,11 +225,6 @@
       <Name>Ringtoets.HydraRing.Calculation</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
-      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
-      <Name>Ringtoets.HydraRing.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Ringtoets.Common.Data</Name>

@@ -21,8 +21,8 @@
 
 using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {

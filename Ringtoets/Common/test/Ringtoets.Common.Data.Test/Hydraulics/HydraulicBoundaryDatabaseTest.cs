@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics
 {

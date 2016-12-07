@@ -22,8 +22,8 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.Views
 {

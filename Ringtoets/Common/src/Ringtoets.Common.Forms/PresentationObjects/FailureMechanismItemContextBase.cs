@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
 {

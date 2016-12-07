@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {

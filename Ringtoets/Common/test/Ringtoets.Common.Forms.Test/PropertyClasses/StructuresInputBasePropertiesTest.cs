@@ -42,7 +42,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {

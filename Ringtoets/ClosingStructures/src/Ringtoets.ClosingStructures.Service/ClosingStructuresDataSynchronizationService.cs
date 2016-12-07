@@ -25,10 +25,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.ClosingStructures.Service
 {

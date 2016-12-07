@@ -23,7 +23,7 @@ using System;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Forms.Views

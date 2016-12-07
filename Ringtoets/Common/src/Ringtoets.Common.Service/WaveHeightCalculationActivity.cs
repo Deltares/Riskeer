@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.Service;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service
 {

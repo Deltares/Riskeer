@@ -27,9 +27,9 @@ using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 {

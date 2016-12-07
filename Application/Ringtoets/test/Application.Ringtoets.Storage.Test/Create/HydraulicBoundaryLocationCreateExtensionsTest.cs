@@ -24,8 +24,8 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {

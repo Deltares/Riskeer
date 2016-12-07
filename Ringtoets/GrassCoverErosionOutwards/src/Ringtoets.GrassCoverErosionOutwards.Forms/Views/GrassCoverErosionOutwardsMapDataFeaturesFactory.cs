@@ -23,11 +23,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {

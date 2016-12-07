@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.TestUtil.Test

@@ -27,9 +27,9 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
 {

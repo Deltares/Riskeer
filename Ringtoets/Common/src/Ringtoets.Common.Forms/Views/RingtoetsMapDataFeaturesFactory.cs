@@ -36,7 +36,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.Views
 {

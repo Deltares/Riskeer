@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 

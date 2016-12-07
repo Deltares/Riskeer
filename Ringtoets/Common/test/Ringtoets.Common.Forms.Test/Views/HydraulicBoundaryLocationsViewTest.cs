@@ -37,7 +37,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {

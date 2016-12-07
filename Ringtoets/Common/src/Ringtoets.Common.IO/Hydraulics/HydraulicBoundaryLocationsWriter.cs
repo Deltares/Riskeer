@@ -28,8 +28,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Writers;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Properties;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.IO.Hydraulics
 {

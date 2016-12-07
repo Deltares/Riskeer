@@ -27,7 +27,6 @@ using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.TestUtil.Test
 {

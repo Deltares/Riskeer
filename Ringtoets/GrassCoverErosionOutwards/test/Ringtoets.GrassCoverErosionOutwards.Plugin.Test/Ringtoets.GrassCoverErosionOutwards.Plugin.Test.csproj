@@ -109,10 +109,6 @@
       <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
-      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
-      <Name>Ringtoets.HydraRing.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Forms\Ringtoets.Revetment.Forms.csproj">
       <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
       <Name>Ringtoets.Revetment.Forms</Name>

@@ -27,7 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Plugin.Handlers;

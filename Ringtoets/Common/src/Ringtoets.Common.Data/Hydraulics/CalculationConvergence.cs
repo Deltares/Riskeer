@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Utils.Attributes;
-using Ringtoets.HydraRing.Data.Properties;
+using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.HydraRing.Data
+namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
     /// Enumeration denoting the convergence status of a calculation.

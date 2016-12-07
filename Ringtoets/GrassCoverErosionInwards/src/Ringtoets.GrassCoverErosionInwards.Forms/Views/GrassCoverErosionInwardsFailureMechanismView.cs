@@ -32,7 +32,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;

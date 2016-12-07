@@ -23,8 +23,8 @@ using System;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {

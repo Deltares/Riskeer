@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Ringtoets.StabilityPointStructures.Service

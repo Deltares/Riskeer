@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {

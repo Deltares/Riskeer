@@ -47,7 +47,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServicesResources = Ringtoets.Common.Service.Properties.Resources;
 

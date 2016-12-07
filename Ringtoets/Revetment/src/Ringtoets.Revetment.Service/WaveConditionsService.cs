@@ -19,10 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Utils;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.Service

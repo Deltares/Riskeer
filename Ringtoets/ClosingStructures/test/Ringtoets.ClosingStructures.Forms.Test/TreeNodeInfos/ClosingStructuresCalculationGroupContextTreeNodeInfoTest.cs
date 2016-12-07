@@ -48,7 +48,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos

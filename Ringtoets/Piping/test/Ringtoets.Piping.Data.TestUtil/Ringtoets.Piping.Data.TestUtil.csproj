@@ -63,10 +63,6 @@
       <Name>Ringtoets.Common.Data</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
-      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
-      <Name>Ringtoets.HydraRing.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Ringtoets.Piping.Data</Name>

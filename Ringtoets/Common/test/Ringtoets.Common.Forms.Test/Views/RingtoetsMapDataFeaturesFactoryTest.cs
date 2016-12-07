@@ -36,7 +36,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {

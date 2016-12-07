@@ -28,10 +28,10 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.Test.GuiServices
 {

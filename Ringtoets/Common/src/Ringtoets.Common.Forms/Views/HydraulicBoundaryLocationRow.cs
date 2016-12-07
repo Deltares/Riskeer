@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base.Geometry;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.Views
         public bool ToCalculate { get; set; }
 
         /// <summary>
-        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.Name"/>.
+        /// Gets the <see cref="Data.Hydraulics.HydraulicBoundaryLocation.Name"/>.
         /// </summary>
         public string Name
         {
@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.Id"/>.
+        /// Gets the <see cref="Data.Hydraulics.HydraulicBoundaryLocation.Id"/>.
         /// </summary>
         public long Id
         {
@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.Location"/>.
+        /// Gets the <see cref="Data.Hydraulics.HydraulicBoundaryLocation.Location"/>.
         /// </summary>
         public Point2D Location
         {

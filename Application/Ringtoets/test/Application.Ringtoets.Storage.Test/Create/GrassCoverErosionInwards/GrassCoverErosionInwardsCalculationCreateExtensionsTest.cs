@@ -27,10 +27,10 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 {

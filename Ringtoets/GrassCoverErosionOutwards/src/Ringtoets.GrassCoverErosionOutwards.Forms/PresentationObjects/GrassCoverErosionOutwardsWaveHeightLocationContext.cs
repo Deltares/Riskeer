@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {

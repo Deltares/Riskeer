@@ -243,4 +243,16 @@
   <data name="AssessmentLayerOneState_Sufficient" xml:space="preserve">
     <value>Voldoende / Niet relevant</value>
   </data>
+  <data name="CalculationConvergence_CalculatedConverged" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="CalculationConvergence_CalculatedNotConverged" xml:space="preserve">
+    <value>Nee</value>
+  </data>
+  <data name="CalculationConvergence_NotCalculated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
 </root>

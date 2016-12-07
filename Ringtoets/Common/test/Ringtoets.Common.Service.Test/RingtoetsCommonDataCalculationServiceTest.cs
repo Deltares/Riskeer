@@ -21,8 +21,8 @@
 
 using Core.Common.Utils;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Output;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service.Test
 {

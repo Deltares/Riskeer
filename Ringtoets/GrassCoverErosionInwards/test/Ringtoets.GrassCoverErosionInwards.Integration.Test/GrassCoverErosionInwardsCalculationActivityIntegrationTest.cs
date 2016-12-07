@@ -38,7 +38,6 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Integration.Test

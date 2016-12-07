@@ -22,7 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover

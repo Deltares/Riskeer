@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.Forms.PresentationObjects

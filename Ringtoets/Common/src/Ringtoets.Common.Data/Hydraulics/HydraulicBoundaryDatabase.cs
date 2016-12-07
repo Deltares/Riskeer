@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Data.Hydraulics
 {

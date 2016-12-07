@@ -38,7 +38,6 @@ using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.HeightStructures.Integration.Test

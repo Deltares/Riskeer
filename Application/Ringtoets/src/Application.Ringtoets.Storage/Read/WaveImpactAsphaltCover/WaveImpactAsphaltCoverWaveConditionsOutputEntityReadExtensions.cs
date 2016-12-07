@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 

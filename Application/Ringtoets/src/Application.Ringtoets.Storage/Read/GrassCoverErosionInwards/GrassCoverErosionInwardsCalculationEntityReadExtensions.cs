@@ -24,8 +24,8 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
 {

@@ -38,7 +38,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.ClosingStructures.Integration.Test

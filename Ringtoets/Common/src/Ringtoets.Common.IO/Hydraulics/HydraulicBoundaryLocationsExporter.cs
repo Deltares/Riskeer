@@ -25,8 +25,8 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Properties;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.IO.Hydraulics
 {

@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Hydraulics;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.IO.Test.Hydraulics
 {
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
         public void WriteHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("WriteHydraulicBoundaryLocations_NullhydraulicBoundaryLocations_ThrowArgumentNullException",
                                                                       "test.shp"));
 
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
                 WaveHeight = (RoundedDouble) 222.222
             };
 
-            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               "WriteHydraulicBoundaryLocations_ValidData_WritesShapeFile");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
@@ -134,7 +134,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
 
         private void AssertEssentialShapefileMd5Hashes(string directoryPath, string baseName)
         {
-            string refPathName = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO), "PointShapefileMd5");
+            string refPathName = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO), "PointShapefileMd5");
             string pathName = Path.Combine(directoryPath, baseName);
 
             AssertBinaryFileContent(refPathName, pathName, ".shp", 100, 28);

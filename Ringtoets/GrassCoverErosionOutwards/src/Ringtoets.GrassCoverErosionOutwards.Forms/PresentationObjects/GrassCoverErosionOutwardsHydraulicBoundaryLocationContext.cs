@@ -22,14 +22,14 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of a <see cref="GrassCoverErosionOutwardsFailureMechanism"/> 
-    /// specific <see cref="HydraRing.Data.HydraulicBoundaryLocation"/>.
+    /// specific <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/>.
     /// </summary>
     public abstract class GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
         : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
@@ -54,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraRing.Data.HydraulicBoundaryLocation"/>.
+        /// Gets the <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/>.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
 

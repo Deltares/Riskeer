@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Test

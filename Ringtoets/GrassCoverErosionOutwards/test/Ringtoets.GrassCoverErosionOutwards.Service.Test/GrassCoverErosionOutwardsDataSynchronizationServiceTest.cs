@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service.Test

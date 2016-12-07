@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.TestUtil;
 

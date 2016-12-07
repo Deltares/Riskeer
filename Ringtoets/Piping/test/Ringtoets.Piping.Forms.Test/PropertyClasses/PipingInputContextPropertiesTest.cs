@@ -35,8 +35,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;

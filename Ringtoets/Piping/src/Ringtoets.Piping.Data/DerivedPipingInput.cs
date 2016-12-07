@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.InputParameterCalculation;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.Exceptions;

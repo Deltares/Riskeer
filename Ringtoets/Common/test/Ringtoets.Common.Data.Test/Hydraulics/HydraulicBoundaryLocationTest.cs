@@ -23,8 +23,9 @@ using System;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.HydraRing.Data.Test
+namespace Ringtoets.Common.Data.Test.Hydraulics
 {
     [TestFixture]
     public class HydraulicBoundaryLocationTest

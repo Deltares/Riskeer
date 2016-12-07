@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 

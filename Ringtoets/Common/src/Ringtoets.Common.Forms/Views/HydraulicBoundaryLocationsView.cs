@@ -27,8 +27,8 @@ using Core.Common.Controls.Views;
 using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.GuiServices;
-using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Views

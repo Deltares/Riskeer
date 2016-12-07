@@ -23,8 +23,8 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards

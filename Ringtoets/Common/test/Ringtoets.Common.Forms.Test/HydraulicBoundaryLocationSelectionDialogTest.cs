@@ -25,7 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Forms.Test
 {

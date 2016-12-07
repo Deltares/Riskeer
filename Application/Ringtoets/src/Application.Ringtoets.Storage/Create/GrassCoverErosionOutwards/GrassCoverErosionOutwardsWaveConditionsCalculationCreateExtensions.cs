@@ -22,8 +22,8 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 
 namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards

@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 

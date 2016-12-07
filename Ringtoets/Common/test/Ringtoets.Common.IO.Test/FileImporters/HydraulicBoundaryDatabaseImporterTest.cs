@@ -29,9 +29,9 @@ using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.HydraRing;
-using Ringtoets.HydraRing.Data;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Common.IO.Test.FileImporters

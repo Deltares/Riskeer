@@ -27,7 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -120,7 +120,7 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets the upper boundary based on <see cref="HydraRing.Data.HydraulicBoundaryLocation.DesignWaterLevel"/>.
+        /// Gets the upper boundary based on <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation.DesignWaterLevel"/>.
         /// </summary>
         public RoundedDouble UpperBoundaryDesignWaterLevel
         {

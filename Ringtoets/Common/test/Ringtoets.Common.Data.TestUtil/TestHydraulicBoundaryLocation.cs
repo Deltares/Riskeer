@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.HydraRing.Data.TestUtil
+namespace Ringtoets.Common.Data.TestUtil
 {
     /// <summary>
     /// Class which creates simple instances of <see cref="HydraulicBoundaryLocation"/>, which

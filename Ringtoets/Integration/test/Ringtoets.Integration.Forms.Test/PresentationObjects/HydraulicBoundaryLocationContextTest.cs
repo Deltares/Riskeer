@@ -23,7 +23,6 @@ using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects

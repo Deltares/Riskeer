@@ -21,7 +21,6 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {

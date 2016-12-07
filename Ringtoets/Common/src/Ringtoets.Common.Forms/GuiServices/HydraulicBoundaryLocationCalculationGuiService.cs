@@ -26,11 +26,11 @@ using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.GuiServices
 {

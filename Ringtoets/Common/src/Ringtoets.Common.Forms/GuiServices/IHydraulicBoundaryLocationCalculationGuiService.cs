@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.GuiServices
 {

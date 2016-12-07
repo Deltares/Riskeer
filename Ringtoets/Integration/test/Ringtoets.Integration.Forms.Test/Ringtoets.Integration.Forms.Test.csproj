@@ -201,10 +201,6 @@
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Data.TestUtil\Ringtoets.HydraRing.Data.TestUtil.csproj">
-      <Project>{C033C69A-A1E3-4438-9C2C-EECCA27BCBA3}</Project>
-      <Name>Ringtoets.HydraRing.Data.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
       <Name>Ringtoets.Piping.Data.TestUtil</Name>
@@ -284,10 +280,6 @@
     <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Forms\Ringtoets.HeightStructures.Forms.csproj">
       <Project>{F0BCF06A-3D01-4D65-A249-E2A14AEC6EFD}</Project>
       <Name>Ringtoets.HeightStructures.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
-      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
-      <Name>Ringtoets.HydraRing.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>

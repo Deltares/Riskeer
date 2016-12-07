@@ -25,13 +25,12 @@ using System.Data.SQLite;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO.Properties;
 
 namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
 {
     /// <summary>
-    /// This class reads a SqLite database file and constructs <see cref="HydraulicBoundaryLocation"/> 
+    /// This class reads a SqLite database file and constructs <see cref="HrdLocation"/> 
     /// instances from this database.
     /// </summary>
     public class HydraulicBoundarySqLiteDatabaseReader : SqLiteDatabaseReaderBase
@@ -57,13 +56,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         /// </summary>
         public bool HasNext { get; private set; }
 
-        /// <summary>
-        /// Reads the next location from the database.
-        /// </summary>
-        /// <returns>New instance of <see cref="HydraulicBoundaryLocation"/>, based on the 
-        /// data read from the database or <c>null</c> if no data is available.</returns>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect 
-        /// values for required properties.</exception>
         public void PrepareReadLocation()
         {
             CloseDataReader();
@@ -74,6 +66,13 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             MoveNext();
         }
 
+        /// <summary>
+        /// Reads the next location from the database.
+        /// </summary>
+        /// <returns>New instance of <see cref="HrdLocation"/>, based on the  data read from
+        /// the database or <c>null</c> if no data is available.</returns>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect 
+        /// values for required properties.</exception>
         public HrdLocation ReadLocation()
         {
             if (!HasNext)

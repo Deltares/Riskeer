@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.StabilityPointStructures.Data.TestUtil
 {

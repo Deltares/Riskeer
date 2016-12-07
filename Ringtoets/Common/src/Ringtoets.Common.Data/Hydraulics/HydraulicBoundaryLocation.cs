@@ -24,7 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.HydraRing.Data
+namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
     /// Location of a hydraulic boundary.

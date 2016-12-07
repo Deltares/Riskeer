@@ -22,12 +22,11 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="HydraRing.Data.HydraulicBoundaryLocation"/>.
+    /// Presentation object for all data required to configure an instance of <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/>.
     /// </summary>
     public abstract class HydraulicBoundaryLocationContext : ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>
     {
@@ -36,7 +35,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The <see cref="HydraulicBoundaryDatabase"/> which the <see cref="HydraulicBoundaryLocationContext"/> 
         /// belongs to.</param>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraRing.Data.HydraulicBoundaryLocation"/> 
+        /// <param name="hydraulicBoundaryLocation">The <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/> 
         /// which the <see cref="HydraulicBoundaryLocationContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         protected HydraulicBoundaryLocationContext(HydraulicBoundaryDatabase wrappedData,
@@ -50,7 +49,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraRing.Data.HydraulicBoundaryLocation"/>.
+        /// Gets the <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/>.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
 

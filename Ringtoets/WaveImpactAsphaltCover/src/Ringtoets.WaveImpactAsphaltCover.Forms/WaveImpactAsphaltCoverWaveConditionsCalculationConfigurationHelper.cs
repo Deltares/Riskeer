@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms
