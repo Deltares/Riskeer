@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Checkout_Dev\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTILatestTrunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -296,8 +296,16 @@
           <Property Name="LocationX" Type="real" />
           <Property Name="LocationY" Type="real" />
           <Property Name="DesignWaterLevel" Type="real" />
-          <Property Name="WaveHeight" Type="real" />
+          <Property Name="DesignWaterLevelTargetProbability" Type="real" />
+          <Property Name="DesignWaterLevelTargetReliability" Type="real" />
+          <Property Name="DesignWaterLevelCalculatedProbability" Type="real" />
+          <Property Name="DesignWaterLevelCalculatedReliability" Type="real" />
           <Property Name="DesignWaterLevelCalculationConvergence" Type="tinyint" Nullable="false" />
+          <Property Name="WaveHeight" Type="real" />
+          <Property Name="WaveHeightTargetProbability" Type="real" />
+          <Property Name="WaveHeightTargetReliability" Type="real" />
+          <Property Name="WaveHeightCalculatedProbability" Type="real" />
+          <Property Name="WaveHeightCalculatedReliability" Type="real" />
           <Property Name="WaveHeightCalculationConvergence" Type="tinyint" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
@@ -472,10 +480,18 @@
           <Property Name="LocationX" Type="real" />
           <Property Name="LocationY" Type="real" />
           <Property Name="DesignWaterLevel" Type="real" />
-          <Property Name="WaveHeight" Type="real" />
-          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="DesignWaterLevelTargetProbability" Type="real" />
+          <Property Name="DesignWaterLevelTargetReliability" Type="real" />
+          <Property Name="DesignWaterLevelCalculatedProbability" Type="real" />
+          <Property Name="DesignWaterLevelCalculatedReliability" Type="real" />
           <Property Name="DesignWaterLevelCalculationConvergence" Type="tinyint" Nullable="false" />
+          <Property Name="WaveHeight" Type="real" />
+          <Property Name="WaveHeightTargetProbability" Type="real" />
+          <Property Name="WaveHeightTargetReliability" Type="real" />
+          <Property Name="WaveHeightCalculatedProbability" Type="real" />
+          <Property Name="WaveHeightCalculatedReliability" Type="real" />
           <Property Name="WaveHeightCalculationConvergence" Type="tinyint" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MacrostabilityInwardsSectionResultEntity">
           <Key>
@@ -3115,8 +3131,16 @@
           <Property Name="LocationX" Type="Double" />
           <Property Name="LocationY" Type="Double" />
           <Property Name="DesignWaterLevel" Type="Double" />
-          <Property Name="WaveHeight" Type="Double" />
+          <Property Name="DesignWaterLevelTargetProbability" Type="Double" />
+          <Property Name="DesignWaterLevelTargetReliability" Type="Double" />
+          <Property Name="DesignWaterLevelCalculatedProbability" Type="Double" />
+          <Property Name="DesignWaterLevelCalculatedReliability" Type="Double" />
           <Property Name="DesignWaterLevelCalculationConvergence" Type="Byte" Nullable="false" />
+          <Property Name="WaveHeight" Type="Double" />
+          <Property Name="WaveHeightTargetProbability" Type="Double" />
+          <Property Name="WaveHeightTargetReliability" Type="Double" />
+          <Property Name="WaveHeightCalculatedProbability" Type="Double" />
+          <Property Name="WaveHeightCalculatedReliability" Type="Double" />
           <Property Name="WaveHeightCalculationConvergence" Type="Byte" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationEntity" ToRole="FailureMechanismEntity" />
@@ -3313,10 +3337,18 @@
           <Property Name="LocationX" Type="Double" />
           <Property Name="LocationY" Type="Double" />
           <Property Name="DesignWaterLevel" Type="Double" />
-          <Property Name="WaveHeight" Type="Double" />
-          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="DesignWaterLevelTargetProbability" Type="Double" />
+          <Property Name="DesignWaterLevelTargetReliability" Type="Double" />
+          <Property Name="DesignWaterLevelCalculatedProbability" Type="Double" />
+          <Property Name="DesignWaterLevelCalculatedReliability" Type="Double" />
           <Property Name="DesignWaterLevelCalculationConvergence" Type="Byte" Nullable="false" />
+          <Property Name="WaveHeight" Type="Double" />
+          <Property Name="WaveHeightTargetProbability" Type="Double" />
+          <Property Name="WaveHeightTargetReliability" Type="Double" />
+          <Property Name="WaveHeightCalculatedProbability" Type="Double" />
+          <Property Name="WaveHeightCalculatedReliability" Type="Double" />
           <Property Name="WaveHeightCalculationConvergence" Type="Byte" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="ClosingStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="ClosingStructuresCalculationEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
@@ -5160,8 +5192,16 @@
               <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsHydraulicLocationEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="WaveHeightCalculationConvergence" ColumnName="WaveHeightCalculationConvergence" />
-                <ScalarProperty Name="DesignWaterLevelCalculationConvergence" ColumnName="DesignWaterLevelCalculationConvergence" />
+                <ScalarProperty Name="WaveHeightCalculatedReliability" ColumnName="WaveHeightCalculatedReliability" />
+                <ScalarProperty Name="WaveHeightCalculatedProbability" ColumnName="WaveHeightCalculatedProbability" />
+                <ScalarProperty Name="WaveHeightTargetReliability" ColumnName="WaveHeightTargetReliability" />
+                <ScalarProperty Name="WaveHeightTargetProbability" ColumnName="WaveHeightTargetProbability" />
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
+                <ScalarProperty Name="DesignWaterLevelCalculationConvergence" ColumnName="DesignWaterLevelCalculationConvergence" />
+                <ScalarProperty Name="DesignWaterLevelCalculatedReliability" ColumnName="DesignWaterLevelCalculatedReliability" />
+                <ScalarProperty Name="DesignWaterLevelCalculatedProbability" ColumnName="DesignWaterLevelCalculatedProbability" />
+                <ScalarProperty Name="DesignWaterLevelTargetReliability" ColumnName="DesignWaterLevelTargetReliability" />
+                <ScalarProperty Name="DesignWaterLevelTargetProbability" ColumnName="DesignWaterLevelTargetProbability" />
                 <ScalarProperty Name="DesignWaterLevel" ColumnName="DesignWaterLevel" />
                 <ScalarProperty Name="LocationY" ColumnName="LocationY" />
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />
@@ -5345,10 +5385,18 @@
           <EntitySetMapping Name="HydraulicLocationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationEntity">
               <MappingFragment StoreEntitySet="HydraulicLocationEntity">
-                <ScalarProperty Name="WaveHeightCalculationConvergence" ColumnName="WaveHeightCalculationConvergence" />
-                <ScalarProperty Name="DesignWaterLevelCalculationConvergence" ColumnName="DesignWaterLevelCalculationConvergence" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="WaveHeightCalculationConvergence" ColumnName="WaveHeightCalculationConvergence" />
+                <ScalarProperty Name="WaveHeightCalculatedReliability" ColumnName="WaveHeightCalculatedReliability" />
+                <ScalarProperty Name="WaveHeightCalculatedProbability" ColumnName="WaveHeightCalculatedProbability" />
+                <ScalarProperty Name="WaveHeightTargetReliability" ColumnName="WaveHeightTargetReliability" />
+                <ScalarProperty Name="WaveHeightTargetProbability" ColumnName="WaveHeightTargetProbability" />
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
+                <ScalarProperty Name="DesignWaterLevelCalculationConvergence" ColumnName="DesignWaterLevelCalculationConvergence" />
+                <ScalarProperty Name="DesignWaterLevelCalculatedReliability" ColumnName="DesignWaterLevelCalculatedReliability" />
+                <ScalarProperty Name="DesignWaterLevelCalculatedProbability" ColumnName="DesignWaterLevelCalculatedProbability" />
+                <ScalarProperty Name="DesignWaterLevelTargetReliability" ColumnName="DesignWaterLevelTargetReliability" />
+                <ScalarProperty Name="DesignWaterLevelTargetProbability" ColumnName="DesignWaterLevelTargetProbability" />
                 <ScalarProperty Name="DesignWaterLevel" ColumnName="DesignWaterLevel" />
                 <ScalarProperty Name="LocationY" ColumnName="LocationY" />
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />

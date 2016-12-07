@@ -55,10 +55,18 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> LocationX { get; set; }
         public Nullable<double> LocationY { get; set; }
         public Nullable<double> DesignWaterLevel { get; set; }
-        public Nullable<double> WaveHeight { get; set; }
-        public int Order { get; set; }
+        public Nullable<double> DesignWaterLevelTargetProbability { get; set; }
+        public Nullable<double> DesignWaterLevelTargetReliability { get; set; }
+        public Nullable<double> DesignWaterLevelCalculatedProbability { get; set; }
+        public Nullable<double> DesignWaterLevelCalculatedReliability { get; set; }
         public byte DesignWaterLevelCalculationConvergence { get; set; }
+        public Nullable<double> WaveHeight { get; set; }
+        public Nullable<double> WaveHeightTargetProbability { get; set; }
+        public Nullable<double> WaveHeightTargetReliability { get; set; }
+        public Nullable<double> WaveHeightCalculatedProbability { get; set; }
+        public Nullable<double> WaveHeightCalculatedReliability { get; set; }
         public byte WaveHeightCalculationConvergence { get; set; }
+        public int Order { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
 
