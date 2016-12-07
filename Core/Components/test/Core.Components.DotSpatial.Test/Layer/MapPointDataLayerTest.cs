@@ -102,11 +102,11 @@ namespace Core.Components.DotSpatial.Test.Layer
             Assert.IsNotNull(mapPointDataLayer.LabelLayer);
             Assert.AreEqual(string.Format("[{0}]", "2"), mapPointDataLayer.LabelLayer.Symbology.Categories[0].Expression);
 
-            var firstStroke = (SimpleSymbol) mapPointDataLayer.Symbolizer.Symbols[0];
-            Assert.AreEqual(Color.AliceBlue, firstStroke.Color);
-            Assert.AreEqual(2, firstStroke.Size.Width);
-            Assert.AreEqual(2, firstStroke.Size.Height);
-            Assert.AreEqual(PointShape.Ellipse, firstStroke.PointShape);
+            var firstSymbol = (SimpleSymbol) mapPointDataLayer.Symbolizer.Symbols[0];
+            Assert.AreEqual(Color.AliceBlue, firstSymbol.Color);
+            Assert.AreEqual(2, firstSymbol.Size.Width);
+            Assert.AreEqual(2, firstSymbol.Size.Height);
+            Assert.AreEqual(PointShape.Ellipse, firstSymbol.PointShape);
 
             Assert.AreEqual(1, mapPointDataLayer.DataSet.Features.Count);
         }
@@ -120,10 +120,10 @@ namespace Core.Components.DotSpatial.Test.Layer
             Assert.IsNotNull(mapPointDataLayer.LabelLayer);
             Assert.IsNull(mapPointDataLayer.LabelLayer.Symbology.Categories[0].Expression);
 
-            var firstStroke = (SimpleSymbol) mapPointDataLayer.Symbolizer.Symbols[0];
-            Assert.AreEqual(4, firstStroke.Size.Width);
-            Assert.AreEqual(4, firstStroke.Size.Height);
-            Assert.AreEqual(PointShape.Rectangle, firstStroke.PointShape);
+            var firstSymbol = (SimpleSymbol) mapPointDataLayer.Symbolizer.Symbols[0];
+            Assert.AreEqual(4, firstSymbol.Size.Width);
+            Assert.AreEqual(4, firstSymbol.Size.Height);
+            Assert.AreEqual(PointShape.Rectangle, firstSymbol.PointShape);
 
             Assert.AreEqual(0, mapPointDataLayer.DataSet.Features.Count);
         }

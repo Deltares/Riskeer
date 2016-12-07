@@ -224,24 +224,24 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Combinatorial]
         public void ConvertLayerProperties_MapPolygonDataWithStyle_ConvertsStyleToMapPolygonLayer(
             [Values(KnownColor.AliceBlue, KnownColor.Azure)] KnownColor fillColor,
-            [Values(KnownColor.AppWorkspace, KnownColor.BlueViolet)] KnownColor strokeColor,
+            [Values(KnownColor.AppWorkspace, KnownColor.BlueViolet)] KnownColor outlineFillColor,
             [Values(1, 5)] int width)
         {
             // Setup
             var converter = new MapPolygonDataConverter();
             var mapPolygonLayer = new MapPolygonLayer();
             var expectedFillColor = Color.FromKnownColor(fillColor);
-            var expectedStrokeColor = Color.FromKnownColor(strokeColor);
+            var expectedOutlineFillColor = Color.FromKnownColor(outlineFillColor);
             var mapPolygonData = new MapPolygonData("test")
             {
-                Style = new PolygonStyle(expectedFillColor, expectedStrokeColor, width)
+                Style = new PolygonStyle(expectedFillColor, expectedOutlineFillColor, width)
             };
 
             // Call
             converter.ConvertLayerProperties(mapPolygonData, mapPolygonLayer);
 
             // Assert
-            AssertAreEqual(new PolygonSymbolizer(expectedFillColor, expectedStrokeColor, width), mapPolygonLayer.Symbolizer);
+            AssertAreEqual(new PolygonSymbolizer(expectedFillColor, expectedOutlineFillColor, width), mapPolygonLayer.Symbolizer);
         }
 
         private static Point2D[] CreateRectangularRing(double xy1, double xy2)
@@ -258,17 +258,17 @@ namespace Core.Components.DotSpatial.Test.Converter
 
         private static void AssertAreEqual(IPolygonSymbolizer firstSymbolizer, IPolygonSymbolizer secondSymbolizer)
         {
-            IList<IPattern> firstSymbols = firstSymbolizer.Patterns;
-            IList<IPattern> secondSymbols = secondSymbolizer.Patterns;
-            Assert.AreEqual(firstSymbols.Count, secondSymbols.Count, "Unequal amount of strokes defined.");
-            for (var i = 0; i < firstSymbols.Count; i++)
+            IList<IPattern> firstPatterns = firstSymbolizer.Patterns;
+            IList<IPattern> secondPatterns = secondSymbolizer.Patterns;
+            Assert.AreEqual(firstPatterns.Count, secondPatterns.Count, "Unequal amount of patterns defined.");
+            for (var i = 0; i < firstPatterns.Count; i++)
             {
-                SimplePattern firstStroke = (SimplePattern) firstSymbols[i];
-                SimplePattern secondStroke = (SimplePattern) secondSymbols[i];
+                SimplePattern firstPattern = (SimplePattern) firstPatterns[i];
+                SimplePattern secondPattern = (SimplePattern) secondPatterns[i];
 
-                Assert.AreEqual(firstStroke.FillColor, secondStroke.FillColor);
-                Assert.AreEqual(firstStroke.Outline.GetFillColor(), secondStroke.Outline.GetFillColor());
-                Assert.AreEqual(firstStroke.Outline.GetWidth(), secondStroke.Outline.GetWidth());
+                Assert.AreEqual(firstPattern.FillColor, secondPattern.FillColor);
+                Assert.AreEqual(firstPattern.Outline.GetFillColor(), secondPattern.Outline.GetFillColor());
+                Assert.AreEqual(firstPattern.Outline.GetWidth(), secondPattern.Outline.GetWidth());
             }
         }
     }

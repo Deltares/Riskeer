@@ -178,15 +178,15 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             IList<ISymbol> firstSymbols = firstSymbolizer.Symbols;
             IList<ISymbol> secondSymbols = secondSymbolizer.Symbols;
-            Assert.AreEqual(firstSymbols.Count, secondSymbols.Count, "Unequal amount of strokes defined.");
+            Assert.AreEqual(firstSymbols.Count, secondSymbols.Count, "Unequal amount of symbols defined.");
             for (var i = 0; i < firstSymbols.Count; i++)
             {
-                SimpleSymbol firstStroke = (SimpleSymbol) firstSymbols[i];
-                SimpleSymbol secondStroke = (SimpleSymbol) secondSymbols[i];
+                SimpleSymbol firstSymbol = (SimpleSymbol) firstSymbols[i];
+                SimpleSymbol secondSymbol = (SimpleSymbol) secondSymbols[i];
 
-                Assert.AreEqual(firstStroke.Color, secondStroke.Color);
-                Assert.AreEqual(firstStroke.PointShape, secondStroke.PointShape);
-                Assert.AreEqual(firstStroke.Size, secondStroke.Size);
+                Assert.AreEqual(firstSymbol.Color, secondSymbol.Color);
+                Assert.AreEqual(firstSymbol.PointShape, secondSymbol.PointShape);
+                Assert.AreEqual(firstSymbol.Size, secondSymbol.Size);
             }
         }
     }
