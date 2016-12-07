@@ -562,11 +562,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
         }
 
-        private static void AssertEmptyMapData(MapDataCollection mapData)
+        private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.IsInstanceOf<MapDataCollection>(mapData);
+            Assert.AreEqual("Test failure mechanism", mapDataCollection.Name);
 
-            var mapDataList = mapData.Collection.ToList();
+            var mapDataList = mapDataCollection.Collection.ToList();
 
             Assert.AreEqual(5, mapDataList.Count);
 

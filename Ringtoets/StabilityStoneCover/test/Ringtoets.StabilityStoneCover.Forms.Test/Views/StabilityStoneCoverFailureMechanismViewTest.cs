@@ -751,11 +751,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             Assert.AreEqual("Berekeningen", mapData.Name);
         }
 
-        private static void AssertEmptyMapData(MapDataCollection mapData)
+        private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.IsInstanceOf<MapDataCollection>(mapData);
+            Assert.AreEqual("Dijken en dammen - Stabiliteit steenzetting", mapDataCollection.Name);
 
-            var mapDataList = mapData.Collection.ToList();
+            var mapDataList = mapDataCollection.Collection.ToList();
 
             Assert.AreEqual(7, mapDataList.Count);
 

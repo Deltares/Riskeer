@@ -695,11 +695,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
         }
 
-        private static void AssertEmptyMapData(MapDataCollection mapData)
+        private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.IsInstanceOf<MapDataCollection>(mapData);
+            Assert.AreEqual("Dijken en dammen - Grasbekleding erosie buitentalud", mapDataCollection.Name);
 
-            var mapDataList = mapData.Collection.ToList();
+            var mapDataList = mapDataCollection.Collection.ToList();
 
             Assert.AreEqual(7, mapDataList.Count);
 

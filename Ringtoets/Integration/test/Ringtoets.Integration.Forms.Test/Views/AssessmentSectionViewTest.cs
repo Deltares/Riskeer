@@ -380,11 +380,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsTrue(referenceLineMapData.IsVisible);
         }
 
-        private static void AssertEmptyMapData(MapDataCollection mapData)
+        private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.IsInstanceOf<MapDataCollection>(mapData);
+            Assert.AreEqual("Trajectkaart", mapDataCollection.Name);
 
-            var mapDataList = mapData.Collection.ToList();
+            var mapDataList = mapDataCollection.Collection.ToList();
 
             Assert.AreEqual(2, mapDataList.Count);
 

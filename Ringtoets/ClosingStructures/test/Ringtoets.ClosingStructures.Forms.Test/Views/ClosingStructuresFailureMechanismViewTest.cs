@@ -873,11 +873,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             Assert.AreEqual("Berekeningen", mapData.Name);
         }
 
-        private static void AssertEmptyMapData(MapDataCollection mapData)
+        private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.IsInstanceOf<MapDataCollection>(mapData);
+            Assert.AreEqual("Kunstwerken - Betrouwbaarheid sluiting kunstwerk", mapDataCollection.Name);
 
-            var mapDataList = mapData.Collection.ToList();
+            var mapDataList = mapDataCollection.Collection.ToList();
 
             Assert.AreEqual(8, mapDataList.Count);
 
