@@ -527,7 +527,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 70%-fraktiel van de korreldiameter in de bovenste zandlaag [m].
+        ///   Looks up a localized string similar to De d70 in de bovenste zandlaag [m].
         /// </summary>
         public static string PipingInput_Diameter70_DisplayName {
             get {
