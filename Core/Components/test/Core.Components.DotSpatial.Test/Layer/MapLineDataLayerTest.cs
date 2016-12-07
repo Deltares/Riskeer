@@ -20,8 +20,16 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Layer;
+using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
+using DotSpatial.Symbology;
 using NUnit.Framework;
+using LineStyle = Core.Components.Gis.Style.LineStyle;
 
 namespace Core.Components.DotSpatial.Test.Layer
 {
@@ -38,5 +46,112 @@ namespace Core.Components.DotSpatial.Test.Layer
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("mapLineData", parameter);
         }
+
+        [Test]
+        public void Constructor_MapLineDataWithTestProperties_MapLineDataLayerCreatedAccordingly()
+        {
+            // Setup
+            var mapLineData = new MapLineData("Test name");
+
+            SetMapLineDataTestProperties(mapLineData);
+
+            // Call
+            var mapLineDataLayer = new MapLineDataLayer(mapLineData);
+
+            // Assert
+            AssertMapLineDataLayerTestProperties(mapLineDataLayer);
+        }
+
+        [Test]
+        public void Update_MapLineDataWithTestProperties_MapLineDataLayerUpdatedAccordingly()
+        {
+            // Setup
+            var mapLineData = new MapLineData("Test name");
+            var mapLineDataLayer = new MapLineDataLayer(mapLineData);
+
+            SetMapLineDataTestProperties(mapLineData);
+
+            // Precondition
+            AssertMapLineDataLayerDefaultProperties(mapLineDataLayer);
+
+            // Call
+            mapLineDataLayer.Update();
+
+            // Assert
+            AssertMapLineDataLayerTestProperties(mapLineDataLayer);
+        }
+
+        private static void SetMapLineDataTestProperties(MapLineData mapLineData)
+        {
+            mapLineData.Name = "Another test name";
+            mapLineData.IsVisible = false;
+            mapLineData.ShowLabels = true;
+            mapLineData.SelectedMetaDataAttribute = "Name";
+            mapLineData.Style = new LineStyle(Color.AliceBlue, 2, DashStyle.DashDot);
+            mapLineData.Features = new[]
+            {
+                CreateTestMapFeature()
+            };
+        }
+
+        private static void AssertMapLineDataLayerTestProperties(MapLineDataLayer mapLineDataLayer)
+        {
+            Assert.AreEqual("Another test name", mapLineDataLayer.Name);
+            Assert.IsFalse(mapLineDataLayer.IsVisible);
+            Assert.IsTrue(mapLineDataLayer.ShowLabels);
+
+            Assert.IsNotNull(mapLineDataLayer.LabelLayer);
+            Assert.AreEqual(string.Format("[{0}]", "2"), mapLineDataLayer.LabelLayer.Symbology.Categories[0].Expression);
+
+            var firstStroke = (CartographicStroke) mapLineDataLayer.Symbolizer.Strokes[0];
+            Assert.AreEqual(Color.AliceBlue, firstStroke.Color);
+            Assert.AreEqual(2, firstStroke.Width);
+            Assert.AreEqual(DashStyle.DashDot, firstStroke.DashStyle);
+
+            Assert.AreEqual(1, mapLineDataLayer.DataSet.Features.Count);
+        }
+
+        private static void AssertMapLineDataLayerDefaultProperties(MapLineDataLayer mapLineDataLayer)
+        {
+            Assert.AreEqual("Test name", mapLineDataLayer.Name);
+            Assert.IsTrue(mapLineDataLayer.IsVisible);
+            Assert.IsFalse(mapLineDataLayer.ShowLabels);
+
+            Assert.IsNotNull(mapLineDataLayer.LabelLayer);
+            Assert.IsNull(mapLineDataLayer.LabelLayer.Symbology.Categories[0].Expression);
+
+            var firstStroke = (SimpleStroke) mapLineDataLayer.Symbolizer.Strokes[0];
+            Assert.AreEqual(1.0, firstStroke.Width);
+            Assert.AreEqual(DashStyle.Solid, firstStroke.DashStyle);
+
+            Assert.AreEqual(0, mapLineDataLayer.DataSet.Features.Count);
+        }
+
+        private static MapFeature CreateTestMapFeature()
+        {
+            return new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(1, 2),
+                        new Point2D(2, 3)
+                    }
+                })
+            })
+            {
+                MetaData =
+                {
+                    {
+                        "Id", 1.1
+                    },
+                    {
+                        "Name", "Feature"
+                    }
+                }
+            };
+        }
+
     }
 }
