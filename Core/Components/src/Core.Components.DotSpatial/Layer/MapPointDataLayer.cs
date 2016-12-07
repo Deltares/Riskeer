@@ -19,7 +19,7 @@ namespace Core.Components.DotSpatial.Layer
         /// <summary>
         /// Creates a new instance of <see cref="MapPointDataLayer"/>.
         /// </summary>
-        /// <param name="mapPointData">The <see cref="MapPointData"/> which the map point layer is based upon.</param>
+        /// <param name="mapPointData">The <see cref="MapPointData"/> which the map point data layer is based upon.</param>
         public MapPointDataLayer(MapPointData mapPointData)
         {
             if (mapPointData == null)

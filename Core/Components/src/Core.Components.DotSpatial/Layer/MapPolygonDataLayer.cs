@@ -40,7 +40,7 @@ namespace Core.Components.DotSpatial.Layer
         /// <summary>
         /// Creates a new instance of <see cref="MapPolygonDataLayer"/>.
         /// </summary>
-        /// <param name="mapPolygonData">The <see cref="MapPolygonData"/> which the map polygon layer is based upon.</param>
+        /// <param name="mapPolygonData">The <see cref="MapPolygonData"/> which the map polygon data layer is based upon.</param>
         public MapPolygonDataLayer(MapPolygonData mapPolygonData)
         {
             if (mapPolygonData == null)

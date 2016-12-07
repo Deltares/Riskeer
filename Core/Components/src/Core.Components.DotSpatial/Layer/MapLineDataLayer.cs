@@ -40,7 +40,7 @@ namespace Core.Components.DotSpatial.Layer
         /// <summary>
         /// Creates a new instance of <see cref="MapLineDataLayer"/>.
         /// </summary>
-        /// <param name="mapLineData">The <see cref="MapLineData"/> which the map line layer is based upon.</param>
+        /// <param name="mapLineData">The <see cref="MapLineData"/> which the map line data layer is based upon.</param>
         public MapLineDataLayer(MapLineData mapLineData)
         {
             if (mapLineData == null)

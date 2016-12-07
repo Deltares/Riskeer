@@ -278,8 +278,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                     {
                         MetaData =
                         {
-                            { "Id", 1.1 },
-                            { "Name", "Feature" }
+                            {
+                                "Id", 1.1
+                            },
+                            {
+                                "Name", "Feature"
+                            }
                         }
                     }
                 },
