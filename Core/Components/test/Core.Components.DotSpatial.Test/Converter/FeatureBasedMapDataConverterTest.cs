@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
@@ -138,9 +139,9 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             var dataRowCollection = mapPointLayer.DataSet.DataTable.Rows;
             Assert.AreEqual(2, dataRowCollection.Count);
-            Assert.AreEqual("1.1", dataRowCollection[0][0]);
+            Assert.AreEqual(1.1.ToString(CultureInfo.CurrentCulture), dataRowCollection[0][0]);
             Assert.AreEqual("Feature 1", dataRowCollection[0][1]);
-            Assert.AreEqual("2.2", dataRowCollection[1][0]);
+            Assert.AreEqual(2.2.ToString(CultureInfo.CurrentCulture), dataRowCollection[1][0]);
             Assert.AreEqual("Feature 2", dataRowCollection[1][1]);
         }
 
