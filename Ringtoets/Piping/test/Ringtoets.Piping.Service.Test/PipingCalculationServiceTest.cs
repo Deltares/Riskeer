@@ -601,7 +601,7 @@ namespace Ringtoets.Piping.Service.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
                                                 {
-                                                    new PipingSoilLayer(10.5)
+                                                    new PipingSoilLayer(10.56)
                                                     {
                                                         IsAquifer = false,
                                                         BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
@@ -668,7 +668,7 @@ namespace Ringtoets.Piping.Service.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0,
                                                 new[]
                                                 {
-                                                    new PipingSoilLayer(10.5)
+                                                    new PipingSoilLayer(10.56)
                                                     {
                                                         IsAquifer = false,
                                                         BelowPhreaticLevelDeviation = random.GetFromRange(1e-6, 5.0),

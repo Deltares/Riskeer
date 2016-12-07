@@ -95,18 +95,23 @@ namespace Ringtoets.Piping.KernelWrapper
             List<string> soilProfileValidationResults = ValidateSoilProfile();
             List<string> surfaceLineValidationResults = ValidateSurfaceLine();
             List<string> upliftCalculatorValidationResults = new List<string>();
+            List<string> pipingProfilePropertyCalculatorValidationResults = new List<string>();
+            List<string> heaveCalculatorValidationResults = new List<string>();
+            List<string> sellmeijerCalculatorValidationResults = new List<string>();
             if (soilProfileValidationResults.Count == 0 && surfaceLineValidationResults.Count == 0)
             {
                 upliftCalculatorValidationResults = ValidateUpliftCalculator();
+                pipingProfilePropertyCalculatorValidationResults = CreatePipingProfilePropertyCalculator().Validate();
+                heaveCalculatorValidationResults = CreateHeaveCalculator().Validate();
+                sellmeijerCalculatorValidationResults = CreateSellmeijerCalculator().Validate();
             }
-            List<string> heaveCalculatorValidationResults = CreateHeaveCalculator().Validate();
-            List<string> sellmeijerCalculatorValidationResults = CreateSellmeijerCalculator().Validate();
 
             return upliftCalculatorValidationResults
                 .Concat(surfaceLineValidationResults)
                 .Concat(soilProfileValidationResults)
                 .Concat(heaveCalculatorValidationResults)
                 .Concat(sellmeijerCalculatorValidationResults)
+                .Concat(pipingProfilePropertyCalculatorValidationResults)
                 .Distinct()
                 .ToList();
         }
@@ -283,6 +288,7 @@ namespace Ringtoets.Piping.KernelWrapper
             calculator.PhiPolder = input.PhreaticLevelExit;
             calculator.RExit = input.DampingFactorExit;
             calculator.HExit = input.PhreaticLevelExit;
+            calculator.BottomLevelAquitardAboveExitPointZ = GetBottomAquitardLayerAboveExitPointZ();
             return calculator;
         }
 
@@ -321,6 +327,24 @@ namespace Ringtoets.Piping.KernelWrapper
             calculator.DAquifer = input.ThicknessAquiferLayer;
             calculator.D70Mean = input.MeanDiameter70;
             calculator.BeddingAngle = input.BeddingAngle;
+            calculator.BottomLevelAquitardAboveExitPointZ = GetBottomAquitardLayerAboveExitPointZ();
+            return calculator;
+        }
+
+        private double GetBottomAquitardLayerAboveExitPointZ()
+        {
+            var pipingProfilePropertyCalculator = CreatePipingProfilePropertyCalculator();
+            pipingProfilePropertyCalculator.Calculate();
+            var bottomAquitardLayerAboveExitPointZ = pipingProfilePropertyCalculator.BottomAquitardLayerAboveExitPointZ;
+            return bottomAquitardLayerAboveExitPointZ;
+        }
+
+        private IPipingProfilePropertyCalculator CreatePipingProfilePropertyCalculator()
+        {
+            var calculator = factory.CreatePipingProfilePropertyCalculator();
+            calculator.SoilProfile = PipingProfileCreator.Create(input.SoilProfile);
+            calculator.SurfaceLine = PipingSurfaceLineCreator.Create(input.SurfaceLine);
+            calculator.ExitPointX = input.ExitPointXCoordinate;
             return calculator;
         }
 
