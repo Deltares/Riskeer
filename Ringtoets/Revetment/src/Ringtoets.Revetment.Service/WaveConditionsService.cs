@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Utils;
 using Ringtoets.Common.Service;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.Service
@@ -42,8 +43,6 @@ namespace Ringtoets.Revetment.Service
         /// <param name="norm">The target norm to calculate for.</param>
         /// <param name="calculatedReliability">The calculated reliability.</param>
         /// <returns>The calculated <see cref="WaveConditionsOutput"/>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability or 
-        /// calculated probability lies outside [0, 1] and is not <see cref="double.NaN"/>.</exception>
         public static WaveConditionsOutput Calculate(double waterLevel, double waveHeight, double wavePeakPeriod,
                                                      double waveAngle, double waveDirection,
                                                      double norm, double calculatedReliability)
@@ -53,11 +52,10 @@ namespace Ringtoets.Revetment.Service
 
             double calculatedProbability = StatisticsConverter.ReliabilityToProbability(calculatedReliability);
 
+            CalculationConvergence convergence = RingtoetsCommonDataCalculationService.CalculationConverged(calculatedReliability, norm);
+
             return new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
-                                            targetReliability, calculatedProbability, calculatedReliability)
-            {
-                CalculationConvergence = RingtoetsCommonDataCalculationService.CalculationConverged(calculatedReliability, norm)
-            };
+                                            targetReliability, calculatedProbability, calculatedReliability, convergence);
         }
     }
 }

@@ -49,10 +49,8 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
                                             entity.TargetProbability.ToNullAsNaN(),
                                             entity.TargetReliability.ToNullAsNaN(),
                                             entity.CalculatedProbability.ToNullAsNaN(),
-                                            entity.CalculatedReliability.ToNullAsNaN())
-            {
-                CalculationConvergence = (CalculationConvergence) entity.CalculationConvergence
-            };
+                                            entity.CalculatedReliability.ToNullAsNaN(),
+                                            (CalculationConvergence) entity.CalculationConvergence);
         }
     }
 }

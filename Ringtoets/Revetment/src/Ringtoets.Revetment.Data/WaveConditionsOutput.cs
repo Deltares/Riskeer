@@ -50,12 +50,15 @@ namespace Ringtoets.Revetment.Data
         /// <param name="targetReliability">The target beta (reliability).</param>
         /// <param name="calculatedProbability">The calculated probability.</param>
         /// <param name="calculatedReliability">The calculated beta (reliability).</param>
+        /// <param name="calculationConvergence">The convergence status of the calculation.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> or 
-        /// <paramref name="calculatedProbability"/>lies outside[0,1] and is not <see cref="double.NaN"/>.</exception>
+        /// <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not 
+        /// <see cref="double.NaN"/>.</exception>
         public WaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveAngle,
                                     double waveDirection,
                                     double targetProbability, double targetReliability,
-                                    double calculatedProbability, double calculatedReliability)
+                                    double calculatedProbability, double calculatedReliability, 
+                                    CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated)
         {
             WaterLevel = new RoundedDouble(2, waterLevel);
             WaveHeight = new RoundedDouble(2, waveHeight);
@@ -69,7 +72,7 @@ namespace Ringtoets.Revetment.Data
             CalculatedProbability = calculatedProbability;
             CalculatedReliability = new RoundedDouble(5, calculatedReliability);
 
-            CalculationConvergence = CalculationConvergence.NotCalculated;
+            CalculationConvergence = calculationConvergence;
         }
 
         /// <summary>
@@ -177,11 +180,11 @@ namespace Ringtoets.Revetment.Data
             {
                 return calculationConvergence;
             }
-            set
+            private set
             {
                 if (!Enum.IsDefined(typeof(CalculationConvergence), value))
                 {
-                    throw new InvalidEnumArgumentException("CalculationConvergence", (int) value, typeof(CalculationConvergence));
+                    throw new InvalidEnumArgumentException("value", (int) value, typeof(CalculationConvergence));
                 }
 
                 calculationConvergence = value;

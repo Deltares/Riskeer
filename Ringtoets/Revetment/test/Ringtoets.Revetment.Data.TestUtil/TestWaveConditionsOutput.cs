@@ -44,9 +44,6 @@ namespace Ringtoets.Revetment.TestUtil
         /// <param name="wavePeakPeriod">The calculated wave peak period</param>
         public TestWaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveAngle,
                                         CalculationConvergence convergence = CalculationConvergence.NotCalculated) :
-                                            base(waterLevel, waveHeight, wavePeakPeriod, waveAngle, 5.5, 0.1, 1.282, 0.4, 0.253)
-        {
-            CalculationConvergence = convergence;
-        }
+                                            base(waterLevel, waveHeight, wavePeakPeriod, waveAngle, 5.5, 0.1, 1.282, 0.4, 0.253, convergence) {}
     }
 }

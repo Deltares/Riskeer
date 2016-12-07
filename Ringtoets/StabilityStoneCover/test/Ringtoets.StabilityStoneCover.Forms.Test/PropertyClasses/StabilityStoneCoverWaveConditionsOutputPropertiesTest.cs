@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;

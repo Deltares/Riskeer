@@ -86,7 +86,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
-            Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
 
             Assert.AreEqual(isOvertoppingDominant, properties.IsOvertoppingDominant);

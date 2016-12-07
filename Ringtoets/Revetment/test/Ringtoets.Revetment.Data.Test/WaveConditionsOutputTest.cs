@@ -144,30 +144,30 @@ namespace Ringtoets.Revetment.Data.Test
         {
             // Setup
             var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                  double.NaN, double.NaN, double.NaN);
+                                                  double.NaN, double.NaN, double.NaN, convergence);
 
             // Call
-            output.CalculationConvergence = convergence;
+            CalculationConvergence setConvergence = output.CalculationConvergence;
 
             // Assert
-            Assert.AreEqual(convergence, output.CalculationConvergence);
+            Assert.AreEqual(convergence, setConvergence);
         }
 
         [Test]
         public void CalculationConvergence_Invalidvalue_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                  double.NaN, double.NaN, double.NaN);
+            var invalidEnumValue = (CalculationConvergence) 9001;
 
             // Call
-            TestDelegate call = () => output.CalculationConvergence = (CalculationConvergence) 9001;
+            TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                  double.NaN, double.NaN, double.NaN, invalidEnumValue);
 
             // Assert
-            const string expectedMessage = "The value of argument 'CalculationConvergence' (9001) is invalid for Enum type 'CalculationConvergence'.";
+            const string expectedMessage = "The value of argument 'value' (9001) is invalid for Enum type 'CalculationConvergence'.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
                                                                                                                     expectedMessage).ParamName;
-            Assert.AreEqual("CalculationConvergence", paramName);
+            Assert.AreEqual("value", paramName);
         }
     }
 }
