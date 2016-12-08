@@ -160,7 +160,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
                                                                             "Algemeen",
                                                                             "Doelkans [1/jaar]",
-                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            "De opgegeven kans waarvoor het resultaat is berekend.",
                                                                             true);
 
             PropertyDescriptor targetReliabilityProperty = dynamicProperties[requiredTargetReliabilityPropertyIndex];
@@ -168,7 +168,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliabilityProperty,
                                                                             "Algemeen",
                                                                             "Betrouwbaarheidsindex doelkans [-]",
-                                                                            "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            "Betrouwbaarheidsindex van de opgegeven kans waarvoor het resultaat is berekend.",
                                                                             true);
 
             PropertyDescriptor calculatedProbabilityProperty = dynamicProperties[requiredCalculatedProbabilityPropertyIndex];
@@ -176,7 +176,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbabilityProperty,
                                                                             "Algemeen",
                                                                             "Berekende kans [1/jaar]",
-                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
+                                                                            "De berekende kans van voorkomen van het resultaat.",
                                                                             true);
 
             PropertyDescriptor calculatedReliabilityProperty = dynamicProperties[requiredCalculatedReliabilityPropertyIndex];
@@ -184,7 +184,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliabilityProperty,
                                                                             "Algemeen",
                                                                             "Betrouwbaarheidsindex berekende kans [-]",
-                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
+                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het resultaat.",
                                                                             true);
 
             PropertyDescriptor calculationConvergenceProperty = dynamicProperties[requiredConvergencePropertyIndex];

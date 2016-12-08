@@ -190,13 +190,13 @@
     <value>Waterstanden in berekening [m+NAP]</value>
   </data>
   <data name="WaveConditionsOutput_CalculatedProbability_Description" xml:space="preserve">
-    <value>De berekende kans van voorkomen van het berekende resultaat.</value>
+    <value>De berekende kans van voorkomen van het resultaat.</value>
   </data>
   <data name="WaveConditionsOutput_CalculatedProbability_DisplayName" xml:space="preserve">
     <value>Berekende kans [1/jaar]</value>
   </data>
   <data name="WaveConditionsOutput_CalculatedReliability_Description" xml:space="preserve">
-    <value>Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.</value>
+    <value>Betrouwbaarheidsindex van de berekende kans van voorkomen van het resultaat.</value>
   </data>
   <data name="WaveConditionsOutput_CalculatedReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex berekende kans [-]</value>
@@ -208,13 +208,13 @@
     <value>Convergentie</value>
   </data>
   <data name="WaveConditionsOutput_TargetProbability_Description" xml:space="preserve">
-    <value>De ingevoerde kans waarvoor het resultaat moet worden berekend.</value>
+    <value>De opgegeven kans waarvoor het resultaat is berekend.</value>
   </data>
   <data name="WaveConditionsOutput_TargetProbability_DisplayName" xml:space="preserve">
     <value>Doelkans [1/jaar]</value>
   </data>
   <data name="WaveConditionsOutput_TargetReliability_Description" xml:space="preserve">
-    <value>Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.</value>
+    <value>Betrouwbaarheidsindex van de opgegeven kans waarvoor het resultaat is berekend.</value>
   </data>
   <data name="WaveConditionsOutput_TargetReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex doelkans [-]</value>
