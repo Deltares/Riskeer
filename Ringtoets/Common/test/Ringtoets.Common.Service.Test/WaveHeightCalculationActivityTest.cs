@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
@@ -125,9 +124,6 @@ namespace Ringtoets.Common.Service.Test
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0);
 
-            // Precondition
-            Assert.AreEqual((RoundedDouble)double.NaN, hydraulicBoundaryLocation.WaveHeight);
-
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, inValidFilePath, string.Empty, 1, calculationMessageProviderMock);
 
             // Call
@@ -157,9 +153,6 @@ namespace Ringtoets.Common.Service.Test
             const double norm = 1.0/30;
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0);
-
-            // Precondition
-            Assert.AreEqual((RoundedDouble)double.NaN, hydraulicBoundaryLocation.WaveHeight);
 
             var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(activityName);
@@ -208,6 +201,7 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
             const string locationName = "locationName";
             const string activityName = "GetActivityName";
+            const double norm = 1.0/30;
 
             var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(activityName);
@@ -216,13 +210,15 @@ namespace Ringtoets.Common.Service.Test
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)
             {
-                WaveHeight = new RoundedDouble(2, 3.0)
+                WaveHeightOutput = new HydraulicBoundaryLocationOutput(3.0, norm, double.NaN,
+                                                                       double.NaN, double.NaN,
+                                                                       CalculationConvergence.CalculatedConverged)
             };
 
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
                                                              validFilePath,
                                                              string.Empty,
-                                                             30,
+                                                             norm,
                                                              calculationMessageProviderMock);
 
             // Call
@@ -245,11 +241,7 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)
-            {
-                WaveHeight = new RoundedDouble(2, double.NaN),
-                WaveHeightCalculationConvergence = CalculationConvergence.CalculatedNotConverged
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0);
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
@@ -293,8 +285,9 @@ namespace Ringtoets.Common.Service.Test
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)
             {
-                WaveHeight = new RoundedDouble(2, double.NaN),
-                WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged
+                WaveHeightOutput = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN,
+                                                                       double.NaN, double.NaN,
+                                                                       double.NaN, CalculationConvergence.CalculatedConverged)
             };
 
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -338,8 +331,9 @@ namespace Ringtoets.Common.Service.Test
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)
             {
-                WaveHeight = new RoundedDouble(2, double.NaN),
-                WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged
+                WaveHeightOutput = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN,
+                                                                       double.NaN, double.NaN,
+                                                                       double.NaN, CalculationConvergence.CalculatedConverged)
             };
 
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -380,8 +374,9 @@ namespace Ringtoets.Common.Service.Test
             string calculationFailedMessage = "Something went wrong";
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
             {
-                WaveHeight = new RoundedDouble(2, double.NaN),
-                WaveHeightCalculationConvergence = CalculationConvergence.NotCalculated
+                WaveHeightOutput = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN,
+                                                                       double.NaN, double.NaN,
+                                                                       double.NaN, CalculationConvergence.NotCalculated)
             };
 
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
@@ -394,7 +389,7 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
-            const double norm = 1.0 / 30;
+            const double norm = 1.0/30;
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
                                                              validFilePath,
                                                              string.Empty,
@@ -403,7 +398,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
                 calculator.EndInFailure = endInFailure;
                 calculator.LastErrorFileContent = lastErrorFileContent;
 

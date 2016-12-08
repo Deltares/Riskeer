@@ -21,9 +21,9 @@
 
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -49,11 +49,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            RoundedDouble designWaterLevel = (RoundedDouble) 12.34;
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(designWaterLevel);
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(1.5);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    location
+                }
+            };
 
             // Call
             DesignWaterLevelLocationsContextProperties properties = new DesignWaterLevelLocationsContextProperties
@@ -64,12 +67,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DesignWaterLevelLocationContextProperties));
             Assert.AreEqual(1, properties.Locations.Length);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationsContextProperties,
+                              ExpandableArrayConverter>(p => p.Locations));
 
             DesignWaterLevelLocationContextProperties designWaterLevelLocationProperties = properties.Locations.First();
-            Assert.AreEqual(hydraulicBoundaryLocation.Name, designWaterLevelLocationProperties.Name);
-            Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelLocationProperties.Id);
-            Assert.AreEqual(hydraulicBoundaryLocation.Location, designWaterLevelLocationProperties.Location);
-            Assert.AreEqual(designWaterLevel, designWaterLevelLocationProperties.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual(location.Name, designWaterLevelLocationProperties.Name);
+            Assert.AreEqual(location.Id, designWaterLevelLocationProperties.Id);
+            Assert.AreEqual(location.Location, designWaterLevelLocationProperties.Location);
+            Assert.AreEqual(location.DesignWaterLevel, designWaterLevelLocationProperties.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
         }
 
         [Test]

@@ -23,6 +23,7 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -48,11 +49,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var designWaterLevel = 12.34;
-            var location = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(designWaterLevel);
+            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.2);
 
             // Call
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties
+            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties
             {
                 Data = new ObservableList<HydraulicBoundaryLocation>
                 {
@@ -62,12 +62,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(1, properties.Locations.Length);
-
+            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties,
+                              ExpandableArrayConverter>(p => p.Locations));
             GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties locationProperties = properties.Locations[0];
             Assert.AreEqual(location.Name, locationProperties.Name);
             Assert.AreEqual(location.Id, locationProperties.Id);
             Assert.AreEqual(location.Location, locationProperties.Location);
-            Assert.AreEqual(designWaterLevel, locationProperties.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual(location.DesignWaterLevel, locationProperties.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual("", locationProperties.Convergence);
         }
 
         [Test]

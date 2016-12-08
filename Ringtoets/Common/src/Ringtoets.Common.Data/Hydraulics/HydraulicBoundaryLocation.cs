@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         public HydraulicBoundaryLocationOutput WaveHeightOutput { get; set; }
 
         /// <summary>
-        /// Gets or sets the convergence status of the design waterlevel calculation.
+        /// Gets the convergence status of the design waterlevel calculation.
         /// </summary>
         public CalculationConvergence DesignWaterLevelCalculationConvergence
         {
@@ -102,13 +102,6 @@ namespace Ringtoets.Common.Data.Hydraulics
                 return DesignWaterLevelOutput == null
                            ? CalculationConvergence.NotCalculated
                            : DesignWaterLevelOutput.CalculationConvergence;
-            }
-            set
-            {
-                if (DesignWaterLevelOutput != null)
-                {
-                    DesignWaterLevelOutput.CalculationConvergence = value;
-                }
             }
         }
 
@@ -130,7 +123,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         }
 
         /// <summary>
-        /// Gets or sets the convergence status of the waveheight calculation.
+        /// Gets the convergence status of the waveheight calculation.
         /// </summary>
         public CalculationConvergence WaveHeightCalculationConvergence
         {
@@ -139,13 +132,6 @@ namespace Ringtoets.Common.Data.Hydraulics
                 return WaveHeightOutput == null
                            ? CalculationConvergence.NotCalculated
                            : WaveHeightOutput.CalculationConvergence;
-            }
-            set
-            {
-                if (WaveHeightOutput != null)
-                {
-                    WaveHeightOutput.CalculationConvergence = value;
-                }
             }
         }
 

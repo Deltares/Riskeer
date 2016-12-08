@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
@@ -57,9 +56,9 @@ namespace Ringtoets.Integration.TestUtils
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
                 DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
-                    1.1, double.NaN,double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged),
+                    1.1, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged),
                 WaveHeightOutput = new HydraulicBoundaryLocationOutput(
-                    2.2, double.NaN,double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged)
+                    2.2, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged)
             };
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -697,10 +696,12 @@ namespace Ringtoets.Integration.TestUtils
                                                                                             hydraulicBoundaryLocation.Location.X,
                                                                                             hydraulicBoundaryLocation.Location.Y)
             {
-                WaveHeight = (RoundedDouble) (hydraulicBoundaryLocation.WaveHeight + 0.2),
-                WaveHeightCalculationConvergence = hydraulicBoundaryLocation.WaveHeightCalculationConvergence,
-                DesignWaterLevel = (RoundedDouble) (hydraulicBoundaryLocation.DesignWaterLevel + 0.3),
-                DesignWaterLevelCalculationConvergence = hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence
+                WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                    hydraulicBoundaryLocation.WaveHeight + 0.2, double.NaN, double.NaN, double.NaN, double.NaN,
+                    hydraulicBoundaryLocation.WaveHeightCalculationConvergence),
+                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                    hydraulicBoundaryLocation.DesignWaterLevel + 0.3, double.NaN, double.NaN, double.NaN, double.NaN,
+                    hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence)
             };
             failureMechanism.HydraulicBoundaryLocations.Add(internalHydroLocation);
             var profile1 = new ForeshoreProfile(new Point2D(0, 0),

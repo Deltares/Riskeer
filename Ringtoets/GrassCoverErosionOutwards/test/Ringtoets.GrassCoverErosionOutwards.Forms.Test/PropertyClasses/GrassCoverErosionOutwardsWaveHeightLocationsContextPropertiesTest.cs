@@ -22,9 +22,9 @@
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -50,12 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            RoundedDouble waveHeight = (RoundedDouble) 12.34;
-            var location = new HydraulicBoundaryLocation(1, "name", 1.0, 2.0)
-            {
-                WaveHeight = waveHeight,
-                WaveHeightCalculationConvergence = CalculationConvergence.CalculatedNotConverged
-            };
+            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(1.2);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationsContextProperties
@@ -68,13 +63,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(1, properties.Locations.Length);
-
-            GrassCoverErosionOutwardsWaveHeightLocationContextProperties designWaterLevelLocationProperties = properties.Locations.First();
-            Assert.AreEqual(location.Name, designWaterLevelLocationProperties.Name);
-            Assert.AreEqual(location.Id, designWaterLevelLocationProperties.Id);
-            Assert.AreEqual(location.Location, designWaterLevelLocationProperties.Location);
-            Assert.AreEqual(waveHeight, designWaterLevelLocationProperties.WaveHeight, location.WaveHeight.GetAccuracy());
-            Assert.AreEqual("Nee", designWaterLevelLocationProperties.Convergence);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationsContextProperties,
+                              ExpandableArrayConverter>(p => p.Locations));
+            GrassCoverErosionOutwardsWaveHeightLocationContextProperties locationProperties = properties.Locations.First();
+            Assert.AreEqual(location.Name, locationProperties.Name);
+            Assert.AreEqual(location.Id, locationProperties.Id);
+            Assert.AreEqual(location.Location, locationProperties.Location);
+            Assert.AreEqual(location.WaveHeight, locationProperties.WaveHeight, location.WaveHeight.GetAccuracy());
+            Assert.AreEqual("", locationProperties.Convergence);
         }
 
         [Test]
