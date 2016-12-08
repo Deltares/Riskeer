@@ -108,6 +108,25 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
+        /// Gets the effective thickness of the coverage layers at the exit point.
+        /// [m]
+        /// </summary>
+        public LogNormalDistribution EffectiveThicknessCoverageLayer
+        {
+            get
+            {
+                LogNormalDistribution thicknessCoverageLayer = new LogNormalDistribution(2)
+                {
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = (RoundedDouble) 0.5
+                };
+                UpdateEffectiveThicknessCoverageLayerMean(thicknessCoverageLayer);
+
+                return thicknessCoverageLayer;
+            }
+        }
+
+        /// <summary>
         /// Gets the total thickness of the aquifer layers at the exit point.
         /// [m]
         /// </summary>
@@ -203,10 +222,28 @@ namespace Ringtoets.Piping.Data
 
         private void UpdateThicknessCoverageLayerMean(LogNormalDistribution thicknessCoverageLayerDistribution)
         {
-            if (input.SurfaceLine != null && input.StochasticSoilProfile != null && input.StochasticSoilProfile.SoilProfile != null && !double.IsNaN(input.ExitPointL))
+            StochasticSoilProfile stochasticSoilProfile = input.StochasticSoilProfile;
+            RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
+            RoundedDouble exitPointL = input.ExitPointL;
+
+            if (stochasticSoilProfile != null && stochasticSoilProfile.SoilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
             {
                 var weightedMean = new RoundedDouble(thicknessCoverageLayerDistribution.Mean.NumberOfDecimalPlaces,
-                                                     InputParameterCalculationService.CalculateThicknessCoverageLayer(
+                                                     GetThicknessCoverageLayers(stochasticSoilProfile.SoilProfile, surfaceLine, exitPointL));
+
+                if (weightedMean > 0)
+                {
+                    thicknessCoverageLayerDistribution.Mean = weightedMean;
+                }
+            }
+        }
+
+        private void UpdateEffectiveThicknessCoverageLayerMean(LogNormalDistribution effectiveThicknessCoverageLayerDistribution)
+        {
+            if (input.SurfaceLine != null && input.StochasticSoilProfile != null && input.StochasticSoilProfile.SoilProfile != null && !double.IsNaN(input.ExitPointL))
+            {
+                var weightedMean = new RoundedDouble(effectiveThicknessCoverageLayerDistribution.Mean.NumberOfDecimalPlaces,
+                                                     InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
                                                          input.WaterVolumetricWeight,
                                                          PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                                                          input.ExitPointL,
@@ -215,7 +252,7 @@ namespace Ringtoets.Piping.Data
 
                 if (weightedMean > 0)
                 {
-                    thicknessCoverageLayerDistribution.Mean = weightedMean;
+                    effectiveThicknessCoverageLayerDistribution.Mean = weightedMean;
                 }
             }
         }
@@ -436,6 +473,23 @@ namespace Ringtoets.Piping.Data
             {
                 double zAtL = surfaceLine.GetZAtL(exitPointL);
                 return soilProfile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(zAtL);
+            }
+            catch (Exception e)
+            {
+                if (e is RingtoetsPipingSurfaceLineException || e is InvalidOperationException || e is ArgumentException)
+                {
+                    return double.NaN;
+                }
+                throw;
+            }
+        }
+
+        private static double GetThicknessCoverageLayers(PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine, RoundedDouble exitPointL)
+        {
+            try
+            {
+                double zAtL = surfaceLine.GetZAtL(exitPointL);
+                return soilProfile.GetConsecutiveCoverageLayerThicknessBelowLevel(zAtL);
             }
             catch (Exception e)
             {

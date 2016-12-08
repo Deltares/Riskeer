@@ -101,17 +101,136 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsMeanExpectedThicknessAquiferLayer()
+        public void EffectiveThicknessCoverageLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsThicknessCoverageLayer()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            var thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
+            var effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
 
             // Assert
-            Assert.AreEqual(1.0, thicknessAquiferLayer.Mean.Value);
+            Assert.AreEqual(2.0, effectiveThicknessCoverageLayer.Mean.Value);
+        }
+
+        [Test]
+        public void EffectiveThicknessCoverageLayer_InputWithoutSurfaceLine_MeansSetToNaN()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            input.SurfaceLine = null;
+            var derivedInput = new DerivedPipingInput(input);
+
+            // Call
+            LogNormalDistribution effectiveThicknessCoverageLayer = null;
+            Action call = () => effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
+
+            // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
+            Assert.IsNaN(effectiveThicknessCoverageLayer.Mean);
+        }
+
+        [Test]
+        [TestCase(1e-6)]
+        [TestCase(1)]
+        public void EffectiveThicknessCoverageLayer_SoilProfileSingleAquiferAboveSurfaceLine_ThicknessCoverageLayerNaN(double deltaAboveSurfaceLine)
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithSingleAquiferLayerAboveSurfaceLine(deltaAboveSurfaceLine);
+            var derivedInput = new DerivedPipingInput(input);
+
+            // Call
+            LogNormalDistribution effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(effectiveThicknessCoverageLayer.Mean);
+        }
+
+        [Test]
+        public void EffectiveThicknessCoverageLayer_MeanSetSoilProfileSetToNull_ThicknessCoverageLayerNaN()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            input.ThicknessCoverageLayer.Mean = new RoundedDouble(2, new Random(21).NextDouble() + 1);
+            var derivedInput = new DerivedPipingInput(input);
+
+            input.StochasticSoilProfile = null;
+
+            // Call
+            LogNormalDistribution effectiveThicknessCoverageLayer = null;
+            Action call = () => effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
+
+            // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
+            Assert.IsNaN(effectiveThicknessCoverageLayer.Mean);
+        }
+
+        [Test]
+        public void EffectiveThicknessCoverageLayer_ProfileWithoutAquiferLayer_ThicknessCoverageLayerNaN()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+                {
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = false
+                    }
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+
+            // Call
+            LogNormalDistribution effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(effectiveThicknessCoverageLayer.Mean);
+        }
+
+        [Test]
+        public void EffectiveThicknessCoverageLayer_InputResultsInZeroCoverageThickness_ThicknessCoverageLayerNaN()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+                {
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = false
+                    },
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = true
+                    }
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+
+            // Call
+            LogNormalDistribution effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(effectiveThicknessCoverageLayer.Mean);
+        }
+
+        [Test]
+        public void EffectiveThicknessCoverageLayer_InputWithoutSoilProfile_MeansSetToNaN()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            input.StochasticSoilProfile = null;
+            var derivedInput = new DerivedPipingInput(input);
+
+            // Call
+            var effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(effectiveThicknessCoverageLayer.Mean);
         }
 
         [Test]
@@ -126,53 +245,6 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(2.0, thicknessCoverageLayer.Mean.Value);
-        }
-
-        [Test]
-        public void ThicknessAquiferLayer_InputWithoutSoilProfile_ReturnMeanNaN()
-        {
-            // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.StochasticSoilProfile = null;
-            var derivedInput = new DerivedPipingInput(input);
-
-            // Call
-            var thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
-
-            // Assert
-            Assert.IsNaN(thicknessAquiferLayer.Mean);
-        }
-
-        [Test]
-        public void ThicknessCoverageLayer_InputWithoutSoilProfile_MeansSetToNaN()
-        {
-            // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.StochasticSoilProfile = null;
-            var derivedInput = new DerivedPipingInput(input);
-
-            // Call
-            var thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
-
-            // Assert
-            Assert.IsNaN(thicknessCoverageLayer.Mean);
-        }
-
-        [Test]
-        public void ThicknessAquiferLayer_InputWithoutSurfaceLine_ReturnMeanNaN()
-        {
-            // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.SurfaceLine = null;
-            var derivedInput = new DerivedPipingInput(input);
-
-            // Call
-            LogNormalDistribution thicknessAquiferLayer = null;
-            Action call = () => thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
-
-            // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
-            Assert.IsNaN(thicknessAquiferLayer.Mean);
         }
 
         [Test]
@@ -206,6 +278,138 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsNaN(thicknessCoverageLayer.Mean);
+        }
+
+        [Test]
+        public void ThicknessCoverageLayer_MeanSetSoilProfileSetToNull_ThicknessCoverageLayerNaN()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            input.ThicknessCoverageLayer.Mean = new RoundedDouble(2, new Random(21).NextDouble() + 1);
+            var derivedInput = new DerivedPipingInput(input);
+
+            input.StochasticSoilProfile = null;
+
+            // Call
+            LogNormalDistribution thicknessCoverageLayer = null;
+            Action call = () => thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
+
+            // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
+            Assert.IsNaN(thicknessCoverageLayer.Mean);
+        }
+
+        [Test]
+        public void ThicknessCoverageLayer_ProfileWithoutAquiferLayer_ThicknessCoverageLayerNaN()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+                {
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = false
+                    }
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+
+            // Call
+            LogNormalDistribution thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(thicknessCoverageLayer.Mean);
+        }
+
+        [Test]
+        public void ThicknessCoverageLayer_InputResultsInZeroCoverageThickness_ThicknessCoverageLayerNaN()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+                {
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = false
+                    },
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = true
+                    }
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+
+            // Call
+            LogNormalDistribution thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(thicknessCoverageLayer.Mean);
+        }
+
+        [Test]
+        public void ThicknessCoverageLayer_InputWithoutSoilProfile_MeansSetToNaN()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            input.StochasticSoilProfile = null;
+            var derivedInput = new DerivedPipingInput(input);
+
+            // Call
+            var thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(thicknessCoverageLayer.Mean);
+        }
+
+        [Test]
+        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsMeanExpectedThicknessAquiferLayer()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+
+            // Call
+            var thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
+
+            // Assert
+            Assert.AreEqual(1.0, thicknessAquiferLayer.Mean.Value);
+        }
+
+        [Test]
+        public void ThicknessAquiferLayer_InputWithoutSoilProfile_ReturnMeanNaN()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            input.StochasticSoilProfile = null;
+            var derivedInput = new DerivedPipingInput(input);
+
+            // Call
+            var thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
+
+            // Assert
+            Assert.IsNaN(thicknessAquiferLayer.Mean);
+        }
+
+        [Test]
+        public void ThicknessAquiferLayer_InputWithoutSurfaceLine_ReturnMeanNaN()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            input.SurfaceLine = null;
+            var derivedInput = new DerivedPipingInput(input);
+
+            // Call
+            LogNormalDistribution thicknessAquiferLayer = null;
+            Action call = () => thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
+
+            // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
+            Assert.IsNaN(thicknessAquiferLayer.Mean);
         }
 
         [Test]
@@ -254,49 +458,6 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
             Assert.IsNaN(thicknessAquiferLayer.Mean);
-        }
-
-        [Test]
-        public void ThicknessCoverageLayer_MeanSetSoilProfileSetToNull_ThicknessCoverageLayerNaN()
-        {
-            // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ThicknessCoverageLayer.Mean = new RoundedDouble(2, new Random(21).NextDouble() + 1);
-            var derivedInput = new DerivedPipingInput(input);
-
-            input.StochasticSoilProfile = null;
-
-            // Call
-            LogNormalDistribution thicknessCoverageLayer = null;
-            Action call = () => thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
-
-            // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
-            Assert.IsNaN(thicknessCoverageLayer.Mean);
-        }
-
-        [Test]
-        public void ThicknessCoverageLayer_ProfileWithoutAquiferLayer_ThicknessCoverageLayerNaN()
-        {
-            // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            var derivedInput = new DerivedPipingInput(input);
-            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
-                {
-                    new PipingSoilLayer(2.0)
-                    {
-                        IsAquifer = false
-                    }
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
-
-            // Call
-            LogNormalDistribution thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
-
-            // Assert
-            Assert.IsNaN(thicknessCoverageLayer.Mean);
         }
 
         [Test]
@@ -379,34 +540,6 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsNaN(thicknessAquiferLayer.Mean);
-        }
-
-        [Test]
-        public void ThicknessCoverageLayer_InputResultsInZeroCoverageThickness_ThicknessCoverageLayerNaN()
-        {
-            // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            var derivedInput = new DerivedPipingInput(input);
-            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
-                {
-                    new PipingSoilLayer(2.0)
-                    {
-                        IsAquifer = false
-                    },
-                    new PipingSoilLayer(2.0)
-                    {
-                        IsAquifer = true
-                    }
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
-
-            // Call
-            LogNormalDistribution thicknessCoverageLayer = derivedInput.ThicknessCoverageLayer;
-
-            // Assert
-            Assert.IsNaN(thicknessCoverageLayer.Mean);
         }
 
         [Test]

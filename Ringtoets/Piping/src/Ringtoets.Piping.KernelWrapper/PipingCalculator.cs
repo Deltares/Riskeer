@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.KernelWrapper
         }
 
         /// <summary>
-        /// Calculates the thickness of the coverage layer based on the values of the <see cref="PipingCalculatorInput"/>.
+        /// Calculates the effective thickness of the coverage layer based on the values of the <see cref="PipingCalculatorInput"/>.
         /// </summary>
         /// <returns>The thickness of the coverage layer.</returns>
         /// <exception cref="PipingCalculatorException">Thrown when:
@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <item>soil profile is <c>null</c></item>
         /// <item>soil profile's aquifer layer is not set</item>
         /// </list></exception>
-        public double CalculateThicknessCoverageLayer()
+        public double CalculateEffectiveThicknessCoverageLayer()
         {
             try
             {

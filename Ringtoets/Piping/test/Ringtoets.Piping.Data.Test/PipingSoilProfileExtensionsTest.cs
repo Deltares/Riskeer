@@ -339,6 +339,208 @@ namespace Ringtoets.Piping.Data.Test
 
         #endregion
 
+        #region GetConsecutiveCoverageLayerThicknessBelowLevel
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_NoAquitardLayer_ReturnEmptyCollection()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(1.0);
+
+            // Assert
+            Assert.IsNaN(result);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_AquitardLayerAboveLevel_ReturnEmptyCollection()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseOneAquitardLayerOneAquiferLayer);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(1.1);
+
+            // Assert
+            Assert.IsNaN(result);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_OnlyAquitardLayer_ReturnEmptyCollection()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseOneAquitardLayer);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(2.2);
+
+            // Assert
+            Assert.IsNaN(result);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_CoverageLayerCompletelyBelowLevel_ReturnAquitardLayer()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseOneCoverageLayer);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(2.2);
+
+            // Assert
+            Assert.AreEqual(2.0, result, 1e-6);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_CoverageLayerPartlyBelowLevel_ReturnCollectionWithAquitardLayer()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseOneCoverageLayer);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(1.6);
+
+            // Assert
+            Assert.AreEqual(1.5, result, 1e-6);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_CoverageLayerTopEqualToLevel_ReturnCollectionWithAquitardLayer()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseOneCoverageLayer);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(2.1);
+
+            // Assert
+            Assert.AreEqual(2.0, result, 1e-6);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_CoverageLayerBottomEqualToLevel_ReturnEmptyCollection()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseOneCoverageLayer);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(0.1);
+
+            // Assert
+            Assert.IsNaN(result);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TwoCoverageLayersCompletelyBelowLevel_ReturnConsecutiveAquitardLayers()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverageLayers);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(2.2);
+
+            // Assert
+            Assert.AreEqual(2.0, result, 1e-6);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TopmostCoverageLayerTopEqualToLevel_ReturnConsecutiveAquitardLayers()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverageLayers);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(2.1);
+
+            // Assert
+            Assert.AreEqual(2.0, result, 1e-6);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TopmostCoverageLayerTopPartlyBelowLevel_ReturnCollectionWithAquitardLayer()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverageLayers);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(2.0);
+
+            // Assert
+            Assert.AreEqual(1.9, result, 1e-6);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TopmostCoverageLayerCompletelyAboveLevel_ReturnCollectionWithoutTopmostAquitardLayer()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverageLayers);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(0.5);
+
+            // Assert
+            Assert.AreEqual(0.4, result, 1e-6);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_BottomCoverageLayerTopEqualToLevel_ReturnCollectionWithBottomAquitardLayer()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverageLayers);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(1.1);
+
+            // Assert
+            Assert.AreEqual(1.0, result, 1e-6);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_TwoConsecutiveCoverageLayersAndOneNonConsecutiveAquitardLayer_ReturnConsecutiveAquitardLayers()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverageLayersOneAquiferLayerOneAquitardLayer);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(1.5);
+
+            // Assert
+            Assert.AreEqual(0.5, result, 1e-6);
+        }
+
+        [Test]
+        [TestCase(1.0)]
+        [TestCase(0.8)]
+        [TestCase(0.5)]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_NoCoverageLayerAtLevel_ReturnEmptyCollection(double level)
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverageLayersOneAquiferLayerOneAquitardLayer);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(level);
+
+            // Assert
+            Assert.IsNaN(result);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayerThicknessBelowLevel_LevelBelowProfile_ReturnEmptyCollection()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverageLayers);
+
+            // Call
+            double result = profile.GetConsecutiveCoverageLayerThicknessBelowLevel(-1.0);
+
+            // Assert
+            Assert.IsNaN(result);
+        }
+
+        #endregion
+
         #region GetConsecutiveAquiferLayersBelowLevel
 
         [Test]

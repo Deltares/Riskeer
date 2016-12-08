@@ -383,7 +383,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
-            TestDelegate call = () => calculation.CalculateThicknessCoverageLayer();
+            TestDelegate call = () => calculation.CalculateEffectiveThicknessCoverageLayer();
 
             // Assert
             var exception = Assert.Throws<PipingCalculatorException>(call);
@@ -399,7 +399,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
-            var result = calculation.CalculateThicknessCoverageLayer();
+            var result = calculation.CalculateEffectiveThicknessCoverageLayer();
 
             // Assert
             Assert.AreEqual(1.0, result);
@@ -415,7 +415,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var calculation = new PipingCalculator(input, testPipingSubCalculatorFactory);
 
             // Call
-            calculation.CalculateThicknessCoverageLayer();
+            calculation.CalculateEffectiveThicknessCoverageLayer();
 
             // Assert
             Assert.IsFalse(testPipingSubCalculatorFactory.LastCreatedHeaveCalculator.Calculated);
@@ -441,7 +441,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
-            var result = calculation.CalculateThicknessCoverageLayer();
+            var result = calculation.CalculateEffectiveThicknessCoverageLayer();
 
             // Assert
             Assert.AreEqual(result, -3.0);
@@ -459,7 +459,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
-            var result = calculation.CalculateThicknessCoverageLayer();
+            var result = calculation.CalculateEffectiveThicknessCoverageLayer();
 
             // Assert
             Assert.IsNaN(result);

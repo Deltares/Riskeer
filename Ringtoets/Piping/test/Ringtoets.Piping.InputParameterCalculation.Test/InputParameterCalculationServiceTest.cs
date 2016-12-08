@@ -24,7 +24,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Deltares.WTIPiping;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -38,7 +37,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
     public class InputParameterCalculationServiceTest
     {
         [Test]
-        public static void CalculateThicknessCoverageLayer_InvalidPipingCalculationWithOutput_ReturnsNaN()
+        public static void CalculateEffectiveThicknessCoverageLayer_InvalidPipingCalculationWithOutput_ReturnsNaN()
         {
             // Setup
             PipingCalculation invalidPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
@@ -60,7 +59,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
 
             // Call
             PipingInput input = invalidPipingCalculation.InputParameters;
-            double result = InputParameterCalculationService.CalculateThicknessCoverageLayer(input.WaterVolumetricWeight,
+            double result = InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(input.WaterVolumetricWeight,
                                                                                              PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                                                                                              input.ExitPointL,
                                                                                              input.SurfaceLine,
@@ -71,7 +70,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
         }
 
         [Test]
-        public static void CalculateThicknessCoverageLayer_ValidInput_ReturnsThickness()
+        public static void CalculateEffectiveThicknessCoverageLayer_ValidInput_ReturnsThickness()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -104,7 +103,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             };
 
             // Call
-            double thickness = InputParameterCalculationService.CalculateThicknessCoverageLayer(
+            double thickness = InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
                 input.WaterVolumetricWeight,
                 PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                 input.ExitPointL,
@@ -135,7 +134,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
         }
 
         [Test]
-        public static void CalculateThicknessCoverageLayer_CompleteInput_InputSetOnSubCalculator()
+        public static void CalculateEffectiveThicknessCoverageLayer_CompleteInput_InputSetOnSubCalculator()
         {
             // Setup
             PipingCalculation validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
@@ -145,7 +144,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             {
                 // Call
                 PipingInput inputParameters = validPipingCalculation.InputParameters;
-                InputParameterCalculationService.CalculateThicknessCoverageLayer(
+                InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
                     inputParameters.WaterVolumetricWeight,
                     PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                     inputParameters.ExitPointL,

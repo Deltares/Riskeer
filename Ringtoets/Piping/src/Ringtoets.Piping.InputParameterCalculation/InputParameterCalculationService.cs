@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.InputParameterCalculation
         /// <param name="surfaceLine">A surface line.</param>
         /// <param name="soilProfile">A soil profile.</param>
         /// <returns>The thickness of the coverage layer, or <see cref="double.NaN"/> if the thickness could not be calculated.</returns>
-        public static double CalculateThicknessCoverageLayer(double waterVolumetricWeight, RoundedDouble phreaticLevelExit, RoundedDouble exitPointL, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
+        public static double CalculateEffectiveThicknessCoverageLayer(double waterVolumetricWeight, RoundedDouble phreaticLevelExit, RoundedDouble exitPointL, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.InputParameterCalculation
                     surfaceLine,
                     soilProfile
                     );
-                return new PipingCalculator(calculatorInput, PipingSubCalculatorFactory.Instance).CalculateThicknessCoverageLayer();
+                return new PipingCalculator(calculatorInput, PipingSubCalculatorFactory.Instance).CalculateEffectiveThicknessCoverageLayer();
             }
             catch (PipingCalculatorException)
             {
