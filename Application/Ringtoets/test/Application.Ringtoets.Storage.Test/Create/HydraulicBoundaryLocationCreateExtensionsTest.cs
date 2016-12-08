@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -68,8 +68,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(coordinateX, entity.LocationX);
             Assert.AreEqual(coordinateY, entity.LocationY);
             Assert.AreEqual(id, entity.LocationId);
-            Assert.IsNull(entity.DesignWaterLevel);
-            Assert.IsNull(entity.WaveHeight);
+            Assert.IsNull(entity.DesignWaterLevelOutput);
+            Assert.IsNull(entity.WaveHeightOutput);
             Assert.AreEqual(order, entity.Order);
         }
 
@@ -92,18 +92,24 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithPersistenceRegistryAndInitializer_ReturnsHydraulicLocationEntityWithDesignWaterLevelSet()
+        public void Create_WithPersistenceRegistryAndInitializer_ReturnsHydraulicLocationEntityWithOutputSet(
+            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
+                CalculationConvergence.NotCalculated)] CalculationConvergence designWaterLevelConvergence,
+            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
+                CalculationConvergence.NotCalculated)] CalculationConvergence waveHeightConvergence)
         {
             // Setup
             var random = new Random(21);
-            var waterLevel = (RoundedDouble) random.NextDouble();
-            var waveHeight = (RoundedDouble) random.NextDouble();
+            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                random.NextDouble(), designWaterLevelConvergence);
+            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                random.NextDouble(), waveHeightConvergence);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
-                DesignWaterLevel = waterLevel,
-                WaveHeight = waveHeight,
-                DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged,
-                WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged
+                DesignWaterLevelOutput = hydraulicBoundaryLocationDesignWaterLevelOutput,
+                WaveHeightOutput = hydraulicBoundaryLocationWaveHeightOutput
             };
             var registry = new PersistenceRegistry();
 
@@ -112,10 +118,14 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(waterLevel, entity.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual(waveHeight, entity.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence) entity.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence) entity.WaveHeightCalculationConvergence);
+
+            var designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            Assert.IsNotNull(designWaterLevelOutputEntity);
+            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
+
+            var waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            Assert.IsNotNull(waveheightOutputEntity);
+            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveheightOutputEntity);
         }
 
         [Test]
@@ -171,8 +181,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(coordinateX, entity.LocationX);
             Assert.AreEqual(coordinateY, entity.LocationY);
             Assert.AreEqual(id, entity.LocationId);
-            Assert.IsNull(entity.DesignWaterLevel);
-            Assert.IsNull(entity.WaveHeight);
+            Assert.IsNull(entity.DesignWaterLevelOutput);
+            Assert.IsNull(entity.WaveHeightOutput);
             Assert.AreEqual(order, entity.Order);
         }
 
@@ -196,18 +206,24 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithPersistenceRegistryAndInitializer_ReturnsGrassCoverErosionOutwardsHydraulicLocationEntityWithDesignWaterLevelSet()
+        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithPersistenceRegistryAndInitializer_ReturnsGrassCoverErosionOutwardsHydraulicLocationEntityWithOutputSet(
+            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
+                CalculationConvergence.NotCalculated)] CalculationConvergence designWaterLevelConvergence,
+            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
+                CalculationConvergence.NotCalculated)] CalculationConvergence waveHeightConvergence)
         {
             // Setup
             var random = new Random(21);
-            var waterLevel = (RoundedDouble) random.NextDouble();
-            var waveHeight = (RoundedDouble) random.NextDouble();
+            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                random.NextDouble(), designWaterLevelConvergence);
+            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                random.NextDouble(), waveHeightConvergence);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
-                DesignWaterLevel = waterLevel,
-                WaveHeight = waveHeight,
-                DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged,
-                WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged
+                DesignWaterLevelOutput = hydraulicBoundaryLocationDesignWaterLevelOutput,
+                WaveHeightOutput = hydraulicBoundaryLocationWaveHeightOutput
             };
             var registry = new PersistenceRegistry();
 
@@ -217,10 +233,13 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(waterLevel, entity.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual(waveHeight, entity.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence) entity.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence) entity.WaveHeightCalculationConvergence);
+            var designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            Assert.IsNotNull(designWaterLevelOutputEntity);
+            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
+
+            var waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            Assert.IsNotNull(waveheightOutputEntity);
+            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveheightOutputEntity);
         }
 
         [Test]
@@ -239,6 +258,30 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreSame(entity1, entity2);
+        }
+
+        private static IHydraulicLocationOutputEntity GetHydraulicLocationOutputEntity(
+            HydraulicLocationEntity entity, HydraulicLocationOutputType outputType)
+        {
+            return entity.HydraulicLocationOutputEntities.SingleOrDefault(
+                e => e.HydraulicLocationOutputType == (byte) outputType);
+        }
+
+        private static IHydraulicLocationOutputEntity GetHydraulicLocationOutputEntity(
+            GrassCoverErosionOutwardsHydraulicLocationEntity entity, HydraulicLocationOutputType outputType)
+        {
+            return entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.SingleOrDefault(
+                e => e.HydraulicLocationOutputType == (byte) outputType);
+        }
+
+        private static void AssertHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationOutput output, IHydraulicLocationOutputEntity entity)
+        {
+            Assert.AreEqual(output.Result, entity.Result, output.Result.GetAccuracy());
+            Assert.AreEqual(output.TargetProbability, entity.TargetProbability, output.TargetProbability.GetAccuracy());
+            Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability, output.CalculatedProbability.GetAccuracy());
+            Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(output.CalculationConvergence, (CalculationConvergence) entity.CalculationConvergence);
         }
     }
 }

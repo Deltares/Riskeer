@@ -52,10 +52,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             RoundedDouble designWaterLevel = (RoundedDouble) 12.34;
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 1.0, 2.0)
-            {
-                DesignWaterLevel = designWaterLevel
-            };
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(designWaterLevel);
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call

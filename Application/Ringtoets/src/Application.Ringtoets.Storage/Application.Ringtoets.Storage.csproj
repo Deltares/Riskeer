@@ -67,6 +67,7 @@
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\GeneralHeightStructuresInputCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensions.cs" />
+    <Compile Include="Create\HydraulicBoundaryLocationOutputCreateExtensions.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -133,6 +134,9 @@
     <Compile Include="DbContext\GrassCoverErosionOutwardsHydraulicLocationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\GrassCoverErosionOutwardsHydraulicLocationOutputEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\GrassCoverErosionOutwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -166,6 +170,11 @@
     <Compile Include="DbContext\HydraulicLocationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\HydraulicLocationOutputEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\HydraulicLocationOutputType.cs" />
+    <Compile Include="DbContext\IHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\MacrostabilityInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -179,8 +188,10 @@
     <Compile Include="DbContext\IProbabilityAssessmentOutputEntity.cs" />
     <Compile Include="DbContext\IStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialClosingStructuresCalculationEntity.cs" />
+    <Compile Include="DbContext\PartialGrassCoverErosionOutwardsHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresOutputEntity.cs" />
+    <Compile Include="DbContext\PartialHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresOutputEntity.cs" />
     <Compile Include="DbContext\PipingCalculationEntity.cs">
@@ -277,6 +288,7 @@
     <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\IHydraulicLocationOutputEntityReadExtensions.cs" />
     <Compile Include="Read\IProbabilityAssessmentOutputEntityReadExtensions.cs" />
     <Compile Include="Read\IStructureCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresCalculationEntityReadExtensions.cs" />

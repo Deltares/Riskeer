@@ -39,30 +39,24 @@ namespace Application.Ringtoets.Storage.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GrassCoverErosionOutwardsHydraulicLocationEntity()
         {
+            GrassCoverErosionOutwardsHydraulicLocationOutputEntities = new HashSet<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>();
             GrassCoverErosionOutwardsWaveConditionsCalculationEntities = new HashSet<GrassCoverErosionOutwardsWaveConditionsCalculationEntity>();
         }
 
         public long GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
+        public Nullable<long> DesignWaterLevelOutput { get; set; }
+        public Nullable<long> WaveHeightOutput { get; set; }
         public long LocationId { get; set; }
         public string Name { get; set; }
         public Nullable<double> LocationX { get; set; }
         public Nullable<double> LocationY { get; set; }
-        public Nullable<double> DesignWaterLevel { get; set; }
-        public Nullable<double> DesignWaterLevelTargetProbability { get; set; }
-        public Nullable<double> DesignWaterLevelTargetReliability { get; set; }
-        public Nullable<double> DesignWaterLevelCalculatedProbability { get; set; }
-        public Nullable<double> DesignWaterLevelCalculatedReliability { get; set; }
-        public byte DesignWaterLevelCalculationConvergence { get; set; }
-        public Nullable<double> WaveHeight { get; set; }
-        public Nullable<double> WaveHeightTargetProbability { get; set; }
-        public Nullable<double> WaveHeightTargetReliability { get; set; }
-        public Nullable<double> WaveHeightCalculatedProbability { get; set; }
-        public Nullable<double> WaveHeightCalculatedReliability { get; set; }
-        public byte WaveHeightCalculationConvergence { get; set; }
         public int Order { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionOutwardsHydraulicLocationOutputEntity> GrassCoverErosionOutwardsHydraulicLocationOutputEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionOutwardsWaveConditionsCalculationEntity> GrassCoverErosionOutwardsWaveConditionsCalculationEntities { get; set; }

@@ -31,19 +31,49 @@ namespace Ringtoets.Common.Data.TestUtil
     public class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with 
-        /// specified design water level.
+        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/>.
         /// </summary>
-        /// <param name="designWaterLevel">The design water level of the location.</param>
-        public TestHydraulicBoundaryLocation(RoundedDouble designWaterLevel) : base(0, string.Empty, 0, 0)
+        public TestHydraulicBoundaryLocation() : this(null, null) { }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevelOutput"/> 
+        /// and <see cref="HydraulicBoundaryLocation.WaveHeightOutput"/> set.
+        /// </summary>
+        /// <param name="designWaterLevel">The design water level result to set in the output.</param>
+        /// <param name="waveHeight">The waveheight result to set in the output.</param>
+        public TestHydraulicBoundaryLocation(double? designWaterLevel = double.NaN, double? waveHeight = double.NaN)
+            : base(0, string.Empty, 0, 0)
         {
-            DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(designWaterLevel, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
-            DesignWaterLevel = designWaterLevel;
+            if (designWaterLevel.HasValue)
+            {
+                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(designWaterLevel.Value, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
+                DesignWaterLevel = (RoundedDouble)designWaterLevel.Value;
+            }
+            if (waveHeight.HasValue)
+            {
+                WaveHeightOutput = new HydraulicBoundaryLocationOutput(waveHeight.Value, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
+                WaveHeight = (RoundedDouble)waveHeight.Value;
+            }
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/>.
+        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevelOutput"/> set.
         /// </summary>
-        public TestHydraulicBoundaryLocation() : this(RoundedDouble.NaN) {}
+        /// <param name="designWaterLevel">The design water level result to set in the output.</param>
+        /// <returns>A new <see cref="TestHydraulicBoundaryLocation"/>.</returns>
+        public static TestHydraulicBoundaryLocation CreateDesignWaterLevelCalculated(double designWaterLevel)
+        {
+            return new TestHydraulicBoundaryLocation(designWaterLevel, null);
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.WaveHeightOutput"/> set.
+        /// </summary>
+        /// <param name="waveheight">The waveheight result to set in the output.</param>
+        /// <returns>A new <see cref="TestHydraulicBoundaryLocation"/>.</returns>
+        public static TestHydraulicBoundaryLocation CreateWaveHeightCalculated(double waveheight)
+        {
+            return new TestHydraulicBoundaryLocation(null, waveheight);
+        }
     }
 }

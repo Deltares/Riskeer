@@ -51,7 +51,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             var dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             };
@@ -216,10 +216,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             var input = new WaveConditionsInput()
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-                {
-                    DesignWaterLevel = (RoundedDouble) designWaterLevel
-                },
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(designWaterLevel),
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
                 StepSize = WaveConditionsInputStepSize.One,
@@ -408,10 +405,7 @@ namespace Ringtoets.Revetment.Service.Test
             const double norm = 0.2;
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-                {
-                    DesignWaterLevel = waterLevel
-                },
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(waterLevel),
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
@@ -454,10 +448,7 @@ namespace Ringtoets.Revetment.Service.Test
             const double norm = 0.2;
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-                {
-                    DesignWaterLevel = (RoundedDouble) 4.2
-                },
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(4.2),
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevel,
                 LowerBoundaryRevetment = (RoundedDouble) 3
@@ -512,10 +503,7 @@ namespace Ringtoets.Revetment.Service.Test
             const double norm = 0.2;
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-                {
-                    DesignWaterLevel = (RoundedDouble) 4.2
-                },
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(4.2),
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevel,
                 LowerBoundaryRevetment = (RoundedDouble) 3
@@ -544,10 +532,7 @@ namespace Ringtoets.Revetment.Service.Test
         {
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-                {
-                    DesignWaterLevel = (RoundedDouble) 12.0
-                },
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UseBreakWater = true,
                 UseForeshore = true,

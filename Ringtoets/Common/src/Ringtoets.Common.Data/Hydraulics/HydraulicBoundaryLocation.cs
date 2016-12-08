@@ -31,9 +31,6 @@ namespace Ringtoets.Common.Data.Hydraulics
     /// </summary>
     public class HydraulicBoundaryLocation : Observable
     {
-        private RoundedDouble designWaterLevel;
-        private RoundedDouble waveHeight;
-
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
@@ -51,8 +48,6 @@ namespace Ringtoets.Common.Data.Hydraulics
             Id = id;
             Name = name;
             Location = new Point2D(coordinateX, coordinateY);
-            designWaterLevel = new RoundedDouble(2, double.NaN);
-            waveHeight = new RoundedDouble(2, double.NaN);
         }
 
         /// <summary>
@@ -77,11 +72,13 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return designWaterLevel;
+                return DesignWaterLevelOutput == null
+                           ? new RoundedDouble(2, double.NaN)
+                           : DesignWaterLevelOutput.Result;
             }
             set
             {
-                designWaterLevel = value.ToPrecision(designWaterLevel.NumberOfDecimalPlaces);
+                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(value, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
             }
         }
 
@@ -98,7 +95,22 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Gets or sets the convergence status of the design waterlevel calculation.
         /// </summary>
-        public CalculationConvergence DesignWaterLevelCalculationConvergence { get; set; }
+        public CalculationConvergence DesignWaterLevelCalculationConvergence
+        {
+            get
+            {
+                return DesignWaterLevelOutput == null
+                           ? CalculationConvergence.NotCalculated
+                           : DesignWaterLevelOutput.CalculationConvergence;
+            }
+            set
+            {
+                if (DesignWaterLevelOutput != null)
+                {
+                    DesignWaterLevelOutput.CalculationConvergence = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the wave height of the hydraulic boundary location.
@@ -107,18 +119,35 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return waveHeight;
+                return WaveHeightOutput == null
+                           ? new RoundedDouble(2, double.NaN)
+                           : WaveHeightOutput.Result;
             }
             set
             {
-                waveHeight = value.ToPrecision(waveHeight.NumberOfDecimalPlaces);
+                WaveHeightOutput = new HydraulicBoundaryLocationOutput(value, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
             }
         }
 
         /// <summary>
         /// Gets or sets the convergence status of the waveheight calculation.
         /// </summary>
-        public CalculationConvergence WaveHeightCalculationConvergence { get; set; }
+        public CalculationConvergence WaveHeightCalculationConvergence
+        {
+            get
+            {
+                return WaveHeightOutput == null
+                           ? CalculationConvergence.NotCalculated
+                           : WaveHeightOutput.CalculationConvergence;
+            }
+            set
+            {
+                if (WaveHeightOutput != null)
+                {
+                    WaveHeightOutput.CalculationConvergence = value;
+                }
+            }
+        }
 
         public override string ToString()
         {

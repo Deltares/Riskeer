@@ -19,15 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -36,6 +37,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class DesignWaterLevelLocationContextPropertiesTest
     {
+        private const int idPropertyIndex = 0;
+        private const int namePropertyIndex = 1;
+        private const int coordinatesPropertyIndex = 2;
+        private const int designWaterLevelPropertyIndex = 3;
+        private const int targetProbabilityPropertyIndex = 4;
+        private const int targetReliabilityPropertyIndex = 5;
+        private const int calculatedProbabilityPropertyIndex = 6;
+        private const int calculatedReliabilityPropertyIndex = 7;
+        private const int convergencePropertyIndex = 8;
+
         [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
         {
@@ -45,8 +56,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const double x = 567.0;
             const double y = 890.0;
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
 
             // Call
             DesignWaterLevelLocationContextProperties properties =
@@ -61,25 +77,49 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
             Assert.IsNaN(properties.DesignWaterLevel);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(double.NaN), properties.TargetProbability);
+            Assert.IsNaN(properties.TargetReliability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(double.NaN), properties.CalculatedProbability);
+            Assert.IsNaN(properties.CalculatedReliability);
             Assert.AreEqual(string.Empty, properties.Convergence);
         }
 
         [Test]
-        public void GetProperties_ValidDesignWaterLevel_ReturnsExpectedValues()
+        [TestCase(CalculationConvergence.CalculatedNotConverged, "Nee")]
+        [TestCase(CalculationConvergence.CalculatedConverged, "Ja")]
+        [TestCase(CalculationConvergence.NotCalculated, "")]
+        public void GetProperties_ValidDesignWaterLevel_ReturnsExpectedValues(CalculationConvergence convergence, 
+            string expectedConvergedText)
         {
             // Setup
+            var random = new Random();
             const long id = 1234L;
             const double x = 567.0;
             const double y = 890.0;
             const string name = "<some name>";
-            RoundedDouble designWaterLevel = (RoundedDouble) 0.123456;
+
+            double result = random.NextDouble();
+            double targetProbability = random.NextDouble();
+            double targetReliability = random.NextDouble();
+            double calculatedProbability = random.NextDouble();
+            double calculatedReliability = random.NextDouble();
+            RoundedDouble designWaterLevel = (RoundedDouble) result;
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
-                DesignWaterLevel = designWaterLevel
+                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(result, targetProbability,
+                                                                             targetReliability,
+                                                                             calculatedProbability,
+                                                                             calculatedReliability,
+                                                                             convergence)
             };
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
 
             // Call
             DesignWaterLevelLocationContextProperties properties =
@@ -93,17 +133,27 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(name, properties.Name);
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
-            Assert.AreEqual(designWaterLevel, properties.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual(string.Empty, properties.Convergence);
+            Assert.AreEqual(designWaterLevel, properties.DesignWaterLevel, properties.DesignWaterLevel.GetAccuracy());
+
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(targetProbability), properties.TargetProbability);
+            Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(calculatedProbability), properties.CalculatedProbability);
+            Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(expectedConvergedText, properties.Convergence);
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
 
             // Call
             var properties = new DesignWaterLevelLocationContextProperties
@@ -113,67 +163,87 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            const string expectedCategory = "Algemeen";
-            const string expectedIdDisplayName = "ID";
-            const string expectedNameDisplayName = "Naam";
-            const string expectedLocationDisplayName = "Coördinaten [m]";
-            const string expectedDesignWaterLevelDisplayName = "Toetspeil [m+NAP]";
-            const string expectedConvergenceDisplayName = "Convergentie";
-            const string expectedIdDescription = "ID van de hydraulische randvoorwaardenlocatie in de database.";
-            const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
-            const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
-            const string expectedDesignWaterLevelDescription = "Berekend toetspeil.";
-            const string expectedConvergenceDisplayDescription = "Is convergentie bereikt in de toetspeil berekening?";
+            var propertyBag = new DynamicPropertyBag(properties);
 
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            PropertyDescriptor idProperty = dynamicProperties.Find("Id", false);
-            PropertyDescriptor nameProperty = dynamicProperties.Find("Name", false);
-            PropertyDescriptor locationProperty = dynamicProperties.Find("Location", false);
-            PropertyDescriptor designWaterLevelProperty = dynamicProperties.Find("DesignWaterLevel", false);
-            PropertyDescriptor convergenceProperty = dynamicProperties.Find("Convergence", false);
+            PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
 
+            Assert.AreEqual(9, dynamicProperties.Count);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
+            PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
             Assert.IsNotNull(idProperty);
-            Assert.IsTrue(idProperty.IsReadOnly);
-            Assert.IsTrue(idProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, idProperty.Category);
-            Assert.AreEqual(expectedIdDisplayName, idProperty.DisplayName);
-            Assert.AreEqual(expectedIdDescription, idProperty.Description);
-            Assert.AreEqual(1, idProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
+                                                                            "Algemeen",
+                                                                            "ID",
+                                                                            "ID van de hydraulische randvoorwaardenlocatie in de database.",
+                                                                            true);
 
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             Assert.IsNotNull(nameProperty);
-            Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.IsTrue(nameProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, nameProperty.Category);
-            Assert.AreEqual(expectedNameDisplayName, nameProperty.DisplayName);
-            Assert.AreEqual(expectedNameDescription, nameProperty.Description);
-            Assert.AreEqual(2, nameProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            "Algemeen",
+                                                                            "Naam",
+                                                                            "Naam van de hydraulische randvoorwaardenlocatie.",
+                                                                            true);
 
-            Assert.IsNotNull(locationProperty);
-            Assert.IsTrue(locationProperty.IsReadOnly);
-            Assert.IsTrue(locationProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, locationProperty.Category);
-            Assert.AreEqual(expectedLocationDisplayName, locationProperty.DisplayName);
-            Assert.AreEqual(expectedLocationDescription, locationProperty.Description);
-            Assert.AreEqual(3, locationProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
+            PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
+            Assert.IsNotNull(coordinatesProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
+                                                                            "Algemeen",
+                                                                            "Coördinaten [m]",
+                                                                            "Coördinaten van de hydraulische randvoorwaardenlocatie.",
+                                                                            true);
 
+            PropertyDescriptor designWaterLevelProperty = dynamicProperties[designWaterLevelPropertyIndex];
             Assert.IsNotNull(designWaterLevelProperty);
-            Assert.IsTrue(designWaterLevelProperty.IsReadOnly);
-            Assert.IsTrue(designWaterLevelProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, designWaterLevelProperty.Category);
-            Assert.AreEqual(expectedDesignWaterLevelDisplayName, designWaterLevelProperty.DisplayName);
-            Assert.AreEqual(expectedDesignWaterLevelDescription, designWaterLevelProperty.Description);
-            Assert.AreEqual(4, designWaterLevelProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(designWaterLevelProperty,
+                                                                            "Resultaat",
+                                                                            "Toetspeil [m+NAP]",
+                                                                            "Berekend toetspeil.",
+                                                                            true);
 
+            PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
+            Assert.IsNotNull(targetProbabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Doelkans [1/jaar]",
+                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor targetReliabilityProperty = dynamicProperties[targetReliabilityPropertyIndex];
+            Assert.IsNotNull(targetReliabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Betrouwbaarheidsindex doelkans [-]",
+                                                                            "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor calculatedProbabilityProperty = dynamicProperties[calculatedProbabilityPropertyIndex];
+            Assert.IsNotNull(calculatedProbabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Berekende kans [1/jaar]",
+                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor calculatedReliabilityProperty = dynamicProperties[calculatedReliabilityPropertyIndex];
+            Assert.IsNotNull(calculatedReliabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Betrouwbaarheidsindex berekende kans [-]",
+                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor convergenceProperty = dynamicProperties[convergencePropertyIndex];
             Assert.IsNotNull(convergenceProperty);
-            Assert.IsTrue(convergenceProperty.IsReadOnly);
-            Assert.IsTrue(convergenceProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, convergenceProperty.Category);
-            Assert.AreEqual(expectedConvergenceDisplayName, convergenceProperty.DisplayName);
-            Assert.AreEqual(expectedConvergenceDisplayDescription, convergenceProperty.Description);
-            Assert.AreEqual(5, convergenceProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
+                                                                            "Resultaat",
+                                                                            "Convergentie",
+                                                                            "Is convergentie bereikt in de toetspeil berekening?",
+                                                                            true);
         }
     }
 }

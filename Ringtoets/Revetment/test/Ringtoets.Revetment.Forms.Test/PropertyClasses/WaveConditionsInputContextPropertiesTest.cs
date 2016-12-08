@@ -139,10 +139,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                     Orientation = foreshoreProfileOrientation,
                     X0 = -3
                 });
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-            {
-                DesignWaterLevel = assessmentLevel
-            };
+            var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel);
             var input = new WaveConditionsInput
             {
                 ForeshoreProfile = foreshoreProfile,
@@ -199,10 +196,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var newUpperBoundaryWaterLevels = newLowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
             var newStepSize = WaveConditionsInputStepSize.Half;
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1)
-            {
-                DesignWaterLevel = assessmentLevel
-            };
+            var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel);
             var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
 
             var input = new WaveConditionsInput();

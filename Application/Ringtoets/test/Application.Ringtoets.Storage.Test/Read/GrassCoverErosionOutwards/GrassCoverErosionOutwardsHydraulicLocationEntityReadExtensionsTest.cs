@@ -61,9 +61,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
                 LocationId = testId,
                 Name = testName,
                 LocationX = x,
-                LocationY = y,
-                DesignWaterLevelCalculationConvergence = (byte) CalculationConvergence.CalculatedConverged,
-                WaveHeightCalculationConvergence = (byte) CalculationConvergence.CalculatedConverged
+                LocationY = y
             };
 
             var collector = new ReadConversionCollector();
@@ -77,27 +75,47 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             Assert.AreEqual(testName, location.Name);
             Assert.AreEqual(x, location.Location.X, 1e-6);
             Assert.AreEqual(y, location.Location.Y, 1e-6);
-            Assert.IsNaN(location.DesignWaterLevel);
-            Assert.IsNaN(location.WaveHeight);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, location.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, location.WaveHeightCalculationConvergence);
+            Assert.IsNull(location.DesignWaterLevelOutput);
+            Assert.IsNull(location.WaveHeightOutput);
 
             Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]
-        [TestCase(null, double.NaN)]
-        [TestCase(double.MaxValue, double.MaxValue)]
-        [TestCase(double.MinValue, double.MinValue)]
-        [TestCase(1.5, 1.5)]
-        [TestCase(double.NaN, double.NaN)]
-        public void Read_DifferentDesignWaterLevel_ReturnLocationWithWaterLevel(double? waterLevel, double expectedWaterLevel)
+        public void Read_WithOutput_ReturnLocationWithOutput()
         {
             // Setup
+            var random = new Random(21);
+            double designWaterLevel = random.NextDouble();
+            double waveHeight = random.NextDouble();
+            var designWaterLevelOutputEntity = new GrassCoverErosionOutwardsHydraulicLocationOutputEntity
+            {
+                HydraulicLocationOutputType = (byte) HydraulicLocationOutputType.DesignWaterLevel,
+                Result = designWaterLevel,
+                TargetProbability = random.NextDouble(),
+                TargetReliability = random.NextDouble(),
+                CalculatedProbability = random.NextDouble(),
+                CalculatedReliability = random.NextDouble(),
+                CalculationConvergence = (byte) CalculationConvergence.NotCalculated
+            };
+            var waveheightOutputEntity = new GrassCoverErosionOutwardsHydraulicLocationOutputEntity
+            {
+                HydraulicLocationOutputType = (byte) HydraulicLocationOutputType.WaveHeight,
+                Result = waveHeight,
+                TargetProbability = random.NextDouble(),
+                TargetReliability = random.NextDouble(),
+                CalculatedProbability = random.NextDouble(),
+                CalculatedReliability = random.NextDouble(),
+                CalculationConvergence = (byte) CalculationConvergence.NotCalculated
+            };
             var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity
             {
                 Name = "someName",
-                DesignWaterLevel = waterLevel
+                GrassCoverErosionOutwardsHydraulicLocationOutputEntities =
+                {
+                    designWaterLevelOutputEntity,
+                    waveheightOutputEntity
+                }
             };
 
             var collector = new ReadConversionCollector();
@@ -107,32 +125,10 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsNotNull(location);
-            Assert.AreEqual((RoundedDouble) expectedWaterLevel, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
-        }
-
-        [Test]
-        [TestCase(null, double.NaN)]
-        [TestCase(double.MaxValue, double.MaxValue)]
-        [TestCase(double.MinValue, double.MinValue)]
-        [TestCase(1.5, 1.5)]
-        [TestCase(double.NaN, double.NaN)]
-        public void Read_DifferentWaveHeight_ReturnLocationWithWaveHeight(double? waveHeight, double expectedWaveHeight)
-        {
-            // Setup
-            var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity
-            {
-                Name = "someName",
-                WaveHeight = waveHeight
-            };
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            HydraulicBoundaryLocation location = entity.Read(collector);
-
-            // Assert
-            Assert.IsNotNull(location);
-            Assert.AreEqual((RoundedDouble) expectedWaveHeight, location.WaveHeight, location.WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) designWaterLevel, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) waveHeight, location.WaveHeight, location.WaveHeight.GetAccuracy());
+            AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, location.DesignWaterLevelOutput);
+            AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, location.WaveHeightOutput);
         }
 
         [Test]
@@ -152,6 +148,26 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.AreSame(location1, location2);
+        }
+
+        private static void AssertHydraulicBoundaryLocationOutput(IHydraulicLocationOutputEntity expected, HydraulicBoundaryLocationOutput actual)
+        {
+            if (expected == null)
+            {
+                Assert.IsNull(actual);
+                return;
+            }
+            Assert.IsNotNull(expected.Result);
+            Assert.AreEqual((RoundedDouble) expected.Result, actual.Result, actual.Result.GetAccuracy());
+            Assert.IsNotNull(expected.TargetReliability);
+            Assert.AreEqual((RoundedDouble) expected.TargetReliability, actual.TargetReliability, actual.TargetReliability.GetAccuracy());
+            Assert.IsNotNull(expected.TargetProbability);
+            Assert.AreEqual((RoundedDouble) expected.TargetProbability, actual.TargetProbability, actual.TargetProbability.GetAccuracy());
+            Assert.IsNotNull(expected.CalculatedReliability);
+            Assert.AreEqual((RoundedDouble) expected.CalculatedReliability, actual.CalculatedReliability, actual.CalculatedReliability.GetAccuracy());
+            Assert.IsNotNull(expected.CalculatedProbability);
+            Assert.AreEqual((RoundedDouble) expected.CalculatedProbability, actual.CalculatedProbability, actual.CalculatedProbability.GetAccuracy());
+            Assert.AreEqual((CalculationConvergence) expected.CalculationConvergence, actual.CalculationConvergence);
         }
     }
 }

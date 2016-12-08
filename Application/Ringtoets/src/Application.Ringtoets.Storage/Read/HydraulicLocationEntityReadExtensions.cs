@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Application.Ringtoets.Storage.Read
@@ -52,17 +52,29 @@ namespace Application.Ringtoets.Storage.Read
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(entity.LocationId,
                                                                           entity.Name,
                                                                           entity.LocationX.ToNullAsNaN(),
-                                                                          entity.LocationY.ToNullAsNaN())
+                                                                          entity.LocationY.ToNullAsNaN());
+
+            var designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            if (designWaterLevelOutputEntity != null)
             {
-                DesignWaterLevel = (RoundedDouble) entity.DesignWaterLevel.ToNullAsNaN(),
-                WaveHeight = (RoundedDouble) entity.WaveHeight.ToNullAsNaN(),
-                DesignWaterLevelCalculationConvergence = (CalculationConvergence) entity.DesignWaterLevelCalculationConvergence,
-                WaveHeightCalculationConvergence = (CalculationConvergence) entity.WaveHeightCalculationConvergence
-            };
+                hydraulicBoundaryLocation.DesignWaterLevelOutput = designWaterLevelOutputEntity.Read();
+            }
+
+            var waveHeightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.WaveHeight);
+            if (waveHeightOutputEntity != null)
+            {
+                hydraulicBoundaryLocation.WaveHeightOutput = waveHeightOutputEntity.Read();
+            }
 
             collector.Read(entity, hydraulicBoundaryLocation);
 
             return hydraulicBoundaryLocation;
+        }
+
+        private static IHydraulicLocationOutputEntity GetHydraulicLocationOutputEntity(
+            HydraulicLocationEntity entity, HydraulicLocationOutputType outputType)
+        {
+            return entity.HydraulicLocationOutputEntities.SingleOrDefault(e => e.HydraulicLocationOutputType == (byte) outputType);
         }
     }
 }

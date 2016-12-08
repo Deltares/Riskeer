@@ -398,7 +398,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = new PipingInput(new GeneralPipingInput());
 
             RoundedDouble testLevel = (RoundedDouble) new Random(21).NextDouble();
-            input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(testLevel);
+            input.HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(testLevel);
 
             // Call
             RoundedDouble calculatedAssessmentLevel = input.AssessmentLevel;
@@ -431,7 +431,7 @@ namespace Ringtoets.Piping.Data.Test
 
             var random = new Random(21);
             RoundedDouble testLevel = (RoundedDouble) random.NextDouble();
-            input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(testLevel);
+            input.HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(testLevel);
 
             var newLevel = (RoundedDouble) random.NextDouble();
 
@@ -455,7 +455,7 @@ namespace Ringtoets.Piping.Data.Test
             input.AssessmentLevel = testLevel;
 
             var newLevel = (RoundedDouble) random.NextDouble();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(newLevel);
+            var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(newLevel);
 
             // When
             input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;

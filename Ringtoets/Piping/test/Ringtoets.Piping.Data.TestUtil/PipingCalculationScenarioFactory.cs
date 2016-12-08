@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
@@ -183,10 +184,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             surfaceLine.SetBottomDitchPolderSideAt(fourthCharacteristicPointLocation);
             surfaceLine.SetDitchPolderSideAt(fifthCharacteristicPointLocation);
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
-            {
-                DesignWaterLevel = (RoundedDouble) 1.0
-            };
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.0);
             return new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =

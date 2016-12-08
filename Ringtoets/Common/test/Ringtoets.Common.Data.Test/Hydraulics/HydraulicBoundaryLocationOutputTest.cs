@@ -22,6 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics
 {
@@ -30,7 +31,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     {
         [Test]
         public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(
-            [Random(1)] double beta,
+            [Random(1)] double result,
             [Values(-0.01, 1.01)] double targetProbability,
             [Random(1)] double targetReliability,
             [Random(1)] double calculatedProbability,
@@ -39,7 +40,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                 CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationOutput(beta, targetProbability,
+            TestDelegate call = () => new HydraulicBoundaryLocationOutput(result, targetProbability,
                                                                           targetReliability,
                                                                           calculatedProbability,
                                                                           calculatedReliability,
@@ -53,7 +54,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
         [Test]
         public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(
-            [Random(1)] double beta,
+            [Random(1)] double result,
             [Random(1)] double targetProbability,
             [Random(1)] double targetReliability,
             [Values(-0.01, 1.01)] double calculatedProbability,
@@ -62,7 +63,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                 CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationOutput(beta, targetProbability,
+            TestDelegate call = () => new HydraulicBoundaryLocationOutput(result, targetProbability,
                                                                           targetReliability,
                                                                           calculatedProbability,
                                                                           calculatedReliability,
@@ -76,7 +77,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
         [Test]
         public void Constructor_ValidInput_ExpectedProperties(
-            [Random(1)] double beta,
+            [Random(1)] double result,
             [Random(1)] double targetProbability,
             [Random(1)] double targetReliability,
             [Random(1)] double calculatedProbability,
@@ -85,18 +86,18 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                 CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
         {
             // Call
-            var output = new HydraulicBoundaryLocationOutput(beta, targetProbability,
+            var output = new HydraulicBoundaryLocationOutput(result, targetProbability,
                                                              targetReliability,
                                                              calculatedProbability,
                                                              calculatedReliability,
                                                              convergence);
 
             // Assert
-            Assert.AreEqual(beta, output.Result, 1e-2);
-            Assert.AreEqual(targetProbability, output.TargetProbability);
-            Assert.AreEqual(targetReliability, output.TargetReliability, 1e-5);
-            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
-            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, 1e-5);
+            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
+            Assert.AreEqual(targetProbability, output.TargetProbability, output.TargetProbability.GetAccuracy());
+            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(calculatedProbability, output.CalculatedProbability, output.CalculatedProbability.GetAccuracy());
+            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
         }
     }

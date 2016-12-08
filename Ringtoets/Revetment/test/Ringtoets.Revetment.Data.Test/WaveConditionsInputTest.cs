@@ -142,10 +142,7 @@ namespace Ringtoets.Revetment.Data.Test
             const double assessmentLevel = 3.2;
 
             // Call
-            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
-            {
-                DesignWaterLevel = (RoundedDouble) assessmentLevel
-            };
+            input.HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel);
 
             // Assert
             Assert.AreEqual(assessmentLevel, input.AssessmentLevel.Value, input.UpperBoundaryDesignWaterLevel.GetAccuracy());
@@ -156,12 +153,10 @@ namespace Ringtoets.Revetment.Data.Test
         public void HydraulicBoundaryLocation_SetNullValue_AssessmentLevelAndUpperBoundaryDesignWaterLevelNaN()
         {
             // Setup
-            var input = new WaveConditionsInput()
+            const double assessmentLevel = 3.2;
+            var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
-                {
-                    DesignWaterLevel = (RoundedDouble) 3.2
-                }
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel)
             };
 
             // Call

@@ -400,7 +400,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 failureMechanism, mockRepository, filePath);
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSectionStub.HydraulicBoundaryDatabase;
-            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation(designWaterLevel));
+            hydraulicBoundaryDatabase.Locations.Add(TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(
+                designWaterLevel));
 
             var grassCoverErosionOutwardsHydraulicBoundaryLocation1 = hydraulicBoundaryDatabase.Locations[0];
             var grassCoverErosionOutwardsHydraulicBoundaryLocation2 = hydraulicBoundaryDatabase.Locations[1];

@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
@@ -53,17 +53,30 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
                 entity.LocationId,
                 entity.Name,
                 entity.LocationX.ToNullAsNaN(),
-                entity.LocationY.ToNullAsNaN())
+                entity.LocationY.ToNullAsNaN());
+
+            var designWaterLevelOutputEntity = GetGrassCoverErosionOutwardsHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            if (designWaterLevelOutputEntity != null)
             {
-                DesignWaterLevel = (RoundedDouble) entity.DesignWaterLevel.ToNullAsNaN(),
-                WaveHeight = (RoundedDouble) entity.WaveHeight.ToNullAsNaN(),
-                DesignWaterLevelCalculationConvergence = (CalculationConvergence) entity.DesignWaterLevelCalculationConvergence,
-                WaveHeightCalculationConvergence = (CalculationConvergence) entity.WaveHeightCalculationConvergence
-            };
+                hydraulicBoundaryLocation.DesignWaterLevelOutput = designWaterLevelOutputEntity.Read();
+            }
+
+            var waveHeightOutputEntity = GetGrassCoverErosionOutwardsHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.WaveHeight);
+            if (waveHeightOutputEntity != null)
+            {
+                hydraulicBoundaryLocation.WaveHeightOutput = waveHeightOutputEntity.Read();
+            }
 
             collector.Read(entity, hydraulicBoundaryLocation);
 
             return hydraulicBoundaryLocation;
+        }
+
+        private static IHydraulicLocationOutputEntity GetGrassCoverErosionOutwardsHydraulicLocationOutputEntity(
+            GrassCoverErosionOutwardsHydraulicLocationEntity entity, HydraulicLocationOutputType outputType)
+        {
+            return entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.SingleOrDefault(
+                e => e.HydraulicLocationOutputType == (byte) outputType);
         }
     }
 }

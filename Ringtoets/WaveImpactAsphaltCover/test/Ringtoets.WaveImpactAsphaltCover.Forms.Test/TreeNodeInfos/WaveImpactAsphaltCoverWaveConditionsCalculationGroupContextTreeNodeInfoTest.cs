@@ -653,10 +653,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
-                    {
-                        DesignWaterLevel = (RoundedDouble) 12.0
-                    },
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12.0),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -671,10 +668,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
-                    {
-                        DesignWaterLevel = (RoundedDouble) 12.0
-                    },
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12.0),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1291,11 +1285,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 
         private static WaveImpactAsphaltCoverWaveConditionsCalculation GetValidCalculation()
         {
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            return new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "", 0.0, 0.0),
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(9.3),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -1306,8 +1300,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
-            return calculation;
         }
     }
 }

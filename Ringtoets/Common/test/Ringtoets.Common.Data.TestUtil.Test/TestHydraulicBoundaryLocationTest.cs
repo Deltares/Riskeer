@@ -40,37 +40,60 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, testLocation.Id);
             Assert.IsEmpty(testLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), testLocation.Location);
+
+            Assert.IsNull(testLocation.DesignWaterLevelOutput);
+            Assert.IsNull(testLocation.WaveHeightOutput);
             Assert.IsNaN(testLocation.DesignWaterLevel);
             Assert.IsNaN(testLocation.WaveHeight);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, testLocation.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, testLocation.WaveHeightCalculationConvergence);
-
-            var expectedOutput = CreateHydraulicBoundaryLocationOutput(double.NaN);
-            AssertAreEqual(expectedOutput, testLocation.DesignWaterLevelOutput);
-            Assert.IsNull(testLocation.WaveHeightOutput);
         }
 
         [Test]
-        public void Constructor_WithDesignWaterLevel_ExpectedValues()
+        public void CreateDesignWaterLevelCalculated_DesignWaterLevel_ExpectedValues(
+            [Random(1)] double designWaterLevelValue)
         {
             // Setup
-            var designWaterLevel = new RoundedDouble(4, 0.2);
+            var designWaterLevel = new RoundedDouble(4, designWaterLevelValue);
 
             // Call
-            var testLocation = new TestHydraulicBoundaryLocation(designWaterLevel);
+            HydraulicBoundaryLocation testLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(designWaterLevel);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocation>(testLocation);
             Assert.AreEqual(0, testLocation.Id);
             Assert.IsEmpty(testLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), testLocation.Location);
-            Assert.AreEqual(designWaterLevel, testLocation.DesignWaterLevel);
+            Assert.AreEqual(designWaterLevel, testLocation.DesignWaterLevel, testLocation.DesignWaterLevel.GetAccuracy());
+            Assert.IsNaN(testLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, testLocation.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.NotCalculated, testLocation.WaveHeightCalculationConvergence);
 
             var expectedDesignWaterLevelOutput = CreateHydraulicBoundaryLocationOutput(designWaterLevel);
             AssertAreEqual(expectedDesignWaterLevelOutput, testLocation.DesignWaterLevelOutput);
             Assert.IsNull(testLocation.WaveHeightOutput);
+        }
+
+        [Test]
+        public void CreateWaveHeightCalculated_WaveHeight_ExpectedValues([Random(1)] double waveHeightValue)
+        {
+            // Setup
+            var waveHeight = new RoundedDouble(4, waveHeightValue);
+
+            // Call
+            HydraulicBoundaryLocation testLocation = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(waveHeight);
+
+            // Assert
+            Assert.IsInstanceOf<HydraulicBoundaryLocation>(testLocation);
+            Assert.AreEqual(0, testLocation.Id);
+            Assert.IsEmpty(testLocation.Name);
+            Assert.AreEqual(new Point2D(0, 0), testLocation.Location);
+            Assert.IsNaN(testLocation.DesignWaterLevel);
+            Assert.AreEqual(waveHeight, testLocation.WaveHeight, testLocation.WaveHeight.GetAccuracy());
+            Assert.AreEqual(CalculationConvergence.NotCalculated, testLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, testLocation.WaveHeightCalculationConvergence);
+
+            Assert.IsNull(testLocation.DesignWaterLevelOutput);
+            var expectedWaveHeightOutput = CreateHydraulicBoundaryLocationOutput(waveHeight);
+            AssertAreEqual(expectedWaveHeightOutput, testLocation.WaveHeightOutput);
         }
 
         private static HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(double result)
@@ -80,11 +103,16 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
         private static void AssertAreEqual(HydraulicBoundaryLocationOutput expected, HydraulicBoundaryLocationOutput actual)
         {
-            Assert.AreEqual(expected.Result, actual.Result, 1e-2);
-            Assert.AreEqual(expected.TargetReliability, actual.TargetReliability, 1e-5);
-            Assert.AreEqual(expected.TargetProbability, actual.TargetProbability);
-            Assert.AreEqual(expected.CalculatedReliability, actual.CalculatedReliability, 1e-5);
-            Assert.AreEqual(expected.CalculatedProbability, actual.CalculatedProbability);
+            if (expected == null)
+            {
+                Assert.IsNull(actual);
+                return;
+            }
+            Assert.AreEqual(expected.Result, actual.Result, expected.Result.GetAccuracy());
+            Assert.AreEqual(expected.TargetReliability, actual.TargetReliability, expected.TargetReliability.GetAccuracy());
+            Assert.AreEqual(expected.TargetProbability, actual.TargetProbability, expected.TargetProbability.GetAccuracy());
+            Assert.AreEqual(expected.CalculatedReliability, actual.CalculatedReliability, expected.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(expected.CalculatedProbability, actual.CalculatedProbability, expected.CalculatedProbability.GetAccuracy());
             Assert.AreEqual(expected.CalculationConvergence, actual.CalculationConvergence);
         }
     }

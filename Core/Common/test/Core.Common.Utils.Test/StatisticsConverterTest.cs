@@ -36,7 +36,7 @@ namespace Core.Common.Utils.Test
         [TestCase(5.103554002888150, 1.666667E-07)]
         public void ReliabilityToProbability_ConvertReliability_CorrectProbability(double reliability, double expectedProbability)
         {
-            // Call 
+            // Call
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
             // Assert 

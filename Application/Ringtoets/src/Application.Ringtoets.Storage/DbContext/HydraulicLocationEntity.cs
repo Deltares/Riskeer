@@ -42,6 +42,7 @@ namespace Application.Ringtoets.Storage.DbContext
             ClosingStructuresCalculationEntities = new HashSet<ClosingStructuresCalculationEntity>();
             GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
             HeightStructuresCalculationEntities = new HashSet<HeightStructuresCalculationEntity>();
+            HydraulicLocationOutputEntities = new HashSet<HydraulicLocationOutputEntity>();
             PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
             StabilityPointStructuresCalculationEntities = new HashSet<StabilityPointStructuresCalculationEntity>();
             StabilityStoneCoverWaveConditionsCalculationEntities = new HashSet<StabilityStoneCoverWaveConditionsCalculationEntity>();
@@ -50,22 +51,12 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long HydraulicLocationEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
+        public Nullable<long> DesignWaterLevelOutput { get; set; }
+        public Nullable<long> WaveHeightOutput { get; set; }
         public long LocationId { get; set; }
         public string Name { get; set; }
         public Nullable<double> LocationX { get; set; }
         public Nullable<double> LocationY { get; set; }
-        public Nullable<double> DesignWaterLevel { get; set; }
-        public Nullable<double> DesignWaterLevelTargetProbability { get; set; }
-        public Nullable<double> DesignWaterLevelTargetReliability { get; set; }
-        public Nullable<double> DesignWaterLevelCalculatedProbability { get; set; }
-        public Nullable<double> DesignWaterLevelCalculatedReliability { get; set; }
-        public byte DesignWaterLevelCalculationConvergence { get; set; }
-        public Nullable<double> WaveHeight { get; set; }
-        public Nullable<double> WaveHeightTargetProbability { get; set; }
-        public Nullable<double> WaveHeightTargetReliability { get; set; }
-        public Nullable<double> WaveHeightCalculatedProbability { get; set; }
-        public Nullable<double> WaveHeightCalculatedReliability { get; set; }
-        public byte WaveHeightCalculationConvergence { get; set; }
         public int Order { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
@@ -78,6 +69,9 @@ namespace Application.Ringtoets.Storage.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresCalculationEntity> HeightStructuresCalculationEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HydraulicLocationOutputEntity> HydraulicLocationOutputEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }

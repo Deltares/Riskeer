@@ -26,9 +26,10 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -65,9 +66,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(4)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), "HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), "HydraulicBoundaryDatabase_Location_DesignWaterLevel_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Location_DesignWaterLevel_Description")]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble DesignWaterLevel
         {
@@ -78,14 +79,77 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetProbability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetProbability_Description")]
+        public string TargetProbability
+        {
+            get
+            {
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelOutput;
+                return ProbabilityFormattingHelper.Format(output != null
+                                                              ? output.TargetProbability
+                                                              : double.NaN);
+            }
+        }
+
+        [PropertyOrder(6)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetReliability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetReliability_Description")]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble TargetReliability
+        {
+            get
+            {
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelOutput;
+                return output != null
+                           ? output.TargetReliability
+                           : (RoundedDouble)double.NaN;
+            }
+        }
+
+        [PropertyOrder(7)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedProbability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedProbability_Description")]
+        public string CalculatedProbability
+        {
+            get
+            {
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelOutput;
+                return ProbabilityFormattingHelper.Format(output != null
+                                                              ? output.CalculatedProbability
+                                                              : double.NaN);
+            }
+        }
+
+        [PropertyOrder(8)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedReliability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedReliability_Description")]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble CalculatedReliability
+        {
+            get
+            {
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelOutput;
+                return output != null ? output.CalculatedReliability : (RoundedDouble)double.NaN;
+            }
+        }
+
+        [PropertyOrder(9)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), "HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description")]
         public string Convergence
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.HydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence).DisplayName;
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelOutput;
+                return new EnumDisplayWrapper<CalculationConvergence>(output != null
+                                                                          ? output.CalculationConvergence
+                                                                          : CalculationConvergence.NotCalculated).DisplayName;
             }
         }
     }

@@ -291,23 +291,27 @@
           </Key>
           <Property Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="DesignWaterLevelOutput" Type="integer" />
+          <Property Name="WaveHeightOutput" Type="integer" />
           <Property Name="LocationId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="LocationX" Type="real" />
           <Property Name="LocationY" Type="real" />
-          <Property Name="DesignWaterLevel" Type="real" />
-          <Property Name="DesignWaterLevelTargetProbability" Type="real" />
-          <Property Name="DesignWaterLevelTargetReliability" Type="real" />
-          <Property Name="DesignWaterLevelCalculatedProbability" Type="real" />
-          <Property Name="DesignWaterLevelCalculatedReliability" Type="real" />
-          <Property Name="DesignWaterLevelCalculationConvergence" Type="tinyint" Nullable="false" />
-          <Property Name="WaveHeight" Type="real" />
-          <Property Name="WaveHeightTargetProbability" Type="real" />
-          <Property Name="WaveHeightTargetReliability" Type="real" />
-          <Property Name="WaveHeightCalculatedProbability" Type="real" />
-          <Property Name="WaveHeightCalculatedReliability" Type="real" />
-          <Property Name="WaveHeightCalculationConvergence" Type="tinyint" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
+          <Key>
+            <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntityId" />
+          </Key>
+          <Property Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationOutputType" Type="tinyint" Nullable="false" />
+          <Property Name="Result" Type="real" />
+          <Property Name="TargetProbability" Type="real" />
+          <Property Name="TargetReliability" Type="real" />
+          <Property Name="CalculatedProbability" Type="real" />
+          <Property Name="CalculatedReliability" Type="real" />
+          <Property Name="CalculationConvergence" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsSectionResultEntity">
           <Key>
@@ -475,23 +479,27 @@
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="DesignWaterLevelOutput" Type="integer" />
+          <Property Name="WaveHeightOutput" Type="integer" />
           <Property Name="LocationId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="LocationX" Type="real" />
           <Property Name="LocationY" Type="real" />
-          <Property Name="DesignWaterLevel" Type="real" />
-          <Property Name="DesignWaterLevelTargetProbability" Type="real" />
-          <Property Name="DesignWaterLevelTargetReliability" Type="real" />
-          <Property Name="DesignWaterLevelCalculatedProbability" Type="real" />
-          <Property Name="DesignWaterLevelCalculatedReliability" Type="real" />
-          <Property Name="DesignWaterLevelCalculationConvergence" Type="tinyint" Nullable="false" />
-          <Property Name="WaveHeight" Type="real" />
-          <Property Name="WaveHeightTargetProbability" Type="real" />
-          <Property Name="WaveHeightTargetReliability" Type="real" />
-          <Property Name="WaveHeightCalculatedProbability" Type="real" />
-          <Property Name="WaveHeightCalculatedReliability" Type="real" />
-          <Property Name="WaveHeightCalculationConvergence" Type="tinyint" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HydraulicLocationOutputEntity">
+          <Key>
+            <PropertyRef Name="HydraulicLocationEntityOutputId" />
+          </Key>
+          <Property Name="HydraulicLocationEntityOutputId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HydraulicLocationEntityId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationOutputType" Type="tinyint" Nullable="false" />
+          <Property Name="Result" Type="real" />
+          <Property Name="TargetProbability" Type="real" />
+          <Property Name="TargetReliability" Type="real" />
+          <Property Name="CalculatedProbability" Type="real" />
+          <Property Name="CalculatedReliability" Type="real" />
+          <Property Name="CalculationConvergence" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="MacrostabilityInwardsSectionResultEntity">
           <Key>
@@ -1293,6 +1301,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0">
+          <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" Type="Self.GrassCoverErosionOutwardsHydraulicLocationEntity" Multiplicity="1" />
+          <End Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Type="Self.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrassCoverErosionOutwardsHydraulicLocationEntity">
+              <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
+              <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GrassCoverErosionOutwardsSectionResultEntity_0_0">
           <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
           <End Role="GrassCoverErosionOutwardsSectionResultEntity" Type="Self.GrassCoverErosionOutwardsSectionResultEntity" Multiplicity="*" />
@@ -1494,6 +1514,18 @@
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
               <PropertyRef Name="AssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationOutputEntity_0_0">
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationOutputEntity" Type="Self.HydraulicLocationOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationOutputEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1985,6 +2017,7 @@
           <EntitySet Name="GrassCoverErosionInwardsSectionResultEntity" EntityType="Self.GrassCoverErosionInwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntityType="Self.GrassCoverErosionOutwardsFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionOutwardsHydraulicLocationEntity" EntityType="Self.GrassCoverErosionOutwardsHydraulicLocationEntity" store:Type="Tables" />
+          <EntitySet Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" EntityType="Self.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionOutwardsSectionResultEntity" EntityType="Self.GrassCoverErosionOutwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" EntityType="Self.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionOutwardsWaveConditionsOutputEntity" EntityType="Self.GrassCoverErosionOutwardsWaveConditionsOutputEntity" store:Type="Tables" />
@@ -1996,6 +2029,7 @@
           <EntitySet Name="HeightStructuresOutputEntity" EntityType="Self.HeightStructuresOutputEntity" store:Type="Tables" />
           <EntitySet Name="HeightStructuresSectionResultEntity" EntityType="Self.HeightStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
+          <EntitySet Name="HydraulicLocationOutputEntity" EntityType="Self.HydraulicLocationOutputEntity" store:Type="Tables" />
           <EntitySet Name="MacrostabilityInwardsSectionResultEntity" EntityType="Self.MacrostabilityInwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="MacrostabilityOutwardsSectionResultEntity" EntityType="Self.MacrostabilityOutwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="MicrostabilitySectionResultEntity" EntityType="Self.MicrostabilitySectionResultEntity" store:Type="Tables" />
@@ -2134,6 +2168,10 @@
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0" Association="Self.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0">
+            <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntity" />
+            <End Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionOutwardsSectionResultEntity_0_0" Association="Self.FK_GrassCoverErosionOutwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="GrassCoverErosionOutwardsSectionResultEntity" EntitySet="GrassCoverErosionOutwardsSectionResultEntity" />
@@ -2201,6 +2239,10 @@
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="Self.FK_HydraulicLocationEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationOutputEntity_0_0" Association="Self.FK_HydraulicLocationOutputEntity_0_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+            <End Role="HydraulicLocationOutputEntity" EntitySet="HydraulicLocationOutputEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_MacrostabilityInwardsSectionResultEntity_0_0" Association="Self.FK_MacrostabilityInwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
@@ -2383,6 +2425,7 @@
           <EntitySet Name="GrassCoverErosionInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsSectionResultEntity" />
           <EntitySet Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
           <EntitySet Name="GrassCoverErosionOutwardsHydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" />
+          <EntitySet Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" />
           <EntitySet Name="GrassCoverErosionOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsSectionResultEntity" />
           <EntitySet Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
           <EntitySet Name="GrassCoverErosionOutwardsWaveConditionsOutputEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsOutputEntity" />
@@ -2394,6 +2437,7 @@
           <EntitySet Name="HeightStructuresOutputEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresOutputEntity" />
           <EntitySet Name="HeightStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
+          <EntitySet Name="HydraulicLocationOutputEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" />
           <EntitySet Name="MacrostabilityInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacrostabilityInwardsSectionResultEntity" />
           <EntitySet Name="MacrostabilityOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacrostabilityOutwardsSectionResultEntity" />
           <EntitySet Name="MicrostabilitySectionResultEntities" EntityType="RingtoetsEntitiesModel.MicrostabilitySectionResultEntity" />
@@ -2668,6 +2712,10 @@
             <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntities" />
             <End Role="GrassCoverErosionInwardsSectionResultEntity" EntitySet="GrassCoverErosionInwardsSectionResultEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0">
+            <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntities" />
+            <End Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationOutputEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0">
             <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntities" />
             <End Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" EntitySet="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" />
@@ -2691,6 +2739,10 @@
           <AssociationSet Name="FK_HeightStructuresSectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_HeightStructuresSectionResultEntity_0_0">
             <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntities" />
             <End Role="HeightStructuresSectionResultEntity" EntitySet="HeightStructuresSectionResultEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+            <End Role="HydraulicLocationOutputEntity" EntitySet="HydraulicLocationOutputEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_PipingCalculationEntity_2_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0">
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
@@ -3126,25 +3178,31 @@
           </Key>
           <Property Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="DesignWaterLevelOutput" Type="Int64" />
+          <Property Name="WaveHeightOutput" Type="Int64" />
           <Property Name="LocationId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="LocationX" Type="Double" />
           <Property Name="LocationY" Type="Double" />
-          <Property Name="DesignWaterLevel" Type="Double" />
-          <Property Name="DesignWaterLevelTargetProbability" Type="Double" />
-          <Property Name="DesignWaterLevelTargetReliability" Type="Double" />
-          <Property Name="DesignWaterLevelCalculatedProbability" Type="Double" />
-          <Property Name="DesignWaterLevelCalculatedReliability" Type="Double" />
-          <Property Name="DesignWaterLevelCalculationConvergence" Type="Byte" Nullable="false" />
-          <Property Name="WaveHeight" Type="Double" />
-          <Property Name="WaveHeightTargetProbability" Type="Double" />
-          <Property Name="WaveHeightTargetReliability" Type="Double" />
-          <Property Name="WaveHeightCalculatedProbability" Type="Double" />
-          <Property Name="WaveHeightCalculatedReliability" Type="Double" />
-          <Property Name="WaveHeightCalculationConvergence" Type="Byte" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationEntity" ToRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
+        </EntityType>
+        <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
+          <Key>
+            <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntityId" />
+          </Key>
+          <Property Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationOutputType" Type="Byte" Nullable="false" />
+          <Property Name="Result" Type="Double" />
+          <Property Name="TargetProbability" Type="Double" />
+          <Property Name="TargetReliability" Type="Double" />
+          <Property Name="CalculatedProbability" Type="Double" />
+          <Property Name="CalculatedReliability" Type="Double" />
+          <Property Name="CalculationConvergence" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsSectionResultEntity">
           <Key>
@@ -3332,31 +3390,37 @@
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="DesignWaterLevelOutput" Type="Int64" />
+          <Property Name="WaveHeightOutput" Type="Int64" />
           <Property Name="LocationId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="LocationX" Type="Double" />
           <Property Name="LocationY" Type="Double" />
-          <Property Name="DesignWaterLevel" Type="Double" />
-          <Property Name="DesignWaterLevelTargetProbability" Type="Double" />
-          <Property Name="DesignWaterLevelTargetReliability" Type="Double" />
-          <Property Name="DesignWaterLevelCalculatedProbability" Type="Double" />
-          <Property Name="DesignWaterLevelCalculatedReliability" Type="Double" />
-          <Property Name="DesignWaterLevelCalculationConvergence" Type="Byte" Nullable="false" />
-          <Property Name="WaveHeight" Type="Double" />
-          <Property Name="WaveHeightTargetProbability" Type="Double" />
-          <Property Name="WaveHeightTargetReliability" Type="Double" />
-          <Property Name="WaveHeightCalculatedProbability" Type="Double" />
-          <Property Name="WaveHeightCalculatedReliability" Type="Double" />
-          <Property Name="WaveHeightCalculationConvergence" Type="Byte" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="ClosingStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="ClosingStructuresCalculationEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="HeightStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="HeightStructuresCalculationEntity" />
+          <NavigationProperty Name="HydraulicLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationOutputEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" FromRole="HydraulicLocationEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="StabilityPointStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_1_0" FromRole="HydraulicLocationEntity" ToRole="StabilityPointStructuresCalculationEntity" />
           <NavigationProperty Name="StabilityStoneCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="StabilityStoneCoverWaveConditionsCalculationEntity" />
           <NavigationProperty Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
+        </EntityType>
+        <EntityType Name="HydraulicLocationOutputEntity">
+          <Key>
+            <PropertyRef Name="HydraulicLocationEntityOutputId" />
+          </Key>
+          <Property Name="HydraulicLocationEntityOutputId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationOutputType" Type="Byte" Nullable="false" />
+          <Property Name="Result" Type="Double" />
+          <Property Name="TargetProbability" Type="Double" />
+          <Property Name="TargetReliability" Type="Double" />
+          <Property Name="CalculatedProbability" Type="Double" />
+          <Property Name="CalculatedReliability" Type="Double" />
+          <Property Name="CalculationConvergence" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" FromRole="HydraulicLocationOutputEntity" ToRole="HydraulicLocationEntity" />
         </EntityType>
         <EntityType Name="MacrostabilityInwardsSectionResultEntity">
           <Key>
@@ -4619,6 +4683,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" Role="GrassCoverErosionOutwardsHydraulicLocationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrassCoverErosionOutwardsHydraulicLocationEntity">
+              <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
+              <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0">
           <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" Role="GrassCoverErosionOutwardsHydraulicLocationEntity" Multiplicity="0..1" />
           <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Multiplicity="*" />
@@ -4688,6 +4764,18 @@
             </Principal>
             <Dependent Role="HeightStructuresSectionResultEntity">
               <PropertyRef Name="HeightStructuresCalculationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationOutputEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" Role="HydraulicLocationOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationOutputEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5191,24 +5279,29 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsHydraulicLocationEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="WaveHeightCalculationConvergence" ColumnName="WaveHeightCalculationConvergence" />
-                <ScalarProperty Name="WaveHeightCalculatedReliability" ColumnName="WaveHeightCalculatedReliability" />
-                <ScalarProperty Name="WaveHeightCalculatedProbability" ColumnName="WaveHeightCalculatedProbability" />
-                <ScalarProperty Name="WaveHeightTargetReliability" ColumnName="WaveHeightTargetReliability" />
-                <ScalarProperty Name="WaveHeightTargetProbability" ColumnName="WaveHeightTargetProbability" />
-                <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
-                <ScalarProperty Name="DesignWaterLevelCalculationConvergence" ColumnName="DesignWaterLevelCalculationConvergence" />
-                <ScalarProperty Name="DesignWaterLevelCalculatedReliability" ColumnName="DesignWaterLevelCalculatedReliability" />
-                <ScalarProperty Name="DesignWaterLevelCalculatedProbability" ColumnName="DesignWaterLevelCalculatedProbability" />
-                <ScalarProperty Name="DesignWaterLevelTargetReliability" ColumnName="DesignWaterLevelTargetReliability" />
-                <ScalarProperty Name="DesignWaterLevelTargetProbability" ColumnName="DesignWaterLevelTargetProbability" />
-                <ScalarProperty Name="DesignWaterLevel" ColumnName="DesignWaterLevel" />
                 <ScalarProperty Name="LocationY" ColumnName="LocationY" />
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="WaveHeightOutput" ColumnName="WaveHeightOutput" />
+                <ScalarProperty Name="DesignWaterLevelOutput" ColumnName="DesignWaterLevelOutput" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" ColumnName="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
+              <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
+                <ScalarProperty Name="CalculationConvergence" ColumnName="CalculationConvergence" />
+                <ScalarProperty Name="CalculatedReliability" ColumnName="CalculatedReliability" />
+                <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
+                <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
+                <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="HydraulicLocationOutputType" ColumnName="HydraulicLocationOutputType" />
+                <ScalarProperty Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" ColumnName="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+                <ScalarProperty Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntityId" ColumnName="GrassCoverErosionOutwardsHydraulicLocationOutputEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5386,24 +5479,29 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationEntity">
               <MappingFragment StoreEntitySet="HydraulicLocationEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="WaveHeightCalculationConvergence" ColumnName="WaveHeightCalculationConvergence" />
-                <ScalarProperty Name="WaveHeightCalculatedReliability" ColumnName="WaveHeightCalculatedReliability" />
-                <ScalarProperty Name="WaveHeightCalculatedProbability" ColumnName="WaveHeightCalculatedProbability" />
-                <ScalarProperty Name="WaveHeightTargetReliability" ColumnName="WaveHeightTargetReliability" />
-                <ScalarProperty Name="WaveHeightTargetProbability" ColumnName="WaveHeightTargetProbability" />
-                <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
-                <ScalarProperty Name="DesignWaterLevelCalculationConvergence" ColumnName="DesignWaterLevelCalculationConvergence" />
-                <ScalarProperty Name="DesignWaterLevelCalculatedReliability" ColumnName="DesignWaterLevelCalculatedReliability" />
-                <ScalarProperty Name="DesignWaterLevelCalculatedProbability" ColumnName="DesignWaterLevelCalculatedProbability" />
-                <ScalarProperty Name="DesignWaterLevelTargetReliability" ColumnName="DesignWaterLevelTargetReliability" />
-                <ScalarProperty Name="DesignWaterLevelTargetProbability" ColumnName="DesignWaterLevelTargetProbability" />
-                <ScalarProperty Name="DesignWaterLevel" ColumnName="DesignWaterLevel" />
                 <ScalarProperty Name="LocationY" ColumnName="LocationY" />
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="WaveHeightOutput" ColumnName="WaveHeightOutput" />
+                <ScalarProperty Name="DesignWaterLevelOutput" ColumnName="DesignWaterLevelOutput" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HydraulicLocationOutputEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationOutputEntity">
+              <MappingFragment StoreEntitySet="HydraulicLocationOutputEntity">
+                <ScalarProperty Name="CalculationConvergence" ColumnName="CalculationConvergence" />
+                <ScalarProperty Name="CalculatedReliability" ColumnName="CalculatedReliability" />
+                <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
+                <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
+                <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="HydraulicLocationOutputType" ColumnName="HydraulicLocationOutputType" />
+                <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
+                <ScalarProperty Name="HydraulicLocationEntityOutputId" ColumnName="HydraulicLocationEntityOutputId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

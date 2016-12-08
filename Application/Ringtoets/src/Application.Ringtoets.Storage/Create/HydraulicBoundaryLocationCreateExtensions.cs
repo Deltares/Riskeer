@@ -56,16 +56,38 @@ namespace Application.Ringtoets.Storage.Create
                 Name = location.Name.DeepClone(),
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
-                DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : location.DesignWaterLevel,
-                WaveHeight = double.IsNaN(location.WaveHeight) ? (double?) null : location.WaveHeight,
-                DesignWaterLevelCalculationConvergence = (byte) location.DesignWaterLevelCalculationConvergence,
-                WaveHeightCalculationConvergence = (byte) location.WaveHeightCalculationConvergence,
                 Order = order
             };
+
+            CreateDesignWaterLevelOutput(entity, location.DesignWaterLevelOutput);
+            CreateWaveHeightOutput(entity, location.WaveHeightOutput);
 
             registry.Register(entity, location);
             return entity;
         }
+
+        private static void CreateDesignWaterLevelOutput(HydraulicLocationEntity entity, HydraulicBoundaryLocationOutput output)
+        {
+            if (output == null)
+            {
+                return;
+            }
+            entity.HydraulicLocationOutputEntities.Add(output.Create<HydraulicLocationOutputEntity>
+                                                           (HydraulicLocationOutputType.DesignWaterLevel));
+        }
+
+        private static void CreateWaveHeightOutput(HydraulicLocationEntity entity, HydraulicBoundaryLocationOutput output)
+        {
+            if (output == null)
+            {
+                return;
+            }
+
+            entity.HydraulicLocationOutputEntities.Add(output.Create<HydraulicLocationOutputEntity>(
+                HydraulicLocationOutputType.WaveHeight));
+        }
+
+        #region Grass CoverErosion Outwards HydraulicLocation
 
         /// <summary>
         /// Creates a <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/> based on the information of the <see cref="HydraulicBoundaryLocation"/>.
@@ -93,15 +115,37 @@ namespace Application.Ringtoets.Storage.Create
                 Name = location.Name.DeepClone(),
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
-                DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : location.DesignWaterLevel,
-                WaveHeight = double.IsNaN(location.WaveHeight) ? (double?) null : location.WaveHeight,
-                DesignWaterLevelCalculationConvergence = (byte) location.DesignWaterLevelCalculationConvergence,
-                WaveHeightCalculationConvergence = (byte) location.WaveHeightCalculationConvergence,
                 Order = order
             };
+
+            CreateDesignWaterLevelOutput(entity, location.DesignWaterLevelOutput);
+            CreateWaveHeightOutput(entity, location.WaveHeightOutput);
 
             registry.Register(entity, location);
             return entity;
         }
+
+        private static void CreateDesignWaterLevelOutput(GrassCoverErosionOutwardsHydraulicLocationEntity entity, HydraulicBoundaryLocationOutput output)
+        {
+            if (output == null)
+            {
+                return;
+            }
+            entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Add(output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(
+                HydraulicLocationOutputType.DesignWaterLevel));
+        }
+
+        private static void CreateWaveHeightOutput(GrassCoverErosionOutwardsHydraulicLocationEntity entity, HydraulicBoundaryLocationOutput output)
+        {
+            if (output == null)
+            {
+                return;
+            }
+
+            entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Add(output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(
+                HydraulicLocationOutputType.WaveHeight));
+        }
+
+        #endregion
     }
 }
