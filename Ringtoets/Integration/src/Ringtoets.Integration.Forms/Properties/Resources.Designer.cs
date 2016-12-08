@@ -186,7 +186,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde &apos;{0}&apos; kan niet gezet..
+        ///   Looks up a localized string similar to De normwaarde {0} kan niet worden overgenomen. Normwaarden moeten positief zijn..
         /// </summary>
         public static string AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0 {
             get {

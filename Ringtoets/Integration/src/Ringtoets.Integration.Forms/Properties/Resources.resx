@@ -232,7 +232,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Het importeren van de referentielijn is mislukt.</value>
   </data>
   <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0" xml:space="preserve">
-    <value>De waarde '{0}' kan niet gezet.</value>
+    <value>De normwaarde {0} kan niet worden overgenomen. Normwaarden moeten positief zijn.</value>
   </data>
   <data name="AssessmentSectionFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder-stand32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

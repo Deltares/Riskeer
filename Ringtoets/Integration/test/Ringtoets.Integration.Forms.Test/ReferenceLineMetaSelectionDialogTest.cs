@@ -188,14 +188,14 @@ namespace Ringtoets.Integration.Forms.Test
 
                     object currentSignalingValue = dataGridView[signalingValueColumn, 0].FormattedValue;
                     Assert.IsNotNull(currentSignalingValue);
-                    string expectedSignalingValue = signalingValue.HasValue && signalingValue.Value != 0
+                    string expectedSignalingValue = signalingValue.HasValue && signalingValue.Value > 0
                                                         ? ProbabilityFormattingHelper.FormatFromReturnPeriod(signalingValue.Value)
                                                         : string.Empty;
                     Assert.AreEqual(expectedSignalingValue, currentSignalingValue.ToString());
 
                     object currentLowerLimitValue = dataGridView[lowerLimitValueColumn, 0].FormattedValue;
                     Assert.IsNotNull(currentLowerLimitValue);
-                    string expectedLowerLimitValue = lowerLimitValue.HasValue && lowerLimitValue.Value != 0
+                    string expectedLowerLimitValue = lowerLimitValue.HasValue && lowerLimitValue.Value > 0
                                                          ? ProbabilityFormattingHelper.FormatFromReturnPeriod(lowerLimitValue.Value)
                                                          : string.Empty;
                     Assert.AreEqual(expectedLowerLimitValue, currentLowerLimitValue.ToString());

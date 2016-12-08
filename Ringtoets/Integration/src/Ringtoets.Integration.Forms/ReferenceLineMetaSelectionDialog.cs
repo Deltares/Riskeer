@@ -194,10 +194,16 @@ namespace Ringtoets.Integration.Forms
                 ReferenceLineMeta = referenceLineMeta;
 
                 SignalingValue = GetNormValue(referenceLineMeta.SignalingValue);
-                SignalingReturnPeriod = referenceLineMeta.SignalingValue;
+                if (SignalingValue != string.Empty)
+                {
+                    SignalingReturnPeriod = referenceLineMeta.SignalingValue;
+                }
 
                 LowerLimitValue = GetNormValue(referenceLineMeta.LowerLimitValue);
-                LowerLimitValueReturnPeriod = referenceLineMeta.LowerLimitValue;
+                if (LowerLimitValue != string.Empty)
+                {
+                    LowerLimitValueReturnPeriod = referenceLineMeta.LowerLimitValue;
+                }
             }
 
             public string AssessmentSectionId { get; private set; }
@@ -209,7 +215,7 @@ namespace Ringtoets.Integration.Forms
 
             private static string GetNormValue(int? returnPeriod)
             {
-                return returnPeriod.HasValue && returnPeriod != 0
+                return returnPeriod.HasValue && returnPeriod > 0
                            ? ProbabilityFormattingHelper.FormatFromReturnPeriod(returnPeriod.Value)
                            : string.Empty;
             }
