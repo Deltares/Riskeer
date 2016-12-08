@@ -61,6 +61,7 @@
     <Compile Include="TestFailureMechanismTest.cs" />
     <Compile Include="DistributionAssertTest.cs" />
     <Compile Include="TestForeshoreProfileTest.cs" />
+    <Compile Include="TestHydraulicBoundaryLocationOutputTest.cs" />
     <Compile Include="TestHydraulicBoundaryLocationTest.cs" />
   </ItemGroup>
   <ItemGroup>
