@@ -28,7 +28,6 @@ using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -63,11 +62,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_ValidData_ReturnsExpectedValues()
         {
             // Setup
-            const long id = 1234;
-            const string name = "<some name>";
-            const double x = 567.0;
-            const double y = 890.0;
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -77,17 +72,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            DesignWaterLevelLocationContextProperties properties =
-                new DesignWaterLevelLocationContextProperties
-                {
-                    Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
-                };
+            var properties = new DesignWaterLevelLocationContextProperties
+            {
+                Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
+            };
 
             // Assert
-            Assert.AreEqual(id, properties.Id);
-            Assert.AreEqual(name, properties.Name);
-            Point2D coordinates = new Point2D(x, y);
-            Assert.AreEqual(coordinates, properties.Location);
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, properties.Id);
+            Assert.AreEqual(hydraulicBoundaryLocation.Name, properties.Name);
+            Assert.AreEqual(hydraulicBoundaryLocation.Location, properties.Location);
             Assert.IsNaN(properties.DesignWaterLevel);
             Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
                               NoValueRoundedDoubleConverter>(p => p.DesignWaterLevel));

@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
@@ -62,14 +61,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_ValidData_ReturnsExpectedValues()
         {
             // Setup
-            const long id = 1234;
-            const double x = 567.0;
-            const double y = 890.0;
-            const string name = "<some name>";
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
 
             // Call
             var properties = new WaveHeightLocationContextProperties
@@ -78,10 +77,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Assert
-            Assert.AreEqual(id, properties.Id);
-            Assert.AreEqual(name, properties.Name);
-            Point2D coordinates = new Point2D(x, y);
-            Assert.AreEqual(coordinates, properties.Location);
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, properties.Id);
+            Assert.AreEqual(hydraulicBoundaryLocation.Name, properties.Name);
+            Assert.AreEqual(hydraulicBoundaryLocation.Location, properties.Location);
             Assert.IsNaN(properties.WaveHeight);
             Assert.IsTrue(TypeUtils.HasTypeConverter<WaveHeightLocationContextProperties,
                               NoValueRoundedDoubleConverter>(p => p.WaveHeight));
