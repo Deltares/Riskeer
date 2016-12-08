@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte RelevantForScenario { get; set; }
         public Nullable<double> ScenarioContribution { get; set; }
         public Nullable<double> AssessmentLevel { get; set; }
-        public byte UseHydraulicBoundaryLocation { get; set; }
+        public byte UseAssessmentLevelManualInput { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }

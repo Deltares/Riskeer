@@ -552,7 +552,7 @@
           <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
           <Property Name="ScenarioContribution" Type="real" />
           <Property Name="AssessmentLevel" Type="real" />
-          <Property Name="UseHydraulicBoundaryLocation" Type="tinyint" Nullable="false" />
+          <Property Name="UseAssessmentLevelManualInput" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="PipingCalculationOutputEntity">
           <Key>
@@ -3481,7 +3481,7 @@
           <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
           <Property Name="ScenarioContribution" Type="Double" />
           <Property Name="AssessmentLevel" Type="Double" />
-          <Property Name="UseHydraulicBoundaryLocation" Type="Byte" Nullable="false" />
+          <Property Name="UseAssessmentLevelManualInput" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_3_0" FromRole="PipingCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" FromRole="PipingCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0" FromRole="PipingCalculationEntity" ToRole="SurfaceLineEntity" />
@@ -5551,7 +5551,7 @@
           <EntitySetMapping Name="PipingCalculationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.PipingCalculationEntity">
               <MappingFragment StoreEntitySet="PipingCalculationEntity">
-                <ScalarProperty Name="UseHydraulicBoundaryLocation" ColumnName="UseHydraulicBoundaryLocation" />
+                <ScalarProperty Name="UseAssessmentLevelManualInput" ColumnName="UseAssessmentLevelManualInput" />
                 <ScalarProperty Name="AssessmentLevel" ColumnName="AssessmentLevel" />
                 <ScalarProperty Name="ScenarioContribution" ColumnName="ScenarioContribution" />
                 <ScalarProperty Name="RelevantForScenario" ColumnName="RelevantForScenario" />
