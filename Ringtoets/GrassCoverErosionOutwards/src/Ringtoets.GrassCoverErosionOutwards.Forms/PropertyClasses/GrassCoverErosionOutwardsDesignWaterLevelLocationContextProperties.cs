@@ -83,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocationOutput_TargetProbability_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocationOutput_TargetProbability_Description")]
-        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double TargetProbability
         {
             get
@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocationOutput_CalculatedProbability_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocationOutput_CalculatedProbability_Description")]
-        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double CalculatedProbability
         {
             get

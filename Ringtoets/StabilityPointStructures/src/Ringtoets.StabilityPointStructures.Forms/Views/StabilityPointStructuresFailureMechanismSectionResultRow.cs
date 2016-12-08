@@ -44,7 +44,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// <summary>
         /// Gets the <see cref="StabilityPointStructuresFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double AssessmentLayerTwoA
         {
             get

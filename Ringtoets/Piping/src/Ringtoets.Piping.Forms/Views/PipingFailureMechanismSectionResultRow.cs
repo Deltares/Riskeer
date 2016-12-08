@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Gets the assessment layer two a of the <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double AssessmentLayerTwoA
         {
             get

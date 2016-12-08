@@ -45,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Gets the value representing the result of the layer 2a assessment.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double AssessmentLayerTwoA
         {
             get

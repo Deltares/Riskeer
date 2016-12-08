@@ -50,7 +50,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.IsTrue(TypeUtils.HasTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow,
-                              FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
+                              NoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
         }
 

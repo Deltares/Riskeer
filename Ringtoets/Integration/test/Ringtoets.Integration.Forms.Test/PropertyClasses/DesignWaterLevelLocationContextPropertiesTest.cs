@@ -86,14 +86,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                               NoValueRoundedDoubleConverter>(p => p.DesignWaterLevel));
             Assert.AreEqual(double.NaN, properties.TargetProbability);
             Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
-                              FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
+                              NoProbabilityValueDoubleConverter>(
                                   p => p.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
             Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
                               NoValueRoundedDoubleConverter>(p => p.TargetReliability));
             Assert.AreEqual(double.NaN, properties.CalculatedProbability);
             Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
-                              FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
+                              NoProbabilityValueDoubleConverter>(
                                   p => p.CalculatedProbability));
             Assert.IsNaN(properties.CalculatedReliability);
             Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,

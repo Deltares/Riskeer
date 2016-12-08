@@ -43,7 +43,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <summary>
         /// Gets the assessment layer two a of the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double AssessmentLayerTwoA
         {
             get

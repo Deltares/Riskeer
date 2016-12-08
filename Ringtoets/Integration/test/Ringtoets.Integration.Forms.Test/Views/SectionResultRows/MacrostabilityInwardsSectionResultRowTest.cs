@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<MacrostabilityInwardsSectionResultRow,
-                              FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
+                              NoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
             Assert.IsTrue(TypeUtils.HasTypeConverter<MacrostabilityInwardsSectionResultRow,
                               NoValueRoundedDoubleConverter>(

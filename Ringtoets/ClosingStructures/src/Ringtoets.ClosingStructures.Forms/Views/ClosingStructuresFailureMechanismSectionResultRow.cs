@@ -44,7 +44,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <summary>
         /// Gets the <see cref="ClosingStructuresFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double AssessmentLayerTwoA
         {
             get

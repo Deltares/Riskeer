@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
     /// intended to display probabilities with <see cref="double"/> values instead of general 
     /// <see cref="RoundedDouble"/> variables.
     /// </summary>
-    public class FailureMechanismSectionResultNoProbabilityValueDoubleConverter : TypeConverter
+    public class NoProbabilityValueDoubleConverter : TypeConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {

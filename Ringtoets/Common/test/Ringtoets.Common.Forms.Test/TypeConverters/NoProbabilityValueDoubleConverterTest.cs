@@ -31,13 +31,13 @@ using CommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Common.Forms.Test.TypeConverters
 {
     [TestFixture]
-    public class FailureMechanismSectionResultNoProbabilityValueDoubleConverterTest
+    public class NoProbabilityValueDoubleConverterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(string));
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void CanConvertFrom_OtherThanString_ReturnFalse()
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(object));
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertFrom_Object_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom(new object());
@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertFrom_NoValueText_ReturnNaN(string text)
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             var result = (double) converter.ConvertFrom(text);
@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         [TestCase(-9.87654321)]
         public void ConvertFrom_SomeNumericalTextInDutchCulture_ReturnConvertedRoundedDouble(double input)
         {
-            DoConvertFrom_SomeNumericalTextInCurrentCulture_ReturnConvertedRoundedDouble(input);
+            DoConvertFrom_SomeNumericalTextInCurrentCulture_ReturnConvertedDouble(input);
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         [TestCase(-0.96834715)]
         public void ConvertFrom_SomeNumericalTextInEnglishCulture_ReturnConvertedRoundedDouble(double input)
         {
-            DoConvertFrom_SomeNumericalTextInCurrentCulture_ReturnConvertedRoundedDouble(input);
+            DoConvertFrom_SomeNumericalTextInCurrentCulture_ReturnConvertedDouble(input);
         }
 
         [Test]
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
 
             string text = "I'm not a number!";
 
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
@@ -148,7 +148,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
 
             string text = "1" + double.MaxValue.ToString(CultureInfo.CurrentCulture);
 
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void CanConvertTo_ToString_ReturnTrue()
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(string));
@@ -176,7 +176,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void CanConvertTo_ToObject_ReturnFalse()
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             bool canConvertToObject = converter.CanConvertTo(typeof(object));
@@ -189,7 +189,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertTo_Object_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertTo(1.1, typeof(object));
@@ -202,7 +202,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertTo_NaNToString_ReturnHyphen()
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             var text = (string) converter.ConvertTo(double.NaN, typeof(string));
@@ -215,7 +215,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertTo_PositiveInfinityToString_ReturnInfinity()
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             var text = (string) converter.ConvertTo(double.PositiveInfinity, typeof(string));
@@ -228,7 +228,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertTo_NegativeInfinityToString_ReturnNegativeInfinity()
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             var text = (string) converter.ConvertTo(double.NegativeInfinity, typeof(string));
@@ -245,7 +245,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertTo_NumberToString_ReturnStringInLocalDutchCulture(double value)
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             var text = (string) converter.ConvertTo(value, typeof(string));
@@ -263,7 +263,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertTo_NumberToString_ReturnStringInLocalEnglishCulture(double value)
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             var text = (string) converter.ConvertTo(value, typeof(string));
@@ -273,7 +273,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             Assert.AreEqual(expectedText, text);
         }
 
-        private static void DoConvertFrom_SomeNumericalTextInCurrentCulture_ReturnConvertedRoundedDouble(double input)
+        private static void DoConvertFrom_SomeNumericalTextInCurrentCulture_ReturnConvertedDouble(double input)
         {
             // Setup
             var mocks = new MockRepository();
@@ -282,7 +282,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
 
             string text = input.ToString(CultureInfo.CurrentCulture);
 
-            var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
+            var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
             double conversionResult = (double) converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
