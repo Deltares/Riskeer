@@ -86,20 +86,26 @@ namespace Application.Ringtoets.Storage.Read.Piping
             {
                 inputParameters.SurfaceLine = entity.SurfaceLineEntity.Read(collector);
             }
-            if (entity.HydraulicLocationEntity != null)
+
+            inputParameters.UseAssessmentLevelManualInput = Convert.ToBoolean(entity.UseAssessmentLevelManualInput);
+            if (inputParameters.UseAssessmentLevelManualInput)
             {
-                inputParameters.HydraulicBoundaryLocation = entity.HydraulicLocationEntity.Read(collector);
+                inputParameters.AssessmentLevel = (RoundedDouble)entity.AssessmentLevel.ToNullAsNaN();
             }
             else
             {
-                inputParameters.AssessmentLevel = (RoundedDouble) entity.AssessmentLevel.ToNullAsNaN();
+                if (entity.HydraulicLocationEntity != null)
+                {
+                    inputParameters.HydraulicBoundaryLocation = entity.HydraulicLocationEntity.Read(collector);
+                }
             }
+
             if (entity.StochasticSoilProfileEntity != null)
             {
                 inputParameters.StochasticSoilModel = entity.StochasticSoilProfileEntity.StochasticSoilModelEntity.Read(collector);
                 inputParameters.StochasticSoilProfile = entity.StochasticSoilProfileEntity.Read(collector);
             }
-
+            
             inputParameters.EntryPointL = (RoundedDouble) entity.EntryPointL.ToNullAsNaN();
             inputParameters.ExitPointL = (RoundedDouble) entity.ExitPointL.ToNullAsNaN();
             inputParameters.PhreaticLevelExit.Mean = (RoundedDouble) entity.PhreaticLevelExitMean.ToNullAsNaN();

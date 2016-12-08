@@ -770,6 +770,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sta toe om het toetspeil handmatig te specificeren?.
+        /// </summary>
+        public static string PipingInput_UseAssessmentLevelManualInput_Description {
+            get {
+                return ResourceManager.GetString("PipingInput_UseAssessmentLevelManualInput_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handmatig toetspeil invoeren.
+        /// </summary>
+        public static string PipingInput_UseAssessmentLevelManualInput_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingInput_UseAssessmentLevelManualInput_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap PipingInputIcon {

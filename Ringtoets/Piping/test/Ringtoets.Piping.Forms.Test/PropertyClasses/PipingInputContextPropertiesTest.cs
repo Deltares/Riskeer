@@ -48,6 +48,25 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
     [TestFixture]
     public class PipingInputContextPropertiesTest
     {
+        private const int expectedSelectedHydraulicBoundaryLocationPropertyIndex = 0;
+        private const int expectedAssessmentLevelPropertyIndex = 1;
+        private const int expectedUseHydraulicBoundaryLocationPropertyIndex = 2;
+        private const int expectedDampingFactorExitPropertyIndex = 3;
+        private const int expectedPhreaticLevelExitPropertyIndex = 4;
+        private const int expectedPiezometricHeadExitPropertyIndex = 5;
+        private const int expectedSurfaceLinePropertyIndex = 6;
+        private const int expectedStochasticSoilModelPropertyIndex = 7;
+        private const int expectedStochasticSoilProfilePropertyIndex = 8;
+        private const int expectedEntryPointLPropertyIndex = 9;
+        private const int expectedExitPointLPropertyIndex = 10;
+        private const int expectedSeepageLengthPropertyIndex = 11;
+        private const int expectedThicknessCoverageLayerPropertyIndex = 12;
+        private const int expectedEffectiveThicknessCoverageLayerPropertyIndex = 13;
+        private const int expectedThicknessAquiferLayerPropertyIndex = 14;
+        private const int expectedDarcyPermeabilityPropertyIndex = 15;
+        private const int expectedDiameter70PropertyIndex = 16;
+        private const int expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex = 17;
+        
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -80,7 +99,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
                                               failureMechanism,
-                                              assessmentSection)
+                                              assessmentSection),
+                UseAssessmentLevelManualInput = true
             };
 
             // Assert
@@ -89,26 +109,33 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 BrowsableAttribute.Yes
             });
-            Assert.AreEqual(17, dynamicProperties.Count);
+
+            Assert.AreEqual(18, dynamicProperties.Count);
 
             var hydraulicDataCategory = "Hydraulische gegevens";
             var schematizationCategory = "Schematisatie";
 
-            PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[0];
+            PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
             Assert.IsNotNull(hydraulicBoundaryLocationProperty);
             Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
             Assert.AreEqual(hydraulicDataCategory, hydraulicBoundaryLocationProperty.Category);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
             Assert.AreEqual("De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.", hydraulicBoundaryLocationProperty.Description);
 
-            PropertyDescriptor assessmentLevelProperty = dynamicProperties[1];
+            PropertyDescriptor assessmentLevelProperty = dynamicProperties[expectedAssessmentLevelPropertyIndex];
             Assert.IsNotNull(assessmentLevelProperty);
-            Assert.IsFalse(assessmentLevelProperty.IsReadOnly);
+            Assert.IsTrue(assessmentLevelProperty.IsReadOnly);
             Assert.AreEqual(hydraulicDataCategory, assessmentLevelProperty.Category);
             Assert.AreEqual("Toetspeil [m+NAP]", assessmentLevelProperty.DisplayName);
             Assert.AreEqual("Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.", assessmentLevelProperty.Description);
 
-            PropertyDescriptor dampingsFactorExitProperty = dynamicProperties[2];
+            PropertyDescriptor useHydraulicBoundaryLocationProperty = dynamicProperties[expectedUseHydraulicBoundaryLocationPropertyIndex];
+            Assert.IsNotNull(useHydraulicBoundaryLocationProperty);
+            Assert.AreEqual(hydraulicDataCategory, useHydraulicBoundaryLocationProperty.Category);
+            Assert.AreEqual("Handmatig toetspeil invoeren", useHydraulicBoundaryLocationProperty.DisplayName);
+            Assert.AreEqual("Sta toe om het toetspeil handmatig te specificeren?", useHydraulicBoundaryLocationProperty.Description);
+
+            PropertyDescriptor dampingsFactorExitProperty = dynamicProperties[expectedDampingFactorExitPropertyIndex];
             Assert.IsNotNull(dampingsFactorExitProperty);
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(dampingsFactorExitProperty.Converter);
             Assert.IsFalse(dampingsFactorExitProperty.IsReadOnly);
@@ -116,7 +143,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Dempingsfactor bij uittredepunt [-]", dampingsFactorExitProperty.DisplayName);
             Assert.AreEqual("Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand.", dampingsFactorExitProperty.Description);
 
-            PropertyDescriptor phreaticLevelExitProperty = dynamicProperties[3];
+            PropertyDescriptor phreaticLevelExitProperty = dynamicProperties[expectedPhreaticLevelExitPropertyIndex];
             Assert.IsNotNull(phreaticLevelExitProperty);
             Assert.IsInstanceOf<NormalDistributionDesignVariableTypeConverter>(phreaticLevelExitProperty.Converter);
             Assert.IsFalse(phreaticLevelExitProperty.IsReadOnly);
@@ -124,49 +151,49 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Polderpeil [m+NAP]", phreaticLevelExitProperty.DisplayName);
             Assert.AreEqual("Polderpeil.", phreaticLevelExitProperty.Description);
 
-            PropertyDescriptor piezometricHeadExitProperty = dynamicProperties[4];
+            PropertyDescriptor piezometricHeadExitProperty = dynamicProperties[expectedPiezometricHeadExitPropertyIndex];
             Assert.IsNotNull(piezometricHeadExitProperty);
             Assert.IsTrue(piezometricHeadExitProperty.IsReadOnly);
             Assert.AreEqual(hydraulicDataCategory, piezometricHeadExitProperty.Category);
             Assert.AreEqual("Stijghoogte bij uittredepunt [m+NAP]", piezometricHeadExitProperty.DisplayName);
             Assert.AreEqual("Stijghoogte bij uittredepunt.", piezometricHeadExitProperty.Description);
 
-            PropertyDescriptor surfaceLineProperty = dynamicProperties[5];
+            PropertyDescriptor surfaceLineProperty = dynamicProperties[expectedSurfaceLinePropertyIndex];
             Assert.IsNotNull(surfaceLineProperty);
             Assert.IsFalse(surfaceLineProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, surfaceLineProperty.Category);
             Assert.AreEqual("Profielschematisatie", surfaceLineProperty.DisplayName);
             Assert.AreEqual("De schematisatie van de hoogte van het dwarsprofiel.", surfaceLineProperty.Description);
 
-            PropertyDescriptor stochasticSoilModelProperty = dynamicProperties[6];
+            PropertyDescriptor stochasticSoilModelProperty = dynamicProperties[expectedStochasticSoilModelPropertyIndex];
             Assert.IsNotNull(stochasticSoilModelProperty);
             Assert.IsFalse(stochasticSoilModelProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, stochasticSoilModelProperty.Category);
             Assert.AreEqual("Stochastisch ondergrondmodel", stochasticSoilModelProperty.DisplayName);
             Assert.AreEqual("De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen.", stochasticSoilModelProperty.Description);
 
-            PropertyDescriptor stochasticSoilProfileProperty = dynamicProperties[7];
+            PropertyDescriptor stochasticSoilProfileProperty = dynamicProperties[expectedStochasticSoilProfilePropertyIndex];
             Assert.IsNotNull(stochasticSoilProfileProperty);
             Assert.IsFalse(stochasticSoilProfileProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, stochasticSoilProfileProperty.Category);
             Assert.AreEqual("Ondergrondschematisatie", stochasticSoilProfileProperty.DisplayName);
             Assert.AreEqual("De opbouw van de ondergrond.", stochasticSoilProfileProperty.Description);
 
-            PropertyDescriptor entryPointLProperty = dynamicProperties[8];
+            PropertyDescriptor entryPointLProperty = dynamicProperties[expectedEntryPointLPropertyIndex];
             Assert.IsNotNull(entryPointLProperty);
             Assert.IsFalse(entryPointLProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, entryPointLProperty.Category);
             Assert.AreEqual("Intredepunt", entryPointLProperty.DisplayName);
             Assert.AreEqual("De positie in het dwarsprofiel van het intredepunt.", entryPointLProperty.Description);
 
-            PropertyDescriptor exitPointLProperty = dynamicProperties[9];
+            PropertyDescriptor exitPointLProperty = dynamicProperties[expectedExitPointLPropertyIndex];
             Assert.IsNotNull(exitPointLProperty);
             Assert.IsFalse(exitPointLProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, exitPointLProperty.Category);
             Assert.AreEqual("Uittredepunt", exitPointLProperty.DisplayName);
             Assert.AreEqual("De positie in het dwarsprofiel van het uittredepunt.", exitPointLProperty.Description);
 
-            PropertyDescriptor seepageLengthProperty = dynamicProperties[10];
+            PropertyDescriptor seepageLengthProperty = dynamicProperties[expectedSeepageLengthPropertyIndex];
             Assert.IsNotNull(seepageLengthProperty);
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(seepageLengthProperty.Converter);
             Assert.IsTrue(seepageLengthProperty.IsReadOnly);
@@ -174,7 +201,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Kwelweglengte [m]", seepageLengthProperty.DisplayName);
             Assert.AreEqual("De horizontale afstand tussen intrede- en uittredepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt.", seepageLengthProperty.Description);
 
-            PropertyDescriptor thicknessCoverageLayerProperty = dynamicProperties[11];
+            PropertyDescriptor thicknessCoverageLayerProperty = dynamicProperties[expectedThicknessCoverageLayerPropertyIndex];
             Assert.IsNotNull(thicknessCoverageLayerProperty);
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(thicknessCoverageLayerProperty.Converter);
             Assert.IsTrue(thicknessCoverageLayerProperty.IsReadOnly);
@@ -182,7 +209,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Totale deklaagdikte bij uittredepunt [m]", thicknessCoverageLayerProperty.DisplayName);
             Assert.AreEqual("Totale deklaagdikte bij uittredepunt.", thicknessCoverageLayerProperty.Description);
 
-            PropertyDescriptor effectiveThicknessCoverageLayerProperty = dynamicProperties[12];
+            PropertyDescriptor effectiveThicknessCoverageLayerProperty = dynamicProperties[expectedEffectiveThicknessCoverageLayerPropertyIndex];
             Assert.IsNotNull(effectiveThicknessCoverageLayerProperty);
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(effectiveThicknessCoverageLayerProperty.Converter);
             Assert.IsTrue(effectiveThicknessCoverageLayerProperty.IsReadOnly);
@@ -190,7 +217,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Effectieve deklaagdikte bij uittredepunt [m]", effectiveThicknessCoverageLayerProperty.DisplayName);
             Assert.AreEqual("Effectieve deklaagdikte bij uittredepunt.", effectiveThicknessCoverageLayerProperty.Description);
 
-            PropertyDescriptor thicknessAquiferLayerProperty = dynamicProperties[13];
+            PropertyDescriptor thicknessAquiferLayerProperty = dynamicProperties[expectedThicknessAquiferLayerPropertyIndex];
             Assert.IsNotNull(thicknessAquiferLayerProperty);
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(thicknessAquiferLayerProperty.Converter);
             Assert.IsTrue(thicknessAquiferLayerProperty.IsReadOnly);
@@ -198,7 +225,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Dikte watervoerend pakket [m]", thicknessAquiferLayerProperty.DisplayName);
             Assert.AreEqual("De dikte van de bovenste voor doorlatendheid te onderscheiden zandlaag of combinatie van zandlagen.", thicknessAquiferLayerProperty.Description);
 
-            PropertyDescriptor darcyPermeabilityProperty = dynamicProperties[14];
+            PropertyDescriptor darcyPermeabilityProperty = dynamicProperties[expectedDarcyPermeabilityPropertyIndex];
             Assert.IsNotNull(darcyPermeabilityProperty);
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(darcyPermeabilityProperty.Converter);
             Assert.IsTrue(darcyPermeabilityProperty.IsReadOnly);
@@ -206,7 +233,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Doorlatendheid aquifer [m/s]", darcyPermeabilityProperty.DisplayName);
             Assert.AreEqual("Darcy-snelheid waarmee water door de eerste voor doorlatendheid te onderscheiden zandlaag loopt.", darcyPermeabilityProperty.Description);
 
-            PropertyDescriptor diameter70Property = dynamicProperties[15];
+            PropertyDescriptor diameter70Property = dynamicProperties[expectedDiameter70PropertyIndex];
             Assert.IsNotNull(diameter70Property);
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableTypeConverter>(diameter70Property.Converter);
             Assert.IsTrue(diameter70Property.IsReadOnly);
@@ -214,7 +241,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("De d70 in de bovenste zandlaag [m]", diameter70Property.DisplayName);
             Assert.AreEqual("Zeefmaat waar 70 gewichtsprocent van de korrels uit een zandlaag doorheen gaat. Hier de korreldiameter van het bovenste gedeelte van de voor doorlatendheid te onderscheiden zandlaag, bepaald zonder fijne fractie (< 63µm).", diameter70Property.Description);
 
-            PropertyDescriptor saturatedVolumicWeightOfCoverageLayerProperty = dynamicProperties[16];
+            PropertyDescriptor saturatedVolumicWeightOfCoverageLayerProperty = dynamicProperties[expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex];
             Assert.IsNotNull(saturatedVolumicWeightOfCoverageLayerProperty);
             Assert.IsInstanceOf<ShiftedLogNormalDistributionDesignVariableTypeConverter>(saturatedVolumicWeightOfCoverageLayerProperty.Converter);
             Assert.IsTrue(saturatedVolumicWeightOfCoverageLayerProperty.IsReadOnly);
@@ -223,6 +250,71 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Verzadigd gewicht deklaag.", saturatedVolumicWeightOfCoverageLayerProperty.Description);
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetProperties_UseHydraulicBoundaryLocation_ReturnsExpectedAttributeValues(bool useHydraulicBoundaryLocation)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
+
+            // Call
+            PipingInputContextProperties properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
+                                              assessmentSection),
+                UseAssessmentLevelManualInput = useHydraulicBoundaryLocation
+            };
+
+            // Assert
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                BrowsableAttribute.Yes
+            });
+
+            var hydraulicDataCategory = "Hydraulische gegevens";
+            if (useHydraulicBoundaryLocation)
+            {
+                Assert.AreEqual(18, dynamicProperties.Count);
+
+                PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
+                Assert.IsNotNull(hydraulicBoundaryLocationProperty);
+                Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
+                Assert.AreEqual(hydraulicDataCategory, hydraulicBoundaryLocationProperty.Category);
+                Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
+                Assert.AreEqual("De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.", hydraulicBoundaryLocationProperty.Description);
+
+                PropertyDescriptor assessmentLevelProperty = dynamicProperties[expectedAssessmentLevelPropertyIndex];
+                Assert.IsNotNull(assessmentLevelProperty);
+                Assert.IsTrue(assessmentLevelProperty.IsReadOnly);
+                Assert.AreEqual(hydraulicDataCategory, assessmentLevelProperty.Category);
+                Assert.AreEqual("Toetspeil [m+NAP]", assessmentLevelProperty.DisplayName);
+                Assert.AreEqual("Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.", assessmentLevelProperty.Description);
+            }
+            else
+            {
+                Assert.AreEqual(17, dynamicProperties.Count);
+
+                PropertyDescriptor assessmentLevelProperty = dynamicProperties[0];
+                Assert.IsNotNull(assessmentLevelProperty);
+                Assert.IsFalse(assessmentLevelProperty.IsReadOnly);
+                Assert.AreEqual(hydraulicDataCategory, assessmentLevelProperty.Category);
+                Assert.AreEqual("Toetspeil [m+NAP]", assessmentLevelProperty.DisplayName);
+                Assert.AreEqual("Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.", assessmentLevelProperty.Description);
+            }
         }
 
         [Test]
@@ -256,7 +348,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 HydraulicBoundaryLocation = testHydraulicBoundaryLocation,
                 SurfaceLine = surfaceLine,
                 StochasticSoilModel = stochasticSoilModel,
-                StochasticSoilProfile = (stochasticSoilProfile)
+                StochasticSoilProfile = (stochasticSoilProfile),
+                UseAssessmentLevelManualInput = false
             };
 
             PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
@@ -307,6 +400,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(stochasticSoilProfile, properties.StochasticSoilProfile);
             Assert.AreSame(stochasticSoilModel, properties.StochasticSoilModel);
             Assert.AreSame(testHydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+
+            Assert.AreEqual(inputParameters.UseAssessmentLevelManualInput, properties.UseAssessmentLevelManualInput);
 
             mocks.VerifyAll();
         }
@@ -761,7 +856,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenAssessmentLevelSetWithHydraulicBoundaryLocation_WhenNewAssessmentLevel_UpdateAssessmentLevelAndRemovesLocation()
+        public void GivenHydraulicBoundaryLocationAndUseHydraulicBoundaryLocation_WhenUnuseLocationAndSetNewAssessmentLevel_UpdateAssessmentLevelAndRemovesLocation()
         {
             // Given
             var mocks = new MockRepository();
@@ -784,12 +879,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
                                               failureMechanism,
-                                              assessmentSection)
+                                              assessmentSection),
+                UseAssessmentLevelManualInput = false
             };
 
             RoundedDouble testLevel = (RoundedDouble) random.NextDouble();
 
             // When
+            properties.UseAssessmentLevelManualInput = true;
             properties.AssessmentLevel = testLevel;
 
             // Then
@@ -817,7 +914,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
-            PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput())
+            {
+                UseAssessmentLevelManualInput = true
+            };
             inputParameters.Attach(projectObserver);
 
             PipingInputContextProperties properties = new PipingInputContextProperties
@@ -841,7 +941,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenAssessmentLevelSetWithoutHydraulicBoundaryLocation_WhenSetNewLocation_UpdateAssessmentLevelWithLocationValues()
+        public void GivenAssessmentLevelSetWithoutHydraulicBoundaryLocation_WhenUseAndSetNewLocation_UpdateAssessmentLevelWithLocationValues()
         {
             // Given
             var mocks = new MockRepository();
@@ -862,7 +962,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
                                               failureMechanism,
-                                              assessmentSection)
+                                              assessmentSection),
+                UseAssessmentLevelManualInput = true
             };
 
             RoundedDouble testLevel = (RoundedDouble) random.NextDouble();
@@ -871,6 +972,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
 
             // When
+            properties.UseAssessmentLevelManualInput = false;
             properties.SelectedHydraulicBoundaryLocation = selectableHydraulicBoundaryLocation;
 
             // Then

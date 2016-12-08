@@ -68,14 +68,21 @@ namespace Application.Ringtoets.Storage.Create.Piping
             {
                 entity.SurfaceLineEntity = registry.Get(inputParameters.SurfaceLine);
             }
-            if (inputParameters.HydraulicBoundaryLocation != null)
-            {
-                entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(inputParameters.HydraulicBoundaryLocation);
-            }
-            else
+
+            bool useAssessmentLevelManualInput = inputParameters.UseAssessmentLevelManualInput;
+            entity.UseAssessmentLevelManualInput = Convert.ToByte(useAssessmentLevelManualInput);
+            if (useAssessmentLevelManualInput)
             {
                 entity.AssessmentLevel = inputParameters.AssessmentLevel.Value.ToNaNAsNull();
             }
+            else
+            {
+                if (inputParameters.HydraulicBoundaryLocation != null)
+                {
+                    entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(inputParameters.HydraulicBoundaryLocation);
+                }
+            }
+
             if (inputParameters.StochasticSoilProfile != null)
             {
                 entity.StochasticSoilProfileEntity = registry.Get(inputParameters.StochasticSoilProfile);

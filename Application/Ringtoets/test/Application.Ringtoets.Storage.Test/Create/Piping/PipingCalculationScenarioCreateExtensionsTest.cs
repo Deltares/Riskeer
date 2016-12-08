@@ -53,10 +53,11 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        [TestCase(true, 0.0, "A", "<Comments>", 2.2, 0.0, 5.8, 123, 827364)]
-        [TestCase(false, 1.0, null, null, double.NaN, double.NaN, double.NaN, 980754, 231)]
+        [TestCase(true, false, 0.0, "A", "<Comments>", 2.2, 0.0, 5.8, 123, 827364)]
+        [TestCase(false, false, 1.0, null, null, double.NaN, double.NaN, double.NaN, 980754, 231)]
+        [TestCase(false, true, 1.0, null, null, double.NaN, double.NaN, double.NaN, 980754, 231)]
         public void Create_PipingCalculationScenarioWithPropertiesSet_ReturnPipingCalculationEntity(
-            bool isRelevant, double contribution, string name, string comments,
+            bool isRelevant, bool useAssessmentLevelManualInput, double contribution, string name, string comments,
             double exitPoint, double entryPoint, double assessmentLevel, int order, int randomSeed)
         {
             // Setup
@@ -101,7 +102,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                         Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
                         StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
                     },
-                    AssessmentLevel = (RoundedDouble) assessmentLevel
+                    AssessmentLevel = (RoundedDouble) assessmentLevel,
+                    UseAssessmentLevelManualInput = useAssessmentLevelManualInput
                 }
             };
 
@@ -124,7 +126,12 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(input.PhreaticLevelExit.StandardDeviation.Value, entity.PhreaticLevelExitStandardDeviation);
             Assert.AreEqual(input.DampingFactorExit.Mean.Value, entity.DampingFactorExitMean);
             Assert.AreEqual(input.DampingFactorExit.StandardDeviation.Value, entity.DampingFactorExitStandardDeviation);
-            Assert.AreEqual(input.AssessmentLevel.Value.ToNaNAsNull(), entity.AssessmentLevel);
+
+            Assert.AreEqual(Convert.ToByte(input.UseAssessmentLevelManualInput), entity.UseAssessmentLevelManualInput);
+            if (useAssessmentLevelManualInput)
+            {
+                Assert.AreEqual(input.AssessmentLevel.Value.ToNaNAsNull(), entity.AssessmentLevel);
+            }
 
             Assert.AreEqual(order, entity.Order);
             Assert.AreEqual(0, entity.PipingCalculationEntityId);

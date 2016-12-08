@@ -106,11 +106,43 @@ namespace Ringtoets.Piping.Service
         {
             List<string> validationResult = new List<string>();
 
+            var useAssessmentLevelManualInput = inputParameters.UseAssessmentLevelManualInput;
+            var isHydraulicBoundaryLocationMissing = inputParameters.HydraulicBoundaryLocation == null;
             var isSoilProfileMissing = inputParameters.StochasticSoilProfile == null;
             var isSurfaceLineMissing = inputParameters.SurfaceLine == null;
             var isExitPointLMissing = double.IsNaN(inputParameters.ExitPointL);
             var isEntryPointLMissing = double.IsNaN(inputParameters.EntryPointL);
 
+            if (useAssessmentLevelManualInput)
+            {
+                if (double.IsNaN(inputParameters.AssessmentLevel) || double.IsInfinity(inputParameters.AssessmentLevel))
+                {
+                    validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
+                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.AssessmentLevel_DisplayName)));
+                }
+                if (double.IsNaN(inputParameters.PiezometricHeadExit) || double.IsInfinity(inputParameters.PiezometricHeadExit))
+                {
+                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
+                }
+            }
+            else
+            {
+                if (isHydraulicBoundaryLocationMissing)
+                {
+                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
+                }
+                else
+                {
+                    if (double.IsNaN(inputParameters.AssessmentLevel))
+                    {
+                        validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
+                    }
+                    if (double.IsNaN(inputParameters.PiezometricHeadExit))
+                    {
+                        validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
+                    }
+                }
+            }
 
             if (isSurfaceLineMissing)
             {
@@ -130,16 +162,6 @@ namespace Ringtoets.Piping.Service
             if (isExitPointLMissing)
             {
                 validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_ExitPointL);
-            }
-
-            if (double.IsNaN(inputParameters.AssessmentLevel) || double.IsInfinity(inputParameters.AssessmentLevel))
-            {
-                validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
-                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.AssessmentLevel_DisplayName)));
-            }
-            if (double.IsNaN(inputParameters.PiezometricHeadExit) || double.IsInfinity(inputParameters.PiezometricHeadExit))
-            {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
             }
 
             if (!isSurfaceLineMissing && !isSoilProfileMissing && !isExitPointLMissing)

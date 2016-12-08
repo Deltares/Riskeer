@@ -52,9 +52,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        [TestCase(true, 0.98, "haha", "hihi", 0.0, 3.4, 5.8, 123)]
-        [TestCase(false, 0.0, null, null, double.NaN, double.NaN, double.NaN, 321)]
-        public void Read_ValidEntity_ReturnPipingCalculationScenario(bool isRelevant, double contribution,
+        [TestCase(true, false, 0.98, "haha", "hihi", 0.0, 3.4, 5.8, 123)]
+        [TestCase(false, false, 0.0, null, null, double.NaN, double.NaN, double.NaN, 321)]
+        [TestCase(false, true, 0.0, null, null, double.NaN, double.NaN, double.NaN, 321)]
+        public void Read_ValidEntity_ReturnPipingCalculationScenario(bool isRelevant, bool useAssessmentLevelManualInput, double contribution,
                                                                      string name, string comments, double entryPoint, double exitPoint,
                                                                      double assessmentLevel, int seed)
         {
@@ -73,7 +74,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 PhreaticLevelExitStandardDeviation = GetRandomNullableDoubleInRange(random, 0, 9999.99),
                 DampingFactorExitMean = GetRandomNullableDoubleInRange(random, 1e-6, 9999.99),
                 DampingFactorExitStandardDeviation = GetRandomNullableDoubleInRange(random, 0, 9999.99),
-                AssessmentLevel = assessmentLevel.ToNaNAsNull()
+                AssessmentLevel = assessmentLevel.ToNaNAsNull(),
+                UseAssessmentLevelManualInput = Convert.ToByte(useAssessmentLevelManualInput)
             };
 
             var collector = new ReadConversionCollector();
@@ -106,7 +108,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             AssertRoundedDouble(entity.PhreaticLevelExitStandardDeviation, calculation.InputParameters.PhreaticLevelExit.StandardDeviation);
             AssertRoundedDouble(entity.DampingFactorExitMean, calculation.InputParameters.DampingFactorExit.Mean);
             AssertRoundedDouble(entity.DampingFactorExitStandardDeviation, calculation.InputParameters.DampingFactorExit.StandardDeviation);
-            Assert.AreEqual(entity.AssessmentLevel.ToNullAsNaN(), calculation.InputParameters.AssessmentLevel.Value);
+
+            Assert.AreEqual(useAssessmentLevelManualInput, calculation.InputParameters.UseAssessmentLevelManualInput);
+            if (useAssessmentLevelManualInput)
+            {
+                Assert.AreEqual(entity.AssessmentLevel.ToNullAsNaN(), calculation.InputParameters.AssessmentLevel.Value);
+            }
 
             Assert.IsNull(calculation.InputParameters.SurfaceLine);
             Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
@@ -192,7 +199,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                AssessmentLevel = 5.81
+                AssessmentLevel = 5.81,
+                UseAssessmentLevelManualInput = Convert.ToByte(false)
             };
 
             var collector = new ReadConversionCollector();
@@ -221,6 +229,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
+                UseAssessmentLevelManualInput = Convert.ToByte(false)
             };
 
             var collector = new ReadConversionCollector();

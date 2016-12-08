@@ -148,6 +148,8 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<RoundedDouble>(inputParameters.AssessmentLevel);
             Assert.AreEqual(2, inputParameters.AssessmentLevel.NumberOfDecimalPlaces);
             Assert.IsNaN(inputParameters.AssessmentLevel);
+
+            Assert.IsFalse(inputParameters.UseAssessmentLevelManualInput);
         }
 
         [Test]
@@ -385,11 +387,14 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssessmentLevel_HydraulicBoundaryCalculationUncalculated_AssessmentLevelNaN()
+        public void UseManualAssessmentLevelInputFalse_HydraulicBoundaryCalculationUncalculated_AssessmentLevelNaN()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput());
-            input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                UseAssessmentLevelManualInput = false,
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+            };
 
             // Call
             var calculatedAssessmentLevel = input.AssessmentLevel;
@@ -399,26 +404,33 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssessmentLevel_InputHasNewHydraulicBoundaryLocationSet_AssessmentLevelUpdated()
+        public void UseAssessmentLevelManualInputFalseWithHydraulicBoundaryLocation_LocationUpdated_AssessmentLevelUpdated()
         {
             // Setup
             PipingInput input = new PipingInput(new GeneralPipingInput());
 
-            RoundedDouble testLevel = (RoundedDouble) new Random(21).NextDouble();
-            input.HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(testLevel);
+            var random = new Random(21);
+            RoundedDouble testLevel = (RoundedDouble) random.NextDouble();
+            TestHydraulicBoundaryLocation testHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(testLevel);
+            input.HydraulicBoundaryLocation = testHydraulicBoundaryLocation;
+
+            RoundedDouble calculatedAssessmentLevel = (RoundedDouble) random.NextDouble();
 
             // Call
-            RoundedDouble calculatedAssessmentLevel = input.AssessmentLevel;
+            testHydraulicBoundaryLocation.DesignWaterLevel = calculatedAssessmentLevel;
 
             // Assert
-            Assert.AreEqual(testLevel, calculatedAssessmentLevel, input.AssessmentLevel.GetAccuracy());
+            Assert.AreEqual(calculatedAssessmentLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
         }
 
         [Test]
-        public void AssessmentLevel_SetAssessmentLevelWithNoHydraulicBoundaryLocation_SetsAssessmentLevel()
+        public void UseAssessmentLevelManualInputTrueNoHydraulicBoundaryLocation_NewLevel_SetsNewAssessmentLevel()
         {
             // Setup
-            PipingInput input = new PipingInput(new GeneralPipingInput());
+            PipingInput input = new PipingInput(new GeneralPipingInput())
+            {
+                UseAssessmentLevelManualInput = true
+            };
 
             RoundedDouble testLevel = (RoundedDouble) new Random(21).NextDouble();
 
@@ -431,7 +443,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GivenAssessmentLevelSetWithHydraulicBoundaryLocation_WhenNewAssessmentLevelSet_ThenAssessmentLevelUpdatedAndLocationRemoved()
+        public void GivenAssessmentLevelSetByHydraulicBoundaryLocation_WhenManualAssessmentLevelTrueAndNewLevelSet_ThenLevelUpdatedAndLocationRemoved()
         {
             // Given
             PipingInput input = new PipingInput(new GeneralPipingInput());
@@ -443,6 +455,7 @@ namespace Ringtoets.Piping.Data.Test
             var newLevel = (RoundedDouble) random.NextDouble();
 
             // When
+            input.UseAssessmentLevelManualInput = true;
             input.AssessmentLevel = newLevel;
 
             // Then
@@ -452,19 +465,21 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GivenAssessmentLevelSet_WhenNewHydraulicBoundaryLocationSet_ThenAssessmentLevelUpdatedAndLocationSet()
+        public void GivenAssessmentLevelSetByManualInput_WhenWhenManualAssessmentLevelFalseAndHydraulicBoundaryLocationSet_ThenAssessmentLevelUpdatedAndLocationSet()
         {
             // Given
             PipingInput input = new PipingInput(new GeneralPipingInput());
 
             var random = new Random(21);
             var testLevel = (RoundedDouble) random.NextDouble();
+            input.UseAssessmentLevelManualInput = true;
             input.AssessmentLevel = testLevel;
 
             var newLevel = (RoundedDouble) random.NextDouble();
             var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(newLevel);
 
             // When
+            input.UseAssessmentLevelManualInput = false;
             input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Then
@@ -823,7 +838,6 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsNaN(thicknessCoverageLayer.Mean);
         }
-
 
         [Test]
         public void EffectiveThicknessCoverageLayer_InputWithoutSoilProfile_MeansSetToNaN()

@@ -44,8 +44,8 @@ namespace Ringtoets.Piping.Data
         private RoundedDouble exitPointL;
         private RoundedDouble entryPointL;
         private RingtoetsPipingSurfaceLine surfaceLine;
-        private HydraulicBoundaryLocation hydraulicBoundaryLocation;
         private RoundedDouble assessmentLevel;
+        private bool useAssessmentLevelManualInput;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -77,6 +77,7 @@ namespace Ringtoets.Piping.Data
             };
 
             assessmentLevel = new RoundedDouble(2, double.NaN);
+            useAssessmentLevelManualInput = false;
         }
 
         /// <summary>
@@ -186,16 +187,25 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or sets the hydraulic boundary location from which to use the assessment level.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the assessment level is manual input for the calculation.
+        /// </summary>
+        public bool UseAssessmentLevelManualInput
         {
             get
             {
-                return hydraulicBoundaryLocation;
+                return useAssessmentLevelManualInput;
             }
             set
             {
-                hydraulicBoundaryLocation = value;
-                UpdateAssessmentLevel();
+                useAssessmentLevelManualInput = value;
+
+                if (useAssessmentLevelManualInput)
+                {
+                    HydraulicBoundaryLocation = null;
+                }
             }
         }
 
@@ -249,18 +259,6 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private void UpdateAssessmentLevel()
-        {
-            assessmentLevel = hydraulicBoundaryLocation != null
-                                  ? hydraulicBoundaryLocation.DesignWaterLevel
-                                  : new RoundedDouble(2, double.NaN);
-        }
-
-        private void UpdateHydraulicBoundaryLocation()
-        {
-            hydraulicBoundaryLocation = null;
-        }
-
         #region Derived input
 
         /// <summary>
@@ -271,12 +269,18 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
+                if (!UseAssessmentLevelManualInput)
+                {
+                    return HydraulicBoundaryLocation != null
+                               ? HydraulicBoundaryLocation.DesignWaterLevel
+                               : new RoundedDouble(2, double.NaN);
+                }
+
                 return assessmentLevel;
             }
             set
             {
                 assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
-                UpdateHydraulicBoundaryLocation();
             }
         }
 
