@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
@@ -102,14 +101,8 @@ namespace Ringtoets.Common.Service
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) calculator.WaveHeight;
-                    hydraulicBoundaryLocation.WaveHeightCalculationConvergence =
-                        RingtoetsCommonDataCalculationService.CalculationConverged(calculator.ReliabilityIndex, norm);
-
-                    hydraulicBoundaryLocation.WaveHeightOutput = CreateHydraulicBoundaryLocationOutput(messageProvider,
-                                                                                                             hydraulicBoundaryLocation.Name,
-                                                                                                             calculationInput.Beta,
-                                                                                                             norm);
+                    hydraulicBoundaryLocation.WaveHeightOutput = CreateHydraulicBoundaryLocationOutput(
+                        messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm);
                 }
             }
             catch (HydraRingFileParserException)
@@ -161,9 +154,9 @@ namespace Ringtoets.Common.Service
                                                                                       double targetReliability,
                                                                                       double targetProbability)
         {
-            var designWaterLevel = calculator.WaveHeight;
-            var reliability = calculator.ReliabilityIndex;
-            var probability = StatisticsConverter.ReliabilityToProbability(reliability);
+            double designWaterLevel = calculator.WaveHeight;
+            double reliability = calculator.ReliabilityIndex;
+            double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
             CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(
                 calculator.ReliabilityIndex, targetProbability);
@@ -173,16 +166,14 @@ namespace Ringtoets.Common.Service
                 log.Warn(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocationName));
             }
 
-            return new HydraulicBoundaryLocationOutput(
-                designWaterLevel,
-                targetProbability,
-                targetReliability,
-                probability,
-                reliability,
-                converged);
+            return new HydraulicBoundaryLocationOutput(designWaterLevel, targetProbability,
+                                                       targetReliability, probability, reliability,
+                                                       converged);
         }
 
-        private WaveHeightCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm, string hydraulicBoundaryDatabaseFilePath)
+        private static WaveHeightCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                              double norm,
+                                                              string hydraulicBoundaryDatabaseFilePath)
         {
             var waveHeightCalculationInput = new WaveHeightCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
 

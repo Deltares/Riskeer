@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
@@ -101,14 +100,8 @@ namespace Ringtoets.Common.Service
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)calculator.DesignWaterLevel;
-                    hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence =
-                        RingtoetsCommonDataCalculationService.CalculationConverged(calculator.ReliabilityIndex, norm);
-
-                    hydraulicBoundaryLocation.DesignWaterLevelOutput = CreateHydraulicBoundaryLocationOutput(messageProvider,
-                                                                                                             hydraulicBoundaryLocation.Name,
-                                                                                                             calculationInput.Beta,
-                                                                                                             norm);
+                    hydraulicBoundaryLocation.DesignWaterLevelOutput = CreateHydraulicBoundaryLocationOutput(
+                        messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm);
                 }
             }
             catch (HydraRingFileParserException)
@@ -172,16 +165,14 @@ namespace Ringtoets.Common.Service
                 log.Warn(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocationName));
             }
 
-            return new HydraulicBoundaryLocationOutput(
-                designWaterLevel,
-                targetProbability,
-                targetReliability,
-                probability,
-                reliability,
-                converged);
+            return new HydraulicBoundaryLocationOutput(designWaterLevel, targetProbability,
+                                                       targetReliability, probability, reliability,
+                                                       converged);
         }
 
-        private AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm, string hydraulicBoundaryDatabaseFilePath)
+        private AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                            double norm,
+                                                            string hydraulicBoundaryDatabaseFilePath)
         {
             var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
 
