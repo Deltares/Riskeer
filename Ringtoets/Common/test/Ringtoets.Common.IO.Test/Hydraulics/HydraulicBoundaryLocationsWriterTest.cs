@@ -22,10 +22,10 @@
 using System;
 using System.IO;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Hydraulics;
 
 namespace Ringtoets.Common.IO.Test.Hydraulics
@@ -91,8 +91,8 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
-                DesignWaterLevel = (RoundedDouble) 111.111,
-                WaveHeight = (RoundedDouble) 222.222
+                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(111.111),
+                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
             };
 
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,

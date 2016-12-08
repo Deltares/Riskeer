@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.MessageProviders;
@@ -188,7 +189,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             HydraulicBoundaryDatabase newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
-                DesignWaterLevel = (RoundedDouble) 10.23
+                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(10.23)
             };
             newHydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
@@ -229,7 +230,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("-", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
 
             // Call
-            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.DesignWaterLevel = RoundedDouble.NaN);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.DesignWaterLevelOutput = null);
             assessmentSection.NotifyObservers();
 
             // Assert
@@ -342,7 +343,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 });
                 Locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    WaveHeight = (RoundedDouble) 2.45
+                    WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(2.45)
                 });
             }
         }

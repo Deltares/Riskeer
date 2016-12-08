@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             RoundedDouble waveHeight = (RoundedDouble) 3.0;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, locationname, coordinateX, coordinateY)
             {
-                WaveHeight = waveHeight
+                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(waveHeight)
             };
 
             // Call

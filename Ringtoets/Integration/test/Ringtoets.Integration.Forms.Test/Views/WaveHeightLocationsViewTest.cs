@@ -24,7 +24,6 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -34,6 +33,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -182,7 +182,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             HydraulicBoundaryDatabase newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
-                WaveHeight = (RoundedDouble) 10.23
+                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(10.23)
             };
             newHydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
@@ -222,7 +222,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
 
             // Call
-            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.WaveHeight = RoundedDouble.NaN);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.WaveHeightOutput = null);
             assessmentSection.NotifyObservers();
 
             // Assert
@@ -307,7 +307,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             var view = ShowWaveHeightLocationsView();
 
-            var assessmentSection = new TestAssessmentSection()
+            var assessmentSection = new TestAssessmentSection
             {
                 HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
             };
@@ -347,11 +347,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
                 Locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
-                    WaveHeight = (RoundedDouble) 1.23
+                    WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(1.23)
                 });
                 Locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    DesignWaterLevel = (RoundedDouble) 2.45
+                    DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(2.45)
                 });
             }
         }

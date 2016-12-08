@@ -35,6 +35,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.MessageProviders;
@@ -156,11 +157,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
                 new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
-                    WaveHeight = (RoundedDouble) 1.23
+                    WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(1.23)
                 },
                 new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    DesignWaterLevel = (RoundedDouble) 2.45
+                    DesignWaterLevelOutput =  new TestHydraulicBoundaryLocationOutput(2.45)
                 }
             };
 
@@ -223,7 +224,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
-                DesignWaterLevel = (RoundedDouble) 10.23
+                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(10.23)
             };
 
             locations.Clear();
@@ -416,11 +417,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
                 new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
-                    DesignWaterLevel = (RoundedDouble) 1.23
+                    DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(1.23)
                 },
                 new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    WaveHeight = (RoundedDouble) 2.45
+                    WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(2.45)
                 }
             };
             return view;

@@ -108,8 +108,10 @@ namespace Ringtoets.Integration.Forms.Test
             };
 
             var grassCoverErosionOutwardsHydraulicBoundaryLocation = hydraulicBoundaryLocation;
-            grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight = waveHeight;
-            grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel = designWaterLevel;
+            grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(
+                waveHeight);
+            grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(
+                designWaterLevel);
 
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 

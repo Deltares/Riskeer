@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/>.
         /// </summary>
-        public TestHydraulicBoundaryLocation() : this(null, null) { }
+        public TestHydraulicBoundaryLocation() : this(null, null) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevelOutput"/> 
@@ -47,12 +47,11 @@ namespace Ringtoets.Common.Data.TestUtil
             if (designWaterLevel.HasValue)
             {
                 DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(designWaterLevel.Value, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
-                DesignWaterLevel = (RoundedDouble)designWaterLevel.Value;
+                DesignWaterLevel = (RoundedDouble) designWaterLevel.Value;
             }
             if (waveHeight.HasValue)
             {
                 WaveHeightOutput = new HydraulicBoundaryLocationOutput(waveHeight.Value, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
-                WaveHeight = (RoundedDouble)waveHeight.Value;
             }
         }
 

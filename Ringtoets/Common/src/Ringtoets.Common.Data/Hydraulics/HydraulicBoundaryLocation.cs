@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Data.Hydraulics
             get
             {
                 return DesignWaterLevelOutput == null
-                           ? new RoundedDouble(2, double.NaN)
+                           ? (RoundedDouble) double.NaN
                            : DesignWaterLevelOutput.Result;
             }
             set
@@ -106,19 +106,15 @@ namespace Ringtoets.Common.Data.Hydraulics
         }
 
         /// <summary>
-        /// Gets or sets the wave height of the hydraulic boundary location.
+        /// Gets the wave height of the hydraulic boundary location.
         /// </summary>
         public RoundedDouble WaveHeight
         {
             get
             {
                 return WaveHeightOutput == null
-                           ? new RoundedDouble(2, double.NaN)
+                           ? (RoundedDouble) double.NaN
                            : WaveHeightOutput.Result;
-            }
-            set
-            {
-                WaveHeightOutput = new HydraulicBoundaryLocationOutput(value, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
             }
         }
 

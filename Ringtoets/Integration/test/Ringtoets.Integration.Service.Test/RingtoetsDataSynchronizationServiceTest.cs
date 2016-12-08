@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -218,24 +217,27 @@ namespace Ringtoets.Integration.Service.Test
             double waveHeight, double designWaterLevel)
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(waveHeight, designWaterLevel);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
+                }
             };
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0)
-            {
-                WaveHeight = (RoundedDouble) waveHeight,
-                DesignWaterLevel = (RoundedDouble) designWaterLevel
-            };
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase,
-                                                                                                                                assessmentSection.GrassCoverErosionOutwards);
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
+                assessmentSection.HydraulicBoundaryDatabase, assessmentSection.GrassCoverErosionOutwards);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
+            Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
+            Assert.IsNull(hydraulicBoundaryLocation.WaveHeightOutput);
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
@@ -298,8 +300,10 @@ namespace Ringtoets.Integration.Service.Test
             };
 
             var grassCoverErosionOutwardsHydraulicBoundaryLocation = hydraulicBoundaryLocation;
-            grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) designWaterLevel;
-            grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight = (RoundedDouble) waveHeight;
+            grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(
+                designWaterLevel, CalculationConvergence.CalculatedConverged);
+            grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(
+                waveHeight, CalculationConvergence.CalculatedConverged);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
@@ -315,6 +319,8 @@ namespace Ringtoets.Integration.Service.Test
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
+            Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput);
+            Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput);
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
@@ -361,11 +367,7 @@ namespace Ringtoets.Integration.Service.Test
             double designWaterLevel, double waveHeight)
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 0, 0)
-            {
-                DesignWaterLevel = (RoundedDouble) designWaterLevel,
-                WaveHeight = (RoundedDouble) waveHeight
-            };
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(designWaterLevel, waveHeight);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -374,11 +376,7 @@ namespace Ringtoets.Integration.Service.Test
                 }
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new HydraulicBoundaryLocation(2, "test2", 0, 0)
-            {
-                DesignWaterLevel = (RoundedDouble) designWaterLevel,
-                WaveHeight = (RoundedDouble) waveHeight
-            };
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(designWaterLevel, waveHeight);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
@@ -394,6 +392,8 @@ namespace Ringtoets.Integration.Service.Test
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
+            Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
+            Assert.IsNull(hydraulicBoundaryLocation.WaveHeightOutput);
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
@@ -401,6 +401,8 @@ namespace Ringtoets.Integration.Service.Test
 
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
+            Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput);
+            Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput);
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
