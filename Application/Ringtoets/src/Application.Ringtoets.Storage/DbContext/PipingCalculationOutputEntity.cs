@@ -28,11 +28,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class PipingCalculationOutputEntity
     {
         public long PipingCalculationOutputEntityId { get; set; }
@@ -48,7 +47,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> SellmeijerCreepCoefficient { get; set; }
         public Nullable<double> SellmeijerCriticalFall { get; set; }
         public Nullable<double> SellmeijerReducedFall { get; set; }
-    
+
         public virtual PipingCalculationEntity PipingCalculationEntity { get; set; }
     }
 }
