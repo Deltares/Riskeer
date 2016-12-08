@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -102,13 +101,10 @@ namespace Ringtoets.Common.Service
 
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation location)
         {
-            if (!double.IsNaN(location.DesignWaterLevel) ||
-                !double.IsNaN(location.WaveHeight))
+            if (location.DesignWaterLevelOutput != null || location.WaveHeightOutput != null)
             {
-                location.DesignWaterLevel = RoundedDouble.NaN;
-                location.WaveHeight = RoundedDouble.NaN;
-                location.DesignWaterLevelCalculationConvergence = CalculationConvergence.NotCalculated;
-                location.WaveHeightCalculationConvergence = CalculationConvergence.NotCalculated;
+                location.DesignWaterLevelOutput = null;
+                location.WaveHeightOutput = null;
 
                 return new[]
                 {

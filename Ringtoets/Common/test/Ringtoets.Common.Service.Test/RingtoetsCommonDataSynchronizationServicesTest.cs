@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
@@ -49,18 +48,12 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        [TestCase(3.4, 5.3)]
-        [TestCase(3.4, double.NaN)]
-        [TestCase(double.NaN, 8.5)]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsTrue(double designWaterLevel, double waveHeight)
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsAffectedObjects(
+            [Values(3.4, double.NaN)] double designWaterLevel,
+            [Values(5.3, double.NaN)] double waveHeight)
         {
             // Setup
-            var location = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-            {
-                DesignWaterLevel = (RoundedDouble) designWaterLevel,
-                WaveHeight = (RoundedDouble) waveHeight
-            };
-
+            HydraulicBoundaryLocation location = new TestHydraulicBoundaryLocation(designWaterLevel, waveHeight);
             var locations = new ObservableList<HydraulicBoundaryLocation>
             {
                 location
@@ -70,6 +63,8 @@ namespace Ringtoets.Common.Service.Test
             IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
 
             // Assert
+            Assert.IsNull(location.DesignWaterLevelOutput);
+            Assert.IsNull(location.WaveHeightOutput);
             Assert.IsNaN(location.DesignWaterLevel);
             Assert.IsNaN(location.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
@@ -82,7 +77,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryDatabaseWithoutLocations_ReturnsFalse()
+        public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryDatabaseWithoutLocations_ReturnsNoAffectedObjects()
         {
             // Setup
             var locations = new ObservableList<HydraulicBoundaryLocation>();
@@ -95,7 +90,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutWaveHeightAndDesignWaterLevel_ReturnsFalse()
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutWaveHeightAndDesignWaterLevel_ReturnsNoAffectedObjects()
         {
             // Setup
             var locations = new ObservableList<HydraulicBoundaryLocation>
@@ -167,7 +162,7 @@ namespace Ringtoets.Common.Service.Test
         public void ClearForeshoreProfile_CalculationsWithForeshoreProfile_ClearForeshoreProfileAndReturnAffectedInputs()
         {
             // Setup
-            var foreshoreProfileToBeRemoved = new TestForeshoreProfile(new Point2D(0,0));
+            var foreshoreProfileToBeRemoved = new TestForeshoreProfile(new Point2D(0, 0));
             var foreshoreProfile = new TestForeshoreProfile(new Point2D(1, 1));
 
             var calculation1 = new StructuresCalculation<SimpleStructuresInput>
@@ -224,10 +219,7 @@ namespace Ringtoets.Common.Service.Test
 
         private class SimpleStructuresInput : StructuresInputBase<StructureBase>
         {
-            protected override void UpdateStructureParameters()
-            {
-                
-            }
+            protected override void UpdateStructureParameters() {}
         }
     }
 }

@@ -21,7 +21,6 @@
 
 using System.ComponentModel;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -49,11 +48,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            RoundedDouble designWaterLevel = (RoundedDouble) 12.34;
-            var location = new HydraulicBoundaryLocation(1, "name", 1.0, 2.0)
-            {
-                DesignWaterLevel = designWaterLevel
-            };
+            var designWaterLevel = 12.34;
+            var location = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(designWaterLevel);
 
             // Call
             GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties

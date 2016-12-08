@@ -56,10 +56,10 @@ namespace Ringtoets.Integration.TestUtils
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
-                DesignWaterLevel = (RoundedDouble) 1.1,
-                DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged,
-                WaveHeight = (RoundedDouble) 2.2,
-                WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged
+                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                    1.1, double.NaN,double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged),
+                WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                    2.2, double.NaN,double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged)
             };
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {

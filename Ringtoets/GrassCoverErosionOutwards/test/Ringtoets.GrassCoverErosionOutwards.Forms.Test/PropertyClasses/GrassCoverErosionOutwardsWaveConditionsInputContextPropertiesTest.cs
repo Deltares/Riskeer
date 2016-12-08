@@ -31,7 +31,6 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
@@ -139,10 +138,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                     Orientation = foreshoreProfileOrientation,
                     X0 = -3
                 });
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-            {
-                DesignWaterLevel = assessmentLevel
-            };
+            var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel);
             var input = new WaveConditionsInput()
             {
                 ForeshoreProfile = foreshoreProfile,
@@ -198,10 +194,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var newUpperBoundaryWaterLevels = newLowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
             var newStepSize = WaveConditionsInputStepSize.Half;
 
-            var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1)
-            {
-                DesignWaterLevel = assessmentLevel
-            };
+            var newHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel);
             var newSelectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newHydraulicBoundaryLocation, null);
 
             var input = new WaveConditionsInput();

@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -172,11 +173,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var hydraulicLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-            {
-                DesignWaterLevel = (RoundedDouble) 3.8,
-                WaveHeight = (RoundedDouble) 5.2
-            };
+            var hydraulicLocation = new TestHydraulicBoundaryLocation(3.8, 5.2);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
