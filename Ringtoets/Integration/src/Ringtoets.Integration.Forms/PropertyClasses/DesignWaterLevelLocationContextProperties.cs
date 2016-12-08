@@ -26,7 +26,6 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -80,8 +79,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetProbability_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetProbability_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocationOutput_TargetProbability_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocationOutput_TargetProbability_Description")]
         [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
         public double TargetProbability
         {
@@ -96,8 +95,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(6)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetReliability_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetReliability_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocationOutput_TargetReliability_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocationOutput_TargetReliability_Description")]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble TargetReliability
         {
@@ -106,14 +105,14 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelOutput;
                 return output != null
                            ? output.TargetReliability
-                           : (RoundedDouble)double.NaN;
+                           : (RoundedDouble) double.NaN;
             }
         }
 
         [PropertyOrder(7)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedProbability_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedProbability_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocationOutput_CalculatedProbability_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocationOutput_CalculatedProbability_Description")]
         [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
         public double CalculatedProbability
         {
@@ -128,15 +127,15 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(8)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedReliability_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedReliability_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocationOutput_CalculatedReliability_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocationOutput_CalculatedReliability_Description")]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble CalculatedReliability
         {
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelOutput;
-                return output != null ? output.CalculatedReliability : (RoundedDouble)double.NaN;
+                return output != null ? output.CalculatedReliability : (RoundedDouble) double.NaN;
             }
         }
 

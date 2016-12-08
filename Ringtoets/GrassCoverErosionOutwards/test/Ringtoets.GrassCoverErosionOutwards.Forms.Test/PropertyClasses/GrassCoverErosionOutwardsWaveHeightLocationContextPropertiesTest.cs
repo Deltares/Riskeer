@@ -22,9 +22,9 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -36,6 +36,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveHeightLocationContextPropertiesTest
     {
+        private const int idPropertyIndex = 0;
+        private const int namePropertyIndex = 1;
+        private const int coordinatesPropertyIndex = 2;
+        private const int waveHeightPropertyIndex = 3;
+        private const int targetProbabilityPropertyIndex = 4;
+        private const int targetReliabilityPropertyIndex = 5;
+        private const int calculatedProbabilityPropertyIndex = 6;
+        private const int calculatedReliabilityPropertyIndex = 7;
+        private const int convergencePropertyIndex = 8;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -51,18 +61,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [TestCase(CalculationConvergence.CalculatedConverged, "Ja")]
         [TestCase(CalculationConvergence.CalculatedNotConverged, "Nee")]
         [TestCase(CalculationConvergence.NotCalculated, "")]
-        public void GetProperties_ValidData_ReturnsExpectedValues(CalculationConvergence convergenceReached, string expectedConvergenceValue)
+        public void GetProperties_ValidData_ReturnsExpectedValues(CalculationConvergence convergence, string expectedConvergenceValue)
         {
             // Setup
+            var random = new Random();
             const long id = 1;
             const double x = 567.0;
             const double y = 890.0;
             const string name = "name";
-            var waveHeight = (RoundedDouble) 1234;
+
+            double targetProbability = random.NextDouble();
+            double targetReliability = random.NextDouble();
+            double calculatedProbability = random.NextDouble();
+            double calculatedReliability = random.NextDouble();
+            double waveHeight = random.NextDouble();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
-                WaveHeight = waveHeight,
-                WaveHeightCalculationConvergence = convergenceReached
+                WaveHeightOutput = new HydraulicBoundaryLocationOutput(waveHeight, targetProbability,
+                                                                       targetReliability,
+                                                                       calculatedProbability,
+                                                                       calculatedReliability,
+                                                                       convergence)
             };
             var locations = new ObservableList<HydraulicBoundaryLocation>
             {
@@ -82,6 +102,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
             Assert.AreEqual(waveHeight, properties.WaveHeight, properties.WaveHeight.GetAccuracy());
+
+            Assert.AreEqual(targetProbability, properties.TargetProbability);
+            Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
+            Assert.AreEqual(calculatedProbability, properties.CalculatedProbability);
+            Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(expectedConvergenceValue, properties.Convergence);
         }
 
@@ -89,81 +114,100 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 567.0, 890.0);
-            var locations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                hydraulicBoundaryLocation
-            };
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationContext(locations, hydraulicBoundaryLocation);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationContextProperties
             {
-                Data = context
+                Data = new GrassCoverErosionOutwardsWaveHeightLocationContext(new ObservableList<HydraulicBoundaryLocation>
+                {
+                    hydraulicBoundaryLocation
+                }, hydraulicBoundaryLocation)
             };
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            var propertyBag = new DynamicPropertyBag(properties);
+
+            PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]
             {
-                BrowsableAttribute.Yes
+                new BrowsableAttribute(true)
             });
 
-            PropertyDescriptor idProperty = dynamicProperties[0];
-            PropertyDescriptor nameProperty = dynamicProperties[1];
-            PropertyDescriptor locationProperty = dynamicProperties[2];
-            PropertyDescriptor waveHeightProperty = dynamicProperties[3];
-            PropertyDescriptor convergenceProperty = dynamicProperties[4];
-
+            Assert.AreEqual(9, dynamicProperties.Count);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
-            const string expectedCategory = "Algemeen";
-            const string expectedIdDisplayName = "ID";
-            const string expectedIdDescription = "ID van de hydraulische randvoorwaardenlocatie in de database.";
-            const string expectedNameDisplayName = "Naam";
-            const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
-            const string expectedLocationDisplayName = "Coördinaten [m]";
-            const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
-            const string expectedWaveHeightDisplayName = "Golfhoogte bij doorsnede-eis [m]";
-            const string expectedWaveHeightDescription = "Berekende golfhoogte bij doorsnede-eis.";
-            const string expectedConvergenceDisplayName = "Convergentie";
-            const string expectedConvergenceDescription = "Is convergentie bereikt in de berekening van de golfhoogte bij doorsnede-eis?";
-
+            PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
             Assert.IsNotNull(idProperty);
-            Assert.IsTrue(idProperty.IsReadOnly);
-            Assert.IsTrue(idProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, idProperty.Category);
-            Assert.AreEqual(expectedIdDisplayName, idProperty.DisplayName);
-            Assert.AreEqual(expectedIdDescription, idProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
+                                                                            "Algemeen",
+                                                                            "ID",
+                                                                            "ID van de hydraulische randvoorwaardenlocatie in de database.",
+                                                                            true);
 
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             Assert.IsNotNull(nameProperty);
-            Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.IsTrue(nameProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, nameProperty.Category);
-            Assert.AreEqual(expectedNameDisplayName, nameProperty.DisplayName);
-            Assert.AreEqual(expectedNameDescription, nameProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            "Algemeen",
+                                                                            "Naam",
+                                                                            "Naam van de hydraulische randvoorwaardenlocatie.",
+                                                                            true);
 
-            Assert.IsNotNull(locationProperty);
-            Assert.IsTrue(locationProperty.IsReadOnly);
-            Assert.IsTrue(locationProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, locationProperty.Category);
-            Assert.AreEqual(expectedLocationDisplayName, locationProperty.DisplayName);
-            Assert.AreEqual(expectedLocationDescription, locationProperty.Description);
+            PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
+            Assert.IsNotNull(coordinatesProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
+                                                                            "Algemeen",
+                                                                            "Coördinaten [m]",
+                                                                            "Coördinaten van de hydraulische randvoorwaardenlocatie.",
+                                                                            true);
 
+            PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightPropertyIndex];
             Assert.IsNotNull(waveHeightProperty);
-            Assert.IsTrue(waveHeightProperty.IsReadOnly);
-            Assert.IsTrue(waveHeightProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, waveHeightProperty.Category);
-            Assert.AreEqual(expectedWaveHeightDisplayName, waveHeightProperty.DisplayName);
-            Assert.AreEqual(expectedWaveHeightDescription, waveHeightProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
+                                                                            "Resultaat",
+                                                                            "Golfhoogte bij doorsnede-eis [m]",
+                                                                            "Berekende golfhoogte bij doorsnede-eis.",
+                                                                            true);
 
+            PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
+            Assert.IsNotNull(targetProbabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Doelkans [1/jaar]",
+                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor targetReliabilityProperty = dynamicProperties[targetReliabilityPropertyIndex];
+            Assert.IsNotNull(targetReliabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Betrouwbaarheidsindex doelkans [-]",
+                                                                            "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor calculatedProbabilityProperty = dynamicProperties[calculatedProbabilityPropertyIndex];
+            Assert.IsNotNull(calculatedProbabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Berekende kans [1/jaar]",
+                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor calculatedReliabilityProperty = dynamicProperties[calculatedReliabilityPropertyIndex];
+            Assert.IsNotNull(calculatedReliabilityProperty);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Betrouwbaarheidsindex berekende kans [-]",
+                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor convergenceProperty = dynamicProperties[convergencePropertyIndex];
             Assert.IsNotNull(convergenceProperty);
-            Assert.IsTrue(convergenceProperty.IsReadOnly);
-            Assert.IsTrue(convergenceProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, convergenceProperty.Category);
-            Assert.AreEqual(expectedConvergenceDisplayName, convergenceProperty.DisplayName);
-            Assert.AreEqual(expectedConvergenceDescription, convergenceProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
+                                                                            "Resultaat",
+                                                                            "Convergentie",
+                                                                            "Is convergentie bereikt in de berekening van de golfhoogte bij doorsnede-eis?",
+                                                                            true);
         }
     }
 }

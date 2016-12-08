@@ -49,6 +49,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private const int convergencePropertyIndex = 8;
 
         [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var properties = new DesignWaterLevelLocationContextProperties();
+
+            // Assert
+            Assert.IsInstanceOf<HydraulicBoundaryLocationProperties>(properties);
+            Assert.IsNull(properties.Data);
+        }
+
+        [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
         {
             // Setup

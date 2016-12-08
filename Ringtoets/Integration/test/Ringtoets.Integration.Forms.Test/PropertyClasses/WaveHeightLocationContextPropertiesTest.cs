@@ -48,6 +48,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private const int convergencePropertyIndex = 8;
 
         [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var properties = new WaveHeightLocationContextProperties();
+
+            // Assert
+            Assert.IsInstanceOf<HydraulicBoundaryLocationProperties>(properties);
+            Assert.IsNull(properties.Data);
+        }
+
+        [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
         {
             // Setup
@@ -246,7 +257,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
                                                                             "Resultaat",
                                                                             "Convergentie",
-                                                                            "Is convergentie bereikt in de toetspeil berekening?",
+                                                                            "Is convergentie bereikt in de golfhoogte berekening?",
                                                                             true);
         }
     }

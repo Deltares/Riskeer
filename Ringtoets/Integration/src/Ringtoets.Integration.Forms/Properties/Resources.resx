@@ -168,12 +168,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
     <value>Hydraulische randvoorwaardendatabase</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Location_DesignWaterLevel_Description" xml:space="preserve">
-    <value>Berekend toetspeil.</value>
-  </data>
-  <data name="HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName" xml:space="preserve">
-    <value>Toetspeil [m+NAP]</value>
-  </data>
   <data name="RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked" xml:space="preserve">
     <value>Database op pad '{0}' gekoppeld.</value>
   </data>
@@ -273,12 +267,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="WaveHeight_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle golfhoogtes berekenen.</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Location_WaveHeight_Description" xml:space="preserve">
-    <value>Berekende golfhoogte.</value>
-  </data>
-  <data name="HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName" xml:space="preserve">
-    <value>Hs [m]</value>
-  </data>
   <data name="HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de toetspeil berekening?</value>
   </data>
@@ -288,28 +276,16 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_Convergence_DisplayName" xml:space="preserve">
     <value>Convergentie</value>
   </data>
-  <data name="HydraulicBoundaryLocationOutput_CalculatedProbability_Description" xml:space="preserve">
-    <value>De berekende kans van voorkomen van het berekende resultaat.</value>
+  <data name="HydraulicBoundaryDatabase_Location_DesignWaterLevel_Description" xml:space="preserve">
+    <value>Berekend toetspeil.</value>
   </data>
-  <data name="HydraulicBoundaryLocationOutput_CalculatedProbability_DisplayName" xml:space="preserve">
-    <value>Berekende kans [1/jaar]</value>
+  <data name="HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName" xml:space="preserve">
+    <value>Toetspeil [m+NAP]</value>
   </data>
-  <data name="HydraulicBoundaryLocationOutput_CalculatedReliability_Description" xml:space="preserve">
-    <value>Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.</value>
+  <data name="HydraulicBoundaryDatabase_Location_WaveHeight_Description" xml:space="preserve">
+    <value>Berekende golfhoogte.</value>
   </data>
-  <data name="HydraulicBoundaryLocationOutput_CalculatedReliability_DisplayName" xml:space="preserve">
-    <value>Betrouwbaarheidsindex berekende kans [-]</value>
-  </data>
-  <data name="HydraulicBoundaryLocationOutput_TargetProbability_Description" xml:space="preserve">
-    <value>De ingevoerde kans waarvoor het resultaat moet worden berekend.</value>
-  </data>
-  <data name="HydraulicBoundaryLocationOutput_TargetProbability_DisplayName" xml:space="preserve">
-    <value>Doelkans [1/jaar]</value>
-  </data>
-  <data name="HydraulicBoundaryLocationOutput_TargetReliability_Description" xml:space="preserve">
-    <value>Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.</value>
-  </data>
-  <data name="HydraulicBoundaryLocationOutput_TargetReliability_DisplayName" xml:space="preserve">
-    <value>Betrouwbaarheidsindex doelkans [-]</value>
+  <data name="HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName" xml:space="preserve">
+    <value>Hs [m]</value>
   </data>
 </root>
