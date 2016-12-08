@@ -67,13 +67,19 @@ namespace Ringtoets.Piping.Data.Test
                 pipingFactorOfSafety);
 
             // Assert
+            Assert.AreEqual(3, output.HeaveFactorOfSafety.NumberOfDecimalPlaces);
             Assert.AreEqual(upliftFactorOfSafety, output.UpliftFactorOfSafety, output.UpliftFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(5, output.UpliftReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(upliftReliability, output.UpliftReliability, output.UpliftReliability.GetAccuracy());
             Assert.AreEqual(upliftProbability, output.UpliftProbability);
+            Assert.AreEqual(3, output.HeaveFactorOfSafety.NumberOfDecimalPlaces);
             Assert.AreEqual(heaveFactorOfSafety, output.HeaveFactorOfSafety, output.HeaveFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(5, output.HeaveReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(heaveReliability, output.HeaveReliability, output.HeaveReliability.GetAccuracy());
             Assert.AreEqual(heaveProbability, output.HeaveProbability);
+            Assert.AreEqual(3, output.SellmeijerFactorOfSafety.NumberOfDecimalPlaces);
             Assert.AreEqual(sellmeijerFactorOfSafety, output.SellmeijerFactorOfSafety, output.SellmeijerFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(5, output.SellmeijerReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(sellmeijerReliability, output.SellmeijerReliability, output.SellmeijerReliability.GetAccuracy());
             Assert.AreEqual(sellmeijerProbability, output.SellmeijerProbability);
             Assert.AreEqual(requiredProbability, output.RequiredProbability);
