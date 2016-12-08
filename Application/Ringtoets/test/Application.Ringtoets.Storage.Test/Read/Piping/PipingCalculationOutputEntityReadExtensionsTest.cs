@@ -40,7 +40,11 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 UpliftZValue = 5.4,
                 UpliftFactorOfSafety = 3.2,
                 SellmeijerZValue = 1.9,
-                SellmeijerFactorOfSafety = 8.7
+                SellmeijerFactorOfSafety = 8.7,
+                HeaveGradient = 12.2,
+                SellmeijerCreepCoefficient = 1.4,
+                SellmeijerCriticalFall = 6.2,
+                SellmeijerReducedFall = 8.1
             };
 
             // Call
@@ -53,6 +57,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(entity.SellmeijerZValue, output.SellmeijerZValue);
             Assert.AreEqual(entity.UpliftZValue, output.UpliftZValue);
             Assert.AreEqual(entity.UpliftFactorOfSafety, output.UpliftFactorOfSafety);
+            Assert.AreEqual(entity.HeaveGradient, output.HeaveGradient.Value);
+            Assert.AreEqual(entity.SellmeijerCreepCoefficient, output.SellmeijerCreepCoefficient.Value);
+            Assert.AreEqual(entity.SellmeijerCriticalFall, output.SellmeijerCriticalFall.Value);
+            Assert.AreEqual(entity.SellmeijerReducedFall, output.SellmeijerReducedFall.Value);
         }
 
         [Test]
@@ -66,7 +74,11 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 UpliftZValue = null,
                 UpliftFactorOfSafety = null,
                 SellmeijerZValue = null,
-                SellmeijerFactorOfSafety = null
+                SellmeijerFactorOfSafety = null,
+                HeaveGradient = null,
+                SellmeijerCreepCoefficient = null,
+                SellmeijerCriticalFall = null,
+                SellmeijerReducedFall = null
             };
 
             // Call
@@ -79,6 +91,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNaN(output.SellmeijerZValue);
             Assert.IsNaN(output.UpliftZValue);
             Assert.IsNaN(output.UpliftFactorOfSafety);
+            Assert.IsNaN(output.HeaveGradient);
+            Assert.IsNaN(output.SellmeijerCreepCoefficient);
+            Assert.IsNaN(output.SellmeijerCriticalFall);
+            Assert.IsNaN(output.SellmeijerReducedFall);
         }
     }
 }

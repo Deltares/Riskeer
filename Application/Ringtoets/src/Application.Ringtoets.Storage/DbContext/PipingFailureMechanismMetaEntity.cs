@@ -30,13 +30,16 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class PipingFailureMechanismMetaEntity
     {
         public long PipingFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public double A { get; set; }
         public double WaterVolumetricWeight { get; set; }
-
+    
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
 }

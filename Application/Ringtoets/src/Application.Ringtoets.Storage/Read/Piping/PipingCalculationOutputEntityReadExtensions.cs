@@ -41,8 +41,9 @@ namespace Application.Ringtoets.Storage.Read.Piping
         {
             return new PipingOutput(entity.UpliftZValue.ToNullAsNaN(), entity.UpliftFactorOfSafety.ToNullAsNaN(),
                                     entity.HeaveZValue.ToNullAsNaN(), entity.HeaveFactorOfSafety.ToNullAsNaN(),
-                                    entity.SellmeijerZValue.ToNullAsNaN(), entity.SellmeijerFactorOfSafety.ToNullAsNaN(), 
-                                    double.NaN, double.NaN, double.NaN, double.NaN);
+                                    entity.SellmeijerZValue.ToNullAsNaN(), entity.SellmeijerFactorOfSafety.ToNullAsNaN(),
+                                    entity.HeaveGradient.ToNullAsNaN(), entity.SellmeijerCreepCoefficient.ToNullAsNaN(),
+                                    entity.SellmeijerCriticalFall.ToNullAsNaN(), entity.SellmeijerReducedFall.ToNullAsNaN());
         }
     }
 }

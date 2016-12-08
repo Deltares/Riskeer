@@ -45,7 +45,11 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 SellmeijerFactorOfSafety = output.SellmeijerFactorOfSafety.ToNaNAsNull(),
                 SellmeijerZValue = output.SellmeijerZValue.ToNaNAsNull(),
                 UpliftFactorOfSafety = output.UpliftFactorOfSafety.ToNaNAsNull(),
-                UpliftZValue = output.UpliftZValue.ToNaNAsNull()
+                UpliftZValue = output.UpliftZValue.ToNaNAsNull(),
+                HeaveGradient = output.HeaveGradient.Value.ToNaNAsNull(),
+                SellmeijerCreepCoefficient = output.SellmeijerCreepCoefficient.Value.ToNaNAsNull(),
+                SellmeijerCriticalFall = output.SellmeijerCriticalFall.Value.ToNaNAsNull(),
+                SellmeijerReducedFall = output.SellmeijerReducedFall.Value.ToNaNAsNull()
             };
             return entity;
         }

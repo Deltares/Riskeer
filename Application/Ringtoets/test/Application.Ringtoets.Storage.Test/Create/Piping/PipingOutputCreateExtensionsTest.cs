@@ -45,6 +45,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(pipingOutput.SellmeijerZValue, entity.SellmeijerZValue);
             Assert.AreEqual(pipingOutput.UpliftFactorOfSafety, entity.UpliftFactorOfSafety);
             Assert.AreEqual(pipingOutput.UpliftZValue, entity.UpliftZValue);
+            Assert.AreEqual(pipingOutput.HeaveGradient.Value, entity.HeaveGradient);
+            Assert.AreEqual(pipingOutput.SellmeijerCreepCoefficient.Value, entity.SellmeijerCreepCoefficient);
+            Assert.AreEqual(pipingOutput.SellmeijerCriticalFall.Value, entity.SellmeijerCriticalFall);
+            Assert.AreEqual(pipingOutput.SellmeijerReducedFall.Value, entity.SellmeijerReducedFall);
 
             Assert.AreEqual(0, entity.PipingCalculationOutputEntityId);
             Assert.AreEqual(0, entity.PipingCalculationEntityId);
@@ -69,6 +73,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNull(entity.SellmeijerZValue);
             Assert.IsNull(entity.UpliftFactorOfSafety);
             Assert.IsNull(entity.UpliftZValue);
+            Assert.IsNull(entity.HeaveGradient);
+            Assert.IsNull(entity.SellmeijerCreepCoefficient);
+            Assert.IsNull(entity.SellmeijerCriticalFall);
+            Assert.IsNull(entity.SellmeijerReducedFall);
 
             Assert.AreEqual(0, entity.PipingCalculationOutputEntityId);
             Assert.AreEqual(0, entity.PipingCalculationEntityId);

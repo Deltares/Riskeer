@@ -28,20 +28,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class ClosingStructuresOutputEntity
     {
         public long ClosingStructuresOutputEntityId { get; set; }
         public long ClosingStructuresCalculationEntityId { get; set; }
-
-        public virtual ClosingStructuresCalculationEntity ClosingStructuresCalculationEntity { get; set; }
         public Nullable<double> RequiredProbability { get; set; }
         public Nullable<double> RequiredReliability { get; set; }
         public Nullable<double> Probability { get; set; }
         public Nullable<double> Reliability { get; set; }
         public Nullable<double> FactorOfSafety { get; set; }
+    
+        public virtual ClosingStructuresCalculationEntity ClosingStructuresCalculationEntity { get; set; }
     }
 }

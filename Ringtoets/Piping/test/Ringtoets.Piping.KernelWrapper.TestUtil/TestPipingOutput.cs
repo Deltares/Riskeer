@@ -32,6 +32,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         /// <summary>
         /// Creates a new instance of the <see cref="TestPipingOutput"/> class.
         /// </summary>
-        public TestPipingOutput() : base(0, 0, 0, 0, 0, 0, 0, 0, 0, 0) {}
+        public TestPipingOutput() : base(1.1, 1.50, 6.51, 3.75, 8.92, 6.3, 8.4, 9.9, 4.1, 2.21) {}
     }
 }
