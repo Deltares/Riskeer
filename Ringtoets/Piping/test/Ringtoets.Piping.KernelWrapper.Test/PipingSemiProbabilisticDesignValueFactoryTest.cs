@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 
 namespace Ringtoets.Piping.KernelWrapper.Test
 {
@@ -31,7 +34,23 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         #region General parameters
 
         [Test]
-        public void GetThicknessCoverageLayer_ValidPipingCalculation_CreateDesignVariableForThicknessCoverageLayer()
+        public void GetThicknessCoverageLayer_PipingInputWithCoverLayer_CreateDesignVariableForThicknessCoverageLayer()
+        {
+            // Setup
+            var inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+
+            // Call
+            DesignVariable<LogNormalDistribution> thicknessCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters);
+
+            // Assert
+            Assert.IsInstanceOf<PercentileBasedDesignVariable<LogNormalDistribution>>(thicknessCoverageLayer);
+            Assert.AreEqual(inputParameters.ThicknessCoverageLayer.Mean, thicknessCoverageLayer.Distribution.Mean);
+            Assert.AreEqual(inputParameters.ThicknessCoverageLayer.StandardDeviation, thicknessCoverageLayer.Distribution.StandardDeviation);
+            AssertPercentile(0.05, thicknessCoverageLayer);
+        }
+
+        [Test]
+        public void GetThicknessCoverageLayer_PipingInputWithoutCoverLayer_CreateDesignVariableForThicknessCoverageLayer()
         {
             // Setup
             var inputParameters = new PipingInput(new GeneralPipingInput());
@@ -42,7 +61,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Assert
             Assert.AreEqual(inputParameters.ThicknessCoverageLayer.Mean, thicknessCoverageLayer.Distribution.Mean);
             Assert.AreEqual(inputParameters.ThicknessCoverageLayer.StandardDeviation, thicknessCoverageLayer.Distribution.StandardDeviation);
-            Assert.AreEqual(0.05, thicknessCoverageLayer.Percentile);
+            Assert.AreEqual(new RoundedDouble(2), thicknessCoverageLayer.GetDesignValue());
         }
 
         [Test]
@@ -56,7 +75,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreSame(inputParameters.PhreaticLevelExit, freaticLevelExit.Distribution);
-            Assert.AreEqual(0.05, freaticLevelExit.Percentile);
+            AssertPercentile(0.05, freaticLevelExit);
         }
 
         [Test]
@@ -70,7 +89,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreSame(inputParameters.DampingFactorExit, dampingFactorExit.Distribution);
-            Assert.AreEqual(0.95, dampingFactorExit.Percentile);
+            AssertPercentile(0.95, dampingFactorExit);
         }
 
         #endregion
@@ -89,7 +108,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Assert
             Assert.AreEqual(inputParameters.SeepageLength.Mean, seepageLength.Distribution.Mean);
             Assert.AreEqual(inputParameters.SeepageLength.StandardDeviation, seepageLength.Distribution.StandardDeviation);
-            Assert.AreEqual(0.05, seepageLength.Percentile);
+            AssertPercentile(0.05, seepageLength);
         }
 
         [Test]
@@ -104,7 +123,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Assert
             Assert.AreEqual(inputParameters.Diameter70.Mean, d70.Distribution.Mean);
             Assert.AreEqual(inputParameters.Diameter70.StandardDeviation, d70.Distribution.StandardDeviation);
-            Assert.AreEqual(0.05, d70.Percentile);
+            AssertPercentile(0.05, d70);
         }
 
         [Test]
@@ -119,11 +138,31 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Assert
             Assert.AreEqual(inputParameters.DarcyPermeability.Mean, darcyPermeability.Distribution.Mean);
             Assert.AreEqual(inputParameters.DarcyPermeability.StandardDeviation, darcyPermeability.Distribution.StandardDeviation);
-            Assert.AreEqual(0.95, darcyPermeability.Percentile);
+            AssertPercentile(0.95, darcyPermeability);
         }
 
         [Test]
-        public void GetSaturatedVolumicWeightOfCoverageLayer_ValidPipingCalculation_CreateDesignVariableForSaturatedVolumicWeightOfCoverageLayer()
+        public void GetSaturatedVolumicWeightOfCoverageLayer_PipingInputWithCoverLayerWithSaturatedDefinition_CreateDesignVariableForSaturatedVolumicWeightOfCoverageLayer()
+        {
+            // Setup
+            var inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            inputParameters.StochasticSoilProfile.SoilProfile.Layers.ElementAt(0).BelowPhreaticLevelMean = 3.2;
+
+            // Call
+            DesignVariable<LogNormalDistribution> saturatedVolumicWeightOfCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
+
+            // Assert
+            Assert.AreEqual(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean,
+                            saturatedVolumicWeightOfCoverageLayer.Distribution.Mean);
+            Assert.AreEqual(inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation,
+                            saturatedVolumicWeightOfCoverageLayer.Distribution.StandardDeviation);
+            Assert.AreEqual(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift,
+                            saturatedVolumicWeightOfCoverageLayer.Distribution.Shift);
+            AssertPercentile(0.05, saturatedVolumicWeightOfCoverageLayer);
+        }
+
+        [Test]
+        public void GetSaturatedVolumicWeightOfCoverageLayer_PipingInputWithoutCoverLayer_CreateDesignVariableForSaturatedVolumicWeightOfCoverageLayer()
         {
             // Setup
             var inputParameters = new PipingInput(new GeneralPipingInput());
@@ -138,7 +177,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                             saturatedVolumicWeightOfCoverageLayer.Distribution.StandardDeviation);
             Assert.AreEqual(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift,
                             saturatedVolumicWeightOfCoverageLayer.Distribution.Shift);
-            Assert.AreEqual(0.05, saturatedVolumicWeightOfCoverageLayer.Percentile);
+            Assert.AreEqual(new RoundedDouble(2), saturatedVolumicWeightOfCoverageLayer.GetDesignValue());
         }
 
         [Test]
@@ -153,9 +192,16 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Assert
             Assert.AreEqual(inputParameters.ThicknessAquiferLayer.Mean, thicknessAquiferLayer.Distribution.Mean);
             Assert.AreEqual(inputParameters.ThicknessAquiferLayer.StandardDeviation, thicknessAquiferLayer.Distribution.StandardDeviation);
-            Assert.AreEqual(0.95, thicknessAquiferLayer.Percentile);
+            AssertPercentile(0.95, thicknessAquiferLayer);
         }
 
         #endregion
+
+        private void AssertPercentile<T>(double percentile, DesignVariable<T> designVariable) where T : IDistribution
+        {
+            Assert.IsInstanceOf<PercentileBasedDesignVariable<T>>(designVariable);
+            var percentileBasedDesignVariable = (PercentileBasedDesignVariable<T>) designVariable;
+            Assert.AreEqual(percentile, percentileBasedDesignVariable.Percentile);
+        }
     }
 }

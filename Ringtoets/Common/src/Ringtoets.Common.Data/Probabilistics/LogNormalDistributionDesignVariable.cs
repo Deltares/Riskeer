@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// <summary>
     /// This class defines a design variable for a log-normal distribution.
     /// </summary>
-    public class LogNormalDistributionDesignVariable : DesignVariable<LogNormalDistribution>
+    public class LogNormalDistributionDesignVariable : PercentileBasedDesignVariable<LogNormalDistribution>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LogNormalDistributionDesignVariable"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.Probabilistics
         }
 
         /// <summary>
-        /// Projects <see cref="DesignVariable{DistributionType}.Distribution"/> into 'normal
+        /// Projects <see cref="PercentileBasedDesignVariable{TDistributionType}.Distribution"/> into 'normal
         /// distribution' space and calculates the design value for that value space.
         /// </summary>
         /// <returns>The design value in 'normal distribution' space.</returns>

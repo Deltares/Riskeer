@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
-    public class DesignVariableTest
+    public class PercentileBasedDesignVariableTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -42,27 +42,18 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var designVariable = new SimpleDesignVariable(distributionMock);
 
             // Assert
+            Assert.IsInstanceOf<DesignVariable<IDistribution>>(designVariable);
             Assert.AreSame(distributionMock, designVariable.Distribution);
+            Assert.AreEqual(0.5, designVariable.Percentile);
             mocks.VerifyAll(); // Expect no calls on mocks
         }
 
         [Test]
-        public void ParameteredConstructor_DistributionIsNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new SimpleDesignVariable(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessagePart = exception.Message.Split(new[]
-            {
-                Environment.NewLine
-            }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.", customMessagePart);
-        }
-
-        [Test]
-        public void Distribution_SetToNull_ThrowArgumentNullException()
+        [TestCase(-1234.5678)]
+        [TestCase(0 - 1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12345.789)]
+        public void Percentile_SettingInvalidValue_ThrowArgumentOutOfRangeException(double invalidPercentile)
         {
             // Setup
             var mocks = new MockRepository();
@@ -72,21 +63,42 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var designVariable = new SimpleDesignVariable(distributionMock);
 
             // Call
-            TestDelegate call = () => designVariable.Distribution = null;
+            TestDelegate call = () => designVariable.Percentile = invalidPercentile;
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             string customMessagePart = exception.Message.Split(new[]
             {
                 Environment.NewLine
-            }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.", customMessagePart);
+            }, StringSplitOptions.RemoveEmptyEntries)[0];
+            Assert.AreEqual("Percentiel moet in het bereik [0, 1] liggen.", customMessagePart);
             mocks.VerifyAll(); // Expect no calls on mocks
         }
 
-        private class SimpleDesignVariable : DesignVariable<IDistribution>
+        [Test]
+        [TestCase(0.0)]
+        [TestCase(0.54638291)]
+        [TestCase(1.0)]
+        public void Percentile_SettingValidValue_PropertySet(double validPercentile)
         {
-            public SimpleDesignVariable(IDistribution distribution) : base(distribution) { }
+            // Setup
+            var mocks = new MockRepository();
+            var distributionMock = mocks.StrictMock<IDistribution>();
+            mocks.ReplayAll();
+
+            var designVariable = new SimpleDesignVariable(distributionMock);
+
+            // Call
+            designVariable.Percentile = validPercentile;
+
+            // Assert
+            Assert.AreEqual(validPercentile, designVariable.Percentile);
+            mocks.VerifyAll(); // Expect no calls on mocks
+        }
+
+        private class SimpleDesignVariable : PercentileBasedDesignVariable<IDistribution>
+        {
+            public SimpleDesignVariable(IDistribution distribution) : base(distribution) {}
 
             public override RoundedDouble GetDesignValue()
             {

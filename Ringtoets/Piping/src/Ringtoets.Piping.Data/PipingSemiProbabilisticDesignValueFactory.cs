@@ -44,6 +44,14 @@ namespace Ringtoets.Piping.Data
             };
         }
 
+        private static DesignVariable<LogNormalDistribution> CreateDeterministicDesignVariable(LogNormalDistribution distribution, double deterministicValue)
+        {
+            return new DeterministicDesignVariable<LogNormalDistribution>(distribution)
+            {
+                DeterministicValue = deterministicValue
+            };
+        }
+
         #region General parameters
 
         /// <summary>
@@ -51,6 +59,10 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput parameters)
         {
+            if (double.IsNaN(parameters.SaturatedVolumicWeightOfCoverageLayer.Mean))
+            {
+                return CreateDeterministicDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer, 0);
+            }
             return CreateDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer, 0.05);
         }
 
@@ -59,6 +71,10 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetThicknessCoverageLayer(PipingInput parameters)
         {
+            if (double.IsNaN(parameters.ThicknessCoverageLayer.Mean))
+            {
+                return CreateDeterministicDesignVariable(parameters.ThicknessCoverageLayer, 0);
+            }
             return CreateDesignVariable(parameters.ThicknessCoverageLayer, 0.05);
         }
 
