@@ -277,9 +277,9 @@ namespace Application.Ringtoets.Storage.Test.Create
         private static void AssertHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationOutput output, IHydraulicLocationOutputEntity entity)
         {
             Assert.AreEqual(output.Result, entity.Result, output.Result.GetAccuracy());
-            Assert.AreEqual(output.TargetProbability, entity.TargetProbability, output.TargetProbability.GetAccuracy());
+            Assert.AreEqual(output.TargetProbability, entity.TargetProbability, output.TargetProbability);
             Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
-            Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability, output.CalculatedProbability.GetAccuracy());
+            Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(output.CalculationConvergence, (CalculationConvergence) entity.CalculationConvergence);
         }

@@ -82,14 +82,15 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetProbability_Description")]
-        public string TargetProbability
+        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        public double TargetProbability
         {
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelOutput;
-                return ProbabilityFormattingHelper.Format(output != null
-                                                              ? output.TargetProbability
-                                                              : double.NaN);
+                return output == null
+                           ? double.NaN
+                           : output.TargetProbability;
             }
         }
 
@@ -113,14 +114,15 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedProbability_Description")]
-        public string CalculatedProbability
+        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        public double CalculatedProbability
         {
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelOutput;
-                return ProbabilityFormattingHelper.Format(output != null
-                                                              ? output.CalculatedProbability
-                                                              : double.NaN);
+                return output == null
+                           ? double.NaN
+                           : output.CalculatedProbability;
             }
         }
 

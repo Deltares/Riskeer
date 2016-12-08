@@ -21,14 +21,15 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -77,10 +78,22 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
             Assert.IsNaN(properties.DesignWaterLevel);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(double.NaN), properties.TargetProbability);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
+                              NoValueRoundedDoubleConverter>(p => p.DesignWaterLevel));
+            Assert.AreEqual(double.NaN, properties.TargetProbability);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
+                              FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
+                                  p => p.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(double.NaN), properties.CalculatedProbability);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
+                              NoValueRoundedDoubleConverter>(p => p.TargetReliability));
+            Assert.AreEqual(double.NaN, properties.CalculatedProbability);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
+                              FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
+                                  p => p.CalculatedProbability));
             Assert.IsNaN(properties.CalculatedReliability);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
+                              NoValueRoundedDoubleConverter>(p => p.CalculatedReliability));
             Assert.AreEqual(string.Empty, properties.Convergence);
         }
 
@@ -88,8 +101,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [TestCase(CalculationConvergence.CalculatedNotConverged, "Nee")]
         [TestCase(CalculationConvergence.CalculatedConverged, "Ja")]
         [TestCase(CalculationConvergence.NotCalculated, "")]
-        public void GetProperties_ValidDesignWaterLevel_ReturnsExpectedValues(CalculationConvergence convergence, 
-            string expectedConvergedText)
+        public void GetProperties_ValidDesignWaterLevel_ReturnsExpectedValues(CalculationConvergence convergence,
+                                                                              string expectedConvergedText)
         {
             // Setup
             var random = new Random();
@@ -122,9 +135,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Call
             var properties = new DesignWaterLevelLocationContextProperties
-                {
-                    Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
-                };
+            {
+                Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
+            };
 
             // Assert
             Assert.AreEqual(id, properties.Id);
@@ -133,9 +146,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(coordinates, properties.Location);
             Assert.AreEqual(designWaterLevel, properties.DesignWaterLevel, properties.DesignWaterLevel.GetAccuracy());
 
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(targetProbability), properties.TargetProbability);
+            Assert.AreEqual(targetProbability, properties.TargetProbability);
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(calculatedProbability), properties.CalculatedProbability);
+            Assert.AreEqual(calculatedProbability, properties.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(expectedConvergedText, properties.Convergence);
         }

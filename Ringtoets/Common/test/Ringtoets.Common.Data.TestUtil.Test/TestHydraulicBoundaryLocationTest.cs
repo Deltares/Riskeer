@@ -110,9 +110,9 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             }
             Assert.AreEqual(expected.Result, actual.Result, expected.Result.GetAccuracy());
             Assert.AreEqual(expected.TargetReliability, actual.TargetReliability, expected.TargetReliability.GetAccuracy());
-            Assert.AreEqual(expected.TargetProbability, actual.TargetProbability, expected.TargetProbability.GetAccuracy());
+            Assert.AreEqual(expected.TargetProbability, actual.TargetProbability);
             Assert.AreEqual(expected.CalculatedReliability, actual.CalculatedReliability, expected.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual(expected.CalculatedProbability, actual.CalculatedProbability, expected.CalculatedProbability.GetAccuracy());
+            Assert.AreEqual(expected.CalculatedProbability, actual.CalculatedProbability);
             Assert.AreEqual(expected.CalculationConvergence, actual.CalculationConvergence);
         }
     }

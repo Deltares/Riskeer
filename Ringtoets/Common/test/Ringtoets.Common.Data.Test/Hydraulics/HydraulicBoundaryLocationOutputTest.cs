@@ -94,9 +94,9 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
             // Assert
             Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
-            Assert.AreEqual(targetProbability, output.TargetProbability, output.TargetProbability.GetAccuracy());
+            Assert.AreEqual(targetProbability, output.TargetProbability);
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
-            Assert.AreEqual(calculatedProbability, output.CalculatedProbability, output.CalculatedProbability.GetAccuracy());
+            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
         }

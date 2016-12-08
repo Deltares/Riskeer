@@ -26,7 +26,6 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -82,14 +81,15 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetProbability_Description")]
-        public string TargetProbability
+        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        public double TargetProbability
         {
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
-                return ProbabilityFormattingHelper.Format(output != null
-                                                              ? output.TargetProbability
-                                                              : double.NaN);
+                return output == null
+                           ? double.NaN
+                           : output.TargetProbability;
             }
         }
 
@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
                 return output != null
                            ? output.TargetReliability
-                           : (RoundedDouble)double.NaN;
+                           : (RoundedDouble) double.NaN;
             }
         }
 
@@ -113,14 +113,15 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedProbability_Description")]
-        public string CalculatedProbability
+        [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
+        public double CalculatedProbability
         {
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
-                return ProbabilityFormattingHelper.Format(output != null
-                                                              ? output.CalculatedProbability
-                                                              : double.NaN);
+                return output == null
+                           ? double.NaN
+                           : output.CalculatedProbability;
             }
         }
 
@@ -134,7 +135,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
-                return output != null ? output.CalculatedReliability : (RoundedDouble)double.NaN;
+                return output != null ? output.CalculatedReliability : (RoundedDouble) double.NaN;
             }
         }
 

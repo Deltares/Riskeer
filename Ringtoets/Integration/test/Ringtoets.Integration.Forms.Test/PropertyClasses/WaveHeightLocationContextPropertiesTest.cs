@@ -24,10 +24,11 @@ using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -71,10 +72,22 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
             Assert.IsNaN(properties.WaveHeight);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(double.NaN), properties.TargetProbability);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveHeightLocationContextProperties,
+                              NoValueRoundedDoubleConverter>(p => p.WaveHeight));
+            Assert.AreEqual(double.NaN, properties.TargetProbability);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveHeightLocationContextProperties,
+                              FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
+                                  p => p.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(double.NaN), properties.CalculatedProbability);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveHeightLocationContextProperties,
+                              NoValueRoundedDoubleConverter>(p => p.TargetReliability));
+            Assert.AreEqual(double.NaN, properties.CalculatedProbability);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveHeightLocationContextProperties,
+                              FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
+                                  p => p.CalculatedProbability));
             Assert.IsNaN(properties.CalculatedReliability);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveHeightLocationContextProperties,
+                              NoValueRoundedDoubleConverter>(p => p.CalculatedReliability));
             Assert.AreEqual(string.Empty, properties.Convergence);
         }
 
@@ -126,9 +139,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicBoundaryLocation.Location, properties.Location);
             Assert.AreEqual(waveHeight, properties.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
 
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(targetProbability), properties.TargetProbability);
+            Assert.AreEqual(targetProbability, properties.TargetProbability);
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(calculatedProbability), properties.CalculatedProbability);
+            Assert.AreEqual(calculatedProbability, properties.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(expectedConvergedText, properties.Convergence);
         }

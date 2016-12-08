@@ -50,9 +50,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(entity);
             Assert.AreEqual((byte) outputType, entity.HydraulicLocationOutputType);
             Assert.AreEqual(output.Result, entity.Result, output.Result.GetAccuracy());
-            Assert.AreEqual(output.TargetProbability, entity.TargetProbability, output.TargetProbability.GetAccuracy());
+            Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
             Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
-            Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability, output.CalculatedProbability.GetAccuracy());
+            Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
         }
@@ -100,9 +100,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(entity);
             Assert.AreEqual((byte) outputType, entity.HydraulicLocationOutputType);
             Assert.AreEqual(output.Result, entity.Result, output.Result.GetAccuracy());
-            Assert.AreEqual(output.TargetProbability, entity.TargetProbability, output.TargetProbability.GetAccuracy());
+            Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
             Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
-            Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability, output.CalculatedProbability.GetAccuracy());
+            Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
         }

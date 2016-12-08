@@ -58,9 +58,9 @@ namespace Ringtoets.Common.Data.Hydraulics
 
             Result = new RoundedDouble(2, result);
 
-            TargetProbability = new RoundedDouble(5, targetProbability);
+            TargetProbability = targetProbability;
             TargetReliability = new RoundedDouble(5, targetReliability);
-            CalculatedProbability = new RoundedDouble(5, calculatedProbability);
+            CalculatedProbability = calculatedProbability;
             CalculatedReliability = new RoundedDouble(5, calculatedReliability);
             CalculationConvergence = calculationConvergence;
         }
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// Gets the target probability.
         /// [1/year]
         /// </summary>
-        public RoundedDouble TargetProbability { get; private set; }
+        public double TargetProbability { get; private set; }
 
         /// <summary>
         /// Gets the target beta.
@@ -86,7 +86,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// Gets the calculated probability.
         /// [1/year]
         /// </summary>
-        public RoundedDouble CalculatedProbability { get; private set; }
+        public double CalculatedProbability { get; private set; }
 
         /// <summary>
         /// Gets the calculated reliability.

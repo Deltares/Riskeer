@@ -160,11 +160,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(expected.TargetReliability);
             Assert.AreEqual((RoundedDouble) expected.TargetReliability, actual.TargetReliability, actual.TargetReliability.GetAccuracy());
             Assert.IsNotNull(expected.TargetProbability);
-            Assert.AreEqual((RoundedDouble) expected.TargetProbability, actual.TargetProbability, actual.TargetProbability.GetAccuracy());
+            Assert.AreEqual(expected.TargetProbability, actual.TargetProbability);
             Assert.IsNotNull(expected.CalculatedReliability);
             Assert.AreEqual((RoundedDouble) expected.CalculatedReliability, actual.CalculatedReliability, actual.CalculatedReliability.GetAccuracy());
             Assert.IsNotNull(expected.CalculatedProbability);
-            Assert.AreEqual((RoundedDouble) expected.CalculatedProbability, actual.CalculatedProbability, actual.CalculatedProbability.GetAccuracy());
+            Assert.AreEqual(expected.CalculatedProbability, actual.CalculatedProbability);
             Assert.AreEqual((CalculationConvergence) expected.CalculationConvergence, actual.CalculationConvergence);
         }
     }

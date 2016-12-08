@@ -61,9 +61,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual((RoundedDouble) result, output.Result, output.Result.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) targetProbability, output.TargetProbability, output.TargetProbability.GetAccuracy());
+            Assert.AreEqual(targetProbability, output.TargetProbability);
             Assert.AreEqual((RoundedDouble) targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) calculatedProbability, output.CalculatedProbability, output.CalculatedProbability.GetAccuracy());
+            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual((RoundedDouble) calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
         }
@@ -89,9 +89,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual((RoundedDouble) double.NaN, output.Result);
-            Assert.AreEqual((RoundedDouble) double.NaN, output.TargetProbability);
+            Assert.AreEqual(double.NaN, output.TargetProbability);
             Assert.AreEqual((RoundedDouble) double.NaN, output.TargetReliability);
-            Assert.AreEqual((RoundedDouble) double.NaN, output.CalculatedProbability);
+            Assert.AreEqual(double.NaN, output.CalculatedProbability);
             Assert.AreEqual((RoundedDouble) double.NaN, output.CalculatedReliability);
             Assert.AreEqual(convergence, output.CalculationConvergence);
         }
