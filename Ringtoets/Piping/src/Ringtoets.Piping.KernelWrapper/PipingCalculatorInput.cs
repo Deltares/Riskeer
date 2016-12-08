@@ -36,6 +36,7 @@ namespace Ringtoets.Piping.KernelWrapper
         private readonly double phreaticLevelExit;
         private readonly double criticalHeaveGradient;
         private readonly double thicknessCoverageLayer;
+        private readonly double effectiveThicknessCoverageLayer;
         private readonly double sellmeijerModelFactor;
         private readonly double sellmeijerReductionFactor;
         private readonly double seepageLength;
@@ -66,6 +67,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <param name="phreaticLevelExit">The phreatic level at the exit point. [m]</param>
         /// <param name="criticalHeaveGradient">The critical exit gradient for heave.</param>
         /// <param name="thicknessCoverageLayer">The total thickness of the coverage layer at the exit point. [m]</param>
+        /// <param name="effectiveThicknessCoverageLayer">The effective thickness of the coverage layer at the exit point. [m]</param>
         /// <param name="sellmeijerModelFactor">The calculation value used to account for uncertainty in the model for Sellmeijer.</param>
         /// <param name="sellmeijerReductionFactor">The reduction factor Sellmeijer.</param>
         /// <param name="seepageLength">The horizontal distance between entry and exit point. [m]</param>
@@ -81,7 +83,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <param name="exitPointXCoordinate">The X-coordinate of the exit point. [m]</param>
         /// <param name="surfaceLine">The surface line.</param>
         /// <param name="soilProfile">The profile which contains a 1 dimensional definition of soil layers with properties.</param>
-        public PipingCalculatorInput(double waterVolumetricWeight, double saturatedVolumicWeightOfCoverageLayer, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
+        public PipingCalculatorInput(double waterVolumetricWeight, double saturatedVolumicWeightOfCoverageLayer, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double criticalHeaveGradient, double thicknessCoverageLayer, double effectiveThicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
         {
             this.waterVolumetricWeight = waterVolumetricWeight;
             this.saturatedVolumicWeightOfCoverageLayer = saturatedVolumicWeightOfCoverageLayer;
@@ -92,6 +94,7 @@ namespace Ringtoets.Piping.KernelWrapper
             this.phreaticLevelExit = phreaticLevelExit;
             this.criticalHeaveGradient = criticalHeaveGradient;
             this.thicknessCoverageLayer = thicknessCoverageLayer;
+            this.effectiveThicknessCoverageLayer = effectiveThicknessCoverageLayer;
             this.sellmeijerModelFactor = sellmeijerModelFactor;
             this.sellmeijerReductionFactor = sellmeijerReductionFactor;
             this.seepageLength = seepageLength;
@@ -201,6 +204,18 @@ namespace Ringtoets.Piping.KernelWrapper
             get
             {
                 return thicknessCoverageLayer;
+            }
+        }
+
+        /// <summary>
+        /// Gets the effective thickness of the coverage layer at the exit point.
+        /// [m]
+        /// </summary>
+        public double EffectiveThicknessCoverageLayer
+        {
+            get
+            {
+                return effectiveThicknessCoverageLayer;
             }
         }
 

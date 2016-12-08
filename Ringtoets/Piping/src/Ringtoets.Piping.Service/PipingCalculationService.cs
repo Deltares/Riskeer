@@ -263,6 +263,7 @@ namespace Ringtoets.Piping.Service
                 PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                 inputParameters.CriticalHeaveGradient,
                 PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(),
+                PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(inputParameters).GetDesignValue(),
                 inputParameters.SellmeijerModelFactor,
                 inputParameters.SellmeijerReductionFactor,
                 PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(),

@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         #region General parameters
 
         [Test]
-        public void GetThicknessCoverageLayer_PipingInputWithCoverLayer_CreateDesignVariableForThicknessCoverageLayer()
+        public void GetThicknessCoverageLayer_PipingInputWithCoverLayer_CreatePercentileBasedDesignVariableForThicknessCoverageLayer()
         {
             // Setup
             var inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         }
 
         [Test]
-        public void GetThicknessCoverageLayer_PipingInputWithoutCoverLayer_CreateDesignVariableForThicknessCoverageLayer()
+        public void GetThicknessCoverageLayer_PipingInputWithoutCoverLayer_CreateDeterministicDesignVariableForThicknessCoverageLayer()
         {
             // Setup
             var inputParameters = new PipingInput(new GeneralPipingInput());
@@ -59,9 +59,44 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             DesignVariable<LogNormalDistribution> thicknessCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters);
 
             // Assert
+            Assert.IsInstanceOf<DeterministicDesignVariable<LogNormalDistribution>>(thicknessCoverageLayer);
             Assert.AreEqual(inputParameters.ThicknessCoverageLayer.Mean, thicknessCoverageLayer.Distribution.Mean);
             Assert.AreEqual(inputParameters.ThicknessCoverageLayer.StandardDeviation, thicknessCoverageLayer.Distribution.StandardDeviation);
             Assert.AreEqual(new RoundedDouble(2), thicknessCoverageLayer.GetDesignValue());
+        }
+
+        [Test]
+        public void GetEffectiveThicknessCoverageLayer_PipingInputWithCoverLayer_CreatePercentileBasedDesignVariableForEffectiveThicknessCoverageLayer()
+        {
+            // Setup
+            var inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+
+            // Call
+            DesignVariable<LogNormalDistribution> effectiveThicknessCoverageLayer =
+                PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(inputParameters);
+
+            // Assert
+            Assert.IsInstanceOf<PercentileBasedDesignVariable<LogNormalDistribution>>(effectiveThicknessCoverageLayer);
+            Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.Mean, effectiveThicknessCoverageLayer.Distribution.Mean);
+            Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.StandardDeviation, effectiveThicknessCoverageLayer.Distribution.StandardDeviation);
+            AssertPercentile(0.05, effectiveThicknessCoverageLayer);
+        }
+
+        [Test]
+        public void GetEffectiveThicknessCoverageLayer_PipingInputWithoutCoverLayer_CreateDeterministicDesignVariableForEffectiveThicknessCoverageLayer()
+        {
+            // Setup
+            var inputParameters = new PipingInput(new GeneralPipingInput());
+
+            // Call
+            DesignVariable<LogNormalDistribution> effectiveThicknessCoverageLayer = 
+                PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(inputParameters);
+
+            // Assert
+            Assert.IsInstanceOf<DeterministicDesignVariable<LogNormalDistribution>>(effectiveThicknessCoverageLayer);
+            Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.Mean, effectiveThicknessCoverageLayer.Distribution.Mean);
+            Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.StandardDeviation, effectiveThicknessCoverageLayer.Distribution.StandardDeviation);
+            Assert.AreEqual(new RoundedDouble(2), effectiveThicknessCoverageLayer.GetDesignValue());
         }
 
         [Test]

@@ -42,6 +42,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             double hExitValue = random.NextDouble();
             double ichValue = random.NextDouble();
             double dTotalValue = random.NextDouble();
+            double effectiveThicknessCoverageLayerValue = random.NextDouble();
             double sellmeijerModelFactorValue = random.NextDouble();
             double reductionFactorValue = random.NextDouble();
             double seepageLengthValue = random.NextDouble();
@@ -74,6 +75,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 hExitValue,
                 ichValue,
                 dTotalValue,
+                effectiveThicknessCoverageLayerValue,
                 sellmeijerModelFactorValue,
                 reductionFactorValue,
                 seepageLengthValue,
@@ -99,6 +101,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             Assert.AreEqual(hExitValue, input.PhreaticLevelExit);
             Assert.AreEqual(ichValue, input.CriticalHeaveGradient);
             Assert.AreEqual(dTotalValue, input.ThicknessCoverageLayer);
+            Assert.AreEqual(effectiveThicknessCoverageLayerValue, input.EffectiveThicknessCoverageLayer);
             Assert.AreEqual(sellmeijerModelFactorValue, input.SellmeijerModelFactor);
             Assert.AreEqual(reductionFactorValue, input.SellmeijerReductionFactor);
             Assert.AreEqual(seepageLengthValue, input.SeepageLength);

@@ -294,7 +294,7 @@ namespace Ringtoets.Piping.KernelWrapper
 
         private IUpliftCalculator CreateUpliftCalculator()
         {
-            var effectiveStress = DetermineEffectiveStressForOneLayerProfile(input.ThicknessCoverageLayer, input.SaturatedVolumicWeightOfCoverageLayer, input.WaterVolumetricWeight);
+            var effectiveStress = DetermineEffectiveStressForOneLayerProfile(input.EffectiveThicknessCoverageLayer, input.SaturatedVolumicWeightOfCoverageLayer, input.WaterVolumetricWeight);
 
             var calculator = factory.CreateUpliftCalculator();
             calculator.VolumetricWeightOfWater = input.WaterVolumetricWeight;

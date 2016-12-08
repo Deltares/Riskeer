@@ -66,6 +66,7 @@ namespace Ringtoets.Piping.InputParameterCalculation
                     double.NaN,
                     double.NaN,
                     double.NaN,
+                    double.NaN,
                     exitPointL,
                     surfaceLine,
                     soilProfile
@@ -95,6 +96,7 @@ namespace Ringtoets.Piping.InputParameterCalculation
                 double.NaN,
                 dampingFactorExit,
                 phreaticLevelExit,
+                double.NaN,
                 double.NaN,
                 double.NaN,
                 double.NaN,

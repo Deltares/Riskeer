@@ -505,6 +505,18 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
+        /// Gets the effective thickness of the coverage layer at the exit point.
+        /// [m]
+        /// </summary>
+        public LogNormalDistribution EffectiveThicknessCoverageLayer
+        {
+            get
+            {
+                return new DerivedPipingInput(this).EffectiveThicknessCoverageLayer;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the damping factor at the exit point.
         /// </summary>
         public LogNormalDistribution DampingFactorExit

@@ -79,6 +79,18 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
+        /// Creates the design variable for <see cref="PipingInput.EffectiveThicknessCoverageLayer"/>.
+        /// </summary>
+        public static DesignVariable<LogNormalDistribution> GetEffectiveThicknessCoverageLayer(PipingInput parameters)
+        {
+            if (double.IsNaN(parameters.EffectiveThicknessCoverageLayer.Mean))
+            {
+                return CreateDeterministicDesignVariable(parameters.EffectiveThicknessCoverageLayer, 0);
+            }
+            return CreateDesignVariable(parameters.EffectiveThicknessCoverageLayer, 0.05);
+        }
+
+        /// <summary>
         /// Creates the design variable for <see cref="PipingInput.PhreaticLevelExit"/>.
         /// </summary>
         public static DesignVariable<NormalDistribution> GetPhreaticLevelExit(PipingInput parameters)

@@ -601,4 +601,10 @@
   <data name="PipingOutputContext_SellmeijerReducedFall_DisplayName" xml:space="preserve">
     <value>Gereduceerd verval [m]</value>
   </data>
+  <data name="PipingInput_EffectiveThicknessCoverageLayer_Description" xml:space="preserve">
+    <value>Effectieve deklaagdikte bij uittredepunt.</value>
+  </data>
+  <data name="PipingInput_EffectiveThicknessCoverageLayer_DisplayName" xml:space="preserve">
+    <value>Effectieve deklaagdikte bij uittredepunt [m]</value>
+  </data>
 </root>

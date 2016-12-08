@@ -292,6 +292,18 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_EffectiveThicknessCoverageLayer_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_EffectiveThicknessCoverageLayer_Description")]
+        public DesignVariable<LogNormalDistribution> EffectiveThicknessCoverageLayer
+        {
+            get
+            {
+                return PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(data.WrappedData);
+            }
+        }
+
+        [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_ThicknessAquiferLayer_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_ThicknessAquiferLayer_Description")]
         public DesignVariable<LogNormalDistribution> ThicknessAquiferLayer

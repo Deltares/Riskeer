@@ -986,7 +986,7 @@ namespace Ringtoets.Piping.Service.Test
                             upliftCalculator.RExit,
                             input.DampingFactorExit.GetAccuracy());
             Assert.AreEqual(input.WaterVolumetricWeight, upliftCalculator.VolumetricWeightOfWater);
-            RoundedDouble effectiveStress = PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(input).GetDesignValue()*
+            RoundedDouble effectiveStress = PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(input).GetDesignValue()*
                                             (PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue() - input.WaterVolumetricWeight);
             Assert.AreEqual(effectiveStress, upliftCalculator.EffectiveStress,
                             effectiveStress.GetAccuracy());

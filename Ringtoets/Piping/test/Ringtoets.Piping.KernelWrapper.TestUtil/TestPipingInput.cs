@@ -42,6 +42,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         public double PhreaticLevelExit;
         public double CriticalHeaveGradient;
         public double ThicknessCoverageLayer;
+        public double EffectiveThicknessCoverageLayer;
         public double SellmeijerModelFactor;
         public double SellmeijerReductionFactor;
         public double SeepageLength;
@@ -74,6 +75,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
             DampingFactorExit = NextIncrementalDouble();
             CriticalHeaveGradient = NextIncrementalDouble();
             ThicknessCoverageLayer = NextIncrementalDouble();
+            EffectiveThicknessCoverageLayer = NextIncrementalDouble();
             SellmeijerModelFactor = NextIncrementalDouble();
             SellmeijerReductionFactor = NextIncrementalDouble();
             SeepageLength = NextIncrementalDouble();
@@ -106,6 +108,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
                 PhreaticLevelExit,
                 CriticalHeaveGradient,
                 ThicknessCoverageLayer,
+                EffectiveThicknessCoverageLayer,
                 SellmeijerModelFactor,
                 SellmeijerReductionFactor,
                 SeepageLength,
