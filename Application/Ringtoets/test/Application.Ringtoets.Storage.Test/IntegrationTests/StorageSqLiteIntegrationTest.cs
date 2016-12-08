@@ -1664,13 +1664,28 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             Assert.AreEqual(expectedBoundaryLocation.Id, actualBoundaryLocation.Id);
             Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
-            Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevel, actualBoundaryLocation.DesignWaterLevel);
-            Assert.AreEqual(expectedBoundaryLocation.WaveHeight, actualBoundaryLocation.WaveHeight);
             Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
-            Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevelCalculationConvergence,
-                            actualBoundaryLocation.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(expectedBoundaryLocation.WaveHeightCalculationConvergence,
-                            actualBoundaryLocation.WaveHeightCalculationConvergence);
+
+            AssertHydraulicBoundaryLocationOutput(expectedBoundaryLocation.DesignWaterLevelOutput,
+                                                  actualBoundaryLocation.DesignWaterLevelOutput);
+            AssertHydraulicBoundaryLocationOutput(expectedBoundaryLocation.WaveHeightOutput,
+                                                  actualBoundaryLocation.WaveHeightOutput);
+        }
+
+        private static void AssertHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationOutput expectedOutput,
+                                                                  HydraulicBoundaryLocationOutput actualOutput)
+        {
+            if (expectedOutput == null)
+            {
+                Assert.IsNull(actualOutput);
+                return;
+            }
+            Assert.AreEqual(expectedOutput.Result, actualOutput.Result);
+            Assert.AreEqual(expectedOutput.TargetProbability, actualOutput.TargetProbability);
+            Assert.AreEqual(expectedOutput.TargetReliability, actualOutput.TargetReliability);
+            Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);
+            Assert.AreEqual(expectedOutput.CalculatedReliability, actualOutput.CalculatedReliability);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, actualOutput.CalculationConvergence);
         }
 
         #endregion
