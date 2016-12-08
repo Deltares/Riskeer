@@ -183,66 +183,196 @@ namespace Demo.Ringtoets.Commands
             calculation.InputParameters.NotifyObservers();
         }
 
-        private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelValues(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelOutputValues(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
+            double targetProbability = 1.0/30000;
             ObservableList<HydraulicBoundaryLocation> locations = failureMechanism.HydraulicBoundaryLocations;
-            locations.ElementAt(0).DesignWaterLevel = (RoundedDouble) 7.19;
-            locations.ElementAt(1).DesignWaterLevel = (RoundedDouble) 7.19;
-            locations.ElementAt(2).DesignWaterLevel = (RoundedDouble) 7.18;
-            locations.ElementAt(3).DesignWaterLevel = (RoundedDouble) 7.18;
-            locations.ElementAt(4).DesignWaterLevel = (RoundedDouble) 7.18;
-            locations.ElementAt(5).DesignWaterLevel = (RoundedDouble) 7.39;
-            locations.ElementAt(6).DesignWaterLevel = (RoundedDouble) 7.39;
-            locations.ElementAt(7).DesignWaterLevel = (RoundedDouble) 7.39;
-            locations.ElementAt(8).DesignWaterLevel = (RoundedDouble) 7.40;
-            locations.ElementAt(9).DesignWaterLevel = (RoundedDouble) 7.40;
-            locations.ElementAt(10).DesignWaterLevel = (RoundedDouble) 7.40;
-            locations.ElementAt(11).DesignWaterLevel = (RoundedDouble) 7.40;
-            locations.ElementAt(12).DesignWaterLevel = (RoundedDouble) 7.40;
-            locations.ElementAt(13).DesignWaterLevel = (RoundedDouble) 7.41;
-            locations.ElementAt(14).DesignWaterLevel = (RoundedDouble) 7.41;
-            locations.ElementAt(15).DesignWaterLevel = (RoundedDouble) 6.91;
-            locations.ElementAt(16).DesignWaterLevel = (RoundedDouble) 7.53;
-            locations.ElementAt(17).DesignWaterLevel = (RoundedDouble) 7.80;
+            locations.ElementAt(0).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.19,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(1).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.19,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(2).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.18,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(3).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.18,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(4).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.18,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(5).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.39,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(6).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.39,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(7).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.39,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(8).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.40,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(9).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.40,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(10).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.40,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(11).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.40,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(12).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.40,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(13).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.41,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(14).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.41,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(15).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                6.91,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(16).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.53,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(17).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                7.80,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
         }
 
-        private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(ICollection<HydraulicBoundaryLocation> locations)
+        private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightOutputValues(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
-            {
-                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged;
-            }
-        }
-
-        private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightValues(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-        {
+            const double targetProbability = 1.0/30000;
             ObservableList<HydraulicBoundaryLocation> locations = failureMechanism.HydraulicBoundaryLocations;
-            locations.ElementAt(0).WaveHeight = (RoundedDouble) 4.99;
-            locations.ElementAt(1).WaveHeight = (RoundedDouble) 5.04;
-            locations.ElementAt(2).WaveHeight = (RoundedDouble) 4.87;
-            locations.ElementAt(3).WaveHeight = (RoundedDouble) 4.73;
-            locations.ElementAt(4).WaveHeight = (RoundedDouble) 4.59;
-            locations.ElementAt(5).WaveHeight = (RoundedDouble) 3.35;
-            locations.ElementAt(6).WaveHeight = (RoundedDouble) 3.83;
-            locations.ElementAt(7).WaveHeight = (RoundedDouble) 4.00;
-            locations.ElementAt(8).WaveHeight = (RoundedDouble) 4.20;
-            locations.ElementAt(9).WaveHeight = (RoundedDouble) 4.41;
-            locations.ElementAt(10).WaveHeight = (RoundedDouble) 4.50;
-            locations.ElementAt(11).WaveHeight = (RoundedDouble) 4.57;
-            locations.ElementAt(12).WaveHeight = (RoundedDouble) 4.63;
-            locations.ElementAt(13).WaveHeight = (RoundedDouble) 4.68;
-            locations.ElementAt(14).WaveHeight = (RoundedDouble) 4.17;
-            locations.ElementAt(15).WaveHeight = (RoundedDouble) 11.13;
-            locations.ElementAt(16).WaveHeight = (RoundedDouble) 9.24;
-            locations.ElementAt(17).WaveHeight = (RoundedDouble) 5.34;
-        }
-
-        private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightCalculationConvergence(ICollection<HydraulicBoundaryLocation> locations)
-        {
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
-            {
-                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
-            }
+            locations.ElementAt(0).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.99,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(1).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                5.04,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(2).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.87,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(3).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.73,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(4).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.59,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(5).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.35,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(6).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.83,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(7).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.00,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(8).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.20,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(9).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.41,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(10).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.50,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(11).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.57,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(12).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.63,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(13).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.68,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(14).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.17,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(15).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                11.13,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(16).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                9.24,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(17).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                5.34,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
         }
 
         #endregion
@@ -602,79 +732,202 @@ namespace Demo.Ringtoets.Commands
                 }
             }
 
-            SetHydraulicBoundaryLocationDesignWaterLevelValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
-            SetHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
-            SetHydraulicBoundaryLocationWaveHeightValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
-            SetHydraulicBoundaryLocationWaveHeightCalculationConvergence(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
+            SetHydraulicBoundaryLocationDesignWaterLevelOutputValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
+            SetHydraulicBoundaryLocationWaveHeightOutputValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
 
             demoAssessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(demoAssessmentSection.HydraulicBoundaryDatabase);
-            SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelValues(demoAssessmentSection.GrassCoverErosionOutwards);
-            SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(
-                demoAssessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations);
-
-            SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightValues(demoAssessmentSection.GrassCoverErosionOutwards);
-            SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightCalculationConvergence(
-                demoAssessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations);
+            SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelOutputValues(demoAssessmentSection.GrassCoverErosionOutwards);
+            SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightOutputValues(demoAssessmentSection.GrassCoverErosionOutwards);
         }
 
-        private static void SetHydraulicBoundaryLocationDesignWaterLevelValues(ICollection<HydraulicBoundaryLocation> locations)
+        private static void SetHydraulicBoundaryLocationDesignWaterLevelOutputValues(ICollection<HydraulicBoundaryLocation> locations)
         {
-            locations.ElementAt(0).DesignWaterLevel = (RoundedDouble) 5.78;
-            locations.ElementAt(1).DesignWaterLevel = (RoundedDouble) 5.77;
-            locations.ElementAt(2).DesignWaterLevel = (RoundedDouble) 5.77;
-            locations.ElementAt(3).DesignWaterLevel = (RoundedDouble) 5.77;
-            locations.ElementAt(4).DesignWaterLevel = (RoundedDouble) 5.77;
-            locations.ElementAt(5).DesignWaterLevel = (RoundedDouble) 5.93;
-            locations.ElementAt(6).DesignWaterLevel = (RoundedDouble) 5.93;
-            locations.ElementAt(7).DesignWaterLevel = (RoundedDouble) 5.93;
-            locations.ElementAt(8).DesignWaterLevel = (RoundedDouble) 5.93;
-            locations.ElementAt(9).DesignWaterLevel = (RoundedDouble) 5.93;
-            locations.ElementAt(10).DesignWaterLevel = (RoundedDouble) 5.93;
-            locations.ElementAt(11).DesignWaterLevel = (RoundedDouble) 5.93;
-            locations.ElementAt(12).DesignWaterLevel = (RoundedDouble) 5.93;
-            locations.ElementAt(13).DesignWaterLevel = (RoundedDouble) 5.93;
-            locations.ElementAt(14).DesignWaterLevel = (RoundedDouble) 5.93;
-            locations.ElementAt(15).DesignWaterLevel = (RoundedDouble) 5.54;
-            locations.ElementAt(16).DesignWaterLevel = (RoundedDouble) 5.86;
-            locations.ElementAt(17).DesignWaterLevel = (RoundedDouble) 6.0;
+            const double targetProbability = 1.0/30000;
+            locations.ElementAt(0).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.78,
+                targetProbability, 3.98788,
+                1.0/29996, 3.98785,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(1).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.77,
+                targetProbability, 3.98787893,
+                1.0/29996, 3.98785,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(2).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.77,
+                targetProbability, 3.98788,
+                1.0/29996, 3.98785,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(3).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.77,
+                targetProbability, 3.98788,
+                1.0/29996, 3.98785,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(4).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.76865,
+                targetProbability, 3.98788,
+                1.0/29996, 3.98784,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(5).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.93,
+                targetProbability, 3.98788,
+                1.0/29995, 3.98784,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(6).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.93,
+                targetProbability, 3.98788,
+                1.0/29995, 3.98784,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(7).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.93,
+                targetProbability, 3.98788,
+                1.0/29995, 3.98784,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(8).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.93,
+                targetProbability, 3.98788,
+                1.0/29995, 3.98784,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(9).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.93,
+                targetProbability, 3.98788,
+                1.0/29995, 3.98784,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(10).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.93,
+                targetProbability, 3.98788,
+                1.0/29995, 3.98784,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(11).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.93,
+                targetProbability, 3.98788,
+                1.0/29995, 3.98784,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(12).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.93,
+                targetProbability, 3.98788,
+                1.0/29995, 3.98784,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(13).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.93,
+                targetProbability, 3.98788,
+                1.0/29995, 3.98784,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(14).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.93,
+                targetProbability, 3.98788,
+                1.0/29995, 3.98784,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(15).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.54,
+                targetProbability, 3.98788,
+                1.0/29996, 3.98785,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(16).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                5.86,
+                targetProbability, 3.98788,
+                1.0/29994, 3.98783,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(17).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                6.00,
+                targetProbability, 3.98788,
+                1.0/29993, 3.98782,
+                CalculationConvergence.CalculatedConverged);
         }
 
-        private static void SetHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(ICollection<HydraulicBoundaryLocation> locations)
+        private static void SetHydraulicBoundaryLocationWaveHeightOutputValues(ICollection<HydraulicBoundaryLocation> locations)
         {
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
-            {
-                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged;
-            }
-        }
-
-        private static void SetHydraulicBoundaryLocationWaveHeightValues(ICollection<HydraulicBoundaryLocation> locations)
-        {
-            locations.ElementAt(0).WaveHeight = (RoundedDouble) 4.13;
-            locations.ElementAt(1).WaveHeight = (RoundedDouble) 4.19;
-            locations.ElementAt(2).WaveHeight = (RoundedDouble) 4.02;
-            locations.ElementAt(3).WaveHeight = (RoundedDouble) 3.87;
-            locations.ElementAt(4).WaveHeight = (RoundedDouble) 3.73;
-            locations.ElementAt(5).WaveHeight = (RoundedDouble) 2.65;
-            locations.ElementAt(6).WaveHeight = (RoundedDouble) 3.04;
-            locations.ElementAt(7).WaveHeight = (RoundedDouble) 3.20;
-            locations.ElementAt(8).WaveHeight = (RoundedDouble) 3.35;
-            locations.ElementAt(9).WaveHeight = (RoundedDouble) 3.53;
-            locations.ElementAt(10).WaveHeight = (RoundedDouble) 3.62;
-            locations.ElementAt(11).WaveHeight = (RoundedDouble) 3.68;
-            locations.ElementAt(12).WaveHeight = (RoundedDouble) 3.73;
-            locations.ElementAt(13).WaveHeight = (RoundedDouble) 3.75;
-            locations.ElementAt(14).WaveHeight = (RoundedDouble) 3.30;
-            locations.ElementAt(15).WaveHeight = (RoundedDouble) 9.57;
-            locations.ElementAt(16).WaveHeight = (RoundedDouble) 8.02;
-            locations.ElementAt(17).WaveHeight = (RoundedDouble) 4.11;
-        }
-
-        private static void SetHydraulicBoundaryLocationWaveHeightCalculationConvergence(ICollection<HydraulicBoundaryLocation> locations)
-        {
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
-            {
-                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
-            }
+            const double targetProbability = 1.0/30000;
+            locations.ElementAt(0).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.13,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(1).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.19,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(2).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.02,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(3).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.87,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(4).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.73,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(5).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                2.65,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(6).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.04,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(7).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.20,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(8).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.35,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(9).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.53,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(10).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.62,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(11).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.68,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(12).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.73,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(13).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.75,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(14).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                3.30,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(15).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                9.57,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(16).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                8.02,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
+            locations.ElementAt(17).WaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                4.11,
+                targetProbability, double.NaN,
+                double.NaN, double.NaN,
+                CalculationConvergence.CalculatedConverged);
         }
 
         #endregion
