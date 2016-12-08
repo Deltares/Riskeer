@@ -26,6 +26,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -65,7 +66,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(4)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Location_WaveHeight_Description")]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
@@ -78,14 +79,77 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_WaveHeight_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetProbability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetProbability_Description")]
+        public string TargetProbability
+        {
+            get
+            {
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
+                return ProbabilityFormattingHelper.Format(output != null
+                                                              ? output.TargetProbability
+                                                              : double.NaN);
+            }
+        }
+
+        [PropertyOrder(6)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetReliability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_TargetReliability_Description")]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble TargetReliability
+        {
+            get
+            {
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
+                return output != null
+                           ? output.TargetReliability
+                           : (RoundedDouble)double.NaN;
+            }
+        }
+
+        [PropertyOrder(7)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedProbability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedProbability_Description")]
+        public string CalculatedProbability
+        {
+            get
+            {
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
+                return ProbabilityFormattingHelper.Format(output != null
+                                                              ? output.CalculatedProbability
+                                                              : double.NaN);
+            }
+        }
+
+        [PropertyOrder(8)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedReliability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocationOutput_CalculatedReliability_Description")]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble CalculatedReliability
+        {
+            get
+            {
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
+                return output != null ? output.CalculatedReliability : (RoundedDouble)double.NaN;
+            }
+        }
+
+        [PropertyOrder(9)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description")]
         public string Convergence
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.HydraulicBoundaryLocation.WaveHeightCalculationConvergence).DisplayName;
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
+                return new EnumDisplayWrapper<CalculationConvergence>(output != null
+                                                                          ? output.CalculationConvergence
+                                                                          : CalculationConvergence.NotCalculated).DisplayName;
             }
         }
     }

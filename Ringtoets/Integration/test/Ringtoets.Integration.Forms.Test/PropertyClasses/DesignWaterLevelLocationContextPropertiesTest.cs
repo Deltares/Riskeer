@@ -98,16 +98,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const double y = 890.0;
             const string name = "<some name>";
 
-            double result = random.NextDouble();
             double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            RoundedDouble designWaterLevel = (RoundedDouble) result;
+            double designWaterLevel = random.NextDouble();
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
-                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(result, targetProbability,
+                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(designWaterLevel, targetProbability,
                                                                              targetReliability,
                                                                              calculatedProbability,
                                                                              calculatedReliability,
@@ -122,8 +121,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            DesignWaterLevelLocationContextProperties properties =
-                new DesignWaterLevelLocationContextProperties
+            var properties = new DesignWaterLevelLocationContextProperties
                 {
                     Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
                 };
