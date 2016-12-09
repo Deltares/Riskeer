@@ -210,7 +210,7 @@ namespace Ringtoets.Piping.Data
 
             if (stochasticSoilProfile != null && stochasticSoilProfile.SoilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
             {
-                var thicknessTopAquiferLayer = new RoundedDouble(thicknessAquiferLayer.Mean.NumberOfDecimalPlaces,
+                var thicknessTopAquiferLayer = new RoundedDouble(GetNumberOfDecimals(thicknessAquiferLayer),
                                                                  GetThicknessTopAquiferLayer(stochasticSoilProfile.SoilProfile, surfaceLine, exitPointL));
 
                 if (thicknessTopAquiferLayer > 0)
@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.Data
 
             if (stochasticSoilProfile != null && stochasticSoilProfile.SoilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
             {
-                var weightedMean = new RoundedDouble(thicknessCoverageLayerDistribution.Mean.NumberOfDecimalPlaces,
+                var weightedMean = new RoundedDouble(GetNumberOfDecimals(thicknessCoverageLayerDistribution),
                                                      GetThicknessCoverageLayers(stochasticSoilProfile.SoilProfile, surfaceLine, exitPointL));
 
                 if (weightedMean > 0)
@@ -242,7 +242,7 @@ namespace Ringtoets.Piping.Data
         {
             if (input.SurfaceLine != null && input.StochasticSoilProfile != null && input.StochasticSoilProfile.SoilProfile != null && !double.IsNaN(input.ExitPointL))
             {
-                var weightedMean = new RoundedDouble(effectiveThicknessCoverageLayerDistribution.Mean.NumberOfDecimalPlaces,
+                var weightedMean = new RoundedDouble(GetNumberOfDecimals(effectiveThicknessCoverageLayerDistribution),
                                                      InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
                                                          input.WaterVolumetricWeight,
                                                          PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
@@ -262,7 +262,7 @@ namespace Ringtoets.Piping.Data
             PipingSoilLayer topMostAquiferLayer = GetConsecutiveAquiferLayers().FirstOrDefault();
             if (topMostAquiferLayer != null)
             {
-                var diameterD70Mean = new RoundedDouble(diameterD70Distribution.Mean.NumberOfDecimalPlaces, topMostAquiferLayer.DiameterD70Mean);
+                var diameterD70Mean = new RoundedDouble(GetNumberOfDecimals(diameterD70Distribution), topMostAquiferLayer.DiameterD70Mean);
 
                 if (diameterD70Mean > 0)
                 {
@@ -276,16 +276,26 @@ namespace Ringtoets.Piping.Data
         {
             PipingSoilLayer[] aquiferLayers = GetConsecutiveAquiferLayers();
 
+            int numberOfDecimals = GetNumberOfDecimals(darcyPermeabilityDistribution);
+
             if (HasCorrectDarcyPermeabilityWeightDistributionParameterDefinition(
                 aquiferLayers,
-                GetNumberOfDecimals(darcyPermeabilityDistribution)))
+                numberOfDecimals))
             {
-                var weightedMean = new RoundedDouble(2, GetWeightedMeanForDarcyPermeabilityOfAquiferLayer(aquiferLayers,
-                                                                                                          input.StochasticSoilProfile.SoilProfile,
-                                                                                                          input.SurfaceLine.GetZAtL(input.ExitPointL)));
+                PipingSoilLayer topMostAquiferLayer = aquiferLayers.First();
+                double deviationFraction = (topMostAquiferLayer.PermeabilityDeviation / topMostAquiferLayer.PermeabilityMean);
 
-                darcyPermeabilityDistribution.Mean = weightedMean;
-                darcyPermeabilityDistribution.StandardDeviation = (RoundedDouble) (weightedMean/2);
+                var weightedMean = new RoundedDouble(numberOfDecimals,
+                                                     GetWeightedMeanForDarcyPermeabilityOfAquiferLayer(aquiferLayers,
+                                                                                                       input.StochasticSoilProfile.SoilProfile,
+                                                                                                       input.SurfaceLine.GetZAtL(input.ExitPointL)));
+
+                if (weightedMean > 0)
+                {
+                    darcyPermeabilityDistribution.Mean = weightedMean;
+                }
+
+                darcyPermeabilityDistribution.StandardDeviation = darcyPermeabilityDistribution.Mean * deviationFraction;
             }
         }
 
@@ -293,15 +303,17 @@ namespace Ringtoets.Piping.Data
         {
             PipingSoilLayer[] coverageLayers = GetConsecutiveCoverageLayers();
 
+            int numberOfDecimals = GetNumberOfDecimals(volumicWeightDistribution);
+
             if (HasCorrectSaturatedWeightDistributionParameterDefinition(
                 coverageLayers,
-                GetNumberOfDecimals(volumicWeightDistribution)))
+                numberOfDecimals))
             {
                 PipingSoilLayer topMostAquitardLayer = coverageLayers.First();
                 volumicWeightDistribution.Shift = (RoundedDouble) topMostAquitardLayer.BelowPhreaticLevelShift;
                 volumicWeightDistribution.StandardDeviation = (RoundedDouble) topMostAquitardLayer.BelowPhreaticLevelDeviation;
 
-                var weightedMean = new RoundedDouble(volumicWeightDistribution.Mean.NumberOfDecimalPlaces,
+                var weightedMean = new RoundedDouble(numberOfDecimals,
                                                      GetWeightedMeanForVolumicWeightOfCoverageLayer(
                                                          coverageLayers,
                                                          input.StochasticSoilProfile.SoilProfile,
@@ -314,7 +326,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private static int GetNumberOfDecimals(LogNormalDistribution distribution)
+        private static int GetNumberOfDecimals(IDistribution distribution)
         {
             return distribution.Mean.NumberOfDecimalPlaces;
         }
@@ -326,7 +338,7 @@ namespace Ringtoets.Piping.Data
                 return false;
             }
 
-            var distributions = GetLayerDistributionDefinitions(consecutiveAquitardLayers, numberOfDecimals);
+            var distributions = GetLayerSaturatedVolumicWeightDistributionDefinitions(consecutiveAquitardLayers, numberOfDecimals);
 
             if (distributions == null)
             {
@@ -357,11 +369,17 @@ namespace Ringtoets.Piping.Data
                 return false;
             }
 
-            return distributions.All(currentLayerDistribution
-                                     => Math.Abs(currentLayerDistribution.StandardDeviation - (currentLayerDistribution.Mean/2)) < 1e-6);
+            if (distributions.Length == 1)
+            {
+                return true;
+            }
+
+            return distributions.All(currentLayerDistribution => AreDeviationAndFractionEqual(
+                currentLayerDistribution,
+                distributions[0]));
         }
 
-        private static LogNormalDistribution[] GetLayerDistributionDefinitions(IList<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
+        private static LogNormalDistribution[] GetLayerSaturatedVolumicWeightDistributionDefinitions(IList<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
         {
             try
             {
@@ -398,6 +416,13 @@ namespace Ringtoets.Piping.Data
         {
             return currentLayerDistribution.StandardDeviation == baseLayerDistribution.StandardDeviation &&
                    currentLayerDistribution.Shift == baseLayerDistribution.Shift;
+        }
+
+        private static bool AreDeviationAndFractionEqual(LogNormalDistribution currentLayerDistribution, LogNormalDistribution baseLayerDistribution)
+        {
+            var baseLayerDeviationFraction = (baseLayerDistribution.StandardDeviation / baseLayerDistribution.Mean);
+            var currentLayerDeviationFraction = (currentLayerDistribution.StandardDeviation / currentLayerDistribution.Mean);
+            return Math.Abs(baseLayerDeviationFraction - currentLayerDeviationFraction) < 1e-6;
         }
 
         private static double GetWeightedMeanForVolumicWeightOfCoverageLayer(PipingSoilLayer[] aquitardLayers, PipingSoilProfile profile, double surfaceLevel)
