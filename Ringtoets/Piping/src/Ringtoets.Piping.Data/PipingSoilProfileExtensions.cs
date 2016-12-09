@@ -35,7 +35,6 @@ namespace Ringtoets.Piping.Data
         /// <param name="soilProfile">The soil profile containing <see cref="PipingSoilLayer"/> to consider.</param>
         /// <param name="level">The level under which the aquifer layers are sought.</param>
         /// <returns>The thickness of the part of the consecutive aquifer layer(s) (partly) under the <paramref name="level"/>.</returns>
-        /// <exception cref="ArgumentException"><paramref name="level"/> is less than <see cref="PipingSoilProfile.Bottom"/>.</exception>
         public static double GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(this PipingSoilProfile soilProfile, double level)
         {
             return TotalThicknessOfConsecutiveLayersBelowLevel(
@@ -51,7 +50,6 @@ namespace Ringtoets.Piping.Data
         /// <param name="soilProfile">The soil profile containing <see cref="PipingSoilLayer"/> to consider.</param>
         /// <param name="level">The level under which the coverage layers are sought.</param>
         /// <returns>The thickness of the part of the consecutive coverage layer(s) (partly) under the <paramref name="level"/>.</returns>
-        /// <exception cref="ArgumentException"><paramref name="level"/> is less than <see cref="PipingSoilProfile.Bottom"/>.</exception>
         public static double GetConsecutiveCoverageLayerThicknessBelowLevel(this PipingSoilProfile soilProfile, double level)
         {
             return TotalThicknessOfConsecutiveLayersBelowLevel(
@@ -61,22 +59,34 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Calculates the thickness of the 
+        /// Calculates the thickness of a collection of consecutive <see cref="PipingSoilLayer"/>.
         /// </summary>
-        /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> containing the <paramref name="coverageLayers"/>.</param>
+        /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> containing the <paramref name="layers"/>.</param>
         /// <param name="level">The level under which to calculate the total thickness.</param>
-        /// <param name="coverageLayers">Collection of consecutvie <see cref="PipingSoilLayer"/>, ordered by 
-        /// <see cref="PipingSoilLayer.Top"/>.</param>
-        /// <returns></returns>
-        private static double TotalThicknessOfConsecutiveLayersBelowLevel(PipingSoilProfile soilProfile, double level, PipingSoilLayer[] coverageLayers)
+        /// <param name="layers">Collection of consecutive <see cref="PipingSoilLayer"/>, ordered by 
+        /// <see cref="PipingSoilLayer.Top"/> which are part of <paramref name="soilProfile"/>.</param>
+        /// <returns>The total thickness of the consecutive layers below the given <paramref name="level"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="soilProfile"/> or
+        /// <paramref name="layers"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">The bottom most <see cref="PipingSoilLayer"/> is not part of
+        /// <paramref name="soilProfile"/>.</exception>
+        private static double TotalThicknessOfConsecutiveLayersBelowLevel(PipingSoilProfile soilProfile, double level, PipingSoilLayer[] layers)
         {
-            if (coverageLayers.Length == 0)
+            if (soilProfile == null)
+            {
+                throw new ArgumentNullException("soilProfile");
+            }
+            if (layers == null)
+            {
+                throw new ArgumentNullException("layers");
+            }
+            if (layers.Length == 0)
             {
                 return double.NaN;
             }
 
-            var bottomLayer = coverageLayers.Last();
-            var topLayer = coverageLayers.First();
+            var bottomLayer = layers.Last();
+            var topLayer = layers.First();
 
             return Math.Min(topLayer.Top, level) - (bottomLayer.Top - soilProfile.GetLayerThickness(bottomLayer));
         }
