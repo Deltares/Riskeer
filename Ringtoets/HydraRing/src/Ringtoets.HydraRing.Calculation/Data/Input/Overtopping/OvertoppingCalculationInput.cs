@@ -77,12 +77,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         /// <param name="criticalOvertoppingStandardDeviation">The standard deviation of the critical overtopping.</param>
         /// <param name="modelFactorFrunupMean">The mean of the factor frunup.</param>
         /// <param name="modelFactorFrunupStandardDeviation">The standard deviation of the factor frunup.</param>
-        /// <param name="modelFactorFrunupLowerBoundary">Thw lower boundary of the factor frunup.</param>
-        /// <param name="modelFactorFrunupUpperBoundary">Thw upper boundary of the factor frunup.</param>
+        /// <param name="modelFactorFrunupLowerBoundary">The lower boundary of the factor frunup.</param>
+        /// <param name="modelFactorFrunupUpperBoundary">The upper boundary of the factor frunup.</param>
         /// <param name="exponentModelFactorShallowMean">The mean of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowStandardDeviation">The standard deviation of the exponent model factor shallow.</param>
-        /// <param name="exponentModelFactorShallowLowerBoundary">Thw lower boundary of the exponent model factor shallow.</param>
-        /// <param name="exponentModelFactorShallowUpperBoundary">Thw upper boundary of the exponent model factor shallow.</param>
+        /// <param name="exponentModelFactorShallowLowerBoundary">The lower boundary of the exponent model factor shallow.</param>
+        /// <param name="exponentModelFactorShallowUpperBoundary">The upper boundary of the exponent model factor shallow.</param>
         public OvertoppingCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
                                            IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
                                            IEnumerable<HydraRingForelandPoint> forelandPoints,

@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// Creates a new instance of <see cref="LogNormalHydraRingVariable"/>.
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
-        /// <param name="deviationType">The deviation type in case the variable is random.</param>
+        /// <param name="deviationType">The deviation type of the variable.</param>
         /// <param name="mean">The mean value of the variable.</param>
         /// <param name="variance">The variance value of the variable.</param>
         /// <param name="shift">The shift value of the variable.</param>

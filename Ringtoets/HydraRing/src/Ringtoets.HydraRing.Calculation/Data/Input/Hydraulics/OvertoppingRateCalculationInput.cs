@@ -28,8 +28,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
     /// <summary>
     /// Container for all data necessary for performing an overtopping rate calculation via Hydra-Ring.
     /// </summary>
-    public class 
-        OvertoppingRateCalculationInput : HydraulicLoadsCalculationInput
+    public class OvertoppingRateCalculationInput : HydraulicLoadsCalculationInput
     {
         private readonly double dikeHeight;
 

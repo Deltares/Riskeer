@@ -21,6 +21,9 @@
 
 namespace Ringtoets.HydraRing.Calculation.Data
 {
+    /// <summary>
+    /// Class for Truncated Normal Hydra-Ring variable related data.
+    /// </summary>
     public class TruncatedNormalHydraRingVariable : HydraRingVariable
     {
         private readonly double mean;
@@ -32,11 +35,11 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// Creates a new instance of <see cref="TruncatedNormalHydraRingVariable"/>.
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
-        /// <param name="deviationType">The deviation type in case the variable is random.</param>
+        /// <param name="deviationType">The deviation type of the variable.</param>
         /// <param name="mean">The mean value of the variable.</param>
         /// <param name="variance">The variance value of the variable.</param>
-        /// <param name="lowerBoundary">The lowerBoundary value of the variable.</param>
-        /// <param name="upperBoundary">The upperBoundary value of the variable.</param>
+        /// <param name="lowerBoundary">The lower boundary value of the variable.</param>
+        /// <param name="upperBoundary">The upper boundary value of the variable.</param>
         public TruncatedNormalHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
                                                 double mean, double variance, double lowerBoundary, double upperBoundary)
             : base(variableId, deviationType)
