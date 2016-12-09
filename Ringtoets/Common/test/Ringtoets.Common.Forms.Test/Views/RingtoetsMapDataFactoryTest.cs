@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(GetSectionPointDisplayName("startpunten"), data.Name);
+            Assert.AreEqual("Vakindeling (startpunten)", data.Name);
             AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
         }
 
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(GetSectionPointDisplayName("eindpunten"), data.Name);
+            Assert.AreEqual("Vakindeling (eindpunten)", data.Name);
             AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
         }
 
@@ -141,13 +141,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsEmpty(data.Features);
             Assert.AreEqual("Berekeningen", data.Name);
             AssertEqualStyle(data.Style, Color.MediumPurple, 2, DashStyle.Dash);
-        }
-
-        private static string GetSectionPointDisplayName(string name)
-        {
-            return string.Format("{0} ({1})",
-                                 "Vakindeling",
-                                 name);
         }
 
         private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, DashStyle style)

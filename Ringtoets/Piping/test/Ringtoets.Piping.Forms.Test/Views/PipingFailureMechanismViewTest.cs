@@ -41,10 +41,6 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
-using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
 {
@@ -920,21 +916,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
             CollectionAssert.IsEmpty(calculationsMapData.Features);
 
-            Assert.AreEqual(RingtoetsCommonDataResources.ReferenceLine_DisplayName, referenceLineMapData.Name);
-            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName, sectionsMapData.Name);
-            Assert.AreEqual(PipingFormsResources.StochasticSoilModelCollection_DisplayName, stochasticSoilModelsMapData.Name);
-            Assert.AreEqual(PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, surfaceLinesMapData.Name);
-            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), sectionsStartPointMapData.Name);
-            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), sectionsEndPointMapData.Name);
-            Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, hydraulicBoundaryLocationsMapData.Name);
-            Assert.AreEqual(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, calculationsMapData.Name);
-        }
-
-        private static string GetSectionPointDisplayName(string name)
-        {
-            return string.Format("{0} ({1})",
-                                 RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
-                                 name);
+            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+            Assert.AreEqual("Vakindeling", sectionsMapData.Name);
+            Assert.AreEqual("Stochastische ondergrondmodellen", stochasticSoilModelsMapData.Name);
+            Assert.AreEqual("Profielschematisaties", surfaceLinesMapData.Name);
+            Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
+            Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
+            Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
+            Assert.AreEqual("Berekeningen", calculationsMapData.Name);
         }
 
         private class TestAssessmentSection : Observable, IAssessmentSection

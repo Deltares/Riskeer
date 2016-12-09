@@ -34,7 +34,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Views;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.Views

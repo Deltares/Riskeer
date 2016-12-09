@@ -34,9 +34,7 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
-using WaveImpactAsphaltCoverFormsResources = Ringtoets.WaveImpactAsphaltCover.Forms.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
 {

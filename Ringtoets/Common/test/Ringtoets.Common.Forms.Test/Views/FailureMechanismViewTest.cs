@@ -38,8 +38,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {
@@ -582,18 +580,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
 
-            Assert.AreEqual(RingtoetsCommonDataResources.ReferenceLine_DisplayName, referenceLineMapData.Name);
-            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName, sectionsMapData.Name);
-            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), sectionsStartPointMapData.Name);
-            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), sectionsEndPointMapData.Name);
-            Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, hydraulicBoundaryLocationsMapData.Name);
-        }
-
-        private static string GetSectionPointDisplayName(string name)
-        {
-            return string.Format("{0} ({1})",
-                                 RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
-                                 name);
+            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+            Assert.AreEqual("Vakindeling", sectionsMapData.Name);
+            Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
+            Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
+            Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
         }
 
         private class TestAssessmentSection : Observable, IAssessmentSection

@@ -43,9 +43,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
 {
@@ -129,7 +126,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (var view = new ClosingStructuresFailureMechanismView())
             {
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
-                    new ClosingStructuresFailureMechanism(), 
+                    new ClosingStructuresFailureMechanism(),
                     new TestAssessmentSection());
 
                 view.Data = failureMechanismContext;
@@ -153,7 +150,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (var view = new ClosingStructuresFailureMechanismView())
             {
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
-                    new ClosingStructuresFailureMechanism(), 
+                    new ClosingStructuresFailureMechanism(),
                     new TestAssessmentSection());
 
                 // Call
@@ -899,21 +896,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
             CollectionAssert.IsEmpty(calculationsMapData.Features);
 
-            Assert.AreEqual(RingtoetsCommonDataResources.ReferenceLine_DisplayName, referenceLineMapData.Name);
-            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName, sectionsMapData.Name);
-            Assert.AreEqual(RingtoetsCommonFormsResources.ForeshoreProfiles_DisplayName, foreshoreProfilesMapData.Name);
-            Assert.AreEqual(RingtoetsCommonFormsResources.StructuresCollection_DisplayName, structuresMapData.Name);
-            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), sectionsStartPointMapData.Name);
-            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), sectionsEndPointMapData.Name);
-            Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, hydraulicBoundaryLocationsMapData.Name);
-            Assert.AreEqual(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, calculationsMapData.Name);
-        }
-
-        private static string GetSectionPointDisplayName(string name)
-        {
-            return string.Format("{0} ({1})",
-                                 RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
-                                 name);
+            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+            Assert.AreEqual("Vakindeling", sectionsMapData.Name);
+            Assert.AreEqual("Voorlandprofielen", foreshoreProfilesMapData.Name);
+            Assert.AreEqual("Kunstwerken", structuresMapData.Name);
+            Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
+            Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
+            Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
+            Assert.AreEqual("Berekeningen", calculationsMapData.Name);
         }
 
         private class TestAssessmentSection : Observable, IAssessmentSection

@@ -34,9 +34,7 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using StabilityStoneCoverDataResources = Ringtoets.StabilityStoneCover.Data.Properties.Resources;
-using StabilityStoneCoverFormsResources = Ringtoets.StabilityStoneCover.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Views
 {

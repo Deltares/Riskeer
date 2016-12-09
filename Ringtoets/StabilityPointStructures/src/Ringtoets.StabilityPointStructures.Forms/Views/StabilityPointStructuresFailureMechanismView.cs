@@ -34,7 +34,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using StabilityPointStructuresDataResources = Ringtoets.StabilityPointStructures.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Views

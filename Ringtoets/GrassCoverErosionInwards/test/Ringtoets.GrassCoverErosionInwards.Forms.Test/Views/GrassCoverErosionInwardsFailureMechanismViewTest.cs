@@ -40,10 +40,6 @@ using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
-using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 {
@@ -886,21 +882,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
             CollectionAssert.IsEmpty(calculationsMapData.Features);
 
-            Assert.AreEqual(RingtoetsCommonDataResources.ReferenceLine_DisplayName, referenceLineMapData.Name);
-            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName, sectionsMapData.Name);
-            Assert.AreEqual(RingtoetsCommonFormsResources.DikeProfiles_DisplayName, dikeProfilesMapData.Name);
-            Assert.AreEqual(RingtoetsCommonFormsResources.ForeshoreProfiles_DisplayName, foreshoreProfilesMapData.Name);
-            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), sectionsStartPointMapData.Name);
-            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), sectionsEndPointMapData.Name);
-            Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, hydraulicBoundaryLocationsMapData.Name);
-            Assert.AreEqual(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, calculationsMapData.Name);
-        }
-
-        private static string GetSectionPointDisplayName(string name)
-        {
-            return string.Format("{0} ({1})",
-                                 RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
-                                 name);
+            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+            Assert.AreEqual("Vakindeling", sectionsMapData.Name);
+            Assert.AreEqual("Dijkprofielen", dikeProfilesMapData.Name);
+            Assert.AreEqual("Voorlandprofielen", foreshoreProfilesMapData.Name);
+            Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
+            Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
+            Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
+            Assert.AreEqual("Berekeningen", calculationsMapData.Name);
         }
 
         private class TestAssessmentSection : Observable, IAssessmentSection

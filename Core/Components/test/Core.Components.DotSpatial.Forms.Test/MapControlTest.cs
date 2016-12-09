@@ -171,7 +171,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 mapLineData.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(0, layersBeforeUpdate.Except(mapView.Layers).Count());
+                CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
             }
         }
 
@@ -198,6 +198,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.Data = mapDataCollection;
 
                 var layersBeforeUpdate = mapView.Layers.ToList();
+
+                // Precondition
+                Assert.AreEqual(3, layersBeforeUpdate.Count);
 
                 // When
                 nestedMapDataCollection1.Remove(mapLineData);
@@ -236,6 +239,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 var layersBeforeUpdate = mapView.Layers.ToList();
 
+                // Precondition
+                Assert.AreEqual(3, layersBeforeUpdate.Count);
+
                 // When
                 nestedMapDataCollection1.Insert(0, new MapPolygonData("Additional polygons"));
                 nestedMapDataCollection1.NotifyObservers();
@@ -269,7 +275,13 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 map.Data = mapDataCollection;
 
-                var layersBeforeUpdate = mapView.Layers.ToList();
+                var layersBeforeUpdate = mapView.Layers.Cast<FeatureLayer>().ToList();
+
+                // Precondition
+                Assert.AreEqual(3, layersBeforeUpdate.Count);
+                Assert.AreEqual("Points", layersBeforeUpdate[0].Name);
+                Assert.AreEqual("Lines", layersBeforeUpdate[1].Name);
+                Assert.AreEqual("Polygons", layersBeforeUpdate[2].Name);
 
                 // When
                 mapDataCollection.Remove(mapPointData);
@@ -282,7 +294,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual("Lines", featureLayers[0].Name);
                 Assert.AreEqual("Polygons", featureLayers[1].Name);
                 Assert.AreEqual("Points", featureLayers[2].Name);
-                Assert.AreEqual(0, layersBeforeUpdate.Except(mapView.Layers).Count());
+                Assert.AreEqual(0, layersBeforeUpdate.Except(featureLayers).Count());
             }
         }
 

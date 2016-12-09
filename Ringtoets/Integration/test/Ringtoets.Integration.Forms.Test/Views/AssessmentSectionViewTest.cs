@@ -34,7 +34,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Forms.Views;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
@@ -368,7 +367,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             var hrLocationsMapData = (MapPointData) mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
             CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations.Select(l => l.Location), hrLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, hrLocationsMapData.Name);
+            Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
             Assert.IsTrue(hrLocationsMapData.IsVisible);
         }
 
@@ -376,7 +375,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             var referenceLineMapData = (MapLineData) mapData.Collection.ElementAt(referenceLineIndex);
             CollectionAssert.AreEqual(referenceLine.Points, referenceLineMapData.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.AreEqual(RingtoetsCommonDataResources.ReferenceLine_DisplayName, referenceLineMapData.Name);
+            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             Assert.IsTrue(referenceLineMapData.IsVisible);
         }
 
@@ -394,8 +393,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
 
-            Assert.AreEqual(RingtoetsCommonDataResources.ReferenceLine_DisplayName, referenceLineMapData.Name);
-            Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, hydraulicBoundaryLocationsMapData.Name);
+            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+            Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
         }
 
         private class TestAssessmentSection : Observable, IAssessmentSection

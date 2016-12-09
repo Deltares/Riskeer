@@ -334,12 +334,24 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
+        /// <summary>
+        /// Lookup class for administration related to drawn map data layers.
+        /// </summary>
         private class DrawnMapData
         {
+            /// <summary>
+            /// The feature based map data which the drawn <see cref="FeatureBasedMapDataLayer"/> is based upon.
+            /// </summary>
             public FeatureBasedMapData FeatureBasedMapData { get; set; }
 
+            /// <summary>
+            /// The drawn map data layer.
+            /// </summary>
             public IFeatureBasedMapDataLayer FeatureBasedMapDataLayer { get; set; }
 
+            /// <summary>
+            /// The observer attached to <see cref="FeatureBasedMapData"/> and responsible for updating <see cref="FeatureBasedMapDataLayer"/>.
+            /// </summary>
             public Observer Observer { get; set; }
         }
     }
