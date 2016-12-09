@@ -57,9 +57,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         /// <summary>
         /// Gets the value in case the variable is deterministic.
         /// </summary>
-        /// <remarks>
-        /// This property is only relevant when <see cref="DistributionType"/> equals <see cref="HydraRingDistributionType.Deterministic"/>.
-        /// </remarks>
         public virtual double Value
         {
             get
@@ -76,9 +73,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         /// <summary>
         /// Gets the deviation type in case the variable is random.
         /// </summary>
-        /// <remarks>
-        /// This property is only relevant when <see cref="DistributionType"/> is not equal to <see cref="HydraRingDistributionType.Deterministic"/>.
-        /// </remarks>
         public HydraRingDeviationType DeviationType
         {
             get
@@ -132,7 +126,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         }
 
         /// <summary>
-        /// Gets the coefficientOfVariation in case the variable is random.
+        /// Gets the coefficient of variation in case the variable is random.
         /// </summary>
         public virtual double CoefficientOfVariation
         {
