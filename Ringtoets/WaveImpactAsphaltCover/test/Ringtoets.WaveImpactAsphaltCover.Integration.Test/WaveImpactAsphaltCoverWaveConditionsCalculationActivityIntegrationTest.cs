@@ -249,7 +249,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                 Assert.IsNull(calculation.Output);
             }
         }
-        
+
         [Test]
         [TestCase(true, null)]
         [TestCase(false, "An error occurred")]
@@ -300,7 +300,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(9.3);
             return calculation;
         }
 

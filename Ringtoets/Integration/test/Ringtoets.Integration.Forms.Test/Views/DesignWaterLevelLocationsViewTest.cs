@@ -24,7 +24,6 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -339,7 +338,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
                 Locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
-                    DesignWaterLevel = (RoundedDouble) 1.23
+                    DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(1.23)
                 });
                 Locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {

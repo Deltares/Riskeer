@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Data.TestUtil
@@ -47,7 +46,6 @@ namespace Ringtoets.Common.Data.TestUtil
             if (designWaterLevel.HasValue)
             {
                 DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(designWaterLevel.Value, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
-                DesignWaterLevel = (RoundedDouble) designWaterLevel.Value;
             }
             if (waveHeight.HasValue)
             {
@@ -56,7 +54,8 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevelOutput"/> set.
+        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with 
+        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevelOutput"/> set.
         /// </summary>
         /// <param name="designWaterLevel">The design water level result to set in the output.</param>
         /// <returns>A new <see cref="TestHydraulicBoundaryLocation"/>.</returns>
@@ -66,7 +65,8 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.WaveHeightOutput"/> set.
+        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with 
+        /// <see cref="HydraulicBoundaryLocation.WaveHeightOutput"/> set.
         /// </summary>
         /// <param name="waveheight">The waveheight result to set in the output.</param>
         /// <returns>A new <see cref="TestHydraulicBoundaryLocation"/>.</returns>

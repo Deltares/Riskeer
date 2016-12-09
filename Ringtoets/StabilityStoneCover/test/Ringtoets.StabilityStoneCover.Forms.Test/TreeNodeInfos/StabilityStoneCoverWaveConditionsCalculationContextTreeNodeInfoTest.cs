@@ -46,7 +46,6 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Plugin;
-using StabilityStoneCoverFormsResources = Ringtoets.StabilityStoneCover.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
@@ -675,10 +674,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
             if (validCalculation)
             {
-                calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
-                {
-                    DesignWaterLevel = (RoundedDouble) 12.0
-                };
+                calculation.InputParameters.HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12.0);
                 calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble) 1.0;
                 calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble) 10.0;
                 calculation.InputParameters.StepSize = WaveConditionsInputStepSize.One;
@@ -1094,11 +1090,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
         private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation()
         {
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            return new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "", 0.0, 0.0),
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(9.3),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -1109,8 +1105,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
-            return calculation;
         }
     }
 }

@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.Properties;
@@ -410,14 +411,14 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = new PipingInput(new GeneralPipingInput());
 
             var random = new Random(21);
-            RoundedDouble testLevel = (RoundedDouble) random.NextDouble();
-            TestHydraulicBoundaryLocation testHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(testLevel);
+            double testLevel = random.NextDouble();
+            HydraulicBoundaryLocation testHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(testLevel);
             input.HydraulicBoundaryLocation = testHydraulicBoundaryLocation;
 
-            RoundedDouble calculatedAssessmentLevel = (RoundedDouble) random.NextDouble();
+            double calculatedAssessmentLevel = random.NextDouble();
 
             // Call
-            testHydraulicBoundaryLocation.DesignWaterLevel = calculatedAssessmentLevel;
+            testHydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(calculatedAssessmentLevel);
 
             // Assert
             Assert.AreEqual(calculatedAssessmentLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());

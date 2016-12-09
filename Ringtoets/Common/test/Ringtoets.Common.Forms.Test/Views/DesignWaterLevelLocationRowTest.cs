@@ -49,26 +49,19 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_WithDesignWaterLevelLocationContext_PropertiesFromHydraulicBoundaryLocation()
         {
             // Setup
-            const int id = 1;
-            const string locationname = "LocationName";
-            const double coordinateX = 1.0;
-            const double coordinateY = 2.0;
-            RoundedDouble designWaterLevel = (RoundedDouble) 3.0;
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, locationname, coordinateX, coordinateY)
-            {
-                DesignWaterLevel = designWaterLevel
-            };
+            const double designWaterLevel = 3.0;
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(
+                designWaterLevel);
 
             // Call
             var row = new DesignWaterLevelLocationRow(hydraulicBoundaryLocation);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationRow>(row);
-            Assert.AreEqual(id, row.Id);
-            Assert.AreEqual(locationname, row.Name);
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, row.Id);
+            Assert.AreEqual(hydraulicBoundaryLocation.Name, row.Name);
             Assert.AreEqual(designWaterLevel, row.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-            var expectedPoint2D = new Point2D(coordinateX, coordinateY);
-            Assert.AreEqual(expectedPoint2D, row.Location);
+            Assert.AreEqual(hydraulicBoundaryLocation.Location, row.Location);
             Assert.AreSame(hydraulicBoundaryLocation, row.HydraulicBoundaryLocation);
             Assert.IsFalse(row.ToCalculate);
             Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationRow,
@@ -79,7 +72,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_Property_SetPropertyAsExpected()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "LocationName", 1.0, 2.0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var row = new DesignWaterLevelLocationRow(hydraulicBoundaryLocation);
 
             // Call

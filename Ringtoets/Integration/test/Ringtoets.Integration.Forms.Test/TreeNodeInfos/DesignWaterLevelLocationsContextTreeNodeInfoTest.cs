@@ -250,7 +250,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
             {
-                DesignWaterLevel = designWaterLevel
+                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
             };
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase

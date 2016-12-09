@@ -654,7 +654,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
                     {
-                        DesignWaterLevel = (RoundedDouble) 12.0
+                        DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(12.0)
                     },
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
@@ -672,7 +672,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
                     {
-                        DesignWaterLevel = (RoundedDouble) 12.0
+                        DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(12.0)
                     },
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
@@ -1312,7 +1312,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(9.3);
             return calculation;
         }
     }

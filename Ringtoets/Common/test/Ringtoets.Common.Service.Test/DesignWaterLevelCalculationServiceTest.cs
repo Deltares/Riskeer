@@ -146,10 +146,7 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProviderMock.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(calculationNotConvergedMessage);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, locationName, 0, 0)
-            {
-                DesignWaterLevel = new RoundedDouble(2, double.NaN)
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, locationName, 0, 0);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -185,10 +182,7 @@ namespace Ringtoets.Common.Service.Test
 
             const double norm = 1.0/30;
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "punt_flw_ 1", 0, 0)
-            {
-                DesignWaterLevel = new RoundedDouble(2, double.NaN)
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "punt_flw_ 1", 0, 0);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -227,10 +221,7 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(calculationFailedMessage);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)
-            {
-                DesignWaterLevel = new RoundedDouble(2, double.NaN)
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -290,10 +281,7 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(locationName)).Return(calculationFailedMessage);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)
-            {
-                DesignWaterLevel = new RoundedDouble(2, double.NaN)
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -352,10 +340,7 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(calculationFailedMessage);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)
-            {
-                DesignWaterLevel = new RoundedDouble(2, double.NaN)
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0);
 
             using (new HydraRingCalculatorFactoryConfig())
             {

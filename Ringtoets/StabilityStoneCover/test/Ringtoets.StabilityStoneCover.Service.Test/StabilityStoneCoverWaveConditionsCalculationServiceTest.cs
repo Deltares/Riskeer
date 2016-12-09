@@ -28,7 +28,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -167,7 +166,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = RoundedDouble.NaN;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelOutput = null;
 
             var isValid = true;
 
@@ -786,7 +785,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
                 // Call
                 TestDelegate test = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                              assessmentSectionStub, stabilityStoneCoverFailureMechanism.GeneralInput, validFilePath);
+                                                                                                              assessmentSectionStub,
+                                                                                                              stabilityStoneCoverFailureMechanism.GeneralInput,
+                                                                                                              validFilePath);
 
                 // Assert
                 Assert.Throws<HydraRingFileParserException>(test);
@@ -803,14 +804,11 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
         private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation()
         {
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            return new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "locationName", 0, 0)
-                    {
-                        DesignWaterLevel = (RoundedDouble) 9.3
-                    },
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(9.3),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -821,7 +819,6 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            return calculation;
         }
 
         private static StabilityStoneCoverWaveConditionsCalculation GetDefaultCalculation()

@@ -153,7 +153,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                 });
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
-                DesignWaterLevel = assessmentLevel
+                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(assessmentLevel)
             };
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -223,7 +223,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 
             var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1)
             {
-                DesignWaterLevel = assessmentLevel
+                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(assessmentLevel)
             };
             var newSelectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newHydraulicBoundaryLocation, null);
 

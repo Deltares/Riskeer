@@ -66,31 +66,22 @@ namespace Ringtoets.Common.Data.Hydraulics
         public Point2D Location { get; private set; }
 
         /// <summary>
-        /// Gets or sets the design water level of the hydraulic boundary location.
+        /// Gets or sets the output of a design water level calculation.
+        /// </summary>
+        public HydraulicBoundaryLocationOutput DesignWaterLevelOutput { get; set; }
+
+        /// <summary>
+        /// Gets the design water level of the hydraulic boundary location.
         /// </summary>
         public RoundedDouble DesignWaterLevel
         {
             get
             {
                 return DesignWaterLevelOutput == null
-                           ? (RoundedDouble) double.NaN
+                           ? RoundedDouble.NaN
                            : DesignWaterLevelOutput.Result;
             }
-            set
-            {
-                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(value, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
-            }
         }
-
-        /// <summary>
-        /// Gets or sets the output of a design water level calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationOutput DesignWaterLevelOutput { get; set; }
-
-        /// <summary>
-        /// Gets or sets the output of a wave height calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationOutput WaveHeightOutput { get; set; }
 
         /// <summary>
         /// Gets the convergence status of the design waterlevel calculation.
@@ -106,6 +97,11 @@ namespace Ringtoets.Common.Data.Hydraulics
         }
 
         /// <summary>
+        /// Gets or sets the output of a wave height calculation.
+        /// </summary>
+        public HydraulicBoundaryLocationOutput WaveHeightOutput { get; set; }
+
+        /// <summary>
         /// Gets the wave height of the hydraulic boundary location.
         /// </summary>
         public RoundedDouble WaveHeight
@@ -113,7 +109,7 @@ namespace Ringtoets.Common.Data.Hydraulics
             get
             {
                 return WaveHeightOutput == null
-                           ? (RoundedDouble) double.NaN
+                           ? RoundedDouble.NaN
                            : WaveHeightOutput.Result;
             }
         }

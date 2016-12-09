@@ -176,7 +176,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         {
             // Setup
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = RoundedDouble.NaN;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelOutput = null;
 
             var isValid = true;
 

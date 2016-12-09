@@ -29,7 +29,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -383,7 +382,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             }
             mockRepository.VerifyAll();
         }
-        
+
         [Test]
         [TestCase(true, null)]
         [TestCase(false, "An error occurred")]
@@ -448,14 +447,11 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
 
         private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation()
         {
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            return new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "locationName", 0, 0)
-                    {
-                        DesignWaterLevel = (RoundedDouble) 9.3
-                    },
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(9.3),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -466,7 +462,6 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            return calculation;
         }
     }
 }

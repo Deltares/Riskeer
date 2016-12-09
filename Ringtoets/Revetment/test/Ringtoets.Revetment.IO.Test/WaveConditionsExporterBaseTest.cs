@@ -27,6 +27,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.TestUtil;
 
@@ -123,7 +124,7 @@ namespace Ringtoets.Revetment.IO.Test
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                     {
-                        DesignWaterLevel = (RoundedDouble) 12.34567
+                        DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(12.34567)
                     },
                     LowerBoundaryRevetment = (RoundedDouble) 5.68,
                     UpperBoundaryRevetment = (RoundedDouble) 7.214,
@@ -135,7 +136,7 @@ namespace Ringtoets.Revetment.IO.Test
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
                     {
-                        DesignWaterLevel = (RoundedDouble) 28.36844
+                        DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(28.36844)
                     },
                     LowerBoundaryRevetment = (RoundedDouble) 1.384,
                     UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
