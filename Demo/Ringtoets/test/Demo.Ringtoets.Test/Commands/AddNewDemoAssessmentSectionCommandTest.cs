@@ -420,7 +420,7 @@ namespace Demo.Ringtoets.Test.Commands
                             GetAccuracy(inputParameters.PhreaticLevelExit));
             Assert.AreEqual(0.011453, PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.Diameter70));
-            Assert.AreEqual(1.179897, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
+            Assert.AreEqual(1.179895, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DarcyPermeability));
             Assert.AreEqual(17.5, PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.SaturatedVolumicWeightOfCoverageLayer));

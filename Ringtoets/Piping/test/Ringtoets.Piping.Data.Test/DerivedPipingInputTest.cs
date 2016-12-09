@@ -765,7 +765,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
-            double belowPhreaticLevelMean = random.NextDouble();
+            double belowPhreaticLevelMean = 0.1 + random.NextDouble();
             double deviation = random.NextDouble();
             double shift = random.NextDouble();
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", 0.0, new[]
@@ -798,8 +798,8 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
-            var belowPhreaticLevelMeanA = random.NextDouble();
-            var belowPhreaticLevelMeanB = random.NextDouble();
+            var belowPhreaticLevelMeanA = 0.1 + random.NextDouble();
+            var belowPhreaticLevelMeanB = 0.1 + random.NextDouble();
             double deviation = random.NextDouble();
             double shift = random.NextDouble();
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
@@ -846,8 +846,8 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
-            var belowPhreaticLevelMeanA = random.NextDouble();
-            var belowPhreaticLevelMeanB = random.NextDouble();
+            var belowPhreaticLevelMeanA = 0.1 + random.NextDouble();
+            var belowPhreaticLevelMeanB = 0.1 + random.NextDouble();
             double deviation = random.NextDouble();
             double shift = random.NextDouble();
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
@@ -1124,9 +1124,9 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
-            double mean = random.NextDouble();
+            double mean = 0.1 + random.NextDouble();
             double deviation = mean / 2;
-            double mean2 = random.NextDouble();
+            double mean2 = 0.1 + random.NextDouble();
             double deviation2 = mean2/2;
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", 0.0, new[]
             {
@@ -1148,7 +1148,7 @@ namespace Ringtoets.Piping.Data.Test
             var result = derivedInput.DarcyPermeability;
 
             // Assert
-            var weightedMean = 0.885136;
+            var weightedMean = (mean * 0.5 + mean2) / 1.5;
             Assert.AreEqual(weightedMean, result.Mean, result.Mean.GetAccuracy());
             Assert.AreEqual(weightedMean / 2, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
         }
@@ -1160,7 +1160,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
-            var permeabilityMean = random.NextDouble();
+            var permeabilityMean = 0.1 + random.NextDouble();
             var permeabilityDeviation = random.NextDouble();
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
@@ -1177,7 +1177,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var expectedMean = new RoundedDouble(6, permeabilityMean);
-            var expectedDeviation = new RoundedDouble(6, expectedMean * (permeabilityDeviation / permeabilityMean));
+            var expectedDeviation = new RoundedDouble(6, permeabilityDeviation);
             Assert.AreEqual(expectedMean, result.Mean);
             Assert.AreEqual(expectedDeviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
         }
@@ -1304,7 +1304,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
-            var diameterD70Mean = random.NextDouble();
+            var diameterD70Mean = 0.1 + random.NextDouble();
             var diameterD70Deviation = random.NextDouble();
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
