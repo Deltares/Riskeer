@@ -68,8 +68,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(coordinateX, entity.LocationX);
             Assert.AreEqual(coordinateY, entity.LocationY);
             Assert.AreEqual(id, entity.LocationId);
-            Assert.IsNull(entity.DesignWaterLevelOutput);
-            Assert.IsNull(entity.WaveHeightOutput);
+            Assert.IsEmpty(entity.HydraulicLocationOutputEntities);
             Assert.AreEqual(order, entity.Order);
         }
 
@@ -181,8 +180,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(coordinateX, entity.LocationX);
             Assert.AreEqual(coordinateY, entity.LocationY);
             Assert.AreEqual(id, entity.LocationId);
-            Assert.IsNull(entity.DesignWaterLevelOutput);
-            Assert.IsNull(entity.WaveHeightOutput);
+            Assert.IsEmpty(entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities);
             Assert.AreEqual(order, entity.Order);
         }
 

@@ -51,8 +51,6 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long HydraulicLocationEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
-        public Nullable<long> DesignWaterLevelOutput { get; set; }
-        public Nullable<long> WaveHeightOutput { get; set; }
         public long LocationId { get; set; }
         public string Name { get; set; }
         public Nullable<double> LocationX { get; set; }

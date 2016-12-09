@@ -45,8 +45,6 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-        public Nullable<long> DesignWaterLevelOutput { get; set; }
-        public Nullable<long> WaveHeightOutput { get; set; }
         public long LocationId { get; set; }
         public string Name { get; set; }
         public Nullable<double> LocationX { get; set; }
