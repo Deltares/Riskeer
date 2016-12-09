@@ -73,17 +73,19 @@ namespace Ringtoets.Piping.KernelWrapper
             var heaveResult = CalculateHeave();
             var sellmeijerResult = CalculateSellmeijer();
 
-            return new PipingCalculatorResult(
-                upliftResult.Zu,
-                upliftResult.FoSu,
-                heaveResult.Zh,
-                heaveResult.FoSh,
-                sellmeijerResult.Zp,
-                sellmeijerResult.FoSp,
-                heaveResult.Gradient,
-                sellmeijerResult.CreepCoefficient,
-                sellmeijerResult.CriticalFall,
-                sellmeijerResult.ReducedFall);
+            return new PipingCalculatorResult(new PipingCalculatorResult.ConstructionProperties 
+            {
+                UpliftZValue = upliftResult.Zu,
+                UpliftFactorOfSafety = upliftResult.FoSu,
+                HeaveZValue = heaveResult.Zh,
+                HeaveFactorOfSafety = heaveResult.FoSh,
+                SellmeijerZValue = sellmeijerResult.Zp,
+                SellmeijerFactorOfSafety = sellmeijerResult.FoSp,
+                HeaveGradient = heaveResult.Gradient,
+                SellmeijerCreepCoefficient = sellmeijerResult.CreepCoefficient,
+                SellmeijerCriticalFall = sellmeijerResult.CriticalFall,
+                SellmeijerReducedFall = sellmeijerResult.ReducedFall
+            });
         }
 
         /// <summary>

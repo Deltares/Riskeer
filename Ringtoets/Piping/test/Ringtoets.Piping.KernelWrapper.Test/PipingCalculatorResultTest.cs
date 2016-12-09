@@ -28,8 +28,39 @@ namespace Ringtoets.Piping.KernelWrapper.Test
     public class PipingCalculatorResultTest
     {
         [Test]
-        public void GivenSomeValues_WhenConstructedWithValues_ThenPropertiesAreSet()
+        public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()
         {
+            // Call
+            TestDelegate test = () => new PipingCalculatorResult(null);
+            
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("constructionProperties", paramName);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesWithoutValuesSet_PropertiesAreDefault()
+        {
+            // Call
+            var actual = new PipingCalculatorResult(new PipingCalculatorResult.ConstructionProperties());
+
+            // Assert
+            Assert.IsNaN(actual.UpliftZValue);
+            Assert.IsNaN(actual.UpliftFactorOfSafety);
+            Assert.IsNaN(actual.HeaveZValue);
+            Assert.IsNaN(actual.HeaveFactorOfSafety);
+            Assert.IsNaN(actual.SellmeijerZValue);
+            Assert.IsNaN(actual.SellmeijerFactorOfSafety);
+            Assert.IsNaN(actual.HeaveGradient);
+            Assert.IsNaN(actual.SellmeijerCreepCoefficient);
+            Assert.IsNaN(actual.SellmeijerCriticalFall);
+            Assert.IsNaN(actual.SellmeijerReducedFall);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesWithValuesSet_PropertiesAreSet()
+        {
+            // Setup
             var random = new Random(22);
             var zuValue = random.NextDouble();
             var foSuValue = random.NextDouble();
@@ -42,18 +73,24 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var sellmeijerCriticalFall = random.NextDouble();
             var sellmeijerReducedFall = random.NextDouble();
 
-            var actual = new PipingCalculatorResult(
-                zuValue,
-                foSuValue,
-                zhValue,
-                foShValue,
-                zsValue,
-                foSsValue,
-                heaveGradient,
-                sellmeijerCreepCoefficient,
-                sellmeijerCriticalFall,
-                sellmeijerReducedFall);
+            var builder = new PipingCalculatorResult.ConstructionProperties
+            {
+                UpliftZValue = zuValue,
+                UpliftFactorOfSafety = foSuValue,
+                HeaveZValue = zhValue,
+                HeaveFactorOfSafety = foShValue,
+                SellmeijerZValue = zsValue,
+                SellmeijerFactorOfSafety = foSsValue,
+                HeaveGradient = heaveGradient,
+                SellmeijerCreepCoefficient = sellmeijerCreepCoefficient,
+                SellmeijerCriticalFall = sellmeijerCriticalFall,
+                SellmeijerReducedFall = sellmeijerReducedFall
+            };
 
+            // Call
+            var actual = new PipingCalculatorResult(builder);
+
+            // Assert
             Assert.AreEqual(zuValue, actual.UpliftZValue);
             Assert.AreEqual(foSuValue, actual.UpliftFactorOfSafety);
             Assert.AreEqual(zhValue, actual.HeaveZValue);
