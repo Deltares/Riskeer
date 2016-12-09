@@ -31,6 +31,36 @@ namespace Ringtoets.Piping.Data.Test
     public class PipingOutputTest
     {
         [Test]
+        public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new PipingOutput(null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("constructionProperties", paramName);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesWithoutValuesSet_PropertiesAreDefault()
+        {
+            // Call
+            var actual = new PipingOutput(new PipingOutput.ConstructionProperties());
+
+            // Assert
+            Assert.IsNaN(actual.UpliftZValue);
+            Assert.IsNaN(actual.UpliftFactorOfSafety);
+            Assert.IsNaN(actual.HeaveZValue);
+            Assert.IsNaN(actual.HeaveFactorOfSafety);
+            Assert.IsNaN(actual.SellmeijerZValue);
+            Assert.IsNaN(actual.SellmeijerFactorOfSafety);
+            Assert.IsNaN(actual.HeaveGradient);
+            Assert.IsNaN(actual.SellmeijerCreepCoefficient);
+            Assert.IsNaN(actual.SellmeijerCriticalFall);
+            Assert.IsNaN(actual.SellmeijerReducedFall);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             var random = new Random(22);
@@ -45,16 +75,19 @@ namespace Ringtoets.Piping.Data.Test
             var sellmeijerCriticalFall = random.NextDouble();
             var sellmeijerReducedFall = random.NextDouble();
 
-            var output = new PipingOutput(zuValue,
-                                          foSuValue,
-                                          zhValue,
-                                          foShValue,
-                                          zsValue,
-                                          foSsValue,
-                                          heaveGradient,
-                                          sellmeijerCreepCoefficient,
-                                          sellmeijerCriticalFall,
-                                          sellmeijerReducedFall);
+            var output = new PipingOutput(new PipingOutput.ConstructionProperties
+            {
+                UpliftZValue = zuValue,
+                UpliftFactorOfSafety = foSuValue,
+                HeaveZValue = zhValue,
+                HeaveFactorOfSafety = foShValue,
+                SellmeijerZValue = zsValue,
+                SellmeijerFactorOfSafety = foSsValue,
+                HeaveGradient = heaveGradient,
+                SellmeijerCreepCoefficient = sellmeijerCreepCoefficient,
+                SellmeijerCriticalFall = sellmeijerCriticalFall,
+                SellmeijerReducedFall = sellmeijerReducedFall
+            });
 
             Assert.IsInstanceOf<Observable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);

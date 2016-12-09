@@ -33,7 +33,19 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_AllOutputValuesSet_ReturnEntity()
         {
             // Setup
-            var pipingOutput = new PipingOutput(1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.10);
+            var pipingOutput = new PipingOutput(new PipingOutput.ConstructionProperties
+            {
+                UpliftZValue = 1.1,
+                UpliftFactorOfSafety = 2.2,
+                HeaveZValue = 3.3,
+                HeaveFactorOfSafety = 4.4,
+                SellmeijerZValue = 5.5,
+                SellmeijerFactorOfSafety = 6.6,
+                HeaveGradient = 7.7,
+                SellmeijerCreepCoefficient = 8.8,
+                SellmeijerCriticalFall = 9.9,
+                SellmeijerReducedFall = 10.10
+            });
 
             // Call
             PipingCalculationOutputEntity entity = pipingOutput.Create();
@@ -58,10 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_AllOutputValuesNaN_ReturnEntityWithNullValues()
         {
             // Setup
-            var pipingOutput = new PipingOutput(double.NaN, double.NaN, double.NaN,
-                                                double.NaN, double.NaN, double.NaN,
-                                                double.NaN, double.NaN, double.NaN,
-                                                double.NaN);
+            var pipingOutput = new PipingOutput(new PipingOutput.ConstructionProperties());
 
             // Call
             PipingCalculationOutputEntity entity = pipingOutput.Create();

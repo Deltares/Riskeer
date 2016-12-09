@@ -32,6 +32,18 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         /// <summary>
         /// Creates a new instance of the <see cref="TestPipingOutput"/> class.
         /// </summary>
-        public TestPipingOutput() : base(1.1, 1.50, 6.51, 3.75, 8.92, 6.3, 8.4, 9.9, 4.1, 2.21) {}
+        public TestPipingOutput() : base(new ConstructionProperties
+        {
+            HeaveZValue = 1.1,
+            HeaveFactorOfSafety = 1.50,
+            UpliftZValue = 6.51,
+            UpliftFactorOfSafety = 3.75,
+            SellmeijerZValue = 8.92,
+            SellmeijerFactorOfSafety = 6.3,
+            HeaveGradient = 8.4,
+            SellmeijerCreepCoefficient = 9.9,
+            SellmeijerCriticalFall = 4.1,
+            SellmeijerReducedFall = 2.21
+        }) {}
     }
 }

@@ -39,11 +39,19 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <returns>A new <see cref="PipingOutput"/>.</returns>
         internal static PipingOutput Read(this PipingCalculationOutputEntity entity)
         {
-            return new PipingOutput(entity.UpliftZValue.ToNullAsNaN(), entity.UpliftFactorOfSafety.ToNullAsNaN(),
-                                    entity.HeaveZValue.ToNullAsNaN(), entity.HeaveFactorOfSafety.ToNullAsNaN(),
-                                    entity.SellmeijerZValue.ToNullAsNaN(), entity.SellmeijerFactorOfSafety.ToNullAsNaN(),
-                                    entity.HeaveGradient.ToNullAsNaN(), entity.SellmeijerCreepCoefficient.ToNullAsNaN(),
-                                    entity.SellmeijerCriticalFall.ToNullAsNaN(), entity.SellmeijerReducedFall.ToNullAsNaN());
+            return new PipingOutput(new PipingOutput.ConstructionProperties
+            {
+                UpliftZValue = entity.UpliftZValue.ToNullAsNaN(),
+                UpliftFactorOfSafety = entity.UpliftFactorOfSafety.ToNullAsNaN(),
+                HeaveZValue = entity.HeaveZValue.ToNullAsNaN(),
+                HeaveFactorOfSafety = entity.HeaveFactorOfSafety.ToNullAsNaN(),
+                SellmeijerZValue = entity.SellmeijerZValue.ToNullAsNaN(),
+                SellmeijerFactorOfSafety = entity.SellmeijerFactorOfSafety.ToNullAsNaN(),
+                HeaveGradient = entity.HeaveGradient.ToNullAsNaN(),
+                SellmeijerCreepCoefficient = entity.SellmeijerCreepCoefficient.ToNullAsNaN(),
+                SellmeijerCriticalFall = entity.SellmeijerCriticalFall.ToNullAsNaN(),
+                SellmeijerReducedFall = entity.SellmeijerReducedFall.ToNullAsNaN()
+            });
         }
     }
 }

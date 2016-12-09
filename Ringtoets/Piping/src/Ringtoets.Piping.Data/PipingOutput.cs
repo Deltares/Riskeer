@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -33,37 +34,26 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates a new instance of <see cref="PipingOutput"/>. 
         /// </summary>
-        /// <param name="upliftZValue">The calculated z-value for the uplift sub calculation.</param>
-        /// <param name="upliftFactorOfSafety">The factor of safety for the uplift sub calculation.</param>
-        /// <param name="heaveZValue">The calculated z-value for the heave sub calculation.</param>
-        /// <param name="heaveFactorOfSafety">The factor of safety for the heave sub calculation.</param>
-        /// <param name="sellmeijerZValue">The calculated z-value for the Sellmeijer sub calculation.</param>
-        /// <param name="sellmeijerFactorOfSafety">The factor of safety for the Sellmeijer sub calculation.</param>
-        /// <param name="heaveGradient">The gradient calculated for the heave sub calculation.</param>
-        /// <param name="sellmeijerCreepCoefficient">The creep coefficient calculated for the Sellmeijer sub calculation.</param>
-        /// <param name="sellmeijerCriticalFall">The critical fall calculated for the Sellmeijer sub calculation.</param>
-        /// <param name="sellmeijerReducedFall">The reduced fall calculated for the Sellmeijer sub calculation.</param>
-        public PipingOutput(double upliftZValue,
-            double upliftFactorOfSafety, 
-            double heaveZValue, 
-            double heaveFactorOfSafety, 
-            double sellmeijerZValue, 
-            double sellmeijerFactorOfSafety,
-            double heaveGradient,
-            double sellmeijerCreepCoefficient,
-            double sellmeijerCriticalFall,
-            double sellmeijerReducedFall)
+        /// <param name="constructionProperties">The container of the properties for the
+        /// <see cref="PipingOutput"/></param>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="constructionProperties"/>
+        /// is <c>null</c>.</exception>
+        public PipingOutput(ConstructionProperties constructionProperties)
         {
-            HeaveFactorOfSafety = heaveFactorOfSafety;
-            HeaveZValue = heaveZValue;
-            UpliftFactorOfSafety = upliftFactorOfSafety;
-            UpliftZValue = upliftZValue;
-            SellmeijerFactorOfSafety = sellmeijerFactorOfSafety;
-            SellmeijerZValue = sellmeijerZValue;
-            HeaveGradient = new RoundedDouble(2, heaveGradient);
-            SellmeijerCreepCoefficient = new RoundedDouble(1, sellmeijerCreepCoefficient);
-            SellmeijerCriticalFall = new RoundedDouble(2, sellmeijerCriticalFall);
-            SellmeijerReducedFall = new RoundedDouble(2, sellmeijerReducedFall);
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException("constructionProperties");
+            }
+            HeaveFactorOfSafety = constructionProperties.HeaveFactorOfSafety;
+            HeaveZValue = constructionProperties.HeaveZValue;
+            UpliftFactorOfSafety = constructionProperties.UpliftFactorOfSafety;
+            UpliftZValue = constructionProperties.UpliftZValue;
+            SellmeijerFactorOfSafety = constructionProperties.SellmeijerFactorOfSafety;
+            SellmeijerZValue = constructionProperties.SellmeijerZValue;
+            HeaveGradient = new RoundedDouble(2, constructionProperties.HeaveGradient);
+            SellmeijerCreepCoefficient = new RoundedDouble(1, constructionProperties.SellmeijerCreepCoefficient);
+            SellmeijerCriticalFall = new RoundedDouble(2, constructionProperties.SellmeijerCriticalFall);
+            SellmeijerReducedFall = new RoundedDouble(2, constructionProperties.SellmeijerReducedFall);
         }
 
         /// <summary>
@@ -115,5 +105,78 @@ namespace Ringtoets.Piping.Data
         /// The reduced fall that was calculated for the Sellmeijer sub calculation.
         /// </summary>
         public RoundedDouble SellmeijerReducedFall { get; private set; }
+
+        /// <summary>
+        /// Container for properties for constructing a <see cref="PipingOutput"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// The calculated z-value for the uplift sub calculation.
+            /// </summary>
+            public double UpliftZValue { internal get; set; }
+
+            /// <summary>
+            /// The factor of safety for the uplift sub calculation.
+            /// </summary>
+            public double UpliftFactorOfSafety { internal get; set; }
+
+            /// <summary>
+            /// The calculated z-value for the heave sub calculation.
+            /// </summary>
+            public double HeaveZValue { internal get; set; }
+
+            /// <summary>
+            /// The factor of safety for the heave sub calculation.
+            /// </summary>
+            public double HeaveFactorOfSafety { internal get; set; }
+
+            /// <summary>
+            /// The calculated z-value for the Sellmeijer sub calculation.
+            /// </summary>
+            public double SellmeijerZValue { internal get; set; }
+
+            /// <summary>
+            /// The factor of safety for the Sellmeijer sub calculation.
+            /// </summary>
+            public double SellmeijerFactorOfSafety { internal get; set; }
+
+            /// <summary>
+            /// The gradient that was calculated for the heave sub calculation.
+            /// </summary>
+            public double HeaveGradient { internal get; set; }
+
+            /// <summary>
+            /// The creep coefficient that was calculated for the Sellmeijer sub calculation.
+            /// </summary>
+            public double SellmeijerCreepCoefficient { internal get; set; }
+
+            /// <summary>
+            /// The critical fall that was calculated for the Sellmeijer sub calculation.
+            /// </summary>
+            public double SellmeijerCriticalFall { internal get; set; }
+
+            /// <summary>
+            /// The reduced fall that was calculated for the Sellmeijer sub calculation.
+            /// </summary>
+            public double SellmeijerReducedFall { internal get; set; }
+
+            /// <summary>
+            /// Creates a new instance of <see cref="ConstructionProperties"/>.
+            /// </summary>
+            public ConstructionProperties()
+            {
+                UpliftZValue = double.NaN;
+                UpliftFactorOfSafety = double.NaN;
+                HeaveZValue = double.NaN;
+                HeaveFactorOfSafety = double.NaN;
+                SellmeijerZValue = double.NaN;
+                SellmeijerFactorOfSafety = double.NaN;
+                HeaveGradient = double.NaN;
+                SellmeijerCreepCoefficient = double.NaN;
+                SellmeijerCriticalFall = double.NaN;
+                SellmeijerReducedFall = double.NaN;
+            }
+        }
     }
 }

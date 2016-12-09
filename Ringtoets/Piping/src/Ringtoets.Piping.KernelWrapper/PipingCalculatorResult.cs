@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.KernelWrapper
         #endregion
 
         /// <summary>
-        /// Builder for constructing a <see cref="ConstructionProperties"/>.
+        /// Container for properties for constructing a <see cref="PipingCalculatorResult"/>.
         /// </summary>
         public class ConstructionProperties
         {

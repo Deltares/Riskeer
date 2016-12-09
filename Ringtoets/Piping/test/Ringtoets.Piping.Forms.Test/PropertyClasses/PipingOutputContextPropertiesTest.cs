@@ -86,7 +86,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 pipingReliability,
                 pipingFactorOfSafety);
 
-            var output = new PipingOutput(0, 0, 0, 0, 0, 0, heaveGradient, sellmeijerCreepCoefficient, sellmeijerCriticalFall, sellmeijerReducedFall);
+            var output = new PipingOutput(new PipingOutput.ConstructionProperties
+            {
+                HeaveGradient = heaveGradient,
+                SellmeijerCreepCoefficient = sellmeijerCreepCoefficient,
+                SellmeijerCriticalFall = sellmeijerCriticalFall,
+                SellmeijerReducedFall = sellmeijerReducedFall
+            });
 
             // Call
             var properties = new PipingOutputContextProperties

@@ -81,16 +81,19 @@ namespace Ringtoets.Piping.Service
             {
                 var pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Calculate();
 
-                calculation.Output = new PipingOutput(pipingResult.UpliftZValue,
-                                                      pipingResult.UpliftFactorOfSafety,
-                                                      pipingResult.HeaveZValue,
-                                                      pipingResult.HeaveFactorOfSafety,
-                                                      pipingResult.SellmeijerZValue,
-                                                      pipingResult.SellmeijerFactorOfSafety,
-                                                      pipingResult.HeaveGradient,
-                                                      pipingResult.SellmeijerCreepCoefficient,
-                                                      pipingResult.SellmeijerCriticalFall,
-                                                      pipingResult.SellmeijerReducedFall);
+                calculation.Output = new PipingOutput(new PipingOutput.ConstructionProperties
+                {
+                    UpliftZValue = pipingResult.UpliftZValue,
+                    UpliftFactorOfSafety = pipingResult.UpliftFactorOfSafety,
+                    HeaveZValue = pipingResult.HeaveZValue,
+                    HeaveFactorOfSafety = pipingResult.HeaveFactorOfSafety,
+                    SellmeijerZValue = pipingResult.SellmeijerZValue,
+                    SellmeijerFactorOfSafety = pipingResult.SellmeijerFactorOfSafety,
+                    HeaveGradient = pipingResult.HeaveGradient,
+                    SellmeijerCreepCoefficient = pipingResult.SellmeijerCreepCoefficient,
+                    SellmeijerCriticalFall = pipingResult.SellmeijerCriticalFall,
+                    SellmeijerReducedFall = pipingResult.SellmeijerReducedFall
+                });
             }
             catch (PipingCalculatorException e)
             {
