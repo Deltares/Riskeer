@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         }
 
         /// <summary>
-        /// Gets or sets the result of the calculation.
+        /// Gets the result of the calculation.
         /// </summary>
         public RoundedDouble Result { get; private set; }
 
@@ -95,10 +95,10 @@ namespace Ringtoets.Common.Data.Hydraulics
         public RoundedDouble CalculatedReliability { get; private set; }
 
         /// <summary>
-        /// Gets or sets the convergence status of the calculation.
+        /// Gets the convergence status of the calculation.
         /// [-]
         /// </summary>
-        public CalculationConvergence CalculationConvergence { get; set; }
+        public CalculationConvergence CalculationConvergence { get; private set; }
 
         private static bool IsValidProbability(double probability)
         {
