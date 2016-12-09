@@ -26,25 +26,48 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
     /// </summary>
     public abstract class RandomHydraRingVariable : HydraRingVariable
     {
-        private readonly HydraRingDistributionType distributionType;
+        private readonly double mean;
+        private readonly double variance;
 
         /// <summary>
         /// Creates a new instance of <see cref="RandomHydraRingVariable"/>
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
         /// <param name="deviationType">The deviation type of the variable.</param>
-        /// <param name="distributionType">The distribution type of the variable.</param>
-        protected RandomHydraRingVariable(int variableId, HydraRingDeviationType deviationType, HydraRingDistributionType distributionType) 
+        /// <param name="mean">The mean value of the variable.</param>
+        /// <param name="variance">The variance value of the variable.</param>
+        protected RandomHydraRingVariable(int variableId, HydraRingDeviationType deviationType, double mean, double variance)
             : base(variableId, deviationType)
         {
-            this.distributionType = distributionType;
+            this.mean = mean;
+            this.variance = variance;
         }
 
-        public override HydraRingDistributionType DistributionType
+        public override double Parameter1
         {
             get
             {
-                return distributionType;
+                return mean;
+            }
+        }
+
+        public override double? Parameter2
+        {
+            get
+            {
+                return DeviationType == HydraRingDeviationType.Standard
+                           ? variance
+                           : base.Parameter2;
+            }
+        }
+
+        public override double CoefficientOfVariation
+        {
+            get
+            {
+                return DeviationType == HydraRingDeviationType.Variation
+                           ? variance
+                           : base.CoefficientOfVariation;
             }
         }
     }

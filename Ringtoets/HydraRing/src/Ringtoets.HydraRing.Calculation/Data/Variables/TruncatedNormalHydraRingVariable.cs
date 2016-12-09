@@ -24,10 +24,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
     /// <summary>
     /// Class for Truncated Normal Hydra-Ring variable related data.
     /// </summary>
-    public class TruncatedNormalHydraRingVariable : HydraRingVariable
+    public class TruncatedNormalHydraRingVariable : RandomHydraRingVariable
     {
-        private readonly double mean;
-        private readonly double variance;
         private readonly double lowerBoundary;
         private readonly double upperBoundary;
 
@@ -42,30 +40,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         /// <param name="upperBoundary">The upper boundary value of the variable.</param>
         public TruncatedNormalHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
                                                 double mean, double variance, double lowerBoundary, double upperBoundary)
-            : base(variableId, deviationType)
+            : base(variableId, deviationType, mean, variance)
         {
-            this.mean = mean;
-            this.variance = variance;
             this.lowerBoundary = lowerBoundary;
             this.upperBoundary = upperBoundary;
-        }
-
-        public override double Parameter1
-        {
-            get
-            {
-                return mean;
-            }
-        }
-
-        public override double? Parameter2
-        {
-            get
-            {
-                return DeviationType == HydraRingDeviationType.Standard
-                           ? variance
-                           : base.Parameter2;
-            }
         }
 
         public override double? Parameter3
@@ -81,16 +59,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
             get
             {
                 return upperBoundary;
-            }
-        }
-
-        public override double CoefficientOfVariation
-        {
-            get
-            {
-                return DeviationType == HydraRingDeviationType.Variation
-                           ? variance
-                           : base.CoefficientOfVariation;
             }
         }
 

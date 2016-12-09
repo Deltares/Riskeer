@@ -24,11 +24,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
     /// <summary>
     /// Class for Rayleigh N Hydra-Ring variable related data.
     /// </summary>
-    public class RayleighNHydraRingVariable : HydraRingVariable
+    public class RayleighNHydraRingVariable : RandomHydraRingVariable
     {
-        private readonly double standardDeviation;
-        private readonly double n;
-
         /// <summary>
         /// Creates a new instance of <see cref="RayleighNHydraRingVariable"/>.
         /// </summary>
@@ -38,39 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         /// <param name="standardDeviation">The standardDeviation value of the variable.</param>
         public RayleighNHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
                                           double n, double standardDeviation)
-            : base(variableId, deviationType)
-        {
-            this.standardDeviation = standardDeviation;
-            this.n = n;
-        }
-
-        public override double Parameter1
-        {
-            get
-            {
-                return standardDeviation;
-            }
-        }
-
-        public override double? Parameter2
-        {
-            get
-            {
-                return DeviationType == HydraRingDeviationType.Standard
-                           ? n
-                           : base.Parameter2;
-            }
-        }
-
-        public override double CoefficientOfVariation
-        {
-            get
-            {
-                return DeviationType == HydraRingDeviationType.Variation
-                           ? n
-                           : base.CoefficientOfVariation;
-            }
-        }
+            : base(variableId, deviationType, standardDeviation, n) {}
 
         public override HydraRingDistributionType DistributionType
         {

@@ -29,23 +29,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
     public class LogNormalHydraRingVariableTest
     {
         [Test]
-        [TestCase(HydraRingDeviationType.Standard, 3.3, 0)]
-        [TestCase(HydraRingDeviationType.Variation, null, 3.3)]
-        public void Constructor_ExpectedValues(HydraRingDeviationType deviationType, double? expectedParameter2, double expectedCoefficientOfVariation)
+        public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingVariable = new LogNormalHydraRingVariable(1, deviationType, 2.2, 3.3, 4.4);
+            var hydraRingVariable = new LogNormalHydraRingVariable(1, HydraRingDeviationType.Standard, 2.2, 3.3, 4.4);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingVariable>(hydraRingVariable);
-            Assert.AreEqual(1, hydraRingVariable.VariableId);
+            Assert.IsInstanceOf<RandomHydraRingVariable>(hydraRingVariable);
             Assert.AreEqual(HydraRingDistributionType.LogNormal, hydraRingVariable.DistributionType);
-            Assert.AreEqual(deviationType, hydraRingVariable.DeviationType);
-            Assert.AreEqual(2.2, hydraRingVariable.Parameter1);
-            Assert.AreEqual(expectedParameter2, hydraRingVariable.Parameter2);
             Assert.AreEqual(4.4, hydraRingVariable.Parameter3);
-            Assert.IsNull(hydraRingVariable.Parameter4);
-            Assert.AreEqual(expectedCoefficientOfVariation, hydraRingVariable.CoefficientOfVariation);
         }
 
         [Test]

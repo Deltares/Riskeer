@@ -24,11 +24,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
     /// <summary>
     /// Class for Normal Hydra-Ring variable related data.
     /// </summary>
-    public class NormalHydraRingVariable : HydraRingVariable
+    public class NormalHydraRingVariable : RandomHydraRingVariable
     {
-        private readonly double mean;
-        private readonly double variance;
-
         /// <summary>
         /// Creates a new instance of <see cref="NormalHydraRingVariable"/>.
         /// </summary>
@@ -38,39 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         /// <param name="variance">The variance value of the variable.</param>
         public NormalHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
                                        double mean, double variance)
-            : base(variableId, deviationType)
-        {
-            this.mean = mean;
-            this.variance = variance;
-        }
-
-        public override double Parameter1
-        {
-            get
-            {
-                return mean;
-            }
-        }
-
-        public override double? Parameter2
-        {
-            get
-            {
-                return DeviationType == HydraRingDeviationType.Standard
-                           ? variance
-                           : base.Parameter2;
-            }
-        }
-
-        public override double CoefficientOfVariation
-        {
-            get
-            {
-                return DeviationType == HydraRingDeviationType.Variation
-                           ? variance
-                           : base.CoefficientOfVariation;
-            }
-        }
+            : base(variableId, deviationType, mean, variance) {}
 
         public override HydraRingDistributionType DistributionType
         {

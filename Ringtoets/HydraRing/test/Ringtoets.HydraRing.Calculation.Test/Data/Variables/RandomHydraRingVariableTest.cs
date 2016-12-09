@@ -29,25 +29,37 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
     public class RandomHydraRingVariableTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        [TestCase(HydraRingDeviationType.Standard, 3.3, 0)]
+        [TestCase(HydraRingDeviationType.Variation, null, 3.3)]
+        public void Constructor_ExpectedValues(HydraRingDeviationType deviationType, double? expectedParameter2, double expectedCoefficientOfVariation)
         {
-            // Setup
-            var variableId = 1;
-            var deviationType = HydraRingDeviationType.Variation;
-            var distributionType = HydraRingDistributionType.LogNormal;
-
             // Call
-            var variable = new TestRandomHydraRingVariable(variableId, deviationType, distributionType);
+            var hydraRingVariable = new TestRandomHydraRingVariable(1, deviationType, 2.2, 3.3);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingVariable>(variable);
-            Assert.AreEqual(distributionType, variable.DistributionType);
+            Assert.IsInstanceOf<HydraRingVariable>(hydraRingVariable);
+            Assert.AreEqual(1, hydraRingVariable.VariableId);
+            Assert.AreEqual(0.0, hydraRingVariable.Value);
+            Assert.AreEqual(deviationType, hydraRingVariable.DeviationType);
+            Assert.AreEqual(2.2, hydraRingVariable.Parameter1);
+            Assert.AreEqual(expectedParameter2, hydraRingVariable.Parameter2);
+            Assert.IsNull(hydraRingVariable.Parameter3);
+            Assert.IsNull(hydraRingVariable.Parameter4);
+            Assert.AreEqual(expectedCoefficientOfVariation, hydraRingVariable.CoefficientOfVariation);
         }
 
         private class TestRandomHydraRingVariable : RandomHydraRingVariable
         {
-            public TestRandomHydraRingVariable(int variableId, HydraRingDeviationType deviationType, HydraRingDistributionType distributionType) 
-                : base(variableId, deviationType, distributionType) {}
+            public TestRandomHydraRingVariable(int variableId, HydraRingDeviationType deviationType, double parameter1, double parameter2) 
+                : base(variableId, deviationType, parameter1, parameter2) {}
+
+            public override HydraRingDistributionType DistributionType
+            {
+                get
+                {
+                    return HydraRingDistributionType.Normal;
+                }
+            }
         }
     }
 }

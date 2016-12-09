@@ -24,10 +24,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
     /// <summary>
     /// Class for LogNormal Hydra-Ring variable related data.
     /// </summary>
-    public class LogNormalHydraRingVariable : HydraRingVariable
+    public class LogNormalHydraRingVariable : RandomHydraRingVariable
     {
-        private readonly double mean;
-        private readonly double variance;
         private readonly double shift;
 
         /// <summary>
@@ -40,29 +38,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         /// <param name="shift">The shift value of the variable.</param>
         public LogNormalHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
                                           double mean, double variance, double shift = double.NaN)
-            : base(variableId, deviationType)
+            : base(variableId, deviationType, mean, variance)
         {
-            this.mean = mean;
-            this.variance = variance;
             this.shift = shift;
-        }
-
-        public override double Parameter1
-        {
-            get
-            {
-                return mean;
-            }
-        }
-
-        public override double? Parameter2
-        {
-            get
-            {
-                return DeviationType == HydraRingDeviationType.Standard
-                           ? variance
-                           : base.Parameter2;
-            }
         }
 
         public override double? Parameter3
@@ -72,16 +50,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
                 return !double.IsNaN(shift)
                            ? shift
                            : base.Parameter3;
-            }
-        }
-
-        public override double CoefficientOfVariation
-        {
-            get
-            {
-                return DeviationType == HydraRingDeviationType.Variation
-                           ? variance
-                           : base.CoefficientOfVariation;
             }
         }
 
