@@ -30,17 +30,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         private readonly double? defaultHydraRingNullValue = null;
 
         private readonly int variableId;
-        private readonly HydraRingDeviationType deviationType;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingVariable"/> class.
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
-        /// <param name="deviationType">The deviation type in case the variable is random.</param>
-        protected HydraRingVariable(int variableId, HydraRingDeviationType deviationType)
+        protected HydraRingVariable(int variableId)
         {
             this.variableId = variableId;
-            this.deviationType = deviationType;
         }
 
         /// <summary>
@@ -71,15 +68,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         public abstract HydraRingDistributionType DistributionType { get; }
 
         /// <summary>
-        /// Gets the deviation type in case the variable is random.
+        /// Gets the deviation type of the variable..
         /// </summary>
-        public HydraRingDeviationType DeviationType
-        {
-            get
-            {
-                return deviationType;
-            }
-        }
+        public abstract HydraRingDeviationType DeviationType { get; }
 
         /// <summary>
         /// Gets the parameter 1 value in case the variable is random.

@@ -32,12 +32,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingVariable = new TestHydraRingVariable(1, HydraRingDeviationType.Variation);
+            var hydraRingVariable = new TestHydraRingVariable(1);
 
             // Assert
             Assert.AreEqual(1, hydraRingVariable.VariableId);
             Assert.AreEqual(0, hydraRingVariable.Value);
-            Assert.AreEqual(HydraRingDeviationType.Variation, hydraRingVariable.DeviationType);
             Assert.AreEqual(0, hydraRingVariable.Parameter1);
             Assert.IsNull(hydraRingVariable.Parameter2);
             Assert.IsNull(hydraRingVariable.Parameter3);
@@ -47,14 +46,22 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
 
         private class TestHydraRingVariable : HydraRingVariable
         {
-            public TestHydraRingVariable(int variableId, HydraRingDeviationType deviationType) 
-                : base(variableId, deviationType) {}
+            public TestHydraRingVariable(int variableId)
+                : base(variableId) {}
 
             public override HydraRingDistributionType DistributionType
             {
                 get
                 {
                     return HydraRingDistributionType.Normal;
+                }
+            }
+
+            public override HydraRingDeviationType DeviationType
+            {
+                get
+                {
+                    return HydraRingDeviationType.Standard;
                 }
             }
         }

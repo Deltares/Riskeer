@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
         /// <param name="value">The value of the variable.</param>
         public DeterministicHydraRingVariable(int variableId, double value)
-            : base(variableId, HydraRingDeviationType.Standard)
+            : base(variableId)
         {
             this.value = value;
         }
@@ -52,6 +52,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
             get
             {
                 return HydraRingDistributionType.Deterministic;
+            }
+        }
+
+        public override HydraRingDeviationType DeviationType
+        {
+            get
+            {
+                return HydraRingDeviationType.Standard;
             }
         }
     }
