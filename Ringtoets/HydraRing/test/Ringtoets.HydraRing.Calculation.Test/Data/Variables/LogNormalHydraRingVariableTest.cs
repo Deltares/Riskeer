@@ -41,13 +41,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
         }
 
         [Test]
-        public void Constructor_ShiftNotSet_Parameter3Null()
+        public void Constructor_ShiftNotSet_Parameter3NaN()
         {
             // Call
             var hydraRingVariable = new LogNormalHydraRingVariable(1, HydraRingDeviationType.Standard, 2.2, 3.3);
 
             // Assert
-            Assert.IsNull(hydraRingVariable.Parameter3);
+            Assert.IsNaN(hydraRingVariable.Parameter3);
         }
     }
 }

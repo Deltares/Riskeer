@@ -46,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
             this.upperBoundary = upperBoundary;
         }
 
-        public override double? Parameter3
+        public override double Parameter3
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
             }
         }
 
-        public override double? Parameter4
+        public override double Parameter4
         {
             get
             {

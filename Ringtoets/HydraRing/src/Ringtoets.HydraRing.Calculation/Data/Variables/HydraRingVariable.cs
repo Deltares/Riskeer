@@ -26,9 +26,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
     /// </summary>
     public abstract class HydraRingVariable
     {
-        private const double defaultHydraRingValue = 0.0;
-        private readonly double? defaultHydraRingNullValue = null;
-
         private readonly int variableId;
 
         /// <summary>
@@ -58,7 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         {
             get
             {
-                return defaultHydraRingValue;
+                return double.NaN;
             }
         }
 
@@ -68,7 +65,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         public abstract HydraRingDistributionType DistributionType { get; }
 
         /// <summary>
-        /// Gets the deviation type of the variable..
+        /// Gets the deviation type of the variable.
         /// </summary>
         public abstract HydraRingDeviationType DeviationType { get; }
 
@@ -79,40 +76,40 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         {
             get
             {
-                return defaultHydraRingValue;
+                return double.NaN;
             }
         }
 
         /// <summary>
         /// Gets the parameter 2 value in case the variable is random.
         /// </summary>
-        public virtual double? Parameter2
+        public virtual double Parameter2
         {
             get
             {
-                return defaultHydraRingNullValue;
+                return double.NaN;
             }
         }
 
         /// <summary>
         /// Gets the parameter 3 value in case the variable is random.
         /// </summary>
-        public virtual double? Parameter3
+        public virtual double Parameter3
         {
             get
             {
-                return defaultHydraRingNullValue;
+                return double.NaN;
             }
         }
 
         /// <summary>
         /// Gets the parameter 4 value in case the variable is random.
         /// </summary>
-        public virtual double? Parameter4
+        public virtual double Parameter4
         {
             get
             {
-                return defaultHydraRingNullValue;
+                return double.NaN;
             }
         }
 
@@ -123,7 +120,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         {
             get
             {
-                return defaultHydraRingValue;
+                return double.NaN;
             }
         }
     }

@@ -40,11 +40,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
             Assert.AreEqual(2.2, hydraRingVariable.Value);
             Assert.AreEqual(HydraRingDistributionType.Deterministic, hydraRingVariable.DistributionType);
             Assert.AreEqual(HydraRingDeviationType.Standard, hydraRingVariable.DeviationType);
-            Assert.AreEqual(0, hydraRingVariable.Parameter1);
-            Assert.IsNull(hydraRingVariable.Parameter2);
-            Assert.IsNull(hydraRingVariable.Parameter3);
-            Assert.IsNull(hydraRingVariable.Parameter4);
-            Assert.AreEqual(0, hydraRingVariable.CoefficientOfVariation);
+            Assert.IsNaN(hydraRingVariable.Parameter1);
+            Assert.IsNaN(hydraRingVariable.Parameter2);
+            Assert.IsNaN(hydraRingVariable.Parameter3);
+            Assert.IsNaN(hydraRingVariable.Parameter4);
+            Assert.IsNaN(hydraRingVariable.CoefficientOfVariation);
         }
     }
 }

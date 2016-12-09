@@ -29,9 +29,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
     public class RandomHydraRingVariableTest
     {
         [Test]
-        [TestCase(HydraRingDeviationType.Standard, 3.3, 0)]
-        [TestCase(HydraRingDeviationType.Variation, null, 3.3)]
-        public void Constructor_ExpectedValues(HydraRingDeviationType deviationType, double? expectedParameter2, double expectedCoefficientOfVariation)
+        [TestCase(HydraRingDeviationType.Standard, 3.3, double.NaN)]
+        [TestCase(HydraRingDeviationType.Variation, double.NaN, 3.3)]
+        public void Constructor_ExpectedValues(HydraRingDeviationType deviationType, double expectedParameter2, double expectedCoefficientOfVariation)
         {
             // Call
             var hydraRingVariable = new TestRandomHydraRingVariable(1, deviationType, 2.2, 3.3);
@@ -39,12 +39,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
             // Assert
             Assert.IsInstanceOf<HydraRingVariable>(hydraRingVariable);
             Assert.AreEqual(1, hydraRingVariable.VariableId);
-            Assert.AreEqual(0.0, hydraRingVariable.Value);
+            Assert.IsNaN(hydraRingVariable.Value);
             Assert.AreEqual(deviationType, hydraRingVariable.DeviationType);
             Assert.AreEqual(2.2, hydraRingVariable.Parameter1);
             Assert.AreEqual(expectedParameter2, hydraRingVariable.Parameter2);
-            Assert.IsNull(hydraRingVariable.Parameter3);
-            Assert.IsNull(hydraRingVariable.Parameter4);
+            Assert.IsNaN(hydraRingVariable.Parameter3);
+            Assert.IsNaN(hydraRingVariable.Parameter4);
             Assert.AreEqual(expectedCoefficientOfVariation, hydraRingVariable.CoefficientOfVariation);
         }
 

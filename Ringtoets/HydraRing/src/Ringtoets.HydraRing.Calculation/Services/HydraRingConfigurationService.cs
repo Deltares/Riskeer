@@ -434,22 +434,22 @@ namespace Ringtoets.HydraRing.Calculation.Services
                             "DistributionType", (int?) hydraRingVariable.DistributionType
                         },
                         {
-                            "Parameter1", hydraRingVariable.Parameter1
+                            "Parameter1", GetHydraRingValue(hydraRingVariable.Parameter1)
                         },
                         {
-                            "Parameter2", hydraRingVariable.Parameter2
+                            "Parameter2", GetHydraRingNullableValue(hydraRingVariable.Parameter2)
                         },
                         {
-                            "Parameter3", hydraRingVariable.Parameter3
+                            "Parameter3", GetHydraRingNullableValue(hydraRingVariable.Parameter3)
                         },
                         {
-                            "Parameter4", hydraRingVariable.Parameter4
+                            "Parameter4", GetHydraRingNullableValue(hydraRingVariable.Parameter4)
                         },
                         {
                             "DeviationType", (int?) hydraRingVariable.DeviationType
                         },
                         {
-                            "CoefficientOfVariation", hydraRingVariable.CoefficientOfVariation
+                            "CoefficientOfVariation", GetHydraRingValue(hydraRingVariable.CoefficientOfVariation)
                         },
                         {
                             "CorrelationLength", GetHydraRingValue(variableDefaults.CorrelationLength)

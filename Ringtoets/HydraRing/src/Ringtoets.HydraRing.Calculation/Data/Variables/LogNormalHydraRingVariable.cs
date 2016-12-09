@@ -43,7 +43,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
             this.shift = shift;
         }
 
-        public override double? Parameter3
+        public override double Parameter3
         {
             get
             {
