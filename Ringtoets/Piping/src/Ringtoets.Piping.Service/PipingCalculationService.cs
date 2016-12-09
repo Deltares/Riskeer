@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper;
@@ -114,35 +113,13 @@ namespace Ringtoets.Piping.Service
             var isExitPointLMissing = double.IsNaN(inputParameters.ExitPointL);
             var isEntryPointLMissing = double.IsNaN(inputParameters.EntryPointL);
 
-            if (useAssessmentLevelManualInput)
+            if (!useAssessmentLevelManualInput && isHydraulicBoundaryLocationMissing)
             {
-                if (double.IsNaN(inputParameters.AssessmentLevel) || double.IsInfinity(inputParameters.AssessmentLevel))
-                {
-                    validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
-                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.AssessmentLevel_DisplayName)));
-                }
-                if (double.IsNaN(inputParameters.PiezometricHeadExit) || double.IsInfinity(inputParameters.PiezometricHeadExit))
-                {
-                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
-                }
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
             }
             else
             {
-                if (isHydraulicBoundaryLocationMissing)
-                {
-                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
-                }
-                else
-                {
-                    if (double.IsNaN(inputParameters.AssessmentLevel))
-                    {
-                        validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
-                    }
-                    if (double.IsNaN(inputParameters.PiezometricHeadExit))
-                    {
-                        validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
-                    }
-                }
+                validationResult.AddRange(ValidateAssessmentLevel(inputParameters));
             }
 
             if (isSurfaceLineMissing)
@@ -182,6 +159,35 @@ namespace Ringtoets.Piping.Service
 
                 validationResult.AddRange(ValidateAquiferLayers(inputParameters, pipingSoilProfile, surfaceLevel));
                 validationResult.AddRange(ValidateCoverageLayers(inputParameters, pipingSoilProfile, surfaceLevel));
+            }
+
+            return validationResult;
+        }
+
+        private static IEnumerable<string> ValidateAssessmentLevel(PipingInput inputParameters)
+        {
+            var validationResult = new List<string>();
+
+            bool useAssessmentLevelManualInput = inputParameters.UseAssessmentLevelManualInput;
+            if (useAssessmentLevelManualInput)
+            {
+                if (double.IsNaN(inputParameters.AssessmentLevel) || double.IsInfinity(inputParameters.AssessmentLevel))
+                {
+                    validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
+                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.AssessmentLevel_DisplayName)));
+                }
+            }
+            else
+            {
+                if (double.IsNaN(inputParameters.AssessmentLevel))
+                {
+                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
+                }
+            }
+
+            if (double.IsNaN(inputParameters.PiezometricHeadExit) || double.IsInfinity(inputParameters.PiezometricHeadExit))
+            {
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
             }
 
             return validationResult;

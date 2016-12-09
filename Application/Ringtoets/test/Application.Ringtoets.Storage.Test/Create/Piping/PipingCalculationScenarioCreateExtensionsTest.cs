@@ -102,10 +102,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                         Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
                         StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
                     },
-                    AssessmentLevel = (RoundedDouble) assessmentLevel,
                     UseAssessmentLevelManualInput = useAssessmentLevelManualInput
                 }
             };
+            if (useAssessmentLevelManualInput)
+            {
+                calculation.InputParameters.AssessmentLevel = (RoundedDouble) assessmentLevel;
+            }
 
             var registry = new PersistenceRegistry();
 
@@ -131,6 +134,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             if (useAssessmentLevelManualInput)
             {
                 Assert.AreEqual(input.AssessmentLevel.Value.ToNaNAsNull(), entity.AssessmentLevel);
+            }
+            else
+            {
+                Assert.IsNull(entity.AssessmentLevel);
             }
 
             Assert.AreEqual(order, entity.Order);

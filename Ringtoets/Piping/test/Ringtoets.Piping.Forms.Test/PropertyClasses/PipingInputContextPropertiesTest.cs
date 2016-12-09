@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<StochasticSoilModel>(),
                                               failureMechanism,
                                               assessmentSection),
-                UseAssessmentLevelManualInput = true
+                UseAssessmentLevelManualInput = false
             };
 
             // Assert
@@ -255,7 +255,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GetProperties_UseHydraulicBoundaryLocation_ReturnsExpectedAttributeValues(bool useHydraulicBoundaryLocation)
+        public void GetProperties_UseAssessmentLevelManualInput_ReturnsExpectedAttributeValues(bool useManualAssessmentLevelInput)
         {
             // Setup
             var mocks = new MockRepository();
@@ -275,7 +275,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<StochasticSoilModel>(),
                                               failureMechanism,
                                               assessmentSection),
-                UseAssessmentLevelManualInput = useHydraulicBoundaryLocation
+                UseAssessmentLevelManualInput = useManualAssessmentLevelInput
             };
 
             // Assert
@@ -286,7 +286,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             });
 
             var hydraulicDataCategory = "Hydraulische gegevens";
-            if (useHydraulicBoundaryLocation)
+            if (!useManualAssessmentLevelInput)
             {
                 Assert.AreEqual(18, dynamicProperties.Count);
 
@@ -952,8 +952,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
             var random = new Random(21);
-            PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
-            inputParameters.AssessmentLevel = (RoundedDouble) random.NextDouble();
+            PipingInput inputParameters = new PipingInput(new GeneralPipingInput())
+            {
+                UseAssessmentLevelManualInput = true,
+                AssessmentLevel = (RoundedDouble) random.NextDouble()
+            };
 
             PipingInputContextProperties properties = new PipingInputContextProperties
             {
@@ -963,7 +966,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<StochasticSoilModel>(),
                                               failureMechanism,
                                               assessmentSection),
-                UseAssessmentLevelManualInput = true
             };
 
             RoundedDouble testLevel = (RoundedDouble) random.NextDouble();

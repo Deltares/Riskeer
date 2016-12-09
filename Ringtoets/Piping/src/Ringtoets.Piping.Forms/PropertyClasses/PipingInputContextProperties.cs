@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Piping.Data;
@@ -95,15 +96,25 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicReadOnlyValidationMethod]
-        public bool DynamicReadOnlyValidationMethod(string property)
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return data.WrappedData.UseAssessmentLevelManualInput;
+            if (propertyName == TypeUtils.GetMemberName<PipingInputContextProperties>(p => p.AssessmentLevel))
+            {
+                return !data.WrappedData.UseAssessmentLevelManualInput;
+            }
+
+            return true;
         }
 
         [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string property)
+        public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return data.WrappedData.UseAssessmentLevelManualInput;
+            if (propertyName == TypeUtils.GetMemberName<PipingInputContextProperties>(p => p.SelectedHydraulicBoundaryLocation))
+            {
+                return !data.WrappedData.UseAssessmentLevelManualInput;
+            }
+
+            return false;
         }
 
         public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()

@@ -262,9 +262,11 @@ namespace Ringtoets.Piping.Data
         #region Derived input
 
         /// <summary>
-        /// Gets the outside high water level.
+        /// Gets or sets the outside high water level.
         /// [m]
         /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when the user attempts to set the 
+        /// assessment level while <see cref="UseAssessmentLevelManualInput"/> is <c>false</c></exception>
         public RoundedDouble AssessmentLevel
         {
             get
@@ -280,6 +282,11 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
+                if (!UseAssessmentLevelManualInput)
+                {
+                    throw new InvalidOperationException("UseAssessmentLevelManualInput is false");
+                }
+                    
                 assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
         }

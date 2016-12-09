@@ -143,8 +143,8 @@ namespace Ringtoets.Piping.Service.Test
             const string name = "<very nice name>";
 
             PipingCalculation calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            calculation.InputParameters.AssessmentLevel = (RoundedDouble) assessmentLevel;
             calculation.InputParameters.UseAssessmentLevelManualInput = true;
+            calculation.InputParameters.AssessmentLevel = (RoundedDouble) assessmentLevel;
             calculation.Name = name;
             
             // Call
