@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             var result = stub.Validate();
 
             // Assert
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
             Assert.IsTrue(stub.Validated);
         }
 

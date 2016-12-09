@@ -633,22 +633,24 @@ namespace Ringtoets.Piping.Plugin
 
         private static object[] PipingCalculationContextChildNodeObjects(PipingCalculationScenarioContext pipingCalculationScenarioContext)
         {
+            PipingCalculationScenario pipingCalculationScenario = pipingCalculationScenarioContext.WrappedData;
+
             var childNodes = new List<object>
             {
-                pipingCalculationScenarioContext.WrappedData.Comments,
-                new PipingInputContext(pipingCalculationScenarioContext.WrappedData.InputParameters,
-                                       pipingCalculationScenarioContext.WrappedData,
+                pipingCalculationScenario.Comments,
+                new PipingInputContext(pipingCalculationScenario.InputParameters,
+                                       pipingCalculationScenario,
                                        pipingCalculationScenarioContext.AvailablePipingSurfaceLines,
                                        pipingCalculationScenarioContext.AvailableStochasticSoilModels,
                                        pipingCalculationScenarioContext.FailureMechanism,
                                        pipingCalculationScenarioContext.AssessmentSection)
             };
 
-            if (pipingCalculationScenarioContext.WrappedData.HasOutput)
+            if (pipingCalculationScenario.HasOutput)
             {
                 childNodes.Add(new PipingOutputContext(
-                    pipingCalculationScenarioContext.WrappedData.Output,
-                    pipingCalculationScenarioContext.WrappedData.SemiProbabilisticOutput));
+                    pipingCalculationScenario.Output,
+                    pipingCalculationScenario.SemiProbabilisticOutput));
             }
             else
             {

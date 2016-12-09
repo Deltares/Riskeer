@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         double WhitesDragCoefficient { set; }
 
         /// <summary>
-        /// Sets the BottomLevelAquitardAboveExitPointZ property to use in the Sellmeijer calculation.
+        /// Sets the bottom level of the bottom most aquitard that is above the exit point's z-coordinate.
         /// </summary>
         double BottomLevelAquitardAboveExitPointZ { set; }
 
@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         /// <summary>
         /// Performs the Sellmeijer validation.
         /// </summary>
-        /// <returns>A list of validation strings.</returns>
+        /// <returns>A list of validation strings, or an empty list if there are no validation errors.</returns>
         List<string> Validate();
     }
 }

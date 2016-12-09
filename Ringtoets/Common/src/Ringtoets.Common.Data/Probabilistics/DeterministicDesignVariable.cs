@@ -24,24 +24,25 @@ using Core.Common.Base.Data;
 namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
-    /// This class defines a design variable for a log-normal distribution.
+    /// This class defines a design variable for a distribution.
     /// </summary>
     public class DeterministicDesignVariable<T> : DesignVariable<T> where T : IDistribution
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LogNormalDistributionDesignVariable"/> class.
-        /// </summary>
-        /// <param name="distribution">A log-normal distribution.</param>
-        public DeterministicDesignVariable(T distribution) : base(distribution) { }
+        private readonly double deterministicValue;
 
         /// <summary>
-        /// Gets or sets the value that was set to be returned for the distribution.
+        /// Initializes a new instance of the <see cref="DeterministicDesignVariable{T}"/> class.
         /// </summary>
-        public double DeterministicValue { get; set; }
+        /// <param name="distribution">A distribution.</param>
+        /// <param name="deterministicValue">The value to be returned for the distribution.</param>
+        public DeterministicDesignVariable(T distribution, double deterministicValue = 0.0) : base(distribution)
+        {
+            this.deterministicValue = deterministicValue;
+        }
 
         public override RoundedDouble GetDesignValue()
         {
-            return new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces, DeterministicValue);
+            return new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces, deterministicValue);
         }
     }
 }

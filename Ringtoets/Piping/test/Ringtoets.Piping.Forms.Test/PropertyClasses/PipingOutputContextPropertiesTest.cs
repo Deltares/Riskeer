@@ -250,7 +250,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsTrue(heaveGradientProperty.IsReadOnly);
             Assert.AreEqual(heaveCategory, heaveGradientProperty.Category);
             Assert.AreEqual("Heave gradiënt [-]", heaveGradientProperty.DisplayName);
-            Assert.AreEqual("Het optredende verticale gradiënt in het opbarstkanaal.", heaveGradientProperty.Description);
+            Assert.AreEqual("De optredende verticale gradiënt in het opbarstkanaal.", heaveGradientProperty.Description);
 
             PropertyDescriptor heaveFactorOfSafetyProperty = dynamicProperties[4];
             Assert.IsNotNull(heaveFactorOfSafetyProperty);

@@ -42,6 +42,18 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
+        [TestCaseSource("IdenticalLogNormalDistributionProperties")]
+        public void AreDistributionPropertiesEqual_IdenticalLogNormalDistributionProperties_DoesNotThrowException(LogNormalDistribution distributionOne,
+                                                                                                         LogNormalDistribution distributionTwo)
+        {
+            // Call
+            TestDelegate call = () => DistributionAssert.AreEqual(distributionOne, distributionTwo);
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        [Test]
         [TestCaseSource("IdenticalTruncatedNormalDistributionProperties")]
         public void AreDistributionPropertiesEqual_IdenticalTruncatedNormalDistributionProperties_DoesNotThrowException(TruncatedNormalDistribution distributionOne,
                                                                                                                         TruncatedNormalDistribution distributionTwo)
@@ -69,6 +81,18 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         [TestCaseSource("DifferentDistributionProperties")]
         public void AreDistributionPropertiesEqual_DifferentDistributionProperties_ThrowsAssertionException(IDistribution distributionOne,
                                                                                                             IDistribution distributionTwo)
+        {
+            // Call
+            TestDelegate call = () => DistributionAssert.AreEqual(distributionOne, distributionTwo);
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        [TestCaseSource("DifferentLogNormalDistributionProperties")]
+        public void AreDistributionPropertiesEqual_DifferentLogNormalDistributionProperties_ThrowsAssertionException(LogNormalDistribution distributionOne,
+                                                                                                            LogNormalDistribution distributionTwo)
         {
             // Call
             TestDelegate call = () => DistributionAssert.AreEqual(distributionOne, distributionTwo);
@@ -118,6 +142,24 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
                     }).SetName("IdenticalNormalDistribution");
+                yield return new TestCaseData(
+                    new LogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        StandardDeviation = (RoundedDouble) 2
+                    },
+                    new LogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        StandardDeviation = (RoundedDouble) 2
+                    }).SetName("IdenticalLogNormalDistribution");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> IdenticalLogNormalDistributionProperties
+        {
+            get
+            {
                 yield return new TestCaseData(
                     new LogNormalDistribution(2)
                     {
@@ -264,6 +306,59 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
                     }).SetName("DifferentStandardDeviationLogNormalDistribution");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> DifferentLogNormalDistributionProperties
+        {
+            get
+            {
+                yield return new TestCaseData(
+                    new LogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        StandardDeviation = (RoundedDouble) 2
+                    },
+                    new LogNormalDistribution(3)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        StandardDeviation = (RoundedDouble) 2
+                    }).SetName("DifferentRoundingLogNormalDistribution");
+                yield return new TestCaseData(
+                    new LogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        StandardDeviation = (RoundedDouble) 2
+                    },
+                    new LogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 2,
+                        StandardDeviation = (RoundedDouble) 2
+                    }).SetName("DifferentMeanLogNormalDistribution");
+                yield return new TestCaseData(
+                    new LogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        StandardDeviation = (RoundedDouble) 1
+                    },
+                    new LogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        StandardDeviation = (RoundedDouble) 2
+                    }).SetName("DifferentStandardDeviationLogNormalDistribution");
+                yield return new TestCaseData(
+                    new LogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 4,
+                        StandardDeviation = (RoundedDouble) 2,
+                        Shift = (RoundedDouble) 2
+                    },
+                    new LogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 4,
+                        StandardDeviation = (RoundedDouble) 2,
+                        Shift = (RoundedDouble) 3
+                    }).SetName("DifferentShiftLogNormalDistribution");
             }
         }
 

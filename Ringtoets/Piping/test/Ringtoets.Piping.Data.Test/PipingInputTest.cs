@@ -83,7 +83,8 @@ namespace Ringtoets.Piping.Data.Test
             var saturatedVolumicWeightOfCoverageLayer = new LogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = RoundedDouble.NaN
+                StandardDeviation = RoundedDouble.NaN,
+                Shift = RoundedDouble.NaN
             };
 
             var thicknessAquiferLayer = new LogNormalDistribution(2)

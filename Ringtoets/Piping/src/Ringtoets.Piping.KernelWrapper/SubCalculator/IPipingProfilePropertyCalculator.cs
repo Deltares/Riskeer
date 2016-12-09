@@ -25,8 +25,7 @@ using Deltares.WTIPiping;
 namespace Ringtoets.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
-    /// Interface with operations for calculating properties for combinations of piping profiles and
-    /// surface line.
+    /// Interface for a calculator of properties for a surface line combined with soil profiles.
     /// </summary>
     public interface IPipingProfilePropertyCalculator
     {
@@ -46,7 +45,7 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         double ExitPointX { set; }
 
         /// <summary>
-        /// Gets the BottomAquitardLayerAboveExitPointZ property of the piping profile property calculator.
+        /// Gets the bottom level of the bottom most aquitard that is above the exit point's z-coordinate.
         /// </summary>
         double BottomAquitardLayerAboveExitPointZ { get; }
 
@@ -58,7 +57,7 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         /// <summary>
         /// Performs the validation of the input properties.
         /// </summary>
-        /// <returns>A list of validation strings.</returns>
+        /// <returns>A list of validation strings, or an empty list if there are no validation errors.</returns>
         List<string> Validate();
     }
 }

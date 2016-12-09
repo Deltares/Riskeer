@@ -52,6 +52,26 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         /// <summary>
+        /// Determines if the properties of the actual <see cref="LogNormalDistribution"/> are the same 
+        /// as the expected <see cref="LogNormalDistribution"/>.
+        /// </summary>
+        /// <param name="expectedDistribution">The expected <see cref="IDistribution"/>.</param>
+        /// <param name="actualDistribution">The actual <see cref="IDistribution"/>.</param>
+        /// <exception cref="AssertionException">Thrown when the following differences are found between 
+        /// the <paramref name="expectedDistribution"/> and <paramref name="actualDistribution"/>:
+        /// <list type="bullet">
+        /// <item>The probabilistic distribution types.</item>
+        /// <item>The values for the mean, the standard deviation and/or the shift.</item>
+        /// <item>The precision for the mean, the standard deviation and/or the shift.</item>
+        /// </list></exception>
+        public static void AreEqual(LogNormalDistribution expectedDistribution, LogNormalDistribution actualDistribution)
+        {
+            AreEqual((IDistribution)expectedDistribution, actualDistribution);
+
+            AreEqualValue(expectedDistribution.Shift, actualDistribution.Shift);
+        }
+
+        /// <summary>
         /// Determines if the properties of the actual <see cref="TruncatedNormalDistribution"/> are the same 
         /// as the expected <see cref="TruncatedNormalDistribution"/>.
         /// </summary>

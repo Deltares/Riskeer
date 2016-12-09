@@ -94,10 +94,12 @@ namespace Ringtoets.Piping.KernelWrapper
         {
             List<string> soilProfileValidationResults = ValidateSoilProfile();
             List<string> surfaceLineValidationResults = ValidateSurfaceLine();
-            List<string> upliftCalculatorValidationResults = new List<string>();
-            List<string> pipingProfilePropertyCalculatorValidationResults = new List<string>();
-            List<string> heaveCalculatorValidationResults = new List<string>();
-            List<string> sellmeijerCalculatorValidationResults = new List<string>();
+
+            var upliftCalculatorValidationResults = new List<string>();
+            var pipingProfilePropertyCalculatorValidationResults = new List<string>();
+            var heaveCalculatorValidationResults = new List<string>();
+            var sellmeijerCalculatorValidationResults = new List<string>();
+
             if (soilProfileValidationResults.Count == 0 && surfaceLineValidationResults.Count == 0)
             {
                 upliftCalculatorValidationResults = ValidateUpliftCalculator();
@@ -333,15 +335,14 @@ namespace Ringtoets.Piping.KernelWrapper
 
         private double GetBottomAquitardLayerAboveExitPointZ()
         {
-            var pipingProfilePropertyCalculator = CreatePipingProfilePropertyCalculator();
+            IPipingProfilePropertyCalculator pipingProfilePropertyCalculator = CreatePipingProfilePropertyCalculator();
             pipingProfilePropertyCalculator.Calculate();
-            var bottomAquitardLayerAboveExitPointZ = pipingProfilePropertyCalculator.BottomAquitardLayerAboveExitPointZ;
-            return bottomAquitardLayerAboveExitPointZ;
+            return pipingProfilePropertyCalculator.BottomAquitardLayerAboveExitPointZ;
         }
 
         private IPipingProfilePropertyCalculator CreatePipingProfilePropertyCalculator()
         {
-            var calculator = factory.CreatePipingProfilePropertyCalculator();
+            IPipingProfilePropertyCalculator calculator = factory.CreatePipingProfilePropertyCalculator();
             calculator.SoilProfile = PipingProfileCreator.Create(input.SoilProfile);
             calculator.SurfaceLine = PipingSurfaceLineCreator.Create(input.SurfaceLine);
             calculator.ExitPointX = input.ExitPointXCoordinate;

@@ -834,7 +834,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het optredende verticale gradiënt in het opbarstkanaal..
+        ///   Looks up a localized string similar to De optredende verticale gradiënt in het opbarstkanaal..
         /// </summary>
         public static string PipingOutputContext_HeaveGradient_Description {
             get {

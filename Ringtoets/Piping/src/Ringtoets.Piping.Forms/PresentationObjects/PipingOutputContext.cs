@@ -33,9 +33,11 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="PipingOutputContext"/>.
         /// </summary>
-        /// <param name="wrappedData"></param>
-        /// <param name="semiProbabilisticOutput"></param>
-        public PipingOutputContext(PipingOutput wrappedData, PipingSemiProbabilisticOutput semiProbabilisticOutput) : base(wrappedData)
+        /// <param name="pipingOutput">The <see cref="PipingOutput"/> object to wrap.</param>
+        /// <param name="semiProbabilisticOutput">The <see cref="PipingSemiProbabilisticOutput"/>
+        /// created from <paramref name="pipingOutput"/>.</param>
+        public PipingOutputContext(PipingOutput pipingOutput, PipingSemiProbabilisticOutput semiProbabilisticOutput)
+            : base(pipingOutput)
         {
             if (semiProbabilisticOutput == null)
             {
@@ -44,6 +46,9 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             SemiProbabilisticOutput = semiProbabilisticOutput;
         }
 
+        /// <summary>
+        /// Gets the semi-probabilistic output created from the piping output.
+        /// </summary>
         public PipingSemiProbabilisticOutput SemiProbabilisticOutput { get; private set; }
     }
 }

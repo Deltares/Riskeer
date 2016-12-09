@@ -25,7 +25,7 @@ using Deltares.WTIPiping;
 namespace Ringtoets.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
-    /// Class which wraps a <see cref="Deltares.WTIPiping.PipingProfilePropertyCalculator"/>.
+    /// Class that wraps a <see cref="Deltares.WTIPiping.PipingProfilePropertyCalculator"/>.
     /// </summary>
     public class PipingProfilePropertyCalculator : IPipingProfilePropertyCalculator
     {

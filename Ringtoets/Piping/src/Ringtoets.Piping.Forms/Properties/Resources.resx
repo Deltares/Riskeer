@@ -578,7 +578,7 @@
     <value>Selecteer profielschematisaties</value>
   </data>
   <data name="PipingOutputContext_HeaveGradient_Description" xml:space="preserve">
-    <value>Het optredende verticale gradiënt in het opbarstkanaal.</value>
+    <value>De optredende verticale gradiënt in het opbarstkanaal.</value>
   </data>
   <data name="PipingOutputContext_HeaveGradient_DisplayName" xml:space="preserve">
     <value>Heave gradiënt [-]</value>

@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             var factory = new TestPipingSubCalculatorFactory();
 
             // Call
-            var subCalculator = factory.CreateEffectiveThicknessCalculator();
+            IEffectiveThicknessCalculator subCalculator = factory.CreateEffectiveThicknessCalculator();
 
             // Assert
             Assert.AreSame(factory.LastCreatedEffectiveThicknessCalculator, subCalculator);
@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             var factory = new TestPipingSubCalculatorFactory();
 
             // Call
-            var subCalculator = factory.CreateUpliftCalculator();
+            IUpliftCalculator subCalculator = factory.CreateUpliftCalculator();
 
             // Assert
             Assert.AreSame(factory.LastCreatedUpliftCalculator, subCalculator);
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             var factory = new TestPipingSubCalculatorFactory();
 
             // Call
-            var subCalculator = factory.CreateHeaveCalculator();
+            IHeaveCalculator subCalculator = factory.CreateHeaveCalculator();
 
             // Assert
             Assert.AreSame(factory.LastCreatedHeaveCalculator, subCalculator);
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             var factory = new TestPipingSubCalculatorFactory();
 
             // Call
-            var subCalculator = factory.CreateSellmeijerCalculator();
+            ISellmeijerCalculator subCalculator = factory.CreateSellmeijerCalculator();
 
             // Assert
             Assert.AreSame(factory.LastCreatedSellmeijerCalculator, subCalculator);
@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             var factory = new TestPipingSubCalculatorFactory();
 
             // Call
-            var subCalculator = factory.CreatePiezometricHeadAtExitCalculator();
+            IPiezoHeadCalculator subCalculator = factory.CreatePiezometricHeadAtExitCalculator();
 
             // Assert
             Assert.AreSame(factory.LastCreatedPiezometricHeadAtExitCalculator, subCalculator);
@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             var factory = new TestPipingSubCalculatorFactory();
 
             // Call
-            var subCalculator = factory.CreatePipingProfilePropertyCalculator();
+            IPipingProfilePropertyCalculator subCalculator = factory.CreatePipingProfilePropertyCalculator();
 
             // Assert
             Assert.AreSame(factory.LastCreatedPipingProfilePropertyCalculator, subCalculator);

@@ -46,10 +46,7 @@ namespace Ringtoets.Piping.Data
 
         private static DesignVariable<LogNormalDistribution> CreateDeterministicDesignVariable(LogNormalDistribution distribution, double deterministicValue)
         {
-            return new DeterministicDesignVariable<LogNormalDistribution>(distribution)
-            {
-                DeterministicValue = deterministicValue
-            };
+            return new DeterministicDesignVariable<LogNormalDistribution>(distribution, deterministicValue);
         }
 
         #region General parameters
