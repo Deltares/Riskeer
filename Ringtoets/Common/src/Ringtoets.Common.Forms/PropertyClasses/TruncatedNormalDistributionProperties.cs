@@ -81,6 +81,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 return base.StandardDeviation;
             }
+            set
+            {
+                base.StandardDeviation = value;
+            }
         }
 
         [PropertyOrder(4)]
@@ -94,7 +98,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(4)]
+        [PropertyOrder(5)]
         [ResourcesDisplayName(typeof(Resources), "TruncatedNormalDistribution_UpperBoundary_DisplayName")]
         [ResourcesDescription(typeof(Resources), "TruncatedNormalDistribution_UpperBoundary_Description")]
         public RoundedDouble UpperBoundary

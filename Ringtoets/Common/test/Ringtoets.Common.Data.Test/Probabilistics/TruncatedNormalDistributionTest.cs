@@ -52,55 +52,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         }
 
         [Test]
-        public void Mean_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces()
-        {
-            // Setup
-            var value = 1.23456789;
-            var numberOfDecimalPlaces = 4;
-            var distribution = new TruncatedNormalDistribution(numberOfDecimalPlaces);
-
-            // Call
-            distribution.Mean = (RoundedDouble)value;
-
-            // Assert
-            Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(numberOfDecimalPlaces, value), distribution.Mean);
-        }
-
-        [Test]
-        [TestCase(1.23456789)]
-        [TestCase(0 - 1e-3, Description = "Valid standard deviation due to rounding to 0.0")]
-        public void StandardDeviation_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(double standardDeviation)
-        {
-            // Setup
-            var numberOfDecimalPlaces = 2;
-            var distribution = new TruncatedNormalDistribution(numberOfDecimalPlaces);
-
-            // Call
-            distribution.StandardDeviation = (RoundedDouble)standardDeviation;
-
-            // Assert
-            Assert.AreEqual(numberOfDecimalPlaces, distribution.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(numberOfDecimalPlaces, standardDeviation), distribution.StandardDeviation);
-        }
-
-        [Test]
-        [TestCase(-4)]
-        [TestCase(0 - 1e-2)]
-        public void StandardDeviation_SettingToLessThan0_ThrowArgumentOutOfRangeException(double standardDeviation)
-        {
-            // Setup
-            var distribution = new TruncatedNormalDistribution(2);
-
-            // Call
-            TestDelegate call = () => distribution.StandardDeviation = (RoundedDouble)standardDeviation;
-
-            // Assert
-            const string expectedMessage = "Standaardafwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-        }
-
-        [Test]
         public void LowerBoundary_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces()
         {
             var value = 1.23456789;
