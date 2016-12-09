@@ -27,14 +27,15 @@ using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryLocation"/> with 
-    /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.WaveHeight"/> 
+    /// for properties panel of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationContextProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties
     {
@@ -88,9 +89,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
-                return output == null
-                           ? double.NaN
-                           : output.TargetProbability;
+                return output == null ? double.NaN : output.TargetProbability;
             }
         }
 
@@ -104,9 +103,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
-                return output != null
-                           ? output.TargetReliability
-                           : (RoundedDouble)double.NaN;
+                return output != null ? output.TargetReliability : RoundedDouble.NaN;
             }
         }
 
@@ -120,9 +117,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
-                return output == null
-                           ? double.NaN
-                           : output.CalculatedProbability;
+                return output == null ? double.NaN : output.CalculatedProbability;
             }
         }
 
@@ -136,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
-                return output != null ? output.CalculatedReliability : (RoundedDouble)double.NaN;
+                return output != null ? output.CalculatedReliability : RoundedDouble.NaN;
             }
         }
 

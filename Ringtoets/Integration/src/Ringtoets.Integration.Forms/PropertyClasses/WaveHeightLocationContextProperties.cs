@@ -87,9 +87,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
-                return output == null
-                           ? double.NaN
-                           : output.TargetProbability;
+                return output == null ? double.NaN : output.TargetProbability;
             }
         }
 
@@ -103,9 +101,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
-                return output != null
-                           ? output.TargetReliability
-                           : (RoundedDouble) double.NaN;
+                return output != null ? output.TargetReliability : RoundedDouble.NaN;
             }
         }
 
@@ -119,9 +115,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
-                return output == null
-                           ? double.NaN
-                           : output.CalculatedProbability;
+                return output == null ? double.NaN : output.CalculatedProbability;
             }
         }
 
@@ -135,7 +129,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
-                return output != null ? output.CalculatedReliability : (RoundedDouble) double.NaN;
+                return output != null ? output.CalculatedReliability : RoundedDouble.NaN;
             }
         }
 

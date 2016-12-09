@@ -191,7 +191,8 @@ namespace Ringtoets.Integration.Service
         /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> 
         /// or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                                    GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             if (hydraulicBoundaryDatabase == null)
             {
@@ -203,7 +204,8 @@ namespace Ringtoets.Integration.Service
             }
 
             return RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(failureMechanism.HydraulicBoundaryLocations)
-                                                            .Concat(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase.Locations))
+                                                            .Concat(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
+                                                                hydraulicBoundaryDatabase.Locations))
                                                             .ToArray();
         }
 
