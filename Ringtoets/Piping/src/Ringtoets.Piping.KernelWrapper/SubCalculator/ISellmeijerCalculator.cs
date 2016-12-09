@@ -29,82 +29,82 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
     public interface ISellmeijerCalculator
     {
         /// <summary>
-        /// Sets the BeddingAngle property to use in the Sellmeijer calculation.
+        /// Sets the bedding angle.
         /// </summary>
         double BeddingAngle { set; }
 
         /// <summary>
-        /// Sets the D70 property to use in the Sellmeijer calculation.
+        /// Sets the D70.
         /// </summary>
         double D70 { set; }
 
         /// <summary>
-        /// Sets the D70Mean property to use in the Sellmeijer calculation.
+        /// Sets the D70 reference value.
         /// </summary>
         double D70Mean { set; }
 
         /// <summary>
-        /// Sets the DAquifer property to use in the Sellmeijer calculation.
+        /// Sets the total thickness of the aquifer.
         /// </summary>
         double DAquifer { set; }
 
         /// <summary>
-        /// Sets the DarcyPermeability property to use in the Sellmeijer calculation.
+        /// Sets the hydraulic conductivity.
         /// </summary>
         double DarcyPermeability { set; }
 
         /// <summary>
-        /// Sets the DTotal property to use in the Sellmeijer calculation.
+        /// Sets the total thickness of the cover layers.
         /// </summary>
         double DTotal { set; }
 
         /// <summary>
-        /// Sets the GammaSubParticles property to use in the Sellmeijer calculation.
+        /// Sets the submerged volumetric weight of sand particles.
         /// </summary>
         double GammaSubParticles { set; }
 
         /// <summary>
-        /// Sets the Gravity property to use in the Sellmeijer calculation.
+        /// Sets the gravitational constant.
         /// </summary>
         double Gravity { set; }
 
         /// <summary>
-        /// Sets the HExit property to use in the Sellmeijer calculation.
+        /// Sets the phreatic level at the exit point.
         /// </summary>
         double HExit { set; }
 
         /// <summary>
-        /// Sets the HRiver property to use in the Sellmeijer calculation.
+        /// Sets the river water level.
         /// </summary>
         double HRiver { set; }
 
         /// <summary>
-        /// Sets the KinematicViscosityWater property to use in the Sellmeijer calculation.
+        /// Sets the kinematic viscosity of water at 10 degrees Celsius.
         /// </summary>
         double KinematicViscosityWater { set; }
 
         /// <summary>
-        /// Sets the ModelFactorPiping property to use in the Sellmeijer calculation.
+        /// Sets the model factor.
         /// </summary>
         double ModelFactorPiping { set; }
 
         /// <summary>
-        /// Sets the Rc property to use in the Sellmeijer calculation.
+        /// Sets the damping factor.
         /// </summary>
         double Rc { set; }
 
         /// <summary>
-        /// Sets the SeepageLength property to use in the Sellmeijer calculation.
+        /// Sets the horizontal seepage length.
         /// </summary>
         double SeepageLength { set; }
 
         /// <summary>
-        /// Sets the VolumetricWeightOfWater property to use in the Sellmeijer calculation.
+        /// Sets the volumetric weight of water.
         /// </summary>
         double VolumetricWeightOfWater { set; }
 
         /// <summary>
-        /// Sets the WhitesDragCoefficient property to use in the Sellmeijer calculation.
+        /// Sets White's drag coefficient.
         /// </summary>
         double WhitesDragCoefficient { set; }
 
@@ -114,27 +114,27 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         double BottomLevelAquitardAboveExitPointZ { set; }
 
         /// <summary>
-        /// Gets the CreepCoefficient property of the Sellmeijer calculation. 
+        /// Gets the creep factor. 
         /// </summary>
         double CreepCoefficient { get; }
 
         /// <summary>
-        /// Gets the CriticalFall property of the Sellmeijer calculation. 
+        /// Gets the critical fall. 
         /// </summary>
         double CriticalFall { get; }
 
         /// <summary>
-        /// Gets the ReducedFall property of the Sellmeijer calculation. 
+        /// Gets the reduced fall. 
         /// </summary>
         double ReducedFall { get; }
 
         /// <summary>
-        /// Gets the Zp property of the Sellmeijer calculation.
+        /// Gets the z-value.
         /// </summary>
         double Zp { get; }
 
         /// <summary>
-        /// Gets the FoSp property of the Sellmeijer calculation.
+        /// Gets the factor of safety.
         /// </summary>
         double FoSp { get; }
 

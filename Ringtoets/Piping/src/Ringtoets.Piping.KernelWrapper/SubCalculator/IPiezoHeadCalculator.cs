@@ -27,17 +27,17 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
     public interface IPiezoHeadCalculator
     {
         /// <summary>
-        /// Sets the piezometric head at polder parameter.
+        /// Sets the piezometric head in the hinterland.
         /// </summary>
         double PhiPolder { set; }
 
         /// <summary>
-        /// Sets the damping factor at exit parameter.
+        /// Sets the damping factor at the exit point.
         /// </summary>
         double RExit { set; }
 
         /// <summary>
-        /// Sets the assessment level parameter.
+        /// Sets the river water level.
         /// </summary>
         double HRiver { set; }
 

@@ -29,32 +29,32 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
     public interface IEffectiveThicknessCalculator
     {
         /// <summary>
-        /// Sets the ExitPointXCoordinate property of the effective thickness calculation.
+        /// Sets the exit point's x-coordinate.
         /// </summary>
         double ExitPointXCoordinate { set; }
 
         /// <summary>
-        /// Sets the PhreaticLevel property of the effective thickness calculation.
+        /// Sets the phreatic level at the exit point.
         /// </summary>
         double PhreaticLevel { set; }
 
         /// <summary>
-        /// Sets the VolumicWeightOfWater property of the effective thickness calculation.
+        /// Sets the volumic weight of water.
         /// </summary>
         double VolumicWeightOfWater { set; }
 
         /// <summary>
-        /// Sets the SoilProfile property of the effective thickness calculation.
+        /// Sets the soil profile.
         /// </summary>
         PipingProfile SoilProfile { set; }
 
         /// <summary>
-        /// Sets the SurfaceLine property of the effective thickness calculation.
+        /// Sets the surface line.
         /// </summary>
         PipingSurfaceLine SurfaceLine { set; }
 
         /// <summary>
-        /// Gets the EffectiveHeight property of the effective thickness calculation.
+        /// Gets the effective thickness of the cover layer.
         /// </summary>
         double EffectiveHeight { get; }
 

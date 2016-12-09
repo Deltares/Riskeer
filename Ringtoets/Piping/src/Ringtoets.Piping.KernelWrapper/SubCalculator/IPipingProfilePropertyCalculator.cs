@@ -30,12 +30,12 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
     public interface IPipingProfilePropertyCalculator
     {
         /// <summary>
-        /// Sets the <see cref="PipingProfile"/> to use in the calculation.
+        /// Sets the soil profile.
         /// </summary>
         PipingProfile SoilProfile { set; }
         
         /// <summary>
-        /// Sets the <see cref="PipingSurfaceLine"/> to use in the calculation.
+        /// Sets the surface line.
         /// </summary>
         PipingSurfaceLine SurfaceLine { set; }
 

@@ -29,32 +29,32 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
     public interface IHeaveCalculator
     {
         /// <summary>
-        /// Sets the DTotal property to use in the heave calculation.
+        /// Sets the total thickness of the coverage layer.
         /// </summary>
         double DTotal { set; }
 
         /// <summary>
-        /// Sets the HExit property to use in the heave calculation.
+        /// Sets the phreatic level at the exit point.
         /// </summary>
         double HExit { set; }
 
         /// <summary>
-        /// Sets the Ich property to use in the heave calculation.
+        /// Sets the critical exit gradient.
         /// </summary>
         double Ich { set; }
 
         /// <summary>
-        /// Sets the PhiExit property to use in the heave calculation.
+        /// Sets the piezometric head at the exit point.
         /// </summary>
         double PhiExit { set; }
 
         /// <summary>
-        /// Sets the PhiPolder property to use in the heave calculation.
+        /// Sets the piezometric head in the hinterland.
         /// </summary>
         double PhiPolder { set; }
 
         /// <summary>
-        /// Sets the RExit property to use in the heave calculation.
+        /// Sets the damping factor at the exit point.
         /// </summary>
         double RExit { set; }
 
@@ -64,17 +64,17 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         double BottomLevelAquitardAboveExitPointZ { set; }
 
         /// <summary>
-        /// Gets the Gradient property to use in the heave calculation.
+        /// Gets the vertical outflow gradient.
         /// </summary>
         double Gradient { get; }
 
         /// <summary>
-        /// Gets the Zh property of the heave calculation.
+        /// Gets the z-value.
         /// </summary>
         double Zh { get; }
 
         /// <summary>
-        /// Gets the FoSh property of the heave calculation.
+        /// Gets the factor of safety.
         /// </summary>
         double FoSh { get; }
 

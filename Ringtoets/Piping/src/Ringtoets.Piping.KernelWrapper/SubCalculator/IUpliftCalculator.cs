@@ -29,52 +29,52 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
     public interface IUpliftCalculator
     {
         /// <summary>
-        /// Sets the EffectiveStress property to use in the uplift calculation.
+        /// Sets the effective stress.
         /// </summary>
         double EffectiveStress { set; }
 
         /// <summary>
-        /// Sets the HExit property to use in the uplift calculation.
+        /// Sets the phreatic level at the exit point.
         /// </summary>
         double HExit { set; }
 
         /// <summary>
-        /// Sets the HRiver property to use in the uplift calculation.
+        /// Sets the river water level.
         /// </summary>
         double HRiver { set; }
 
         /// <summary>
-        /// Sets the ModelFactorUplift property to use in the uplift calculation.
+        /// Sets the model factor.
         /// </summary>
         double ModelFactorUplift { set; }
 
         /// <summary>
-        /// Sets the PhiExit property to use in the uplift calculation.
+        /// Sets the piezometric head at the exit point.
         /// </summary>
         double PhiExit { set; }
 
         /// <summary>
-        /// Sets the PhiPolder property to use in the uplift calculation.
+        /// Sets the piezometric head in the hinterland.
         /// </summary>
         double PhiPolder { set; }
 
         /// <summary>
-        /// Sets the RExit property to use in the uplift calculation.
+        /// Sets the damping factor at the exit point.
         /// </summary>
         double RExit { set; }
 
         /// <summary>
-        /// Sets the VolumetricWeightOfWater property to use in the uplift calculation.
+        /// Sets the volumetric weight of water.
         /// </summary>
         double VolumetricWeightOfWater { set; }
 
         /// <summary>
-        /// Gets the Zu property of the uplift calculation.
+        /// Gets the z-value.
         /// </summary>
         double Zu { get; }
 
         /// <summary>
-        /// Gets the FoSu property of the uplift calculation.
+        /// Gets the factor of safety.
         /// </summary>
         double FoSu { get; }
 
