@@ -54,43 +54,58 @@ namespace Ringtoets.Piping.KernelWrapper
 
         private static IEnumerable<PipingPoint> CreatePoints(RingtoetsPipingSurfaceLine line)
         {
-            var projectedPoints = line.ProjectGeometryToLZ().ToArray();
+            Point2D[] projectedPoints = line.ProjectGeometryToLZ().ToArray();
             var pipingPoints = new List<PipingPoint>();
+
             for (int i = 0; i < line.Points.Length; i++)
             {
-                var pipingPoint = CreatePoint(line, projectedPoints, i);
-                pipingPoints.Add(pipingPoint);
+                IEnumerable<PipingPoint> newPoints = CreatePoint(line, projectedPoints, i);
+                pipingPoints.AddRange(newPoints);
             }
             return pipingPoints;
         }
 
-        private static PipingPoint CreatePoint(RingtoetsPipingSurfaceLine line, Point2D[] projectedPoints, int index)
+        private static IEnumerable<PipingPoint> CreatePoint(RingtoetsPipingSurfaceLine line, Point2D[] projectedPoints, int index)
         {
-            var surfaceLinePoint = line.Points[index];
-            var projectedPoint = projectedPoints[index];
-            var pipingPoint = new PipingPoint(projectedPoint.X, 0.0, projectedPoint.Y);
+            Point3D surfaceLinePoint = line.Points[index];
+            Point2D projectedPoint = projectedPoints[index];
+
+            IList<PipingPoint> pipingPoints = new List<PipingPoint>();
 
             if (ReferenceEquals(line.DitchPolderSide, surfaceLinePoint))
             {
-                pipingPoint.Type = PipingCharacteristicPointType.DitchPolderSide;
+                pipingPoints.Add(CreatePipingPointOfType(projectedPoint, PipingCharacteristicPointType.DitchPolderSide));
             }
             if (ReferenceEquals(line.BottomDitchPolderSide, surfaceLinePoint))
             {
-                pipingPoint.Type = PipingCharacteristicPointType.BottomDitchPolderSide;
+                pipingPoints.Add(CreatePipingPointOfType(projectedPoint, PipingCharacteristicPointType.BottomDitchPolderSide));
             }
             if (ReferenceEquals(line.BottomDitchDikeSide, surfaceLinePoint))
             {
-                pipingPoint.Type = PipingCharacteristicPointType.BottomDitchDikeSide;
+                pipingPoints.Add(CreatePipingPointOfType(projectedPoint, PipingCharacteristicPointType.BottomDitchDikeSide));
             }
             if (ReferenceEquals(line.DitchDikeSide, surfaceLinePoint))
             {
-                pipingPoint.Type = PipingCharacteristicPointType.DitchDikeSide;
+                pipingPoints.Add(CreatePipingPointOfType(projectedPoint, PipingCharacteristicPointType.DitchDikeSide));
             }
             if (ReferenceEquals(line.DikeToeAtPolder, surfaceLinePoint))
             {
-                pipingPoint.Type = PipingCharacteristicPointType.DikeToeAtPolder;
+                pipingPoints.Add(CreatePipingPointOfType(projectedPoint, PipingCharacteristicPointType.DikeToeAtPolder));
+            }
+            if (!pipingPoints.Any())
+            {
+                pipingPoints.Add(CreatePipingPointOfType(projectedPoint, PipingCharacteristicPointType.None));
             }
 
+            return pipingPoints;
+        }
+
+        private static PipingPoint CreatePipingPointOfType(Point2D projectedPoint, PipingCharacteristicPointType pointType)
+        {
+            var pipingPoint = new PipingPoint(projectedPoint.X, 0.0, projectedPoint.Y)
+            {
+                Type = pointType
+            };
             return pipingPoint;
         }
     }

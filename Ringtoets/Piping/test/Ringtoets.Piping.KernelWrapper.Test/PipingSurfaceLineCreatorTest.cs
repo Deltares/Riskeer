@@ -320,6 +320,40 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DitchPolderSide);
         }
 
+        [Test]
+        public void Create_SurfaceLineWithMultipleCharacteristicTypesForOnePoint_CreateSurfaceLineWithPointsForEachType()
+        {
+            // Setup
+            const string name = "Surfaceline without points";
+            var point = new Point3D(1.0, 1.0, 2.2);
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = name
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                point
+            });
+            surfaceLine.SetDikeToeAtRiverAt(point);
+            surfaceLine.SetDikeToeAtPolderAt(point);
+            surfaceLine.SetDitchDikeSideAt(point);
+            surfaceLine.SetBottomDitchPolderSideAt(point);
+            surfaceLine.SetBottomDitchDikeSideAt(point);
+            surfaceLine.SetDitchPolderSideAt(point);
+
+            // Call
+            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+
+            // Assert
+            Assert.AreEqual(name, actual.Name);
+            Assert.AreEqual(5, actual.Points.Count);
+            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DikeToeAtPolder);
+            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DitchDikeSide);
+            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.BottomDitchPolderSide);
+            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.BottomDitchDikeSide);
+            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DitchPolderSide);
+        }
+
         private void AssertPointsAreEqual(Point3D point, PipingPoint otherPoint)
         {
             if (point == null)

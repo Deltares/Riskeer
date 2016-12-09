@@ -70,6 +70,57 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
         }
 
         [Test]
+        public static void CalculateEffectiveThicknessCoverageLayer_WithMultipleCharacteristicTypesOnSamePoint_ReturnsThickness()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 10),
+                new Point3D(20, 0, 10)
+            });
+            surfaceLine.SetDikeToeAtRiverAt(surfaceLine.Points[0]);
+            surfaceLine.SetDikeToeAtPolderAt(surfaceLine.Points[0]);
+            surfaceLine.SetDitchDikeSideAt(surfaceLine.Points[0]);
+            surfaceLine.SetBottomDitchPolderSideAt(surfaceLine.Points[1]);
+            surfaceLine.SetBottomDitchDikeSideAt(surfaceLine.Points[1]);
+            surfaceLine.SetDitchPolderSideAt(surfaceLine.Points[1]);
+
+            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+                {
+                    new PipingSoilLayer(5)
+                    {
+                        IsAquifer = true
+                    },
+                    new PipingSoilLayer(20)
+                    {
+                        IsAquifer = false
+                    }
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                ExitPointL = (RoundedDouble) 10,
+                SurfaceLine = surfaceLine,
+                StochasticSoilProfile = stochasticSoilProfile
+            };
+
+            // Call
+            double thickness = InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
+                input.WaterVolumetricWeight,
+                PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                input.ExitPointL,
+                input.SurfaceLine,
+                input.StochasticSoilProfile.SoilProfile);
+
+            // Assert
+            Assert.AreEqual(5, thickness);
+        }
+
+        [Test]
         public static void CalculateEffectiveThicknessCoverageLayer_ValidInput_ReturnsThickness()
         {
             // Setup
