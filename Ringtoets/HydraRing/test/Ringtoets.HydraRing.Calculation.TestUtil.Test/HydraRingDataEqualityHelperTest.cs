@@ -21,6 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Variables;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
 {

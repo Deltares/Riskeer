@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
+using Ringtoets.HydraRing.Calculation.Data.Variables;
 
 namespace Ringtoets.HydraRing.Calculation.Data.Input
 {

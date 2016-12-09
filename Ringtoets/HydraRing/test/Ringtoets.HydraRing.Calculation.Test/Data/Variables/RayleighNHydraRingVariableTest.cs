@@ -21,29 +21,31 @@
 
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
 {
     [TestFixture]
-    public class DeterministicHydraRingVariableTest
+    public class RayleighNHydraRingVariableTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        [TestCase(HydraRingDeviationType.Standard, 3.3, 0)]
+        [TestCase(HydraRingDeviationType.Variation, null, 3.3)]
+        public void Constructor_ExpectedValues(HydraRingDeviationType deviationType, double? expectedParameter2, double expectedCoefficientOfVariation)
         {
             // Call
-            var hydraRingVariable = new DeterministicHydraRingVariable(1, 2.2);
+            var hydraRingVariable = new RayleighNHydraRingVariable(1, deviationType, 3.3, 2.2);
 
             // Assert
             Assert.IsInstanceOf<HydraRingVariable>(hydraRingVariable);
             Assert.AreEqual(1, hydraRingVariable.VariableId);
-            Assert.AreEqual(2.2, hydraRingVariable.Value);
-            Assert.AreEqual(HydraRingDistributionType.Deterministic, hydraRingVariable.DistributionType);
-            Assert.AreEqual(HydraRingDeviationType.Standard, hydraRingVariable.DeviationType);
-            Assert.AreEqual(0, hydraRingVariable.Parameter1);
-            Assert.IsNull(hydraRingVariable.Parameter2);
+            Assert.AreEqual(HydraRingDistributionType.RayleighN, hydraRingVariable.DistributionType);
+            Assert.AreEqual(deviationType, hydraRingVariable.DeviationType);
+            Assert.AreEqual(2.2, hydraRingVariable.Parameter1);
+            Assert.AreEqual(expectedParameter2, hydraRingVariable.Parameter2);
             Assert.IsNull(hydraRingVariable.Parameter3);
             Assert.IsNull(hydraRingVariable.Parameter4);
-            Assert.AreEqual(0, hydraRingVariable.CoefficientOfVariation);
+            Assert.AreEqual(expectedCoefficientOfVariation, hydraRingVariable.CoefficientOfVariation);
         }
     }
 }

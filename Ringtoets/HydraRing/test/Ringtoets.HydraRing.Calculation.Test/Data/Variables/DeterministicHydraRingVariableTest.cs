@@ -21,30 +21,30 @@
 
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
 {
     [TestFixture]
-    public class TruncatedNormalHydraRingVariableTest
+    public class DeterministicHydraRingVariableTest
     {
         [Test]
-        [TestCase(HydraRingDeviationType.Standard, 3.3, 0)]
-        [TestCase(HydraRingDeviationType.Variation, null, 3.3)]
-        public void Constructor_ExpectedValues(HydraRingDeviationType deviationType, double? expectedParameter2, double expectedCoefficientOfVariation)
+        public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingVariable = new TruncatedNormalHydraRingVariable(1, deviationType, 2.2, 3.3, 4.4, 5.5);
+            var hydraRingVariable = new DeterministicHydraRingVariable(1, 2.2);
 
             // Assert
             Assert.IsInstanceOf<HydraRingVariable>(hydraRingVariable);
             Assert.AreEqual(1, hydraRingVariable.VariableId);
-            Assert.AreEqual(HydraRingDistributionType.TruncatedNormal, hydraRingVariable.DistributionType);
-            Assert.AreEqual(deviationType, hydraRingVariable.DeviationType);
-            Assert.AreEqual(2.2, hydraRingVariable.Parameter1);
-            Assert.AreEqual(expectedParameter2, hydraRingVariable.Parameter2);
-            Assert.AreEqual(4.4, hydraRingVariable.Parameter3);
-            Assert.AreEqual(5.5, hydraRingVariable.Parameter4);
-            Assert.AreEqual(expectedCoefficientOfVariation, hydraRingVariable.CoefficientOfVariation);
+            Assert.AreEqual(2.2, hydraRingVariable.Value);
+            Assert.AreEqual(HydraRingDistributionType.Deterministic, hydraRingVariable.DistributionType);
+            Assert.AreEqual(HydraRingDeviationType.Standard, hydraRingVariable.DeviationType);
+            Assert.AreEqual(0, hydraRingVariable.Parameter1);
+            Assert.IsNull(hydraRingVariable.Parameter2);
+            Assert.IsNull(hydraRingVariable.Parameter3);
+            Assert.IsNull(hydraRingVariable.Parameter4);
+            Assert.AreEqual(0, hydraRingVariable.CoefficientOfVariation);
         }
     }
 }

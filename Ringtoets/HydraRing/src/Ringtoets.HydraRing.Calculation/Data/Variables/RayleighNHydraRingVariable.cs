@@ -19,42 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Data
+namespace Ringtoets.HydraRing.Calculation.Data.Variables
 {
     /// <summary>
-    /// Class for Truncated Normal Hydra-Ring variable related data.
+    /// Class for Rayleigh N Hydra-Ring variable related data.
     /// </summary>
-    public class TruncatedNormalHydraRingVariable : HydraRingVariable
+    public class RayleighNHydraRingVariable : HydraRingVariable
     {
-        private readonly double mean;
-        private readonly double variance;
-        private readonly double lowerBoundary;
-        private readonly double upperBoundary;
+        private readonly double standardDeviation;
+        private readonly double n;
 
         /// <summary>
-        /// Creates a new instance of <see cref="TruncatedNormalHydraRingVariable"/>.
+        /// Creates a new instance of <see cref="RayleighNHydraRingVariable"/>.
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
         /// <param name="deviationType">The deviation type of the variable.</param>
-        /// <param name="mean">The mean value of the variable.</param>
-        /// <param name="variance">The variance value of the variable.</param>
-        /// <param name="lowerBoundary">The lower boundary value of the variable.</param>
-        /// <param name="upperBoundary">The upper boundary value of the variable.</param>
-        public TruncatedNormalHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
-                                                double mean, double variance, double lowerBoundary, double upperBoundary)
+        /// <param name="n">The n value of the variable.</param>
+        /// <param name="standardDeviation">The standardDeviation value of the variable.</param>
+        public RayleighNHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
+                                          double n, double standardDeviation)
             : base(variableId, deviationType)
         {
-            this.mean = mean;
-            this.variance = variance;
-            this.lowerBoundary = lowerBoundary;
-            this.upperBoundary = upperBoundary;
+            this.standardDeviation = standardDeviation;
+            this.n = n;
         }
 
         public override double Parameter1
         {
             get
             {
-                return mean;
+                return standardDeviation;
             }
         }
 
@@ -63,24 +57,8 @@ namespace Ringtoets.HydraRing.Calculation.Data
             get
             {
                 return DeviationType == HydraRingDeviationType.Standard
-                           ? variance
+                           ? n
                            : base.Parameter2;
-            }
-        }
-
-        public override double? Parameter3
-        {
-            get
-            {
-                return lowerBoundary;
-            }
-        }
-
-        public override double? Parameter4
-        {
-            get
-            {
-                return upperBoundary;
             }
         }
 
@@ -89,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
             get
             {
                 return DeviationType == HydraRingDeviationType.Variation
-                           ? variance
+                           ? n
                            : base.CoefficientOfVariation;
             }
         }
@@ -98,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         {
             get
             {
-                return HydraRingDistributionType.TruncatedNormal;
+                return HydraRingDistributionType.RayleighN;
             }
         }
     }

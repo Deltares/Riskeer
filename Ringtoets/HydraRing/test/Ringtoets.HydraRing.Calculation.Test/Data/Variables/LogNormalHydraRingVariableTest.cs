@@ -21,11 +21,12 @@
 
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
 {
     [TestFixture]
-    public class RayleighNHydraRingVariableTest
+    public class LogNormalHydraRingVariableTest
     {
         [Test]
         [TestCase(HydraRingDeviationType.Standard, 3.3, 0)]
@@ -33,18 +34,28 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         public void Constructor_ExpectedValues(HydraRingDeviationType deviationType, double? expectedParameter2, double expectedCoefficientOfVariation)
         {
             // Call
-            var hydraRingVariable = new RayleighNHydraRingVariable(1, deviationType, 3.3, 2.2);
+            var hydraRingVariable = new LogNormalHydraRingVariable(1, deviationType, 2.2, 3.3, 4.4);
 
             // Assert
             Assert.IsInstanceOf<HydraRingVariable>(hydraRingVariable);
             Assert.AreEqual(1, hydraRingVariable.VariableId);
-            Assert.AreEqual(HydraRingDistributionType.RayleighN, hydraRingVariable.DistributionType);
+            Assert.AreEqual(HydraRingDistributionType.LogNormal, hydraRingVariable.DistributionType);
             Assert.AreEqual(deviationType, hydraRingVariable.DeviationType);
             Assert.AreEqual(2.2, hydraRingVariable.Parameter1);
             Assert.AreEqual(expectedParameter2, hydraRingVariable.Parameter2);
-            Assert.IsNull(hydraRingVariable.Parameter3);
+            Assert.AreEqual(4.4, hydraRingVariable.Parameter3);
             Assert.IsNull(hydraRingVariable.Parameter4);
             Assert.AreEqual(expectedCoefficientOfVariation, hydraRingVariable.CoefficientOfVariation);
+        }
+
+        [Test]
+        public void Constructor_ShiftNotSet_Parameter3Null()
+        {
+            // Call
+            var hydraRingVariable = new LogNormalHydraRingVariable(1, HydraRingDeviationType.Standard, 2.2, 3.3);
+
+            // Assert
+            Assert.IsNull(hydraRingVariable.Parameter3);
         }
     }
 }

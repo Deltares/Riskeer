@@ -29,6 +29,7 @@ using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Defaults;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
+using Ringtoets.HydraRing.Calculation.Data.Variables;
 using Ringtoets.HydraRing.Calculation.Providers;
 
 namespace Ringtoets.HydraRing.Calculation.Services

@@ -19,29 +19,32 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Data
+namespace Ringtoets.HydraRing.Calculation.Data.Variables
 {
     /// <summary>
-    /// Class for Normal Hydra-Ring variable related data.
+    /// Class for LogNormal Hydra-Ring variable related data.
     /// </summary>
-    public class NormalHydraRingVariable : HydraRingVariable
+    public class LogNormalHydraRingVariable : HydraRingVariable
     {
         private readonly double mean;
         private readonly double variance;
+        private readonly double shift;
 
         /// <summary>
-        /// Creates a new instance of <see cref="NormalHydraRingVariable"/>.
+        /// Creates a new instance of <see cref="LogNormalHydraRingVariable"/>.
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
         /// <param name="deviationType">The deviation type of the variable.</param>
         /// <param name="mean">The mean value of the variable.</param>
         /// <param name="variance">The variance value of the variable.</param>
-        public NormalHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
-                                       double mean, double variance)
+        /// <param name="shift">The shift value of the variable.</param>
+        public LogNormalHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
+                                          double mean, double variance, double shift = double.NaN)
             : base(variableId, deviationType)
         {
             this.mean = mean;
             this.variance = variance;
+            this.shift = shift;
         }
 
         public override double Parameter1
@@ -62,6 +65,16 @@ namespace Ringtoets.HydraRing.Calculation.Data
             }
         }
 
+        public override double? Parameter3
+        {
+            get
+            {
+                return !double.IsNaN(shift)
+                           ? shift
+                           : base.Parameter3;
+            }
+        }
+
         public override double CoefficientOfVariation
         {
             get
@@ -76,7 +89,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         {
             get
             {
-                return HydraRingDistributionType.Normal;
+                return HydraRingDistributionType.LogNormal;
             }
         }
     }

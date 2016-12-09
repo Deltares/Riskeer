@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Data
+namespace Ringtoets.HydraRing.Calculation.Data.Variables
 {
     /// <summary>
     /// Class for Deterministic Hydra-Ring variable related data.
