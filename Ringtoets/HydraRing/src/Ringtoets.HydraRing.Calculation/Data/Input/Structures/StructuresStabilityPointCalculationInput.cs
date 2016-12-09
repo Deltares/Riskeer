@@ -290,7 +290,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new NormalHydraRingVariable(130, HydraRingDeviationType.Standard, bankWidthMean, bankWidthStandardDeviation);
                 yield return new DeterministicHydraRingVariable(131, evaluationLevel);
                 yield return new NormalHydraRingVariable(132, HydraRingDeviationType.Standard, modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation);
-                yield return new RayleighNHydraRingVariable(133, HydraRingDeviationType.Standard, waveRatioMaxHStandardDeviation, waveRatioMaxHN);  // Note: Pass the N as "variability" and the standard deviation as "mean"
+                yield return new RayleighNHydraRingVariable(133, HydraRingDeviationType.Standard, waveRatioMaxHN, waveRatioMaxHStandardDeviation);
                 yield return new DeterministicHydraRingVariable(134, verticalDistance);
                 yield return new DeterministicHydraRingVariable(135, modificationFactorWavesSlowlyVaryingPressureComponent);
                 yield return new DeterministicHydraRingVariable(136, modificationFactorDynamicOrImpulsivePressureComponent);

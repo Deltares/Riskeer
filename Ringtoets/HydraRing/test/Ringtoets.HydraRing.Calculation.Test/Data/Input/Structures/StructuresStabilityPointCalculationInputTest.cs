@@ -172,7 +172,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             yield return new NormalHydraRingVariable(130, HydraRingDeviationType.Standard, 42.2, 43.3);
             yield return new DeterministicHydraRingVariable(131, 44.4);
             yield return new NormalHydraRingVariable(132, HydraRingDeviationType.Standard, 45.5, 46.6);
-            yield return new RayleighNHydraRingVariable(133, HydraRingDeviationType.Standard, 48.8, 47.7);
+            yield return new RayleighNHydraRingVariable(133, HydraRingDeviationType.Standard, 47.7, 48.8);
             yield return new DeterministicHydraRingVariable(134, 49.9);
             yield return new DeterministicHydraRingVariable(135, 50.0);
             yield return new DeterministicHydraRingVariable(136, 51.1);

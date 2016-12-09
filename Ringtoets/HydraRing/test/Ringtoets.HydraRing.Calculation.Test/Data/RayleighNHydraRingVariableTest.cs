@@ -33,7 +33,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         public void Constructor_ExpectedValues(HydraRingDeviationType deviationType, double? expectedParameter2, double expectedCoefficientOfVariation)
         {
             // Call
-            var hydraRingVariable = new RayleighNHydraRingVariable(1, deviationType, 2.2, 3.3);
+            var hydraRingVariable = new RayleighNHydraRingVariable(1, deviationType, 3.3, 2.2);
 
             // Assert
             Assert.IsInstanceOf<HydraRingVariable>(hydraRingVariable);

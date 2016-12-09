@@ -26,29 +26,29 @@ namespace Ringtoets.HydraRing.Calculation.Data
     /// </summary>
     public class RayleighNHydraRingVariable : HydraRingVariable
     {
-        private readonly double mean;
-        private readonly double variance;
+        private readonly double standardDeviation;
+        private readonly double n;
 
         /// <summary>
         /// Creates a new instance of <see cref="RayleighNHydraRingVariable"/>.
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
-        /// <param name="deviationType">The deviation type in case the variable is random.</param>
-        /// <param name="mean">The mean value of the variable.</param>
-        /// <param name="variance">The variance value of the variable.</param>
+        /// <param name="deviationType">The deviation type of the variable.</param>
+        /// <param name="n">The n value of the variable.</param>
+        /// <param name="standardDeviation">The standardDeviation value of the variable.</param>
         public RayleighNHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
-                                          double mean, double variance)
+                                          double n, double standardDeviation)
             : base(variableId, deviationType)
         {
-            this.mean = mean;
-            this.variance = variance;
+            this.standardDeviation = standardDeviation;
+            this.n = n;
         }
 
         public override double Parameter1
         {
             get
             {
-                return mean;
+                return standardDeviation;
             }
         }
 
@@ -57,7 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
             get
             {
                 return DeviationType == HydraRingDeviationType.Standard
-                           ? variance
+                           ? n
                            : base.Parameter2;
             }
         }
@@ -67,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
             get
             {
                 return DeviationType == HydraRingDeviationType.Variation
-                           ? variance
+                           ? n
                            : base.CoefficientOfVariation;
             }
         }
