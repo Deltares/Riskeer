@@ -223,25 +223,24 @@ namespace Core.Components.DotSpatial.Forms
             var drawnMapDataLookup = drawnMapDataList.ToDictionary(dmd => dmd.FeatureBasedMapData, dmd => dmd);
 
             DrawMissingMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
-            RemoveRedundantMapDataOnCollectionChange(drawnMapDataLookup, mapDataThatShouldBeDrawn);
+            RemoveRedundantMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
 
-            drawnMapDataLookup = drawnMapDataList.ToDictionary(le => le.FeatureBasedMapData, le => le);
+            drawnMapDataLookup = drawnMapDataList.ToDictionary(dmd => dmd.FeatureBasedMapData, dmd => dmd);
 
             MoveMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
         }
 
-        private void DrawMissingMapDataOnCollectionChange(List<FeatureBasedMapData> mapDataThatShouldBeDrawn, Dictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
+        private void DrawMissingMapDataOnCollectionChange(IEnumerable<FeatureBasedMapData> mapDataThatShouldBeDrawn,
+                                                          IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
         {
-            foreach (var mapDataToDraw in mapDataThatShouldBeDrawn)
+            foreach (var mapDataToDraw in mapDataThatShouldBeDrawn.Where(mapDataToDraw => !drawnMapDataLookup.ContainsKey(mapDataToDraw)))
             {
-                if (!drawnMapDataLookup.ContainsKey(mapDataToDraw))
-                {
-                    DrawMapData(mapDataToDraw);
-                }
+                DrawMapData(mapDataToDraw);
             }
         }
 
-        private void RemoveRedundantMapDataOnCollectionChange(Dictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup, List<FeatureBasedMapData> mapDataThatShouldBeDrawn)
+        private void RemoveRedundantMapDataOnCollectionChange(IEnumerable<FeatureBasedMapData> mapDataThatShouldBeDrawn,
+                                                              IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
         {
             foreach (var featureBasedMapData in drawnMapDataLookup.Keys.Except(mapDataThatShouldBeDrawn))
             {
@@ -249,7 +248,8 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        private void MoveMapDataOnCollectionChange(List<FeatureBasedMapData> mapDataThatShouldBeDrawn, Dictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
+        private void MoveMapDataOnCollectionChange(IList<FeatureBasedMapData> mapDataThatShouldBeDrawn,
+                                                   IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
         {
             for (var i = 0; i < mapDataThatShouldBeDrawn.Count; i++)
             {

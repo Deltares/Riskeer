@@ -54,7 +54,7 @@ namespace Core.Components.DotSpatial.Converter
             ValidateParameters(data, layer);
 
             ClearLayerData(layer);
-            SetDataTableColumns(data, layer);
+            SetDataTableColumns(data.MetaData, layer);
 
             var attributeMapping = GetAttributeMapping(data);
 
@@ -64,18 +64,9 @@ namespace Core.Components.DotSpatial.Converter
 
                 foreach (var feature in features)
                 {
-                    layer.DataSet.Features.Add(feature);
-
-                    foreach (var attribute in mapFeature.MetaData)
-                    {
-                        feature.DataRow[attributeMapping[attribute.Key].ToString()] = attribute.Value;
-                    }
+                    AddFeatureToLayer(layer, feature, mapFeature, attributeMapping);
                 }
             }
-
-            layer.DataSet.InitializeVertices();
-            layer.DataSet.UpdateExtent();
-            layer.AssignFastDrawnStates();
         }
 
         /// <summary>
@@ -141,11 +132,28 @@ namespace Core.Components.DotSpatial.Converter
             layer.DataSet.DataTable.Reset();
         }
 
-        private static void SetDataTableColumns(TFeatureBasedMapData data, IFeatureLayer layer)
+        private static void SetDataTableColumns(IEnumerable<string> metaData, IFeatureLayer layer)
         {
-            for (var i = 1; i <= data.MetaData.Count(); i++)
+            var count = metaData.Count();
+
+            for (var i = 1; i <= count; i++)
             {
                 layer.DataSet.DataTable.Columns.Add(i.ToString(), typeof(string));
+            }
+        }
+
+        private static void AddFeatureToLayer(TMapFeatureLayer layer, IFeature feature, MapFeature mapFeature, Dictionary<string, int> attributeMapping)
+        {
+            layer.DataSet.Features.Add(feature);
+
+            AddMetaDataToFeature(feature, mapFeature, attributeMapping);
+        }
+
+        private static void AddMetaDataToFeature(IFeature feature, MapFeature mapFeature, Dictionary<string, int> attributeMapping)
+        {
+            foreach (var attribute in mapFeature.MetaData)
+            {
+                feature.DataRow[attributeMapping[attribute.Key].ToString()] = attribute.Value;
             }
         }
 

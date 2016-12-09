@@ -158,7 +158,6 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             IFeature feature = mapLineLayer.DataSet.Features[0];
             Assert.AreEqual(mapLineData.Features.Length, mapLineLayer.DataSet.Features.Count);
-            Assert.AreEqual(mapFeature.MapGeometries.Count(), mapLineLayer.DataSet.ShapeIndices.First().Parts.Count);
             Assert.IsInstanceOf<MultiLineString>(feature.BasicGeometry);
 
             var expectedCoordinates = mapFeature.MapGeometries.SelectMany(mg => mg.PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y)));

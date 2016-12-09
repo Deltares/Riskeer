@@ -20,6 +20,7 @@ namespace Core.Components.DotSpatial.Layer
         /// Creates a new instance of <see cref="MapPointDataLayer"/>.
         /// </summary>
         /// <param name="mapPointData">The <see cref="MapPointData"/> which the map point data layer is based upon.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapPointData"/> is <c>null</c>.</exception>
         public MapPointDataLayer(MapPointData mapPointData)
         {
             if (mapPointData == null)
@@ -37,6 +38,10 @@ namespace Core.Components.DotSpatial.Layer
             if (!ReferenceEquals(mapPointData.Features, drawnFeatures))
             {
                 converter.ConvertLayerFeatures(mapPointData, this);
+
+                DataSet.InitializeVertices();
+                DataSet.UpdateExtent();
+                AssignFastDrawnStates();
 
                 drawnFeatures = mapPointData.Features;
             }

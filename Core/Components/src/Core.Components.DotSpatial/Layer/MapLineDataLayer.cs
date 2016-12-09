@@ -41,6 +41,7 @@ namespace Core.Components.DotSpatial.Layer
         /// Creates a new instance of <see cref="MapLineDataLayer"/>.
         /// </summary>
         /// <param name="mapLineData">The <see cref="MapLineData"/> which the map line data layer is based upon.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapLineData"/> is <c>null</c>.</exception>
         public MapLineDataLayer(MapLineData mapLineData)
         {
             if (mapLineData == null)
@@ -58,6 +59,10 @@ namespace Core.Components.DotSpatial.Layer
             if (!ReferenceEquals(mapLineData.Features, drawnFeatures))
             {
                 converter.ConvertLayerFeatures(mapLineData, this);
+
+                DataSet.InitializeVertices();
+                DataSet.UpdateExtent();
+                AssignFastDrawnStates();
 
                 drawnFeatures = mapLineData.Features;
             }

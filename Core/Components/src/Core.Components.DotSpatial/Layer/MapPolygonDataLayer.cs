@@ -41,6 +41,7 @@ namespace Core.Components.DotSpatial.Layer
         /// Creates a new instance of <see cref="MapPolygonDataLayer"/>.
         /// </summary>
         /// <param name="mapPolygonData">The <see cref="MapPolygonData"/> which the map polygon data layer is based upon.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapPolygonData"/> is <c>null</c>.</exception>
         public MapPolygonDataLayer(MapPolygonData mapPolygonData)
         {
             if (mapPolygonData == null)
@@ -58,6 +59,10 @@ namespace Core.Components.DotSpatial.Layer
             if (!ReferenceEquals(mapPolygonData.Features, drawnFeatures))
             {
                 converter.ConvertLayerFeatures(mapPolygonData, this);
+
+                DataSet.InitializeVertices();
+                DataSet.UpdateExtent();
+                AssignFastDrawnStates();
 
                 drawnFeatures = mapPolygonData.Features;
             }
