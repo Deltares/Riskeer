@@ -63,8 +63,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             HydraRingVariable[] hydraRingVariables = dunesBoundaryConditionsCalculationInput.Variables.ToArray();
             Assert.AreEqual(1, hydraRingVariables.Length);
             var waterLevelVariable = hydraRingVariables.First();
+            Assert.IsInstanceOf<DeterministicHydraRingVariable>(waterLevelVariable);
             Assert.AreEqual(26, waterLevelVariable.VariableId);
-            Assert.AreEqual(HydraRingDistributionType.Deterministic, waterLevelVariable.DistributionType);
             Assert.AreEqual(0.0, waterLevelVariable.Value);
         }
 

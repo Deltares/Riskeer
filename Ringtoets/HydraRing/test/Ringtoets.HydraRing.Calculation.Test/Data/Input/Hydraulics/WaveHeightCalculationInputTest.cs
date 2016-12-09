@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Utils;
 using NUnit.Framework;
@@ -65,10 +64,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             HydraRingVariable[] variables = waveHeightCalculationInput.Variables.ToArray();
             Assert.AreEqual(1, variables.Length);
             var waveHeightVariable = variables.First();
+            Assert.IsInstanceOf<DeterministicHydraRingVariable>(waveHeightVariable);
             Assert.AreEqual(28, waveHeightVariable.VariableId);
-            Assert.AreEqual(HydraRingDistributionType.Deterministic, waveHeightVariable.DistributionType);
             Assert.AreEqual(0.0, waveHeightVariable.Value);
-            Assert.AreEqual(HydraRingDeviationType.Standard, waveHeightVariable.DeviationType);
         }
 
         [Test]
