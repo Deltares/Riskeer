@@ -207,7 +207,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             DistributionAssert.AreEqual(
                 inputParameters.SaturatedVolumicWeightOfCoverageLayer, 
                 saturatedVolumicWeightOfCoverageLayer.Distribution);
-            Assert.AreEqual(new RoundedDouble(2), saturatedVolumicWeightOfCoverageLayer.GetDesignValue());
+            Assert.AreEqual(RoundedDouble.NaN, saturatedVolumicWeightOfCoverageLayer.GetDesignValue());
         }
 
         [Test]

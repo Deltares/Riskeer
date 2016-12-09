@@ -56,10 +56,6 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput parameters)
         {
-            if (double.IsNaN(parameters.SaturatedVolumicWeightOfCoverageLayer.Mean))
-            {
-                return CreateDeterministicDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer, 0);
-            }
             return CreateDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer, 0.05);
         }
 

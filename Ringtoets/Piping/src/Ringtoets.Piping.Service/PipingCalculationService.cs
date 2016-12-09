@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper;
@@ -164,7 +165,7 @@ namespace Ringtoets.Piping.Service
                 validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_ExitPointL);
             }
 
-            if (!isSurfaceLineMissing && !isSoilProfileMissing && !isExitPointLMissing)
+            if (IsSurfaceLineProfileDefinitionComplete(inputParameters))
             {
                 if (double.IsNaN(inputParameters.ThicknessAquiferLayer.Mean))
                 {
@@ -179,55 +180,58 @@ namespace Ringtoets.Piping.Service
                 var pipingSoilProfile = inputParameters.StochasticSoilProfile.SoilProfile;
                 var surfaceLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
 
-                if (pipingSoilProfile != null)
+                validationResult.AddRange(ValidateAquiferLayers(inputParameters, pipingSoilProfile, surfaceLevel));
+                validationResult.AddRange(ValidateCoverageLayers(inputParameters, pipingSoilProfile, surfaceLevel));
+            }
+
+            return validationResult;
+        }
+
+        private static IEnumerable<string> ValidateAquiferLayers(PipingInput inputParameters, PipingSoilProfile pipingSoilProfile, double surfaceLevel)
+        {
+            var validationResult = new List<string>();
+
+            bool hasConsecutiveAquiferLayers = pipingSoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLevel).Any();
+            if (!hasConsecutiveAquiferLayers)
+            {
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_aquifer_layer_at_ExitPointL_under_SurfaceLine);
+            }
+            else
+            {
+                if (double.IsNaN(PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue()))
                 {
-                    IEnumerable<PipingSoilLayer> consecutiveAquiferLayers = pipingSoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLevel).ToArray();
-                    IEnumerable<PipingSoilLayer> consecutiveCoverageLayers = pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).ToArray();
+                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_DarcyPermeability);
+                }
 
-                    var hasAquiferLayers = consecutiveAquiferLayers.Any();
-                    var hasCoverageLayers = consecutiveCoverageLayers.Any();
+                if (double.IsNaN(PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue()))
+                {
+                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_Diameter70);
+                }
+            }
+            return validationResult;
+        }
 
-                    if (!hasAquiferLayers)
-                    {
-                        validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_aquifer_layer_at_ExitPointL_under_SurfaceLine);
-                    }
-                    if (!hasCoverageLayers)
-                    {
-                        validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine);
-                    }
+        private static IEnumerable<string> ValidateCoverageLayers(PipingInput inputParameters, PipingSoilProfile pipingSoilProfile, double surfaceLevel)
+        {
+            var validationResult = new List<string>();
 
-                    if (hasAquiferLayers)
-                    {
-                        if (double.IsNaN(inputParameters.DarcyPermeability.Mean)
-                            || double.IsNaN(inputParameters.DarcyPermeability.StandardDeviation))
-                        {
-                            validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_DarcyPermeability);
-                        }
-                        if (double.IsNaN(inputParameters.Diameter70.Mean)
-                            || double.IsNaN(inputParameters.Diameter70.StandardDeviation))
-                        {
-                            validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_Diameter70);
-                        }
-                    }
-                    if (hasCoverageLayers)
-                    {
-                        if (double.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean)
-                            || double.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation)
-                            || double.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift))
-                        {
-                            validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight);
-                        }
-                        else
-                        {
-                            var saturatedVolumicWeightOfCoverageLayer =
-                                PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue();
+            bool hasConsecutiveCoverageLayers = pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).Any();
+            if (!hasConsecutiveCoverageLayers)
+            {
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine);
+            }
+            else
+            {
+                var saturatedVolumicWeightOfCoverageLayer =
+                    PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue();
 
-                            if (saturatedVolumicWeightOfCoverageLayer < inputParameters.WaterVolumetricWeight)
-                            {
-                                validationResult.Add(Resources.PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight);
-                            }
-                        }
-                    }
+                if (double.IsNaN(saturatedVolumicWeightOfCoverageLayer))
+                {
+                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight);
+                }
+                else if (saturatedVolumicWeightOfCoverageLayer < inputParameters.WaterVolumetricWeight)
+                {
+                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight);
                 }
             }
 
@@ -236,41 +240,62 @@ namespace Ringtoets.Piping.Service
 
         private static List<string> GetInputWarnings(PipingInput inputParameters)
         {
-            List<string> warnings = new List<string>();
+            var warnings = new List<string>();
 
-            var exitPointL = inputParameters.ExitPointL;
-
-            var isSoilProfileMissing = inputParameters.StochasticSoilProfile == null;
-            var isSurfaceLineMissing = inputParameters.SurfaceLine == null;
-            var isExitPointLMissing = double.IsNaN(exitPointL);
-
-            if (!isSurfaceLineMissing && !isSoilProfileMissing && !isExitPointLMissing)
+            if (IsSurfaceLineProfileDefinitionComplete(inputParameters))
             {
-                var pipingSoilProfile = inputParameters.StochasticSoilProfile.SoilProfile;
-                var surfaceLevel = inputParameters.SurfaceLine.GetZAtL(exitPointL);
+                var surfaceLineLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
 
-                IEnumerable<PipingSoilLayer> consecutiveAquiferLayersBelowLevel = pipingSoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLevel);
-                IEnumerable<PipingSoilLayer> consecutiveAquitardLayersBelowLevel = pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel);
-
-                if (consecutiveAquiferLayersBelowLevel.Count() > 1)
-                {
-                    warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_determine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer);
-                }
-                if (consecutiveAquitardLayersBelowLevel.Count() > 1)
-                {
-                    warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_Attempt_to_determine_value_from_combination);
-                }
-                if (!double.IsNaN(inputParameters.Diameter70.Mean) && !double.IsNaN(inputParameters.Diameter70.StandardDeviation))
-                {
-                    RoundedDouble diameter70Value = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue();
-                    if (diameter70Value < 6.3e-5 || diameter70Value > 0.5e-3)
-                    {
-                        warnings.Add(string.Format(Resources.PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model, diameter70Value));
-                    }
-                }
+                warnings.AddRange(GetMultipleAquiferLayersWarning(inputParameters, surfaceLineLevel));
+                warnings.AddRange(GetMultipleCoverageLayersWarning(inputParameters, surfaceLineLevel));
+                warnings.AddRange(GetDiameter70Warnings(inputParameters));
             }
 
             return warnings;
+        }
+
+        private static IEnumerable<string> GetDiameter70Warnings(PipingInput inputParameters)
+        {
+            List<string> warnings = new List<string>();
+
+            RoundedDouble diameter70Value = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue();
+
+            if (!double.IsNaN(diameter70Value) && (diameter70Value < 6.3e-5 || diameter70Value > 0.5e-3))
+            {
+                warnings.Add(string.Format(Resources.PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model, diameter70Value));
+            }
+            return warnings;
+        }
+
+        private static IEnumerable<string> GetMultipleCoverageLayersWarning(PipingInput inputParameters, double surfaceLineLevel)
+        {
+            var warnings = new List<string>();
+
+            bool hasMoreThanOneCoverageLayer = inputParameters.StochasticSoilProfile.SoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLineLevel).Count() > 1;
+            if (hasMoreThanOneCoverageLayer)
+            {
+                warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_Attempt_to_determine_value_from_combination);
+            }
+            return warnings;
+        }
+
+        private static IEnumerable<string> GetMultipleAquiferLayersWarning(PipingInput inputParameters, double surfaceLineLevel)
+        {
+            var warnings = new List<string>();
+
+            bool hasMoreThanOneAquiferLayer = inputParameters.StochasticSoilProfile.SoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLineLevel).Count() > 1;
+            if (hasMoreThanOneAquiferLayer)
+            {
+                warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_determine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer);
+            }
+            return warnings;
+        }
+
+        private static bool IsSurfaceLineProfileDefinitionComplete(PipingInput surfaceLineMissing)
+        {
+            return surfaceLineMissing.SurfaceLine != null &&
+                   surfaceLineMissing.StochasticSoilProfile != null &&
+                   !double.IsNaN(surfaceLineMissing.ExitPointL);
         }
 
         private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters)
