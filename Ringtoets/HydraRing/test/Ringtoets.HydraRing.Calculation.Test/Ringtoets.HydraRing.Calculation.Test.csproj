@@ -99,6 +99,7 @@
     <Compile Include="Data\Variables\HydraRingVariableTest.cs" />
     <Compile Include="Data\Variables\LogNormalHydraRingVariableTest.cs" />
     <Compile Include="Data\Variables\NormalHydraRingVariableTest.cs" />
+    <Compile Include="Data\Variables\RandomHydraRingVariableTest.cs" />
     <Compile Include="Data\Variables\RayleighNHydraRingVariableTest.cs" />
     <Compile Include="Data\Variables\TruncatedNormalHydraRingVariableTest.cs" />
     <Compile Include="Exceptions\HydraRingCalculationExceptionTest.cs" />
