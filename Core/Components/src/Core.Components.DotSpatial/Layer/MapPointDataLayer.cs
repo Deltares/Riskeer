@@ -39,10 +39,6 @@ namespace Core.Components.DotSpatial.Layer
             {
                 converter.ConvertLayerFeatures(mapPointData, this);
 
-                DataSet.InitializeVertices();
-                DataSet.UpdateExtent();
-                AssignFastDrawnStates();
-
                 drawnFeatures = mapPointData.Features;
             }
 

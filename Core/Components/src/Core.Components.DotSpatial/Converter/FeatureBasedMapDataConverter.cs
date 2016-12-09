@@ -67,6 +67,10 @@ namespace Core.Components.DotSpatial.Converter
                     AddFeatureToLayer(layer, feature, mapFeature, attributeMapping);
                 }
             }
+
+            layer.DataSet.InitializeVertices();
+            layer.DataSet.UpdateExtent();
+            layer.AssignFastDrawnStates();
         }
 
         /// <summary>

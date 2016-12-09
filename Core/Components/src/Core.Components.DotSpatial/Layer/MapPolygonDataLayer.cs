@@ -60,10 +60,6 @@ namespace Core.Components.DotSpatial.Layer
             {
                 converter.ConvertLayerFeatures(mapPolygonData, this);
 
-                DataSet.InitializeVertices();
-                DataSet.UpdateExtent();
-                AssignFastDrawnStates();
-
                 drawnFeatures = mapPolygonData.Features;
             }
 
