@@ -112,6 +112,23 @@ namespace Ringtoets.Piping.Data
         public class ConstructionProperties
         {
             /// <summary>
+            /// Creates a new instance of <see cref="ConstructionProperties"/>.
+            /// </summary>
+            public ConstructionProperties()
+            {
+                UpliftZValue = double.NaN;
+                UpliftFactorOfSafety = double.NaN;
+                HeaveZValue = double.NaN;
+                HeaveFactorOfSafety = double.NaN;
+                SellmeijerZValue = double.NaN;
+                SellmeijerFactorOfSafety = double.NaN;
+                HeaveGradient = double.NaN;
+                SellmeijerCreepCoefficient = double.NaN;
+                SellmeijerCriticalFall = double.NaN;
+                SellmeijerReducedFall = double.NaN;
+            }
+
+            /// <summary>
             /// The calculated z-value for the uplift sub calculation.
             /// </summary>
             public double UpliftZValue { internal get; set; }
@@ -160,23 +177,6 @@ namespace Ringtoets.Piping.Data
             /// The reduced fall that was calculated for the Sellmeijer sub calculation.
             /// </summary>
             public double SellmeijerReducedFall { internal get; set; }
-
-            /// <summary>
-            /// Creates a new instance of <see cref="ConstructionProperties"/>.
-            /// </summary>
-            public ConstructionProperties()
-            {
-                UpliftZValue = double.NaN;
-                UpliftFactorOfSafety = double.NaN;
-                HeaveZValue = double.NaN;
-                HeaveFactorOfSafety = double.NaN;
-                SellmeijerZValue = double.NaN;
-                SellmeijerFactorOfSafety = double.NaN;
-                HeaveGradient = double.NaN;
-                SellmeijerCreepCoefficient = double.NaN;
-                SellmeijerCriticalFall = double.NaN;
-                SellmeijerReducedFall = double.NaN;
-            }
         }
     }
 }

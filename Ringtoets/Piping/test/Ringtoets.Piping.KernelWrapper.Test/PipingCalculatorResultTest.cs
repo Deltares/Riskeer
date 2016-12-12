@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var sellmeijerCriticalFall = random.NextDouble();
             var sellmeijerReducedFall = random.NextDouble();
 
-            var builder = new PipingCalculatorResult.ConstructionProperties
+            var constructionProperties = new PipingCalculatorResult.ConstructionProperties
             {
                 UpliftZValue = zuValue,
                 UpliftFactorOfSafety = foSuValue,
@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             };
 
             // Call
-            var actual = new PipingCalculatorResult(builder);
+            var actual = new PipingCalculatorResult(constructionProperties);
 
             // Assert
             Assert.AreEqual(zuValue, actual.UpliftZValue);

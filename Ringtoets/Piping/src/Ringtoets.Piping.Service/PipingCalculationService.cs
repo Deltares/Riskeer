@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Service
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
             CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters).ToArray());
 
-            var inputValidationResults = ValidateInput(calculation.InputParameters);
+            List<string> inputValidationResults = ValidateInput(calculation.InputParameters);
             if (inputValidationResults.Count > 0)
             {
                 CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, inputValidationResults.ToArray());
@@ -114,8 +114,7 @@ namespace Ringtoets.Piping.Service
             IEnumerable<string> coreValidationError = ValidateCoreSurfaceLineAndSoilProfileProperties(inputParameters);
             validationResults.AddRange(coreValidationError);
 
-            var isEntryPointLMissing = double.IsNaN(inputParameters.EntryPointL);
-            if (isEntryPointLMissing)
+            if (double.IsNaN(inputParameters.EntryPointL))
             {
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_EntryPointL);
             }
@@ -127,7 +126,7 @@ namespace Ringtoets.Piping.Service
 
             return validationResults;
         }
-        
+
         private static IEnumerable<string> ValidateHydraulics(PipingInput inputParameters)
         {
             var validationResults = new List<string>();
@@ -139,7 +138,7 @@ namespace Ringtoets.Piping.Service
             {
                 validationResults.AddRange(ValidateAssessmentLevel(inputParameters));
 
-                if (double.IsNaN(inputParameters.PiezometricHeadExit) || double.IsInfinity(inputParameters.PiezometricHeadExit))
+                if (IsInconcreteValue(inputParameters.PiezometricHeadExit))
                 {
                     validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
                 }
@@ -154,7 +153,7 @@ namespace Ringtoets.Piping.Service
 
             if (inputParameters.UseAssessmentLevelManualInput)
             {
-                if (double.IsNaN(inputParameters.AssessmentLevel) || double.IsInfinity(inputParameters.AssessmentLevel))
+                if (IsInconcreteValue(inputParameters.AssessmentLevel))
                 {
                     validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
                                                        ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.AssessmentLevel_DisplayName)));
@@ -169,6 +168,11 @@ namespace Ringtoets.Piping.Service
             }
 
             return validationResult;
+        }
+
+        private static bool IsInconcreteValue(RoundedDouble parameter)
+        {
+            return double.IsNaN(parameter) || double.IsInfinity(parameter);
         }
 
         private static IEnumerable<string> ValidateCoreSurfaceLineAndSoilProfileProperties(PipingInput inputParameters)
@@ -202,8 +206,8 @@ namespace Ringtoets.Piping.Service
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer);
             }
 
-            var pipingSoilProfile = inputParameters.StochasticSoilProfile.SoilProfile;
-            var surfaceLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
+            PipingSoilProfile pipingSoilProfile = inputParameters.StochasticSoilProfile.SoilProfile;
+            double surfaceLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
 
             validationResults.AddRange(ValidateAquiferLayers(inputParameters, pipingSoilProfile, surfaceLevel));
             validationResults.AddRange(ValidateCoverageLayers(inputParameters, pipingSoilProfile, surfaceLevel));
@@ -245,7 +249,7 @@ namespace Ringtoets.Piping.Service
             }
             else
             {
-                var saturatedVolumicWeightOfCoverageLayer =
+                RoundedDouble saturatedVolumicWeightOfCoverageLayer =
                     PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue();
 
                 if (double.IsNaN(saturatedVolumicWeightOfCoverageLayer))
@@ -267,7 +271,7 @@ namespace Ringtoets.Piping.Service
 
             if (IsSurfaceLineProfileDefinitionComplete(inputParameters))
             {
-                var surfaceLineLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
+                double surfaceLineLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
 
                 warnings.AddRange(GetMultipleAquiferLayersWarning(inputParameters, surfaceLineLevel));
                 warnings.AddRange(GetMultipleCoverageLayersWarning(inputParameters, surfaceLineLevel));

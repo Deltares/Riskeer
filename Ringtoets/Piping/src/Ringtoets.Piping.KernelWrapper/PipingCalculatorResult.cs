@@ -53,6 +53,79 @@ namespace Ringtoets.Piping.KernelWrapper
             SellmeijerReducedFall = constructionProperties.SellmeijerReducedFall;
         }
 
+        /// <summary>
+        /// Container for properties for constructing a <see cref="PipingCalculatorResult"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Creates a new instance of <see cref="ConstructionProperties"/>.
+            /// </summary>
+            public ConstructionProperties()
+            {
+                UpliftZValue = double.NaN;
+                UpliftFactorOfSafety = double.NaN;
+                HeaveZValue = double.NaN;
+                HeaveFactorOfSafety = double.NaN;
+                SellmeijerZValue = double.NaN;
+                SellmeijerFactorOfSafety = double.NaN;
+                HeaveGradient = double.NaN;
+                SellmeijerCreepCoefficient = double.NaN;
+                SellmeijerCriticalFall = double.NaN;
+                SellmeijerReducedFall = double.NaN;
+            }
+
+            /// <summary>
+            /// Gets the z-value of the Uplift sub calculation.
+            /// </summary>
+            public double UpliftZValue { internal get; set; }
+
+            /// <summary>
+            /// Gets the factory of safety of the Uplift sub calculation.
+            /// </summary>
+            public double UpliftFactorOfSafety { internal get; set; }
+
+            /// <summary>
+            /// Gets the z-value of the Heave sub calculation.
+            /// </summary>
+            public double HeaveZValue { internal get; set; }
+
+            /// <summary>
+            /// Gets the factory of safety of the Heave sub calculation.
+            /// </summary>
+            public double HeaveFactorOfSafety { internal get; set; }
+
+            /// <summary>
+            /// Gets the z-value of the Sellmeijer sub calculation.
+            /// </summary>
+            public double SellmeijerZValue { internal get; set; }
+
+            /// <summary>
+            /// Gets the factory of safety of the Sellmeijer sub calculation.
+            /// </summary>
+            public double SellmeijerFactorOfSafety { internal get; set; }
+
+            /// <summary>
+            /// The gradient that was calculated for the heave sub calculation.
+            /// </summary>
+            public double HeaveGradient { internal get; set; }
+
+            /// <summary>
+            /// The creep coefficient that was calculated for the Sellmeijer sub calculation.
+            /// </summary>
+            public double SellmeijerCreepCoefficient { internal get; set; }
+
+            /// <summary>
+            /// The critical fall that was calculated for the Sellmeijer sub calculation.
+            /// </summary>
+            public double SellmeijerCriticalFall { internal get; set; }
+
+            /// <summary>
+            /// The reduced fall that was calculated for the Sellmeijer sub calculation.
+            /// </summary>
+            public double SellmeijerReducedFall { internal get; set; }
+        }
+
         #region properties
 
         /// <summary>
@@ -106,78 +179,5 @@ namespace Ringtoets.Piping.KernelWrapper
         public double SellmeijerReducedFall { get; private set; }
 
         #endregion
-
-        /// <summary>
-        /// Container for properties for constructing a <see cref="PipingCalculatorResult"/>.
-        /// </summary>
-        public class ConstructionProperties
-        {
-            /// <summary>
-            /// Gets the z-value of the Uplift sub calculation.
-            /// </summary>
-            public double UpliftZValue { internal get; set; }
-
-            /// <summary>
-            /// Gets the factory of safety of the Uplift sub calculation.
-            /// </summary>
-            public double UpliftFactorOfSafety { internal get; set; }
-
-            /// <summary>
-            /// Gets the z-value of the Heave sub calculation.
-            /// </summary>
-            public double HeaveZValue { internal get; set; }
-
-            /// <summary>
-            /// Gets the factory of safety of the Heave sub calculation.
-            /// </summary>
-            public double HeaveFactorOfSafety { internal get; set; }
-
-            /// <summary>
-            /// Gets the z-value of the Sellmeijer sub calculation.
-            /// </summary>
-            public double SellmeijerZValue { internal get; set; }
-
-            /// <summary>
-            /// Gets the factory of safety of the Sellmeijer sub calculation.
-            /// </summary>
-            public double SellmeijerFactorOfSafety { internal get; set; }
-
-            /// <summary>
-            /// The gradient that was calculated for the heave sub calculation.
-            /// </summary>
-            public double HeaveGradient { internal get; set; }
-
-            /// <summary>
-            /// The creep coefficient that was calculated for the Sellmeijer sub calculation.
-            /// </summary>
-            public double SellmeijerCreepCoefficient { internal get; set; }
-
-            /// <summary>
-            /// The critical fall that was calculated for the Sellmeijer sub calculation.
-            /// </summary>
-            public double SellmeijerCriticalFall { internal get; set; }
-
-            /// <summary>
-            /// The reduced fall that was calculated for the Sellmeijer sub calculation.
-            /// </summary>
-            public double SellmeijerReducedFall { internal get; set; }
-
-            /// <summary>
-            /// Creates a new instance of <see cref="ConstructionProperties"/>.
-            /// </summary>
-            public ConstructionProperties()
-            {
-                UpliftZValue = double.NaN;
-                UpliftFactorOfSafety = double.NaN;
-                HeaveZValue = double.NaN;
-                HeaveFactorOfSafety = double.NaN;
-                SellmeijerZValue = double.NaN;
-                SellmeijerFactorOfSafety = double.NaN;
-                HeaveGradient = double.NaN;
-                SellmeijerCreepCoefficient = double.NaN;
-                SellmeijerCriticalFall = double.NaN;
-                SellmeijerReducedFall = double.NaN;
-            }
-        }
     }
 }

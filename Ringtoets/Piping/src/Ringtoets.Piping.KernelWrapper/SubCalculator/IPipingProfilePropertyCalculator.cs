@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         double ExitPointX { set; }
 
         /// <summary>
-        /// Gets the bottom level of the bottom most aquitard that is above the exit point's z-coordinate.
+        /// Gets the bottom level of the bottommost aquitard that is above the exit point's z-coordinate.
         /// </summary>
         double BottomAquitardLayerAboveExitPointZ { get; }
 

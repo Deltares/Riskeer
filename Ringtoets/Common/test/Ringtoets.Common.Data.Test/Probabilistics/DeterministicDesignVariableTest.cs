@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             Assert.AreSame(distributionMock, designVariable.Distribution);
             Assert.AreEqual(0, designVariable.GetDesignValue().Value);
-            mocks.VerifyAll(); // Expect no calls on mocks
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             Assert.AreEqual(testValue, designValue.Value, designValue.GetAccuracy());
             Assert.AreEqual(numberOfDecimalPlaces, designValue.NumberOfDecimalPlaces);
-            mocks.VerifyAll(); // Expect no calls on mocks
+            mocks.VerifyAll();
         }
     }
 }

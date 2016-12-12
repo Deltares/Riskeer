@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Data
         /// <returns>The total thickness of the consecutive layers below the given <paramref name="level"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when either <paramref name="soilProfile"/> or
         /// <paramref name="layers"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the bottom most <see cref="PipingSoilLayer"/> is not part of
+        /// <exception cref="ArgumentException">Thrown when the bottommost <see cref="PipingSoilLayer"/> is not part of
         /// <paramref name="soilProfile"/>.</exception>
         private static double TotalThicknessOfConsecutiveLayersBelowLevel(PipingSoilProfile soilProfile, double level, PipingSoilLayer[] layers)
         {
