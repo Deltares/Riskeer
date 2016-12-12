@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -321,6 +322,88 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
             Assert.AreEqual("Een profielschematisatie moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.", validationMessages[0]);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void Validate_SurfaceLineMissingDitchPoint_ValidationMessageForIncompleteDitch(int missingType)
+        {
+            // Setup
+            TestPipingInput tempInput = new TestPipingInput();
+            tempInput.SurfaceLine = new RingtoetsPipingSurfaceLine();
+            tempInput.SurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 2),
+                new Point3D(1, 0, -3),
+                new Point3D(2, 0, -4),
+                new Point3D(3, 0, 3)
+            });
+            if (missingType != 0)
+            {
+                tempInput.SurfaceLine.SetDitchDikeSideAt(tempInput.SurfaceLine.Points[0]);
+            }
+            if (missingType != 1)
+            {
+                tempInput.SurfaceLine.SetBottomDitchDikeSideAt(tempInput.SurfaceLine.Points[1]);
+            }
+            if (missingType != 2)
+            {
+                tempInput.SurfaceLine.SetBottomDitchPolderSideAt(tempInput.SurfaceLine.Points[2]);
+            }
+            if (missingType != 3)
+            {
+                tempInput.SurfaceLine.SetDitchPolderSideAt(tempInput.SurfaceLine.Points[3]);
+            }
+            PipingCalculatorInput input = tempInput.AsRealInput();
+
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            Assert.AreEqual(1, validationMessages.Count);
+            Assert.AreEqual("The ditch in surface line  is incorrect. Not all 4 points are defined or the order is incorrect.", validationMessages.First());
+        }
+
+        [Test]
+        [TestCase(0,2,1,3)]
+        [TestCase(0,3,2,1)]
+        [TestCase(3,2,1,0)]
+        public void Validate_SurfaceLineInvalidDitchPointsOrder_ValidationMessageForInvalidDitchPointsOrder(
+            int ditchDikeSidePosition,
+            int bottomDitchDikeSidePosition,
+            int bottomDitchPolderSidePosition,
+            int ditchPolderSidePosition)
+        {
+            // Setup
+            TestPipingInput tempInput = new TestPipingInput();
+            tempInput.SurfaceLine = new RingtoetsPipingSurfaceLine();
+            tempInput.SurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 2),
+                new Point3D(1, 0, -3),
+                new Point3D(2, 0, -4),
+                new Point3D(3, 0, 3)
+            });
+            tempInput.SurfaceLine.SetDitchDikeSideAt(tempInput.SurfaceLine.Points[ditchDikeSidePosition]);
+            tempInput.SurfaceLine.SetBottomDitchDikeSideAt(tempInput.SurfaceLine.Points[bottomDitchDikeSidePosition]);
+            tempInput.SurfaceLine.SetBottomDitchPolderSideAt(tempInput.SurfaceLine.Points[bottomDitchPolderSidePosition]);
+            tempInput.SurfaceLine.SetDitchPolderSideAt(tempInput.SurfaceLine.Points[ditchPolderSidePosition]);
+
+            PipingCalculatorInput input = tempInput.AsRealInput();
+
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            Assert.AreEqual(1, validationMessages.Count);
+            Assert.AreEqual("The ditch in surface line  is incorrect. Not all 4 points are defined or the order is incorrect.", validationMessages.First());
         }
 
         [Test]
