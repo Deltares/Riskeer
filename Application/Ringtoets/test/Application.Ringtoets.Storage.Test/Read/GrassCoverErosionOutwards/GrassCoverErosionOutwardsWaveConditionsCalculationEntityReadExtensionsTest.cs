@@ -265,12 +265,14 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
                     new GrassCoverErosionOutwardsWaveConditionsOutputEntity
                     {
                         WaterLevel = outputBLevel,
-                        Order = 1
+                        Order = 1,
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated)
                     },
                     new GrassCoverErosionOutwardsWaveConditionsOutputEntity
                     {
                         WaterLevel = outputALevel,
-                        Order = 0
+                        Order = 0,
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated)
                     }
                 }
             };

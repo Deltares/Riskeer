@@ -92,6 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             // Setup
             var entity = new GrassCoverErosionOutwardsWaveConditionsOutputEntity
             {
+                CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                 WaterLevel = null,
                 WaveHeight = null,
                 WavePeakPeriod = null,

@@ -1016,7 +1016,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             return new AssessmentSectionEntity
             {
-                Norm = 1.0/30000
+                Norm = 1.0/30000,
+                Composition = Convert.ToInt16(AssessmentSectionComposition.Dike)
             };
         }
 

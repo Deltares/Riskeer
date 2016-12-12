@@ -265,18 +265,21 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
                 {
                     new StabilityStoneCoverWaveConditionsOutputEntity
                     {
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         WaterLevel = outputBLevel,
                         Order = 1,
                         OutputType = Convert.ToByte(WaveConditionsOutputType.Columns)
                     },
                     new StabilityStoneCoverWaveConditionsOutputEntity
                     {
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         WaterLevel = outputCLevel,
                         Order = 2,
                         OutputType = Convert.ToByte(WaveConditionsOutputType.Blocks)
                     },
                     new StabilityStoneCoverWaveConditionsOutputEntity
                     {
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         WaterLevel = outputALevel,
                         Order = 0,
                         OutputType = Convert.ToByte(WaveConditionsOutputType.Columns)

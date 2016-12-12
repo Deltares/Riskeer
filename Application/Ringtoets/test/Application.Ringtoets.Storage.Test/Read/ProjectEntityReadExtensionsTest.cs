@@ -24,6 +24,7 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -76,13 +77,15 @@ namespace Application.Ringtoets.Storage.Test.Read
                     {
                         Norm = norm,
                         Name = "A",
-                        Order = 56
+                        Order = 56,
+                        Composition = Convert.ToInt16(AssessmentSectionComposition.Dike)
                     },
                     new AssessmentSectionEntity
                     {
                         Norm = norm,
                         Name = "B",
-                        Order = 0
+                        Order = 0,
+                        Composition = Convert.ToInt16(AssessmentSectionComposition.Dike)
                     }
                 }
             };

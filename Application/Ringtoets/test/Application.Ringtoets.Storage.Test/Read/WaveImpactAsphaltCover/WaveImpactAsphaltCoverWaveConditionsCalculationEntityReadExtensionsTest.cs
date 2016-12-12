@@ -264,11 +264,13 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
                 {
                     new WaveImpactAsphaltCoverWaveConditionsOutputEntity
                     {
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         WaterLevel = outputBLevel,
                         Order = 1
                     },
                     new WaveImpactAsphaltCoverWaveConditionsOutputEntity
                     {
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         WaterLevel = outputALevel,
                         Order = 0
                     }

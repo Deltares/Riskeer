@@ -92,6 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
             // Setup
             var entity = new WaveImpactAsphaltCoverWaveConditionsOutputEntity
             {
+                CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                 WaterLevel = null,
                 WaveHeight = null,
                 WavePeakPeriod = null,
