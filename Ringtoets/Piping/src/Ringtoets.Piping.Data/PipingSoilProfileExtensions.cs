@@ -26,6 +26,9 @@ using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
 {
+    /// <summary>
+    /// Defines extension methods dealing with <see cref="PipingSoilProfile"/> instances.
+    /// </summary>
     public static class PipingSoilProfileExtensions
     {
         /// <summary>
@@ -38,8 +41,8 @@ namespace Ringtoets.Piping.Data
         public static double GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(this PipingSoilProfile soilProfile, double level)
         {
             return TotalThicknessOfConsecutiveLayersBelowLevel(
-                soilProfile, 
-                level, 
+                soilProfile,
+                level,
                 soilProfile.GetConsecutiveAquiferLayersBelowLevel(level).ToArray());
         }
 
@@ -53,42 +56,9 @@ namespace Ringtoets.Piping.Data
         public static double GetConsecutiveCoverageLayerThicknessBelowLevel(this PipingSoilProfile soilProfile, double level)
         {
             return TotalThicknessOfConsecutiveLayersBelowLevel(
-                soilProfile, 
-                level, 
+                soilProfile,
+                level,
                 soilProfile.GetConsecutiveCoverageLayersBelowLevel(level).ToArray());
-        }
-
-        /// <summary>
-        /// Calculates the thickness of a collection of consecutive <see cref="PipingSoilLayer"/>.
-        /// </summary>
-        /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> containing the <paramref name="layers"/>.</param>
-        /// <param name="level">The level under which to calculate the total thickness.</param>
-        /// <param name="layers">Collection of consecutive <see cref="PipingSoilLayer"/>, ordered by 
-        /// <see cref="PipingSoilLayer.Top"/> which are part of <paramref name="soilProfile"/>.</param>
-        /// <returns>The total thickness of the consecutive layers below the given <paramref name="level"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="soilProfile"/> or
-        /// <paramref name="layers"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">The bottom most <see cref="PipingSoilLayer"/> is not part of
-        /// <paramref name="soilProfile"/>.</exception>
-        private static double TotalThicknessOfConsecutiveLayersBelowLevel(PipingSoilProfile soilProfile, double level, PipingSoilLayer[] layers)
-        {
-            if (soilProfile == null)
-            {
-                throw new ArgumentNullException("soilProfile");
-            }
-            if (layers == null)
-            {
-                throw new ArgumentNullException("layers");
-            }
-            if (layers.Length == 0)
-            {
-                return double.NaN;
-            }
-
-            var bottomLayer = layers.Last();
-            var topLayer = layers.First();
-
-            return Math.Min(topLayer.Top, level) - (bottomLayer.Top - soilProfile.GetLayerThickness(bottomLayer));
         }
 
         /// <summary>
@@ -120,6 +90,39 @@ namespace Ringtoets.Piping.Data
                 }
             }
             return Enumerable.Empty<PipingSoilLayer>();
+        }
+
+        /// <summary>
+        /// Calculates the thickness of a collection of consecutive <see cref="PipingSoilLayer"/>.
+        /// </summary>
+        /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> containing the <paramref name="layers"/>.</param>
+        /// <param name="level">The level under which to calculate the total thickness.</param>
+        /// <param name="layers">Collection of consecutive <see cref="PipingSoilLayer"/>, ordered by 
+        /// <see cref="PipingSoilLayer.Top"/> which are part of <paramref name="soilProfile"/>.</param>
+        /// <returns>The total thickness of the consecutive layers below the given <paramref name="level"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="soilProfile"/> or
+        /// <paramref name="layers"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the bottom most <see cref="PipingSoilLayer"/> is not part of
+        /// <paramref name="soilProfile"/>.</exception>
+        private static double TotalThicknessOfConsecutiveLayersBelowLevel(PipingSoilProfile soilProfile, double level, PipingSoilLayer[] layers)
+        {
+            if (soilProfile == null)
+            {
+                throw new ArgumentNullException("soilProfile");
+            }
+            if (layers == null)
+            {
+                throw new ArgumentNullException("layers");
+            }
+            if (layers.Length == 0)
+            {
+                return double.NaN;
+            }
+
+            var bottomLayer = layers.Last();
+            var topLayer = layers.First();
+
+            return Math.Min(topLayer.Top, level) - (bottomLayer.Top - soilProfile.GetLayerThickness(bottomLayer));
         }
 
         /// <summary>
