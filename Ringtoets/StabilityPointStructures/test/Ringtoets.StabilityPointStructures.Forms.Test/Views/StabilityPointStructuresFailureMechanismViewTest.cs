@@ -713,7 +713,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 // Call
                 assessmentSection.NotifyObservers();
 
-                // Call
+                // Assert
                 var actualReferenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
