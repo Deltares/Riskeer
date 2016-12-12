@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 {
@@ -55,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_Always_AddChartControlWithCollectionOfEmptyChartData()
+        public void DefaultConstructor_Always_AddEmptyChartControl()
         {
             // Call
             using (var view = new GrassCoverErosionInwardsInputView())
@@ -64,10 +63,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Chart, view.Controls[0]);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Chart).Dock);
-                Assert.AreEqual("Invoer", view.Chart.Data.Name);
                 Assert.AreEqual("Afstand [m]", view.Chart.BottomAxisTitle);
                 Assert.AreEqual("Hoogte [m+NAP]", view.Chart.LeftAxisTitle);
-                AssertEmptyChartData(view.Chart.Data);
+                Assert.IsNull(view.Chart.Data);
             }
         }
 
@@ -124,6 +122,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        public void Data_EmptyGrassCoverErosionInwardsCalculation_NoMapDataSet()
+        {
+            // Setup
+            using (var view = new GrassCoverErosionInwardsInputView())
+            {
+                var calculation = new GrassCoverErosionInwardsCalculation();
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                AssertEmptyChartData(view.Chart.Data);
+            }
+        }
+
+        [Test]
         public void Data_SetChartData_ChartDataSet()
         {
             // Setup
@@ -150,37 +164,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 AssertDikeProfileChartData(dikeProfile, chartData.Collection.ElementAt(dikeProfileIndex));
                 AssertForeshoreChartData(dikeProfile, chartData.Collection.ElementAt(foreshoreIndex));
                 AssertDikeHeightChartData(dikeProfile, chartData.Collection.ElementAt(dikeHeightIndex));
-            }
-        }
-
-        [Test]
-        public void Data_WithoutDikeProfile_CollectionOfEmptyDataSet()
-        {
-            // Setup
-            using (var view = new GrassCoverErosionInwardsInputView())
-            {
-                var calculation = new GrassCoverErosionInwardsCalculation();
-
-                // Call
-                view.Data = calculation;
-
-                // Assert
-                Assert.AreSame(calculation, view.Data);
-
-                var chartData = view.Chart.Data;
-                Assert.IsInstanceOf<ChartDataCollection>(chartData);
-                Assert.AreEqual(3, chartData.Collection.Count());
-
-                var dikeGeometryData = (ChartLineData) chartData.Collection.ElementAt(dikeProfileIndex);
-                var foreshoreData = (ChartLineData) chartData.Collection.ElementAt(foreshoreIndex);
-                var dikeHeightData = (ChartLineData) chartData.Collection.ElementAt(dikeHeightIndex);
-
-                CollectionAssert.IsEmpty(dikeGeometryData.Points);
-                CollectionAssert.IsEmpty(foreshoreData.Points);
-                CollectionAssert.IsEmpty(dikeHeightData.Points);
-                Assert.AreEqual("Dijkprofiel", dikeGeometryData.Name);
-                Assert.AreEqual("Voorlandprofiel", foreshoreData.Name);
-                Assert.AreEqual("Dijkhoogte", dikeHeightData.Name);
             }
         }
 
@@ -493,11 +476,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                                    });
         }
 
-        private static void AssertEmptyChartData(ChartDataCollection chartData)
+        private static void AssertEmptyChartData(ChartDataCollection chartDataCollection)
         {
-            Assert.IsInstanceOf<ChartDataCollection>(chartData);
+            Assert.AreEqual("Invoer", chartDataCollection.Name);
 
-            var chartDatasList = chartData.Collection.ToList();
+            var chartDatasList = chartDataCollection.Collection.ToList();
 
             Assert.AreEqual(3, chartDatasList.Count);
 

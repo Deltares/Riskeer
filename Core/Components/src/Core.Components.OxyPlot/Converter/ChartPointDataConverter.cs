@@ -19,49 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Charting.Data;
-using Core.Components.Charting.Styles;
 using OxyPlot;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Converter
 {
     /// <summary>
-    /// This class converts <see cref="ChartPointData"/> into <see cref="LineSeries"/> with point styling.
+    /// The converter that converts <see cref="ChartPointData"/> data into <see cref="LineSeries"/> data.
     /// </summary>
-    public class ChartPointDataConverter : ChartDataConverter<ChartPointData>
+    public class ChartPointDataConverter : ItemBasedChartDataConverter<ChartPointData, LineSeries>
     {
-        protected override IList<Series> Convert(ChartPointData data)
+        protected override void SetSeriesItems(ChartPointData data, LineSeries series)
         {
-            var series = new LineSeries
-            {
-                ItemsSource = data.Points.ToArray(),
-                IsVisible = data.IsVisible,
-                Mapping = Point2DToDataPoint,
-                LineStyle = LineStyle.None,
-                MarkerType = MarkerType.Circle,
-                Tag = data
-            };
-
-            CreateStyle(series, data.Style);
-
-            return new List<Series>
-            {
-                series
-            };
+            series.ItemsSource = data.Points.Select(p => new DataPoint(p.X, p.Y));
         }
 
-        private static void CreateStyle(LineSeries series, ChartPointStyle style)
+        protected override void SetSeriesStyle(ChartPointData data, LineSeries series)
         {
-            if (style != null)
+            series.LineStyle = LineStyle.None;
+
+            if (data.Style != null)
             {
-                series.MarkerFill = ChartDataHelper.Convert(style.Color);
-                series.MarkerSize = style.Size;
-                series.MarkerType = ChartDataHelper.Convert(style.Symbol);
-                series.MarkerStroke = ChartDataHelper.Convert(style.StrokeColor);
-                series.MarkerStrokeThickness = style.StrokeThickness;
+                series.MarkerFill = ChartDataHelper.Convert(data.Style.Color);
+                series.MarkerSize = data.Style.Size;
+                series.MarkerType = ChartDataHelper.Convert(data.Style.Symbol);
+                series.MarkerStroke = ChartDataHelper.Convert(data.Style.StrokeColor);
+                series.MarkerStrokeThickness = data.Style.StrokeThickness;
             }
         }
     }

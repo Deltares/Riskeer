@@ -227,7 +227,7 @@ namespace Core.Components.DotSpatial.Forms
 
             drawnMapDataLookup = drawnMapDataList.ToDictionary(dmd => dmd.FeatureBasedMapData, dmd => dmd);
 
-            MoveMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
+            ReorderMapDataOnCollectionChange(mapDataThatShouldBeDrawn, drawnMapDataLookup);
         }
 
         private void DrawMissingMapDataOnCollectionChange(IEnumerable<FeatureBasedMapData> mapDataThatShouldBeDrawn,
@@ -248,8 +248,8 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        private void MoveMapDataOnCollectionChange(IList<FeatureBasedMapData> mapDataThatShouldBeDrawn,
-                                                   IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
+        private void ReorderMapDataOnCollectionChange(IList<FeatureBasedMapData> mapDataThatShouldBeDrawn,
+                                                      IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
         {
             for (var i = 0; i < mapDataThatShouldBeDrawn.Count; i++)
             {
@@ -287,21 +287,21 @@ namespace Core.Components.DotSpatial.Forms
 
         private static IEnumerable<FeatureBasedMapData> GetFeatureBasedMapDataRecursively(MapDataCollection mapDataCollection)
         {
-            var featureBaseMapDataList = new List<FeatureBasedMapData>();
+            var featureBasedMapDataList = new List<FeatureBasedMapData>();
 
             foreach (MapData mapData in mapDataCollection.Collection)
             {
                 var nestedMapDataCollection = mapData as MapDataCollection;
                 if (nestedMapDataCollection != null)
                 {
-                    featureBaseMapDataList.AddRange(GetFeatureBasedMapDataRecursively(nestedMapDataCollection));
+                    featureBasedMapDataList.AddRange(GetFeatureBasedMapDataRecursively(nestedMapDataCollection));
                     continue;
                 }
 
-                featureBaseMapDataList.Add((FeatureBasedMapData) mapData);
+                featureBasedMapDataList.Add((FeatureBasedMapData) mapData);
             }
 
-            return featureBaseMapDataList;
+            return featureBasedMapDataList;
         }
 
         private void MapFunctionActivateFunction(object sender, EventArgs e)

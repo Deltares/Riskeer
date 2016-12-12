@@ -41,7 +41,7 @@ namespace Core.Components.Charting.Forms
         /// <summary>
         /// Gets or sets the data to show in the <see cref="IChartControl"/>.
         /// </summary>
-        ChartDataCollection Data { get; }
+        ChartDataCollection Data { get; set; }
 
         /// <summary>
         /// Gets or sets the title of the chart.
@@ -72,10 +72,5 @@ namespace Core.Components.Charting.Forms
         /// Zooms to a level so that everything is in view.
         /// </summary>
         void ZoomToAll();
-
-        /// <summary>
-        /// Sets the data of the chart to <c>null</c>.
-        /// </summary>
-        void ResetChartData();
     }
 }

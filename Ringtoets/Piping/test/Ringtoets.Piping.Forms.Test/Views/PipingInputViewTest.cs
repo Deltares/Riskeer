@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_Always_AddChartControlWithCollectionOfEmptyChartData()
+        public void DefaultConstructor_Always_AddEmptyChartControl()
         {
             // Call
             using (var view = new PipingInputView())
@@ -70,10 +70,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Chart, view.Controls[0]);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Chart).Dock);
-                Assert.AreEqual("Invoer", view.Chart.Data.Name);
                 Assert.AreEqual("Afstand [m]", view.Chart.BottomAxisTitle);
                 Assert.AreEqual("Hoogte [m+NAP]", view.Chart.LeftAxisTitle);
-                AssertEmptyChartData(view.Chart.Data);
+                Assert.IsNull(view.Chart.Data);
             }
         }
 
@@ -130,6 +129,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void Data_EmptyGrassCoverErosionInwardsCalculation_NoMapDataSet()
+        {
+            // Setup
+            using (var view = new PipingInputView())
+            {
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                AssertEmptyChartData(view.Chart.Data);
+            }
+        }
+
+        [Test]
         public void Data_WithSurfaceLineAndSoilProfile_DataUpdatedToCollectionOfFilledChartData()
         {
             // Setup
@@ -166,23 +181,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 AssertEntryPointLPointchartData(calculation.InputParameters, surfaceLine, chartData.Collection.ElementAt(entryPointIndex));
                 AssertExitPointLPointchartData(calculation.InputParameters, surfaceLine, chartData.Collection.ElementAt(exitPointIndex));
                 AssertCharacteristicPoints(surfaceLine, chartData.Collection.ToList());
-            }
-        }
-
-        [Test]
-        public void Data_WithoutSurfaceLine_DataUpdatedToCollectionOfEmptyChartData()
-        {
-            // Setup
-            using (var view = new PipingInputView())
-            {
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-
-                // Call
-                view.Data = calculation;
-
-                // Assert
-                Assert.AreSame(calculation, view.Data);
-                AssertEmptyChartData(view.Chart.Data);
             }
         }
 
@@ -588,11 +586,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             return surfaceLine;
         }
 
-        private static void AssertEmptyChartData(ChartDataCollection chartData)
+        private static void AssertEmptyChartData(ChartDataCollection chartDataCollection)
         {
-            Assert.IsInstanceOf<ChartDataCollection>(chartData);
+            Assert.AreEqual("Invoer", chartDataCollection.Name);
 
-            var chartDatasList = chartData.Collection.ToList();
+            var chartDatasList = chartDataCollection.Collection.ToList();
 
             Assert.AreEqual(10, chartDatasList.Count);
 

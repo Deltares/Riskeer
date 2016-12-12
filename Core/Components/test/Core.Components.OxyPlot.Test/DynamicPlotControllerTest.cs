@@ -94,7 +94,7 @@ namespace Core.Components.OxyPlot.Test
             Assert.AreEqual(PlotCommands.ZoomWheel, wheelZoomCommand.Command);
         }
 
-        private void AssertCustomRectangleZoomCommand(DynamicPlotController controller, int index)
+        private static void AssertCustomRectangleZoomCommand(DynamicPlotController controller, int index)
         {
             var rectangleZoomCommand = controller.InputCommandBindings[index];
             Assert.AreEqual(OxyMouseButton.Left, ((OxyMouseDownGesture) rectangleZoomCommand.Gesture).MouseButton);

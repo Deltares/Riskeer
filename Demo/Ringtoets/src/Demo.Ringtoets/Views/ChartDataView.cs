@@ -30,8 +30,6 @@ namespace Demo.Ringtoets.Views
     /// </summary>
     public partial class ChartDataView : UserControl, IChartView
     {
-        private ChartDataCollection data;
-
         /// <summary>
         /// Creates a new instance of <see cref="ChartDataView"/>.
         /// </summary>
@@ -44,21 +42,11 @@ namespace Demo.Ringtoets.Views
         {
             get
             {
-                return data;
+                return Chart.Data;
             }
             set
             {
-                data = (ChartDataCollection) value;
-
-                if (data != null)
-                {
-                    foreach (var chartData in data.Collection)
-                    {
-                        Chart.Data.Add(chartData);
-                    }
-
-                    Chart.Data.NotifyObservers();
-                }
+                Chart.Data = value as ChartDataCollection;
             }
         }
 

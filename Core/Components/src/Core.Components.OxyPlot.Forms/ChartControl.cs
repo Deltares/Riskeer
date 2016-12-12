@@ -19,26 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
-using Core.Components.OxyPlot.Converter;
-using OxyPlot.WindowsForms;
+using Core.Components.OxyPlot.DataSeries;
+using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Forms
 {
     /// <summary>
     /// This class describes a plot view with configured representation of axes.
     /// </summary>
-    public sealed class ChartControl : Control, IObserver, IChartControl
+    public sealed class ChartControl : Control, IChartControl
     {
-        private readonly ChartSeriesFactory seriesFactory = new ChartSeriesFactory();
+        private readonly RecursiveObserver<ChartDataCollection, ChartDataCollection> chartDataCollectionObserver;
+        private readonly IList<DrawnChartData> drawnChartDataList = new List<DrawnChartData>();
 
-        private LinearPlotView view;
-        private DynamicPlotController controller;
+        private LinearPlotView plotView;
+        private DynamicPlotController plotController;
+        private ChartDataCollection data;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartControl"/>.
@@ -48,73 +51,42 @@ namespace Core.Components.OxyPlot.Forms
             InitializePlotView();
             MinimumSize = new Size(100, 100);
 
-            Data = new ChartDataCollection("Root");
-            Data.Attach(this);
-
-            DrawSeries();
+            chartDataCollectionObserver = new RecursiveObserver<ChartDataCollection, ChartDataCollection>(HandleChartDataCollectionChange, cdc => cdc.Collection);
         }
 
-        /// <summary>
-        /// Initialize the <see cref="PlotView"/> for the <see cref="ChartControl"/>.
-        /// </summary>
-        private void InitializePlotView()
+        public ChartDataCollection Data
         {
-            view = new LinearPlotView
+            get
             {
-                BackColor = Color.White
-            };
-
-            controller = new DynamicPlotController();
-            view.Controller = controller;
-            Controls.Add(view);
-        }
-
-        /// <summary>
-        /// Draws series based on the currently set <see cref="Data"/>.
-        /// </summary>
-        private void DrawSeries()
-        {
-            view.Model.Series.Clear();
-            if (Data != null)
+                return data;
+            }
+            set
             {
-                foreach (var series in seriesFactory.Create(Data))
+                if (data != null)
                 {
-                    view.Model.Series.Add(series);
+                    ClearChartData();
+                }
+
+                data = value;
+
+                chartDataCollectionObserver.Observable = data;
+
+                if (data != null)
+                {
+                    DrawInitialChartData();
                 }
             }
-            view.InvalidatePlot(true);
         }
-
-        #region IChart
-
-        public bool IsPanningEnabled
-        {
-            get
-            {
-                return controller.IsPanningEnabled;
-            }
-        }
-
-        public bool IsRectangleZoomingEnabled
-        {
-            get
-            {
-                return controller.IsRectangleZoomingEnabled;
-            }
-        }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ChartDataCollection Data { get; private set; }
 
         public string ChartTitle
         {
             get
             {
-                return view.ModelTitle;
+                return plotView.ModelTitle;
             }
             set
             {
-                view.ModelTitle = value;
+                plotView.ModelTitle = value;
             }
         }
 
@@ -122,11 +94,11 @@ namespace Core.Components.OxyPlot.Forms
         {
             get
             {
-                return view.BottomAxisTitle;
+                return plotView.BottomAxisTitle;
             }
             set
             {
-                view.BottomAxisTitle = value;
+                plotView.BottomAxisTitle = value;
             }
         }
 
@@ -134,39 +106,209 @@ namespace Core.Components.OxyPlot.Forms
         {
             get
             {
-                return view.LeftAxisTitle;
+                return plotView.LeftAxisTitle;
             }
             set
             {
-                view.LeftAxisTitle = value;
+                plotView.LeftAxisTitle = value;
+            }
+        }
+
+        public bool IsPanningEnabled
+        {
+            get
+            {
+                return plotController.IsPanningEnabled;
+            }
+        }
+
+        public bool IsRectangleZoomingEnabled
+        {
+            get
+            {
+                return plotController.IsRectangleZoomingEnabled;
             }
         }
 
         public void TogglePanning()
         {
-            controller.TogglePanning();
+            plotController.TogglePanning();
         }
 
         public void ToggleRectangleZooming()
         {
-            controller.ToggleRectangleZooming();
+            plotController.ToggleRectangleZooming();
         }
 
         public void ZoomToAll()
         {
-            view.ZoomToAll();
+            plotView.ZoomToAll();
         }
 
-        public void UpdateObserver()
+        protected override void Dispose(bool disposing)
         {
-            DrawSeries();
+            plotView.Dispose();
+            chartDataCollectionObserver.Dispose();
+
+            base.Dispose(disposing);
         }
 
-        public void ResetChartData()
+        private void InitializePlotView()
         {
-            Data = null;
+            plotView = new LinearPlotView
+            {
+                BackColor = Color.White,
+                Model =
+                {
+                    IsLegendVisible = false
+                }
+            };
+
+            plotController = new DynamicPlotController();
+            plotView.Controller = plotController;
+
+            Controls.Add(plotView);
         }
 
-        #endregion
+        private static IEnumerable<ItemBasedChartData> GetItemBasedChartDataRecursively(ChartDataCollection chartDataCollection)
+        {
+            var itemBasedChartDataList = new List<ItemBasedChartData>();
+
+            foreach (ChartData chartData in chartDataCollection.Collection)
+            {
+                var nestedChartDataCollection = chartData as ChartDataCollection;
+                if (nestedChartDataCollection != null)
+                {
+                    itemBasedChartDataList.AddRange(GetItemBasedChartDataRecursively(nestedChartDataCollection));
+                    continue;
+                }
+
+                itemBasedChartDataList.Add((ItemBasedChartData) chartData);
+            }
+
+            return itemBasedChartDataList;
+        }
+
+        private void HandleChartDataCollectionChange()
+        {
+            var chartDataThatShouldBeDrawn = GetItemBasedChartDataRecursively(Data).ToList();
+            var drawnChartDataLookup = drawnChartDataList.ToDictionary(dcd => dcd.ItemBasedChartData, dcd => dcd);
+
+            DrawMissingChartDataOnCollectionChange(chartDataThatShouldBeDrawn, drawnChartDataLookup);
+            RemoveRedundantChartDataOnCollectionChange(chartDataThatShouldBeDrawn, drawnChartDataLookup);
+
+            drawnChartDataLookup = drawnChartDataList.ToDictionary(dcd => dcd.ItemBasedChartData, dcd => dcd);
+
+            ReorderChartDataOnCollectionChange(chartDataThatShouldBeDrawn, drawnChartDataLookup);
+
+            plotView.InvalidatePlot(true);
+        }
+
+        private void DrawMissingChartDataOnCollectionChange(IEnumerable<ItemBasedChartData> chartDataThatShouldBeDrawn,
+                                                            IDictionary<ItemBasedChartData, DrawnChartData> drawnChartDataLookup)
+        {
+            foreach (var chartDataToDraw in chartDataThatShouldBeDrawn)
+            {
+                if (!drawnChartDataLookup.ContainsKey(chartDataToDraw))
+                {
+                    DrawChartData(chartDataToDraw);
+                }
+            }
+        }
+
+        private void RemoveRedundantChartDataOnCollectionChange(IEnumerable<ItemBasedChartData> chartDataThatShouldBeDrawn,
+                                                                IDictionary<ItemBasedChartData, DrawnChartData> drawnChartDataLookup)
+        {
+            foreach (var itemBasedChartData in drawnChartDataLookup.Keys.Except(chartDataThatShouldBeDrawn))
+            {
+                RemoveChartData(drawnChartDataLookup[itemBasedChartData]);
+            }
+        }
+
+        private void ReorderChartDataOnCollectionChange(IEnumerable<ItemBasedChartData> chartDataThatShouldBeDrawn,
+                                                        IDictionary<ItemBasedChartData, DrawnChartData> drawnChartDataLookup)
+        {
+            plotView.Model.Series.Clear();
+
+            foreach (ItemBasedChartData itemBasedChartData in chartDataThatShouldBeDrawn)
+            {
+                plotView.Model.Series.Add((Series) drawnChartDataLookup[itemBasedChartData].ItemBasedChartDataSeries);
+            }
+        }
+
+        private void RemoveChartData(DrawnChartData drawnChartDataToRemove)
+        {
+            drawnChartDataToRemove.Observer.Dispose();
+            drawnChartDataList.Remove(drawnChartDataToRemove);
+
+            plotView.Model.Series.Remove((Series) drawnChartDataToRemove.ItemBasedChartDataSeries);
+        }
+
+        private void DrawInitialChartData()
+        {
+            foreach (var itemBasedChartData in GetItemBasedChartDataRecursively(Data))
+            {
+                DrawChartData(itemBasedChartData);
+            }
+
+            plotView.InvalidatePlot(true);
+        }
+
+        private void DrawChartData(ItemBasedChartData itemBasedChartData)
+        {
+            var itemBasedChartDataSeries = ItemBasedChartDataSeriesFactory.Create(itemBasedChartData);
+
+            var drawnChartData = new DrawnChartData
+            {
+                ItemBasedChartData = itemBasedChartData,
+                ItemBasedChartDataSeries = itemBasedChartDataSeries
+            };
+
+            drawnChartData.Observer = new Observer(() =>
+            {
+                drawnChartData.ItemBasedChartDataSeries.Update();
+                plotView.InvalidatePlot(true);
+            })
+            {
+                Observable = itemBasedChartData
+            };
+
+            drawnChartDataList.Add(drawnChartData);
+
+            plotView.Model.Series.Add((Series) itemBasedChartDataSeries);
+        }
+
+        private void ClearChartData()
+        {
+            foreach (DrawnChartData drawnChartData in drawnChartDataList)
+            {
+                drawnChartData.Observer.Dispose();
+            }
+
+            drawnChartDataList.Clear();
+
+            plotView.Model.Series.Clear();
+        }
+
+        /// <summary>
+        /// Lookup class for administration related to drawn chart data series.
+        /// </summary>
+        private class DrawnChartData
+        {
+            /// <summary>
+            /// The item based chart data which the drawn <see cref="ItemBasedChartDataSeries"/> is based upon.
+            /// </summary>
+            public ItemBasedChartData ItemBasedChartData { get; set; }
+
+            /// <summary>
+            /// The drawn chart data series.
+            /// </summary>
+            public IItemBasedChartDataSeries ItemBasedChartDataSeries { get; set; }
+
+            /// <summary>
+            /// The observer attached to <see cref="ItemBasedChartData"/> and responsible for updating <see cref="ItemBasedChartDataSeries"/>.
+            /// </summary>
+            public Observer Observer { get; set; }
+        }
     }
 }

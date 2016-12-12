@@ -19,44 +19,30 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Charting.Data;
-using Core.Components.Charting.Styles;
+using OxyPlot;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Converter
 {
     /// <summary>
-    /// This class converts <see cref="ChartLineData"/> into <see cref="LineSeries"/>.
+    /// The converter that converts <see cref="ChartLineData"/> data into <see cref="LineSeries"/> data.
     /// </summary>
-    public class ChartLineDataConverter : ChartDataConverter<ChartLineData>
+    public class ChartLineDataConverter : ItemBasedChartDataConverter<ChartLineData, LineSeries>
     {
-        protected override IList<Series> Convert(ChartLineData data)
+        protected override void SetSeriesItems(ChartLineData data, LineSeries series)
         {
-            var series = new LineSeries
-            {
-                ItemsSource = data.Points.ToArray(),
-                Mapping = Point2DToDataPoint,
-                IsVisible = data.IsVisible,
-                Tag = data
-            };
-
-            CreateStyle(series, data.Style);
-
-            return new List<Series>
-            {
-                series
-            };
+            series.ItemsSource = data.Points.Select(p => new DataPoint(p.X, p.Y));
         }
 
-        private static void CreateStyle(LineSeries series, ChartLineStyle style)
+        protected override void SetSeriesStyle(ChartLineData data, LineSeries series)
         {
-            if (style != null)
+            if (data.Style != null)
             {
-                series.Color = ChartDataHelper.Convert(style.Color);
-                series.StrokeThickness = style.Width;
-                series.LineStyle = ChartDataHelper.Convert(style.Style);
+                series.Color = ChartDataHelper.Convert(data.Style.Color);
+                series.StrokeThickness = data.Style.Width;
+                series.LineStyle = ChartDataHelper.Convert(data.Style.Style);
             }
         }
     }

@@ -28,14 +28,14 @@ using OxyPlot.Series;
 namespace Core.Components.OxyPlot.CustomSeries
 {
     /// <summary>
-    /// Represents mutliple area series that fills the polygons defined by each collection of points.
+    /// Represents multiple area series that fills the polygons defined by each collection of points.
     /// </summary>
     public class MultipleAreaSeries : XYAxisSeries
     {
         private readonly OxyColor defaultColor = OxyColors.Fuchsia;
 
         /// <summary>
-        /// Creates a instance of <see cref="MultipleAreaSeries"/>.
+        /// Creates a new instance of <see cref="MultipleAreaSeries"/>.
         /// </summary>
         public MultipleAreaSeries()
         {

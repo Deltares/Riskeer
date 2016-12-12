@@ -21,7 +21,6 @@
 
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -40,6 +39,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private readonly ChartLineData foreshoreChartData;
         private readonly ChartLineData dikeGeometryChartData;
         private readonly ChartLineData dikeHeightChartData;
+        private readonly ChartDataCollection chartDataCollection;
 
         private GrassCoverErosionInwardsCalculation data;
 
@@ -53,15 +53,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             calculationObserver = new Observer(UpdateChartTitle);
             calculationInputObserver = new Observer(UpdateChartData);
 
+            chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             foreshoreChartData = GrassCoverErosionInwardsChartDataFactory.CreateForeshoreGeometryChartData();
             dikeGeometryChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeGeometryChartData();
             dikeHeightChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeightChartData();
 
-            chartControl.Data.Add(foreshoreChartData);
-            chartControl.Data.Add(dikeGeometryChartData);
-            chartControl.Data.Add(dikeHeightChartData);
-
-            chartControl.Data.Name = RingtoetsCommonFormsResources.Calculation_Input;
+            chartDataCollection.Add(foreshoreChartData);
+            chartDataCollection.Add(dikeGeometryChartData);
+            chartDataCollection.Add(dikeHeightChartData);
         }
 
         public object Data
@@ -79,12 +78,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
                 if (data == null)
                 {
-                    Chart.ResetChartData();
-                    return;
+                    chartControl.Data = null;
+                    chartControl.Name = string.Empty;
                 }
+                else
+                {
+                    SetChartData();
 
-                UpdateChartTitle();
-                UpdateChartData();
+                    chartControl.Data = chartDataCollection;
+                    chartControl.ChartTitle = data.Name;
+                }
             }
         }
 
@@ -110,31 +113,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateChartTitle()
         {
-            chartControl.ChartTitle = data != null ? data.Name : string.Empty;
+            chartControl.ChartTitle = data.Name;
         }
 
         private void UpdateChartData()
         {
-            var input = data != null ? data.InputParameters : null;
-            var dikeProfile = input != null ? input.DikeProfile : null;
+            SetChartData();
+
+            foreshoreChartData.NotifyObservers();
+            dikeGeometryChartData.NotifyObservers();
+            dikeHeightChartData.NotifyObservers();
+        }
+
+        private void SetChartData()
+        {
+            var input = data.InputParameters;
+            var dikeProfile = input.DikeProfile;
 
             GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(foreshoreChartData, input);
             GrassCoverErosionInwardsChartDataFactory.UpdateDikeGeometryChartDataName(dikeGeometryChartData, dikeProfile);
 
-            UpdatePointBasedChartData(foreshoreChartData,
-                                      GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(input));
-            UpdatePointBasedChartData(dikeGeometryChartData,
-                                      GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeGeometryPoints(dikeProfile));
-            UpdatePointBasedChartData(dikeHeightChartData,
-                                      GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(input));
-
-            chartControl.Data.NotifyObservers();
-        }
-
-        private static void UpdatePointBasedChartData(PointBasedChartData chartData, Point2D[] points)
-        {
-            chartData.Points = points;
-            chartData.NotifyObservers();
+            foreshoreChartData.Points = GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
+            dikeGeometryChartData.Points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeGeometryPoints(dikeProfile);
+            dikeHeightChartData.Points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(input);
         }
     }
 }

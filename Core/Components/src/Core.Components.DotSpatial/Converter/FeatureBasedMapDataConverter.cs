@@ -121,7 +121,7 @@ namespace Core.Components.DotSpatial.Converter
         {
             if (data == null)
             {
-                throw new ArgumentNullException("data", @"Null data cannot be converted into a feature layer data.");
+                throw new ArgumentNullException("data", @"Null data cannot be converted into feature layer data.");
             }
 
             if (layer == null)

@@ -169,6 +169,16 @@ namespace Core.Components.OxyPlot.Test.Converter
             Assert.AreEqual(MarkerType.Triangle, markerType);
         }
 
+        [Test]
+        public void Convert_UnknownChartPointSymbol_ThrowsInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate call = () => ChartDataHelper.Convert((ChartPointSymbol) 10);
+
+            // Assert
+            Assert.Throws<InvalidEnumArgumentException>(call);
+        }
+
         #endregion
     }
 }

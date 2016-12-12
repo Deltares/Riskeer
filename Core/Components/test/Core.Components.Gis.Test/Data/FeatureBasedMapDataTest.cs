@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
-using Core.Components.Gis.Data;
+using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
@@ -142,11 +142,6 @@ namespace Core.Components.Gis.Test.Data
                 "Attribute2",
                 "Attribute3",
             }, metaData);
-        }
-
-        private class TestFeatureBasedMapData : FeatureBasedMapData
-        {
-            public TestFeatureBasedMapData(string name) : base(name) {}
         }
     }
 }

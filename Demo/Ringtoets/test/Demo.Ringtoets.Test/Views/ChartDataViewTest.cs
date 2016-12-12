@@ -67,16 +67,17 @@ namespace Demo.Ringtoets.Test.Views
         }
 
         [Test]
-        public void Data_SetToObject_InvalidCastException()
+        public void Data_SetToObject_DoesNotThrow()
         {
             // Setup
             using (var chartView = new ChartDataView())
             {
                 // Call
-                TestDelegate test = () => chartView.Data = new object();
+                TestDelegate testDelegate = () => chartView.Data = new object();
 
                 // Assert
-                Assert.Throws<InvalidCastException>(test);
+                Assert.DoesNotThrow(testDelegate);
+                Assert.IsNull(chartView.Data);
             }
         }
 

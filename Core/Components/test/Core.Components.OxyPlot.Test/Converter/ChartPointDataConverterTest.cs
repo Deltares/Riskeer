@@ -20,15 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
-using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Converter;
 using NUnit.Framework;
 using OxyPlot;
@@ -46,42 +43,15 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartPointDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<ChartDataConverter<ChartPointData>>(converter);
+            Assert.IsInstanceOf<ItemBasedChartDataConverter<ChartPointData, LineSeries>>(converter);
         }
 
         [Test]
-        public void CanConvertSeries_PointData_ReturnTrue()
+        public void ConvertSeriesItems_ChartPointDataWithRandomPointData_ConvertsAllPointsToPointSeries()
         {
             // Setup
             var converter = new ChartPointDataConverter();
-            var pointData = new ChartPointData("test data");
-
-            // Call
-            var canConvert = converter.CanConvertSeries(pointData);
-
-            // Assert
-            Assert.IsTrue(canConvert);
-        }
-
-        [Test]
-        public void CanConvertSeries_ChartData_ReturnsFalse()
-        {
-            // Setup
-            var converter = new ChartPointDataConverter();
-            var chartData = new TestChartData();
-
-            // Call
-            var canConvert = converter.CanConvertSeries(chartData);
-
-            // Assert
-            Assert.IsFalse(canConvert);
-        }
-
-        [Test]
-        public void Convert_RandomPointData_ReturnsNewSeries()
-        {
-            // Setup
-            var converter = new ChartPointDataConverter();
+            var lineSeries = new LineSeries();
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
 
@@ -98,113 +68,74 @@ namespace Core.Components.OxyPlot.Test.Converter
             };
 
             // Call
-            var series = converter.Convert(pointData);
+            converter.ConvertSeriesItems(pointData, lineSeries);
 
             // Assert
-            Assert.IsInstanceOf<IList<Series>>(series);
-            var lineSeries = (LineSeries) series[0];
-            CollectionAssert.AreEqual(points, lineSeries.ItemsSource);
-            Assert.AreNotSame(pointData.Points, lineSeries.ItemsSource);
-            Assert.AreEqual(LineStyle.None, lineSeries.LineStyle);
-            Assert.AreEqual(MarkerType.Circle, lineSeries.MarkerType);
-        }
-
-        [Test]
-        public void Convert_DataNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var testConverter = new ChartPointDataConverter();
-
-            // Call
-            TestDelegate test = () => testConverter.Convert(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
-        public void Convert_DataCannotBeConverted_ThrowsArgumentException()
-        {
-            // Setup
-            var testConverter = new ChartPointDataConverter();
-            var testChartData = new TestChartData();
-
-            // Precondition
-            Assert.IsFalse(testConverter.CanConvertSeries(testChartData));
-
-            // Call
-            TestDelegate test = () => testConverter.Convert(testChartData);
-
-            // Assert
-            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testChartData.GetType());
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            CollectionAssert.AreEqual(points.Select(p => new DataPoint(p.X, p.Y)), lineSeries.ItemsSource);
         }
 
         [Test]
         [TestCase(KnownColor.AliceBlue)]
         [TestCase(KnownColor.Azure)]
         [TestCase(KnownColor.Beige)]
-        public void Convert_WithDifferentColors_AppliesStyleToSeries(KnownColor color)
+        public void ConvertSeriesProperties_ChartPointStyleSetWithDifferentColors_AppliesStyleToSeries(KnownColor color)
         {
             // Setup
             var converter = new ChartPointDataConverter();
+            var lineSeries = new LineSeries();
             var expectedColor = Color.FromKnownColor(color);
-            var style = new ChartPointStyle(expectedColor, 3, Color.Red, 2, ChartPointSymbol.Circle);
             var data = new ChartPointData("test")
             {
-                Style = style
+                Style = new ChartPointStyle(expectedColor, 3, Color.Red, 2, ChartPointSymbol.Circle)
             };
 
             // Call
-            var series = converter.Convert(data);
+            converter.ConvertSeriesProperties(data, lineSeries);
 
             // Assert
-            var lineSeries = (LineSeries) series[0];
-            AssertColors(style.Color, lineSeries.MarkerFill);
+            AssertColors(expectedColor, lineSeries.MarkerFill);
         }
 
         [Test]
         [TestCase(KnownColor.AliceBlue)]
         [TestCase(KnownColor.Azure)]
         [TestCase(KnownColor.Beige)]
-        public void Convert_WithDifferentStrokeColors_AppliesStyleToSeries(KnownColor color)
+        public void ConvertSeriesProperties_ChartPointStyleSetWithDifferentStrokeColors_AppliesStyleToSeries(KnownColor color)
         {
             // Setup
             var converter = new ChartPointDataConverter();
+            var lineSeries = new LineSeries();
             var expectedColor = Color.FromKnownColor(color);
-            var style = new ChartPointStyle(Color.Red, 3, expectedColor, 2, ChartPointSymbol.Circle);
             var data = new ChartPointData("test")
             {
-                Style = style
+                Style = new ChartPointStyle(Color.Red, 3, expectedColor, 2, ChartPointSymbol.Circle)
             };
 
             // Call
-            var series = converter.Convert(data);
+            converter.ConvertSeriesProperties(data, lineSeries);
 
             // Assert
-            var lineSeries = (LineSeries) series[0];
-            AssertColors(style.StrokeColor, lineSeries.MarkerStroke);
+            AssertColors(expectedColor, lineSeries.MarkerStroke);
         }
 
         [Test]
         [TestCase(1)]
         [TestCase(5)]
         [TestCase(7)]
-        public void Convert_WithDifferentWidths_AppliesStyleToSeries(int width)
+        public void ConvertSeriesProperties_ChartPointStyleSetWithDifferentWidths_AppliesStyleToSeries(int width)
         {
             // Setup
             var converter = new ChartPointDataConverter();
-            var style = new ChartPointStyle(Color.Red, width, Color.Red, 2, ChartPointSymbol.Circle);
+            var lineSeries = new LineSeries();
             var data = new ChartPointData("test")
             {
-                Style = style
+                Style = new ChartPointStyle(Color.Red, width, Color.Red, 2, ChartPointSymbol.Circle)
             };
 
             // Call
-            var series = converter.Convert(data);
+            converter.ConvertSeriesProperties(data, lineSeries);
 
             // Assert
-            var lineSeries = (LineSeries) series[0];
             Assert.AreEqual(width, lineSeries.MarkerSize);
         }
 
@@ -212,21 +143,20 @@ namespace Core.Components.OxyPlot.Test.Converter
         [TestCase(1)]
         [TestCase(5)]
         [TestCase(7)]
-        public void Convert_WithDifferentStrokeThickness_AppliesStyleToSeries(int strokeThickness)
+        public void ConvertSeriesProperties_ChartPointStyleSetWithDifferentStrokeThickness_AppliesStyleToSeries(int strokeThickness)
         {
             // Setup
             var converter = new ChartPointDataConverter();
-            var style = new ChartPointStyle(Color.Red, 3, Color.Red, strokeThickness, ChartPointSymbol.Circle);
+            var lineSeries = new LineSeries();
             var data = new ChartPointData("test")
             {
-                Style = style
+                Style = new ChartPointStyle(Color.Red, 3, Color.Red, strokeThickness, ChartPointSymbol.Circle)
             };
 
             // Call
-            var series = converter.Convert(data);
+            converter.ConvertSeriesProperties(data, lineSeries);
 
             // Assert
-            var lineSeries = (LineSeries) series[0];
             Assert.AreEqual(strokeThickness, lineSeries.MarkerStrokeThickness);
         }
 
@@ -236,28 +166,26 @@ namespace Core.Components.OxyPlot.Test.Converter
         [TestCase(ChartPointSymbol.Square, MarkerType.Square)]
         [TestCase(ChartPointSymbol.Diamond, MarkerType.Diamond)]
         [TestCase(ChartPointSymbol.Triangle, MarkerType.Triangle)]
-        public void Convert_WithDifferentChartPointSymbols_AppliesStyleToSeries(ChartPointSymbol symbol, MarkerType expectedMarkerType)
+        public void ConvertSeriesProperties_ChartPointStyleSetWithDifferentChartPointSymbols_AppliesStyleToSeries(ChartPointSymbol symbol, MarkerType expectedMarkerType)
         {
             // Setup
             var converter = new ChartPointDataConverter();
-            var style = new ChartPointStyle(Color.Red, 3, Color.Red, 2, symbol);
+            var lineSeries = new LineSeries();
             var data = new ChartPointData("test")
             {
-                Style = style
+                Style = new ChartPointStyle(Color.Red, 3, Color.Red, 2, symbol)
             };
 
             // Call
-            var series = converter.Convert(data);
+            converter.ConvertSeriesProperties(data, lineSeries);
 
             // Assert
-            var lineSeries = (LineSeries) series[0];
             Assert.AreEqual(expectedMarkerType, lineSeries.MarkerType);
         }
 
-        private void AssertColors(Color color, OxyColor oxyColor)
+        private static void AssertColors(Color color, OxyColor oxyColor)
         {
-            OxyColor originalColor = OxyColor.FromArgb(color.A, color.R, color.G, color.B);
-            Assert.AreEqual(originalColor, oxyColor);
+            Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), oxyColor);
         }
     }
 }

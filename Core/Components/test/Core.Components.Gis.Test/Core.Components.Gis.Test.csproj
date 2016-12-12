@@ -78,6 +78,10 @@
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core.Components.DotSpatial.TestUtil\Core.Components.DotSpatial.TestUtil.csproj">
+      <Project>{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}</Project>
+      <Name>Core.Components.DotSpatial.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

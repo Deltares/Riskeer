@@ -19,49 +19,38 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using System.Linq;
 using Core.Components.Charting.Data;
-using Core.Components.Charting.Styles;
+using OxyPlot;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Converter
 {
     /// <summary>
-    /// This class converts <see cref="ChartAreaData"/> into <see cref="AreaSeries"/>.
+    /// The converter that converts <see cref="ChartAreaData"/> data into <see cref="AreaSeries"/> data.
     /// </summary>
-    public class ChartAreaDataConverter : ChartDataConverter<ChartAreaData>
+    public class ChartAreaDataConverter : ItemBasedChartDataConverter<ChartAreaData, AreaSeries>
     {
-        protected override IList<Series> Convert(ChartAreaData data)
+        protected override void SetSeriesItems(ChartAreaData data, AreaSeries series)
         {
-            var series = new AreaSeries
-            {
-                IsVisible = data.IsVisible,
-                Tag = data
-            };
-            foreach (var p in data.Points)
-            {
-                series.Points.Add(Point2DToDataPoint(p));
-            }
+            series.Points.Clear();
+            series.Points2.Clear();
+
+            series.Points.AddRange(data.Points.Select(p => new DataPoint(p.X, p.Y)));
+
             if (series.Points.Count > 0)
             {
                 series.Points2.Add(series.Points[0]);
             }
-
-            CreateStyle(series, data.Style);
-
-            return new List<Series>
-            {
-                series
-            };
         }
 
-        private static void CreateStyle(AreaSeries series, ChartAreaStyle style)
+        protected override void SetSeriesStyle(ChartAreaData data, AreaSeries series)
         {
-            if (style != null)
+            if (data.Style != null)
             {
-                series.Fill = ChartDataHelper.Convert(style.FillColor);
-                series.Color = ChartDataHelper.Convert(style.StrokeColor);
-                series.StrokeThickness = style.Width;
+                series.Fill = ChartDataHelper.Convert(data.Style.FillColor);
+                series.Color = ChartDataHelper.Convert(data.Style.StrokeColor);
+                series.StrokeThickness = data.Style.Width;
             }
         }
     }

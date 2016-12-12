@@ -19,27 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Core.Components.Charting.Data;
-using OxyPlot.Series;
-
-namespace Core.Components.OxyPlot.Converter
+namespace Core.Components.OxyPlot.DataSeries
 {
     /// <summary>
-    /// This class converts the <see cref="ChartData"/> in <see cref="ChartDataCollection"/> into 
-    /// one or more <see cref="Series"/>.
+    /// Interface for item based chart data series.
     /// </summary>
-    public class ChartDataCollectionConverter : ChartDataConverter<ChartDataCollection>
+    public interface IItemBasedChartDataSeries
     {
-        protected override IList<Series> Convert(ChartDataCollection data)
-        {
-            var factory = new ChartSeriesFactory();
-            var seriesCollection = new List<Series>();
-            foreach (var chartData in data.Collection)
-            {
-                seriesCollection.AddRange(factory.Create(chartData));
-            }
-            return seriesCollection;
-        }
+        /// <summary>
+        /// Updates the chart data series.
+        /// </summary>
+        void Update();
     }
 }

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using NUnit.Framework;
@@ -29,17 +27,17 @@ using NUnit.Framework;
 namespace Core.Components.Charting.Test.Data
 {
     [TestFixture]
-    public class ChartMultipleAreaDataTest
+    public class ItemBasedChartDataTest
     {
         [Test]
         public void Constructor_ValidName_NameAndDefaultValuesSet()
         {
             // Call
-            var data = new ChartMultipleAreaData("test data");
+            var data = new TestItemBasedChartData("test data");
 
             // Assert
+            Assert.IsInstanceOf<ChartData>(data);
             Assert.AreEqual("test data", data.Name);
-            Assert.IsInstanceOf<ItemBasedChartData>(data);
         }
 
         [Test]
@@ -49,56 +47,16 @@ namespace Core.Components.Charting.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            TestDelegate test = () => new ChartMultipleAreaData(invalidName);
+            TestDelegate test = () => new TestItemBasedChartData(invalidName);
 
             // Assert
             const string expectedMessage = "A name must be set to the chart data.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
-        [Test]
-        public void Areas_SetValidNewValue_GetsNewValue()
+        private class TestItemBasedChartData : ItemBasedChartData
         {
-            // Setup
-            var data = new ChartMultipleAreaData("test data");
-            var areas = new List<Point2D[]>();
-
-            // Call
-            data.Areas = areas;
-
-            // Assert
-            Assert.AreSame(areas, data.Areas);
-        }
-
-        [Test]
-        public void Areas_SetNullValue_ThrowsArgumentNullException()
-        {
-            // Setup
-            var data = new ChartMultipleAreaData("test data");
-
-            // Call
-            TestDelegate test = () => data.Areas = null;
-
-            // Assert
-            const string expectedMessage = "The collection of point arrays cannot be null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void Areas_SetValueContainingNullValue_ThrowsArgumentException()
-        {
-            // Setup
-            var data = new ChartMultipleAreaData("test data");
-
-            // Call
-            TestDelegate test = () => data.Areas = new List<Point2D[]>
-            {
-                null
-            };
-
-            // Assert
-            const string expectedMessage = "The collection of point arrays cannot contain null values.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            public TestItemBasedChartData(string name) : base(name) {}
         }
     }
 }

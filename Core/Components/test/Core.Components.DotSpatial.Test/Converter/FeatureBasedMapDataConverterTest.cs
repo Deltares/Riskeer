@@ -26,7 +26,7 @@ using System.Globalization;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
-using Core.Components.Gis.Data;
+using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
@@ -44,13 +44,14 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerFeatures_DataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testConverter = new TestFeatureBasedMapDataConverter();
+            var mapLayer = new TestFeatureLayer();
 
             // Call
-            TestDelegate test = () => testConverter.ConvertLayerFeatures(null, new TestFeatureLayer());
+            TestDelegate test = () => testConverter.ConvertLayerFeatures(null, mapLayer);
 
             // Assert
-            const string expectedMessage = "Null data cannot be converted into a feature layer data.";
+            const string expectedMessage = "Null data cannot be converted into feature layer data.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
@@ -58,11 +59,11 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerFeatures_TargetLayerNull_ThrowsArgumentNullException()
         {
             // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestUtil.TestFeatureBasedMapData>();
-            var testFeatureBasedMapData = new TestUtil.TestFeatureBasedMapData("test data");
+            var testConverter = new TestFeatureBasedMapDataConverter();
+            var mapData = new TestFeatureBasedMapData("test data");
 
             // Call
-            TestDelegate test = () => testConverter.ConvertLayerFeatures(testFeatureBasedMapData, null);
+            TestDelegate test = () => testConverter.ConvertLayerFeatures(mapData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";
@@ -73,13 +74,14 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_DataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testConverter = new TestFeatureBasedMapDataConverter();
+            var mapLayer = new TestFeatureLayer();
 
             // Call
-            TestDelegate test = () => testConverter.ConvertLayerProperties(null, new TestFeatureLayer());
+            TestDelegate test = () => testConverter.ConvertLayerProperties(null, mapLayer);
 
             // Assert
-            const string expectedMessage = "Null data cannot be converted into a feature layer data.";
+            const string expectedMessage = "Null data cannot be converted into feature layer data.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
@@ -87,11 +89,11 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_TargetLayerNull_ThrowsArgumentNullException()
         {
             // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestUtil.TestFeatureBasedMapData>();
-            var testFeatureBasedMapData = new TestUtil.TestFeatureBasedMapData("test data");
+            var testConverter = new TestFeatureBasedMapDataConverter();
+            var mapData = new TestFeatureBasedMapData("test data");
 
             // Call
-            TestDelegate test = () => testConverter.ConvertLayerProperties(testFeatureBasedMapData, null);
+            TestDelegate test = () => testConverter.ConvertLayerProperties(mapData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";
@@ -102,7 +104,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerFeatures_MapDataWithMetaData_MetaDataSetToLayer()
         {
             // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testConverter = new TestFeatureBasedMapDataConverter();
             var mapLayer = new TestFeatureLayer();
             var mapData = new TestFeatureBasedMapData("test")
             {
@@ -169,7 +171,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var name = "<Some name>";
-            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testConverter = new TestFeatureBasedMapDataConverter();
             var mapData = new TestFeatureBasedMapData(name);
             var mapLayer = new TestFeatureLayer();
 
@@ -184,7 +186,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_LayerWithoutDataColumns_DefaultLabelLayerSetToLayer()
         {
             // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testConverter = new TestFeatureBasedMapDataConverter();
             var mapData = new TestFeatureBasedMapData("test data")
             {
                 Features = new[]
@@ -219,7 +221,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_MapDataWithoutMetaData_DefaultLabelLayerSetToLayer()
         {
             // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testConverter = new TestFeatureBasedMapDataConverter();
             var mapData = new TestFeatureBasedMapData("test data")
             {
                 Features = new[]
@@ -256,7 +258,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_MapDataWithMetaAndSelectedMetaDataAttributeInDataColumns_CustomLabelLayerSetToLayer()
         {
             // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testConverter = new TestFeatureBasedMapDataConverter();
             var mapData = new TestFeatureBasedMapData("test data")
             {
                 Features = new[]
@@ -308,7 +310,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_MapData_ShowLabelsSetToLayer(bool showLabels)
         {
             // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testConverter = new TestFeatureBasedMapDataConverter();
             var mapData = new TestFeatureBasedMapData("test data")
             {
                 ShowLabels = showLabels
@@ -327,7 +329,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_MapData_IsVisibleSetToLayer(bool isVisible)
         {
             // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testConverter = new TestFeatureBasedMapDataConverter();
             var mapData = new TestFeatureBasedMapData("test data")
             {
                 IsVisible = isVisible
@@ -347,7 +349,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_SelectedMetaDataAttributeEmptyOrUnknown_DefaultLabelLayerSetToLayer(string selectedMetaDataAttribute)
         {
             // Setup
-            var testConverter = new TestFeatureBasedMapDataConverter<TestFeatureBasedMapData>();
+            var testConverter = new TestFeatureBasedMapDataConverter();
             var mapData = new TestFeatureBasedMapData("test data")
             {
                 Features = new[]
@@ -391,20 +393,14 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.IsNull(mapLayer.LabelLayer.Symbology.Categories[0].Expression);
         }
 
-        private class TestFeatureBasedMapData : FeatureBasedMapData
-        {
-            public TestFeatureBasedMapData(string name) : base(name) {}
-        }
-
         private class TestFeatureLayer : MapPointLayer
         {
             public TestFeatureLayer() : base(new FeatureSet()) {}
         }
 
-        private class TestFeatureBasedMapDataConverter<TFeatureBasedMapData> : FeatureBasedMapDataConverter<TFeatureBasedMapData, TestFeatureLayer>
-            where TFeatureBasedMapData : FeatureBasedMapData
+        private class TestFeatureBasedMapDataConverter : FeatureBasedMapDataConverter<TestFeatureBasedMapData, TestFeatureLayer>
         {
-            protected override IFeatureSymbolizer CreateSymbolizer(TFeatureBasedMapData mapData)
+            protected override IFeatureSymbolizer CreateSymbolizer(TestFeatureBasedMapData mapData)
             {
                 return new PointSymbolizer();
             }

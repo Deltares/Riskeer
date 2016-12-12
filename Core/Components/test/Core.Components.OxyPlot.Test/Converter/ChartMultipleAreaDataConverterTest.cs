@@ -25,15 +25,12 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
-using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Converter;
 using Core.Components.OxyPlot.CustomSeries;
 using NUnit.Framework;
 using OxyPlot;
-using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Test.Converter
 {
@@ -47,55 +44,31 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartMultipleAreaDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<ChartDataConverter<ChartMultipleAreaData>>(converter);
+            Assert.IsInstanceOf<ItemBasedChartDataConverter<ChartMultipleAreaData, MultipleAreaSeries>>(converter);
         }
 
         [Test]
-        public void CanConvertSeries_AreaData_ReturnTrue()
+        public void ConvertSeriesItems_ChartMultipleAreaDataWithRandomAreaData_ConvertsAllAreasToMultipleAreaSeries()
         {
             // Setup
             var converter = new ChartMultipleAreaDataConverter();
-            var areaData = new ChartMultipleAreaData("test data");
-
-            // Call
-            var canConvert = converter.CanConvertSeries(areaData);
-
-            // Assert
-            Assert.IsTrue(canConvert);
-        }
-
-        [Test]
-        public void CanConvertSeries_ChartData_ReturnsFalse()
-        {
-            // Setup
-            var converter = new ChartMultipleAreaDataConverter();
-            var chartData = new TestChartData();
-
-            // Call
-            var canConvert = converter.CanConvertSeries(chartData);
-
-            // Assert
-            Assert.IsFalse(canConvert);
-        }
-
-        [Test]
-        public void Convert_RandomAreaData_ReturnsNewSeries()
-        {
-            // Setup
-            var converter = new ChartMultipleAreaDataConverter();
+            var multipleAreaSeries = new MultipleAreaSeries();
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
 
-            var points = new Collection<Point2D>();
+            var points1 = new Collection<Point2D>();
+            var points2 = new Collection<Point2D>();
 
             for (var i = 0; i < randomCount; i++)
             {
-                points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
+                points1.Add(new Point2D(random.NextDouble(), random.NextDouble()));
+                points2.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
             var areas = new List<Point2D[]>
             {
-                points.ToArray()
+                points1.ToArray(),
+                points2.ToArray()
             };
 
             var areaData = new ChartMultipleAreaData("test data")
@@ -104,118 +77,82 @@ namespace Core.Components.OxyPlot.Test.Converter
             };
 
             // Call
-            var series = converter.Convert(areaData);
+            converter.ConvertSeriesItems(areaData, multipleAreaSeries);
 
             // Assert
-            Assert.IsInstanceOf<IList<Series>>(series);
-            var areaSeries = (MultipleAreaSeries) series[0];
-            var expectedData = areas.ElementAt(0).Select(t => new DataPoint(t.X, t.Y)).ToArray();
-            CollectionAssert.AreEqual(expectedData, areaSeries.Areas[0]);
-        }
-
-        [Test]
-        public void Convert_DataNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var testConverter = new ChartMultipleAreaDataConverter();
-
-            // Call
-            TestDelegate test = () => testConverter.Convert(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
-        public void Convert_DataCannotBeConverted_ThrowsArgumentException()
-        {
-            // Setup
-            var testConverter = new ChartMultipleAreaDataConverter();
-            var testChartData = new TestChartData();
-
-            // Precondition
-            Assert.IsFalse(testConverter.CanConvertSeries(testChartData));
-
-            // Call
-            TestDelegate test = () => testConverter.Convert(testChartData);
-
-            // Assert
-            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testChartData.GetType());
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            Assert.AreEqual(2, multipleAreaSeries.Areas.Count);
+            CollectionAssert.AreEqual(areas.ElementAt(0).Select(t => new DataPoint(t.X, t.Y)), multipleAreaSeries.Areas[0]);
+            CollectionAssert.AreEqual(areas.ElementAt(1).Select(t => new DataPoint(t.X, t.Y)), multipleAreaSeries.Areas[1]);
         }
 
         [Test]
         [TestCase(KnownColor.AliceBlue)]
         [TestCase(KnownColor.Azure)]
         [TestCase(KnownColor.Beige)]
-        public void Convert_WithDifferentFillColors_AppliesStyleToSeries(KnownColor color)
+        public void ConvertSeriesProperties_ChartAreaStyleSetWithDifferentFillColors_AppliesStyleToSeries(KnownColor color)
         {
             // Setup
             var converter = new ChartMultipleAreaDataConverter();
+            var multipleAreaSeries = new MultipleAreaSeries();
             var expectedColor = Color.FromKnownColor(color);
-            var style = new ChartAreaStyle(expectedColor, Color.Red, 3);
             var data = new ChartMultipleAreaData("test")
             {
-                Style = style
+                Style = new ChartAreaStyle(expectedColor, Color.Red, 3)
             };
 
             // Call
-            var series = converter.Convert(data);
+            converter.ConvertSeriesProperties(data, multipleAreaSeries);
 
             // Assert
-            var multipleAreaSeries = (MultipleAreaSeries) series[0];
-            AssertColors(style.FillColor, multipleAreaSeries.Fill);
+            AssertColors(expectedColor, multipleAreaSeries.Fill);
         }
 
         [Test]
         [TestCase(KnownColor.AliceBlue)]
         [TestCase(KnownColor.Azure)]
         [TestCase(KnownColor.Beige)]
-        public void Convert_WithDifferentStrokeColors_AppliesStyleToSeries(KnownColor color)
+        public void ConvertSeriesProperties_ChartAreaStyleSetWithDifferentStrokeColors_AppliesStyleToSeries(KnownColor color)
         {
             // Setup
             var converter = new ChartMultipleAreaDataConverter();
+            var multipleAreaSeries = new MultipleAreaSeries();
             var expectedColor = Color.FromKnownColor(color);
-            var style = new ChartAreaStyle(Color.Red, expectedColor, 3);
             var data = new ChartMultipleAreaData("test")
             {
-                Style = style
+                Style = new ChartAreaStyle(Color.Red, expectedColor, 3)
             };
 
             // Call
-            var series = converter.Convert(data);
+            converter.ConvertSeriesProperties(data, multipleAreaSeries);
 
             // Assert
-            var multipleAreaSeries = (MultipleAreaSeries) series[0];
-            AssertColors(style.StrokeColor, multipleAreaSeries.Color);
+            AssertColors(expectedColor, multipleAreaSeries.Color);
         }
 
         [Test]
         [TestCase(1)]
         [TestCase(5)]
         [TestCase(7)]
-        public void Convert_WithDifferentStrokeWidths_AppliesStyleToSeries(int width)
+        public void ConvertSeriesProperties_ChartAreaStyleSetWithDifferentStrokeWidths_AppliesStyleToSeries(int width)
         {
             // Setup
             var converter = new ChartMultipleAreaDataConverter();
-            var style = new ChartAreaStyle(Color.Red, Color.Red, width);
+            var multipleAreaSeries = new MultipleAreaSeries();
             var data = new ChartMultipleAreaData("test")
             {
-                Style = style
+                Style = new ChartAreaStyle(Color.Red, Color.Red, width)
             };
 
             // Call
-            var series = converter.Convert(data);
+            converter.ConvertSeriesProperties(data, multipleAreaSeries);
 
             // Assert
-            var multipleAreaSeries = (MultipleAreaSeries) series[0];
             Assert.AreEqual(width, multipleAreaSeries.StrokeThickness);
         }
 
-        private void AssertColors(Color color, OxyColor oxyColor)
+        private static void AssertColors(Color color, OxyColor oxyColor)
         {
-            OxyColor originalColor = OxyColor.FromArgb(color.A, color.R, color.G, color.B);
-            Assert.AreEqual(originalColor, oxyColor);
+            Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), oxyColor);
         }
     }
 }
