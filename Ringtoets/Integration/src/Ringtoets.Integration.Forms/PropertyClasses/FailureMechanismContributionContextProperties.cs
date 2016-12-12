@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -46,15 +45,22 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "FailureMechanismContribution_Composition_DisplayName")]
         [ResourcesDescription(typeof(Resources), "FailureMechanismContribution_Composition_Description")]
-        public string AssessmentSectionComposition
+        public AssessmentSectionComposition AssessmentSectionComposition
         {
             get
             {
-                return new EnumDisplayWrapper<AssessmentSectionComposition>(AssessmentSection.Composition).DisplayName;
+                return AssessmentSection.Composition;
             }
             set
             {
-                
+                if (compositionChangeHandler.ConfirmCompositionChange())
+                {
+                    IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(AssessmentSection, value);
+                    foreach (IObservable changedObject in changedObjects)
+                    {
+                        changedObject.NotifyObservers();
+                    }
+                }
             }
         }
 
@@ -69,6 +75,15 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
             set
             {
+                if (value != 0 && normChangeHandler.ConfirmNormChange())
+                {
+                    double newNormValue = 1.0/Convert.ToInt32(value);
+                    IEnumerable<IObservable> changedObjects = normChangeHandler.ChangeNorm(AssessmentSection, newNormValue);
+                    foreach (IObservable changedObject in changedObjects)
+                    {
+                        changedObject.NotifyObservers();
+                    }
+                }
             }
         }
 
@@ -85,7 +100,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicVisible]
         public IFailureMechanismContributionNormChangeHandler NormChangeHandler
         {
-            get
+            private get
             {
                 return normChangeHandler;
             }
@@ -106,7 +121,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicVisible]
         public IAssessmentSectionCompositionChangeHandler CompositionChangeHandler
         {
-            get
+            private get
             {
                 return compositionChangeHandler;
             }
