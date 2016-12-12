@@ -33,6 +33,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
@@ -345,7 +346,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput, 0.0)
+                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput,
+                                                                new TestDikeHeightAssessmentOutput(0))
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -385,7 +387,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.1, true, probabilityAssessmentOutput, 0.0)
+                    Output = new GrassCoverErosionInwardsOutput(1.1, true, probabilityAssessmentOutput,
+                                                                new TestDikeHeightAssessmentOutput(0))
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -451,13 +454,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var successfulCalculationOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
                 var successfulCalculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.1, true, successfulCalculationOutput, 0.0)
+                    Output = new GrassCoverErosionInwardsOutput(1.1, true, successfulCalculationOutput,
+                                                                new TestDikeHeightAssessmentOutput(0))
                 };
 
                 var failedCalculationOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
                 var failedCalculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.1, true, failedCalculationOutput, 0.0)
+                    Output = new GrassCoverErosionInwardsOutput(1.1, true, failedCalculationOutput,
+                                                                new TestDikeHeightAssessmentOutput(0))
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -512,7 +517,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.1, true,
                                                                 new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0),
-                                                                0.0)
+                                                                new TestDikeHeightAssessmentOutput(0))
                 }
             }, "-").SetName("SectionWithInvalidCalculationOutput");
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -522,7 +527,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     Output = new GrassCoverErosionInwardsOutput(1.1, true,
                                                                 new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0),
-                                                                0.0)
+                                                                new TestDikeHeightAssessmentOutput(0))
                 }
             }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutput");
         }

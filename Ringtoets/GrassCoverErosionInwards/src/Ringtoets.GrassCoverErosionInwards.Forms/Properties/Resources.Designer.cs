@@ -109,6 +109,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HBN.
+        /// </summary>
+        public static string Categories_DikeHeight_Result {
+            get {
+                return ResourceManager.GetString("Categories_DikeHeight_Result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Indicatieve golfhoogte.
         /// </summary>
         public static string Categories_Indicative_WaveHeight {
@@ -195,6 +204,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string DikeHeight_DisplayName {
             get {
                 return ResourceManager.GetString("DikeHeight_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is convergentie bereikt in de HBN berekening?.
+        /// </summary>
+        public static string DikeHeightAssessmentOutput_Convergence_Description {
+            get {
+                return ResourceManager.GetString("DikeHeightAssessmentOutput_Convergence_Description", resourceCulture);
             }
         }
         

@@ -51,9 +51,12 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        [TestCase(true, BreakWaterType.Dam)]
-        [TestCase(false, BreakWaterType.Wall)]
-        public void Read_ValidEntity_ReturnCalculation(bool flagValue, BreakWaterType type)
+        public void Read_ValidEntity_ReturnCalculation(
+            [Values(true, false)] bool flagValue,
+            [Values(BreakWaterType.Caisson, BreakWaterType.Dam, BreakWaterType.Wall)] BreakWaterType type,
+            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
+                DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var entity = new GrassCoverErosionInwardsCalculationEntity
@@ -70,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 UseBreakWater = Convert.ToByte(flagValue),
                 BreakWaterType = Convert.ToInt16(type),
                 BreakWaterHeight = 5.7,
-                CalculateDikeHeight = Convert.ToByte(flagValue)
+                CalculateDikeHeight = Convert.ToByte(dikeHeightCalculationType)
             };
 
             var collector = new ReadConversionCollector();
@@ -91,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(flagValue, input.UseBreakWater);
             Assert.AreEqual(type, input.BreakWater.Type);
             Assert.AreEqual(entity.BreakWaterHeight, input.BreakWater.Height.Value);
-            Assert.AreEqual(flagValue, input.CalculateDikeHeight);
+            Assert.AreEqual(dikeHeightCalculationType, input.DikeHeightCalculationType);
 
             Assert.IsNull(input.DikeProfile);
             Assert.IsNull(input.HydraulicBoundaryLocation);

@@ -322,7 +322,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5)
             {
                 DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(12.4, double.NaN,
-                                                                             double.NaN, double.NaN, 
+                                                                             double.NaN, double.NaN,
                                                                              double.NaN, CalculationConvergence.NotCalculated),
                 WaveHeightOutput = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.NotCalculated)
             });
@@ -841,11 +841,12 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 Mean = (RoundedDouble) 1.1,
                                 StandardDeviation = (RoundedDouble) 2.2
                             },
-                            CalculateDikeHeight = true,
+                            DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
                             UseForeshore = true,
                             UseBreakWater = true
                         },
-                        Output = new GrassCoverErosionInwardsOutput(0.45, true, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5), 0.56)
+                        Output = new GrassCoverErosionInwardsOutput(0.45, true, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5),
+                                                                    new DikeHeightAssessmentOutput(0.56, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged))
                     }
                 }
             });

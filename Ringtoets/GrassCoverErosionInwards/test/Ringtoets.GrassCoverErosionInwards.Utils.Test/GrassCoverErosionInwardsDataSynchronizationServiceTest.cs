@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Service;
 
 namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
@@ -52,7 +53,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             // Setup
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                                                            new TestDikeHeightAssessmentOutput(0))
             };
 
             // Call
@@ -204,7 +206,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var calculation = new GrassCoverErosionInwardsCalculation();
             var calculationWithOutput = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                                                            new TestDikeHeightAssessmentOutput(0))
             };
             var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
@@ -212,7 +215,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                                                            new TestDikeHeightAssessmentOutput(0))
             };
             var calculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
@@ -225,7 +229,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var subCalculation = new GrassCoverErosionInwardsCalculation();
             var subCalculationWithOutput = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                                                            new TestDikeHeightAssessmentOutput(0))
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
@@ -233,7 +238,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                                                            new TestDikeHeightAssessmentOutput(0))
             };
             var subCalculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {

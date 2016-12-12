@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -56,11 +57,13 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                                                    entity.FactorOfSafety.ToNullAsNaN());
         }
 
-        private static double? GetDikeHeightValue(GrassCoverErosionInwardsOutputEntity entity)
+        private static DikeHeightAssessmentOutput GetDikeHeightValue(GrassCoverErosionInwardsOutputEntity entity)
         {
             if (Convert.ToBoolean(entity.IsDikeHeightCalculated))
             {
-                return entity.DikeHeight.ToNullAsNaN();
+                return new DikeHeightAssessmentOutput(entity.DikeHeight.ToNullAsNaN(), double.NaN, 
+                    double.NaN, double.NaN, double.NaN,
+                    CalculationConvergence.NotCalculated);
             }
             return null;
         }

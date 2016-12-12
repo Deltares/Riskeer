@@ -419,11 +419,92 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De berekende kans van voorkomen van het berekende resultaat..
+        /// </summary>
+        public static string CalculationOutput_CalculatedProbability_Description {
+            get {
+                return ResourceManager.GetString("CalculationOutput_CalculatedProbability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende kans [1/jaar].
+        /// </summary>
+        public static string CalculationOutput_CalculatedProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationOutput_CalculatedProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat..
+        /// </summary>
+        public static string CalculationOutput_CalculatedReliability_Description {
+            get {
+                return ResourceManager.GetString("CalculationOutput_CalculatedReliability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex berekende kans [-].
+        /// </summary>
+        public static string CalculationOutput_CalculatedReliability_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationOutput_CalculatedReliability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convergentie.
+        /// </summary>
+        public static string CalculationOutput_Convergence_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationOutput_Convergence_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resultaat.
         /// </summary>
         public static string CalculationOutput_DisplayName {
             get {
                 return ResourceManager.GetString("CalculationOutput_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingevoerde kans waarvoor het resultaat moet worden berekend..
+        /// </summary>
+        public static string CalculationOutput_TargetProbability_Description {
+            get {
+                return ResourceManager.GetString("CalculationOutput_TargetProbability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doelkans [1/jaar].
+        /// </summary>
+        public static string CalculationOutput_TargetProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationOutput_TargetProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend..
+        /// </summary>
+        public static string CalculationOutput_TargetReliability_Description {
+            get {
+                return ResourceManager.GetString("CalculationOutput_TargetReliability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex doelkans [-].
+        /// </summary>
+        public static string CalculationOutput_TargetReliability_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationOutput_TargetReliability_DisplayName", resourceCulture);
             }
         }
         
@@ -1147,15 +1228,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Convergentie.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Convergence_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Convergence_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Coördinaten van de hydraulische randvoorwaardenlocatie..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Coordinates_Description {
@@ -1242,78 +1314,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string HydraulicBoundaryLocation_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryLocation_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De berekende kans van voorkomen van het berekende resultaat..
-        /// </summary>
-        public static string HydraulicBoundaryLocationOutput_CalculatedProbability_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationOutput_CalculatedProbability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekende kans [1/jaar].
-        /// </summary>
-        public static string HydraulicBoundaryLocationOutput_CalculatedProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationOutput_CalculatedProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat..
-        /// </summary>
-        public static string HydraulicBoundaryLocationOutput_CalculatedReliability_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationOutput_CalculatedReliability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Betrouwbaarheidsindex berekende kans [-].
-        /// </summary>
-        public static string HydraulicBoundaryLocationOutput_CalculatedReliability_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationOutput_CalculatedReliability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De ingevoerde kans waarvoor het resultaat moet worden berekend..
-        /// </summary>
-        public static string HydraulicBoundaryLocationOutput_TargetProbability_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationOutput_TargetProbability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Doelkans [1/jaar].
-        /// </summary>
-        public static string HydraulicBoundaryLocationOutput_TargetProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationOutput_TargetProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend..
-        /// </summary>
-        public static string HydraulicBoundaryLocationOutput_TargetReliability_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationOutput_TargetReliability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Betrouwbaarheidsindex doelkans [-].
-        /// </summary>
-        public static string HydraulicBoundaryLocationOutput_TargetReliability_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationOutput_TargetReliability_DisplayName", resourceCulture);
             }
         }
         

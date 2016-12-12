@@ -19,11 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
@@ -35,6 +39,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsOutputProperties : ObjectProperties<GrassCoverErosionInwardsOutput>
     {
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.DikeHeightAssessmentOutput != null;
+        }
+
+        #region GrassCoverErosionInwards result
+
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "ProbabilityAssessmentOutput_RequiredProbability_Displayname")]
@@ -95,6 +107,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        #endregion
+
+        #region Indicative wave height
+
         [PropertyOrder(6)]
         [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_Indicative_WaveHeight")]
         [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), "GrassCoverErosionInwardsOutput_WaveHeight_Displayname")]
@@ -119,9 +135,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        #endregion
+
+        #region Dike height
+
         [PropertyOrder(8)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result")]
         [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), "GrassCoverErosionInwardsOutput_DikeHeight_DisplayName")]
         [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), "GrassCoverErosionInwardsOutput_DikeHeight_Description")]
         public RoundedDouble DikeHeight
@@ -132,10 +152,82 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
+        [PropertyOrder(9)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetProbability_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetProbability_Description")]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double TargetProbability
         {
-            return data.DikeHeightCalculated;
+            get
+            {
+                DikeHeightAssessmentOutput output = data.DikeHeightAssessmentOutput;
+                return output == null ? double.NaN : output.TargetProbability;
+            }
         }
+
+        [PropertyOrder(10)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetReliability_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetReliability_Description")]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble TargetReliability
+        {
+            get
+            {
+                DikeHeightAssessmentOutput output = data.DikeHeightAssessmentOutput;
+                return output != null ? output.TargetReliability : RoundedDouble.NaN;
+            }
+        }
+
+        [PropertyOrder(11)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedProbability_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedProbability_Description")]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double CalculatedProbability
+        {
+            get
+            {
+                DikeHeightAssessmentOutput output = data.DikeHeightAssessmentOutput;
+                return output == null ? double.NaN : output.CalculatedProbability;
+            }
+        }
+
+        [PropertyOrder(12)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedReliability_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedReliability_Description")]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble CalculatedReliability
+        {
+            get
+            {
+                DikeHeightAssessmentOutput output = data.DikeHeightAssessmentOutput;
+                return output != null ? output.CalculatedReliability : RoundedDouble.NaN;
+            }
+        }
+
+        [PropertyOrder(13)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_Convergence_DisplayName")]
+        [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), "DikeHeightAssessmentOutput_Convergence_Description")]
+        public string Convergence
+        {
+            get
+            {
+                DikeHeightAssessmentOutput output = data.DikeHeightAssessmentOutput;
+                return new EnumDisplayWrapper<CalculationConvergence>(output != null
+                                                                          ? output.CalculationConvergence
+                                                                          : CalculationConvergence.NotCalculated).DisplayName;
+            }
+        }
+
+        #endregion
     }
 }

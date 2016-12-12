@@ -47,9 +47,12 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
 
             DikeHeight = double.NaN;
+            ReliabilityIndex = double.NaN;
         }
 
         public double DikeHeight { get; private set; }
+
+        public double ReliabilityIndex { get; private set; }
 
         public void Calculate(DikeHeightCalculationInput input)
         {
@@ -66,6 +69,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             if (targetProbabilityParser.Output != null)
             {
                 DikeHeight = targetProbabilityParser.Output.Result;
+                ReliabilityIndex = targetProbabilityParser.Output.CalculatedReliabilityIndex;
             }
         }
     }

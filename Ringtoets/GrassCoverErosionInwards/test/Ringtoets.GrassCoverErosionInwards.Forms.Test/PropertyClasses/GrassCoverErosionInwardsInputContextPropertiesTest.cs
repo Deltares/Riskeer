@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
-            Assert.AreEqual(input.CalculateDikeHeight, properties.CalculateDikeHeight);
+            Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
             Assert.IsNull(properties.WorldReferencePoint);
             mockRepository.VerifyAll();
         }
@@ -143,13 +143,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
-            Assert.AreEqual(input.CalculateDikeHeight, properties.CalculateDikeHeight);
+            Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
             Assert.AreEqual(new Point2D(12, 57), properties.WorldReferencePoint);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, 
+                                                             DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
+                                                             DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
@@ -178,14 +180,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             properties.Orientation = newOrientation;
             properties.DikeHeight = newDikeHeight;
             properties.SelectedHydraulicBoundaryLocation = newSelectableHydraulicBoundaryLocation;
-            properties.CalculateDikeHeight = true;
+            properties.DikeHeightCalculationType = dikeHeightCalculationType;
 
             // Assert
             Assert.AreSame(newDikeProfile, input.DikeProfile);
             Assert.AreEqual(newOrientation, input.Orientation);
             Assert.AreEqual(newDikeHeight, input.DikeHeight);
             Assert.AreSame(newSelectableHydraulicBoundaryLocation.HydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
-            Assert.IsTrue(input.CalculateDikeHeight);
+            Assert.AreEqual(dikeHeightCalculationType, input.DikeHeightCalculationType);
             mockRepository.VerifyAll();
         }
 

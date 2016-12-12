@@ -89,6 +89,10 @@
       <Project>{99573570-EE00-4264-8147-26A1B25DB23F}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.GrassCoverErosionInwards.Data.TestUtil\Ringtoets.GrassCoverErosionInwards.Data.TestUtil.csproj">
+      <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -143,4 +143,7 @@
     <value>De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.
 {1}</value>
   </data>
+  <data name="GrassCoverErosionInwardsCalculationService_DikeHeight_calculation_for_calculation_0_not_converged" xml:space="preserve">
+    <value>De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet geconvergeerd.</value>
+  </data>
 </root>

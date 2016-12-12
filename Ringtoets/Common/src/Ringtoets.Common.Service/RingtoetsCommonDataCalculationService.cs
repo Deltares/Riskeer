@@ -43,5 +43,31 @@ namespace Ringtoets.Common.Service
                        CalculationConvergence.CalculatedConverged :
                        CalculationConvergence.CalculatedNotConverged;
         }
+
+        /// <summary>
+        /// Gets the reqiured probability which is needed in profile specific calculations.
+        /// </summary>
+        /// <param name="norm">The assessment section norm.</param>
+        /// <param name="failureMechanismContribution">The failure mechanism contribution</param>
+        /// <param name="n">the 'N' parameter used to factor in the 'length effect'.</param>
+        /// <returns>The profile specific required probability.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="failureMechanismContribution"/> 
+        /// or <paramref name="n"/> is <c>null</c>.</exception>
+        public static double ProfileSpecificRequiredProbability(double norm, double failureMechanismContribution, int n)
+        {
+            if (!(failureMechanismContribution > 0))
+            {
+                throw new ArgumentOutOfRangeException("failureMechanismContribution", failureMechanismContribution,
+                                                      "De bijdrage van dit toetsspoor is nul. " +
+                                                      "Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
+            }
+            if (!(n > 0))
+            {
+                throw new ArgumentOutOfRangeException("n", n, "De N-waarde van dit toetsspoor is nul. " +
+                                                              "Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
+            }
+
+            return norm*(failureMechanismContribution/100)/n;
+        }
     }
 }

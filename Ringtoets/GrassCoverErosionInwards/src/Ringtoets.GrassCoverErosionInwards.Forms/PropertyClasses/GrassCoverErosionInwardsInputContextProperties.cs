@@ -27,10 +27,12 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
@@ -174,15 +176,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "CalculateDikeHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "CalculateDikeHeight_Description")]
-        public bool CalculateDikeHeight
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public DikeHeightCalculationType DikeHeightCalculationType
         {
             get
             {
-                return data.WrappedData.CalculateDikeHeight;
+                return data.WrappedData.DikeHeightCalculationType;
             }
             set
             {
-                data.WrappedData.CalculateDikeHeight = value;
+                data.WrappedData.DikeHeightCalculationType = value;
                 data.WrappedData.NotifyObservers();
             }
         }

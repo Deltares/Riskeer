@@ -23,10 +23,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -110,8 +112,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                 string hydraulicBoundaryDatabaseFilePath)
         {
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            var calculateDikeHeight = calculation.InputParameters.CalculateDikeHeight;
-            var totalSteps = calculateDikeHeight ? 2 : 1;
+            var calculateDikeHeight = calculation.InputParameters.DikeHeightCalculationType;
+            var totalSteps = calculateDikeHeight != DikeHeightCalculationType.NoCalculation ? 2 : 1;
             var calculationName = calculation.Name;
 
             NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_calculation, 1, totalSteps);
@@ -120,39 +122,81 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory, assessmentSection.Id);
             var overtoppingCalculationInput = CreateOvertoppingInput(calculation, failureMechanismSection, generalInput, hydraulicBoundaryDatabaseFilePath);
-            double? dikeHeight = null;
+            DikeHeightAssessmentOutput dikeHeight = null;
 
             try
             {
                 CalculateOvertopping(overtoppingCalculationInput, calculationName);
 
-                if (calculateDikeHeight && !canceled)
+                if (canceled)
+                {
+                    return;
+                }
+
+                if (calculateDikeHeight != DikeHeightCalculationType.NoCalculation)
                 {
                     NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_dikeheight_calculation, 2, totalSteps);
 
                     dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory, assessmentSection.Id);
-                    var dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput, hydraulicBoundaryDatabaseFilePath);
+
+                    var norm = GetProbabilityToUse(assessmentSection.FailureMechanismContribution.Norm, generalInput, failureMechanismContribution, calculateDikeHeight);
+                    var dikeHeightCalculationInput = CreateDikeHeightInput(calculation, norm, failureMechanismSection, generalInput, hydraulicBoundaryDatabaseFilePath);
                     CalculateDikeHeight(dikeHeightCalculationInput, calculationName);
-                    dikeHeight = dikeHeightCalculator.DikeHeight;
+
+                    if (canceled)
+                    {
+                        return;
+                    }
+
+                    dikeHeight = CreateDikeHeightAssessmentOutput(calculationName, dikeHeightCalculationInput.Beta, norm);
                 }
 
-                if (!canceled)
-                {
-                    calculation.Output = new GrassCoverErosionInwardsOutput(
-                        overtoppingCalculator.WaveHeight,
-                        overtoppingCalculator.IsOvertoppingDominant,
-                        ProbabilityAssessmentService.Calculate(
-                            assessmentSection.FailureMechanismContribution.Norm,
-                            failureMechanismContribution,
-                            generalInput.N,
-                            overtoppingCalculator.ExceedanceProbabilityBeta),
-                        dikeHeight);
-                }
+                calculation.Output = new GrassCoverErosionInwardsOutput(
+                    overtoppingCalculator.WaveHeight,
+                    overtoppingCalculator.IsOvertoppingDominant,
+                    ProbabilityAssessmentService.Calculate(
+                        assessmentSection.FailureMechanismContribution.Norm,
+                        failureMechanismContribution,
+                        generalInput.N,
+                        overtoppingCalculator.ExceedanceProbabilityBeta),
+                    dikeHeight);
             }
             finally
             {
                 CalculationServiceHelper.LogCalculationEndTime(calculationName);
             }
+        }
+
+        private DikeHeightAssessmentOutput CreateDikeHeightAssessmentOutput(string calculationName,
+                                                                            double targetReliability,
+                                                                            double targetProbability)
+        {
+            var dikeHeight = dikeHeightCalculator.DikeHeight;
+            var reliability = dikeHeightCalculator.ReliabilityIndex;
+            var probability = StatisticsConverter.ReliabilityToProbability(reliability);
+
+            CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(
+                dikeHeightCalculator.ReliabilityIndex, targetProbability);
+
+            if (converged != CalculationConvergence.CalculatedConverged)
+            {
+                log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_DikeHeight_calculation_for_calculation_0_not_converged, calculationName));
+            }
+
+            return new DikeHeightAssessmentOutput(dikeHeight, targetProbability,
+                                                  targetReliability, probability, reliability,
+                                                  converged);
+        }
+
+        private static double GetProbabilityToUse(double assessmentSectionnorm, GeneralGrassCoverErosionInwardsInput generalInput,
+                                                  double failureMechanismContribution, DikeHeightCalculationType calculateDikeHeight)
+        {
+            return calculateDikeHeight == DikeHeightCalculationType.CalculateByAssessmentSectionNorm
+                       ? assessmentSectionnorm
+                       : RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                           assessmentSectionnorm,
+                           failureMechanismContribution,
+                           generalInput.N);
         }
 
         private void NotifyProgress(string stepName, int currentStepNumber, int totalStepNumber)
@@ -285,13 +329,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         private static DikeHeightCalculationInput CreateDikeHeightInput(GrassCoverErosionInwardsCalculation calculation,
-                                                                        IAssessmentSection assessmentSection,
+                                                                        double norm,
                                                                         FailureMechanismSection failureMechanismSection,
                                                                         GeneralGrassCoverErosionInwardsInput generalInput,
                                                                         string hydraulicBoundaryDatabaseFilePath)
         {
             var dikeHeightCalculationInput = new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                                            assessmentSection.FailureMechanismContribution.Norm,
+                                                                            norm,
                                                                             new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
                                                                             ParseProfilePoints(calculation.InputParameters.DikeGeometry),
                                                                             HydraRingInputParser.ParseForeshore(calculation.InputParameters),

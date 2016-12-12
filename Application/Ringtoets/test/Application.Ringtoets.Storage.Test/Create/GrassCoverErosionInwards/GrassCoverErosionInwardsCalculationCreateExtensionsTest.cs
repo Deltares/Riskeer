@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 {
@@ -52,11 +53,16 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        [TestCase("I have no comments", null, 0)]
-        [TestCase("I do have a comment", "I am comment", 98)]
-        public void Create_ValidCalculation_ReturnEntity(string name, string comment, int order)
+        [TestCase("I have no comments", null)]
+        [TestCase("I do have a comment", "I am comment")]
+        public void Create_ValidCalculation_ReturnEntity(string name, string comment,
+                                                         [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                                                             DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
+                                                             DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
+            var random = new Random(1);
+            int order = random.Next();
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
@@ -75,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                         Height = (RoundedDouble) 3.3,
                         Type = BreakWaterType.Dam
                     },
-                    CalculateDikeHeight = true,
+                    DikeHeightCalculationType = dikeHeightCalculationType,
                     CriticalFlowRate =
                     {
                         Mean = (RoundedDouble) 4.4,
@@ -107,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(input.CriticalFlowRate.Mean.Value, entity.CriticalFlowRateMean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation.Value, entity.CriticalFlowRateStandardDeviation);
             Assert.AreEqual(input.Orientation.Value, entity.Orientation);
-            Assert.AreEqual(Convert.ToByte(input.CalculateDikeHeight), entity.CalculateDikeHeight);
+            Assert.AreEqual(Convert.ToByte(input.DikeHeightCalculationType), entity.CalculateDikeHeight);
             Assert.AreEqual(input.DikeHeight.Value, entity.DikeHeight);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
 
@@ -232,7 +238,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(1, true, new ProbabilityAssessmentOutput(1, 1, 1, 1, 1), 2)
+                Output = new GrassCoverErosionInwardsOutput(1, true, new ProbabilityAssessmentOutput(1, 1, 1, 1, 1),
+                                                            new TestDikeHeightAssessmentOutput(2))
             };
 
             var registry = new PersistenceRegistry();

@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -39,7 +40,11 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
                                                                               random.NextDouble(), random.NextDouble(),
                                                                               random.NextDouble());
-            var output = new GrassCoverErosionInwardsOutput(random.NextDouble(), false, probabilityAssessmentOutput, random.NextDouble());
+            var dikeHeightConvergence = (CalculationConvergence) random.Next(1, Enum.GetValues(typeof(CalculationConvergence)).Length + 1);
+            var dikeHeightAssessmentOutput = new DikeHeightAssessmentOutput(random.NextDouble(), random.NextDouble(),
+                                                                            random.NextDouble(), random.NextDouble(),
+                                                                            random.NextDouble(), dikeHeightConvergence);
+            var output = new GrassCoverErosionInwardsOutput(random.NextDouble(), false, probabilityAssessmentOutput, dikeHeightAssessmentOutput);
 
             // Call
             GrassCoverErosionInwardsOutputEntity entity = output.Create();
@@ -62,7 +67,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput, double.NaN);
+            var dikeHeightAssessmentOutput = new DikeHeightAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged);
+            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput, dikeHeightAssessmentOutput);
 
             // Call
             GrassCoverErosionInwardsOutputEntity entity = output.Create();

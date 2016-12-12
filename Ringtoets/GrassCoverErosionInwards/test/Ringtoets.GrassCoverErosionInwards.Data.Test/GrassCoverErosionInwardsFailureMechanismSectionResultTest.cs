@@ -23,6 +23,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -90,7 +91,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             {
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput, 0.0)
+                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput,
+                                                                new TestDikeHeightAssessmentOutput(double.NaN))
                 }
             };
 
@@ -113,7 +115,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             {
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput, 0.0)
+                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput,
+                                                                new TestDikeHeightAssessmentOutput(double.NaN))
                 }
             };
 

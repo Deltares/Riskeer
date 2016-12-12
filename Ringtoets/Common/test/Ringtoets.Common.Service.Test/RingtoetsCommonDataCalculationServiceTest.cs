@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -55,6 +56,59 @@ namespace Ringtoets.Common.Service.Test
 
             // Assert
             Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, calculationConverged);
+        }
+
+        [Test]
+        public void ProfileSpecificRequiredProbability_WithValidParameters_ReturnSpecificProbability()
+        {
+            // Setup
+            const double norm = 1.0/200;
+            const double contribution = 10;
+            const int n = 2;
+
+            // Call
+            double probability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, contribution, n);
+
+            // Assert
+            Assert.AreEqual(0.00025, probability);
+        }
+
+        [Test]
+        public void ProfileSpecificRequiredProbability_WithZeroContribution_ThrowsArgumentException()
+        {
+            // Setup
+            const double norm = 1.0/200;
+            const double contribution = 0;
+            const int n = 2;
+
+            // Call
+            TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, contribution, n);
+
+            // Assert
+            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
+            Assert.AreEqual(contribution, exception.ActualValue);
+            Assert.AreEqual("failureMechanismContribution", exception.ParamName);
+            StringAssert.StartsWith("De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd." +
+                                    Environment.NewLine, exception.Message);
+        }
+
+        [Test]
+        public void ProfileSpecificRequiredProbability_WithZeroN_ThrowsArgumentException()
+        {
+            // Setup
+            const double norm = 1.0/200;
+            const double contribution = 10;
+            const int n = 0;
+
+            // Call
+            TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, contribution, n);
+
+            // Assert
+            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
+            Assert.AreEqual(n, exception.ActualValue);
+            Assert.AreEqual("n", exception.ParamName);
+            StringAssert.StartsWith("De N-waarde van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd." +
+                                    Environment.NewLine, exception.Message);
         }
     }
 }

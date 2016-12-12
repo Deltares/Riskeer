@@ -19,9 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+using Ringtoets.Common.Data.Hydraulics;
 
-[assembly: AssemblyTitle("Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test")]
-[assembly: AssemblyProduct("Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test")]
-[assembly: Guid("9635e978-c420-4428-b51a-a65934960d03")]
+namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
+{
+    /// <summary>
+    /// Class which creates simple instances of <see cref="DikeHeightAssessmentOutput"/>, 
+    /// which can be used during testing.
+    /// </summary>
+    public class TestDikeHeightAssessmentOutput : DikeHeightAssessmentOutput
+    {
+         /// <summary>
+        /// Creates a new instance of <see cref="TestDikeHeightAssessmentOutput"/>.
+        /// </summary>
+        /// <param name="result">The result to set in the output.</param>
+        /// <param name="calculationConvergence">The <see cref="CalculationConvergence"/> to set in the output.</param>
+        public TestDikeHeightAssessmentOutput(double result, CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated) :
+            base(result, double.NaN, double.NaN, double.NaN, double.NaN, calculationConvergence) {}
+    }
+}

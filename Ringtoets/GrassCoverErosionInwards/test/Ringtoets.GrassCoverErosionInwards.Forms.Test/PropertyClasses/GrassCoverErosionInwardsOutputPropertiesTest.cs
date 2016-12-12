@@ -24,10 +24,12 @@ using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
@@ -43,6 +45,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int waveHeightIndex = 5;
         private const int isDominantIndex = 6;
         private const int dikeHeightIndex = 7;
+        private const int dikeHeightTargetProbabilityIndex = 8;
+        private const int dikeHeightTargetReliabilityIndex = 9;
+        private const int dikeHeightCalculatedProbabilityIndex = 10;
+        private const int dikeHeightCalculatedReliabilityIndex = 11;
+        private const int dikeHeightCalculationConvergenceIndex = 12;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -68,8 +75,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             double reliability = random.NextDouble();
             double factorOfSafety = random.NextDouble();
             double dikeHeight = random.NextDouble();
-            ProbabilityAssessmentOutput probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
-            var output = new GrassCoverErosionInwardsOutput(waveHeight, isOvertoppingDominant, probabilityAssessmentOutput, dikeHeight);
+            double dikeTargetProbability = random.NextDouble();
+            double dikeTargetReliability = random.NextDouble();
+            double dikeCalculatedProbability = random.NextDouble();
+            double dikeCalculatedReliability = random.NextDouble();
+            CalculationConvergence dikeHeightConvergence = CalculationConvergence.NotCalculated;
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
+            var dikeHeightAssessmentOutput = new DikeHeightAssessmentOutput(dikeHeight, dikeTargetProbability, dikeTargetReliability, dikeCalculatedProbability, dikeCalculatedReliability, dikeHeightConvergence);
+            var output = new GrassCoverErosionInwardsOutput(waveHeight, isOvertoppingDominant, probabilityAssessmentOutput, dikeHeightAssessmentOutput);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties
@@ -92,6 +105,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(dikeHeight, properties.DikeHeight, properties.DikeHeight.GetAccuracy());
+            Assert.AreEqual(dikeTargetProbability, properties.TargetProbability);
+            Assert.AreEqual(dikeTargetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
+            Assert.AreEqual(dikeCalculatedProbability, properties.CalculatedProbability);
+            Assert.AreEqual(dikeCalculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual("", properties.Convergence);
         }
 
         [Test]
@@ -99,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             ProbabilityAssessmentOutput probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput, double.NaN);
+            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput, new TestDikeHeightAssessmentOutput(double.NaN));
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties
@@ -109,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(13, dynamicProperties.Count);
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
@@ -162,9 +180,49 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightProperty,
-                                                                            "Resultaat",
+                                                                            "HBN",
                                                                             "HBN [m+NAP]",
                                                                             "Het berekende Hydraulisch Belasting Niveau (HBN).",
+                                                                            true);
+
+            PropertyDescriptor dikeHeightTargetProbability = dynamicProperties[dikeHeightTargetProbabilityIndex];
+            Assert.IsNotNull(dikeHeightTargetProbability);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightTargetProbability,
+                                                                            "HBN",
+                                                                            "Doelkans [1/jaar]",
+                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor dikeHeightTargetReliability = dynamicProperties[dikeHeightTargetReliabilityIndex];
+            Assert.IsNotNull(dikeHeightTargetReliability);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightTargetReliability,
+                                                                            "HBN",
+                                                                            "Betrouwbaarheidsindex doelkans [-]",
+                                                                            "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor dikeHeightCalculatedProbability = dynamicProperties[dikeHeightCalculatedProbabilityIndex];
+            Assert.IsNotNull(dikeHeightCalculatedProbability);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightCalculatedProbability,
+                                                                            "HBN",
+                                                                            "Berekende kans [1/jaar]",
+                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor dikeHeightCalculatedReliability = dynamicProperties[dikeHeightCalculatedReliabilityIndex];
+            Assert.IsNotNull(dikeHeightCalculatedReliability);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightCalculatedReliability,
+                                                                            "HBN",
+                                                                            "Betrouwbaarheidsindex berekende kans [-]",
+                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor dikeHeightCalculationConvergence = dynamicProperties[dikeHeightCalculationConvergenceIndex];
+            Assert.IsNotNull(dikeHeightCalculationConvergence);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightCalculationConvergence,
+                                                                            "HBN",
+                                                                            "Convergentie",
+                                                                            "Is convergentie bereikt in de HBN berekening?",
                                                                             true);
         }
 

@@ -273,9 +273,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_Convergence_WaveHeight_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de golfhoogte berekening?</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Convergence_DisplayName" xml:space="preserve">
-    <value>Convergentie</value>
-  </data>
   <data name="HydraulicBoundaryDatabase_Location_DesignWaterLevel_Description" xml:space="preserve">
     <value>Berekend toetspeil.</value>
   </data>

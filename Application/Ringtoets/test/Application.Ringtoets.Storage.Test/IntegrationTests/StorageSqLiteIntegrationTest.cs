@@ -1464,7 +1464,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedInput.DikeHeight, actualInput.DikeHeight);
             Assert.AreEqual(expectedInput.CriticalFlowRate.Mean, actualInput.CriticalFlowRate.Mean);
             Assert.AreEqual(expectedInput.CriticalFlowRate.StandardDeviation, actualInput.CriticalFlowRate.StandardDeviation);
-            Assert.AreEqual(expectedInput.CalculateDikeHeight, actualInput.CalculateDikeHeight);
+            Assert.AreEqual(expectedInput.DikeHeightCalculationType, actualInput.DikeHeightCalculationType);
         }
 
         private static void AssertGrassCoverErosionInwardsOutput(GrassCoverErosionInwardsOutput expectedOutput,

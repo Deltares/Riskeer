@@ -58,6 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 Mean = (RoundedDouble) 0.004,
                 StandardDeviation = (RoundedDouble) 0.0006
             };
+            DikeHeightCalculationType = DikeHeightCalculationType.NoCalculation;
         }
 
         /// <summary>
@@ -153,9 +154,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the dike height should be calculated.
+        /// Gets or sets how the dike height should be calculated.
         /// </summary>
-        public bool CalculateDikeHeight { get; set; }
+        public DikeHeightCalculationType DikeHeightCalculationType { get; set; }
 
         public bool UseBreakWater { get; set; }
 

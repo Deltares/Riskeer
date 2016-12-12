@@ -418,15 +418,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Convergentie.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Convergence_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Convergence_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de golfhoogte berekening?.
         /// </summary>
         public static string HydraulicBoundaryDatabase_Convergence_WaveHeight_Description {

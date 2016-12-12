@@ -39,6 +39,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
@@ -99,7 +100,8 @@ namespace Ringtoets.Integration.Forms.Test
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                                                            new TestDikeHeightAssessmentOutput(0))
             };
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
@@ -325,7 +327,8 @@ namespace Ringtoets.Integration.Forms.Test
             GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                                                            new TestDikeHeightAssessmentOutput(0))
             };
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
@@ -436,7 +439,8 @@ namespace Ringtoets.Integration.Forms.Test
             GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                                                            new TestDikeHeightAssessmentOutput(0))
             };
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>

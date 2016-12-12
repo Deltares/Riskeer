@@ -23,6 +23,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -129,7 +130,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
         private class TestGrassCoverErosionInwardsOutput : GrassCoverErosionInwardsOutput
         {
-            public TestGrassCoverErosionInwardsOutput() : base(0.0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0.0) {}
+            public TestGrassCoverErosionInwardsOutput() : base(0.0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                                                               new TestDikeHeightAssessmentOutput(0)) {}
         }
     }
 }

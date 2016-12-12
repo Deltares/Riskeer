@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
@@ -82,7 +83,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             if (status == CalculationScenarioStatus.Failed)
             {
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, double.NaN, 1.0, 1.0);
-                calculation.Output = new GrassCoverErosionInwardsOutput(1.1, false, probabilityAssessmentOutput, 0.0);
+                calculation.Output = new GrassCoverErosionInwardsOutput(1.1, false, probabilityAssessmentOutput,
+                                                                        new TestDikeHeightAssessmentOutput(0));
             }
 
             FailureMechanismSection section = CreateSection();
@@ -107,7 +109,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, 0.95, 1.0, 1.0);
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0.5, true, probabilityAssessmentOutput, 0.0)
+                Output = new GrassCoverErosionInwardsOutput(0.5, true, probabilityAssessmentOutput,
+                                                            new TestDikeHeightAssessmentOutput(0))
             };
 
             FailureMechanismSection section = CreateSection();

@@ -130,6 +130,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     public class TestDikeHeightCalculator : TestHydraRingCalculator<DikeHeightCalculationInput>, IDikeHeightCalculator
     {
         public double DikeHeight { get; set; }
+        public double ReliabilityIndex { get; set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
     }

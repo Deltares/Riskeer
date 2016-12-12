@@ -31,8 +31,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
     {
-        private readonly double? dikeHeight;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutput"/>.
         /// </summary>
@@ -40,13 +38,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
         /// <param name="probabilityAssessmentOutput">The probabilistic assessment output based on the grass cover erosion 
         /// inwards calculation output.</param>
-        /// <param name="dikeHeight">The calculated dike height.</param>
-        public GrassCoverErosionInwardsOutput(double waveHeight, bool isOvertoppingDominant, ProbabilityAssessmentOutput probabilityAssessmentOutput, double? dikeHeight)
+        /// <param name="dikeHeightAssessmentOutput">The calculated dike height.</param>
+        public GrassCoverErosionInwardsOutput(double waveHeight, bool isOvertoppingDominant,
+                                              ProbabilityAssessmentOutput probabilityAssessmentOutput,
+                                              DikeHeightAssessmentOutput dikeHeightAssessmentOutput)
         {
             IsOvertoppingDominant = isOvertoppingDominant;
             WaveHeight = new RoundedDouble(2, waveHeight);
             ProbabilityAssessmentOutput = probabilityAssessmentOutput;
-            this.dikeHeight = dikeHeight;
+            DikeHeightAssessmentOutput = dikeHeightAssessmentOutput;
         }
 
         /// <summary>
@@ -67,7 +67,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             get
             {
-                return new RoundedDouble(2, dikeHeight ?? double.NaN);
+                return DikeHeightAssessmentOutput == null
+                           ? RoundedDouble.NaN
+                           : DikeHeightAssessmentOutput.Result;
             }
         }
 
@@ -78,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             get
             {
-                return dikeHeight != null;
+                return DikeHeightAssessmentOutput != null;
             }
         }
 
@@ -87,5 +89,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// inwards calculation output.
         /// </summary>
         public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; private set; }
+
+        /// <summary>
+        /// Gets the dike height assessment output based on the grass cover erosion 
+        /// inwards calculation output.
+        /// </summary>
+        public DikeHeightAssessmentOutput DikeHeightAssessmentOutput { get; private set; }
     }
 }
