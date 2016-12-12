@@ -35,14 +35,12 @@ namespace Core.Common.TestUtil
         private static readonly ILog log = LogManager.GetLogger(typeof(WindowsFormsTestHelper));
 
         private static Window window;
-        private readonly GuiTestHelper guiTestHelper;
         private Action shownAction;
         private bool wasShown;
 
         public WpfTestHelper()
         {
             InitializeComponent();
-            guiTestHelper = GuiTestHelper.Instance;
         }
 
         public static void ShowModal(Control control, params object[] propertyObjects)
@@ -63,13 +61,13 @@ namespace Core.Common.TestUtil
             }
         }
 
-        private void ShowTopLevel(Control control, object[] propertyObjects, bool modal, Action shownAction)
+        private void ShowTopLevel(Control control, object[] propertyObjects, bool modal, Action onShownAction)
         {
             ThrowIfPropertyObjectsContainsActionDueToLikelyMisuse(propertyObjects);
 
             GuiTestHelper.Initialize();
 
-            this.shownAction = shownAction;
+            shownAction = onShownAction;
 
             if (control is Window)
             {

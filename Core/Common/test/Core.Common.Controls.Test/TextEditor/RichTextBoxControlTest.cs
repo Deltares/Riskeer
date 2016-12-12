@@ -173,7 +173,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 };
 
                 // Call
-                richTextBox.Text = "Test";
+                richTextBox.Text = @"Test";
 
                 // Assert
                 Assert.AreEqual(1, eventCounter);

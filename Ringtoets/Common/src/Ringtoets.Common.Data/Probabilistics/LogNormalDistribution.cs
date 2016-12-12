@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             {
                 // This causes the default initialization set mean to 0, which is invalid.
                 throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
-                                                      "Value must be in range [1, 15].");
+                                                      @"Value must be in range [1, 15].");
             }
             // Initialize mean, standard deviation and shift of the normal distribution which is the log of the 
             // log-normal distribution with scale parameter mu=0, shape parameter sigma=1 and location parameter theta=0.

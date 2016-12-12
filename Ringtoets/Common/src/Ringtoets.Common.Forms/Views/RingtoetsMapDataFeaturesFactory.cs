@@ -254,7 +254,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (calculationData != null && calculationData.Any())
             {
-                var features = new MapFeature[calculationData.Count()];
+                var features = new MapFeature[calculationData.Length];
 
                 for (int i = 0; i < calculationData.Length; i++)
                 {

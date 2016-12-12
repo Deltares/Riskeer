@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -221,7 +222,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var cells = rows[0].Cells;
             Assert.AreEqual(7, cells.Count);
-            Assert.IsTrue((bool) cells[isRelevantColumnIndex].FormattedValue);
+            Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[failureProbabilityPipingColumnIndex].FormattedValue);
@@ -231,7 +232,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             cells = rows[1].Cells;
             Assert.AreEqual(7, cells.Count);
-            Assert.IsTrue((bool) cells[isRelevantColumnIndex].FormattedValue);
+            Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(1.5e-3), cells[failureProbabilityPipingColumnIndex].FormattedValue);

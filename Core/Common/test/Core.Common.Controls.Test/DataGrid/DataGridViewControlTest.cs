@@ -1411,7 +1411,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Assert
                 Assert.IsTrue(dataGridViewCell.IsInEditMode);
-                Assert.IsTrue((bool) dataGridViewCell.FormattedValue);
+                Assert.IsTrue(Convert.ToBoolean(dataGridViewCell.FormattedValue));
             }
         }
 

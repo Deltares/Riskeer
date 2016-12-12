@@ -37,7 +37,7 @@ namespace Core.Common.Utils.Test.Extensions
             IEnumerable<object> enumerable = null;
 
             // Call
-            TestDelegate call = () => enumerable.ForEachElementDo(e => e.GetType());
+            TestDelegate call = () => enumerable.ForEachElementDo(e => { });
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

@@ -256,7 +256,9 @@ namespace Ringtoets.Piping.Forms.Views
                 List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null ?
                                                                                  assessmentSection.HydraulicBoundaryDatabase.Locations :
                                                                                  null;
-                SetItemsOnObjectCollection(hydraulicBoundaryLocationColumn.Items, GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations).ToArray());
+                SetItemsOnObjectCollection(
+                    hydraulicBoundaryLocationColumn.Items, 
+                    GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations).ToArray());
             }
         }
 

@@ -164,7 +164,6 @@ namespace Core.Common.Base.Test.TypeConverters
             RoundedDouble conversionResult = (RoundedDouble) converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
-            Assert.IsNotNull(conversionResult);
             Assert.AreEqual(RoundedDouble.MaximumNumberOfDecimalPlaces, conversionResult.NumberOfDecimalPlaces);
             Assert.AreEqual(input, conversionResult.Value);
             mocks.VerifyAll();

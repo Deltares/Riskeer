@@ -395,7 +395,7 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertExpectedPipingInput(PipingInput inputParameters)
         {
-            Console.WriteLine("{0} en {1}", Math.Exp(-0.5), Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1)));
+            Console.WriteLine(@"{0} en {1}", Math.Exp(-0.5), Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1)));
             Assert.AreEqual(1.0, inputParameters.UpliftModelFactor, 1e-3);
             Assert.AreEqual(1.0, inputParameters.SellmeijerModelFactor, 1e-3);
 

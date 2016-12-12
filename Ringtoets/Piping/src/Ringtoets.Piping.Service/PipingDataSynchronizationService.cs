@@ -154,7 +154,7 @@ namespace Ringtoets.Piping.Service
             }
 
             var changedObservables = new List<IObservable>();
-            foreach (PipingCalculation pipingCalculationScenario in failureMechanism.Calculations)
+            foreach (PipingCalculation pipingCalculationScenario in failureMechanism.Calculations.Cast<PipingCalculation>())
             {
                 if (ReferenceEquals(pipingCalculationScenario.InputParameters.SurfaceLine, surfaceLine))
                 {
@@ -190,7 +190,7 @@ namespace Ringtoets.Piping.Service
             }
 
             var changedObservables = new List<IObservable>();
-            foreach (PipingCalculation pipingCalculationScenario in failureMechanism.Calculations)
+            foreach (PipingCalculation pipingCalculationScenario in failureMechanism.Calculations.Cast<PipingCalculation>())
             {
                 if (ReferenceEquals(pipingCalculationScenario.InputParameters.StochasticSoilModel, soilModel))
                 {

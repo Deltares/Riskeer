@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Service.Test
         public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryDatabaseWithoutLocations_ReturnsNoAffectedObjects()
         {
             // Setup
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
+            IEnumerable<HydraulicBoundaryLocation> locations = new ObservableList<HydraulicBoundaryLocation>();
 
             // Call
             IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);

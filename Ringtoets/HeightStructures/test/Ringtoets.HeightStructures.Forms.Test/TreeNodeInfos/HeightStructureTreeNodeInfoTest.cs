@@ -119,7 +119,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void CanRemove_ParentIsHeightStructuresContext_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -132,7 +131,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsTrue(canRemove);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -149,7 +147,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void OnNodeRemoved_RemovingProfilePartOfCalculationOfSectionResult_ProfileRemovedFromFailureMechanismAndCalculationProfileClearedAndSectionResultCalculationCleared()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -234,7 +231,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             Assert.AreSame(calculation2, failureMechanism.SectionResults.ElementAt(0).Calculation);
             Assert.AreSame(calculation3, failureMechanism.SectionResults.ElementAt(1).Calculation);
-            mocks.VerifyAll();
         }
 
         [Test]

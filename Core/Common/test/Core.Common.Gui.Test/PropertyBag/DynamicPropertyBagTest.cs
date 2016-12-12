@@ -242,6 +242,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var defaultProperty = dynamicPropertyBag.GetDefaultProperty();
 
             // Assert
+            Assert.NotNull(defaultProperty);
             Assert.AreEqual(dynamicPropertyBag.Properties.First().Name, defaultProperty.Name);
         }
 
@@ -338,8 +339,8 @@ namespace Core.Common.Gui.Test.PropertyBag
             var propertiesCollection = dynamicPropertyBag.GetProperties();
 
             // Assert
-            var wrappedValue = propertiesCollection[0].GetValue(dynamicPropertyBag.WrappedObject);
-            var bag = (DynamicPropertyBag) wrappedValue;
+            var bag = propertiesCollection[0].GetValue(dynamicPropertyBag.WrappedObject) as DynamicPropertyBag;
+            Assert.NotNull(bag);
             Assert.AreSame(subProperties, bag.WrappedObject);
         }
 

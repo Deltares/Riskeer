@@ -225,7 +225,7 @@ namespace Ringtoets.Common.Utils
             }
             if (sections.Any(s => s == null))
             {
-                throw new ArgumentException("Sections contains an entry without value.", "sections");
+                throw new ArgumentException(@"Sections contains an entry without value.", "sections");
             }
         }
 
@@ -253,7 +253,7 @@ namespace Ringtoets.Common.Utils
             }
             if (calculations.Any(s => s == null))
             {
-                throw new ArgumentException("Calculations contains an entry without value.", "calculations");
+                throw new ArgumentException(@"Calculations contains an entry without value.", "calculations");
             }
         }
 
@@ -265,7 +265,7 @@ namespace Ringtoets.Common.Utils
             }
             if (sectionResults.Any(s => s == null))
             {
-                throw new ArgumentException("SectionResults contains an entry without value.", "sectionResults");
+                throw new ArgumentException(@"SectionResults contains an entry without value.", "sectionResults");
             }
         }
 

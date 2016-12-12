@@ -135,7 +135,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
             }
             catch (CriticalFileReadException e)
             {
-                if (e.InnerException.GetType() == typeof(ApplicationException))
+                if (e.InnerException != null && e.InnerException.GetType() == typeof(ApplicationException))
                 {
                     string message = new FileReaderErrorMessageBuilder(shapeFilePath)
                         .Build(Resources.PointShapefileReader_File_can_only_contain_points);

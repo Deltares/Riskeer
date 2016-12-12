@@ -34,7 +34,6 @@ namespace Core.Common.TestUtil
     {
         private static string nonModalControlsTestName; // current unit test name
         private static readonly IList<Control> nonModalControls = new List<Control>();
-        private readonly GuiTestHelper guiTestHelper;
         private Action<Form> formShown;
         private bool wasShown;
 
@@ -48,8 +47,6 @@ namespace Core.Common.TestUtil
                 ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw |
                 ControlStyles.UserPaint, true);
             InitializeComponent();
-
-            guiTestHelper = GuiTestHelper.Instance;
         }
 
         public static object[] PropertyObjects { get; set; }

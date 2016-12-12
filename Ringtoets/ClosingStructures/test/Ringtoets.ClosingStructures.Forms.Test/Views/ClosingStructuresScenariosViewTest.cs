@@ -332,6 +332,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             }
             else
             {
+                Assert.NotNull(expectedComboBoxItemTexts);
                 var dataGridViewColumn = (DataGridViewComboBoxColumn) dataGridView.Columns[1];
 
                 Assert.AreEqual(failureMechanism.SectionResults.Count(), rowCount);
