@@ -98,8 +98,8 @@ namespace Ringtoets.Piping.Service.Test
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
                 Assert.AreEqual("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[2]);
                 Assert.AreEqual("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[3]);
-                Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Intredepunt'.", msgs[4]);
-                Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Uittredepunt'.", msgs[5]);
+                Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Uittredepunt'.", msgs[4]);
+                Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'Intredepunt'.", msgs[5]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);

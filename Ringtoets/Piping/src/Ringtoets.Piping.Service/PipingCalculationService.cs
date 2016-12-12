@@ -107,72 +107,52 @@ namespace Ringtoets.Piping.Service
 
         private static List<string> ValidateInput(PipingInput inputParameters)
         {
-            List<string> validationResult = new List<string>();
+            var validationResults = new List<string>();
 
-            var useAssessmentLevelManualInput = inputParameters.UseAssessmentLevelManualInput;
-            var isHydraulicBoundaryLocationMissing = inputParameters.HydraulicBoundaryLocation == null;
-            var isSoilProfileMissing = inputParameters.StochasticSoilProfile == null;
-            var isSurfaceLineMissing = inputParameters.SurfaceLine == null;
-            var isExitPointLMissing = double.IsNaN(inputParameters.ExitPointL);
+            validationResults.AddRange(ValidateHydraulics(inputParameters));
+
+            IEnumerable<string> coreValidationError = ValidateCoreSurfaceLineAndSoilProfileProperties(inputParameters);
+            validationResults.AddRange(coreValidationError);
+
             var isEntryPointLMissing = double.IsNaN(inputParameters.EntryPointL);
-
-            if (!useAssessmentLevelManualInput && isHydraulicBoundaryLocationMissing)
+            if (isEntryPointLMissing)
             {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
+                validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_EntryPointL);
+            }
+
+            if (!coreValidationError.Any())
+            {
+                validationResults.AddRange(ValidateSoilLayers(inputParameters));
+            }
+
+            return validationResults;
+        }
+        
+        private static IEnumerable<string> ValidateHydraulics(PipingInput inputParameters)
+        {
+            var validationResults = new List<string>();
+            if (!inputParameters.UseAssessmentLevelManualInput && inputParameters.HydraulicBoundaryLocation == null)
+            {
+                validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
             }
             else
             {
-                validationResult.AddRange(ValidateAssessmentLevel(inputParameters));
-            }
+                validationResults.AddRange(ValidateAssessmentLevel(inputParameters));
 
-            if (isSurfaceLineMissing)
-            {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_SurfaceLine_selected);
-            }
-
-            if (isSoilProfileMissing)
-            {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_StochasticSoilProfile_selected);
-            }
-
-            if (isEntryPointLMissing)
-            {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_EntryPointL);
-            }
-
-            if (isExitPointLMissing)
-            {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_ExitPointL);
-            }
-
-            if (IsSurfaceLineProfileDefinitionComplete(inputParameters))
-            {
-                if (double.IsNaN(inputParameters.ThicknessAquiferLayer.Mean))
+                if (double.IsNaN(inputParameters.PiezometricHeadExit) || double.IsInfinity(inputParameters.PiezometricHeadExit))
                 {
-                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer);
+                    validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
                 }
-
-                if (double.IsNaN(inputParameters.ThicknessCoverageLayer.Mean))
-                {
-                    validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer);
-                }
-
-                var pipingSoilProfile = inputParameters.StochasticSoilProfile.SoilProfile;
-                var surfaceLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
-
-                validationResult.AddRange(ValidateAquiferLayers(inputParameters, pipingSoilProfile, surfaceLevel));
-                validationResult.AddRange(ValidateCoverageLayers(inputParameters, pipingSoilProfile, surfaceLevel));
             }
 
-            return validationResult;
+            return validationResults;
         }
 
         private static IEnumerable<string> ValidateAssessmentLevel(PipingInput inputParameters)
         {
             var validationResult = new List<string>();
 
-            bool useAssessmentLevelManualInput = inputParameters.UseAssessmentLevelManualInput;
-            if (useAssessmentLevelManualInput)
+            if (inputParameters.UseAssessmentLevelManualInput)
             {
                 if (double.IsNaN(inputParameters.AssessmentLevel) || double.IsInfinity(inputParameters.AssessmentLevel))
                 {
@@ -188,12 +168,46 @@ namespace Ringtoets.Piping.Service
                 }
             }
 
-            if (double.IsNaN(inputParameters.PiezometricHeadExit) || double.IsInfinity(inputParameters.PiezometricHeadExit))
+            return validationResult;
+        }
+
+        private static IEnumerable<string> ValidateCoreSurfaceLineAndSoilProfileProperties(PipingInput inputParameters)
+        {
+            var validationResults = new List<string>();
+            if (inputParameters.SurfaceLine == null)
             {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
+                validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_SurfaceLine_selected);
+            }
+            if (inputParameters.StochasticSoilProfile == null)
+            {
+                validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_StochasticSoilProfile_selected);
+            }
+            if (double.IsNaN(inputParameters.ExitPointL))
+            {
+                validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_ExitPointL);
+            }
+            return validationResults;
+        }
+
+        private static IEnumerable<string> ValidateSoilLayers(PipingInput inputParameters)
+        {
+            var validationResults = new List<string>();
+            if (double.IsNaN(inputParameters.ThicknessAquiferLayer.Mean))
+            {
+                validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer);
             }
 
-            return validationResult;
+            if (double.IsNaN(inputParameters.ThicknessCoverageLayer.Mean))
+            {
+                validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer);
+            }
+
+            var pipingSoilProfile = inputParameters.StochasticSoilProfile.SoilProfile;
+            var surfaceLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
+
+            validationResults.AddRange(ValidateAquiferLayers(inputParameters, pipingSoilProfile, surfaceLevel));
+            validationResults.AddRange(ValidateCoverageLayers(inputParameters, pipingSoilProfile, surfaceLevel));
+            return validationResults;
         }
 
         private static IEnumerable<string> ValidateAquiferLayers(PipingInput inputParameters, PipingSoilProfile pipingSoilProfile, double surfaceLevel)
