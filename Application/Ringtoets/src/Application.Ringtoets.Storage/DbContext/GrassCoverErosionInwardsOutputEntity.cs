@@ -28,25 +28,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class GrassCoverErosionInwardsOutputEntity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public GrassCoverErosionInwardsOutputEntity()
+        {
+            GrassCoverErosionInwardsDikeHeightOutputEntities = new HashSet<GrassCoverErosionInwardsDikeHeightOutputEntity>();
+        }
+    
         public long GrassCoverErosionInwardsOutputEntityId { get; set; }
         public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
         public int Order { get; set; }
         public byte IsOvertoppingDominant { get; set; }
         public Nullable<double> WaveHeight { get; set; }
-        public Nullable<double> DikeHeight { get; set; }
-        public byte IsDikeHeightCalculated { get; set; }
         public Nullable<double> RequiredProbability { get; set; }
         public Nullable<double> RequiredReliability { get; set; }
         public Nullable<double> Probability { get; set; }
         public Nullable<double> Reliability { get; set; }
         public Nullable<double> FactorOfSafety { get; set; }
-
+    
         public virtual GrassCoverErosionInwardsCalculationEntity GrassCoverErosionInwardsCalculationEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionInwardsDikeHeightOutputEntity> GrassCoverErosionInwardsDikeHeightOutputEntities { get; set; }
     }
 }

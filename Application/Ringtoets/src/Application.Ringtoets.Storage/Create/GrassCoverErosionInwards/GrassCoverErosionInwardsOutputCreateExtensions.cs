@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -42,8 +43,6 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         {
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                DikeHeight = output.DikeHeight.Value.ToNaNAsNull(),
-                IsDikeHeightCalculated = Convert.ToByte(output.DikeHeightCalculated),
                 IsOvertoppingDominant = Convert.ToByte(output.IsOvertoppingDominant),
                 WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
                 RequiredProbability = output.ProbabilityAssessmentOutput.RequiredProbability.ToNaNAsNull(),
@@ -53,7 +52,18 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 FactorOfSafety = output.ProbabilityAssessmentOutput.FactorOfSafety.Value.ToNaNAsNull()
             };
 
+            CreateDikeHeightAssessmentOutput(entity, output.DikeHeightAssessmentOutput);
+
             return entity;
+        }
+
+        private static void CreateDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity, DikeHeightAssessmentOutput output)
+        {
+            if (output == null)
+            {
+                return;
+            }
+            entity.GrassCoverErosionInwardsDikeHeightOutputEntities.Add(output.Create());
         }
     }
 }

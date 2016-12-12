@@ -85,13 +85,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateGrassCoverErosionOutwardsHydraulicLocationOutputEntity_WithValidParameters_ReturnsHydraulicLocationEntityWithOutputSet(
             [Values(HydraulicLocationOutputType.DesignWaterLevel, HydraulicLocationOutputType.WaveHeight)] HydraulicLocationOutputType outputType,
             [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence designWaterLevelConvergence)
+                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
         {
             // Setup
             var random = new Random(21);
             var output = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), designWaterLevelConvergence);
+                random.NextDouble(), convergence);
 
             // Call
             GrassCoverErosionOutwardsHydraulicLocationOutputEntity entity = output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(outputType);

@@ -33,12 +33,17 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class StabilityPointStructuresFailureMechanismMetaEntity
+    public partial class GrassCoverErosionInwardsDikeHeightOutputEntity
     {
-        public long StrengthStabilityPointConstructionFailureMechanismMetaEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public int N { get; set; }
+        public long GrassCoverErosionInwardsDikeHeightOutputEntityId { get; set; }
+        public long GrassCoverErosionInwardsOutputEntityId { get; set; }
+        public Nullable<double> DikeHeight { get; set; }
+        public Nullable<double> TargetProbability { get; set; }
+        public Nullable<double> TargetReliability { get; set; }
+        public Nullable<double> CalculatedProbability { get; set; }
+        public Nullable<double> CalculatedReliability { get; set; }
+        public byte CalculationConvergence { get; set; }
     
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+        public virtual GrassCoverErosionInwardsOutputEntity GrassCoverErosionInwardsOutputEntity { get; set; }
     }
 }

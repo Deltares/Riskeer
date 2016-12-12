@@ -63,6 +63,7 @@
     <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructures\GeneralClosingStructuresInputCreateExtensions.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwards\DikeHeightAssessmentOutputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsInputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\GeneralHeightStructuresInputCreateExtensions.cs" />
@@ -117,6 +118,9 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionInwardsCalculationEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\GrassCoverErosionInwardsDikeHeightOutputEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionInwardsFailureMechanismMetaEntity.cs">
@@ -280,6 +284,7 @@
     <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\ForeshoreProfileEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsHydraulicLocationEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensions.cs" />

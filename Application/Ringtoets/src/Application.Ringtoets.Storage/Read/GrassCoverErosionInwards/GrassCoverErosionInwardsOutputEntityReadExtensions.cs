@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             return new GrassCoverErosionInwardsOutput(entity.WaveHeight.ToNullAsNaN(),
                                                       Convert.ToBoolean(entity.IsOvertoppingDominant),
                                                       ReadProbabilityAssessmentOutput(entity),
-                                                      GetDikeHeightValue(entity));
+                                                      GetDikeHeight(entity));
         }
 
         private static ProbabilityAssessmentOutput ReadProbabilityAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)
@@ -57,15 +57,10 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                                                    entity.FactorOfSafety.ToNullAsNaN());
         }
 
-        private static DikeHeightAssessmentOutput GetDikeHeightValue(GrassCoverErosionInwardsOutputEntity entity)
+        private static DikeHeightAssessmentOutput GetDikeHeight(GrassCoverErosionInwardsOutputEntity entity)
         {
-            if (Convert.ToBoolean(entity.IsDikeHeightCalculated))
-            {
-                return new DikeHeightAssessmentOutput(entity.DikeHeight.ToNullAsNaN(), double.NaN, 
-                    double.NaN, double.NaN, double.NaN,
-                    CalculationConvergence.NotCalculated);
-            }
-            return null;
+            GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightOutputEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.FirstOrDefault();
+            return dikeHeightOutputEntity != null ? dikeHeightOutputEntity.Read() : null;
         }
     }
 }

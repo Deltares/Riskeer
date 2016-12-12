@@ -38,8 +38,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             {
                 WaveHeight = 1.1,
                 IsOvertoppingDominant = Convert.ToByte(false),
-                DikeHeight = 3.3,
-                IsDikeHeightCalculated = Convert.ToByte(true),
                 Probability = 0.7,
                 RequiredProbability = 0.4,
                 RequiredReliability = 0.5,
@@ -53,8 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Assert
             Assert.AreEqual(entity.WaveHeight, output.WaveHeight.Value);
             Assert.IsFalse(output.IsOvertoppingDominant);
-            Assert.AreEqual(entity.DikeHeight, output.DikeHeight.Value);
-            Assert.IsTrue(output.DikeHeightCalculated);
+            Assert.IsFalse(output.DikeHeightCalculated);
             Assert.AreEqual(entity.FactorOfSafety, output.ProbabilityAssessmentOutput.FactorOfSafety.Value);
             Assert.AreEqual(entity.Probability, output.ProbabilityAssessmentOutput.Probability);
             Assert.AreEqual(entity.RequiredProbability, output.ProbabilityAssessmentOutput.RequiredProbability);
@@ -70,8 +67,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             {
                 WaveHeight = null,
                 IsOvertoppingDominant = Convert.ToByte(true),
-                DikeHeight = null,
-                IsDikeHeightCalculated = Convert.ToByte(true),
                 Probability = null,
                 RequiredProbability = null,
                 RequiredReliability = null,
@@ -86,30 +81,13 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.IsNaN(output.WaveHeight);
             Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.IsNaN(output.DikeHeight);
-            Assert.IsTrue(output.DikeHeightCalculated);
+            Assert.IsFalse(output.DikeHeightCalculated);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.FactorOfSafety.Value);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.Probability);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.RequiredProbability);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.Reliability.Value);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.RequiredReliability.Value);
-        }
-
-        [Test]
-        public void Read_DikeHeightNotCalculated_ReturnGrassCoverErosionInwardsOutputWithNotCalculatedDikeHeight()
-        {
-            // Setup
-            var entity = new GrassCoverErosionInwardsOutputEntity
-            {
-                DikeHeight = null,
-                IsDikeHeightCalculated = Convert.ToByte(false)
-            };
-
-            // Call
-            GrassCoverErosionInwardsOutput output = entity.Read();
-
-            // Assert
-            Assert.IsNaN(output.DikeHeight);
-            Assert.IsFalse(output.DikeHeightCalculated);
+            Assert.IsNull(output.DikeHeightAssessmentOutput);
         }
     }
 }
