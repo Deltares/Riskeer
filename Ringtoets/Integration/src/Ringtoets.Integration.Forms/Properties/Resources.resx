@@ -288,4 +288,16 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName" xml:space="preserve">
     <value>Hs [m]</value>
   </data>
+  <data name="FailureMechanismContribution_Composition_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FailureMechanismContribution_Composition_DisplayName" xml:space="preserve">
+    <value>Compositie</value>
+  </data>
+  <data name="FailureMechanismContribution_ReturnPeriod_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FailureMechanismContribution_ReturnPeriod_DisplayName" xml:space="preserve">
+    <value>Norm [1/jaar]</value>
+  </data>
 </root>

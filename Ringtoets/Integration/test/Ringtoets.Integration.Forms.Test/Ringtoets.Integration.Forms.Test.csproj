@@ -84,6 +84,7 @@
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelLocationsContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelLocationContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismContributionContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveHeightLocationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextPropertiesTest.cs" />

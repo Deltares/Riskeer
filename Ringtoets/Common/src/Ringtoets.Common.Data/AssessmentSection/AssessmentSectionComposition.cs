@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.Properties;
+
 namespace Ringtoets.Common.Data.AssessmentSection
 {
     /// <summary>
@@ -29,16 +32,19 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// The assessment section consists only out of 'dike' elements.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), "AssessmentSectionComposition_Dike")]
         Dike = 0,
 
         /// <summary>
         /// The assessment section consists only out of 'dune' elements.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), "AssessmentSectionComposition_Dune")]
         Dune = 1,
 
         /// <summary>
         /// The assessment section consists out of a combination of 'dike' and 'dune' elements.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), "AssessmentSectionComposition_DikeAndDune")]
         DikeAndDune = 2
     }
 }
