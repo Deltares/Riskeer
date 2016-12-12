@@ -113,7 +113,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             get
             {
-                return avalonDockViewHost;
+                return AvalonDockViewHost;
             }
         }
 

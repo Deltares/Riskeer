@@ -332,8 +332,10 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Validate_SurfaceLineMissingDitchPoint_ValidationMessageForIncompleteDitch(int missingType)
         {
             // Setup
-            TestPipingInput tempInput = new TestPipingInput();
-            tempInput.SurfaceLine = new RingtoetsPipingSurfaceLine();
+            TestPipingInput tempInput = new TestPipingInput
+            {
+                SurfaceLine = new RingtoetsPipingSurfaceLine()
+            };
             tempInput.SurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 2),
@@ -380,8 +382,10 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             int ditchPolderSidePosition)
         {
             // Setup
-            TestPipingInput tempInput = new TestPipingInput();
-            tempInput.SurfaceLine = new RingtoetsPipingSurfaceLine();
+            TestPipingInput tempInput = new TestPipingInput
+            {
+                SurfaceLine = new RingtoetsPipingSurfaceLine()
+            };
             tempInput.SurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 2),

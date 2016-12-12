@@ -62,7 +62,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected override void HandleUserCancellingImport()
         {
-            log.Info(Resources.DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted);
+            Log.Info(Resources.DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted);
             base.HandleUserCancellingImport();
         }
 
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 return true;
             }
-            log.WarnFormat(Resources.DikeProfilesImporter_No_dike_geometry_file_0_skipped, prflFilePath);
+            Log.WarnFormat(Resources.DikeProfilesImporter_No_dike_geometry_file_0_skipped, prflFilePath);
             return false;
         }
 
@@ -87,7 +87,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 var dikeProfileData = GetMatchingDikeProfileData(dikeProfileDataCollection, id);
                 if (dikeProfileData == null)
                 {
-                    log.ErrorFormat(Resources.DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_, id);
+                    Log.ErrorFormat(Resources.DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_, id);
                 }
                 else
                 {

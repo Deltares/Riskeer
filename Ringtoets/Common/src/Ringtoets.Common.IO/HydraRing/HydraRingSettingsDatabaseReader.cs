@@ -291,7 +291,7 @@ namespace Ringtoets.Common.IO.HydraRing
 
         private bool ContainsRequiredTables(List<Tuple<string, string>> definitions)
         {
-            return GetValidSchema().All(tableDefinition => definitions.Contains(tableDefinition));
+            return GetValidSchema().All(definitions.Contains);
         }
 
         private IDataReader CreateDesignTablesDataReader(long locationId, HydraRingFailureMechanismType calculationType)

@@ -41,7 +41,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         private const int gravitationalAccelerationPropertyIndex = 3;
 
         private const int cPropertyIndex = 4;
-        private const int n2aPropertyIndex = 5;
+        private const int n2APropertyIndex = 5;
         private const int lengthEffectPropertyIndex = 6;
 
         private const int modelFactorOvertoppingFlowPropertyIndex = 7;
@@ -63,7 +63,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(n2aPropertyIndex)]
+        [PropertyOrder(n2APropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
         [ResourcesDisplayName(typeof(Resources), "ClosingStructureFailureMechanismContextProperties_N2A_DisplayName")]
         [ResourcesDescription(typeof(Resources), "ClosingStructureFailureMechanismContextProperties_N2A_Description")]

@@ -543,9 +543,9 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 FailureMechanismContribution =
                 {
                     Norm = 1.0/300
-                }
+                },
+                ReferenceLine = new ReferenceLine()
             };
-            assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
                 new Point2D(147367.32190, 476902.91571),

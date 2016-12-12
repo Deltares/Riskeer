@@ -30,7 +30,7 @@ All rights reserved.
         xmlns:properties="clr-namespace:Core.Common.Gui.Properties"
     xmlns:viewHost="clr-namespace:Core.Common.Gui.Forms.ViewHost"
         mc:Ignorable="d" x:Class="Core.Common.Gui.Forms.MainWindow.MainWindow"
-        Title="MainWindow" Height="768" Width="1024" Background="White" Foreground="Black" x:Name="window"
+        Title="MainWindow" Height="768" Width="1024" Background="White" Foreground="Black" x:Name="Window"
         Icon="/Core.Common.Gui;component\Resources/Ringtoets.ico"
     ResizeMode="CanResizeWithGrip"
     FlowDirection="LeftToRight"
@@ -151,7 +151,7 @@ All rights reserved.
             </fluent:RibbonTabItem>
         </fluent:Ribbon>
 
-        <viewHost:AvalonDockViewHost Grid.Row="1" x:Name="avalonDockViewHost" />
+        <viewHost:AvalonDockViewHost Grid.Row="1" x:Name="AvalonDockViewHost" />
 
     </Grid>
 </fluent:RibbonWindow>

@@ -43,7 +43,7 @@ namespace Ringtoets.Common.IO.FileImporters
     /// <seealso cref="FileImporterBase{T}"/>
     public abstract class ProfilesImporter<T> : FileImporterBase<T>
     {
-        protected readonly ILog log = LogManager.GetLogger(typeof(ProfilesImporter<T>));
+        protected readonly ILog Log = LogManager.GetLogger(typeof(ProfilesImporter<T>));
         private readonly ReferenceLine referenceLine;
 
         /// <summary>
@@ -162,11 +162,11 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             catch (CriticalFileReadException exception)
             {
-                log.Error(exception.Message);
+                Log.Error(exception.Message);
             }
             catch (ArgumentException exception)
             {
-                log.Error(exception.Message);
+                Log.Error(exception.Message);
             }
             return new ReadResult<ProfileLocation>(true);
         }
@@ -194,11 +194,11 @@ namespace Ringtoets.Common.IO.FileImporters
                         Resources.ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped,
                         i + 1,
                         exception.Message);
-                    log.Warn(message);
+                    Log.Warn(message);
                 }
                 catch (CriticalFileReadException exception)
                 {
-                    log.Error(exception.Message);
+                    Log.Error(exception.Message);
                     return new ReadResult<ProfileLocation>(true);
                 }
             }
@@ -225,12 +225,12 @@ namespace Ringtoets.Common.IO.FileImporters
             double distanceToReferenceLine = GetDistanceToReferenceLine(profileLocation.Point);
             if (distanceToReferenceLine > 1.0)
             {
-                log.ErrorFormat(Resources.ProfilesImporter_AddNextProfileLocation_0_skipping_location_outside_referenceline, profileLocation.Id);
+                Log.ErrorFormat(Resources.ProfilesImporter_AddNextProfileLocation_0_skipping_location_outside_referenceline, profileLocation.Id);
                 return;
             }
             if (profileLocations.Any(dpl => dpl.Id.Equals(profileLocation.Id)))
             {
-                log.WarnFormat(Resources.ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read, profileLocation.Id);
+                Log.WarnFormat(Resources.ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read, profileLocation.Id);
             }
             profileLocations.Add(profileLocation);
         }
@@ -269,7 +269,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
                     if (data.SheetPileType != SheetPileType.Coordinates)
                     {
-                        log.Error(String.Format(Resources.ProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_, prflFilePath));
+                        Log.Error(String.Format(Resources.ProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_, prflFilePath));
                         continue;
                     }
 
@@ -285,7 +285,7 @@ namespace Ringtoets.Common.IO.FileImporters
                     // No need to catch ArgumentException, as prflFilePaths are valid by construction.
                 catch (CriticalFileReadException exception)
                 {
-                    log.Error(exception.Message);
+                    Log.Error(exception.Message);
                     return new ReadResult<DikeProfileData>(true);
                 }
             }
@@ -302,7 +302,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 Resources.ProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped,
                 data.Id,
                 prflFilePath);
-            log.Error(message);
+            Log.Error(message);
         }
 
         private double GetDistanceToReferenceLine(Point2D point)

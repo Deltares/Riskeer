@@ -921,7 +921,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
         private static bool IsDocumentViewPresent(AvalonDockViewHost avalonDockViewHost, IView documentView)
         {
-            var layoutDocumentPaneGroup = TypeUtils.GetField<LayoutDocumentPaneGroup>(avalonDockViewHost, "layoutDocumentPaneGroup");
+            var layoutDocumentPaneGroup = TypeUtils.GetField<LayoutDocumentPaneGroup>(avalonDockViewHost, "LayoutDocumentPaneGroup");
 
             return layoutDocumentPaneGroup.Descendents()
                                           .OfType<LayoutDocumentPane>()
@@ -937,13 +937,13 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             switch (toolViewLocation)
             {
                 case ToolViewLocation.Left:
-                    paneField = "leftLayoutAnchorablePaneGroup";
+                    paneField = "LeftLayoutAnchorablePaneGroup";
                     break;
                 case ToolViewLocation.Right:
-                    paneField = "rightLayoutAnchorablePaneGroup";
+                    paneField = "RightLayoutAnchorablePaneGroup";
                     break;
                 case ToolViewLocation.Bottom:
-                    paneField = "bottomLayoutAnchorablePaneGroup";
+                    paneField = "BottomLayoutAnchorablePaneGroup";
                     break;
                 default:
                     paneField = "";
@@ -961,21 +961,21 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
         private static bool IsFocussedView(AvalonDockViewHost avalonDockViewHost, IView view)
         {
-            var dockingManager = TypeUtils.GetField<DockingManager>(avalonDockViewHost, "dockingManager");
+            var dockingManager = TypeUtils.GetField<DockingManager>(avalonDockViewHost, "DockingManager");
 
             return ((WindowsFormsHost) dockingManager.ActiveContent).Child == view;
         }
 
         private static bool IsAnyViewFocussed(AvalonDockViewHost avalonDockViewHost)
         {
-            var dockingManager = TypeUtils.GetField<DockingManager>(avalonDockViewHost, "dockingManager");
+            var dockingManager = TypeUtils.GetField<DockingManager>(avalonDockViewHost, "DockingManager");
 
             return dockingManager.ActiveContent != null;
         }
 
         private static bool IsImageSet(AvalonDockViewHost avalonDockViewHost, IView view)
         {
-            var dockingManager = TypeUtils.GetField<DockingManager>(avalonDockViewHost, "dockingManager");
+            var dockingManager = TypeUtils.GetField<DockingManager>(avalonDockViewHost, "DockingManager");
 
             return dockingManager.Layout.Descendents()
                                  .OfType<LayoutContent>()

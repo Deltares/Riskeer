@@ -58,14 +58,14 @@ namespace Core.Common.Gui.Forms.ViewHost
         public AvalonDockViewHost()
         {
             InitializeComponent();
-            dummyPanelA.Hide();
-            dummyPanelB.Hide();
+            DummyPanelA.Hide();
+            DummyPanelB.Hide();
 
             toolViews = new List<IView>();
             documentViews = new List<IView>();
             hostControls = new List<WindowsFormsHost>();
 
-            dockingManager.ActiveContentChanged += OnActiveContentChanged;
+            DockingManager.ActiveContentChanged += OnActiveContentChanged;
             LostFocus += OnLostFocus;
         }
 
@@ -216,7 +216,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 var layoutDocument = GetLayoutContent<LayoutDocument>(view);
                 if (!layoutDocument.IsActive)
                 {
-                    dockingManager.Layout.ActiveContent = layoutDocument;
+                    DockingManager.Layout.ActiveContent = layoutDocument;
                 }
             }
             else if (toolViews.Contains(view))
@@ -224,7 +224,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 var layoutAnchorable = GetLayoutContent<LayoutAnchorable>(view);
                 if (!layoutAnchorable.IsActive)
                 {
-                    dockingManager.Layout.ActiveContent = layoutAnchorable;
+                    DockingManager.Layout.ActiveContent = layoutAnchorable;
                 }
             }
 
@@ -258,16 +258,16 @@ namespace Core.Common.Gui.Forms.ViewHost
                 // While doing so:
                 // - prevent unfocus actions when removing views programmatically (not necessary and might interfere with AvalonDock's active content change behavior);
                 // - prevent circular active content changes (which explains the code structure below).
-                dockingManager.ActiveContentChanged -= OnActiveContentChanged;
-                object activeContent = dockingManager.ActiveContent;
+                DockingManager.ActiveContentChanged -= OnActiveContentChanged;
+                object activeContent = DockingManager.ActiveContent;
 
                 userControl.ValidateChildren();
 
-                if (!ReferenceEquals(activeContent, dockingManager.ActiveContent))
+                if (!ReferenceEquals(activeContent, DockingManager.ActiveContent))
                 {
-                    dockingManager.ActiveContent = activeContent;
+                    DockingManager.ActiveContent = activeContent;
                 }
-                dockingManager.ActiveContentChanged += OnActiveContentChanged;
+                DockingManager.ActiveContentChanged += OnActiveContentChanged;
             }
         }
 
@@ -291,7 +291,7 @@ namespace Core.Common.Gui.Forms.ViewHost
         {
             if (ActiveViewChanged != null)
             {
-                ActiveViewChanged(this, new ViewChangeEventArgs(GetView(dockingManager.ActiveContent)));
+                ActiveViewChanged(this, new ViewChangeEventArgs(GetView(DockingManager.ActiveContent)));
             }
         }
 
@@ -320,14 +320,14 @@ namespace Core.Common.Gui.Forms.ViewHost
             // - prevent circular active content changes (which explains the code structure below).
             if (focussedView != null && !removingProgrammatically)
             {
-                dockingManager.ActiveContentChanged -= OnActiveContentChanged;
-                var activeContent = dockingManager.ActiveContent;
+                DockingManager.ActiveContentChanged -= OnActiveContentChanged;
+                var activeContent = DockingManager.ActiveContent;
                 NativeMethods.UnfocusActiveControl(focussedView as IContainerControl);
-                dockingManager.ActiveContent = activeContent;
-                dockingManager.ActiveContentChanged += OnActiveContentChanged;
+                DockingManager.ActiveContent = activeContent;
+                DockingManager.ActiveContentChanged += OnActiveContentChanged;
             }
 
-            focussedView = GetView(dockingManager.ActiveContent);
+            focussedView = GetView(DockingManager.ActiveContent);
 
             if (documentViews.Contains(focussedView))
             {
@@ -338,7 +338,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             {
                 OnActiveViewChangedEvent();
             }
-            else if (dockingManager.ActiveContent == null)
+            else if (DockingManager.ActiveContent == null)
             {
                 ActiveDocumentView = null;
             }
@@ -411,7 +411,7 @@ namespace Core.Common.Gui.Forms.ViewHost
         /// </summary>
         private void UpdateDockingManager()
         {
-            dockingManager.UpdateLayout();
+            DockingManager.UpdateLayout();
         }
 
         private void CleanupHostControl(IView view)
@@ -426,14 +426,14 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private T GetLayoutContent<T>(IView view) where T : LayoutContent
         {
-            return dockingManager.Layout.Descendents()
+            return DockingManager.Layout.Descendents()
                                  .OfType<T>()
                                  .FirstOrDefault(d => GetView(d.Content) == view);
         }
 
         private void AddLayoutDocument(LayoutDocument layoutDocument)
         {
-            layoutDocumentPaneGroup.Descendents()
+            LayoutDocumentPaneGroup.Descendents()
                                    .OfType<LayoutDocumentPane>()
                                    .First()
                                    .Children.Add(layoutDocument);
@@ -445,28 +445,28 @@ namespace Core.Common.Gui.Forms.ViewHost
             switch (toolViewLocation)
             {
                 case ToolViewLocation.Left:
-                    if (leftLayoutAnchorablePaneGroup.Parent == null)
+                    if (LeftLayoutAnchorablePaneGroup.Parent == null)
                     {
-                        leftLayoutAnchorablePaneGroup.Children.Add(new LayoutAnchorablePane());
-                        leftRightLayoutTarget.Children.Insert(0, leftLayoutAnchorablePaneGroup);
+                        LeftLayoutAnchorablePaneGroup.Children.Add(new LayoutAnchorablePane());
+                        LeftRightLayoutTarget.Children.Insert(0, LeftLayoutAnchorablePaneGroup);
                     }
-                    layoutAnchorablePaneGroup = leftLayoutAnchorablePaneGroup;
+                    layoutAnchorablePaneGroup = LeftLayoutAnchorablePaneGroup;
                     break;
                 case ToolViewLocation.Bottom:
-                    if (bottomLayoutAnchorablePaneGroup.Parent == null)
+                    if (BottomLayoutAnchorablePaneGroup.Parent == null)
                     {
-                        bottomLayoutAnchorablePaneGroup.Children.Add(new LayoutAnchorablePane());
-                        bottomLayoutTarget.Children.Add(bottomLayoutAnchorablePaneGroup);
+                        BottomLayoutAnchorablePaneGroup.Children.Add(new LayoutAnchorablePane());
+                        BottomLayoutTarget.Children.Add(BottomLayoutAnchorablePaneGroup);
                     }
-                    layoutAnchorablePaneGroup = bottomLayoutAnchorablePaneGroup;
+                    layoutAnchorablePaneGroup = BottomLayoutAnchorablePaneGroup;
                     break;
                 case ToolViewLocation.Right:
-                    if (rightLayoutAnchorablePaneGroup.Parent == null)
+                    if (RightLayoutAnchorablePaneGroup.Parent == null)
                     {
-                        rightLayoutAnchorablePaneGroup.Children.Add(new LayoutAnchorablePane());
-                        leftRightLayoutTarget.Children.Add(rightLayoutAnchorablePaneGroup);
+                        RightLayoutAnchorablePaneGroup.Children.Add(new LayoutAnchorablePane());
+                        LeftRightLayoutTarget.Children.Add(RightLayoutAnchorablePaneGroup);
                     }
-                    layoutAnchorablePaneGroup = rightLayoutAnchorablePaneGroup;
+                    layoutAnchorablePaneGroup = RightLayoutAnchorablePaneGroup;
                     break;
                 default:
                     throw new InvalidEnumArgumentException("toolViewLocation", (int) toolViewLocation, typeof(ToolViewLocation));

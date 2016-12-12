@@ -153,8 +153,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "De parameter 'C' die gebruikt wordt om het lengte-effect te berekenen.",
                                                                             true);
 
-            PropertyDescriptor n2aProperty = dynamicProperties[4];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(n2aProperty,
+            PropertyDescriptor n2AProperty = dynamicProperties[4];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(n2AProperty,
                                                                             lengthEffectCategory,
                                                                             "2NA [-]",
                                                                             "De parameter '2NA' die gebruikt wordt om het lengte-effect te berekenen.");
