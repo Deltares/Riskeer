@@ -153,6 +153,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string expectedMessage = new FileReaderErrorMessageBuilder(folderPath)
                 .Build(CoreCommonUtilsResources.Error_Path_must_not_point_to_empty_file_name);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importResult);
         }
 
         [Test]
@@ -178,6 +179,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string expectedMessage =
                 string.Format("Fout bij het lezen van bestand '{0}': kon geen punten vinden in dit bestand.", filePath);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importResult);
         }
 
         [Test]
@@ -336,6 +338,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             string expectedMessage = "Kunstwerklocatie met KWKIDENT 'KUNST3' is opnieuw ingelezen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(importResult);
         }
 
         [Test]
@@ -372,6 +375,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 "Fout bij het lezen van kunstwerk op regel 5. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+            Assert.IsFalse(importResult);
         }
 
         [Test]

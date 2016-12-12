@@ -23,7 +23,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;

@@ -34,15 +34,16 @@ namespace Core.Common.Base.Test
             var counter = 0;
 
             // Call
-            var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => { counter++; }, GetChildren);
+            using (var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => { counter++; }, GetChildren))
+            {
+                // Assert
+                Assert.IsInstanceOf<IObserver>(recursiveObserver);
+                Assert.IsNull(recursiveObserver.Observable);
+                Assert.AreEqual(0, counter);
 
-            // Assert
-            Assert.IsInstanceOf<IObserver>(recursiveObserver);
-            Assert.IsNull(recursiveObserver.Observable);
-            Assert.AreEqual(0, counter);
-
-            recursiveObserver.UpdateObserver();
-            Assert.AreEqual(1, counter);
+                recursiveObserver.UpdateObserver();
+                Assert.AreEqual(1, counter);
+            }
         }
 
         [TestCase(0)]
@@ -59,19 +60,20 @@ namespace Core.Common.Base.Test
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
 
-            var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => counter++, GetChildren)
+            using (new RecursiveObserver<TestContainer, TestContainer>(() => counter++, GetChildren)
             {
                 Observable = rootContainer
-            };
+            })
+            {
+                // When
+                currentNestedContainer.NotifyObservers();
 
-            // When
-            currentNestedContainer.NotifyObservers();
+                // Then
+                Assert.AreEqual(1, counter);
 
-            // Then
-            Assert.AreEqual(1, counter);
-
-            currentTestObservable.NotifyObservers();
-            Assert.AreEqual(1, counter); // Nothing should have happened
+                currentTestObservable.NotifyObservers();
+                Assert.AreEqual(1, counter); // Nothing should have happened
+            }
         }
 
         [TestCase(1)]
@@ -87,19 +89,20 @@ namespace Core.Common.Base.Test
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
 
-            var recursiveObserver = new RecursiveObserver<TestContainer, TestObservable>(() => counter++, GetChildren)
+            using (new RecursiveObserver<TestContainer, TestObservable>(() => counter++, GetChildren)
             {
                 Observable = rootContainer
-            };
+            })
+            {
+                // When
+                currentTestObservable.NotifyObservers();
 
-            // When
-            currentTestObservable.NotifyObservers();
+                // Then
+                Assert.AreEqual(1, counter);
 
-            // Then
-            Assert.AreEqual(1, counter);
-
-            currentNestedContainer.NotifyObservers();
-            Assert.AreEqual(1, counter); // Nothing should have happened
+                currentNestedContainer.NotifyObservers();
+                Assert.AreEqual(1, counter); // Nothing should have happened
+            }
         }
 
         [TestCase(0)]
@@ -116,17 +119,18 @@ namespace Core.Common.Base.Test
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
 
-            var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => counter++, GetChildren)
+            using (var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => counter++, GetChildren)
             {
                 Observable = rootContainer
-            };
+            })
+            {
+                // When
+                recursiveObserver.Observable = null;
+                currentNestedContainer.NotifyObservers();
 
-            // When
-            recursiveObserver.Observable = null;
-            currentNestedContainer.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(0, counter);
+                // Then
+                Assert.AreEqual(0, counter);
+            }
         }
 
         [TestCase(1)]
@@ -142,17 +146,18 @@ namespace Core.Common.Base.Test
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
 
-            var recursiveObserver = new RecursiveObserver<TestContainer, TestObservable>(() => counter++, GetChildren)
+            using (var recursiveObserver = new RecursiveObserver<TestContainer, TestObservable>(() => counter++, GetChildren)
             {
                 Observable = rootContainer
-            };
+            })
+            {
+                // When
+                recursiveObserver.Observable = null;
+                currentTestObservable.NotifyObservers();
 
-            // When
-            recursiveObserver.Observable = null;
-            currentTestObservable.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(0, counter);
+                // Then
+                Assert.AreEqual(0, counter);
+            }
         }
 
         [TestCase(0)]
@@ -223,22 +228,23 @@ namespace Core.Common.Base.Test
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
 
-            var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => counter++, GetChildren)
+            using (new RecursiveObserver<TestContainer, TestContainer>(() => counter++, GetChildren)
             {
                 Observable = rootContainer
-            };
+            })
+            {
+                // When
+                rootContainer.Children.Clear();
+                rootContainer.NotifyObservers(); // Collection changes should always be notified
 
-            // When
-            rootContainer.Children.Clear();
-            rootContainer.NotifyObservers(); // Collection changes should always be notified
+                // Precondition (counter equals 1 due to previous notification)
+                Assert.AreEqual(1, counter);
 
-            // Precondition (counter equals 1 due to previous notification)
-            Assert.AreEqual(1, counter);
+                currentNestedContainer.NotifyObservers();
 
-            currentNestedContainer.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(1, counter);
+                // Then
+                Assert.AreEqual(1, counter);
+            }
         }
 
         [TestCase(1)]
@@ -254,19 +260,20 @@ namespace Core.Common.Base.Test
 
             InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
 
-            var recursiveObserver = new RecursiveObserver<TestContainer, TestObservable>(() => counter++, GetChildren)
+            using (new RecursiveObserver<TestContainer, TestObservable>(() => counter++, GetChildren)
             {
                 Observable = rootContainer
-            };
+            })
+            {
+                // When
+                rootContainer.Children.Clear();
+                rootContainer.NotifyObservers(); // Collection changes should always be notified
 
-            // When
-            rootContainer.Children.Clear();
-            rootContainer.NotifyObservers(); // Collection changes should always be notified
+                currentTestObservable.NotifyObservers();
 
-            currentTestObservable.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(0, counter);
+                // Then
+                Assert.AreEqual(0, counter);
+            }
         }
 
         private static void InitializeHierarchy(int nestingLevel, ref TestContainer currentNestedContainer, ref TestObservable currentTestObservable)

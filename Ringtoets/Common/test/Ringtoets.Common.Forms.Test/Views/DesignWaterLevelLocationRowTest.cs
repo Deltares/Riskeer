@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;

@@ -22,8 +22,6 @@
 using System;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
-using System.Security;
-using System.Security.Principal;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;

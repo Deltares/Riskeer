@@ -1014,11 +1014,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsNaN(seepageLength.StandardDeviation);
         }
 
-        private static double GetErrorTolerance(RoundedDouble roundedDouble)
-        {
-            return Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
-        }
-
         private static RingtoetsPipingSurfaceLine CreateSurfaceLine()
         {
             RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();

@@ -57,7 +57,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
 
-        private const int contextMenuOpenItemIndex = 0;
         private const int contextMenuValidateAllIndex = 4;
         private const int contextMenuCalculateAllIndex = 5;
         private const int contextMenuClearAllIndex = 6;

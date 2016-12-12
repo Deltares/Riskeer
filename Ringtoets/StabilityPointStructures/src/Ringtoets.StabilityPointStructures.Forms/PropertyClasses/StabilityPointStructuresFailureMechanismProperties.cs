@@ -44,8 +44,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         private const int modelFactorSubCriticalFlowPropertyIndex = 6;
         private const int modelFactorCollisionLoadPropertyIndex = 7;
         private const int modelFactorLoadEffectPropertyIndex = 8;
-        private const int waveRatioMaxHNPropertyIndex = 9;
-        private const int waveRatioMaxHStandardDeviationPropertyIndex = 10;
 
         #region Length effect parameters
 

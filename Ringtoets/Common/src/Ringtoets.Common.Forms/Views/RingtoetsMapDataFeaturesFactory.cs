@@ -233,8 +233,9 @@ namespace Ringtoets.Common.Forms.Views
         {
             if ((calculations != null && calculations.Any()))
             {
-                MapCalculationData[] calculationData = Enumerable.ToArray<MapCalculationData>(calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<T, U>)
-                                                                                                          .Select(CreatemapCalculationData<T, U>));
+                MapCalculationData[] calculationData = calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<T, U>)
+                                                                   .Select(CreatemapCalculationData<T, U>)
+                                                                   .ToArray();
 
                 return CreateCalculationFeatures(calculationData);
             }

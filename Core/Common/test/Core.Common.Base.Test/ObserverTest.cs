@@ -33,15 +33,17 @@ namespace Core.Common.Base.Test
             var counter = 0;
 
             // Call
-            var observer = new Observer(() => { counter++; });
+            using (var observer = new Observer(() => { counter++; }))
+            {
 
-            // Assert
-            Assert.IsInstanceOf<IObserver>(observer);
-            Assert.IsNull(observer.Observable);
-            Assert.AreEqual(0, counter);
+                // Assert
+                Assert.IsInstanceOf<IObserver>(observer);
+                Assert.IsNull(observer.Observable);
+                Assert.AreEqual(0, counter);
 
-            observer.UpdateObserver();
-            Assert.AreEqual(1, counter);
+                observer.UpdateObserver();
+                Assert.AreEqual(1, counter);
+            }
         }
 
         [Test]
@@ -50,16 +52,17 @@ namespace Core.Common.Base.Test
             // Setup
             var counter = 0;
             var observable = new TestObservable();
-            var observer = new Observer(() => counter++)
+            using (new Observer(() => counter++)
             {
                 Observable = observable
-            };
+            })
+            {
+                // Call
+                observable.NotifyObservers();
 
-            // Call
-            observable.NotifyObservers();
-
-            // Assert
-            Assert.AreEqual(1, counter);
+                // Assert
+                Assert.AreEqual(1, counter);
+            }
         }
 
         [Test]
@@ -68,18 +71,19 @@ namespace Core.Common.Base.Test
             // Setup
             var counter = 0;
             var observable = new TestObservable();
-            var observer = new Observer(() => counter++)
+            using (var observer = new Observer(() => counter++)
             {
                 Observable = observable
-            };
+            })
+            {
+                observer.Observable = null;
 
-            observer.Observable = null;
+                // Call
+                observable.NotifyObservers();
 
-            // Call
-            observable.NotifyObservers();
-
-            // Assert
-            Assert.AreEqual(0, counter);
+                // Assert
+                Assert.AreEqual(0, counter);
+            }
         }
 
         [Test]

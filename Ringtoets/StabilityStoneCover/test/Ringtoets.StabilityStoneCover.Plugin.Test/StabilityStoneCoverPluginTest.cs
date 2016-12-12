@@ -24,7 +24,6 @@ using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
