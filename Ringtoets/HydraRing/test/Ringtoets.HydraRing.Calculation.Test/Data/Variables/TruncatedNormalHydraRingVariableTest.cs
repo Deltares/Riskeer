@@ -1,4 +1,5 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+﻿
+// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -31,14 +32,26 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            const int variableId = 1;
+            const HydraRingDeviationType deviationType = HydraRingDeviationType.Standard;
+            const double mean = 2.2;
+            const double variance = 3.3;
+            const double lowerBoundary = 4.4;
+            const double upperBoundary = 5.5;
+
             // Call
-            var hydraRingVariable = new TruncatedNormalHydraRingVariable(1, HydraRingDeviationType.Standard, 2.2, 3.3, 4.4, 5.5);
+            var hydraRingVariable = new TruncatedNormalHydraRingVariable(variableId, deviationType, mean, variance, lowerBoundary, upperBoundary);
 
             // Assert
             Assert.IsInstanceOf<RandomHydraRingVariable>(hydraRingVariable);
             Assert.AreEqual(HydraRingDistributionType.TruncatedNormal, hydraRingVariable.DistributionType);
-            Assert.AreEqual(4.4, hydraRingVariable.Parameter3);
-            Assert.AreEqual(5.5, hydraRingVariable.Parameter4);
+            Assert.AreEqual(deviationType, hydraRingVariable.DeviationType);
+            Assert.AreEqual(variableId, hydraRingVariable.VariableId);
+            Assert.AreEqual(mean, hydraRingVariable.Parameter1);
+            Assert.AreEqual(variance, hydraRingVariable.Parameter2);
+            Assert.AreEqual(lowerBoundary, hydraRingVariable.Parameter3);
+            Assert.AreEqual(upperBoundary, hydraRingVariable.Parameter4);
         }
     }
 }

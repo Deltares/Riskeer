@@ -121,9 +121,19 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 8, 9, 10, 11.11, 12.12, 13.13, 14.14, 15, 1, 16, 17, 18.18, 19.19, 20.2, 21);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [VariableDatas];" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 0, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 2, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 2, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 0, 2, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 4, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 4, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 0, 4, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 19, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 19, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 0, 19, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 18, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 18, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 0, 18, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                          "INSERT INTO [CalculationProfiles] VALUES (1, 1, 1.1, 2.2, 3.3);" + Environment.NewLine +
@@ -247,15 +257,45 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [Numerics] VALUES (3, 1, 1, 1, 1, 208, 209, 210, 211.11, 212.12, 213.13, 214.14, 215, 1, 216, 217, 218.18, 219.19, 220.2, 221);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [VariableDatas];" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 0, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 2, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 2, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 0, 2, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 4, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 4, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 0, 4, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 19, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 19, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 0, 19, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 18, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 18, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 0, 18, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 1.1, 0, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 1.1, 2, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 1.1, 2, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 0, 2, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 1.1, 4, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 1.1, 4, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 0, 4, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 1.1, 19, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 1.1, 19, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 0, 19, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 1.1, 18, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 1.1, 18, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (2, 1, 1, 1, 26, 0, 18, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 1.1, 0, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 1.1, 2, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 1.1, 2, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 0, 2, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 1.1, 4, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 1.1, 4, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 0, 4, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 1.1, 19, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 1.1, 19, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 0, 19, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 1.1, 18, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 1.1, 18, 2.2, 3.3, 4.4, 5.5, 0, 6.6, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (3, 1, 1, 1, 26, 0, 18, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                          "INSERT INTO [CalculationProfiles] VALUES (1, 1, 1.1, 2.2, 3.3);" + Environment.NewLine +
@@ -383,9 +423,19 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             {
                 get
                 {
+                    yield return new TestHydraRingVariable(26, HydraRingDistributionType.Deterministic, HydraRingDeviationType.Standard, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
                     yield return new TestHydraRingVariable(26, HydraRingDistributionType.Normal, HydraRingDeviationType.Standard, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
-                    yield return new TestHydraRingVariable(26, HydraRingDistributionType.Normal, HydraRingDeviationType.Variation, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);                    
+                    yield return new TestHydraRingVariable(26, HydraRingDistributionType.Normal, HydraRingDeviationType.Variation, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
                     yield return new TestHydraRingVariable(26, HydraRingDistributionType.Normal, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+                    yield return new TestHydraRingVariable(26, HydraRingDistributionType.LogNormal, HydraRingDeviationType.Standard, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
+                    yield return new TestHydraRingVariable(26, HydraRingDistributionType.LogNormal, HydraRingDeviationType.Variation, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
+                    yield return new TestHydraRingVariable(26, HydraRingDistributionType.LogNormal, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+                    yield return new TestHydraRingVariable(26, HydraRingDistributionType.TruncatedNormal, HydraRingDeviationType.Standard, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
+                    yield return new TestHydraRingVariable(26, HydraRingDistributionType.TruncatedNormal, HydraRingDeviationType.Variation, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
+                    yield return new TestHydraRingVariable(26, HydraRingDistributionType.TruncatedNormal, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+                    yield return new TestHydraRingVariable(26, HydraRingDistributionType.RayleighN, HydraRingDeviationType.Standard, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
+                    yield return new TestHydraRingVariable(26, HydraRingDistributionType.RayleighN, HydraRingDeviationType.Variation, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
+                    yield return new TestHydraRingVariable(26, HydraRingDistributionType.RayleighN, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
                 }
             }
 

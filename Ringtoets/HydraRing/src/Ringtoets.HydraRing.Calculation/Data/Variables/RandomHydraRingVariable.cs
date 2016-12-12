@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         private readonly double variance;
 
         /// <summary>
-        /// Creates a new instance of <see cref="RandomHydraRingVariable"/>
+        /// Creates a new instance of <see cref="RandomHydraRingVariable"/>.
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
         /// <param name="deviationType">The deviation type of the variable.</param>

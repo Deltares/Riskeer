@@ -31,12 +31,22 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            const int variableId = 1;
+            const HydraRingDeviationType deviationType = HydraRingDeviationType.Standard;
+            const double n = 2.2;
+            const double variance = 3.3;
+
             // Call
-            var hydraRingVariable = new RayleighNHydraRingVariable(1, HydraRingDeviationType.Standard, 3.3, 2.2);
+            var hydraRingVariable = new RayleighNHydraRingVariable(variableId, deviationType, n, variance);
 
             // Assert
             Assert.IsInstanceOf<RandomHydraRingVariable>(hydraRingVariable);
             Assert.AreEqual(HydraRingDistributionType.RayleighN, hydraRingVariable.DistributionType);
+            Assert.AreEqual(deviationType, hydraRingVariable.DeviationType);
+            Assert.AreEqual(variableId, hydraRingVariable.VariableId);
+            Assert.AreEqual(variance, hydraRingVariable.Parameter1);
+            Assert.AreEqual(n, hydraRingVariable.Parameter2);
         }
     }
 }

@@ -47,9 +47,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         {
             get
             {
-                return !double.IsNaN(shift)
-                           ? shift
-                           : base.Parameter3;
+                return shift;
             }
         }
 

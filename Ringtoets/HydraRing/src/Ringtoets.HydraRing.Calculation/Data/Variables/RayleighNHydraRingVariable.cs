@@ -31,11 +31,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Variables
         /// </summary>
         /// <param name="variableId">The Hydra-Ring id corresponding to the variable that is considered.</param>
         /// <param name="deviationType">The deviation type of the variable.</param>
-        /// <param name="n">The n value of the variable.</param>
-        /// <param name="standardDeviation">The standardDeviation value of the variable.</param>
+        /// <param name="n">The N value of the variable.</param>
+        /// <param name="variance">The variance value of the variable.</param>
         public RayleighNHydraRingVariable(int variableId, HydraRingDeviationType deviationType,
-                                          double n, double standardDeviation)
-            : base(variableId, deviationType, standardDeviation, n) {}
+                                          double n, double variance)
+            : base(variableId, deviationType, variance, n) { } // Note: Pass the N as "variability" and the variance as "mean"
 
         public override HydraRingDistributionType DistributionType
         {
