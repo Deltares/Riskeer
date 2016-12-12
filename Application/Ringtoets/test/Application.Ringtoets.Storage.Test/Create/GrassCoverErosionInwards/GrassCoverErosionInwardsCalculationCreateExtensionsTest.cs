@@ -53,16 +53,16 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        [TestCase("I have no comments", null)]
-        [TestCase("I do have a comment", "I am comment")]
-        public void Create_ValidCalculation_ReturnEntity(string name, string comment,
-                                                         [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                             DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                             DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType)
+        public void Create_ValidCalculation_ReturnEntity(
+            [Values("I am comment", null)] string comment,
+            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
+                DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var random = new Random(1);
             int order = random.Next();
+            string name = "GrassCoverErosionInwardsCalculation Name";
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
