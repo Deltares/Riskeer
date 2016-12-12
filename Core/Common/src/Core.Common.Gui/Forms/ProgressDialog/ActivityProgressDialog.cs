@@ -202,5 +202,22 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                 labelActivityProgressText.Text = progressTextNullOrEmpty ? string.Empty : activity.ProgressText;
             });
         }
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+
+            cancellationTokenSource.Dispose();
+            
+            base.Dispose(disposing);
+        }
+
     }
 }

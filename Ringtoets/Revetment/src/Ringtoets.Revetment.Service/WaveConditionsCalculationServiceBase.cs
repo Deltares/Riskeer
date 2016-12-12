@@ -47,7 +47,7 @@ namespace Ringtoets.Revetment.Service
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WaveConditionsCalculationServiceBase));
 
-        public ProgressChangedDelegate OnProgress;
+        public OnProgressChanged OnProgress;
         protected int TotalWaterLevelCalculations;
         private int currentStep = 1;
         private IWaveConditionsCosineCalculator calculator;

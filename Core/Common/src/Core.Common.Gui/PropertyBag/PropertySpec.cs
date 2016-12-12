@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -65,7 +66,7 @@ namespace Core.Common.Gui.PropertyBag
             {
                 attributeList.Add(new ReadOnlyAttribute(true));
             }
-            Attributes = attributeList.ToArray();
+            Attributes = new ReadOnlyCollection<Attribute>(attributeList);
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace Core.Common.Gui.PropertyBag
         /// <see cref="PropertySpec"/> class, such as <see cref="System.ComponentModel.ReadOnlyAttribute"/> 
         /// and <see cref="BrowsableAttribute"/>.
         /// </summary>
-        public Attribute[] Attributes { get; private set; }
+        public ReadOnlyCollection<Attribute> Attributes { get; private set; }
 
         /// <summary>
         /// Gets the name of the property.

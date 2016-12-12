@@ -56,7 +56,7 @@ namespace Core.Common.Base.IO
             ImportTarget = importTarget;
         }
 
-        public void SetProgressChanged(ProgressChangedDelegate action)
+        public void SetProgressChanged(OnProgressChanged action)
         {
             ProgressChanged = action;
         }
@@ -87,7 +87,7 @@ namespace Core.Common.Base.IO
             }
         }
 
-        private ProgressChangedDelegate ProgressChanged { get; set; }
+        private OnProgressChanged ProgressChanged { get; set; }
 
         /// <summary>
         /// Gets the import target.

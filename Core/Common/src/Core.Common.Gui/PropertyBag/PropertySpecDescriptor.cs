@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.Attributes;
 
 namespace Core.Common.Gui.PropertyBag
@@ -48,7 +49,7 @@ namespace Core.Common.Gui.PropertyBag
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="propertySpec"/>
         /// is <c>null</c>.</exception>
         public PropertySpecDescriptor(PropertySpec propertySpec, object instance)
-            : base(ValidateNotNull(propertySpec).Name, propertySpec.Attributes)
+            : base(ValidateNotNull(propertySpec).Name, propertySpec.Attributes.ToArray())
         {
             item = propertySpec;
             this.instance = instance;

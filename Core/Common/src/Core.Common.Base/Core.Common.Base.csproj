@@ -98,7 +98,7 @@
     <Compile Include="Geometry\Segment2D.cs" />
     <Compile Include="Geometry\Segment2DIntersectSegment2DResult.cs" />
     <Compile Include="IO\FileImporterBase.cs" />
-    <Compile Include="IO\ProgressChangedDelegate.cs" />
+    <Compile Include="IO\OnProgressChanged.cs" />
     <Compile Include="Observer.cs" />
     <Compile Include="RecursiveObserver.cs" />
     <Compile Include="Storage\StorageException.cs" />

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.ObjectModel;
+
 namespace Core.Common.Base.Geometry
 {
     /// <summary>
@@ -30,7 +32,7 @@ namespace Core.Common.Base.Geometry
         private Segment2DIntersectSegment2DResult(Intersection2DType type, Point2D[] points)
         {
             IntersectionType = type;
-            IntersectionPoints = points;
+            IntersectionPoints = new ReadOnlyCollection<Point2D>(points);
         }
 
         /// <summary>
@@ -47,7 +49,7 @@ namespace Core.Common.Base.Geometry
         /// <para>If <see cref="IntersectionType"/> has a value of <see cref="Intersection2DType.Overlaps"/>,
         /// the array holds the two points defining the overlapping area for both segments.</para>
         /// </remarks>
-        public Point2D[] IntersectionPoints { get; private set; }
+        public ReadOnlyCollection<Point2D> IntersectionPoints { get; private set; }
 
         /// <summary>
         /// Creates the calculation result for having found no intersections.

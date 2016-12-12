@@ -566,7 +566,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 sourceGroupBox.Items.Remove(item);
                 targetGroupBox.Items.Add(item);
 
-                if (item is Button)
+                if (buttonItem != null)
                 {
                     var button = targetGroupBox.Items.OfType<Button>().Last();
                     button.Size = iconSize;

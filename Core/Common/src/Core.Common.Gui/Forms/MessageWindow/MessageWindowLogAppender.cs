@@ -128,7 +128,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
             if (loggingEvent.ExceptionObject != null)
             {
-                message += " " + Environment.NewLine + Resources.MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_information_Home_Show_Log;
+                message += @" " + Environment.NewLine + Resources.MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_information_Home_Show_Log;
             }
 
             MessageWindow.AddMessage(loggingEvent.Level, loggingEvent.TimeStamp, message);

@@ -51,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionInwardsCalculationService));
 
-        public ProgressChangedDelegate OnProgress;
+        public OnProgressChanged OnProgress;
         private IOvertoppingCalculator overtoppingCalculator;
         private IDikeHeightCalculator dikeHeightCalculator;
         private bool canceled;

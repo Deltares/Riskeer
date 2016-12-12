@@ -26,6 +26,7 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.Test.Properties;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Converters
@@ -53,10 +54,9 @@ namespace Core.Common.Gui.Test.Converters
             var bitmap = converter.Convert(Resources.abacus, typeof(BitmapImage), null, CultureInfo.InvariantCulture);
 
             // Assert
-            Assert.IsInstanceOf<BitmapImage>(bitmap);
-            var bitmapInstance = (BitmapImage) bitmap;
-            Assert.AreEqual(16, bitmapInstance.Height);
-            Assert.AreEqual(16, bitmapInstance.Width);
+            var bitmapInstance = bitmap as BitmapImage;
+            Assert.NotNull(bitmapInstance);
+            TestHelper.AssertImagesAreEqual(new Bitmap(bitmapInstance.StreamSource), Resources.abacus);
         }
 
         [Test]

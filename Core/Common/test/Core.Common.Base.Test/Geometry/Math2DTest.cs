@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Properties;
@@ -1202,7 +1203,7 @@ namespace Core.Common.Base.Test.Geometry
                 "Fraction needs to be defined in range [0.0, 1.0] in order to reliably interpolate.");
         }
 
-        private static void CollectionAssertAreEquivalent(Point2D[] expected, Point2D[] actual)
+        private static void CollectionAssertAreEquivalent(Point2D[] expected, ReadOnlyCollection<Point2D> actual)
         {
             var comparer = new Point2DComparerWithTolerance(1e-6);
             foreach (var intersectionPoint in actual)

@@ -72,7 +72,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             // Assert
             Assert.AreEqual(propertyName, propertySpec.Name);
             Assert.AreEqual(propertyInfo.PropertyType.AssemblyQualifiedName, propertySpec.TypeName);
-            Assert.AreEqual(1, propertySpec.Attributes.Length);
+            Assert.AreEqual(1, propertySpec.Attributes.Count);
             var readOnlyAttribute = (ReadOnlyAttribute) propertySpec.Attributes[0];
             Assert.IsTrue(readOnlyAttribute.IsReadOnly);
         }
@@ -90,7 +90,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             // Assert
             Assert.AreEqual(propertyName, propertySpec.Name);
             Assert.AreEqual(propertyInfo.PropertyType.AssemblyQualifiedName, propertySpec.TypeName);
-            Assert.AreEqual(2, propertySpec.Attributes.Length);
+            Assert.AreEqual(2, propertySpec.Attributes.Count);
             var browsableAttribute = propertySpec.Attributes.OfType<BrowsableAttribute>().Single();
             Assert.IsTrue(browsableAttribute.Browsable);
             var readOnlyAttribute = propertySpec.Attributes.OfType<ReadOnlyAttribute>().Single();
@@ -110,7 +110,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             // Assert
             Assert.AreEqual(propertyName, propertySpec.Name);
             Assert.AreEqual(propertyInfo.PropertyType.AssemblyQualifiedName, propertySpec.TypeName);
-            Assert.AreEqual(2, propertySpec.Attributes.Length);
+            Assert.AreEqual(2, propertySpec.Attributes.Count);
             var browsableAttribute = propertySpec.Attributes.OfType<BrowsableAttribute>().Single();
             Assert.IsFalse(browsableAttribute.Browsable, "Should have the override value.");
             var readOnlyAttribute = propertySpec.Attributes.OfType<ReadOnlyAttribute>().Single();
@@ -130,7 +130,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             // Assert
             Assert.AreEqual(propertyName, propertySpec.Name);
             Assert.AreEqual(propertyInfo.PropertyType.AssemblyQualifiedName, propertySpec.TypeName);
-            Assert.AreEqual(1, propertySpec.Attributes.Length);
+            Assert.AreEqual(1, propertySpec.Attributes.Count);
             var browsableAttribute = propertySpec.Attributes.OfType<BrowsableAttribute>().Single();
             Assert.IsTrue(browsableAttribute.Browsable,
                           "No override in 'InheritorSettingPropertyToNotBrowsable' for property 'BoolPropertyWithAttributes', so use base class.");
