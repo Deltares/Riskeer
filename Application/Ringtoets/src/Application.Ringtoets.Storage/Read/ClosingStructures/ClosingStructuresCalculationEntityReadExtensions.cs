@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
             inputParameters.IdenticalApertures = entity.IdenticalApertures;
             inputParameters.LevelCrestStructureNotClosing.Mean = (RoundedDouble) entity.LevelCrestStructureNotClosingMean.ToNullAsNaN();
             inputParameters.LevelCrestStructureNotClosing.StandardDeviation = (RoundedDouble) entity.LevelCrestStructureNotClosingStandardDeviation.ToNullAsNaN();
-            inputParameters.ProbabilityOpenStructureBeforeFlooding = entity.ProbabilityOpenStructureBeforeFlooding;
+            inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding = entity.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
         }
 
         private static void ReadOutput(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresCalculationEntity entity)

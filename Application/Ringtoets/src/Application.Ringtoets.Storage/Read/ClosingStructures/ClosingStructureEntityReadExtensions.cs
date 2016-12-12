@@ -103,7 +103,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
                     Mean = (RoundedDouble) entity.FlowWidthAtBottomProtectionMean.ToNullAsNaN(),
                     StandardDeviation = (RoundedDouble) entity.FlowWidthAtBottomProtectionStandardDeviation.ToNullAsNaN()
                 },
-                ProbabilityOpenStructureBeforeFlooding = entity.ProbabilityOpenStructureBeforeFlooding.ToNullAsNaN(),
+                ProbabilityOrFrequencyOpenStructureBeforeFlooding = entity.ProbabilityOrFrequencyOpenStructureBeforeFlooding.ToNullAsNaN(),
                 FailureProbabilityOpenStructure = entity.FailureProbabilityOpenStructure.ToNullAsNaN(),
                 IdenticalApertures = entity.IdenticalApertures,
                 FailureProbabilityReparation = entity.FailureProbabilityReparation.ToNullAsNaN(),

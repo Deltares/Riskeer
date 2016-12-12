@@ -115,7 +115,7 @@ namespace Ringtoets.Common.IO.Structures
                     StructureFilesKeywords.ClosingStructureParameterKeyword10, LogNormalDistributionRule
                 },
                 {
-                    StructureFilesKeywords.ClosingStructureParameterKeyword11, ProbabilityRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword11, PositiveDoubleRule
                 },
                 {
                     StructureFilesKeywords.ClosingStructureParameterKeyword12, ProbabilityRule
@@ -316,6 +316,20 @@ namespace Ringtoets.Common.IO.Structures
             return messages;
         }
 
+        private static List<string> ValidateGreaterThanZeroDoubleParameter(StructuresParameterRow row, string columnName)
+        {
+            var messages = new List<string>();
+
+            double value = GetValueFromRowForColumn(row, columnName);
+            if (double.IsNaN(value) || double.IsInfinity(value) || value <= 0)
+            {
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_must_be_greater_than_zero,
+                                           row.ParameterId, row.LineNumber, columnName.FirstToUpper()));
+            }
+
+            return messages;
+        }
+
         private static double GetValueFromRowForColumn(StructuresParameterRow row, string columnName)
         {
             switch (columnName)
@@ -370,7 +384,7 @@ namespace Ringtoets.Common.IO.Structures
             double mean = row.NumericalValue;
             var numericalValueColumn1 = StructureFilesKeywords.NumericalValueColumnName;
             messages.AddRange(meanMustBeGreaterThanZero ?
-                                  ValidatePositiveDoubleParameter(row, numericalValueColumn1) :
+                                  ValidateGreaterThanZeroDoubleParameter(row, numericalValueColumn1) :
                                   ValidateDoubleParameter(row, numericalValueColumn1));
 
             VarianceType type = row.VarianceType;

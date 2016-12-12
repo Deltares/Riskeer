@@ -98,7 +98,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
                 CriticalOvertoppingDischargeCoefficientOfVariation = 19.19,
                 FlowWidthAtBottomProtectionMean = 20.20,
                 FlowWidthAtBottomProtectionStandardDeviation = 21.21,
-                ProbabilityOpenStructureBeforeFlooding = 22.22,
+                ProbabilityOrFrequencyOpenStructureBeforeFlooding = 22.22,
                 FailureProbabilityOpenStructure = 23.23,
                 IdenticalApertures = 24,
                 FailureProbabilityReparation = 25.25,
@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             Assert.AreEqual(entity.CriticalOvertoppingDischargeCoefficientOfVariation, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.FlowWidthAtBottomProtectionMean, structure.FlowWidthAtBottomProtection.Mean.Value);
             Assert.AreEqual(entity.FlowWidthAtBottomProtectionStandardDeviation, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
-            Assert.AreEqual(entity.ProbabilityOpenStructureBeforeFlooding, structure.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(entity.ProbabilityOrFrequencyOpenStructureBeforeFlooding, structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             Assert.AreEqual(entity.FailureProbabilityOpenStructure, structure.FailureProbabilityOpenStructure);
             Assert.AreEqual(entity.IdenticalApertures, structure.IdenticalApertures);
             Assert.AreEqual(entity.FailureProbabilityReparation, structure.FailureProbabilityReparation);
@@ -172,7 +172,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
                 CriticalOvertoppingDischargeCoefficientOfVariation = null,
                 FlowWidthAtBottomProtectionMean = null,
                 FlowWidthAtBottomProtectionStandardDeviation = null,
-                ProbabilityOpenStructureBeforeFlooding = null,
+                ProbabilityOrFrequencyOpenStructureBeforeFlooding = null,
                 FailureProbabilityOpenStructure = null
             };
 
@@ -204,7 +204,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             Assert.IsNaN(structure.CriticalOvertoppingDischarge.CoefficientOfVariation);
             Assert.IsNaN(structure.FlowWidthAtBottomProtection.Mean);
             Assert.IsNaN(structure.FlowWidthAtBottomProtection.StandardDeviation);
-            Assert.IsNaN(structure.ProbabilityOpenStructureBeforeFlooding);
+            Assert.IsNaN(structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             Assert.IsNaN(structure.FailureProbabilityOpenStructure);
             Assert.IsNaN(structure.FailureProbabilityReparation);
         }

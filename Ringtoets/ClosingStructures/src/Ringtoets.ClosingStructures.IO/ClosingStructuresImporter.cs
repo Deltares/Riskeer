@@ -147,7 +147,7 @@ namespace Ringtoets.ClosingStructures.IO
                         Mean = (RoundedDouble) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10].NumericalValue,
                         StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10], structureName)
                     },
-                    ProbabilityOpenStructureBeforeFlooding = rowData[StructureFilesKeywords.ClosingStructureParameterKeyword11].NumericalValue,
+                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = rowData[StructureFilesKeywords.ClosingStructureParameterKeyword11].NumericalValue,
                     FailureProbabilityOpenStructure = rowData[StructureFilesKeywords.ClosingStructureParameterKeyword12].NumericalValue,
                     IdenticalApertures = (int) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword13].NumericalValue,
                     FailureProbabilityReparation = rowData[StructureFilesKeywords.ClosingStructureParameterKeyword14].NumericalValue,

@@ -90,7 +90,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                         Mean = (RoundedDouble) 111.222,
                         StandardDeviation = (RoundedDouble) 0.111
                     },
-                    ProbabilityOpenStructureBeforeFlooding = 321.987,
+                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = 321.987,
                     FailureProbabilityOpenStructure = 654.321,
                     IdenticalApertures = 42,
                     FailureProbabilityReparation = 987.654,
@@ -161,7 +161,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, flowWidthAtBottomProtection.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.11, flowWidthAtBottomProtection.StandardDeviation, flowWidthAtBottomProtection.StandardDeviation.GetAccuracy());
 
-            Assert.AreEqual(321.987, structure.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(321.987, structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             Assert.AreEqual(654.321, structure.FailureProbabilityOpenStructure);
             Assert.AreEqual(42, structure.IdenticalApertures);
             Assert.AreEqual(987.654, structure.FailureProbabilityReparation);

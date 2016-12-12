@@ -1099,7 +1099,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             DistributionAssert.AreEqual(expectedClosingStructure.AreaFlowApertures, actualClosingStructure.AreaFlowApertures);
             DistributionAssert.AreEqual(expectedClosingStructure.CriticalOvertoppingDischarge, actualClosingStructure.CriticalOvertoppingDischarge);
             DistributionAssert.AreEqual(expectedClosingStructure.FlowWidthAtBottomProtection, actualClosingStructure.FlowWidthAtBottomProtection);
-            Assert.AreEqual(expectedClosingStructure.ProbabilityOpenStructureBeforeFlooding, actualClosingStructure.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(expectedClosingStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding, actualClosingStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             Assert.AreEqual(expectedClosingStructure.FailureProbabilityOpenStructure, actualClosingStructure.FailureProbabilityOpenStructure);
             Assert.AreEqual(expectedClosingStructure.IdenticalApertures, actualClosingStructure.IdenticalApertures);
             Assert.AreEqual(expectedClosingStructure.FailureProbabilityReparation, actualClosingStructure.FailureProbabilityReparation);
@@ -1149,7 +1149,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedInput.FailureProbabilityReparation, actualInput.FailureProbabilityReparation);
             Assert.AreEqual(expectedInput.IdenticalApertures, actualInput.IdenticalApertures);
             DistributionAssert.AreEqual(expectedInput.LevelCrestStructureNotClosing, actualInput.LevelCrestStructureNotClosing);
-            Assert.AreEqual(expectedInput.ProbabilityOpenStructureBeforeFlooding, actualInput.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(expectedInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding, actualInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
         }
 
         #endregion

@@ -141,7 +141,7 @@ namespace Ringtoets.Common.IO.Structures
         public const string ClosingStructureParameterKeyword10 = "KW_BETSLUIT10";
 
         /// <summary>
-        /// The probability of the closing structure being open before flooding.
+        /// The probability or frequency of the closing structure being open before flooding.
         /// [1/year]
         /// </summary>
         public const string ClosingStructureParameterKeyword11 = "KW_BETSLUIT11";

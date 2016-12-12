@@ -495,4 +495,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="HydraulicBoundaryLocation_Id" xml:space="preserve">
     <value>ID</value>
   </data>
+  <data name="StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_must_be_greater_than_zero" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een getal zijn groter dan 0.</value>
+  </data>
 </root>

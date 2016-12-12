@@ -127,7 +127,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("Mean"));
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
 
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.ProbabilityOpenStructureBeforeFlooding), properties.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding), properties.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.FailureProbabilityOpenStructure), properties.FailureProbabilityOpenStructure);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.FailureProbabilityReparation), properties.FailureProbabilityReparation);
         }

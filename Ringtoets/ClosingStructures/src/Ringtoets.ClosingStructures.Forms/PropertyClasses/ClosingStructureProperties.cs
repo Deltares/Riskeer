@@ -271,7 +271,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.ProbabilityOpenStructureBeforeFlooding);
+                return ProbabilityFormattingHelper.Format(data.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             }
         }
 

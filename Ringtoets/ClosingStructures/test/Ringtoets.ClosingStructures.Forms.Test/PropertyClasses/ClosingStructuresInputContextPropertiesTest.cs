@@ -89,7 +89,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Assert
             ClosingStructuresInput input = calculation.InputParameters;
-            var expectedProbabilityOpenStructureBeforeFlooding = ProbabilityFormattingHelper.Format(input.ProbabilityOpenStructureBeforeFlooding);
+            var expectedProbabilityOpenStructureBeforeFlooding = ProbabilityFormattingHelper.Format(input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             var expectedFailureProbabilityOpenStructure = ProbabilityFormattingHelper.Format(input.FailureProbabilityOpenStructure);
             var expectedFailureProbabilityReparation = ProbabilityFormattingHelper.Format(input.FailureProbabilityReparation);
 

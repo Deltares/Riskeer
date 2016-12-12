@@ -1304,6 +1304,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet getal zijn groter dan 0..
+        /// </summary>
+        public static string StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_must_be_greater_than_zero {
+            get {
+                return ResourceManager.GetString("StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Li" +
+                        "ne_1_ColumnName_2_must_be_greater_than_zero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het kunstwerk heeft geen geldige waarde voor attribuut &apos;{0}&apos;..
         /// </summary>
         public static string StructuresReader_GetNextStructure_Invalid_KWKIDENT {

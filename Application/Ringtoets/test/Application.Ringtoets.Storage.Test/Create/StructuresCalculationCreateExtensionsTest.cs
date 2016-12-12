@@ -480,7 +480,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                         Mean = (RoundedDouble) random.NextDouble(),
                         StandardDeviation = (RoundedDouble) random.NextDouble()
                     },
-                    ProbabilityOpenStructureBeforeFlooding = (RoundedDouble) random.NextDouble()
+                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = (RoundedDouble) random.NextDouble()
                 }
             };
 
@@ -532,7 +532,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(inputParameters.IdenticalApertures, entity.IdenticalApertures);
             Assert.AreEqual(inputParameters.LevelCrestStructureNotClosing.Mean.Value, entity.LevelCrestStructureNotClosingMean);
             Assert.AreEqual(inputParameters.LevelCrestStructureNotClosing.StandardDeviation.Value, entity.LevelCrestStructureNotClosingStandardDeviation);
-            Assert.AreEqual(inputParameters.ProbabilityOpenStructureBeforeFlooding, entity.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding, entity.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             Assert.AreEqual(order, entity.Order);
 
             CollectionAssert.IsEmpty(entity.ClosingStructuresOutputEntities);

@@ -373,11 +373,11 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.WrappedData.ProbabilityOpenStructureBeforeFlooding);
+                return ProbabilityFormattingHelper.Format(data.WrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             }
             set
             {
-                SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.ProbabilityOpenStructureBeforeFlooding = parsedValue);
+                SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding = parsedValue);
             }
         }
 

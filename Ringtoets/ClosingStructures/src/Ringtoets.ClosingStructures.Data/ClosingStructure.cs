@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using BaseConstructionProperties = Ringtoets.Common.Data.StructureBase.ConstructionProperties;
@@ -85,7 +87,7 @@ namespace Ringtoets.ClosingStructures.Data
                 Mean = constructionProperties.FlowWidthAtBottomProtection.Mean,
                 StandardDeviation = constructionProperties.FlowWidthAtBottomProtection.StandardDeviation
             };
-            ProbabilityOpenStructureBeforeFlooding = constructionProperties.ProbabilityOpenStructureBeforeFlooding;
+            ProbabilityOrFrequencyOpenStructureBeforeFlooding = constructionProperties.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
             FailureProbabilityOpenStructure = constructionProperties.FailureProbabilityOpenStructure;
             IdenticalApertures = constructionProperties.IdenticalApertures;
             FailureProbabilityReparation = constructionProperties.FailureProbabilityReparation;
@@ -147,10 +149,13 @@ namespace Ringtoets.ClosingStructures.Data
         public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
 
         /// <summary>
-        /// Gets the probability of the closing structure being open before flooding.
+        /// Gets the probability or frequency of the closing structure being open before flooding.
         /// [1/year]
         /// </summary>
-        public double ProbabilityOpenStructureBeforeFlooding { get; private set; }
+        /// <remarks>Because this property can also be used to denote a frequency, there
+        /// is no guarantee that this property returns a value in the range [0.0, 1.0]
+        /// nor that formal rules of probability apply.</remarks>
+        public double ProbabilityOrFrequencyOpenStructureBeforeFlooding { get; private set; }
 
         /// <summary>
         /// Gets the probability of failing to close the closing structure.
@@ -250,10 +255,13 @@ namespace Ringtoets.ClosingStructures.Data
             public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
 
             /// <summary>
-            /// Gets or sets the probability of the closing structure being open before flooding.
+            /// Gets the probability or frequency of the closing structure being open before flooding.
             /// [1/year]
             /// </summary>
-            public double ProbabilityOpenStructureBeforeFlooding { get; set; }
+            /// <remarks>Because this property can also be used to denote a frequency, there
+            /// is no guarantee that this property returns a value in the range [0.0, 1.0]
+            /// nor that formal rules of probability apply.</remarks>
+            public double ProbabilityOrFrequencyOpenStructureBeforeFlooding { get; set; }
 
             /// <summary>
             /// Gets or sets the probability of failing to close the closing structure.

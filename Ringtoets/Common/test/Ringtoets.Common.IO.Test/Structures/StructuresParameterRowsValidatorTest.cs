@@ -133,7 +133,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword8,
-                    NumericalValue = 0,
+                    NumericalValue = 1e-6,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.CoefficientOfVariation,
                     LineNumber = 8
@@ -151,10 +151,10 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_HOOGTE2' op regel 2, kolom 'Numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_HOOGTE2' op regel 2, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_HOOGTE2' op regel 2, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_HOOGTE3' op regel 3, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_HOOGTE3' op regel 3, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_HOOGTE3' op regel 3, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_HOOGTE3' op regel 3, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_HOOGTE4' op regel 4, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_HOOGTE4' op regel 4, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_HOOGTE4' op regel 4, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_HOOGTE4' op regel 4, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_HOOGTE5' op regel 5, kolom 'Numeriekewaarde', is geen getal.",
@@ -418,7 +418,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             List<string> expectedErrorMessages = new List<string>
             {
                 "De waarde voor parameter 'KW_BETSLUIT1' op regel 1, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
-                "De waarde voor parameter 'KW_BETSLUIT2' op regel 2, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_BETSLUIT2' op regel 2, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_BETSLUIT3' op regel 3, kolom 'Numeriekewaarde', moet in het bereik [0, 360] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT5' op regel 5, kolom 'Numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_BETSLUIT5' op regel 5, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
@@ -426,22 +426,146 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_BETSLUIT6' op regel 6, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT7' op regel 7, kolom 'Numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_BETSLUIT7' op regel 7, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
-                "De waarde voor parameter 'KW_BETSLUIT8' op regel 8, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_BETSLUIT8' op regel 8, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_BETSLUIT8' op regel 8, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT8' op regel 8, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_BETSLUIT9' op regel 9, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_BETSLUIT9' op regel 9, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_BETSLUIT9' op regel 9, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT9' op regel 9, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_BETSLUIT11' op regel 11, kolom 'Numeriekewaarde', moet in het bereik [0, 1] liggen.",
+                "De waarde voor parameter 'KW_BETSLUIT11' op regel 11, kolom 'Numeriekewaarde', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT12' op regel 12, kolom 'Numeriekewaarde', moet in het bereik [0, 1] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT13' op regel 13, kolom 'Numeriekewaarde', moet een positief geheel getal zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT14' op regel 14, kolom 'Numeriekewaarde', moet in het bereik [0, 1] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT15' op regel 15, kolom 'Alfanumeriekewaarde', moet een geldig kunstwerk type zijn."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+        }
+
+        [Test]
+        public void ValidateClosingStructuresParameters_ParametersAllValid_ValidIsTrueAndNoErrorMessages()
+        {
+            // Setup
+            List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
+            {
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT1",
+                    NumericalValue = 3,
+                    VarianceValue = 1.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 1
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT2",
+                    NumericalValue = 1,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 2
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT3",
+                    NumericalValue = 123,
+                    LineNumber = 3
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT4",
+                    NumericalValue = 0,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 4
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT5",
+                    NumericalValue = 1,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 5
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT6",
+                    NumericalValue = 9,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 6
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT7",
+                    NumericalValue = 1,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 7
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT8",
+                    NumericalValue = 1,
+                    VarianceValue = 2,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 8
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT9",
+                    NumericalValue = 2,
+                    VarianceValue = 3,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 9
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT10",
+                    NumericalValue = 9,
+                    VarianceValue = 3,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 10
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT11",
+                    NumericalValue = 123,
+                    LineNumber = 11
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT12",
+                    NumericalValue = 0.6,
+                    LineNumber = 12
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT13",
+                    NumericalValue = 14,
+                    LineNumber = 13
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT14",
+                    NumericalValue = 0.8,
+                    LineNumber = 14
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_BETSLUIT15",
+                    AlphanumericValue = "verticalewand",
+                    LineNumber = 15
+                }
+            };
+
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
+
+            // Assert
+            Assert.IsTrue(validationResult.IsValid);
+            CollectionAssert.IsEmpty(validationResult.ErrorMessages);
         }
 
         [Test]
@@ -842,7 +966,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             {
                 "De waarde voor parameter 'KW_STERSTAB1' op regel 1, kolom 'Numeriekewaarde', moet in het bereik [0, 360] liggen.",
                 "De waarde voor parameter 'KW_STERSTAB2' op regel 2, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
-                "De waarde voor parameter 'KW_STERSTAB3' op regel 3, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_STERSTAB3' op regel 3, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_STERSTAB3' op regel 3, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_STERSTAB3' op regel 3, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB5' op regel 5, kolom 'Numeriekewaarde', is geen getal.",
@@ -850,7 +974,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_STERSTAB6' op regel 6, kolom 'Numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_STERSTAB6' op regel 6, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_STERSTAB7' op regel 7, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
-                "De waarde voor parameter 'KW_STERSTAB8' op regel 8, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_STERSTAB8' op regel 8, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_STERSTAB8' op regel 8, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_STERSTAB8' op regel 8, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB9' op regel 9, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
@@ -871,7 +995,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_STERSTAB22' op regel 22, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_STERSTAB23' op regel 23, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
                 "De waarde voor parameter 'KW_STERSTAB24' op regel 24, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
-                "De waarde voor parameter 'KW_STERSTAB25' op regel 25, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_STERSTAB25' op regel 25, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_STERSTAB25' op regel 25, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_STERSTAB25' op regel 25, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB26' op regel 26, kolom 'Alfanumeriekewaarde', moet een geldig kunstwerk type zijn."

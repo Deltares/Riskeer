@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -40,7 +41,7 @@ namespace Ringtoets.ClosingStructures.Data
         private RoundedDouble factorStormDurationOpenStructure;
         private double failureProbabilityOpenStructure;
         private double failureProbabilityReparation;
-        private double probabilityOpenStructureBeforeFlooding;
+        private double probabilityOrFrequencyOpenStructureBeforeFlooding;
         private RoundedDouble deviationWaveDirection;
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace Ringtoets.ClosingStructures.Data
 
             failureProbabilityOpenStructure = 0;
             failureProbabilityReparation = 0;
-            probabilityOpenStructureBeforeFlooding = 1.0;
+            probabilityOrFrequencyOpenStructureBeforeFlooding = 1.0;
 
             thresholdHeightOpenWeir = new NormalDistribution(2)
             {
@@ -112,7 +113,7 @@ namespace Ringtoets.ClosingStructures.Data
                 FailureProbabilityReparation = Structure.FailureProbabilityReparation;
                 IdenticalApertures = Structure.IdenticalApertures;
                 InsideWaterLevel = Structure.InsideWaterLevel;
-                ProbabilityOpenStructureBeforeFlooding = Structure.ProbabilityOpenStructureBeforeFlooding;
+                ProbabilityOrFrequencyOpenStructureBeforeFlooding = Structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
                 ThresholdHeightOpenWeir = Structure.ThresholdHeightOpenWeir;
             }
         }
@@ -297,23 +298,22 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the failure probability of an open structure before flooding.
+        /// Gets or sets the failure probability/frequency of an open structure before flooding.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
-        /// is not in the interval [0, 1].</exception>
-        public double ProbabilityOpenStructureBeforeFlooding
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value is negative.</exception>
+        public double ProbabilityOrFrequencyOpenStructureBeforeFlooding
         {
             get
             {
-                return probabilityOpenStructureBeforeFlooding;
+                return probabilityOrFrequencyOpenStructureBeforeFlooding;
             }
             set
             {
-                if (!ValidProbabilityValue(value))
+                if (double.IsNaN(value) || value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentOutOfRangeException("value", Resources.ClosingStructuresInput_ProbabilityOrFrequencyOpenStructureBeforeFlooding_Value_must_be_greater_or_equal_to_zero);
                 }
-                probabilityOpenStructureBeforeFlooding = value;
+                probabilityOrFrequencyOpenStructureBeforeFlooding = value;
             }
         }
 
