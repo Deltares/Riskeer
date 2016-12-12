@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -42,6 +43,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         private IFailureMechanismContributionNormChangeHandler normChangeHandler;
         private IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
 
+        [TypeConverter(typeof(EnumConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "FailureMechanismContribution_Composition_DisplayName")]
         [ResourcesDescription(typeof(Resources), "FailureMechanismContribution_Composition_Description")]

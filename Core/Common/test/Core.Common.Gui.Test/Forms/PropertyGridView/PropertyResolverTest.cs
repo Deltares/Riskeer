@@ -136,7 +136,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             {
                 new PropertyInfo<A, PropertiesForA>
                 {
-                    AfterCreate = p =>
+                    AfterCreate = (p, d) =>
                     {
                         Assert.AreSame(source, p.Data,
                                        "properties object should have been initialized with 'source'.");

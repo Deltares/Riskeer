@@ -200,7 +200,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(12, propertyInfos.Length);
+                Assert.AreEqual(13, propertyInfos.Length);
 
                 PropertyInfo ringtoetsProjectProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -225,6 +225,14 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.AdditionalDataCheck);
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.GetObjectPropertiesData);
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.AfterCreate);
+
+                PropertyInfo failureMechanismContributionProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(FailureMechanismContributionContext),
+                    typeof(FailureMechanismContributionContextProperties));
+                Assert.IsNull(failureMechanismContributionProperties.AdditionalDataCheck);
+                Assert.IsNotNull(failureMechanismContributionProperties.GetObjectPropertiesData);
+                Assert.IsNotNull(failureMechanismContributionProperties.AfterCreate);
 
                 PropertyInfo standAloneFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

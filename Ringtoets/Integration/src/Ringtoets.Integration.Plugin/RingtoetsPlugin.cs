@@ -270,6 +270,16 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<IProject, RingtoetsProjectProperties>();
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
+            yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionContextProperties>()
+            {
+                GetObjectPropertiesData = context => context.WrappedData,
+                AfterCreate = (properties, context) =>
+                {
+                    properties.NormChangeHandler = new FailureMechanismContributionNormChangeHandler();
+                    properties.CompositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
+                    properties.AssessmentSection = context.Parent;
+                }
+            }; 
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>();
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();

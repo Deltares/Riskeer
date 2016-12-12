@@ -65,13 +65,17 @@ namespace Core.Common.Gui.Plugin
 
         /// <summary>
         /// Gets or sets the optional function that allows for post-creation logic to be 
-        /// executed on the newly created object properties.
+        /// executed on the newly created object properties. Function arguments:
+        /// <list type="number">
+        ///     <item>The created property instance.</item>
+        ///     <item>The data corresponding to this property info.</item>
+        /// </list> 
         /// </summary>
         /// <example>
         /// As an example, you could implement this as follows:
-        /// <code>var propertyInfo = new PropertyInfo &lt; ModelImplementation, ModelImplementationProperties &gt; { AfterCreate = op =&gt; op.AdditionalBooleanProperty = true };</code>
+        /// <code>var propertyInfo = new PropertyInfo &lt; ModelImplementation, ModelImplementationProperties &gt; { AfterCreate = (op, od) =&gt; op.AdditionalBooleanProperty = od.PostCreationBooleanValue };</code>
         /// </example>
-        public Action<object> AfterCreate { get; set; }
+        public Action<IObjectProperties, object> AfterCreate { get; set; }
     }
 
     /// <summary>
@@ -129,13 +133,17 @@ namespace Core.Common.Gui.Plugin
 
         /// <summary>
         /// Gets or sets the optional function that allows for post-creation logic to be 
-        /// executed on the newly created object properties.
+        /// executed on the newly created object properties. Function arguments:
+        /// <list type="number">
+        ///     <item>The created view instance.</item>
+        ///     <item>The data corresponding to this view info.</item>
+        /// </list>
         /// </summary>
         /// <example>
         /// As an example, you could implement this as follows:
-        /// <code>var propertyInfo = new PropertyInfo &lt; ModelImplementation, ModelImplementationProperties &gt; { AfterCreate = op =&gt; op.AdditionalBooleanProperty = true };</code>
+        /// <code>var propertyInfo = new PropertyInfo &lt; ModelImplementation, ModelImplementationProperties &gt; { AfterCreate = (op, od) =&gt; op.AdditionalBooleanProperty = od.PostCreationBooleanValue };</code>
         /// </example>
-        public Action<TProperty> AfterCreate { get; set; }
+        public Action<TProperty, TObject> AfterCreate { get; set; }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="PropertyInfo{TObject, TProperty}"/> to <see cref="PropertyInfo"/>.
@@ -154,9 +162,9 @@ namespace Core.Common.Gui.Plugin
                 GetObjectPropertiesData = propertyInfo.GetObjectPropertiesData != null ?
                                               o => propertyInfo.GetObjectPropertiesData((TObject) o) :
                                               (Func<object, object>) null,
-                AfterCreate = propertyInfo.AfterCreate != null ?
-                                  op => propertyInfo.AfterCreate((TProperty) op) :
-                                  (Action<object>) null
+                AfterCreate = propertyInfo.AfterCreate != null
+                                  ? (p, o) => propertyInfo.AfterCreate((TProperty) p, (TObject) o)
+                                  : (Action<IObjectProperties, object>) null
             };
         }
     }

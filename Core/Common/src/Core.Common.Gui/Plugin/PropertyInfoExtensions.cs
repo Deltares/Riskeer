@@ -52,7 +52,7 @@ namespace Core.Common.Gui.Plugin
 
             if (propertyInfo.AfterCreate != null)
             {
-                propertyInfo.AfterCreate(objectProperties);
+                propertyInfo.AfterCreate(objectProperties, sourceData);
             }
 
             return objectProperties;

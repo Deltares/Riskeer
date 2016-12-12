@@ -53,7 +53,7 @@ namespace Core.Common.Gui.Test.Plugin
             var newPropertyObjectType = typeof(TestObjectProperties);
             Func<object, bool> newAdditionalDataDelegate = o => true;
             Func<object, object> newGetObjectPropertiesDataDelegate = o => new object();
-            Action<object> newAfterCreateDelegate = view =>
+            Action<IObjectProperties, object> newAfterCreateDelegate = (properties, data) =>
             {
                 // Do something with the view
             };
@@ -95,7 +95,7 @@ namespace Core.Common.Gui.Test.Plugin
 
             Func<int, bool> newAdditionalDataDelegate = o => true;
             Func<int, object> newGetObjectPropertiesDataDelegate = o => new object();
-            Action<TestObjectProperties> newAfterCreateDelegate = view =>
+            Action<TestObjectProperties, int> newAfterCreateDelegate = (property, data) =>
             {
                 // Do something with the view
             };
@@ -118,7 +118,7 @@ namespace Core.Common.Gui.Test.Plugin
             var info = new PropertyInfo<int, TestObjectProperties>();
 
             const int inputData = 42;
-            var properties = new TestObjectProperties();
+            var testProperties = new TestObjectProperties();
 
             bool additionalDataDelegateCalled = false;
             Func<int, bool> newAdditionalDataDelegate = o =>
@@ -136,9 +136,10 @@ namespace Core.Common.Gui.Test.Plugin
                 return alternativeObject;
             };
             bool afterCreateDelegateCalled = false;
-            Action<TestObjectProperties> newAfterCreateDelegate = view =>
+            Action<TestObjectProperties, int> newAfterCreateDelegate = (properties, data) =>
             {
-                Assert.AreSame(properties, view);
+                Assert.AreSame(testProperties, properties);
+                Assert.AreEqual(inputData, data);
                 afterCreateDelegateCalled = true;
             };
 
@@ -166,7 +167,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsTrue(getObjectPropertiesDataDelegateCalled);
 
             Assert.IsNotNull(convertedInfo.AfterCreate);
-            convertedInfo.AfterCreate(properties);
+            convertedInfo.AfterCreate(testProperties, inputData);
             Assert.IsTrue(afterCreateDelegateCalled);
         }
 
