@@ -87,7 +87,7 @@ namespace Core.Common.Base.IO
             }
         }
 
-        protected ProgressChangedDelegate ProgressChanged { get; private set; }
+        private ProgressChangedDelegate ProgressChanged { get; set; }
 
         /// <summary>
         /// Gets the import target.

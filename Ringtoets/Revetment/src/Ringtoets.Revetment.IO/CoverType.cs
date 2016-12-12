@@ -28,10 +28,10 @@ namespace Ringtoets.Revetment.IO
     /// </summary>
     public class CoverType
     {
-        public static CoverType StoneCoverBlocks = new CoverType(Resources.CoverType_Blocks);
-        public static CoverType StoneCoverColumns = new CoverType(Resources.CoverType_Columns);
-        public static CoverType Asphalt = new CoverType(Resources.CoverType_Asphalt);
-        public static CoverType Grass = new CoverType(Resources.CoverType_Grass);
+        public static readonly CoverType StoneCoverBlocks = new CoverType(Resources.CoverType_Blocks);
+        public static readonly CoverType StoneCoverColumns = new CoverType(Resources.CoverType_Columns);
+        public static readonly CoverType Asphalt = new CoverType(Resources.CoverType_Asphalt);
+        public static readonly CoverType Grass = new CoverType(Resources.CoverType_Grass);
 
         private CoverType(string name)
         {

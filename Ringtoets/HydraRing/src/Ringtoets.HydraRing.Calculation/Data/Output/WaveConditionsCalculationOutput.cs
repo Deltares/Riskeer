@@ -59,6 +59,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
         /// <summary>
         /// Gets the calculated wave direction with respect to North.
         /// </summary>
-        public double WaveDirection { get; set; }
+        public double WaveDirection { get; private set; }
     }
 }
