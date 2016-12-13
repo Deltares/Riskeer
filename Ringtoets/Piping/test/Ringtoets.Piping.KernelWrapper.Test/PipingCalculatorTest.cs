@@ -200,28 +200,6 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         }
 
         [Test]
-        [TestCase(-1e-6)]
-        [TestCase(-100)]
-        public void Validate_PiezometricHeadExitSameAsPhreaticLevelExit_ValidationMessageForPhiExitAndHExit(double level)
-        {
-            // Setup
-            PipingCalculatorInput input = new TestPipingInput
-            {
-                PhreaticLevelExit = level,
-                PiezometricHeadExit = (RoundedDouble) level
-            }.AsRealInput();
-
-            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
-
-            // Call
-            List<string> validationMessages = calculation.Validate();
-
-            // Assert
-            Assert.AreEqual(1, validationMessages.Count);
-            Assert.AreEqual("Het verschil tussen de parameters 'PhiExit' (Stijghoogte bij uittredepunt) en 'HExit' (Freatische waterstand bij uittredepunt) mag niet nul zijn.", validationMessages[0]);
-        }
-
-        [Test]
         public void Validate_DampingFactorExitZero_TwoValidationMessageForRExit()
         {
             // Setup
