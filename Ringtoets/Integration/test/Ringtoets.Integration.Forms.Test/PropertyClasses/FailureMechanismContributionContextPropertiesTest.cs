@@ -82,15 +82,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsNotNull(compositionProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(compositionProperty,
                                                                             expectedCategory,
-                                                                            "Compositie",
-                                                                            string.Empty);
+                                                                            "Trajecttype",
+                                                                            "Selecteer het type traject, bepalend voor de faalkansbegroting.");
 
             PropertyDescriptor returnPeriodProperty = dynamicProperties[1];
             Assert.IsNotNull(returnPeriodProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(returnPeriodProperty,
                                                                             expectedCategory,
                                                                             "Norm [1/jaar]",
-                                                                            string.Empty);
+                                                                            "De norm waarmee gerekend wordt.");
         }
 
         [Test]

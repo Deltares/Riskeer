@@ -286,13 +286,13 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Hs [m]</value>
   </data>
   <data name="FailureMechanismContribution_Composition_Description" xml:space="preserve">
-    <value />
+    <value>Selecteer het type traject, bepalend voor de faalkansbegroting.</value>
   </data>
   <data name="FailureMechanismContribution_Composition_DisplayName" xml:space="preserve">
-    <value>Compositie</value>
+    <value>Trajecttype</value>
   </data>
   <data name="FailureMechanismContribution_ReturnPeriod_Description" xml:space="preserve">
-    <value />
+    <value>De norm waarmee gerekend wordt.</value>
   </data>
   <data name="FailureMechanismContribution_ReturnPeriod_DisplayName" xml:space="preserve">
     <value>Norm [1/jaar]</value>

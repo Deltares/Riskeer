@@ -316,7 +316,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Selecteer het type traject, bepalend voor de faalkansbegroting..
         /// </summary>
         public static string FailureMechanismContribution_Composition_Description {
             get {
@@ -325,7 +325,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compositie.
+        ///   Looks up a localized string similar to Trajecttype.
         /// </summary>
         public static string FailureMechanismContribution_Composition_DisplayName {
             get {
@@ -334,7 +334,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to De norm waarmee gerekend wordt..
         /// </summary>
         public static string FailureMechanismContribution_ReturnPeriod_Description {
             get {
