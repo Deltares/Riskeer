@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTILatestTrunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -236,11 +236,11 @@
           <Property Name="CriticalFlowRateMean" Type="real" />
           <Property Name="CriticalFlowRateStandardDeviation" Type="real" />
           <Property Name="UseForeshore" Type="tinyint" Nullable="false" />
+          <Property Name="DikeHeightCalculationType" Type="tinyint" Nullable="false" />
           <Property Name="DikeHeight" Type="real" />
           <Property Name="UseBreakWater" Type="tinyint" Nullable="false" />
           <Property Name="BreakWaterType" Type="smallint" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="real" />
-          <Property Name="CalculateDikeHeight" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsDikeHeightOutputEntity">
           <Key>
@@ -3147,11 +3147,11 @@
           <Property Name="CriticalFlowRateMean" Type="Double" />
           <Property Name="CriticalFlowRateStandardDeviation" Type="Double" />
           <Property Name="UseForeshore" Type="Byte" Nullable="false" />
+          <Property Name="DikeHeightCalculationType" Type="Byte" Nullable="false" />
           <Property Name="DikeHeight" Type="Double" />
           <Property Name="UseBreakWater" Type="Byte" Nullable="false" />
           <Property Name="BreakWaterType" Type="Int16" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="Double" />
-          <Property Name="CalculateDikeHeight" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_2_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="DikeProfileEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="DikeProfileEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="HydraulicLocationEntity" />
@@ -5269,11 +5269,11 @@
           <EntitySetMapping Name="GrassCoverErosionInwardsCalculationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionInwardsCalculationEntity">
-                <ScalarProperty Name="CalculateDikeHeight" ColumnName="CalculateDikeHeight" />
                 <ScalarProperty Name="BreakWaterHeight" ColumnName="BreakWaterHeight" />
                 <ScalarProperty Name="BreakWaterType" ColumnName="BreakWaterType" />
                 <ScalarProperty Name="UseBreakWater" ColumnName="UseBreakWater" />
                 <ScalarProperty Name="DikeHeight" ColumnName="DikeHeight" />
+                <ScalarProperty Name="DikeHeightCalculationType" ColumnName="DikeHeightCalculationType" />
                 <ScalarProperty Name="UseForeshore" ColumnName="UseForeshore" />
                 <ScalarProperty Name="CriticalFlowRateStandardDeviation" ColumnName="CriticalFlowRateStandardDeviation" />
                 <ScalarProperty Name="CriticalFlowRateMean" ColumnName="CriticalFlowRateMean" />

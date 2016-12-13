@@ -54,11 +54,11 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> CriticalFlowRateMean { get; set; }
         public Nullable<double> CriticalFlowRateStandardDeviation { get; set; }
         public byte UseForeshore { get; set; }
+        public byte DikeHeightCalculationType { get; set; }
         public Nullable<double> DikeHeight { get; set; }
         public byte UseBreakWater { get; set; }
         public short BreakWaterType { get; set; }
         public Nullable<double> BreakWaterHeight { get; set; }
-        public byte CalculateDikeHeight { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual DikeProfileEntity DikeProfileEntity { get; set; }

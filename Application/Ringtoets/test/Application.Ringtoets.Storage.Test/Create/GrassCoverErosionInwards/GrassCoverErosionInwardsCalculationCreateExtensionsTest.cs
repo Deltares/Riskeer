@@ -113,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(input.CriticalFlowRate.Mean.Value, entity.CriticalFlowRateMean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation.Value, entity.CriticalFlowRateStandardDeviation);
             Assert.AreEqual(input.Orientation.Value, entity.Orientation);
-            Assert.AreEqual(Convert.ToByte(input.DikeHeightCalculationType), entity.CalculateDikeHeight);
+            Assert.AreEqual(Convert.ToByte(input.DikeHeightCalculationType), entity.DikeHeightCalculationType);
             Assert.AreEqual(input.DikeHeight.Value, entity.DikeHeight);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
 

@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 UseBreakWater = Convert.ToByte(flagValue),
                 BreakWaterType = Convert.ToInt16(type),
                 BreakWaterHeight = 5.7,
-                CalculateDikeHeight = Convert.ToByte(dikeHeightCalculationType)
+                DikeHeightCalculationType = Convert.ToByte(dikeHeightCalculationType)
             };
 
             var collector = new ReadConversionCollector();
