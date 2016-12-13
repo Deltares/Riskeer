@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         #region GrassCoverErosionInwards result
 
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result", 1, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "ProbabilityAssessmentOutput_RequiredProbability_Displayname")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "ProbabilityAssessmentOutput_RequiredProbability_Description")]
         public string RequiredProbability
@@ -60,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result", 1, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "ProbabilityAssessmentOutput_RequiredReliability_Displayname")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "ProbabilityAssessmentOutput_RequiredReliability_Description")]
         public RoundedDouble RequiredReliability
@@ -72,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result", 1, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "ProbabilityAssessmentOutput_Probability_Displayname")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "ProbabilityAssessmentOutput_Probability_Description")]
         public string Probability
@@ -84,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(4)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result", 1, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "ProbabilityAssessmentOutput_Reliability_Displayname")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "ProbabilityAssessmentOutput_Reliability_Description")]
         public RoundedDouble Reliability
@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result", 1, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "ProbabilityAssessmentOutput_FactorOfSafety_Displayname")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "ProbabilityAssessmentOutput_FactorOfSafety_Description")]
         public RoundedDouble FactorOfSafety
@@ -112,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         #region Indicative wave height
 
         [PropertyOrder(6)]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_Indicative_WaveHeight")]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_Indicative_WaveHeight", 2, 3)]
         [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), "GrassCoverErosionInwardsOutput_WaveHeight_Displayname")]
         [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), "GrassCoverErosionInwardsOutput_WaveHeight_Description")]
         public RoundedDouble WaveHeight
@@ -124,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(7)]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_Indicative_WaveHeight")]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_Indicative_WaveHeight", 2, 3)]
         [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), "GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Displayname")]
         [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), "GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Description")]
         public bool IsOvertoppingDominant
@@ -141,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(8)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result")]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result", 3, 3)]
         [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), "GrassCoverErosionInwardsOutput_DikeHeight_DisplayName")]
         [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), "GrassCoverErosionInwardsOutput_DikeHeight_Description")]
         public RoundedDouble DikeHeight
@@ -154,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(9)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result")]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result", 3, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetProbability_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetProbability_Description")]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
@@ -169,7 +169,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(10)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result")]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result", 3, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetReliability_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetReliability_Description")]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
@@ -184,7 +184,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(11)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result")]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result", 3, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedProbability_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedProbability_Description")]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
@@ -199,7 +199,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(12)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result")]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result", 3, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedReliability_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_CalculatedReliability_Description")]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
@@ -214,7 +214,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(13)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result")]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_DikeHeight_Result", 3, 3)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_Convergence_DisplayName")]
         [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), "DikeHeightAssessmentOutput_Convergence_Description")]
         public string Convergence
