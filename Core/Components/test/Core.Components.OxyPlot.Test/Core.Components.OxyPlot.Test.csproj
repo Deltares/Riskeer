@@ -96,10 +96,6 @@
       <Project>{2344A7BD-7E25-4A1A-982E-6C674AF5167A}</Project>
       <Name>Core.Components.OxyPlot</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Charting.TestUtil\Core.Components.Charting.TestUtil.csproj">
-      <Project>{E900A014-CA87-4374-87F0-813D653A9698}</Project>
-      <Name>Core.Components.Charting.TestUtil</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
