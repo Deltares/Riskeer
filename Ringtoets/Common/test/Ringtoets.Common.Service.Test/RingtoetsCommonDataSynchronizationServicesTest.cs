@@ -53,7 +53,11 @@ namespace Ringtoets.Common.Service.Test
             [Values(5.3, double.NaN)] double waveHeight)
         {
             // Setup
-            HydraulicBoundaryLocation location = new TestHydraulicBoundaryLocation(designWaterLevel, waveHeight);
+            HydraulicBoundaryLocation location = new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(designWaterLevel),
+                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(waveHeight)
+            };
             var locations = new ObservableList<HydraulicBoundaryLocation>
             {
                 location

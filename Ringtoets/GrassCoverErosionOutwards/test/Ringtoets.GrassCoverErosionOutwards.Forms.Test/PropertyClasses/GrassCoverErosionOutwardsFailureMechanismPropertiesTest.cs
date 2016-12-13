@@ -172,7 +172,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var hydraulicLocation = new TestHydraulicBoundaryLocation(3.8, 5.2);
+            var hydraulicLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {

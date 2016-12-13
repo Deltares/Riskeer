@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -217,21 +218,19 @@ namespace Ringtoets.Integration.Service.Test
             double waveHeight, double designWaterLevel)
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(waveHeight, designWaterLevel);
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        hydraulicBoundaryLocation
-                    }
-                }
-            };
+            var mockRepository = new MockRepository();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations[0];
+            hydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(designWaterLevel);
+            hydraulicBoundaryLocation.WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(waveHeight);
 
             // Call
             IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
-                assessmentSection.HydraulicBoundaryDatabase, assessmentSection.GrassCoverErosionOutwards);
+                assessmentSectionStub.HydraulicBoundaryDatabase, failureMechanism);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -247,6 +246,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 hydraulicBoundaryLocation
             }, affectedObjects);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -367,27 +367,28 @@ namespace Ringtoets.Integration.Service.Test
             double designWaterLevel, double waveHeight)
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(designWaterLevel, waveHeight);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations[0];
+            hydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(designWaterLevel);
+            hydraulicBoundaryLocation.WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(waveHeight);
+
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
             {
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
+                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevel),
+                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeight)
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(designWaterLevel, waveHeight);
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                HydraulicBoundaryLocations =
-                {
-                    grassCoverErosionOutwardsHydraulicBoundaryLocation
-                }
-            };
+            failureMechanism.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase, failureMechanism);
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
+                assessmentSectionStub.HydraulicBoundaryDatabase,
+                failureMechanism);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -413,6 +414,7 @@ namespace Ringtoets.Integration.Service.Test
                 grassCoverErosionOutwardsHydraulicBoundaryLocation,
                 hydraulicBoundaryLocation
             }, affectedObjects);
+            mockRepository.VerifyAll();
         }
 
         [Test]

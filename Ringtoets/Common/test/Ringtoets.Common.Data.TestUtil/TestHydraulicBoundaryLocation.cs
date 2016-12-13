@@ -40,17 +40,28 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </summary>
         /// <param name="designWaterLevel">The design water level result to set in the output.</param>
         /// <param name="waveHeight">The wave height result to set in the output.</param>
-        public TestHydraulicBoundaryLocation(double? designWaterLevel = double.NaN, double? waveHeight = double.NaN)
+        private TestHydraulicBoundaryLocation(double? designWaterLevel, double? waveHeight)
             : base(0, string.Empty, 0, 0)
         {
             if (designWaterLevel.HasValue)
             {
-                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(designWaterLevel.Value, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
+                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(designWaterLevel.Value, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged);
             }
             if (waveHeight.HasValue)
             {
-                WaveHeightOutput = new HydraulicBoundaryLocationOutput(waveHeight.Value, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
+                WaveHeightOutput = new HydraulicBoundaryLocationOutput(waveHeight.Value, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged);
             }
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with 
+        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevelOutput"/>  and <see cref="HydraulicBoundaryLocation.WaveHeightOutput"/> 
+        /// set.
+        /// </summary>
+        /// <returns>A new <see cref="TestHydraulicBoundaryLocation"/>.</returns>
+        public static TestHydraulicBoundaryLocation CreateFullyCalculated()
+        {
+            return new TestHydraulicBoundaryLocation(4.5, 5.5);
         }
 
         /// <summary>

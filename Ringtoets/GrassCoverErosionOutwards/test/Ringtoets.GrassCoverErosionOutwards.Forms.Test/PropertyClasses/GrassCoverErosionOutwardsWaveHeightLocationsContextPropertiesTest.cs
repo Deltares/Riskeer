@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(location.Id, locationProperties.Id);
             Assert.AreEqual(location.Location, locationProperties.Location);
             Assert.AreEqual(location.WaveHeight, locationProperties.WaveHeight, location.WaveHeight.GetAccuracy());
-            Assert.AreEqual("", locationProperties.Convergence);
+            Assert.AreEqual("Ja", locationProperties.Convergence);
         }
 
         [Test]

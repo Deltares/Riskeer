@@ -60,10 +60,7 @@ namespace Ringtoets.Integration.Forms.Test
             const int newReturnPeriod = 200;
             const int numberOfCalculations = 3;
 
-            var waveHeight = (RoundedDouble) 3.0;
-            var designWaterLevel = (RoundedDouble) 4.2;
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(designWaterLevel, waveHeight);
+            var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -97,9 +94,9 @@ namespace Ringtoets.Integration.Forms.Test
 
             var grassCoverErosionOutwardsHydraulicBoundaryLocation = hydraulicBoundaryLocation;
             grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(
-                waveHeight);
+                hydraulicBoundaryLocation.WaveHeight);
             grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(
-                designWaterLevel);
+                hydraulicBoundaryLocation.DesignWaterLevel);
 
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
@@ -155,11 +152,10 @@ namespace Ringtoets.Integration.Forms.Test
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
             Assert.AreEqual(originalReturnPeriodValue, properties.ReturnPeriod);
-            Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
-            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual(waveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight.GetAccuracy());
-            Assert.AreEqual(designWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-
+            Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.WaveHeight));
+            Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel));
+            Assert.IsFalse(double.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight));
+            Assert.IsFalse(double.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel));
             Assert.IsNotNull(pipingCalculation.Output);
             Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
             Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
@@ -199,19 +195,21 @@ namespace Ringtoets.Integration.Forms.Test
         {
             // Setup
             const int newReturnPeriod = 200;
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    TestHydraulicBoundaryLocation.CreateFullyCalculated()
+                }
+            };
 
-            var waveHeight = (RoundedDouble) 3.0;
-            var designWaterLevel = (RoundedDouble) 4.2;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation(designWaterLevel, waveHeight));
-
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
 
-            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
@@ -220,7 +218,7 @@ namespace Ringtoets.Integration.Forms.Test
 
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
-            MockRepository mockRepository = new MockRepository();
+            var mockRepository = new MockRepository();
             IObserver observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
             IObserver calculationObserver = mockRepository.StrictMock<IObserver>(); // No update observers expected.
@@ -247,8 +245,8 @@ namespace Ringtoets.Integration.Forms.Test
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
             Assert.AreEqual(originalReturnPeriodValue, properties.ReturnPeriod);
-            Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
-            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+            Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.WaveHeight));
+            Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel));
 
             DialogBoxHandler = (name, wnd) =>
             {
