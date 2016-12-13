@@ -149,7 +149,7 @@ namespace Core.Common.Utils.Reflection
             try
             {
                 return assembly.GetManifestResourceNames()
-                               .Where(resourceName => resourceName.EndsWith(fileName))
+                               .Where(resourceName => resourceName.EndsWith(fileName, StringComparison.InvariantCulture))
                                .Select(assembly.GetManifestResourceStream)
                                .First();
             }
