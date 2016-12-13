@@ -23,11 +23,14 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -106,9 +109,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(dikeHeight, properties.DikeHeight, properties.DikeHeight.GetAccuracy());
             Assert.AreEqual(dikeTargetProbability, properties.TargetProbability);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
+                              NoProbabilityValueDoubleConverter>(p => p.TargetProbability));
             Assert.AreEqual(dikeTargetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
+            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
+                              NoValueRoundedDoubleConverter>(p => p.TargetReliability));
             Assert.AreEqual(dikeCalculatedProbability, properties.CalculatedProbability);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
+                              NoProbabilityValueDoubleConverter>(p => p.CalculatedProbability));
             Assert.AreEqual(dikeCalculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
+            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
+                              NoValueRoundedDoubleConverter>(p => p.CalculatedReliability));
             Assert.AreEqual("", properties.Convergence);
         }
 

@@ -27,6 +27,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -75,7 +77,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, "HBN bij norm")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, "HBN bij doorsnede-eis")]
+        [TestCase(DikeHeightCalculationType.NoCalculation, "Niet")]
+        public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues(
+            DikeHeightCalculationType dikeHeightCalculationType, string expectedDikeHeightCalculationTypeText)
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -83,7 +89,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput();
+            var input = new GrassCoverErosionInwardsInput
+            {
+                DikeHeightCalculationType = dikeHeightCalculationType
+            };
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Call
@@ -105,6 +114,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
             Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsInputContextProperties,
+                              EnumTypeConverter>(p => p.DikeHeightCalculationType));
+            var actualDikeHeightCalculationTypeText = new EnumDisplayWrapper<DikeHeightCalculationType>(properties.DikeHeightCalculationType).DisplayName;
+            Assert.AreEqual(expectedDikeHeightCalculationTypeText, actualDikeHeightCalculationTypeText);
+
             Assert.IsNull(properties.WorldReferencePoint);
             mockRepository.VerifyAll();
         }
@@ -149,9 +163,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, 
-                                                             DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                             DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType)
+        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                                                                                        DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
+                                                                                        DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();

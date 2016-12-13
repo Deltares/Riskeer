@@ -1470,7 +1470,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertGrassCoverErosionInwardsOutput(GrassCoverErosionInwardsOutput expectedOutput,
                                                                  GrassCoverErosionInwardsOutput actualOutput)
         {
-            Assert.AreEqual(expectedOutput.DikeHeightCalculated, actualOutput.DikeHeightCalculated);
             Assert.AreEqual(expectedOutput.DikeHeight, actualOutput.DikeHeight);
             Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight);
             Assert.AreEqual(expectedOutput.IsOvertoppingDominant, actualOutput.IsOvertoppingDominant);

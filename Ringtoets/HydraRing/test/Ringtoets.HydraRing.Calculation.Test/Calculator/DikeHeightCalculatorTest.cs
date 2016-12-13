@@ -36,6 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
             Assert.IsNaN(calculator.DikeHeight);
+            Assert.IsNaN(calculator.ReliabilityIndex);
             Assert.IsNull(calculator.OutputDirectory);
         }
     }
