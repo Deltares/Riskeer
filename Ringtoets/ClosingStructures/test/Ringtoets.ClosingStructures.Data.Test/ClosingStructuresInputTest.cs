@@ -382,7 +382,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [TestCase(-1e-6)]
         [TestCase(-23456)]
         [TestCase(double.NaN)]
-        public void ProbabilityOpenStructureBeforeFlooding_InvalidValues_ThrowsArgumentOutOfRangeException(double probability)
+        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_InvalidValues_ThrowsArgumentOutOfRangeException(double probability)
         {
             // Setup
             var input = new ClosingStructuresInput();
@@ -391,14 +391,14 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => input.ProbabilityOrFrequencyOpenStructureBeforeFlooding = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde moet groter of gelijk aan 0 zijn.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde moet groter dan of gelijk aan 0 zijn.");
         }
 
         [Test]
         [TestCase(0)]
         [TestCase(0.5)]
         [TestCase(1.0)]
-        public void ProbabilityOpenStructureBeforeFlooding_ValidValues_ExpectedValues(double probability)
+        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_ValidValues_ExpectedValues(double probability)
         {
             // Setup
             var input = new ClosingStructuresInput();

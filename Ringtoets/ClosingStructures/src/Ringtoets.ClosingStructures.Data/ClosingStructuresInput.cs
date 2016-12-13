@@ -300,7 +300,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the failure probability/frequency of an open structure before flooding.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value is negative.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value is negative or <see cref="double.NaN"/>.</exception>
         public double ProbabilityOrFrequencyOpenStructureBeforeFlooding
         {
             get

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using BaseConstructionProperties = Ringtoets.Common.Data.StructureBase.ConstructionProperties;
