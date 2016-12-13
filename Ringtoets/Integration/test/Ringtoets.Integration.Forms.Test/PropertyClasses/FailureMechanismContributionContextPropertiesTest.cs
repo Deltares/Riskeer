@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -149,7 +150,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenReturnPeriod_WhenConfirmingChanges_ReturnPeriodSet(bool confirmChange)
+        public void GivenReturnPeriod_WhenConfirmingChanges_ReturnPeriodSetAndNotifiesObserver(bool confirmChange)
         {
             // Given
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -160,6 +161,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var compositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             compositionChangeHandler.Stub(h => h.ConfirmCompositionChange()).Return(false);
+            mocks.ReplayAll();
+
+            var observer = mocks.StrictMock<IObserver>();
+            failureMechanismContribution.Attach(observer);
+            if (confirmChange)
+            {
+                observer.Expect(o => o.UpdateObserver());
+            }
+            else
+            {
+                observer.Expect(o => o.UpdateObserver()).Repeat.Never();
+            }
             mocks.ReplayAll();
 
             var properties = new FailureMechanismContributionContextProperties()
@@ -197,7 +210,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenAssessmentSectionComposition_WhenConfirmingChanges_AssessmentSectionCompositionSet(bool confirmChange)
+        public void GivenAssessmentSectionComposition_WhenConfirmingChanges_AssessmentSectionCompositionSetAndNotifiesObserver(bool confirmChange)
         {
             // Given
             const AssessmentSectionComposition originalComposition = AssessmentSectionComposition.Dike;
@@ -209,7 +222,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var normChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
             normChangeHandler.Stub(h => h.ConfirmNormChange())
                              .Return(false);
+
+            var observer = mocks.StrictMock<IObserver>();
+            failureMechanismContribution.Attach(observer);
+            if (confirmChange)
+            {
+                observer.Expect(o => o.UpdateObserver());
+            }
+            else
+            {
+                observer.Expect(o => o.UpdateObserver()).Repeat.Never();
+            }
             mocks.ReplayAll();
+            
 
             var properties = new FailureMechanismContributionContextProperties()
             {

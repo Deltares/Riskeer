@@ -25,6 +25,7 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -43,7 +44,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         private IFailureMechanismContributionNormChangeHandler normChangeHandler;
         private IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
 
-        [TypeConverter(typeof(EnumConverter))]
+        [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "FailureMechanismContribution_Composition_DisplayName")]
         [ResourcesDescription(typeof(Resources), "FailureMechanismContribution_Composition_Description")]
@@ -62,6 +63,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                     {
                         changedObject.NotifyObservers();
                     }
+
+                    data.NotifyObservers();
                 }
             }
         }
