@@ -56,10 +56,10 @@ namespace Core.Common.Utils.Extensions
 
             if (str.Length > 1)
             {
-                return char.ToUpper(str[0]) + str.Substring(1);
+                return char.ToUpper(str[0], CultureInfo.CurrentCulture) + str.Substring(1);
             }
 
-            return str.ToUpper();
+            return str.ToUpper(CultureInfo.CurrentCulture);
         }
 
         /// <summary>
@@ -76,10 +76,10 @@ namespace Core.Common.Utils.Extensions
 
             if (str.Length > 1)
             {
-                return char.ToLower(str[0]) + str.Substring(1);
+                return char.ToLower(str[0], CultureInfo.CurrentCulture) + str.Substring(1);
             }
 
-            return str.ToLower();
+            return str.ToLower(CultureInfo.CurrentCulture);
         }
     }
 }

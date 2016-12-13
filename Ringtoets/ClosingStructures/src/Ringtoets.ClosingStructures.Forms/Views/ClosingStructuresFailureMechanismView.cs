@@ -169,6 +169,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
+            structuresObserver.Dispose();
 
             if (disposing && (components != null))
             {

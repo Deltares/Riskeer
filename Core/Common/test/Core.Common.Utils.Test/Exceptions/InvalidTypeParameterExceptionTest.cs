@@ -95,6 +95,29 @@ namespace Core.Common.Utils.Test.Exceptions
         }
 
         [Test]
+        public void MessageAndInnerExceptionConstructor_ExpectedValues()
+        {
+            // Setup
+            var innerException = new Exception();
+            const string messageText = "<insert exception message>";
+
+            // Call
+            var exception = new InvalidTypeParameterException(messageText, innerException);
+
+            // Assert
+            Assert.IsInstanceOf<Exception>(exception);
+            Assert.AreEqual(messageText, exception.Message);
+            Assert.IsNull(exception.TypeParamName);
+            Assert.AreEqual(0, exception.Data.Count);
+            Assert.AreEqual(exception.TypeParamName, exception.Data["TypeParamName"]);
+            Assert.IsNull(exception.HelpLink);
+            Assert.AreEqual(innerException, exception.InnerException);
+            Assert.IsNull(exception.Source);
+            Assert.IsNull(exception.StackTrace);
+            Assert.IsNull(exception.TargetSite);
+        }
+
+        [Test]
         public void TypeParameterAndMessageAndInnerExceptionConstructor_ExpectedValues()
         {
             // Setup

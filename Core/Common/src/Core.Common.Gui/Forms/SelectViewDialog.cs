@@ -45,11 +45,13 @@ namespace Core.Common.Gui.Forms
             InitializeComponent();
 
             Font lbFont = listBox.Font;
-            var defaultItemFont = new Font(lbFont.FontFamily, lbFont.Size, FontStyle.Bold);
             var g = listBox.CreateGraphics();
-            var itemSize = g.MeasureString("TEST", defaultItemFont);
 
-            listBox.ItemHeight = (int) itemSize.Height;
+            using (var defaultItemFont = new Font(lbFont.FontFamily, lbFont.Size, FontStyle.Bold))
+            {
+                var itemSize = g.MeasureString("TEST", defaultItemFont);
+                listBox.ItemHeight = (int) itemSize.Height;
+            }
         }
 
         /// <summary>

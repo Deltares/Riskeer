@@ -333,7 +333,7 @@ namespace Core.Common.Utils.Reflection
             {
                 return GetMemberNameFromExpression(unary.Operand);
             }
-            throw new ArgumentException();
+            throw new ArgumentException("expression");
         }
 
         /// <summary>

@@ -170,6 +170,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
+            structuresObserver.Dispose();
 
             if (disposing && (components != null))
             {

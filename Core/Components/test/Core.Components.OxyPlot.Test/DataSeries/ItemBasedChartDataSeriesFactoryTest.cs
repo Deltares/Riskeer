@@ -82,6 +82,16 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.Throws<NotSupportedException>(test);
         }
 
+        [Test]
+        public void Create_NullData_ThrownsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ItemBasedChartDataSeriesFactory.Create(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
         private class TestItemBasedChartData : ItemBasedChartData
         {
             public TestItemBasedChartData(string name) : base(name) {}

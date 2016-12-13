@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using Core.Components.Charting.Data;
 
 namespace Core.Components.OxyPlot.DataSeries
@@ -34,9 +35,15 @@ namespace Core.Components.OxyPlot.DataSeries
         /// </summary>
         /// <param name="data">The <see cref="ItemBasedChartData"/> to create a <see cref="IItemBasedChartDataSeries"/> from.</param>
         /// <returns>A <see cref="IItemBasedChartDataSeries"/> instance.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when the given <paramref name="data"/> is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
         public static IItemBasedChartDataSeries Create(ItemBasedChartData data)
         {
+            if (data == null)
+            {
+                throw new ArgumentNullException("data");
+            }
+
             var chartPointData = data as ChartPointData;
             if (chartPointData != null)
             {
@@ -61,7 +68,7 @@ namespace Core.Components.OxyPlot.DataSeries
                 return new ChartMultipleAreaDataSeries(chartMultipleAreaData);
             }
 
-            throw new NotSupportedException(string.Format("ItemBasedChartData of type {0} is not supported.", data.GetType().Name));
+            throw new NotSupportedException(string.Format(CultureInfo.CurrentCulture, "ItemBasedChartData of type {0} is not supported.", data.GetType().Name));
         }
     }
 }
