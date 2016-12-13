@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Heave", 2, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingOutputContext_HeaveGradient_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingOutputContext_HeaveGradient_Description")]
-        [PropertyOrder(12)]
+        [PropertyOrder(11)]
         public RoundedDouble HeaveGradient 
         {
             get
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer", 3, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingOutputContext_SellmeijerCreepCoefficient_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingOutputContext_SellmeijerCreepCoefficient_Description")]
-        [PropertyOrder(24)]
+        [PropertyOrder(21)]
         public RoundedDouble SellmeijerCreepCoefficient
         {
             get
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer", 3, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingOutputContext_SellmeijerCriticalFall_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingOutputContext_SellmeijerCriticalFall_Description")]
-        [PropertyOrder(24)]
+        [PropertyOrder(22)]
         public RoundedDouble SellmeijerCriticalFall
         {
             get
@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer", 3, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingOutputContext_SellmeijerReducedFall_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingOutputContext_SellmeijerReducedFall_Description")]
-        [PropertyOrder(24)]
+        [PropertyOrder(23)]
         public RoundedDouble SellmeijerReducedFall
         {
             get

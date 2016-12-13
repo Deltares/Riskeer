@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
@@ -234,138 +235,137 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var pipingCategory = "Piping";
 
             PropertyDescriptor upliftEffectiveStress = dynamicProperties[0];
-            Assert.IsNotNull(upliftEffectiveStress);
-            Assert.IsTrue(upliftEffectiveStress.IsReadOnly);
-            Assert.AreEqual(upliftCategory, upliftEffectiveStress.Category);
-            Assert.AreEqual("Gewicht van de deklaag [kN/m²]", upliftEffectiveStress.DisplayName);
-            Assert.AreEqual("Het effectieve gewicht van de deklaag.", upliftEffectiveStress.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upliftEffectiveStress,
+                                                                            upliftCategory,
+                                                                            "Gewicht van de deklaag [kN/m²]",
+                                                                            "Het effectieve gewicht van de deklaag.",
+                                                                            true);
 
             PropertyDescriptor upliftFactorOfSafetyProperty = dynamicProperties[1];
-            Assert.IsNotNull(upliftFactorOfSafetyProperty);
-            Assert.IsTrue(upliftFactorOfSafetyProperty.IsReadOnly);
-            Assert.AreEqual(upliftCategory, upliftFactorOfSafetyProperty.Category);
-            Assert.AreEqual("Veiligheidsfactor [-]", upliftFactorOfSafetyProperty.DisplayName);
-            Assert.AreEqual("De veiligheidsfactor voor het submechanisme opbarsten voor deze berekening.", upliftFactorOfSafetyProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upliftFactorOfSafetyProperty,
+                                                                            upliftCategory,
+                                                                            "Veiligheidsfactor [-]",
+                                                                            "De veiligheidsfactor voor het submechanisme opbarsten voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor upliftReliabilityProperty = dynamicProperties[2];
-            Assert.IsNotNull(upliftReliabilityProperty);
-            Assert.IsTrue(upliftReliabilityProperty.IsReadOnly);
-            Assert.AreEqual(upliftCategory, upliftReliabilityProperty.Category);
-            Assert.AreEqual("Betrouwbaarheidsindex [-]", upliftReliabilityProperty.DisplayName);
-            Assert.AreEqual("De betrouwbaarheidsindex voor het submechanisme opbarsten voor deze berekening.", upliftReliabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upliftReliabilityProperty,
+                                                                            upliftCategory,
+                                                                            "Betrouwbaarheidsindex [-]",
+                                                                            "De betrouwbaarheidsindex voor het submechanisme opbarsten voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor upliftProbabilityProperty = dynamicProperties[3];
-            Assert.IsNotNull(upliftProbabilityProperty);
-            Assert.IsTrue(upliftProbabilityProperty.IsReadOnly);
-            Assert.AreEqual(upliftCategory, upliftProbabilityProperty.Category);
-            Assert.AreEqual("Kans van voorkomen [1/jaar]", upliftProbabilityProperty.DisplayName);
-            Assert.AreEqual("De kans dat het submechanisme opbarsten optreedt voor deze berekening.", upliftProbabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upliftProbabilityProperty,
+                                                                            upliftCategory,
+                                                                            "Kans van voorkomen [1/jaar]",
+                                                                            "De kans dat het submechanisme opbarsten optreedt voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor heaveGradientProperty = dynamicProperties[4];
-            Assert.IsNotNull(heaveGradientProperty);
-            Assert.IsTrue(heaveGradientProperty.IsReadOnly);
-            Assert.AreEqual(heaveCategory, heaveGradientProperty.Category);
-            Assert.AreEqual("Heave gradiënt [-]", heaveGradientProperty.DisplayName);
-            Assert.AreEqual("De optredende verticale gradiënt in het opbarstkanaal.", heaveGradientProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(heaveGradientProperty,
+                                                                            heaveCategory,
+                                                                            "Heave gradiënt [-]",
+                                                                            "De optredende verticale gradiënt in het opbarstkanaal.",
+                                                                            true);
 
             PropertyDescriptor heaveFactorOfSafetyProperty = dynamicProperties[5];
-            Assert.IsNotNull(heaveFactorOfSafetyProperty);
-            Assert.IsTrue(heaveFactorOfSafetyProperty.IsReadOnly);
-            Assert.AreEqual(heaveCategory, heaveFactorOfSafetyProperty.Category);
-            Assert.AreEqual("Veiligheidsfactor [-]", heaveFactorOfSafetyProperty.DisplayName);
-            Assert.AreEqual("De veiligheidsfactor voor het submechanisme heave voor deze berekening.", heaveFactorOfSafetyProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(heaveFactorOfSafetyProperty,
+                                                                            heaveCategory,
+                                                                            "Veiligheidsfactor [-]",
+                                                                            "De veiligheidsfactor voor het submechanisme heave voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor heaveReliabilityProperty = dynamicProperties[6];
-            Assert.IsNotNull(heaveReliabilityProperty);
-            Assert.IsTrue(heaveReliabilityProperty.IsReadOnly);
-            Assert.AreEqual(heaveCategory, heaveReliabilityProperty.Category);
-            Assert.AreEqual("Betrouwbaarheidsindex [-]", heaveReliabilityProperty.DisplayName);
-            Assert.AreEqual("De betrouwbaarheidsindex voor het submechanisme heave voor deze berekening.", heaveReliabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(heaveReliabilityProperty,
+                                                                            heaveCategory,
+                                                                            "Betrouwbaarheidsindex [-]",
+                                                                            "De betrouwbaarheidsindex voor het submechanisme heave voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor heaveProbabilityProperty = dynamicProperties[7];
-            Assert.IsNotNull(heaveProbabilityProperty);
-            Assert.IsTrue(heaveProbabilityProperty.IsReadOnly);
-            Assert.AreEqual(heaveCategory, heaveProbabilityProperty.Category);
-            Assert.AreEqual("Kans van voorkomen [1/jaar]", heaveProbabilityProperty.DisplayName);
-            Assert.AreEqual("De kans dat het submechanisme heave optreedt voor deze berekening.", heaveProbabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(heaveProbabilityProperty,
+                                                                            heaveCategory,
+                                                                            "Kans van voorkomen [1/jaar]",
+                                                                            "De kans dat het submechanisme heave optreedt voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor sellmeijerCreepCoefficientProperty = dynamicProperties[8];
-            Assert.IsNotNull(sellmeijerCreepCoefficientProperty);
-            Assert.IsTrue(sellmeijerCreepCoefficientProperty.IsReadOnly);
-            Assert.AreEqual(sellmeijerCategory, sellmeijerCreepCoefficientProperty.Category);
-            Assert.AreEqual("Creep coëfficiënt [-]", sellmeijerCreepCoefficientProperty.DisplayName);
-            Assert.AreEqual("De verhouding tussen de kwelweglengte en het berekende kritieke verval op basis van de regel van Sellmeijer (analoog aan de vuistregel van Bligh).", 
-                sellmeijerCreepCoefficientProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sellmeijerCreepCoefficientProperty,
+                                                                            sellmeijerCategory,
+                                                                            "Creep coëfficiënt [-]",
+                                                                            "De verhouding tussen de kwelweglengte en het berekende kritieke verval op basis van de regel van Sellmeijer (analoog aan de vuistregel van Bligh).",
+                                                                            true);
 
             PropertyDescriptor sellmeijerCriticalFallProperty = dynamicProperties[9];
-            Assert.IsNotNull(sellmeijerCriticalFallProperty);
-            Assert.IsTrue(sellmeijerCriticalFallProperty.IsReadOnly);
-            Assert.AreEqual(sellmeijerCategory, sellmeijerCriticalFallProperty.Category);
-            Assert.AreEqual("Kritiek verval [m]", sellmeijerCriticalFallProperty.DisplayName);
-            Assert.AreEqual("Het kritieke verval over de waterkering.", sellmeijerCriticalFallProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sellmeijerCriticalFallProperty,
+                                                                            sellmeijerCategory,
+                                                                            "Kritiek verval [m]",
+                                                                            "Het kritieke verval over de waterkering.",
+                                                                            true);
 
             PropertyDescriptor sellmeijerReducedFallProperty = dynamicProperties[10];
-            Assert.IsNotNull(sellmeijerReducedFallProperty);
-            Assert.IsTrue(sellmeijerReducedFallProperty.IsReadOnly);
-            Assert.AreEqual(sellmeijerCategory, sellmeijerReducedFallProperty.Category);
-            Assert.AreEqual("Gereduceerd verval [m]", sellmeijerReducedFallProperty.DisplayName);
-            Assert.AreEqual("Het verschil tussen de buitenwaterstand en de binnenwaterstand, gecorrigeerd voor de drukval in het opbarstkanaal.", sellmeijerReducedFallProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sellmeijerReducedFallProperty,
+                                                                            sellmeijerCategory,
+                                                                            "Gereduceerd verval [m]",
+                                                                            "Het verschil tussen de buitenwaterstand en de binnenwaterstand, gecorrigeerd voor de drukval in het opbarstkanaal.",
+                                                                            true);
 
             PropertyDescriptor sellmeijerFactorOfSafetyProperty = dynamicProperties[11];
-            Assert.IsNotNull(sellmeijerFactorOfSafetyProperty);
-            Assert.IsTrue(sellmeijerFactorOfSafetyProperty.IsReadOnly);
-            Assert.AreEqual(sellmeijerCategory, sellmeijerFactorOfSafetyProperty.Category);
-            Assert.AreEqual("Veiligheidsfactor [-]", sellmeijerFactorOfSafetyProperty.DisplayName);
-            Assert.AreEqual("De veiligheidsfactor voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening.", sellmeijerFactorOfSafetyProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sellmeijerFactorOfSafetyProperty,
+                                                                            sellmeijerCategory,
+                                                                            "Veiligheidsfactor [-]",
+                                                                            "De veiligheidsfactor voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor sellmeijerReliabilityProperty = dynamicProperties[12];
-            Assert.IsNotNull(sellmeijerReliabilityProperty);
-            Assert.IsTrue(sellmeijerReliabilityProperty.IsReadOnly);
-            Assert.AreEqual(sellmeijerCategory, sellmeijerReliabilityProperty.Category);
-            Assert.AreEqual("Betrouwbaarheidsindex [-]", sellmeijerReliabilityProperty.DisplayName);
-            Assert.AreEqual("De betrouwbaarheidsindex voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening.", sellmeijerReliabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sellmeijerReliabilityProperty,
+                                                                            sellmeijerCategory,
+                                                                            "Betrouwbaarheidsindex [-]",
+                                                                            "De betrouwbaarheidsindex voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor sellmeijerProbabilityProperty = dynamicProperties[13];
-            Assert.IsNotNull(sellmeijerProbabilityProperty);
-            Assert.IsTrue(sellmeijerProbabilityProperty.IsReadOnly);
-            Assert.AreEqual(sellmeijerCategory, sellmeijerProbabilityProperty.Category);
-            Assert.AreEqual("Kans van voorkomen [1/jaar]", sellmeijerProbabilityProperty.DisplayName);
-            Assert.AreEqual("De kans dat het submechanisme terugschrijdende erosie (Sellmeijer) optreedt voor deze berekening.", sellmeijerProbabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sellmeijerProbabilityProperty,
+                                                                            sellmeijerCategory,
+                                                                            "Kans van voorkomen [1/jaar]",
+                                                                            "De kans dat het submechanisme terugschrijdende erosie (Sellmeijer) optreedt voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[14];
-            Assert.IsNotNull(requiredProbabilityProperty);
-            Assert.IsTrue(requiredProbabilityProperty.IsReadOnly);
-            Assert.AreEqual(pipingCategory, requiredProbabilityProperty.Category);
-            Assert.AreEqual("Faalkanseis [1/jaar]", requiredProbabilityProperty.DisplayName);
-            Assert.AreEqual("De maximaal toegestane kans dat het toetsspoor piping optreedt.", requiredProbabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
+                                                                            pipingCategory,
+                                                                            "Faalkanseis [1/jaar]",
+                                                                            "De maximaal toegestane kans dat het toetsspoor piping optreedt.",
+                                                                            true);
 
             PropertyDescriptor requiredReliabilityProperty = dynamicProperties[15];
-            Assert.IsNotNull(requiredReliabilityProperty);
-            Assert.IsTrue(requiredReliabilityProperty.IsReadOnly);
-            Assert.AreEqual(pipingCategory, requiredReliabilityProperty.Category);
-            Assert.AreEqual("Betrouwbaarheidsindex faalkanseis [-]", requiredReliabilityProperty.DisplayName);
-            Assert.AreEqual("De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor piping.", requiredReliabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
+                                                                            pipingCategory,
+                                                                            "Betrouwbaarheidsindex faalkanseis [-]",
+                                                                            "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor piping.",
+                                                                            true);
 
             PropertyDescriptor pipingProbabilityProperty = dynamicProperties[16];
-            Assert.IsNotNull(pipingProbabilityProperty);
-            Assert.IsTrue(pipingProbabilityProperty.IsReadOnly);
-            Assert.AreEqual(pipingCategory, pipingProbabilityProperty.Category);
-            Assert.AreEqual("Benaderde faalkans [1/jaar]", pipingProbabilityProperty.DisplayName);
-            Assert.AreEqual("De benaderde kans dat het toetsspoor piping optreedt voor deze berekening.", pipingProbabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(pipingProbabilityProperty,
+                                                                            pipingCategory,
+                                                                            "Benaderde faalkans [1/jaar]",
+                                                                            "De benaderde kans dat het toetsspoor piping optreedt voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor pipingReliabilityProperty = dynamicProperties[17];
-            Assert.IsNotNull(pipingReliabilityProperty);
-            Assert.IsTrue(pipingReliabilityProperty.IsReadOnly);
-            Assert.AreEqual(pipingCategory, pipingReliabilityProperty.Category);
-            Assert.AreEqual("Betrouwbaarheidsindex faalkans [-]", pipingReliabilityProperty.DisplayName);
-            Assert.AreEqual("De betrouwbaarheidsindex van de faalkans voor deze berekening.", pipingReliabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(pipingReliabilityProperty,
+                                                                            pipingCategory,
+                                                                            "Betrouwbaarheidsindex faalkans [-]",
+                                                                            "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor pipingFactorOfSafetyProperty = dynamicProperties[18];
-            Assert.IsNotNull(pipingFactorOfSafetyProperty);
-            Assert.IsTrue(pipingFactorOfSafetyProperty.IsReadOnly);
-            Assert.AreEqual(pipingCategory, pipingFactorOfSafetyProperty.Category);
-            Assert.AreEqual("Veiligheidsfactor [-]", pipingFactorOfSafetyProperty.DisplayName);
-            Assert.AreEqual("De veiligheidsfactor voor deze berekening.", pipingFactorOfSafetyProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(pipingFactorOfSafetyProperty,
+                                                                            pipingCategory,
+                                                                            "Veiligheidsfactor [-]",
+                                                                            "De veiligheidsfactor voor deze berekening.",
+                                                                            true);
         }
     }
 }

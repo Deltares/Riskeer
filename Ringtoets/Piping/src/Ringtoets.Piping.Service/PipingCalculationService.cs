@@ -276,7 +276,7 @@ namespace Ringtoets.Piping.Service
 
         private static IEnumerable<string> GetThicknessCoverageLayerWarnings(PipingInput inputParameters)
         {
-            List<string> warnings = new List<string>();
+            var warnings = new List<string>();
 
             PipingSoilProfile pipingSoilProfile = inputParameters.StochasticSoilProfile.SoilProfile;
             double surfaceLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
@@ -295,7 +295,7 @@ namespace Ringtoets.Piping.Service
 
         private static IEnumerable<string> GetDiameter70Warnings(PipingInput inputParameters)
         {
-            List<string> warnings = new List<string>();
+            var warnings = new List<string>();
 
             RoundedDouble diameter70Value = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue();
 

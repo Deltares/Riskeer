@@ -1339,10 +1339,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
             else
             {
+                Assert.AreEqual(expectedOutput.HeaveGradient, actualOutput.HeaveGradient);
                 Assert.AreEqual(expectedOutput.HeaveFactorOfSafety, actualOutput.HeaveFactorOfSafety);
                 Assert.AreEqual(expectedOutput.HeaveZValue, actualOutput.HeaveZValue);
+                Assert.AreEqual(expectedOutput.UpliftEffectiveStress, actualOutput.UpliftEffectiveStress);
                 Assert.AreEqual(expectedOutput.UpliftFactorOfSafety, actualOutput.UpliftFactorOfSafety);
                 Assert.AreEqual(expectedOutput.UpliftZValue, actualOutput.UpliftZValue);
+                Assert.AreEqual(expectedOutput.SellmeijerCreepCoefficient, actualOutput.SellmeijerCreepCoefficient);
+                Assert.AreEqual(expectedOutput.SellmeijerCriticalFall, actualOutput.SellmeijerCriticalFall);
+                Assert.AreEqual(expectedOutput.SellmeijerReducedFall, actualOutput.SellmeijerReducedFall);
                 Assert.AreEqual(expectedOutput.SellmeijerFactorOfSafety, actualOutput.SellmeijerFactorOfSafety);
                 Assert.AreEqual(expectedOutput.SellmeijerZValue, actualOutput.SellmeijerZValue);
             }

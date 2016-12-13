@@ -36,6 +36,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         {
             HeaveZValue = 1.1,
             HeaveFactorOfSafety = 1.50,
+            UpliftEffectiveStress = 3.51,
             UpliftZValue = 6.51,
             UpliftFactorOfSafety = 3.75,
             SellmeijerZValue = 8.92,

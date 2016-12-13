@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
     public interface IUpliftCalculator
     {
         /// <summary>
-        /// Sets the effective stress.
+        /// Gets or sets the effective stress.
         /// </summary>
         double EffectiveStress { get; set; }
 
