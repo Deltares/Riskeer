@@ -355,22 +355,22 @@ namespace Ringtoets.Piping.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(6, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
-                Assert.AreEqual("Validatie mislukt: Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.", msgs[1]);
-                Assert.AreEqual("Validatie mislukt: Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
-                Assert.AreEqual("Validatie mislukt: Geen watervoerende laag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[3]);
-                Assert.AreEqual("Validatie mislukt: Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[4]);
+                Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[1]);
+                Assert.AreEqual("Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
+                Assert.AreEqual("Validatie mislukt: Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.", msgs[3]);
+                Assert.AreEqual("Validatie mislukt: Geen watervoerende laag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[4]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
 
         [Test]
-        public void Validate_WithoutAquitardLayer_LogsErrorAndReturnsFalse()
+        public void Validate_WithoutAquitardLayer_LogsWarningsAndReturnsTrue()
         {
             // Setup
             const string name = "<very nice name>";
 
-            var aquiferLayer = new PipingSoilLayer(2.0)
+            var aquiferLayer = new PipingSoilLayer(10.56)
             {
                 IsAquifer = true,
                 DiameterD70Deviation = 0,
@@ -384,7 +384,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     aquiferLayer
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
-
+            
             testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             testCalculation.Name = name;
 
@@ -399,15 +399,15 @@ namespace Ringtoets.Piping.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
-                Assert.AreEqual("Validatie mislukt: Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[1]);
-                Assert.AreEqual("Validatie mislukt: Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[2]);
+                Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[1]);
+                Assert.AreEqual("Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
-            Assert.IsFalse(isValid);
+            Assert.IsTrue(isValid);
         }
 
         [Test]
-        public void Validate_WithoutCoverageLayer_LogsErrorAndReturnsFalse()
+        public void Validate_WithoutCoverageLayer_LogsWarningsAndReturnsTrue()
         {
             // Setup
             const string name = "<very nice name>";
@@ -446,11 +446,11 @@ namespace Ringtoets.Piping.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
-                Assert.AreEqual("Validatie mislukt: Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[1]);
-                Assert.AreEqual("Validatie mislukt: Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[2]);
+                Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[1]);
+                Assert.AreEqual("Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
-            Assert.IsFalse(isValid);
+            Assert.IsTrue(isValid);
         }
 
         [Test]
@@ -921,7 +921,15 @@ namespace Ringtoets.Piping.Service.Test
             PipingCalculationService.Calculate(testCalculation);
 
             // Assert
-            Assert.IsNotNull(testCalculation.Output);
+            var pipingOutput = testCalculation.Output;
+            Assert.IsNotNull(pipingOutput);
+            Assert.IsFalse(double.IsNaN(pipingOutput.UpliftEffectiveStress));
+            Assert.IsFalse(double.IsNaN(pipingOutput.UpliftZValue));
+            Assert.IsFalse(double.IsNaN(pipingOutput.UpliftFactorOfSafety));
+            Assert.IsFalse(double.IsNaN(pipingOutput.HeaveZValue));
+            Assert.IsFalse(double.IsNaN(pipingOutput.HeaveFactorOfSafety));
+            Assert.IsFalse(double.IsNaN(pipingOutput.SellmeijerZValue));
+            Assert.IsFalse(double.IsNaN(pipingOutput.SellmeijerFactorOfSafety));
         }
 
         [Test]

@@ -41,6 +41,10 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
 
         public double EffectiveStress
         {
+            get
+            {
+                return wrappedCalculator.EffectiveStress;
+            }
             set
             {
                 wrappedCalculator.EffectiveStress = value;

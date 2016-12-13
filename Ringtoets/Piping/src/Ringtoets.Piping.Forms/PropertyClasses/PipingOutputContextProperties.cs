@@ -33,9 +33,21 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     public class PipingOutputContextProperties : ObjectProperties<PipingOutputContext>
     {
         [ResourcesCategory(typeof(Resources), "PipingOutputContext_Categories_Uplift", 1, 4)]
+        [ResourcesDisplayName(typeof(Resources), "PipingOutputContext_UpliftEffectiveStress_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingOutputContext_UpliftEffectiveStress_Description")]
+        [PropertyOrder(1)]
+        public RoundedDouble UpliftEffectiveStress
+        {
+            get
+            {
+                return data.WrappedData.UpliftEffectiveStress;
+            }
+        }
+
+        [ResourcesCategory(typeof(Resources), "PipingOutputContext_Categories_Uplift", 1, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingOutputContext_UpliftFactorOfSafety_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingOutputContext_UpliftFactorOfSafety_Description")]
-        [PropertyOrder(1)]
+        [PropertyOrder(2)]
         public RoundedDouble UpliftFactorOfSafety
         {
             get
@@ -47,7 +59,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "PipingOutputContext_Categories_Uplift", 1, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingOutputContext_UpliftReliability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingOutputContext_UpliftReliability_Description")]
-        [PropertyOrder(2)]
+        [PropertyOrder(3)]
         public RoundedDouble UpliftReliability
         {
             get
@@ -59,7 +71,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "PipingOutputContext_Categories_Uplift", 1, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingOutputContext_UpliftProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingOutputContext_UpliftProbability_Description")]
-        [PropertyOrder(3)]
+        [PropertyOrder(4)]
         public string UpliftProbability
         {
             get

@@ -613,4 +613,10 @@
   <data name="PipingInput_UseAssessmentLevelManualInput_DisplayName" xml:space="preserve">
     <value>Handmatig toetspeil invoeren</value>
   </data>
+  <data name="PipingOutputContext_UpliftEffectiveStress_Description" xml:space="preserve">
+    <value>Het effectieve gewicht van de deklaag.</value>
+  </data>
+  <data name="PipingOutputContext_UpliftEffectiveStress_DisplayName" xml:space="preserve">
+    <value>Gewicht van de deklaag [kN/m²]</value>
+  </data>
 </root>

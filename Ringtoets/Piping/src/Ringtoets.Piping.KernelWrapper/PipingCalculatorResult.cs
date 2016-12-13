@@ -47,6 +47,7 @@ namespace Ringtoets.Piping.KernelWrapper
             HeaveFactorOfSafety = constructionProperties.HeaveFactorOfSafety;
             SellmeijerZValue = constructionProperties.SellmeijerZValue;
             SellmeijerFactorOfSafety = constructionProperties.SellmeijerFactorOfSafety;
+            UpliftEffectiveStress = constructionProperties.UpliftEffectiveStress;
             HeaveGradient = constructionProperties.HeaveGradient;
             SellmeijerCreepCoefficient = constructionProperties.SellmeijerCreepCoefficient;
             SellmeijerCriticalFall = constructionProperties.SellmeijerCriticalFall;
@@ -69,6 +70,7 @@ namespace Ringtoets.Piping.KernelWrapper
                 HeaveFactorOfSafety = double.NaN;
                 SellmeijerZValue = double.NaN;
                 SellmeijerFactorOfSafety = double.NaN;
+                UpliftEffectiveStress = double.NaN;
                 HeaveGradient = double.NaN;
                 SellmeijerCreepCoefficient = double.NaN;
                 SellmeijerCriticalFall = double.NaN;
@@ -76,52 +78,57 @@ namespace Ringtoets.Piping.KernelWrapper
             }
 
             /// <summary>
-            /// Gets the z-value of the Uplift sub calculation.
+            /// Sets the z-value of the Uplift sub calculation.
             /// </summary>
             public double UpliftZValue { internal get; set; }
 
             /// <summary>
-            /// Gets the factory of safety of the Uplift sub calculation.
+            /// Sets the factor of safety of the Uplift sub calculation.
             /// </summary>
             public double UpliftFactorOfSafety { internal get; set; }
 
             /// <summary>
-            /// Gets the z-value of the Heave sub calculation.
+            /// Sets the z-value of the Heave sub calculation.
             /// </summary>
             public double HeaveZValue { internal get; set; }
 
             /// <summary>
-            /// Gets the factory of safety of the Heave sub calculation.
+            /// Sets the factor of safety of the Heave sub calculation.
             /// </summary>
             public double HeaveFactorOfSafety { internal get; set; }
 
             /// <summary>
-            /// Gets the z-value of the Sellmeijer sub calculation.
+            /// Sets the z-value of the Sellmeijer sub calculation.
             /// </summary>
             public double SellmeijerZValue { internal get; set; }
 
             /// <summary>
-            /// Gets the factory of safety of the Sellmeijer sub calculation.
+            /// Sets the factor of safety of the Sellmeijer sub calculation.
             /// </summary>
             public double SellmeijerFactorOfSafety { internal get; set; }
 
             /// <summary>
-            /// The gradient that was calculated for the heave sub calculation.
+            /// Sets the effective stress that was calculated for the uplift sub calculation.
+            /// </summary>
+            public double UpliftEffectiveStress { internal get; set; }
+
+            /// <summary>
+            /// Sets the gradient that was calculated for the heave sub calculation.
             /// </summary>
             public double HeaveGradient { internal get; set; }
 
             /// <summary>
-            /// The creep coefficient that was calculated for the Sellmeijer sub calculation.
+            /// Sets the creep coefficient that was calculated for the Sellmeijer sub calculation.
             /// </summary>
             public double SellmeijerCreepCoefficient { internal get; set; }
 
             /// <summary>
-            /// The critical fall that was calculated for the Sellmeijer sub calculation.
+            /// Sets the critical fall that was calculated for the Sellmeijer sub calculation.
             /// </summary>
             public double SellmeijerCriticalFall { internal get; set; }
 
             /// <summary>
-            /// The reduced fall that was calculated for the Sellmeijer sub calculation.
+            /// Sets the reduced fall that was calculated for the Sellmeijer sub calculation.
             /// </summary>
             public double SellmeijerReducedFall { internal get; set; }
         }
@@ -134,7 +141,7 @@ namespace Ringtoets.Piping.KernelWrapper
         public double UpliftZValue { get; private set; }
 
         /// <summary>
-        /// Gets the factory of safety of the Uplift sub calculation.
+        /// Gets the factor of safety of the Uplift sub calculation.
         /// </summary>
         public double UpliftFactorOfSafety { get; private set; }
 
@@ -144,7 +151,7 @@ namespace Ringtoets.Piping.KernelWrapper
         public double HeaveZValue { get; private set; }
 
         /// <summary>
-        /// Gets the factory of safety of the Heave sub calculation.
+        /// Gets the factor of safety of the Heave sub calculation.
         /// </summary>
         public double HeaveFactorOfSafety { get; private set; }
 
@@ -154,27 +161,32 @@ namespace Ringtoets.Piping.KernelWrapper
         public double SellmeijerZValue { get; private set; }
 
         /// <summary>
-        /// Gets the factory of safety of the Sellmeijer sub calculation.
+        /// Gets the factor of safety of the Sellmeijer sub calculation.
         /// </summary>
         public double SellmeijerFactorOfSafety { get; private set; }
 
         /// <summary>
-        /// The gradient that was calculated for the heave sub calculation.
+        /// Gets the effective stress that was calculated for the uplift sub calculation.
+        /// </summary>
+        public double UpliftEffectiveStress { get; private set; }
+
+        /// <summary>
+        /// Gets the gradient that was calculated for the heave sub calculation.
         /// </summary>
         public double HeaveGradient { get; private set; }
 
         /// <summary>
-        /// The creep coefficient that was calculated for the Sellmeijer sub calculation.
+        /// Gets the creep coefficient that was calculated for the Sellmeijer sub calculation.
         /// </summary>
         public double SellmeijerCreepCoefficient { get; private set; }
 
         /// <summary>
-        /// The critical fall that was calculated for the Sellmeijer sub calculation.
+        /// Gets the critical fall that was calculated for the Sellmeijer sub calculation.
         /// </summary>
         public double SellmeijerCriticalFall { get; private set; }
 
         /// <summary>
-        /// The reduced fall that was calculated for the Sellmeijer sub calculation.
+        /// Gets the reduced fall that was calculated for the Sellmeijer sub calculation.
         /// </summary>
         public double SellmeijerReducedFall { get; private set; }
 

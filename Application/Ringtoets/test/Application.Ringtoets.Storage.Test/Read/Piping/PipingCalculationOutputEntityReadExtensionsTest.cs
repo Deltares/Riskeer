@@ -41,6 +41,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 UpliftFactorOfSafety = 3.2,
                 SellmeijerZValue = 1.9,
                 SellmeijerFactorOfSafety = 8.7,
+                UpliftEffectiveStress = 15.2,
                 HeaveGradient = 12.2,
                 SellmeijerCreepCoefficient = 1.4,
                 SellmeijerCriticalFall = 6.2,
@@ -57,6 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(entity.SellmeijerZValue, output.SellmeijerZValue);
             Assert.AreEqual(entity.UpliftZValue, output.UpliftZValue);
             Assert.AreEqual(entity.UpliftFactorOfSafety, output.UpliftFactorOfSafety);
+            Assert.AreEqual(entity.UpliftEffectiveStress, output.UpliftEffectiveStress.Value);
             Assert.AreEqual(entity.HeaveGradient, output.HeaveGradient.Value);
             Assert.AreEqual(entity.SellmeijerCreepCoefficient, output.SellmeijerCreepCoefficient.Value);
             Assert.AreEqual(entity.SellmeijerCriticalFall, output.SellmeijerCriticalFall.Value);
@@ -75,6 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 UpliftFactorOfSafety = null,
                 SellmeijerZValue = null,
                 SellmeijerFactorOfSafety = null,
+                UpliftEffectiveStress = null,
                 HeaveGradient = null,
                 SellmeijerCreepCoefficient = null,
                 SellmeijerCriticalFall = null,
@@ -91,6 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNaN(output.SellmeijerZValue);
             Assert.IsNaN(output.UpliftZValue);
             Assert.IsNaN(output.UpliftFactorOfSafety);
+            Assert.IsNaN(output.UpliftEffectiveStress);
             Assert.IsNaN(output.HeaveGradient);
             Assert.IsNaN(output.SellmeijerCreepCoefficient);
             Assert.IsNaN(output.SellmeijerCriticalFall);

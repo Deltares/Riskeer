@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         /// <summary>
         /// Sets the effective stress.
         /// </summary>
-        double EffectiveStress { set; }
+        double EffectiveStress { get; set; }
 
         /// <summary>
         /// Sets the phreatic level at the exit point.

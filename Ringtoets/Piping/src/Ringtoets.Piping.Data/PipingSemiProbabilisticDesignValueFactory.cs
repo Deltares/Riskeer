@@ -56,6 +56,10 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput parameters)
         {
+            if (double.IsNaN(parameters.ThicknessCoverageLayer.Mean))
+            {
+                return CreateDeterministicDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer, 0);
+            }
             return CreateDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer, 0.05);
         }
 
@@ -76,7 +80,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetEffectiveThicknessCoverageLayer(PipingInput parameters)
         {
-            if (double.IsNaN(parameters.EffectiveThicknessCoverageLayer.Mean))
+            if (double.IsNaN(parameters.ThicknessCoverageLayer.Mean))
             {
                 return CreateDeterministicDesignVariable(parameters.EffectiveThicknessCoverageLayer, 0);
             }

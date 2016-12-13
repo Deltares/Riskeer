@@ -81,6 +81,7 @@ namespace Ringtoets.Piping.KernelWrapper
                 HeaveFactorOfSafety = heaveResult.FoSh,
                 SellmeijerZValue = sellmeijerResult.Zp,
                 SellmeijerFactorOfSafety = sellmeijerResult.FoSp,
+                UpliftEffectiveStress = upliftResult.EffectiveStress,
                 HeaveGradient = heaveResult.Gradient,
                 SellmeijerCreepCoefficient = sellmeijerResult.CreepCoefficient,
                 SellmeijerCriticalFall = sellmeijerResult.CriticalFall,

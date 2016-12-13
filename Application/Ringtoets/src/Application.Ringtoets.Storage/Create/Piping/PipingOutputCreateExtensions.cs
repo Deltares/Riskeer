@@ -46,6 +46,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 SellmeijerZValue = output.SellmeijerZValue.ToNaNAsNull(),
                 UpliftFactorOfSafety = output.UpliftFactorOfSafety.ToNaNAsNull(),
                 UpliftZValue = output.UpliftZValue.ToNaNAsNull(),
+                UpliftEffectiveStress = output.UpliftEffectiveStress.Value.ToNaNAsNull(),
                 HeaveGradient = output.HeaveGradient.Value.ToNaNAsNull(),
                 SellmeijerCreepCoefficient = output.SellmeijerCreepCoefficient.Value.ToNaNAsNull(),
                 SellmeijerCriticalFall = output.SellmeijerCriticalFall.Value.ToNaNAsNull(),

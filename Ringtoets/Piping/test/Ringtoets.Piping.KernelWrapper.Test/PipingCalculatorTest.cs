@@ -70,6 +70,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.IsNotNull(actual);
+            Assert.IsFalse(double.IsNaN(actual.UpliftEffectiveStress));
             Assert.IsFalse(double.IsNaN(actual.UpliftZValue));
             Assert.IsFalse(double.IsNaN(actual.UpliftFactorOfSafety));
             Assert.IsFalse(double.IsNaN(actual.HeaveZValue));

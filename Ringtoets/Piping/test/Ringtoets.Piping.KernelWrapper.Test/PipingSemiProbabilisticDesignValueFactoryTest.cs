@@ -194,7 +194,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         }
 
         [Test]
-        public void GetSaturatedVolumicWeightOfCoverageLayer_PipingInputWithoutCoverLayer_CreateDesignVariableForSaturatedVolumicWeightOfCoverageLayer()
+        public void GetSaturatedVolumicWeightOfCoverageLayer_PipingInputWithoutCoverLayer_CreateDeterministicDesignVariableForSaturatedVolumicWeightOfCoverageLayer()
         {
             // Setup
             var inputParameters = new PipingInput(new GeneralPipingInput());
@@ -204,10 +204,9 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
 
             // Assert
-            DistributionAssert.AreEqual(
-                inputParameters.SaturatedVolumicWeightOfCoverageLayer, 
-                saturatedVolumicWeightOfCoverageLayer.Distribution);
-            Assert.AreEqual(RoundedDouble.NaN, saturatedVolumicWeightOfCoverageLayer.GetDesignValue());
+            Assert.IsInstanceOf<DeterministicDesignVariable<LogNormalDistribution>>(saturatedVolumicWeightOfCoverageLayer);
+            DistributionAssert.AreEqual(inputParameters.SaturatedVolumicWeightOfCoverageLayer, saturatedVolumicWeightOfCoverageLayer.Distribution);
+            Assert.AreEqual(new RoundedDouble(2), saturatedVolumicWeightOfCoverageLayer.GetDesignValue());
         }
 
         [Test]

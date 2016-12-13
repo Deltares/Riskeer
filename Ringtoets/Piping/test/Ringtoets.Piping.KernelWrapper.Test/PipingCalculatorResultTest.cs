@@ -51,6 +51,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             Assert.IsNaN(actual.HeaveFactorOfSafety);
             Assert.IsNaN(actual.SellmeijerZValue);
             Assert.IsNaN(actual.SellmeijerFactorOfSafety);
+            Assert.IsNaN(actual.UpliftEffectiveStress);
             Assert.IsNaN(actual.HeaveGradient);
             Assert.IsNaN(actual.SellmeijerCreepCoefficient);
             Assert.IsNaN(actual.SellmeijerCriticalFall);
@@ -69,6 +70,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var zsValue = random.NextDouble();
             var foSsValue = random.NextDouble();
             var heaveGradient = random.NextDouble();
+            var upliftEffectiveStress = random.NextDouble();
             var sellmeijerCreepCoefficient = random.NextDouble();
             var sellmeijerCriticalFall = random.NextDouble();
             var sellmeijerReducedFall = random.NextDouble();
@@ -81,6 +83,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 HeaveFactorOfSafety = foShValue,
                 SellmeijerZValue = zsValue,
                 SellmeijerFactorOfSafety = foSsValue,
+                UpliftEffectiveStress = upliftEffectiveStress,
                 HeaveGradient = heaveGradient,
                 SellmeijerCreepCoefficient = sellmeijerCreepCoefficient,
                 SellmeijerCriticalFall = sellmeijerCriticalFall,
@@ -97,6 +100,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             Assert.AreEqual(foShValue, actual.HeaveFactorOfSafety);
             Assert.AreEqual(zsValue, actual.SellmeijerZValue);
             Assert.AreEqual(foSsValue, actual.SellmeijerFactorOfSafety);
+            Assert.AreEqual(upliftEffectiveStress, actual.UpliftEffectiveStress);
             Assert.AreEqual(heaveGradient, actual.HeaveGradient);
             Assert.AreEqual(sellmeijerCreepCoefficient, actual.SellmeijerCreepCoefficient);
             Assert.AreEqual(sellmeijerCriticalFall, actual.SellmeijerCriticalFall);

@@ -47,6 +47,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 HeaveFactorOfSafety = entity.HeaveFactorOfSafety.ToNullAsNaN(),
                 SellmeijerZValue = entity.SellmeijerZValue.ToNullAsNaN(),
                 SellmeijerFactorOfSafety = entity.SellmeijerFactorOfSafety.ToNullAsNaN(),
+                UpliftEffectiveStress = entity.UpliftEffectiveStress.ToNullAsNaN(),
                 HeaveGradient = entity.HeaveGradient.ToNullAsNaN(),
                 SellmeijerCreepCoefficient = entity.SellmeijerCreepCoefficient.ToNullAsNaN(),
                 SellmeijerCriticalFall = entity.SellmeijerCriticalFall.ToNullAsNaN(),

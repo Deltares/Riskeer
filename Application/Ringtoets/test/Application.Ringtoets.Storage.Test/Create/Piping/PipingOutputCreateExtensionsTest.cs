@@ -41,10 +41,11 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 HeaveFactorOfSafety = 4.4,
                 SellmeijerZValue = 5.5,
                 SellmeijerFactorOfSafety = 6.6,
-                HeaveGradient = 7.7,
-                SellmeijerCreepCoefficient = 8.8,
-                SellmeijerCriticalFall = 9.9,
-                SellmeijerReducedFall = 10.10
+                UpliftEffectiveStress = 7.7,
+                HeaveGradient = 8.8,
+                SellmeijerCreepCoefficient = 9.9,
+                SellmeijerCriticalFall = 10.10,
+                SellmeijerReducedFall = 11.11
             });
 
             // Call
@@ -57,6 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(pipingOutput.SellmeijerZValue, entity.SellmeijerZValue);
             Assert.AreEqual(pipingOutput.UpliftFactorOfSafety, entity.UpliftFactorOfSafety);
             Assert.AreEqual(pipingOutput.UpliftZValue, entity.UpliftZValue);
+            Assert.AreEqual(pipingOutput.UpliftEffectiveStress.Value, entity.UpliftEffectiveStress);
             Assert.AreEqual(pipingOutput.HeaveGradient.Value, entity.HeaveGradient);
             Assert.AreEqual(pipingOutput.SellmeijerCreepCoefficient.Value, entity.SellmeijerCreepCoefficient);
             Assert.AreEqual(pipingOutput.SellmeijerCriticalFall.Value, entity.SellmeijerCriticalFall);
@@ -82,6 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNull(entity.SellmeijerZValue);
             Assert.IsNull(entity.UpliftFactorOfSafety);
             Assert.IsNull(entity.UpliftZValue);
+            Assert.IsNull(entity.UpliftEffectiveStress);
             Assert.IsNull(entity.HeaveGradient);
             Assert.IsNull(entity.SellmeijerCreepCoefficient);
             Assert.IsNull(entity.SellmeijerCriticalFall);

@@ -89,6 +89,7 @@ namespace Ringtoets.Piping.Service
                     HeaveFactorOfSafety = pipingResult.HeaveFactorOfSafety,
                     SellmeijerZValue = pipingResult.SellmeijerZValue,
                     SellmeijerFactorOfSafety = pipingResult.SellmeijerFactorOfSafety,
+                    UpliftEffectiveStress = pipingResult.UpliftEffectiveStress,
                     HeaveGradient = pipingResult.HeaveGradient,
                     SellmeijerCreepCoefficient = pipingResult.SellmeijerCreepCoefficient,
                     SellmeijerCriticalFall = pipingResult.SellmeijerCriticalFall,
@@ -201,11 +202,6 @@ namespace Ringtoets.Piping.Service
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer);
             }
 
-            if (double.IsNaN(inputParameters.ThicknessCoverageLayer.Mean))
-            {
-                validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer);
-            }
-
             PipingSoilProfile pipingSoilProfile = inputParameters.StochasticSoilProfile.SoilProfile;
             double surfaceLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
 
@@ -243,11 +239,7 @@ namespace Ringtoets.Piping.Service
             var validationResult = new List<string>();
 
             bool hasConsecutiveCoverageLayers = pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).Any();
-            if (!hasConsecutiveCoverageLayers)
-            {
-                validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine);
-            }
-            else
+            if (hasConsecutiveCoverageLayers)
             {
                 RoundedDouble saturatedVolumicWeightOfCoverageLayer =
                     PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue();
@@ -276,8 +268,28 @@ namespace Ringtoets.Piping.Service
                 warnings.AddRange(GetMultipleAquiferLayersWarning(inputParameters, surfaceLineLevel));
                 warnings.AddRange(GetMultipleCoverageLayersWarning(inputParameters, surfaceLineLevel));
                 warnings.AddRange(GetDiameter70Warnings(inputParameters));
+                warnings.AddRange(GetThicknessCoverageLayerWarnings(inputParameters));
             }
 
+            return warnings;
+        }
+
+        private static IEnumerable<string> GetThicknessCoverageLayerWarnings(PipingInput inputParameters)
+        {
+            List<string> warnings = new List<string>();
+
+            PipingSoilProfile pipingSoilProfile = inputParameters.StochasticSoilProfile.SoilProfile;
+            double surfaceLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
+
+            bool hasConsecutiveCoverageLayers = pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).Any();
+            if (!hasConsecutiveCoverageLayers)
+            {
+                warnings.Add(Resources.PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine);
+            }
+            if (double.IsNaN(inputParameters.ThicknessCoverageLayer.Mean))
+            {
+                warnings.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer);
+            }
             return warnings;
         }
 
