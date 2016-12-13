@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Gui.Commands;
+using Core.Common.Utils;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -37,7 +38,7 @@ namespace Ringtoets.Integration.Forms.Test
     public class FailureMechanismContributionViewIntegrationTest
     {
         private const string dataGridViewControlName = "dataGridView";
-        private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
+        private const string assessmentSectionCompositionLabelName = "assessmentSectionConfigurationLabel";
         private const int isRelevantColumnIndex = 0;
         private const int nameColumnIndex = 1;
         private const int codeColumnIndex = 2;
@@ -84,8 +85,11 @@ namespace Ringtoets.Integration.Forms.Test
                 assessmentSection.FailureMechanismContribution.NotifyObservers();
 
                 // Then
-                var compositionComboBox = (ComboBox)new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
-                Assert.AreEqual(newComposition, compositionComboBox.SelectedValue);
+                var compositionLabel = (Label)new ControlTester(assessmentSectionCompositionLabelName).TheObject;
+
+                string compositionDisplayName = new EnumDisplayWrapper<AssessmentSectionComposition>(newComposition).DisplayName;
+                string newCompositionValue = string.Format("Trajecttype: {0}", compositionDisplayName);
+                Assert.AreEqual(newCompositionValue, compositionLabel.Text);
 
                 Assert.IsTrue(dataGridInvalidated,
                               "Expect the DataGridView to be flagged for redrawing.");

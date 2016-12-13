@@ -28,6 +28,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Gui.Commands;
+using Core.Common.Utils;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -42,9 +43,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismContributionViewTest : NUnitFormTest
     {
-        private const string returnPeriodInputTextBoxName = "returnPeriodInput";
+        private const string returnPeriodLabelName = "returnPeriodLabel";
         private const string dataGridViewControlName = "dataGridView";
-        private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
+        private const string assessmentSectionConfigurationLabelName = "assessmentSectionConfigurationLabel";
         private const int isRelevantColumnIndex = 0;
         private const int nameColumnIndex = 1;
         private const int codeColumnIndex = 2;
@@ -136,15 +137,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(contributionView);
 
                 // Assert
-                var returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
-                var returnPeriodControl = returnPeriodTester.TheObject as NumericUpDown;
+                var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 int returnPeriod = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
-
-                Assert.NotNull(returnPeriodControl);
-                Assert.AreEqual(returnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Text);
-                Assert.AreEqual(1000000, returnPeriodControl.Maximum);
-                Assert.AreEqual(100, returnPeriodControl.Minimum);
+                var expectedReturnPeriodLabel = string.Format("Norm: 1 / {0} jaar",
+                                                              returnPeriod.ToString(CultureInfo.CurrentCulture));
+                Assert.AreEqual(expectedReturnPeriodLabel, returnPeriodLabel.Properties.Text);
             }
             mocks.VerifyAll();
         }
@@ -268,17 +266,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
             })
             {
                 ShowFormWithView(distributionView);
-                var returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
+                var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 // Precondition
-                Assert.AreEqual(initialReturnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Properties.Text);
+                var initialReturnPeriodLabelText = string.Format("Norm: 1 / {0} jaar",
+                                                                 initialReturnPeriod.ToString(CultureInfo.CurrentCulture));
+                Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
 
                 // Call
                 distributionView.Data = newContribution;
                 distributionView.AssessmentSection = assessmentSection2;
 
                 // Assert
-                Assert.AreEqual(newReturnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Properties.Text);
+                var newReturnPeriodLabelText = string.Format("Norm: 1 / {0} jaar",
+                                                             newReturnPeriod.ToString(CultureInfo.CurrentCulture));
+                Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
 
             mockRepository.VerifyAll();
@@ -311,17 +313,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
             })
             {
                 ShowFormWithView(distributionView);
-                var returnPeriodTester = new ControlTester(returnPeriodInputTextBoxName);
+                var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 // Precondition
-                Assert.AreEqual(initialReturnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Properties.Text);
+                var initialReturnPeriodLabelText = string.Format("Norm: 1 / {0} jaar",
+                                                                 initialReturnPeriod.ToString(CultureInfo.CurrentCulture));
+                Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
 
                 // Call
                 contribution.Norm = 1.0/newReturnPeriod;
                 contribution.NotifyObservers();
 
                 // Assert
-                Assert.AreEqual(newReturnPeriod.ToString(CultureInfo.CurrentCulture), returnPeriodTester.Properties.Text);
+                var newReturnPeriodLabelText = string.Format("Norm: 1 / {0} jaar",
+                                                             newReturnPeriod.ToString(CultureInfo.CurrentCulture));
+                Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
 
             mockRepository.VerifyAll();
@@ -466,11 +472,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 view.AssessmentSection = assessmentSection;
 
                 // Call
-                var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
+                var compositionLabel = (Label) new ControlTester(assessmentSectionConfigurationLabelName).TheObject;
 
                 // Assert
-                Assert.AreEqual(expectedDisplayText, compositionComboBox.Text);
-                Assert.AreEqual(composition, compositionComboBox.SelectedValue);
+                string expectedLabelValue = string.Format("Trajecttype: {0}", expectedDisplayText);
+                Assert.AreEqual(expectedLabelValue, compositionLabel.Text);
             }
             mocks.VerifyAll();
         }
@@ -509,8 +515,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 assessmentSection.FailureMechanismContribution.NotifyObservers();
 
                 // Assert
-                var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
-                Assert.AreEqual(newComposition, compositionComboBox.SelectedValue);
+                var compositionLabel = (Label) new ControlTester(assessmentSectionConfigurationLabelName).TheObject;
+
+                string compositionDisplayName = new EnumDisplayWrapper<AssessmentSectionComposition>(newComposition).DisplayName;
+                string newCompositionValue = string.Format("Trajecttype: {0}", compositionDisplayName);
+                Assert.AreEqual(newCompositionValue, compositionLabel.Text);
             }
             mocks.VerifyAll();
         }

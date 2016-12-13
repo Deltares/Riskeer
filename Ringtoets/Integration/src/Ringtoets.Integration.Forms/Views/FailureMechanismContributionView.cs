@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
+using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
@@ -74,7 +74,6 @@ namespace Ringtoets.Integration.Forms.Views
 
             InitializeComponent();
             InitializeGridColumns();
-            InitializeAssessmentSectionCompositionComboBox();
             SubscribeEvents();
 
             this.viewCommands = viewCommands;
@@ -132,18 +131,6 @@ namespace Ringtoets.Integration.Forms.Views
                 DetachFromFailureMechanisms();
             }
             base.Dispose(disposing);
-        }
-
-        private void InitializeAssessmentSectionCompositionComboBox()
-        {
-            assessmentSectionCompositionComboBox.DataSource = new[]
-            {
-                Tuple.Create(AssessmentSectionComposition.Dike, RingtoetsIntegrationFormsResources.FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_Dike),
-                Tuple.Create(AssessmentSectionComposition.Dune, RingtoetsIntegrationFormsResources.FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_Dune),
-                Tuple.Create(AssessmentSectionComposition.DikeAndDune, RingtoetsIntegrationFormsResources.FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_DikeAndDune)
-            };
-            assessmentSectionCompositionComboBox.ValueMember = TypeUtils.GetMemberName<Tuple<AssessmentSectionComposition, string>>(t => t.Item1);
-            assessmentSectionCompositionComboBox.DisplayMember = TypeUtils.GetMemberName<Tuple<AssessmentSectionComposition, string>>(t => t.Item2);
         }
 
         private void SubscribeEvents()
@@ -235,8 +222,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (data != null)
             {
-                // Note: Set the Text instead of value to ensure Value property is correct when handling Validating events.
-                returnPeriodInput.Text = Convert.ToInt32(1.0/data.Norm).ToString(CultureInfo.CurrentCulture);
+                returnPeriodLabel.Text = string.Format("Norm: 1 / {0} jaar", Convert.ToInt32(1.0/data.Norm));
             }
         }
 
@@ -244,7 +230,8 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (AssessmentSection != null)
             {
-                assessmentSectionCompositionComboBox.SelectedValue = AssessmentSection.Composition;
+                string assessmentSectionComposition = new EnumDisplayWrapper<AssessmentSectionComposition>(AssessmentSection.Composition).DisplayName;
+                assessmentSectionConfigurationLabel.Text = string.Format("Trajecttype: {0}", assessmentSectionComposition);
             }
         }
 
@@ -329,5 +316,6 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         #endregion
+
     }
 }
