@@ -46,14 +46,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         private readonly double modelFactorOvertopping;
         private readonly double criticalOvertoppingMean;
         private readonly double criticalOvertoppingStandardDeviation;
+        private readonly double modelFactorFrunupMean;
         private readonly double modelFactorFrunupStandardDeviation;
         private readonly double modelFactorFrunupLowerBoundary;
         private readonly double modelFactorFrunupUpperBoundary;
-        private readonly double modelFactorFrunupMean;
+        private readonly double exponentModelFactorShallowMean;
         private readonly double exponentModelFactorShallowStandardDeviation;
         private readonly double exponentModelFactorShallowLowerBoundary;
         private readonly double exponentModelFactorShallowUpperBoundary;
-        private readonly double exponentModelFactorShallowMean;
 
         /// <summary>
         /// Creates a new instance of the <see cref="OvertoppingCalculationInput"/> class.
@@ -70,9 +70,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         /// <param name="factorFbLowerBoundary">The lower boundary of the factor Fb.</param>
         /// <param name="factorFbUpperBoundary">The upper boundary of the factor Fb.</param>
         /// <param name="factorFnMean">The mean of the factor Fn.</param>
-        /// <param name="factorFnStandardDeviation">The standard deviation of the factor Fn.</param>    
+        /// <param name="factorFnStandardDeviation">The standard deviation of the factor Fn.</param>
         /// <param name="factorFnLowerBoundary">The lower boundary of the factor Fn.</param>
-        /// <param name="factorFnUpperBoundary">The upper boundary of the factor Fn.</param>    
+        /// <param name="factorFnUpperBoundary">The upper boundary of the factor Fn.</param>
         /// <param name="modelFactorOvertopping">The factor overtopping.</param>
         /// <param name="criticalOvertoppingMean">The mean of the critical overtopping.</param>
         /// <param name="criticalOvertoppingStandardDeviation">The standard deviation of the critical overtopping.</param>
@@ -117,6 +117,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
             this.factorFnLowerBoundary = factorFnLowerBoundary;
             this.factorFnUpperBoundary = factorFnUpperBoundary;
             this.modelFactorOvertopping = modelFactorOvertopping;
+            this.criticalOvertoppingMean = criticalOvertoppingMean;
+            this.criticalOvertoppingStandardDeviation = criticalOvertoppingStandardDeviation;
             this.modelFactorFrunupMean = modelFactorFrunupMean;
             this.modelFactorFrunupStandardDeviation = modelFactorFrunupStandardDeviation;
             this.modelFactorFrunupLowerBoundary = modelFactorFrunupLowerBoundary;
@@ -125,8 +127,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
             this.exponentModelFactorShallowStandardDeviation = exponentModelFactorShallowStandardDeviation;
             this.exponentModelFactorShallowLowerBoundary = exponentModelFactorShallowLowerBoundary;
             this.exponentModelFactorShallowUpperBoundary = exponentModelFactorShallowUpperBoundary;
-            this.criticalOvertoppingMean = criticalOvertoppingMean;
-            this.criticalOvertoppingStandardDeviation = criticalOvertoppingStandardDeviation;
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType

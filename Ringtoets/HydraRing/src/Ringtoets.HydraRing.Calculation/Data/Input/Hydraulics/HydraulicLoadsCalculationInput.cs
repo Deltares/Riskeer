@@ -40,10 +40,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         private readonly double factorFnMean;
         private readonly double factorFnStandardDeviation;
         private readonly double modelFactorOvertopping;
-        private readonly double modelFactorFrunupStandardDeviation;
         private readonly double modelFactorFrunupMean;
-        private readonly double exponentModelFactorShallowStandardDeviation;
+        private readonly double modelFactorFrunupStandardDeviation;
         private readonly double exponentModelFactorShallowMean;
+        private readonly double exponentModelFactorShallowStandardDeviation;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraulicLoadsCalculationInput"/> class.
