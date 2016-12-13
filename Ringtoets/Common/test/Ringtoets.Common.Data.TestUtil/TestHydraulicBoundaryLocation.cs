@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// and <see cref="HydraulicBoundaryLocation.WaveHeightOutput"/> set.
         /// </summary>
         /// <param name="designWaterLevel">The design water level result to set in the output.</param>
-        /// <param name="waveHeight">The waveheight result to set in the output.</param>
+        /// <param name="waveHeight">The wave height result to set in the output.</param>
         public TestHydraulicBoundaryLocation(double? designWaterLevel = double.NaN, double? waveHeight = double.NaN)
             : base(0, string.Empty, 0, 0)
         {

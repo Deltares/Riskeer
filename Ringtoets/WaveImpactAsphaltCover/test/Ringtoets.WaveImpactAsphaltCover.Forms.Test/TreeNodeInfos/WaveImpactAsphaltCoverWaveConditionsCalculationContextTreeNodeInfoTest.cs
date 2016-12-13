@@ -642,11 +642,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             {
                 calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
                 {
-                    DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(12, double.NaN,
-                                                                                 double.NaN, 
-                                                                                 double.NaN,
-                                                                                 double.NaN, 
-                                                                                 CalculationConvergence.NotCalculated)
+                    DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(12)
                 };
                 calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble) 1.0;
                 calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble) 10.0;

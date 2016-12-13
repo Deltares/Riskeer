@@ -486,7 +486,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GivenAssessmentLevelSetByManualInput_WhenWhenManualAssessmentLevelFalseAndHydraulicBoundaryLocationSet_ThenAssessmentLevelUpdatedAndLocationSet()
+        public void GivenAssessmentLevelSetByManualInput_WhenManualAssessmentLevelFalseAndHydraulicBoundaryLocationSet_ThenAssessmentLevelUpdatedAndLocationSet()
         {
             // Given
             var random = new Random(21);

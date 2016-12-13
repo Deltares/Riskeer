@@ -170,7 +170,7 @@ namespace Ringtoets.Common.Service
                                                        converged);
         }
 
-        private AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+        private static AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                             double norm,
                                                             string hydraulicBoundaryDatabaseFilePath)
         {

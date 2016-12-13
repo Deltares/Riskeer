@@ -21,5 +21,9 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
+    /// <summary>
+    /// Partial implementation of <see cref="HydraulicLocationOutputEntity"/> that implements 
+    /// <see cref="IHydraulicLocationOutputEntity"/>.
+    /// </summary>
     public partial class HydraulicLocationOutputEntity : IHydraulicLocationOutputEntity {}
 }

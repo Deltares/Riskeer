@@ -21,8 +21,14 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
+    /// <summary>
+    /// Interface for an output entity that represents a hydraulic boundary location output.
+    /// </summary>
     public interface IHydraulicLocationOutputEntity
     {
+        /// <summary>
+        /// Gets or sets the calculation result.
+        /// </summary>
         double? Result { get; set; }
 
         /// <summary>
@@ -45,7 +51,16 @@ namespace Application.Ringtoets.Storage.DbContext
         /// </summary>
         double? CalculatedReliability { get; set; }
 
+        /// <summary>
+        /// Gets or sets the convergence status of a calculation.
+        /// </summary>
+        /// <seealso cref="CalculationConvergence"/>
         byte CalculationConvergence { get; set; }
-        byte HydraulicLocationOutputType { get; set; }
+
+        /// <summary>
+        /// Sets the calculation output type.
+        /// </summary>
+        /// <seealso cref="HydraulicLocationOutputType"/>
+        byte HydraulicLocationOutputType { set; }
     }
 }

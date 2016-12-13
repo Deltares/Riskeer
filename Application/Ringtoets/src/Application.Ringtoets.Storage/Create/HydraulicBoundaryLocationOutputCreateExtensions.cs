@@ -35,12 +35,12 @@ namespace Application.Ringtoets.Storage.Create
         /// <typeparam name="THydraulicLocationOutputEntity">The output entity type to create.</typeparam>
         /// <param name="output">The output to create a database entity for.</param>
         /// <param name="outputType">The calculation output type.</param>
-        /// <returns>A new <paramref name="outputType"/>.</returns>
+        /// <returns>A new <typeparamref name="THydraulicLocationOutputEntity"/> of output type <paramref name="outputType"/>.</returns>
         internal static THydraulicLocationOutputEntity Create<THydraulicLocationOutputEntity>(this HydraulicBoundaryLocationOutput output,
                                                                                               HydraulicLocationOutputType outputType)
             where THydraulicLocationOutputEntity : IHydraulicLocationOutputEntity, new()
         {
-            var entity = new THydraulicLocationOutputEntity
+            return new THydraulicLocationOutputEntity
             {
                 HydraulicLocationOutputType = (byte) outputType,
                 Result = double.IsNaN(output.Result)
@@ -60,8 +60,6 @@ namespace Application.Ringtoets.Storage.Create
                                             : output.CalculatedReliability,
                 CalculationConvergence = (byte) output.CalculationConvergence
             };
-
-            return entity;
         }
     }
 }

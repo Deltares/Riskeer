@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class TestHydraulicBoundaryLocationTest
     {
         [Test]
-        public void Constructor_Always_ExpectedValues()
+        public void Constructor_NoParameters_ExpectedValues()
         {
             // Call
             var testLocation = new TestHydraulicBoundaryLocation();

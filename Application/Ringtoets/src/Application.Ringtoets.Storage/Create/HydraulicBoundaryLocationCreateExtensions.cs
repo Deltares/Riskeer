@@ -59,32 +59,21 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
 
-            CreateDesignWaterLevelOutput(entity, location.DesignWaterLevelOutput);
-            CreateWaveHeightOutput(entity, location.WaveHeightOutput);
+            CreateHydraulicLocationOutput(entity, location.DesignWaterLevelOutput, HydraulicLocationOutputType.DesignWaterLevel);
+            CreateHydraulicLocationOutput(entity, location.WaveHeightOutput, HydraulicLocationOutputType.WaveHeight);
 
             registry.Register(entity, location);
             return entity;
         }
 
-        private static void CreateDesignWaterLevelOutput(HydraulicLocationEntity entity, HydraulicBoundaryLocationOutput output)
+        private static void CreateHydraulicLocationOutput(HydraulicLocationEntity entity, HydraulicBoundaryLocationOutput output,
+                                                          HydraulicLocationOutputType outputType)
         {
-            if (output == null)
+            if (output != null)
             {
-                return;
+                entity.HydraulicLocationOutputEntities.Add(output.Create<HydraulicLocationOutputEntity>
+                                                               (outputType));
             }
-            entity.HydraulicLocationOutputEntities.Add(output.Create<HydraulicLocationOutputEntity>
-                                                           (HydraulicLocationOutputType.DesignWaterLevel));
-        }
-
-        private static void CreateWaveHeightOutput(HydraulicLocationEntity entity, HydraulicBoundaryLocationOutput output)
-        {
-            if (output == null)
-            {
-                return;
-            }
-
-            entity.HydraulicLocationOutputEntities.Add(output.Create<HydraulicLocationOutputEntity>(
-                HydraulicLocationOutputType.WaveHeight));
         }
 
         #region Grass CoverErosion Outwards HydraulicLocation
@@ -118,32 +107,24 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
 
-            CreateDesignWaterLevelOutput(entity, location.DesignWaterLevelOutput);
-            CreateWaveHeightOutput(entity, location.WaveHeightOutput);
+            CreateGrassCoverErosionOutwardsHydraulicLocationOutput(entity, location.DesignWaterLevelOutput,
+                                                                   HydraulicLocationOutputType.DesignWaterLevel);
+            CreateGrassCoverErosionOutwardsHydraulicLocationOutput(entity, location.WaveHeightOutput,
+                                                                   HydraulicLocationOutputType.WaveHeight);
 
             registry.Register(entity, location);
             return entity;
         }
 
-        private static void CreateDesignWaterLevelOutput(GrassCoverErosionOutwardsHydraulicLocationEntity entity, HydraulicBoundaryLocationOutput output)
+        private static void CreateGrassCoverErosionOutwardsHydraulicLocationOutput(GrassCoverErosionOutwardsHydraulicLocationEntity entity,
+                                                                                   HydraulicBoundaryLocationOutput output,
+                                                                                   HydraulicLocationOutputType outputType)
         {
-            if (output == null)
+            if (output != null)
             {
-                return;
+                entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Add(output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>
+                                                                                        (outputType));
             }
-            entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Add(output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(
-                HydraulicLocationOutputType.DesignWaterLevel));
-        }
-
-        private static void CreateWaveHeightOutput(GrassCoverErosionOutwardsHydraulicLocationEntity entity, HydraulicBoundaryLocationOutput output)
-        {
-            if (output == null)
-            {
-                return;
-            }
-
-            entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Add(output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(
-                HydraulicLocationOutputType.WaveHeight));
         }
 
         #endregion
