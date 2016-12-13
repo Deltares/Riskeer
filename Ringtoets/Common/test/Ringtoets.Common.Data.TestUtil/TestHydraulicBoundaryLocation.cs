@@ -54,9 +54,9 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with 
-        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevelOutput"/>  and <see cref="HydraulicBoundaryLocation.WaveHeightOutput"/> 
-        /// set.
+        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/>
+        /// with <see cref="HydraulicBoundaryLocation.DesignWaterLevelOutput"/> 
+        /// and <see cref="HydraulicBoundaryLocation.WaveHeightOutput"/> set.
         /// </summary>
         /// <returns>A new <see cref="TestHydraulicBoundaryLocation"/>.</returns>
         public static TestHydraulicBoundaryLocation CreateFullyCalculated()
