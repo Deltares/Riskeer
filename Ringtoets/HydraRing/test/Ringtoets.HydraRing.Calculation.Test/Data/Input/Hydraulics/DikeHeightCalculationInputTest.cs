@@ -45,15 +45,24 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             const double modelFactorCriticalOvertopping = 1.1;
             const double factorFbMean = 2.2;
             const double factorFbStandardDeviation = 3.3;
-            const double factorFnMean = 4.4;
-            const double factorFnStandardDeviation = 5.5;
-            const double modelFactorOvertopping = 6.6;
-            const double criticalOvertoppingMean = 7.7;
-            const double criticalOvertoppingStandardDeviation = 8.8;
-            const double modelFactorFrunupMean = 9.9;
-            const double modelFactorFrunupStandardDeviation = 10.0;
-            const double exponentModelFactorShallowMean = 11.1;
-            const double exponentModelFactorShallowStandardDeviation = 12.2;
+            const double factorFbLowerBoundary = 4.4;
+            const double factorFbUpperBoundary = 5.5;
+            const double factorFnMean = 6.6;
+            const double factorFnStandardDeviation = 7.7;
+            const double factorFnLowerBoundary = 8.8;
+            const double factorFnUpperBoundary = 9.9;
+            const double modelFactorOvertopping = 10.0;
+            const double criticalOvertoppingMean = 11.1;
+            const double criticalOvertoppingStandardDeviation = 12.2;
+            const double modelFactorFrunupMean = 13.3;
+            const double modelFactorFrunupStandardDeviation = 14.4;
+            const double modelFactorFrunupLowerBoundary = 15.5;
+            const double modelFactorFrunupUpperBoundary = 16.6;
+            const double exponentModelFactorShallowMean = 17.7;
+            const double exponentModelFactorShallowStandardDeviation = 18.8;
+            const double exponentModelFactorShallowLowerBoundary = 19.9;
+            const double exponentModelFactorShallowUpperBoundary = 20.0;
+
             var expectedRingProfilePoints = new List<HydraRingRoughnessProfilePoint>
             {
                 new HydraRingRoughnessProfilePoint(1.1, 2.2, 3.3)
@@ -69,11 +78,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
                                                        expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
                                                        modelFactorCriticalOvertopping,
                                                        factorFbMean, factorFbStandardDeviation,
+                                                       factorFbLowerBoundary, factorFbUpperBoundary,
                                                        factorFnMean, factorFnStandardDeviation,
+                                                       factorFnLowerBoundary, factorFnUpperBoundary,
                                                        modelFactorOvertopping,
                                                        criticalOvertoppingMean, criticalOvertoppingStandardDeviation,
                                                        modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
-                                                       exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation);
+                                                       modelFactorFrunupLowerBoundary, modelFactorFrunupUpperBoundary,
+                                                       exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
+                                                       exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary);
 
             // Assert
             double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
@@ -106,7 +119,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
                                                        new List<HydraRingRoughnessProfilePoint>(),
                                                        new List<HydraRingForelandPoint>(),
                                                        new HydraRingBreakWater(0, 1.1),
-                                                       2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
+                                                       2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+                                                       13, 14, 15, 16, 17, 18, 19, 20, 21);
 
             // Assert
             Assert.AreEqual(expectedSubMechanismModelId, input.GetSubMechanismModelId(subMechanismModelId));
@@ -116,12 +130,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         {
             yield return new DeterministicHydraRingVariable(1, 0.0);
             yield return new DeterministicHydraRingVariable(8, 1.1);
-            yield return new NormalHydraRingVariable(10, HydraRingDeviationType.Standard, 2.2, 3.3);
-            yield return new NormalHydraRingVariable(11, HydraRingDeviationType.Standard, 4.4, 5.5);
-            yield return new DeterministicHydraRingVariable(12, 6.6);
-            yield return new LogNormalHydraRingVariable(17, HydraRingDeviationType.Standard, 7.7, 8.8);
-            yield return new NormalHydraRingVariable(120, HydraRingDeviationType.Standard, 9.9, 10.0);
-            yield return new NormalHydraRingVariable(123, HydraRingDeviationType.Standard, 11.1, 12.2);
+            yield return new TruncatedNormalHydraRingVariable(10, HydraRingDeviationType.Standard, 2.2, 3.3, 4.4, 5.5);
+            yield return new TruncatedNormalHydraRingVariable(11, HydraRingDeviationType.Standard, 6.6, 7.7, 8.8, 9.9);
+            yield return new DeterministicHydraRingVariable(12, 10.0);
+            yield return new LogNormalHydraRingVariable(17, HydraRingDeviationType.Standard, 11.1, 12.2);
+            yield return new TruncatedNormalHydraRingVariable(120, HydraRingDeviationType.Standard, 13.3, 14.4, 15.5, 16.6);
+            yield return new TruncatedNormalHydraRingVariable(123, HydraRingDeviationType.Standard, 17.7, 18.8, 19.9, 20.0);
         }
     }
 }

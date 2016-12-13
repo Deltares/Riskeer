@@ -343,15 +343,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                             generalInput.CriticalOvertoppingModelFactor,
                                                                             generalInput.FbFactor.Mean,
                                                                             generalInput.FbFactor.StandardDeviation,
+                                                                            generalInput.FbFactor.LowerBoundary,
+                                                                            generalInput.FbFactor.UpperBoundary,
                                                                             generalInput.FnFactor.Mean,
                                                                             generalInput.FnFactor.StandardDeviation,
+                                                                            generalInput.FnFactor.LowerBoundary,
+                                                                            generalInput.FnFactor.UpperBoundary,
                                                                             generalInput.OvertoppingModelFactor,
                                                                             calculation.InputParameters.CriticalFlowRate.Mean,
                                                                             calculation.InputParameters.CriticalFlowRate.StandardDeviation,
                                                                             generalInput.FrunupModelFactor.Mean,
                                                                             generalInput.FrunupModelFactor.StandardDeviation,
+                                                                            generalInput.FrunupModelFactor.LowerBoundary,
+                                                                            generalInput.FrunupModelFactor.UpperBoundary,
                                                                             generalInput.FshallowModelFactor.Mean,
-                                                                            generalInput.FshallowModelFactor.StandardDeviation);
+                                                                            generalInput.FshallowModelFactor.StandardDeviation,
+                                                                            generalInput.FshallowModelFactor.LowerBoundary,
+                                                                            generalInput.FshallowModelFactor.UpperBoundary);
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dikeHeightCalculationInput, hydraulicBoundaryDatabaseFilePath);
 

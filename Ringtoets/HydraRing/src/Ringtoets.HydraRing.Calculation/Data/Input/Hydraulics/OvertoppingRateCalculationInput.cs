@@ -46,13 +46,21 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// <param name="modelFactorCriticalOvertopping">The model factor critical overtopping.</param>
         /// <param name="factorFbMean">The mean of the factor Fb</param>
         /// <param name="factorFbStandardDeviation">The standard deviation of the factor Fb.</param>
+        /// <param name="factorFbLowerBoundary">The lower boundary of the factor Fb.</param>
+        /// <param name="factorFbUpperBoundary">The upper boundary of the factor Fb.</param>
         /// <param name="factorFnMean">The mean of the factor Fn.</param>
         /// <param name="factorFnStandardDeviation">The standard deviation of the factor Fn.</param>
+        /// <param name="factorFnLowerBoundary">The lower boundary of the factor Fn.</param>
+        /// <param name="factorFnUpperBoundary">The upper boundary of the factor Fn.</param>
         /// <param name="modelFactorOvertopping">The factor overtopping.</param>
         /// <param name="modelFactorFrunupMean">The mean of the factor frunup.</param>
         /// <param name="modelFactorFrunupStandardDeviation">The standard deviation of the factor frunup.</param>
+        /// <param name="modelFactorFrunupLowerBoundary">The lower boundary of the factor frunup.</param>
+        /// <param name="modelFactorFrunupUpperBoundary">The upper boundary of the factor frunup.</param>
         /// <param name="exponentModelFactorShallowMean">The mean of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowStandardDeviation">The standard deviation of the exponent model factor shallow.</param>
+        /// <param name="exponentModelFactorShallowLowerBoundary">The lower boundary of the exponent model factor shallow.</param>
+        /// <param name="exponentModelFactorShallowUpperBoundary">The upper boundary of the exponent model factor shallow.</param>
         public OvertoppingRateCalculationInput(long hydraulicBoundaryLocationId, double norm,
                                                HydraRingSection section,
                                                IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
@@ -61,10 +69,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
                                                double dikeHeight,
                                                double modelFactorCriticalOvertopping,
                                                double factorFbMean, double factorFbStandardDeviation,
+                                               double factorFbLowerBoundary, double factorFbUpperBoundary,
                                                double factorFnMean, double factorFnStandardDeviation,
+                                               double factorFnLowerBoundary, double factorFnUpperBoundary,
                                                double modelFactorOvertopping,
                                                double modelFactorFrunupMean, double modelFactorFrunupStandardDeviation,
-                                               double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation)
+                                               double modelFactorFrunupLowerBoundary, double modelFactorFrunupUpperBoundary,
+                                               double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation,
+                                               double exponentModelFactorShallowLowerBoundary, double exponentModelFactorShallowUpperBoundary)
             : base(hydraulicBoundaryLocationId, norm,
                    section,
                    profilePoints,
@@ -72,10 +84,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
                    breakWater,
                    modelFactorCriticalOvertopping,
                    factorFbMean, factorFbStandardDeviation,
+                   factorFbLowerBoundary, factorFbUpperBoundary,
                    factorFnMean, factorFnStandardDeviation,
+                   factorFnLowerBoundary, factorFnUpperBoundary,
                    modelFactorOvertopping,
                    modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
-                   exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation)
+                   modelFactorFrunupLowerBoundary, modelFactorFrunupUpperBoundary,
+                   exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
+                   exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary)
         {
             this.dikeHeight = dikeHeight;
         }
