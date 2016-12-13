@@ -234,7 +234,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             }
             mocks.ReplayAll();
-            
 
             var properties = new FailureMechanismContributionContextProperties()
             {
@@ -265,6 +264,86 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Then
             Assert.AreEqual(confirmChange ? newComposition : originalComposition, properties.AssessmentSectionComposition);
             Assert.AreEqual(confirmChange ? newComposition : originalComposition, assessmentSection.Composition);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ReturnPeriod_ValueChangedAndConfirmed_NotifiesChangedObjects()
+        {
+            // Setup
+            const int returnPeriod = 200;
+            const double norm = 1.0/returnPeriod;
+
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var observable1 = mocks.StrictMock<IObservable>();
+            observable1.Expect(o => o.NotifyObservers());
+            var observable2 = mocks.StrictMock<IObservable>();
+            observable2.Expect(o => o.NotifyObservers());
+
+            var normChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
+            normChangeHandler.Expect(h => h.ConfirmNormChange()).Return(true);
+            normChangeHandler.Expect(h => h.ChangeNorm(assessmentSection, norm))
+                             .Return(new[]
+                             {
+                                 observable1,
+                                 observable2
+                             });
+            mocks.ReplayAll();
+
+            var properties = new FailureMechanismContributionContextProperties()
+            {
+                AssessmentSection = assessmentSection,
+                NormChangeHandler = normChangeHandler,
+                Data = assessmentSection.FailureMechanismContribution
+            };
+
+            // Call
+            properties.ReturnPeriod = returnPeriod;
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune)]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune)]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
+        public void AssessmentSectionComposition_WhenConfirmingChanges_NotifiesChangedObjects(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(initialComposition);
+
+            var observable1 = mocks.StrictMock<IObservable>();
+            observable1.Expect(o => o.NotifyObservers());
+            var observable2 = mocks.StrictMock<IObservable>();
+            observable2.Expect(o => o.NotifyObservers());
+
+            var compositionChangeHandler = mocks.StrictMock<IAssessmentSectionCompositionChangeHandler>();
+            compositionChangeHandler.Expect(h => h.ConfirmCompositionChange())
+                                    .Return(true);
+            compositionChangeHandler.Expect(h => h.ChangeComposition(assessmentSection, newComposition))
+                                    .Return(new[]
+								{
+									observable1,
+									observable2
+								});
+            mocks.ReplayAll();
+
+            var properties = new FailureMechanismContributionContextProperties()
+            {
+                AssessmentSection = assessmentSection,
+                CompositionChangeHandler = compositionChangeHandler,
+                Data = assessmentSection.FailureMechanismContribution
+            };
+
+            // Call
+            properties.AssessmentSectionComposition = newComposition;
+
+            // Assert
             mocks.VerifyAll();
         }
     }
