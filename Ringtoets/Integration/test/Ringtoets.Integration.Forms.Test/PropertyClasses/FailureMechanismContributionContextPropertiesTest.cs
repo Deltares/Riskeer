@@ -106,16 +106,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
             var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0/returnPeriod);
 
-            // Call
             var properties = new FailureMechanismContributionContextProperties()
             {
                 Data = contribution,
                 AssessmentSection = assessmentSection
             };
 
+            // Call
+            int returnPeriodPropertyValue = properties.ReturnPeriod;
+            AssessmentSectionComposition compositionPropertyValue = properties.AssessmentSectionComposition;
+
             // Assert
-            Assert.AreEqual(returnPeriod, properties.ReturnPeriod);
-            Assert.AreEqual(assessmentSectionComposition, properties.AssessmentSectionComposition);
+            Assert.AreEqual(returnPeriod, returnPeriodPropertyValue);
+            Assert.AreEqual(assessmentSectionComposition, compositionPropertyValue);
             mocks.VerifyAll();
         }
 
@@ -306,6 +309,36 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [TestCase(int.MinValue)]
+        [TestCase(int.MaxValue)]
+        [TestCase(99)]
+        [TestCase(1000001)]
+        public void ReturnPeriod_InvalidValue_ThrowsArgumentOutOfRangeException(int invalidReturnPeriod)
+        {
+            // Setup
+            var assessmentSectionComposition = AssessmentSectionComposition.DikeAndDune;
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.Composition).Return(assessmentSectionComposition);
+            mocks.ReplayAll();
+
+            var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
+            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0/200);
+
+            var properties = new FailureMechanismContributionContextProperties()
+            {
+                Data = contribution,
+                AssessmentSection = assessmentSection
+            };
+
+            // Call
+            TestDelegate call = () => properties.ReturnPeriod = invalidReturnPeriod;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
+                                                                                                "De waarde voor de 'Norm' moet in het bereik [100, 1000000] liggen.");
+        }
+
+        [Test]
         [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune)]
         [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune)]
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike)]
@@ -327,10 +360,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                     .Return(true);
             compositionChangeHandler.Expect(h => h.ChangeComposition(assessmentSection, newComposition))
                                     .Return(new[]
-								{
-									observable1,
-									observable2
-								});
+                                    {
+                                        observable1,
+                                        observable2
+                                    });
             mocks.ReplayAll();
 
             var properties = new FailureMechanismContributionContextProperties()

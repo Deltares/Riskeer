@@ -80,6 +80,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
             set
             {
+                if (value < 100 || value > 1000000)
+                {
+                    throw new ArgumentOutOfRangeException("value", Resources.FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_range_100_to_1000000);
+                }
+
                 if (value != 0 && normChangeHandler.ConfirmNormChange())
                 {
                     double newNormValue = 1.0/Convert.ToInt32(value);
