@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -424,24 +425,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Assert
             Assert.IsFalse(double.IsNaN(calculation.Output.WaveHeight));
-            Assert.IsNotNull(calculation.Output.ProbabilityAssessmentOutput);
-            Assert.IsFalse(double.IsNaN(calculation.Output.ProbabilityAssessmentOutput.FactorOfSafety));
-            Assert.IsFalse(double.IsNaN(calculation.Output.ProbabilityAssessmentOutput.Probability));
-            Assert.IsFalse(double.IsNaN(calculation.Output.ProbabilityAssessmentOutput.Reliability));
-            Assert.IsFalse(double.IsNaN(calculation.Output.ProbabilityAssessmentOutput.RequiredProbability));
-            Assert.IsFalse(double.IsNaN(calculation.Output.ProbabilityAssessmentOutput.RequiredReliability));
-            var dikeHeightCalculationExecuted = dikeHeightCalculationType != DikeHeightCalculationType.NoCalculation;
-            Assert.AreNotEqual(dikeHeightCalculationExecuted, double.IsNaN(calculation.Output.DikeHeight));
-            Assert.AreEqual(dikeHeightCalculationExecuted, calculation.Output.DikeHeightCalculated);
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
+            Assert.IsNotNull(probabilityAssessmentOutput);
+            Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.FactorOfSafety));
+            Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.Probability));
+            Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.Reliability));
+            Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.RequiredProbability));
+            Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.RequiredReliability));
             Assert.IsFalse(calculation.Output.IsOvertoppingDominant);
+            if (dikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
+            {
+                Assert.IsFalse(double.IsNaN(calculation.Output.DikeHeight));
+                DikeHeightAssessmentOutput dikeHeightAssessmentOutput = calculation.Output.DikeHeightAssessmentOutput;
+                Assert.IsNotNull(dikeHeightAssessmentOutput);
+
+                Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.Result));
+                Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.TargetProbability));
+                Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.TargetReliability));
+                Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.CalculatedProbability));
+                Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.CalculatedReliability));
+            }
+            else
+            {
+                Assert.IsNaN(calculation.Output.DikeHeight);
+                Assert.IsNull(calculation.Output.DikeHeightAssessmentOutput);
+            }
 
             mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_DikeHeightCalculationFails_OutputNotNull([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                           DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] 
-            DikeHeightCalculationType dikeHeightCalculationType)
+                                                                           DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -846,8 +861,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
         [Test]
         public void Calculate_DikeHeightCalculationFailedWithExceptionAndLastErrorPresent_LogError(
-            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] 
-            DikeHeightCalculationType dikeHeightCalculationType)
+            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -918,8 +932,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
         [Test]
         public void Calculate_DikeHeightCalculationFailedWithExceptionAndNoLastErrorPresent_LogError(
-            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] 
-            DikeHeightCalculationType dikeHeightCalculationType)
+            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -988,8 +1001,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
         [Test]
         public void Calculate_DikeHeightCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogError(
-            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] 
-            DikeHeightCalculationType dikeHeightCalculationType)
+            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();

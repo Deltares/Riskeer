@@ -74,17 +74,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Value indicating whether the dike height is calculated in the overtopping sub failure mechanism.
-        /// </summary>
-        public bool DikeHeightCalculated
-        {
-            get
-            {
-                return DikeHeightAssessmentOutput != null;
-            }
-        }
-
-        /// <summary>
         /// Gets the probabilistic assessment output based on the grass cover erosion 
         /// inwards calculation output.
         /// </summary>

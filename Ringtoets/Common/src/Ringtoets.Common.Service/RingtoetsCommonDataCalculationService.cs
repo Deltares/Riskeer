@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Utils;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Service.Properties;
 
 namespace Ringtoets.Common.Service
 {
@@ -52,19 +53,18 @@ namespace Ringtoets.Common.Service
         /// <param name="n">the 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>The profile specific required probability.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="failureMechanismContribution"/> 
-        /// or <paramref name="n"/> is <c>null</c>.</exception>
+        /// or <paramref name="n"/> is not greater than 0.</exception>
         public static double ProfileSpecificRequiredProbability(double norm, double failureMechanismContribution, int n)
         {
             if (!(failureMechanismContribution > 0))
             {
                 throw new ArgumentOutOfRangeException("failureMechanismContribution", failureMechanismContribution,
-                                                      "De bijdrage van dit toetsspoor is nul. " +
-                                                      "Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
+                                                      Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_is_zero);
             }
             if (!(n > 0))
             {
-                throw new ArgumentOutOfRangeException("n", n, "De N-waarde van dit toetsspoor is nul. " +
-                                                              "Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
+                throw new ArgumentOutOfRangeException("n", n,
+                                                      Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_is_zero);
             }
 
             return norm*(failureMechanismContribution/100)/n;

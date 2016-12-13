@@ -59,32 +59,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.AreEqual(2, output.DikeHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(dikeHeight, output.DikeHeight, output.DikeHeight.GetAccuracy());
-            Assert.IsTrue(output.DikeHeightCalculated);
-
+            
             Assert.AreSame(probabilityAssessmentOutput, output.ProbabilityAssessmentOutput);
-        }
-
-        [Test]
-        public void DikeHeightCalculated_DikeHeightNull_ReturnsFalse()
-        {
-            // Call
-            GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(
-                double.NaN, false, new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN), null);
-
-            // Assert
-            Assert.IsFalse(output.DikeHeightCalculated);
-        }
-
-        [Test]
-        public void DikeHeightCalculated_DikeHeightNotNull_ReturnsTrue()
-        {
-            // Call
-            GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(
-                double.NaN, false, new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
-                new TestDikeHeightAssessmentOutput(12.0));
-
-            // Assert
-            Assert.IsTrue(output.DikeHeightCalculated);
+            Assert.AreSame(dikeHeightAssessmentOutput, output.DikeHeightAssessmentOutput);
         }
 
         [Test]
