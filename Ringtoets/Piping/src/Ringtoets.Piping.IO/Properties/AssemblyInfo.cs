@@ -27,4 +27,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Ringtoets.Piping.IO")]
 [assembly: Guid("f5af3cbe-d10c-42a5-b625-95222648aeaf")]
 [assembly: InternalsVisibleTo("Ringtoets.Piping.IO.Test")]
-[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
