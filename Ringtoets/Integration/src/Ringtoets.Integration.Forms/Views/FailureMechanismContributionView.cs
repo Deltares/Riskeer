@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -57,9 +55,6 @@ namespace Ringtoets.Integration.Forms.Views
         /// </list>
         /// </remarks>
         private readonly Observer failureMechanismObserver;
-
-        private readonly IFailureMechanismContributionNormChangeHandler normChangeHandler;
-        private readonly IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
         private readonly IViewCommands viewCommands;
         private FailureMechanismContribution data;
 
@@ -68,24 +63,10 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
         /// </summary>
-        /// <param name="normChangeHandler">The object responsible for handling the change
-        /// in the <see cref="FailureMechanismContribution.Norm"/>.</param>
-        /// <param name="compositionChangeHandler">The object responsible for handling the
-        /// change in the <see cref="IAssessmentSection.Composition"/>.</param>
         /// <param name="viewCommands">Objects exposing high level <see cref="IView"/> related commands.</param>
         /// <exception cref="ArgumentNullException">When any input argument is null.</exception>
-        public FailureMechanismContributionView(IFailureMechanismContributionNormChangeHandler normChangeHandler,
-                                                IAssessmentSectionCompositionChangeHandler compositionChangeHandler,
-                                                IViewCommands viewCommands)
+        public FailureMechanismContributionView(IViewCommands viewCommands)
         {
-            if (normChangeHandler == null)
-            {
-                throw new ArgumentNullException("normChangeHandler");
-            }
-            if (compositionChangeHandler == null)
-            {
-                throw new ArgumentNullException("compositionChangeHandler");
-            }
             if (viewCommands == null)
             {
                 throw new ArgumentNullException("viewCommands");
@@ -94,12 +75,8 @@ namespace Ringtoets.Integration.Forms.Views
             InitializeComponent();
             InitializeGridColumns();
             InitializeAssessmentSectionCompositionComboBox();
-            BindReturnPeriodChange();
-            BindReturnPeriodInputLeave();
             SubscribeEvents();
 
-            this.normChangeHandler = normChangeHandler;
-            this.compositionChangeHandler = compositionChangeHandler;
             this.viewCommands = viewCommands;
 
             failureMechanismObserver = new Observer(probabilityDistributionGrid.RefreshDataGridView);
@@ -134,6 +111,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         public void UpdateObserver()
         {
+            SetAssessmentSectionComposition();
             SetReturnPeriodText();
             probabilityDistributionGrid.RefreshDataGridView();
         }
@@ -151,7 +129,6 @@ namespace Ringtoets.Integration.Forms.Views
                     components.Dispose();
                 }
                 UnsubscribeEvents();
-                UnbindAssessmentSectionCompositionChange();
                 DetachFromFailureMechanisms();
             }
             base.Dispose(disposing);
@@ -183,7 +160,6 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void HandleNewDataSet(FailureMechanismContribution value)
         {
-            UnbindReturnPeriodChange();
             DetachFromData();
 
             data = value;
@@ -192,21 +168,18 @@ namespace Ringtoets.Integration.Forms.Views
             SetReturnPeriodText();
 
             AttachToData();
-            BindReturnPeriodChange();
 
             probabilityDistributionGrid.RefreshDataGridView();
         }
 
         private void HandleNewAssessmentSectionSet(IAssessmentSection value)
         {
-            UnbindAssessmentSectionCompositionChange();
             DetachFromFailureMechanisms();
 
             assessmentSection = value;
 
             AttachToFailureMechanisms();
             SetAssessmentSectionComposition();
-            BindAssessmentSectionCompositionChange();
         }
 
         private void DetachFromFailureMechanisms()
@@ -258,35 +231,6 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        private void BindAssessmentSectionCompositionChange()
-        {
-            assessmentSectionCompositionComboBox.SelectionChangeCommitted += AssessmentSectionCompositionComboBoxSelectionChangeCommitted;
-        }
-
-        private void UnbindAssessmentSectionCompositionChange()
-        {
-            assessmentSectionCompositionComboBox.SelectionChangeCommitted -= AssessmentSectionCompositionComboBoxSelectionChangeCommitted;
-        }
-
-        private void BindReturnPeriodChange()
-        {
-            // Attaching to inner TextBox instead of 'returnPeriodInput' control to capture all
-            // key presses. (This prevents some unexpected unresponsive behavior):
-            var innerTextBox = returnPeriodInput.Controls.OfType<TextBox>().First();
-            innerTextBox.KeyDown += ReturnPeriodNumericUpDownInnerTextBox_KeyDown;
-        }
-
-        private void UnbindReturnPeriodChange()
-        {
-            var innerTextBox = returnPeriodInput.Controls.OfType<TextBox>().First();
-            innerTextBox.KeyDown -= ReturnPeriodNumericUpDownInnerTextBox_KeyDown;
-        }
-
-        private void BindReturnPeriodInputLeave()
-        {
-            returnPeriodInput.Leave += ReturnPeriodInputLeave;
-        }
-
         private void SetReturnPeriodText()
         {
             if (data != null)
@@ -330,19 +274,6 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         #region Event handling
-
-        private void ReturnPeriodInputLeave(object sender, EventArgs e)
-        {
-            ResetTextIfEmpty();
-        }
-
-        private void ResetTextIfEmpty()
-        {
-            if (string.IsNullOrEmpty(returnPeriodInput.Text))
-            {
-                returnPeriodInput.Text = returnPeriodInput.Value.ToString(CultureInfo.CurrentCulture);
-            }
-        }
 
         private void ProbabilityDistributionGridOnCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -395,74 +326,6 @@ namespace Ringtoets.Integration.Forms.Views
         {
             FailureMechanismContributionItem rowData = data.Distribution.ElementAt(rowIndex);
             return rowData.IsAlwaysRelevant;
-        }
-
-        private void AssessmentSectionCompositionComboBoxSelectionChangeCommitted(object sender, EventArgs e)
-        {
-            var newComposition = (AssessmentSectionComposition) assessmentSectionCompositionComboBox.SelectedValue;
-            if (assessmentSection.Composition == newComposition)
-            {
-                return;
-            }
-
-            if (compositionChangeHandler.ConfirmCompositionChange())
-            {
-                IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(assessmentSection, newComposition);
-                foreach (IObservable changedObject in changedObjects)
-                {
-                    changedObject.NotifyObservers();
-                }
-            }
-            else
-            {
-                assessmentSectionCompositionComboBox.SelectedValue = assessmentSection.Composition;
-            }
-        }
-
-        private void ReturnPeriodNumericUpDown_Validating(object sender, CancelEventArgs e)
-        {
-            int returnPeriod = Convert.ToInt32(returnPeriodInput.Value);
-            if (returnPeriod != 0 && 
-                !assessmentSection.FailureMechanismContribution.Norm.Equals(1.0/returnPeriod) && 
-                !normChangeHandler.ConfirmNormChange())
-            {
-                e.Cancel = true;
-                RevertReturnPeriodInputValue();
-            }
-        }
-
-        private void ReturnPeriodNumericUpDown_Validated(object sender, EventArgs e)
-        {
-            double newNormValue = 1.0/Convert.ToInt32(returnPeriodInput.Value);
-            IEnumerable<IObservable> changedObjects = normChangeHandler.ChangeNorm(assessmentSection, newNormValue);
-            foreach (IObservable changedObject in changedObjects)
-            {
-                changedObject.NotifyObservers();
-            }
-        }
-
-        private void ReturnPeriodNumericUpDownInnerTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
-                RevertReturnPeriodInputValue();
-
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                ActiveControl = null;
-
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
-        }
-
-        private void RevertReturnPeriodInputValue()
-        {
-            SetReturnPeriodText();
-            ActiveControl = null;
         }
 
         #endregion

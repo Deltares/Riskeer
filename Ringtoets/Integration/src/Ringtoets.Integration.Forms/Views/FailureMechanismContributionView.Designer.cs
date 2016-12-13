@@ -45,9 +45,11 @@ namespace Ringtoets.Integration.Forms.Views
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismContributionView));
             this.returnPeriodLabel = new System.Windows.Forms.Label();
             this.returnPeriodInput = new System.Windows.Forms.NumericUpDown();
+            this.returnPeriodInput.Enabled = false;
             this.perYearLabel = new System.Windows.Forms.Label();
             this.assessmentSectionConfigurationLabel = new System.Windows.Forms.Label();
             this.assessmentSectionCompositionComboBox = new System.Windows.Forms.ComboBox();
+            this.assessmentSectionCompositionComboBox.Enabled = false;
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.probabilityDistributionGrid = new Core.Common.Controls.DataGrid.DataGridViewControl();
             ((System.ComponentModel.ISupportInitialize)(this.returnPeriodInput)).BeginInit();
@@ -78,8 +80,6 @@ namespace Ringtoets.Integration.Forms.Views
             0,
             0,
             0});
-            this.returnPeriodInput.Validating += new System.ComponentModel.CancelEventHandler(this.ReturnPeriodNumericUpDown_Validating);
-            this.returnPeriodInput.Validated += new System.EventHandler(this.ReturnPeriodNumericUpDown_Validated);
             // 
             // perYearLabel
             // 

@@ -72,7 +72,7 @@
     <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
-    <Compile Include="FailureMechanismContributionViewIntegrationTest.cs" />
+    <Compile Include="FailureMechanismContributionContextPropertiesIntegrationTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContextTest.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContextTest.cs" />
@@ -125,6 +125,7 @@
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\FailureMechanismContributionItemRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationsViewTest.cs" />
+    <Compile Include="FailureMechanismContributionViewIntegrationTest.cs" />
     <Compile Include="Views\SectionResultViews\DuneErosionResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffInwardsResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffOutwardsResultViewTest.cs" />
