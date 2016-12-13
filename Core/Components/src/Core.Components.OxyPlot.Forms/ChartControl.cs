@@ -207,12 +207,9 @@ namespace Core.Components.OxyPlot.Forms
         private void DrawMissingChartDataOnCollectionChange(IEnumerable<ItemBasedChartData> chartDataThatShouldBeDrawn,
                                                             IDictionary<ItemBasedChartData, DrawnChartData> drawnChartDataLookup)
         {
-            foreach (var chartDataToDraw in chartDataThatShouldBeDrawn)
+            foreach (var chartDataToDraw in chartDataThatShouldBeDrawn.Where(chartDataToDraw => !drawnChartDataLookup.ContainsKey(chartDataToDraw))) 
             {
-                if (!drawnChartDataLookup.ContainsKey(chartDataToDraw))
-                {
-                    DrawChartData(chartDataToDraw);
-                }
+                DrawChartData(chartDataToDraw);
             }
         }
 
