@@ -318,7 +318,7 @@ namespace Ringtoets.Piping.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
-                Assert.AreEqual("Validatie mislukt: Profielschematisch ligt (deels) boven de ondergrondschematisatie.", msgs[1]);
+                Assert.AreEqual("Validatie mislukt: Hoogtegeometrie ligt (deels) boven de ondergrondschematisatie.", msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);

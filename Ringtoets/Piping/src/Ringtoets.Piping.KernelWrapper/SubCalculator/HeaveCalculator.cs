@@ -86,14 +86,6 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
             }
         }
 
-        public double BottomLevelAquitardAboveExitPointZ
-        {
-            set
-            {
-                 wrappedCalculator.BottomLevelAquitardAboveExitPointZ = value;
-            }
-        }
-
         public double Gradient
         {
             get

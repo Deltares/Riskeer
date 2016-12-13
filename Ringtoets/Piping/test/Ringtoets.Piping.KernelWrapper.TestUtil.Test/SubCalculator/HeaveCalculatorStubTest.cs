@@ -40,7 +40,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             Assert.AreEqual(0, stub.PhiExit);
             Assert.AreEqual(0, stub.PhiPolder);
             Assert.AreEqual(0, stub.RExit);
-            Assert.AreEqual(0, stub.BottomLevelAquitardAboveExitPointZ);
 
             Assert.AreEqual(0, stub.Gradient);
             Assert.AreEqual(0, stub.FoSh);

@@ -293,7 +293,6 @@ namespace Ringtoets.Piping.KernelWrapper
             calculator.PhiPolder = input.PhreaticLevelExit;
             calculator.RExit = input.DampingFactorExit;
             calculator.HExit = input.PhreaticLevelExit;
-            calculator.BottomLevelAquitardAboveExitPointZ = GetBottomAquitardLayerAboveExitPointZ();
             return calculator;
         }
 

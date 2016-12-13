@@ -35,7 +35,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public double PhiExit { get; set; }
         public double PhiPolder { get; set; }
         public double RExit { get; set; }
-        public double BottomLevelAquitardAboveExitPointZ { get; set; }
         public double Gradient { get; private set; }
         public double Zh { get; private set; }
         public double FoSh { get; private set; }

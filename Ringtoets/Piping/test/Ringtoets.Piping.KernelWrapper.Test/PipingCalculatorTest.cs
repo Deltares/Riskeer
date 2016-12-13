@@ -99,7 +99,6 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             new PipingCalculator(input, testPipingSubCalculatorFactory).Calculate();
 
             // Assert
-            Assert.AreEqual(bottomAquitardLayerAboveExitPointZ, testPipingSubCalculatorFactory.LastCreatedHeaveCalculator.BottomLevelAquitardAboveExitPointZ);
             Assert.AreEqual(bottomAquitardLayerAboveExitPointZ, testPipingSubCalculatorFactory.LastCreatedSellmeijerCalculator.BottomLevelAquitardAboveExitPointZ);
         }
 
