@@ -22,7 +22,7 @@
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
+namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 {
     /// <summary>
     /// Extension methods for <see cref="DikeHeightAssessmentOutput"/> related to creating a <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/>.

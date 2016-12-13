@@ -846,7 +846,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             UseBreakWater = true
                         },
                         Output = new GrassCoverErosionInwardsOutput(0.45, true, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5),
-                                                                    new DikeHeightAssessmentOutput(0.56, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged))
+                                                                    new DikeHeightAssessmentOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged))
                     }
                 }
             });

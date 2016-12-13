@@ -116,8 +116,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_WithDikeHeightCalculated_ReturnExpectedValues()
         {
             // Setup
-            ProbabilityAssessmentOutput probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput, new TestDikeHeightAssessmentOutput(double.NaN));
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var dikeHeightAssessmentOutput = new TestDikeHeightAssessmentOutput(double.NaN);
+            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput,
+                                                            dikeHeightAssessmentOutput);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties
