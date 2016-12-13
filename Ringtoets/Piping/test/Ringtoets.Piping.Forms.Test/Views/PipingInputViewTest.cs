@@ -176,7 +176,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var chartData = view.Chart.Data;
                 Assert.IsInstanceOf<ChartDataCollection>(chartData);
                 Assert.AreEqual(10, chartData.Collection.Count());
-                AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex));
+                AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), true);
                 AssertSurfaceLineChartData(surfaceLine, chartData.Collection.ElementAt(surfaceLineIndex));
                 AssertEntryPointLPointchartData(calculation.InputParameters, surfaceLine, chartData.Collection.ElementAt(entryPointIndex));
                 AssertExitPointLPointchartData(calculation.InputParameters, surfaceLine, chartData.Collection.ElementAt(exitPointIndex));
@@ -390,11 +390,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 StochasticSoilProfile soilProfile = GetStochasticSoilProfile();
                 var soilProfile2 = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
                 {
-                    SoilProfile = new PipingSoilProfile("profile", 3, new[]
+                    SoilProfile = new PipingSoilProfile("profile", -2, new[]
                     {
-                        new PipingSoilLayer(6),
-                        new PipingSoilLayer(8),
-                        new PipingSoilLayer(9)
+                        new PipingSoilLayer(0),
+                        new PipingSoilLayer(2),
+                        new PipingSoilLayer(3)
                     }, SoilProfileType.SoilProfile1D, 1)
                 };
 
@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreSame(soilProfileData, (ChartDataCollection) view.Chart.Data.Collection.ElementAt(soilProfileIndex));
-                AssertSoilProfileChartData(soilProfile2, soilProfileData);
+                AssertSoilProfileChartData(soilProfile2, soilProfileData, true);
             }
         }
 
@@ -541,6 +541,41 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenPipingInputViewWithSoilProfileSeries_WhenSurfaceLineSetToNull_ThenCollectionOfEmptyChartDataSetForSoilProfiles()
+        {
+            // Given
+            using (var view = new PipingInputView())
+            {
+                RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                StochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile();
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = stochasticSoilProfile
+                    }
+                };
+
+                view.Data = calculation;
+
+                var chartData = view.Chart.Data;
+
+                // Precondition
+                Assert.IsNotNull(chartData);
+                Assert.AreEqual(10, chartData.Collection.Count());
+                AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), true);
+
+                // When
+                calculation.InputParameters.SurfaceLine = null;
+                calculation.InputParameters.NotifyObservers();
+
+                // Then
+                AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), false);
+            }
+        }
+
         private static StochasticSoilProfile GetStochasticSoilProfile()
         {
             return new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
@@ -628,7 +663,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
         }
 
-        private static void AssertSoilProfileChartData(StochasticSoilProfile soilProfile, ChartData chartData)
+        private static void AssertSoilProfileChartData(StochasticSoilProfile soilProfile, ChartData chartData, bool mapDataShouldContainAreas)
         {
             Assert.IsInstanceOf<ChartDataCollection>(chartData);
             var soilProfileChartData = (ChartDataCollection) chartData;
@@ -641,7 +676,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             for (int i = 0; i < expectedLayerCount; i++)
             {
-                Assert.AreEqual(pipingSoilLayers[i], soilProfileChartData.Collection.ElementAt(i).Name);
+                var chartMultipleAreaData = soilProfileChartData.Collection.ElementAt(i) as ChartMultipleAreaData;
+
+                Assert.IsNotNull(chartMultipleAreaData);
+                Assert.AreEqual(pipingSoilLayers[i], chartMultipleAreaData.Name);
+                Assert.AreEqual(mapDataShouldContainAreas, chartMultipleAreaData.Areas.Any());
             }
         }
 

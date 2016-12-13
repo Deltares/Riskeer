@@ -170,6 +170,7 @@ namespace Ringtoets.Piping.Forms.Views
             exitPointChartData.NotifyObservers();
             entryPointChartData.NotifyObservers();
             soilProfileChartData.NotifyObservers();
+            soilProfileChartData.Collection.ForEachElementDo(md => md.NotifyObservers());
         }
 
         private void SetChartData()
