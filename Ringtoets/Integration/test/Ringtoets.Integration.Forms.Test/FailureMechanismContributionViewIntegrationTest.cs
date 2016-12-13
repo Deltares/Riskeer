@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 
-namespace Ringtoets.Integration.Forms.Test.Views
+namespace Ringtoets.Integration.Forms.Test
 {
     [TestFixture]
     public class FailureMechanismContributionViewIntegrationTest
