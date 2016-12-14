@@ -117,47 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="DR6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DR6.soil;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="DR6_surfacelines" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DR6_surfacelines.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="DR6_surfacelines_krp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DR6_surfacelines.krp.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="HLCD" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HLCD.sqlite;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="HRD_dutch_coast_south" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HRD dutch coast south.sqlite;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="HRD_dutch_coast_south_config" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HRD dutch coast south.config.sqlite;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="traject_6_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\traject_6-3.dbf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="traject_6_31" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\traject_6-3.prj;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="traject_6_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\traject_6-3.shp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="traject_6_33" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\traject_6-3.shx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="traject_6_3_vakken" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\traject_6-3_vakken.dbf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="traject_6_3_vakken1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\traject_6-3_vakken.prj;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="traject_6_3_vakken2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\traject_6-3_vakken.shp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="traject_6_3_vakken3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\traject_6-3_vakken.shx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
 </root>

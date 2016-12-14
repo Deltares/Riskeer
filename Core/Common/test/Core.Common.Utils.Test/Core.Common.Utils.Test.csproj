@@ -168,18 +168,10 @@
     <None Include="Resources\TestImageWithBlack.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\testFile.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\EmbeddedResource1.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\EmbeddedResource2.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\NonEmbeddedResource.txt" />
-  </ItemGroup>
-  <ItemGroup>
+    <EmbeddedResource Include="EmbeddedResources\EmbeddedResource1.txt" />
+    <EmbeddedResource Include="EmbeddedResources\EmbeddedResource2.txt" />
+    <None Include="EmbeddedResources\NonEmbeddedResource.txt" />
+    <EmbeddedResource Include="EmbeddedResources\testFile.txt" />
     <Content Include="Resources\TestImageHalfOpacityOnBlack2x2.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
