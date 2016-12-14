@@ -284,8 +284,8 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        [TestCase(3.5, double.NaN)]
-        [TestCase(double.NaN, 8.3)]
+        [TestCase(3.5, double.NaN, TestName = "ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassOutwardLocationWithData_ClearDataAndReturnAffectedData(3.5, NaN)")]
+        [TestCase(double.NaN, 8.3, TestName = "ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassOutwardLocationWithData_ClearDataAndReturnAffectedData(NaN, 8.3)")]
         public void ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnAffectedHydraulicBoundaryLocations(
             double designWaterLevel, double waveHeight)
         {
@@ -361,8 +361,8 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        [TestCase(3.5, double.NaN)]
-        [TestCase(double.NaN, 8.3)]
+        [TestCase(3.5, double.NaN, TestName = "ClearHydraulicBoundaryLocationOutput_LocationWithDataAndGrassOutwardLocationWithData_ClearDataAndReturnAffectedData(3.5, NaN)")]
+        [TestCase(double.NaN, 8.3, TestName = "ClearHydraulicBoundaryLocationOutput_LocationWithDataAndGrassOutwardLocationWithData_ClearDataAndReturnAffectedData(NaN, 8.3)")]
         public void ClearHydraulicBoundaryLocationOutput_LocationWithDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnAffectedHydraulicBoundaryLocations(
             double designWaterLevel, double waveHeight)
         {

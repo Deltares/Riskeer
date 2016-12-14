@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         private const int assessmentLayerThreeIndex = 3;
 
         [Test]
-        public void GivenFormWithMacrostabilityInwardsFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (var form = new Form())
@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithMacrostabilityInwardsFailureMechanismResultView_WhenDataSourceWithMacrostabilityInwardsFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithMacrostabilityInwardsFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -159,9 +159,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenFormWithMacrostabilityInwardsFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
+        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "FormWithFailureMechanismResultView_SectionPassesLevel0AndListenersNotified_RowsForSectionDisabled(notAssessed)")]
+        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "FormWithFailureMechanismResultView_SectionPassesLevel0AndListenersNotified_RowsForSectionDisabled(noVerdict)")]
+        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionDisabled(
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
@@ -205,7 +205,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithMacrostabilityInwardsFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
+        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]

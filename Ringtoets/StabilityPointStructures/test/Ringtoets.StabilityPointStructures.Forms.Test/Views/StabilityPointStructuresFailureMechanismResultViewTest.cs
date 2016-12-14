@@ -304,9 +304,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
+        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "ResultView_SectionPassesLevel0AndListenersNotified_RowsDisabled(notAssessed)")]
+        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "ResultView_SectionPassesLevel0AndListenersNotified_RowsDisabled(noVerdict)")]
+        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionDisabled(
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
@@ -538,8 +538,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_LayerTwoAHasError(notAssessed")]
+        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_LayerTwoAHasError(noVerdict")]
         public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
             AssessmentLayerOneState assessmentLayerOneState)
         {

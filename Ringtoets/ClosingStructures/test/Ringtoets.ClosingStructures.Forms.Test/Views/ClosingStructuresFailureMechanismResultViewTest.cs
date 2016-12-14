@@ -197,7 +197,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithClosingStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (ShowFailureMechanismResultsView())
@@ -221,7 +221,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithClosingStructuresFailureMechanismResultView_WhenDataSourceWithClosingStructureFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithClosingStructureFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -303,9 +303,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenFormWithClosingStructuresFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
+        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "FormWithFailureMechanismResultView_SectionPassesLevel0AndListenersNotified_RowsForSectionDisabled(notAssessed)")]
+        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "FormWithFailureMechanismResultView_SectionPassesLevel0AndListenersNotified_RowsForSectionDisabled(noVerdict)")]
+        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionDisabled(
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
@@ -344,7 +344,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithClosingStructuresFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
+        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
             var section1 = CreateSimpleFailureMechanismSection();

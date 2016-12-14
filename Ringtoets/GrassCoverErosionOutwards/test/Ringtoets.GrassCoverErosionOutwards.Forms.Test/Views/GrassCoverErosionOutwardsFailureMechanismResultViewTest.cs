@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         private const int assessmentLayerThreeIndex = 3;
 
         [Test]
-        public void GivenFormWithGrassCoverErosionOutwardsFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (var form = new Form())
@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithGrassCoverErosionOutwardsFailureMechanismResultView_WhenDataSourceWithGrassCoverErosionOutwardsFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -165,9 +165,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenFormWithGrassCoverErosionOutwardsFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
+        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "ResultView_SectionPassesLevel0_RowsDisabled(notAssessed)")]
+        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "ResultView_SectionPassesLevel0_RowsDisabled(noVerdict)")]
+        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
@@ -213,7 +213,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithGrassCoverErosionOutwardsFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
+        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]

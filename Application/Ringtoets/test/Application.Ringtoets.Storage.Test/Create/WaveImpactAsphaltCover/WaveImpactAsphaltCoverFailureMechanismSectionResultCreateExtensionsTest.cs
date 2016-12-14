@@ -33,15 +33,13 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
-            [Values(AssessmentLayerTwoAResult.Failed, AssessmentLayerTwoAResult.NotCalculated,
-                AssessmentLayerTwoAResult.Successful)] AssessmentLayerTwoAResult assessmentLayerTwoAResult,
-            [Values(3.2, 4.5)] double assessmentLayerThreeResult
-            )
+        public void Create_WithResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
+            const AssessmentLayerOneState assessmentLayerOneResult = AssessmentLayerOneState.Sufficient;
+            const AssessmentLayerTwoAResult assessmentLayerTwoAResult = AssessmentLayerTwoAResult.Successful;
+            const double assessmentLayerThreeResult = 3.2;
+
             var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,

@@ -33,13 +33,13 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
     public class MacrostabilityOutwardsFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
-            [Values(0.2, 0.523)] double assessmentLayerTwoAResult,
-            [Values(3.2, 4.5)] double assessmentLayerThreeResult)
+        public void Create_WithResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
+            const AssessmentLayerOneState assessmentLayerOneResult = AssessmentLayerOneState.Sufficient;
+            const double assessmentLayerTwoAResult = 0.2;
+            const double assessmentLayerThreeResult = 3.2;
+
             var sectionResult = new MacrostabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,

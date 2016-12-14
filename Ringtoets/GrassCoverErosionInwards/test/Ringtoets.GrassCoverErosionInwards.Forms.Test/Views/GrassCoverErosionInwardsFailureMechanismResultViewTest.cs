@@ -442,8 +442,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "SectionResultAndSuccessfulCalculation_ChangingCalculationToFailed_LayerTwoAHasError(notAssessed)")]
+        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "SectionResultAndSuccessfulCalculation_ChangingCalculationToFailed_LayerTwoAHasError(noVerdict)")]
         public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
             AssessmentLayerOneState assessmentLayerOneState)
         {

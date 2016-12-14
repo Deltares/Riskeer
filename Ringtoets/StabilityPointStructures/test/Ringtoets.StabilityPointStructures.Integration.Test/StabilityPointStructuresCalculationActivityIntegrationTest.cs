@@ -139,7 +139,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
         [TestCase(true, "An error occurred")]
         [TestCase(true, null)]
         [TestCase(false, "An error occurred")]
-        public void Run_InvalidCalculationAndRan_PerformValidationAndCalculationAndActivityStateFailed(bool endInFailure, string lastErrorFileContent)
+        public void Run_InvalidCalculationRan_PerformValidationAndCalculationActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);

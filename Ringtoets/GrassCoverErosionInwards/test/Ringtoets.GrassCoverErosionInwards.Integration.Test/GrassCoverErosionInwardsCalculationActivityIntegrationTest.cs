@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         private static readonly string validFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
-        public void Run_InvalidGrassCoverErosionInwardsCalculationInvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
+        public void Run_InvalidCalculationInvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_ValidGrassCoverErosionInwardsCalculation_PerformGrassCoverErosionInwardsValidationAndCalculationAndLogStartAndEnd()
+        public void Run_ValidCalculation_PerformValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -126,7 +126,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_InvalidGrassCoverErosionInwardsCalculationAndRan_PerformGrassCoverErosionInwardsValidationAndCalculationAndLogStartAndEndAndErrorAndDoesNotPerformDikeHeightCalculation()
+        public void Run_InvalidCalculationAndRan_PerformValidationCalculationAndLogStartAndEndAndErrorAndDoesNotPerformDikeHeightCalculation()
         {
             // Setup
             var mocks = new MockRepository();
@@ -369,7 +369,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Finish_CalculateDikeHeightFalseAndValidGrassCoverErosionInwardsCalculationAndRan_SetsOutputAndNotifyObserversOfGrassCoverErosionInwardsCalculation()
+        public void Finish_CalculateDikeHeightFalseAndValidCalculationAndRan_SetsOutputAndNotifyObserversOfCalculation()
         {
             // Setup
             var mocks = new MockRepository();

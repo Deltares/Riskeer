@@ -236,7 +236,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoDikeProfile_ReturnsLocationsSortedById()
+        public void GetSelectableLocations_InputWithLocationsNoDikeProfile_ReturnsLocationsSortedById()
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();

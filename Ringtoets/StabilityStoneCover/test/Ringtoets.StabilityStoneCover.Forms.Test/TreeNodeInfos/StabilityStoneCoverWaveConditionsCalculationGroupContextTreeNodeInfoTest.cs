@@ -899,8 +899,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true, TestName = "Menu_TwoCalculationsAndOutputClickClearAllOutput_ClearAllOutputAfterConfirmation(true)")]
-        [TestCase(false, TestName = "Menu_TwoCalculationsAndOutputClickClearAllOutput_ClearAllOutputAfterConfirmation(false)")]
+        [TestCase(true, TestName = "Menu_TwoCalculationsAndOutputClickClearAllOutput_ClearOutputAfterConfirmation(true)")]
+        [TestCase(false, TestName = "Menu_TwoCalculationsAndOutputClickClearAllOutput_ClearOutputAfterConfirmation(false)")]
         public void ContextMenuStrip_TwoCalculationsWithOutputClickOnClearAllOutput_OutputRemovedForCalculationsAfterConfirmation(bool confirm)
         {
             // Setup

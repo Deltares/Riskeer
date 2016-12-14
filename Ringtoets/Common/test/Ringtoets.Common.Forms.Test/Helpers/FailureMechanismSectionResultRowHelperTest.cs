@@ -141,7 +141,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                 .SetName("SufficientWithInvalidLayerTwoAAndCalculationWithoutOutput");
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0,
                                           new CalculationWithoutOutput(), string.Empty)
-                .SetName("SufficientWithValidLayerTwoAAndCalculationWithOutput");
+                .SetName("SufficientWithValidLayerTwoAAndCalculationWithoutOutput");
         }
 
         private static IEnumerable AssessmentLayerOneStateIsNotSufficientAndCalculationNull()

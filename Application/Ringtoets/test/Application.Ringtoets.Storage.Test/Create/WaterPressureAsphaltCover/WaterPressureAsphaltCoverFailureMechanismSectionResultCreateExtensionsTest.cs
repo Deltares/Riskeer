@@ -33,13 +33,12 @@ namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
     public class WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
-            [Values(3.2, 4.5)] double assessmentLayerThreeResult
-            )
+        public void Create_WithResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
+            const AssessmentLayerOneState assessmentLayerOneResult = AssessmentLayerOneState.Sufficient;
+            const double assessmentLayerThreeResult = 3.2
+                ;
             var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,

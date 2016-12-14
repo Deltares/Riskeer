@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         private const int assessmentLayerThreeIndex = 3;
 
         [Test]
-        public void GivenFormWithGrassCoverSlipOffInwardsFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (var form = new Form())
@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithGrassCoverSlipOffInwardsFailureMechanismResultView_WhenDataSourceWithGrassCoverSlipOffInwardsFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithGrassCoverSlipOffInwardsFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -162,7 +162,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
         [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenFormWithGrassCoverSlipOffInwardsFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
+        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionDisabled(
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
@@ -206,7 +206,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithGrassCoverSlipOffInwardsFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
+        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]

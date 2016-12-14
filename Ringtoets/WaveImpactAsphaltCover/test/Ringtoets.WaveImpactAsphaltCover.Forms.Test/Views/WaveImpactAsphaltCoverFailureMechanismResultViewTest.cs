@@ -162,9 +162,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenFormWithSimpleFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
+        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "GivenFormWithResultView_WhenSectionPassLevel0AndListenersNotified_ThenRowsDisabled(notAssessed)")]
+        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "GivenFormWithResultView_WhenSectionPassLevel0AndListenersNotified_ThenRowsDisabled(noVerdict)")]
+        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionDisabled(
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
