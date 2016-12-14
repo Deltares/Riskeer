@@ -107,5 +107,39 @@ namespace Core.Common.TestUtil.Test
             // Assert
             Assert.AreEqual(expectedFirstCallResult, result);
         }
+
+        [Test]
+        public void NextEnumvalue_TypeIsNoEnum_ThrowsArgumentException()
+        {
+            // Setup
+            var random = new Random();
+
+            // Call
+            TestDelegate test = () => random.NextEnumValue<string>();
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        [TestCase(0, TestEnum.ValueTwo)]
+        [TestCase(1, TestEnum.ValueOne)]
+        public void NextEnumvalue_TypeIsEnum_ThrowsArgumentException(int seed, TestEnum expectedFirstCallResult)
+        {
+            // Setup
+            var random = new Random(seed);
+
+            // Call
+            TestEnum result = random.NextEnumValue<TestEnum>();
+
+            // Assert
+            Assert.AreEqual(expectedFirstCallResult, result);
+        }
+
+        public enum TestEnum
+        {
+            ValueOne,
+            ValueTwo
+        }
     }
 }

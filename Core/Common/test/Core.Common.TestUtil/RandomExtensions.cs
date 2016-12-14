@@ -71,5 +71,18 @@ namespace Core.Common.TestUtil
         {
             return Convert.ToBoolean(random.Next(0, 2));
         }
+
+        /// <summary>
+        /// Returns a random value of <typeparamref name="TEnum"/>.
+        /// </summary>
+        /// <typeparam name="TEnum">The <see cref="Enum"/> to use.</typeparam>
+        /// <param name="random">A pseudo-random number generator.</param>
+        /// <returns>>A new random value of type <typeparamref name="TEnum"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <typeparamref name="TEnum"/> is not an <see cref="Enum"/>.</exception>
+        public static TEnum NextEnumValue<TEnum>(this Random random)
+        {
+            var enumValues = (TEnum[]) Enum.GetValues(typeof(TEnum));
+            return enumValues[random.Next(enumValues.Length)];
+        }
     }
 }

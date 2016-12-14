@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -33,15 +34,13 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
     public class DikeHeightAssessmentOutputCreateExtensionsTest
     {
         [Test]
-        public void Create_WithValidParameters_ReturnsGrassCoverErosionInwardsDikeHeightOutputEntityWithOutputSet(
-            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        public void Create_WithValidParameters_ReturnsGrassCoverErosionInwardsDikeHeightOutputEntityWithOutputSet()
         {
             // Setup
             var random = new Random(21);
             var output = new DikeHeightAssessmentOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), convergence);
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
 
             // Call
             GrassCoverErosionInwardsDikeHeightOutputEntity entity = output.Create();
@@ -57,13 +56,12 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_WithNaNParameters_ReturnsGrassCoverErosionInwardsDikeHeightOutputEntityWithOutputNull(
-            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        public void Create_WithNaNParameters_ReturnsGrassCoverErosionInwardsDikeHeightOutputEntityWithOutputNull()
         {
             // Setup
+            var random = new Random(21);
             var output = new DikeHeightAssessmentOutput(double.NaN, double.NaN, double.NaN,
-                                                        double.NaN, double.NaN, convergence);
+                                                        double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
 
             // Call
             GrassCoverErosionInwardsDikeHeightOutputEntity entity = output.Create();

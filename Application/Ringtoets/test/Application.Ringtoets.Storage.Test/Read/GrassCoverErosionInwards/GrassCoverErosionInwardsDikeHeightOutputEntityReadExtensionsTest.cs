@@ -22,7 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
-using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -34,9 +34,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
     public class GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensionsTest
     {
         [Test]
-        public void Read_ValidParameters_ReturnsDikeHeightAssessmentOutput(
-            [Values(CalculationConvergence.CalculatedNotConverged, CalculationConvergence.CalculatedConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        public void Read_ValidParameters_ReturnsDikeHeightAssessmentOutput()
         {
             // Setup
             var random = new Random(22);
@@ -45,6 +43,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
+            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
             var entity = new GrassCoverErosionInwardsDikeHeightOutputEntity
             {
                 DikeHeight = dikeHeight,
@@ -59,27 +58,22 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             DikeHeightAssessmentOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual((RoundedDouble) dikeHeight, output.Result, output.Result.GetAccuracy());
+            Assert.AreEqual(dikeHeight, output.Result, output.Result.GetAccuracy());
             Assert.AreEqual(targetProbability, output.TargetProbability);
-            Assert.AreEqual((RoundedDouble) targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
-            Assert.AreEqual((RoundedDouble) calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
         }
 
         [Test]
-        public void Read_NaNParameters_ReturnsDikeHeightAssessmentOutputWithNaN(
-            [Values(CalculationConvergence.CalculatedNotConverged, CalculationConvergence.CalculatedConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        public void Read_NullParameters_ReturnsDikeHeightAssessmentOutputWithNaN()
         {
             // Setup
+            var random = new Random(22);
+            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
             var entity = new GrassCoverErosionInwardsDikeHeightOutputEntity
             {
-                DikeHeight = double.NaN,
-                TargetProbability = double.NaN,
-                TargetReliability = double.NaN,
-                CalculatedProbability = double.NaN,
-                CalculatedReliability = double.NaN,
                 CalculationConvergence = (byte) convergence
             };
 

@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
@@ -53,14 +54,12 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_ValidCalculation_ReturnEntity(
-            [Values("I am comment", null)] string comment,
-            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
-                DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase("I am comment")]
+        [TestCase(null)]
+        public void Create_ValidCalculation_ReturnEntity(string comment)
         {
             // Setup
-            var random = new Random(1);
+            var random = new Random(12);
             int order = random.Next();
             string name = "GrassCoverErosionInwardsCalculation Name";
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -81,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                         Height = (RoundedDouble) 3.3,
                         Type = BreakWaterType.Dam
                     },
-                    DikeHeightCalculationType = dikeHeightCalculationType,
+                    DikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>(),
                     CriticalFlowRate =
                     {
                         Mean = (RoundedDouble) 4.4,
