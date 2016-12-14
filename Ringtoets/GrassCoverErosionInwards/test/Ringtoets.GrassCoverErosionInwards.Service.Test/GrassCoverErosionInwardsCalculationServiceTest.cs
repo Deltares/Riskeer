@@ -439,7 +439,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 DikeHeightAssessmentOutput dikeHeightAssessmentOutput = calculation.Output.DikeHeightAssessmentOutput;
                 Assert.IsNotNull(dikeHeightAssessmentOutput);
 
-                Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.Result));
+                Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.DikeHeight));
                 Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.TargetProbability));
                 Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.TargetReliability));
                 Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.CalculatedProbability));

@@ -27,17 +27,17 @@ using Ringtoets.Common.Service.Properties;
 namespace Ringtoets.Common.Service
 {
     /// <summary>
-    /// Service for providing common data calculation services 
+    /// Service for providing common data calculation services.
     /// </summary>
     public static class RingtoetsCommonDataCalculationService
     {
         /// <summary>
         /// Determines whether the calculated output is converged,
-        /// based on the <paramref name="reliabilityIndex"/> and the <paramref name="norm"/>
+        /// based on the <paramref name="reliabilityIndex"/> and the <paramref name="norm"/>.
         /// </summary>
         /// <param name="reliabilityIndex">The resultant reliability index after a calculation.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
-        /// <returns><c>True</c> if the solution converged, <c>false</c> if otherwise</returns>
+        /// <param name="norm">The norm used during the calculation.</param>
+        /// <returns><c>True</c> if the solution converged, <c>false</c> if otherwise.</returns>
         public static CalculationConvergence CalculationConverged(double reliabilityIndex, double norm)
         {
             return Math.Abs(reliabilityIndex - StatisticsConverter.ProbabilityToReliability(norm)) <= 1.0e-3 ?
@@ -46,11 +46,11 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
-        /// Gets the reqiured probability which is needed in profile specific calculations.
+        /// Gets the required probability which is needed in profile specific calculations.
         /// </summary>
         /// <param name="norm">The assessment section norm.</param>
-        /// <param name="failureMechanismContribution">The failure mechanism contribution</param>
-        /// <param name="n">the 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="failureMechanismContribution">The failure mechanism contribution.</param>
+        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>The profile specific required probability.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="failureMechanismContribution"/> 
         /// or <paramref name="n"/> is not greater than 0.</exception>

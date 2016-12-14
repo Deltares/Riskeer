@@ -27,22 +27,22 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// This class contains the result a dike height calculation.
+    /// This class contains the result of a dike height calculation.
     /// </summary>
     public class DikeHeightAssessmentOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="DikeHeightAssessmentOutput"/>.
         /// </summary>
-        /// <param name="result">The calculation result.</param>
+        /// <param name="dikeHeight">The calculated dike height.</param>
         /// <param name="targetProbability">The norm used during the calculation.</param>
         /// <param name="targetReliability">The reliability index used during the calculation.</param>
-        /// <param name="calculatedProbability">the calculated probability.</param>
-        /// <param name="calculatedReliability">The calculated reliability.</param>
+        /// <param name="calculatedProbability">The calculated probability.</param>
+        /// <param name="calculatedReliability">The calculated reliability index.</param>
         /// <param name="calculationConvergence">The convergence status of the calculation.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        public DikeHeightAssessmentOutput(double result, double targetProbability, double targetReliability,
+        public DikeHeightAssessmentOutput(double dikeHeight, double targetProbability, double targetReliability,
                                                double calculatedProbability, double calculatedReliability,
                                                CalculationConvergence calculationConvergence)
         {
@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                                                       RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
             }
 
-            Result = new RoundedDouble(2, result);
+            DikeHeight = new RoundedDouble(2, dikeHeight);
 
             TargetProbability = targetProbability;
             TargetReliability = new RoundedDouble(5, targetReliability);
@@ -67,18 +67,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the result of the calculation.
+        /// Gets the calculated dike height.
         /// </summary>
-        public RoundedDouble Result { get; private set; }
+        public RoundedDouble DikeHeight { get; private set; }
 
         /// <summary>
-        /// Gets the target probability.
+        /// Gets the norm used during the calculation.
         /// [1/year]
         /// </summary>
         public double TargetProbability { get; private set; }
 
         /// <summary>
-        /// Gets the target beta.
+        /// Gets the reliability index used during the calculation.
         /// [-]
         /// </summary>
         public RoundedDouble TargetReliability { get; private set; }
@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public double CalculatedProbability { get; private set; }
 
         /// <summary>
-        /// Gets the calculated reliability.
+        /// Gets the calculated reliability index.
         /// [-]
         /// </summary>
         public RoundedDouble CalculatedReliability { get; private set; }

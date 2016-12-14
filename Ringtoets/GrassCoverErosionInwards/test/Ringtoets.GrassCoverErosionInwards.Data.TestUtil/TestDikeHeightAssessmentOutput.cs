@@ -32,9 +32,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
          /// <summary>
         /// Creates a new instance of <see cref="TestDikeHeightAssessmentOutput"/>.
         /// </summary>
-        /// <param name="result">The result to set in the output.</param>
+        /// <param name="dikeHeight">The result to set in the output.</param>
         /// <param name="calculationConvergence">The <see cref="CalculationConvergence"/> to set in the output.</param>
-        public TestDikeHeightAssessmentOutput(double result, CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated) :
-            base(result, double.NaN, double.NaN, double.NaN, double.NaN, calculationConvergence) {}
+        public TestDikeHeightAssessmentOutput(double dikeHeight, CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated) :
+            base(dikeHeight, double.NaN, double.NaN, double.NaN, double.NaN, calculationConvergence) {}
     }
 }

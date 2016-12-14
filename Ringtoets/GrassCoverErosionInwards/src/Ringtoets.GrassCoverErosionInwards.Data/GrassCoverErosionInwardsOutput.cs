@@ -69,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 return DikeHeightAssessmentOutput == null
                            ? RoundedDouble.NaN
-                           : DikeHeightAssessmentOutput.Result;
+                           : DikeHeightAssessmentOutput.DikeHeight;
             }
         }
 

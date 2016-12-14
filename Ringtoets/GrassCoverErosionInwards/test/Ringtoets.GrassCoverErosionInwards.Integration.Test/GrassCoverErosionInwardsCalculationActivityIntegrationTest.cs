@@ -499,7 +499,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             Assert.IsFalse(double.IsNaN(calculation.Output.DikeHeight));
             DikeHeightAssessmentOutput dikeHeightAssessmentOutput = calculation.Output.DikeHeightAssessmentOutput;
             Assert.IsNotNull(dikeHeightAssessmentOutput);
-            Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.Result));
+            Assert.IsFalse(double.IsNaN(dikeHeightAssessmentOutput.DikeHeight));
             mocks.VerifyAll();
         }
 
@@ -554,7 +554,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             Assert.IsNaN(calculation.Output.DikeHeight);
             DikeHeightAssessmentOutput dikeHeightAssessmentOutput = calculation.Output.DikeHeightAssessmentOutput;
             Assert.IsNotNull(dikeHeightAssessmentOutput);
-            Assert.IsNaN(dikeHeightAssessmentOutput.Result);
+            Assert.IsNaN(dikeHeightAssessmentOutput.DikeHeight);
             mocks.VerifyAll();
         }
 

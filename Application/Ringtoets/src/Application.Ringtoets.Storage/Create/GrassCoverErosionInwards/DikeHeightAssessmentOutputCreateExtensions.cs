@@ -38,9 +38,9 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         {
             return new GrassCoverErosionInwardsDikeHeightOutputEntity
             {
-                DikeHeight = double.IsNaN(output.Result)
+                DikeHeight = double.IsNaN(output.DikeHeight)
                                  ? (double?) null
-                                 : output.Result,
+                                 : output.DikeHeight,
                 TargetProbability = double.IsNaN(output.TargetProbability)
                                         ? (double?) null
                                         : output.TargetProbability,

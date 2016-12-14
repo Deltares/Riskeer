@@ -87,7 +87,25 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.IsNaN(output.ProbabilityAssessmentOutput.RequiredProbability);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.Reliability.Value);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.RequiredReliability.Value);
-            Assert.IsNull(output.DikeHeightAssessmentOutput);
+        }
+
+        [Test]
+        public void Read_ValidEntityWithOutputEntity_ReturnGrassCoverErosionInwardsOutputWithOutput()
+        {
+            // Setup
+            var entity = new GrassCoverErosionInwardsOutputEntity
+            {
+                GrassCoverErosionInwardsDikeHeightOutputEntities =
+                {
+                    new GrassCoverErosionInwardsDikeHeightOutputEntity()
+                }
+            };
+
+            // Call
+            GrassCoverErosionInwardsOutput output = entity.Read();
+
+            // Assert
+            Assert.IsNotNull(output.DikeHeightAssessmentOutput);
         }
     }
 }

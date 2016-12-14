@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -32,13 +34,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
         public void TestHydraulicBoundaryLocationOutput_WithoutConvergence_ReturnsExpectedValues()
         {
             // Setup
-            const double result = 9.0;
+            const double dikeHeight = 9.0;
 
             // Call
-            DikeHeightAssessmentOutput output = new TestDikeHeightAssessmentOutput(result);
+            DikeHeightAssessmentOutput output = new TestDikeHeightAssessmentOutput(dikeHeight);
 
             // Assert
-            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
+            Assert.AreEqual(dikeHeight, output.DikeHeight, output.DikeHeight.GetAccuracy());
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
             Assert.IsNaN(output.CalculatedProbability);
@@ -47,18 +49,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void TestHydraulicBoundaryLocationOutput_WithConvergence_ReturnsExpectedValues(
-            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.NotCalculated,
-                CalculationConvergence.CalculatedNotConverged)] CalculationConvergence convergence)
+        public void TestHydraulicBoundaryLocationOutput_WithConvergence_ReturnsExpectedValues()
         {
             // Setup
-            const double result = 9.5;
+            var random = new Random(12);
+            double dikeHeight = random.NextDouble();
+            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            DikeHeightAssessmentOutput output = new TestDikeHeightAssessmentOutput(result, convergence);
+            DikeHeightAssessmentOutput output = new TestDikeHeightAssessmentOutput(dikeHeight, convergence);
 
             // Assert
-            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
+            Assert.AreEqual(dikeHeight, output.DikeHeight, output.DikeHeight.GetAccuracy());
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
             Assert.IsNaN(output.CalculatedProbability);

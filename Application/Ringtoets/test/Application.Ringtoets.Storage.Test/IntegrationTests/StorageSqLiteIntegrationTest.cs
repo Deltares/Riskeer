@@ -1490,7 +1490,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.IsNull(actualOutput);
                 return;
             }
-            Assert.AreEqual(expectedOutput.Result, actualOutput.Result);
+            Assert.AreEqual(expectedOutput.DikeHeight, actualOutput.DikeHeight);
             Assert.AreEqual(expectedOutput.TargetProbability, actualOutput.TargetProbability);
             Assert.AreEqual(expectedOutput.TargetReliability, actualOutput.TargetReliability);
             Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);
