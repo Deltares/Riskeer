@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
@@ -51,14 +52,13 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Read_ValidEntity_ReturnCalculation(
-            [Values(true, false)] bool flagValue,
-            [Values(BreakWaterType.Caisson, BreakWaterType.Dam, BreakWaterType.Wall)] BreakWaterType type,
-            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
-                DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType)
+        public void Read_ValidEntity_ReturnCalculation()
         {
             // Setup
+            var random = new Random(14);
+            bool flagValue = random.NextBoolean();
+            BreakWaterType breakWaterType = random.NextEnumValue<BreakWaterType>();
+            DikeHeightCalculationType dikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 Name = "sodhfksn",
@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 UseForeshore = Convert.ToByte(flagValue),
                 DikeHeight = 2.3,
                 UseBreakWater = Convert.ToByte(flagValue),
-                BreakWaterType = Convert.ToInt16(type),
+                BreakWaterType = Convert.ToInt16(breakWaterType),
                 BreakWaterHeight = 5.7,
                 DikeHeightCalculationType = Convert.ToByte(dikeHeightCalculationType)
             };
@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(flagValue, input.UseForeshore);
             Assert.AreEqual(entity.DikeHeight, input.DikeHeight.Value);
             Assert.AreEqual(flagValue, input.UseBreakWater);
-            Assert.AreEqual(type, input.BreakWater.Type);
+            Assert.AreEqual(breakWaterType, input.BreakWater.Type);
             Assert.AreEqual(entity.BreakWaterHeight, input.BreakWater.Height.Value);
             Assert.AreEqual(dikeHeightCalculationType, input.DikeHeightCalculationType);
 
