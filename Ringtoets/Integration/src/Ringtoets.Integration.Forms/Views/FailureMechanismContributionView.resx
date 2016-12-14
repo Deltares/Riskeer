@@ -117,75 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;returnPeriodLabel.Name" xml:space="preserve">
-    <value>returnPeriodLabel</value>
-  </data>
-  <data name="&gt;&gt;returnPeriodLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;returnPeriodLabel.Parent" xml:space="preserve">
-    <value>groupBoxAssessmentSectionDetails</value>
-  </data>
-  <data name="&gt;&gt;returnPeriodLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;assessmentSectionCompositionLabel.Name" xml:space="preserve">
-    <value>assessmentSectionCompositionLabel</value>
-  </data>
-  <data name="&gt;&gt;assessmentSectionCompositionLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;assessmentSectionCompositionLabel.Parent" xml:space="preserve">
-    <value>groupBoxAssessmentSectionDetails</value>
-  </data>
-  <data name="&gt;&gt;assessmentSectionCompositionLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="groupBoxAssessmentSectionDetails.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="groupBoxAssessmentSectionDetails.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt</value>
-  </data>
-  <data name="groupBoxAssessmentSectionDetails.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="groupBoxAssessmentSectionDetails.Size" type="System.Drawing.Size, System.Drawing">
-    <value>750, 65</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="groupBoxAssessmentSectionDetails.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="groupBoxAssessmentSectionDetails.Text" xml:space="preserve">
-    <value>Trajectgegevens</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAssessmentSectionDetails.Name" xml:space="preserve">
-    <value>groupBoxAssessmentSectionDetails</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAssessmentSectionDetails.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAssessmentSectionDetails.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAssessmentSectionDetails.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="returnPeriodLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="returnPeriodLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="returnPeriodLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 44</value>
+    <value>9, 43</value>
   </data>
   <data name="returnPeriodLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 26</value>
+    <value>200, 18</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="returnPeriodLabel.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
@@ -234,6 +180,36 @@
   <data name="&gt;&gt;assessmentSectionCompositionLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="groupBoxAssessmentSectionDetails.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="groupBoxAssessmentSectionDetails.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="groupBoxAssessmentSectionDetails.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="groupBoxAssessmentSectionDetails.Size" type="System.Drawing.Size, System.Drawing">
+    <value>750, 65</value>
+  </data>
+  <data name="groupBoxAssessmentSectionDetails.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="groupBoxAssessmentSectionDetails.Text" xml:space="preserve">
+    <value>Trajectgegevens</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAssessmentSectionDetails.Name" xml:space="preserve">
+    <value>groupBoxAssessmentSectionDetails</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAssessmentSectionDetails.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAssessmentSectionDetails.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAssessmentSectionDetails.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="probabilityDistributionGrid.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -253,7 +229,7 @@
     <value>probabilityDistributionGrid</value>
   </data>
   <data name="&gt;&gt;probabilityDistributionGrid.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=16.4.1.7269, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=16.4.1.7305, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;probabilityDistributionGrid.Parent" xml:space="preserve">
     <value>$this</value>
