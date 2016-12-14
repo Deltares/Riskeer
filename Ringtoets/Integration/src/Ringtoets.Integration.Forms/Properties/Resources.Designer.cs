@@ -362,32 +362,12 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijk.
+        ///   Looks up a localized string similar to Trajecttype: {0}.
         /// </summary>
-        public static string FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_Dike {
+        public static string FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_ {
             get {
-                return ResourceManager.GetString("FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_D" +
-                        "ike", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijk / Duin.
-        /// </summary>
-        public static string FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_DikeAndDune {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_D" +
-                        "ikeAndDune", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Duin.
-        /// </summary>
-        public static string FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_Dune {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_InitializeAssessmentSectionCompositionComboBox_D" +
-                        "une", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismContributionView_AssessmentSectionCompositionLabelText_Assessment" +
+                        "SectionComposition_0_", resourceCulture);
             }
         }
         
@@ -397,6 +377,16 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string FailureMechanismContributionView_ProbabilityPerYear_Not_applicable {
             get {
                 return ResourceManager.GetString("FailureMechanismContributionView_ProbabilityPerYear_Not_applicable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Norm: 1 / {0}.
+        /// </summary>
+        public static string FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_ {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPer" +
+                        "iod_0_", resourceCulture);
             }
         }
         

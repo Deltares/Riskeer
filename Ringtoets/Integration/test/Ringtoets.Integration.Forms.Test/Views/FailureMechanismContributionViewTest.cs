@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
     {
         private const string returnPeriodLabelName = "returnPeriodLabel";
         private const string dataGridViewControlName = "dataGridView";
-        private const string assessmentSectionConfigurationLabelName = "assessmentSectionConfigurationLabel";
+        private const string assessmentSectionConfigurationLabelName = "assessmentSectionCompositionLabel";
         private const int isRelevantColumnIndex = 0;
         private const int nameColumnIndex = 1;
         private const int codeColumnIndex = 2;
@@ -100,16 +100,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(contributionView);
 
                 var dataGridView = (DataGridViewControl) new ControlTester("probabilityDistributionGrid").TheObject;
-                var tableLayout = (TableLayoutPanel) new ControlTester("tableLayoutPanel").TheObject;
+                var groupBoxView = (GroupBox) new ControlTester("groupBoxAssessmentSectionDetails").TheObject;
 
                 // Assert
-                Assert.AreEqual(new Size(775, 350), dataGridView.MinimumSize);
+                Assert.AreEqual(new Size(0, 0), dataGridView.MinimumSize);
                 Assert.AreEqual(DockStyle.Fill, dataGridView.Dock);
                 Assert.IsFalse(dataGridView.AutoScroll);
 
-                Assert.AreEqual(new Size(0, 0), tableLayout.MinimumSize);
-                Assert.AreEqual(DockStyle.Fill, tableLayout.Dock);
-                Assert.IsTrue(tableLayout.AutoScroll);
+                Assert.AreEqual(new Size(0, 0), groupBoxView.MinimumSize);
+                Assert.AreEqual(DockStyle.Top, groupBoxView.Dock);
 
                 Assert.IsFalse(contributionView.AutoScroll);
             }
@@ -140,7 +139,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 int returnPeriod = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
-                var expectedReturnPeriodLabel = string.Format("Norm: 1 / {0} jaar",
+                var expectedReturnPeriodLabel = string.Format("Norm: 1 / {0}",
                                                               returnPeriod.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(expectedReturnPeriodLabel, returnPeriodLabel.Properties.Text);
             }
@@ -269,7 +268,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 // Precondition
-                var initialReturnPeriodLabelText = string.Format("Norm: 1 / {0} jaar",
+                var initialReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
                                                                  initialReturnPeriod.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
 
@@ -278,7 +277,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 distributionView.AssessmentSection = assessmentSection2;
 
                 // Assert
-                var newReturnPeriodLabelText = string.Format("Norm: 1 / {0} jaar",
+                var newReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
                                                              newReturnPeriod.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
@@ -316,7 +315,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 // Precondition
-                var initialReturnPeriodLabelText = string.Format("Norm: 1 / {0} jaar",
+                var initialReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
                                                                  initialReturnPeriod.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
 
@@ -325,7 +324,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 contribution.NotifyObservers();
 
                 // Assert
-                var newReturnPeriodLabelText = string.Format("Norm: 1 / {0} jaar",
+                var newReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
                                                              newReturnPeriod.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }

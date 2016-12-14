@@ -40,56 +40,55 @@ namespace Ringtoets.Integration.Forms.Views
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismContributionView));
-            this.probabilityDistributionGrid = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.assessmentSectionConfigurationLabel = new System.Windows.Forms.Label();
-            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBoxAssessmentSectionDetails = new System.Windows.Forms.GroupBox();
             this.returnPeriodLabel = new System.Windows.Forms.Label();
-            this.tableLayoutPanel.SuspendLayout();
+            this.assessmentSectionCompositionLabel = new System.Windows.Forms.Label();
+            this.probabilityDistributionGrid = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.groupBoxAssessmentSectionDetails.SuspendLayout();
             this.SuspendLayout();
             // 
-            // probabilityDistributionGrid
+            // groupBoxAssessmentSectionDetails
             // 
-            this.tableLayoutPanel.SetColumnSpan(this.probabilityDistributionGrid, 2);
-            resources.ApplyResources(this.probabilityDistributionGrid, "probabilityDistributionGrid");
-            this.probabilityDistributionGrid.MultiSelect = true;
-            this.probabilityDistributionGrid.Name = "probabilityDistributionGrid";
-            this.probabilityDistributionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            // 
-            // assessmentSectionConfigurationLabel
-            // 
-            resources.ApplyResources(this.assessmentSectionConfigurationLabel, "assessmentSectionConfigurationLabel");
-            this.assessmentSectionConfigurationLabel.Name = "assessmentSectionConfigurationLabel";
-            // 
-            // tableLayoutPanel
-            // 
-            resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
-            this.tableLayoutPanel.Controls.Add(this.assessmentSectionConfigurationLabel, 0, 0);
-            this.tableLayoutPanel.Controls.Add(this.returnPeriodLabel, 1, 0);
-            this.tableLayoutPanel.Controls.Add(this.probabilityDistributionGrid, 0, 1);
-            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.groupBoxAssessmentSectionDetails.Controls.Add(this.returnPeriodLabel);
+            this.groupBoxAssessmentSectionDetails.Controls.Add(this.assessmentSectionCompositionLabel);
+            resources.ApplyResources(this.groupBoxAssessmentSectionDetails, "groupBoxAssessmentSectionDetails");
+            this.groupBoxAssessmentSectionDetails.Name = "groupBoxAssessmentSectionDetails";
+            this.groupBoxAssessmentSectionDetails.TabStop = false;
             // 
             // returnPeriodLabel
             // 
             resources.ApplyResources(this.returnPeriodLabel, "returnPeriodLabel");
             this.returnPeriodLabel.Name = "returnPeriodLabel";
             // 
+            // assessmentSectionCompositionLabel
+            // 
+            resources.ApplyResources(this.assessmentSectionCompositionLabel, "assessmentSectionCompositionLabel");
+            this.assessmentSectionCompositionLabel.Name = "assessmentSectionCompositionLabel";
+            // 
+            // probabilityDistributionGrid
+            // 
+            resources.ApplyResources(this.probabilityDistributionGrid, "probabilityDistributionGrid");
+            this.probabilityDistributionGrid.MultiSelect = true;
+            this.probabilityDistributionGrid.Name = "probabilityDistributionGrid";
+            this.probabilityDistributionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            // 
             // FailureMechanismContributionView
             // 
-            this.Controls.Add(this.tableLayoutPanel);
+            this.Controls.Add(this.probabilityDistributionGrid);
+            this.Controls.Add(this.groupBoxAssessmentSectionDetails);
             this.Name = "FailureMechanismContributionView";
             resources.ApplyResources(this, "$this");
-            this.tableLayoutPanel.ResumeLayout(false);
-            this.tableLayoutPanel.PerformLayout();
+            this.groupBoxAssessmentSectionDetails.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Core.Common.Controls.DataGrid.DataGridViewControl probabilityDistributionGrid;
-        private TableLayoutPanel tableLayoutPanel;
-        private Label assessmentSectionConfigurationLabel;
+        private GroupBox groupBoxAssessmentSectionDetails;
         private Label returnPeriodLabel;
+        private Label assessmentSectionCompositionLabel;
+        private Core.Common.Controls.DataGrid.DataGridViewControl probabilityDistributionGrid;
 
 
     }

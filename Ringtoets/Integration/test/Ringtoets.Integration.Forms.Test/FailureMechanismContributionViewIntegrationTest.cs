@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.Forms.Test
     public class FailureMechanismContributionViewIntegrationTest
     {
         private const string dataGridViewControlName = "dataGridView";
-        private const string assessmentSectionCompositionLabelName = "assessmentSectionConfigurationLabel";
+        private const string assessmentSectionCompositionLabelName = "assessmentSectionCompositionLabel";
         private const int isRelevantColumnIndex = 0;
         private const int nameColumnIndex = 1;
         private const int codeColumnIndex = 2;

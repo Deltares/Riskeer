@@ -55,6 +55,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// </list>
         /// </remarks>
         private readonly Observer failureMechanismObserver;
+
         private readonly IViewCommands viewCommands;
         private FailureMechanismContribution data;
 
@@ -222,7 +223,8 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (data != null)
             {
-                returnPeriodLabel.Text = string.Format("Norm: 1 / {0} jaar", Convert.ToInt32(1.0/data.Norm));
+                returnPeriodLabel.Text = string.Format(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_,
+                                                       Convert.ToInt32(1.0/data.Norm));
             }
         }
 
@@ -231,7 +233,8 @@ namespace Ringtoets.Integration.Forms.Views
             if (AssessmentSection != null)
             {
                 string assessmentSectionComposition = new EnumDisplayWrapper<AssessmentSectionComposition>(AssessmentSection.Composition).DisplayName;
-                assessmentSectionConfigurationLabel.Text = string.Format("Trajecttype: {0}", assessmentSectionComposition);
+                assessmentSectionCompositionLabel.Text = string.Format(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_,
+                                                                       assessmentSectionComposition);
             }
         }
 
@@ -316,6 +319,5 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         #endregion
-
     }
 }
