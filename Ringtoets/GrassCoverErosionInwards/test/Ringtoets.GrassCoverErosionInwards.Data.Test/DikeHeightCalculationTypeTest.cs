@@ -32,12 +32,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Assert
             Assert.AreEqual("Niet", GetDisplayName(DikeHeightCalculationType.NoCalculation));
-            Assert.AreEqual(1, (byte) DikeHeightCalculationType.NoCalculation);
-
             Assert.AreEqual("HBN bij norm", GetDisplayName(DikeHeightCalculationType.CalculateByAssessmentSectionNorm));
-            Assert.AreEqual(2, (byte) DikeHeightCalculationType.CalculateByAssessmentSectionNorm);
-
             Assert.AreEqual("HBN bij doorsnede-eis", GetDisplayName(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability));
+        }
+
+        [Test]
+        public void ConvertToByte_Always_ReturnExpectedValues()
+        {
+            // Assert
+            Assert.AreEqual(1, (byte) DikeHeightCalculationType.NoCalculation);
+            Assert.AreEqual(2, (byte) DikeHeightCalculationType.CalculateByAssessmentSectionNorm);
             Assert.AreEqual(3, (byte) DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability);
         }
 

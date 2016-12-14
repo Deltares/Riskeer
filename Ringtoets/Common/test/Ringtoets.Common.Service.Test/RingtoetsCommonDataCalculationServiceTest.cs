@@ -74,11 +74,12 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ProfileSpecificRequiredProbability_WithZeroContribution_ThrowsArgumentException()
+        [TestCase(-1.0)]
+        [TestCase(0.0)]
+        public void ProfileSpecificRequiredProbability_WithZeroContribution_ThrowsArgumentException(double contribution)
         {
             // Setup
             const double norm = 1.0/200;
-            const double contribution = 0;
             const int n = 2;
 
             // Call
@@ -88,7 +89,7 @@ namespace Ringtoets.Common.Service.Test
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
             Assert.AreEqual(contribution, exception.ActualValue);
             Assert.AreEqual("failureMechanismContribution", exception.ParamName);
-            StringAssert.StartsWith("De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd." +
+            StringAssert.StartsWith("De bijdrage van dit toetsspoor is nul of negatief. Daardoor is de doorsnede-eis onbepaald en kan de berekening niet worden uitgevoerd." +
                                     Environment.NewLine, exception.Message);
         }
 
@@ -107,7 +108,7 @@ namespace Ringtoets.Common.Service.Test
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(action);
             Assert.AreEqual(n, exception.ActualValue);
             Assert.AreEqual("n", exception.ParamName);
-            StringAssert.StartsWith("De N-waarde van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd." +
+            StringAssert.StartsWith("De N-waarde van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kan de berekening niet worden uitgevoerd." +
                                     Environment.NewLine, exception.Message);
         }
     }
