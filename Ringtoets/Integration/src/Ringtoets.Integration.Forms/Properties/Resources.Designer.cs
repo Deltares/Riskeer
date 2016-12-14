@@ -334,7 +334,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De norm waarmee gerekend wordt..
+        ///   Looks up a localized string similar to Terugkeertijd van de norm, gelijk aan 1/norm..
         /// </summary>
         public static string FailureMechanismContribution_ReturnPeriod_Description {
             get {
@@ -343,7 +343,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Norm [1/jaar].
+        ///   Looks up a localized string similar to Norm (terugkeertijd) [jaar].
         /// </summary>
         public static string FailureMechanismContribution_ReturnPeriod_DisplayName {
             get {
@@ -352,7 +352,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de &apos;Norm&apos; moet in het bereik [100, 1000000] liggen..
+        ///   Looks up a localized string similar to De waarde voor de &apos;Norm (terugkeertijd)&apos; moet in het bereik [100, 1000000] liggen..
         /// </summary>
         public static string FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_range_100_to_1000000 {
             get {

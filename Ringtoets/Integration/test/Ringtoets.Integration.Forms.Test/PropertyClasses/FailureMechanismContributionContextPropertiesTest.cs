@@ -89,8 +89,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsNotNull(returnPeriodProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(returnPeriodProperty,
                                                                             expectedCategory,
-                                                                            "Norm [1/jaar]",
-                                                                            "De norm waarmee gerekend wordt.");
+                                                                            "Norm (terugkeertijd) [jaar]",
+                                                                            "Terugkeertijd van de norm, gelijk aan 1/norm.");
         }
 
         [Test]
@@ -335,7 +335,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
-                                                                                                "De waarde voor de 'Norm' moet in het bereik [100, 1000000] liggen.");
+                                                                                                "De waarde voor de 'Norm (terugkeertijd)' moet in het bereik [100, 1000000] liggen.");
         }
 
         [Test]
