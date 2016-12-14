@@ -251,7 +251,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             };
 
             const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.InvariantCulture), overflow);
+            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
             // Call
             TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = newProbabilityString;
@@ -284,7 +284,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                 Data = inputContext
             };
 
-            string newProbabilityString = newValue.ToString("r", CultureInfo.InvariantCulture);
+            string newProbabilityString = newValue.ToString("r", CultureInfo.CurrentCulture);
 
             // Call
             TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = newProbabilityString;
@@ -378,7 +378,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             };
 
             const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.InvariantCulture), overflow);
+            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityOpenStructure = newProbabilityString;
@@ -472,7 +472,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             };
 
             const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.InvariantCulture),overflow);
+            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
             // Call
             TestDelegate call = () =>

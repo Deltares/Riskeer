@@ -270,7 +270,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             };
 
             const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.InvariantCulture), overflow);
+            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityRepairClosure = newProbabilityString;
@@ -364,7 +364,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             };
 
             const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.InvariantCulture), overflow);
+            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
             // Call
             TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newProbabilityString;
