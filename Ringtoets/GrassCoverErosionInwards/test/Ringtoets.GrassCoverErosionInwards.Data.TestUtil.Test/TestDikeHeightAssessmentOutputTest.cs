@@ -34,7 +34,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
         public void TestDikeHeightAssessmentOutput_WithoutConvergence_ReturnsExpectedValues()
         {
             // Setup
-            const double dikeHeight = 9.0;
+            var random = new Random(12);
+            double dikeHeight = random.NextDouble();
 
             // Call
             var output = new TestDikeHeightAssessmentOutput(dikeHeight);
