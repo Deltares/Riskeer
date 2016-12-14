@@ -998,8 +998,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var data = (CalculationGroup)pipingCalculationView.Data;
             var pipingCalculation = (PipingCalculationScenario)data.Children.First();
 
-            mocks.ReplayAll();
-
             var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
             // Precondition
