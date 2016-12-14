@@ -509,13 +509,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
-                Assert.AreEqual(6, msgs.Length);
+                Assert.AreEqual(5, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
                 StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
                 StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[2]);
                 StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet geconvergeerd.", calculation.Name), msgs[4]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
             });
             Assert.IsFalse(expectedExceptionThrown);
             Assert.IsNotNull(calculation.Output);
@@ -915,13 +914,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
+                    Assert.AreEqual(5, msgs.Length);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
                     StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[2]);
                     StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet geconvergeerd.", calculation.Name), msgs[4]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);
@@ -984,13 +982,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
+                    Assert.AreEqual(5, msgs.Length);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
                     StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculation.Name), msgs[2]);
                     StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet geconvergeerd.", calculation.Name), msgs[4]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);

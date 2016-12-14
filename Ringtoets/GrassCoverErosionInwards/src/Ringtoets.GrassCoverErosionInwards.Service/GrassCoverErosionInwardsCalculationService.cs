@@ -146,14 +146,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                            failureMechanismSection,
                                                                            generalInput,
                                                                            hydraulicBoundaryDatabaseFilePath);
-                    CalculateDikeHeight(dikeHeightCalculationInput, calculationName);
+                    bool dikeHeightCalculated = CalculateDikeHeight(dikeHeightCalculationInput, calculationName);
 
                     if (canceled)
                     {
                         return;
                     }
 
-                    dikeHeight = CreateDikeHeightAssessmentOutput(calculationName, dikeHeightCalculationInput.Beta, norm);
+                    if (dikeHeightCalculated)
+                    {
+                        dikeHeight = CreateDikeHeightAssessmentOutput(calculationName, dikeHeightCalculationInput.Beta, norm);
+                    }
                 }
 
                 calculation.Output = new GrassCoverErosionInwardsOutput(
@@ -256,15 +259,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private void CalculateDikeHeight(DikeHeightCalculationInput dikeHeightCalculationInput, string calculationName)
+        private bool CalculateDikeHeight(DikeHeightCalculationInput dikeHeightCalculationInput, string calculationName)
         {
+            var exceptionThrown = false;
             if (!canceled)
             {
-                var exceptionThrown = false;
-
                 try
                 {
                     dikeHeightCalculator.Calculate(dikeHeightCalculationInput);
+                    return true;
                 }
                 catch (HydraRingFileParserException)
                 {
@@ -294,6 +297,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                     log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_temporary_directory_can_be_found_on_location_0, dikeHeightCalculator.OutputDirectory);
                 }
             }
+            return false;
         }
 
         private static OvertoppingCalculationInput CreateOvertoppingInput(GrassCoverErosionInwardsCalculation calculation,

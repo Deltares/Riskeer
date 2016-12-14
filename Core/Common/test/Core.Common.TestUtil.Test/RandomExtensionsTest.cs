@@ -109,7 +109,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void NextEnumvalue_TypeIsNoEnum_ThrowsArgumentException()
+        public void NextEnumValue_TypeIsNoEnum_ThrowsArgumentException()
         {
             // Setup
             var random = new Random();
@@ -124,7 +124,7 @@ namespace Core.Common.TestUtil.Test
         [Test]
         [TestCase(0, TestEnum.ValueTwo)]
         [TestCase(1, TestEnum.ValueOne)]
-        public void NextEnumvalue_TypeIsEnum_ThrowsArgumentException(int seed, TestEnum expectedFirstCallResult)
+        public void NextEnumValue_TypeIsEnum_ThrowsArgumentException(int seed, TestEnum expectedFirstCallResult)
         {
             // Setup
             var random = new Random(seed);
