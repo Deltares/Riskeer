@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             }
 
             entity.BreakWaterHeight = input.BreakWater.Height.Value.ToNaNAsNull();
-            entity.BreakWaterType = Convert.ToInt16(input.BreakWater.Type);
+            entity.BreakWaterType = Convert.ToByte(input.BreakWater.Type);
             entity.UseBreakWater = Convert.ToByte(input.UseBreakWater);
             entity.CriticalFlowRateMean = input.CriticalFlowRate.Mean.Value.ToNaNAsNull();
             entity.CriticalFlowRateStandardDeviation = input.CriticalFlowRate.StandardDeviation.Value.ToNaNAsNull();

@@ -17,7 +17,7 @@
           <Property Name="Norm" Type="real" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicDatabaseLocation" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="Composition" Type="smallint" Nullable="false" />
+          <Property Name="Composition" Type="tinyint" Nullable="false" />
           <Property Name="ReferenceLinePointXml" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
@@ -36,7 +36,7 @@
           </Key>
           <Property Name="CharacteristicPointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SurfaceLineEntityId" Type="integer" Nullable="false" />
-          <Property Name="Type" Type="smallint" Nullable="false" />
+          <Property Name="Type" Type="tinyint" Nullable="false" />
           <Property Name="X" Type="real" />
           <Property Name="Y" Type="real" />
           <Property Name="Z" Type="real" />
@@ -98,7 +98,7 @@
           <Property Name="Name" Type="varchar" MaxLength="255" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="UseBreakWater" Type="tinyint" Nullable="false" />
-          <Property Name="BreakWaterType" Type="smallint" Nullable="false" />
+          <Property Name="BreakWaterType" Type="tinyint" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="real" />
           <Property Name="UseForeshore" Type="tinyint" Nullable="false" />
           <Property Name="Orientation" Type="real" />
@@ -239,7 +239,7 @@
           <Property Name="DikeHeightCalculationType" Type="tinyint" Nullable="false" />
           <Property Name="DikeHeight" Type="real" />
           <Property Name="UseBreakWater" Type="tinyint" Nullable="false" />
-          <Property Name="BreakWaterType" Type="smallint" Nullable="false" />
+          <Property Name="BreakWaterType" Type="tinyint" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="real" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsDikeHeightOutputEntity">
@@ -449,7 +449,7 @@
           <Property Name="DeviationWaveDirection" Type="real" />
           <Property Name="UseBreakWater" Type="tinyint" Nullable="false" />
           <Property Name="UseForeshore" Type="tinyint" Nullable="false" />
-          <Property Name="BreakWaterType" Type="smallint" Nullable="false" />
+          <Property Name="BreakWaterType" Type="tinyint" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="real" />
         </EntityType>
         <EntityType Name="HeightStructuresFailureMechanismMetaEntity">
@@ -734,7 +734,7 @@
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="UseBreakWater" Type="tinyint" Nullable="false" />
-          <Property Name="BreakWaterType" Type="smallint" Nullable="false" />
+          <Property Name="BreakWaterType" Type="tinyint" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="real" />
           <Property Name="UseForeshore" Type="tinyint" Nullable="false" />
           <Property Name="StructureNormalOrientation" Type="real" />
@@ -2856,7 +2856,7 @@
           <Property Name="Norm" Type="Double" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicDatabaseLocation" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="Composition" Type="Int16" Nullable="false" />
+          <Property Name="Composition" Type="Byte" Nullable="false" />
           <Property Name="ReferenceLinePointXml" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ProjectEntity" />
@@ -2889,7 +2889,7 @@
           </Key>
           <Property Name="CharacteristicPointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SurfaceLineEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Type" Type="Int16" Nullable="false" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
           <Property Name="X" Type="Double" />
           <Property Name="Y" Type="Double" />
           <Property Name="Z" Type="Double" />
@@ -2955,7 +2955,7 @@
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="UseBreakWater" Type="Byte" Nullable="false" />
-          <Property Name="BreakWaterType" Type="Int16" Nullable="false" />
+          <Property Name="BreakWaterType" Type="Byte" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="Double" />
           <Property Name="UseForeshore" Type="Byte" Nullable="false" />
           <Property Name="Orientation" Type="Double" />
@@ -3151,7 +3151,7 @@
           <Property Name="DikeHeightCalculationType" Type="Byte" Nullable="false" />
           <Property Name="DikeHeight" Type="Double" />
           <Property Name="UseBreakWater" Type="Byte" Nullable="false" />
-          <Property Name="BreakWaterType" Type="Int16" Nullable="false" />
+          <Property Name="BreakWaterType" Type="Byte" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="Double" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_2_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="DikeProfileEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="DikeProfileEntity" />
@@ -3387,7 +3387,7 @@
           <Property Name="DeviationWaveDirection" Type="Double" />
           <Property Name="UseBreakWater" Type="Byte" Nullable="false" />
           <Property Name="UseForeshore" Type="Byte" Nullable="false" />
-          <Property Name="BreakWaterType" Type="Int16" Nullable="false" />
+          <Property Name="BreakWaterType" Type="Byte" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="Double" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_3_0" FromRole="HeightStructuresCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_2_0" FromRole="HeightStructuresCalculationEntity" ToRole="ForeshoreProfileEntity" />
@@ -3712,7 +3712,7 @@
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="UseBreakWater" Type="Byte" Nullable="false" />
-          <Property Name="BreakWaterType" Type="Int16" Nullable="false" />
+          <Property Name="BreakWaterType" Type="Byte" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="Double" />
           <Property Name="UseForeshore" Type="Byte" Nullable="false" />
           <Property Name="StructureNormalOrientation" Type="Double" />

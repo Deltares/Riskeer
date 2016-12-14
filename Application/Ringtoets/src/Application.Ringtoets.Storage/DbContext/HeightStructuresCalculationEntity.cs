@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> DeviationWaveDirection { get; set; }
         public byte UseBreakWater { get; set; }
         public byte UseForeshore { get; set; }
-        public short BreakWaterType { get; set; }
+        public byte BreakWaterType { get; set; }
         public Nullable<double> BreakWaterHeight { get; set; }
     
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }

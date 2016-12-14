@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public string Name { get; set; }
         public string Comments { get; set; }
         public byte UseBreakWater { get; set; }
-        public short BreakWaterType { get; set; }
+        public byte BreakWaterType { get; set; }
         public Nullable<double> BreakWaterHeight { get; set; }
         public byte UseForeshore { get; set; }
         public Nullable<double> Orientation { get; set; }

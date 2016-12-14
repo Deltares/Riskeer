@@ -78,14 +78,14 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Norm = norm,
                         Name = "A",
                         Order = 56,
-                        Composition = Convert.ToInt16(AssessmentSectionComposition.Dike)
+                        Composition = Convert.ToByte(AssessmentSectionComposition.Dike)
                     },
                     new AssessmentSectionEntity
                     {
                         Norm = norm,
                         Name = "B",
                         Order = 0,
-                        Composition = Convert.ToInt16(AssessmentSectionComposition.Dike)
+                        Composition = Convert.ToByte(AssessmentSectionComposition.Dike)
                     }
                 }
             };

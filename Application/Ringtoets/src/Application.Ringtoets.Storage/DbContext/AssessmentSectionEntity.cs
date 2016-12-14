@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double Norm { get; set; }
         public string HydraulicDatabaseVersion { get; set; }
         public string HydraulicDatabaseLocation { get; set; }
-        public short Composition { get; set; }
+        public byte Composition { get; set; }
         public string ReferenceLinePointXml { get; set; }
         public int Order { get; set; }
     

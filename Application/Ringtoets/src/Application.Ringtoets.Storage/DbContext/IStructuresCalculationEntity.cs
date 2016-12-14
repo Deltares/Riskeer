@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.DbContext
         double? StormDurationMean { get; set; }
         byte UseBreakWater { get; set; }
         byte UseForeshore { get; set; }
-        short BreakWaterType { get; set; }
+        byte BreakWaterType { get; set; }
         double? BreakWaterHeight { get; set; }
 
         HydraulicLocationEntity HydraulicLocationEntity { get; set; }

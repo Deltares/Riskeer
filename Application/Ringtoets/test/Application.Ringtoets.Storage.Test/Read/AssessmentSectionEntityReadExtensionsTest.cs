@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 Id = testId,
                 Name = testName,
-                Composition = (short) assessmentSectionComposition,
+                Composition = (byte) assessmentSectionComposition,
                 Comments = comments,
                 Norm = norm
             };
@@ -1017,7 +1017,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             return new AssessmentSectionEntity
             {
                 Norm = 1.0/30000,
-                Composition = Convert.ToInt16(AssessmentSectionComposition.Dike)
+                Composition = Convert.ToByte(AssessmentSectionComposition.Dike)
             };
         }
 

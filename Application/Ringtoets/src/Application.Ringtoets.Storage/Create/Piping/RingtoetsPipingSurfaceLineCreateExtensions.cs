@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         {
             var entity = new CharacteristicPointEntity
             {
-                Type = (short) type,
+                Type = (byte) type,
                 X = point.X.ToNaNAsNull(),
                 Y = point.Y.ToNaNAsNull(),
                 Z = point.Z.ToNaNAsNull()

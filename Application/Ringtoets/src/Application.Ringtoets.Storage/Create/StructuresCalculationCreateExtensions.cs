@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Create
             entityToUpdate.UseForeshore = Convert.ToByte(input.UseForeshore);
 
             entityToUpdate.UseBreakWater = Convert.ToByte(input.UseBreakWater);
-            entityToUpdate.BreakWaterType = Convert.ToInt16(input.BreakWater.Type);
+            entityToUpdate.BreakWaterType = Convert.ToByte(input.BreakWater.Type);
             entityToUpdate.BreakWaterHeight = input.BreakWater.Height.Value.ToNaNAsNull();
 
             entityToUpdate.AllowedLevelIncreaseStorageMean = input.AllowedLevelIncreaseStorage.Mean.Value.ToNaNAsNull();

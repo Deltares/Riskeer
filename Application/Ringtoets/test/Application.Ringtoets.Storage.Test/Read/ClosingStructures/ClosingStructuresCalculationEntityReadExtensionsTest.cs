@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
                 WidthFlowAperturesCoefficientOfVariation = 13.13,
                 StormDurationMean = 14.14,
                 UseBreakWater = Convert.ToByte(true),
-                BreakWaterType = Convert.ToInt16(BreakWaterType.Wall),
+                BreakWaterType = Convert.ToByte(BreakWaterType.Wall),
                 BreakWaterHeight = 15.15,
                 UseForeshore = Convert.ToByte(true),
                 InflowModelType = Convert.ToByte(ClosingStructureInflowModelType.LowSill),
