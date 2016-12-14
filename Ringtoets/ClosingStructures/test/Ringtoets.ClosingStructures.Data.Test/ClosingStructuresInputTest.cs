@@ -391,7 +391,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => input.ProbabilityOrFrequencyOpenStructureBeforeFlooding = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde moet groter dan of gelijk aan 0 zijn.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0, 1] liggen.");
         }
 
         [Test]

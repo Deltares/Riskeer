@@ -265,7 +265,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         
         [Test]
         [TestCase(double.MinValue)]
-        [TestCase(-1e-8)]
+        [TestCase(double.MaxValue)]
         public void SetProbabilityOrFrequencyOpenStructureBeforeFlooding_InvalidValues_ThrowsArgumentOutOfRangeException(double newValue)
         {
             // Setup
@@ -290,7 +290,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = newProbabilityString;
 
             // Assert
-            var expectedMessage = "De waarde moet groter dan of gelijk aan 0 zijn.";
+            var expectedMessage = "De waarde voor de faalkans moet in het bereik [0, 1] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
 
             mockRepository.VerifyAll();

@@ -300,7 +300,8 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the failure probability/frequency of an open structure before flooding.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value is negative or <see cref="double.NaN"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
+        /// is not in the interval [0, 1].</exception>
         public double ProbabilityOrFrequencyOpenStructureBeforeFlooding
         {
             get
@@ -309,9 +310,9 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                if (double.IsNaN(value) || value < 0)
+                if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.ClosingStructuresInput_ProbabilityOrFrequencyOpenStructureBeforeFlooding_Value_must_be_greater_or_equal_to_zero);
+                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 probabilityOrFrequencyOpenStructureBeforeFlooding = value;
             }

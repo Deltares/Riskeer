@@ -109,16 +109,6 @@ namespace Ringtoets.ClosingStructures.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde moet groter dan of gelijk aan 0 zijn..
-        /// </summary>
-        public static string ClosingStructuresInput_ProbabilityOrFrequencyOpenStructureBeforeFlooding_Value_must_be_greater_or_equal_to_zero {
-            get {
-                return ResourceManager.GetString("ClosingStructuresInput_ProbabilityOrFrequencyOpenStructureBeforeFlooding_Value_mu" +
-                        "st_be_greater_or_equal_to_zero", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De waarde voor &apos;N2A&apos; moet in het bereik [0, 40] liggen..
         /// </summary>
         public static string N2A_Value_should_be_in_interval_0_40 {
