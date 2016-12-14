@@ -887,7 +887,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_STERSTAB17",
-                    NumericalValue = -1.0,
+                    NumericalValue = 0.0,
                     LineNumber = 17
                 },
                 new StructuresParameterRow
@@ -988,7 +988,9 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_STERSTAB14' op regel 14, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_STERSTAB15' op regel 15, kolom 'Numeriekewaarde', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB16' op regel 16, kolom 'Numeriekewaarde', moet in het bereik [0, 1] liggen.",
-                "De waarde voor parameter 'KW_STERSTAB17' op regel 17, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_STERSTAB17' op regel 17, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
+                "De waarde voor parameter 'KW_STERSTAB17' op regel 17, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
+                "De waarde voor parameter 'KW_STERSTAB17' op regel 17, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB20' op regel 20, kolom 'Numeriekewaarde', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB21' op regel 21, kolom 'Numeriekewaarde', moet in het bereik [0, 1] liggen.",
                 "De waarde voor parameter 'KW_STERSTAB22' op regel 22, kolom 'Numeriekewaarde', is geen getal.",
