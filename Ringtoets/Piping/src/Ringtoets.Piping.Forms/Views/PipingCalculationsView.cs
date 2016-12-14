@@ -173,6 +173,8 @@ namespace Ringtoets.Piping.Forms.Views
             pipingCalculationGroupObserver.Dispose();
             pipingStochasticSoilModelsObserver.Dispose();
 
+            dataGridViewControl.RemoveCellFormattingHandler(OnCellFormatting);
+
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -184,6 +186,7 @@ namespace Ringtoets.Piping.Forms.Views
         private void InitializeDataGridView()
         {
             dataGridViewControl.AddCellClickHandler(DataGridViewOnCellClick);
+            dataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
 
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingCalculationRow>(row => row.Name),
@@ -257,7 +260,7 @@ namespace Ringtoets.Piping.Forms.Views
                                                                                  assessmentSection.HydraulicBoundaryDatabase.Locations :
                                                                                  null;
                 SetItemsOnObjectCollection(
-                    hydraulicBoundaryLocationColumn.Items, 
+                    hydraulicBoundaryLocationColumn.Items,
                     GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations).ToArray());
             }
         }
@@ -335,6 +338,28 @@ namespace Ringtoets.Piping.Forms.Views
         {
             objectCollection.Clear();
             objectCollection.AddRange(comboBoxItems);
+        }
+
+        private PipingInputContext CreateSelectedItemFromCurrentRow()
+        {
+            var currentRow = dataGridViewControl.CurrentRow;
+
+            var pipingCalculationRow = currentRow != null
+                                           ? (PipingCalculationRow) currentRow.DataBoundItem
+                                           : null;
+
+            PipingInputContext selection = null;
+            if (pipingCalculationRow != null)
+            {
+                selection = new PipingInputContext(
+                    pipingCalculationRow.PipingCalculation.InputParameters,
+                    pipingCalculationRow.PipingCalculation,
+                    pipingFailureMechanism.SurfaceLines,
+                    pipingFailureMechanism.StochasticSoilModels,
+                    pipingFailureMechanism,
+                    assessmentSection);
+            }
+            return selection;
         }
 
         #region Data sources
@@ -556,26 +581,21 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        private PipingInputContext CreateSelectedItemFromCurrentRow()
+        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            var currentRow = dataGridViewControl.CurrentRow;
-
-            var pipingCalculationRow = currentRow != null
-                                           ? (PipingCalculationRow) currentRow.DataBoundItem
-                                           : null;
-
-            PipingInputContext selection = null;
-            if (pipingCalculationRow != null)
+            if (eventArgs.ColumnIndex == hydraulicBoundaryLocationColumnIndex)
             {
-                selection = new PipingInputContext(
-                    pipingCalculationRow.PipingCalculation.InputParameters,
-                    pipingCalculationRow.PipingCalculation,
-                    pipingFailureMechanism.SurfaceLines,
-                    pipingFailureMechanism.StochasticSoilModels,
-                    pipingFailureMechanism,
-                    assessmentSection);
+                PipingCalculationRow dataItem = dataGridViewControl.GetRowFromIndex(eventArgs.RowIndex).DataBoundItem as PipingCalculationRow;
+
+                if (dataItem != null && dataItem.PipingCalculation.InputParameters.UseAssessmentLevelManualInput)
+                {
+                    dataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+                else
+                {
+                    dataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
             }
-            return selection;
         }
 
         #endregion

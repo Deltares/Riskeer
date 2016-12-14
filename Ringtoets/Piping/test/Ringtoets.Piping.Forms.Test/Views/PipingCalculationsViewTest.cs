@@ -984,6 +984,37 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GivenPipingCalculationWithHydraulicLocation_WhenLocationManualDesignWaterLevel_HydraulicLocationReadonly()
+        {
+            // Given
+            MockRepository mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
+
+            mocks.ReplayAll();
+
+            var data = (CalculationGroup)pipingCalculationView.Data;
+            var pipingCalculation = (PipingCalculationScenario)data.Children.First();
+
+            mocks.ReplayAll();
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            // Precondition
+            DataGridViewCell hydraulicBoundaryLocationCell = dataGridView.Rows[0].Cells[hydraulicBoundaryLocationsColumnIndex];
+            Assert.IsFalse(hydraulicBoundaryLocationCell.ReadOnly);
+
+            // When
+            pipingCalculation.InputParameters.UseAssessmentLevelManualInput = true;
+            pipingCalculation.InputParameters.NotifyObservers();
+
+            // Then
+            Assert.IsTrue(hydraulicBoundaryLocationCell.ReadOnly);
+            mocks.VerifyAll();
+        }
+
         private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView(IAssessmentSection assessmentSection, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2);
