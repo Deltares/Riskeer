@@ -154,19 +154,19 @@ namespace Ringtoets.Common.Service
                                                                                       double targetReliability,
                                                                                       double targetProbability)
         {
-            double designWaterLevel = calculator.WaveHeight;
+            double waveHeight = calculator.WaveHeight;
             double reliability = calculator.ReliabilityIndex;
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
             CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(
-                calculator.ReliabilityIndex, targetProbability);
+                reliability, targetProbability);
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {
                 log.Warn(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocationName));
             }
 
-            return new HydraulicBoundaryLocationOutput(designWaterLevel, targetProbability,
+            return new HydraulicBoundaryLocationOutput(waveHeight, targetProbability,
                                                        targetReliability, probability, reliability,
                                                        converged);
         }

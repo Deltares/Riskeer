@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -30,15 +31,18 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryLocationOutputTest
     {
         [Test]
-        public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(
-            [Random(1)] double result,
-            [Values(-0.01, 1.01)] double targetProbability,
-            [Random(1)] double targetReliability,
-            [Random(1)] double calculatedProbability,
-            [Random(1)] double calculatedReliability,
-            [Values(CalculationConvergence.CalculatedNotConverged, CalculationConvergence.CalculatedConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        [TestCase(-0.01)]
+        [TestCase(1.01)]
+        public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
         {
+            // Setup
+            var random = new Random(32);
+            double result = random.NextDouble();
+            double targetReliability = random.NextDouble();
+            double calculatedProbability = random.NextDouble();
+            double calculatedReliability = random.NextDouble();
+            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+
             // Call
             TestDelegate call = () => new HydraulicBoundaryLocationOutput(result, targetProbability,
                                                                           targetReliability,
@@ -53,15 +57,18 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(
-            [Random(1)] double result,
-            [Random(1)] double targetProbability,
-            [Random(1)] double targetReliability,
-            [Values(-0.01, 1.01)] double calculatedProbability,
-            [Random(1)] double calculatedReliability,
-            [Values(CalculationConvergence.CalculatedNotConverged, CalculationConvergence.CalculatedConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        [TestCase(-0.01)]
+        [TestCase(1.01)]
+        public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(double calculatedProbability)
         {
+            // Setup
+            var random = new Random(32);
+            double result = random.NextDouble();
+            double targetProbability = random.NextDouble();
+            double targetReliability = random.NextDouble();
+            double calculatedReliability = random.NextDouble();
+            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+
             // Call
             TestDelegate call = () => new HydraulicBoundaryLocationOutput(result, targetProbability,
                                                                           targetReliability,
@@ -76,15 +83,17 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void Constructor_ValidInput_ExpectedProperties(
-            [Random(1)] double result,
-            [Random(1)] double targetProbability,
-            [Random(1)] double targetReliability,
-            [Random(1)] double calculatedProbability,
-            [Random(1)] double calculatedReliability,
-            [Values(CalculationConvergence.CalculatedNotConverged, CalculationConvergence.CalculatedConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        public void Constructor_ValidInput_ExpectedProperties()
         {
+            // Setup
+            var random = new Random(32);
+            double result = random.NextDouble();
+            double targetProbability = random.NextDouble();
+            double targetReliability = random.NextDouble();
+            double calculatedProbability = random.NextDouble();
+            double calculatedReliability = random.NextDouble();
+            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
+
             // Call
             var output = new HydraulicBoundaryLocationOutput(result, targetProbability,
                                                              targetReliability,

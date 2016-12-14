@@ -156,9 +156,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                        DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                                                        DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType)
+        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
@@ -181,6 +179,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var newOrientation = new RoundedDouble(2, 5);
             var newSelectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(
                 new HydraulicBoundaryLocation(0, "name", 0.0, 1.1), null);
+            DikeHeightCalculationType dikeHeightCalculationType = DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability;
 
             // Call
             properties.DikeProfile = newDikeProfile;

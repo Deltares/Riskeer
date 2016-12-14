@@ -117,7 +117,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptor waterLevelProperty = dynamicProperties[requiredWaterLevelPropertyIndex];
-            Assert.IsNotNull(waterLevelProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterLevelProperty,
                                                                             "Algemeen",
                                                                             "Waterstand [m+NAP]",
@@ -125,7 +124,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor waveHeightProperty = dynamicProperties[requiredWaveHeightPropertyIndex];
-            Assert.IsNotNull(waveHeightProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
                                                                             "Algemeen",
                                                                             "Golfhoogte (Hs) [m]",
@@ -133,14 +131,12 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor wavePeakPeriodProperty = dynamicProperties[requiredWavePeakPeriodPropertyIndex];
-            Assert.IsNotNull(wavePeakPeriodProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(wavePeakPeriodProperty,
                                                                             "Algemeen",
                                                                             "Golfperiode (Tp) [s]",
                                                                             "Berekende golfperiode.",
                                                                             true);
             PropertyDescriptor waveDirectionProperty = dynamicProperties[requiredWaveDirectionPropertyIndex];
-            Assert.IsNotNull(waveDirectionProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveDirectionProperty,
                                                                             "Algemeen",
                                                                             "Golfrichting t.o.v. Noord [°]",
@@ -148,7 +144,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor waveAngleProperty = dynamicProperties[requiredWaveAnglePropertyIndex];
-            Assert.IsNotNull(waveAngleProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveAngleProperty,
                                                                             "Algemeen",
                                                                             "Golfrichting t.o.v. dijknormaal [°]",
@@ -156,7 +151,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[requiredTargetProbabilityPropertyIndex];
-            Assert.IsNotNull(targetProbabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
                                                                             "Algemeen",
                                                                             "Doelkans [1/jaar]",
@@ -164,7 +158,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor targetReliabilityProperty = dynamicProperties[requiredTargetReliabilityPropertyIndex];
-            Assert.IsNotNull(targetReliabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliabilityProperty,
                                                                             "Algemeen",
                                                                             "Betrouwbaarheidsindex doelkans [-]",
@@ -172,7 +165,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor calculatedProbabilityProperty = dynamicProperties[requiredCalculatedProbabilityPropertyIndex];
-            Assert.IsNotNull(calculatedProbabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbabilityProperty,
                                                                             "Algemeen",
                                                                             "Berekende kans [1/jaar]",
@@ -180,7 +172,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor calculatedReliabilityProperty = dynamicProperties[requiredCalculatedReliabilityPropertyIndex];
-            Assert.IsNotNull(calculatedReliabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliabilityProperty,
                                                                             "Algemeen",
                                                                             "Betrouwbaarheidsindex berekende kans [-]",
@@ -188,7 +179,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor calculationConvergenceProperty = dynamicProperties[requiredConvergencePropertyIndex];
-            Assert.IsNotNull(calculationConvergenceProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculationConvergenceProperty,
                                                                             "Algemeen",
                                                                             "Convergentie",

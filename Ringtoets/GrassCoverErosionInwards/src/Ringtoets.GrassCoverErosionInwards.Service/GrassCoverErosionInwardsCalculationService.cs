@@ -112,8 +112,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                 string hydraulicBoundaryDatabaseFilePath)
         {
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            var calculateDikeHeight = calculation.InputParameters.DikeHeightCalculationType;
-            var totalSteps = calculateDikeHeight != DikeHeightCalculationType.NoCalculation ? 2 : 1;
+            var calculateDikeHeight = calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation;
+            var totalSteps = calculateDikeHeight ? 2 : 1;
             var calculationName = calculation.Name;
 
             NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_calculation, 1, totalSteps);
@@ -133,14 +133,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                     return;
                 }
 
-                if (calculateDikeHeight != DikeHeightCalculationType.NoCalculation)
+                if (calculateDikeHeight)
                 {
                     NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_dikeheight_calculation, 2, totalSteps);
 
                     dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory, assessmentSection.Id);
 
-                    var norm = GetProbabilityToUse(assessmentSection.FailureMechanismContribution.Norm, generalInput, failureMechanismContribution, calculateDikeHeight);
-                    var dikeHeightCalculationInput = CreateDikeHeightInput(calculation, norm, failureMechanismSection, generalInput, hydraulicBoundaryDatabaseFilePath);
+                    var norm = GetProbabilityToUse(assessmentSection.FailureMechanismContribution.Norm,
+                                                   generalInput, failureMechanismContribution,
+                                                   calculation.InputParameters.DikeHeightCalculationType);
+                    var dikeHeightCalculationInput = CreateDikeHeightInput(calculation, norm,
+                                                                           failureMechanismSection,
+                                                                           generalInput,
+                                                                           hydraulicBoundaryDatabaseFilePath);
                     CalculateDikeHeight(dikeHeightCalculationInput, calculationName);
 
                     if (canceled)
@@ -176,7 +181,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             var probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
             CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(
-                dikeHeightCalculator.ReliabilityIndex, targetProbability);
+                reliability, targetProbability);
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {
@@ -188,13 +193,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                   converged);
         }
 
-        private static double GetProbabilityToUse(double assessmentSectionnorm, GeneralGrassCoverErosionInwardsInput generalInput,
+        private static double GetProbabilityToUse(double assessmentSectionNorm, GeneralGrassCoverErosionInwardsInput generalInput,
                                                   double failureMechanismContribution, DikeHeightCalculationType calculateDikeHeight)
         {
             return calculateDikeHeight == DikeHeightCalculationType.CalculateByAssessmentSectionNorm
-                       ? assessmentSectionnorm
+                       ? assessmentSectionNorm
                        : RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                           assessmentSectionnorm,
+                           assessmentSectionNorm,
                            failureMechanismContribution,
                            generalInput.N);
         }

@@ -174,8 +174,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(calculateDikeHeightPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "CalculateDikeHeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "CalculateDikeHeight_Description")]
+        [ResourcesDisplayName(typeof(Resources), "DikeHeightCalculationType_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "DikeHeightCalculationType_Description")]
         [TypeConverter(typeof(EnumTypeConverter))]
         public DikeHeightCalculationType DikeHeightCalculationType
         {

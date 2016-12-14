@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [TestCase(CalculationConvergence.CalculatedConverged, "Ja")]
         [TestCase(CalculationConvergence.CalculatedNotConverged, "Nee")]
         [TestCase(CalculationConvergence.NotCalculated, "")]
-        public void GetProperties_ValidData_ReturnsExpectedValues(CalculationConvergence convergenceReached, string expectedConvergenceValue)
+        public void GetProperties_ValidData_ReturnsExpectedValues(CalculationConvergence convergence, string expectedConvergenceValue)
         {
             // Setup
             var random = new Random();
@@ -123,7 +123,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                              targetReliability,
                                                                              calculatedProbability,
                                                                              calculatedReliability,
-                                                                             convergenceReached)
+                                                                             convergence)
             };
             var locations = new ObservableList<HydraulicBoundaryLocation>
             {
@@ -179,7 +179,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
-            Assert.IsNotNull(idProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
                                                                             "Algemeen",
                                                                             "ID",
@@ -187,7 +186,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            Assert.IsNotNull(nameProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             "Algemeen",
                                                                             "Naam",
@@ -195,7 +193,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
-            Assert.IsNotNull(coordinatesProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
                                                                             "Algemeen",
                                                                             "Coördinaten [m]",
@@ -203,7 +200,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor designWaterLevelProperty = dynamicProperties[designWaterLevelPropertyIndex];
-            Assert.IsNotNull(designWaterLevelProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(designWaterLevelProperty,
                                                                             "Resultaat",
                                                                             "Waterstand bij doorsnede-eis [m+NAP]",
@@ -211,7 +207,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
-            Assert.IsNotNull(targetProbabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
                                                                             "Resultaat",
                                                                             "Doelkans [1/jaar]",
@@ -219,7 +214,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor targetReliabilityProperty = dynamicProperties[targetReliabilityPropertyIndex];
-            Assert.IsNotNull(targetReliabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliabilityProperty,
                                                                             "Resultaat",
                                                                             "Betrouwbaarheidsindex doelkans [-]",
@@ -227,7 +221,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor calculatedProbabilityProperty = dynamicProperties[calculatedProbabilityPropertyIndex];
-            Assert.IsNotNull(calculatedProbabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbabilityProperty,
                                                                             "Resultaat",
                                                                             "Berekende kans [1/jaar]",
@@ -235,7 +228,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor calculatedReliabilityProperty = dynamicProperties[calculatedReliabilityPropertyIndex];
-            Assert.IsNotNull(calculatedReliabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliabilityProperty,
                                                                             "Resultaat",
                                                                             "Betrouwbaarheidsindex berekende kans [-]",
@@ -243,7 +235,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor convergenceProperty = dynamicProperties[convergencePropertyIndex];
-            Assert.IsNotNull(convergenceProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
                                                                             "Resultaat",
                                                                             "Convergentie",

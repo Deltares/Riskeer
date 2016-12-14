@@ -144,8 +144,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                DikeHeightAssessmentOutput output = data.DikeHeightAssessmentOutput;
-                return output == null ? RoundedDouble.NaN : output.DikeHeight;
+                return data.DikeHeightAssessmentOutput == null
+                           ? RoundedDouble.NaN
+                           : data.DikeHeightAssessmentOutput.DikeHeight;
             }
         }
 
@@ -159,8 +160,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                DikeHeightAssessmentOutput output = data.DikeHeightAssessmentOutput;
-                return output == null ? double.NaN : output.TargetProbability;
+                return data.DikeHeightAssessmentOutput == null
+                           ? double.NaN
+                           : data.DikeHeightAssessmentOutput.TargetProbability;
             }
         }
 
@@ -174,8 +176,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                DikeHeightAssessmentOutput output = data.DikeHeightAssessmentOutput;
-                return output != null ? output.TargetReliability : RoundedDouble.NaN;
+                return data.DikeHeightAssessmentOutput == null
+                           ? RoundedDouble.NaN
+                           : data.DikeHeightAssessmentOutput.TargetReliability;
             }
         }
 
@@ -189,8 +192,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                DikeHeightAssessmentOutput output = data.DikeHeightAssessmentOutput;
-                return output == null ? double.NaN : output.CalculatedProbability;
+                return data.DikeHeightAssessmentOutput == null
+                           ? double.NaN
+                           : data.DikeHeightAssessmentOutput.CalculatedProbability;
             }
         }
 
@@ -204,8 +208,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                DikeHeightAssessmentOutput output = data.DikeHeightAssessmentOutput;
-                return output != null ? output.CalculatedReliability : RoundedDouble.NaN;
+                return data.DikeHeightAssessmentOutput == null
+                           ? RoundedDouble.NaN
+                           : data.DikeHeightAssessmentOutput.CalculatedReliability;
             }
         }
 
@@ -218,10 +223,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                DikeHeightAssessmentOutput output = data.DikeHeightAssessmentOutput;
-                return new EnumDisplayWrapper<CalculationConvergence>(output != null
-                                                                          ? output.CalculationConvergence
-                                                                          : CalculationConvergence.NotCalculated).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.DikeHeightAssessmentOutput == null
+                                                                          ? CalculationConvergence.NotCalculated
+                                                                          : data.DikeHeightAssessmentOutput.CalculationConvergence).DisplayName;
             }
         }
 

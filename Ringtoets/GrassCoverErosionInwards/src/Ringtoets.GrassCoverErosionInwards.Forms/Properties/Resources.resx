@@ -198,10 +198,10 @@
   <data name="GrassCoverErosionInwardsOutput_WaveHeight_Displayname" xml:space="preserve">
     <value>Indicatieve golfhoogte (Hs) [m]</value>
   </data>
-  <data name="CalculateDikeHeight_Description" xml:space="preserve">
+  <data name="DikeHeightCalculationType_Description" xml:space="preserve">
     <value>Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.</value>
   </data>
-  <data name="CalculateDikeHeight_DisplayName" xml:space="preserve">
+  <data name="DikeHeightCalculationType_DisplayName" xml:space="preserve">
     <value>HBN berekenen</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_DikeHeight_Description" xml:space="preserve">

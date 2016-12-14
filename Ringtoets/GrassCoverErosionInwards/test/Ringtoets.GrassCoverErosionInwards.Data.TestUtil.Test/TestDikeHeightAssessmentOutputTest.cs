@@ -30,14 +30,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
     [TestFixture]
     public class TestDikeHeightAssessmentOutputTest
     {
-         [Test]
-        public void TestHydraulicBoundaryLocationOutput_WithoutConvergence_ReturnsExpectedValues()
+        [Test]
+        public void TestDikeHeightAssessmentOutput_WithoutConvergence_ReturnsExpectedValues()
         {
             // Setup
             const double dikeHeight = 9.0;
 
             // Call
-            DikeHeightAssessmentOutput output = new TestDikeHeightAssessmentOutput(dikeHeight);
+            var output = new TestDikeHeightAssessmentOutput(dikeHeight);
 
             // Assert
             Assert.AreEqual(dikeHeight, output.DikeHeight, output.DikeHeight.GetAccuracy());
@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void TestHydraulicBoundaryLocationOutput_WithConvergence_ReturnsExpectedValues()
+        public void TestDikeHeightAssessmentOutput_WithConvergence_ReturnsExpectedValues()
         {
             // Setup
             var random = new Random(12);
@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            DikeHeightAssessmentOutput output = new TestDikeHeightAssessmentOutput(dikeHeight, convergence);
+            var output = new TestDikeHeightAssessmentOutput(dikeHeight, convergence);
 
             // Assert
             Assert.AreEqual(dikeHeight, output.DikeHeight, output.DikeHeight.GetAccuracy());

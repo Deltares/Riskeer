@@ -44,6 +44,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -147,7 +148,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), null)
+                Output = new GrassCoverErosionInwardsOutput(0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                                                            new TestDikeHeightAssessmentOutput(0.0))
             };
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
@@ -605,7 +607,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             assessmentSectionStub.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
-            var initialOutput = new GrassCoverErosionInwardsOutput(0, true, new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN), null);
+            var initialOutput = new GrassCoverErosionInwardsOutput(0, true,
+                                                                   new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN), 
+                                                                   new TestDikeHeightAssessmentOutput(double.NaN));
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = initialOutput,

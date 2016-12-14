@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         double DikeHeight { get; }
 
         /// <summary>
-        /// Gets the reliability index
+        /// Gets the reliability index.
         /// </summary>
         double ReliabilityIndex { get; }
 

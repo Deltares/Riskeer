@@ -82,24 +82,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend..
-        /// </summary>
-        public static string CalculateDikeHeight_Description {
-            get {
-                return ResourceManager.GetString("CalculateDikeHeight_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HBN berekenen.
-        /// </summary>
-        public static string CalculateDikeHeight_DisplayName {
-            get {
-                return ResourceManager.GetString("CalculateDikeHeight_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetseisen.
         /// </summary>
         public static string Categories_CriticalValues {
@@ -204,6 +186,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string DikeHeightAssessmentOutput_Convergence_Description {
             get {
                 return ResourceManager.GetString("DikeHeightAssessmentOutput_Convergence_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend..
+        /// </summary>
+        public static string DikeHeightCalculationType_Description {
+            get {
+                return ResourceManager.GetString("DikeHeightCalculationType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HBN berekenen.
+        /// </summary>
+        public static string DikeHeightCalculationType_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeHeightCalculationType_DisplayName", resourceCulture);
             }
         }
         

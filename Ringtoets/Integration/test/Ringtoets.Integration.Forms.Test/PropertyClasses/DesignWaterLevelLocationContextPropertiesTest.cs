@@ -189,7 +189,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
-            Assert.IsNotNull(idProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
                                                                             "Algemeen",
                                                                             "ID",
@@ -197,7 +196,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            Assert.IsNotNull(nameProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             "Algemeen",
                                                                             "Naam",
@@ -205,7 +203,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
-            Assert.IsNotNull(coordinatesProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
                                                                             "Algemeen",
                                                                             "Coördinaten [m]",
@@ -213,7 +210,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor designWaterLevelProperty = dynamicProperties[designWaterLevelPropertyIndex];
-            Assert.IsNotNull(designWaterLevelProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(designWaterLevelProperty,
                                                                             "Resultaat",
                                                                             "Toetspeil [m+NAP]",
@@ -221,7 +217,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
-            Assert.IsNotNull(targetProbabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
                                                                             "Resultaat",
                                                                             "Doelkans [1/jaar]",
@@ -229,7 +224,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor targetReliabilityProperty = dynamicProperties[targetReliabilityPropertyIndex];
-            Assert.IsNotNull(targetReliabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliabilityProperty,
                                                                             "Resultaat",
                                                                             "Betrouwbaarheidsindex doelkans [-]",
@@ -237,7 +231,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor calculatedProbabilityProperty = dynamicProperties[calculatedProbabilityPropertyIndex];
-            Assert.IsNotNull(calculatedProbabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbabilityProperty,
                                                                             "Resultaat",
                                                                             "Berekende kans [1/jaar]",
@@ -245,7 +238,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor calculatedReliabilityProperty = dynamicProperties[calculatedReliabilityPropertyIndex];
-            Assert.IsNotNull(calculatedReliabilityProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliabilityProperty,
                                                                             "Resultaat",
                                                                             "Betrouwbaarheidsindex berekende kans [-]",
@@ -253,7 +245,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor convergenceProperty = dynamicProperties[convergencePropertyIndex];
-            Assert.IsNotNull(convergenceProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
                                                                             "Resultaat",
                                                                             "Convergentie",

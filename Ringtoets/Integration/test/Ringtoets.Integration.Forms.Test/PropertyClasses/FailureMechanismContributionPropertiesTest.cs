@@ -70,14 +70,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var expectedCategory = "Algemeen";
 
             PropertyDescriptor compositionProperty = dynamicProperties[0];
-            Assert.IsNotNull(compositionProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(compositionProperty,
                                                                             expectedCategory,
                                                                             "Trajecttype",
                                                                             "Selecteer het type traject, bepalend voor de faalkansbegroting.");
 
             PropertyDescriptor returnPeriodProperty = dynamicProperties[1];
-            Assert.IsNotNull(returnPeriodProperty);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(returnPeriodProperty,
                                                                             expectedCategory,
                                                                             "Norm (terugkeertijd) [jaar]",
