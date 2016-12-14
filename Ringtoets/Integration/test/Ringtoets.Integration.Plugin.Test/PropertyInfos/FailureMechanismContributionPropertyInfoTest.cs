@@ -33,7 +33,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class FailureMechanismPropertyInfoTest
+    public class FailureMechanismContributionPropertyInfoTest
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
@@ -68,7 +68,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
@@ -90,12 +89,11 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             // Setup
             var mocks = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
-
             mocks.ReplayAll();
 
             var propertyInfo = new FailureMechanismContributionProperties();
             var context = new FailureMechanismContributionContext(assessmentSectionStub.FailureMechanismContribution, assessmentSectionStub);
-            
+
             // Call
             info.AfterCreate(propertyInfo, context);
 

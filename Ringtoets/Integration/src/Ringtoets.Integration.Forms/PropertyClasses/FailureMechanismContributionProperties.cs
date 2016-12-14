@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <summary>
         /// Gets or sets the <see cref="IFailureMechanismContributionNormChangeHandler"/> for when the norm changes.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <c>null</c>is set.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <c>null</c> is set.</exception>
         [DynamicVisible]
         public IFailureMechanismContributionNormChangeHandler NormChangeHandler
         {
@@ -127,7 +127,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <summary>
         /// Gets or sets the <see cref="IAssessmentSectionCompositionChangeHandler"/> for when the norm changes.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <c>null</c>is set.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <c>null</c> is set.</exception>
         [DynamicVisible]
         public IAssessmentSectionCompositionChangeHandler CompositionChangeHandler
         {

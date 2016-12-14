@@ -28,25 +28,21 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
     [TestFixture]
     public class AssessmentSectionCompositionTest
     {
-        [TestFixture]
-        public class WaveConditionsInputStepSizeTest
+        [Test]
+        public void DisplayName_Always_ReturnExpectedValues()
         {
-            [Test]
-            public void DisplayName_Always_ReturnExpectedValues()
-            {
-                // Assert
-                Assert.AreEqual("Dijk", GetDisplayName(AssessmentSectionComposition.Dike));
-                Assert.AreEqual("Duin", GetDisplayName(AssessmentSectionComposition.Dune));
-                Assert.AreEqual("Dijk / Duin", GetDisplayName(AssessmentSectionComposition.DikeAndDune));
-            }
+            // Assert
+            Assert.AreEqual("Dijk", GetDisplayName(AssessmentSectionComposition.Dike));
+            Assert.AreEqual("Duin", GetDisplayName(AssessmentSectionComposition.Dune));
+            Assert.AreEqual("Dijk / Duin", GetDisplayName(AssessmentSectionComposition.DikeAndDune));
+        }
 
-            private string GetDisplayName(AssessmentSectionComposition value)
-            {
-                var type = typeof(AssessmentSectionComposition);
-                var memInfo = type.GetMember(value.ToString());
-                var attributes = memInfo[0].GetCustomAttributes(typeof(ResourcesDisplayNameAttribute), false);
-                return ((ResourcesDisplayNameAttribute)attributes[0]).DisplayName;
-            }
+        private string GetDisplayName(AssessmentSectionComposition value)
+        {
+            var type = typeof(AssessmentSectionComposition);
+            var memInfo = type.GetMember(value.ToString());
+            var attributes = memInfo[0].GetCustomAttributes(typeof(ResourcesDisplayNameAttribute), false);
+            return ((ResourcesDisplayNameAttribute) attributes[0]).DisplayName;
         }
     }
 }
