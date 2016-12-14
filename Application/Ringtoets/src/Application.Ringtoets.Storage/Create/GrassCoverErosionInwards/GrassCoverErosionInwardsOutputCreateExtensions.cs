@@ -52,12 +52,12 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 FactorOfSafety = output.ProbabilityAssessmentOutput.FactorOfSafety.Value.ToNaNAsNull()
             };
 
-            CreateDikeHeightAssessmentOutput(entity, output.DikeHeightAssessmentOutput);
+            AddEntityForDikeHeightAssessmentOutput(entity, output.DikeHeightAssessmentOutput);
 
             return entity;
         }
 
-        private static void CreateDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity, DikeHeightAssessmentOutput output)
+        private static void AddEntityForDikeHeightAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity, DikeHeightAssessmentOutput output)
         {
             if (output == null)
             {

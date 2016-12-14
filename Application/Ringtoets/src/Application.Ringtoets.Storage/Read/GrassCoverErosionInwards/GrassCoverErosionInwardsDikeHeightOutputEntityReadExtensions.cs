@@ -32,18 +32,18 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
     internal static class GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> and use the information to construct a <see cref="DikeHeightAssessmentOutput"/>.
+        /// Reads the <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> and use the information to construct a <see cref="DikeHeightAssessmentOutput"/>.
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsDikeHeightOutputEntity"/> to create <see cref="DikeHeightAssessmentOutput"/> for.</param>
         /// <returns>A new <see cref="DikeHeightAssessmentOutput"/>.</returns>
         internal static DikeHeightAssessmentOutput Read(this GrassCoverErosionInwardsDikeHeightOutputEntity entity)
         {
             return new DikeHeightAssessmentOutput(entity.DikeHeight.ToNullAsNaN(),
-                                                       entity.TargetProbability.ToNullAsNaN(),
-                                                       entity.TargetReliability.ToNullAsNaN(),
-                                                       entity.CalculatedProbability.ToNullAsNaN(),
-                                                       entity.CalculatedReliability.ToNullAsNaN(),
-                                                       (CalculationConvergence)entity.CalculationConvergence);
+                                                  entity.TargetProbability.ToNullAsNaN(),
+                                                  entity.TargetReliability.ToNullAsNaN(),
+                                                  entity.CalculatedProbability.ToNullAsNaN(),
+                                                  entity.CalculatedReliability.ToNullAsNaN(),
+                                                  (CalculationConvergence) entity.CalculationConvergence);
         }
     }
 }

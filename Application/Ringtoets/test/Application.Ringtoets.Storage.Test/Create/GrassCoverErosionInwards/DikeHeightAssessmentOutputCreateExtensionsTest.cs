@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_WithNaNParameters_ReturnsGrassCoverErosionInwardsDikeHeightOutputEntityWithOutputNaN(
+        public void Create_WithNaNParameters_ReturnsGrassCoverErosionInwardsDikeHeightOutputEntityWithOutputNull(
             [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
                 CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
         {

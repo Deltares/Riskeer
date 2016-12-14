@@ -55,19 +55,19 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(output.WaveHeight.Value, entity.WaveHeight);
             Assert.AreEqual(Convert.ToByte(output.IsOvertoppingDominant), entity.IsOvertoppingDominant);
 
-            Assert.AreEqual(probabilityAssessmentOutput.FactorOfSafety.Value, entity.FactorOfSafety);
+            Assert.AreEqual(probabilityAssessmentOutput.FactorOfSafety, entity.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
             Assert.AreEqual(probabilityAssessmentOutput.Probability, entity.Probability);
-            Assert.AreEqual(probabilityAssessmentOutput.Reliability.Value, entity.Reliability);
+            Assert.AreEqual(probabilityAssessmentOutput.Reliability, entity.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
             Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, entity.RequiredProbability);
             Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability.Value, entity.RequiredReliability);
 
             var dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.First();
-            Assert.AreEqual(dikeHeightAssessmentOutput.Result.Value, dikeHeightEntity.DikeHeight);
+            Assert.AreEqual(dikeHeightAssessmentOutput.Result, dikeHeightEntity.DikeHeight, dikeHeightAssessmentOutput.Result.GetAccuracy());
             Assert.AreEqual(dikeHeightAssessmentOutput.TargetProbability, dikeHeightEntity.TargetProbability);
             Assert.AreEqual(dikeHeightAssessmentOutput.TargetReliability, dikeHeightEntity.TargetReliability, dikeHeightAssessmentOutput.TargetReliability.GetAccuracy());
             Assert.AreEqual(dikeHeightAssessmentOutput.CalculatedProbability, dikeHeightEntity.CalculatedProbability);
             Assert.AreEqual(dikeHeightAssessmentOutput.CalculatedReliability, dikeHeightEntity.CalculatedReliability, dikeHeightAssessmentOutput.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual((byte)dikeHeightAssessmentOutput.CalculationConvergence, dikeHeightEntity.CalculationConvergence);
+            Assert.AreEqual((byte) dikeHeightAssessmentOutput.CalculationConvergence, dikeHeightEntity.CalculationConvergence);
         }
 
         [Test]
@@ -89,10 +89,18 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(entity.Reliability);
             Assert.IsNull(entity.RequiredProbability);
             Assert.IsNull(entity.RequiredReliability);
+
+            var dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.First();
+            Assert.IsNull(dikeHeightEntity.DikeHeight);
+            Assert.IsNull(dikeHeightEntity.TargetProbability);
+            Assert.IsNull(dikeHeightEntity.TargetReliability);
+            Assert.IsNull(dikeHeightEntity.CalculatedProbability);
+            Assert.IsNull(dikeHeightEntity.CalculatedReliability);
+            Assert.AreEqual((byte) dikeHeightAssessmentOutput.CalculationConvergence, dikeHeightEntity.CalculationConvergence);
         }
 
         [Test]
-        public void Create_DikeHeightIsNull_NoDikeHeightOutputEntityCreated()
+        public void Create_DikeHeightAssessmentOutputIsNull_NoDikeHeightOutputEntityCreated()
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);

@@ -39,21 +39,21 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             return new GrassCoverErosionInwardsDikeHeightOutputEntity
             {
                 DikeHeight = double.IsNaN(output.Result)
-                             ? (double?)null
-                             : output.Result,
+                                 ? (double?) null
+                                 : output.Result,
                 TargetProbability = double.IsNaN(output.TargetProbability)
-                                        ? (double?)null
+                                        ? (double?) null
                                         : output.TargetProbability,
                 TargetReliability = double.IsNaN(output.TargetReliability)
-                                        ? (double?)null
+                                        ? (double?) null
                                         : output.TargetReliability,
                 CalculatedProbability = double.IsNaN(output.CalculatedProbability)
-                                            ? (double?)null
+                                            ? (double?) null
                                             : output.CalculatedProbability,
                 CalculatedReliability = double.IsNaN(output.CalculatedReliability)
-                                            ? (double?)null
+                                            ? (double?) null
                                             : output.CalculatedReliability,
-                CalculationConvergence = (byte)output.CalculationConvergence
+                CalculationConvergence = (byte) output.CalculationConvergence
             };
         }
     }

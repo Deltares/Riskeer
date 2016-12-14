@@ -1483,7 +1483,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         private static void AssertDikeHeightAssessmentOutput(DikeHeightAssessmentOutput expectedOutput,
-                                                              DikeHeightAssessmentOutput actualOutput)
+                                                             DikeHeightAssessmentOutput actualOutput)
         {
             if (expectedOutput == null)
             {
