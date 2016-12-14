@@ -196,10 +196,7 @@
     <value>De golfhoogte van de overslag deelberekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsOutput_WaveHeight_Displayname" xml:space="preserve">
-    <value>Golfhoogte (Hs) [m]</value>
-  </data>
-  <data name="Categories_Indicative_WaveHeight" xml:space="preserve">
-    <value>Indicatieve golfhoogte</value>
+    <value>Indicatieve golfhoogte (Hs) [m]</value>
   </data>
   <data name="CalculateDikeHeight_Description" xml:space="preserve">
     <value>Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.</value>

@@ -142,8 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(13, dynamicProperties.Count);
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
-            const string resultCategory = "\t\tResultaat";
-            const string indicativeWaveHeightCategory = "\tIndicatieve golfhoogte";
+            const string resultCategory = "\tResultaat";
             const string hbnCategory = "HBN";
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
                                                                             resultCategory,
@@ -181,14 +180,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
-                                                                            indicativeWaveHeightCategory,
-                                                                            "Golfhoogte (Hs) [m]",
+                                                                            resultCategory,
+                                                                            "Indicatieve golfhoogte (Hs) [m]",
                                                                             "De golfhoogte van de overslag deelberekening.",
                                                                             true);
 
             PropertyDescriptor isDominantProperty = dynamicProperties[isDominantIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isDominantProperty,
-                                                                            indicativeWaveHeightCategory,
+                                                                            resultCategory,
                                                                             "Overslag dominant [-]",
                                                                             "Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.",
                                                                             true);
@@ -259,8 +258,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(7, dynamicProperties.Count);
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
-            const string resultCategory = "\t\tResultaat";
-            const string indicativeWaveHeightCategory = "\tIndicatieve golfhoogte";
+            const string resultCategory = "\tResultaat";
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
                                                                             resultCategory,
                                                                             "Faalkanseis [1/jaar]",
@@ -297,14 +295,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
-                                                                            indicativeWaveHeightCategory,
-                                                                            "Golfhoogte (Hs) [m]",
+                                                                            resultCategory,
+                                                                            "Indicatieve golfhoogte (Hs) [m]",
                                                                             "De golfhoogte van de overslag deelberekening.",
                                                                             true);
 
             PropertyDescriptor isDominantProperty = dynamicProperties[isDominantIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isDominantProperty,
-                                                                            indicativeWaveHeightCategory,
+                                                                            resultCategory,
                                                                             "Overslag dominant [-]",
                                                                             "Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.",
                                                                             true);

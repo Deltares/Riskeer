@@ -118,15 +118,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Indicatieve golfhoogte.
-        /// </summary>
-        public static string Categories_Indicative_WaveHeight {
-            get {
-                return ResourceManager.GetString("Categories_Indicative_WaveHeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kritisch overslagdebiet per strekkende meter..
         /// </summary>
         public static string CriticalFlowRate_Description {
@@ -380,7 +371,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte (Hs) [m].
+        ///   Looks up a localized string similar to Indicatieve golfhoogte (Hs) [m].
         /// </summary>
         public static string GrassCoverErosionInwardsOutput_WaveHeight_Displayname {
             get {
