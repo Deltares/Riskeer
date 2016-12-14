@@ -269,8 +269,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 Data = inputContext
             };
 
+            const int overflow = 1;
+            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.InvariantCulture), overflow);
+
             // Call
-            TestDelegate call = () => properties.FailureProbabilityRepairClosure = newValue.ToString(CultureInfo.InvariantCulture);
+            TestDelegate call = () => properties.FailureProbabilityRepairClosure = newProbabilityString;
 
             // Assert
             var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
@@ -360,8 +363,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 Data = inputContext
             };
 
+            const int overflow = 1;
+            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.InvariantCulture), overflow);
+
             // Call
-            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newValue.ToString(CultureInfo.InvariantCulture);
+            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newProbabilityString;
 
             // Assert
             var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";

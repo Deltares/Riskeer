@@ -62,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double failureProbabilityStructureWithErosion = 17.7;
             const double stormDurationMean = 18.8;
             const double stormDurationVariation = 19.9;
-            const double probabilityOpenStructureBeforeFlooding = 20.0;
+            const double probabilityOrFrequencyOpenStructureBeforeFlooding = 20.0;
 
             // Call
             var input = new TestStructuresClosureCalculationInput(hydraulicBoundaryLocationId, section,
@@ -80,7 +80,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                   criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                                                                   failureProbabilityStructureWithErosion,
                                                                   stormDurationMean, stormDurationVariation,
-                                                                  probabilityOpenStructureBeforeFlooding);
+                                                                  probabilityOrFrequencyOpenStructureBeforeFlooding);
 
             // Assert
             Assert.IsInstanceOf<ExceedanceProbabilityCalculationInput>(input);
@@ -130,7 +130,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                          double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeVariation,
                                                          double failureProbabilityStructureWithErosion,
                                                          double stormDurationMean, double stormDurationVariation,
-                                                         double probabilityOpenStructureBeforeFlooding)
+                                                         double probabilityOrFrequencyOpenStructureBeforeFlooding)
                 : base(hydraulicBoundaryLocationId, section,
                        forelandPoints, breakWater,
                        gravitationalAcceleration,
@@ -146,7 +146,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                        criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                        failureProbabilityStructureWithErosion,
                        stormDurationMean, stormDurationVariation,
-                       probabilityOpenStructureBeforeFlooding) {}
+                       probabilityOrFrequencyOpenStructureBeforeFlooding) {}
 
             public override int? GetSubMechanismModelId(int subMechanismId)
             {

@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="failureProbabilityStructureWithErosion">The failure probability structure with erosion.</param>
         /// <param name="stormDurationMean">The mean of the storm duration.</param>
         /// <param name="stormDurationVariation">The variation of the storm duration.</param>
-        /// <param name="probabilityOpenStructureBeforeFlooding">The probability of an open structure before flooding.</param>
+        /// <param name="probabilityOrFrequencyOpenStructureBeforeFlooding">The probability of an open structure before flooding.</param>
         /// <param name="drainCoefficientMean">The mean of the drain coefficient.</param>
         /// <param name="drainCoefficientStandardDeviation">The standard deviation of the drain coefficient.</param>
         /// <param name="areaFlowAperturesMean">The mean of the area of flow apertures.</param>
@@ -86,7 +86,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeVariation,
                                                                double failureProbabilityStructureWithErosion,
                                                                double stormDurationMean, double stormDurationVariation,
-                                                               double probabilityOpenStructureBeforeFlooding,
+                                                               double probabilityOrFrequencyOpenStructureBeforeFlooding,
                                                                double drainCoefficientMean, double drainCoefficientStandardDeviation,
                                                                double areaFlowAperturesMean, double areaFlowAperturesStandardDeviation,
                                                                double insideWaterLevelMean, double insideWaterLevelStandardDeviation)
@@ -105,7 +105,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                    failureProbabilityStructureWithErosion,
                    stormDurationMean, stormDurationVariation,
-                   probabilityOpenStructureBeforeFlooding)
+                   probabilityOrFrequencyOpenStructureBeforeFlooding)
         {
             this.drainCoefficientMean = drainCoefficientMean;
             this.drainCoefficientStandardDeviation = drainCoefficientStandardDeviation;

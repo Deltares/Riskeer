@@ -67,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="failureProbabilityStructureWithErosion">The failure probability structure with erosion.</param>
         /// <param name="stormDurationMean">The mean of the storm duration.</param>
         /// <param name="stormDurationVariation">The variation of the storm duration.</param>
-        /// <param name="probabilityOpenStructureBeforeFlooding">The probability of an open structure before flooding.</param>
+        /// <param name="probabilityOrFrequencyOpenStructureBeforeFlooding">The probability or frequency of an open structure before flooding.</param>
         /// <param name="modelFactorSuperCriticalFlowMean">The mean of the model factor super critical flow.</param>
         /// <param name="modelFactorSuperCriticalFlowStandardDeviation">The standard deviation of the model factor super critical flow.</param>
         /// <param name="modelFactorSubCriticalFlowMean">The mean of the model factor sub critical flow.</param>
@@ -94,7 +94,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                         double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeVariation,
                                                         double failureProbabilityStructureWithErosion,
                                                         double stormDurationMean, double stormDurationVariation,
-                                                        double probabilityOpenStructureBeforeFlooding,
+                                                        double probabilityOrFrequencyOpenStructureBeforeFlooding,
                                                         double modelFactorSuperCriticalFlowMean, double modelFactorSuperCriticalFlowStandardDeviation,
                                                         double modelFactorSubCriticalFlowMean, double modelFactorSubCriticalFlowVariation,
                                                         double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
@@ -115,7 +115,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                    failureProbabilityStructureWithErosion,
                    stormDurationMean, stormDurationVariation,
-                   probabilityOpenStructureBeforeFlooding)
+                   probabilityOrFrequencyOpenStructureBeforeFlooding)
         {
             this.modelFactorSuperCriticalFlowMean = modelFactorSuperCriticalFlowMean;
             this.modelFactorSuperCriticalFlowStandardDeviation = modelFactorSuperCriticalFlowStandardDeviation;
