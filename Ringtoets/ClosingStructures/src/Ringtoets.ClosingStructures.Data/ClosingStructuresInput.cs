@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
