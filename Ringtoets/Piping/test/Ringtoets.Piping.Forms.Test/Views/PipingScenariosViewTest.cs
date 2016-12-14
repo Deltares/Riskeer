@@ -37,7 +37,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
-using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
 {

@@ -21,9 +21,7 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Globalization;
-using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using Core.Common.Utils.Drawing;
@@ -37,7 +35,7 @@ namespace Core.Common.Gui.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((Bitmap)value).AsBitmapImage();
+            return ((Bitmap) value).AsBitmapImage();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
