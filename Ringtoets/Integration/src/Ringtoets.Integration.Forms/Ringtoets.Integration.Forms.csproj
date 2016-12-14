@@ -58,7 +58,7 @@
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelLocationsContextProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelLocationContextProperties.cs" />
-    <Compile Include="PropertyClasses\FailureMechanismContributionContextProperties.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismContributionProperties.cs" />
     <Compile Include="PropertyClasses\WaveHeightLocationContextProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectProperties.cs" />
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextProperties.cs" />

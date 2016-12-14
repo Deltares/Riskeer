@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -46,7 +45,7 @@ using Ringtoets.Piping.KernelWrapper.TestUtil;
 namespace Ringtoets.Integration.Forms.Test
 {
     [TestFixture]
-    public class FailureMechanismContributionContextPropertiesIntegrationTest : NUnitFormTest
+    public class FailureMechanismContributionPropertiesIntegrationTest : NUnitFormTest
     {
         private const string messageAllHydraulicBoundaryLocationOutputCleared =
             "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.";
@@ -142,7 +141,7 @@ namespace Ringtoets.Integration.Forms.Test
 
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserver);
 
-            var properties = new FailureMechanismContributionContextProperties()
+            var properties = new FailureMechanismContributionProperties
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection,
@@ -233,7 +232,7 @@ namespace Ringtoets.Integration.Forms.Test
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);
 
-            var properties = new FailureMechanismContributionContextProperties()
+            var properties = new FailureMechanismContributionProperties
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection,
@@ -337,7 +336,7 @@ namespace Ringtoets.Integration.Forms.Test
             grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
             heightStructuresCalculation.Attach(heightStructuresCalculationObserver);
 
-            var properties = new FailureMechanismContributionContextProperties()
+            var properties = new FailureMechanismContributionProperties
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection,
@@ -437,7 +436,7 @@ namespace Ringtoets.Integration.Forms.Test
             grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
             heightStructuresCalculation.Attach(heightStructuresCalculationObserver);
 
-            var properties = new FailureMechanismContributionContextProperties()
+            var properties = new FailureMechanismContributionProperties
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection,
@@ -512,7 +511,7 @@ namespace Ringtoets.Integration.Forms.Test
             emptyHeightStructuresCalculation.Attach(calculationObserver);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
-            var properties = new FailureMechanismContributionContextProperties()
+            var properties = new FailureMechanismContributionProperties
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection,
@@ -557,7 +556,7 @@ namespace Ringtoets.Integration.Forms.Test
 
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
-            var properties = new FailureMechanismContributionContextProperties()
+            var properties = new FailureMechanismContributionProperties
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection,

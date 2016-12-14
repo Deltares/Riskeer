@@ -39,22 +39,13 @@ using Ringtoets.Integration.Plugin.Handlers;
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class FailureMechanismContributionContextPropertiesTest : NUnitFormTest
+    public class FailureMechanismContributionPropertiesTest : NUnitFormTest
     {
-        private MockRepository mocks;
-
-        [SetUp]
-        public override void Setup()
-        {
-            base.Setup();
-            mocks = new MockRepository();
-        }
-
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new FailureMechanismContributionContextProperties();
+            var properties = new FailureMechanismContributionProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<FailureMechanismContribution>>(properties);
@@ -65,7 +56,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var failureMechanismContributionProperties = new FailureMechanismContributionContextProperties();
+            var failureMechanismContributionProperties = new FailureMechanismContributionProperties();
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(failureMechanismContributionProperties);
@@ -97,6 +88,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSectionComposition = AssessmentSectionComposition.DikeAndDune;
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.Composition).Return(assessmentSectionComposition);
@@ -106,7 +98,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
             var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0/returnPeriod);
 
-            var properties = new FailureMechanismContributionContextProperties()
+            var properties = new FailureMechanismContributionProperties
             {
                 Data = contribution,
                 AssessmentSection = assessmentSection
@@ -126,13 +118,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void NormChangeHandler_SetNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismContributionContextProperties()
+            TestDelegate call = () => new FailureMechanismContributionProperties
             {
                 NormChangeHandler = null
             };
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "NormChangeHandler is null");
+            string paramName = exception.ParamName;
             Assert.AreEqual("value", paramName);
         }
 
@@ -140,20 +133,63 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void CompositionChangeHandler_SetNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismContributionContextProperties()
+            TestDelegate call = () => new FailureMechanismContributionProperties
             {
                 CompositionChangeHandler = null
             };
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "CompositionChangeHandler is null");
+            string paramName = exception.ParamName;
             Assert.AreEqual("value", paramName);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenReturnPeriod_WhenConfirmingChanges_ReturnPeriodSetAndNotifiesObserver(bool confirmChange)
+        public void GivenReturnPeriod_WhenConfirmingReturnPeriodValueChange_ReturnPeriodSetAndNotifiesObserver()
+        {
+            // Given
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+
+            var normChangeHandler = new FailureMechanismContributionNormChangeHandler();
+
+            var mocks = new MockRepository();
+            var compositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mocks.ReplayAll();
+
+            var observer = mocks.StrictMock<IObserver>();
+            failureMechanismContribution.Attach(observer);
+
+            observer.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            var properties = new FailureMechanismContributionProperties
+            {
+                Data = failureMechanismContribution,
+                AssessmentSection = assessmentSection,
+                NormChangeHandler = normChangeHandler,
+                CompositionChangeHandler = compositionChangeHandler
+            };
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                messageBox.ClickOk();
+            };
+
+            // When
+            const int newReturnPeriod = 200;
+            properties.ReturnPeriod = newReturnPeriod;
+
+            // Then
+            Assert.AreEqual(newReturnPeriod, properties.ReturnPeriod);
+            Assert.AreEqual(1.0/newReturnPeriod, failureMechanismContribution.Norm);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenReturnPeriod_WhenCancellingReturnPeriodValueChange_NothingHappens()
         {
             // Given
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -162,23 +198,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var normChangeHandler = new FailureMechanismContributionNormChangeHandler();
 
+            var mocks = new MockRepository();
             var compositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
-            compositionChangeHandler.Stub(h => h.ConfirmCompositionChange()).Return(false);
             mocks.ReplayAll();
 
             var observer = mocks.StrictMock<IObserver>();
             failureMechanismContribution.Attach(observer);
-            if (confirmChange)
-            {
-                observer.Expect(o => o.UpdateObserver());
-            }
-            else
-            {
-                observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-            }
             mocks.ReplayAll();
 
-            var properties = new FailureMechanismContributionContextProperties()
+            var properties = new FailureMechanismContributionProperties
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection,
@@ -189,15 +217,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
-
-                if (confirmChange)
-                {
-                    messageBox.ClickOk();
-                }
-                else
-                {
-                    messageBox.ClickCancel();
-                }
+                messageBox.ClickCancel();
             };
 
             // When
@@ -205,15 +225,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             properties.ReturnPeriod = newReturnPeriod;
 
             // Then
-            Assert.AreEqual(confirmChange ? newReturnPeriod : originalReturnPeriod, properties.ReturnPeriod);
-            Assert.AreEqual(confirmChange ? 1.0/newReturnPeriod : 1.0/originalReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(originalReturnPeriod, properties.ReturnPeriod);
+            Assert.AreEqual(1.0/originalReturnPeriod, failureMechanismContribution.Norm);
             mocks.VerifyAll();
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenAssessmentSectionComposition_WhenConfirmingChanges_AssessmentSectionCompositionSetAndNotifiesObserver(bool confirmChange)
+        public void GivenAssessmentSectionComposition_WhenConfirmingCompositionValueChange_AssessmentSectionCompositionSetAndNotifiesObserver()
         {
             // Given
             const AssessmentSectionComposition originalComposition = AssessmentSectionComposition.Dike;
@@ -222,23 +240,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
 
+            var mocks = new MockRepository();
             var normChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
-            normChangeHandler.Stub(h => h.ConfirmNormChange())
-                             .Return(false);
 
             var observer = mocks.StrictMock<IObserver>();
             failureMechanismContribution.Attach(observer);
-            if (confirmChange)
-            {
-                observer.Expect(o => o.UpdateObserver());
-            }
-            else
-            {
-                observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-            }
+            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var properties = new FailureMechanismContributionContextProperties()
+            var properties = new FailureMechanismContributionProperties()
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection,
@@ -249,15 +259,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
-
-                if (confirmChange)
-                {
-                    messageBox.ClickOk();
-                }
-                else
-                {
-                    messageBox.ClickCancel();
-                }
+                messageBox.ClickOk();
             };
 
             // When
@@ -265,13 +267,54 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             properties.AssessmentSectionComposition = newComposition;
 
             // Then
-            Assert.AreEqual(confirmChange ? newComposition : originalComposition, properties.AssessmentSectionComposition);
-            Assert.AreEqual(confirmChange ? newComposition : originalComposition, assessmentSection.Composition);
+            Assert.AreEqual(newComposition, properties.AssessmentSectionComposition);
+            Assert.AreEqual(newComposition, assessmentSection.Composition);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void ReturnPeriod_ValueChangedAndConfirmed_NotifiesChangedObjects()
+        public void GivenAssessmentSectionComposition_WhenCancellingCompositionValueChange_NothingHappens()
+        {
+            // Given
+            const AssessmentSectionComposition originalComposition = AssessmentSectionComposition.Dike;
+            AssessmentSection assessmentSection = new AssessmentSection(originalComposition);
+            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+
+            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
+
+            var mocks = new MockRepository();
+            var normChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+
+            var observer = mocks.StrictMock<IObserver>();
+            failureMechanismContribution.Attach(observer);
+            mocks.ReplayAll();
+
+            var properties = new FailureMechanismContributionProperties()
+            {
+                Data = failureMechanismContribution,
+                AssessmentSection = assessmentSection,
+                NormChangeHandler = normChangeHandler,
+                CompositionChangeHandler = compositionChangeHandler
+            };
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                messageBox.ClickCancel();
+            };
+
+            // When
+            const AssessmentSectionComposition newComposition = AssessmentSectionComposition.DikeAndDune;
+            properties.AssessmentSectionComposition = newComposition;
+
+            // Then
+            Assert.AreEqual(originalComposition, properties.AssessmentSectionComposition);
+            Assert.AreEqual(originalComposition, assessmentSection.Composition);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ReturnPeriod_ValueChanges_NotifiesChangedObjectsInAssessmentSection()
         {
             // Setup
             const int returnPeriod = 200;
@@ -279,6 +322,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
+            var mocks = new MockRepository();
             var observable1 = mocks.StrictMock<IObservable>();
             observable1.Expect(o => o.NotifyObservers());
             var observable2 = mocks.StrictMock<IObservable>();
@@ -294,7 +338,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                              });
             mocks.ReplayAll();
 
-            var properties = new FailureMechanismContributionContextProperties()
+            var properties = new FailureMechanismContributionProperties
             {
                 AssessmentSection = assessmentSection,
                 NormChangeHandler = normChangeHandler,
@@ -316,6 +360,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void ReturnPeriod_InvalidValue_ThrowsArgumentOutOfRangeException(int invalidReturnPeriod)
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSectionComposition = AssessmentSectionComposition.DikeAndDune;
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.Composition).Return(assessmentSectionComposition);
@@ -324,7 +369,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
             var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0/200);
 
-            var properties = new FailureMechanismContributionContextProperties()
+            var properties = new FailureMechanismContributionProperties()
             {
                 Data = contribution,
                 AssessmentSection = assessmentSection
@@ -334,8 +379,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ReturnPeriod = invalidReturnPeriod;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
-                                                                                                "De waarde voor de 'Norm (terugkeertijd)' moet in het bereik [100, 1000000] liggen.");
+            string expectedMessage = "De waarde voor de 'Norm (terugkeertijd)' moet in het bereik [100, 1000000] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -345,11 +390,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
-        public void AssessmentSectionComposition_WhenConfirmingChanges_NotifiesChangedObjects(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
+        public void AssessmentSectionComposition_CompositionValueChanges_NotifiesChangedObjectsInAssessmentSection(
+            AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
         {
             // Setup
             var assessmentSection = new AssessmentSection(initialComposition);
 
+            var mocks = new MockRepository();
             var observable1 = mocks.StrictMock<IObservable>();
             observable1.Expect(o => o.NotifyObservers());
             var observable2 = mocks.StrictMock<IObservable>();
@@ -366,7 +413,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                     });
             mocks.ReplayAll();
 
-            var properties = new FailureMechanismContributionContextProperties()
+            var properties = new FailureMechanismContributionProperties
             {
                 AssessmentSection = assessmentSection,
                 CompositionChangeHandler = compositionChangeHandler,

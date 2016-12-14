@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="FailureMechanismContribution"/> for properties panel.
     /// </summary>
-    public class FailureMechanismContributionContextProperties : ObjectProperties<FailureMechanismContribution>
+    public class FailureMechanismContributionProperties : ObjectProperties<FailureMechanismContribution>
     {
         private IFailureMechanismContributionNormChangeHandler normChangeHandler;
         private IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <summary>
         /// Gets or sets the <see cref="IFailureMechanismContributionNormChangeHandler"/> for when the norm changes.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when the <c>null</c>is set.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <c>null</c>is set.</exception>
         [DynamicVisible]
         public IFailureMechanismContributionNormChangeHandler NormChangeHandler
         {
@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException("value", @"NormChangeHandler is null");
                 }
                 normChangeHandler = value;
             }
@@ -127,7 +127,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <summary>
         /// Gets or sets the <see cref="IAssessmentSectionCompositionChangeHandler"/> for when the norm changes.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when the <c>null</c>is set.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <c>null</c>is set.</exception>
         [DynamicVisible]
         public IAssessmentSectionCompositionChangeHandler CompositionChangeHandler
         {
@@ -139,7 +139,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException("value", @"CompositionChangeHandler is null");
                 }
                 compositionChangeHandler = value;
             }
@@ -149,20 +149,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
             // Hide all the properties that are used to set the data
-            if (propertyName == TypeUtils.GetMemberName<FailureMechanismContributionContextProperties>(p => p.AssessmentSection))
-            {
-                return false;
-            }
-            if (propertyName == TypeUtils.GetMemberName<FailureMechanismContributionContextProperties>(p => p.NormChangeHandler))
-            {
-                return false;
-            }
-            if (propertyName == TypeUtils.GetMemberName<FailureMechanismContributionContextProperties>(p => p.CompositionChangeHandler))
-            {
-                return false;
-            }
-
-            return true;
+            return propertyName != TypeUtils.GetMemberName<FailureMechanismContributionProperties>(p => p.AssessmentSection) 
+                && propertyName != TypeUtils.GetMemberName<FailureMechanismContributionProperties>(p => p.NormChangeHandler) 
+                && propertyName != TypeUtils.GetMemberName<FailureMechanismContributionProperties>(p => p.CompositionChangeHandler);
         }
     }
 }

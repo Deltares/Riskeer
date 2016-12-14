@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.Forms.Test
             mocks.VerifyAll();
         }
 
-        private void AssertDataGridViewDataSource(IEnumerable<FailureMechanismContributionItem> expectedDistributionElements, DataGridView dataGridView)
+        private static void AssertDataGridViewDataSource(IEnumerable<FailureMechanismContributionItem> expectedDistributionElements, DataGridView dataGridView)
         {
             FailureMechanismContributionItem[] itemArray = expectedDistributionElements.ToArray();
             Assert.AreEqual(itemArray.Length, dataGridView.RowCount);

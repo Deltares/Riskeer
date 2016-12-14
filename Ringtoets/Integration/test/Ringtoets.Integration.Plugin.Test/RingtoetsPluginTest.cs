@@ -229,7 +229,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo failureMechanismContributionProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(FailureMechanismContributionContext),
-                    typeof(FailureMechanismContributionContextProperties));
+                    typeof(FailureMechanismContributionProperties));
                 Assert.IsNull(failureMechanismContributionProperties.AdditionalDataCheck);
                 Assert.IsNotNull(failureMechanismContributionProperties.GetObjectPropertiesData);
                 Assert.IsNotNull(failureMechanismContributionProperties.AfterCreate);

@@ -72,7 +72,7 @@
     <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
-    <Compile Include="FailureMechanismContributionContextPropertiesIntegrationTest.cs" />
+    <Compile Include="FailureMechanismContributionPropertiesIntegrationTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContextTest.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContextTest.cs" />
@@ -84,7 +84,7 @@
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelLocationsContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelLocationContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\FailureMechanismContributionContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveHeightLocationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextPropertiesTest.cs" />
