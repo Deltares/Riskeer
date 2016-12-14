@@ -33,18 +33,18 @@ namespace Ringtoets.Revetment.Data
         /// A step size of 0.5
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInputStepSize_Half")]
-        Half,
+        Half = 1,
 
         /// <summary>
         /// A step size of 1.0
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInputStepSize_One")]
-        One,
+        One = 2,
 
         /// <summary>
         /// A step size of 2.0
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInputStepSize_Two")]
-        Two,
+        Two = 3
     }
 }
