@@ -38,7 +38,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
         /// <param name="probabilityAssessmentOutput">The probabilistic assessment output based on the grass cover erosion 
         /// inwards calculation output.</param>
-        /// <param name="dikeHeightAssessmentOutput">The calculated dike height.</param>
+        /// <param name="dikeHeightAssessmentOutput">The dike height assessment output based 
+        /// on the grass cover erosion inwards calculation output.</param>
         public GrassCoverErosionInwardsOutput(double waveHeight, bool isOvertoppingDominant,
                                               ProbabilityAssessmentOutput probabilityAssessmentOutput,
                                               DikeHeightAssessmentOutput dikeHeightAssessmentOutput)
@@ -59,19 +60,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// sub failure mechanism.
         /// </summary>
         public bool IsOvertoppingDominant { get; private set; }
-
-        /// <summary>
-        /// The height of the dike that was calculated in the overtopping sub failure mechanism.
-        /// </summary>
-        public RoundedDouble DikeHeight
-        {
-            get
-            {
-                return DikeHeightAssessmentOutput == null
-                           ? RoundedDouble.NaN
-                           : DikeHeightAssessmentOutput.DikeHeight;
-            }
-        }
 
         /// <summary>
         /// Gets the probabilistic assessment output based on the grass cover erosion 

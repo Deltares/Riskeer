@@ -77,11 +77,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, "HBN bij norm")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, "HBN bij doorsnede-eis")]
-        [TestCase(DikeHeightCalculationType.NoCalculation, "Niet")]
-        public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues(
-            DikeHeightCalculationType dikeHeightCalculationType, string expectedDikeHeightCalculationTypeText)
+        public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -91,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeHeightCalculationType = dikeHeightCalculationType
+                DikeHeightCalculationType = DikeHeightCalculationType.NoCalculation
             };
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock);
 
@@ -116,9 +112,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
             Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsInputContextProperties,
                               EnumTypeConverter>(p => p.DikeHeightCalculationType));
-            var actualDikeHeightCalculationTypeText = new EnumDisplayWrapper<DikeHeightCalculationType>(properties.DikeHeightCalculationType).DisplayName;
-            Assert.AreEqual(expectedDikeHeightCalculationTypeText, actualDikeHeightCalculationTypeText);
-
             Assert.IsNull(properties.WorldReferencePoint);
             mockRepository.VerifyAll();
         }

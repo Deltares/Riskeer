@@ -144,7 +144,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.DikeHeight;
+                DikeHeightAssessmentOutput output = data.DikeHeightAssessmentOutput;
+                return output == null ? RoundedDouble.NaN : output.DikeHeight;
             }
         }
 

@@ -80,13 +80,12 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Assert
             Assert.IsNaN(output.WaveHeight);
             Assert.IsTrue(output.IsOvertoppingDominant);
-            Assert.IsNaN(output.DikeHeight);
             Assert.IsNull(output.DikeHeightAssessmentOutput);
-            Assert.IsNaN(output.ProbabilityAssessmentOutput.FactorOfSafety.Value);
+            Assert.IsNaN(output.ProbabilityAssessmentOutput.FactorOfSafety);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.Probability);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.RequiredProbability);
-            Assert.IsNaN(output.ProbabilityAssessmentOutput.Reliability.Value);
-            Assert.IsNaN(output.ProbabilityAssessmentOutput.RequiredReliability.Value);
+            Assert.IsNaN(output.ProbabilityAssessmentOutput.Reliability);
+            Assert.IsNaN(output.ProbabilityAssessmentOutput.RequiredReliability);
         }
 
         [Test]

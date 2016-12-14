@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -57,34 +56,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.IsTrue(output.IsOvertoppingDominant);
-            Assert.AreEqual(2, output.DikeHeight.NumberOfDecimalPlaces);
-            Assert.AreEqual(dikeHeight, output.DikeHeight, output.DikeHeight.GetAccuracy());
-            
+
             Assert.AreSame(probabilityAssessmentOutput, output.ProbabilityAssessmentOutput);
             Assert.AreSame(dikeHeightAssessmentOutput, output.DikeHeightAssessmentOutput);
-        }
-
-        [Test]
-        public void DikeHeight_DikeHeightNull_ReturnNaN()
-        {
-            // Call
-            GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(
-                double.NaN, false, new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN), null);
-
-            // Assert
-            Assert.IsNaN(output.DikeHeight);
-        }
-
-        [Test]
-        public void DikeHeight_DikeHeightSet_ReturnsRoundedValue()
-        {
-            // Call
-            GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(
-                double.NaN, false, new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
-                new TestDikeHeightAssessmentOutput(12.8276));
-
-            // Assert
-            Assert.AreEqual((RoundedDouble) 12.83, output.DikeHeight);
         }
     }
 }

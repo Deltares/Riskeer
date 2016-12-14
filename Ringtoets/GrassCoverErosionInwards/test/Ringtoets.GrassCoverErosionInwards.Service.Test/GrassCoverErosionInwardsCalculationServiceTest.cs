@@ -435,7 +435,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             Assert.IsFalse(calculation.Output.IsOvertoppingDominant);
             if (dikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
             {
-                Assert.IsFalse(double.IsNaN(calculation.Output.DikeHeight));
                 DikeHeightAssessmentOutput dikeHeightAssessmentOutput = calculation.Output.DikeHeightAssessmentOutput;
                 Assert.IsNotNull(dikeHeightAssessmentOutput);
 
@@ -447,7 +446,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             }
             else
             {
-                Assert.IsNaN(calculation.Output.DikeHeight);
                 Assert.IsNull(calculation.Output.DikeHeightAssessmentOutput);
             }
 
