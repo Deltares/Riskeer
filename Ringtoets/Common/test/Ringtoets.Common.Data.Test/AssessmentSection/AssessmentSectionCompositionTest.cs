@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 namespace Ringtoets.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
-    public class AssessmentCompositionTest
+    public class AssessmentSectionCompositionTest
     {
         [TestFixture]
         public class WaveConditionsInputStepSizeTest

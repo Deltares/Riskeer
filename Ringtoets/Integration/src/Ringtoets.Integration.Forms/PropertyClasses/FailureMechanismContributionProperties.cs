@@ -110,7 +110,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicVisible]
         public IFailureMechanismContributionNormChangeHandler NormChangeHandler
         {
-            private get
+            get
             {
                 return normChangeHandler;
             }
@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicVisible]
         public IAssessmentSectionCompositionChangeHandler CompositionChangeHandler
         {
-            private get
+            get
             {
                 return compositionChangeHandler;
             }
