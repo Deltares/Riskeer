@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [TestCase(CalculationConvergence.CalculatedConverged, "Ja")]
         [TestCase(CalculationConvergence.CalculatedNotConverged, "Nee")]
         [TestCase(CalculationConvergence.NotCalculated, "")]
-        public void GetProperties_ValidData_ReturnsExpectedValues(CalculationConvergence convergence, string expectedConvergenceValue)
+        public void GetProperties_FullyConfiguredLocation_ReturnsExpectedValues(CalculationConvergence convergence, string expectedConvergenceValue)
         {
             // Setup
             var random = new Random();

@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        [TestCase(@"C:\folder\")]
+        [TestCase("C:\\folder\\")]
         public void CreateDatabaseStructure_InvalidFilePath_ThrowsArgumentException(string invalidPath)
         {
             // Call
