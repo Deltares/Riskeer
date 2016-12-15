@@ -325,7 +325,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
-                    }).SetName("LogNormalDistributionDifferentRoundinglDistribution");
+                    }).SetName("LogNormalDistributionDifferentRounding");
                 yield return new TestCaseData(
                     new LogNormalDistribution(2)
                     {

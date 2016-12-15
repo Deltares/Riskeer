@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.Create.MacrostabilityOutwards;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -36,7 +37,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
         public void Create_WithResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            const AssessmentLayerOneState assessmentLayerOneResult = AssessmentLayerOneState.Sufficient;
+            var random = new Random();
+            AssessmentLayerOneState assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
             const double assessmentLayerTwoAResult = 0.2;
             const double assessmentLayerThreeResult = 3.2;
 

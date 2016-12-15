@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -36,8 +37,9 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
         public void Create_WithResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            const AssessmentLayerOneState assessmentLayerOneResult = AssessmentLayerOneState.Sufficient;
-            const AssessmentLayerTwoAResult assessmentLayerTwoAResult = AssessmentLayerTwoAResult.Successful;
+            var random = new Random();
+            AssessmentLayerOneState assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
+            AssessmentLayerTwoAResult assessmentLayerTwoAResult = random.NextEnumValue<AssessmentLayerTwoAResult>();
             const double assessmentLayerThreeResult = 3.2;
 
             var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
