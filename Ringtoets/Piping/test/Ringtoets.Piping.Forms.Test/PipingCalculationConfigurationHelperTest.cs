@@ -27,6 +27,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -1136,6 +1138,73 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile1.Name), calculationInput1.Name);
             Assert.AreEqual(string.Format("{0} {1} (1)", surfaceLine.Name, soilProfile2.Name), calculationInput2.Name);
             Assert.AreEqual(string.Format("{0} {1} (2)", surfaceLine.Name, soilProfile3.Name), calculationInput3.Name);
+        }
+
+        #endregion
+
+        #region GetSelectableHydraulicBoundaryLocations
+
+        [Test]
+        public void GetSelectableHydraulicBoundaryLocations_WithLocationsNoSurfaceLine_ReturnLocationsSortedById()
+        {
+            // Setup
+            var hydraulicBoundaryLocations = new[]
+            {
+                new HydraulicBoundaryLocation(1, "A", 0, 1),
+                new HydraulicBoundaryLocation(4, "C", 0, 2),
+                new HydraulicBoundaryLocation(3, "D", 0, 3),
+                new HydraulicBoundaryLocation(2, "B", 0, 4)
+            };
+
+            // Call
+            IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations =
+                PipingCalculationConfigurationHelper.GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, null);
+
+            // Assert
+            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
+                hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
+                                          .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+            CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
+        }
+
+        [Test]
+        public void GetSelectableHydraulicBoundaryLocations_WithLocationsAndSurfaceLine_ReturnLocationsSortedByDistanceThenById()
+        {
+            // Setup
+            var hydraulicBoundaryLocations = new[]
+            {
+                new HydraulicBoundaryLocation(1, "A", 0, 10),
+                new HydraulicBoundaryLocation(4, "E", 0, 500),
+                new HydraulicBoundaryLocation(6, "F", 0, 100),
+                new HydraulicBoundaryLocation(5, "D", 0, 200),
+                new HydraulicBoundaryLocation(3, "C", 0, 200),
+                new HydraulicBoundaryLocation(2, "B", 0, 200)
+            };
+
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
+
+            // Call
+            IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations =
+                PipingCalculationConfigurationHelper.GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, surfaceLine);
+
+            // Assert
+            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList = hydraulicBoundaryLocations.Select
+                (hbl => new SelectableHydraulicBoundaryLocation(hbl, surfaceLine.ReferenceLineIntersectionWorldPoint))
+                                                                                                      .OrderBy(hbl => hbl.Distance)
+                                                                                                      .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+            CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
+        }
+
+        private static RingtoetsPipingSurfaceLine ValidSurfaceLine(double xMin, double xMax)
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(xMin, 0.0, 0.0),
+                new Point3D(xMax, 0.0, 1.0)
+            });
+            return surfaceLine;
         }
 
         #endregion

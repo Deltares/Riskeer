@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
@@ -117,13 +116,13 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             return false;
         }
 
+        /// <summary>
+        /// Gets the available selectable hydraulic boundary locations on <see cref="PipingInputContext"/>.
+        /// </summary>
         public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
         {
-            Point2D referencePoint = SurfaceLine != null ? SurfaceLine.ReferenceLineIntersectionWorldPoint : null;
-
-            return data.AvailableHydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, referencePoint))
-                       .OrderBy(hbl => hbl.Distance)
-                       .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+            return PipingCalculationConfigurationHelper.GetSelectableHydraulicBoundaryLocations(
+                data.AvailableHydraulicBoundaryLocations, SurfaceLine);
         }
 
         #region Hydraulic data
