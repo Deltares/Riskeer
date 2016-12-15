@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -32,16 +33,15 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class HydraulicBoundaryLocationOutputCreateExtensionsTest
     {
         [Test]
-        public void CreateHydraulicLocationOutputEntity_WithValidParameters_ReturnsHydraulicLocationEntityWithOutputSet(
-            [Values(HydraulicLocationOutputType.DesignWaterLevel, HydraulicLocationOutputType.WaveHeight)] HydraulicLocationOutputType outputType,
-            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        public void CreateHydraulicLocationOutputEntity_WithValidParameters_ReturnsHydraulicLocationEntityWithOutputSet()
         {
             // Setup
             var random = new Random(21);
             var output = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), convergence);
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+
+            HydraulicLocationOutputType outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
             // Call
             HydraulicLocationOutputEntity entity = output.Create<HydraulicLocationOutputEntity>(outputType);
@@ -58,14 +58,14 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateHydraulicLocationOutputEntity_WithNaNParameters_ReturnsHydraulicLocationEntityWithOutputNaN(
-            [Values(HydraulicLocationOutputType.DesignWaterLevel, HydraulicLocationOutputType.WaveHeight)] HydraulicLocationOutputType outputType,
-            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        public void CreateHydraulicLocationOutputEntity_WithNaNParameters_ReturnsHydraulicLocationEntityWithOutputNaN()
         {
             // Setup
+            var random = new Random(21);
             var output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN, double.NaN,
-                                                             double.NaN, double.NaN, convergence);
+                                                             double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
+            
+            HydraulicLocationOutputType outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
             // Call
             HydraulicLocationOutputEntity entity = output.Create<HydraulicLocationOutputEntity>(outputType);
@@ -82,16 +82,15 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateGrassCoverErosionOutwardsHydraulicLocationOutputEntity_WithValidParameters_ReturnsHydraulicLocationEntityWithOutputSet(
-            [Values(HydraulicLocationOutputType.DesignWaterLevel, HydraulicLocationOutputType.WaveHeight)] HydraulicLocationOutputType outputType,
-            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        public void CreateGrassCoverErosionOutwardsHydraulicLocationOutputEntity_WithValidParameters_ReturnsHydraulicLocationEntityWithOutputSet()
         {
             // Setup
             var random = new Random(21);
             var output = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), convergence);
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+
+            HydraulicLocationOutputType outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
             // Call
             GrassCoverErosionOutwardsHydraulicLocationOutputEntity entity = output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(outputType);
@@ -108,14 +107,14 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateGrassCoverErosionOutwardsHydraulicLocationOutputEntity_WithNaNParameters_ReturnsHydraulicLocationEntityWithOutputNaN(
-            [Values(HydraulicLocationOutputType.DesignWaterLevel, HydraulicLocationOutputType.WaveHeight)] HydraulicLocationOutputType outputType,
-            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        public void CreateGrassCoverErosionOutwardsHydraulicLocationOutputEntity_WithNaNParameters_ReturnsHydraulicLocationEntityWithOutputNaN()
         {
             // Setup
+            var random = new Random(21);
             var output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN, double.NaN,
-                                                             double.NaN, double.NaN, convergence);
+                                                             double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
+
+            HydraulicLocationOutputType outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
             // Call
             GrassCoverErosionOutwardsHydraulicLocationOutputEntity entity = output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(

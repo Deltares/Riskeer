@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -91,20 +92,17 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithPersistenceRegistryAndInitializer_ReturnsHydraulicLocationEntityWithOutputSet(
-            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence designWaterLevelConvergence,
-            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence waveHeightConvergence)
+        public void Create_WithPersistenceRegistryAndInitializer_ReturnsHydraulicLocationEntityWithOutputSet()
         {
             // Setup
             var random = new Random(21);
-            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+            var hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), designWaterLevelConvergence);
-            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+            var hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), waveHeightConvergence);
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
                 DesignWaterLevelOutput = hydraulicBoundaryLocationDesignWaterLevelOutput,
@@ -204,20 +202,17 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithPersistenceRegistryAndInitializer_ReturnsGrassCoverErosionOutwardsHydraulicLocationEntityWithOutputSet(
-            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence designWaterLevelConvergence,
-            [Values(CalculationConvergence.CalculatedConverged, CalculationConvergence.CalculatedNotConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence waveHeightConvergence)
+        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithPersistenceRegistryAndInitializer_ReturnsGrassCoverErosionOutwardsHydraulicLocationEntityWithOutputSet()
         {
             // Setup
             var random = new Random(21);
-            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+            var hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), designWaterLevelConvergence);
-            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+            var hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), waveHeightConvergence);
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
                 DesignWaterLevelOutput = hydraulicBoundaryLocationDesignWaterLevelOutput,
