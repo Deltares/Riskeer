@@ -259,7 +259,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());            
+            observerMock.Expect(o => o.UpdateObserver());
 
             var failureMechanism = new PipingFailureMechanism();
             var properties = new PipingFailureMechanismContextProperties
@@ -287,7 +287,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());            
+            observerMock.Expect(o => o.UpdateObserver());
 
             var failureMechanism = new PipingFailureMechanism();
             var properties = new PipingFailureMechanismContextProperties
@@ -296,7 +296,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
             mocks.ReplayAll();
 
-            failureMechanism.Attach(observerMock);            
+            failureMechanism.Attach(observerMock);
 
             // Call            
             properties.WaterVolumetricWeight = (RoundedDouble) newValue;
@@ -324,9 +324,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Data = new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>())
             };
             mocks.ReplayAll();
-            
+
             failureMechanism.Attach(observerMock);
-            
+
             // Call            
             TestDelegate test = () => properties.WaterVolumetricWeight = (RoundedDouble) newValue;
 

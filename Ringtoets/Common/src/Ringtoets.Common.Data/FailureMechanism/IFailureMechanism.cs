@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// Gets the comments associated with the input of the data object.
         /// </summary>
         Comment InputComments { get; }
-        
+
         /// <summary>
         /// Gets the comments associated with the output of the data object.
         /// </summary>

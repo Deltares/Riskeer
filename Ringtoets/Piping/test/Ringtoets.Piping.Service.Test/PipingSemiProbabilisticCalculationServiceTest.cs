@@ -172,7 +172,6 @@ namespace Ringtoets.Piping.Service.Test
                 UpliftFactorOfSafety = fosUplift,
                 HeaveFactorOfSafety = fosHeave,
                 SellmeijerFactorOfSafety = fosSellmeijer
-
             });
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput
             {
@@ -206,7 +205,6 @@ namespace Ringtoets.Piping.Service.Test
                 UpliftFactorOfSafety = fosUplift,
                 HeaveFactorOfSafety = fosHeave,
                 SellmeijerFactorOfSafety = fosSellmeijer
-
             });
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput
             {

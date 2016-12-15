@@ -32,8 +32,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
     {
         [Test]
         [TestCase(2, 1.0/10000)]
-        [TestCase(-50, 1.0 / 1)]
-        [TestCase(0, 1.0 / -90)]
+        [TestCase(-50, 1.0/1)]
+        [TestCase(0, 1.0/-90)]
         [TestCase(200000, double.NaN)]
         public void Constructed_UsingDifferentReturnPeriodAndLocationId_ReturnDifferentBetaAndDefaultValues(int locationId, double norm)
         {

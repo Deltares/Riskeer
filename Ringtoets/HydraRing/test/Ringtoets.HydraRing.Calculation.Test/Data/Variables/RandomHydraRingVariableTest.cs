@@ -50,7 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
 
         private class TestRandomHydraRingVariable : RandomHydraRingVariable
         {
-            public TestRandomHydraRingVariable(int variableId, HydraRingDeviationType deviationType, double mean, double variance) 
+            public TestRandomHydraRingVariable(int variableId, HydraRingDeviationType deviationType, double mean, double variance)
                 : base(variableId, deviationType, mean, variance) {}
 
             public override HydraRingDistributionType DistributionType

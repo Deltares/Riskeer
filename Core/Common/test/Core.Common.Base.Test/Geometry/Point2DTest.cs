@@ -160,7 +160,7 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             Point2D first = null;
-            Point2D second = new Point2D(0,0);
+            Point2D second = new Point2D(0, 0);
 
             // Call
             TestDelegate call = () => { Vector<double> result = first - second; };

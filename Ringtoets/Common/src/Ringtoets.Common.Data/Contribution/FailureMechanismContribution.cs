@@ -34,8 +34,8 @@ namespace Ringtoets.Common.Data.Contribution
     public class FailureMechanismContribution : Observable
     {
         private readonly ICollection<FailureMechanismContributionItem> distribution = new List<FailureMechanismContributionItem>();
-        private double norm;
         private readonly OtherFailureMechanism otherFailureMechanism = new OtherFailureMechanism();
+        private double norm;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContribution"/>. Values are taken from the 

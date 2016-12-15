@@ -939,6 +939,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
         [TestCase(nameColumnIndex, "New name", true, false)]
         [TestCase(stochasticSoilProfilesColumnIndex, null, false, true)]
         [TestCase(hydraulicBoundaryLocationsColumnIndex, null, false, true)]

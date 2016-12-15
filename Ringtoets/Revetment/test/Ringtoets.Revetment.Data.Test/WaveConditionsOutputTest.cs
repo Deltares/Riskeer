@@ -110,11 +110,11 @@ namespace Ringtoets.Revetment.Data.Test
         public void Constructor_WithInvalidCalculationConvergenceValue_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var invalidEnumValue = (CalculationConvergence)9001;
+            var invalidEnumValue = (CalculationConvergence) 9001;
 
             // Call
             TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                  double.NaN, double.NaN, double.NaN, invalidEnumValue);
+                                                               double.NaN, double.NaN, double.NaN, invalidEnumValue);
 
             // Assert
             const string expectedMessage = "The value of argument 'value' (9001) is invalid for Enum type 'CalculationConvergence'.";

@@ -286,7 +286,7 @@ namespace Ringtoets.Piping.Data
 
                 var permeabilityDeviation = new RoundedDouble(numberOfDecimals, topMostAquiferLayer.PermeabilityDeviation);
                 var permeabilityMean = new RoundedDouble(numberOfDecimals, topMostAquiferLayer.PermeabilityMean);
-                double deviationFraction = (permeabilityDeviation / permeabilityMean);
+                double deviationFraction = (permeabilityDeviation/permeabilityMean);
 
                 var weightedMean = new RoundedDouble(numberOfDecimals,
                                                      GetWeightedMeanForDarcyPermeabilityOfAquiferLayer(aquiferLayers,
@@ -298,7 +298,7 @@ namespace Ringtoets.Piping.Data
                     darcyPermeabilityDistribution.Mean = weightedMean;
                 }
 
-                darcyPermeabilityDistribution.StandardDeviation = darcyPermeabilityDistribution.Mean * deviationFraction;
+                darcyPermeabilityDistribution.StandardDeviation = darcyPermeabilityDistribution.Mean*deviationFraction;
             }
         }
 
@@ -423,8 +423,8 @@ namespace Ringtoets.Piping.Data
 
         private static bool AreDeviationAndMeanFractionEqual(LogNormalDistribution currentLayerDistribution, LogNormalDistribution baseLayerDistribution)
         {
-            var baseLayerDeviationFraction = (baseLayerDistribution.StandardDeviation / baseLayerDistribution.Mean);
-            var currentLayerDeviationFraction = (currentLayerDistribution.StandardDeviation / currentLayerDistribution.Mean);
+            var baseLayerDeviationFraction = (baseLayerDistribution.StandardDeviation/baseLayerDistribution.Mean);
+            var currentLayerDeviationFraction = (currentLayerDistribution.StandardDeviation/currentLayerDistribution.Mean);
             return Math.Abs(baseLayerDeviationFraction - currentLayerDeviationFraction) < 1e-6;
         }
 

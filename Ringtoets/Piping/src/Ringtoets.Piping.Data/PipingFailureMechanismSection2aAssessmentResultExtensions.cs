@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Data
         /// <param name="pipingFailureMechanismSectionResult">The result to get the result for.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
         public static double GetAssessmentLayerTwoA(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
-            IEnumerable<PipingCalculationScenario> calculations)
+                                                    IEnumerable<PipingCalculationScenario> calculations)
         {
             var calculationScenarios = pipingFailureMechanismSectionResult
                 .GetCalculationScenarios(calculations)
@@ -56,8 +56,8 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="pipingFailureMechanismSectionResult">The result to get the result for.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
-        public static RoundedDouble GetTotalContribution(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult, 
-            IEnumerable<PipingCalculationScenario> calculations)
+        public static RoundedDouble GetTotalContribution(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
+                                                         IEnumerable<PipingCalculationScenario> calculations)
         {
             return (RoundedDouble) pipingFailureMechanismSectionResult
                                        .GetCalculationScenarios(calculations)
@@ -69,8 +69,8 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="pipingFailureMechanismSectionResult">The result to get the result for.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
-        public static IEnumerable<PipingCalculationScenario> GetCalculationScenarios(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult, 
-            IEnumerable<PipingCalculationScenario> calculations)
+        public static IEnumerable<PipingCalculationScenario> GetCalculationScenarios(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
+                                                                                     IEnumerable<PipingCalculationScenario> calculations)
         {
             var lineSegments = Math2D.ConvertLinePointsToLineSegments(pipingFailureMechanismSectionResult.Section.Points);
 
@@ -85,8 +85,8 @@ namespace Ringtoets.Piping.Data
         /// <param name="calculations">All calculations in the failure mechanism.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when any of the relevant calculations 
         /// in <paramref name="pipingFailureMechanismSectionResult"/> has an invalid <see cref="CalculationScenarioStatus"/>.</exception>
-        public static CalculationScenarioStatus GetCalculationScenarioStatus(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult, 
-            IEnumerable<PipingCalculationScenario> calculations)
+        public static CalculationScenarioStatus GetCalculationScenarioStatus(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
+                                                                             IEnumerable<PipingCalculationScenario> calculations)
         {
             bool failed = false;
             bool notCalculated = false;

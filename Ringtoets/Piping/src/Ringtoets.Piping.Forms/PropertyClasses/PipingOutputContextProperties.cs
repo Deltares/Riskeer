@@ -84,12 +84,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), "PipingOutputContext_HeaveGradient_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingOutputContext_HeaveGradient_Description")]
         [PropertyOrder(11)]
-        public RoundedDouble HeaveGradient 
+        public RoundedDouble HeaveGradient
         {
             get
             {
                 return data.WrappedData.HeaveGradient;
-            } 
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Heave", 2, 4)]
@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 return ProbabilityFormattingHelper.Format(data.SemiProbabilisticOutput.HeaveProbability);
             }
         }
-        
+
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer", 3, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingOutputContext_SellmeijerCreepCoefficient_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingOutputContext_SellmeijerCreepCoefficient_Description")]

@@ -113,7 +113,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                                                                           .Cast<IObservable>()
                                                                           .ToArray();
 
-
             // Call
             IEnumerable<IObservable> affectedItems =
                 WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);

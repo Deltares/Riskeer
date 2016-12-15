@@ -43,8 +43,8 @@ namespace Ringtoets.Common.Forms.Helpers
         /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
         public static void SetAssessmentLayerTwoAError(DataGridViewCell dataGridViewCell,
-                                                         AssessmentLayerOneState passedAssessmentLayerOne, double assessmentLayerTwoA,
-                                                         ICalculation normativeCalculation)
+                                                       AssessmentLayerOneState passedAssessmentLayerOne, double assessmentLayerTwoA,
+                                                       ICalculation normativeCalculation)
         {
             if (dataGridViewCell == null)
             {

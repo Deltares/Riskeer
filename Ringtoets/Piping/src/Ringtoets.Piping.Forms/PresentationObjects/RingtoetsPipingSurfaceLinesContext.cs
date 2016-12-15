@@ -40,9 +40,9 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public RingtoetsPipingSurfaceLinesContext(ObservableList<RingtoetsPipingSurfaceLine> surfaceLines, 
-            PipingFailureMechanism failureMechanism, 
-            IAssessmentSection assessmentSection)
+        public RingtoetsPipingSurfaceLinesContext(ObservableList<RingtoetsPipingSurfaceLine> surfaceLines,
+                                                  PipingFailureMechanism failureMechanism,
+                                                  IAssessmentSection assessmentSection)
             : base(surfaceLines)
         {
             if (assessmentSection == null)

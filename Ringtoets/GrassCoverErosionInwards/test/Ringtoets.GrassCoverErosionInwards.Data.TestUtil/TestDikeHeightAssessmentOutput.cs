@@ -29,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
     /// </summary>
     public class TestDikeHeightAssessmentOutput : DikeHeightAssessmentOutput
     {
-         /// <summary>
+        /// <summary>
         /// Creates a new instance of <see cref="TestDikeHeightAssessmentOutput"/>.
         /// </summary>
         /// <param name="dikeHeight">The dike height to set to the output.</param>

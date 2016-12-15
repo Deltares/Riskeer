@@ -153,6 +153,22 @@ namespace Core.Common.Gui.Forms.ProgressDialog
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> if managed resources should be disposed; otherwise, <c>false</c>.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+
+            cancellationTokenSource.Dispose();
+
+            base.Dispose(disposing);
+        }
+
         private void ButtonCancelClick(object sender, EventArgs e)
         {
             CancelActivities();
@@ -202,22 +218,5 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                 labelActivityProgressText.Text = progressTextNullOrEmpty ? string.Empty : activity.ProgressText;
             });
         }
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing"><c>true</c> if managed resources should be disposed; otherwise, <c>false</c>.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-
-            cancellationTokenSource.Dispose();
-            
-            base.Dispose(disposing);
-        }
-
     }
 }

@@ -87,8 +87,6 @@ namespace Core.Common.Base.IO
             }
         }
 
-        private OnProgressChanged ProgressChanged { get; set; }
-
         /// <summary>
         /// Gets the import target.
         /// </summary>
@@ -128,5 +126,7 @@ namespace Core.Common.Base.IO
                 ProgressChanged(currentStepName, currentStep, totalNumberOfSteps);
             }
         }
+
+        private OnProgressChanged ProgressChanged { get; set; }
     }
 }

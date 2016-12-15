@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 },
                 new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    DesignWaterLevelOutput =  new TestHydraulicBoundaryLocationOutput(2.45)
+                    DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(2.45)
                 }
             };
 

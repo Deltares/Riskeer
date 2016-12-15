@@ -67,6 +67,7 @@ namespace Core.Common.Utils.Test.Extensions
             Assert.IsNull(result);
         }
 
+        [Test]
         [TestCase("t", "T")]
         [TestCase("T", "T")]
         [TestCase("test", "Test")]
@@ -95,6 +96,7 @@ namespace Core.Common.Utils.Test.Extensions
             Assert.IsNull(result);
         }
 
+        [Test]
         [TestCase("t", "t")]
         [TestCase("T", "t")]
         [TestCase("test", "test")]

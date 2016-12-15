@@ -166,7 +166,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             Assert.IsNotNull(expected.CalculatedReliability);
             Assert.AreEqual((RoundedDouble) expected.CalculatedReliability, actual.CalculatedReliability, actual.CalculatedReliability.GetAccuracy());
             Assert.IsNotNull(expected.CalculatedProbability);
-            Assert.AreEqual( expected.CalculatedProbability, actual.CalculatedProbability);
+            Assert.AreEqual(expected.CalculatedProbability, actual.CalculatedProbability);
             Assert.AreEqual((CalculationConvergence) expected.CalculationConvergence, actual.CalculationConvergence);
         }
     }

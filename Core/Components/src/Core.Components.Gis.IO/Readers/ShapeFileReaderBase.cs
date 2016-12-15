@@ -136,7 +136,7 @@ namespace Core.Components.Gis.IO.Readers
                     if (column.TypeCharacter != 'C' && dataRowValue is string)
                     {
                         string nullValue = string.Join(string.Empty, Enumerable.Repeat('*', column.Length));
-                        if (!string.Equals(dataRowValue, nullValue))
+                        if (!Equals(dataRowValue, nullValue))
                         {
                             newValue = dataRowValue;
                         }

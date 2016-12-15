@@ -35,7 +35,6 @@ namespace Core.Common.Base.Test
             // Call
             using (var observer = new Observer(() => { counter++; }))
             {
-
                 // Assert
                 Assert.IsInstanceOf<IObserver>(observer);
                 Assert.IsNull(observer.Observable);

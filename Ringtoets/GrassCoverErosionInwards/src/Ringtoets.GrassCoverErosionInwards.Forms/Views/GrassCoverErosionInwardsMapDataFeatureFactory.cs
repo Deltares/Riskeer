@@ -49,15 +49,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
 
             var calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(c =>
-                c.InputParameters.DikeProfile != null &&
-                c.InputParameters.HydraulicBoundaryLocation != null);
+                                                                                          c.InputParameters.DikeProfile != null &&
+                                                                                          c.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(
                     calculation => new MapCalculationData(
-                        calculation.Name,
-                        calculation.InputParameters.DikeProfile.WorldReferencePoint,
-                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
+                                       calculation.Name,
+                                       calculation.InputParameters.DikeProfile.WorldReferencePoint,
+                                       calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
             return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }

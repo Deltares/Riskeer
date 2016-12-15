@@ -195,22 +195,22 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                         Assert.AreEqual(geometry[bottomDitchPolderIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[bottomDitchPolderIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (byte)CharacteristicPointType.DikeToeAtPolder:
+                    case (byte) CharacteristicPointType.DikeToeAtPolder:
                         Assert.AreEqual(geometry[toePolderIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[toePolderIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[toePolderIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (byte)CharacteristicPointType.DikeToeAtRiver:
+                    case (byte) CharacteristicPointType.DikeToeAtRiver:
                         Assert.AreEqual(geometry[toeDikeIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[toeDikeIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[toeDikeIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (byte)CharacteristicPointType.DitchDikeSide:
+                    case (byte) CharacteristicPointType.DitchDikeSide:
                         Assert.AreEqual(geometry[ditchDikeIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[ditchDikeIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[ditchDikeIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (byte)CharacteristicPointType.DitchPolderSide:
+                    case (byte) CharacteristicPointType.DitchPolderSide:
                         Assert.AreEqual(geometry[ditchPolderIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[ditchPolderIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[ditchPolderIndex].Z, characteristicPointEntity.Z);
@@ -261,8 +261,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             Assert.AreEqual(6, entity.CharacteristicPointEntities.Count);
             byte[] characteristicPointTypeValues = entity.CharacteristicPointEntities
-                                                          .Select(cpe => cpe.Type)
-                                                          .ToArray();
+                                                         .Select(cpe => cpe.Type)
+                                                         .ToArray();
             CollectionAssert.Contains(characteristicPointTypeValues, (byte) CharacteristicPointType.DikeToeAtRiver);
             CollectionAssert.Contains(characteristicPointTypeValues, (byte) CharacteristicPointType.DikeToeAtPolder);
             CollectionAssert.Contains(characteristicPointTypeValues, (byte) CharacteristicPointType.DitchDikeSide);

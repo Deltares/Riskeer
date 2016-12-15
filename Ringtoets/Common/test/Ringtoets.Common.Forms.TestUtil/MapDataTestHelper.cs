@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Forms.TestUtil
 
                 Assert.AreEqual(hydraulicBoundaryLocationsArray.Length, hydraulicLocationsMapData.Features.Length);
                 CollectionAssert.AreEqual(hydraulicBoundaryLocationsArray.Select(hrp => hrp.Location),
-                    hydraulicLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
+                                          hydraulicLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
             }
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
         }

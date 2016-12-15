@@ -141,7 +141,7 @@ namespace Ringtoets.Common.Forms.Test
 
         private class TestStructure : StructureBase
         {
-            public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) { }
+            public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
         }
     }
 }

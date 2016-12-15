@@ -37,9 +37,9 @@ namespace Ringtoets.Piping.Service.Test
     [TestFixture]
     public class PipingCalculationServiceTest
     {
+        private const string averagingSoilLayerPropertiesMessage = "Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.";
         private double testSurfaceLineTopLevel;
         private PipingCalculationScenario testCalculation;
-        private const string averagingSoilLayerPropertiesMessage = "Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.";
 
         [SetUp]
         public void Setup()
@@ -154,7 +154,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.InputParameters.UseAssessmentLevelManualInput = true;
             testCalculation.InputParameters.AssessmentLevel = (RoundedDouble) assessmentLevel;
             testCalculation.Name = name;
-            
+
             // Call
             bool isValid = false;
             Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
@@ -384,7 +384,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     aquiferLayer
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
-            
+
             testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             testCalculation.Name = name;
 

@@ -59,7 +59,7 @@ namespace Ringtoets.Revetment.Data
         public WaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveAngle,
                                     double waveDirection,
                                     double targetProbability, double targetReliability,
-                                    double calculatedProbability, double calculatedReliability, 
+                                    double calculatedProbability, double calculatedReliability,
                                     CalculationConvergence calculationConvergence)
         {
             WaterLevel = new RoundedDouble(2, waterLevel);

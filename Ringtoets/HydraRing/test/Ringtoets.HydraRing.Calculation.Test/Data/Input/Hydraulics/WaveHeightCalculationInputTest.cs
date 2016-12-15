@@ -50,7 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(9, waveHeightCalculationInput.CalculationTypeId);
             Assert.AreEqual(28, waveHeightCalculationInput.VariableId);
             Assert.AreEqual(hydraulicBoundaryLocationId, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-            Assert.IsNotNull(waveHeightCalculationInput.Section);            
+            Assert.IsNotNull(waveHeightCalculationInput.Section);
             CollectionAssert.IsEmpty(waveHeightCalculationInput.ProfilePoints);
             CollectionAssert.IsEmpty(waveHeightCalculationInput.ForelandsPoints);
             Assert.IsNull(waveHeightCalculationInput.BreakWater);

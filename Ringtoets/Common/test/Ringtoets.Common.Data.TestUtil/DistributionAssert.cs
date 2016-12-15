@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </list></exception>
         public static void AreEqual(LogNormalDistribution expectedDistribution, LogNormalDistribution actualDistribution)
         {
-            AreEqual((IDistribution)expectedDistribution, actualDistribution);
+            AreEqual((IDistribution) expectedDistribution, actualDistribution);
 
             AreEqualValue(expectedDistribution.Shift, actualDistribution.Shift);
         }

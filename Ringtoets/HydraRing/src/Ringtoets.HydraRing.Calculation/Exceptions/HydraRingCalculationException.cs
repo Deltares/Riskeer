@@ -52,6 +52,6 @@ namespace Ringtoets.HydraRing.Calculation.Exceptions
         /// or a null reference if no inner exception is specified.</param>
         public HydraRingCalculationException(string message, Exception inner) : base(message, inner) {}
 
-        protected HydraRingCalculationException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected HydraRingCalculationException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

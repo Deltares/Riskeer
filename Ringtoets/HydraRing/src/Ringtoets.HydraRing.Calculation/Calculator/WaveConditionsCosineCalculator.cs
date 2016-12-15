@@ -78,7 +78,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             {
                 WaveHeight = waveConditionsCalculationParser.Output.WaveHeight;
                 WaveAngle = waveConditionsCalculationParser.Output.WaveAngle;
-				WaveDirection = waveConditionsCalculationParser.Output.WaveDirection;
+                WaveDirection = waveConditionsCalculationParser.Output.WaveDirection;
                 WavePeakPeriod = waveConditionsCalculationParser.Output.WavePeakPeriod;
             }
 

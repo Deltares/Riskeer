@@ -417,7 +417,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             Assert.AreSame(otherProfile, calculation3.InputParameters.ForeshoreProfile);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void OnNodeRemoved_ForeshoreProfileOfGrassCoverErosionOutwardsWaveConditionsCalculation_ForeshoreProfileRemovedFromFailureMechanismAndCalculationForeshoreProfileCleared()
         {

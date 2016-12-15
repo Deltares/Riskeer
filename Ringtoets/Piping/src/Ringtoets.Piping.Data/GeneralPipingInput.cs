@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Data
         /// under water.
         /// [kN/m³]
         /// </summary>
-        public RoundedDouble SandParticlesVolumicWeight 
+        public RoundedDouble SandParticlesVolumicWeight
         {
             get
             {

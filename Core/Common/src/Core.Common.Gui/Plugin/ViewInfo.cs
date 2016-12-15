@@ -35,7 +35,7 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         public ViewInfo()
         {
-            CreateInstance = () => (IView)Activator.CreateInstance(ViewType);
+            CreateInstance = () => (IView) Activator.CreateInstance(ViewType);
         }
 
         /// <summary>
@@ -114,17 +114,17 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         public Func<IView, object, bool> CloseForData { get; set; }
 
-        public override string ToString()
-        {
-            return DataType + " : " + ViewDataType + " : " + ViewType;
-        }
-
         /// <summary>
         /// Gets or sets the optional method that allows for the construction of the view.
         /// </summary>
         /// <remarks>This property needs to be set if no default constructor is available
         /// for the view type.</remarks>
         public Func<IView> CreateInstance { get; set; }
+
+        public override string ToString()
+        {
+            return DataType + " : " + ViewDataType + " : " + ViewType;
+        }
     }
 
     /// <summary>
@@ -140,7 +140,7 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         public ViewInfo()
         {
-            CreateInstance = () => (TView)Activator.CreateInstance(ViewType);
+            CreateInstance = () => (TView) Activator.CreateInstance(ViewType);
         }
 
         /// <summary>
@@ -238,6 +238,13 @@ namespace Core.Common.Gui.Plugin
         public Func<TView, object, bool> CloseForData { get; set; }
 
         /// <summary>
+        /// Gets or sets the optional method that allows for the construction of the view.
+        /// </summary>
+        /// <remarks>This property needs to be set if no default constructor is available
+        /// for the view type.</remarks>
+        public Func<TView> CreateInstance { get; set; }
+
+        /// <summary>
         /// Performs an implicit conversion from <see cref="ViewInfo{TData, TViewData, TView}"/> to <see cref="ViewInfo"/>.
         /// </summary>
         /// <param name="viewInfo">The view information to convert.</param>
@@ -270,13 +277,6 @@ namespace Core.Common.Gui.Plugin
         {
             return DataType + " : " + ViewDataType + " : " + ViewType;
         }
-
-        /// <summary>
-        /// Gets or sets the optional method that allows for the construction of the view.
-        /// </summary>
-        /// <remarks>This property needs to be set if no default constructor is available
-        /// for the view type.</remarks>
-        public Func<TView> CreateInstance { get; set; }
     }
 
     /// <summary>

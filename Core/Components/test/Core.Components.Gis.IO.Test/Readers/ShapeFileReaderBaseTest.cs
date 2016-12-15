@@ -123,7 +123,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "traject_10-1.shp");
-            
+
             var reader = new TestShapeFileReaderBase(validFilePath);
             var targetFeature = new MapFeature(new MapGeometry[0]);
 
@@ -144,7 +144,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Multiple_Polygon_with_ID.shp");
-            
+
             var reader = new TestShapeFileReaderBase(validFilePath);
             var features = new List<MapFeature>();
 
@@ -159,7 +159,13 @@ namespace Core.Components.Gis.IO.Test.Readers
             }
 
             // Assert
-            CollectionAssert.AreEqual(new [] { 4,3,2,1 } , features.Select(f => f.MetaData["id"]));
+            CollectionAssert.AreEqual(new[]
+            {
+                4,
+                3,
+                2,
+                1
+            }, features.Select(f => f.MetaData["id"]));
         }
 
         [Test]
@@ -221,6 +227,11 @@ namespace Core.Components.Gis.IO.Test.Readers
                 }
             }
 
+            public void PublicCopyMetaDataIntoFeature(MapFeature targetFeature, int sourceFeatureIndex)
+            {
+                CopyMetaDataIntoFeature(targetFeature, sourceFeatureIndex);
+            }
+
             public override FeatureBasedMapData ReadFeature(string name = null)
             {
                 return null;
@@ -234,11 +245,6 @@ namespace Core.Components.Gis.IO.Test.Readers
             public override IFeature GetFeature(int index)
             {
                 return null;
-            }
-
-            public void PublicCopyMetaDataIntoFeature(MapFeature targetFeature, int sourceFeatureIndex)
-            {
-                CopyMetaDataIntoFeature(targetFeature, sourceFeatureIndex);
             }
         }
     }

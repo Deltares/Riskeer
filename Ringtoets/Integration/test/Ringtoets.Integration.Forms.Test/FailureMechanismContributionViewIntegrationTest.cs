@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.AreNotEqual(assessmentSection.Composition, newComposition);
 
                 bool dataGridInvalidated = false;
-                var contributionGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 contributionGridView.Invalidated += (sender, args) => dataGridInvalidated = true;
 
                 // When
@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.Forms.Test
                 assessmentSection.FailureMechanismContribution.NotifyObservers();
 
                 // Then
-                var compositionLabel = (Label)new ControlTester(assessmentSectionCompositionLabelName).TheObject;
+                var compositionLabel = (Label) new ControlTester(assessmentSectionCompositionLabelName).TheObject;
 
                 string compositionDisplayName = new EnumDisplayWrapper<AssessmentSectionComposition>(newComposition).DisplayName;
                 string newCompositionValue = string.Format("Trajecttype: {0}", compositionDisplayName);

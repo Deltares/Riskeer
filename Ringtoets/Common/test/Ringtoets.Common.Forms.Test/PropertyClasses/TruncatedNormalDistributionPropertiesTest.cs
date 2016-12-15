@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Misc",
                                                                             "Standaardafwijking",
                                                                             "De standaardafwijking van de afgekapte normale verdeling.");
-            
+
             PropertyDescriptor lowerBoundaryProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerBoundaryProperty,
                                                                             "Misc",

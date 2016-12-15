@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Call
             TestDelegate test = () => new PipingCalculatorResult(null);
-            
+
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("constructionProperties", paramName);

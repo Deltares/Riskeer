@@ -86,7 +86,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
         private class SimpleDesignVariable : DesignVariable<IDistribution>
         {
-            public SimpleDesignVariable(IDistribution distribution) : base(distribution) { }
+            public SimpleDesignVariable(IDistribution distribution) : base(distribution) {}
 
             public override RoundedDouble GetDesignValue()
             {

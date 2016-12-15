@@ -190,21 +190,25 @@ namespace Ringtoets.Piping.Forms.Test.Views
             calculationB.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8);
 
             // Call
-            MapFeature[] features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(new [] { calculationA, calculationB});
+            MapFeature[] features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(new[]
+            {
+                calculationA,
+                calculationB
+            });
 
             // Assert
             Assert.AreEqual(2, features.Length);
             Assert.AreEqual(1, features[0].MapGeometries.Count());
             Assert.AreEqual(1, features[1].MapGeometries.Count());
-            AssertEqualPointCollections(new []
+            AssertEqualPointCollections(new[]
             {
-                new Point2D(1.0, 3.0), 
-                new Point2D(5.0, 4.0) 
+                new Point2D(1.0, 3.0),
+                new Point2D(5.0, 4.0)
             }, features[0].MapGeometries.ElementAt(0));
-            AssertEqualPointCollections(new []
+            AssertEqualPointCollections(new[]
             {
-                new Point2D(1.0, 4.0), 
-                new Point2D(2.2, 3.8) 
+                new Point2D(1.0, 4.0),
+                new Point2D(2.2, 3.8)
             }, features[1].MapGeometries.ElementAt(0));
         }
 

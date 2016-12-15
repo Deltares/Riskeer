@@ -1106,7 +1106,7 @@ namespace Ringtoets.Piping.Data.Test
                     IsAquifer = true,
                     PermeabilityDeviation = 0.3,
                     PermeabilityMean = 2.4
-                }, 
+                },
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
@@ -1125,7 +1125,7 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
             var random = new Random(21);
             double mean = 0.1 + random.NextDouble();
-            double deviation = mean / 2;
+            double deviation = mean/2;
             double mean2 = 0.1 + random.NextDouble();
             double deviation2 = mean2/2;
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", 0.0, new[]
@@ -1148,9 +1148,9 @@ namespace Ringtoets.Piping.Data.Test
             var result = derivedInput.DarcyPermeability;
 
             // Assert
-            var weightedMean = (mean * 0.5 + mean2) / 1.5;
+            var weightedMean = (mean*0.5 + mean2)/1.5;
             Assert.AreEqual(weightedMean, result.Mean, result.Mean.GetAccuracy());
-            Assert.AreEqual(weightedMean / 2, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(weightedMean/2, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
         }
 
         [Test]

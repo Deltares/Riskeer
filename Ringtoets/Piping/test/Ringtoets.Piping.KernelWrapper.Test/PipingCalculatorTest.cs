@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             PipingCalculatorInput input = new TestPipingInput().AsRealInput();
             var testPipingSubCalculatorFactory = new TestPipingSubCalculatorFactory();
-            var bottomAquitardLayerAboveExitPointZ = new Random(21).NextDouble() * 10;
+            var bottomAquitardLayerAboveExitPointZ = new Random(21).NextDouble()*10;
             testPipingSubCalculatorFactory.LastCreatedPipingProfilePropertyCalculator.BottomAquitardLayerAboveExitPointZ = bottomAquitardLayerAboveExitPointZ;
 
             // Call
@@ -350,9 +350,9 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         }
 
         [Test]
-        [TestCase(0,2,1,3)]
-        [TestCase(0,3,2,1)]
-        [TestCase(3,2,1,0)]
+        [TestCase(0, 2, 1, 3)]
+        [TestCase(0, 3, 2, 1)]
+        [TestCase(3, 2, 1, 0)]
         public void Validate_SurfaceLineInvalidDitchPointsOrder_ValidationMessageForInvalidDitchPointsOrder(
             int ditchDikeSidePosition,
             int bottomDitchDikeSidePosition,

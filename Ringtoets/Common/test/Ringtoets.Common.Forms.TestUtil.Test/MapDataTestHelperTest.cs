@@ -208,7 +208,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             // Setup
             var mapData = new MapPointData("test")
             {
-                Features = new []
+                Features = new[]
                 {
                     new MapFeature(new[]
                     {

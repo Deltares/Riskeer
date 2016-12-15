@@ -149,9 +149,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
             // Hide all the properties that are used to set the data
-            return propertyName != TypeUtils.GetMemberName<FailureMechanismContributionProperties>(p => p.AssessmentSection) 
-                && propertyName != TypeUtils.GetMemberName<FailureMechanismContributionProperties>(p => p.NormChangeHandler) 
-                && propertyName != TypeUtils.GetMemberName<FailureMechanismContributionProperties>(p => p.CompositionChangeHandler);
+            return propertyName != TypeUtils.GetMemberName<FailureMechanismContributionProperties>(p => p.AssessmentSection)
+                   && propertyName != TypeUtils.GetMemberName<FailureMechanismContributionProperties>(p => p.NormChangeHandler)
+                   && propertyName != TypeUtils.GetMemberName<FailureMechanismContributionProperties>(p => p.CompositionChangeHandler);
         }
     }
 }

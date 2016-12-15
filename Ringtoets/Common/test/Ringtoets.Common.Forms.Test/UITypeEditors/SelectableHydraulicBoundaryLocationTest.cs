@@ -283,7 +283,9 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         private static string GetStringRepresentation(HydraulicBoundaryLocation location, Point2D referencePoint)
         {
             if (referencePoint == null)
+            {
                 return location.Name;
+            }
 
             var distance = location.Location.GetEuclideanDistanceTo(referencePoint);
 

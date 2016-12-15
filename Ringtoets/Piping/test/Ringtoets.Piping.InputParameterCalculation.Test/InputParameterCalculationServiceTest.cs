@@ -60,10 +60,10 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             // Call
             PipingInput input = invalidPipingCalculation.InputParameters;
             double result = InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(input.WaterVolumetricWeight,
-                                                                                             PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
-                                                                                             input.ExitPointL,
-                                                                                             input.SurfaceLine,
-                                                                                             input.StochasticSoilProfile.SoilProfile);
+                                                                                                      PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                                                                                                      input.ExitPointL,
+                                                                                                      input.SurfaceLine,
+                                                                                                      input.StochasticSoilProfile.SoilProfile);
 
             // Assert
             Assert.IsNaN(result);

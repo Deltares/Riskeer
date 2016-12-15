@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// <summary>
     /// A presentation layer object which wraps a <see cref="PipingOutput"/> and a <see cref="PipingSemiProbabilisticOutput"/>.
     /// </summary>
-    public class PipingOutputContext: WrappedObjectContextBase<PipingOutput>
+    public class PipingOutputContext : WrappedObjectContextBase<PipingOutput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingOutputContext"/>.

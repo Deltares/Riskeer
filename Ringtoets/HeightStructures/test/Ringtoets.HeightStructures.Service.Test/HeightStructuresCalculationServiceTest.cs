@@ -373,7 +373,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
         [Test]
         [TestCaseSource("DistributionsWithInvalidCoefficient")]
-        public void Validate_DistributionVariationCoefficientInvalid_LogsErrorAndReturnsFalse( 
+        public void Validate_DistributionVariationCoefficientInvalid_LogsErrorAndReturnsFalse(
             double coefficientOne, double coefficientTwo, double coefficientThree, double coefficientFour, string parameterName)
         {
             // Setup
@@ -754,7 +754,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository);
-            mockRepository.ReplayAll();            
+            mockRepository.ReplayAll();
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -819,7 +819,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
-            
+
             var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =
@@ -882,7 +882,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
-            
+
             var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =

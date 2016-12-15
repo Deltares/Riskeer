@@ -43,8 +43,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         public DikeHeightAssessmentOutput(double dikeHeight, double targetProbability, double targetReliability,
-                                               double calculatedProbability, double calculatedReliability,
-                                               CalculationConvergence calculationConvergence)
+                                          double calculatedProbability, double calculatedReliability,
+                                          CalculationConvergence calculationConvergence)
         {
             if (!IsValidProbability(targetProbability))
             {

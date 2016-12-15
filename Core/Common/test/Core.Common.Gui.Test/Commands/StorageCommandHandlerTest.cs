@@ -254,7 +254,7 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             const string fileName = "newProject";
             string pathToSomeValidFile = string.Format("C://folder/directory/{0}.rtd",
-                                                         fileName);
+                                                       fileName);
             var loadedProject = mocks.Stub<IProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
 

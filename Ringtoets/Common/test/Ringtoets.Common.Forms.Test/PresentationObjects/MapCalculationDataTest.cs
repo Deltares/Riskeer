@@ -40,14 +40,14 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate test = () => new MapCalculationData(
-                null,
-                calculationLocation,
-                hydraulicBoundaryLocation);
+                                          null,
+                                          calculationLocation,
+                                          hydraulicBoundaryLocation);
 
             // Assert
             const string expectedMessage = "A calculation name is required.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage)
-                .ParamName;
+                                         .ParamName;
 
             Assert.AreEqual("calculationName", paramName);
         }
@@ -61,14 +61,14 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate test = () => new MapCalculationData(
-                calculationName,
-                null,
-                hydraulicBoundaryLocation);
+                                          calculationName,
+                                          null,
+                                          hydraulicBoundaryLocation);
 
             // Assert
             string expectedMessage = "A location for the calculation is required.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage)
-                .ParamName;
+                                         .ParamName;
 
             Assert.AreEqual("calculationLocation", paramName);
         }
@@ -82,14 +82,14 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate test = () => new MapCalculationData(
-                calculationName,
-                calculationLocation,
-                null);
+                                          calculationName,
+                                          calculationLocation,
+                                          null);
 
             // Assert
             string expectedMessage = "A hydraulic boundary location is required.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage)
-                .ParamName;
+                                         .ParamName;
 
             Assert.AreEqual("hydraulicBoundaryLocation", paramName);
         }

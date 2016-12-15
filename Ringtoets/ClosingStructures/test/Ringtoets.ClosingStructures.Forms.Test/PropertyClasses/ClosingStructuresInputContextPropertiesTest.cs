@@ -212,7 +212,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             properties.FailureProbabilityOpenStructure = "1e-3";
             properties.FailureProbabilityReparation = "1e-4";
             properties.IdenticalApertures = newIdenticalApertures;
-            
 
             // Assert
             var expectedProbabilityOrFrequencyOpenStructureBeforeFlooding = ProbabilityFormattingHelper.Format(0.01);
@@ -262,7 +261,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             mockRepository.VerifyAll();
         }
-        
+
         [Test]
         [TestCase(double.MinValue)]
         [TestCase(double.MaxValue)]
@@ -475,11 +474,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
             // Call
-            TestDelegate call = () =>
-            {
-                
-                properties.FailureProbabilityReparation = newProbabilityString;
-            };
+            TestDelegate call = () => { properties.FailureProbabilityReparation = newProbabilityString; };
 
             // Assert
             var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";

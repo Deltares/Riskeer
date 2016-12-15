@@ -96,7 +96,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(2, viewInfos.Length);
-                
+
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(WaveImpactAsphaltCoverFailureMechanismContext),

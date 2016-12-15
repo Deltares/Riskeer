@@ -61,7 +61,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
 
             // Call
             bool areEqual = selectableAttribute.Equals(selectableAttribute);
-            
+
             // Assert
             Assert.IsTrue(areEqual);
         }

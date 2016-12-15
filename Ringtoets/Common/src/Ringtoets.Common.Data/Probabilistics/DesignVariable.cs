@@ -25,7 +25,8 @@ using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Probabilistics
 {
-    public abstract class DesignVariable<TDistributionType> where TDistributionType : IDistribution {
+    public abstract class DesignVariable<TDistributionType> where TDistributionType : IDistribution
+    {
         private TDistributionType distribution;
 
         /// <summary>

@@ -151,8 +151,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 Assert.AreEqual(3, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos, 
-                    typeof(HeightStructuresFailureMechanismContext), 
+                    viewInfos,
+                    typeof(HeightStructuresFailureMechanismContext),
                     typeof(HeightStructuresFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
@@ -162,7 +162,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                     typeof(HeightStructuresFailureMechanismResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos, 
+                    viewInfos,
                     typeof(HeightStructuresScenariosContext),
                     typeof(CalculationGroup),
                     typeof(HeightStructuresScenariosView));

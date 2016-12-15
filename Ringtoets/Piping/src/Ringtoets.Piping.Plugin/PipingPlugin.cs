@@ -649,8 +649,8 @@ namespace Ringtoets.Piping.Plugin
             if (pipingCalculationScenario.HasOutput)
             {
                 childNodes.Add(new PipingOutputContext(
-                    pipingCalculationScenario.Output,
-                    pipingCalculationScenario.SemiProbabilisticOutput));
+                                   pipingCalculationScenario.Output,
+                                   pipingCalculationScenario.SemiProbabilisticOutput));
             }
             else
             {

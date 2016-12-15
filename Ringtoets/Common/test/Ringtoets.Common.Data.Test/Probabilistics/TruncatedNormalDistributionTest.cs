@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var distribution = new TruncatedNormalDistribution(numberOfDecimalPlaces);
 
             // Call
-            distribution.LowerBoundary = (RoundedDouble)value;
+            distribution.LowerBoundary = (RoundedDouble) value;
 
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, distribution.LowerBoundary.NumberOfDecimalPlaces);
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var distribution = new TruncatedNormalDistribution(numberOfDecimalPlaces);
 
             // Call
-            distribution.UpperBoundary = (RoundedDouble)value;
+            distribution.UpperBoundary = (RoundedDouble) value;
 
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, distribution.UpperBoundary.NumberOfDecimalPlaces);

@@ -52,10 +52,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// [s]
         /// </summary>
         double WavePeakPeriod { get; }
-        
+
         /// <summary>
         /// Gets the calculated reliability index.
-		/// [-]
+        /// [-]
         /// </summary>
         double ReliabilityIndex { get; }
 

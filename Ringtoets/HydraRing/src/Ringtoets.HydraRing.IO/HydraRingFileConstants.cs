@@ -30,7 +30,7 @@ namespace Ringtoets.HydraRing.IO
         /// The tail and extension of the file containing output generated during a calculation.
         /// </summary>
         internal const string OutputFileSuffix = "-output.txt";
-        
+
         /// <summary>
         /// The file name of the file containing the output of a calculation.
         /// </summary>

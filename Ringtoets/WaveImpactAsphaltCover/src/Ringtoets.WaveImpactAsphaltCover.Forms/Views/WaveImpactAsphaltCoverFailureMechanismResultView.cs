@@ -61,10 +61,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             base.AddDataGridColumns();
 
             EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
-               Enum.GetValues(typeof(AssessmentLayerTwoAResult))
-                   .OfType<AssessmentLayerTwoAResult>()
-                   .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
-                   .ToArray();
+                Enum.GetValues(typeof(AssessmentLayerTwoAResult))
+                    .OfType<AssessmentLayerTwoAResult>()
+                    .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
+                    .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
                 TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),

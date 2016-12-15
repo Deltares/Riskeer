@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         /// Sets the soil profile.
         /// </summary>
         PipingProfile SoilProfile { set; }
-        
+
         /// <summary>
         /// Sets the surface line.
         /// </summary>

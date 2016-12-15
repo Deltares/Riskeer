@@ -26,7 +26,6 @@ using GeoAPI.Geometries;
 using MathNet.Spatial.Euclidean;
 using MathNet.Spatial.Units;
 using NetTopologySuite.Geometries;
-
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
 namespace Core.Common.Geometry

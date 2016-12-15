@@ -40,7 +40,7 @@ namespace Core.Common.TestUtil.Test
             string value1 = "1";
             string value2 = "2";
 
-            using(var form = new Form())
+            using (var form = new Form())
             using (var control = new ComboBox
             {
                 DropDownStyle = ComboBoxStyle.DropDownList,
@@ -59,26 +59,11 @@ namespace Core.Common.TestUtil.Test
                 form.Show();
 
                 var raisedEvents = new Collection<string>();
-                control.SelectedIndexChanged += (sender, args) =>
-                {
-                    raisedEvents.Add(selectedindexchanged);
-                };
-                control.SelectedValueChanged += (sender, args) =>
-                {
-                    raisedEvents.Add(selectedvaluechanged);
-                };
-                control.SelectionChangeCommitted += (sender, args) =>
-                {
-                    raisedEvents.Add(selectionchangecommitted);
-                };
-                control.Validating += (sender, args) =>
-                {
-                    Assert.Fail("Validating event should not be fired as 'FakeUserSelectingNewValue' method does not handle focus-changes.");
-                };
-                control.Validated += (sender, args) =>
-                {
-                    Assert.Fail("Validated event should not be fired as 'FakeUserSelectingNewValue' method does not handle focus-changes.");
-                };
+                control.SelectedIndexChanged += (sender, args) => { raisedEvents.Add(selectedindexchanged); };
+                control.SelectedValueChanged += (sender, args) => { raisedEvents.Add(selectedvaluechanged); };
+                control.SelectionChangeCommitted += (sender, args) => { raisedEvents.Add(selectionchangecommitted); };
+                control.Validating += (sender, args) => { Assert.Fail("Validating event should not be fired as 'FakeUserSelectingNewValue' method does not handle focus-changes."); };
+                control.Validated += (sender, args) => { Assert.Fail("Validated event should not be fired as 'FakeUserSelectingNewValue' method does not handle focus-changes."); };
 
                 // Call
                 ControlsTestHelper.FakeUserSelectingNewValue(control, value2);

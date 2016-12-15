@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.KernelWrapper
             var heaveResult = CalculateHeave();
             var sellmeijerResult = CalculateSellmeijer();
 
-            return new PipingCalculatorResult(new PipingCalculatorResult.ConstructionProperties 
+            return new PipingCalculatorResult(new PipingCalculatorResult.ConstructionProperties
             {
                 UpliftZValue = upliftResult.Zu,
                 UpliftFactorOfSafety = upliftResult.FoSu,

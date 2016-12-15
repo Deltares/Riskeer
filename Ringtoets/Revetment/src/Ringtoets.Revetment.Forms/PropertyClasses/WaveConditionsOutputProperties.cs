@@ -118,7 +118,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             get
             {
                 return data.TargetReliability;
-            } 
+            }
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]

@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         private const int expectedDarcyPermeabilityPropertyIndex = 15;
         private const int expectedDiameter70PropertyIndex = 16;
         private const int expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex = 17;
-        
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {

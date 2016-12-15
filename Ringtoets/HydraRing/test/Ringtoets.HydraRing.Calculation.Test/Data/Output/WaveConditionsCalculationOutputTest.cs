@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
             const double waveDirection = 5.0;
             const double waveHeight = 9.93;
             const double wavePeakPeriod = 18;
-            
+
             // Call
             var output = new WaveConditionsCalculationOutput(waveHeight, wavePeakPeriod, waveAngle, waveDirection);
 

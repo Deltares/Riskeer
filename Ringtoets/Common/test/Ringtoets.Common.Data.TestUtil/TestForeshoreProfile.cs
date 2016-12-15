@@ -56,12 +56,13 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="breakWater">The <see cref="BreakWater"/> which needs to be set on the <see cref="ForeshoreProfile"/>.</param>
         public TestForeshoreProfile(BreakWater breakWater) : this(null, new Point2D(0, 0), breakWater) {}
 
-        private TestForeshoreProfile(string profileName, Point2D worldCoordinate, BreakWater breakWater) : base(worldCoordinate,
-                                                                                       Enumerable.Empty<Point2D>(),
-                                                                                       breakWater,
-                                                                                       new ConstructionProperties
-                                                                                       {
-                                                                                           Name = profileName
-                                                                                       }) {}
+        private TestForeshoreProfile(string profileName, Point2D worldCoordinate, BreakWater breakWater)
+            : base(worldCoordinate,
+                   Enumerable.Empty<Point2D>(),
+                   breakWater,
+                   new ConstructionProperties
+                   {
+                       Name = profileName
+                   }) {}
     }
 }

@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
             inputParameters.UseAssessmentLevelManualInput = Convert.ToBoolean(entity.UseAssessmentLevelManualInput);
             if (inputParameters.UseAssessmentLevelManualInput)
             {
-                inputParameters.AssessmentLevel = (RoundedDouble)entity.AssessmentLevel.ToNullAsNaN();
+                inputParameters.AssessmentLevel = (RoundedDouble) entity.AssessmentLevel.ToNullAsNaN();
             }
             else
             {
@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 inputParameters.StochasticSoilModel = entity.StochasticSoilProfileEntity.StochasticSoilModelEntity.Read(collector);
                 inputParameters.StochasticSoilProfile = entity.StochasticSoilProfileEntity.Read(collector);
             }
-            
+
             inputParameters.EntryPointL = (RoundedDouble) entity.EntryPointL.ToNullAsNaN();
             inputParameters.ExitPointL = (RoundedDouble) entity.ExitPointL.ToNullAsNaN();
             inputParameters.PhreaticLevelExit.Mean = (RoundedDouble) entity.PhreaticLevelExitMean.ToNullAsNaN();

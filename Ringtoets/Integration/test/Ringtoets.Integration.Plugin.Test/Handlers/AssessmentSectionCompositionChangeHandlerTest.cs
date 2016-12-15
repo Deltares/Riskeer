@@ -134,7 +134,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.True(calculationsWithOutput.All(c => c.HasOutput),
-                "All calculations that had output still have them.");
+                        "All calculations that had output still have them.");
 
             CollectionAssert.IsEmpty(affectedObjects);
         }

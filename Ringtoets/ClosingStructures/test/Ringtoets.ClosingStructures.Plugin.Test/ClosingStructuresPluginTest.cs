@@ -129,10 +129,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(3, viewInfos.Length);
-                
+
                 PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos, 
-                    typeof(ClosingStructuresFailureMechanismContext), 
+                    viewInfos,
+                    typeof(ClosingStructuresFailureMechanismContext),
                     typeof(ClosingStructuresFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
@@ -142,7 +142,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                     typeof(ClosingStructuresFailureMechanismResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos, 
+                    viewInfos,
                     typeof(ClosingStructuresScenariosContext),
                     typeof(CalculationGroup),
                     typeof(ClosingStructuresScenariosView));

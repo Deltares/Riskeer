@@ -316,7 +316,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         {
             return new CharacteristicPointEntity
             {
-                Type = (byte)type,
+                Type = (byte) type,
                 X = point.X, Y = point.Y, Z = point.Z
             };
         }

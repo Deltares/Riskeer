@@ -286,7 +286,7 @@ namespace Ringtoets.Piping.Data
                 {
                     throw new InvalidOperationException("UseAssessmentLevelManualInput is false");
                 }
-                    
+
                 assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
         }

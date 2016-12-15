@@ -37,7 +37,7 @@ namespace Core.Common.IO.Test.Readers
         public void Read_NullDataReader_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IDataReader)null).Read<Int32>("column");
+            TestDelegate test = () => ((IDataReader) null).Read<Int32>("column");
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -120,9 +120,9 @@ namespace Core.Common.IO.Test.Readers
 
             // Assert
             var message = Assert.Throws<ConversionException>(test).Message;
-            var expectedMessage = string.Format(CultureInfo.CurrentCulture, 
-                "Value read from data reader ('{0}') could not be cast to desired type System.Data.IDataReader.",
-                value);
+            var expectedMessage = string.Format(CultureInfo.CurrentCulture,
+                                                "Value read from data reader ('{0}') could not be cast to desired type System.Data.IDataReader.",
+                                                value);
             Assert.AreEqual(expectedMessage, message);
 
             mockRepository.VerifyAll();

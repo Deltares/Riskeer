@@ -201,10 +201,10 @@ namespace Core.Plugins.Map.Legend
                 (sender, args) => ShowSelectShapeFileDialog(mapDataCollection));
 
             return contextMenuBuilderProvider.Get(mapDataCollection, treeView)
-                .AddCustomItem(addMapLayerMenuItem)
-                .AddSeparator()
-                .AddPropertiesItem()
-                .Build();
+                                             .AddCustomItem(addMapLayerMenuItem)
+                                             .AddSeparator()
+                                             .AddPropertiesItem()
+                                             .Build();
         }
 
         #endregion

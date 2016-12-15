@@ -32,13 +32,13 @@ namespace Ringtoets.Common.Data.Calculation
         bool HasOutput { get; }
 
         /// <summary>
-        /// Clears the calculated output.
-        /// </summary>
-        void ClearOutput();
-
-        /// <summary>
         /// Gets the comments associated with the calculation.
         /// </summary>
         Comment Comments { get; }
+
+        /// <summary>
+        /// Clears the calculated output.
+        /// </summary>
+        void ClearOutput();
     }
 }

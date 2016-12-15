@@ -105,7 +105,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
         }
 
-
         [Test]
         public void Parse_InvalidHydraRingOutputFileWaveDirectionMissing_OutputNull()
         {

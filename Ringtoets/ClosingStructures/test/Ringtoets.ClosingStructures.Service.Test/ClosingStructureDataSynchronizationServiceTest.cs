@@ -349,7 +349,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 CollectionAssert.Contains(array, result);
             }
             Assert.AreEqual(originalNumberOfSectionResultAssignments - sectionResults.Length, failureMechanism.SectionResults.Count(sr => sr.Calculation != null),
-                "Other section results with a different calculation/structure should still have their association.");
+                            "Other section results with a different calculation/structure should still have their association.");
         }
 
         private ClosingStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()

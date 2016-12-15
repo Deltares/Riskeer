@@ -171,8 +171,8 @@ namespace Ringtoets.Common.Service
         }
 
         private static AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                            double norm,
-                                                            string hydraulicBoundaryDatabaseFilePath)
+                                                                   double norm,
+                                                                   string hydraulicBoundaryDatabaseFilePath)
         {
             var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
 

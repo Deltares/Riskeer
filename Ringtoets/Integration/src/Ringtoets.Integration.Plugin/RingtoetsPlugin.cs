@@ -279,7 +279,7 @@ namespace Ringtoets.Integration.Plugin
                     properties.CompositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
                     properties.AssessmentSection = context.Parent;
                 }
-            }; 
+            };
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>();
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
@@ -309,10 +309,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
                 CloseForData = CloseFailureMechanismContributionViewForData,
                 CreateInstance = () => new FailureMechanismContributionView(Gui.ViewCommands),
-                AfterCreate = (view, context) =>
-                {
-                    view.AssessmentSection = context.Parent;
-                }
+                AfterCreate = (view, context) => { view.AssessmentSection = context.Parent; }
             };
 
             yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, DesignWaterLevelLocationsView>

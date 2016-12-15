@@ -41,18 +41,18 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("wrappedData", paramName);
-        } 
+        }
 
         [Test]
         public void Constructor_WithoutSemiProbabilisticOutput_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingOutputContext(new TestPipingOutput(),null);
+            TestDelegate test = () => new PipingOutputContext(new TestPipingOutput(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("semiProbabilisticOutput", paramName);
-        } 
+        }
 
         [Test]
         public void Constructor_WithOutputParameters_PropertiesSet()
@@ -62,12 +62,12 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var semiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
 
             // Call
-            var context =  new PipingOutputContext(pipingOutput, semiProbabilisticOutput);
+            var context = new PipingOutputContext(pipingOutput, semiProbabilisticOutput);
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<PipingOutput>>(context);
             Assert.AreSame(pipingOutput, context.WrappedData);
             Assert.AreSame(semiProbabilisticOutput, context.SemiProbabilisticOutput);
-        } 
+        }
     }
 }

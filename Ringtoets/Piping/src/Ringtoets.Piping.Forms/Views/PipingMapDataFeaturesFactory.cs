@@ -120,15 +120,15 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             var calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(c =>
-                c.InputParameters.SurfaceLine != null &&
-                c.InputParameters.HydraulicBoundaryLocation != null);
+                                                                                          c.InputParameters.SurfaceLine != null &&
+                                                                                          c.InputParameters.HydraulicBoundaryLocation != null);
 
-            MapCalculationData[] calculationData = 
+            MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(
                     calculation => new MapCalculationData(
-                        calculation.Name, 
-                        calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint, 
-                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
+                                       calculation.Name,
+                                       calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
+                                       calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
             return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }

@@ -142,7 +142,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateFailureMechanismSectionFeatures(IEnumerable<FailureMechanismSection> sections)
         {
-            return sections != null 
+            return sections != null
                        ? sections.Select(CreateFailureMechanismSectionMapFeature).ToArray()
                        : new MapFeature[0];
         }

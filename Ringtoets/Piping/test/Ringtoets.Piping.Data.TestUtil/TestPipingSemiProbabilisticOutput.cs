@@ -31,6 +31,6 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// Creates a new instance of the <see cref="TestPipingSemiProbabilisticOutput"/> class.
         /// </summary>
         /// <param name="probability">The optional probability to set (set to <c>0</c> when not specified).</param>
-        public TestPipingSemiProbabilisticOutput(double probability = 0) : base(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, probability, 0, 0) { }
+        public TestPipingSemiProbabilisticOutput(double probability = 0) : base(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, probability, 0, 0) {}
     }
 }
