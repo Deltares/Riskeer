@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var random = new Random(21);
             var output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN, double.NaN,
                                                              double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
-            
+
             HydraulicLocationOutputType outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
             // Call

@@ -176,9 +176,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_CalculateDikeHeightInvalidDikeHeightCalculationAndRan(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_CalculateDikeHeightInvalidDikeHeightCalculationAndRan(RequiredProbability)")]
         public void Run_CalculateDikeHeightTrueAndValidProbabilityCalculationAndInvalidDikeHeightCalculationAndRan_PerformGrassCoverErosionInwardsValidationAndCalculationAndLogStartAndEndAndError(
-            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+            DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var mocks = new MockRepository();
@@ -266,8 +267,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_CalculateDikeHeightAndInvalidProbabilityCalculation_ProgressTextSetToProbabilityCalculation([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                                                        DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_CalculateDikeHeightInvalidCalculation_ProgressTextCalculation(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_CalculateDikeHeightInvalidCalculation_ProgressTextCalculation(ProfileProbability)")]
+        public void Run_CalculateDikeHeightAndInvalidProbabilityCalculation_ProgressTextSetToProbabilityCalculation(DikeHeightCalculationType dikeHeightCalculationType)
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
@@ -299,8 +301,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_CalculateDikeHeight_ProgressTextSetToDikeHeightCalculation([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                       DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_CalculateDikeHeight_ProgressTextDikeHeightCalculation(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_CalculateDikeHeight_ProgressTextDikeHeightCalculation(ProfileProbability)")]
+        public void Run_CalculateDikeHeight_ProgressTextSetToDikeHeightCalculation(DikeHeightCalculationType dikeHeightCalculationType)
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
@@ -329,9 +332,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_CalculateWithDikeHeightAndRan_PerformValidationAndCalculationAndLogStartAndEndError(
-            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_CalculateWithDikeHeightRan_PerformValidationCalculationLogStartEndError(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_CalculateWithDikeHeightRan_PerformValidationCalculationLogStartEndError(ProfileProbability)")]
+        public void Run_CalculateWithDikeHeightAndRan_PerformValidationAndCalculationAndLogStartAndEndError(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -383,8 +386,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void RunWithDikeHeight_CancelDuringOvertoppingCalculation_ProgressTextSetToProbabilityCalculation([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                                                     DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "RunWithDikeHeight_CancelDuringOvertoppingCalculation_ProgressCalculation(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "RunWithDikeHeight_CancelDuringOvertoppingCalculation_ProgressCalculation(ProfileProbability)")]
+        public void RunWithDikeHeight_CancelDuringOvertoppingCalculation_ProgressTextSetToProbabilityCalculation(DikeHeightCalculationType dikeHeightCalculationType)
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
@@ -509,8 +513,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Finish_CalculateDikeHeightAndValidCalculationsAndRan_OutputSetAndObserversNotified([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                                           DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_CalculateDikeHeightValidCalculationsRan_OutputSetObserversNotified(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_CalculateDikeHeightValidCalculationsRan_OutputSetObserversNotified(ProfileProbability)")]
+        public void Finish_CalculateDikeHeightAndValidCalculationsAndRan_OutputSetAndObserversNotified(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var mocks = new MockRepository();
@@ -555,8 +560,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Finish_CalculateDikeHeightAndInvalidDikeHeightCalculationAndRan_OutputSetAndObserversNotified([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                                                      DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_CalculateInvalidDikeHeightCalculationRan_OutputSetObserversNotified(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_CalculateInvalidDikeHeightCalculationRan_OutputSetObserversNotified(ProfileProbability)")]
+        public void Finish_CalculateDikeHeightAndInvalidDikeHeightCalculationAndRan_OutputSetAndObserversNotified(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var mocks = new MockRepository();
@@ -601,8 +607,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_OvertoppingCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                                                   DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_OvertoppingCalculationFailedExceptionLastError_LogErrorThrowException(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_OvertoppingCalculationFailedExceptionLastError_LogErrorThrowException(ProfileProbability)")]
+        public void Run_OvertoppingCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -647,8 +654,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_OvertoppingCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                                                     DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_OvertoppingCalculationFailedExceptionNoLastError_LogErrorThrowException(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_OvertoppingCalculationFailedExceptionNoLastError_LogErrorThrowException(ProfileProbability)")]
+        public void Run_OvertoppingCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -692,8 +700,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_OvertoppingCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                                                          DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_OvertoppingCalculationFailedNoExceptionLastError_LogErrorThrowException(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_OvertoppingCalculationFailedNoExceptionLastError_LogErrorThrowException(ProfileProbability)")]
+        public void Run_OvertoppingCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -739,8 +748,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_DikeHeightCalculationFailedWithExceptionAndLastErrorPresent_LogError([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                                 DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_DikeHeightCalculationFailedWithExceptionLastError_LogError(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_DikeHeightCalculationFailedWithExceptionLastError_LogError(ProfileProbability)")]
+        public void Run_DikeHeightCalculationFailedWithExceptionAndLastErrorPresent_LogError(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -786,8 +796,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_DikeHeightCalculationFailedWithExceptionAndNoLastErrorPresent_LogError([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                                   DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_DikeHeightCalculationFailedWithExceptionNoLastError_LogError(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_DikeHeightCalculationFailedWithExceptionNoLastError_LogError(ProfileProbability)")]
+        public void Run_DikeHeightCalculationFailedWithExceptionAndNoLastErrorPresent_LogError(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -832,8 +843,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_DikeHeightCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogError([Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                                                        DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_DikeHeightCalculationFailedWithoutExceptionWithLastError_LogError(AssessmentSectionNorm)")]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_DikeHeightCalculationFailedWithoutExceptionWithLastError_LogError(ProfileProbability)")]
+        public void Run_DikeHeightCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogError(DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
