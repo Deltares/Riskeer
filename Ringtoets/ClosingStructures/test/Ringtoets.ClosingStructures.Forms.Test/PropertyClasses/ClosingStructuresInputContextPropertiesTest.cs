@@ -474,7 +474,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
             // Call
-            TestDelegate call = () => { properties.FailureProbabilityReparation = newProbabilityString; };
+            TestDelegate call = () => properties.FailureProbabilityReparation = newProbabilityString;
 
             // Assert
             var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";

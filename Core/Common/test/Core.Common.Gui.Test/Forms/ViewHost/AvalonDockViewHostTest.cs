@@ -118,12 +118,12 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var firedEvents = new List<string>();
 
             var control1 = new TextBox();
-            control1.Validating += (sender, args) => { firedEvents.Add(validatingTextBoxEventName); };
-            control1.Validated += (sender, args) => { firedEvents.Add(validatedTextBoxEventName); };
+            control1.Validating += (sender, args) => firedEvents.Add(validatingTextBoxEventName);
+            control1.Validated += (sender, args) => firedEvents.Add(validatedTextBoxEventName);
 
             var control2 = new NumericUpDown();
-            control2.Validating += (sender, args) => { firedEvents.Add(validatingNumericUpDownEventName); };
-            control2.Validated += (sender, args) => { firedEvents.Add(validatedNumericUpDownEventName); };
+            control2.Validating += (sender, args) => firedEvents.Add(validatingNumericUpDownEventName);
+            control2.Validated += (sender, args) => firedEvents.Add(validatedNumericUpDownEventName);
 
             var testView = new TestView();
             testView.Controls.AddRange(new Control[]

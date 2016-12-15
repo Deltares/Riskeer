@@ -309,7 +309,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
                 CloseForData = CloseFailureMechanismContributionViewForData,
                 CreateInstance = () => new FailureMechanismContributionView(Gui.ViewCommands),
-                AfterCreate = (view, context) => { view.AssessmentSection = context.Parent; }
+                AfterCreate = (view, context) => view.AssessmentSection = context.Parent
             };
 
             yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, DesignWaterLevelLocationsView>
