@@ -88,9 +88,14 @@ namespace Ringtoets.Common.IO.FileImporters
 
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections, 2, 3);
             ICollection<FailureMechanismSection> readFailureMechanismSections = readResults.ImportedItems;
-            if (!SectionsCorrespondToReferenceLine(referenceLine, readFailureMechanismSections))
+            if (HasStartOrEndPointsTooFarFromReferenceLine(referenceLine, readFailureMechanismSections))
             {
-                LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline);
+                LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_too_far_from_current_referenceline);
+                return false;
+            }
+            if (IsTotalLengthOfSectionsTooDifferentFromReferenceLineLength(referenceLine, readFailureMechanismSections))
+            {
+                LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_too_different_from_referenceline_length);
                 return false;
             }
 
@@ -180,21 +185,6 @@ namespace Ringtoets.Common.IO.FileImporters
             var errorMessage = string.Format(Resources.FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported,
                                              message);
             log.Error(errorMessage);
-        }
-
-        private static bool SectionsCorrespondToReferenceLine(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)
-        {
-            if (HasStartOrEndPointsTooFarFromReferenceLine(referenceLine, mechanismSections))
-            {
-                return false;
-            }
-
-            if (IsTotalLengthOfSectionsTooDifferentFromReferenceLineLength(referenceLine, mechanismSections))
-            {
-                return false;
-            }
-
-            return true;
         }
 
         private static bool HasStartOrEndPointsTooFarFromReferenceLine(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)
