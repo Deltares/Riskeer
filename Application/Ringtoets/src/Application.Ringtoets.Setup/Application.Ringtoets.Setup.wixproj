@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Banner_493x77.bmp" />
-    <Content Include="Gebruikershandleiding Ringtoets 16.3.pdf" />
+    <Content Include="Gebruikershandleiding Ringtoets 16.4.1.pdf" />
     <Content Include="GenerateVariables.wxi" />
     <Content Include="GenerateVariables.wxi.svn" />
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.dbf" />
