@@ -250,88 +250,11 @@ namespace Ringtoets.Piping.Forms.Views
             listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
         }
 
-        private void UpdateHydraulicBoundaryLocationsColumn()
-        {
-            var hydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(hydraulicBoundaryLocationColumnIndex);
-
-            using (new SuspendDataGridViewColumnResizes(hydraulicBoundaryLocationColumn))
-            {
-                List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null ?
-                                                                                 assessmentSection.HydraulicBoundaryDatabase.Locations :
-                                                                                 null;
-                SetItemsOnObjectCollection(
-                    hydraulicBoundaryLocationColumn.Items,
-                    GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations).ToArray());
-            }
-        }
-
-        private void UpdateStochasticSoilModelColumn()
-        {
-            using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(stochasticSoilModelColumnIndex)))
-            {
-                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
-                {
-                    FillAvailableSoilModelsList(dataGridViewRow);
-                }
-            }
-        }
-
-        private void UpdateStochasticSoilProfileColumn()
-        {
-            using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(stochasticSoilProfileColumnIndex)))
-            {
-                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
-                {
-                    FillAvailableSoilProfilesList(dataGridViewRow);
-                }
-            }
-        }
-
         private void UpdateGenerateScenariosButtonState()
         {
             buttonGenerateScenarios.Enabled = pipingFailureMechanism != null &&
                                               pipingFailureMechanism.SurfaceLines.Any() &&
                                               pipingFailureMechanism.StochasticSoilModels.Any();
-        }
-
-        private void FillAvailableSoilModelsList(DataGridViewRow dataGridViewRow)
-        {
-            var rowData = (PipingCalculationRow) dataGridViewRow.DataBoundItem;
-            IEnumerable<StochasticSoilModel> stochasticSoilModels = GetSoilModelsForCalculation(rowData.PipingCalculation);
-
-            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[stochasticSoilModelColumnIndex];
-            SetItemsOnObjectCollection(cell.Items, GetStochasticSoilModelsDataSource(stochasticSoilModels).ToArray());
-        }
-
-        private void FillAvailableSoilProfilesList(DataGridViewRow dataGridViewRow)
-        {
-            var rowData = (PipingCalculationRow) dataGridViewRow.DataBoundItem;
-            PipingInputService.SyncStochasticSoilProfileWithStochasticSoilModel(rowData.PipingCalculation.InputParameters);
-
-            IEnumerable<StochasticSoilProfile> stochasticSoilProfiles = GetSoilProfilesForCalculation(rowData.PipingCalculation);
-
-            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[stochasticSoilProfileColumnIndex];
-            SetItemsOnObjectCollection(cell.Items, GetSoilProfilesDataSource(stochasticSoilProfiles).ToArray());
-        }
-
-        private IEnumerable<StochasticSoilModel> GetSoilModelsForCalculation(PipingCalculation pipingCalculation)
-        {
-            if (pipingFailureMechanism == null)
-            {
-                return Enumerable.Empty<StochasticSoilModel>();
-            }
-            return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
-                pipingCalculation.InputParameters.SurfaceLine,
-                pipingFailureMechanism.StochasticSoilModels);
-        }
-
-        private IEnumerable<StochasticSoilProfile> GetSoilProfilesForCalculation(PipingCalculation pipingCalculation)
-        {
-            if (pipingCalculation.InputParameters.StochasticSoilModel == null)
-            {
-                return Enumerable.Empty<StochasticSoilProfile>();
-            }
-            return pipingCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles;
         }
 
         private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, object[] comboBoxItems)
@@ -466,6 +389,99 @@ namespace Ringtoets.Piping.Forms.Views
 
             return dataGridViewComboBoxItemWrappers;
         }
+
+        #endregion
+
+        #region Update combo box list items
+
+        #region Update Hydraulic Boundary Locations Column
+
+        private void UpdateHydraulicBoundaryLocationsColumn()
+        {
+            var hydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(hydraulicBoundaryLocationColumnIndex);
+
+            using (new SuspendDataGridViewColumnResizes(hydraulicBoundaryLocationColumn))
+            {
+                List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null ?
+                                                                                 assessmentSection.HydraulicBoundaryDatabase.Locations :
+                                                                                 null;
+                SetItemsOnObjectCollection(
+                    hydraulicBoundaryLocationColumn.Items,
+                    GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations).ToArray());
+            }
+        }
+
+        #endregion
+
+        #region Update Stochastic Soil Model Column
+
+        private void UpdateStochasticSoilModelColumn()
+        {
+            using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(stochasticSoilModelColumnIndex)))
+            {
+                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
+                {
+                    FillAvailableSoilModelsList(dataGridViewRow);
+                }
+            }
+        }
+
+        private void FillAvailableSoilModelsList(DataGridViewRow dataGridViewRow)
+        {
+            var rowData = (PipingCalculationRow) dataGridViewRow.DataBoundItem;
+            IEnumerable<StochasticSoilModel> stochasticSoilModels = GetSoilModelsForCalculation(rowData.PipingCalculation);
+
+            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[stochasticSoilModelColumnIndex];
+            SetItemsOnObjectCollection(cell.Items, GetStochasticSoilModelsDataSource(stochasticSoilModels).ToArray());
+        }
+
+        private IEnumerable<StochasticSoilModel> GetSoilModelsForCalculation(PipingCalculation pipingCalculation)
+        {
+            if (pipingFailureMechanism == null)
+            {
+                return Enumerable.Empty<StochasticSoilModel>();
+            }
+            return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
+                pipingCalculation.InputParameters.SurfaceLine,
+                pipingFailureMechanism.StochasticSoilModels);
+        }
+
+        #endregion
+
+        #region Update Stochastic Soil Profile Column
+
+        private void UpdateStochasticSoilProfileColumn()
+        {
+            using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(stochasticSoilProfileColumnIndex)))
+            {
+                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
+                {
+                    FillAvailableSoilProfilesList(dataGridViewRow);
+                }
+            }
+        }
+
+        private void FillAvailableSoilProfilesList(DataGridViewRow dataGridViewRow)
+        {
+            var rowData = (PipingCalculationRow) dataGridViewRow.DataBoundItem;
+            PipingInputService.SyncStochasticSoilProfileWithStochasticSoilModel(rowData.PipingCalculation.InputParameters);
+
+            IEnumerable<StochasticSoilProfile> stochasticSoilProfiles = GetSoilProfilesForCalculation(rowData.PipingCalculation);
+
+            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[stochasticSoilProfileColumnIndex];
+            SetItemsOnObjectCollection(cell.Items, GetSoilProfilesDataSource(stochasticSoilProfiles).ToArray());
+        }
+
+        private IEnumerable<StochasticSoilProfile> GetSoilProfilesForCalculation(PipingCalculation pipingCalculation)
+        {
+            if (pipingCalculation.InputParameters.StochasticSoilModel == null)
+            {
+                return Enumerable.Empty<StochasticSoilProfile>();
+            }
+            return pipingCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles;
+        }
+
+        #endregion
 
         #endregion
 
