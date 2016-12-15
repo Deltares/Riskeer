@@ -26,11 +26,11 @@ using System.Windows.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
-using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
+using Core.Common.Gui;
 using Core.Common.Gui.TestUtil;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
@@ -93,6 +93,8 @@ namespace Core.Plugins.Map.Test
                 viewHost.Expect(vm => vm.ActiveDocumentView).Return(null);
                 viewHost.Expect(vm => vm.ActiveDocumentViewChanged += null).IgnoreArguments();
                 viewHost.Expect(vm => vm.ActiveDocumentViewChanged -= null).IgnoreArguments();
+                viewHost.Expect(vm => vm.ViewOpened += null).IgnoreArguments();
+                viewHost.Expect(vm => vm.ViewOpened -= null).IgnoreArguments();
                 viewHost.Expect(vm => vm.Remove(Arg<MapLegendView>.Matches(c => true)));
 
                 mocks.ReplayAll();
@@ -186,6 +188,47 @@ namespace Core.Plugins.Map.Test
 
                 // Then
                 Assert.AreEqual(visible ? Visibility.Visible : Visibility.Collapsed, plugin.RibbonCommandHandler.GetRibbonControl().ContextualGroups[0].Visibility);
+                mocks.VerifyAll();
+            }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GivenConfiguredGui_WhenMapViewOpened_ThenMapZoomedToExtents()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
+            {
+                var plugin = new MapPlugin();
+                var testMapView = new TestMapView();
+                var mapControl = new MapControl();
+
+                IView viewMock = testMapView;
+
+                testMapView.Data = mapControl;
+
+                gui.Plugins.Add(plugin);
+                plugin.Gui = gui;
+                gui.Run();
+
+                DotSpatialMap map = (DotSpatialMap) mapControl.Controls[0];
+
+                // Precondition
+                var initialExtents = map.ViewExtents;
+
+                // When
+                gui.ViewHost.AddDocumentView(viewMock);
+
+                // Then
+                Assert.AreNotEqual(initialExtents, map.ViewExtents);
                 mocks.VerifyAll();
             }
 

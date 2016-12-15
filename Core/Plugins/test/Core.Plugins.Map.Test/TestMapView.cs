@@ -20,8 +20,12 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
+using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.Geometries;
 
 namespace Core.Plugins.Map.Test
 {
@@ -30,7 +34,60 @@ namespace Core.Plugins.Map.Test
     /// </summary>
     public class TestMapView : Control, IMapView
     {
-        public object Data { get; set; }
+        private object data;
+        private readonly MapDataCollection mapDataCollection;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestMapView"/>
+        /// and initializes some <see cref="MapData"/>.
+        /// </summary>
+        public TestMapView()
+        {
+            mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Add(new MapPointData("test points")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(2, 2)
+                            }
+                        })
+                    }),
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(4, 4)
+                            }
+                        })
+                    })
+                }
+            });
+        }
+
+        public object Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                data = value;
+
+                if (data != null)
+                {
+                    Map.Data = mapDataCollection;
+                }
+            }
+        }
 
         public IMapControl Map
         {

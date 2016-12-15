@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
@@ -56,7 +57,17 @@ namespace Core.Plugins.Map
 
             mapLegendController.ToggleView();
             Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
+            Gui.ViewHost.ViewOpened += OnViewOpened;
             activated = true;
+        }
+
+        private static void OnViewOpened(object sender, ViewChangeEventArgs e)
+        {
+            var view = e.View as IMapView;
+            if (view != null)
+            {
+                view.Map.ZoomToAllVisibleLayers();
+            }
         }
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
@@ -72,6 +83,7 @@ namespace Core.Plugins.Map
             if (activated)
             {
                 Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
+                Gui.ViewHost.ViewOpened -= OnViewOpened;
             }
             if (mapLegendController != null)
             {

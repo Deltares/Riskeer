@@ -40,6 +40,22 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotSpatial.Controls, Version=1.8.0.0, Culture=neutral, PublicKeyToken=4d9e49339a7d240c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Data, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c29dbf30e059ca9d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Symbology, Version=1.8.0.0, Culture=neutral, PublicKeyToken=6178c08da7998387, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Symbology.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Topology, Version=1.8.0.0, Culture=neutral, PublicKeyToken=a66b5e9434ca3671, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Topology.dll</HintPath>
+    </Reference>
     <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
       <Private>True</Private>
