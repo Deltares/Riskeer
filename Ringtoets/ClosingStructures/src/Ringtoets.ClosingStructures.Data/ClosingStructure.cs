@@ -253,7 +253,7 @@ namespace Ringtoets.ClosingStructures.Data
             public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
 
             /// <summary>
-            /// Gets the probability or frequency of the closing structure being open before flooding.
+            /// Gets or sets the probability or frequency of the closing structure being open before flooding.
             /// [1/year]
             /// </summary>
             /// <remarks>Because this property can also be used to denote a frequency, there

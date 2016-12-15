@@ -297,7 +297,7 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the failure probability/frequency of an open structure before flooding.
+        /// Gets or sets the failure probability or frequency of an open structure before flooding.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
         /// is not in the interval [0, 1].</exception>
