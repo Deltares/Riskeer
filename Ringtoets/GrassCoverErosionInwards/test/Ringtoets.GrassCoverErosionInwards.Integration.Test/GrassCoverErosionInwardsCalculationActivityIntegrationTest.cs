@@ -329,15 +329,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void Run_CalculateWithDikeHeightAndRan_PerformGrassCoverErosionInwardsValidationAndCalculationAndLogStartAndEndAndError(
+        public void Run_CalculateWithDikeHeightAndRan_PerformValidationAndCalculationAndLogStartAndEndError(
             [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
                 DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
-            var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 FailureMechanismContribution =
@@ -358,8 +354,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            calculation.Attach(observerMock);
-
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -375,7 +369,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    //Assert.AreEqual(8, msgs.Length);
+                    Assert.AreEqual(7, msgs.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
@@ -385,7 +379,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
-                mocks.VerifyAll(); // Expect no calls on the observer
             }
         }
 
@@ -872,15 +865,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    Assert.AreEqual(8, msgs.Length);
+                    Assert.AreEqual(7, msgs.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
                     StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[4]);
                     StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet geconvergeerd.", calculation.Name), msgs[6]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[7]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }

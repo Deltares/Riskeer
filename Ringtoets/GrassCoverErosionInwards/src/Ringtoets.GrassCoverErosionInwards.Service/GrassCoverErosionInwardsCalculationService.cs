@@ -262,12 +262,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         private bool CalculateDikeHeight(DikeHeightCalculationInput dikeHeightCalculationInput, string calculationName)
         {
             var exceptionThrown = false;
+            var dikeHeightCalculated = false;
             if (!canceled)
             {
                 try
                 {
                     dikeHeightCalculator.Calculate(dikeHeightCalculationInput);
-                    return true;
                 }
                 catch (HydraRingFileParserException)
                 {
@@ -293,11 +293,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                     {
                         log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1, calculationName, lastErrorFileContent);
                     }
+                    if (!exceptionThrown && string.IsNullOrEmpty(lastErrorFileContent))
+                    {
+                        dikeHeightCalculated = true;
+                    }
 
                     log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_temporary_directory_can_be_found_on_location_0, dikeHeightCalculator.OutputDirectory);
                 }
             }
-            return false;
+            return dikeHeightCalculated;
         }
 
         private static OvertoppingCalculationInput CreateOvertoppingInput(GrassCoverErosionInwardsCalculation calculation,
