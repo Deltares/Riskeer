@@ -45,6 +45,7 @@ namespace Core.Components.Gis.IO.Importers
 
         public override bool Import()
         {
+            return true;
         }
     }
 }
