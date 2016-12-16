@@ -22,11 +22,13 @@
 using System;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Importers;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Components.Gis.IO.Test.Importers
 {
@@ -170,6 +172,30 @@ namespace Core.Components.Gis.IO.Test.Importers
             TestHelper.AssertLogMessageIsGenerated(call, "Kaartlaag toevoegen afgebroken. Geen data ingelezen.", 1);
             Assert.IsFalse(importSuccesful);
             CollectionAssert.IsEmpty(mapDataCollection.Collection);
+        }
+
+        [Test]
+        public void DoPostImportUpdates_ImportSuccesful_NotifiesMapDataCollection()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
+            var mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Attach(observer);
+            var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
+            
+            // Precondition
+            Assert.IsTrue(importer.Import());
+
+            // Call
+            importer.DoPostImportUpdates();
+
+            // Assert
+            mocks.VerifyAll();
         }
     }
 }
