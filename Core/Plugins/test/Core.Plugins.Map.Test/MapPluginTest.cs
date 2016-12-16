@@ -158,6 +158,21 @@ namespace Core.Plugins.Map.Test
         }
 
         [Test]
+        public void GetImportInfos_ReturnSupportedImportClassesWithExpectedValues()
+        {
+            // Setup
+            using (var plugin = new MapPlugin())
+            {
+                // Call
+                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, importInfos.Length);
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(MapDataCollection)));
+            }
+        }
+
+        [Test]
         [RequiresSTA]
         [TestCase(true)]
         [TestCase(false)]

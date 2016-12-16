@@ -84,6 +84,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Commands\ToggleMapLegendViewCommandTest.cs" />
+    <Compile Include="ImportInfos\MapDataCollectionImportInfoTest.cs" />
     <Compile Include="MapPluginTest.cs" />
     <Compile Include="Legend\MapDataCollectionTreeNodeInfoTest.cs" />
     <Compile Include="Legend\MapLegendControllerTest.cs" />

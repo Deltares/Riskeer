@@ -27,8 +27,10 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.IO.Importers;
 using Core.Plugins.Map.Commands;
 using Core.Plugins.Map.Legend;
+using Core.Plugins.Map.Properties;
 using Core.Plugins.Map.PropertyClasses;
 
 namespace Core.Plugins.Map
@@ -67,6 +69,19 @@ namespace Core.Plugins.Map
             yield return new PropertyInfo<MapPointData, MapPointDataProperties>();
             yield return new PropertyInfo<MapLineData, MapLineDataProperties>();
             yield return new PropertyInfo<MapPolygonData, MapPolygonDataProperties>();
+        }
+
+        public override IEnumerable<ImportInfo> GetImportInfos()
+        {
+            yield return new ImportInfo<MapDataCollection>
+            {
+                Name = Resources.Name_Layer,
+                Category = Resources.Categories_Layer,
+                Image = Resources.MapPlusIcon,
+                FileFilter = Resources.MapPlugin_GetImportInfos_MapDataCollection_filefilter,
+                IsEnabled = mapDataCollection => true,
+                CreateFileImporter = (mapDataCollection, filePath) => new FeatureBasedMapDataImporter(mapDataCollection, filePath)
+            };
         }
 
         public override void Dispose()

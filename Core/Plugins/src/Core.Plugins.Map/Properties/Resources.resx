@@ -262,4 +262,10 @@
   <data name="Categories_Layer" xml:space="preserve">
     <value>Kaartlaag</value>
   </data>
+  <data name="MapPlugin_GetImportInfos_MapDataCollection_filefilter" xml:space="preserve">
+    <value>Shapebestand (*.shp)|*.shp</value>
+  </data>
+  <data name="Name_Layer" xml:space="preserve">
+    <value>Kaartlaag</value>
+  </data>
 </root>
