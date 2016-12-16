@@ -226,6 +226,18 @@ namespace Core.Common.Gui.Forms.MessageWindow
                        string.Join(" OR ", filterlines);
         }
 
+        private void ShowMessageWindowDialog()
+        {
+            if (messagesDataGridView.CurrentRow == null)
+            {
+                return;
+            }
+
+            var messageWindowDialog = new MessageWindowDialog(dialogParent, (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
+
+            messageWindowDialog.ShowDialog();
+        }
+
         /// <summary>
         /// Class that holds message information.
         /// </summary>
@@ -265,19 +277,20 @@ namespace Core.Common.Gui.Forms.MessageWindow
             PopulateMessages();
         }
 
-        private void ShowDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        #region Messages data grid view
+
+        private void MessagesDataGridViewCellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (messagesDataGridView.CurrentRow == null)
-            {
-                return;
-            }
-
-            var messageWindowDialog = new MessageWindowDialog(dialogParent, (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
-
-            messageWindowDialog.ShowDialog();
+            ShowMessageWindowDialog();
         }
 
-        #region Messages data grid view
+        private void MessagesDataGridViewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ShowMessageWindowDialog();
+            }
+        }
 
         private void MessagesDataGridViewMouseUp(object sender, MouseEventArgs e)
         {
@@ -322,6 +335,11 @@ namespace Core.Common.Gui.Forms.MessageWindow
         private void ButtonCopyClick(object sender, EventArgs e)
         {
             Clipboard.SetDataObject(messagesDataGridView.GetClipboardContent());
+        }
+
+        private void ButtonShowDetailsClick(object sender, EventArgs e)
+        {
+            ShowMessageWindowDialog();
         }
 
         private void ButtonShowInfoClick(object sender, EventArgs e)

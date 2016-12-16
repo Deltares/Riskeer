@@ -62,7 +62,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             mocks.ReplayAll();
 
             // Call
-            using (var messageWindow = new GuiFormsMessageWindow.MessageWindow(dialogParent))
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(dialogParent))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(messageWindow);
@@ -73,22 +73,13 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void OnLoad_ExpectedMessageWindowText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
-
-            var logAppender = new GuiFormsMessageWindow.MessageWindowLogAppender();
-
-            // Precondition
-            Assert.AreSame(logAppender, GuiFormsMessageWindow.MessageWindowLogAppender.Instance);
-
             using (var form = new Form())
-            using (var messageWindow = new GuiFormsMessageWindow.MessageWindow(dialogParent))
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
 
@@ -98,20 +89,13 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 // Assert
                 Assert.AreEqual("Berichten", messageWindow.Text);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AddMessage_LevelIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var logAppender = new GuiFormsMessageWindow.MessageWindowLogAppender();
-
-            // Precondition
-            Assert.AreSame(logAppender, GuiFormsMessageWindow.MessageWindowLogAppender.Instance);
-
-            // Setup
-            using (var messageWindow = new GuiFormsMessageWindow.MessageWindow(null))
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 // Call
                 TestDelegate call = () => messageWindow.AddMessage(null, new DateTime(),
@@ -124,16 +108,11 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        public void ShowDetailsButton_NoMessageSelectedOnClick_DontShowMessageWindowDialog()
+        public void ShowDetailsButton_NoMessageSelectedOnClick_DoNotShowMessageWindowDialog()
         {
             // Setup
-            var logAppender = new GuiFormsMessageWindow.MessageWindowLogAppender();
-
-            // Precondition
-            Assert.AreSame(logAppender, GuiFormsMessageWindow.MessageWindowLogAppender.Instance);
-
             using (var form = new Form())
-            using (var messageWindow = new GuiFormsMessageWindow.MessageWindow(null))
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -156,15 +135,10 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var dialogParent = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();
 
-            var detailedMessage = "TestDetailedMessage";
-
-            var logAppender = new GuiFormsMessageWindow.MessageWindowLogAppender();
-
-            // Precondition
-            Assert.AreSame(logAppender, GuiFormsMessageWindow.MessageWindowLogAppender.Instance);
+            const string detailedMessage = "TestDetailedMessage";
 
             using (var form = new Form())
-            using (var messageWindow = new GuiFormsMessageWindow.MessageWindow(dialogParent))
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(dialogParent))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -178,7 +152,6 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                     dialogTitle = ((Form) dialogTester.TheObject).Text;
                     var testBoxTester = new TextBoxTester("textBox");
                     dialogText = testBoxTester.Text;
-
                     dialogTester.Close();
                 };
                 messageWindow.AddMessage(Level.Warn, new DateTime(), detailedMessage);
@@ -195,6 +168,144 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 Assert.AreEqual(detailedMessage, dialogText);
             }
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ShowDetailsButton_NoMessageSelectedOnDoubleClick_DoNotShowMessageWindowDialog()
+        {
+            // Setup
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                var gridView = new ControlTester("messagesDataGridView");
+
+                // Call
+                gridView.DoubleClick();
+
+                // Assert
+                // No dialog window shown
+            }
+        }
+
+        [Test]
+        public void ShowDetailsButton_MessageSelectedSelectedOnDoubleClick_ShowMessageWindowDialogWithDetails()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+            const string detailedMessage = "TestDetailedMessage";
+
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(dialogParent))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                string dialogTitle = null;
+                string dialogText = null;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialogTester = new FormTester(name);
+                    dialogTitle = ((Form) dialogTester.TheObject).Text;
+                    var testBoxTester = new TextBoxTester("textBox");
+                    dialogText = testBoxTester.Text;
+                    dialogTester.Close();
+                };
+
+                var gridView = new ControlTester("messagesDataGridView");
+                messageWindow.AddMessage(Level.Warn, new DateTime(), detailedMessage);
+                messageWindow.Refresh();
+                var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+
+                // Call
+                gridView.FireEvent("CellMouseDoubleClick", new DataGridViewCellMouseEventArgs(
+                                                               0, 0, 0, 0, 
+                                                               new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0)));
+
+                // Assert
+                Assert.AreEqual("Berichtdetails", dialogTitle);
+                Assert.AreEqual(detailedMessage, dialogText);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ShowDetailsButton_NoMessageSelectedOnEnterKeyDown_DoNotShowMessageWindowDialog()
+        {
+            // Setup
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                var gridView = new ControlTester("messagesDataGridView");
+
+                // Call
+                gridView.FireEvent("KeyDown", new KeyEventArgs(Keys.Enter));
+
+                // Assert
+                // No dialog window shown
+            }
+        }
+
+        [Test]
+        public void ShowDetailsButton_MessageSelectedSelectedOnEnterKeyDown_ShowMessageWindowDialogWithDetails()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+            var detailedMessage = "TestDetailedMessage";
+
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(dialogParent))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                string dialogTitle = null;
+                string dialogText = null;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialogTester = new FormTester(name);
+                    dialogTitle = ((Form) dialogTester.TheObject).Text;
+                    var testBoxTester = new TextBoxTester("textBox");
+                    dialogText = testBoxTester.Text;
+                    dialogTester.Close();
+                };
+
+                var gridView = new ControlTester("messagesDataGridView");
+                messageWindow.AddMessage(Level.Warn, new DateTime(), detailedMessage);
+                messageWindow.Refresh();
+                var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+
+                // Call
+                gridView.FireEvent("KeyDown", new KeyEventArgs(Keys.Enter));
+
+                // Assert
+                Assert.AreEqual("Berichtdetails", dialogTitle);
+                Assert.AreEqual(detailedMessage, dialogText);
+            }
+            mocks.VerifyAll();
+        }
+
+        private GuiFormsMessageWindow.MessageWindow ShowMessageWindow(IWin32Window dialogParent)
+        {
+            var logAppender = new GuiFormsMessageWindow.MessageWindowLogAppender();
+
+            // Precondition
+            Assert.AreSame(logAppender, GuiFormsMessageWindow.MessageWindowLogAppender.Instance);
+
+            return new GuiFormsMessageWindow.MessageWindow(dialogParent);
         }
     }
 }
