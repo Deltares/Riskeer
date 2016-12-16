@@ -26,12 +26,10 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.Legend;
-using Core.Plugins.Map.Properties;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -267,7 +265,7 @@ namespace Core.Plugins.Map.Test.Legend
             var mapDataCollection = new MapDataCollection("test data");
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddImportItem()).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
@@ -284,128 +282,6 @@ namespace Core.Plugins.Map.Test.Legend
 
             // Assert
             // Expectancies will be asserted in TearDown()
-        }
-
-        [Test]
-        public void ContextMenuStrip_Always_ContainsAddMapLayerMenuItem()
-        {
-            // Setup
-            const string expectedItemText = "&Voeg kaartlaag toe...";
-            const string expectedItemTooltip = "Importeer een nieuwe kaartlaag en voeg deze toe.";
-            var mapDataCollection = new MapDataCollection("test data");
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, Resources.MapPlusIcon);
-                }
-            }
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void GivenFilePathIsSet_WhenShapeFileIsCorrupt_ThenNoMapDataViewIsAdded()
-        {
-            // Setup
-            string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "CorruptFile.shp");
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
-                tester.OpenFile(testFilePath);
-            };
-
-            // When
-            var mapDataCollection = new MapDataCollection("test data");
-            using (var treeViewControl = new TreeViewControl())
-            {
-                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(mapDataCollection, null, treeViewControl))
-                {
-                    // When
-                    Action action = () => contextMenuStrip.Items[0].PerformClick();
-
-                    // Then
-                    var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
-                                                        testFilePath);
-                    TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
-                }
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void GivenFilePathIsSet_WhenShapeFileIsEmpty_ThenNoMapDataViewIsAdded()
-        {
-            // Setup
-            string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "EmptyFile.shp");
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
-                tester.OpenFile(testFilePath);
-            };
-
-            // When
-            var mapDataCollection = new MapDataCollection("test data");
-            using (var treeViewControl = new TreeViewControl())
-            {
-                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(mapDataCollection, null, treeViewControl))
-                {
-                    // When
-                    Action action = () => contextMenuStrip.Items[0].PerformClick();
-
-                    // Then
-                    var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen geometrieën vinden in dit bestand.",
-                                                        testFilePath);
-                    TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
-                }
-            }
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void GivenFilePathIsSet_WhenShapeFileIsValid_ThenMapDataViewIsAdded()
-        {
-            // Setup
-            string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
-                tester.OpenFile(testFilePath);
-            };
-
-            // When
-            var mapDataCollection = new MapDataCollection("test data");
-            using (var treeViewControl = new TreeViewControl())
-            {
-                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(mapDataCollection, null, treeViewControl))
-                {
-                    // When
-                    Action action = () => contextMenuStrip.Items[0].PerformClick();
-
-                    // Then
-                    string expectedMessage = "Het shapebestand is geïmporteerd.";
-                    TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
-                }
-            }
         }
 
         public override void TearDown()

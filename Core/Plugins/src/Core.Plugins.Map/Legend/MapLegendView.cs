@@ -20,23 +20,15 @@
 // All rights reserved.
 
 using System;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.IO.Exceptions;
-using Core.Common.Utils.Builders;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.IO.Readers;
-using DotSpatial.Data;
-using DotSpatial.Topology;
-using log4net;
 using MapResources = Core.Plugins.Map.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
-using ILog = log4net.ILog;
 
 namespace Core.Plugins.Map.Legend
 {
@@ -45,8 +37,6 @@ namespace Core.Plugins.Map.Legend
     /// </summary>
     public sealed partial class MapLegendView : UserControl, ISelectionProvider
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(MapLegendView));
-
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
         private readonly IWin32Window parentWindow;
 
@@ -156,7 +146,11 @@ namespace Core.Plugins.Map.Legend
                 CanDrop = MapControlCanDrop,
                 CanInsert = MapControlCanInsert,
                 OnDrop = MapControlOnDrop,
-                ContextMenuStrip = MapDataCollectionContextMenuStrip
+                ContextMenuStrip = (mapDataCollection, parentData, treeView) => contextMenuBuilderProvider.Get(mapDataCollection, treeView)
+                                                                                                          .AddImportItem()
+                                                                                                          .AddSeparator()
+                                                                                                          .AddPropertiesItem()
+                                                                                                          .Build()
             });
         }
 
@@ -190,116 +184,6 @@ namespace Core.Plugins.Map.Legend
             target.Remove(mapData);
             target.Insert(target.Collection.Count() - position, mapData); // Note: target is the same as the previous parent in this case
             target.NotifyObservers();
-        }
-
-        private ContextMenuStrip MapDataCollectionContextMenuStrip(MapDataCollection mapDataCollection, object parentData, TreeViewControl treeView)
-        {
-            StrictContextMenuItem addMapLayerMenuItem = new StrictContextMenuItem(
-                MapResources.MapLegendView_MapDataCollectionContextMenuStrip__Add_MapLayer,
-                MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
-                MapResources.MapPlusIcon,
-                (sender, args) => ShowSelectShapeFileDialog(mapDataCollection));
-
-            return contextMenuBuilderProvider.Get(mapDataCollection, treeView)
-                                             .AddCustomItem(addMapLayerMenuItem)
-                                             .AddSeparator()
-                                             .AddPropertiesItem()
-                                             .Build();
-        }
-
-        #endregion
-
-        #region ShapeFileImporter
-
-        private void ShowSelectShapeFileDialog(MapDataCollection mapDataCollection)
-        {
-            using (var dialog = new OpenFileDialog
-            {
-                Filter = string.Format("{0} (*.shp)|*.shp", MapResources.MapLegendView_ShowSelectShapeFileDialog_Shape_file),
-                Title = GuiResources.OpenFileDialog_Title
-            })
-            {
-                if (dialog.ShowDialog(parentWindow) == DialogResult.OK)
-                {
-                    CheckDataFormat(dialog.FileName, Path.GetFileNameWithoutExtension(dialog.FileName), mapDataCollection);
-                }
-            }
-        }
-
-        private static void CheckDataFormat(string filePath, string title, MapDataCollection mapDataCollection)
-        {
-            try
-            {
-                var featureSet = Shapefile.OpenFile(filePath);
-
-                FeatureBasedMapData importedData;
-
-                switch (featureSet.FeatureType)
-                {
-                    case FeatureType.Point:
-                    case FeatureType.MultiPoint:
-                        using (ShapeFileReaderBase reader = new PointShapeFileReader(filePath))
-                        {
-                            importedData = GetShapeFileData(reader, title);
-                        }
-                        break;
-                    case FeatureType.Line:
-                        using (ShapeFileReaderBase reader = new PolylineShapeFileReader(filePath))
-                        {
-                            importedData = GetShapeFileData(reader, title);
-                        }
-                        break;
-                    case FeatureType.Polygon:
-                        using (ShapeFileReaderBase reader = new PolygonShapeFileReader(filePath))
-                        {
-                            importedData = GetShapeFileData(reader, title);
-                        }
-                        break;
-                    default:
-                        log.Error(MapResources.MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data);
-                        return;
-                }
-
-                mapDataCollection.Add(importedData);
-
-                log.Info(MapResources.MapLegendView_CheckDataFormat_Shapefile_Is_Imported);
-                mapDataCollection.NotifyObservers();
-            }
-            catch (ArgumentException)
-            {
-                string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(MapResources.MapLegendView_CheckDataFormat_File_does_not_contain_geometries);
-                log.Error(message);
-            }
-            catch (FileNotFoundException)
-            {
-                string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(MapResources.MapLegendView_CheckDataFormat_File_does_not_exist_or_misses_needed_files);
-                log.Error(message);
-            }
-            catch (IOException)
-            {
-                string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(MapResources.MapLegendView_CheckDataFormat_An_error_occurred_when_trying_to_read_the_file);
-                log.Error(message);
-            }
-            catch (CriticalFileReadException e)
-            {
-                log.Error(e.Message);
-            }
-            catch (Exception)
-            {
-                // Because NullReferenceException or NotImplementedException when reading in a corrupt shape file
-                // from a third party library is expected, we catch all the exceptions here.
-                string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(MapResources.MapLegendView_CheckDataFormat_An_error_occurred_when_trying_to_read_the_file);
-                log.Error(message);
-            }
-        }
-
-        private static FeatureBasedMapData GetShapeFileData(ShapeFileReaderBase reader, string title)
-        {
-            return reader.ReadShapeFile(title);
         }
 
         #endregion
