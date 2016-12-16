@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
@@ -30,6 +29,8 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -245,10 +246,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             var calculationLocation = data.WrappedData.DikeProfile != null ? data.WrappedData.DikeProfile.WorldReferencePoint : null;
 
-            return data.AvailableHydraulicBoundaryLocations
-                       .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, calculationLocation))
-                       .OrderBy(hbl => hbl.Distance)
-                       .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+            return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
+                data.AvailableHydraulicBoundaryLocations, calculationLocation);
         }
     }
 }

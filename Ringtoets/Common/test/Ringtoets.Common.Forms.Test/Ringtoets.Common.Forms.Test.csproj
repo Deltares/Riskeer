@@ -66,6 +66,7 @@
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiServiceTest.cs" />
     <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
+    <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelperTest.cs" />
     <Compile Include="PresentationObjects\InputContextBaseTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolderTest.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactoryTest.cs" />
     <Compile Include="TypeConverters\NoProbabilityValueDoubleConverterTest.cs" />
     <Compile Include="TypeConverters\NoValueRoundedDoubleConverterTest.cs" />
-    <Compile Include="UITypeEditors\SelectableHydraulicBoundaryLocationTest.cs" />
+    <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocationTest.cs" />
     <Compile Include="UITypeEditors\HydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="UITypeEditors\ForeshoreProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\StructureEditorTest.cs" />

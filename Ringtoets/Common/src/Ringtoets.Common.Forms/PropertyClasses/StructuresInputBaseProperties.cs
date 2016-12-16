@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
-using System.Linq;
 using System.Linq.Expressions;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -159,10 +158,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
         {
-            return data.AvailableHydraulicBoundaryLocations
-                       .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, StructureLocation))
-                       .OrderBy(hbl => hbl.Distance)
-                       .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+            return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
+                data.AvailableHydraulicBoundaryLocations, StructureLocation);
         }
 
         public abstract IEnumerable<TStructure> GetAvailableStructures();

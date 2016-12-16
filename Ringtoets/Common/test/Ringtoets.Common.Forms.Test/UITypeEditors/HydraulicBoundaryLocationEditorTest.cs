@@ -28,6 +28,7 @@ using Core.Common.Gui.UITypeEditors;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.UITypeEditors;
 
 namespace Ringtoets.Common.Forms.Test.UITypeEditors

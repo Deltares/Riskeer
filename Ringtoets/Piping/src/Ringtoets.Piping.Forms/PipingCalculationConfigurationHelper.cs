@@ -26,9 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using log4net;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
@@ -111,24 +109,6 @@ namespace Ringtoets.Piping.Forms
             return availableSoilModels.Where(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any() &&
                                                                     DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(stochasticSoilModel, surfaceLineSegments))
                                       .ToList();
-        }
-
-        /// <summary>
-        /// Gets the sorted selectable hydraulic boundary locations from <paramref name="hydraulicBoundaryLocations"/>.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The available hydraulic boundary locations.</param>
-        /// <param name="surfaceLine">The reference point to which the distance needs to be 
-        /// calculated in <see cref="SelectableHydraulicBoundaryLocation"/>.</param>
-        /// <returns>An ordered list of selectable hydraulic boundary locations.</returns>
-        public static IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, RingtoetsPipingSurfaceLine surfaceLine)
-        {
-            Point2D referencePoint = surfaceLine != null
-                                         ? surfaceLine.ReferenceLineIntersectionWorldPoint
-                                         : null;
-            return hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, referencePoint))
-                                             .OrderBy(hbl => hbl.Distance)
-                                             .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
         }
 
         private static CalculationGroup CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)

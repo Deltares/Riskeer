@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
+using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.UITypeEditors
 {

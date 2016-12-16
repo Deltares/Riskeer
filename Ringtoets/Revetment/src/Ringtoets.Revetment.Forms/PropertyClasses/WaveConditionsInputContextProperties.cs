@@ -31,6 +31,8 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Revetment.Data;
@@ -298,12 +300,10 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             return data.ForeshoreProfiles;
         }
 
-        public virtual IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
+        public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
         {
-            return data.HydraulicBoundaryLocations
-                       .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, WorldReferencePoint))
-                       .OrderBy(hbl => hbl.Distance)
-                       .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+            return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
+                data.HydraulicBoundaryLocations, WorldReferencePoint);
         }
     }
 }

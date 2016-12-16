@@ -29,6 +29,8 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -121,8 +123,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// </summary>
         public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
         {
-            return PipingCalculationConfigurationHelper.GetSelectableHydraulicBoundaryLocations(
-                data.AvailableHydraulicBoundaryLocations, SurfaceLine);
+            Point2D referencePoint = SurfaceLine == null || SurfaceLine.ReferenceLineIntersectionWorldPoint == null
+                                         ? null
+                                         : SurfaceLine.ReferenceLineIntersectionWorldPoint;
+            return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
+                data.AvailableHydraulicBoundaryLocations, referencePoint);
         }
 
         #region Hydraulic data

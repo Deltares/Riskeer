@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Gui.PropertyBag;
+using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.UITypeEditors
 {

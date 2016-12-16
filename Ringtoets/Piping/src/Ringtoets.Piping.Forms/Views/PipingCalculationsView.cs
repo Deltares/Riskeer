@@ -33,7 +33,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
@@ -288,6 +288,16 @@ namespace Ringtoets.Piping.Forms.Views
             return selection;
         }
 
+        private static IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            Point2D referencePoint = surfaceLine == null || surfaceLine.ReferenceLineIntersectionWorldPoint == null
+                                         ? null
+                                         : surfaceLine.ReferenceLineIntersectionWorldPoint;
+            return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
+                hydraulicBoundaryLocations, referencePoint);
+        }
+
         #region Data sources
 
         private void UpdateDataGridViewDataSource()
@@ -430,9 +440,8 @@ namespace Ringtoets.Piping.Forms.Views
                 return Enumerable.Empty<SelectableHydraulicBoundaryLocation>();
             }
 
-            return PipingCalculationConfigurationHelper.GetSelectableHydraulicBoundaryLocations(
-                assessmentSection.HydraulicBoundaryDatabase.Locations,
-                pipingCalculation.InputParameters.SurfaceLine);
+            return GetSelectableHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                           pipingCalculation.InputParameters.SurfaceLine);
         }
 
         #endregion
@@ -554,7 +563,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             foreach (RingtoetsPipingSurfaceLine surfaceLine in PipingFailureMechanism.SurfaceLines)
             {
-                selectableHydraulicBoundaryLocations.AddRange(PipingCalculationConfigurationHelper.GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, surfaceLine));
+                selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, surfaceLine));
             }
             return selectableHydraulicBoundaryLocations;
         }

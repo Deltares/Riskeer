@@ -23,7 +23,7 @@ using System;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Forms.Views

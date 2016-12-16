@@ -47,6 +47,7 @@
     </Compile>
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiService.cs" />
     <Compile Include="GuiServices\IHydraulicBoundaryLocationCalculationGuiService.cs" />
+    <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelper.cs" />
     <Compile Include="Helpers\SuspendDataGridViewColumnResizes.cs" />
     <Compile Include="Helpers\NamingHelper.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelper.cs" />
@@ -111,7 +112,7 @@
     <Compile Include="UITypeEditors\IHasForeshoreProfileProperty.cs" />
     <Compile Include="UITypeEditors\IHasHydraulicBoundaryLocationProperty.cs" />
     <Compile Include="UITypeEditors\IHasStructureProperty.cs" />
-    <Compile Include="UITypeEditors\SelectableHydraulicBoundaryLocation.cs" />
+    <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\FailureMechanismView.cs">
       <SubType>UserControl</SubType>
