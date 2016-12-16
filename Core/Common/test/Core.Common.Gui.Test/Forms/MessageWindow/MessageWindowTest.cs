@@ -225,7 +225,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
 
                 // Call
                 gridView.FireEvent("CellMouseDoubleClick", new DataGridViewCellMouseEventArgs(
-                                                               0, 0, 0, 0, 
+                                                               0, 0, 0, 0,
                                                                new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0)));
 
                 // Assert
@@ -296,6 +296,155 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 Assert.AreEqual(detailedMessage, dialogText);
             }
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ButtonClearAll_Click_RemovesAllMessages()
+        {
+            // Setup
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                messageWindow.AddMessage(Level.Warn, new DateTime(), "message");
+                messageWindow.Refresh();
+                var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+
+                var button = new ToolStripItemTester("buttonClearAll");
+
+                // Call
+                button.Click();
+
+                // Assert
+                Assert.AreEqual(0, dataGridView.Rows.Count);
+            }
+        }
+
+        [Test]
+        [STAThread]
+        public void ButtonCopy_Click_CopiesContentToClipboard()
+        {
+            // Setup
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                messageWindow.AddMessage(Level.Warn, new DateTime(), "message");
+                messageWindow.Refresh();
+                var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+
+                var button = new ToolStripItemTester("buttonCopy");
+
+                // Call
+                button.Click();
+                
+                // Assert
+                IDataObject actualDataObject = Clipboard.GetDataObject();
+                Assert.IsTrue(actualDataObject != null && actualDataObject.GetDataPresent(DataFormats.Text));
+                var actualContent = (string) actualDataObject.GetData(DataFormats.Text);
+                Assert.AreEqual("\t00:00:00\tmessage", actualContent);
+            }
+        }
+
+        [Test]
+        public void ButtonShowInfo_Click_FiltersInfoMessages()
+        {
+            // Setup
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                AddMessages(messageWindow);
+                var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+
+                var button = new ToolStripButtonTester("buttonShowInfo");
+
+                // Call
+                button.Click();
+
+                // Assert
+                Assert.AreEqual(2, dataGridView.Rows.Count);
+                var filteredLevel = Level.Info.ToString();
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    Assert.AreNotEqual(filteredLevel, row.Cells[0].Value.ToString());
+                }
+            }
+        }
+
+        [Test]
+        public void ButtonShowWarn_Click_FiltersWarningMessages()
+        {
+            // Setup
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                AddMessages(messageWindow);
+                var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+
+                var button = new ToolStripButtonTester("buttonShowWarning");
+
+                // Call
+                button.Click();
+
+                // Assert
+                Assert.AreEqual(2, dataGridView.Rows.Count);
+                var filteredLevel = Level.Warn.ToString();
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    Assert.AreNotEqual(filteredLevel, row.Cells[0].Value.ToString());
+                }
+            }
+        }
+
+        [Test]
+        public void ButtonShowError_Click_FiltersErrorMessages()
+        {
+            // Setup
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                AddMessages(messageWindow);
+                var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+
+                var button = new ToolStripButtonTester("buttonShowError");
+
+                // Call
+                button.Click();
+
+                // Assert
+                Assert.AreEqual(2, dataGridView.Rows.Count);
+                var filteredLevel = Level.Error.ToString();
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    Assert.AreNotEqual(filteredLevel, row.Cells[0].Value.ToString());
+                }
+            }
+        }
+
+        private static void AddMessages(GuiFormsMessageWindow.MessageWindow messageWindow)
+        {
+            messageWindow.AddMessage(Level.Info, new DateTime(), "Info message");
+            messageWindow.AddMessage(Level.Warn, new DateTime(), "Warn message");
+            messageWindow.AddMessage(Level.Error, new DateTime(), "Error message");
+            messageWindow.Refresh();
         }
 
         private GuiFormsMessageWindow.MessageWindow ShowMessageWindow(IWin32Window dialogParent)
