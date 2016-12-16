@@ -67,7 +67,10 @@ namespace Core.Common.Base.Service
                                              currentStep, totalSteps, currentStepName);
             });
 
-            fileImporter.Import();
+            if (!fileImporter.Import())
+            {
+                State = ActivityState.Failed;
+            }
         }
 
         protected override void OnCancel()

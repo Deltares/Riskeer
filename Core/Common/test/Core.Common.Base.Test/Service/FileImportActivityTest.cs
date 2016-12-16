@@ -96,6 +96,26 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
+        public void Run_FileImportActivityWithFileImporterAndImportFails_ImportActivityStateFailed()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var fileImporter = mocks.Stub<IFileImporter>();
+            fileImporter.Stub(x => x.SetProgressChanged(null)).IgnoreArguments();
+            fileImporter.Expect(i => i.Import()).Return(false);
+            mocks.ReplayAll();
+
+            var fileImportActivity = new FileImportActivity(fileImporter, "");
+
+            // Call
+            fileImportActivity.Run();
+
+            // Assert
+            Assert.AreEqual(ActivityState.Failed, fileImportActivity.State);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Cancel_FileImportActivityWithFileImporter_CancelsImporter()
         {
             // Setup
