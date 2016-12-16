@@ -49,7 +49,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
         {
             this.dialogParent = dialogParent;
 
-            Text = Resources.MessageWindow_MessageWindow_Messages;
             MessageWindowLogAppender.Instance.MessageWindow = this;
             InitializeComponent();
 
@@ -113,18 +112,15 @@ namespace Core.Common.Gui.Forms.MessageWindow
             }
             newMessages.Enqueue(new MessageData
             {
-                ImageName = level.ToString(), Time = time, ShortMessage = shortMessage, FullMessage = message
+                ImageName = level.ToString(),
+                Time = time,
+                ShortMessage = shortMessage,
+                FullMessage = message
             });
             Invalidate();
         }
 
         #endregion
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            PopulateMessages();
-        }
 
         private void PopulateMessages()
         {
@@ -161,16 +157,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             }
         }
 
-        private void MessagesDataGridViewRowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-            if (filtering)
-            {
-                return;
-            }
-            var row = messagesDataGridView.Rows[e.RowIndex];
-            AutoSizeRow(row);
-        }
-
         private void AutoSizeRow(DataGridViewRow row)
         {
             var prefHeight = row.GetPreferredHeight(row.Index, DataGridViewAutoSizeRowMode.AllCells, false);
@@ -184,43 +170,12 @@ namespace Core.Common.Gui.Forms.MessageWindow
             messagesDataGridView.AutoResizeRow(row.Index, DataGridViewAutoSizeRowMode.AllCells);
         }
 
-        private void MessagesDataGridViewMouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                ValidateContextMenuCommands();
-            }
-        }
-
         private void ValidateContextMenuCommands()
         {
             foreach (ToolStripItem item in contextMenu.Items)
             {
                 item.Enabled = (messagesDataGridView.Rows.Count > 0);
             }
-        }
-
-        private void ButtonClearAllClick(object sender, EventArgs e)
-        {
-            Messages.Clear();
-        }
-
-        private void ButtonCopyClick(object sender, EventArgs e)
-        {
-            Clipboard.SetDataObject(messagesDataGridView.GetClipboardContent());
-        }
-
-        private void MessagesDataGridViewCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.ColumnIndex != levelColumnDataGridViewTextBoxColumn.Index || e.Value == null)
-            {
-                return;
-            }
-
-            // Dataset stores image-name instead of actual image, therefore we map to 
-            // actual image during formatting.
-            var level = (string) e.Value;
-            e.Value = levelImages.Images[levelImageName[level]];
         }
 
         private void ApplyFilter()
@@ -271,6 +226,104 @@ namespace Core.Common.Gui.Forms.MessageWindow
                        string.Join(" OR ", filterlines);
         }
 
+        /// <summary>
+        /// Class that holds message information.
+        /// </summary>
+        private class MessageData
+        {
+            /// <summary>
+            /// Gets or sets the image representation of the logging level.
+            /// </summary>
+            public string ImageName { get; set; }
+
+            /// <summary>
+            /// Gets or sets the time when the message was logged.
+            /// </summary>
+            public DateTime Time { get; set; }
+
+            /// <summary>
+            /// Gets or sets the short message text, i.e., the first line of  <see cref="FullMessage"/>.
+            /// </summary>
+            public string ShortMessage { get; set; }
+
+            /// <summary>
+            /// Gets or sets the full message text.
+            /// </summary>
+            public string FullMessage { get; set; }
+        }
+
+        #region Events
+
+        protected override void OnLoad(EventArgs e)
+        {
+            Text = Resources.MessageWindow_MessageWindow_Messages;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            PopulateMessages();
+        }
+
+        private void ShowDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (messagesDataGridView.CurrentRow == null)
+            {
+                return;
+            }
+
+            var messageWindowDialog = new MessageWindowDialog(dialogParent, (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
+
+            messageWindowDialog.ShowDialog();
+        }
+
+        #region Messages data grid view
+
+        private void MessagesDataGridViewMouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                ValidateContextMenuCommands();
+            }
+        }
+
+        private void MessagesDataGridViewRowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            if (filtering)
+            {
+                return;
+            }
+            var row = messagesDataGridView.Rows[e.RowIndex];
+            AutoSizeRow(row);
+        }
+
+        private void MessagesDataGridViewCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex != levelColumnDataGridViewTextBoxColumn.Index || e.Value == null)
+            {
+                return;
+            }
+
+            // Dataset stores image-name instead of actual image, therefore we map to 
+            // actual image during formatting.
+            var level = (string) e.Value;
+            e.Value = levelImages.Images[levelImageName[level]];
+        }
+
+        #endregion
+
+        #region Button
+
+        private void ButtonClearAllClick(object sender, EventArgs e)
+        {
+            Messages.Clear();
+        }
+
+        private void ButtonCopyClick(object sender, EventArgs e)
+        {
+            Clipboard.SetDataObject(messagesDataGridView.GetClipboardContent());
+        }
+
         private void ButtonShowInfoClick(object sender, EventArgs e)
         {
             buttonShowInfo.Checked = !buttonShowInfo.Checked;
@@ -289,25 +342,9 @@ namespace Core.Common.Gui.Forms.MessageWindow
             ApplyFilter();
         }
 
-        private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (messagesDataGridView.CurrentRow == null)
-            {
-                return;
-            }
+        #endregion
 
-            var messageWindowDialog = new MessageWindowDialog(dialogParent, (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
-
-            messageWindowDialog.ShowDialog();
-        }
-
-        private class MessageData
-        {
-            public string ImageName { get; set; }
-            public DateTime Time { get; set; }
-            public string ShortMessage { get; set; }
-            public string FullMessage { get; set; }
-        }
+        #endregion
 
         #region Constants referring to the item-names of the ImageList
 

@@ -180,7 +180,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.buttonShowDetails.Image = global::Core.Common.Gui.Properties.Resources.application_import_blue;
             resources.ApplyResources(this.buttonShowDetails, "buttonShowDetails");
             this.buttonShowDetails.Name = "buttonShowDetails";
-            this.buttonShowDetails.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
+            this.buttonShowDetails.Click += new System.EventHandler(this.ShowDetailsToolStripMenuItem_Click);
             // 
             // messagesDataGridView
             // 

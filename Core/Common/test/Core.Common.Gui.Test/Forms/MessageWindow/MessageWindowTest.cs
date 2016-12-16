@@ -67,11 +67,37 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 // Assert
                 Assert.IsInstanceOf<UserControl>(messageWindow);
                 Assert.IsInstanceOf<GuiFormsMessageWindow.IMessageWindow>(messageWindow);
-                Assert.AreEqual("Berichten", messageWindow.Text);
                 Assert.IsInstanceOf<DataTable>(messageWindow.Data);
                 Assert.AreSame(messageWindow, GuiFormsMessageWindow.MessageWindowLogAppender.Instance.MessageWindow);
             }
 
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void OnLoad_ExpectedMessageWindowText()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var logAppender = new GuiFormsMessageWindow.MessageWindowLogAppender();
+
+            // Precondition
+            Assert.AreSame(logAppender, GuiFormsMessageWindow.MessageWindowLogAppender.Instance);
+
+            using (var form = new Form())
+            using (var messageWindow = new GuiFormsMessageWindow.MessageWindow(dialogParent))
+            {
+                form.Controls.Add(messageWindow);
+
+                // Call
+                form.Show();
+
+                // Assert
+                Assert.AreEqual("Berichten", messageWindow.Text);
+            }
             mocks.VerifyAll();
         }
 
