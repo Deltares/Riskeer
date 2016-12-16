@@ -21,13 +21,16 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Properties;
+using Core.Components.Gis.IO.Readers;
 using DotSpatial.Data;
+using DotSpatial.Topology;
 using log4net;
 using ILog = log4net.ILog;
 
@@ -64,18 +67,58 @@ namespace Core.Components.Gis.IO.Importers
                 HandleUserCancellingImport();
                 return false;
             }
+
+            AddFeatureBasedMapDataToMapDataCollection(readResult.ImportedItems.First());
+
             return true;
+        }
+
+        private void AddFeatureBasedMapDataToMapDataCollection(FeatureBasedMapData importedMapData)
+        {
+            ImportTarget.Add(importedMapData);
         }
 
         private ReadResult<FeatureBasedMapData> ReadFeatureBasedMapData()
         {
             try
             {
+                string shapeFileName = Path.GetFileNameWithoutExtension(FilePath);
                 var featureSet = Shapefile.OpenFile(FilePath);
+                
+                FeatureBasedMapData importedData;
 
-                var readResult = new ReadResult<FeatureBasedMapData>(false);
+                switch (featureSet.FeatureType)
+                {
+                    case FeatureType.Point:
+                    case FeatureType.MultiPoint:
+                        using (ShapeFileReaderBase reader = new PointShapeFileReader(FilePath))
+                        {
+                            importedData = reader.ReadShapeFile(shapeFileName);
+                        }
+                        break;
+                    case FeatureType.Line:
+                        using (ShapeFileReaderBase reader = new PolylineShapeFileReader(FilePath))
+                        {
+                            importedData = reader.ReadShapeFile(shapeFileName);
+                        }
+                        break;
+                    case FeatureType.Polygon:
+                        using (ShapeFileReaderBase reader = new PolygonShapeFileReader(FilePath))
+                        {
+                            importedData = reader.ReadShapeFile(shapeFileName);
+                        }
+                        break;
+                    default:
+                        throw new CriticalFileReadException(Resources.FeatureBasedMapDataImporter_Import_ShapeFile_Contains_Unsupported_Data);                        
+                }
 
-                return readResult;
+                return new ReadResult<FeatureBasedMapData>(false)
+                {
+                    ImportedItems = new[]
+                    {
+                        importedData
+                    }
+                };
             }
             catch (ArgumentException)
             {

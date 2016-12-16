@@ -123,9 +123,9 @@ namespace Core.Components.Gis.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De data in het shapebestand wordt niet ondersteund..
         /// </summary>
-        internal static string MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data {
+        internal static string FeatureBasedMapDataImporter_Import_ShapeFile_Contains_Unsupported_Data {
             get {
-                return ResourceManager.GetString("MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data", resourceCulture);
+                return ResourceManager.GetString("FeatureBasedMapDataImporter_Import_ShapeFile_Contains_Unsupported_Data", resourceCulture);
             }
         }
         

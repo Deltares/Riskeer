@@ -154,7 +154,7 @@ Er is geen kaartlaag geïmporteerd.</value>
   <data name="FeatureBasedMapDataImporter_Import_File_does_not_exist_or_misses_needed_files" xml:space="preserve">
     <value>Het bestand of andere benodigde bestanden zijn niet gevonden.</value>
   </data>
-  <data name="MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data" xml:space="preserve">
+  <data name="FeatureBasedMapDataImporter_Import_ShapeFile_Contains_Unsupported_Data" xml:space="preserve">
     <value>De data in het shapebestand wordt niet ondersteund.</value>
   </data>
 </root>

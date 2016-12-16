@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
@@ -124,6 +125,28 @@ namespace Core.Components.Gis.IO.Test.Importers
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
                 Assert.IsFalse(importSuccesful);
             }
+        }
+
+        [Test]
+        [TestCase("Single_Point_with_ID.shp")]
+        [TestCase("Single_Polygon_with_ID.shp")]
+        [TestCase("Single_PolyLine_with_ID.shp")]
+        public void Import_ValidShapeFile_ImportDataOnMapDataCollection(string fileName)
+        {
+            // Setup
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, fileName);
+            var mapDataCollection = new MapDataCollection("test");
+            var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
+
+            // Precondition
+            CollectionAssert.IsEmpty(mapDataCollection.Collection);
+
+            // Call
+            bool importSuccesful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(importSuccesful);
+            Assert.AreEqual(1, mapDataCollection.Collection.Count());
         }
     }
 }
