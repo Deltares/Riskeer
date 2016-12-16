@@ -34,7 +34,7 @@ using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 namespace Ringtoets.Common.IO.ReferenceLines
 {
     /// <summary>
-    /// Imports a <see cref="ReferenceLine"/> and stores in on a <see cref="IAssessmentSection"/>,
+    /// Imports a <see cref="ReferenceLine"/> and stores it on a <see cref="IAssessmentSection"/>,
     /// taking data from a shapefile containing a single polyline.
     /// </summary>
     public class ReferenceLineImporter : FileImporterBase<IAssessmentSection>
