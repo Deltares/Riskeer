@@ -141,4 +141,20 @@
   <data name="PointShapeFileWriter_CreatePointFromMapFeature_A_feature_can_only_contain_one_geometry" xml:space="preserve">
     <value>Een feature mag maar één geometrie bevatten.</value>
   </data>
+  <data name="FeatureBasedMapDataImporter_HandleCriticalFileReadError_Error_0_no_maplayer_imported" xml:space="preserve">
+    <value>{0}
+Er is geen kaartlaag geïmporteerd.</value>
+  </data>
+  <data name="FeatureBasedMapDataImporter_Import_An_error_occurred_when_trying_to_read_the_file" xml:space="preserve">
+    <value>Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.</value>
+  </data>
+  <data name="FeatureBasedMapDataImporter_Import_File_does_not_contain_geometries" xml:space="preserve">
+    <value>Kon geen geometrieën vinden in dit bestand.</value>
+  </data>
+  <data name="FeatureBasedMapDataImporter_Import_File_does_not_exist_or_misses_needed_files" xml:space="preserve">
+    <value>Het bestand of andere benodigde bestanden zijn niet gevonden.</value>
+  </data>
+  <data name="MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data" xml:space="preserve">
+    <value>De data in het shapebestand wordt niet ondersteund.</value>
+  </data>
 </root>

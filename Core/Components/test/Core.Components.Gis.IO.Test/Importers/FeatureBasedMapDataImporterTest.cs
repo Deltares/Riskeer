@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.IO;
 using Core.Common.Base.IO;
+using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Importers;
 using NUnit.Framework;
@@ -40,6 +43,87 @@ namespace Core.Components.Gis.IO.Test.Importers
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<MapDataCollection>>(importer);
+        }
+
+        [Test]
+        public void Import_ShapefileDoesNotExist_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "I_dont_exist.shp");
+            var mapDataCollection = new MapDataCollection("test");
+            var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
+
+            // Call
+            bool importSuccesful = true;
+            Action call = () => importSuccesful = importer.Import();
+
+            // Assert
+            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': het bestand of andere benodigde bestanden zijn niet gevonden.", path) + Environment.NewLine +
+                                  "Er is geen kaartlaag geïmporteerd.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccesful);
+        }
+
+        [Test]
+        public void Import_ShapeFileEmptyFile_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "EmptyFile.shp");
+            var mapDataCollection = new MapDataCollection("test");
+            var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
+
+            // Call
+            bool importSuccesful = true;
+            Action call = () => importSuccesful = importer.Import();
+
+            // Assert
+            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': kon geen geometrieën vinden in dit bestand.", path) + Environment.NewLine +
+                                  "Er is geen kaartlaag geïmporteerd.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccesful);
+        }
+
+        [Test]
+        public void Import_ShapeFileCorrupt_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "CorruptFile.shp");
+            var mapDataCollection = new MapDataCollection("test");
+            var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
+
+            // Call
+            bool importSuccesful = true;
+            Action call = () => importSuccesful = importer.Import();
+
+            // Assert
+            const string message = @"Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
+            var expectedMessage = string.Format(message, path) + Environment.NewLine +
+                                  "Er is geen kaartlaag geïmporteerd.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccesful);
+        }
+
+        [Test]
+        public void Import_ShapeFileInUse_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
+            var mapDataCollection = new MapDataCollection("test");
+            var importer = new FeatureBasedMapDataImporter(mapDataCollection, path);
+
+            using (new StreamReader(new FileStream(path, FileMode.Open)))
+            {
+                // Call
+                bool importSuccesful = true;
+                Action call = () => importSuccesful = importer.Import();
+
+                // Assert
+                const string message = @"Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
+                var expectedMessage = string.Format(message, path) + Environment.NewLine +
+                                      "Er is geen kaartlaag geïmporteerd.";
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+                Assert.IsFalse(importSuccesful);
+            }
         }
     }
 }

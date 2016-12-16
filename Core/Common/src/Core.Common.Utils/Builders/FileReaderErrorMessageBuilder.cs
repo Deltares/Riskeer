@@ -21,6 +21,7 @@
 
 using System.Globalization;
 using Core.Common.Utils.Extensions;
+using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils.Builders
 {
@@ -50,7 +51,7 @@ namespace Core.Common.Utils.Builders
         public string Build(string errorMessage)
         {
             return string.Format(CultureInfo.CurrentCulture,
-                                 "Fout bij het lezen van bestand '{0}'{1}{2}: {3}",
+                                 Resources.FileReaderErrorMessageBuilder_Build_Error_while_reading_file_0_location_1_subject_2_errorMessage_3,
                                  filePath,
                                  location ?? string.Empty,
                                  subject ?? string.Empty,

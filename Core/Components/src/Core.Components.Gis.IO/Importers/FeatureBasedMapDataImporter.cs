@@ -19,8 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.IO;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
+using Core.Common.IO.Readers;
+using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.IO.Properties;
 using DotSpatial.Data;
 using log4net;
 using ILog = log4net.ILog;
@@ -45,7 +51,67 @@ namespace Core.Components.Gis.IO.Importers
 
         public override bool Import()
         {
+            Canceled = false;
+
+            ReadResult<FeatureBasedMapData> readResult = ReadFeatureBasedMapData();
+            if (readResult.CriticalErrorOccurred)
+            {
+                return false;
+            }
+
+            if (Canceled)
+            {
+                HandleUserCancellingImport();
+                return false;
+            }
             return true;
+        }
+
+        private ReadResult<FeatureBasedMapData> ReadFeatureBasedMapData()
+        {
+            try
+            {
+                var featureSet = Shapefile.OpenFile(FilePath);
+
+                var readResult = new ReadResult<FeatureBasedMapData>(false);
+
+                return readResult;
+            }
+            catch (ArgumentException)
+            {
+                return HandleCriticalFileReadError(Resources.FeatureBasedMapDataImporter_Import_File_does_not_contain_geometries);
+            }
+            catch (FileNotFoundException)
+            {
+                return HandleCriticalFileReadError(Resources.FeatureBasedMapDataImporter_Import_File_does_not_exist_or_misses_needed_files);
+            }
+            catch (IOException)
+            {
+                return HandleCriticalFileReadError(Resources.FeatureBasedMapDataImporter_Import_An_error_occurred_when_trying_to_read_the_file);
+            }
+            catch (CriticalFileReadException e)
+            {
+                return HandleCriticalFileReadError(e.Message);
+            }
+            catch (Exception)
+            {
+                // Because NullReferenceException or NotImplementedException when reading in a corrupt shape file
+                // from a third party library is expected, we catch all the exceptions here.
+                return HandleCriticalFileReadError(Resources.FeatureBasedMapDataImporter_Import_An_error_occurred_when_trying_to_read_the_file);
+            }
+        }
+
+        private ReadResult<FeatureBasedMapData> HandleCriticalFileReadError(string message)
+        {
+            var errorMessage = string.Format(Resources.FeatureBasedMapDataImporter_HandleCriticalFileReadError_Error_0_no_maplayer_imported,
+                                             new FileReaderErrorMessageBuilder(FilePath).Build(message));
+            log.Error(errorMessage);
+            return new ReadResult<FeatureBasedMapData>(true);
+        }
+
+        private static void HandleUserCancellingImport()
+        {
+            log.Info("Kaartlaag toevoegen geannuleerd.");
         }
     }
 }

@@ -162,4 +162,7 @@
   <data name="ConvertFrom_Only_following_values_are_accepted_ParameterValues_0_" xml:space="preserve">
     <value>Slechts de volgende waardes worden geaccepteerd: {0}.</value>
   </data>
+  <data name="FileReaderErrorMessageBuilder_Build_Error_while_reading_file_0_location_1_subject_2_errorMessage_3" xml:space="preserve">
+    <value>Fout bij het lezen van bestand '{0}'{1}{2}: {3}</value>
+  </data>
 </root>
