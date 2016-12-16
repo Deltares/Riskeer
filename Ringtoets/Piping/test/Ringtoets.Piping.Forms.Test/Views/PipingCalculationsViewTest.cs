@@ -109,11 +109,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var soilProfilesCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[stochasticSoilProfilesColumnIndex];
                 var soilProfilesComboboxItems = soilProfilesCombobox.Items;
-                Assert.AreEqual(0, soilProfilesComboboxItems.Count); // Row dependend
+                Assert.AreEqual(0, soilProfilesComboboxItems.Count); // Row dependent
 
                 var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
                 var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-                Assert.AreEqual(0, hydraulicBoundaryLocationComboboxItems.Count); // Row dependend
+                Assert.AreEqual(0, hydraulicBoundaryLocationComboboxItems.Count); // Row dependent
             }
         }
 
@@ -564,7 +564,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingScenariosViewWithPipingFailureMechanism_WhenSectionsAddedAndPipingFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
+        public void GivenPipingCalculationsViewWithPipingFailureMechanism_WhenSectionsAddedAndPipingFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
         {
             // Given
             var pipingFailureMechanismWithSections = new PipingFailureMechanism();
@@ -584,9 +584,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            using (var pipingScenarioView = ShowPipingCalculationsView())
+            using (var pipingCalculationsView = ShowPipingCalculationsView())
             {
-                pipingScenarioView.PipingFailureMechanism = pipingFailureMechanismWithSections;
+                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanismWithSections;
 
                 var listBox = (ListBox) new ControlTester("listBox").TheObject;
 

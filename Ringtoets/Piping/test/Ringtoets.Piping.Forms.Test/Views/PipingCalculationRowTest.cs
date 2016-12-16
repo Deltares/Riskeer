@@ -77,145 +77,143 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Name_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
             var newValue = "Test new name";
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = calculation
-            })
-            {
-                // Call
-                row.Name = newValue;
+            calculation.Attach(observer);
 
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(newValue, calculation.Name);
-            }
+            // Call
+            row.Name = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, calculation.Name);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void StochasticSoilModel_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
             var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilModel>(new StochasticSoilModel(0, "test", "test"));
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = calculation.InputParameters
-            })
-            {
-                // Call
-                row.StochasticSoilModel = newValue;
+            calculation.InputParameters.Attach(observer);
 
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(newValue.WrappedObject, calculation.InputParameters.StochasticSoilModel);
-            }
+            // Call
+            row.StochasticSoilModel = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue.WrappedObject, calculation.InputParameters.StochasticSoilModel);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void StochasticSoilProfile_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
             var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(new StochasticSoilProfile(0, 0, 0));
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
+            calculation.InputParameters.Attach(observer);
 
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = calculation.InputParameters
-            })
-            {
-                // Call
-                row.StochasticSoilProfile = newValue;
+            // Call
+            row.StochasticSoilProfile = newValue;
 
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(newValue.WrappedObject, calculation.InputParameters.StochasticSoilProfile);
-            }
+            // Assert
+            Assert.AreEqual(newValue.WrappedObject, calculation.InputParameters.StochasticSoilProfile);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void SelectableHydraulicBoundaryLocation_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
             var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
             var newValue = new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(selectableHydraulicBoundaryLocation);
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = calculation.InputParameters
-            })
-            {
-                // Call
-                row.SelectableHydraulicBoundaryLocation = newValue;
+            calculation.InputParameters.Attach(observer);
 
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreSame(newValue.WrappedObject, selectableHydraulicBoundaryLocation);
-            }
+            // Call
+            row.SelectableHydraulicBoundaryLocation = newValue;
+
+            // Assert
+            Assert.AreSame(newValue.WrappedObject, selectableHydraulicBoundaryLocation);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void DampingFactorExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
             var newValue = new Random().Next();
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
+            calculation.InputParameters.Attach(observer);
 
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = calculation.InputParameters
-            })
-            {
-                // Call
-                row.DampingFactorExitMean = (RoundedDouble) newValue;
+            // Call
+            row.DampingFactorExitMean = (RoundedDouble) newValue;
 
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.DampingFactorExit.Mean);
-            }
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.DampingFactorExit.Mean);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void PhreaticLevelExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
             var newValue = new Random().Next();
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
 
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = calculation.InputParameters
-            })
-            {
-                // Call
-                row.PhreaticLevelExitMean = (RoundedDouble) newValue;
+            calculation.InputParameters.Attach(observer);
 
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.PhreaticLevelExit.Mean);
-            }
+            // Call
+            row.PhreaticLevelExitMean = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.PhreaticLevelExit.Mean);
+            mockRepository.VerifyAll();
         }
 
         [Test]

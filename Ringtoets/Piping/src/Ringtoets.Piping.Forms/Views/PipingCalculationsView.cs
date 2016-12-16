@@ -242,9 +242,9 @@ namespace Ringtoets.Piping.Forms.Views
                 TypeUtils.GetMemberName<PipingCalculationRow>(pcs => pcs.ExitPointL),
                 Resources.PipingInput_ExitPointL_DisplayName);
 
-                        UpdateStochasticSoilModelColumn();
+            UpdateStochasticSoilModelColumn();
             UpdateStochasticSoilProfileColumn();
-UpdateSelectableHydraulicBoundaryLocationsColumn();
+            UpdateSelectableHydraulicBoundaryLocationsColumn();
         }
 
         private void InitializeListBox()
@@ -416,14 +416,14 @@ UpdateSelectableHydraulicBoundaryLocationsColumn();
         private void FillAvailableSelectableHydraulicBoundaryLocationsList(DataGridViewRow dataGridViewRow)
         {
             var rowData = (PipingCalculationRow) dataGridViewRow.DataBoundItem;
-            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocationForCalculation(rowData.PipingCalculation);
+            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocationsForCalculation(rowData.PipingCalculation);
 
             var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex];
             var dataGridViewComboBoxItemWrappers = GetSelectableHydraulicBoundaryLocationsDataSource(locations).ToArray();
             SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
         }
 
-        private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationForCalculation(PipingCalculation pipingCalculation)
+        private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(PipingCalculation pipingCalculation)
         {
             if (assessmentSection == null || assessmentSection.HydraulicBoundaryDatabase == null)
             {

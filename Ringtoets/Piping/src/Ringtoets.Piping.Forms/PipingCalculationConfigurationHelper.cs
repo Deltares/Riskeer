@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Forms
         /// <summary>
         /// Gets the sorted selectable hydraulic boundary locations from <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The available hydraulic boudnary locations.</param>
+        /// <param name="hydraulicBoundaryLocations">The available hydraulic boundary locations.</param>
         /// <param name="surfaceLine">The reference point to which the distance needs to be 
         /// calculated in <see cref="SelectableHydraulicBoundaryLocation"/>.</param>
         /// <returns>An ordered list of selectable hydraulic boundary locations.</returns>
@@ -127,8 +127,8 @@ namespace Ringtoets.Piping.Forms
                                          ? surfaceLine.ReferenceLineIntersectionWorldPoint
                                          : null;
             return hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, referencePoint))
-                                                      .OrderBy(hbl => hbl.Distance)
-                                                      .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                                             .OrderBy(hbl => hbl.Distance)
+                                             .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
         }
 
         private static CalculationGroup CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
