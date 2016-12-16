@@ -23,11 +23,13 @@ using System;
 using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
@@ -61,10 +63,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreSame(calculation, row.PipingCalculation);
             Assert.AreEqual(calculation.Name, row.Name);
-            Assert.AreEqual(calculation.InputParameters.StochasticSoilModel, row.StochasticSoilModel.WrappedObject);
-            Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
+            Assert.AreSame(calculation.InputParameters.StochasticSoilModel, row.StochasticSoilModel.WrappedObject);
+            Assert.AreSame(calculation.InputParameters.StochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
             Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile.Probability.ToString(CultureInfo.CurrentCulture), row.StochasticSoilProfileProbability);
-            Assert.AreEqual(calculation.InputParameters.HydraulicBoundaryLocation, row.HydraulicBoundaryLocation.WrappedObject);
+            Assert.AreSame(calculation.InputParameters.HydraulicBoundaryLocation, row.SelectableHydraulicBoundaryLocation.WrappedObject.HydraulicBoundaryLocation);
             Assert.AreEqual(calculation.InputParameters.DampingFactorExit.Mean, row.DampingFactorExitMean);
             Assert.AreEqual(calculation.InputParameters.PhreaticLevelExit.Mean, row.PhreaticLevelExitMean);
             Assert.AreEqual(calculation.InputParameters.EntryPointL, row.EntryPointL);
@@ -144,10 +146,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void HydraulicBoundaryLocation_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
+        public void SelectableHydraulicBoundaryLocation_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var newValue = new DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>(new HydraulicBoundaryLocation(0, "test", 0.0, 0.0));
+            var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
+            var newValue = new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(selectableHydraulicBoundaryLocation);
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation);
@@ -159,11 +162,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             })
             {
                 // Call
-                row.HydraulicBoundaryLocation = newValue;
+                row.SelectableHydraulicBoundaryLocation = newValue;
 
                 // Assert
                 Assert.AreEqual(1, counter);
-                Assert.AreEqual(newValue.WrappedObject, calculation.InputParameters.HydraulicBoundaryLocation);
+                Assert.AreSame(newValue.WrappedObject, selectableHydraulicBoundaryLocation);
             }
         }
 

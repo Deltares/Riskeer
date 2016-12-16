@@ -33,9 +33,11 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
@@ -48,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Views
     {
         private const int stochasticSoilModelColumnIndex = 1;
         private const int stochasticSoilProfileColumnIndex = 2;
-        private const int hydraulicBoundaryLocationColumnIndex = 4;
+        private const int selectableHydraulicBoundaryLocationColumnIndex = 4;
         private readonly Observer assessmentSectionObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingInput> pipingInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
@@ -74,7 +76,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             pipingStochasticSoilModelsObserver = new Observer(OnStochasticSoilModelsUpdate);
             pipingFailureMechanismObserver = new Observer(OnPipingFailureMechanismUpdate);
-            assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryLocationsColumn);
+            assessmentSectionObserver = new Observer(UpdateSelectableHydraulicBoundaryLocationsColumn);
             // The concat is needed to observe the input of calculations in child groups.
             pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
             pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
@@ -98,6 +100,7 @@ namespace Ringtoets.Piping.Forms.Views
 
                 UpdateStochasticSoilModelColumn();
                 UpdateStochasticSoilProfileColumn();
+                UpdateSelectableHydraulicBoundaryLocationsColumn();
                 UpdateSectionsListBox();
                 UpdateGenerateScenariosButtonState();
             }
@@ -118,7 +121,7 @@ namespace Ringtoets.Piping.Forms.Views
 
                 assessmentSectionObserver.Observable = assessmentSection;
 
-                UpdateHydraulicBoundaryLocationsColumn();
+                UpdateSelectableHydraulicBoundaryLocationsColumn();
             }
         }
 
@@ -210,12 +213,12 @@ namespace Ringtoets.Piping.Forms.Views
                 TypeUtils.GetMemberName<PipingCalculationRow>(row => row.StochasticSoilProfileProbability),
                 Resources.PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability);
 
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>>(
-                TypeUtils.GetMemberName<PipingCalculationRow>(row => row.HydraulicBoundaryLocation),
+            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
+                TypeUtils.GetMemberName<PipingCalculationRow>(row => row.SelectableHydraulicBoundaryLocation),
                 Resources.PipingInput_HydraulicBoundaryLocation_DisplayName,
                 null,
-                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>>(wrapper => wrapper.This),
-                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>>(wrapper => wrapper.DisplayName));
+                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(wrapper => wrapper.This),
+                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(wrapper => wrapper.DisplayName));
 
             var dampingFactorExitHeader = Resources.PipingInput_DampingFactorExit_DisplayName;
             dampingFactorExitHeader = char.ToLowerInvariant(dampingFactorExitHeader[0]) + dampingFactorExitHeader.Substring(1);
@@ -239,9 +242,9 @@ namespace Ringtoets.Piping.Forms.Views
                 TypeUtils.GetMemberName<PipingCalculationRow>(pcs => pcs.ExitPointL),
                 Resources.PipingInput_ExitPointL_DisplayName);
 
-            UpdateHydraulicBoundaryLocationsColumn();
-            UpdateStochasticSoilModelColumn();
+                        UpdateStochasticSoilModelColumn();
             UpdateStochasticSoilProfileColumn();
+UpdateSelectableHydraulicBoundaryLocationsColumn();
         }
 
         private void InitializeListBox()
@@ -325,6 +328,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             UpdateStochasticSoilModelColumn();
             UpdateStochasticSoilProfileColumn();
+            UpdateSelectableHydraulicBoundaryLocationsColumn();
 
             updatingDataSource = false;
         }
@@ -375,16 +379,16 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        private static List<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>> GetHydraulicBoundaryLocationsDataSource(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = null)
+        private static List<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>> GetSelectableHydraulicBoundaryLocationsDataSource(IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = null)
         {
-            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>>
+            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>
             {
-                new DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>(null)
+                new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(null)
             };
 
-            if (hydraulicBoundaryLocations != null)
+            if (selectableHydraulicBoundaryLocations != null)
             {
-                dataGridViewComboBoxItemWrappers.AddRange(hydraulicBoundaryLocations.Select(hbl => new DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>(hbl)));
+                dataGridViewComboBoxItemWrappers.AddRange(selectableHydraulicBoundaryLocations.Select(hbl => new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(hbl)));
             }
 
             return dataGridViewComboBoxItemWrappers;
@@ -394,21 +398,41 @@ namespace Ringtoets.Piping.Forms.Views
 
         #region Update combo box list items
 
-        #region Update Hydraulic Boundary Locations Column
+        #region Update Selectable Hydraulic Boundary Locations Column
 
-        private void UpdateHydraulicBoundaryLocationsColumn()
+        private void UpdateSelectableHydraulicBoundaryLocationsColumn()
         {
-            var hydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(hydraulicBoundaryLocationColumnIndex);
+            var column = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
 
-            using (new SuspendDataGridViewColumnResizes(hydraulicBoundaryLocationColumn))
+            using (new SuspendDataGridViewColumnResizes(column))
             {
-                List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null ?
-                                                                                 assessmentSection.HydraulicBoundaryDatabase.Locations :
-                                                                                 null;
-                SetItemsOnObjectCollection(
-                    hydraulicBoundaryLocationColumn.Items,
-                    GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations).ToArray());
+                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
+                {
+                    FillAvailableSelectableHydraulicBoundaryLocationsList(dataGridViewRow);
+                }
             }
+        }
+
+        private void FillAvailableSelectableHydraulicBoundaryLocationsList(DataGridViewRow dataGridViewRow)
+        {
+            var rowData = (PipingCalculationRow) dataGridViewRow.DataBoundItem;
+            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocationForCalculation(rowData.PipingCalculation);
+
+            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex];
+            var dataGridViewComboBoxItemWrappers = GetSelectableHydraulicBoundaryLocationsDataSource(locations).ToArray();
+            SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
+        }
+
+        private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationForCalculation(PipingCalculation pipingCalculation)
+        {
+            if (assessmentSection == null || assessmentSection.HydraulicBoundaryDatabase == null)
+            {
+                return Enumerable.Empty<SelectableHydraulicBoundaryLocation>();
+            }
+
+            return PipingCalculationConfigurationHelper.GetSelectableHydraulicBoundaryLocations(
+                assessmentSection.HydraulicBoundaryDatabase.Locations,
+                pipingCalculation.InputParameters.SurfaceLine);
         }
 
         #endregion
@@ -491,7 +515,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             DataGridViewComboBoxColumn stochasticSoilModelColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(stochasticSoilModelColumnIndex);
             DataGridViewComboBoxColumn stochasticSoilProfileColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(stochasticSoilProfileColumnIndex);
-            DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(hydraulicBoundaryLocationColumnIndex);
+            DataGridViewComboBoxColumn selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
 
             // Need to prefill for all possible data in order to guarantee 'combo box' columns
             // do not generate errors when their cell value is not present in the list of available
@@ -506,15 +530,33 @@ namespace Ringtoets.Piping.Forms.Views
                 var pipingSoilProfiles = GetPipingStochasticSoilProfilesFromStochasticSoilModels();
                 SetItemsOnObjectCollection(stochasticSoilProfileColumn.Items, GetPrefillSoilProfilesDataSource(pipingSoilProfiles).ToArray());
             }
-            using (new SuspendDataGridViewColumnResizes(hydraulicBoundaryLocationColumn))
+            using (new SuspendDataGridViewColumnResizes(selectableHydraulicBoundaryLocationColumn))
             {
-                var hydraulicBoundaryLocations = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
-                                                     ? assessmentSection.HydraulicBoundaryDatabase.Locations
-                                                     : null;
-                SetItemsOnObjectCollection(
-                    hydraulicBoundaryLocationColumn.Items,
-                    GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations).ToArray());
+                SetItemsOnObjectCollection(selectableHydraulicBoundaryLocationColumn.Items,
+                                           GetSelectableHydraulicBoundaryLocationsDataSource(GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()).ToArray());
             }
+        }
+
+        private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
+        {
+            if (assessmentSection == null || assessmentSection.HydraulicBoundaryDatabase == null)
+            {
+                return null;
+            }
+
+            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+
+            List<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
+            if (PipingFailureMechanism == null || !PipingFailureMechanism.SurfaceLines.Any())
+            {
+                return selectableHydraulicBoundaryLocations;
+            }
+
+            foreach (RingtoetsPipingSurfaceLine surfaceLine in PipingFailureMechanism.SurfaceLines)
+            {
+                selectableHydraulicBoundaryLocations.AddRange(PipingCalculationConfigurationHelper.GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, surfaceLine));
+            }
+            return selectableHydraulicBoundaryLocations;
         }
 
         private StochasticSoilProfile[] GetPipingStochasticSoilProfilesFromStochasticSoilModels()
@@ -599,7 +641,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex == hydraulicBoundaryLocationColumnIndex)
+            if (eventArgs.ColumnIndex == selectableHydraulicBoundaryLocationColumnIndex)
             {
                 PipingCalculationRow dataItem = dataGridViewControl.GetRowFromIndex(eventArgs.RowIndex).DataBoundItem as PipingCalculationRow;
 

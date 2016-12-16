@@ -23,7 +23,7 @@ using System;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -131,17 +131,21 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Gets or sets the hydraulic boundary location of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
-        public DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation> HydraulicBoundaryLocation
+        public DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> SelectableHydraulicBoundaryLocation
         {
             get
             {
-                return new DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>(pipingCalculation.InputParameters.HydraulicBoundaryLocation);
+                return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(
+                    new SelectableHydraulicBoundaryLocation(pipingCalculation.InputParameters.HydraulicBoundaryLocation,
+                                                            pipingCalculation.InputParameters.SurfaceLine != null
+                                                                ? pipingCalculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint
+                                                                : null));
             }
             set
             {
-                pipingCalculation.InputParameters.HydraulicBoundaryLocation = value != null
-                                                                                  ? value.WrappedObject
-                                                                                  : null;
+                pipingCalculation.InputParameters.HydraulicBoundaryLocation = value == null || value.WrappedObject == null
+                                                                                  ? null
+                                                                                  : value.WrappedObject.HydraulicBoundaryLocation;
 
                 pipingCalculation.InputParameters.NotifyObservers();
             }
