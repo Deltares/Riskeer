@@ -34,16 +34,15 @@ namespace Core.Plugins.Map.Test
     /// </summary>
     public class TestMapView : Control, IMapView
     {
-        private object data;
-        private readonly MapDataCollection mapDataCollection;
+        private readonly MapControl mapControl;
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestMapView"/>
-        /// and initializes some <see cref="MapData"/>.
+        /// Creates a new instance of <see cref="TestMapView"/> and initializes some <see cref="MapData"/>.
         /// </summary>
         public TestMapView()
         {
-            mapDataCollection = new MapDataCollection("test");
+            var mapDataCollection = new MapDataCollection("test");
+
             mapDataCollection.Add(new MapPointData("test points")
             {
                 Features = new[]
@@ -70,30 +69,22 @@ namespace Core.Plugins.Map.Test
                     })
                 }
             });
+
+            mapControl = new MapControl
+            {
+                Data = mapDataCollection
+            };
+
+            Controls.Add(mapControl);
         }
 
-        public object Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value;
-
-                if (data != null)
-                {
-                    Map.Data = mapDataCollection;
-                }
-            }
-        }
+        public object Data { get; set; }
 
         public IMapControl Map
         {
             get
             {
-                return (MapControl) Data;
+                return mapControl;
             }
         }
     }

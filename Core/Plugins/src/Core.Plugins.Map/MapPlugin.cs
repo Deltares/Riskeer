@@ -61,15 +61,6 @@ namespace Core.Plugins.Map
             activated = true;
         }
 
-        private static void OnViewOpened(object sender, ViewChangeEventArgs e)
-        {
-            var view = e.View as IMapView;
-            if (view != null)
-            {
-                view.Map.ZoomToAllVisibleLayers();
-            }
-        }
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<MapDataCollection, MapDataCollectionProperties>();
@@ -116,6 +107,15 @@ namespace Core.Plugins.Map
         private void OnActiveDocumentViewChanged(object sender, EventArgs e)
         {
             UpdateComponentsForActiveDocumentView();
+        }
+
+        private static void OnViewOpened(object sender, ViewChangeEventArgs e)
+        {
+            var view = e.View as IMapView;
+            if (view != null)
+            {
+                view.Map.ZoomToAllVisibleLayers();
+            }
         }
 
         /// <summary>

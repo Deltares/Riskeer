@@ -26,11 +26,11 @@ using System.Windows.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
+using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
-using Core.Common.Gui;
 using Core.Common.Gui.TestUtil;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
@@ -173,18 +173,15 @@ namespace Core.Plugins.Map.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
             {
                 var plugin = new MapPlugin();
-                var testMapView = new TestMapView();
-                var map = new MapControl();
-                IView viewMock = visible ? (IView) testMapView : new TestView();
 
-                testMapView.Data = map;
+                IView view = visible ? (IView) new TestMapView() : new TestView();
 
                 gui.Plugins.Add(plugin);
                 plugin.Gui = gui;
                 gui.Run();
 
                 // When
-                gui.ViewHost.AddDocumentView(viewMock);
+                gui.ViewHost.AddDocumentView(view);
 
                 // Then
                 Assert.AreEqual(visible ? Visibility.Visible : Visibility.Collapsed, plugin.RibbonCommandHandler.GetRibbonControl().ContextualGroups[0].Visibility);
@@ -209,23 +206,18 @@ namespace Core.Plugins.Map.Test
             {
                 var plugin = new MapPlugin();
                 var testMapView = new TestMapView();
-                var mapControl = new MapControl();
-
-                IView viewMock = testMapView;
-
-                testMapView.Data = mapControl;
 
                 gui.Plugins.Add(plugin);
                 plugin.Gui = gui;
                 gui.Run();
 
-                DotSpatialMap map = (DotSpatialMap) mapControl.Controls[0];
+                DotSpatialMap map = (DotSpatialMap) ((MapControl) testMapView.Map).Controls[0];
 
                 // Precondition
                 var initialExtents = map.ViewExtents;
 
                 // When
-                gui.ViewHost.AddDocumentView(viewMock);
+                gui.ViewHost.AddDocumentView(testMapView);
 
                 // Then
                 Assert.AreNotEqual(initialExtents, map.ViewExtents);
