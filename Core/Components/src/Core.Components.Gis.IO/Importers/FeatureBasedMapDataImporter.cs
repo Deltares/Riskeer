@@ -54,8 +54,6 @@ namespace Core.Components.Gis.IO.Importers
 
         public override bool Import()
         {
-            Canceled = false;
-
             ReadResult<FeatureBasedMapData> readResult = ReadFeatureBasedMapData();
             if (readResult.CriticalErrorOccurred)
             {
@@ -154,7 +152,7 @@ namespace Core.Components.Gis.IO.Importers
 
         private static void HandleUserCancellingImport()
         {
-            log.Info("Kaartlaag toevoegen geannuleerd.");
+            log.Info(Resources.FeatureBasedMapDataImporter_HandleUserCancellingImport_Import_cancelled_no_data_read);
         }
     }
 }

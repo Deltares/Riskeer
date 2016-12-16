@@ -93,6 +93,16 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kaartlaag toevoegen afgebroken. Geen data ingelezen..
+        /// </summary>
+        internal static string FeatureBasedMapDataImporter_HandleUserCancellingImport_Import_cancelled_no_data_read {
+            get {
+                return ResourceManager.GetString("FeatureBasedMapDataImporter_HandleUserCancellingImport_Import_cancelled_no_data_r" +
+                        "ead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie..
         /// </summary>
         internal static string FeatureBasedMapDataImporter_Import_An_error_occurred_when_trying_to_read_the_file {
