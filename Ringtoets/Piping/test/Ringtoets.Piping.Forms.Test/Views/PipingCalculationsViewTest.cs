@@ -1075,15 +1075,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Precondition
-                DataGridViewCell hydraulicBoundaryLocationCell = dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
-                Assert.IsFalse(hydraulicBoundaryLocationCell.ReadOnly);
+                var currentCell = (DataGridViewComboBoxCell)dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
+                Assert.IsFalse(currentCell.ReadOnly);
 
                 // When
                 pipingCalculation.InputParameters.UseAssessmentLevelManualInput = true;
                 pipingCalculation.InputParameters.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(hydraulicBoundaryLocationCell.ReadOnly);
+                var currentCellUpdated = (DataGridViewComboBoxCell)dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
+                Assert.IsTrue(currentCellUpdated.ReadOnly);
+
+                var hydraulicBoundaryLocationComboboxItems = currentCellUpdated.Items;
+                Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
+                Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
             }
             mocks.VerifyAll();
         }

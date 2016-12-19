@@ -135,6 +135,11 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
+                if (pipingCalculation.InputParameters.HydraulicBoundaryLocation == null)
+                {
+                    return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(null);
+                }
+
                 return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(
                     new SelectableHydraulicBoundaryLocation(pipingCalculation.InputParameters.HydraulicBoundaryLocation,
                                                             pipingCalculation.InputParameters.SurfaceLine != null

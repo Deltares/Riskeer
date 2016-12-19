@@ -74,6 +74,23 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_WithPipingCalculationWithInvalidInput_PropertiesFromPipingCalculation()
+        {
+            // Setup
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
+
+            // Call
+            var row = new PipingCalculationRow(calculation);
+
+            // Assert
+            Assert.AreSame(calculation, row.PipingCalculation);
+            Assert.IsNull(row.StochasticSoilModel.WrappedObject);
+            Assert.IsNull(row.StochasticSoilProfile.WrappedObject);
+            Assert.AreEqual("0", row.StochasticSoilProfileProbability);
+            Assert.IsNull(row.SelectableHydraulicBoundaryLocation.WrappedObject);
+        }
+
+        [Test]
         public void Name_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup

@@ -435,7 +435,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(PipingCalculation pipingCalculation)
         {
-            if (assessmentSection == null || assessmentSection.HydraulicBoundaryDatabase == null)
+            if (assessmentSection == null || assessmentSection.HydraulicBoundaryDatabase == null || pipingCalculation.InputParameters.UseAssessmentLevelManualInput)
             {
                 return Enumerable.Empty<SelectableHydraulicBoundaryLocation>();
             }
@@ -652,15 +652,16 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (eventArgs.ColumnIndex == selectableHydraulicBoundaryLocationColumnIndex)
             {
-                PipingCalculationRow dataItem = dataGridViewControl.GetRowFromIndex(eventArgs.RowIndex).DataBoundItem as PipingCalculationRow;
+                DataGridViewRow dataGridViewRow = dataGridViewControl.GetRowFromIndex(eventArgs.RowIndex);
+                PipingCalculationRow dataItem = dataGridViewRow.DataBoundItem as PipingCalculationRow;
 
                 if (dataItem != null && dataItem.PipingCalculation.InputParameters.UseAssessmentLevelManualInput)
                 {
-                    dataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                    dataGridViewRow.ReadOnly = true;
                 }
-                else
+                else if (dataGridViewRow.ReadOnly)
                 {
-                    dataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                    dataGridViewRow.ReadOnly = false;
                 }
             }
         }
