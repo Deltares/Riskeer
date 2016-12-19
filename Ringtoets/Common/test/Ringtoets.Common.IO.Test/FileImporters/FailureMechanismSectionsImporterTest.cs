@@ -312,7 +312,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = "Geografische ligging van één of meerdere vakken wijkt af van de ligging van de trajectlijn. " + Environment.NewLine +
+            var expectedMessage = "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn. " + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -342,7 +342,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = "Geografische ligging van één of meerdere vakken wijkt af van de ligging van de trajectlijn. " + Environment.NewLine +
+            var expectedMessage = "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn. " + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -369,7 +369,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = "Opgetelde lengte van de vakken komt niet overeen met de trajectlengte. " + Environment.NewLine +
+            var expectedMessage = "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte. " + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -396,7 +396,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = "Opgetelde lengte van de vakken komt niet overeen met de trajectlengte. " + Environment.NewLine +
+            var expectedMessage = "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte. " + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);

@@ -496,9 +496,9 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een getal zijn groter dan 0.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_Import_Imported_sections_too_far_from_current_referenceline" xml:space="preserve">
-    <value>Geografische ligging van één of meerdere vakken wijkt af van de ligging van de trajectlijn.</value>
+    <value>De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_Import_Imported_sections_too_different_from_referenceline_length" xml:space="preserve">
-    <value>Opgetelde lengte van de vakken komt niet overeen met de trajectlengte.</value>
+    <value>De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte.</value>
   </data>
 </root>
