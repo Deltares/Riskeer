@@ -91,9 +91,11 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                 SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, point2D);
 
             // Assert
-            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList = hydraulicBoundaryLocations.Select
-                (hbl => new SelectableHydraulicBoundaryLocation(hbl, point2D)).OrderBy(hbl => hbl.Distance)
-                                                                                                      .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+            IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
+                hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, point2D))
+                                          .OrderBy(hbl => hbl.Distance)
+                                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+
             CollectionAssert.AreEqual(expectedList, selectableHydraulicBoundaryLocations);
         }
     }
