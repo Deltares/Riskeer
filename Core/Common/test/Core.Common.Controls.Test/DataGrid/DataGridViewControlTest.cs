@@ -1235,7 +1235,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
-
+  
                 dataGridView.DataSource = new[]
                 {
                     ""
@@ -1299,6 +1299,61 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(1, counter);
             }
         }
+
+        [Test]
+        public void AddCurrentCellChangedHandler_Always_AddsEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+
+                int counter = 0;
+                control.AddCurrentCellChangedHandler((sender, args) => counter++);
+
+                // Call
+                gridTester.FireEvent("CurrentCellChanged", new EventArgs());
+
+                // Assert
+                Assert.AreEqual(1, counter);
+            }
+        }
+        
+        [Test]
+        public void RemoveCurrentCellChangedHandler_Always_RemovesEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+
+                int counter = 0;
+
+                EventHandler eventHandler = (sender, args) => counter++;
+                control.AddCurrentCellChangedHandler(eventHandler);
+
+                // Precondition
+                Assert.AreEqual(0, counter);
+                gridTester.FireEvent("CurrentCellChanged", new EventArgs());
+                Assert.AreEqual(1, counter);
+
+                // Call
+                control.RemoveCurrentCellChangedHandler(eventHandler);
+
+                // Assert
+                gridTester.FireEvent("CurrentCellChanged", new EventArgs());
+                Assert.AreEqual(1, counter);
+            }
+        }
+
 
         [Test]
         public void AddCellValueChangedHandler_Always_AddsEventHandler()

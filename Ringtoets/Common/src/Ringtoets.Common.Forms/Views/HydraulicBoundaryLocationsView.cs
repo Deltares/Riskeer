@@ -177,27 +177,8 @@ namespace Ringtoets.Common.Forms.Views
 
         private void InitializeEventHandlers()
         {
-            dataGridViewControl.AddCellClickHandler(DataGridViewOnCellClick);
+            dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewOnCurrentCellChangedHandler);
             dataGridViewControl.AddCellValueChangedHandler(DataGridViewCellValueChanged);
-        }
-
-        private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (updatingDataSource || e.ColumnIndex != locationCalculateColumnIndex)
-            {
-                return;
-            }
-            UpdateCalculateForSelectedButton();
-        }
-
-        private void DataGridViewOnCellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (updatingDataSource)
-            {
-                return;
-            }
-
-            OnSelectionChanged();
         }
 
         private void OnSelectionChanged()
@@ -214,6 +195,25 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         #region Event handling
+
+        private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (updatingDataSource || e.ColumnIndex != locationCalculateColumnIndex)
+            {
+                return;
+            }
+            UpdateCalculateForSelectedButton();
+        }
+
+        private void DataGridViewOnCurrentCellChangedHandler(object sender, EventArgs e)
+        {
+            if (updatingDataSource)
+            {
+                return;
+            }
+
+            OnSelectionChanged();
+        }
 
         private void SelectAllButton_Click(object sender, EventArgs e)
         {
