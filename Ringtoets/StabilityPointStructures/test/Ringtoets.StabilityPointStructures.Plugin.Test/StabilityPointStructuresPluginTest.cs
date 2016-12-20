@@ -68,19 +68,16 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                     propertyInfos,
                     typeof(StabilityPointStructuresFailureMechanismContext),
                     typeof(StabilityPointStructuresFailureMechanismProperties));
-                Assert.IsNull(failureMechanismContextProperties.AfterCreate);
 
                 PropertyInfo stabilityPointStructureProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityPointStructure),
                     typeof(StabilityPointStructureProperties));
-                Assert.IsNull(stabilityPointStructureProperties.AfterCreate);
 
                 PropertyInfo stabilityPointStructuresInputContextPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityPointStructuresInputContext),
                     typeof(StabilityPointStructuresInputContextProperties));
-                Assert.IsNull(stabilityPointStructuresInputContextPropertyInfo.AfterCreate);
             }
         }
 

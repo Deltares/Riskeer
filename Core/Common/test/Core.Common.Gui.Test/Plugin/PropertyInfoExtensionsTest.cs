@@ -85,24 +85,6 @@ namespace Core.Common.Gui.Test.Plugin
         }
 
         [Test]
-        public void CreateObjectProperties_PropertyInfoWithGetObjectPropertiesDataAndAfterCreate_CreateObjectPropertiesObjectForTransformedData()
-        {
-            // Setup
-            int afterCreateCalled = 0;
-            PropertyInfo propertyInfo = new PropertyInfo<int, TestIntProperties>
-            {
-                AfterCreate = (intProperties, data) => afterCreateCalled++
-            };
-
-            // Call
-            var properties = propertyInfo.CreateObjectProperties(new Random(21).Next());
-
-            // Assert
-            Assert.IsInstanceOf<TestIntProperties>(properties);
-            Assert.AreEqual(1, afterCreateCalled);
-        }
-
-        [Test]
         public void CreateObjectProperties_WithDataNotSetInCreateInstance_CreateObjectPropertiesObjectWithSourceData()
         {
             // Setup

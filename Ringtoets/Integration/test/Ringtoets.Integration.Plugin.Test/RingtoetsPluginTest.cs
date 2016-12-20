@@ -206,79 +206,66 @@ namespace Ringtoets.Integration.Plugin.Test
                     propertyInfos,
                     typeof(IProject),
                     typeof(RingtoetsProjectProperties));
-                Assert.IsNull(ringtoetsProjectProperties.AfterCreate);
 
                 PropertyInfo assessmentSectionProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(IAssessmentSection),
                     typeof(AssessmentSectionProperties));
-                Assert.IsNull(assessmentSectionProperties.AfterCreate);
 
                 PropertyInfo hydraulicBoundaryDatabaseProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(HydraulicBoundaryDatabaseContext),
                     typeof(HydraulicBoundaryDatabaseProperties));
-                Assert.IsNull(hydraulicBoundaryDatabaseProperties.AfterCreate);
 
                 PropertyInfo failureMechanismContributionProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(FailureMechanismContributionContext),
                     typeof(FailureMechanismContributionProperties));
-                Assert.IsNotNull(failureMechanismContributionProperties.AfterCreate);
 
                 PropertyInfo standAloneFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(FailureMechanismContext<IFailureMechanism>),
                     typeof(StandAloneFailureMechanismContextProperties));
-                Assert.IsNull(standAloneFailureMechanismProperties.AfterCreate);
 
                 PropertyInfo calculationGroupProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ICalculationContext<CalculationGroup, IFailureMechanism>),
                     typeof(CalculationGroupContextProperties));
-                Assert.IsNull(calculationGroupProperties.AfterCreate);
 
                 PropertyInfo calculationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ICalculationContext<ICalculation, IFailureMechanism>),
                     typeof(CalculationContextProperties));
-                Assert.IsNull(calculationContextProperties.AfterCreate);
 
                 PropertyInfo outputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ProbabilityAssessmentOutput),
                     typeof(ProbabilityAssessmentOutputProperties));
-                Assert.IsNull(outputContextProperties.AfterCreate);
 
                 PropertyInfo designWaterLevelLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DesignWaterLevelLocationsContext),
                     typeof(DesignWaterLevelLocationsContextProperties));
-                Assert.IsNull(designWaterLevelLocationsContextProperties.AfterCreate);
 
                 PropertyInfo designWaterLevelLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DesignWaterLevelLocationContext),
                     typeof(DesignWaterLevelLocationContextProperties));
-                Assert.IsNull(designWaterLevelLocationContextProperties.AfterCreate);
 
                 PropertyInfo waveHeightLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveHeightLocationsContext),
                     typeof(WaveHeightLocationsContextProperties));
-                Assert.IsNull(waveHeightLocationsContextProperties.AfterCreate);
 
                 PropertyInfo waveHeightLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveHeightLocationContext),
                     typeof(WaveHeightLocationContextProperties));
-                Assert.IsNull(waveHeightLocationContextProperties.AfterCreate);
 
                 PropertyInfo foreshoreProfileProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ForeshoreProfile),
                     typeof(ForeshoreProfileProperties));
-                Assert.IsNull(foreshoreProfileProperties.AfterCreate);
             }
         }
 

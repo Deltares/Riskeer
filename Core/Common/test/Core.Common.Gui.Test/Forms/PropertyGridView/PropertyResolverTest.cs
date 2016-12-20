@@ -126,40 +126,6 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         }
 
         [Test]
-        public void GetObjectProperties_DataMatchesInfoWithAfterCreate_ReturnObjectPropertiesAfterCreateExecuted()
-        {
-            // Setup
-            var otherObject = new B
-            {
-                Name = "<Custom get properties data implementation did stuff>"
-            };
-            var source = new A();
-
-            var propertyInfos = new PropertyInfo[]
-            {
-                new PropertyInfo<A, PropertiesForA>
-                {
-                    AfterCreate = (p, d) =>
-                    {
-                        Assert.AreSame(source, p.Data,
-                                       "properties object should have been initialized with 'source'.");
-                        p.Data = otherObject;
-                    }
-                }
-            };
-
-            var resolver = new PropertyResolver(propertyInfos);
-
-            // Call
-            var result = resolver.GetObjectProperties(source);
-
-            // Assert
-            var bag = (DynamicPropertyBag) result;
-            var properties = (PropertiesForA) bag.WrappedObject;
-            Assert.AreSame(otherObject, properties.Data);
-        }
-
-        [Test]
         public void GetObjectProperties_DataMatchesMultiplePropertyInfoByDataTypeInheritance_PrioritizeMostSpecialized()
         {
             // Setup

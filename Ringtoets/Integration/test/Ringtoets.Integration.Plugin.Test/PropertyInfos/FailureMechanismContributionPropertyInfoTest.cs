@@ -55,7 +55,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.IsNotNull(info.AfterCreate);
             Assert.AreEqual(typeof(FailureMechanismContributionContext), info.DataType);
             Assert.AreEqual(typeof(FailureMechanismContributionProperties), info.PropertyObjectType);
         }
@@ -77,49 +76,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
             // Assert
             Assert.AreSame(failureMechanismContribution, objectProperties.Data);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsAssessmentSection()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
-            mocks.ReplayAll();
-
-            var propertyInfo = new FailureMechanismContributionProperties();
-            var context = new FailureMechanismContributionContext(assessmentSectionStub.FailureMechanismContribution, assessmentSectionStub);
-
-            // Call
-            info.AfterCreate(propertyInfo, context);
-
-            // Assert
-            Assert.AreSame(assessmentSectionStub, propertyInfo.AssessmentSection);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsChangeHandlers()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
-            mocks.ReplayAll();
-
-            var propertyInfo = new FailureMechanismContributionProperties();
-            var context = new FailureMechanismContributionContext(assessmentSectionStub.FailureMechanismContribution, assessmentSectionStub);
-
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismContributionProperties));
-
-            // Call
-            info.AfterCreate(propertyInfo, context);
-
-            // Assert
-            Assert.IsNotNull(propertyInfo.NormChangeHandler);
-            Assert.IsNotNull(propertyInfo.CompositionChangeHandler);
 
             mocks.VerifyAll();
         }

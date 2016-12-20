@@ -38,7 +38,6 @@ namespace Core.Common.Gui.Test.Plugin
             // Assert
             Assert.IsNull(info.DataType);
             Assert.IsNull(info.PropertyObjectType);
-            Assert.IsNull(info.AfterCreate);
         }
 
         [Test]
@@ -50,20 +49,14 @@ namespace Core.Common.Gui.Test.Plugin
             var newDataType = typeof(object);
             var newPropertyObjectType = typeof(TestObjectProperties);
             Func<object, bool> newAdditionalDataDelegate = o => true;
-            Action<IObjectProperties, object> newAfterCreateDelegate = (properties, data) =>
-            {
-                // Do something with the view
-            };
 
             // Call
             info.DataType = newDataType;
             info.PropertyObjectType = newPropertyObjectType;
-            info.AfterCreate = newAfterCreateDelegate;
 
             // Assert
             Assert.AreEqual(newDataType, info.DataType);
             Assert.AreEqual(newPropertyObjectType, info.PropertyObjectType);
-            Assert.AreEqual(newAfterCreateDelegate, info.AfterCreate);
         }
 
         [Test]
@@ -75,7 +68,6 @@ namespace Core.Common.Gui.Test.Plugin
             // Assert
             Assert.AreEqual(typeof(int), info.DataType);
             Assert.AreEqual(typeof(TestObjectProperties), info.PropertyObjectType);
-            Assert.IsNull(info.AfterCreate);
         }
 
         [Test]
@@ -108,26 +100,6 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNotNull(properties);
         }
 
-
-        [Test]
-        public void SimpleProperties_SetValuesForGenericPropertyInfo_GetNewlySetValues()
-        {
-            // Setup
-            var info = new PropertyInfo<int, TestObjectProperties>();
-
-            Func<int, bool> newAdditionalDataDelegate = o => true;
-            Action<TestObjectProperties, int> newAfterCreateDelegate = (property, data) =>
-            {
-                // Do something with the view
-            };
-
-            // Call
-            info.AfterCreate = newAfterCreateDelegate;
-
-            // Assert
-            Assert.AreEqual(newAfterCreateDelegate, info.AfterCreate);
-        }
-
         [Test]
         public void ImplicitOperator_OptionalDelegatesSet_PropertyInfoFullyConverted()
         {
@@ -136,16 +108,6 @@ namespace Core.Common.Gui.Test.Plugin
 
             const int inputData = 42;
             var testProperties = new TestObjectProperties();
-
-            bool afterCreateDelegateCalled = false;
-            Action<TestObjectProperties, int> newAfterCreateDelegate = (properties, data) =>
-            {
-                Assert.AreSame(testProperties, properties);
-                Assert.AreEqual(inputData, data);
-                afterCreateDelegateCalled = true;
-            };
-
-            info.AfterCreate = newAfterCreateDelegate;
 
             // Precondition
             Assert.IsInstanceOf<PropertyInfo<int, TestObjectProperties>>(info);
@@ -157,10 +119,6 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsInstanceOf<PropertyInfo>(convertedInfo);
             Assert.AreEqual(typeof(int), convertedInfo.DataType);
             Assert.AreEqual(typeof(TestObjectProperties), convertedInfo.PropertyObjectType);
-
-            Assert.IsNotNull(convertedInfo.AfterCreate);
-            convertedInfo.AfterCreate(testProperties, inputData);
-            Assert.IsTrue(afterCreateDelegateCalled);
         }
 
         [Test]
@@ -179,8 +137,6 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsInstanceOf<PropertyInfo>(convertedInfo);
             Assert.AreEqual(typeof(int), convertedInfo.DataType);
             Assert.AreEqual(typeof(TestObjectProperties), convertedInfo.PropertyObjectType);
-
-            Assert.IsNull(convertedInfo.AfterCreate);
         }
 
         private class TestObjectProperties : ObjectProperties<object> {}

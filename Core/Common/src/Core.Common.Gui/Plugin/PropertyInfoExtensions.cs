@@ -51,11 +51,6 @@ namespace Core.Common.Gui.Plugin
                 objectProperties.Data = sourceData;
             }
 
-            if (propertyInfo.AfterCreate != null)
-            {
-                propertyInfo.AfterCreate(objectProperties, sourceData);
-            }
-
             return objectProperties;
         }
     }

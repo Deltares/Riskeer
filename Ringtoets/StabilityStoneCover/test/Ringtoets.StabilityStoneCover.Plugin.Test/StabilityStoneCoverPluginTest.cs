@@ -53,17 +53,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                     propertyInfos,
                     typeof(StabilityStoneCoverFailureMechanismContext),
                     typeof(StabilityStoneCoverFailureMechanismProperties));
-                Assert.IsNull(failureMechanismProperties.AfterCreate);
                 PropertyInfo waveConditionsOutputProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityStoneCoverWaveConditionsOutput),
                     typeof(StabilityStoneCoverWaveConditionsOutputProperties));
-                Assert.IsNull(waveConditionsOutputProperties.AfterCreate);
                 PropertyInfo waveConditionsInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityStoneCoverWaveConditionsInputContext),
                     typeof(StabilityStoneCoverWaveConditionsInputContextProperties));
-                Assert.IsNull(waveConditionsInputContextProperties.AfterCreate);
             }
         }
 
