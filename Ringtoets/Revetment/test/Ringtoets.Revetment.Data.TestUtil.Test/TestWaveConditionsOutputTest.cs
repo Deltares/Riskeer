@@ -62,16 +62,17 @@ namespace Ringtoets.Revetment.TestUtil.Test
             double waveHeight = random.NextDouble();
             double wavePeakPeriod = random.NextDouble();
             double waveAngle = random.NextDouble();
+            double waveDirection = random.NextDouble();
 
             // Call
-            WaveConditionsOutput output = new TestWaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, convergence);
+            WaveConditionsOutput output = new TestWaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, convergence);
 
             // Assert
             Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
             Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.AreEqual(wavePeakPeriod, output.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(waveAngle, output.WaveAngle, output.WaveAngle.GetAccuracy());
-            Assert.AreEqual(5.5, output.WaveDirection, output.WaveDirection.GetAccuracy());
+            Assert.AreEqual(waveDirection, output.WaveDirection, output.WaveDirection.GetAccuracy());
 
             Assert.AreEqual(0.1, output.TargetProbability);
             Assert.AreEqual(1.282, output.TargetReliability, output.TargetReliability.GetAccuracy());
