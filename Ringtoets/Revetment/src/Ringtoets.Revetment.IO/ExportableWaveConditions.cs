@@ -76,12 +76,18 @@ namespace Ringtoets.Revetment.IO
             WaveHeight = waveConditionsOutput.WaveHeight;
             WavePeriod = waveConditionsOutput.WavePeakPeriod;
             WaveAngle = waveConditionsOutput.WaveAngle;
+            WaveDirection = waveConditionsOutput.WaveDirection;
         }
 
         /// <summary>
-        /// Gets the wave angle.
+        /// Gets the wave angle with respect to the dike normal.
         /// </summary>
         public RoundedDouble WaveAngle { get; private set; }
+
+        /// <summary>
+        /// Gets the wave direction with respect to North.
+        /// </summary>
+        public RoundedDouble WaveDirection { get; private set; }
 
         /// <summary>
         /// Gets the wave period.

@@ -116,6 +116,7 @@ namespace Ringtoets.Revetment.IO.Test
             Assert.AreEqual(1.1, exportableWaveConditions.WaveHeight.Value);
             Assert.AreEqual(2.2, exportableWaveConditions.WavePeriod.Value);
             Assert.AreEqual(3.3, exportableWaveConditions.WaveAngle.Value);
+            Assert.AreEqual(5.5, exportableWaveConditions.WaveDirection.Value);
         }
 
         [Test]
@@ -145,6 +146,7 @@ namespace Ringtoets.Revetment.IO.Test
             Assert.AreEqual(1.1, exportableWaveConditions.WaveHeight.Value);
             Assert.AreEqual(2.2, exportableWaveConditions.WavePeriod.Value);
             Assert.AreEqual(3.3, exportableWaveConditions.WaveAngle.Value);
+            Assert.AreEqual(5.5, exportableWaveConditions.WaveDirection.Value);
         }
     }
 }
