@@ -55,7 +55,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.IsNull(info.AdditionalDataCheck);
             Assert.IsNotNull(info.AfterCreate);
             Assert.AreEqual(typeof(FailureMechanismContributionContext), info.DataType);
             Assert.AreEqual(typeof(FailureMechanismContributionProperties), info.PropertyObjectType);

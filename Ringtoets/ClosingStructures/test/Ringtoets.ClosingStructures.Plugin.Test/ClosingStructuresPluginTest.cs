@@ -73,21 +73,18 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                     propertyInfos,
                     typeof(ClosingStructuresFailureMechanismContext),
                     typeof(ClosingStructureFailureMechanismProperties));
-                Assert.IsNull(closingStructuresFailureMechanismContextPropertyInfo.AdditionalDataCheck);
                 Assert.IsNull(closingStructuresFailureMechanismContextPropertyInfo.AfterCreate);
 
                 PropertyInfo closingStructurePropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ClosingStructure),
                     typeof(ClosingStructureProperties));
-                Assert.IsNull(closingStructurePropertyInfo.AdditionalDataCheck);
                 Assert.IsNull(closingStructurePropertyInfo.AfterCreate);
 
                 PropertyInfo closingStructuresInputContextPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ClosingStructuresInputContext),
                     typeof(ClosingStructuresInputContextProperties));
-                Assert.IsNull(closingStructuresInputContextPropertyInfo.AdditionalDataCheck);
                 Assert.IsNull(closingStructuresInputContextPropertyInfo.AfterCreate);
             }
             mocks.VerifyAll();

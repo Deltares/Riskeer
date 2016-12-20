@@ -63,28 +63,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                     propertyInfos,
                     typeof(GrassCoverErosionInwardsFailureMechanismContext),
                     typeof(GrassCoverErosionInwardsFailureMechanismContextProperties));
-                Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(failureMechanismContextProperties.AfterCreate);
 
                 PropertyInfo dikeProfileProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DikeProfile),
                     typeof(DikeProfileProperties));
-                Assert.IsNull(dikeProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(dikeProfileProperties.AfterCreate);
 
                 PropertyInfo inputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionInwardsInputContext),
                     typeof(GrassCoverErosionInwardsInputContextProperties));
-                Assert.IsNull(inputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(inputContextProperties.AfterCreate);
 
                 PropertyInfo outputProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionInwardsOutput),
                     typeof(GrassCoverErosionInwardsOutputProperties));
-                Assert.IsNull(outputProperties.AdditionalDataCheck);
                 Assert.IsNull(outputProperties.AfterCreate);
             }
         }

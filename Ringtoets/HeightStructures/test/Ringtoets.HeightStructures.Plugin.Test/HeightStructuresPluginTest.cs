@@ -74,21 +74,18 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                     propertyInfos,
                     typeof(HeightStructuresFailureMechanismContext),
                     typeof(HeightStructuresFailureMechanismProperties));
-                Assert.IsNull(heightStructuresFailureMechanismContextPropertyInfo.AdditionalDataCheck);
                 Assert.IsNull(heightStructuresFailureMechanismContextPropertyInfo.AfterCreate);
 
                 PropertyInfo heightStructurePropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(HeightStructure),
                     typeof(HeightStructureProperties));
-                Assert.IsNull(heightStructurePropertyInfo.AdditionalDataCheck);
                 Assert.IsNull(heightStructurePropertyInfo.AfterCreate);
 
                 PropertyInfo heightStructuresInputContextPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(HeightStructuresInputContext),
                     typeof(HeightStructuresInputContextProperties));
-                Assert.IsNull(heightStructuresInputContextPropertyInfo.AdditionalDataCheck);
                 Assert.IsNull(heightStructuresInputContextPropertyInfo.AfterCreate);
             }
             mocks.VerifyAll();

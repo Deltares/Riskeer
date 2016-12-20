@@ -57,20 +57,6 @@ namespace Core.Common.Gui.Plugin
         public Func<object, IObjectProperties> CreateInstance { get; set; }
 
         /// <summary>
-        /// Gets or sets the optional function used to determine if this instance is relevant 
-        /// given a data object.
-        /// </summary>
-        /// <example>
-        /// As an example, you could implement this as follows:
-        /// <code>var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties &gt; { AdditionalDataCheck = o =&gt; GetParent(o) is ModelImplementation };</code>
-        /// </example>
-        /// <remarks>
-        /// This property breaks the single responsibility principle; besides <see cref="DataType"/> and <see cref="PropertyObjectType"/> an additional method is 
-        /// introduced to determine whether or not property information is relevant in a specfic context.
-        /// </remarks>
-        public Func<object, bool> AdditionalDataCheck { get; set; }
-
-        /// <summary>
         /// Gets or sets the optional function that allows for post-creation logic to be 
         /// executed on the newly created object properties. Function arguments:
         /// <list type="number">
@@ -132,20 +118,6 @@ namespace Core.Common.Gui.Plugin
         public Func<TObject, TProperty> CreateInstance { get; set; }
 
         /// <summary>
-        /// Gets or sets the optional function used to determine if this instance is relevant 
-        /// given a data object.
-        /// </summary>
-        /// <example>
-        /// As an example, you could implement this as follows:
-        /// <code>var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties &gt; { AdditionalDataCheck = o =&gt; GetParent(o) is ModelImplementation };</code>
-        /// </example>
-        /// <remarks>
-        /// This property breaks the single responsibility principle; besides <see cref="DataType"/> and <see cref="PropertyObjectType"/> an additional method is 
-        /// introduced to determine whether or not property information is relevant in a specfic context.
-        /// </remarks>
-        public Func<TObject, bool> AdditionalDataCheck { get; set; }
-
-        /// <summary>
         /// Gets or sets the optional function that allows for post-creation logic to be 
         /// executed on the newly created object properties. Function arguments:
         /// <list type="number">
@@ -171,9 +143,6 @@ namespace Core.Common.Gui.Plugin
                 DataType = typeof(TObject),
                 PropertyObjectType = typeof(TProperty),
                 CreateInstance = o => propertyInfo.CreateInstance((TObject) o),
-                AdditionalDataCheck = propertyInfo.AdditionalDataCheck != null ?
-                                          o => propertyInfo.AdditionalDataCheck((TObject) o) :
-                                          (Func<object, bool>) null,
                 AfterCreate = propertyInfo.AfterCreate != null
                                   ? (p, o) => propertyInfo.AfterCreate((TProperty) p, (TObject) o)
                                   : (Action<IObjectProperties, object>) null

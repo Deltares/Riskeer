@@ -43,7 +43,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.IsNull(info.AdditionalDataCheck);
                 Assert.IsNull(info.AfterCreate);
                 Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismContext), info.DataType);
                 Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismProperties), info.PropertyObjectType);
