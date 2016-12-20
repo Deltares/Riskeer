@@ -54,10 +54,10 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 Output = new StabilityStoneCoverWaveConditionsOutput(new[]
                 {
-                    new TestWaveConditionsOutput(12.0, 4.3, 0.4, 49)
+                    new TestWaveConditionsOutput()
                 }, new[]
                 {
-                    new TestWaveConditionsOutput(6.0, 3.7, 4.3, 29)
+                    new TestWaveConditionsOutput()
                 })
             };
 

@@ -141,14 +141,12 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             var calculationGroup = new CalculationGroup();
             var columnsOutput = new[]
             {
-                new TestWaveConditionsOutput(1, 0, 3, 5),
-                new TestWaveConditionsOutput(8, 2, 6, 1)
+                new TestWaveConditionsOutput()
             };
 
             var blocksOutput = new[]
             {
-                new TestWaveConditionsOutput(6, 2, 9, 4),
-                new TestWaveConditionsOutput(4, 1, 7, 3)
+                new TestWaveConditionsOutput()
             };
             calculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -187,14 +185,12 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             {
                 var columnsOutput = new[]
                 {
-                    new TestWaveConditionsOutput(1, 0, 3, 5),
-                    new TestWaveConditionsOutput(8, 2, 6, 1)
+                    new TestWaveConditionsOutput()
                 };
 
                 var blocksOutput = new[]
                 {
-                    new TestWaveConditionsOutput(6, 2, 9, 4),
-                    new TestWaveConditionsOutput(4, 1, 7, 3)
+                    new TestWaveConditionsOutput()
                 };
 
                 stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);

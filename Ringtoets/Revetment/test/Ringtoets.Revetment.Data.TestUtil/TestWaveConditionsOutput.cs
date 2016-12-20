@@ -32,20 +32,7 @@ namespace Ringtoets.Revetment.TestUtil
         /// <summary>
         /// Instantiates a <see cref="TestWaveConditionsOutput"/> with default values.
         /// </summary>
-        public TestWaveConditionsOutput() : this(1.1, 2.2, 3.3, 4.4) {}
-
-        /// <summary>
-        /// Instantiates a <see cref="TestWaveConditionsOutput"/> with a specified values.
-        /// </summary>
-        /// <param name="waveAngle">The wave angle.</param>
-        /// <param name="waveDirection">The wave direction.</param>
-        /// <param name="convergence">The status of the calculation.</param>
-        /// <param name="waterLevel">The water level which was calculated for.</param>
-        /// <param name="waveHeight">The calculated wave height.</param>
-        /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
-        public TestWaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveAngle,
-                                        double waveDirection = 5.5,
-                                        CalculationConvergence convergence = CalculationConvergence.NotCalculated) :
-                                            base(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, 0.1, 1.282, 0.4, 0.253, convergence) {}
+        public TestWaveConditionsOutput() :
+            base(1.1, 2.2, 3.3, 4.4, 5.5, 0.1, 1.282, 0.4, 0.253, CalculationConvergence.CalculatedConverged) {}
     }
 }

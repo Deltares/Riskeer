@@ -220,10 +220,10 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             {
                 Output = new StabilityStoneCoverWaveConditionsOutput(new[]
                 {
-                    new TestWaveConditionsOutput(1, 2, 3, 4)
+                    new TestWaveConditionsOutput()
                 }, new[]
                 {
-                    new TestWaveConditionsOutput(1, 2, 3, 4)
+                    new TestWaveConditionsOutput()
                 })
             };
 

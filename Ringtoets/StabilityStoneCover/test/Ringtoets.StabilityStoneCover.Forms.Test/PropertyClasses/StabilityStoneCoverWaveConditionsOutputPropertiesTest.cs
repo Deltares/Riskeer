@@ -23,7 +23,9 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Revetment.Forms.PropertyClasses;
@@ -56,12 +58,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             // Setup
             var blocksOutput = new[]
             {
-                new TestWaveConditionsOutput(6, 2, 9, 4)
+                new TestWaveConditionsOutput()
             };
 
             var columnsOutput = new[]
             {
-                new TestWaveConditionsOutput(1, 0, 3, 5)
+                new TestWaveConditionsOutput()
             };
 
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
@@ -91,7 +93,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                             firstBlocksProperties.CalculatedProbability);
             Assert.AreEqual(firstBlocksOutput.TargetReliability, firstBlocksProperties.TargetReliability,
                             firstBlocksProperties.TargetReliability.GetAccuracy());
-            Assert.AreEqual(string.Empty, firstBlocksProperties.Convergence);
+
+            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(firstBlocksOutput.CalculationConvergence).DisplayName;
+            Assert.AreEqual(convergenceValue, firstBlocksProperties.Convergence);
 
             CollectionAssert.AllItemsAreInstancesOfType(properties.Columns, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(columnsOutput.Length, properties.Columns.Length);
@@ -111,7 +115,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                             firstColumnsProperties.CalculatedProbability);
             Assert.AreEqual(firstColumnsOutput.TargetReliability, firstColumnsProperties.TargetReliability,
                             firstColumnsProperties.TargetReliability.GetAccuracy());
-            Assert.AreEqual(string.Empty, firstBlocksProperties.Convergence);
+
+            convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(firstColumnsOutput.CalculationConvergence).DisplayName;
+            Assert.AreEqual(convergenceValue, firstColumnsProperties.Convergence);
         }
 
         [Test]
@@ -120,12 +126,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             // Setup
             var blocksOutput = new[]
             {
-                new TestWaveConditionsOutput(6, 2, 9, 4),
+                new TestWaveConditionsOutput(),
             };
 
             var columnsOutput = new[]
             {
-                new TestWaveConditionsOutput(1, 0, 3, 5),
+                new TestWaveConditionsOutput(),
             };
 
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);

@@ -23,7 +23,9 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Revetment.Data;
@@ -84,7 +86,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                             firstOutputProperties.TargetProbability);
             Assert.AreEqual(expectedOutputProperty.TargetReliability, firstOutputProperties.TargetReliability,
                             firstOutputProperties.TargetReliability.GetAccuracy());
-            Assert.AreEqual(string.Empty, firstOutputProperties.Convergence);
+
+            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(expectedOutputProperty.CalculationConvergence).DisplayName;
+            Assert.AreEqual(convergenceValue, firstOutputProperties.Convergence);
         }
 
         [Test]

@@ -39,7 +39,7 @@ namespace Ringtoets.Revetment.IO.Test
             UseForeshore = true
         };
 
-        private readonly WaveConditionsOutput waveConditionsOutput = new TestWaveConditionsOutput(0.0, 1.1, 2.2, 3.3);
+        private readonly WaveConditionsOutput waveConditionsOutput = new TestWaveConditionsOutput();
 
         [Test]
         public void Constructor_NameNull_ThrowsArgumentNullException()
@@ -112,11 +112,11 @@ namespace Ringtoets.Revetment.IO.Test
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveAngle.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.0, exportableWaveConditions.WaterLevel.Value);
-            Assert.AreEqual(1.1, exportableWaveConditions.WaveHeight.Value);
-            Assert.AreEqual(2.2, exportableWaveConditions.WavePeriod.Value);
-            Assert.AreEqual(3.3, exportableWaveConditions.WaveAngle.Value);
-            Assert.AreEqual(5.5, exportableWaveConditions.WaveDirection.Value);
+            Assert.AreEqual(waveConditionsOutput.WaterLevel, exportableWaveConditions.WaterLevel);
+            Assert.AreEqual(waveConditionsOutput.WaveHeight, exportableWaveConditions.WaveHeight);
+            Assert.AreEqual(waveConditionsOutput.WavePeakPeriod, exportableWaveConditions.WavePeriod);
+            Assert.AreEqual(waveConditionsOutput.WaveAngle, exportableWaveConditions.WaveAngle);
+            Assert.AreEqual(waveConditionsOutput.WaveDirection, exportableWaveConditions.WaveDirection);
         }
 
         [Test]
@@ -142,11 +142,11 @@ namespace Ringtoets.Revetment.IO.Test
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveAngle.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.0, exportableWaveConditions.WaterLevel.Value);
-            Assert.AreEqual(1.1, exportableWaveConditions.WaveHeight.Value);
-            Assert.AreEqual(2.2, exportableWaveConditions.WavePeriod.Value);
-            Assert.AreEqual(3.3, exportableWaveConditions.WaveAngle.Value);
-            Assert.AreEqual(5.5, exportableWaveConditions.WaveDirection.Value);
+            Assert.AreEqual(waveConditionsOutput.WaterLevel, exportableWaveConditions.WaterLevel);
+            Assert.AreEqual(waveConditionsOutput.WaveHeight, exportableWaveConditions.WaveHeight);
+            Assert.AreEqual(waveConditionsOutput.WavePeakPeriod, exportableWaveConditions.WavePeriod);
+            Assert.AreEqual(waveConditionsOutput.WaveAngle, exportableWaveConditions.WaveAngle);
+            Assert.AreEqual(waveConditionsOutput.WaveDirection, exportableWaveConditions.WaveDirection);
         }
     }
 }

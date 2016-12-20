@@ -23,7 +23,9 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -81,7 +83,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
             Assert.AreEqual(ProbabilityFormattingHelper.Format(firstOutput.CalculatedProbability), firstOutputProperties.CalculatedProbability);
             Assert.AreEqual(firstOutput.TargetReliability, firstOutputProperties.TargetReliability,
                             firstOutputProperties.TargetReliability.GetAccuracy());
-            Assert.AreEqual(string.Empty, firstOutputProperties.Convergence);
+
+            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(firstOutput.CalculationConvergence).DisplayName;
+            Assert.AreEqual(convergenceValue, firstOutputProperties.Convergence);
         }
 
         [Test]

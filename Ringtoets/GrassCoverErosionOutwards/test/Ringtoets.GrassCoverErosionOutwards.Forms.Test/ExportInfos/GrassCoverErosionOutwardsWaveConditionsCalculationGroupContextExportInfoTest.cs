@@ -121,8 +121,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             {
                 var output = new[]
                 {
-                    new TestWaveConditionsOutput(1, 0, 3, 5),
-                    new TestWaveConditionsOutput(8, 2, 6, 1)
+                    new TestWaveConditionsOutput()
                 };
 
                 calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(output);
@@ -162,8 +161,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             {
                 var output = new[]
                 {
-                    new TestWaveConditionsOutput(1, 0, 3, 5),
-                    new TestWaveConditionsOutput(8, 2, 6, 1)
+                    new TestWaveConditionsOutput()
                 };
                 grassCoverErosionOutwardsWaveConditionsOutput = new GrassCoverErosionOutwardsWaveConditionsOutput(output);
             }

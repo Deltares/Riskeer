@@ -131,7 +131,7 @@ namespace Ringtoets.Revetment.IO.Test
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 2.689,
                     UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247
-                }, new TestWaveConditionsOutput(1.11111, 2.22222, 3.33333, 4.44444, 5.5555), CoverType.StoneCoverBlocks),
+                }, new TestWaveConditionsOutput(), CoverType.StoneCoverBlocks),
                 new ExportableWaveConditions("columnsName", new WaveConditionsInput()
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
@@ -143,7 +143,7 @@ namespace Ringtoets.Revetment.IO.Test
                     StepSize = WaveConditionsInputStepSize.Half,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                     UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
-                }, new TestWaveConditionsOutput(3.33333, 1.11111, 4.44444, 2.22222, 6.66666), CoverType.StoneCoverColumns)
+                }, new TestWaveConditionsOutput(), CoverType.StoneCoverColumns)
             };
 
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
@@ -160,8 +160,8 @@ namespace Ringtoets.Revetment.IO.Test
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
                 Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam aanwezig, Voorlandgeometrie aanwezig, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]\r\n" +
-                                "blocksName, , 0.000, 0.000, , nee, nee, Steen (blokken), 1.11, 2.22, 3.33, 4.44, 5.56\r\n" +
-                                "columnsName, aLocation, 44.000, 123.456, , nee, nee, Steen (zuilen), 3.33, 1.11, 4.44, 2.22, 6.67\r\n",
+                                "blocksName, , 0.000, 0.000, , nee, nee, Steen (blokken), 1.10, 2.20, 3.30, 4.40, 5.50\r\n" +
+                                "columnsName, aLocation, 44.000, 123.456, , nee, nee, Steen (zuilen), 1.10, 2.20, 3.30, 4.40, 5.50\r\n",
                                 fileContent);
             }
             finally

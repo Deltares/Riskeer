@@ -113,8 +113,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var output = new[]
             {
-                new TestWaveConditionsOutput(1, 0, 3, 5),
-                new TestWaveConditionsOutput(8, 2, 6, 1)
+                new TestWaveConditionsOutput()
             };
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(

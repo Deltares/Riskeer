@@ -141,8 +141,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             var calculationGroup = new CalculationGroup();
             var output = new[]
             {
-                new TestWaveConditionsOutput(1, 0, 3, 5),
-                new TestWaveConditionsOutput(8, 2, 6, 1)
+                new TestWaveConditionsOutput()
             };
 
             calculationGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -182,8 +181,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             {
                 var output = new[]
                 {
-                    new TestWaveConditionsOutput(1, 0, 3, 5),
-                    new TestWaveConditionsOutput(8, 2, 6, 1)
+                    new TestWaveConditionsOutput()
                 };
                 waveImpactAsphaltCoverWaveConditionsOutput = new WaveImpactAsphaltCoverWaveConditionsOutput(output);
             }

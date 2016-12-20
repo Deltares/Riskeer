@@ -45,8 +45,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             // Setup
             var outputItems = new[]
             {
-                new TestWaveConditionsOutput(1, 0, 3, 5),
-                new TestWaveConditionsOutput(8, 2, 6, 1)
+                new TestWaveConditionsOutput()
             };
 
             // Call

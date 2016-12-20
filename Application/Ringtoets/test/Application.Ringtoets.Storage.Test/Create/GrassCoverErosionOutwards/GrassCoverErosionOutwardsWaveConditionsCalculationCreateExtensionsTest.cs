@@ -221,7 +221,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             {
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
                 {
-                    new TestWaveConditionsOutput(1, 2, 3, 4)
+                    new TestWaveConditionsOutput()
                 })
             };
 
