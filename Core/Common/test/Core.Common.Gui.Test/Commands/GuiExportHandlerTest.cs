@@ -159,6 +159,7 @@ namespace Core.Common.Gui.Test.Commands
             const int expectedData = 1234;
             string expectedExportPath = Path.GetFullPath("exportFile.txt");
 
+            var targetExportFileName = Path.GetFullPath("exportFile.txt");
             ModalFormHandler = (name, wnd, form) =>
             {
                 var messageBox = new SaveFileDialogTester(wnd);
@@ -182,10 +183,11 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => exportHandler.ExportFrom(expectedData);
 
             // Assert
+            var finalMessage = string.Format("Exporteren naar '{0}' is afgerond.", targetExportFileName);
             TestHelper.AssertLogMessagesAreGenerated(call, new[]
             {
                 "Exporteren gestart.",
-                "Exporteren afgerond."
+                finalMessage
             });
             mockRepository.VerifyAll();
         }
@@ -203,10 +205,11 @@ namespace Core.Common.Gui.Test.Commands
 
             mockRepository.ReplayAll();
 
+            var targetExportFileName = Path.GetFullPath("exportFile.txt");
             ModalFormHandler = (name, wnd, form) =>
             {
                 var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.SaveFile(Path.GetFullPath("exportFile.txt"));
+                messageBox.SaveFile(targetExportFileName);
             };
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
@@ -221,10 +224,11 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => exportHandler.ExportFrom(1234);
 
             // Assert
+            var finalMessage = string.Format("Exporteren naar '{0}' is mislukt.", targetExportFileName);
             TestHelper.AssertLogMessagesAreGenerated(call, new[]
             {
                 "Exporteren gestart.",
-                "Exporteren mislukt."
+                finalMessage
             });
             mockRepository.VerifyAll();
         }

@@ -131,15 +131,20 @@ namespace Core.Common.Gui.Commands
                 {
                     log.Info(Resources.GuiExportHandler_ExportItemUsingDialog_Start_exporting);
 
-                    IFileExporter exporter = exportInfo.CreateFileExporter(source, saveFileDialog.FileName);
+                    var exportFilePath = saveFileDialog.FileName;
+                    IFileExporter exporter = exportInfo.CreateFileExporter(source, exportFilePath);
 
                     if (exporter.Export())
                     {
-                        log.Info(Resources.GuiExportHandler_ExportItemUsingDialog_Finished_exporting);
+                        var message = string.Format(Resources.GuiExportHandler_ExportItemUsingDialog_Finished_exporting_to_filepath_0_,
+                                                    exportFilePath);
+                        log.Info(message);
                     }
                     else
                     {
-                        log.Error(Resources.GuiExportHandler_ExportItemUsingDialog_Export_failed);
+                        var message = string.Format(Resources.GuiExportHandler_ExportItemUsingDialog_Export_failed_to_filepath_0_,
+                                                    exportFilePath);
+                        log.Error(message);
                     }
                 }
             }

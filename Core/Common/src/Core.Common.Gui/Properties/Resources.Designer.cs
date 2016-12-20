@@ -767,20 +767,20 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporteren mislukt..
+        ///   Looks up a localized string similar to Exporteren naar &apos;{0}&apos; is mislukt..
         /// </summary>
-        public static string GuiExportHandler_ExportItemUsingDialog_Export_failed {
+        public static string GuiExportHandler_ExportItemUsingDialog_Export_failed_to_filepath_0_ {
             get {
-                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Export_failed", resourceCulture);
+                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Export_failed_to_filepath_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporteren afgerond..
+        ///   Looks up a localized string similar to Exporteren naar &apos;{0}&apos; is afgerond..
         /// </summary>
-        public static string GuiExportHandler_ExportItemUsingDialog_Finished_exporting {
+        public static string GuiExportHandler_ExportItemUsingDialog_Finished_exporting_to_filepath_0_ {
             get {
-                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Finished_exporting", resourceCulture);
+                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Finished_exporting_to_filepath_0_", resourceCulture);
             }
         }
         

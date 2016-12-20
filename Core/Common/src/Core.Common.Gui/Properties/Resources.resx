@@ -301,11 +301,11 @@
   <data name="ExpandableArrayConverter_ConvertTo_Count_0_" xml:space="preserve">
     <value>Aantal ({0})</value>
   </data>
-  <data name="GuiExportHandler_ExportItemUsingDialog_Export_failed" xml:space="preserve">
-    <value>Exporteren mislukt.</value>
+  <data name="GuiExportHandler_ExportItemUsingDialog_Export_failed_to_filepath_0_" xml:space="preserve">
+    <value>Exporteren naar '{0}' is mislukt.</value>
   </data>
-  <data name="GuiExportHandler_ExportItemUsingDialog_Finished_exporting" xml:space="preserve">
-    <value>Exporteren afgerond.</value>
+  <data name="GuiExportHandler_ExportItemUsingDialog_Finished_exporting_to_filepath_0_" xml:space="preserve">
+    <value>Exporteren naar '{0}' is afgerond.</value>
   </data>
   <data name="GuiExportHandler_ExportItemUsingDialog_Start_exporting" xml:space="preserve">
     <value>Exporteren gestart.</value>
