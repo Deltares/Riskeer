@@ -128,7 +128,6 @@ namespace Core.Plugins.Map.Test
                     typeof(MapDataCollection),
                     typeof(MapDataCollectionProperties));
                 Assert.IsNull(mapDataCollectionPropertyInfo.AdditionalDataCheck);
-                Assert.IsNull(mapDataCollectionPropertyInfo.GetObjectPropertiesData);
                 Assert.IsNull(mapDataCollectionPropertyInfo.AfterCreate);
 
                 PropertyInfo mapPointDataPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
@@ -136,7 +135,6 @@ namespace Core.Plugins.Map.Test
                     typeof(MapPointData),
                     typeof(MapPointDataProperties));
                 Assert.IsNull(mapPointDataPropertyInfo.AdditionalDataCheck);
-                Assert.IsNull(mapPointDataPropertyInfo.GetObjectPropertiesData);
                 Assert.IsNull(mapPointDataPropertyInfo.AfterCreate);
 
                 PropertyInfo mapLineDataPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
@@ -144,7 +142,6 @@ namespace Core.Plugins.Map.Test
                     typeof(MapLineData),
                     typeof(MapLineDataProperties));
                 Assert.IsNull(mapLineDataPropertyInfo.AdditionalDataCheck);
-                Assert.IsNull(mapLineDataPropertyInfo.GetObjectPropertiesData);
                 Assert.IsNull(mapLineDataPropertyInfo.AfterCreate);
 
                 PropertyInfo mapPolygonDataPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
@@ -152,7 +149,6 @@ namespace Core.Plugins.Map.Test
                     typeof(MapPolygonData),
                     typeof(MapPolygonDataProperties));
                 Assert.IsNull(mapPolygonDataPropertyInfo.AdditionalDataCheck);
-                Assert.IsNull(mapPolygonDataPropertyInfo.GetObjectPropertiesData);
                 Assert.IsNull(mapPolygonDataPropertyInfo.AfterCreate);
             }
         }

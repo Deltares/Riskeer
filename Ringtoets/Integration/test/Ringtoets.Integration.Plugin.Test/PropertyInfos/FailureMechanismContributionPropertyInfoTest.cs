@@ -56,7 +56,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.IsNull(info.AdditionalDataCheck);
-            Assert.IsNull(info.GetObjectPropertiesData);
             Assert.IsNotNull(info.AfterCreate);
             Assert.AreEqual(typeof(FailureMechanismContributionContext), info.DataType);
             Assert.AreEqual(typeof(FailureMechanismContributionProperties), info.PropertyObjectType);

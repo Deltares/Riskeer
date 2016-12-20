@@ -72,7 +72,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
                     typeof(WaveImpactAsphaltCoverWaveConditionsOutput),
                     typeof(WaveImpactAsphaltCoverWaveConditionsOutputProperties));
                 Assert.IsNull(waveImpactAsphaltCoverWaveConditionsOutputProperties.AdditionalDataCheck);
-                Assert.IsNull(waveImpactAsphaltCoverWaveConditionsOutputProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveImpactAsphaltCoverWaveConditionsOutputProperties.AfterCreate);
 
                 PropertyInfo waveConditionsInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -80,7 +79,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
                     typeof(WaveImpactAsphaltCoverWaveConditionsInputContext),
                     typeof(WaveImpactAsphaltCoverWaveConditionsInputContextProperties));
                 Assert.IsNull(waveConditionsInputContextProperties.AdditionalDataCheck);
-                Assert.IsNull(waveConditionsInputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveConditionsInputContextProperties.AfterCreate);
             }
         }

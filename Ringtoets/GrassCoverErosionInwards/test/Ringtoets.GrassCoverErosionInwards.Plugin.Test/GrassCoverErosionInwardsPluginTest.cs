@@ -64,7 +64,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                     typeof(GrassCoverErosionInwardsFailureMechanismContext),
                     typeof(GrassCoverErosionInwardsFailureMechanismContextProperties));
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
-                Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(failureMechanismContextProperties.AfterCreate);
 
                 PropertyInfo dikeProfileProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -72,7 +71,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                     typeof(DikeProfile),
                     typeof(DikeProfileProperties));
                 Assert.IsNull(dikeProfileProperties.AdditionalDataCheck);
-                Assert.IsNull(dikeProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(dikeProfileProperties.AfterCreate);
 
                 PropertyInfo inputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -80,7 +78,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                     typeof(GrassCoverErosionInwardsInputContext),
                     typeof(GrassCoverErosionInwardsInputContextProperties));
                 Assert.IsNull(inputContextProperties.AdditionalDataCheck);
-                Assert.IsNull(inputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(inputContextProperties.AfterCreate);
 
                 PropertyInfo outputProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -88,7 +85,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                     typeof(GrassCoverErosionInwardsOutput),
                     typeof(GrassCoverErosionInwardsOutputProperties));
                 Assert.IsNull(outputProperties.AdditionalDataCheck);
-                Assert.IsNull(outputProperties.GetObjectPropertiesData);
                 Assert.IsNull(outputProperties.AfterCreate);
             }
         }

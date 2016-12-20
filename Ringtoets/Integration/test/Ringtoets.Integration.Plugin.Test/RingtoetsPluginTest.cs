@@ -207,7 +207,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(IProject),
                     typeof(RingtoetsProjectProperties));
                 Assert.IsNull(ringtoetsProjectProperties.AdditionalDataCheck);
-                Assert.IsNull(ringtoetsProjectProperties.GetObjectPropertiesData);
                 Assert.IsNull(ringtoetsProjectProperties.AfterCreate);
 
                 PropertyInfo assessmentSectionProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -215,7 +214,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(IAssessmentSection),
                     typeof(AssessmentSectionProperties));
                 Assert.IsNull(assessmentSectionProperties.AdditionalDataCheck);
-                Assert.IsNull(assessmentSectionProperties.GetObjectPropertiesData);
                 Assert.IsNull(assessmentSectionProperties.AfterCreate);
 
                 PropertyInfo hydraulicBoundaryDatabaseProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -223,7 +221,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(HydraulicBoundaryDatabaseContext),
                     typeof(HydraulicBoundaryDatabaseProperties));
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.AdditionalDataCheck);
-                Assert.IsNull(hydraulicBoundaryDatabaseProperties.GetObjectPropertiesData);
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.AfterCreate);
 
                 PropertyInfo failureMechanismContributionProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -231,7 +228,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(FailureMechanismContributionContext),
                     typeof(FailureMechanismContributionProperties));
                 Assert.IsNull(failureMechanismContributionProperties.AdditionalDataCheck);
-                Assert.IsNull(failureMechanismContributionProperties.GetObjectPropertiesData);
                 Assert.IsNotNull(failureMechanismContributionProperties.AfterCreate);
 
                 PropertyInfo standAloneFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -239,7 +235,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(FailureMechanismContext<IFailureMechanism>),
                     typeof(StandAloneFailureMechanismContextProperties));
                 Assert.IsNull(standAloneFailureMechanismProperties.AdditionalDataCheck);
-                Assert.IsNull(standAloneFailureMechanismProperties.GetObjectPropertiesData);
                 Assert.IsNull(standAloneFailureMechanismProperties.AfterCreate);
 
                 PropertyInfo calculationGroupProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -247,7 +242,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(ICalculationContext<CalculationGroup, IFailureMechanism>),
                     typeof(CalculationGroupContextProperties));
                 Assert.IsNull(calculationGroupProperties.AdditionalDataCheck);
-                Assert.IsNull(calculationGroupProperties.GetObjectPropertiesData);
                 Assert.IsNull(calculationGroupProperties.AfterCreate);
 
                 PropertyInfo calculationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -255,7 +249,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(ICalculationContext<ICalculation, IFailureMechanism>),
                     typeof(CalculationContextProperties));
                 Assert.IsNull(calculationContextProperties.AdditionalDataCheck);
-                Assert.IsNull(calculationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(calculationContextProperties.AfterCreate);
 
                 PropertyInfo outputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -263,7 +256,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(ProbabilityAssessmentOutput),
                     typeof(ProbabilityAssessmentOutputProperties));
                 Assert.IsNull(outputContextProperties.AdditionalDataCheck);
-                Assert.IsNull(outputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(outputContextProperties.AfterCreate);
 
                 PropertyInfo designWaterLevelLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -271,7 +263,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(DesignWaterLevelLocationsContext),
                     typeof(DesignWaterLevelLocationsContextProperties));
                 Assert.IsNull(designWaterLevelLocationsContextProperties.AdditionalDataCheck);
-                Assert.IsNull(designWaterLevelLocationsContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(designWaterLevelLocationsContextProperties.AfterCreate);
 
                 PropertyInfo designWaterLevelLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -279,7 +270,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(DesignWaterLevelLocationContext),
                     typeof(DesignWaterLevelLocationContextProperties));
                 Assert.IsNull(designWaterLevelLocationContextProperties.AdditionalDataCheck);
-                Assert.IsNull(designWaterLevelLocationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(designWaterLevelLocationContextProperties.AfterCreate);
 
                 PropertyInfo waveHeightLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -287,7 +277,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(WaveHeightLocationsContext),
                     typeof(WaveHeightLocationsContextProperties));
                 Assert.IsNull(waveHeightLocationsContextProperties.AdditionalDataCheck);
-                Assert.IsNull(waveHeightLocationsContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveHeightLocationsContextProperties.AfterCreate);
 
                 PropertyInfo waveHeightLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -295,7 +284,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(WaveHeightLocationContext),
                     typeof(WaveHeightLocationContextProperties));
                 Assert.IsNull(waveHeightLocationContextProperties.AdditionalDataCheck);
-                Assert.IsNull(waveHeightLocationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveHeightLocationContextProperties.AfterCreate);
 
                 PropertyInfo foreshoreProfileProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -303,7 +291,6 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(ForeshoreProfile),
                     typeof(ForeshoreProfileProperties));
                 Assert.IsNull(foreshoreProfileProperties.AdditionalDataCheck);
-                Assert.IsNull(foreshoreProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(foreshoreProfileProperties.AfterCreate);
             }
         }

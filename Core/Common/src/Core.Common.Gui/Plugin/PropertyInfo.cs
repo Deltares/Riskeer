@@ -71,16 +71,6 @@ namespace Core.Common.Gui.Plugin
         public Func<object, bool> AdditionalDataCheck { get; set; }
 
         /// <summary>
-        /// Gets or sets the optional function that allows a data object to be converted 
-        /// to another data object that should be used as the property object instead.
-        /// </summary>
-        /// <example>
-        /// As an example, you could implement this as follows:
-        /// <code>var propertyInfo = new PropertyInfo &lt;ModelImplementation, ModelImplementationProperties&gt; { GetObjectPropertiesData = o =&gt; o.RunParameters };</code>
-        /// </example>
-        public Func<object, object> GetObjectPropertiesData { get; set; }
-
-        /// <summary>
         /// Gets or sets the optional function that allows for post-creation logic to be 
         /// executed on the newly created object properties. Function arguments:
         /// <list type="number">
@@ -156,16 +146,6 @@ namespace Core.Common.Gui.Plugin
         public Func<TObject, bool> AdditionalDataCheck { get; set; }
 
         /// <summary>
-        /// Gets or sets the optional function that allows a data object to be converted 
-        /// to another data object that should be used as the property object instead.
-        /// </summary>
-        /// <example>
-        /// As an example, you could implement this as follows:
-        /// <code>var propertyInfo = new PropertyInfo &lt;ModelImplementation, ModelImplementationProperties&gt; { GetObjectPropertiesData = o =&gt; o.RunParameters };</code>
-        /// </example>
-        public Func<TObject, object> GetObjectPropertiesData { get; set; }
-
-        /// <summary>
         /// Gets or sets the optional function that allows for post-creation logic to be 
         /// executed on the newly created object properties. Function arguments:
         /// <list type="number">
@@ -194,9 +174,6 @@ namespace Core.Common.Gui.Plugin
                 AdditionalDataCheck = propertyInfo.AdditionalDataCheck != null ?
                                           o => propertyInfo.AdditionalDataCheck((TObject) o) :
                                           (Func<object, bool>) null,
-                GetObjectPropertiesData = propertyInfo.GetObjectPropertiesData != null ?
-                                              o => propertyInfo.GetObjectPropertiesData((TObject) o) :
-                                              (Func<object, object>) null,
                 AfterCreate = propertyInfo.AfterCreate != null
                                   ? (p, o) => propertyInfo.AfterCreate((TProperty) p, (TObject) o)
                                   : (Action<IObjectProperties, object>) null

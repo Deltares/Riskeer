@@ -69,7 +69,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                     typeof(StabilityPointStructuresFailureMechanismContext),
                     typeof(StabilityPointStructuresFailureMechanismProperties));
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
-                Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(failureMechanismContextProperties.AfterCreate);
 
                 PropertyInfo stabilityPointStructureProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -77,7 +76,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                     typeof(StabilityPointStructure),
                     typeof(StabilityPointStructureProperties));
                 Assert.IsNull(stabilityPointStructureProperties.AdditionalDataCheck);
-                Assert.IsNull(stabilityPointStructureProperties.GetObjectPropertiesData);
                 Assert.IsNull(stabilityPointStructureProperties.AfterCreate);
 
                 PropertyInfo stabilityPointStructuresInputContextPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
@@ -85,7 +83,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                     typeof(StabilityPointStructuresInputContext),
                     typeof(StabilityPointStructuresInputContextProperties));
                 Assert.IsNull(stabilityPointStructuresInputContextPropertyInfo.AdditionalDataCheck);
-                Assert.IsNull(stabilityPointStructuresInputContextPropertyInfo.GetObjectPropertiesData);
                 Assert.IsNull(stabilityPointStructuresInputContextPropertyInfo.AfterCreate);
             }
         }
