@@ -30,7 +30,6 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Plugin.Test
 {
@@ -49,15 +48,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 // Assert
                 Assert.AreEqual(3, propertyInfos.Length);
 
-                PropertyInfo failureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityStoneCoverFailureMechanismContext),
                     typeof(StabilityStoneCoverFailureMechanismProperties));
-                PropertyInfo waveConditionsOutputProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityStoneCoverWaveConditionsOutput),
                     typeof(StabilityStoneCoverWaveConditionsOutputProperties));
-                PropertyInfo waveConditionsInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityStoneCoverWaveConditionsInputContext),
                     typeof(StabilityStoneCoverWaveConditionsInputContextProperties));

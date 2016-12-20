@@ -30,7 +30,6 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
 {
@@ -60,17 +59,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
                 // Assert
                 Assert.AreEqual(3, propertyInfos.Length);
 
-                PropertyInfo failureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveImpactAsphaltCoverFailureMechanismContext),
                     typeof(WaveImpactAsphaltCoverFailureMechanismProperties));
 
-                PropertyInfo waveImpactAsphaltCoverWaveConditionsOutputProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveImpactAsphaltCoverWaveConditionsOutput),
                     typeof(WaveImpactAsphaltCoverWaveConditionsOutputProperties));
 
-                PropertyInfo waveConditionsInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveImpactAsphaltCoverWaveConditionsInputContext),
                     typeof(WaveImpactAsphaltCoverWaveConditionsInputContextProperties));

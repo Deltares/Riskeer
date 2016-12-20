@@ -59,22 +59,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 // Assert
                 Assert.AreEqual(4, propertyInfos.Length);
 
-                PropertyInfo failureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionInwardsFailureMechanismContext),
                     typeof(GrassCoverErosionInwardsFailureMechanismContextProperties));
 
-                PropertyInfo dikeProfileProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DikeProfile),
                     typeof(DikeProfileProperties));
 
-                PropertyInfo inputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionInwardsInputContext),
                     typeof(GrassCoverErosionInwardsInputContextProperties));
 
-                PropertyInfo outputProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionInwardsOutput),
                     typeof(GrassCoverErosionInwardsOutputProperties));

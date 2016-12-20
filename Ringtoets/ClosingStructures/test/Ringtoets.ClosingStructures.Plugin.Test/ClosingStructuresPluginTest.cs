@@ -25,15 +25,12 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.ClosingStructures.Forms.Views;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test
 {
@@ -55,10 +52,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
         public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             using (var plugin = new ClosingStructuresPlugin())
             {
                 // Call
@@ -67,24 +60,21 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                 // Assert
                 Assert.AreEqual(3, propertyInfos.Length);
 
-                var failureMechanism = new ClosingStructuresFailureMechanism();
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-                PropertyInfo closingStructuresFailureMechanismContextPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ClosingStructuresFailureMechanismContext),
                     typeof(ClosingStructureFailureMechanismProperties));
 
-                PropertyInfo closingStructurePropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ClosingStructure),
                     typeof(ClosingStructureProperties));
 
-                PropertyInfo closingStructuresInputContextPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ClosingStructuresInputContext),
                     typeof(ClosingStructuresInputContextProperties));
             }
-            mocks.VerifyAll();
         }
 
         [Test]

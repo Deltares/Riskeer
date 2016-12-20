@@ -123,22 +123,22 @@ namespace Core.Plugins.Map.Test
                 // Assert
                 Assert.AreEqual(4, propertyInfos.Length);
 
-                PropertyInfo mapDataCollectionPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(MapDataCollection),
                     typeof(MapDataCollectionProperties));
 
-                PropertyInfo mapPointDataPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(MapPointData),
                     typeof(MapPointDataProperties));
 
-                PropertyInfo mapLineDataPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(MapLineData),
                     typeof(MapLineDataProperties));
 
-                PropertyInfo mapPolygonDataPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(MapPolygonData),
                     typeof(MapPolygonDataProperties));

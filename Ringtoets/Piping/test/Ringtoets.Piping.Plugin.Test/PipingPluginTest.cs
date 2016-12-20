@@ -34,8 +34,6 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
-using PipingPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
-using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test
 {
@@ -70,32 +68,32 @@ namespace Ringtoets.Piping.Plugin.Test
                 // Assert
                 Assert.AreEqual(6, propertyInfos.Length);
 
-                PropertyInfo pipingFailureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(PipingFailureMechanismContext),
                     typeof(PipingFailureMechanismContextProperties));
 
-                PropertyInfo pipingInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(PipingInputContext),
                     typeof(PipingInputContextProperties));
 
-                PropertyInfo pipingOutputProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(PipingOutputContext),
                     typeof(PipingOutputContextProperties));
 
-                PropertyInfo pipingSurfaceLineProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(RingtoetsPipingSurfaceLine),
                     typeof(RingtoetsPipingSurfaceLineProperties));
 
-                PropertyInfo stochasticSoilModelProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StochasticSoilModel),
                     typeof(StochasticSoilModelProperties));
 
-                PropertyInfo stochasticSoilProfileProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StochasticSoilProfile),
                     typeof(StochasticSoilProfileProperties));

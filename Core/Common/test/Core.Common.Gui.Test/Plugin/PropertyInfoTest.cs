@@ -48,7 +48,6 @@ namespace Core.Common.Gui.Test.Plugin
 
             var newDataType = typeof(object);
             var newPropertyObjectType = typeof(TestObjectProperties);
-            Func<object, bool> newAdditionalDataDelegate = o => true;
 
             // Call
             info.DataType = newDataType;
@@ -99,30 +98,9 @@ namespace Core.Common.Gui.Test.Plugin
             // Assert
             Assert.IsNotNull(properties);
         }
-
+        
         [Test]
-        public void ImplicitOperator_OptionalDelegatesSet_PropertyInfoFullyConverted()
-        {
-            // Setup
-            var info = new PropertyInfo<int, TestObjectProperties>();
-
-            const int inputData = 42;
-            var testProperties = new TestObjectProperties();
-
-            // Precondition
-            Assert.IsInstanceOf<PropertyInfo<int, TestObjectProperties>>(info);
-
-            // Call
-            PropertyInfo convertedInfo = info;
-
-            // Assert
-            Assert.IsInstanceOf<PropertyInfo>(convertedInfo);
-            Assert.AreEqual(typeof(int), convertedInfo.DataType);
-            Assert.AreEqual(typeof(TestObjectProperties), convertedInfo.PropertyObjectType);
-        }
-
-        [Test]
-        public void ImplicitOperator_NoneOfTheOptionalDelegatesSet_PropertyInfoFullyConverted()
+        public void ImplicitOperator_Always_PropertyInfoFullyConverted()
         {
             // Setup
             var info = new PropertyInfo<int, TestObjectProperties>();

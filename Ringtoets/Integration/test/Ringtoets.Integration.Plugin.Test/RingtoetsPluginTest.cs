@@ -55,8 +55,6 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
-using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test
@@ -202,67 +200,67 @@ namespace Ringtoets.Integration.Plugin.Test
                 // Assert
                 Assert.AreEqual(13, propertyInfos.Length);
 
-                PropertyInfo ringtoetsProjectProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(IProject),
                     typeof(RingtoetsProjectProperties));
 
-                PropertyInfo assessmentSectionProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(IAssessmentSection),
                     typeof(AssessmentSectionProperties));
 
-                PropertyInfo hydraulicBoundaryDatabaseProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(HydraulicBoundaryDatabaseContext),
                     typeof(HydraulicBoundaryDatabaseProperties));
 
-                PropertyInfo failureMechanismContributionProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(FailureMechanismContributionContext),
                     typeof(FailureMechanismContributionProperties));
 
-                PropertyInfo standAloneFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(FailureMechanismContext<IFailureMechanism>),
                     typeof(StandAloneFailureMechanismContextProperties));
 
-                PropertyInfo calculationGroupProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ICalculationContext<CalculationGroup, IFailureMechanism>),
                     typeof(CalculationGroupContextProperties));
 
-                PropertyInfo calculationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ICalculationContext<ICalculation, IFailureMechanism>),
                     typeof(CalculationContextProperties));
 
-                PropertyInfo outputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ProbabilityAssessmentOutput),
                     typeof(ProbabilityAssessmentOutputProperties));
 
-                PropertyInfo designWaterLevelLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DesignWaterLevelLocationsContext),
                     typeof(DesignWaterLevelLocationsContextProperties));
 
-                PropertyInfo designWaterLevelLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DesignWaterLevelLocationContext),
                     typeof(DesignWaterLevelLocationContextProperties));
 
-                PropertyInfo waveHeightLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveHeightLocationsContext),
                     typeof(WaveHeightLocationsContextProperties));
 
-                PropertyInfo waveHeightLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveHeightLocationContext),
                     typeof(WaveHeightLocationContextProperties));
 
-                PropertyInfo foreshoreProfileProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ForeshoreProfile),
                     typeof(ForeshoreProfileProperties));

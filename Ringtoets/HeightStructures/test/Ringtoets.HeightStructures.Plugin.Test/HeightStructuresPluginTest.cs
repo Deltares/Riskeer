@@ -28,7 +28,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
@@ -56,10 +55,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test
         public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             using (var plugin = new HeightStructuresPlugin())
             {
                 // Call
@@ -68,24 +63,21 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 // Assert
                 Assert.AreEqual(3, propertyInfos.Length);
 
-                var failureMechanism = new HeightStructuresFailureMechanism();
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-                PropertyInfo heightStructuresFailureMechanismContextPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(HeightStructuresFailureMechanismContext),
                     typeof(HeightStructuresFailureMechanismProperties));
 
-                PropertyInfo heightStructurePropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(HeightStructure),
                     typeof(HeightStructureProperties));
 
-                PropertyInfo heightStructuresInputContextPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(HeightStructuresInputContext),
                     typeof(HeightStructuresInputContextProperties));
             }
-            mocks.VerifyAll();
         }
 
         [Test]
