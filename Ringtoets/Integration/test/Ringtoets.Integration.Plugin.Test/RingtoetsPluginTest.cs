@@ -231,7 +231,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(FailureMechanismContributionContext),
                     typeof(FailureMechanismContributionProperties));
                 Assert.IsNull(failureMechanismContributionProperties.AdditionalDataCheck);
-                Assert.IsNotNull(failureMechanismContributionProperties.GetObjectPropertiesData);
+                Assert.IsNull(failureMechanismContributionProperties.GetObjectPropertiesData);
                 Assert.IsNotNull(failureMechanismContributionProperties.AfterCreate);
 
                 PropertyInfo standAloneFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -271,7 +271,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(DesignWaterLevelLocationsContext),
                     typeof(DesignWaterLevelLocationsContextProperties));
                 Assert.IsNull(designWaterLevelLocationsContextProperties.AdditionalDataCheck);
-                Assert.IsNotNull(designWaterLevelLocationsContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(designWaterLevelLocationsContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(designWaterLevelLocationsContextProperties.AfterCreate);
 
                 PropertyInfo designWaterLevelLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
@@ -287,7 +287,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(WaveHeightLocationsContext),
                     typeof(WaveHeightLocationsContextProperties));
                 Assert.IsNull(waveHeightLocationsContextProperties.AdditionalDataCheck);
-                Assert.IsNotNull(waveHeightLocationsContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(waveHeightLocationsContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveHeightLocationsContextProperties.AfterCreate);
 
                 PropertyInfo waveHeightLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(

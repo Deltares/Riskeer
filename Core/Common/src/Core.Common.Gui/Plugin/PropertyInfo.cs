@@ -139,7 +139,7 @@ namespace Core.Common.Gui.Plugin
         /// As an example, you could implement this as follows:
         /// <code>var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties &gt; { CreateInstance = o =&gt; new ModelImplementationFolderProperties(o) };</code>
         /// </example>
-        public Func<TObject, TProperty> CreateInstance { get;set; }
+        public Func<TObject, TProperty> CreateInstance { get; set; }
 
         /// <summary>
         /// Gets or sets the optional function used to determine if this instance is relevant 

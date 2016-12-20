@@ -60,7 +60,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             yield return new PropertyInfo<StabilityStoneCoverFailureMechanismContext, StabilityStoneCoverFailureMechanismProperties>
             {
-                GetObjectPropertiesData = context => context.WrappedData
+                CreateInstance = context => new StabilityStoneCoverFailureMechanismProperties
+                {
+                    Data = context.WrappedData
+                }
             };
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsOutput, StabilityStoneCoverWaveConditionsOutputProperties>();
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsInputContext, StabilityStoneCoverWaveConditionsInputContextProperties>();

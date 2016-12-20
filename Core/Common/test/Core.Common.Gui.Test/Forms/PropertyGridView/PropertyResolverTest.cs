@@ -94,7 +94,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         }
 
         [Test]
-        public void GetObjectProperties_DataMatchesInfoWithGetObjectPropertiesData_ReturnObjectPropertiesWithDataFromInjectedDelegate()
+        public void GetObjectProperties_DataMatchesInfoWithCreateInstanceForCustomData_ReturnObjectPropertiesWithDataFromInjectedDelegate()
         {
             // Setup
             var otherObject = new B
@@ -105,7 +105,10 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             {
                 new PropertyInfo<A, PropertiesForA>
                 {
-                    GetObjectPropertiesData = a => otherObject
+                    CreateInstance = a => new PropertiesForA
+                    {
+                        Data = otherObject
+                    } 
                 }
             };
 

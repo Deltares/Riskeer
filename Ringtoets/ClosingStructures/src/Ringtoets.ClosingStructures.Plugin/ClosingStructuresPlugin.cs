@@ -47,7 +47,6 @@ using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin
@@ -61,7 +60,10 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             yield return new PropertyInfo<ClosingStructuresFailureMechanismContext, ClosingStructureFailureMechanismProperties>
             {
-                GetObjectPropertiesData = context => context.WrappedData
+                CreateInstance = context => new ClosingStructureFailureMechanismProperties
+                {
+                    Data = context.WrappedData
+                }
             };
             yield return new PropertyInfo<ClosingStructure, ClosingStructureProperties>();
             yield return new PropertyInfo<ClosingStructuresInputContext, ClosingStructuresInputContextProperties>();

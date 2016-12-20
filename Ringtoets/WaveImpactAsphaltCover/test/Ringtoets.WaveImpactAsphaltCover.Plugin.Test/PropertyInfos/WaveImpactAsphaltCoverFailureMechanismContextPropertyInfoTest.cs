@@ -51,7 +51,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void GetObjectPropertiesData_Always_ReturnsHydraulicBoundaryDatabase()
+        public void CreateInstance_Always_SetsFailureMechanismAsData()
         {
             // Setup
             var mocks = new MockRepository();
@@ -66,10 +66,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Call
-                var objectPropertiesData = info.GetObjectPropertiesData(context);
+                var objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.AreSame(failureMechanism, objectPropertiesData);
+                Assert.AreSame(failureMechanism, objectProperties.Data);
             }
             mocks.VerifyAll();
         }

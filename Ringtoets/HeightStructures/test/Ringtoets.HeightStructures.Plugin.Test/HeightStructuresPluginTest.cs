@@ -74,7 +74,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                     propertyInfos,
                     typeof(HeightStructuresFailureMechanismContext),
                     typeof(HeightStructuresFailureMechanismProperties));
-                Assert.AreSame(failureMechanism, heightStructuresFailureMechanismContextPropertyInfo.GetObjectPropertiesData(failureMechanismContext));
+                Assert.IsNull(heightStructuresFailureMechanismContextPropertyInfo.GetObjectPropertiesData);
                 Assert.IsNull(heightStructuresFailureMechanismContextPropertyInfo.AdditionalDataCheck);
                 Assert.IsNull(heightStructuresFailureMechanismContextPropertyInfo.AfterCreate);
 

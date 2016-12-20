@@ -272,7 +272,10 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
             yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>()
             {
-                GetObjectPropertiesData = context => context.WrappedData,
+                CreateInstance = context => new FailureMechanismContributionProperties
+                {
+                    Data = context.WrappedData
+                },
                 AfterCreate = (properties, context) =>
                 {
                     properties.NormChangeHandler = new FailureMechanismContributionNormChangeHandler();
@@ -286,12 +289,18 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<ProbabilityAssessmentOutput, ProbabilityAssessmentOutputProperties>();
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>
             {
-                GetObjectPropertiesData = context => context.WrappedData.HydraulicBoundaryDatabase
+                CreateInstance = context => new DesignWaterLevelLocationsContextProperties
+                {
+                    Data = context.WrappedData.HydraulicBoundaryDatabase
+                }
             };
             yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationContextProperties>();
             yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsContextProperties>
             {
-                GetObjectPropertiesData = context => context.WrappedData.HydraulicBoundaryDatabase
+                CreateInstance = context => new WaveHeightLocationsContextProperties
+                {
+                    Data = context.WrappedData.HydraulicBoundaryDatabase
+                }
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationContextProperties>();
             yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();

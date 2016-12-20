@@ -46,9 +46,10 @@ namespace Core.Common.Gui.Plugin
 
             var objectProperties = propertyInfo.CreateInstance(sourceData);
 
-            objectProperties.Data = propertyInfo.GetObjectPropertiesData != null
-                                        ? propertyInfo.GetObjectPropertiesData(sourceData)
-                                        : sourceData;
+            if (objectProperties.Data == null)
+            {
+                objectProperties.Data = sourceData;
+            }
 
             if (propertyInfo.AfterCreate != null)
             {

@@ -45,8 +45,6 @@ using Ringtoets.WaveImpactAsphaltCover.IO;
 using Ringtoets.WaveImpactAsphaltCover.Service;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
-using RingtoetsRevetmentServiceResources = Ringtoets.Revetment.Service.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 {
@@ -59,7 +57,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             yield return new PropertyInfo<WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismProperties>
             {
-                GetObjectPropertiesData = context => context.WrappedData
+                CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismProperties
+                {
+                    Data = context.WrappedData
+                }
             };
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsOutput, WaveImpactAsphaltCoverWaveConditionsOutputProperties>();
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsInputContext, WaveImpactAsphaltCoverWaveConditionsInputContextProperties>();

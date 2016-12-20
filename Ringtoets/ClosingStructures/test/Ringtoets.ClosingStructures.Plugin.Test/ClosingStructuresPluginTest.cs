@@ -73,7 +73,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                     propertyInfos,
                     typeof(ClosingStructuresFailureMechanismContext),
                     typeof(ClosingStructureFailureMechanismProperties));
-                Assert.AreSame(failureMechanism, closingStructuresFailureMechanismContextPropertyInfo.GetObjectPropertiesData(failureMechanismContext));
+                Assert.IsNull(closingStructuresFailureMechanismContextPropertyInfo.GetObjectPropertiesData);
                 Assert.IsNull(closingStructuresFailureMechanismContextPropertyInfo.AdditionalDataCheck);
                 Assert.IsNull(closingStructuresFailureMechanismContextPropertyInfo.AfterCreate);
 

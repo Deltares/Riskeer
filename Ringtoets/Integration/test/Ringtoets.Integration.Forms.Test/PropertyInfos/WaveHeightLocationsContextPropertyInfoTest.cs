@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
         }
 
         [Test]
-        public void GetObjectPropertiesData_Always_ReturnsHydraulicBoundaryDatabase()
+        public void CreateInstance_Always_SetsHydraulicBoundaryDatabaseAsData()
         {
             // Setup
             MockRepository mockRepository = new MockRepository();
@@ -68,10 +68,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Call
-                var objectPropertiesData = info.GetObjectPropertiesData(context);
+                var objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.AreSame(hydraulicBoundaryDatabase, objectPropertiesData);
+                Assert.AreSame(hydraulicBoundaryDatabase, objectProperties.Data);
             }
             mockRepository.VerifyAll();
         }

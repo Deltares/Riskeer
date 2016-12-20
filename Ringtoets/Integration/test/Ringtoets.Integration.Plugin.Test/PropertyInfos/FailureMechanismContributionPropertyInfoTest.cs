@@ -56,14 +56,14 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.IsNull(info.AdditionalDataCheck);
-            Assert.IsNotNull(info.GetObjectPropertiesData);
+            Assert.IsNull(info.GetObjectPropertiesData);
             Assert.IsNotNull(info.AfterCreate);
             Assert.AreEqual(typeof(FailureMechanismContributionContext), info.DataType);
             Assert.AreEqual(typeof(FailureMechanismContributionProperties), info.PropertyObjectType);
         }
 
         [Test]
-        public void GetObjectPropertiesData_Always_ReturnsFailureMechanismContribution()
+        public void CreateInstance_Always_SetsFailureMechanismContributionAsData()
         {
             // Setup
             var mocks = new MockRepository();
@@ -75,10 +75,10 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             var context = new FailureMechanismContributionContext(failureMechanismContribution, assessmentSection);
 
             // Call
-            var objectPropertiesData = info.GetObjectPropertiesData(context);
+            var objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.AreSame(failureMechanismContribution, objectPropertiesData);
+            Assert.AreSame(failureMechanismContribution, objectProperties.Data);
 
             mocks.VerifyAll();
         }

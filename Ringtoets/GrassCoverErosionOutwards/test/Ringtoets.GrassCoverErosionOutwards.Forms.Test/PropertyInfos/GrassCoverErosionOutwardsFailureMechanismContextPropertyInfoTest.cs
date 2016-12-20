@@ -34,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
     public class GrassCoverErosionOutwardsFailureMechanismContextPropertyInfoTest
     {
         [Test]
-        public void GetObjectPropertiesData_Always_ReturnsHydraulicBoundaryDatabase()
+        public void CreateInstance_Always_SetsFailureMechanismAsData()
         {
             // Setup
             MockRepository mockRepository = new MockRepository();
@@ -50,10 +50,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
                 PropertyInfo info = plugin.GetPropertyInfos().Single(pi => pi.DataType == typeof(GrassCoverErosionOutwardsFailureMechanismContext));
 
                 // Call
-                var objectPropertiesData = info.GetObjectPropertiesData(context);
+                var objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.AreSame(failureMechanism, objectPropertiesData);
+                Assert.AreSame(failureMechanism, objectProperties.Data);
             }
             mockRepository.VerifyAll();
         }

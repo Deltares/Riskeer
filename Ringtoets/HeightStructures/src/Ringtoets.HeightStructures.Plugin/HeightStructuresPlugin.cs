@@ -61,7 +61,10 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             yield return new PropertyInfo<HeightStructuresFailureMechanismContext, HeightStructuresFailureMechanismProperties>
             {
-                GetObjectPropertiesData = context => context.WrappedData
+                CreateInstance = context => new HeightStructuresFailureMechanismProperties
+                {
+                    Data = context.WrappedData
+                }
             };
             yield return new PropertyInfo<HeightStructure, HeightStructureProperties>();
             yield return new PropertyInfo<HeightStructuresInputContext, HeightStructuresInputContextProperties>();

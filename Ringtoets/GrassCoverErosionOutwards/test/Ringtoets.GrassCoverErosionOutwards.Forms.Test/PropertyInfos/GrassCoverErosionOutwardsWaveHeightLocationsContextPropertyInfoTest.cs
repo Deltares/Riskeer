@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
     public class GrassCoverErosionOutwardsWaveHeightLocationsContextPropertyInfoTest
     {
         [Test]
-        public void GetObjectPropertiesData_Always_ReturnsHydraulicBoundaryDatabase()
+        public void CreateInstance_Always_SetsHydraulicBoundaryLocationsAsData()
         {
             // Setup
             MockRepository mockRepository = new MockRepository();
@@ -53,10 +53,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
                 PropertyInfo info = plugin.GetPropertyInfos().Single(pi => pi.DataType == typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext));
 
                 // Call
-                var objectPropertiesData = info.GetObjectPropertiesData(context);
+                var objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.AreSame(hydraulicBoundaryLocations, objectPropertiesData);
+                Assert.AreSame(hydraulicBoundaryLocations, objectProperties.Data);
             }
             mockRepository.VerifyAll();
         }

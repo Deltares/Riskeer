@@ -69,7 +69,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                     typeof(StabilityPointStructuresFailureMechanismContext),
                     typeof(StabilityPointStructuresFailureMechanismProperties));
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
-                Assert.IsNotNull(failureMechanismContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(failureMechanismContextProperties.AfterCreate);
 
                 PropertyInfo stabilityPointStructureProperties = PluginTestHelper.AssertPropertyInfoDefined(

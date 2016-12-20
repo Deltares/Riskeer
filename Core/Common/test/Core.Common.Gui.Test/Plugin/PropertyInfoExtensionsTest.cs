@@ -60,36 +60,17 @@ namespace Core.Common.Gui.Test.Plugin
         }
 
         [Test]
-        public void CreateObjectProperties_PropertyInfoWithGetObjectPropertiesData_CreateObjectPropertiesObjectForTransformedData()
+        public void CreateObjectProperties_PropertyInfoCustomCreateInstance_CreateInstanceCalled()
         {
             // Setup
-            const int alternativeIntegerValue = 13;
+            int createInstanceCalled = 0;
+            var testIntProperties = new TestIntProperties();
             PropertyInfo propertyInfo = new PropertyInfo<int, TestIntProperties>
             {
-                GetObjectPropertiesData = i => alternativeIntegerValue
-            };
-
-            const int integerValue = 22;
-
-            // Call
-            var properties = propertyInfo.CreateObjectProperties(integerValue);
-
-            // Assert
-            Assert.IsInstanceOf<TestIntProperties>(properties);
-            Assert.AreEqual(alternativeIntegerValue, properties.Data);
-        }
-
-        [Test]
-        public void CreateObjectProperties_PropertyInfoWithGetObjectPropertiesDataAndAfterCreate_CreateObjectPropertiesObjectForTransformedData()
-        {
-            // Setup
-            const int alternativeIntegerValue = 13;
-            PropertyInfo propertyInfo = new PropertyInfo<int, TestIntProperties>
-            {
-                GetObjectPropertiesData = i => alternativeIntegerValue,
-                AfterCreate = (intProperties, data) =>
+                CreateInstance = i =>
                 {
-                    Assert.AreEqual(alternativeIntegerValue, intProperties.Data);
+                    createInstanceCalled++;
+                    return testIntProperties;
                 }
             };
 
@@ -99,8 +80,64 @@ namespace Core.Common.Gui.Test.Plugin
             var properties = propertyInfo.CreateObjectProperties(integerValue);
 
             // Assert
+            Assert.AreSame(testIntProperties, properties);
+            Assert.AreEqual(1, createInstanceCalled);
+        }
+
+        [Test]
+        public void CreateObjectProperties_PropertyInfoWithGetObjectPropertiesDataAndAfterCreate_CreateObjectPropertiesObjectForTransformedData()
+        {
+            // Setup
+            int afterCreateCalled = 0;
+            PropertyInfo propertyInfo = new PropertyInfo<int, TestIntProperties>
+            {
+                AfterCreate = (intProperties, data) => afterCreateCalled++
+            };
+
+            // Call
+            var properties = propertyInfo.CreateObjectProperties(new Random(21).Next());
+
+            // Assert
             Assert.IsInstanceOf<TestIntProperties>(properties);
-            Assert.AreEqual(alternativeIntegerValue, properties.Data);
+            Assert.AreEqual(1, afterCreateCalled);
+        }
+
+        [Test]
+        public void CreateObjectProperties_WithDataNotSetInCreateInstance_CreateObjectPropertiesObjectWithSourceData()
+        {
+            // Setup
+            var sourceData = new Random(21).Next();
+            PropertyInfo propertyInfo = new PropertyInfo<int, TestIntProperties>();
+
+            // Call
+            var properties = propertyInfo.CreateObjectProperties(sourceData);
+
+            // Assert
+            Assert.IsInstanceOf<TestIntProperties>(properties);
+            Assert.AreEqual(sourceData, properties.Data);
+        }
+
+        [Test]
+        public void CreateObjectProperties_WithDataSetInCreateInstance_CreateObjectPropertiesObjectWithCustom()
+        {
+            // Setup
+            var random = new Random(21);
+            var sourceData = random.Next();
+            var customData = random.Next();
+            PropertyInfo propertyInfo = new PropertyInfo<int, TestIntProperties>
+            {
+                CreateInstance = o => new TestIntProperties
+                {
+                    Data = customData
+                }
+            };
+
+            // Call
+            var properties = propertyInfo.CreateObjectProperties(sourceData);
+
+            // Assert
+            Assert.IsInstanceOf<TestIntProperties>(properties);
+            Assert.AreEqual(customData, properties.Data);
         }
 
         private class TestIntProperties : IObjectProperties
