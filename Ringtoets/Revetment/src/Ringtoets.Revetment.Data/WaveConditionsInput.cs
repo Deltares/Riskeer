@@ -52,7 +52,7 @@ namespace Ringtoets.Revetment.Data
         /// </summary>
         public WaveConditionsInput()
         {
-            orientation = new RoundedDouble(2);
+            orientation = new RoundedDouble(2, double.NaN);
 
             upperBoundaryRevetment = new RoundedDouble(2, double.NaN);
             lowerBoundaryRevetment = new RoundedDouble(2, double.NaN);
@@ -347,7 +347,6 @@ namespace Ringtoets.Revetment.Data
         {
             if (foreshoreProfile == null)
             {
-                Orientation = RoundedDouble.NaN;
                 UseForeshore = false;
                 UseBreakWater = false;
                 BreakWater = GetDefaultBreakWater();

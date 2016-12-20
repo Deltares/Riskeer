@@ -268,7 +268,7 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
-            Assert.IsNaN(input.Orientation);
+            Assert.AreEqual(foreshoreProfile.Orientation, input.Orientation, input.Orientation.GetAccuracy());
             Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
         }
 
