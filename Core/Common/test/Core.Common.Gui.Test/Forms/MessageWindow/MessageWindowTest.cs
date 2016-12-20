@@ -353,7 +353,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        public void ButtonShowInfo_Click_FiltersInfoMessages()
+        public void ButtonShowInfo_ButtonUnchecked_FiltersInfoMessages()
         {
             // Setup
             using (var form = new Form())
@@ -372,6 +372,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 button.Click();
 
                 // Assert
+                Assert.IsFalse(((ToolStripButton)button.TheObject).Checked);
                 Assert.AreEqual(2, dataGridView.Rows.Count);
                 var filteredLevel = Level.Info.ToString();
                 foreach (DataGridViewRow row in dataGridView.Rows)
@@ -382,7 +383,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        public void ButtonShowWarn_Click_FiltersWarningMessages()
+        public void ButtonShowWarn_ButtonUnchecked_FiltersWarningMessages()
         {
             // Setup
             using (var form = new Form())
@@ -401,6 +402,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 button.Click();
 
                 // Assert
+                Assert.IsFalse(((ToolStripButton)button.TheObject).Checked);
                 Assert.AreEqual(2, dataGridView.Rows.Count);
                 var filteredLevel = Level.Warn.ToString();
                 foreach (DataGridViewRow row in dataGridView.Rows)
@@ -411,7 +413,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        public void ButtonShowError_Click_FiltersErrorMessages()
+        public void ButtonShowError_ButtonUnchecked_FiltersErrorMessages()
         {
             // Setup
             using (var form = new Form())
@@ -430,6 +432,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 button.Click();
 
                 // Assert
+                Assert.IsFalse(((ToolStripButton)button.TheObject).Checked);
                 Assert.AreEqual(2, dataGridView.Rows.Count);
                 var filteredLevel = Level.Error.ToString();
                 foreach (DataGridViewRow row in dataGridView.Rows)
