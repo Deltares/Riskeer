@@ -88,6 +88,37 @@ namespace Core.Common.Gui.Test.Plugin
         }
 
         [Test]
+        public void CreateInstance_ViewtypeWithDefaultConstructor_ReturnView()
+        {
+            // Setup
+            var info = new PropertyInfo
+            {
+                DataType = typeof(int),
+                PropertyObjectType = typeof(TestObjectProperties),
+            };
+
+            // Call
+            object properties = info.CreateInstance(new Random(21).Next());
+
+            // Assert
+            Assert.IsInstanceOf<TestObjectProperties>(properties);
+        }
+
+        [Test]
+        public void CreateInstance_ViewTypeHasDefaultConstructor_ReturnView()
+        {
+            // Setup
+            var info = new PropertyInfo<int, TestObjectProperties>();
+
+            // Call
+            TestObjectProperties properties = info.CreateInstance(new Random(21).Next());
+
+            // Assert
+            Assert.IsNotNull(properties);
+        }
+
+
+        [Test]
         public void SimpleProperties_SetValuesForGenericPropertyInfo_GetNewlySetValues()
         {
             // Setup

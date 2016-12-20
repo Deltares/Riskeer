@@ -30,6 +30,14 @@ namespace Core.Common.Gui.Plugin
     public class PropertyInfo
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyInfo"/> class.
+        /// </summary>
+        public PropertyInfo()
+        {
+            CreateInstance = o => (IObjectProperties) Activator.CreateInstance(PropertyObjectType);
+        }
+
+        /// <summary>
         /// Gets or sets the type of the data to create properties for.
         /// </summary>
         public Type DataType { get; set; }
@@ -38,6 +46,15 @@ namespace Core.Common.Gui.Plugin
         /// Gets or sets the type of object properties to create.
         /// </summary>
         public Type PropertyObjectType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional function used to create a new property instance.
+        /// </summary>
+        /// <example>
+        /// As an example, you could implement this as follows:
+        /// <code>var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties &gt; { CreateInstance = o =&gt; new ModelImplementationFolderProperties(o) };</code>
+        /// </example>
+        public Func<object, IObjectProperties> CreateInstance { get; set; }
 
         /// <summary>
         /// Gets or sets the optional function used to determine if this instance is relevant 
@@ -86,6 +103,14 @@ namespace Core.Common.Gui.Plugin
     public class PropertyInfo<TObject, TProperty> where TProperty : IObjectProperties
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyInfo{TObject, TProperty}"/> class.
+        /// </summary>
+        public PropertyInfo()
+        {
+            CreateInstance = o => (TProperty) Activator.CreateInstance(PropertyObjectType);
+        }
+
+        /// <summary>
         /// Gets the type of the data to create properties for.
         /// </summary>
         public Type DataType
@@ -106,6 +131,15 @@ namespace Core.Common.Gui.Plugin
                 return typeof(TProperty);
             }
         }
+
+        /// <summary>
+        /// Gets or sets the optional function used to create a new property instance.
+        /// </summary>
+        /// <example>
+        /// As an example, you could implement this as follows:
+        /// <code>var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties &gt; { CreateInstance = o =&gt; new ModelImplementationFolderProperties(o) };</code>
+        /// </example>
+        public Func<TObject, TProperty> CreateInstance { get;set; }
 
         /// <summary>
         /// Gets or sets the optional function used to determine if this instance is relevant 
@@ -156,6 +190,7 @@ namespace Core.Common.Gui.Plugin
             {
                 DataType = typeof(TObject),
                 PropertyObjectType = typeof(TProperty),
+                CreateInstance = o => propertyInfo.CreateInstance((TObject) o),
                 AdditionalDataCheck = propertyInfo.AdditionalDataCheck != null ?
                                           o => propertyInfo.AdditionalDataCheck((TObject) o) :
                                           (Func<object, bool>) null,

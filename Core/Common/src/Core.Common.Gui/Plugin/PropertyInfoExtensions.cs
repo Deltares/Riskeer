@@ -44,7 +44,7 @@ namespace Core.Common.Gui.Plugin
                 throw new ArgumentNullException("propertyInfo");
             }
 
-            var objectProperties = (IObjectProperties) Activator.CreateInstance(propertyInfo.PropertyObjectType);
+            var objectProperties = propertyInfo.CreateInstance(sourceData);
 
             objectProperties.Data = propertyInfo.GetObjectPropertiesData != null
                                         ? propertyInfo.GetObjectPropertiesData(sourceData)
