@@ -98,10 +98,7 @@ namespace Ringtoets.Integration.Test
             mocks.ReplayAll();
 
             DataImportHelper.ImportReferenceLine(assessmentSection);
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
-            {
-                DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
-            }
+            DataImportHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GetFailureMechanisms());
             DataImportHelper.ImportPipingSurfaceLines(assessmentSection);
             DataImportHelper.ImportPipingStochasticSoilModels(assessmentSection);
 

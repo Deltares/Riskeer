@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.Utils.IO;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -68,7 +71,11 @@ namespace Ringtoets.Integration.TestUtils
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to import on.</param>
-        /// <remarks>This will import 283 failure mechanism sections.</remarks>
+        /// <remarks>
+        /// <para>This will import 283 failure mechanism sections.</para>
+        /// <para>Imports using <see cref="FileImportActivity"/>.</para>
+        /// </remarks>
+        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IEnumerable{IFailureMechanism})"/>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
@@ -83,6 +90,50 @@ namespace Ringtoets.Integration.TestUtils
                                                       "FailureMechanismSectionsImporter");
                 activity.Run();
                 activity.Finish();
+            }
+        }
+
+        /// <summary>
+        /// Imports the <see cref="FailureMechanismSection"/> data for a given <see cref="IFailureMechanism"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
+        /// <param name="targetFailureMechanisms">The <see cref="IFailureMechanism"/> to import on.</param>
+        /// <remarks>
+        /// <para>This will import the same 283 failure mechanism sections on all failure mechanisms.</para>
+        /// <para>Does not import using <see cref="FileImportActivity"/>.</para>
+        /// </remarks>
+        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IFailureMechanism)"/>
+        public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IEnumerable<IFailureMechanism> targetFailureMechanisms)
+        {
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
+                                                                                   true,
+                                                                                   "traject_6-3_vakken.shp",
+                                                                                   "traject_6-3_vakken.dbf",
+                                                                                   "traject_6-3_vakken.prj",
+                                                                                   "traject_6-3_vakken.shx"))
+            {
+                IFailureMechanism[] failureMechanisms = targetFailureMechanisms.ToArray();
+                for (int i = 0; i < failureMechanisms.Length; i++)
+                {
+                    if (i == 0)
+                    {
+                        string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
+                                                       "traject_6-3_vakken.shp");
+                        var importer = new FailureMechanismSectionsImporter(failureMechanisms[i],
+                                                                            assessmentSection.ReferenceLine,
+                                                                            filePath);
+                        importer.Import();
+                    }
+                    else
+                    {
+                        // Copy same FailureMechanismSection instances to other failure mechanisms
+                        foreach (FailureMechanismSection section in failureMechanisms[0].Sections)
+                        {
+                            FailureMechanismSection clonedSection = DeepCloneSection(section);
+                            failureMechanisms[i].AddSection(clonedSection);
+                        }
+                    }
+                }
             }
         }
 
@@ -103,6 +154,12 @@ namespace Ringtoets.Integration.TestUtils
                 var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
                 hydraulicBoundaryDatabaseImporter.Import(assessmentSection, filePath);
             }
+        }
+
+        private static FailureMechanismSection DeepCloneSection(FailureMechanismSection section)
+        {
+            return new FailureMechanismSection(section.Name,
+                                               section.Points.Select(p => new Point2D(p.X, p.Y)));
         }
 
         #region Piping Specific Imports
