@@ -219,6 +219,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             {
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
                 {
+                    new TestWaveConditionsOutput(),
                     new TestWaveConditionsOutput()
                 })
             };
@@ -227,10 +228,11 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.AreEqual(1, entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities.Count);
+            Assert.AreEqual(2, entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities.Count);
             Assert.AreEqual(new[]
             {
-                0
+                0,
+                1
             }, entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities.Select(oe => oe.Order));
         }
     }
