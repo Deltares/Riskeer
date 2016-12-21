@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -41,11 +40,10 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             var mocks = new MockRepository();
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mocks.StrictMock<IWin32Window>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MapLegendController(null, contextMenuBuilderProvider, parentWindow);
+            TestDelegate test = () => new MapLegendController(null, contextMenuBuilderProvider);
 
             // Assert
             ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
@@ -59,33 +57,14 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             var mocks = new MockRepository();
             var viewController = mocks.StrictMock<IViewController>();
-            var parentWindow = mocks.StrictMock<IWin32Window>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MapLegendController(viewController, null, parentWindow);
+            TestDelegate test = () => new MapLegendController(viewController, null);
 
             // Assert
             ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("contextMenuBuilderProvider", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_WithoutParentWindow_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewController = mocks.StrictMock<IViewController>();
-            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new MapLegendController(viewController, contextMenuBuilderProvider, null);
-
-            // Assert
-            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("parentWindow", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -96,12 +75,11 @@ namespace Core.Plugins.Map.Test.Legend
             var mocks = new MockRepository();
             var viewController = mocks.StrictMock<IViewController>();
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mocks.StrictMock<IWin32Window>();
 
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MapLegendController(viewController, contextMenuBuilderProvider, parentWindow);
+            TestDelegate test = () => new MapLegendController(viewController, contextMenuBuilderProvider);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -117,7 +95,6 @@ namespace Core.Plugins.Map.Test.Legend
             var mocks = new MockRepository();
             var viewController = mocks.StrictMock<IViewController>();
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mocks.StrictMock<IWin32Window>();
 
             if (open)
             {
@@ -132,7 +109,7 @@ namespace Core.Plugins.Map.Test.Legend
 
             mocks.ReplayAll();
 
-            var controller = new MapLegendController(viewController, contextMenuBuilderProvider, parentWindow);
+            var controller = new MapLegendController(viewController, contextMenuBuilderProvider);
 
             if (open)
             {
@@ -157,7 +134,6 @@ namespace Core.Plugins.Map.Test.Legend
             var viewHost = mocks.StrictMock<IViewHost>();
             var viewController = mocks.StrictMock<IViewController>();
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mocks.StrictMock<IWin32Window>();
 
             var toolViewList = new List<IView>();
             viewController.Stub(vc => vc.ViewHost).Return(viewHost);
@@ -172,7 +148,7 @@ namespace Core.Plugins.Map.Test.Legend
 
             mocks.ReplayAll();
 
-            var controller = new MapLegendController(viewController, contextMenuBuilderProvider, parentWindow);
+            var controller = new MapLegendController(viewController, contextMenuBuilderProvider);
 
             if (open)
             {

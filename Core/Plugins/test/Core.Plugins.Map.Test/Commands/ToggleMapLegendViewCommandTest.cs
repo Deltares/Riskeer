@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Windows.Forms;
 using Core.Common.Controls.Commands;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
@@ -54,9 +53,8 @@ namespace Core.Plugins.Map.Test.Commands
             // Setup
             var mocks = new MockRepository();
             var viewController = mocks.StrictMock<IViewController>();
-            var parentWindow = mocks.StrictMock<IWin32Window>();
 
-            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
 
             if (open)
             {
@@ -74,7 +72,7 @@ namespace Core.Plugins.Map.Test.Commands
 
             mocks.ReplayAll();
 
-            var controller = new MapLegendController(viewController, contextMenuBuilderProvider, parentWindow);
+            var controller = new MapLegendController(viewController, contextMenuBuilderProvider);
             var command = new ToggleMapLegendViewCommand(controller);
 
             if (open)
@@ -96,8 +94,7 @@ namespace Core.Plugins.Map.Test.Commands
             // Setup
             var mocks = new MockRepository();
             var viewController = mocks.StrictMock<IViewController>();
-            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mocks.StrictMock<IWin32Window>();
+            var contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
             var viewHost = mocks.Stub<IViewHost>();
             var toolViewList = new List<IView>();
 
@@ -115,7 +112,7 @@ namespace Core.Plugins.Map.Test.Commands
 
             mocks.ReplayAll();
 
-            var controller = new MapLegendController(viewController, contextMenuBuilderProvider, parentWindow);
+            var controller = new MapLegendController(viewController, contextMenuBuilderProvider);
             var command = new ToggleMapLegendViewCommand(controller);
 
             // Call

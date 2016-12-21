@@ -274,51 +274,6 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie..
-        /// </summary>
-        public static string MapLegendView_CheckDataFormat_An_error_occurred_when_trying_to_read_the_file {
-            get {
-                return ResourceManager.GetString("MapLegendView_CheckDataFormat_An_error_occurred_when_trying_to_read_the_file", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon geen geometrieën vinden in dit bestand..
-        /// </summary>
-        public static string MapLegendView_CheckDataFormat_File_does_not_contain_geometries {
-            get {
-                return ResourceManager.GetString("MapLegendView_CheckDataFormat_File_does_not_contain_geometries", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bestand of andere benodigde bestanden zijn niet gevonden..
-        /// </summary>
-        public static string MapLegendView_CheckDataFormat_File_does_not_exist_or_misses_needed_files {
-            get {
-                return ResourceManager.GetString("MapLegendView_CheckDataFormat_File_does_not_exist_or_misses_needed_files", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De data in het shapebestand wordt niet ondersteund..
-        /// </summary>
-        public static string MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data {
-            get {
-                return ResourceManager.GetString("MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het shapebestand is geïmporteerd..
-        /// </summary>
-        public static string MapLegendView_CheckDataFormat_Shapefile_Is_Imported {
-            get {
-                return ResourceManager.GetString("MapLegendView_CheckDataFormat_Shapefile_Is_Imported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &amp;Voeg kaartlaag toe....
         /// </summary>
         public static string MapLegendView_MapDataCollectionContextMenuStrip__Add_MapLayer {
@@ -333,15 +288,6 @@ namespace Core.Plugins.Map.Properties {
         public static string MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip {
             get {
                 return ResourceManager.GetString("MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shapebestand.
-        /// </summary>
-        public static string MapLegendView_ShowSelectShapeFileDialog_Shape_file {
-            get {
-                return ResourceManager.GetString("MapLegendView_ShowSelectShapeFileDialog_Shape_file", resourceCulture);
             }
         }
         

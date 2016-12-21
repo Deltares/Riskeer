@@ -38,7 +38,6 @@ namespace Core.Plugins.Map.Legend
     public sealed partial class MapLegendView : UserControl, ISelectionProvider
     {
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
-        private readonly IWin32Window parentWindow;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -46,21 +45,15 @@ namespace Core.Plugins.Map.Legend
         /// Creates a new instance of <see cref="MapLegendView"/>.
         /// </summary>
         /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> to create context menus.</param>
-        /// <param name="parentWindow"></param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="contextMenuBuilderProvider"/> or <paramref name="parentWindow"/> is <c>null</c>.</exception>
-        public MapLegendView(IContextMenuBuilderProvider contextMenuBuilderProvider, IWin32Window parentWindow)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="contextMenuBuilderProvider"/> is <c>null</c>.</exception>
+        public MapLegendView(IContextMenuBuilderProvider contextMenuBuilderProvider)
         {
             if (contextMenuBuilderProvider == null)
             {
                 throw new ArgumentNullException("contextMenuBuilderProvider", @"Cannot create a MapLegendView when the context menu builder provider is null.");
             }
-            if (parentWindow == null)
-            {
-                throw new ArgumentNullException("parentWindow", @"Cannot create a MapLegendView when the parent window is null.");
-            }
 
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
-            this.parentWindow = parentWindow;
             InitializeComponent();
             Text = MapResources.General_Map;
 

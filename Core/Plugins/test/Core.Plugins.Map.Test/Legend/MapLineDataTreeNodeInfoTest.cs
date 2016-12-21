@@ -48,9 +48,8 @@ namespace Core.Plugins.Map.Test.Legend
         {
             mocks = new MockRepository();
             contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mocks.StrictMock<IWin32Window>();
 
-            mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
+            mapLegendView = new MapLegendView(contextMenuBuilderProvider);
 
             TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
             Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");

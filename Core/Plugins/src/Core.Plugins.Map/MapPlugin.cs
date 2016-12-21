@@ -106,7 +106,7 @@ namespace Core.Plugins.Map
                 throw new ArgumentNullException("viewController", @"Cannot create a MapLegendController when the view controller is null");
             }
 
-            var controller = new MapLegendController(viewController, Gui, Gui.MainWindow);
+            var controller = new MapLegendController(viewController, Gui);
             controller.OnOpenLegend += (s, e) => UpdateComponentsForActiveDocumentView();
             return controller;
         }

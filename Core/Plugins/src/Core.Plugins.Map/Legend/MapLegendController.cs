@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -38,7 +37,6 @@ namespace Core.Plugins.Map.Legend
     {
         private readonly IViewController viewController;
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
-        private readonly IWin32Window parentWindow;
 
         /// <summary>
         /// Fired when the map legend has been opened.
@@ -52,9 +50,9 @@ namespace Core.Plugins.Map.Legend
         /// </summary>
         /// <param name="viewController">The <see cref="IViewController"/> to invoke actions upon.</param>
         /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> to create context menus.</param>
-        /// <param name="parentWindow">The <see cref="IWin32Window"/> to show dialogs.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewController"/> or <paramref name="contextMenuBuilderProvider"/> is <c>null</c>.</exception>
-        public MapLegendController(IViewController viewController, IContextMenuBuilderProvider contextMenuBuilderProvider, IWin32Window parentWindow)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewController"/> 
+        /// or <paramref name="contextMenuBuilderProvider"/> is <c>null</c>.</exception>
+        public MapLegendController(IViewController viewController, IContextMenuBuilderProvider contextMenuBuilderProvider)
         {
             if (viewController == null)
             {
@@ -64,13 +62,8 @@ namespace Core.Plugins.Map.Legend
             {
                 throw new ArgumentNullException("contextMenuBuilderProvider", @"Cannot create a MapLegendController when the context menu builder provider is null.");
             }
-            if (parentWindow == null)
-            {
-                throw new ArgumentNullException("parentWindow", @"Cannot create a MapLegendController when the parent window is null");
-            }
             this.viewController = viewController;
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
-            this.parentWindow = parentWindow;
         }
 
         /// <summary>
@@ -122,7 +115,7 @@ namespace Core.Plugins.Map.Legend
         /// </summary>
         private void OpenLegendView()
         {
-            legendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
+            legendView = new MapLegendView(contextMenuBuilderProvider);
 
             viewController.ViewHost.AddToolView(legendView, ToolViewLocation.Left);
             viewController.ViewHost.SetImage(legendView, Resources.MapIcon);

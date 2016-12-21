@@ -82,10 +82,8 @@ namespace Core.Plugins.Map.Test
             using (var plugin = new MapPlugin())
             {
                 var gui = mocks.StrictMock<IGui>();
-                var mainWindow = mocks.StrictMock<IMainWindow>();
                 var viewHost = mocks.Stub<IViewHost>();
 
-                gui.Expect(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(g => g.ViewHost).Return(viewHost);
                 viewHost.Expect(vm => vm.ToolViews).Return(new IView[0]);
                 viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));

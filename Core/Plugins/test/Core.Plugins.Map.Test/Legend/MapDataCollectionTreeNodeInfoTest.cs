@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
@@ -49,9 +48,9 @@ namespace Core.Plugins.Map.Test.Legend
         public void SetUp()
         {
             mocks = new MockRepository();
-            contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mocks.Stub<IWin32Window>();
-            mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
+            contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+
+            mapLegendView = new MapLegendView(contextMenuBuilderProvider);
 
             TreeViewControl treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
             Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");

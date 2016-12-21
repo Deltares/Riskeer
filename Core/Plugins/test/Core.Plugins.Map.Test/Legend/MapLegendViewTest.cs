@@ -43,14 +43,12 @@ namespace Core.Plugins.Map.Test.Legend
     {
         private MockRepository mocks;
         private IContextMenuBuilderProvider contextMenuBuilderProvider;
-        private IWin32Window parentWindow;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
             contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            parentWindow = mocks.StrictMock<IWin32Window>();
             mocks.ReplayAll();
         }
 
@@ -64,7 +62,7 @@ namespace Core.Plugins.Map.Test.Legend
         public void Constructor_ContextMenuBuilderProviderAndWindowNotNull_CreatesUserControlAndTreeViewControl()
         {
             // Call
-            using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow))
+            using (var view = new MapLegendView(contextMenuBuilderProvider))
             {
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
 
@@ -82,7 +80,7 @@ namespace Core.Plugins.Map.Test.Legend
         public void Constructor_ContextMenuBuilderProviderNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MapLegendView(null, parentWindow);
+            TestDelegate test = () => new MapLegendView(null);
 
             // Assert
             const string expectedMessage = "Cannot create a MapLegendView when the context menu builder provider is null.";
@@ -90,21 +88,10 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void Constructor_ParentWindowNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new MapLegendView(contextMenuBuilderProvider, null);
-
-            // Assert
-            const string expectedMessage = "Cannot create a MapLegendView when the parent window is null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
         public void Data_MapDataCollection_DataSet()
         {
             // Setup
-            using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow))
+            using (var view = new MapLegendView(contextMenuBuilderProvider))
             {
                 var mapData = new MapDataCollection("test data");
 
@@ -121,7 +108,7 @@ namespace Core.Plugins.Map.Test.Legend
         public void Data_MapPointData_DataSet()
         {
             // Setup
-            using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow))
+            using (var view = new MapLegendView(contextMenuBuilderProvider))
             {
                 var mapData = new MapPointData("test data")
                 {
@@ -141,7 +128,7 @@ namespace Core.Plugins.Map.Test.Legend
         public void Data_MapLineData_DataSet()
         {
             // Setup
-            using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow))
+            using (var view = new MapLegendView(contextMenuBuilderProvider))
             {
                 var mapData = new MapLineData("test data")
                 {
@@ -161,7 +148,7 @@ namespace Core.Plugins.Map.Test.Legend
         public void Data_MapPolygonData_DataSet()
         {
             // Setup
-            using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow))
+            using (var view = new MapLegendView(contextMenuBuilderProvider))
             {
                 var mapData = new MapPolygonData("test data")
                 {
@@ -181,7 +168,7 @@ namespace Core.Plugins.Map.Test.Legend
         public void Data_ForNull_NullSet()
         {
             // Setup
-            using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow))
+            using (var view = new MapLegendView(contextMenuBuilderProvider))
             {
                 // Call
                 view.Data = null;
@@ -195,7 +182,7 @@ namespace Core.Plugins.Map.Test.Legend
         public void Data_OtherObject_ThrowsInvalidCastException()
         {
             // Setup 
-            using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow))
+            using (var view = new MapLegendView(contextMenuBuilderProvider))
             {
                 // Call
                 TestDelegate test = () => view.Data = new object();
@@ -215,7 +202,7 @@ namespace Core.Plugins.Map.Test.Legend
 
             mapDataCollection.Add(mapData);
 
-            using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow)
+            using (var view = new MapLegendView(contextMenuBuilderProvider)
             {
                 Data = mapDataCollection
             })
@@ -244,7 +231,7 @@ namespace Core.Plugins.Map.Test.Legend
 
             mapDataCollection.Add(mapData);
 
-            using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow)
+            using (var view = new MapLegendView(contextMenuBuilderProvider)
             {
                 Data = mapDataCollection
             })
