@@ -276,9 +276,9 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &amp;Voeg kaartlaag toe....
         /// </summary>
-        public static string MapLegendView_MapDataCollectionContextMenuStrip__Add_MapLayer {
+        public static string MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer {
             get {
-                return ResourceManager.GetString("MapLegendView_MapDataCollectionContextMenuStrip__Add_MapLayer", resourceCulture);
+                return ResourceManager.GetString("MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer", resourceCulture);
             }
         }
         

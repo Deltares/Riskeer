@@ -22,13 +22,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.Legend;
+using Core.Plugins.Map.Properties;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -125,11 +128,11 @@ namespace Core.Plugins.Map.Test.Legend
 
             // Assert
             CollectionAssert.AreEqual(new[]
-            {
-                mapData3,
-                mapData2,
-                mapData1
-            }, objects);
+                                      {
+                                          mapData3,
+                                          mapData2,
+                                          mapData1
+                                      }, objects);
         }
 
         [Test]
@@ -263,20 +266,47 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             var mapDataCollection = new MapDataCollection("test data");
 
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilderMock.Expect(mb => mb.AddImportItem()).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            var applicationFeatureCommandsMockMock = mocks.Stub<IApplicationFeatureCommands>();
+            var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
+            importCommandHandlerMock.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
+            var exportCommandHandlerMock = mocks.Stub<IExportCommandHandler>();
+            var viewCommandsMock = mocks.Stub<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(menuBuilderMock);
+                // Call
+                var builder = new ContextMenuBuilder(applicationFeatureCommandsMockMock,
+                                                     importCommandHandlerMock,
+                                                     exportCommandHandlerMock,
+                                                     viewCommandsMock,
+                                                     mapDataCollection,
+                                                     treeViewControl);
+
+                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(builder);
 
                 mocks.ReplayAll();
 
                 // Call
-                info.ContextMenuStrip(mapDataCollection, null, treeViewControl);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControl))
+                {
+                    // Assert
+                    Assert.AreEqual(3, contextMenu.Items.Count);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0,
+                                                                  "&Voeg kaartlaag toe...",
+                                                                  "Importeer een nieuwe kaartlaag en voeg deze toe.",
+                                                                  Resources.MapPlusIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2,
+                                                                  "Ei&genschappen",
+                                                                  "Toon de eigenschappen in het Eigenschappenpaneel.",
+                                                                  GuiResources.PropertiesHS,
+                                                                  false);
+
+                    CollectionAssert.AllItemsAreInstancesOfType(new[]
+                                                                {
+                                                                    contextMenu.Items[1]
+                                                                }, typeof(ToolStripSeparator));
+                }
             }
 
             // Assert

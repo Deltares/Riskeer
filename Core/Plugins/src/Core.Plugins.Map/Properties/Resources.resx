@@ -184,7 +184,7 @@
   <data name="Ribbon_Toggle_Coordinates_ToolTip" xml:space="preserve">
     <value>Toon de coördinaten van de cursor op de kaart.</value>
   </data>
-  <data name="MapLegendView_MapDataCollectionContextMenuStrip__Add_MapLayer" xml:space="preserve">
+  <data name="MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer" xml:space="preserve">
     <value>&amp;Voeg kaartlaag toe...</value>
   </data>
   <data name="MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip" xml:space="preserve">

@@ -140,7 +140,10 @@ namespace Core.Plugins.Map.Legend
                 CanInsert = MapControlCanInsert,
                 OnDrop = MapControlOnDrop,
                 ContextMenuStrip = (mapDataCollection, parentData, treeView) => contextMenuBuilderProvider.Get(mapDataCollection, treeView)
-                                                                                                          .AddImportItem()
+                                                                                                          .AddCustomImportItem(
+                                                                                                          MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer,
+                                                                                                          MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
+                                                                                                          MapResources.MapPlusIcon)
                                                                                                           .AddSeparator()
                                                                                                           .AddPropertiesItem()
                                                                                                           .Build()
