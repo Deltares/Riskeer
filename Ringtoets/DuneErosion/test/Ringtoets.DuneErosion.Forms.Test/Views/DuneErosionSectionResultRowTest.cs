@@ -28,10 +28,10 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultRows;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.Views;
 
-namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
+namespace Ringtoets.DuneErosion.Forms.Test.Views
 {
     [TestFixture]
     public class DuneErosionSectionResultRowTest

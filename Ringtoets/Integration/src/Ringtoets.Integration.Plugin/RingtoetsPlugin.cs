@@ -56,6 +56,8 @@ using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;

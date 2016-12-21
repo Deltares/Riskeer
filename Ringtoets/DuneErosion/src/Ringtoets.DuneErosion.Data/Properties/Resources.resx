@@ -117,70 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FailureMechanismContribution_DisplayName" xml:space="preserve">
-    <value>Faalkansbegroting</value>
+  <data name="DuneErosionFailureMechanism_Code" xml:space="preserve">
+    <value>DA</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden</value>
-  </data>
-  <data name="AssessmentSection_DisplayName" xml:space="preserve">
-    <value>Traject</value>
-  </data>
-  <data name="MacrostabilityInwardFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Macrostabiliteit binnenwaarts</value>
-  </data>
-  <data name="GrassCoverSlipOffOutwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Grasbekleding afschuiven buitentalud</value>
-  </data>
-  <data name="PipingStructureFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Piping bij kunstwerk</value>
-  </data>
-  <data name="MacrostabilityInwardFailureMechanism_Code" xml:space="preserve">
-    <value>STBI</value>
-  </data>
-  <data name="GrassCoverSlipOffOutwardsFailureMechanism_Code" xml:space="preserve">
-    <value>GABU</value>
-  </data>
-  <data name="PipingStructureFailureMechanism_Code" xml:space="preserve">
-    <value>PKW</value>
-  </data>
-  <data name="GrassCoverSlipOffInwardsFailureMechanism_Code" xml:space="preserve">
-    <value>GABI</value>
-  </data>
-  <data name="GrassCoverSlipOffInwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Grasbekleding afschuiven binnentalud</value>
-  </data>
-  <data name="MacrostabilityOutwardFailureMechanism_Code" xml:space="preserve">
-    <value>STBU</value>
-  </data>
-  <data name="MacrostabilityOutwardFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Macrostabiliteit buitenwaarts</value>
-  </data>
-  <data name="MicrostabilityFailureMechanism_Code" xml:space="preserve">
-    <value>STMI</value>
-  </data>
-  <data name="MicrostabilityFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Microstabiliteit</value>
-  </data>
-  <data name="StrengthStabilityLengthwiseConstructionFailureMechanism_Code" xml:space="preserve">
-    <value>STKWl</value>
-  </data>
-  <data name="TechnicalInnovationFailureMechanismFailureMechanism_Code" xml:space="preserve">
-    <value>INN</value>
-  </data>
-  <data name="TechnicalInnovationFailureMechanismFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Technische innovaties - Technische innovaties</value>
-  </data>
-  <data name="WaterPressureAsphaltCoverFailureMechanism_Code" xml:space="preserve">
-    <value>AWO</value>
-  </data>
-  <data name="WaterPressureAsphaltCoverFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Wateroverdruk bij asfaltbekleding</value>
-  </data>
-  <data name="AssessmentSection_Id_0" xml:space="preserve">
-    <value>Traject {0}</value>
-  </data>
-  <data name="StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Sterkte en stabiliteit langsconstructies</value>
+  <data name="DuneErosionFailureMechanism_DisplayName" xml:space="preserve">
+    <value>Duinwaterkering - Duinafslag</value>
   </data>
 </root>

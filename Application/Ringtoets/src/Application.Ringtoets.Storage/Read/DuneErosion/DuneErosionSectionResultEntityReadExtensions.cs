@@ -23,7 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.DuneErosion.Data;
 
 namespace Application.Ringtoets.Storage.Read.DuneErosion
 {

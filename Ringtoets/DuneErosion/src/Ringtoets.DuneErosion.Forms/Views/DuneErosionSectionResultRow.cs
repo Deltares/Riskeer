@@ -22,12 +22,12 @@
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.Integration.Forms.Views.SectionResultRows
+namespace Ringtoets.DuneErosion.Forms.Views
 {
     /// <summary>
-    /// Class for displaying <see cref="DuneErosionFailureMechanismSectionResult"/>  as a row in a grid view.
+    /// Class for displaying <see cref="DuneErosionFailureMechanismSectionResult"/> as a row in a grid view.
     /// </summary>
     public class DuneErosionSectionResultRow : FailureMechanismSectionResultRow<DuneErosionFailureMechanismSectionResult>
     {
@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         public DuneErosionSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
-        /// Gets the assessment layer two a of the <see cref="DuneErosionFailureMechanismSectionResult"/>.
+        /// Gets the assessment layer two a of the <see cref="Ringtoets.DuneErosion.Data.DuneErosionFailureMechanismSectionResult"/>.
         /// </summary>
         public AssessmentLayerTwoAResult AssessmentLayerTwoA
         {

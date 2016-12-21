@@ -23,10 +23,8 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone
+namespace Ringtoets.DuneErosion.Data.Test
 {
     [TestFixture]
     public class DuneErosionFailureMechanismTest

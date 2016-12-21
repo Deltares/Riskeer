@@ -26,11 +26,10 @@ using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultRows;
+using Ringtoets.DuneErosion.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Views.SectionResultViews
+namespace Ringtoets.DuneErosion.Forms.Views
 {
     /// <summary>
     /// The view for a collection of <see cref="DuneErosionFailureMechanismSectionResult"/>.

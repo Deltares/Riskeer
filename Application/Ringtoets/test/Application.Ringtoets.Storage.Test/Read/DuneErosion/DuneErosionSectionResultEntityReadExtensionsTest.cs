@@ -26,7 +26,7 @@ using Application.Ringtoets.Storage.Read.DuneErosion;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.DuneErosion.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
 {

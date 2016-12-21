@@ -28,10 +28,10 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultViews;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.Views;
 
-namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
+namespace Ringtoets.DuneErosion.Forms.Test.Views
 {
     [TestFixture]
     public class DuneErosionResultViewTest

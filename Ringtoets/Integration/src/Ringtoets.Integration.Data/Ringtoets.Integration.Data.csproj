@@ -44,7 +44,6 @@
     <Compile Include="RingtoetsProject.cs" />
     <Compile Include="StandAlone\MacrostabilityOutwardsFailureMechanism.cs" />
     <Compile Include="StandAlone\MicrostabilityFailureMechanism.cs" />
-    <Compile Include="StandAlone\SectionResults\DuneErosionFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResults\GrassCoverSlipOffInwardsFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResults\GrassCoverSlipOffOutwardsFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResults\MacrostabilityInwardsFailureMechanismSectionResult.cs" />
@@ -58,7 +57,6 @@
     <Compile Include="StandAlone\GrassCoverSlipOffInwardsFailureMechanism.cs" />
     <Compile Include="StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanism.cs" />
     <Compile Include="StandAlone\TechnicalInnovationFailureMechanism.cs" />
-    <Compile Include="StandAlone\DuneErosionFailureMechanism.cs" />
     <Compile Include="StandAlone\PipingStructureFailureMechanism.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffOutwardsFailureMechanism.cs" />
     <Compile Include="StandAlone\MacroStabilityInwardsFailureMechanism.cs" />
@@ -78,6 +76,11 @@
     <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
       <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+      <Project>{d1068432-c172-4aa6-847b-d9deb4c6de26}</Project>
+      <Name>Ringtoets.DuneErosion.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">

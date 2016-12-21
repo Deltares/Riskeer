@@ -100,7 +100,6 @@
     </Compile>
     <Compile Include="Views\IAssessmentSectionCompositionChangeHandler.cs" />
     <Compile Include="Views\IFailureMechanismContributionNormChangeHandler.cs" />
-    <Compile Include="Views\SectionResultRows\DuneErosionSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffInwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffOutwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\MacrostabilityInwardsSectionResultRow.cs" />
@@ -110,9 +109,6 @@
     <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\TechnicalInnovationSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\WaterPressureAsphaltCoverSectionResultRow.cs" />
-    <Compile Include="Views\SectionResultViews\DuneErosionResultView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffInwardsResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -100,24 +100,6 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DA.
-        /// </summary>
-        public static string DuneErosionFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("DuneErosionFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Duinwaterkering - Duinafslag.
-        /// </summary>
-        public static string DuneErosionFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("DuneErosionFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Faalkansbegroting.
         /// </summary>
         public static string FailureMechanismContribution_DisplayName {

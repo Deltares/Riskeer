@@ -22,11 +22,9 @@
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.Properties;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using Ringtoets.DuneErosion.Data.Properties;
 
-namespace Ringtoets.Integration.Data.StandAlone
+namespace Ringtoets.DuneErosion.Data
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the

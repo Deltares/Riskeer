@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Integration.Data.StandAlone.SectionResults
+namespace Ringtoets.DuneErosion.Data
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the
