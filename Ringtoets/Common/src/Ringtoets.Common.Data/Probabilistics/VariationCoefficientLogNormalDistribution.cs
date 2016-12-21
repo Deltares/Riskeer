@@ -36,11 +36,19 @@ namespace Ringtoets.Common.Data.Probabilistics
         private RoundedDouble coefficientOfVariation;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LogNormalDistribution"/> class.
+        /// Initializes a new instance of the <see cref="VariationCoefficientLogNormalDistribution"/> class,
+        /// initialized as a log normal distribution (mean=1 and coefficient of variation, CV=1) and with 
+        /// the amount of decimal places equal to <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>.
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution() : this(RoundedDouble.MaximumNumberOfDecimalPlaces) {}
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VariationCoefficientLogNormalDistribution"/> class,
+        /// initialized as a log normal distribution (mean=1 and coefficient of variation, CV=1).
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [1, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
+        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
         /// </exception>
         public VariationCoefficientLogNormalDistribution(int numberOfDecimalPlaces)
         {

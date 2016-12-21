@@ -31,10 +31,28 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
     public class LogNormalDistributionTest
     {
         [Test]
+        public void DefaultConstructor_ExpectedValues()
+        {
+            // Call
+            var distribution = new LogNormalDistribution();
+
+            // Assert
+            var numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
+            Assert.IsInstanceOf<IDistribution>(distribution);
+            double expectedAccuracy = Math.Pow(10.0, -numberOfDecimalPlaces);
+            Assert.AreEqual(Math.Exp(-0.5), distribution.Mean, expectedAccuracy);
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1)), distribution.StandardDeviation, expectedAccuracy);
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.0, distribution.Shift, expectedAccuracy);
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.Shift.NumberOfDecimalPlaces);
+        }
+
+        [Test]
         [TestCase(1)]
         [TestCase(9)]
         [TestCase(15)]
-        public void DefaultConstructor_ExpectedValues(int numberOfDecimalPlaces)
+        public void Constructor_WithParameter_ExpectedValues(int numberOfDecimalPlaces)
         {
             // Call
             var distribution = new LogNormalDistribution(numberOfDecimalPlaces);

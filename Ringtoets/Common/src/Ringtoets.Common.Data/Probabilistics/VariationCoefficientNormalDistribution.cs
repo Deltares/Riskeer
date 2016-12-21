@@ -36,7 +36,15 @@ namespace Ringtoets.Common.Data.Probabilistics
         private RoundedDouble mean;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VariationCoefficientNormalDistribution"/> class.
+        /// Initializes a new instance of the <see cref="VariationCoefficientNormalDistribution"/> class,
+        /// initialized as a normal distribution (mean=1 and a coefficient of variation, CV=1) and
+        /// with the amount of decimals equal to <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>.
+        /// </summary>
+        public VariationCoefficientNormalDistribution() : this(RoundedDouble.MaximumNumberOfDecimalPlaces) {}
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VariationCoefficientNormalDistribution"/> class,
+        /// initialized as a normal distribution (mean=1 and a coefficient of variation, CV=1).
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places of the distribution.</param>
         /// <exception cref="ArgumentOutOfRangeException">

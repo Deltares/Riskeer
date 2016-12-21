@@ -31,10 +31,25 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
     public class NomalDistributionTest
     {
         [Test]
+        public void DefaultConstructor_ExpectedValues()
+        {
+            // Call
+            var distribution = new NormalDistribution();
+
+            // Assert
+            var numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
+            Assert.IsInstanceOf<IDistribution>(distribution);
+            Assert.AreEqual(0.0, distribution.Mean.Value);
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, distribution.StandardDeviation.Value);
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.StandardDeviation.NumberOfDecimalPlaces);
+        }
+
+        [Test]
         [TestCase(0)]
         [TestCase(2)]
         [TestCase(15)]
-        public void DefaultConstructor_ExpectedValues(int numberOfDecimalPlaces)
+        public void Constructor_WithParameter_ExpectedValues(int numberOfDecimalPlaces)
         {
             // Call
             var distribution = new NormalDistribution(numberOfDecimalPlaces);

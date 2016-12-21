@@ -33,9 +33,24 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            const int numberOfDecimalPlaces = 4;
+            // Call
+            var distribution = new VariationCoefficientNormalDistribution();
 
+            // Assert
+            var numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
+            Assert.IsInstanceOf<IVariationCoefficientDistribution>(distribution);
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, distribution.Mean.Value);
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, distribution.CoefficientOfVariation.Value);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(9)]
+        [TestCase(15)]
+        public void Constructor_WithParameter_ExpectedValues(int numberOfDecimalPlaces)
+        {
             // Call
             var distribution = new VariationCoefficientNormalDistribution(numberOfDecimalPlaces);
 

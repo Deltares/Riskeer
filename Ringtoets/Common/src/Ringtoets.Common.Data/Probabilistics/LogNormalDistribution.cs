@@ -37,6 +37,13 @@ namespace Ringtoets.Common.Data.Probabilistics
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LogNormalDistribution"/> class,
+        /// initialized as the standard log-normal distribution (mu=0, sigma=1, theta=0) 
+        /// with the amount of decimals equal to <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>. 
+        /// </summary>
+        public LogNormalDistribution() : this(RoundedDouble.MaximumNumberOfDecimalPlaces) {}
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogNormalDistribution"/> class,
         /// initialized as the standard log-normal distribution (mu=0, sigma=1, theta=0).
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>

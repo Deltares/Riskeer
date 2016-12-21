@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public GrassCoverErosionInwardsInput()
         {
-            orientation = new RoundedDouble(2, double.NaN);
+            orientation = new RoundedDouble(2);
             dikeHeight = new RoundedDouble(2);
 
             UpdateProfileParameters();

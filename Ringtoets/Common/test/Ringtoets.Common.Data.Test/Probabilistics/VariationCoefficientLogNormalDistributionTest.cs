@@ -30,12 +30,28 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
     [TestFixture]
     public class VariationCoefficientLogNormalDistributionTest
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            const int numberOfDecimals = 3;
 
+        [Test]
+        public void DefaultConstructor_ExpectedValues()
+        {
+            // Call
+            var distribution = new VariationCoefficientLogNormalDistribution();
+
+            // Assert
+            var numberOfDecimals = RoundedDouble.MaximumNumberOfDecimalPlaces;
+            Assert.IsInstanceOf<IVariationCoefficientDistribution>(distribution);
+            Assert.AreEqual(numberOfDecimals, distribution.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, distribution.Mean.Value);
+            Assert.AreEqual(numberOfDecimals, distribution.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, distribution.CoefficientOfVariation.Value);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(9)]
+        [TestCase(15)]
+        public void Constructor_WithParameter_ExpectedValues(int numberOfDecimals)
+        {
             // Call
             var distribution = new VariationCoefficientLogNormalDistribution(numberOfDecimals);
 
