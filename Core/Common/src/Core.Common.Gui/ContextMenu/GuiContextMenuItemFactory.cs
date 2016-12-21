@@ -142,25 +142,25 @@ namespace Core.Common.Gui.ContextMenu
         /// to the data of the given <see cref="TreeNode"/>.
         /// </summary>
         /// <param name="text">The text of the import item.</param>
-        /// <param name="tooltip">The tooltip of the import item.</param>
+        /// <param name="toolTip">The toolTip of the import item.</param>
         /// <param name="image">The image of the import item.</param>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ToolStripItem CreateCustomImportItem(string text, string tooltip, Image image)
+        public ToolStripItem CreateCustomImportItem(string text, string toolTip, Image image)
         {
             if (text == null)
             {
                 throw new ArgumentNullException("text");
             }
-            if (tooltip == null)
+            if (toolTip == null)
             {
-                throw new ArgumentNullException("tooltip");
+                throw new ArgumentNullException("toolTip");
             }
             if (image == null)
             {
                 throw new ArgumentNullException("image");
             }
-            return CreateImportItem(text, tooltip, image);
+            return CreateImportItem(text, toolTip, image);
         }
 
         /// <summary>

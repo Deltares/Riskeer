@@ -328,7 +328,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateCustomImportItem_TextNull_ThrowArgumentNullException()
         {
             // Setup
-            const string tooltip = "Import tooltip";
+            const string toolTip = "Import tooltip";
             Image image = Resources.ImportIcon;
 
             var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
@@ -346,7 +346,7 @@ namespace Core.Common.Gui.Test.ContextMenu
                                                                    nodeData);
 
             // Call
-            TestDelegate test = () => contextMenuFactory.CreateCustomImportItem(null, tooltip, image);
+            TestDelegate test = () => contextMenuFactory.CreateCustomImportItem(null, toolTip, image);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -379,7 +379,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("tooltip", exception.ParamName);
+            Assert.AreEqual("toolTip", exception.ParamName);
         }
 
         [Test]
@@ -387,7 +387,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             const string text = "Import";
-            const string tooltip = "Import tooltip";
+            const string toolTip = "Import tooltip";
 
             var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
             var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
@@ -404,7 +404,7 @@ namespace Core.Common.Gui.Test.ContextMenu
                                                                    nodeData);
 
             // Call
-            TestDelegate test = () => contextMenuFactory.CreateCustomImportItem(text, tooltip, null);
+            TestDelegate test = () => contextMenuFactory.CreateCustomImportItem(text, toolTip, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -418,7 +418,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             const string text = "Import";
-            const string tooltip = "Import tooltip";
+            const string toolTip = "Import tooltip";
             Image image = Resources.ImportIcon;
 
             var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
@@ -441,12 +441,12 @@ namespace Core.Common.Gui.Test.ContextMenu
                                                                    nodeData);
 
             // Call
-            var item = contextMenuFactory.CreateCustomImportItem(text, tooltip, image);
+            var item = contextMenuFactory.CreateCustomImportItem(text, toolTip, image);
             item.PerformClick();
 
             // Assert
             Assert.AreEqual(text, item.Text);
-            Assert.AreEqual(tooltip, item.ToolTipText);
+            Assert.AreEqual(toolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(image, item.Image);
             Assert.AreEqual(canImportOn, item.Enabled);
 

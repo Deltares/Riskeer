@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Core.Common.Gui.ContextMenu
@@ -76,6 +77,15 @@ namespace Core.Common.Gui.ContextMenu
         /// </summary>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
         IContextMenuBuilder AddImportItem();
+
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports to the data of the <see cref="TreeNode"/>.
+        /// </summary>
+        /// <param name="text">The text of the import item.</param>
+        /// <param name="toolTip">The tooltip of the import item.</param>
+        /// <param name="image">The image of the import item.</param>
+        /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
+        IContextMenuBuilder AddCustomImportItem(string text, string toolTip, Image image);
 
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which shows properties of the data of the <see cref="TreeNode"/>.

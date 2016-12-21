@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
@@ -124,6 +125,12 @@ namespace Core.Common.Gui.ContextMenu
         public IContextMenuBuilder AddImportItem()
         {
             AddItem(guiItemsFactory.CreateImportItem());
+            return this;
+        }
+
+        public IContextMenuBuilder AddCustomImportItem(string text, string toolTip, Image image)
+        {
+            AddItem(guiItemsFactory.CreateCustomImportItem(text, toolTip, image));
             return this;
         }
 

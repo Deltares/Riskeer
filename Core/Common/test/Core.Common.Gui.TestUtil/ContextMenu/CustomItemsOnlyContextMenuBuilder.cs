@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Gui.ContextMenu;
 
@@ -109,6 +110,12 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddImportItem()
+        {
+            contextMenu.Items.Add(StubItem());
+            return this;
+        }
+
+        public IContextMenuBuilder AddCustomImportItem(string text, string toolTip, Image image)
         {
             contextMenu.Items.Add(StubItem());
             return this;
