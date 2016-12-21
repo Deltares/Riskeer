@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Properties;
@@ -133,16 +134,33 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateImportItem()
         {
-            bool canImport = importCommandHandler.CanImportOn(dataObject);
-            var newItem = new ToolStripMenuItem(Resources.Import)
-            {
-                ToolTipText = Resources.Import_ToolTip,
-                Image = Resources.ImportIcon,
-                Enabled = canImport
-            };
-            newItem.Click += (s, e) => importCommandHandler.ImportOn(dataObject);
+            return CreateImportItem(Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon);
+        }
 
-            return newItem;
+        /// <summary>
+        /// Creates a <see cref="ToolStripItem"/> which is bound to the action of importing
+        /// to the data of the given <see cref="TreeNode"/>.
+        /// </summary>
+        /// <param name="text">The text of the import item.</param>
+        /// <param name="tooltip">The tooltip of the import item.</param>
+        /// <param name="image">The image of the import item.</param>
+        /// <returns>The created <see cref="ToolStripItem"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ToolStripItem CreateCustomImportItem(string text, string tooltip, Image image)
+        {
+            if (text == null)
+            {
+                throw new ArgumentNullException("text");
+            }
+            if (tooltip == null)
+            {
+                throw new ArgumentNullException("tooltip");
+            }
+            if (image == null)
+            {
+                throw new ArgumentNullException("image");
+            }
+            return CreateImportItem(text, tooltip, image);
         }
 
         /// <summary>
@@ -160,6 +178,20 @@ namespace Core.Common.Gui.ContextMenu
                 Enabled = canShowProperties
             };
             newItem.Click += (s, e) => applicationFeatureCommandHandler.ShowPropertiesForSelection();
+
+            return newItem;
+        }
+
+        private ToolStripItem CreateImportItem(string text, string tooltip, Image image)
+        {
+            bool canImport = importCommandHandler.CanImportOn(dataObject);
+            var newItem = new ToolStripMenuItem(text)
+            {
+                ToolTipText = tooltip,
+                Image = image,
+                Enabled = canImport
+            };
+            newItem.Click += (s, e) => importCommandHandler.ImportOn(dataObject);
 
             return newItem;
         }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Properties;
@@ -318,6 +319,135 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Import, item.Text);
             Assert.AreEqual(Resources.Import_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.ImportIcon, item.Image);
+            Assert.AreEqual(canImportOn, item.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateCustomImportItem_TextNull_ThrowArgumentNullException()
+        {
+            // Setup
+            const string tooltip = "Import tooltip";
+            Image image = Resources.ImportIcon;
+
+            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var nodeData = new object();
+
+            mocks.ReplayAll();
+
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
+                                                                   importCommandHandlerMock,
+                                                                   exportCommandHandlerMock,
+                                                                   viewCommandsMock,
+                                                                   nodeData);
+
+            // Call
+            TestDelegate test = () => contextMenuFactory.CreateCustomImportItem(null, tooltip, image);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("text", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateCustomImportItem_TooltipNull_ThrowArgumentNullException()
+        {
+            // Setup
+            const string text = "Import";
+            Image image = Resources.ImportIcon;
+
+            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var nodeData = new object();
+
+            mocks.ReplayAll();
+
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
+                                                                   importCommandHandlerMock,
+                                                                   exportCommandHandlerMock,
+                                                                   viewCommandsMock,
+                                                                   nodeData);
+
+            // Call
+            TestDelegate test = () => contextMenuFactory.CreateCustomImportItem(text, null, image);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("tooltip", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateCustomImportItem_ImageNull_ThrowArgumentNullException()
+        {
+            // Setup
+            const string text = "Import";
+            const string tooltip = "Import tooltip";
+
+            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var nodeData = new object();
+
+            mocks.ReplayAll();
+
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
+                                                                   importCommandHandlerMock,
+                                                                   exportCommandHandlerMock,
+                                                                   viewCommandsMock,
+                                                                   nodeData);
+
+            // Call
+            TestDelegate test = () => contextMenuFactory.CreateCustomImportItem(text, tooltip, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("image", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateCustomImportItem_AllDataSet_ItemWithPropertiesSet(bool canImportOn)
+        {
+            // Setup
+            const string text = "Import";
+            const string tooltip = "Import tooltip";
+            Image image = Resources.ImportIcon;
+
+            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var nodeData = new object();
+            importCommandHandlerMock.Expect(ch => ch.CanImportOn(nodeData)).Return(canImportOn);
+            if (canImportOn)
+            {
+                importCommandHandlerMock.Expect(ch => ch.ImportOn(nodeData));
+            }
+
+            mocks.ReplayAll();
+
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
+                                                                   importCommandHandlerMock,
+                                                                   exportCommandHandlerMock,
+                                                                   viewCommandsMock,
+                                                                   nodeData);
+
+            // Call
+            var item = contextMenuFactory.CreateCustomImportItem(text, tooltip, image);
+            item.PerformClick();
+
+            // Assert
+            Assert.AreEqual(text, item.Text);
+            Assert.AreEqual(tooltip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(image, item.Image);
             Assert.AreEqual(canImportOn, item.Enabled);
 
             mocks.VerifyAll();
