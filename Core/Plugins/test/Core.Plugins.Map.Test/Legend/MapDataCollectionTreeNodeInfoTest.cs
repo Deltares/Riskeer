@@ -308,9 +308,6 @@ namespace Core.Plugins.Map.Test.Legend
                                                                 }, typeof(ToolStripSeparator));
                 }
             }
-
-            // Assert
-            // Expectancies will be asserted in TearDown()
         }
 
         public override void TearDown()
