@@ -159,7 +159,7 @@ namespace Core.Common.Gui.Test
         [Test]
         [STAThread]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void Constructor_ConstuctedAfterAnotherInstanceHasBeenCreated_ThrowsInvalidOperationException()
+        public void Constructor_ConstructedAfterAnotherInstanceHasBeenCreated_ThrowsInvalidOperationException()
         {
             // Setup
             var mocks = new MockRepository();

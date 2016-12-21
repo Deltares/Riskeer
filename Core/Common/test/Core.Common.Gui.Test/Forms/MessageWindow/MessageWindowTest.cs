@@ -156,8 +156,6 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 };
                 messageWindow.AddMessage(Level.Warn, new DateTime(), detailedMessage);
                 messageWindow.Refresh();
-                var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
                 var buttonTester = new ToolStripButtonTester("buttonShowDetails");
 
                 // Call
@@ -191,7 +189,60 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        public void ShowDetailsButton_MessageSelectedSelectedOnDoubleClick_ShowMessageWindowDialogWithDetails()
+        public void ShowDetailsButton_DoubleClickOnHeader_DoNotShowMessageWindowDialog()
+        {
+            // Setup
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                var gridView = new ControlTester("messagesDataGridView");
+                messageWindow.AddMessage(Level.Warn, new DateTime(), "TestDetailedMessage");
+                messageWindow.Refresh();
+
+                // Call
+                gridView.FireEvent("CellMouseDoubleClick", new DataGridViewCellMouseEventArgs(
+                                                               -1, -1, 0, 0,
+                                                               new MouseEventArgs(MouseButtons.Left, 2, 0, 0, 0)));
+
+                // Assert
+                // No dialog window shown
+            }
+        }
+
+        [Test]
+        [TestCase(MouseButtons.Middle)]
+        [TestCase(MouseButtons.None)]
+        [TestCase(MouseButtons.Right)]
+        [TestCase(MouseButtons.XButton1)]
+        [TestCase(MouseButtons.XButton2)]
+        public void ShowDetailsButton_MessageSelectedOnDoubleClickOtherThanLeft_DoNotShowMessageWindowDialog(MouseButtons mouseButton)
+        {
+            // Setup
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                var gridView = new ControlTester("messagesDataGridView");
+                messageWindow.AddMessage(Level.Warn, new DateTime(), "TestDetailedMessage");
+                messageWindow.Refresh();
+
+                // Call
+                gridView.FireEvent("CellMouseDoubleClick", new DataGridViewCellMouseEventArgs(
+                                                               0, 0, 0, 0,
+                                                               new MouseEventArgs(mouseButton, 2, 0, 0, 0)));
+
+                // Assert
+                // No dialog window shown
+            }
+        }
+
+        [Test]
+        public void ShowDetailsButton_MessageSelectedOnDoubleClick_ShowMessageWindowDialogWithDetails()
         {
             // Setup
             var mocks = new MockRepository();
@@ -220,13 +271,11 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 var gridView = new ControlTester("messagesDataGridView");
                 messageWindow.AddMessage(Level.Warn, new DateTime(), detailedMessage);
                 messageWindow.Refresh();
-                var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
                 // Call
                 gridView.FireEvent("CellMouseDoubleClick", new DataGridViewCellMouseEventArgs(
                                                                0, 0, 0, 0,
-                                                               new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0)));
+                                                               new MouseEventArgs(MouseButtons.Left, 2, 0, 0, 0)));
 
                 // Assert
                 Assert.AreEqual("Berichtdetails", dialogTitle);
@@ -256,7 +305,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        public void ShowDetailsButton_MessageSelectedSelectedOnEnterKeyDown_ShowMessageWindowDialogWithDetails()
+        public void ShowDetailsButton_MessageSelectedOnEnterKeyDown_ShowMessageWindowDialogWithDetails()
         {
             // Setup
             var mocks = new MockRepository();
@@ -285,8 +334,6 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 var gridView = new ControlTester("messagesDataGridView");
                 messageWindow.AddMessage(Level.Warn, new DateTime(), detailedMessage);
                 messageWindow.Refresh();
-                var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
                 // Call
                 gridView.FireEvent("KeyDown", new KeyEventArgs(Keys.Enter));
@@ -311,7 +358,6 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 messageWindow.AddMessage(Level.Warn, new DateTime(), "message");
                 messageWindow.Refresh();
                 var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
                 var button = new ToolStripItemTester("buttonClearAll");
 
@@ -336,14 +382,12 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
 
                 messageWindow.AddMessage(Level.Warn, new DateTime(), "message");
                 messageWindow.Refresh();
-                var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
                 var button = new ToolStripItemTester("buttonCopy");
 
                 // Call
                 button.Click();
-                
+
                 // Assert
                 IDataObject actualDataObject = Clipboard.GetDataObject();
                 Assert.IsTrue(actualDataObject != null && actualDataObject.GetDataPresent(DataFormats.Text));
@@ -364,7 +408,6 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
 
                 AddMessages(messageWindow);
                 var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
                 var button = new ToolStripButtonTester("buttonShowInfo");
 
@@ -372,7 +415,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 button.Click();
 
                 // Assert
-                Assert.IsFalse(((ToolStripButton)button.TheObject).Checked);
+                Assert.IsFalse(((ToolStripButton) button.TheObject).Checked);
                 Assert.AreEqual(2, dataGridView.Rows.Count);
                 var filteredLevel = Level.Info.ToString();
                 foreach (DataGridViewRow row in dataGridView.Rows)
@@ -394,15 +437,13 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
 
                 AddMessages(messageWindow);
                 var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
-
                 var button = new ToolStripButtonTester("buttonShowWarning");
 
                 // Call
                 button.Click();
 
                 // Assert
-                Assert.IsFalse(((ToolStripButton)button.TheObject).Checked);
+                Assert.IsFalse(((ToolStripButton) button.TheObject).Checked);
                 Assert.AreEqual(2, dataGridView.Rows.Count);
                 var filteredLevel = Level.Warn.ToString();
                 foreach (DataGridViewRow row in dataGridView.Rows)
@@ -424,15 +465,13 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
 
                 AddMessages(messageWindow);
                 var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
-
                 var button = new ToolStripButtonTester("buttonShowError");
 
                 // Call
                 button.Click();
 
                 // Assert
-                Assert.IsFalse(((ToolStripButton)button.TheObject).Checked);
+                Assert.IsFalse(((ToolStripButton) button.TheObject).Checked);
                 Assert.AreEqual(2, dataGridView.Rows.Count);
                 var filteredLevel = Level.Error.ToString();
                 foreach (DataGridViewRow row in dataGridView.Rows)

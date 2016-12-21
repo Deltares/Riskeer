@@ -281,7 +281,10 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
         private void MessagesDataGridViewCellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            ShowMessageWindowDialog();
+            if (e.Button == MouseButtons.Left && e.ColumnIndex > -1 && e.RowIndex > -1)
+            {
+                ShowMessageWindowDialog();
+            }
         }
 
         private void MessagesDataGridViewKeyDown(object sender, KeyEventArgs e)
@@ -289,6 +292,8 @@ namespace Core.Common.Gui.Forms.MessageWindow
             if (e.KeyCode == Keys.Enter)
             {
                 ShowMessageWindowDialog();
+
+                e.Handled = true;
             }
         }
 
