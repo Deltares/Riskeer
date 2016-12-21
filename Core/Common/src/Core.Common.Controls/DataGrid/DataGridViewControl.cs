@@ -360,24 +360,6 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
-        /// Add a handler for the <see cref="DataGridView.CellClick"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to add.</param>
-        public void AddCellClickHandler(DataGridViewCellEventHandler handler)
-        {
-            dataGridView.CellClick += handler;
-        }
-
-        /// <summary>
-        /// Remove a handler from the <see cref="DataGridView.CellClick"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to remove.</param>
-        public void RemoveCellClickHandler(DataGridViewCellEventHandler handler)
-        {
-            dataGridView.CellClick -= handler;
-        }
-
-        /// <summary>
         /// Add a handler for the <see cref="DataGridView.CurrentCellChanged"/> event.
         /// </summary>
         /// <param name="handler">The handler to add.</param>

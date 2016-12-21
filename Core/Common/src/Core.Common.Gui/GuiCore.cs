@@ -511,6 +511,8 @@ namespace Core.Common.Gui
             {
                 selectionProviders.Add(selectionProvider);
                 selectionProvider.SelectionChanged += OnSelectionChanged;
+
+                Selection = selectionProvider.Selection;
             }
         }
 
