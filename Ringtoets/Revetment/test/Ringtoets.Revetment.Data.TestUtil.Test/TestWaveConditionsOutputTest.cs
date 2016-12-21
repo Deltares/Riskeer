@@ -34,14 +34,47 @@ namespace Ringtoets.Revetment.TestUtil.Test
         public void Constructor_Always_ReturnsWithCalculationConvergenceNotCalculated()
         {
             // Call
-            WaveConditionsOutput output = new TestWaveConditionsOutput();
+            var output = new TestWaveConditionsOutput();
 
             // Assert
+            Assert.IsInstanceOf<WaveConditionsOutput>(output);
+
             Assert.AreEqual(1.1, output.WaterLevel, output.WaterLevel.GetAccuracy());
             Assert.AreEqual(2.2, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.AreEqual(3.3, output.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(4.4, output.WaveAngle, output.WaveAngle.GetAccuracy());
             Assert.AreEqual(5.5, output.WaveDirection, output.WaveDirection.GetAccuracy());
+
+            Assert.AreEqual(0.1, output.TargetProbability);
+            Assert.AreEqual(1.282, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(0.4, output.CalculatedProbability);
+            Assert.AreEqual(0.253, output.CalculatedReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, output.CalculationConvergence);
+        }
+
+        [Test]
+        public void CreateExportWaveConditionsOutput_WithParameters_ReturnsWithCorrectParameters()
+        {
+            // Setup 
+            var random = new Random(21);
+            double waterLevel = random.NextDouble();
+            double waveHeight = random.NextDouble();
+            double wavePeakPeriod = random.NextDouble();
+            double waveAngle = random.NextDouble();
+            double waveDirection = random.NextDouble();
+
+            // Call
+            TestWaveConditionsOutput output = TestWaveConditionsOutput.CreateWaveConditionsOutputForExport(
+                waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection);
+
+            // Assert
+            Assert.IsInstanceOf<WaveConditionsOutput>(output);
+
+            Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
+            Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.AreEqual(wavePeakPeriod, output.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
+            Assert.AreEqual(waveAngle, output.WaveAngle, output.WaveAngle.GetAccuracy());
+            Assert.AreEqual(waveDirection, output.WaveDirection, output.WaveDirection.GetAccuracy());
 
             Assert.AreEqual(0.1, output.TargetProbability);
             Assert.AreEqual(1.282, output.TargetReliability, output.TargetReliability.GetAccuracy());
