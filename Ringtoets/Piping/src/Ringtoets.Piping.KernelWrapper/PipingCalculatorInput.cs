@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.KernelWrapper
@@ -28,88 +29,44 @@ namespace Ringtoets.Piping.KernelWrapper
     /// </summary>
     public class PipingCalculatorInput
     {
-        private readonly double waterVolumetricWeight;
-        private readonly double upliftModelFactor;
-        private readonly double assessmentLevel;
-        private readonly double piezometricHeadExit;
-        private readonly double dampingFactorExit;
-        private readonly double phreaticLevelExit;
-        private readonly double criticalHeaveGradient;
-        private readonly double thicknessCoverageLayer;
-        private readonly double effectiveThicknessCoverageLayer;
-        private readonly double sellmeijerModelFactor;
-        private readonly double sellmeijerReductionFactor;
-        private readonly double seepageLength;
-        private readonly double sandParticlesVolumicWeight;
-        private readonly double whitesDragCoefficient;
-        private readonly double diameter70;
-        private readonly double darcyPermeability;
-        private readonly double waterKinematicViscosity;
-        private readonly double gravity;
-        private readonly double thicknessAquiferLayer;
-        private readonly double meanDiameter70;
-        private readonly double beddingAngle;
-        private readonly double exitPointXCoordinate;
-        private readonly RingtoetsPipingSurfaceLine surfaceLine;
-        private readonly PipingSoilProfile soilProfile;
-        private readonly double saturatedVolumicWeightOfCoverageLayer;
-
         /// <summary>
         /// Constructs a new <see cref="PipingCalculatorInput"/>, which contains values for the parameters used
         /// in the piping sub calculations.
         /// </summary>
-        /// <param name="waterVolumetricWeight">The volumetric weight of water. [kN/m³]</param>
-        /// <param name="saturatedVolumicWeightOfCoverageLayer">The volumic weight of the coverage layer when saturated.</param>
-        /// <param name="upliftModelFactor">The calculation value used to account for uncertainty in the model for uplift.</param>
-        /// <param name="assessmentLevel">The outside high water level. [m]</param>
-        /// <param name="piezometricHeadExit">The piezometric head at the exit point. [m]</param>
-        /// <param name="dampingFactorExit">The damping factor at the exit point. </param>
-        /// <param name="phreaticLevelExit">The phreatic level at the exit point. [m]</param>
-        /// <param name="criticalHeaveGradient">The critical exit gradient for heave.</param>
-        /// <param name="thicknessCoverageLayer">The total thickness of the coverage layer at the exit point. [m]</param>
-        /// <param name="effectiveThicknessCoverageLayer">The effective thickness of the coverage layer at the exit point. [m]</param>
-        /// <param name="sellmeijerModelFactor">The calculation value used to account for uncertainty in the model for Sellmeijer.</param>
-        /// <param name="sellmeijerReductionFactor">The reduction factor Sellmeijer.</param>
-        /// <param name="seepageLength">The horizontal distance between entry and exit point. [m]</param>
-        /// <param name="sandParticlesVolumicWeight">The (lowerbound) volumic weight of sand grain material of a sand layer under water. [kN/m³]</param>
-        /// <param name="whitesDragCoefficient">The White's drag coefficient.</param>
-        /// <param name="diameter70">The sieve size through which 70% of the grains of the top part of the aquifer pass. [m]</param>
-        /// <param name="darcyPermeability">The Darcy-speed with which water flows through the aquifer layer. [m/s]</param>
-        /// <param name="waterKinematicViscosity">The kinematic viscosity of water at 10 °C. [m²/s]</param>
-        /// <param name="gravity">The gravitational acceleration. [m/s²]</param>
-        /// <param name="thicknessAquiferLayer">The thickness of the aquifer layer. [m]</param>
-        /// <param name="meanDiameter70">The mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit. [m]</param>
-        /// <param name="beddingAngle">The angle of the force balance representing the amount in which sand grains resist rolling. [°]</param>
-        /// <param name="exitPointXCoordinate">The X-coordinate of the exit point. [m]</param>
-        /// <param name="surfaceLine">The surface line.</param>
-        /// <param name="soilProfile">The profile which contains a 1 dimensional definition of soil layers with properties.</param>
-        public PipingCalculatorInput(double waterVolumetricWeight, double saturatedVolumicWeightOfCoverageLayer, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double criticalHeaveGradient, double thicknessCoverageLayer, double effectiveThicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
+        /// <param name="properties">The object containing the values for the properties 
+        /// of the new <see cref="PipingCalculatorInput"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/> is <c>null</c>.</exception>
+        public PipingCalculatorInput(ConstructionProperties properties)
         {
-            this.waterVolumetricWeight = waterVolumetricWeight;
-            this.saturatedVolumicWeightOfCoverageLayer = saturatedVolumicWeightOfCoverageLayer;
-            this.upliftModelFactor = upliftModelFactor;
-            this.assessmentLevel = assessmentLevel;
-            this.piezometricHeadExit = piezometricHeadExit;
-            this.dampingFactorExit = dampingFactorExit;
-            this.phreaticLevelExit = phreaticLevelExit;
-            this.criticalHeaveGradient = criticalHeaveGradient;
-            this.thicknessCoverageLayer = thicknessCoverageLayer;
-            this.effectiveThicknessCoverageLayer = effectiveThicknessCoverageLayer;
-            this.sellmeijerModelFactor = sellmeijerModelFactor;
-            this.sellmeijerReductionFactor = sellmeijerReductionFactor;
-            this.seepageLength = seepageLength;
-            this.sandParticlesVolumicWeight = sandParticlesVolumicWeight;
-            this.whitesDragCoefficient = whitesDragCoefficient;
-            this.diameter70 = diameter70;
-            this.darcyPermeability = darcyPermeability;
-            this.waterKinematicViscosity = waterKinematicViscosity;
-            this.gravity = gravity;
-            this.thicknessAquiferLayer = thicknessAquiferLayer;
-            this.meanDiameter70 = meanDiameter70;
-            this.beddingAngle = beddingAngle;
-            this.exitPointXCoordinate = exitPointXCoordinate;
-            this.surfaceLine = surfaceLine;
-            this.soilProfile = soilProfile;
+            if (properties == null)
+            {
+                throw new ArgumentNullException("properties");
+            }
+            WaterVolumetricWeight = properties.WaterVolumetricWeight;
+            SaturatedVolumicWeightOfCoverageLayer = properties.SaturatedVolumicWeightOfCoverageLayer;
+            UpliftModelFactor = properties.UpliftModelFactor;
+            AssessmentLevel = properties.AssessmentLevel;
+            PiezometricHeadExit = properties.PiezometricHeadExit;
+            DampingFactorExit = properties.DampingFactorExit;
+            PhreaticLevelExit = properties.PhreaticLevelExit;
+            CriticalHeaveGradient = properties.CriticalHeaveGradient;
+            ThicknessCoverageLayer = properties.ThicknessCoverageLayer;
+            EffectiveThicknessCoverageLayer = properties.EffectiveThicknessCoverageLayer;
+            SellmeijerModelFactor = properties.SellmeijerModelFactor;
+            SellmeijerReductionFactor = properties.SellmeijerReductionFactor;
+            SeepageLength = properties.SeepageLength;
+            SandParticlesVolumicWeight = properties.SandParticlesVolumicWeight;
+            WhitesDragCoefficient = properties.WhitesDragCoefficient;
+            Diameter70 = properties.Diameter70;
+            DarcyPermeability = properties.DarcyPermeability;
+            WaterKinematicViscosity = properties.WaterKinematicViscosity;
+            Gravity = properties.Gravity;
+            ThicknessAquiferLayer = properties.ThicknessAquiferLayer;
+            MeanDiameter70 = properties.MeanDiameter70;
+            BeddingAngle = properties.BeddingAngle;
+            ExitPointXCoordinate = properties.ExitPointXCoordinate;
+            SurfaceLine = properties.SurfaceLine;
+            SoilProfile = properties.SoilProfile;
         }
 
         #region properties
@@ -118,293 +75,322 @@ namespace Ringtoets.Piping.KernelWrapper
         /// Gets the volumetric weight of water.
         /// [kN/m³]
         /// </summary>
-        public double WaterVolumetricWeight
-        {
-            get
-            {
-                return waterVolumetricWeight;
-            }
-        }
+        public double WaterVolumetricWeight { get; private set; }
 
         /// <summary>
         /// Gets the calculation value used to account for uncertainty in the model for uplift.
         /// </summary>
-        public double UpliftModelFactor
-        {
-            get
-            {
-                return upliftModelFactor;
-            }
-        }
+        public double UpliftModelFactor { get; private set; }
 
         /// <summary>
         /// Gets the outside high water level.
         /// [m]
         /// </summary>
-        public double AssessmentLevel
-        {
-            get
-            {
-                return assessmentLevel;
-            }
-        }
+        public double AssessmentLevel { get; private set; }
 
         /// <summary>
         /// Gets the piezometric head at the exit point.
         /// [m]
         /// </summary>
-        public double PiezometricHeadExit
-        {
-            get
-            {
-                return piezometricHeadExit;
-            }
-        }
+        public double PiezometricHeadExit { get; private set; }
 
         /// <summary>
         /// Gets the damping factor at the exit point.
         /// </summary>
-        public double DampingFactorExit
-        {
-            get
-            {
-                return dampingFactorExit;
-            }
-        }
+        public double DampingFactorExit { get; private set; }
 
         /// <summary>
         /// Gets the phreatic level at the exit point.
         /// [m]
         /// </summary>
-        public double PhreaticLevelExit
-        {
-            get
-            {
-                return phreaticLevelExit;
-            }
-        }
+        public double PhreaticLevelExit { get; private set; }
 
         /// <summary>
         /// Gets the critical exit gradient for heave.
         /// </summary>
-        public double CriticalHeaveGradient
-        {
-            get
-            {
-                return criticalHeaveGradient;
-            }
-        }
+        public double CriticalHeaveGradient { get; private set; }
 
         /// <summary>
         /// Gets the total thickness of the coverage layer at the exit point.
         /// [m]
         /// </summary>
-        public double ThicknessCoverageLayer
-        {
-            get
-            {
-                return thicknessCoverageLayer;
-            }
-        }
+        public double ThicknessCoverageLayer { get; private set; }
 
         /// <summary>
         /// Gets the effective thickness of the coverage layer at the exit point.
         /// [m]
         /// </summary>
-        public double EffectiveThicknessCoverageLayer
-        {
-            get
-            {
-                return effectiveThicknessCoverageLayer;
-            }
-        }
+        public double EffectiveThicknessCoverageLayer { get; private set; }
 
         /// <summary>
         /// Gets the calculation value used to account for uncertainty in the model for Sellmeijer.
         /// </summary>
-        public double SellmeijerModelFactor
-        {
-            get
-            {
-                return sellmeijerModelFactor;
-            }
-        }
+        public double SellmeijerModelFactor { get; private set; }
 
         /// <summary>
         /// Gets the reduction factor Sellmeijer.
         /// </summary>
-        public double SellmeijerReductionFactor
-        {
-            get
-            {
-                return sellmeijerReductionFactor;
-            }
-        }
+        public double SellmeijerReductionFactor { get; private set; }
 
         /// <summary>
         /// Gets the horizontal distance between entry and exit point.
         /// [m]
         /// </summary>
-        public double SeepageLength
-        {
-            get
-            {
-                return seepageLength;
-            }
-        }
+        public double SeepageLength { get; private set; }
 
         /// <summary>
         /// Gets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
         /// [kN/m³]
         /// </summary>
-        public double SandParticlesVolumicWeight
-        {
-            get
-            {
-                return sandParticlesVolumicWeight;
-            }
-        }
+        public double SandParticlesVolumicWeight { get; private set; }
 
         /// <summary>
         /// Gets the White's drag coefficient.
         /// </summary>
-        public double WhitesDragCoefficient
-        {
-            get
-            {
-                return whitesDragCoefficient;
-            }
-        }
+        public double WhitesDragCoefficient { get; private set; }
 
         /// <summary>
         /// Gets the sieve size through which 70% of the grains of the top part of the aquifer pass.
         /// [m]
         /// </summary>
-        public double Diameter70
-        {
-            get
-            {
-                return diameter70;
-            }
-        }
+        public double Diameter70 { get; private set; }
 
         /// <summary>
         /// Gets the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        public double DarcyPermeability
-        {
-            get
-            {
-                return darcyPermeability;
-            }
-        }
+        public double DarcyPermeability { get; private set; }
 
         /// <summary>
         /// Gets the kinematic viscosity of water at 10 °C.
         /// [m²/s]
         /// </summary>
-        public double WaterKinematicViscosity
-        {
-            get
-            {
-                return waterKinematicViscosity;
-            }
-        }
+        public double WaterKinematicViscosity { get; private set; }
 
         /// <summary>
         /// Gets the gravitational acceleration.
         /// [m/s²]
         /// </summary>
-        public double Gravity
-        {
-            get
-            {
-                return gravity;
-            }
-        }
+        public double Gravity { get; private set; }
 
         /// <summary>
         /// Gets the thickness of the aquifer layer.
         /// [m]
         /// </summary>
-        public double ThicknessAquiferLayer
-        {
-            get
-            {
-                return thicknessAquiferLayer;
-            }
-        }
+        public double ThicknessAquiferLayer { get; private set; }
 
         /// <summary>
         /// Gets the mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.
         /// [m]
         /// </summary>
-        public double MeanDiameter70
-        {
-            get
-            {
-                return meanDiameter70;
-            }
-        }
+        public double MeanDiameter70 { get; private set; }
 
         /// <summary>
         /// Gets the angle of the force balance representing the amount in which sand grains resist rolling.
         /// [°]
         /// </summary>
-        public double BeddingAngle
-        {
-            get
-            {
-                return beddingAngle;
-            }
-        }
+        public double BeddingAngle { get; private set; }
 
         /// <summary>
         /// Gets the X-coordinate of the exit point.
         /// [m]
         /// </summary>
-        public double ExitPointXCoordinate
-        {
-            get
-            {
-                return exitPointXCoordinate;
-            }
-        }
+        public double ExitPointXCoordinate { get; private set; }
 
         /// <summary>
         /// Gets the surface line.
         /// </summary>
-        public RingtoetsPipingSurfaceLine SurfaceLine
-        {
-            get
-            {
-                return surfaceLine;
-            }
-        }
+        public RingtoetsPipingSurfaceLine SurfaceLine { get; private set; }
 
         /// <summary>
         /// Gets the profile which contains a 1 dimensional definition of soil layers with properties.
         /// </summary>
-        public PipingSoilProfile SoilProfile
-        {
-            get
-            {
-                return soilProfile;
-            }
-        }
+        public PipingSoilProfile SoilProfile { get; private set; }
 
         /// <summary>
         /// Gets the volumic weight of the coverage layer when saturated.
         /// </summary>
-        public double SaturatedVolumicWeightOfCoverageLayer
-        {
-            get
-            {
-                return saturatedVolumicWeightOfCoverageLayer;
-            }
-        }
+        public double SaturatedVolumicWeightOfCoverageLayer { get; private set; }
 
         #endregion
+        public class ConstructionProperties
+        {
+            #region properties
+
+            /// <summary>
+            /// Gets the volumetric weight of water.
+            /// [kN/m³]
+            /// </summary>
+            public double WaterVolumetricWeight { get; set; }
+
+            /// <summary>
+            /// Gets the calculation value used to account for uncertainty in the model for uplift.
+            /// </summary>
+            public double UpliftModelFactor { get; set; }
+
+            /// <summary>
+            /// Gets the outside high water level.
+            /// [m]
+            /// </summary>
+            public double AssessmentLevel { get; set; }
+
+            /// <summary>
+            /// Gets the piezometric head at the exit point.
+            /// [m]
+            /// </summary>
+            public double PiezometricHeadExit { get; set; }
+
+            /// <summary>
+            /// Gets the damping factor at the exit point.
+            /// </summary>
+            public double DampingFactorExit { get; set; }
+
+            /// <summary>
+            /// Gets the phreatic level at the exit point.
+            /// [m]
+            /// </summary>
+            public double PhreaticLevelExit { get; set; }
+
+            /// <summary>
+            /// Gets the critical exit gradient for heave.
+            /// </summary>
+            public double CriticalHeaveGradient { get; set; }
+
+            /// <summary>
+            /// Gets the total thickness of the coverage layer at the exit point.
+            /// [m]
+            /// </summary>
+            public double ThicknessCoverageLayer { get; set; }
+
+            /// <summary>
+            /// Gets the effective thickness of the coverage layer at the exit point.
+            /// [m]
+            /// </summary>
+            public double EffectiveThicknessCoverageLayer { get; set; }
+
+            /// <summary>
+            /// Gets the calculation value used to account for uncertainty in the model for Sellmeijer.
+            /// </summary>
+            public double SellmeijerModelFactor { get; set; }
+
+            /// <summary>
+            /// Gets the reduction factor Sellmeijer.
+            /// </summary>
+            public double SellmeijerReductionFactor { get; set; }
+
+            /// <summary>
+            /// Gets the horizontal distance between entry and exit point.
+            /// [m]
+            /// </summary>
+            public double SeepageLength { get; set; }
+
+            /// <summary>
+            /// Gets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
+            /// [kN/m³]
+            /// </summary>
+            public double SandParticlesVolumicWeight { get; set; }
+
+            /// <summary>
+            /// Gets the White's drag coefficient.
+            /// </summary>
+            public double WhitesDragCoefficient { get; set; }
+
+            /// <summary>
+            /// Gets the sieve size through which 70% of the grains of the top part of the aquifer pass.
+            /// [m]
+            /// </summary>
+            public double Diameter70 { get; set; }
+
+            /// <summary>
+            /// Gets the Darcy-speed with which water flows through the aquifer layer.
+            /// [m/s]
+            /// </summary>
+            public double DarcyPermeability { get; set; }
+
+            /// <summary>
+            /// Gets the kinematic viscosity of water at 10 °C.
+            /// [m²/s]
+            /// </summary>
+            public double WaterKinematicViscosity { get; set; }
+
+            /// <summary>
+            /// Gets the gravitational acceleration.
+            /// [m/s²]
+            /// </summary>
+            public double Gravity { get; set; }
+
+            /// <summary>
+            /// Gets the thickness of the aquifer layer.
+            /// [m]
+            /// </summary>
+            public double ThicknessAquiferLayer { get; set; }
+
+            /// <summary>
+            /// Gets the mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.
+            /// [m]
+            /// </summary>
+            public double MeanDiameter70 { get; set; }
+
+            /// <summary>
+            /// Gets the angle of the force balance representing the amount in which sand grains resist rolling.
+            /// [°]
+            /// </summary>
+            public double BeddingAngle { get; set; }
+
+            /// <summary>
+            /// Gets the X-coordinate of the exit point.
+            /// [m]
+            /// </summary>
+            public double ExitPointXCoordinate { get; set; }
+
+            /// <summary>
+            /// Gets the surface line.
+            /// </summary>
+            public RingtoetsPipingSurfaceLine SurfaceLine { get; set; }
+
+            /// <summary>
+            /// Gets the profile which contains a 1 dimensional definition of soil layers with properties.
+            /// </summary>
+            public PipingSoilProfile SoilProfile { get; set; }
+
+            /// <summary>
+            /// Gets the volumic weight of the coverage layer when saturated.
+            /// </summary>
+            public double SaturatedVolumicWeightOfCoverageLayer { get; set; }
+
+            #endregion
+
+            /// <summary>
+            /// Creates new instance of <see cref="ConstructionProperties"/>.
+            /// </summary>
+            public ConstructionProperties()
+            {
+                WaterVolumetricWeight = double.NaN;
+                SaturatedVolumicWeightOfCoverageLayer = double.NaN;
+                UpliftModelFactor = double.NaN;
+                AssessmentLevel = double.NaN;
+                PiezometricHeadExit = double.NaN;
+                DampingFactorExit = double.NaN;
+                PhreaticLevelExit = double.NaN;
+                CriticalHeaveGradient = double.NaN;
+                ThicknessCoverageLayer = double.NaN;
+                EffectiveThicknessCoverageLayer = double.NaN;
+                SellmeijerModelFactor = double.NaN;
+                SellmeijerReductionFactor = double.NaN;
+                SeepageLength = double.NaN;
+                SandParticlesVolumicWeight = double.NaN;
+                WhitesDragCoefficient = double.NaN;
+                Diameter70 = double.NaN;
+                DarcyPermeability = double.NaN;
+                WaterKinematicViscosity = double.NaN;
+                Gravity = double.NaN;
+                ThicknessAquiferLayer = double.NaN;
+                MeanDiameter70 = double.NaN;
+                BeddingAngle = double.NaN;
+                ExitPointXCoordinate = double.NaN;
+                SurfaceLine = null;
+                SoilProfile = null;
+            }
+        }
     }
 }

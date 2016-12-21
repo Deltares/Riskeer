@@ -32,32 +32,287 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
     /// </summary>
     public class TestPipingInput
     {
+        private readonly PipingCalculatorInput.ConstructionProperties constructionProperties = new PipingCalculatorInput.ConstructionProperties();
+
         private readonly Random random = new Random(22);
-        public double WaterVolumetricWeight;
-        public double SaturatedVolumicWeightOfCoverageLayer;
-        public double UpliftModelFactor;
-        public RoundedDouble AssessmentLevel;
-        public RoundedDouble PiezometricHeadExit;
-        public double DampingFactorExit;
-        public double PhreaticLevelExit;
-        public double CriticalHeaveGradient;
-        public double ThicknessCoverageLayer;
-        public double EffectiveThicknessCoverageLayer;
-        public double SellmeijerModelFactor;
-        public double SellmeijerReductionFactor;
-        public double SeepageLength;
-        public double SandParticlesVolumicWeight;
-        public double WhitesDragCoefficient;
-        public double Diameter70;
-        public double DarcyPermeability;
-        public double WaterKinematicViscosity;
-        public double Gravity;
-        public RoundedDouble ExitPointXCoordinate;
-        public double BeddingAngle;
-        public double MeanDiameter70;
-        public double ThicknessAquiferLayer;
-        public RingtoetsPipingSurfaceLine SurfaceLine;
-        public PipingSoilProfile SoilProfile;
+
+        public double WaterVolumetricWeight
+        {
+            get
+            {
+                return constructionProperties.WaterVolumetricWeight;
+            }
+            set
+            {
+                constructionProperties.WaterVolumetricWeight = value;
+            }
+        }
+
+        public double SaturatedVolumicWeightOfCoverageLayer
+        {
+            get
+            {
+                return constructionProperties.SaturatedVolumicWeightOfCoverageLayer;
+            }
+            set
+            {
+                constructionProperties.SaturatedVolumicWeightOfCoverageLayer = value;
+            }
+        }
+        public double UpliftModelFactor
+        {
+            get
+            {
+                return constructionProperties.UpliftModelFactor;
+            }
+            set
+            {
+                constructionProperties.UpliftModelFactor = value;
+            }
+        }
+        public double AssessmentLevel
+        {
+            get
+            {
+                return constructionProperties.AssessmentLevel;
+            }
+            set
+            {
+                constructionProperties.AssessmentLevel = value;
+            }
+        }
+        public double PiezometricHeadExit
+        {
+            get
+            {
+                return constructionProperties.PiezometricHeadExit;
+            }
+            set
+            {
+                constructionProperties.PiezometricHeadExit = value;
+            }
+        }
+        public double DampingFactorExit
+        {
+            get
+            {
+                return constructionProperties.DampingFactorExit;
+            }
+            set
+            {
+                constructionProperties.DampingFactorExit = value;
+            }
+        }
+        public double PhreaticLevelExit
+        {
+            get
+            {
+                return constructionProperties.PhreaticLevelExit;
+            }
+            set
+            {
+                constructionProperties.PhreaticLevelExit = value;
+            }
+        }
+        public double CriticalHeaveGradient
+        {
+            get
+            {
+                return constructionProperties.CriticalHeaveGradient;
+            }
+            set
+            {
+                constructionProperties.CriticalHeaveGradient = value;
+            }
+        }
+        public double ThicknessCoverageLayer
+        {
+            get
+            {
+                return constructionProperties.ThicknessCoverageLayer;
+            }
+            set
+            {
+                constructionProperties.ThicknessCoverageLayer = value;
+            }
+        }
+        public double EffectiveThicknessCoverageLayer
+        {
+            get
+            {
+                return constructionProperties.EffectiveThicknessCoverageLayer;
+            }
+            set
+            {
+                constructionProperties.EffectiveThicknessCoverageLayer = value;
+            }
+        }
+        public double SellmeijerModelFactor
+        {
+            get
+            {
+                return constructionProperties.SellmeijerModelFactor;
+            }
+            set
+            {
+                constructionProperties.SellmeijerModelFactor = value;
+            }
+        }
+        public double SellmeijerReductionFactor
+        {
+            get
+            {
+                return constructionProperties.SellmeijerReductionFactor;
+            }
+            set
+            {
+                constructionProperties.SellmeijerReductionFactor = value;
+            }
+        }
+        public double SeepageLength
+        {
+            get
+            {
+                return constructionProperties.SeepageLength;
+            }
+            set
+            {
+                constructionProperties.SeepageLength = value;
+            }
+        }
+        public double SandParticlesVolumicWeight
+        {
+            get
+            {
+                return constructionProperties.SandParticlesVolumicWeight;
+            }
+            set
+            {
+                constructionProperties.SandParticlesVolumicWeight = value;
+            }
+        }
+        public double WhitesDragCoefficient
+        {
+            get
+            {
+                return constructionProperties.WhitesDragCoefficient;
+            }
+            set
+            {
+                constructionProperties.WhitesDragCoefficient = value;
+            }
+        }
+        public double Diameter70
+        {
+            get
+            {
+                return constructionProperties.Diameter70;
+            }
+            set
+            {
+                constructionProperties.Diameter70 = value;
+            }
+        }
+        public double DarcyPermeability
+        {
+            get
+            {
+                return constructionProperties.DarcyPermeability;
+            }
+            set
+            {
+                constructionProperties.DarcyPermeability = value;
+            }
+        }
+        public double WaterKinematicViscosity
+        {
+            get
+            {
+                return constructionProperties.WaterKinematicViscosity;
+            }
+            set
+            {
+                constructionProperties.WaterKinematicViscosity = value;
+            }
+        }
+        public double Gravity
+        {
+            get
+            {
+                return constructionProperties.Gravity;
+            }
+            set
+            {
+                constructionProperties.Gravity = value;
+            }
+        }
+        public double ExitPointXCoordinate
+        {
+            get
+            {
+                return constructionProperties.ExitPointXCoordinate;
+            }
+            set
+            {
+                constructionProperties.ExitPointXCoordinate = value;
+            }
+        }
+        public double BeddingAngle
+        {
+            get
+            {
+                return constructionProperties.BeddingAngle;
+            }
+            set
+            {
+                constructionProperties.BeddingAngle = value;
+            }
+        }
+        public double MeanDiameter70
+        {
+            get
+            {
+                return constructionProperties.MeanDiameter70;
+            }
+            set
+            {
+                constructionProperties.MeanDiameter70 = value;
+            }
+        }
+        public double ThicknessAquiferLayer
+        {
+            get
+            {
+                return constructionProperties.ThicknessAquiferLayer;
+            }
+            set
+            {
+                constructionProperties.ThicknessAquiferLayer = value;
+            }
+        }
+        public RingtoetsPipingSurfaceLine SurfaceLine
+        {
+            get
+            {
+                return constructionProperties.SurfaceLine;
+            }
+            set
+            {
+                constructionProperties.SurfaceLine = value;
+            }
+        }
+        public PipingSoilProfile SoilProfile
+        {
+            get
+            {
+                return constructionProperties.SoilProfile;
+            }
+            set
+            {
+                constructionProperties.SoilProfile = value;
+            }
+        }
+
         private double last;
 
         /// <summary>
@@ -69,8 +324,8 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
             WaterVolumetricWeight = NextIncrementalDouble();
             SaturatedVolumicWeightOfCoverageLayer = NextIncrementalDouble();
             UpliftModelFactor = NextIncrementalDouble();
-            AssessmentLevel = (RoundedDouble) NextIncrementalDouble();
-            PiezometricHeadExit = (RoundedDouble) NextIncrementalDouble();
+            AssessmentLevel = NextIncrementalDouble();
+            PiezometricHeadExit = NextIncrementalDouble();
             PhreaticLevelExit = NextIncrementalDouble();
             DampingFactorExit = NextIncrementalDouble();
             CriticalHeaveGradient = NextIncrementalDouble();
@@ -85,7 +340,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
             DarcyPermeability = NextIncrementalDouble();
             WaterKinematicViscosity = NextIncrementalDouble();
             Gravity = NextIncrementalDouble();
-            ExitPointXCoordinate = (RoundedDouble) 0.5;
+            ExitPointXCoordinate = 0.5;
             BeddingAngle = NextIncrementalDouble();
             MeanDiameter70 = NextIncrementalDouble();
             ThicknessAquiferLayer = NextIncrementalDouble();
@@ -98,32 +353,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         /// </summary>
         public PipingCalculatorInput AsRealInput()
         {
-            return new PipingCalculatorInput(
-                WaterVolumetricWeight,
-                SaturatedVolumicWeightOfCoverageLayer,
-                UpliftModelFactor,
-                AssessmentLevel,
-                PiezometricHeadExit,
-                DampingFactorExit,
-                PhreaticLevelExit,
-                CriticalHeaveGradient,
-                ThicknessCoverageLayer,
-                EffectiveThicknessCoverageLayer,
-                SellmeijerModelFactor,
-                SellmeijerReductionFactor,
-                SeepageLength,
-                SandParticlesVolumicWeight,
-                WhitesDragCoefficient,
-                Diameter70,
-                DarcyPermeability,
-                WaterKinematicViscosity,
-                Gravity,
-                ThicknessAquiferLayer,
-                MeanDiameter70,
-                BeddingAngle,
-                ExitPointXCoordinate,
-                SurfaceLine,
-                SoilProfile);
+            return new PipingCalculatorInput(constructionProperties);
         }
 
         private PipingSoilProfile CreateValidSoilProfile()

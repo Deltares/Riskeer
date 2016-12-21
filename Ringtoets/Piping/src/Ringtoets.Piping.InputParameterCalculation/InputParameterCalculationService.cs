@@ -45,32 +45,14 @@ namespace Ringtoets.Piping.InputParameterCalculation
             try
             {
                 var calculatorInput = new PipingCalculatorInput(
-                    waterVolumetricWeight,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    phreaticLevelExit,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    exitPointL,
-                    surfaceLine,
-                    soilProfile
-                    );
+                    new PipingCalculatorInput.ConstructionProperties
+                    {
+                        WaterVolumetricWeight = waterVolumetricWeight,
+                        PhreaticLevelExit = phreaticLevelExit,
+                        ExitPointXCoordinate = exitPointL,
+                        SurfaceLine = surfaceLine,
+                        SoilProfile = soilProfile
+                    });
                 return new PipingCalculator(calculatorInput, PipingSubCalculatorFactory.Instance).CalculateEffectiveThicknessCoverageLayer();
             }
             catch (PipingCalculatorException)
@@ -89,32 +71,12 @@ namespace Ringtoets.Piping.InputParameterCalculation
         public static double CalculatePiezometricHeadAtExit(RoundedDouble assessmentLevel, RoundedDouble dampingFactorExit, RoundedDouble phreaticLevelExit)
         {
             var calculatorInput = new PipingCalculatorInput(
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                assessmentLevel,
-                double.NaN,
-                dampingFactorExit,
-                phreaticLevelExit,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                double.NaN,
-                null,
-                null
-                );
+                new PipingCalculatorInput.ConstructionProperties
+                {
+                    AssessmentLevel = assessmentLevel,
+                    DampingFactorExit = dampingFactorExit,
+                    PhreaticLevelExit = phreaticLevelExit
+                });
             return new PipingCalculator(calculatorInput, PipingSubCalculatorFactory.Instance).CalculatePiezometricHeadAtExit();
         }
     }

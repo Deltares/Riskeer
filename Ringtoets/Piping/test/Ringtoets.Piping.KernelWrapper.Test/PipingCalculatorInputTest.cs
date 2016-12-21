@@ -29,8 +29,20 @@ namespace Ringtoets.Piping.KernelWrapper.Test
     public class PipingCalculatorInputTest
     {
         [Test]
-        public void GivenSomeRandomValues_WhenPipingCalculationInputConstructedFromInput_ThenPropertiesAreSet()
+        public void Constructor_WithoutConstructionProperies_ThrowsArgumentNullException()
         {
+            // Call
+            TestDelegate test = () => new PipingCalculatorInput(null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("properties", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithConstructionProperties_PropertiesAreSet()
+        {
+            // Setup
             var random = new Random(22);
 
             double volumetricWeightOfWaterValue = random.NextDouble();
@@ -65,33 +77,38 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 }
             }, SoilProfileType.SoilProfile1D, 0);
 
+            // Call
             var input = new PipingCalculatorInput(
-                volumetricWeightOfWaterValue,
-                saturatedVolumicWeightOfCoverageLayer,
-                modelFactorUpliftValue,
-                hRiverValue,
-                phiExit,
-                rExitValue,
-                hExitValue,
-                ichValue,
-                dTotalValue,
-                effectiveThicknessCoverageLayerValue,
-                sellmeijerModelFactorValue,
-                reductionFactorValue,
-                seepageLengthValue,
-                sandParticlesVolumicWeightValue,
-                whitesDragCoefficientValue,
-                diameter70Value,
-                darcyPermeabilityValue,
-                waterKinematicViscosityValue,
-                gravityValue,
-                thicknessAquiferLayerValue,
-                meanDiameter70Value,
-                beddingAngleValue,
-                exitPointXCoordinate,
-                surfaceLine,
-                soilProfile);
+                new PipingCalculatorInput.ConstructionProperties
+                {
+                    WaterVolumetricWeight = volumetricWeightOfWaterValue,
+                    SaturatedVolumicWeightOfCoverageLayer = saturatedVolumicWeightOfCoverageLayer,
+                    UpliftModelFactor = modelFactorUpliftValue,
+                    AssessmentLevel = hRiverValue,
+                    PiezometricHeadExit = phiExit,
+                    DampingFactorExit = rExitValue,
+                    PhreaticLevelExit = hExitValue,
+                    CriticalHeaveGradient = ichValue,
+                    ThicknessCoverageLayer = dTotalValue,
+                    EffectiveThicknessCoverageLayer = effectiveThicknessCoverageLayerValue,
+                    SellmeijerModelFactor = sellmeijerModelFactorValue,
+                    SellmeijerReductionFactor = reductionFactorValue,
+                    SeepageLength = seepageLengthValue,
+                    SandParticlesVolumicWeight = sandParticlesVolumicWeightValue,
+                    WhitesDragCoefficient = whitesDragCoefficientValue,
+                    Diameter70 = diameter70Value,
+                    DarcyPermeability = darcyPermeabilityValue,
+                    WaterKinematicViscosity = waterKinematicViscosityValue,
+                    Gravity = gravityValue,
+                    ThicknessAquiferLayer = thicknessAquiferLayerValue,
+                    MeanDiameter70 = meanDiameter70Value,
+                    BeddingAngle = beddingAngleValue,
+                    ExitPointXCoordinate = exitPointXCoordinate,
+                    SurfaceLine = surfaceLine,
+                    SoilProfile = soilProfile
+                });
 
+            // Assert
             Assert.AreEqual(volumetricWeightOfWaterValue, input.WaterVolumetricWeight);
             Assert.AreEqual(saturatedVolumicWeightOfCoverageLayer, input.SaturatedVolumicWeightOfCoverageLayer);
             Assert.AreEqual(modelFactorUpliftValue, input.UpliftModelFactor);

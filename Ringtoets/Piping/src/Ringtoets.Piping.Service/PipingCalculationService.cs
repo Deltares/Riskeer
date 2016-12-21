@@ -340,31 +340,34 @@ namespace Ringtoets.Piping.Service
         private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters)
         {
             return new PipingCalculatorInput(
-                inputParameters.WaterVolumetricWeight,
-                PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
-                inputParameters.UpliftModelFactor,
-                inputParameters.AssessmentLevel,
-                inputParameters.PiezometricHeadExit,
-                PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
-                PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
-                inputParameters.CriticalHeaveGradient,
-                PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(),
-                PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(inputParameters).GetDesignValue(),
-                inputParameters.SellmeijerModelFactor,
-                inputParameters.SellmeijerReductionFactor,
-                PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(),
-                inputParameters.SandParticlesVolumicWeight,
-                inputParameters.WhitesDragCoefficient,
-                PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(),
-                PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
-                inputParameters.WaterKinematicViscosity,
-                inputParameters.Gravity,
-                PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(),
-                inputParameters.MeanDiameter70,
-                inputParameters.BeddingAngle,
-                inputParameters.ExitPointL,
-                inputParameters.SurfaceLine,
-                inputParameters.StochasticSoilProfile.SoilProfile);
+                new PipingCalculatorInput.ConstructionProperties
+                {
+                    WaterVolumetricWeight = inputParameters.WaterVolumetricWeight,
+                    SaturatedVolumicWeightOfCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
+                    UpliftModelFactor = inputParameters.UpliftModelFactor,
+                    AssessmentLevel = inputParameters.AssessmentLevel,
+                    PiezometricHeadExit = inputParameters.PiezometricHeadExit,
+                    DampingFactorExit = PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
+                    PhreaticLevelExit = PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
+                    CriticalHeaveGradient = inputParameters.CriticalHeaveGradient,
+                    ThicknessCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(),
+                    EffectiveThicknessCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(inputParameters).GetDesignValue(),
+                    SellmeijerModelFactor = inputParameters.SellmeijerModelFactor,
+                    SellmeijerReductionFactor = inputParameters.SellmeijerReductionFactor,
+                    SeepageLength = PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(),
+                    SandParticlesVolumicWeight = inputParameters.SandParticlesVolumicWeight,
+                    WhitesDragCoefficient = inputParameters.WhitesDragCoefficient,
+                    Diameter70 = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(),
+                    DarcyPermeability = PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
+                    WaterKinematicViscosity = inputParameters.WaterKinematicViscosity,
+                    Gravity = inputParameters.Gravity,
+                    ThicknessAquiferLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(),
+                    MeanDiameter70 = inputParameters.MeanDiameter70,
+                    BeddingAngle = inputParameters.BeddingAngle,
+                    ExitPointXCoordinate = inputParameters.ExitPointL,
+                    SurfaceLine = inputParameters.SurfaceLine,
+                    SoilProfile = inputParameters.StochasticSoilProfile.SoilProfile
+                });
         }
     }
 }
