@@ -19,8 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
+using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.PresentationObjects;
 
 namespace Ringtoets.DuneErosion.Plugin
 {
@@ -29,5 +33,28 @@ namespace Ringtoets.DuneErosion.Plugin
     /// </summary>
     public class DuneErosionPlugin : PluginBase
     {
+        public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
+        {
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<DuneErosionFailureMechanismContext>(
+                FailureMechanismEnabledChildNodeObjects,
+                FailureMechanismDisabledChildNodeObjects,
+                null,
+                null
+            );
+        }
+
+        #region DuneErosionFailureMechanismContext TreeNodeInfo
+
+        private static object[] FailureMechanismEnabledChildNodeObjects(DuneErosionFailureMechanismContext failureMechanismContext)
+        {
+            return new object[0];
+        }
+
+        private static object[] FailureMechanismDisabledChildNodeObjects(DuneErosionFailureMechanismContext failureMechanismContext)
+        {
+            return new object[0];
+        }
+
+        #endregion
     }
 }

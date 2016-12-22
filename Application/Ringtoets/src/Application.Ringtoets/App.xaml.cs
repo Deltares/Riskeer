@@ -46,6 +46,7 @@ using Core.Plugins.ProjectExplorer;
 using log4net;
 using log4net.Appender;
 using Ringtoets.ClosingStructures.Plugin;
+using Ringtoets.DuneErosion.Plugin;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.HeightStructures.Plugin;
@@ -165,6 +166,7 @@ namespace Application.Ringtoets
                     new PipingPlugin(),
                     new HeightStructuresPlugin(),
                     new StabilityStoneCoverPlugin(),
+                    new DuneErosionPlugin(),
                     new ChartPlugin(),
                     new MapPlugin()
 #if INCLUDE_DEMOPROJECT

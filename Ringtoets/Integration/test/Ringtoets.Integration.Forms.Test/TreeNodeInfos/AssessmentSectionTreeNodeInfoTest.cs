@@ -32,6 +32,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -223,7 +224,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var strengthStabilityLengthwiseConstructionFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[19];
                 Assert.AreSame(assessmentSection.StrengthStabilityLengthwiseConstruction, strengthStabilityLengthwiseConstructionFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, strengthStabilityLengthwiseConstructionFailureMechanismContext.Parent);
-                var duneErosionFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[20];
+                var duneErosionFailureMechanismContext = (DuneErosionFailureMechanismContext) objects[20];
                 Assert.AreSame(assessmentSection.DuneErosion, duneErosionFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, duneErosionFailureMechanismContext.Parent);
                 var technicalInnovationFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[21];

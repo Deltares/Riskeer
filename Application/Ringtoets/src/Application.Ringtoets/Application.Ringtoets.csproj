@@ -167,6 +167,11 @@
       <Name>Ringtoets.ClosingStructures.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\DuneErosion\src\Ringtoets.DuneErosion.Plugin\Ringtoets.DuneErosion.Plugin.csproj">
+      <Project>{83885FB9-A87B-4D43-AF27-43EA44A84E42}</Project>
+      <Name>Ringtoets.DuneErosion.Plugin</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Plugin\Ringtoets.StabilityPointStructures.Plugin.csproj">
       <Project>{E3DF5559-97D9-4038-BBE6-2E3DFB4F4C68}</Project>
       <Name>Ringtoets.StabilityPointStructures.Plugin</Name>

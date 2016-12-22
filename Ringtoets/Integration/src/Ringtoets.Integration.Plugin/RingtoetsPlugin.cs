@@ -57,6 +57,7 @@ using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -91,7 +92,6 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsIntegrationPluginResources = Ringtoets.Integration.Plugin.Properties.Resources;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -128,8 +128,8 @@ namespace Ringtoets.Integration.Plugin
                 ),
             new FailureMechanismContextAssociation(
                 typeof(DuneErosionFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
+                (mechanism, assessmentSection) => new DuneErosionFailureMechanismContext(
+                                                      (DuneErosionFailureMechanism) mechanism,
                                                       assessmentSection)
                 ),
             new FailureMechanismContextAssociation(

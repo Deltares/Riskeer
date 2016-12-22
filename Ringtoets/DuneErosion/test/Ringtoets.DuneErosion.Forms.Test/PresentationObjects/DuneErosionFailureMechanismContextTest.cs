@@ -19,42 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
-using Core.Common.Controls.TreeView;
-using Core.Common.Gui.Plugin;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
-using Ringtoets.DuneErosion.Plugin;
 
-namespace Ringtoets.DunErosion.Plugin.Test
+namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class DuneErosionPluginTest
+    public class DuneErosionFailureMechanismContextTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
-        {
-            // Call
-            using (var plugin = new DuneErosionPlugin())
-            {
-                // Assert
-                Assert.IsInstanceOf<PluginBase>(plugin);
-            }
-        }
-
-        [Test]
-        public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            using (var plugin = new DuneErosionPlugin())
-            {
-                // Call
-                TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
 
-                // Assert
-                Assert.AreEqual(1, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneErosionFailureMechanismContext)));
-            }
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            // Call
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismContext<DuneErosionFailureMechanism>>(context);
+            Assert.AreSame(failureMechanism, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.Parent);
+            mocks.VerifyAll();
         }
     }
 }
