@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="PresentationObjects\DuneErosionFailureMechanismContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyClasses\DuneErosionFailureMechanismPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\DuneErosionFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DuneErosionFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismResultViewTest.cs" />

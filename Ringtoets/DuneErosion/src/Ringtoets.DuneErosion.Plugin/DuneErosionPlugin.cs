@@ -30,6 +30,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -40,6 +41,17 @@ namespace Ringtoets.DuneErosion.Plugin
     /// </summary>
     public class DuneErosionPlugin : PluginBase
     {
+        public override IEnumerable<PropertyInfo> GetPropertyInfos()
+        {
+            yield return new PropertyInfo<DuneErosionFailureMechanismContext, DuneErosionFailureMechanismProperties>
+            {
+                CreateInstance = context => new DuneErosionFailureMechanismProperties
+                {
+                    Data = context.WrappedData
+                }
+            };
+        }
+
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<DuneErosionFailureMechanismContext>(

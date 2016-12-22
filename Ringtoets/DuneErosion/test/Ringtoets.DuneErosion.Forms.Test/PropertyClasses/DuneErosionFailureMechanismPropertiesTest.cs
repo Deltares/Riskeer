@@ -21,46 +21,40 @@
 
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.PropertyClasses;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses
+namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class StandAloneFailureMechanismContextPropertiesTest
+    public class DuneErosionFailureMechanismPropertiesTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new StandAloneFailureMechanismContextProperties();
+            var properties = new DuneErosionFailureMechanismProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<FailureMechanismContext<IFailureMechanism>>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<DuneErosionFailureMechanism>>(properties);
         }
 
         [Test]
-        public void Data_SetNewSimpleFailureMechanismContextInstance_ReturnCorrectPropertyValues()
+        public void Data_SetNewFailureMechanismContext_ReturnCorrectPropertyValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var failureMechanism = new DuneErosionFailureMechanism();
 
-            var failureMechanism = new TestFailureMechanism();
-            var properties = new StandAloneFailureMechanismContextProperties();
+            var properties = new DuneErosionFailureMechanismProperties();
 
             // Call
-            properties.Data = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
+            properties.Data = failureMechanism;
 
             // Assert
-            Assert.AreEqual(failureMechanism.Name, properties.Name);
-            Assert.AreEqual(failureMechanism.Code, properties.Code);
-            mockRepository.VerifyAll();
+            Assert.AreEqual("Kunstwerken - Betrouwbaarheid sluiting kunstwerk",
+                            properties.Name);
+            Assert.AreEqual("BSKW",
+                            properties.Code);
         }
     }
 }
