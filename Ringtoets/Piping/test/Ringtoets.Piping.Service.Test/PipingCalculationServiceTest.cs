@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
@@ -244,6 +245,46 @@ namespace Ringtoets.Piping.Service.Test
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 Assert.AreEqual("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_WithSurfaceLineOneOutOfFourDitchPoints_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            Point3D[] geometry = testCalculation.InputParameters.SurfaceLine.Points;
+            var surfaceLineName = "surfaceLineA";
+            var surfaceLineMissingCharacteristicPoint = new RingtoetsPipingSurfaceLine
+            {
+                Name = surfaceLineName
+            };
+            surfaceLineMissingCharacteristicPoint.SetGeometry(geometry);
+            surfaceLineMissingCharacteristicPoint.SetDitchDikeSideAt(geometry[2]);
+
+            testCalculation.InputParameters.SurfaceLine = surfaceLineMissingCharacteristicPoint;
+            testCalculation.InputParameters.ExitPointL = (RoundedDouble) 0.9;
+            testCalculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
+            testCalculation.Name = name;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+
+                var expected = string.Format(
+                    "Validatie mislukt: De sloot in de hoogtegeometrie {0} is niet correct. Niet alle 4 punten zijn gedefinieerd of de volgorde is incorrect.",
+                    surfaceLineName);
+                Assert.AreEqual(expected, msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);

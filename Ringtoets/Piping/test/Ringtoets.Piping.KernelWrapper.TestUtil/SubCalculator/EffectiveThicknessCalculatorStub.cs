@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Deltares.WTIPiping;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
@@ -36,6 +37,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public PipingSurfaceLine SurfaceLine { get; set; }
 
         public bool Calculated { get; private set; }
+        public bool Validated { get; private set; }
 
         public double EffectiveHeight
         {
@@ -43,6 +45,12 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
             {
                 return 0.1;
             }
+        }
+
+        public List<string> Validate()
+        {
+            Validated = true;
+            return new List<string>();
         }
 
         public void Calculate()

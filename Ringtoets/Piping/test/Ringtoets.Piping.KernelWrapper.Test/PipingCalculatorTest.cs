@@ -299,7 +299,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.AreEqual("Een profielschematisatie moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.", validationMessages[0]);
+            Assert.AreEqual("De hoogtegeometrie is niet gedefinieerd.", validationMessages[0]);
         }
 
         [Test]
@@ -346,7 +346,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.AreEqual("The ditch in surface line  is incorrect. Not all 4 points are defined or the order is incorrect.", validationMessages.First());
+            Assert.AreEqual("De sloot in de hoogtegeometrie  is niet correct. Niet alle 4 punten zijn gedefinieerd of de volgorde is incorrect.", validationMessages.First());
         }
 
         [Test]
@@ -385,7 +385,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.AreEqual("The ditch in surface line  is incorrect. Not all 4 points are defined or the order is incorrect.", validationMessages.First());
+            Assert.AreEqual("De sloot in de hoogtegeometrie  is niet correct. Niet alle 4 punten zijn gedefinieerd of de volgorde is incorrect.", validationMessages.First());
         }
 
         [Test]
@@ -404,7 +404,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.AreEqual("Een ondergrondschematisatie moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.", validationMessages[0]);
+            Assert.AreEqual("Het ondergrondprofiel is niet gedefinieerd.", validationMessages[0]);
         }
 
         [Test]
@@ -419,6 +419,9 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 SoilProfile = new PipingSoilProfile(String.Empty, bottom, new[]
                 {
                     new PipingSoilLayer(top)
+                    {
+                        IsAquifer = true
+                    }
                 }, SoilProfileType.SoilProfile1D, 0)
             }.AsRealInput();
 
@@ -428,7 +431,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             List<string> validationMessages = calculation.Validate();
 
             // Assert
-            var message = string.Format("The bottomlevel ({0}) of the profile is not deep enough. It must be below at least {1} m below the toplevel of the deepest layer ({2}).", bottom, 0.001, top);
+            var message = string.Format("De onderkant({0}) van het ondergrondprofiel is niet laag genoeg. Het moet tenminste {1} m onder de bovenkant van de diepste laag ({2}) liggen.", bottom, 0.001, top);
             Assert.AreEqual(1, validationMessages.Count);
             Assert.AreEqual(message, validationMessages[0]);
         }

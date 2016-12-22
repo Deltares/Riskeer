@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Deltares.WTIPiping;
 
 namespace Ringtoets.Piping.KernelWrapper.SubCalculator
@@ -84,6 +85,11 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
             {
                 return wrappedCalculator.EffectiveHeight;
             }
+        }
+
+        public List<string> Validate()
+        {
+            return wrappedCalculator.Validate();
         }
 
         public void Calculate()

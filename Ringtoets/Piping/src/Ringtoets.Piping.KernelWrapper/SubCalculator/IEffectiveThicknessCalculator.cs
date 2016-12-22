@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Deltares.WTIPiping;
 
 namespace Ringtoets.Piping.KernelWrapper.SubCalculator
@@ -57,6 +58,11 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         /// Gets the effective thickness of the cover layer.
         /// </summary>
         double EffectiveHeight { get; }
+
+        /// <summary>
+        /// Performs the effective thickness validation.
+        /// </summary>
+        List<string> Validate();
 
         /// <summary>
         /// Performs the effective thickness calculation.

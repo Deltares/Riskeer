@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIPiping;
-using Ringtoets.Piping.KernelWrapper.Properties;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using EffectiveThicknessCalculator = Ringtoets.Piping.KernelWrapper.SubCalculator.EffectiveThicknessCalculator;
 using HeaveCalculator = Ringtoets.Piping.KernelWrapper.SubCalculator.HeaveCalculator;
@@ -95,28 +94,22 @@ namespace Ringtoets.Piping.KernelWrapper
         /// </summary>
         public List<string> Validate()
         {
-            List<string> soilProfileValidationResults = ValidateSoilProfile();
-            List<string> surfaceLineValidationResults = ValidateSurfaceLine();
+            List<string> effectiveThicknessCalculatorValidationResults = CreateEffectiveThicknessCalculator().Validate();
+            List<string> pipingProfilePropertyCalculatorValidationResults = CreatePipingProfilePropertyCalculator().Validate();
+            List<string> upliftCalculatorValidationResults = ValidateUpliftCalculator();
+            List<string> heaveCalculatorValidationResults = CreateHeaveCalculator().Validate();
+            List<string> sellmeijerCalculatorValidationResults = new List<string>();
 
-            var upliftCalculatorValidationResults = new List<string>();
-            var pipingProfilePropertyCalculatorValidationResults = new List<string>();
-            var heaveCalculatorValidationResults = new List<string>();
-            var sellmeijerCalculatorValidationResults = new List<string>();
-
-            if (soilProfileValidationResults.Count == 0 && surfaceLineValidationResults.Count == 0)
+            if (!pipingProfilePropertyCalculatorValidationResults.Any())
             {
-                upliftCalculatorValidationResults = ValidateUpliftCalculator();
-                pipingProfilePropertyCalculatorValidationResults = CreatePipingProfilePropertyCalculator().Validate();
-                heaveCalculatorValidationResults = CreateHeaveCalculator().Validate();
-                sellmeijerCalculatorValidationResults = CreateSellmeijerCalculator().Validate();
+                sellmeijerCalculatorValidationResults.AddRange(CreateSellmeijerCalculator().Validate());
             }
 
             return upliftCalculatorValidationResults
-                .Concat(surfaceLineValidationResults)
-                .Concat(soilProfileValidationResults)
                 .Concat(heaveCalculatorValidationResults)
                 .Concat(sellmeijerCalculatorValidationResults)
                 .Concat(pipingProfilePropertyCalculatorValidationResults)
+                .Concat(effectiveThicknessCalculatorValidationResults)
                 .Distinct()
                 .ToList();
         }
@@ -136,12 +129,7 @@ namespace Ringtoets.Piping.KernelWrapper
         {
             try
             {
-                var calculator = factory.CreateEffectiveThicknessCalculator();
-                calculator.ExitPointXCoordinate = input.ExitPointXCoordinate;
-                calculator.PhreaticLevel = input.PhreaticLevelExit;
-                calculator.SoilProfile = PipingProfileCreator.Create(input.SoilProfile);
-                calculator.SurfaceLine = PipingSurfaceLineCreator.Create(input.SurfaceLine);
-                calculator.VolumicWeightOfWater = input.WaterVolumetricWeight;
+                var calculator = CreateEffectiveThicknessCalculator();
                 calculator.Calculate();
 
                 return calculator.EffectiveHeight;
@@ -169,48 +157,6 @@ namespace Ringtoets.Piping.KernelWrapper
             calculator.Calculate();
 
             return calculator.PhiExit;
-        }
-
-        private List<string> ValidateSurfaceLine()
-        {
-            var validationResults = new List<string>();
-            if (input.SurfaceLine == null)
-            {
-                validationResults.Add(Resources.PipingCalculation_Validate_Lacks_surfaceline_uplift);
-            }
-            else
-            {
-                try
-                {
-                    PipingSurfaceLineCreator.Create(input.SurfaceLine).Validate();
-                }
-                catch (PipingSurfaceLineException e)
-                {
-                    validationResults.Add(e.Message);
-                }
-            }
-            return validationResults;
-        }
-
-        private List<string> ValidateSoilProfile()
-        {
-            var validationResults = new List<string>();
-            if (input.SoilProfile == null)
-            {
-                validationResults.Add(Resources.PipingCalculation_Validate_Lacks_SoilProfile_uplift);
-            }
-            else
-            {
-                try
-                {
-                    PipingProfileCreator.Create(input.SoilProfile).Validate();
-                }
-                catch (PipingProfileException e)
-                {
-                    validationResults.Add(e.Message);
-                }
-            }
-            return validationResults;
         }
 
         private List<string> ValidateUpliftCalculator()
@@ -284,6 +230,17 @@ namespace Ringtoets.Piping.KernelWrapper
             return upliftCalculator;
         }
 
+        private IEffectiveThicknessCalculator CreateEffectiveThicknessCalculator()
+        {
+            var calculator = factory.CreateEffectiveThicknessCalculator();
+            calculator.ExitPointXCoordinate = input.ExitPointXCoordinate;
+            calculator.PhreaticLevel = input.PhreaticLevelExit;
+            calculator.SoilProfile = CreateSoilProfile();
+            calculator.SurfaceLine = CreateSurfaceLine();
+            calculator.VolumicWeightOfWater = input.WaterVolumetricWeight;
+            return calculator;
+        }
+
         private IHeaveCalculator CreateHeaveCalculator()
         {
             var calculator = factory.CreateHeaveCalculator();
@@ -335,20 +292,30 @@ namespace Ringtoets.Piping.KernelWrapper
             return calculator;
         }
 
+        private IPipingProfilePropertyCalculator CreatePipingProfilePropertyCalculator()
+        {
+            IPipingProfilePropertyCalculator calculator = factory.CreatePipingProfilePropertyCalculator();
+            calculator.SoilProfile = CreateSoilProfile();
+            calculator.SurfaceLine = CreateSurfaceLine();
+            calculator.ExitPointX = input.ExitPointXCoordinate;
+            return calculator;
+        }
+
+        private PipingSurfaceLine CreateSurfaceLine()
+        {
+            return input.SurfaceLine == null ? null : PipingSurfaceLineCreator.Create(input.SurfaceLine);
+        }
+
+        private PipingProfile CreateSoilProfile()
+        {
+            return input.SoilProfile == null ? null : PipingProfileCreator.Create(input.SoilProfile);
+        }
+
         private double GetBottomAquitardLayerAboveExitPointZ()
         {
             IPipingProfilePropertyCalculator pipingProfilePropertyCalculator = CreatePipingProfilePropertyCalculator();
             pipingProfilePropertyCalculator.Calculate();
             return pipingProfilePropertyCalculator.BottomAquitardLayerAboveExitPointZ;
-        }
-
-        private IPipingProfilePropertyCalculator CreatePipingProfilePropertyCalculator()
-        {
-            IPipingProfilePropertyCalculator calculator = factory.CreatePipingProfilePropertyCalculator();
-            calculator.SoilProfile = PipingProfileCreator.Create(input.SoilProfile);
-            calculator.SurfaceLine = PipingSurfaceLineCreator.Create(input.SurfaceLine);
-            calculator.ExitPointX = input.ExitPointXCoordinate;
-            return calculator;
         }
 
         /// <summary>

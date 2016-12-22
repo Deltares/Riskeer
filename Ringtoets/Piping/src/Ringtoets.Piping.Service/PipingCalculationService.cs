@@ -50,10 +50,11 @@ namespace Ringtoets.Piping.Service
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
             CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters).ToArray());
 
-            List<string> inputValidationResults = ValidateInput(calculation.InputParameters);
-            if (inputValidationResults.Count > 0)
+            string[] inputValidationResults = ValidateInput(calculation.InputParameters).ToArray();
+
+            if (inputValidationResults.Length > 0)
             {
-                CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, inputValidationResults.ToArray());
+                CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, inputValidationResults);
                 CalculationServiceHelper.LogValidationEndTime(calculation.Name);
                 return false;
             }
@@ -366,7 +367,7 @@ namespace Ringtoets.Piping.Service
                     BeddingAngle = inputParameters.BeddingAngle,
                     ExitPointXCoordinate = inputParameters.ExitPointL,
                     SurfaceLine = inputParameters.SurfaceLine,
-                    SoilProfile = inputParameters.StochasticSoilProfile.SoilProfile
+                    SoilProfile = inputParameters.StochasticSoilProfile == null ? null : inputParameters.StochasticSoilProfile.SoilProfile
                 });
         }
     }
