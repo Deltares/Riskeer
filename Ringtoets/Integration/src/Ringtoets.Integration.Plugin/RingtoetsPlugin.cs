@@ -375,9 +375,6 @@ namespace Ringtoets.Integration.Plugin
             };
 
             yield return CreateFailureMechanismResultViewInfo<
-                DuneErosionFailureMechanismSectionResult,
-                DuneErosionResultView>();
-            yield return CreateFailureMechanismResultViewInfo<
                 GrassCoverSlipOffInwardsFailureMechanismSectionResult,
                 GrassCoverSlipOffInwardsResultView>();
             yield return CreateFailureMechanismResultViewInfo<
@@ -652,7 +649,6 @@ namespace Ringtoets.Integration.Plugin
                                                               .AddPropertiesItem()
                                                               .Build());
 
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<DuneErosionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResult>();

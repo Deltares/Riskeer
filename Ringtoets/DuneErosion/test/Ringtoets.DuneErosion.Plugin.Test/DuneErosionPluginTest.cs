@@ -19,11 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.DuneErosion.Plugin;
 
 namespace Ringtoets.DunErosion.Plugin.Test
@@ -52,8 +57,29 @@ namespace Ringtoets.DunErosion.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, treeNodeInfos.Length);
+                Assert.AreEqual(2, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneErosionFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>)));
+            }
+        }
+
+        [Test]
+        public void GetViewInfos_ReturnsSupportedViewInfos()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                // Call
+                ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, viewInfos.Length);
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>),
+                    typeof(IEnumerable<DuneErosionFailureMechanismSectionResult>),
+                    typeof(DuneErosionResultView));
             }
         }
     }

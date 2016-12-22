@@ -100,7 +100,6 @@
     <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DesignWaterLevelLocationsContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\DuneErosionFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ForeshoreProfilesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ForeshoreProfileTreeNodeInfoTest.cs" />
