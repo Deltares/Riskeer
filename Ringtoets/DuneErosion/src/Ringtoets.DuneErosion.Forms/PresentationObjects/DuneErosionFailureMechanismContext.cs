@@ -30,7 +30,7 @@ namespace Ringtoets.DuneErosion.Forms.PresentationObjects
     /// Presentation object for an instance of <see cref="DuneErosionFailureMechanism"/>.
     /// </summary>
     public class DuneErosionFailureMechanismContext : FailureMechanismContext<DuneErosionFailureMechanism>
-    {
+    {   
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismContext"/>.
         /// </summary>

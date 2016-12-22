@@ -10,6 +10,8 @@
     <AssemblyName>Ringtoets.GrassCoverErosionOutwards.Plugin.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -42,12 +44,20 @@
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NUnitForms, Version=2.0.5821.13987, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
@@ -57,7 +67,20 @@
     </Compile>
     <Compile Include="GrassCoverErosionOutwardsPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyInfos\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionOutwardsFailureMechanismContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\GrassCoverErosionOutwardsWaveConditionsOutputPropertiesTest.cs" />
+    <Compile Include="PropertyInfos\GrassCoverErosionOutwardsWaveHeightLocationsContextPropertyInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\EmptyGrassCoverErosionOutwardsOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsFailureMechanismContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsCalculationContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveHeightLocationsContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\HydraulicBoundariesGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsDesignWaterLevelLocationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsWaveHeightLocationsViewInfoTest.cs" />
@@ -85,6 +108,10 @@
       <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
       <Name>Core.Common.Gui</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
       <Project>{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}</Project>
       <Name>Core.Common.Gui.TestUtil</Name>
@@ -105,9 +132,29 @@
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
+      <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
+      <Name>Ringtoets.HydraRing.Calculation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
+      <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
+      <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+      <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
+      <Name>Ringtoets.Revetment.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Forms\Ringtoets.Revetment.Forms.csproj">
       <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
       <Name>Ringtoets.Revetment.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Data.TestUtil\Ringtoets.Revetment.Data.TestUtil.csproj">
+      <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
+      <Name>Ringtoets.Revetment.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
       <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
@@ -123,6 +170,13 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

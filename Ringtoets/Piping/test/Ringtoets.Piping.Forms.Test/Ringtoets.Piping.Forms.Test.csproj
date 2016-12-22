@@ -71,22 +71,9 @@
     <Compile Include="PropertyClasses\PipingFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingOutputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelPropertiesTest.cs" />
-    <Compile Include="TreeNodeInfos\FailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingScenariosContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingCalculationGroupContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingInputContextTreeNodeInfoTest.cs" />
     <Compile Include="PresentationObjects\PipingCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\PipingContextTest.cs" />
     <Compile Include="PropertyClasses\PipingInputContextPropertiesTest.cs" />
-    <Compile Include="TreeNodeInfos\StochasticSoilModelsContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingCalculationScenarioContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingFailureMechanismContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingOutputContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\StochasticSoilModelTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\StochasticSoilProfileTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\RingtoetsPipingSurfaceLineCollectionTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\RingtoetsPipingSurfaceLineTreeNodeInfoTest.cs" />
     <Compile Include="PresentationObjects\PipingCalculationScenarioContextTest.cs" />
     <Compile Include="PresentationObjects\PipingInputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,10 +107,6 @@
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
-      <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
-      <Name>Core.Common.Controls.TreeView</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
       <Name>Core.Common.Controls</Name>
@@ -135,10 +118,6 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
-      <Project>{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}</Project>
-      <Name>Core.Common.Gui.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
@@ -188,10 +167,6 @@
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
       <Name>Ringtoets.Piping.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
-      <Project>{1D3D58B6-EF7E-401E-92A0-104067D222EE}</Project>
-      <Name>Ringtoets.Piping.Plugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
       <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
       <Name>Ringtoets.Piping.Primitives</Name>
@@ -211,6 +186,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

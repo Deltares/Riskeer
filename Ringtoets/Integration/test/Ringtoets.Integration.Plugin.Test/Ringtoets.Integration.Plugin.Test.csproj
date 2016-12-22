@@ -67,6 +67,12 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\ReferenceLineContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="Handlers\AssessmentSectionCompositionChangeHandlerTest.cs" />
     <Compile Include="Handlers\FailureMechanismContributionNormChangeHandlerTest.cs" />
     <Compile Include="Handlers\ReferenceLineReplacementHandlerTest.cs" />
@@ -75,9 +81,36 @@
     <Compile Include="ImportInfos\ForeshoreProfilesContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\ReferenceLineContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyInfos\DesignWaterLevelLocationsContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\FailureMechanismContributionPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\WaveHeightLocationsContextPropertyInfoTest.cs" />
     <Compile Include="RingtoetsPluginTest.cs" />
     <Compile Include="RingtoetsRibbonTest.cs" />
+    <Compile Include="TreeNodeInfos\AssessmentSectionTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\DesignWaterLevelLocationsContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\DikeProfileTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\EmptyProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\FailureMechanismContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\FailureMechanismContributionContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\FailureMechanismSectionsContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ForeshoreProfilesContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ForeshoreProfileTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverSlipOffInwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverSlipOffOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\HydraulicBoundaryDatabaseContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacrostabilityInwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacrostabilityOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MicrostabilityFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingStructureFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\RingtoetsProjectTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\TechnicalInnovationFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\WaterPressureAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\WaveHeightLocationsContextTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\CommentViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\DesignWaterLevelLocationsViewInfoTest.cs" />
@@ -111,6 +144,10 @@
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>Core.Common.Gui</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
       <Project>{26214bd0-dafb-4cfc-8eb2-80c5d53c859e}</Project>
       <Name>Core.Common.Gui.TestUtil</Name>
@@ -126,6 +163,10 @@
     <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>
       <Name>Ringtoets.ClosingStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Forms\Ringtoets.ClosingStructures.Forms.csproj">
+      <Project>{22E191F2-B2E3-413C-9511-4C2CDEDB2EFF}</Project>
+      <Name>Ringtoets.ClosingStructures.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
@@ -167,29 +208,85 @@
       <Project>{e7225477-577f-4a17-b7ec-6721158e1543}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Forms\Ringtoets.GrassCoverErosionOutwards.Forms.csproj">
+      <Project>{41B829C1-630F-40B0-8BEE-B1C4C94EC8C4}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Forms\Ringtoets.HeightStructures.Forms.csproj">
+      <Project>{F0BCF06A-3D01-4D65-A249-E2A14AEC6EFD}</Project>
+      <Name>Ringtoets.HeightStructures.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
+      <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
+      <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
+      <Project>{7CD038E1-E111-4969-ACED-22C5BD2974E1}</Project>
+      <Name>Ringtoets.Piping.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
       <Project>{14c6f716-64e2-4bc4-a1ef-05865fcefa4c}</Project>
       <Name>Ringtoets.Piping.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
+      <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
+      <Name>Ringtoets.Piping.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
+      <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
+      <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+      <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
+      <Name>Ringtoets.Revetment.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
+      <Project>{E3347B16-BB18-41C1-8D34-FBCBF20DB695}</Project>
+      <Name>Ringtoets.Revetment.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Data.TestUtil\Ringtoets.Revetment.Data.TestUtil.csproj">
+      <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
+      <Name>Ringtoets.Revetment.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
       <Project>{3d4b9740-8348-4434-8d77-b611fc6ee57f}</Project>
       <Name>Ringtoets.StabilityPointStructures.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Forms\Ringtoets.StabilityPointStructures.Forms.csproj">
+      <Project>{D5F0A6B0-8710-4345-ABA1-D934C8E6783D}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
       <Name>Ringtoets.StabilityStoneCover.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Forms\Ringtoets.StabilityStoneCover.Forms.csproj">
+      <Project>{8E4E1877-697A-45D3-81CF-169EFDF65AA0}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Plugin\Ringtoets.StabilityStoneCover.Plugin.csproj">
+      <Project>{9DDC42CC-A2CC-4900-A711-AA1DD6D3A94A}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Plugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Forms\Ringtoets.WaveImpactAsphaltCover.Forms.csproj">
+      <Project>{1AC97B51-88C2-437D-89E6-65C69AB3CCAD}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Plugin\Ringtoets.WaveImpactAsphaltCover.Plugin.csproj">
+      <Project>{83A782F1-BA78-4D5C-B213-39066605AFD8}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>

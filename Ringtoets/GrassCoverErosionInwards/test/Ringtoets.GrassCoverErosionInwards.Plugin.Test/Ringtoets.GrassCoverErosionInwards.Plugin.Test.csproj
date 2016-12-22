@@ -10,6 +10,8 @@
     <AssemblyName>Ringtoets.GrassCoverErosionInwards.Plugin.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -42,12 +44,20 @@
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NUnitForms, Version=2.0.5821.13987, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
@@ -57,6 +67,14 @@
     </Compile>
     <Compile Include="GrassCoverErosionInwardsPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TreeNodeInfos\DikeProfilesContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\FailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsCalculationGroupContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsFailureMechanismContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsScenariosContextTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsInputViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsScenariosViewInfoTest.cs" />
@@ -110,6 +128,18 @@
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+      <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
+      <Name>Ringtoets.Common.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
+      <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
+      <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
       <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
@@ -122,8 +152,19 @@
       <Project>{20955E2A-8CEB-46B0-ADC4-A97D4C6BBDF5}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.GrassCoverErosionInwards.Data.TestUtil\Ringtoets.GrassCoverErosionInwards.Data.TestUtil.csproj">
+      <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

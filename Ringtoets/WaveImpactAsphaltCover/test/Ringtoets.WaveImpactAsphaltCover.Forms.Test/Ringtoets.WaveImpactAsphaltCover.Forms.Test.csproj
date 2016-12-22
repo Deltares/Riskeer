@@ -10,6 +10,8 @@
     <AssemblyName>Ringtoets.WaveImpactAsphaltCover.Forms.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -54,7 +56,6 @@
       <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
@@ -70,15 +71,10 @@
     <Compile Include="PropertyClasses\WaveImpactAsphaltCoverWaveConditionsInputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveImpactAsphaltCoverFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveImpactAsphaltCoverWaveConditionsOutputPropertiesTest.cs" />
-    <Compile Include="TreeNodeInfos\EmptyWaveImpactAsphaltCoverOutputTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsInputContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsCalculationContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsOutputTreeNodeInfoTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismViewTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismSectionResultRowTest.cs" />
-    <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -92,10 +88,6 @@
       <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
-      <Project>{1D27F91F-4E62-4EAF-A0A8-A32708B9A9B1}</Project>
-      <Name>Core.Common.Controls.TreeView</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
@@ -107,14 +99,6 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
-      <Project>{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}</Project>
-      <Name>Core.Common.Gui.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
       <Project>{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}</Project>
@@ -144,10 +128,6 @@
       <Project>{d24fa2f7-28a7-413b-afd3-ee10e985630b}</Project>
       <Name>Ringtoets.Common.Forms.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
-      <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
-      <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
@@ -168,16 +148,12 @@
       <Project>{1AC97B51-88C2-437D-89E6-65C69AB3CCAD}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.WaveImpactAsphaltCover.Plugin\Ringtoets.WaveImpactAsphaltCover.Plugin.csproj">
-      <Project>{83A782F1-BA78-4D5C-B213-39066605AFD8}</Project>
-      <Name>Ringtoets.WaveImpactAsphaltCover.Plugin</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets'))" />
   </Target>

@@ -10,6 +10,8 @@
     <AssemblyName>Ringtoets.Integration.Forms.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -66,12 +68,6 @@
     </Compile>
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
-    <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />
-    <Compile Include="ExportInfos\ReferenceLineContextExportInfoTest.cs" />
-    <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationContextExportInfoTest.cs" />
-    <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
-    <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationContextExportInfoTest.cs" />
-    <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="FailureMechanismContributionPropertiesIntegrationTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContextTest.cs" />
@@ -91,37 +87,10 @@
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveHeightLocationsContextPropertiesTest.cs" />
-    <Compile Include="TreeNodeInfos\DikeProfileTreeNodeInfoTest.cs" />
-    <Compile Include="PropertyInfos\WaveHeightLocationsContextPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\DesignWaterLevelLocationsContextPropertyInfoTest.cs" />
     <Compile Include="ReferenceLineMetaSelectionDialogTest.cs" />
     <Compile Include="RingtoetsSettingsHelperTest.cs" />
-    <Compile Include="TreeNodeInfos\AssessmentSectionTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\DesignWaterLevelLocationsContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\EmptyProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ForeshoreProfilesContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ForeshoreProfileTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\RingtoetsProjectTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\TechnicalInnovationFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingStructureFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\MicrostabilityFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\GrassCoverSlipOffOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\GrassCoverSlipOffInwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\WaterPressureAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\WaveHeightLocationsContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\MacrostabilityOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\MacrostabilityInwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\FailureMechanismContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\FailureMechanismContributionContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\FailureMechanismSectionsContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\HydraulicBoundaryDatabaseContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
-    <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\FailureMechanismContributionItemRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationsViewTest.cs" />
     <Compile Include="FailureMechanismContributionViewIntegrationTest.cs" />
@@ -152,10 +121,6 @@
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
-      <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
-      <Name>Core.Common.Controls.TreeView</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
@@ -167,10 +132,6 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
-      <Project>{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}</Project>
-      <Name>Core.Common.Gui.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
@@ -184,69 +145,17 @@
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
-      <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
-      <Name>Ringtoets.ClosingStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Forms\Ringtoets.ClosingStructures.Forms.csproj">
-      <Project>{22E191F2-B2E3-413C-9511-4C2CDEDB2EFF}</Project>
-      <Name>Ringtoets.ClosingStructures.Forms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Forms.TestUtil\Ringtoets.Common.Forms.TestUtil.csproj">
       <Project>{d24fa2f7-28a7-413b-afd3-ee10e985630b}</Project>
       <Name>Ringtoets.Common.Forms.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
-      <Project>{d1068432-c172-4aa6-847b-d9deb4c6de26}</Project>
-      <Name>Ringtoets.DuneErosion.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Forms\Ringtoets.DuneErosion.Forms.csproj">
-      <Project>{EC2DEF03-71FE-48A0-AB85-31E13112E4A1}</Project>
-      <Name>Ringtoets.DuneErosion.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GrassCoverErosionInwards\test\Ringtoets.GrassCoverErosionInwards.Data.TestUtil\Ringtoets.GrassCoverErosionInwards.Data.TestUtil.csproj">
       <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
-      <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
-      <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
       <Name>Ringtoets.Piping.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
-      <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
-      <Name>Ringtoets.Revetment.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
-      <Project>{E3347B16-BB18-41C1-8D34-FBCBF20DB695}</Project>
-      <Name>Ringtoets.Revetment.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Data.TestUtil\Ringtoets.Revetment.Data.TestUtil.csproj">
-      <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
-      <Name>Ringtoets.Revetment.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
-      <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Forms\Ringtoets.StabilityPointStructures.Forms.csproj">
-      <Project>{D5F0A6B0-8710-4345-ABA1-D934C8E6783D}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Plugin\Ringtoets.StabilityStoneCover.Plugin.csproj">
-      <Project>{9DDC42CC-A2CC-4900-A711-AA1DD6D3A94A}</Project>
-      <Name>Ringtoets.StabilityStoneCover.Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
-      <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
-      <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Forms\Ringtoets.WaveImpactAsphaltCover.Forms.csproj">
-      <Project>{1AC97B51-88C2-437D-89E6-65C69AB3CCAD}</Project>
-      <Name>Ringtoets.WaveImpactAsphaltCover.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
@@ -255,10 +164,6 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
-      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
       <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
@@ -272,49 +177,21 @@
       <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Forms\Ringtoets.GrassCoverErosionInwards.Forms.csproj">
-      <Project>{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Forms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
       <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Forms\Ringtoets.GrassCoverErosionOutwards.Forms.csproj">
-      <Project>{41B829C1-630F-40B0-8BEE-B1C4C94EC8C4}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Forms\Ringtoets.HeightStructures.Forms.csproj">
-      <Project>{F0BCF06A-3D01-4D65-A249-E2A14AEC6EFD}</Project>
-      <Name>Ringtoets.HeightStructures.Forms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
-      <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
-      <Name>Ringtoets.Piping.Forms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
       <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
       <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
-      <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
-      <Name>Ringtoets.StabilityStoneCover.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Forms\Ringtoets.StabilityStoneCover.Forms.csproj">
-      <Project>{8e4e1877-697a-45d3-81cf-169efdf65aa0}</Project>
-      <Name>Ringtoets.StabilityStoneCover.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Plugin\Ringtoets.WaveImpactAsphaltCover.Plugin.csproj">
-      <Project>{83A782F1-BA78-4D5C-B213-39066605AFD8}</Project>
-      <Name>Ringtoets.WaveImpactAsphaltCover.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
@@ -339,11 +216,12 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets'))" />
   </Target>

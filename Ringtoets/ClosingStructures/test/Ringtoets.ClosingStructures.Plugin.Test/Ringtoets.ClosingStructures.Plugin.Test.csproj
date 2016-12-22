@@ -10,6 +10,8 @@
     <AssemblyName>Ringtoets.ClosingStructures.Plugin.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -42,12 +44,20 @@
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NUnitForms, Version=2.0.5821.13987, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
@@ -58,6 +68,14 @@
     <Compile Include="ClosingStructuresPluginTest.cs" />
     <Compile Include="ImportInfos\ClosingStructuresContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TreeNodeInfos\ClosingStructureFailureMechanismContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ClosingStructuresCalculationContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ClosingStructuresCalculationGroupContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ClosingStructuresContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ClosingStructuresFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ClosingStructuresInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ClosingStructuresScenariosContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ClosingStructureTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\ClosingStructuresFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\ClosingStructuresScenariosViewInfoTest.cs" />
     <Compile Include="ViewInfos\ClosingStructuresFailureMechanismViewInfoTest.cs" />
@@ -110,6 +128,10 @@
       <Name>Ringtoets.Common.IO</Name>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
+      <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
+      <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
       <Name>Ringtoets.ClosingStructures.Data</Name>
@@ -126,8 +148,19 @@
       <Project>{7DA0AB85-828D-4B1D-B532-58B89E39BEF5}</Project>
       <Name>Ringtoets.ClosingStructures.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.ClosingStructures.Data.TestUtil\Ringtoets.ClosingStructures.Data.TestUtil.csproj">
+      <Project>{F5B43C29-6169-4E9A-859E-09090330B94E}</Project>
+      <Name>Ringtoets.ClosingStructures.Data.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
