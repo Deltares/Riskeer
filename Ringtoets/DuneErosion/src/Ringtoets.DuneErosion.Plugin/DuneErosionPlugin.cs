@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -38,8 +39,8 @@ namespace Ringtoets.DuneErosion.Plugin
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<DuneErosionFailureMechanismContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
-                null,
-                null
+                FailureMechanismEnabledContextMenuStrip,
+                FailureMechanismDisabledContextMenuStrip
             );
         }
 
@@ -52,7 +53,47 @@ namespace Ringtoets.DuneErosion.Plugin
 
         private static object[] FailureMechanismDisabledChildNodeObjects(DuneErosionFailureMechanismContext failureMechanismContext)
         {
-            return new object[0];
+            return new object[]
+            {
+                failureMechanismContext.WrappedData.NotRelevantComments
+            };
+        }
+
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(DuneErosionFailureMechanismContext closingStructuresFailureMechanismContext,
+                                                                        object parentData,
+                                                                        TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(closingStructuresFailureMechanismContext, treeViewControl));
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(closingStructuresFailureMechanismContext, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(DuneErosionFailureMechanismContext failureMechanismContext,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext,
+                                                                  treeViewControl));
+
+            return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext,
+                                                                    RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .Build();
+        }
+
+        private void RemoveAllViewsForItem(DuneErosionFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         #endregion
