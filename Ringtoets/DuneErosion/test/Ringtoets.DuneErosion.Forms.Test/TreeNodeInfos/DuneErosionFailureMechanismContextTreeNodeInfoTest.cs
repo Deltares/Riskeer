@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Plugin;
@@ -89,6 +90,48 @@ namespace Ringtoets.DuneErosion.Forms.Test.TreeNodeInfos
             Assert.IsNull(info.CanDrop);
             Assert.IsNull(info.CanInsert);
             Assert.IsNull(info.OnDrop);
+        }
+
+        [Test]
+        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
+        {
+            // Setup
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSectionStub);
+
+            // Call
+            var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+
+            // Assert
+            Assert.AreEqual(2, children.Length);
+
+            var inputsFolder = (CategoryTreeFolder)children[0];
+            Assert.AreEqual("Invoer", inputsFolder.Name);
+            Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
+
+            Assert.AreEqual(2, inputsFolder.Contents.Count);
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext)inputsFolder.Contents[0];
+            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
+            Assert.AreSame(assessmentSectionStub, failureMechanismSectionsContext.ParentAssessmentSection);
+
+            var inputComment = (Comment)inputsFolder.Contents[1];
+            Assert.AreSame(failureMechanism.InputComments, inputComment);
+
+            var outputsFolder = (CategoryTreeFolder)children[1];
+            Assert.AreEqual("Oordeel", outputsFolder.Name);
+            Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
+
+            Assert.AreEqual(2, outputsFolder.Contents.Count);
+
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>)outputsFolder.Contents[0];
+            Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
+            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+
+            var outputComment = (Comment)outputsFolder.Contents[1];
+            Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 
         [Test]

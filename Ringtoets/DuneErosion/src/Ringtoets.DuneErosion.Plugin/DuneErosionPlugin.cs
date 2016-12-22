@@ -19,13 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Plugin
 {
@@ -48,7 +52,31 @@ namespace Ringtoets.DuneErosion.Plugin
 
         private static object[] FailureMechanismEnabledChildNodeObjects(DuneErosionFailureMechanismContext failureMechanismContext)
         {
-            return new object[0];
+            DuneErosionFailureMechanism wrappedData = failureMechanismContext.WrappedData;
+            return new object[]
+            {
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+            };
+        }        
+
+        private static IList GetInputs(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new ArrayList
+            {
+                new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                failureMechanism.InputComments
+            };
+        }
+
+        private static IList GetOutputs(DuneErosionFailureMechanism failureMechanism)
+        {
+            return new ArrayList
+            {
+                new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism),
+                failureMechanism.OutputComments
+            };
         }
 
         private static object[] FailureMechanismDisabledChildNodeObjects(DuneErosionFailureMechanismContext failureMechanismContext)
