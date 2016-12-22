@@ -51,39 +51,18 @@ namespace Ringtoets.ClosingStructures.Data
             factorStormDurationOpenStructure = new RoundedDouble(2, 1.0);
             deviationWaveDirection = new RoundedDouble(2);
 
-            failureProbabilityOpenStructure = 0;
-            failureProbabilityReparation = 0;
-            probabilityOrFrequencyOpenStructureBeforeFlooding = 1.0;
-
-            thresholdHeightOpenWeir = new NormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
-            };
-
             drainCoefficient = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.2
             };
 
-            areaFlowApertures = new LogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.01
-            };
+            thresholdHeightOpenWeir = new NormalDistribution(2);
+            areaFlowApertures = new LogNormalDistribution(2);
+            levelCrestStructureNotClosing = new NormalDistribution(2);
+            insideWaterLevel = new NormalDistribution(2);
 
-            levelCrestStructureNotClosing = new NormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.05
-            };
-
-            insideWaterLevel = new NormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
-            };
+            SetDefaultSchematizationProperties();
         }
 
         #region Structure
@@ -115,6 +94,44 @@ namespace Ringtoets.ClosingStructures.Data
                 ProbabilityOrFrequencyOpenStructureBeforeFlooding = Structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
                 ThresholdHeightOpenWeir = Structure.ThresholdHeightOpenWeir;
             }
+            else
+            {
+                SetDefaultSchematizationProperties();
+            }
+        }
+
+        private void SetDefaultSchematizationProperties()
+        {
+            FailureProbabilityOpenStructure = 0;
+            FailureProbabilityReparation = 0;
+            ProbabilityOrFrequencyOpenStructureBeforeFlooding = 1.0;
+
+            ThresholdHeightOpenWeir = new NormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble)0.1
+            };
+
+            AreaFlowApertures = new LogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble)0.01
+            };
+
+            LevelCrestStructureNotClosing = new NormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble)0.05
+            };
+
+            InsideWaterLevel = new NormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble)0.1
+            };
+
+            IdenticalApertures = 0;
+            InflowModelType = 0;
         }
 
         #region Hydraulic data

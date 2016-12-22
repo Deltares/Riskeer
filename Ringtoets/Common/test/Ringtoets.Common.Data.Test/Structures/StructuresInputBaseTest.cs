@@ -141,6 +141,77 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.IsTrue(input.Updated);
         }
 
+        [Test]
+        public void GivenInputWithStructure_WhenStructureNull_ThenSchematizationPropertiesSynedToDefaults()
+        {
+            // Given
+            var structure = new SimpleStructure(new StructureBase.ConstructionProperties
+            {
+                Name = "<awesome name>",
+                Location = new Point2D(0, 0),
+                Id = "id"
+            });
+
+            var input = new SimpleStructuresInput()
+            {
+                Structure = structure
+            };
+
+            var expectedStormDuraation = input.StormDuration;
+            var expectedModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow;
+
+            // Pre-condition
+            Assert.AreSame(structure, input.Structure);
+
+            // When
+            input.Structure = null;
+
+            // Then
+            DistributionAssert.AreEqual(expectedStormDuraation, input.StormDuration);
+            DistributionAssert.AreEqual(expectedModelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
+
+            AssertAreEqual(double.NaN, input.StructureNormalOrientation);
+            Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
+
+            var allowedLevelIncreaseStorage = new LogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
+
+            var storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            var flowWidthAtBottomProtection = new LogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
+            var criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.15
+            };
+
+            var widthFlowApertures = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.05
+            };
+
+            DistributionAssert.AreEqual(allowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
+            DistributionAssert.AreEqual(storageStructureArea, input.StorageStructureArea);
+            DistributionAssert.AreEqual(flowWidthAtBottomProtection, input.FlowWidthAtBottomProtection);
+            DistributionAssert.AreEqual(criticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
+            DistributionAssert.AreEqual(widthFlowApertures, input.WidthFlowApertures);
+
+            Assert.AreEqual(1.0, input.FailureProbabilityStructureWithErosion);
+        }
+
         #region Model factors
 
         [Test]

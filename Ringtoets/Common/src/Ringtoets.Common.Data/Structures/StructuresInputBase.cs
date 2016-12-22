@@ -57,44 +57,10 @@ namespace Ringtoets.Common.Data.Structures
         /// </summary>
         protected StructuresInputBase()
         {
-            structureNormalOrientation = new RoundedDouble(2, double.NaN);
-
             modelFactorSuperCriticalFlow = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1.1,
                 StandardDeviation = (RoundedDouble) 0.03
-            };
-
-            allowedLevelIncreaseStorage = new LogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
-            };
-
-            storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
-            flowWidthAtBottomProtection = new LogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.05
-            };
-
-            criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.15
-            };
-
-            failureProbabilityStructureWithErosion = 1.0;
-
-            widthFlowApertures = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.05
             };
 
             stormDuration = new VariationCoefficientLogNormalDistribution(2)
@@ -103,6 +69,15 @@ namespace Ringtoets.Common.Data.Structures
                 CoefficientOfVariation = (RoundedDouble) 0.25
             };
 
+            structureNormalOrientation = new RoundedDouble(2);
+            allowedLevelIncreaseStorage = new LogNormalDistribution(2);
+            storageStructureArea = new VariationCoefficientLogNormalDistribution(2);
+            flowWidthAtBottomProtection = new LogNormalDistribution(2);
+            criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2);
+            failureProbabilityStructureWithErosion = 1.0;
+            widthFlowApertures = new VariationCoefficientNormalDistribution(2);
+
+            SetDefaultCommonStructureSchematizationProperties();
             UpdateProfileParameters();
         }
 
@@ -138,6 +113,11 @@ namespace Ringtoets.Common.Data.Structures
             set
             {
                 structure = value;
+                if (structure == null)
+                {
+                    SetDefaultCommonStructureSchematizationProperties();
+                }
+
                 UpdateStructureParameters();
             }
         }
@@ -155,6 +135,43 @@ namespace Ringtoets.Common.Data.Structures
         protected static bool ValidProbabilityValue(double probability)
         {
             return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
+        }
+
+        private void SetDefaultCommonStructureSchematizationProperties()
+        {
+            StructureNormalOrientation = RoundedDouble.NaN;
+
+            AllowedLevelIncreaseStorage = new LogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
+
+            StorageStructureArea = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            FlowWidthAtBottomProtection = new LogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
+            CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.15
+            };
+
+            FailureProbabilityStructureWithErosion = 1.0;
+
+            WidthFlowApertures = new VariationCoefficientNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.05
+            };
         }
 
         #region Hydraulic data

@@ -69,6 +69,36 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
+        public void GivenInputWithStructure_WhenStructureNull_ThenSchematizationPropertiesSynedToDefaults()
+        {
+            // Given
+            var structure = new TestHeightStructure();
+            var input = new HeightStructuresInput()
+            {
+                Structure = structure
+            };
+
+            var expectedDeviationWaveDirection = input.DeviationWaveDirection;
+
+            // Pre-condition
+            AssertHeightStructure(structure, input);
+
+            // When
+            input.Structure = null;
+
+            // Then
+            AssertAreEqual(expectedDeviationWaveDirection, input.DeviationWaveDirection);
+
+            var levelCrestStructure = new NormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble)0.05
+            };
+
+            DistributionAssert.AreEqual(levelCrestStructure, input.LevelCrestStructure);
+        }
+
+        [Test]
         public void Structure_NotNull_ExpectedValues()
         {
             // Setup

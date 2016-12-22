@@ -40,13 +40,10 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         public HeightStructuresInput()
         {
-            levelCrestStructure = new NormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.05
-            };
-
+            levelCrestStructure = new NormalDistribution(2);
             deviationWaveDirection = new RoundedDouble(2);
+
+            SetDefaultSchematizationProperties();
         }
 
         #region Hydraulic data
@@ -108,6 +105,19 @@ namespace Ringtoets.HeightStructures.Data
                 StorageStructureArea = Structure.StorageStructureArea;
                 AllowedLevelIncreaseStorage = Structure.AllowedLevelIncreaseStorage;
             }
+            else
+            {
+                SetDefaultSchematizationProperties();
+            }
+        }
+
+        private void SetDefaultSchematizationProperties()
+        {
+            LevelCrestStructure = new NormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
         }
     }
 }

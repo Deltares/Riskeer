@@ -63,9 +63,15 @@ namespace Ringtoets.StabilityPointStructures.Data
             volumicWeightWater = new RoundedDouble(2, 9.81);
             factorStormDurationOpenStructure = new RoundedDouble(2, 1.0);
             failureProbabilityRepairClosure = 0;
-            probabilityCollisionSecondaryStructure = 0;
+
             evaluationLevel = new RoundedDouble(2);
-            verticalDistance = new RoundedDouble(2, double.NaN);
+            verticalDistance = new RoundedDouble(2);
+
+            drainCoefficient = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.0, 
+                StandardDeviation = (RoundedDouble) 0.20
+            };
 
             insideWaterLevelFailureConstruction = new NormalDistribution(2)
             {
@@ -77,12 +83,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             {
                 Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
-            };
 
-            drainCoefficient = new NormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1.0,
-                StandardDeviation = (RoundedDouble) 0.2
             };
 
             flowVelocityStructureClosable = new NormalDistribution(2)
@@ -91,71 +92,19 @@ namespace Ringtoets.StabilityPointStructures.Data
                 StandardDeviation = (RoundedDouble) 1
             };
 
-            levelCrestStructure = new NormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.05
-            };
+            levelCrestStructure = new NormalDistribution(2);
+            thresholdHeightOpenWeir = new NormalDistribution(2);
+            areaFlowApertures = new LogNormalDistribution(2);
+            constructiveStrengthLinearLoadModel = new VariationCoefficientLogNormalDistribution(2);
+            constructiveStrengthQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2);
+            stabilityLinearLoadModel = new VariationCoefficientLogNormalDistribution(2);
+            stabilityQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2);
+            failureCollisionEnergy = new VariationCoefficientLogNormalDistribution(2);
+            shipMass = new VariationCoefficientNormalDistribution(2);
+            shipVelocity = new VariationCoefficientNormalDistribution(2);
+            bankWidth = new NormalDistribution(2);
 
-            thresholdHeightOpenWeir = new NormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
-            };
-
-            areaFlowApertures = new LogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.01
-            };
-
-            constructiveStrengthLinearLoadModel = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
-            constructiveStrengthQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
-            stabilityLinearLoadModel = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
-            stabilityQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
-            failureCollisionEnergy = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.3
-            };
-
-            shipMass = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.2
-            };
-
-            shipVelocity = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.2
-            };
-
-            bankWidth = new NormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = RoundedDouble.NaN
-            };
+            SetDefaultSchematizationProperties();
         }
 
         protected override void UpdateStructureParameters()
@@ -189,6 +138,87 @@ namespace Ringtoets.StabilityPointStructures.Data
                 WidthFlowApertures = Structure.WidthFlowApertures;
                 StructureNormalOrientation = Structure.StructureNormalOrientation;
             }
+            else
+            {
+                SetDefaultSchematizationProperties();
+            }
+        }
+
+        private void SetDefaultSchematizationProperties()
+        {
+            EvaluationLevel = (RoundedDouble) 0.0;
+            FailureProbabilityRepairClosure = (RoundedDouble) 0.0;
+            InflowModelType = 0;
+            StructureNormalOrientation = (RoundedDouble) double.NaN;
+            VerticalDistance = (RoundedDouble) double.NaN;
+            LevellingCount = 0;
+            ProbabilityCollisionSecondaryStructure = 0.0;
+            
+            LevelCrestStructure = new NormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
+            ThresholdHeightOpenWeir = new NormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
+
+            AreaFlowApertures = new LogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble) 0.01
+            };
+
+            ConstructiveStrengthLinearLoadModel = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            ConstructiveStrengthQuadraticLoadModel = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            StabilityLinearLoadModel = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            StabilityQuadraticLoadModel = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            FailureCollisionEnergy = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.3
+            };
+
+            ShipMass = new VariationCoefficientNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.2
+            };
+
+            ShipVelocity = new VariationCoefficientNormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.2
+            };
+
+            BankWidth = new NormalDistribution
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN
+            };
         }
 
         #region Structure / calculation
