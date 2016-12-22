@@ -63,7 +63,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ClosingStructuresFailureMechanismContext),
-                    typeof(ClosingStructureFailureMechanismProperties));
+                    typeof(ClosingStructuresFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

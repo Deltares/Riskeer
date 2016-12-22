@@ -34,7 +34,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="ClosingStructuresFailureMechanism"/> for properties panel.
     /// </summary>
-    public class ClosingStructureFailureMechanismProperties : ObjectProperties<ClosingStructuresFailureMechanism>
+    public class ClosingStructuresFailureMechanismProperties : ObjectProperties<ClosingStructuresFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;

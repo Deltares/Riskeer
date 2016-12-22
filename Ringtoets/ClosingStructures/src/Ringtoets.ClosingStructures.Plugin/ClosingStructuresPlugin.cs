@@ -58,9 +58,9 @@ namespace Ringtoets.ClosingStructures.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<ClosingStructuresFailureMechanismContext, ClosingStructureFailureMechanismProperties>
+            yield return new PropertyInfo<ClosingStructuresFailureMechanismContext, ClosingStructuresFailureMechanismProperties>
             {
-                CreateInstance = context => new ClosingStructureFailureMechanismProperties
+                CreateInstance = context => new ClosingStructuresFailureMechanismProperties
                 {
                     Data = context.WrappedData
                 }

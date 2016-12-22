@@ -31,13 +31,13 @@ using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class ClosingStructureFailureMechanismPropertiesTest
+    public class ClosingStructuresFailureMechanismPropertiesTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new ClosingStructureFailureMechanismProperties();
+            var properties = new ClosingStructuresFailureMechanismProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ClosingStructuresFailureMechanism>>(properties);
@@ -50,7 +50,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var properties = new ClosingStructureFailureMechanismProperties();
+            var properties = new ClosingStructuresFailureMechanismProperties();
 
             // Call
             properties.Data = failureMechanism;
@@ -90,7 +90,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.Attach(observerMock);
-            var properties = new ClosingStructureFailureMechanismProperties
+            var properties = new ClosingStructuresFailureMechanismProperties
             {
                 Data = failureMechanism
             };
@@ -112,7 +112,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var properties = new ClosingStructureFailureMechanismProperties
+            var properties = new ClosingStructuresFailureMechanismProperties
             {
                 Data = failureMechanism
             };
