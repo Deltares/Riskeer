@@ -51,9 +51,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             properties.Data = failureMechanism;
 
             // Assert
-            Assert.AreEqual("Kunstwerken - Betrouwbaarheid sluiting kunstwerk",
+            Assert.AreEqual("Duinwaterkering - Duinafslag",
                             properties.Name);
-            Assert.AreEqual("BSKW",
+            Assert.AreEqual("DA",
                             properties.Code);
         }
     }
