@@ -60,7 +60,6 @@
     <Compile Include="SubCalculator\SellmeijerCalculatorStub.cs" />
     <Compile Include="SubCalculator\TestPipingSubCalculatorFactory.cs" />
     <Compile Include="SubCalculator\UpliftCalculatorStub.cs" />
-    <Compile Include="TestPipingInput.cs" />
     <Compile Include="TestPipingOutput.cs" />
     <Compile Include="TestPipingSoilProfile.cs" />
   </ItemGroup>
