@@ -79,7 +79,7 @@ namespace Ringtoets.DunErosion.Plugin.Test
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>),
                     typeof(IEnumerable<DuneErosionFailureMechanismSectionResult>),
-                    typeof(DuneErosionResultView));
+                    typeof(DuneErosionFailureMechanismResultView));
             }
         }
     }

@@ -42,7 +42,7 @@
     </Compile>
     <Compile Include="PresentationObjects\DuneErosionFailureMechanismContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\DuneErosionResultView.cs">
+    <Compile Include="Views\DuneErosionFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\DuneErosionSectionResultRow.cs" />

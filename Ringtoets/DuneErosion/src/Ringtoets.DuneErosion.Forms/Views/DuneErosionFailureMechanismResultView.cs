@@ -34,12 +34,12 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// <summary>
     /// The view for a collection of <see cref="DuneErosionFailureMechanismSectionResult"/>.
     /// </summary>
-    public class DuneErosionResultView : FailureMechanismResultView<DuneErosionFailureMechanismSectionResult>
+    public class DuneErosionFailureMechanismResultView : FailureMechanismResultView<DuneErosionFailureMechanismSectionResult>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionResultView"/>.
+        /// Creates a new instance of <see cref="DuneErosionFailureMechanismResultView"/>.
         /// </summary>
-        public DuneErosionResultView()
+        public DuneErosionFailureMechanismResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
         }

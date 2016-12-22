@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.Plugin
             yield return new ViewInfo<
                 FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>,
                 IEnumerable<DuneErosionFailureMechanismSectionResult>,
-                DuneErosionResultView>
+                DuneErosionFailureMechanismResultView>
             {
                 GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -158,9 +158,9 @@ namespace Ringtoets.DuneErosion.Plugin
 
         #region ViewInfo
 
-        #region DuneErosionResultView ViewInfo
+        #region DuneErosionFailureMechanismResultView ViewInfo
 
-        private static bool CloseFailureMechanismResultViewForData(DuneErosionResultView view, object o)
+        private static bool CloseFailureMechanismResultViewForData(DuneErosionFailureMechanismResultView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as DuneErosionFailureMechanism;

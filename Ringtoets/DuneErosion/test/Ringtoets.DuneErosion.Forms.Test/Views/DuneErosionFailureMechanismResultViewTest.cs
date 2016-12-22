@@ -34,7 +34,7 @@ using Ringtoets.DuneErosion.Forms.Views;
 namespace Ringtoets.DuneErosion.Forms.Test.Views
 {
     [TestFixture]
-    public class DuneErosionResultViewTest
+    public class DuneErosionFailureMechanismResultViewTest
     {
         private const int nameColumnIndex = 0;
         private const int assessmentLayerOneIndex = 1;
@@ -46,7 +46,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             // Given
             using (var form = new Form())
-            using (var view = new DuneErosionResultView())
+            using (var view = new DuneErosionFailureMechanismResultView())
             {
                 form.Controls.Add(view);
 
@@ -109,7 +109,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             };
 
             using (var form = new Form())
-            using (var view = new DuneErosionResultView())
+            using (var view = new DuneErosionFailureMechanismResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -176,7 +176,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var result2 = new TestFailureMechanismSectionResult(section2);
 
             using (var form = new Form())
-            using (var view = new DuneErosionResultView())
+            using (var view = new DuneErosionFailureMechanismResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
