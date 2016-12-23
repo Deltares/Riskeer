@@ -73,13 +73,18 @@ namespace Ringtoets.DunErosion.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, viewInfos.Length);
+                Assert.AreEqual(2, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>),
                     typeof(IEnumerable<DuneErosionFailureMechanismSectionResult>),
                     typeof(DuneErosionFailureMechanismResultView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(DuneErosionFailureMechanismContext),
+                    typeof(DuneErosionFailureMechanismView));
             }
         }
     }

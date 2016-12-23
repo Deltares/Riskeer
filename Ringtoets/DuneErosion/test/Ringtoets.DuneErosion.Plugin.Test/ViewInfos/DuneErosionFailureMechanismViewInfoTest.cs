@@ -24,27 +24,28 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.PresentationObjects;
-using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using Ringtoets.DuneErosion.Forms.Views;
+using Ringtoets.DuneErosion.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
+namespace Ringtoets.DunErosion.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismViewInfoTest
+    public class DuneErosionFailureMechanismViewInfoTest
     {
         private MockRepository mocks;
-        private ClosingStructuresPlugin plugin;
+        private DuneErosionPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new ClosingStructuresPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ClosingStructuresFailureMechanismView));
+            plugin = new DuneErosionPlugin();
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(DuneErosionFailureMechanismView));
         }
 
         [TearDown]
@@ -57,22 +58,22 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(DuneErosionFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(DuneErosionFailureMechanismContext), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, info.Image);
         }
 
         [Test]
-        public void GetViewName_WithClosingStructuresFailureMechanism_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithDuneErosionFailureMechanism_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSectionStub);
 
-            using (var view = new ClosingStructuresFailureMechanismView())
+            using (var view = new DuneErosionFailureMechanismView())
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanismContext);
@@ -90,10 +91,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             var otherAssessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSectionStub);
 
-            using (var view = new ClosingStructuresFailureMechanismView
+            using (var view = new DuneErosionFailureMechanismView
             {
                 Data = failureMechanismContext
             })
@@ -114,10 +115,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSectionStub);
 
-            using (var view = new ClosingStructuresFailureMechanismView
+            using (var view = new DuneErosionFailureMechanismView
             {
                 Data = failureMechanismContext
             })
@@ -138,18 +139,18 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var otherClosingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var otherDuneErosionFailureMechanism = new DuneErosionFailureMechanism();
 
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSectionStub);
 
-            using (var view = new ClosingStructuresFailureMechanismView
+            using (var view = new DuneErosionFailureMechanismView
             {
                 Data = failureMechanismContext
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, otherClosingStructuresFailureMechanism);
+                bool closeForData = info.CloseForData(view, otherDuneErosionFailureMechanism);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -164,10 +165,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSectionStub);
 
-            using (var view = new ClosingStructuresFailureMechanismView
+            using (var view = new DuneErosionFailureMechanismView
             {
                 Data = failureMechanismContext
             })
@@ -190,12 +191,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism
+            var failureMechanism = new DuneErosionFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
-            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);

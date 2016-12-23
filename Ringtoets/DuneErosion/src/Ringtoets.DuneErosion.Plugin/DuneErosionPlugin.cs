@@ -84,6 +84,14 @@ namespace Ringtoets.DuneErosion.Plugin
                 GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
+
+            yield return new ViewInfo<DuneErosionFailureMechanismContext, DuneErosionFailureMechanismView>
+            {
+                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                CloseForData = CloseFailureMechanismViewForData,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+            };
         }
 
         #region TreeNodeInfo
@@ -189,6 +197,23 @@ namespace Ringtoets.DuneErosion.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+        }
+
+        #endregion
+
+        #region DuneErosionFailureMechanismView ViewInfo
+
+        private static bool CloseFailureMechanismViewForData(DuneErosionFailureMechanismView view, object data)
+        {
+            var assessmentSection = data as IAssessmentSection;
+            var failureMechanism = data as DuneErosionFailureMechanism;
+
+            var viewFailureMechanismContext = (DuneErosionFailureMechanismContext) view.Data;
+            var viewFailureMechanism = viewFailureMechanismContext.WrappedData;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
+                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
         }
 
         #endregion
