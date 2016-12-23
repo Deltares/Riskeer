@@ -29,6 +29,16 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
     /// </summary>
     public class HeaveCalculatorStub : IHeaveCalculator
     {
+        /// <summary>
+        /// Gets a value indicating whether <see cref="Calculate"/> was called or not.
+        /// </summary>
+        public bool Calculated { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether <see cref="Validate"/> was called or not.
+        /// </summary>
+        public bool Validated { get; private set; }
+
         public double DTotal { get; set; }
         public double HExit { get; set; }
         public double Ich { get; set; }
@@ -38,9 +48,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public double Gradient { get; private set; }
         public double Zh { get; private set; }
         public double FoSh { get; private set; }
-
-        public bool Calculated { get; private set; }
-        public bool Validated { get; private set; }
 
         public void Calculate()
         {

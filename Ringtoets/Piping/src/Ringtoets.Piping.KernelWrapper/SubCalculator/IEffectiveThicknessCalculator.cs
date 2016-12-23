@@ -60,8 +60,9 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         double EffectiveHeight { get; }
 
         /// <summary>
-        /// Performs the effective thickness validation.
+        /// Validates the input for the effective thickness calculation.
         /// </summary>
+        /// <returns>A list of validation strings, or an empty list if there are no validation errors.</returns>
         List<string> Validate();
 
         /// <summary>

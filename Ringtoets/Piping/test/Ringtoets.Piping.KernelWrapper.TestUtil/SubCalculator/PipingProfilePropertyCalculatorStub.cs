@@ -30,14 +30,20 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
     /// </summary>
     public class PipingProfilePropertyCalculatorStub : IPipingProfilePropertyCalculator
     {
+        /// <summary>
+        /// Gets a value indicating whether <see cref="Calculate"/> was called or not.
+        /// </summary>
+        public bool Calculated { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether <see cref="Validate"/> was called or not.
+        /// </summary>
+        public bool Validated { get; private set; }
+
         public PipingProfile SoilProfile { get; set; }
         public PipingSurfaceLine SurfaceLine { get; set; }
         public double ExitPointX { get; set; }
-        
         public double BottomAquitardLayerAboveExitPointZ { get; set; }
-
-        public bool Calculated { get; private set; }
-        public bool Validated { get; private set; }
 
         public void Calculate()
         {

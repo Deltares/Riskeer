@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         void Calculate();
 
         /// <summary>
-        /// Performs the uplift validation.
+        /// Validates the input for the uplift calculation.
         /// </summary>
         /// <returns>A list of validation strings, or an empty list if there are no validation errors.</returns>
         List<string> Validate();

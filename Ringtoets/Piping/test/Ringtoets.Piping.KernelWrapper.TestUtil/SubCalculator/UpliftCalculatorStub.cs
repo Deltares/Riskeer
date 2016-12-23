@@ -29,6 +29,16 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
     /// </summary>
     public class UpliftCalculatorStub : IUpliftCalculator
     {
+        /// <summary>
+        /// Gets a value indicating whether <see cref="Calculate"/> is called or not.
+        /// </summary>
+        public bool Calculated { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether <see cref="Validate"/> is called or not.
+        /// </summary>
+        public bool Validated { get; private set; }
+
         public double EffectiveStress { get; set; }
         public double HExit { get; set; }
         public double HRiver { get; set; }
@@ -39,9 +49,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public double VolumetricWeightOfWater { get; set; }
         public double Zu { get; private set; }
         public double FoSu { get; private set; }
-
-        public bool Calculated { get; private set; }
-        public bool Validated { get; private set; }
 
         public void Calculate()
         {
