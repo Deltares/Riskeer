@@ -192,8 +192,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddExportItem()
                                                                                  .AddSeparator()
-                                                                                 .AddExpandAllItem()
                                                                                  .AddCollapseAllItem()
+                                                                                 .AddExpandAllItem()
                                                                                  .Build(),
                 ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :

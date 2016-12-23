@@ -231,12 +231,12 @@ namespace Ringtoets.Piping.Plugin
                                                               Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddDeleteChildrenItem()
-                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()
-                                                                                 .AddExpandAllItem()
+                                                                                 .AddDeleteChildrenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddCollapseAllItem()
+                                                                                 .AddExpandAllItem()
                                                                                  .Build()
             };
 
@@ -248,8 +248,8 @@ namespace Ringtoets.Piping.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddDeleteItem()
                                                                                  .AddSeparator()
-                                                                                 .AddExpandAllItem()
                                                                                  .AddCollapseAllItem()
+                                                                                 .AddExpandAllItem()
                                                                                  .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build(),
