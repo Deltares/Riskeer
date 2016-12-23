@@ -37,8 +37,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var distribution = new VariationCoefficientNormalDistribution();
 
             // Assert
-            var numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
             Assert.IsInstanceOf<IVariationCoefficientDistribution>(distribution);
+
+            int numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
+
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, distribution.Mean.Value);
             Assert.AreEqual(numberOfDecimalPlaces, distribution.CoefficientOfVariation.NumberOfDecimalPlaces);
@@ -56,6 +58,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.IsInstanceOf<IVariationCoefficientDistribution>(distribution);
+
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, distribution.Mean.Value);
             Assert.AreEqual(numberOfDecimalPlaces, distribution.CoefficientOfVariation.NumberOfDecimalPlaces);
@@ -67,8 +70,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [TestCase(16)]
         public void Constructor_InvalidNumberOfDecimalPlaces_ThrowsArgumentOutOfRangeException(int numberOfDecimalPlaces)
         {
-            // Setup
-
             // Call
             TestDelegate call = () => new VariationCoefficientNormalDistribution(numberOfDecimalPlaces);
 

@@ -37,8 +37,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var distribution = new NormalDistribution();
 
             // Assert
-            var numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
             Assert.IsInstanceOf<IDistribution>(distribution);
+
+            int numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
+
             Assert.AreEqual(0.0, distribution.Mean.Value);
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, distribution.StandardDeviation.Value);
@@ -56,6 +58,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.IsInstanceOf<IDistribution>(distribution);
+
             Assert.AreEqual(0.0, distribution.Mean.Value);
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, distribution.StandardDeviation.Value);

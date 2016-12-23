@@ -37,9 +37,11 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var distribution = new LogNormalDistribution();
 
             // Assert
-            var numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
             Assert.IsInstanceOf<IDistribution>(distribution);
+
+            int numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
             double expectedAccuracy = Math.Pow(10.0, -numberOfDecimalPlaces);
+
             Assert.AreEqual(Math.Exp(-0.5), distribution.Mean, expectedAccuracy);
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1)), distribution.StandardDeviation, expectedAccuracy);
@@ -59,7 +61,9 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.IsInstanceOf<IDistribution>(distribution);
+
             double expectedAccuracy = Math.Pow(10.0, -numberOfDecimalPlaces);
+
             Assert.AreEqual(Math.Exp(-0.5), distribution.Mean, expectedAccuracy);
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1)), distribution.StandardDeviation, expectedAccuracy);

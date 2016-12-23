@@ -36,37 +36,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var insideWaterLevel = new NormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
-            };
-
-            var drainCoefficient = new NormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1,
-                StandardDeviation = (RoundedDouble) 0.2
-            };
-
-            var thresholdHeightOpenWeir = new NormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
-            };
-
-            var areaFlowApertures = new LogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.01
-            };
-
-            var levelCrestStructureNotClosing = new NormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.05
-            };
-
             // Call
             var input = new ClosingStructuresInput();
 
@@ -81,11 +50,40 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, input.DeviationWaveDirection, input.DeviationWaveDirection.GetAccuracy());
 
-            DistributionAssert.AreEqual(insideWaterLevel, input.InsideWaterLevel);
-            DistributionAssert.AreEqual(drainCoefficient, input.DrainCoefficient);
-            DistributionAssert.AreEqual(thresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
-            DistributionAssert.AreEqual(areaFlowApertures, input.AreaFlowApertures);
-            DistributionAssert.AreEqual(levelCrestStructureNotClosing, input.LevelCrestStructureNotClosing);
+            var expectedInsideWaterLevel = new NormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble)0.1
+            };
+
+            var expectedDrainCoefficient = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble)1,
+                StandardDeviation = (RoundedDouble)0.2
+            };
+
+            var expectedThresholdHeightOpenWeir = new NormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble)0.1
+            };
+
+            var expectedAreaFlowApertures = new LogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble)0.01
+            };
+
+            var expectedLevelCrestStructureNotClosing = new NormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble)0.05
+            };
+            DistributionAssert.AreEqual(expectedInsideWaterLevel, input.InsideWaterLevel);
+            DistributionAssert.AreEqual(expectedDrainCoefficient, input.DrainCoefficient);
+            DistributionAssert.AreEqual(expectedThresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
+            DistributionAssert.AreEqual(expectedAreaFlowApertures, input.AreaFlowApertures);
+            DistributionAssert.AreEqual(expectedLevelCrestStructureNotClosing, input.LevelCrestStructureNotClosing);
 
             Assert.AreEqual(1.0, input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             Assert.AreEqual(0, input.IdenticalApertures);
@@ -114,10 +112,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 Structure = structure
             };
 
-            var expectedFactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure;
-            var expectedDrainCoefficient = input.DrainCoefficient;
-            var expectedDeviationWaveDirection = input.DeviationWaveDirection;
-            var expectedInsideWaterLevel = input.InsideWaterLevel;
+            RoundedDouble expectedFactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure;
+            NormalDistribution expectedDrainCoefficient = input.DrainCoefficient;
+            RoundedDouble expectedDeviationWaveDirection = input.DeviationWaveDirection;
+            NormalDistribution expectedInsideWaterLevel = input.InsideWaterLevel;
 
             // Pre-condition
             AssertClosingStructure(structure, input);
@@ -138,27 +136,27 @@ namespace Ringtoets.ClosingStructures.Data.Test
             DistributionAssert.AreEqual(expectedInsideWaterLevel, input.InsideWaterLevel);
             DistributionAssert.AreEqual(expectedDrainCoefficient, input.DrainCoefficient);
 
-            var thresholdHeightOpenWeir = new NormalDistribution(2)
+            var expectedThresholdHeightOpenWeir = new NormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble)0.1
             };
 
-            var areaFlowApertures = new LogNormalDistribution(2)
+            var expectedAreaFlowApertures = new LogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble)0.01
             };
 
-            var levelCrestStructureNotClosing = new NormalDistribution(2)
+            var expectedLevelCrestStructureNotClosing = new NormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble)0.05
             };
 
-            DistributionAssert.AreEqual(thresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
-            DistributionAssert.AreEqual(areaFlowApertures, input.AreaFlowApertures);
-            DistributionAssert.AreEqual(levelCrestStructureNotClosing, input.LevelCrestStructureNotClosing);
+            DistributionAssert.AreEqual(expectedThresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
+            DistributionAssert.AreEqual(expectedAreaFlowApertures, input.AreaFlowApertures);
+            DistributionAssert.AreEqual(expectedLevelCrestStructureNotClosing, input.LevelCrestStructureNotClosing);
 
             Assert.AreEqual(1.0, input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             Assert.AreEqual(0, input.IdenticalApertures);
@@ -188,11 +186,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var input = new ClosingStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new NormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
             var distributionToSet = new NormalDistribution(5)
             {
                 Mean = mean,
@@ -203,6 +196,11 @@ namespace Ringtoets.ClosingStructures.Data.Test
             input.InsideWaterLevel = distributionToSet;
 
             // Assert
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
             AssertDistributionCorrectlySet(input.InsideWaterLevel, distributionToSet, expectedDistribution);
         }
 
@@ -304,11 +302,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var input = new ClosingStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new NormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
             var distributionToSet = new NormalDistribution(5)
             {
                 Mean = mean,
@@ -319,6 +312,11 @@ namespace Ringtoets.ClosingStructures.Data.Test
             input.ThresholdHeightOpenWeir = distributionToSet;
 
             // Assert
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
             AssertDistributionCorrectlySet(input.ThresholdHeightOpenWeir, distributionToSet, expectedDistribution);
         }
 
@@ -330,11 +328,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var input = new ClosingStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new LogNormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
             var distributionToSet = new LogNormalDistribution(5)
             {
                 Mean = mean,
@@ -345,6 +338,11 @@ namespace Ringtoets.ClosingStructures.Data.Test
             input.AreaFlowApertures = distributionToSet;
 
             // Assert
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
             AssertDistributionCorrectlySet(input.AreaFlowApertures, distributionToSet, expectedDistribution);
         }
 
@@ -420,11 +418,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var input = new ClosingStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new NormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
             var distributionToSet = new NormalDistribution(5)
             {
                 Mean = mean,
@@ -435,6 +428,11 @@ namespace Ringtoets.ClosingStructures.Data.Test
             input.LevelCrestStructureNotClosing = distributionToSet;
 
             // Assert
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
             AssertDistributionCorrectlySet(input.LevelCrestStructureNotClosing, distributionToSet, expectedDistribution);
         }
 

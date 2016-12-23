@@ -36,20 +36,18 @@ namespace Ringtoets.HeightStructures.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var levelCrestStructure = new NormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.05
-            };
-
             // Call
             var input = new HeightStructuresInput();
 
             // Assert
             Assert.IsInstanceOf<StructuresInputBase<HeightStructure>>(input);
 
-            DistributionAssert.AreEqual(levelCrestStructure, input.LevelCrestStructure);
+            var expectedLevelCrestStructure = new NormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble)0.05
+            };
+            DistributionAssert.AreEqual(expectedLevelCrestStructure, input.LevelCrestStructure);
 
             Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, input.DeviationWaveDirection, input.DeviationWaveDirection.GetAccuracy());
@@ -78,7 +76,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 Structure = structure
             };
 
-            var expectedDeviationWaveDirection = input.DeviationWaveDirection;
+            RoundedDouble expectedDeviationWaveDirection = input.DeviationWaveDirection;
 
             // Pre-condition
             AssertHeightStructure(structure, input);
@@ -89,13 +87,13 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Then
             AssertAreEqual(expectedDeviationWaveDirection, input.DeviationWaveDirection);
 
-            var levelCrestStructure = new NormalDistribution(2)
+            var expectedLevelCrestStructure = new NormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble)0.05
             };
 
-            DistributionAssert.AreEqual(levelCrestStructure, input.LevelCrestStructure);
+            DistributionAssert.AreEqual(expectedLevelCrestStructure, input.LevelCrestStructure);
         }
 
         [Test]
@@ -122,11 +120,6 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new NormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
             var distributionToSet = new NormalDistribution(5)
             {
                 Mean = mean,
@@ -137,6 +130,11 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.LevelCrestStructure = distributionToSet;
 
             // Assert
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
             AssertDistributionCorrectlySet(input.LevelCrestStructure, distributionToSet, expectedDistribution);
         }
 

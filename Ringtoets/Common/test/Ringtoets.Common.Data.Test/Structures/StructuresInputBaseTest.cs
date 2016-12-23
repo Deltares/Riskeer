@@ -40,49 +40,6 @@ namespace Ringtoets.Common.Data.Test.Structures
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var modelFactorSuperCriticalFlow = new NormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1.1,
-                StandardDeviation = (RoundedDouble) 0.03
-            };
-
-            var allowedLevelIncreaseStorage = new LogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
-            };
-
-            var storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
-            var flowWidthAtBottomProtection = new LogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.05
-            };
-
-            var criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.15
-            };
-
-            var widthFlowApertures = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.05
-            };
-
-            var stormDuration = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 6.0,
-                CoefficientOfVariation = (RoundedDouble) 0.25
-            };
-
             // Call
             var input = new SimpleStructuresInput();
 
@@ -106,13 +63,55 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
 
-            DistributionAssert.AreEqual(modelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
-            DistributionAssert.AreEqual(allowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
-            DistributionAssert.AreEqual(storageStructureArea, input.StorageStructureArea);
-            DistributionAssert.AreEqual(flowWidthAtBottomProtection, input.FlowWidthAtBottomProtection);
-            DistributionAssert.AreEqual(criticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
-            DistributionAssert.AreEqual(widthFlowApertures, input.WidthFlowApertures);
-            DistributionAssert.AreEqual(stormDuration, input.StormDuration);
+            var expectedModelFactorSuperCriticalFlow = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble)1.1,
+                StandardDeviation = (RoundedDouble)0.03
+            };
+
+            var expectedAllowedLevelIncreaseStorage = new LogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble)0.1
+            };
+
+            var expectedStorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble)0.1
+            };
+
+            var expectedFlowWidthAtBottomProtection = new LogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble)0.05
+            };
+
+            var expectedCriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble)0.15
+            };
+
+            var expectedWidthFlowApertures = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = (RoundedDouble)0.05
+            };
+
+            var expectedStormDuration = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble)6.0,
+                CoefficientOfVariation = (RoundedDouble)0.25
+            };
+
+            DistributionAssert.AreEqual(expectedModelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
+            DistributionAssert.AreEqual(expectedAllowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
+            DistributionAssert.AreEqual(expectedStorageStructureArea, input.StorageStructureArea);
+            DistributionAssert.AreEqual(expectedFlowWidthAtBottomProtection, input.FlowWidthAtBottomProtection);
+            DistributionAssert.AreEqual(expectedCriticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
+            DistributionAssert.AreEqual(expectedWidthFlowApertures, input.WidthFlowApertures);
+            DistributionAssert.AreEqual(expectedStormDuration, input.StormDuration);
 
             Assert.AreEqual(1.0, input.FailureProbabilityStructureWithErosion);
         }
@@ -152,13 +151,13 @@ namespace Ringtoets.Common.Data.Test.Structures
                 Id = "id"
             });
 
-            var input = new SimpleStructuresInput()
+            var input = new SimpleStructuresInput
             {
                 Structure = structure
             };
 
-            var expectedStormDuraation = input.StormDuration;
-            var expectedModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow;
+            VariationCoefficientLogNormalDistribution expectedStormDuraation = input.StormDuration;
+            NormalDistribution expectedModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow;
 
             // Pre-condition
             Assert.AreSame(structure, input.Structure);
@@ -173,41 +172,41 @@ namespace Ringtoets.Common.Data.Test.Structures
             AssertAreEqual(double.NaN, input.StructureNormalOrientation);
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
 
-            var allowedLevelIncreaseStorage = new LogNormalDistribution(2)
+            var expectedAllowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
-            var storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
+            var expectedStorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.1
             };
 
-            var flowWidthAtBottomProtection = new LogNormalDistribution(2)
+            var expectedFlowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
-            var criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
+            var expectedCriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.15
             };
 
-            var widthFlowApertures = new VariationCoefficientNormalDistribution(2)
+            var expectedWidthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.05
             };
 
-            DistributionAssert.AreEqual(allowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
-            DistributionAssert.AreEqual(storageStructureArea, input.StorageStructureArea);
-            DistributionAssert.AreEqual(flowWidthAtBottomProtection, input.FlowWidthAtBottomProtection);
-            DistributionAssert.AreEqual(criticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
-            DistributionAssert.AreEqual(widthFlowApertures, input.WidthFlowApertures);
+            DistributionAssert.AreEqual(expectedAllowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
+            DistributionAssert.AreEqual(expectedStorageStructureArea, input.StorageStructureArea);
+            DistributionAssert.AreEqual(expectedFlowWidthAtBottomProtection, input.FlowWidthAtBottomProtection);
+            DistributionAssert.AreEqual(expectedCriticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
+            DistributionAssert.AreEqual(expectedWidthFlowApertures, input.WidthFlowApertures);
 
             Assert.AreEqual(1.0, input.FailureProbabilityStructureWithErosion);
         }
@@ -221,7 +220,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             var random = new Random(22);
             var input = new SimpleStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new NormalDistribution(2)
+            NormalDistribution expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
                 StandardDeviation = input.ModelFactorSuperCriticalFlow.StandardDeviation
@@ -333,11 +332,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             var input = new SimpleStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new LogNormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
             var distributionToSet = new LogNormalDistribution(5)
             {
                 Mean = mean,
@@ -348,6 +342,11 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.AllowedLevelIncreaseStorage = distributionToSet;
 
             // Assert
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
             AssertDistributionCorrectlySet(input.AllowedLevelIncreaseStorage, distributionToSet, expectedDistribution);
         }
 
@@ -359,11 +358,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             var input = new SimpleStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var variation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = mean,
-                CoefficientOfVariation = variation
-            };
             var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
             {
                 Mean = mean,
@@ -374,6 +368,11 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.StorageStructureArea = distributionToSet;
 
             // Assert
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
             AssertDistributionCorrectlySet(input.StorageStructureArea, distributionToSet, expectedDistribution);
         }
 
@@ -385,11 +384,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             var input = new SimpleStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new LogNormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
             var distributionToSet = new LogNormalDistribution(5)
             {
                 Mean = mean,
@@ -400,6 +394,11 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.FlowWidthAtBottomProtection = distributionToSet;
 
             // Assert
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
             AssertDistributionCorrectlySet(input.FlowWidthAtBottomProtection, distributionToSet, expectedDistribution);
         }
 
@@ -411,11 +410,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             var input = new SimpleStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var variation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = mean,
-                CoefficientOfVariation = variation
-            };
             var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
             {
                 Mean = mean,
@@ -426,6 +420,11 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.CriticalOvertoppingDischarge = distributionToSet;
 
             // Assert
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
             AssertDistributionCorrectlySet(input.CriticalOvertoppingDischarge, distributionToSet, expectedDistribution);
         }
 
@@ -469,11 +468,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             var input = new SimpleStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var variation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = mean,
-                CoefficientOfVariation = variation
-            };
             var distributionToSet = new VariationCoefficientNormalDistribution(5)
             {
                 Mean = mean,
@@ -484,6 +478,11 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.WidthFlowApertures = distributionToSet;
 
             // Assert
+            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
             AssertDistributionCorrectlySet(input.WidthFlowApertures, distributionToSet, expectedDistribution);
         }
 

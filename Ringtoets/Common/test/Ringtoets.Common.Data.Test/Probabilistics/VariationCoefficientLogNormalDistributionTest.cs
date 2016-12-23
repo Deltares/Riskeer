@@ -38,8 +38,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var distribution = new VariationCoefficientLogNormalDistribution();
 
             // Assert
-            var numberOfDecimals = RoundedDouble.MaximumNumberOfDecimalPlaces;
             Assert.IsInstanceOf<IVariationCoefficientDistribution>(distribution);
+
+            int numberOfDecimals = RoundedDouble.MaximumNumberOfDecimalPlaces;
+
             Assert.AreEqual(numberOfDecimals, distribution.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, distribution.Mean.Value);
             Assert.AreEqual(numberOfDecimals, distribution.CoefficientOfVariation.NumberOfDecimalPlaces);
@@ -57,6 +59,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.IsInstanceOf<IVariationCoefficientDistribution>(distribution);
+
             Assert.AreEqual(numberOfDecimals, distribution.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, distribution.Mean.Value);
             Assert.AreEqual(numberOfDecimals, distribution.CoefficientOfVariation.NumberOfDecimalPlaces);
