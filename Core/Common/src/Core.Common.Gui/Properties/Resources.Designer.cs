@@ -767,11 +767,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporteren naar &apos;{0}&apos; is mislukt..
+        ///   Looks up a localized string similar to Exporteren is mislukt..
         /// </summary>
-        public static string GuiExportHandler_ExportItemUsingDialog_Export_failed_to_filepath_0_ {
+        public static string GuiExportHandler_ExportItemUsingDialog_Export_failed {
             get {
-                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Export_failed_to_filepath_0_", resourceCulture);
+                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Export_failed", resourceCulture);
             }
         }
         

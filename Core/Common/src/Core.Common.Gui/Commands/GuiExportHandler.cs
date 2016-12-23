@@ -142,9 +142,7 @@ namespace Core.Common.Gui.Commands
                     }
                     else
                     {
-                        var message = string.Format(Resources.GuiExportHandler_ExportItemUsingDialog_Export_failed_to_filepath_0_,
-                                                    exportFilePath);
-                        log.Error(message);
+                        log.Error(Resources.GuiExportHandler_ExportItemUsingDialog_Export_failed);
                     }
                 }
             }
