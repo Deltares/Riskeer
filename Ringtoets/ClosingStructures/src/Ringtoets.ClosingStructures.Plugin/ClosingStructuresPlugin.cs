@@ -343,10 +343,11 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .AddPerformAllCalculationsInFailureMechanismItem(closingStructuresFailureMechanismContext,
                                                                            CalculateAll,
                                                                            ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                          .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(closingStructuresFailureMechanismContext.WrappedData)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -367,8 +368,8 @@ namespace Ringtoets.ClosingStructures.Plugin
             return builder.AddToggleRelevancyOfFailureMechanismItem(closingStructuresFailureMechanismContext,
                                                                     RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .Build();
         }
 
@@ -443,33 +444,35 @@ namespace Ringtoets.ClosingStructures.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(context, AddCalculation);
-
-            if (!isNestedGroup)
-            {
-                builder
-                    .AddSeparator()
-                    .AddRemoveAllChildrenItem();
-            }
-
-            builder.AddSeparator()
-                   .AddValidateAllCalculationsInGroupItem(
-                       context,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
-                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessage)
-                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddCreateCalculationItem(context, AddCalculation)
                    .AddSeparator();
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem()
-                       .AddDeleteItem()
-                       .AddSeparator();
+                builder.AddRenameItem();
+            }
+            builder.AddValidateAllCalculationsInGroupItem(
+                context,
+                ValidateAll,
+                ValidateAllDataAvailableAndGetErrorMessage)
+                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessage)
+                   .AddSeparator()
+                   .AddClearAllCalculationOutputInGroupItem(group);
+
+            if (!isNestedGroup)
+            {
+                builder.AddRemoveAllChildrenItem();
+                builder.AddSeparator();
             }
 
-            return builder.AddExpandAllItem()
-                          .AddCollapseAllItem()
+            if (isNestedGroup)
+            {
+                builder.AddDeleteItem();
+                builder.AddSeparator();
+            }
+
+            return builder.AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -601,18 +604,18 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             StructuresCalculation<ClosingStructuresInput> calculation = context.WrappedData;
 
-            return builder.AddValidateCalculationItem(
-                context,
-                ValidateAll,
-                ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+            return builder.AddRenameItem()
+                          .AddValidateCalculationItem(
+                              context,
+                              ValidateAll,
+                              ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                          .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
-                          .AddRenameItem()
+                          .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
