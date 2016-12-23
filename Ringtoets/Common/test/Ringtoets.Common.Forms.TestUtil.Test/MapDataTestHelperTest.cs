@@ -25,6 +25,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -39,7 +40,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void AssertFailureMechanismSectionsMapData_MapDataNotMapLineData_ThrowAssertionException()
         {
             // Setup
-            var mapData = new MapPointData("test");
+            var mapData = new MapPointData("Vakindeling");
 
             // Call
             TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsMapData(Enumerable.Empty<FailureMechanismSection>(), mapData);
@@ -60,7 +61,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 })
             };
 
-            var mapData = new MapLineData("test");
+            var mapData = new MapLineData("Vakindeling");
 
             // Precondition
             CollectionAssert.IsEmpty(mapData.Features);
@@ -86,7 +87,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 })
             };
 
-            var mapData = new MapLineData("test")
+            var mapData = new MapLineData("Vakindeling")
             {
                 Features = new[]
                 {
@@ -193,7 +194,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void AssertHydraulicBoundaryLocationsMapData_MapDataNotPointData_ThrowAssertionException()
         {
             // Setup
-            var mapData = new MapLineData("test");
+            var mapData = new MapLineData("Hydraulische randvoorwaarden");
 
             // Call
             TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(Enumerable.Empty<HydraulicBoundaryLocation>(), mapData);
@@ -206,7 +207,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void AssertHydraulicBoundaryLocationsMapData_DatabaseNullMapDataHasFeatures_ThrowAssertionException()
         {
             // Setup
-            var mapData = new MapPointData("test")
+            var mapData = new MapPointData("Hydraulische randvoorwaarden")
             {
                 Features = new[]
                 {
@@ -246,7 +247,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 }
             };
 
-            var mapData = new MapPointData("test");
+            var mapData = new MapPointData("Hydraulische randvoorwaarden");
 
             // Call
             TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapData);
@@ -267,7 +268,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 }
             };
 
-            var mapData = new MapPointData("test")
+            var mapData = new MapPointData("Hydraulische randvoorwaarden")
             {
                 Features = new[]
                 {
@@ -348,6 +349,597 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             // Call
             TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapData);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        #endregion
+
+        #region AssertReferenceLineMapData
+
+        [Test]
+        public void AssertReferenceLineMapData_MapDataNotLineData_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPolygonData("Referentielijn");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(new ReferenceLine(), mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertReferenceLineMapData_ReferenceLineNullMapDataHasFeatures_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("Referentielijn")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            Enumerable.Empty<Point2D>()
+                        })
+                    })
+                }
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(null, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertReferenceLineMapData_MapDataMoreThanOneFeature_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("Referentielijn")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            Enumerable.Empty<Point2D>()
+                        })
+                    }),
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            Enumerable.Empty<Point2D>()
+                        })
+                    })
+                }
+            };
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+                                      {
+                                          new Point2D(0.0, 0.0),
+                                          new Point2D(1.0, 1.0),
+                                          new Point2D(2.0, 2.0)
+                                      });
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(referenceLine, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertReferenceLineMapData_FeatureGeometryNotSameAsReferenceLinePoints_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("Referentielijn")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new []
+                            {
+                                new Point2D(0.0, 0.0),
+                                new Point2D(2.0, 2.0),
+                                new Point2D(1.0, 1.0)
+                            }
+                        })
+                    })
+                }
+            };
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+                                      {
+                                          new Point2D(0.0, 0.0),
+                                          new Point2D(1.0, 1.0),
+                                          new Point2D(2.0, 2.0)
+                                      });
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(referenceLine, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertReferenceLineMapData_MapDataNameNotCorrect_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("test");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(null, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertReferenceLineMapData_ReferenceLineNullMapDataCorrect_DoesNotThrow()
+        {
+            // Setup
+            var mapData = new MapLineData("Referentielijn");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(null, mapData);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void AssertReferenceLineMapData_WithReferenceLineMapDataCorrect_DoesNotThrow()
+        {
+            // Setup
+            // Setup
+            var mapData = new MapLineData("Referentielijn")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new []
+                            {
+                                new Point2D(0.0, 0.0),
+                                new Point2D(1.0, 1.0),
+                                new Point2D(2.0, 2.0)
+                            }
+                        })
+                    })
+                }
+            };
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+                                      {
+                                          new Point2D(0.0, 0.0),
+                                          new Point2D(1.0, 1.0),
+                                          new Point2D(2.0, 2.0)
+                                      });
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(referenceLine, mapData);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        #endregion
+
+        #region AssertFailureMechanismSectionsStartPointMapData
+
+        [Test]
+        public void AssertFailureMechanismSectionsStartPointMapData_MapDataNotMapPointData_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("Vakindeling (startpunten)");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(Enumerable.Empty<FailureMechanismSection>(), mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertFailureMechanismSectionsStartPointMapData_MapDataMoreThanOneFeature_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("Vakindeling (startpunten)")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            Enumerable.Empty<Point2D>()
+                        })
+                    }),
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            Enumerable.Empty<Point2D>()
+                        })
+                    })
+                }
+            };
+
+            var sections = new[]
+            {
+                new FailureMechanismSection("section1", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1),
+                    new Point2D(2, 2)
+                })
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(sections, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertFailureMechanismSectionsStartPointMapData_SectionsEmptyMapDataHasGeometry_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("Vakindeling (startpunten)")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new []
+                            {
+                                new Point2D(1, 1)
+                            }
+                        })
+                    })
+                }
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(Enumerable.Empty<FailureMechanismSection>(), mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertFailureMechanismSectionsStartPointMapData_GeometryNotSameAsStartPoints_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("Vakindeling (startpunten)")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new []
+                            {
+                                new Point2D(1, 1)
+                            }
+                        })
+                    })
+                }
+            };
+
+            var sections = new[]
+            {
+                new FailureMechanismSection("section1", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1),
+                    new Point2D(2, 2)
+                })
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(sections, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertFailureMechanismSectionsStartPointMapData_MapDataNameNotCorrect_ThrowAssertionException()
+        {
+            // Setup
+            var geometryPoints = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            };
+
+            var sections = new[]
+            {
+                new FailureMechanismSection("section1", geometryPoints)
+            };
+
+            var mapData = new MapLineData("test")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0, 0)
+                            }
+                        })
+                    })
+                }
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(sections, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertFailureMechanismSectionsStartPointMapData_MapDataCorrect_DoesNotThrow()
+        {
+            // Setup
+            var mapData = new MapPointData("Vakindeling (startpunten)")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new []
+                            {
+                                new Point2D(0, 0)
+                            }
+                        })
+                    })
+                }
+            };
+
+            var sections = new[]
+            {
+                new FailureMechanismSection("section1", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1),
+                    new Point2D(2, 2)
+                })
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(sections, mapData);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        #endregion
+
+        #region AssertFailureMechanismSectionsEndPointMapData
+
+        [Test]
+        public void AssertFailureMechanismSectionsEndPointMapData_MapDataNotMapPointData_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("Vakindeling (eindpunten)");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(Enumerable.Empty<FailureMechanismSection>(), mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertFailureMechanismSectionsEndPointMapData_MapDataMoreThanOneFeature_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("Vakindeling (eindpunten)")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            Enumerable.Empty<Point2D>()
+                        })
+                    }),
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            Enumerable.Empty<Point2D>()
+                        })
+                    })
+                }
+            };
+
+            var sections = new[]
+            {
+                new FailureMechanismSection("section1", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1),
+                    new Point2D(2, 2)
+                })
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(sections, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertFailureMechanismSectionsEndPointMapData_SectionsEmptyMapDataHasGeometry_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("Vakindeling (eindpunten)")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new []
+                            {
+                                new Point2D(1, 1)
+                            }
+                        })
+                    })
+                }
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(Enumerable.Empty<FailureMechanismSection>(), mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertFailureMechanismSectionsEndPointMapData_GeometryNotSameAsEndPoints_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("Vakindeling (eindpunten)")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new []
+                            {
+                                new Point2D(1, 1)
+                            }
+                        })
+                    })
+                }
+            };
+
+            var sections = new[]
+            {
+                new FailureMechanismSection("section1", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1),
+                    new Point2D(2, 2)
+                })
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(sections, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertFailureMechanismSectionsEndPointMapData_MapDataNameNotCorrect_ThrowAssertionException()
+        {
+            // Setup
+            var geometryPoints = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            };
+
+            var sections = new[]
+            {
+                new FailureMechanismSection("section1", geometryPoints)
+            };
+
+            var mapData = new MapLineData("test")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0, 0)
+                            }
+                        })
+                    })
+                }
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(sections, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertFailureMechanismSectionsEndPointMapData_MapDataCorrect_DoesNotThrow()
+        {
+            // Setup
+            var mapData = new MapPointData("Vakindeling (eindpunten)")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new []
+                            {
+                                new Point2D(2, 2)
+                            }
+                        })
+                    })
+                }
+            };
+
+            var sections = new[]
+            {
+                new FailureMechanismSection("section1", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1),
+                    new Point2D(2, 2)
+                })
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(sections, mapData);
 
             // Assert
             Assert.DoesNotThrow(test);

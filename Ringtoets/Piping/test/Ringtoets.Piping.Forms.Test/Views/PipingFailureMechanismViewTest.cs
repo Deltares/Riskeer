@@ -250,11 +250,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var mapDataList = mapData.Collection.ToList();
                 Assert.AreEqual(8, mapDataList.Count);
-                AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
+                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 AssertSurfacelinesMapData(failureMechanism.SurfaceLines, mapDataList[surfaceLinesIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
-                AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
-                AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
+                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
+                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapDataList[hydraulicBoundaryLocationsIndex]);
                 AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, mapDataList[stochasticSoilModelsIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<PipingCalculationScenario>(), mapDataList[calculationsIndex]);
@@ -427,7 +427,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
-                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 assessmentSection.ReferenceLine.SetGeometry(points2);
 
@@ -435,7 +435,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 assessmentSection.NotifyObservers();
 
                 // Assert
-                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
             }
         }
 
@@ -500,8 +500,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
-                AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
-                AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
+                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
+                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
             }
         }
 
@@ -799,37 +799,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(dataBeforeUpdate, map.Data);
             }
-        }
-
-        private static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapLineData>(mapData);
-            var referenceLineData = (MapLineData) mapData;
-            if (referenceLine == null)
-            {
-                CollectionAssert.IsEmpty(referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
-            }
-            else
-            {
-                CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
-            }
-            Assert.AreEqual("Referentielijn", mapData.Name);
-        }
-
-        private static void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapPointData>(mapData);
-            var sectionsStartPointData = (MapPointData) mapData;
-            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
-        }
-
-        private static void AssertFailureMechanismSectionsEndPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapPointData>(mapData);
-            var sectionsStartPointData = (MapPointData) mapData;
-            CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
         }
 
         private static void AssertSurfacelinesMapData(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, MapData mapData)

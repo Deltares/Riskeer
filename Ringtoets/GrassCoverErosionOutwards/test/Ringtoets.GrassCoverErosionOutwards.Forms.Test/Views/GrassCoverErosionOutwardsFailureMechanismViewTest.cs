@@ -227,10 +227,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 var mapDataList = mapData.Collection.ToList();
                 Assert.AreEqual(7, mapDataList.Count);
-                AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
+                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
-                AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
-                AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
+                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
+                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism.HydraulicBoundaryLocations, mapDataList[hydraulicBoundaryLocationsIndex]);
                 AssertForeshoreProfiles(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(),
@@ -305,14 +305,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 var referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
-                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 // Call
                 assessmentSection.ReferenceLine.SetGeometry(points2);
                 assessmentSection.NotifyObservers();
 
                 // Assert
-                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
             }
         }
 
@@ -343,8 +343,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 // Assert
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
-                AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
-                AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
+                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
+                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
             }
         }
 
@@ -617,21 +617,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             }
         }
 
-        private static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapLineData>(mapData);
-            var referenceLineData = (MapLineData) mapData;
-            if (referenceLine == null)
-            {
-                CollectionAssert.IsEmpty(referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
-            }
-            else
-            {
-                CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
-            }
-            Assert.AreEqual("Referentielijn", mapData.Name);
-        }
-
         private static void AssertForeshoreProfiles(IEnumerable<ForeshoreProfile> foreshoreProfiles, MapData mapData)
         {
             Assert.NotNull(foreshoreProfiles, "foreshoreProfiles should never be null.");
@@ -649,14 +634,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             }
 
             Assert.AreEqual("Voorlandprofielen", mapData.Name);
-        }
-
-        private static void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapPointData>(mapData);
-            var sectionsStartPointData = (MapPointData) mapData;
-            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
         }
 
         private static void AssertCalculationsMapData(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations, MapData mapData)
@@ -681,14 +658,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                                                geometries[0].PointCollections.First());
             }
             Assert.AreEqual("Berekeningen", mapData.Name);
-        }
-
-        private static void AssertFailureMechanismSectionsEndPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapPointData>(mapData);
-            var sectionsStartPointData = (MapPointData) mapData;
-            CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
         }
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)

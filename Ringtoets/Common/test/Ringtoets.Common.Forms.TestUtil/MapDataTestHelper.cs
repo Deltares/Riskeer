@@ -25,6 +25,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -72,6 +73,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>.</item>
+        /// <item><paramref name="mapData"/> has features when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</item>
         /// <item>The number of hydraulic boundary locations and features in <see cref="MapData"/> are not the same.</item>
         /// <item>The point of a hydraulic boundary location and the geometry of a corresponding feature are not the same.</item>
         /// <item>The name of the <see cref="MapData"/> is not <c>"Hydraulische randvoorwaarden"</c>.</item>
@@ -93,6 +95,77 @@ namespace Ringtoets.Common.Forms.TestUtil
                                           hydraulicLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
             }
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the <paramref name="referenceLine"/>.
+        /// </summary>
+        /// <param name="referenceLine">The reference line that contain the original data.</param>
+        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="mapData"/> is not <see cref="MapLineData"/>.</item>
+        /// <item><paramref name="mapData"/> has features when <paramref name="referenceLine"/> is <c>null</c>.</item>
+        /// <item><paramref name="mapData"/> has more than one feature.</item>
+        /// <item>The points of the reference line and the geometry of the first feature are not the same.</item>
+        /// <item>The name of the <see cref="MapData"/> is not <c>"Referentielijn"</c>.</item>
+        /// </list></exception>
+        public static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapLineData>(mapData);
+            var referenceLineData = (MapLineData)mapData;
+            if (referenceLine == null)
+            {
+                CollectionAssert.IsEmpty(referenceLineData.Features);
+            }
+            else
+            {
+                Assert.AreEqual(1, referenceLineData.Features.Length);
+                CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
+            }
+            Assert.AreEqual("Referentielijn", mapData.Name);
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the start points of the <paramref name="sections"/>.
+        /// </summary>
+        /// <param name="sections">The sections that contains the original data.</param>
+        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>.</item>
+        /// <item><paramref name="mapData"/> has more than one feature.</item>
+        /// <item>The start points of the sections and the geometry of the first feature are not the same.</item>
+        /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling (startpunten)"</c>.</item>
+        /// </list></exception>
+        public static void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapPointData>(mapData);
+            var sectionsStartPointData = (MapPointData)mapData;
+            Assert.AreEqual(1, sectionsStartPointData.Features.Length);
+            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
+            Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the end points of the <paramref name="sections"/>.
+        /// </summary>
+        /// <param name="sections">The sections that contains the original data.</param>
+        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>.</item>
+        /// <item><paramref name="mapData"/> has more than one feature.</item>
+        /// <item>The end points of the sections and the geometry of the first feature are not the same.</item>
+        /// <item>The name of the <see cref="MapData"/> is not <c>"Vakindeling (eindpunten)"</c>.</item>
+        /// </list></exception>
+        public static void AssertFailureMechanismSectionsEndPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapPointData>(mapData);
+            var sectionsEndPointData = (MapPointData)mapData;
+            Assert.AreEqual(1, sectionsEndPointData.Features.Length);
+            CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsEndPointData.Features.First().MapGeometries.First().PointCollections.First());
+            Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
         }
     }
 }
