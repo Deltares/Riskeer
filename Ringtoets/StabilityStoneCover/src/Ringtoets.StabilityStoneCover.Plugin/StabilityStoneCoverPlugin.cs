@@ -45,9 +45,6 @@ using Ringtoets.StabilityStoneCover.IO;
 using Ringtoets.StabilityStoneCover.Service;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using StabilityStoneCoverFormsResources = Ringtoets.StabilityStoneCover.Forms.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
-using RingtoetsRevetmentServiceResources = Ringtoets.Revetment.Service.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Plugin
 {

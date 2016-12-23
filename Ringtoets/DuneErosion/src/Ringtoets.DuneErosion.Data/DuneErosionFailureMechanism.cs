@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data.Properties;
 
 namespace Ringtoets.DuneErosion.Data
@@ -41,6 +43,7 @@ namespace Ringtoets.DuneErosion.Data
             : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code)
         {
             sectionResults = new List<DuneErosionFailureMechanismSectionResult>();
+            HydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -58,6 +61,11 @@ namespace Ringtoets.DuneErosion.Data
                 return sectionResults;
             }
         }
+
+        /// <summary>
+        /// Gets the hydraulic boundary locations.
+        /// </summary>
+        public ObservableList<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; private set; }
 
         public override void AddSection(FailureMechanismSection section)
         {

@@ -26,13 +26,13 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.PresentationObjects;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
+namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class HydraulicBoundariesGroupContextTest
+    public class HydraulicBoundaryLocationsContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -41,10 +41,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var mockRepository = new MockRepository();
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionStub);
+            var context = new HydraulicBoundaryLocationsContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionStub);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(context);
@@ -63,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundariesGroupContext(new ObservableList<HydraulicBoundaryLocation>(), null, assessmentSectionStub);
+            TestDelegate call = () => new HydraulicBoundaryLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), null, assessmentSectionStub);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -74,10 +74,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, null);
+            TestDelegate call = () => new HydraulicBoundaryLocationsContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

@@ -40,6 +40,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             Assert.AreEqual("Duinwaterkering - Duinafslag", failureMechanism.Name);
             Assert.AreEqual("DA", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.HydraulicBoundaryLocations);
         }
 
         [Test]
