@@ -467,8 +467,8 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddDeleteItem();
-                builder.AddSeparator();
+                builder.AddDeleteItem()
+                       .AddSeparator();
             }
 
             return builder.AddCollapseAllItem()
