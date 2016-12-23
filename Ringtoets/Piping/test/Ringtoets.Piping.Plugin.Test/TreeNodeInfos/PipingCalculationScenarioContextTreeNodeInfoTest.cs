@@ -51,6 +51,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class PipingCalculationScenarioContextTreeNodeInfoTest : NUnitFormTest
     {
+        private const int contextMenuValidateIndex = 1;
+        private const int contextMenuCalculateIndex = 2;
+        private const int contextMenuClearIndex = 4;
+
         private MockRepository mocks;
         private PipingPlugin plugin;
         private TreeNodeInfo info;
@@ -201,9 +205,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, RingtoetsCommonFormsResources.Validate, RingtoetsCommonFormsResources.Validate_ToolTip, RingtoetsCommonFormsResources.ValidateIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear, RingtoetsCommonFormsResources.ClearIcon, false);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex, RingtoetsCommonFormsResources.Validate, RingtoetsCommonFormsResources.Validate_ToolTip, RingtoetsCommonFormsResources.ValidateIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuClearIndex, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear, RingtoetsCommonFormsResources.ClearIcon, false);
                 }
             }
         }
@@ -243,9 +247,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, RingtoetsCommonFormsResources.Validate, RingtoetsCommonFormsResources.Validate_ToolTip, RingtoetsCommonFormsResources.ValidateIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.Clear_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex, RingtoetsCommonFormsResources.Validate, RingtoetsCommonFormsResources.Validate_ToolTip, RingtoetsCommonFormsResources.ValidateIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuClearIndex, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.Clear_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
                 }
             }
         }
@@ -265,18 +269,21 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                     assessmentSectionMock);
 
                 var menuBuilderMock = mocks.Stub<IContextMenuBuilder>();
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                using (mocks.Ordered())
+                {
+                    menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                }
 
                 var gui = mocks.StrictMock<IGui>();
                 gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
@@ -434,8 +441,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl))
                 {
                     // When
-                    var calculateContextMenuItemIndex = 1;
-                    Action action = () => contextMenuStrip.Items[calculateContextMenuItemIndex].PerformClick();
+                    Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 
                     // Then
                     var expectedValidationMessageCount = 5;
@@ -489,8 +495,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl))
                 {
                     // When
-                    var validateContextMenuItemIndex = 0;
-                    Action action = () => contextMenuStrip.Items[validateContextMenuItemIndex].PerformClick();
+                    Action action = () => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
 
                     // Then
                     var expectedValidationMessageCount = 5;
@@ -545,8 +550,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl))
                 {
                     // When
-                    var calculateContextMenuItemIndex = 1;
-                    Action action = () => contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
+                    Action action = () => contextMenuAdapter.Items[contextMenuCalculateIndex].PerformClick();
 
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>
@@ -622,8 +626,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl))
                 {
                     // When
-                    int clearOutputItemPosition = 2;
-                    contextMenuStrip.Items[clearOutputItemPosition].PerformClick();
+                    contextMenuStrip.Items[contextMenuClearIndex].PerformClick();
 
                     // Then
                     Assert.AreNotEqual(confirm, calculation.HasOutput);

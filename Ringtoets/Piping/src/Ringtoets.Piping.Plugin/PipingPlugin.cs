@@ -527,10 +527,11 @@ namespace Ringtoets.Piping.Plugin
                               pipingFailureMechanismContext,
                               ValidateAll)
                           .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll)
+                          .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -554,8 +555,8 @@ namespace Ringtoets.Piping.Plugin
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .Build();
         }
 
@@ -615,15 +616,15 @@ namespace Ringtoets.Piping.Plugin
 
             PipingCalculation calculation = nodeData.WrappedData;
 
-            return builder.AddValidateCalculationItem(nodeData, Validate)
+            return builder.AddRenameItem()
+                          .AddValidateCalculationItem(nodeData, Validate)
                           .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
-                          .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
-                          .AddRenameItem()
+                          .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -740,29 +741,33 @@ namespace Ringtoets.Piping.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddCalculationScenario);
-
-            if (!isNestedGroup)
-            {
-                builder.AddSeparator()
-                       .AddRemoveAllChildrenItem();
-            }
-
-            builder.AddSeparator()
-                   .AddValidateAllCalculationsInGroupItem(nodeData, ValidateAll)
-                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll)
-                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddCreateCalculationItem(nodeData, AddCalculationScenario)
                    .AddSeparator();
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem()
-                       .AddDeleteItem()
+                builder.AddRenameItem();
+            }
+
+            builder.AddValidateAllCalculationsInGroupItem(nodeData, ValidateAll)
+                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll)
+                   .AddSeparator()
+                   .AddClearAllCalculationOutputInGroupItem(group);
+
+            if (!isNestedGroup)
+            {
+                builder.AddRemoveAllChildrenItem()
                        .AddSeparator();
             }
 
-            return builder.AddExpandAllItem()
-                          .AddCollapseAllItem()
+            if (isNestedGroup)
+            {
+                builder.AddDeleteItem()
+                       .AddSeparator();
+            }
+
+            return builder.AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
