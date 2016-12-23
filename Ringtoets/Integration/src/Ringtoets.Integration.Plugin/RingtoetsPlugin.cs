@@ -693,8 +693,8 @@ namespace Ringtoets.Integration.Plugin
                     return Gui.Get(nodeData, treeViewControl)
                               .AddCustomItem(addItem)
                               .AddSeparator()
-                              .AddExpandAllItem()
                               .AddCollapseAllItem()
+                              .AddExpandAllItem()
                               .AddSeparator()
                               .AddPropertiesItem()
                               .Build();
@@ -1101,10 +1101,11 @@ namespace Ringtoets.Integration.Plugin
                       .AddOpenItem()
                       .AddSeparator()
                       .AddRenameItem()
+                      .AddSeparator()
                       .AddDeleteItem()
                       .AddSeparator()
-                      .AddExpandAllItem()
                       .AddCollapseAllItem()
+                      .AddExpandAllItem()
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
@@ -1244,8 +1245,8 @@ namespace Ringtoets.Integration.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -1264,8 +1265,8 @@ namespace Ringtoets.Integration.Plugin
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .Build();
         }
 
@@ -1293,8 +1294,8 @@ namespace Ringtoets.Integration.Plugin
         private ContextMenuStrip CategoryTreeFolderContextMenu(CategoryTreeFolder nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
-                      .AddExpandAllItem()
                       .AddCollapseAllItem()
+                      .AddExpandAllItem()
                       .Build();
         }
 

@@ -275,15 +275,18 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var gui = mocks.StrictMock<IGui>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                using (mocks.Ordered())
+                {
+                    menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                }
 
                 gui.Expect(cmp => cmp.Get(context, treeView)).Return(menuBuilderMock);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
@@ -321,11 +324,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var gui = mocks.StrictMock<IGui>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                using (mocks.Ordered())
+                {
+                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                }
 
                 gui.Expect(cmp => cmp.Get(context, treeView)).Return(menuBuilderMock);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
