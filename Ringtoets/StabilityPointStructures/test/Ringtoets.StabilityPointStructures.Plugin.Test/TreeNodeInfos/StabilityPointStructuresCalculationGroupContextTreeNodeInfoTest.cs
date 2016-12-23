@@ -57,15 +57,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuGenerateCalculationsIndexRootGroup = 0;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 2;
         private const int contextMenuAddCalculationIndexRootGroup = 3;
-        private const int contextMenuValidateAllIndexRootGroup = 7;
-        private const int contextMenuCalculateAllIndexRootGroup = 8;
-        private const int contextMenuClearAllIndexRootGroup = 9;
+        private const int contextMenuValidateAllIndexRootGroup = 5;
+        private const int contextMenuCalculateAllIndexRootGroup = 6;
+        private const int contextMenuClearAllIndexRootGroup = 8;
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuAddCalculationIndexNestedGroup = 1;
-        private const int contextMenuValidateAllIndexNestedGroup = 3;
-        private const int contextMenuCalculateAllIndexNestedGroup = 4;
-        private const int contextMenuClearAllIndexNestedGroup = 5;
+        private const int contextMenuValidateAllIndexNestedGroup = 4;
+        private const int contextMenuCalculateAllIndexNestedGroup = 5;
+        private const int contextMenuClearAllIndexNestedGroup = 7;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private IGui guiMock;

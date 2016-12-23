@@ -46,7 +46,6 @@ using Ringtoets.StabilityPointStructures.IO;
 using Ringtoets.StabilityPointStructures.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Plugin
@@ -383,10 +382,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                               ValidateAll,
                               ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                          .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismContext.WrappedData)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -405,8 +405,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(stabilityPointStructuresFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .Build();
         }
 
@@ -475,31 +475,35 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(context, AddCalculation);
-
-            if (!isNestedGroup)
-            {
-                builder.AddSeparator()
-                       .AddRemoveAllChildrenItem();
-            }
-
-            builder.AddSeparator()
-                   .AddValidateAllCalculationsInGroupItem(context,
-                                                          ValidateAll,
-                                                          ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
-                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
-                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddCreateCalculationItem(context, AddCalculation)
                    .AddSeparator();
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem()
-                       .AddDeleteItem()
+                builder.AddRenameItem();
+            }
+
+            builder.AddValidateAllCalculationsInGroupItem(context,
+                                                          ValidateAll,
+                                                          ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
+                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
+                   .AddSeparator()
+                   .AddClearAllCalculationOutputInGroupItem(group);
+
+            if (!isNestedGroup)
+            {
+                builder.AddRemoveAllChildrenItem()
                        .AddSeparator();
             }
 
-            return builder.AddExpandAllItem()
-                          .AddCollapseAllItem()
+            if (isNestedGroup)
+            {
+                builder.AddDeleteItem()
+                       .AddSeparator();
+            }
+
+            return builder.AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -631,15 +635,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             StructuresCalculation<StabilityPointStructuresInput> calculation = context.WrappedData;
 
-            return builder.AddValidateCalculationItem(context, Validate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+            return builder.AddRenameItem()
+                          .AddValidateCalculationItem(context, Validate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                          .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
-                          .AddRenameItem()
+                          .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
