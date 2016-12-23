@@ -60,6 +60,7 @@
     <Compile Include="PropertyInfos\DuneErosionFailureMechanismPropertyInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DuneErosionFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DuneErosionFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\HydraulicBoundaryLocationsContextTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\DuneErosionFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\DuneErosionFailureMechanismViewInfoTest.cs" />
   </ItemGroup>
@@ -105,6 +106,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
       <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>

@@ -19,11 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -33,6 +36,7 @@ using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Plugin
 {
@@ -69,6 +73,16 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<HydraulicBoundaryLocationsContext>
+            {
+                Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ForeColor = context => context.WrappedData.Count > 0 ?
+                                           Color.FromKnownColor(KnownColor.ControlText) :
+                                           Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = HydraulicBoundaryLocationsContextMenuStrip
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -104,6 +118,7 @@ namespace Ringtoets.DuneErosion.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
+                new HydraulicBoundaryLocationsContext(wrappedData.HydraulicBoundaryLocations, wrappedData, failureMechanismContext.Parent), 
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }        
@@ -170,6 +185,29 @@ namespace Ringtoets.DuneErosion.Plugin
         private void RemoveAllViewsForItem(DuneErosionFailureMechanismContext failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+        }
+
+        #endregion
+
+        #region HydraulicBoundaryLocationsContext TreeNodeInfo
+
+        private ContextMenuStrip HydraulicBoundaryLocationsContextMenuStrip(HydraulicBoundaryLocationsContext context, object parent, TreeViewControl treeViewControl)
+        {
+            var calculateAllItem = new StrictContextMenuItem(RingtoetsCommonFormsResources.Calculate_all,
+                                                             RingtoetsCommonFormsResources.Calculate_all_ToolTip,
+                                                             RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                             (sender, args) => { })
+            {
+                Enabled = false
+            };
+
+            return Gui.Get(context, treeViewControl)
+                      .AddExportItem()
+                      .AddSeparator()
+                      .AddCustomItem(calculateAllItem)
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
         }
 
         #endregion

@@ -106,7 +106,7 @@ namespace Ringtoets.DunErosion.Plugin.Test.TreeNodeInfos
             var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
             // Assert
-            Assert.AreEqual(2, children.Length);
+            Assert.AreEqual(3, children.Length);
 
             var inputsFolder = (CategoryTreeFolder)children[0];
             Assert.AreEqual("Invoer", inputsFolder.Name);
@@ -120,7 +120,12 @@ namespace Ringtoets.DunErosion.Plugin.Test.TreeNodeInfos
             var inputComment = (Comment)inputsFolder.Contents[1];
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
-            var outputsFolder = (CategoryTreeFolder)children[1];
+            var hydraulicBoundaryLocationsContext = (HydraulicBoundaryLocationsContext) children[1];
+            Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, hydraulicBoundaryLocationsContext.WrappedData);
+            Assert.AreSame(failureMechanism, hydraulicBoundaryLocationsContext.FailureMechanism);
+            Assert.AreSame(assessmentSectionStub, hydraulicBoundaryLocationsContext.AssessmentSection);
+
+            var outputsFolder = (CategoryTreeFolder)children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
