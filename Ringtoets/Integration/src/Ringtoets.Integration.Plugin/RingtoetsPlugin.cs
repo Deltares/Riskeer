@@ -1406,8 +1406,8 @@ namespace Ringtoets.Integration.Plugin
                       .AddCustomItem(connectionItem)
                       .AddExportItem()
                       .AddSeparator()
-                      .AddExpandAllItem()
                       .AddCollapseAllItem()
+                      .AddExpandAllItem()
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
