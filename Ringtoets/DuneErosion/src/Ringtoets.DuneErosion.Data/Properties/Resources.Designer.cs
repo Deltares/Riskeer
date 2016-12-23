@@ -43,7 +43,7 @@ namespace Ringtoets.DuneErosion.Data.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Ringtoets.DuneErosion.Data.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.DuneErosion.Data.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Ringtoets.DuneErosion.Data.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -84,7 +84,7 @@ namespace Ringtoets.DuneErosion.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to DA.
         /// </summary>
-        internal static string DuneErosionFailureMechanism_Code {
+        public static string DuneErosionFailureMechanism_Code {
             get {
                 return ResourceManager.GetString("DuneErosionFailureMechanism_Code", resourceCulture);
             }
@@ -93,7 +93,7 @@ namespace Ringtoets.DuneErosion.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Duinwaterkering - Duinafslag.
         /// </summary>
-        internal static string DuneErosionFailureMechanism_DisplayName {
+        public static string DuneErosionFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("DuneErosionFailureMechanism_DisplayName", resourceCulture);
             }
