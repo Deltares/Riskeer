@@ -34,7 +34,12 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         public PropertyInfo()
         {
-            CreateInstance = o => (IObjectProperties) Activator.CreateInstance(PropertyObjectType);
+            CreateInstance = o =>
+            {
+                var properties = (IObjectProperties)Activator.CreateInstance(PropertyObjectType);
+                properties.Data = o;
+                return properties;
+            };
         }
 
         /// <summary>
@@ -49,10 +54,18 @@ namespace Core.Common.Gui.Plugin
 
         /// <summary>
         /// Gets or sets the optional function used to create a new property instance.
+        /// The function provided should guarantee that <see cref="IObjectProperties.Data"/> property
+        /// for the newly created property instance is set.
         /// </summary>
         /// <example>
         /// As an example, you could implement this as follows:
-        /// <code>var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties &gt; { CreateInstance = o =&gt; new ModelImplementationFolderProperties(o) };</code>
+        /// <code>var propertyInfo = new PropertyInfo &lt;Folder, ModelImplementationFolderProperties&gt; 
+        /// { 
+        ///     CreateInstance = o =&gt; new ModelImplementationFolderProperties 
+        ///     { 
+        ///          Data = o 
+        ///     }
+        /// };</code>
         /// </example>
         public Func<object, IObjectProperties> CreateInstance { get; set; }
     }
@@ -69,7 +82,12 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         public PropertyInfo()
         {
-            CreateInstance = o => (TProperty) Activator.CreateInstance(PropertyObjectType);
+            CreateInstance = o =>
+            {
+                var properties = (TProperty) Activator.CreateInstance(PropertyObjectType);
+                properties.Data = o;
+                return properties;
+            };
         }
 
         /// <summary>
@@ -96,10 +114,18 @@ namespace Core.Common.Gui.Plugin
 
         /// <summary>
         /// Gets or sets the optional function used to create a new property instance.
+        /// The function provided should guarantee that <see cref="IObjectProperties.Data"/> property
+        /// for the newly created property instance is set.
         /// </summary>
         /// <example>
         /// As an example, you could implement this as follows:
-        /// <code>var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties &gt; { CreateInstance = o =&gt; new ModelImplementationFolderProperties(o) };</code>
+        /// <code>var propertyInfo = new PropertyInfo &lt;Folder, ModelImplementationFolderProperties&gt; 
+        /// { 
+        ///     CreateInstance = o =&gt; new ModelImplementationFolderProperties 
+        ///     { 
+        ///          Data = o 
+        ///     }
+        /// };</code>
         /// </example>
         public Func<TObject, TProperty> CreateInstance { get; set; }
 

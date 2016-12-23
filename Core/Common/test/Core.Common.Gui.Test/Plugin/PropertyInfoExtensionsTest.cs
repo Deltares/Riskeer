@@ -52,7 +52,7 @@ namespace Core.Common.Gui.Test.Plugin
             const int integerValue = 22;
 
             // Call
-            var properties = propertyInfo.CreateObjectProperties(integerValue);
+            IObjectProperties properties = propertyInfo.CreateObjectProperties(integerValue);
 
             // Assert
             Assert.IsInstanceOf<TestIntProperties>(properties);
@@ -77,7 +77,7 @@ namespace Core.Common.Gui.Test.Plugin
             const int integerValue = 22;
 
             // Call
-            var properties = propertyInfo.CreateObjectProperties(integerValue);
+            IObjectProperties properties = propertyInfo.CreateObjectProperties(integerValue);
 
             // Assert
             Assert.AreSame(testIntProperties, properties);
@@ -92,7 +92,7 @@ namespace Core.Common.Gui.Test.Plugin
             PropertyInfo propertyInfo = new PropertyInfo<int, TestIntProperties>();
 
             // Call
-            var properties = propertyInfo.CreateObjectProperties(sourceData);
+            IObjectProperties properties = propertyInfo.CreateObjectProperties(sourceData);
 
             // Assert
             Assert.IsInstanceOf<TestIntProperties>(properties);
@@ -115,7 +115,7 @@ namespace Core.Common.Gui.Test.Plugin
             };
 
             // Call
-            var properties = propertyInfo.CreateObjectProperties(sourceData);
+            IObjectProperties properties = propertyInfo.CreateObjectProperties(sourceData);
 
             // Assert
             Assert.IsInstanceOf<TestIntProperties>(properties);

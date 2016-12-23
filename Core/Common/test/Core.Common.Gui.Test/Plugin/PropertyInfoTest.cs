@@ -70,7 +70,7 @@ namespace Core.Common.Gui.Test.Plugin
         }
 
         [Test]
-        public void CreateInstance_ViewtypeWithDefaultConstructor_ReturnView()
+        public void CreateInstance_DataTypeWithDefaultConstructor_ReturnPropertiesWithDataSet()
         {
             // Setup
             var info = new PropertyInfo
@@ -78,25 +78,30 @@ namespace Core.Common.Gui.Test.Plugin
                 DataType = typeof(int),
                 PropertyObjectType = typeof(TestObjectProperties),
             };
+            var data = new Random(21).Next();
 
             // Call
-            object properties = info.CreateInstance(new Random(21).Next());
+            object properties = info.CreateInstance(data);
 
             // Assert
             Assert.IsInstanceOf<TestObjectProperties>(properties);
+            var testObjectProperties = (TestObjectProperties)properties;
+            Assert.AreEqual(data, testObjectProperties.Data);
         }
 
         [Test]
-        public void CreateInstance_ViewTypeHasDefaultConstructor_ReturnView()
+        public void CreateInstanceGeneric_DataTypeHasDefaultConstructor_ReturnPropertiesWithDataSet()
         {
             // Setup
             var info = new PropertyInfo<int, TestObjectProperties>();
+            var data = new Random(21).Next();
 
             // Call
-            TestObjectProperties properties = info.CreateInstance(new Random(21).Next());
+            TestObjectProperties properties = info.CreateInstance(data);
 
             // Assert
             Assert.IsNotNull(properties);
+            Assert.AreEqual(data, properties.Data);
         }
         
         [Test]
