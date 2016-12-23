@@ -325,7 +325,10 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void CreateCustomImportItem_TextNull_ThrowArgumentNullException()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void CreateCustomImportItem_TextInvalid_ThrowArgumentException(string text)
         {
             // Setup
             const string toolTip = "Import tooltip";
@@ -346,11 +349,12 @@ namespace Core.Common.Gui.Test.ContextMenu
                                                                    nodeData);
 
             // Call
-            TestDelegate test = () => contextMenuFactory.CreateCustomImportItem(null, toolTip, image);
+            TestDelegate test = () => contextMenuFactory.CreateCustomImportItem(text, toolTip, image);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Text should be set.");
             Assert.AreEqual("text", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -380,6 +384,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("toolTip", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -409,6 +414,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("image", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]

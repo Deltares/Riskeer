@@ -49,6 +49,8 @@ namespace Core.Components.Gis.IO.Importers
         /// </summary>
         /// <param name="importTarget">The <see cref="MapDataCollection"/> to add the imported data to.</param>
         /// <param name="filePath">The path to the file to import from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/>
+        /// or <paramref name="filePath"/> is <c>null</c>.</exception>
         public FeatureBasedMapDataImporter(MapDataCollection importTarget, string filePath)
             : base(filePath, importTarget) {}
 

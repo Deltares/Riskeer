@@ -28,13 +28,12 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
-using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Common.IO.ReferenceLines
 {
     /// <summary>
-    /// Imports a <see cref="ReferenceLine"/> and stores it on a <see cref="IAssessmentSection"/>,
+    /// Imports a <see cref="ReferenceLine"/> and stores it on an <see cref="IAssessmentSection"/>,
     /// taking data from a shapefile containing a single polyline.
     /// </summary>
     public class ReferenceLineImporter : FileImporterBase<IAssessmentSection>

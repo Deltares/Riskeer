@@ -145,12 +145,15 @@ namespace Core.Common.Gui.ContextMenu
         /// <param name="toolTip">The toolTip of the import item.</param>
         /// <param name="image">The image of the import item.</param>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="text"/>
+        /// is <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="toolTip"/>
+        /// or <paramref name="image"/> is <c>null</c>.</exception>
         public ToolStripItem CreateCustomImportItem(string text, string toolTip, Image image)
         {
-            if (text == null)
+            if(string.IsNullOrWhiteSpace(text))
             {
-                throw new ArgumentNullException("text");
+                throw new ArgumentException(@"Text should be set.", "text");
             }
             if (toolTip == null)
             {
