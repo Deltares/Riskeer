@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Service
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to clear the output for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         /// <returns>All objects that have been changed.</returns>
-        public static IEnumerable<IObservable> ClearCalculationOutput<T>(StructuresCalculation<T> calculation) where T : ICalculationInput, new()
+        public static IEnumerable<IObservable> ClearCalculationOutput(ICalculation calculation)
         {
             if (calculation == null)
             {

@@ -408,20 +408,17 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_WithData_UpdateDataAndNotifyObservers()
+        public void SetProperties_WithData_PropertiesOnInputSet()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var projectObserver = mocks.StrictMock<IObserver>();
-            projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
             PipingInput inputParameters = new PipingInput(new GeneralPipingInput());
-            inputParameters.Attach(projectObserver);
 
             PipingInputContextProperties properties = new PipingInputContextProperties
             {
@@ -433,93 +430,131 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               assessmentSection)
             };
 
+            const double assessmentLevel = 0.36;
             const double entryPointL = 0.12;
+            const double exitPointL = 0.44;
+            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            StochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
+            StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
+            var dampingFactorExit = new LogNormalDistributionDesignVariable(
+                new LogNormalDistribution(3)
+                {
+                    Mean = (RoundedDouble) 1.55,
+                    StandardDeviation = (RoundedDouble) 0.22
+                });
+            var phreaticLevelExit = new NormalDistributionDesignVariable(
+                new NormalDistribution(3)
+                {
+                    Mean = (RoundedDouble) 1.55,
+                    StandardDeviation = (RoundedDouble) 0.22
+                });
 
             // Call
+            properties.UseAssessmentLevelManualInput = true;
+            properties.AssessmentLevel = (RoundedDouble) assessmentLevel;
+            properties.SurfaceLine = surfaceLine;
             properties.EntryPointL = (RoundedDouble) entryPointL;
+            properties.ExitPointL = (RoundedDouble) exitPointL;
+            properties.StochasticSoilModel = soilModel;
+            properties.StochasticSoilProfile = soilProfile;
+            properties.DampingFactorExit = dampingFactorExit;
+            properties.PhreaticLevelExit = phreaticLevelExit;
 
             // Assert
+            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel.Value);
             Assert.AreEqual(entryPointL, inputParameters.EntryPointL.Value);
-            mocks.VerifyAll();
+            Assert.AreEqual(exitPointL, inputParameters.ExitPointL.Value);
+            Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
+            Assert.AreSame(soilModel, inputParameters.StochasticSoilModel);
+            Assert.AreSame(soilProfile, inputParameters.StochasticSoilProfile);
+            DistributionAssert.AreEqual(dampingFactorExit.Distribution, inputParameters.DampingFactorExit);
+            DistributionAssert.AreEqual(phreaticLevelExit.Distribution, inputParameters.PhreaticLevelExit);
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SetSurfaceLine_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var projectObserver = mocks.StrictMock<IObserver>();
-            int numberOfChangedProperties = 6;
-            projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mocks.ReplayAll();
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.SurfaceLine = ValidSurfaceLine(0.0, 4.0));
+        }
 
-            PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                InputParameters =
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SetStochasticSoilModel_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.StochasticSoilModel = ValidStochasticSoilModel(0.0, 4.0));
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SetStochasticSoilProfile_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.StochasticSoilProfile = ValidStochasticSoilModel(0.0, 4.0).StochasticSoilProfiles.First());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SetAssessmentLevel_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+                hasOutput,
+                properties => properties.AssessmentLevel = new Random(21).NextRoundedDouble(),
+                new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    SurfaceLine = ValidSurfaceLine(0.0, 4.0)
-                }
-            };
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+                    InputParameters =
+                    {
+                        UseAssessmentLevelManualInput = true
+                    }
+                });
+        }
 
-            PipingInput inputParameters = calculationItem.InputParameters;
-            inputParameters.Attach(projectObserver);
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SetDampingFactorExit_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput, 
+                properties => properties.DampingFactorExit = new LogNormalDistributionDesignVariable(new LogNormalDistribution(3)));
+        }
 
-            Random random = new Random(22);
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SetPhreaticLevelExit_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput, 
+                properties => properties.PhreaticLevelExit = new NormalDistributionDesignVariable(new NormalDistribution(3)));
+        }
 
-            RoundedDouble assessmentLevel = (RoundedDouble) random.NextDouble();
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SetEntryPoinL_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.EntryPointL = new Random(21).NextRoundedDouble());
+        }
 
-            LogNormalDistribution dampingFactorExit = new LogNormalDistribution(3);
-            NormalDistribution phreaticLevelExit = new NormalDistribution(2);
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SetExitPointL_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.ExitPointL = new Random(21).NextRoundedDouble());
+        }
 
-            RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            StochasticSoilModel stochasticSoilModel1 = ValidStochasticSoilModel(0.0, 4.0);
-
-            StochasticSoilModel stochasticSoilModel2 = ValidStochasticSoilModel(0.0, 4.0);
-            StochasticSoilProfile stochasticSoilProfile2 = stochasticSoilModel2.StochasticSoilProfiles.First();
-            stochasticSoilModel2.StochasticSoilProfiles.Add(new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 1234));
-
-            // Call
-            new PipingInputContextProperties
-            {
-                Data = new PipingInputContext(inputParameters,
-                                              calculationItem,
-                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              new[]
-                                              {
-                                                  stochasticSoilModel1,
-                                                  stochasticSoilModel2
-                                              },
-                                              failureMechanism,
-                                              assessmentSection),
-                DampingFactorExit = new LogNormalDistributionDesignVariable(dampingFactorExit),
-                PhreaticLevelExit = new NormalDistributionDesignVariable(phreaticLevelExit),
-                SurfaceLine = surfaceLine,
-                StochasticSoilModel = stochasticSoilModel2,
-                StochasticSoilProfile = stochasticSoilProfile2,
-                SelectedHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(
-                    TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel), null)
-            };
-
-            // Assert
-            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel, inputParameters.AssessmentLevel.GetAccuracy());
-
-            Assert.AreEqual(dampingFactorExit.Mean, inputParameters.DampingFactorExit.Mean,
-                            inputParameters.DampingFactorExit.GetAccuracy());
-            Assert.AreEqual(dampingFactorExit.StandardDeviation, inputParameters.DampingFactorExit.StandardDeviation,
-                            inputParameters.DampingFactorExit.GetAccuracy());
-
-            Assert.AreEqual(phreaticLevelExit.Mean, inputParameters.PhreaticLevelExit.Mean,
-                            inputParameters.PhreaticLevelExit.GetAccuracy());
-            Assert.AreEqual(phreaticLevelExit.StandardDeviation, inputParameters.PhreaticLevelExit.StandardDeviation,
-                            inputParameters.PhreaticLevelExit.GetAccuracy());
-
-            Assert.AreEqual(surfaceLine, inputParameters.SurfaceLine);
-            Assert.AreEqual(stochasticSoilModel2, inputParameters.StochasticSoilModel);
-            Assert.AreEqual(stochasticSoilProfile2, inputParameters.StochasticSoilModel.StochasticSoilProfiles.First());
-
-            mocks.VerifyAll();
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SetUseCustomAssessmentLevel_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.UseAssessmentLevelManualInput = true);
         }
 
         [Test]
@@ -1604,6 +1639,148 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                          .OrderBy(hbl => hbl.Distance)
                                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicReadOnlyValidationMethod_AssessmentLevel_DependsOnUseCustomAssessmentLevel(bool useCustomAssessmentLevel)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                 Enumerable.Empty<StochasticSoilModel>(),
+                                                 failureMechanism, assessmentSection);
+
+            var properties = new PipingInputContextProperties
+            {
+                Data = context
+            };
+
+            calculation.InputParameters.UseAssessmentLevelManualInput = useCustomAssessmentLevel;
+
+            // Call
+            var result = properties.DynamicReadOnlyValidationMethod("AssessmentLevel");
+
+            // Assert
+            Assert.AreNotEqual(useCustomAssessmentLevel, result);
+        }
+
+        [Test]
+        public void DynamicReadOnlyValidationMethod_AnyOtherProperty_ReturnsTrue()
+        {
+            // Setup
+            var properties = new PipingInputContextProperties();
+
+            // Call
+            var result = properties.DynamicReadOnlyValidationMethod("prop");
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_SelectedHydraulicBoundaryLocation_DependsOnUseCustomAssessmentLevel(bool useCustomAssessmentLevel)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+            var context = new PipingInputContext(calculation.InputParameters, calculation,
+                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                 Enumerable.Empty<StochasticSoilModel>(),
+                                                 failureMechanism, assessmentSection);
+
+            var properties = new PipingInputContextProperties
+            {
+                Data = context
+            };
+
+            calculation.InputParameters.UseAssessmentLevelManualInput = useCustomAssessmentLevel;
+
+            // Call
+            var result = properties.DynamicVisibleValidationMethod("SelectedHydraulicBoundaryLocation");
+
+            // Assert
+            Assert.AreNotEqual(useCustomAssessmentLevel, result);
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsFalse()
+        {
+            // Setup
+            var properties = new PipingInputContextProperties();
+
+            // Call
+            var result = properties.DynamicVisibleValidationMethod("prop");
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        private void SetPropertyAndVerifyNotifcationsAndOutput(bool hasOutput, Action<PipingInputContextProperties> setProperty)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+                hasOutput,
+                setProperty,
+                new PipingCalculationScenario(new GeneralPipingInput()));
+        }
+
+        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+            bool hasOutput,
+            Action<PipingInputContextProperties> setProperty, 
+            PipingCalculationScenario calculation)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var inputObserver = mocks.StrictMock<IObserver>();
+            int numberOfChangedProperties = hasOutput ? 1 : 0;
+            calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            inputObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            PipingCalculationScenario calculationItem = calculation;
+            if (hasOutput)
+            {
+                calculationItem.Output = new TestPipingOutput();
+            }
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+
+            PipingInput inputParameters = calculationItem.InputParameters;
+            calculationItem.Attach(calculationObserver);
+            inputParameters.Attach(inputObserver);
+
+            Random random = new Random(22);
+            
+            // Call
+            var pipingInputContext = new PipingInputContext(inputParameters,
+                                                            calculationItem,
+                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                            failureMechanism,
+                                                            assessmentSection);
+
+            PipingInputContextProperties properties = new PipingInputContextProperties();
+            properties.Data = pipingInputContext;
+            setProperty(properties);
+
+            // Assert
+            Assert.IsFalse(calculationItem.HasOutput);
+
             mocks.VerifyAll();
         }
 

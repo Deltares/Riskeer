@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
@@ -32,6 +33,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
@@ -152,7 +154,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation;
-                data.WrappedData.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -170,7 +172,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.AssessmentLevel = value;
-                data.WrappedData.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -187,7 +189,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.UseAssessmentLevelManualInput = value;
-                data.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -205,7 +207,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.DampingFactorExit = value.Distribution;
-                data.WrappedData.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -223,7 +225,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.PhreaticLevelExit = value.Distribution;
-                data.WrappedData.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -260,7 +262,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 {
                     data.WrappedData.SurfaceLine = value;
                     PipingInputService.SetMatchingStochasticSoilModel(data.WrappedData, GetAvailableStochasticSoilModels());
-                    data.WrappedData.NotifyObservers();
+                    NotifyPropertyChanged();
                 }
             }
         }
@@ -282,7 +284,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 {
                     data.WrappedData.StochasticSoilModel = value;
                     PipingInputService.SyncStochasticSoilProfileWithStochasticSoilModel(data.WrappedData);
-                    data.WrappedData.NotifyObservers();
+                    NotifyPropertyChanged();
                 }
             }
         }
@@ -303,7 +305,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 if (!ReferenceEquals(value, data.WrappedData.StochasticSoilProfile))
                 {
                     data.WrappedData.StochasticSoilProfile = value;
-                    data.WrappedData.NotifyObservers();
+                    NotifyPropertyChanged();
                 }
             }
         }
@@ -321,7 +323,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.EntryPointL = value;
-                data.WrappedData.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -338,7 +340,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.ExitPointL = value;
-                data.WrappedData.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -434,5 +436,15 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         #endregion
+
+        private void NotifyPropertyChanged()
+        {
+            IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(data.PipingCalculation);
+            foreach (var calculation in affectedCalculation)
+            {
+                calculation.NotifyObservers();
+            }
+            data.WrappedData.NotifyObservers();
+        }
     }
 }

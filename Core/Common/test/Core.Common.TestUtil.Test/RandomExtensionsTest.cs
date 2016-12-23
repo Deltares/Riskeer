@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil.Test
@@ -94,6 +95,20 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
+        public void NextBoolean_RandomIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = (Random)null;
+
+            // Call
+            TestDelegate test = () => random.NextBoolean();
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("random", paramName);
+        }
+
+        [Test]
         [TestCase(0, true)]
         [TestCase(1, false)]
         public void NextBoolean_ReturnRandomTrueOrFalse(int seed, bool expectedFirstCallResult)
@@ -106,6 +121,20 @@ namespace Core.Common.TestUtil.Test
 
             // Assert
             Assert.AreEqual(expectedFirstCallResult, result);
+        }
+
+        [Test]
+        public void NextEnumValue_RandomIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = (Random)null;
+
+            // Call
+            TestDelegate test = () => random.NextEnumValue<TestEnum>();
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("random", paramName);
         }
 
         [Test]
@@ -134,6 +163,34 @@ namespace Core.Common.TestUtil.Test
 
             // Assert
             Assert.AreEqual(expectedFirstCallResult, result);
+        }
+
+        [Test]
+        public void NextRoundedDouble_RandomIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = (Random)null;
+
+            // Call
+            TestDelegate test = () => random.NextRoundedDouble();
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("random", paramName);
+        }
+
+        [Test]
+        public void NextRoundedDouble_Always_ReturnsNewRoundedDouble()
+        {
+            // Setup
+            var seededRandomA = new Random(21);
+            var seededRandomB = new Random(21);
+
+            // Call
+            RoundedDouble result = seededRandomA.NextRoundedDouble();
+
+            // Assert
+            Assert.AreEqual(seededRandomB.NextDouble(), result.Value, 1e-15);
         }
 
         public enum TestEnum
