@@ -27,6 +27,7 @@ using Core.Common.Base;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;

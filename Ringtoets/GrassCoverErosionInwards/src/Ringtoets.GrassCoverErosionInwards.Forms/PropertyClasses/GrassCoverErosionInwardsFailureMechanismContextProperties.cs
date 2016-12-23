@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -35,6 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismContextProperties : ObjectProperties<GrassCoverErosionInwardsFailureMechanismContext>
     {
+        private readonly IFailureMechanismPropertyChangeHandler propertyChangeHandler;
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int lengthEffectPropertyIndex = 3;
@@ -42,6 +44,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int fbFactorPropertyIndex = 5;
         private const int fnFactorPropertyIndex = 6;
         private const int fshallowModelFactorPropertyIndex = 7;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismContextProperties"/>.
+        /// </summary>
+        /// <param name="data">The instance to show the properties of.</param>
+        /// <param name="propertyChangeHandler">Handler responsible for handling effects of a property change.</param>
+        public GrassCoverErosionInwardsFailureMechanismContextProperties(
+            GrassCoverErosionInwardsFailureMechanismContext data, 
+            IFailureMechanismPropertyChangeHandler propertyChangeHandler)
+        {
+            Data = data;
+            this.propertyChangeHandler = propertyChangeHandler;
+        }
 
         #region Length effect parameters
 
@@ -57,8 +72,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.GeneralInput.N = value;
-                data.WrappedData.NotifyObservers();
+
+                if (propertyChangeHandler.ConfirmPropertyChange())
+                {
+                    data.WrappedData.GeneralInput.N = value;
+
+                    var changedObjects = propertyChangeHandler.PropertyChanged(data.WrappedData);
+                    foreach (IObservable changedObject in changedObjects)
+                    {
+                        changedObject.NotifyObservers();
+                    }
+                    data.WrappedData.NotifyObservers();
+                }
             }
         }
 

@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.Views;
+using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Service;
 using Ringtoets.Integration.TestUtils;

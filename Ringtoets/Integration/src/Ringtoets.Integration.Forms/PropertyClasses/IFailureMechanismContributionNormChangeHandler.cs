@@ -23,9 +23,8 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// Interface for an object that can properly change the <see cref="FailureMechanismContribution.Norm"/>

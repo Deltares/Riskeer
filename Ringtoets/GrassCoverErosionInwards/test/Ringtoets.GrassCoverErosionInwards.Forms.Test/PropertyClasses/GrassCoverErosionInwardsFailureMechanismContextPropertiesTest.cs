@@ -20,12 +20,13 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -54,26 +55,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Call
-            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties();
-
-            // Assert
-            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsFailureMechanismContext>>(properties);
-            Assert.IsNull(properties.Data);
-        }
-
-        [Test]
-        public void Data_SetNewFailureMechanismContextInstance_ReturnCorrectPropertyValues()
-        {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var handler = CreateSimpleHandler();
+
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties();
-
-            // Call
-            properties.Data = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
+                new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock),
+                handler
+            );
 
             // Assert
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, properties.Name);
@@ -100,6 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
+            var handler = CreateSimpleHandler();
             int numberOfChangedProperties = 1;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -107,10 +100,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.Attach(observerMock);
-            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties
-            {
-                Data = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock)
-            };
+            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
+                new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock),
+                handler
+            );
             const int newLengthEffect = 10;
 
             // Call
@@ -126,15 +119,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var handler = CreateSimpleHandler();
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties
-            {
-                Data = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock)
-            };
+            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
+                new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock),
+                handler
+            );
 
             // Assert
             var generalCategory = "Algemeen";
@@ -197,6 +191,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             true);
 
             mockRepository.VerifyAll();
+        }
+
+        private IFailureMechanismPropertyChangeHandler CreateSimpleHandler()
+        {
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
+            handler.Stub(h => h.ConfirmPropertyChange()).Return(true);
+            handler.Stub(h => h.PropertyChanged(Arg<GrassCoverErosionInwardsFailureMechanism>.Matches(z => true))).Return(Enumerable.Empty<IObservable>());
+
+            return handler;
         }
     }
 }

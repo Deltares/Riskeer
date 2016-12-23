@@ -28,7 +28,7 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Integration.Forms.Views;
+using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;

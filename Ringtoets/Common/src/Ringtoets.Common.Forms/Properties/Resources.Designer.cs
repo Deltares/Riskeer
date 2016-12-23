@@ -913,6 +913,18 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data {
+            get {
+                return ResourceManager.GetString("FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_depend" +
+                        "ent_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle berekeningen voor dit vak moeten een geldige uitkomst hebben..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output {

@@ -895,4 +895,9 @@
   <data name="CalculationOutput_TargetReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex doelkans [-]</value>
   </data>
+  <data name="FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data" xml:space="preserve">
+    <value>Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
 </root>

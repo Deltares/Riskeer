@@ -98,8 +98,8 @@
     <Compile Include="Views\DesignWaterLevelLocationsView.Designer.cs">
       <DependentUpon>DesignWaterLevelLocationsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\IAssessmentSectionCompositionChangeHandler.cs" />
-    <Compile Include="Views\IFailureMechanismContributionNormChangeHandler.cs" />
+    <Compile Include="PropertyClasses\IAssessmentSectionCompositionChangeHandler.cs" />
+    <Compile Include="PropertyClasses\IFailureMechanismContributionNormChangeHandler.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffInwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffOutwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\MacrostabilityInwardsSectionResultRow.cs" />

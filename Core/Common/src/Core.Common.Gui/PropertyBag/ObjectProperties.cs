@@ -32,7 +32,7 @@ namespace Core.Common.Gui.PropertyBag
         protected T data;
 
         [Browsable(false)]
-        public virtual object Data
+        public object Data
         {
             get
             {
