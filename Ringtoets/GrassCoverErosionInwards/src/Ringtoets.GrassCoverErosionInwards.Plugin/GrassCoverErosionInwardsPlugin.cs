@@ -46,7 +46,6 @@ using Ringtoets.GrassCoverErosionInwards.Utils;
 using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin
 {
@@ -382,10 +381,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     grassCoverErosionInwardsFailureMechanismContext,
                     CalculateAll,
                     ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                .AddSeparator()
                 .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
                 .AddSeparator()
-                .AddExpandAllItem()
                 .AddCollapseAllItem()
+                .AddExpandAllItem()
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();
@@ -405,8 +405,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return builder.AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext,
                                                                     RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .Build();
         }
 
@@ -474,32 +474,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(context, AddCalculation);
-
-            if (!isNestedGroup)
-            {
-                builder.AddSeparator()
-                       .AddRemoveAllChildrenItem();
-            }
-
-            builder.AddSeparator()
-                   .AddValidateAllCalculationsInGroupItem(
-                       context,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
-                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
-                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddCreateCalculationItem(context, AddCalculation)
                    .AddSeparator();
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem()
-                       .AddDeleteItem()
+                builder.AddRenameItem();
+            }
+
+            builder.AddValidateAllCalculationsInGroupItem(
+                       context,
+                       ValidateAll,
+                       ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
+                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
+                   .AddSeparator()
+                   .AddClearAllCalculationOutputInGroupItem(group);
+
+            if (!isNestedGroup)
+            {
+                builder.AddRemoveAllChildrenItem()
                        .AddSeparator();
             }
 
-            return builder.AddExpandAllItem()
-                          .AddCollapseAllItem()
+            if (isNestedGroup)
+            {
+                builder.AddDeleteItem()
+                       .AddSeparator();
+            }
+
+            return builder.AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -623,18 +627,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
 
-            return builder.AddValidateCalculationItem(
-                context,
-                Validate,
-                ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+            return builder.AddRenameItem()
+                          .AddValidateCalculationItem(
+                              context,
+                              Validate,
+                              ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                          .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
-                          .AddRenameItem()
+                          .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
