@@ -241,46 +241,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0,0)));
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutput(
-            bool hasOutput, 
-            Action<GrassCoverErosionInwardsInputContextProperties> setProperty)
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UseBreakWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var inputObserver = mocks.StrictMock<IObserver>();
-            int numberOfChangedProperties = hasOutput ? 1 : 0;
-            calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            inputObserver.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            if (hasOutput)
-            {
-                calculation.Output = new TestGrassCoverErosionInwardsOutput();
-            }
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
-            calculation.Attach(calculationObserver);
-            inputParameters.Attach(inputObserver);
-
-            var properties = new GrassCoverErosionInwardsInputContextProperties
-            {
-                Data = new GrassCoverErosionInwardsInputContext(inputParameters,
-                                                                calculation,
-                                                                failureMechanism,
-                                                                assessmentSection)
-            };
-
-            // Call
-            setProperty(properties);
-
-            // Assert
-            Assert.IsFalse(calculation.HasOutput);
-
-            mocks.VerifyAll();
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput, 
+                properties => properties.BreakWater.UseBreakWater = new Random(21).NextBoolean());
         }
 
         [Test]
@@ -580,6 +548,50 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.");
 
             mockRepository.VerifyAll();
+        }
+
+        private void SetPropertyAndVerifyNotifcationsAndOutput(
+            bool hasOutput, 
+            Action<GrassCoverErosionInwardsInputContextProperties> setProperty)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var inputObserver = mocks.StrictMock<IObserver>();
+            int numberOfChangedProperties = hasOutput ? 1 : 0;
+            calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            inputObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            if (hasOutput)
+            {
+                calculation.Output = new TestGrassCoverErosionInwardsOutput();
+            }
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
+            calculation.Attach(calculationObserver);
+            inputParameters.Attach(inputObserver);
+
+            inputParameters.DikeProfile = new TestDikeProfile();
+
+            var properties = new GrassCoverErosionInwardsInputContextProperties
+            {
+                Data = new GrassCoverErosionInwardsInputContext(inputParameters,
+                                                                calculation,
+                                                                failureMechanism,
+                                                                assessmentSection)
+            };
+
+            // Call
+            setProperty(properties);
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+
+            mocks.VerifyAll();
         }
     }
 }

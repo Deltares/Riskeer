@@ -98,19 +98,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(3);
-            mockRepository.ReplayAll();
-
             var breakWater = new BreakWater(BreakWaterType.Caisson, 2.2);
             var testUseBreakWater = new TestUseBreakWater
             {
                 BreakWater = breakWater
             };
             var properties = new UseBreakWaterProperties(testUseBreakWater, new TestCalculation());
-
-            testUseBreakWater.Attach(observerMock);
 
             // Call
             properties.UseBreakWater = true;
@@ -122,7 +115,30 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(BreakWaterType.Dam, properties.BreakWaterType);
             Assert.AreEqual(1.1, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
             Assert.AreEqual(string.Empty, properties.ToString());
-            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DikeHeight_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.BreakWaterHeight = new Random(21).NextRoundedDouble());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void BreakWaterType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.BreakWaterType = new Random(21).NextEnumValue<BreakWaterType>());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UseBreakWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.UseBreakWater = new Random(21).NextBoolean());
         }
 
         [Test]
@@ -212,6 +228,41 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             public bool UseBreakWater { get; set; }
             public BreakWater BreakWater { get; set; }
+        }
+
+        private void SetPropertyAndVerifyNotifcationsAndOutput(
+            bool hasOutput,
+            Action<UseBreakWaterProperties> setProperty)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var inputObserver = mocks.StrictMock<IObserver>();
+            int numberOfChangedProperties = hasOutput ? 1 : 0;
+            calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            inputObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+            if (hasOutput)
+            {
+                calculation.Output = new object();
+            }
+
+            calculation.Attach(calculationObserver);
+            var input = new TestUseBreakWater();
+            input.Attach(inputObserver);
+            input.BreakWater = new BreakWater(BreakWaterType.Caisson, 3.2);
+
+            var properties = new UseBreakWaterProperties(input, calculation);
+
+            // Call
+            setProperty(properties);
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+
+            mocks.VerifyAll();
         }
     }
 }

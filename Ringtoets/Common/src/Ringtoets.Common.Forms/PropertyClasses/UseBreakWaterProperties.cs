@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
@@ -30,6 +32,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Service;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
@@ -84,7 +87,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             set
             {
                 data.UseBreakWater = value;
-                data.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -108,7 +111,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 if (value.HasValue)
                 {
                     data.BreakWater.Type = value.Value;
-                    data.NotifyObservers();
+                    NotifyPropertyChanged();
                 }
             }
         }
@@ -131,7 +134,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             set
             {
                 data.BreakWater.Height = value;
-                data.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -146,6 +149,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public override string ToString()
         {
             return string.Empty;
+        }
+
+        private void NotifyPropertyChanged()
+        {
+            IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculationToUpdate);
+            foreach (var calculation in affectedCalculation)
+            {
+                calculation.NotifyObservers();
+            }
+            data.NotifyObservers();
         }
     }
 }
