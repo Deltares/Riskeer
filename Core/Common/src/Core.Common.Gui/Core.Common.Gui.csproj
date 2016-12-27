@@ -143,7 +143,6 @@
     <Compile Include="Plugin\ImportInfo.cs" />
     <Compile Include="Plugin\PluginBase.cs" />
     <Compile Include="Plugin\PropertyInfo.cs" />
-    <Compile Include="Plugin\PropertyInfoExtensions.cs" />
     <Compile Include="Plugin\ViewInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

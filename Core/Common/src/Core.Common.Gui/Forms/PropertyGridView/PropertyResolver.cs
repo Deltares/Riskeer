@@ -119,7 +119,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             try
             {
                 // Try to create object properties for the source data
-                var objectProperties = propertyInfo.CreateObjectProperties(sourceData);
+                IObjectProperties objectProperties = propertyInfo.CreateInstance(sourceData);
 
                 // Return a dynamic property bag containing the created object properties
                 return new DynamicPropertyBag(objectProperties);
