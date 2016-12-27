@@ -263,8 +263,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -283,8 +283,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .Build();
         }
 
@@ -330,39 +330,40 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var isNestedGroup = parentData is StabilityStoneCoverWaveConditionsCalculationGroupContext;
 
-            if (!isNestedGroup)
-            {
-                builder.AddCustomItem(CreateGenerateWaveConditionsCalculationsItem(nodeData));
-            }
-
             builder.AddExportItem()
-                   .AddSeparator()
-                   .AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation);
+             .AddSeparator();
 
             if (!isNestedGroup)
             {
-                builder.AddSeparator()
-                       .AddRemoveAllChildrenItem();
+                builder.AddCustomItem(CreateGenerateWaveConditionsCalculationsItem(nodeData))
+                       .AddSeparator();
             }
 
-            builder.AddSeparator()
+            builder.AddCreateCalculationGroupItem(group)
+                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation)
+                   .AddSeparator()
+                   .AddRenameItem()
                    .AddValidateAllCalculationsInGroupItem(nodeData,
                                                           ValidateAll,
                                                           ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
-                   .AddClearAllCalculationOutputInGroupItem(group)
-                   .AddSeparator();
+                   .AddSeparator()
+                   .AddClearAllCalculationOutputInGroupItem(group);
 
-            if (isNestedGroup)
+            if (!isNestedGroup)
             {
-                builder.AddRenameItem()
-                       .AddDeleteItem()
+                builder.AddRemoveAllChildrenItem()
                        .AddSeparator();
             }
 
-            return builder.AddExpandAllItem()
-                          .AddCollapseAllItem()
+            if (isNestedGroup)
+            {
+                builder.AddDeleteItem()
+                       .AddSeparator();
+            }
+
+            return builder.AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -520,17 +521,17 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             return builder
                 .AddExportItem()
                 .AddSeparator()
+                .AddRenameItem()
                 .AddValidateCalculationItem(nodeData,
                                             Validate,
                                             ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                 .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                .AddClearCalculationOutputItem(calculation)
                 .AddSeparator()
-                .AddRenameItem()
+                .AddClearCalculationOutputItem(calculation)
                 .AddDeleteItem()
                 .AddSeparator()
-                .AddExpandAllItem()
                 .AddCollapseAllItem()
+                .AddExpandAllItem()
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();

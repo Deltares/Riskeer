@@ -54,22 +54,39 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 3;
-        private const int contextMenuAddCalculationIndexRootGroup = 4;
-        private const int contextMenuRemoveAllChildrenIndexRootGroup = 6;
+        //        private const int contextMenuAddCalculationGroupIndexRootGroup = 3;
+        //        private const int contextMenuAddCalculationIndexRootGroup = 4;
+        //        private const int contextMenuRemoveAllChildrenIndexRootGroup = 6;
+        //        private const int contextMenuValidateAllIndexRootGroup = 8;
+        //        private const int contextMenuCalculateAllIndexRootGroup = 9;
+        //        private const int contextMenuClearOutputIndexRootGroup = 10;
+        //        private const int contextMenuExpandAllIndexRootGroup = 12;
+        //        private const int contextMenuCollapseAllIndexRootGroup = 13;
+        //        private const int contextMenuPropertiesIndexRootGroup = 15;
+        //
+        //        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 0;
+        //        private const int contextMenuAddCalculationGroupIndexNestedGroup = 2;
+        //        private const int contextMenuAddCalculationIndexNestedGroup = 3;
+        //        private const int contextMenuValidateAllIndexNestedGroup = 5;
+        //        private const int contextMenuCalculateAllIndexNestedGroup = 6;
+        //        private const int contextMenuClearOutputNestedGroupIndex = 7;
+
+        private const int contextMenuAddGenerateCalculationsIndex = 2;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 4;
+        private const int contextMenuAddCalculationIndexRootGroup = 5;
         private const int contextMenuValidateAllIndexRootGroup = 8;
         private const int contextMenuCalculateAllIndexRootGroup = 9;
-        private const int contextMenuClearOutputIndexRootGroup = 10;
-        private const int contextMenuExpandAllIndexRootGroup = 12;
-        private const int contextMenuCollapseAllIndexRootGroup = 13;
-        private const int contextMenuPropertiesIndexRootGroup = 15;
+        private const int contextMenuClearOutputIndexRootGroup = 11;
+        private const int contextMenuRemoveAllChildrenIndexRootGroup = 12;
+        private const int contextMenuCollapseAllIndexRootGroup = 14;
+        private const int contextMenuExpandAllIndexRootGroup = 15;
+        private const int contextMenuPropertiesIndexRootGroup = 17;
 
-        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 0;
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 2;
         private const int contextMenuAddCalculationIndexNestedGroup = 3;
-        private const int contextMenuValidateAllIndexNestedGroup = 5;
-        private const int contextMenuCalculateAllIndexNestedGroup = 6;
-        private const int contextMenuClearOutputNestedGroupIndex = 7;
+        private const int contextMenuValidateAllIndexNestedGroup = 6;
+        private const int contextMenuCalculateAllIndexNestedGroup = 7;
+        private const int contextMenuClearOutputIndedxNestedGroup = 9;
 
         private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
@@ -266,13 +283,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                               "Er zijn geen berekeningen om uit te voeren.",
                                                               RingtoetsCommonFormsResources.CalculateAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputNestedGroupIndex,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndedxNestedGroup,
                                                               "&Wis alle uitvoer...",
                                                               "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                               RingtoetsCommonFormsResources.ClearIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 9,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 5,
                                                               CoreCommonGuiResources.Rename,
                                                               CoreCommonGuiResources.Rename_ToolTip,
                                                               CoreCommonGuiResources.RenameIcon);
@@ -282,14 +299,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                               CoreCommonGuiResources.DeleteIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, 12,
-                                                              CoreCommonGuiResources.Expand_all,
-                                                              CoreCommonGuiResources.Expand_all_ToolTip,
-                                                              CoreCommonGuiResources.ExpandAllIcon,
-                                                              false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
                                                               CoreCommonGuiResources.Collapse_all,
                                                               CoreCommonGuiResources.Collapse_all_ToolTip,
                                                               CoreCommonGuiResources.CollapseAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
+                                                              CoreCommonGuiResources.Expand_all,
+                                                              CoreCommonGuiResources.Expand_all_ToolTip,
+                                                              CoreCommonGuiResources.ExpandAllIcon,
                                                               false);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, 15,
@@ -346,8 +363,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(16, menu.Items.Count);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                    Assert.AreEqual(18, menu.Items.Count);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                                                   "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon, false);
@@ -396,11 +413,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                   false);
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
                     {
-                        menu.Items[2],
-                        menu.Items[5],
-                        menu.Items[7],
-                        menu.Items[11],
-                        menu.Items[14]
+                        menu.Items[1],
+                        menu.Items[3],
+                        menu.Items[6],
+                        menu.Items[10],
+                        menu.Items[13],
+                        menu.Items[16]
                     }, typeof(ToolStripSeparator));
                 }
             }
@@ -449,8 +467,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(16, menu.Items.Count);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                    Assert.AreEqual(18, menu.Items.Count);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                                                   "Genereer randvoorwaardenberekeningen.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon);
@@ -499,11 +517,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                   false);
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
                     {
-                        menu.Items[2],
-                        menu.Items[5],
-                        menu.Items[7],
-                        menu.Items[11],
-                        menu.Items[14]
+                        menu.Items[1],
+                        menu.Items[3],
+                        menu.Items[6],
+                        menu.Items[10],
+                        menu.Items[13],
+                        menu.Items[16]
                     }, typeof(ToolStripSeparator));
                 }
             }
@@ -838,7 +857,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    var clearAllOutputItem = contextMenu.Items[5];
+                    var clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndedxNestedGroup];
 
                     // Assert
                     Assert.IsFalse(clearAllOutputItem.Enabled);
@@ -889,7 +908,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    var clearAllOutputItem = contextMenu.Items[contextMenuClearOutputNestedGroupIndex];
+                    var clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndedxNestedGroup];
 
                     // Assert
                     Assert.IsFalse(clearAllOutputItem.Enabled);
@@ -970,7 +989,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    contextMenu.Items[contextMenuClearOutputNestedGroupIndex].PerformClick();
+                    contextMenu.Items[contextMenuClearOutputIndedxNestedGroup].PerformClick();
 
                     // Assert
                     if (confirm)
@@ -1090,7 +1109,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 // When
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
+                    contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
                 }
 
                 // Then
@@ -1149,7 +1168,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 // When
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
+                    contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
                 }
 
                 // Then

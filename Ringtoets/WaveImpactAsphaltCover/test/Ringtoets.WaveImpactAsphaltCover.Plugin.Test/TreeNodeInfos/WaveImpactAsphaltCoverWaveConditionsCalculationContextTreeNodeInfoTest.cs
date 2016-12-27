@@ -418,7 +418,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                                      assessmentSection);
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
             using (mocks.Ordered())
             {
                 menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
