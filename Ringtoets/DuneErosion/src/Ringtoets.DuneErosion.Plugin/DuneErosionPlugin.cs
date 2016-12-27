@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -63,7 +62,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip
-            );
+                );
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>>
             {
@@ -118,10 +117,10 @@ namespace Ringtoets.DuneErosion.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new HydraulicBoundaryLocationsContext(wrappedData.HydraulicBoundaryLocations, wrappedData, failureMechanismContext.Parent), 
+                new HydraulicBoundaryLocationsContext(wrappedData.HydraulicBoundaryLocations, wrappedData, failureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
-        }        
+        }
 
         private static IList GetInputs(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
@@ -151,8 +150,8 @@ namespace Ringtoets.DuneErosion.Plugin
         }
 
         private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(DuneErosionFailureMechanismContext failureMechanismContext,
-                                                                        object parentData,
-                                                                        TreeViewControl treeViewControl)
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
@@ -160,16 +159,16 @@ namespace Ringtoets.DuneErosion.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(DuneErosionFailureMechanismContext failureMechanismContext,
-                                                                         object parentData,
-                                                                         TreeViewControl treeViewControl)
+                                                                          object parentData,
+                                                                          TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext,
                                                                   treeViewControl));
@@ -177,8 +176,8 @@ namespace Ringtoets.DuneErosion.Plugin
             return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext,
                                                                     RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .Build();
         }
 

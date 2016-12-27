@@ -107,16 +107,16 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
 
-            var inputsFolder = (CategoryTreeFolder)children[0];
+            var inputsFolder = (CategoryTreeFolder) children[0];
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
             Assert.AreEqual(2, inputsFolder.Contents.Count);
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext)inputsFolder.Contents[0];
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSectionStub, failureMechanismSectionsContext.ParentAssessmentSection);
 
-            var inputComment = (Comment)inputsFolder.Contents[1];
+            var inputComment = (Comment) inputsFolder.Contents[1];
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var hydraulicBoundaryLocationsContext = (HydraulicBoundaryLocationsContext) children[1];
@@ -124,17 +124,17 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, hydraulicBoundaryLocationsContext.FailureMechanism);
             Assert.AreSame(assessmentSectionStub, hydraulicBoundaryLocationsContext.AssessmentSection);
 
-            var outputsFolder = (CategoryTreeFolder)children[2];
+            var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
             Assert.AreEqual(2, outputsFolder.Contents.Count);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>)outputsFolder.Contents[0];
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>) outputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputComment = (Comment)outputsFolder.Contents[1];
+            var outputComment = (Comment) outputsFolder.Contents[1];
             Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 
@@ -156,7 +156,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, children.Length);
-            var comment = (Comment)children[0];
+            var comment = (Comment) children[0];
             Assert.AreSame(failureMechanism.NotRelevantComments, comment);
         }
 
@@ -168,19 +168,23 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSectionMock);
             var guiMock = mocksRepository.StrictMock<IGui>();
+
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
+            using (mocksRepository.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
 
-            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-
-            using (var treeViewControl = new TreeViewControl())
+            using (
+                var treeViewControl = new TreeViewControl())
             {
                 guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
                 mocksRepository.ReplayAll();
@@ -208,11 +212,14 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            using (mocksRepository.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
 
             using (var treeViewControl = new TreeViewControl())
             {
