@@ -28,11 +28,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class WaveImpactAsphaltCoverWaveConditionsOutputEntity
     {
         public long WaveImpactAsphaltCoverWaveConditionsOutputEntityId { get; set; }
@@ -48,7 +47,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> CalculatedProbability { get; set; }
         public Nullable<double> CalculatedReliability { get; set; }
         public byte CalculationConvergence { get; set; }
-    
+
         public virtual WaveImpactAsphaltCoverWaveConditionsCalculationEntity WaveImpactAsphaltCoverWaveConditionsCalculationEntity { get; set; }
     }
 }
