@@ -1,0 +1,219 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base;
+using NUnit.Extensions.Forms;
+using NUnit.Framework;
+using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
+
+namespace Ringtoets.Common.Forms.Test
+{
+    [TestFixture]
+    public class FailureMechanismPropertyChangeHandlerTest : NUnitFormTest
+    {
+        [Test]
+        public void ConfirmPropertyChange_Always_ShowMessageBox()
+        {
+            // Setup
+            string title = "";
+            string message = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                title = tester.Title;
+                message = tester.Text;
+
+                tester.ClickOk();
+            };
+
+            var handler = new FailureMechanismPropertyChangeHandler();
+
+            // Call
+            handler.ConfirmPropertyChange();
+
+            // Assert
+            Assert.AreEqual("Bevestigen", title);
+            string expectedMessage = "Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden." + Environment.NewLine +
+                                     Environment.NewLine +
+                                     "Weet u zeker dat u wilt doorgaan?";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void ConfirmPropertyChange_MessageBoxOk_ReturnTrue()
+        {
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickOk();
+            };
+
+            var handler = new FailureMechanismPropertyChangeHandler();
+
+            // Call
+            bool result = handler.ConfirmPropertyChange();
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void ConfirmPropertyChange_MessageBoxCancel_ReturnFalse()
+        {
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickCancel();
+            };
+
+            var handler = new FailureMechanismPropertyChangeHandler();
+
+            // Call
+            bool result = handler.ConfirmPropertyChange();
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void ChangeComposition_WithoutFailureMechanism_ThrowsArgumentNullException()
+        {
+            // Setup
+            var handler = new FailureMechanismPropertyChangeHandler();
+
+            // Call
+            TestDelegate test = () => handler.PropertyChanged(null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        [TestCaseSource("ChangeCompositionTestCases")]
+        public void ChangeComposition_FailureMechanismWithDifferentCalculationCollections_ReturnsCalculationsWhichHadOutput(ChangeCompositionTestCase testCase)
+        {
+            // Setup
+            var handler = new FailureMechanismPropertyChangeHandler();
+            IFailureMechanism failureMechanism = new TestFailureMechanism(testCase.Calculations);
+
+            // Call
+            IEnumerable<IObservable> result = handler.PropertyChanged(failureMechanism);
+
+            // Assert
+            CollectionAssert.AreEquivalent(testCase.ExpectedAffectedCalculations, result);
+        }
+
+        public class ChangeCompositionTestCase
+        {
+            public ChangeCompositionTestCase(ICollection<TestCalculation> calculations)
+            {
+                Calculations = calculations;
+                ExpectedAffectedCalculations = calculations.Where(c => c.HasOutput).ToArray();
+            }
+
+            public ICollection<TestCalculation> Calculations { get; private set; }
+            public ICollection<TestCalculation> ExpectedAffectedCalculations { get; private set; }
+        }
+
+        static IEnumerable ChangeCompositionTestCases()
+        {
+            yield return new TestCaseData(
+                new ChangeCompositionTestCase(new[]
+                             {
+                                 CreateCalculationWithOutput()
+                             })
+            ).SetName("Single calculation with output");
+
+            yield return new TestCaseData(
+                new ChangeCompositionTestCase(new[]
+                             {
+                                 CreateCalculationWithoutOutput()
+                             })
+            ).SetName("Single calculation without output");
+
+            yield return new TestCaseData(
+                new ChangeCompositionTestCase(new[]
+                             {
+                                 CreateCalculationWithoutOutput(),
+                                 CreateCalculationWithoutOutput()
+                             })
+            ).SetName("Two calculations without output");
+
+            yield return new TestCaseData(
+                new ChangeCompositionTestCase(new[]
+                             {
+                                 CreateCalculationWithOutput(),
+                                 CreateCalculationWithoutOutput()
+                             })
+            ).SetName("Calculation without and calculation with output");
+
+            yield return new TestCaseData(
+                new ChangeCompositionTestCase(new[]
+                             {
+                                 CreateCalculationWithOutput(),
+                                 CreateCalculationWithOutput()
+                             })
+            ).SetName("Two calculations with output");
+
+            yield return new TestCaseData(
+                new ChangeCompositionTestCase(new[]
+                             {
+                                 CreateCalculationWithOutput(),
+                                 CreateCalculationWithOutput(),
+                                 CreateCalculationWithoutOutput()
+                             })
+            ).SetName("Two calculations with and one calculation without output");
+        }
+
+        private static TestCalculation CreateCalculationWithoutOutput()
+        {
+            return new TestCalculation();
+        }
+
+        private static TestCalculation CreateCalculationWithOutput()
+        {
+            return new TestCalculation
+            {
+                Output = new object()
+            };
+        }
+
+        #region Test classes
+
+        public class TestCalculation : Observable, ICalculation
+        {
+            /// <summary>
+            /// Gets or sets an object that represents some output of this calculation.
+            /// </summary>
+            public object Output { get; set; }
+
+            public bool HasOutput
+            {
+                get
+                {
+                    return Output != null;
+                }
+            }
+
+            public void ClearOutput()
+            {
+                Output = null;
+            }
+
+            #region Irrelevant for test
+
+            public string Name { get; set; }
+            public Comment Comments { get; }
+
+            #endregion
+        }
+
+        #endregion
+    }
+
+}

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -9,6 +10,10 @@ using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Common.Forms
 {
+    /// <summary>
+    /// Class which properly handles data model changes due to a change of a
+    /// failure mechanism property.
+    /// </summary>
     public class FailureMechanismPropertyChangeHandler : IFailureMechanismPropertyChangeHandler
     {
         public bool ConfirmPropertyChange()
@@ -21,6 +26,10 @@ namespace Ringtoets.Common.Forms
 
         public IEnumerable<IObservable> PropertyChanged(IFailureMechanism failureMechanism)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
             var affected = new List<IObservable>();
             foreach (var calculation in failureMechanism.Calculations.Where(c => c.HasOutput))
             {
