@@ -151,12 +151,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         new GrassCoverErosionOutwardsFailureMechanism());
 
                     var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
-                    menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+
+                    using (mockRepository.Ordered())
+                    {
+                        menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                        menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                        menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                        menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                        menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                        menuBuilder.Expect(mb => mb.Build()).Return(null);
+                    }
 
                     var gui = mockRepository.StrictMock<IGui>();
                     gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);

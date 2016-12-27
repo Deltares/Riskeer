@@ -444,8 +444,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionOutwardsFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -464,8 +464,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionOutwardsFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddExpandAllItem()
                           .AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .Build();
         }
 
@@ -645,39 +645,40 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
 
-            if (!isNestedGroup)
-            {
-                builder.AddCustomItem(generateCalculationsItem);
-            }
-
             builder.AddExportItem()
-                   .AddSeparator()
-                   .AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation);
+                   .AddSeparator();
 
             if (!isNestedGroup)
             {
-                builder.AddSeparator()
-                       .AddRemoveAllChildrenItem();
+                builder.AddCustomItem(generateCalculationsItem)
+                       .AddSeparator();
             }
 
-            builder.AddSeparator()
+            builder.AddCreateCalculationGroupItem(group)
+                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation)
+                   .AddSeparator()
+                   .AddRenameItem()
                    .AddValidateAllCalculationsInGroupItem(nodeData,
                                                           ValidateAll,
                                                           ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
-                   .AddClearAllCalculationOutputInGroupItem(group)
-                   .AddSeparator();
+                   .AddSeparator()
+                   .AddClearAllCalculationOutputInGroupItem(group);
 
-            if (isNestedGroup)
+            if (!isNestedGroup)
             {
-                builder.AddRenameItem()
-                       .AddDeleteItem()
+                builder.AddRemoveAllChildrenItem()
                        .AddSeparator();
             }
 
-            return builder.AddExpandAllItem()
-                          .AddCollapseAllItem()
+            if (isNestedGroup)
+            {
+                builder.AddDeleteItem()
+                       .AddSeparator();
+            }
+
+            return builder.AddCollapseAllItem()
+                          .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -831,17 +832,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             return builder
                 .AddExportItem()
                 .AddSeparator()
+                .AddRenameItem()
                 .AddValidateCalculationItem(nodeData,
                                             Validate,
                                             ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                 .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                .AddClearCalculationOutputItem(calculation)
                 .AddSeparator()
-                .AddRenameItem()
+                .AddClearCalculationOutputItem(calculation)
                 .AddDeleteItem()
                 .AddSeparator()
-                .AddExpandAllItem()
                 .AddCollapseAllItem()
+                .AddExpandAllItem()
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();
