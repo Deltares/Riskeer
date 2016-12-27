@@ -68,7 +68,7 @@
     <Compile Include="ClosingStructuresPluginTest.cs" />
     <Compile Include="ImportInfos\ClosingStructuresContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TreeNodeInfos\ClosingStructureFailureMechanismContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ClosingStructuresFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructuresCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructuresCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructuresContextTreeNodeInfoTest.cs" />

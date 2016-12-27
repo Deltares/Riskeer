@@ -50,7 +50,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ClosingStructureFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
+    public class ClosingStructuresFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
