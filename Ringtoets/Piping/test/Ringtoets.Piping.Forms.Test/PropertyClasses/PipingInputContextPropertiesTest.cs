@@ -469,6 +469,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(soilProfile, inputParameters.StochasticSoilProfile);
             DistributionAssert.AreEqual(dampingFactorExit.Distribution, inputParameters.DampingFactorExit);
             DistributionAssert.AreEqual(phreaticLevelExit.Distribution, inputParameters.PhreaticLevelExit);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -1752,22 +1753,21 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             inputObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
-
-            PipingCalculationScenario calculationItem = calculation;
+            
             if (hasOutput)
             {
-                calculationItem.Output = new TestPipingOutput();
+                calculation.Output = new TestPipingOutput();
             }
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
 
-            PipingInput inputParameters = calculationItem.InputParameters;
-            calculationItem.Attach(calculationObserver);
+            PipingInput inputParameters = calculation.InputParameters;
+            calculation.Attach(calculationObserver);
             inputParameters.Attach(inputObserver);
 
-            PipingInputContextProperties properties = new PipingInputContextProperties
+            var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
-                                              calculationItem,
+                                              calculation,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
                                               failureMechanism,
@@ -1778,7 +1778,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             setProperty(properties);
 
             // Assert
-            Assert.IsFalse(calculationItem.HasOutput);
+            Assert.IsFalse(calculation.HasOutput);
 
             mocks.VerifyAll();
         }

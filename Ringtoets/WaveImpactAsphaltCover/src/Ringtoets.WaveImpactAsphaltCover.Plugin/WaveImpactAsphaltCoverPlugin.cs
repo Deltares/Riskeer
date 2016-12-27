@@ -502,6 +502,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             {
                 context.WrappedData.Comments,
                 new WaveImpactAsphaltCoverWaveConditionsInputContext(context.WrappedData.InputParameters,
+                                                                     context.WrappedData,
                                                                      context.FailureMechanism.ForeshoreProfiles,
                                                                      context.AssessmentSection)
             };

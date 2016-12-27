@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
@@ -41,14 +42,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>>
+        /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
+        /// <param name="calculation">The calculation having <paramref name="wrappedData"/> as input.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles of the <see cref="WaveImpactAsphaltCoverFailureMechanismContext"/>.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverWaveConditionsInputContext(WaveConditionsInput wrappedData,
+                                                                ICalculation calculation,
                                                                 IEnumerable<ForeshoreProfile> foreshoreProfiles,
                                                                 IAssessmentSection assessmentSection)
-            : base(wrappedData)
+            : base(wrappedData, calculation)
         {
             if (foreshoreProfiles == null)
             {

@@ -83,11 +83,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var input = new WaveConditionsInput();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var inputContext = new WaveImpactAsphaltCoverWaveConditionsInputContext(input,
-                                                                                    failureMechanism.ForeshoreProfiles,
-                                                                                    assessmentSection);
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var inputContext = new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                failureMechanism.ForeshoreProfiles,
+                assessmentSection);
 
             // Call
             var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties
@@ -108,7 +110,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.IsNaN(properties.LowerBoundaryWaterLevels.Value);
             Assert.AreEqual(2, properties.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
             Assert.AreEqual(0.5, properties.StepSize.AsValue());
-            CollectionAssert.AreEqual(input.WaterLevels, properties.WaterLevels);
+            CollectionAssert.AreEqual(calculation.InputParameters.WaterLevels, properties.WaterLevels);
 
             Assert.IsNull(properties.ForeshoreProfile);
             Assert.IsNull(properties.WorldReferencePoint);
@@ -161,23 +163,25 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                 }
             };
 
-            var input = new WaveConditionsInput()
-            {
-                ForeshoreProfile = foreshoreProfile,
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                UpperBoundaryRevetment = upperBoundaryRevetment,
-                LowerBoundaryRevetment = lowerBoundaryRevetment,
-                UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
-                LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
-                StepSize = stepSize
-            };
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.ForeshoreProfiles.Add(foreshoreProfile);
 
-            var inputContext = new WaveImpactAsphaltCoverWaveConditionsInputContext(input,
-                                                                                    failureMechanism.ForeshoreProfiles,
-                                                                                    assessmentSection);
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var input = calculation.InputParameters;
+            input.ForeshoreProfile = foreshoreProfile;
+            input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            input.UpperBoundaryRevetment = upperBoundaryRevetment;
+            input.LowerBoundaryRevetment = lowerBoundaryRevetment;
+            input.UpperBoundaryWaterLevels = upperBoundaryWaterLevels;
+            input.LowerBoundaryWaterLevels = lowerBoundaryWaterLevels;
+            input.StepSize = stepSize;
+
+            var inputContext = new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                failureMechanism.ForeshoreProfiles,
+                assessmentSection);
 
             // Call
             var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties
@@ -231,14 +235,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                 }
             };
 
-            var input = new WaveConditionsInput();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var input = calculation.InputParameters;
             input.Attach(observerMock);
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var inputContext = new WaveImpactAsphaltCoverWaveConditionsInputContext(input,
-                                                                                    failureMechanism.ForeshoreProfiles,
-                                                                                    assessmentSection);
+            var inputContext = new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                failureMechanism.ForeshoreProfiles,
+                assessmentSection);
 
             var newForeshoreProfile = new ForeshoreProfile(
                 new Point2D(
@@ -305,7 +312,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var inputContext = new WaveImpactAsphaltCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var inputContext = new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                failureMechanism.ForeshoreProfiles,
+                assessmentSection);
 
             // Call
             var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties

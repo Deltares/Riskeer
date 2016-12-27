@@ -87,8 +87,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var input = new WaveConditionsInput();
-            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                failureMechanism.ForeshoreProfiles, 
+                assessmentSection);
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
@@ -110,9 +114,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var input = new WaveConditionsInput();
-            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
+            
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                failureMechanism.ForeshoreProfiles, 
+                assessmentSection);
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
@@ -136,8 +144,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-                var input = new WaveConditionsInput();
-                var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
+                var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+                var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                    calculation.InputParameters,
+                    calculation, 
+                    failureMechanism.ForeshoreProfiles,
+                    assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);

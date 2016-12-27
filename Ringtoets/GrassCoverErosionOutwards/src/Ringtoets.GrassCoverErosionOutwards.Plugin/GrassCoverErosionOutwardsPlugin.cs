@@ -806,6 +806,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 context.WrappedData.Comments,
                 new GrassCoverErosionOutwardsWaveConditionsInputContext(context.WrappedData.InputParameters,
+                                                                        context.WrappedData,
                                                                         context.FailureMechanism)
             };
 

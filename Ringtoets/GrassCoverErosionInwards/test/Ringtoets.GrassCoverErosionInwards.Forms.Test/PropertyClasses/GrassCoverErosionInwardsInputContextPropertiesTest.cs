@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -39,6 +40,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
@@ -160,19 +162,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            const int numberOfChangedProperties = 5;
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
             var input = new GrassCoverErosionInwardsInput();
-            input.Attach(observerMock);
             var properties = new GrassCoverErosionInwardsInputContextProperties
             {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock)
+                Data = new GrassCoverErosionInwardsInputContext(
+                    input, 
+                    new GrassCoverErosionInwardsCalculation(), 
+                    new GrassCoverErosionInwardsFailureMechanism(), 
+                    assessmentSectionMock)
             };
 
             DikeProfile newDikeProfile = new TestDikeProfile();
@@ -196,6 +196,91 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreSame(newSelectableHydraulicBoundaryLocation.HydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             Assert.AreEqual(dikeHeightCalculationType, input.DikeHeightCalculationType);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Orientation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.Orientation = new Random(21).NextRoundedDouble());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DikeHeight_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.DikeHeight = new Random(21).NextRoundedDouble());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DikeHeightCalculationType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.DikeHeightCalculationType = new Random(21).NextEnumValue<DikeHeightCalculationType>());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DikeProfile_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.DikeProfile = new TestDikeProfile());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SelectedHydraulicBoundaryLocation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput, 
+                properties => properties.SelectedHydraulicBoundaryLocation = 
+                    new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0,0)));
+        }
+
+        private void SetPropertyAndVerifyNotifcationsAndOutput(
+            bool hasOutput, 
+            Action<GrassCoverErosionInwardsInputContextProperties> setProperty)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var inputObserver = mocks.StrictMock<IObserver>();
+            int numberOfChangedProperties = hasOutput ? 1 : 0;
+            calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            inputObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            if (hasOutput)
+            {
+                calculation.Output = new TestGrassCoverErosionInwardsOutput();
+            }
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
+            calculation.Attach(calculationObserver);
+            inputParameters.Attach(inputObserver);
+
+            var properties = new GrassCoverErosionInwardsInputContextProperties
+            {
+                Data = new GrassCoverErosionInwardsInputContext(inputParameters,
+                                                                calculation,
+                                                                failureMechanism,
+                                                                assessmentSection)
+            };
+
+            // Call
+            setProperty(properties);
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+
+            mocks.VerifyAll();
         }
 
         [Test]

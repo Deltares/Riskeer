@@ -87,8 +87,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var input = new WaveConditionsInput();
-            var context = new StabilityStoneCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var context = new StabilityStoneCoverWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                failureMechanism.ForeshoreProfiles,
+                assessmentSection);
 
             using (var plugin = new StabilityStoneCoverPlugin())
             {
@@ -111,8 +115,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var input = new WaveConditionsInput();
-            var context = new StabilityStoneCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var context = new StabilityStoneCoverWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                failureMechanism.ForeshoreProfiles,
+                assessmentSection);
 
             using (var plugin = new StabilityStoneCoverPlugin())
             {
@@ -136,8 +144,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-                var input = new WaveConditionsInput();
-                var context = new StabilityStoneCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
+                var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+                var context = new StabilityStoneCoverWaveConditionsInputContext(
+                    calculation.InputParameters,
+                    calculation,
+                    failureMechanism.ForeshoreProfiles,
+                    assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);

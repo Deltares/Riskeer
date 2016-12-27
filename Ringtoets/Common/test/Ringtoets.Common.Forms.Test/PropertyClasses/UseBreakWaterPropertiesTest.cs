@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -39,16 +40,38 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     public class UseBreakWaterPropertiesTest
     {
         [Test]
-        public void Constructor_IBreakWaterNull_ExpectedValues()
+        public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new UseBreakWaterProperties(null);
+            var properties = new UseBreakWaterProperties();
 
             // Assert
             Assert.IsFalse(properties.UseBreakWater);
             Assert.IsNull(properties.BreakWaterType);
             Assert.AreEqual(RoundedDouble.NaN, properties.BreakWaterHeight);
             Assert.AreEqual(string.Empty, properties.ToString());
+        }
+
+        [Test]
+        public void Constructor_UseBreakWaterDataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new UseBreakWaterProperties(null, new TestCalculation());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("useBreakWaterData", paramName);
+        }
+
+        [Test]
+        public void Constructor_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new UseBreakWaterProperties(new TestUseBreakWater(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("calculation", paramName);
         }
 
         [Test]
@@ -62,7 +85,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new UseBreakWaterProperties(useBreakWaterData);
+            var properties = new UseBreakWaterProperties(useBreakWaterData, new TestCalculation());
 
             // Assert
             Assert.IsTrue(properties.UseBreakWater);
@@ -85,7 +108,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             {
                 BreakWater = breakWater
             };
-            var properties = new UseBreakWaterProperties(testUseBreakWater);
+            var properties = new UseBreakWaterProperties(testUseBreakWater, new TestCalculation());
 
             testUseBreakWater.Attach(observerMock);
 
@@ -103,20 +126,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true, true)]
-        [TestCase(true, false)]
-        [TestCase(false, true)]
-        [TestCase(false, false)]
-        public void PropertyAttributes_UseBreakWater_ReturnExpectedValues(bool useBreakWater, bool useBreakWaterEnabled)
+        public void DefaultConstructor_Always_ReadOnlyProperties()
         {
-            // Setup
-            TestUseBreakWater testUseBreakWater = useBreakWaterEnabled ? new TestUseBreakWater
-            {
-                UseBreakWater = useBreakWater
-            } : null;
-
             // Call
-            var properties = new UseBreakWaterProperties(testUseBreakWater);
+            var properties = new UseBreakWaterProperties();
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -131,7 +144,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Misc",
                                                                             "Gebruik",
                                                                             "Moet de dam worden gebruikt tijdens de berekening?",
-                                                                            !useBreakWaterEnabled);
+                                                                            true);
 
             PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
             Assert.IsInstanceOf<NullableEnumTypeConverter>(breakWaterTypeProperty.Converter);
@@ -139,7 +152,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Misc",
                                                                             "Type",
                                                                             "Het type van de dam.",
-                                                                            !useBreakWaterEnabled || !useBreakWater);
+                                                                            true);
 
             PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
             Assert.IsInstanceOf<NoValueRoundedDoubleConverter>(breakWaterHeightProperty.Converter);
@@ -147,7 +160,52 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Misc",
                                                                             "Hoogte [m+NAP]",
                                                                             "De hoogte van de dam.",
-                                                                            !useBreakWaterEnabled || !useBreakWater);
+                                                                            true);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithBreakWaterAndCalculationUseBreakWater_ReturnExpectedProperties(bool useBreakWater)
+        {
+            // Setup
+            TestUseBreakWater testUseBreakWater = new TestUseBreakWater
+            {
+                UseBreakWater = useBreakWater
+            };
+
+            // Call
+            var properties = new UseBreakWaterProperties(testUseBreakWater, new TestCalculation());
+
+            // Assert
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(useBreakWaterProperty,
+                                                                            "Misc",
+                                                                            "Gebruik",
+                                                                            "Moet de dam worden gebruikt tijdens de berekening?");
+
+            PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
+            Assert.IsInstanceOf<NullableEnumTypeConverter>(breakWaterTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(breakWaterTypeProperty,
+                                                                            "Misc",
+                                                                            "Type",
+                                                                            "Het type van de dam.",
+                                                                            !useBreakWater);
+
+            PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
+            Assert.IsInstanceOf<NoValueRoundedDoubleConverter>(breakWaterHeightProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(breakWaterHeightProperty,
+                                                                            "Misc",
+                                                                            "Hoogte [m+NAP]",
+                                                                            "De hoogte van de dam.",
+                                                                            !useBreakWater);
         }
 
         private class TestUseBreakWater : Observable, IUseBreakWater

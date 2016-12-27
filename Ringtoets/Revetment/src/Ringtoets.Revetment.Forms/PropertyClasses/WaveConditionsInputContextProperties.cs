@@ -232,8 +232,8 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.ForeshoreProfile == null ?
-                           new UseBreakWaterProperties(null) :
-                           new UseBreakWaterProperties(data.WrappedData);
+                           new UseBreakWaterProperties() :
+                           new UseBreakWaterProperties(data.WrappedData, data.Calculation);
             }
         }
 

@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
@@ -557,7 +558,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                                   IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                                  IEnumerable<HydraulicBoundaryLocation> locations) : base(wrappedData)
+                                                  IEnumerable<HydraulicBoundaryLocation> locations)
+                : base(wrappedData, new TestCalculation())
             {
                 this.foreshoreProfiles = foreshoreProfiles;
                 this.locations = locations;

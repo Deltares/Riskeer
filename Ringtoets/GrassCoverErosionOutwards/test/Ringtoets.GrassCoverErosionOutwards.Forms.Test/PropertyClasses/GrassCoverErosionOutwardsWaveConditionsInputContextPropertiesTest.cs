@@ -77,9 +77,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Data_SetDefaultInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var input = calculation.InputParameters;
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
+            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                input,
+                calculation,
+                failureMechanism);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties
@@ -139,22 +143,25 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                     X0 = -3
                 });
             var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel);
-            var input = new WaveConditionsInput()
-            {
-                ForeshoreProfile = foreshoreProfile,
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                UpperBoundaryRevetment = upperBoundaryRevetment,
-                LowerBoundaryRevetment = lowerBoundaryRevetment,
-                UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
-                LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
-                StepSize = stepSize
-            };
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var input = calculation.InputParameters;
+            input.ForeshoreProfile = foreshoreProfile;
+            input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            input.UpperBoundaryRevetment = upperBoundaryRevetment;
+            input.LowerBoundaryRevetment = lowerBoundaryRevetment;
+            input.UpperBoundaryWaterLevels = upperBoundaryWaterLevels;
+            input.LowerBoundaryWaterLevels = lowerBoundaryWaterLevels;
+            input.StepSize = stepSize;
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
             failureMechanism.ForeshoreProfiles.Add(foreshoreProfile);
 
-            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
+            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                input, 
+                calculation,
+                failureMechanism);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties
@@ -197,12 +204,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var newHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel);
             var newSelectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newHydraulicBoundaryLocation, null);
 
-            var input = new WaveConditionsInput();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var input = calculation.InputParameters;
             input.Attach(observerMock);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
+            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                input, 
+                calculation,
+                failureMechanism);
 
             var newForeshoreProfile = new ForeshoreProfile(
                 new Point2D((RoundedDouble) random.NextDouble(),
@@ -250,7 +261,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             [Values(true, false)] bool withForeshoreProfile)
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var input = calculation.InputParameters;
             var foreshoreProfile = new ForeshoreProfile(
                 new Point2D(0, 0),
                 Enumerable.Empty<Point2D>(),
@@ -263,7 +275,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             }
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
+            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                input,
+                calculation,
+                failureMechanism);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties

@@ -494,6 +494,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             {
                 context.WrappedData.Comments,
                 new StabilityStoneCoverWaveConditionsInputContext(context.WrappedData.InputParameters,
+                                                                  context.WrappedData,
                                                                   context.FailureMechanism.ForeshoreProfiles,
                                                                   context.AssessmentSection)
             };

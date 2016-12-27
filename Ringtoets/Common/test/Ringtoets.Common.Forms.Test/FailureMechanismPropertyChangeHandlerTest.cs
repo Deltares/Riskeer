@@ -5,10 +5,9 @@ using System.Linq;
 using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 
 namespace Ringtoets.Common.Forms.Test
 {
@@ -127,14 +126,14 @@ namespace Ringtoets.Common.Forms.Test
                              {
                                  CreateCalculationWithOutput()
                              })
-            ).SetName("Single calculation with output");
+            ).SetName("ChangeComposition Single calculation with output");
 
             yield return new TestCaseData(
                 new ChangeCompositionTestCase(new[]
                              {
                                  CreateCalculationWithoutOutput()
                              })
-            ).SetName("Single calculation without output");
+            ).SetName("ChangeComposition Single calculation without output");
 
             yield return new TestCaseData(
                 new ChangeCompositionTestCase(new[]
@@ -142,7 +141,7 @@ namespace Ringtoets.Common.Forms.Test
                                  CreateCalculationWithoutOutput(),
                                  CreateCalculationWithoutOutput()
                              })
-            ).SetName("Two calculations without output");
+            ).SetName("ChangeComposition Two calculations without output");
 
             yield return new TestCaseData(
                 new ChangeCompositionTestCase(new[]
@@ -150,7 +149,7 @@ namespace Ringtoets.Common.Forms.Test
                                  CreateCalculationWithOutput(),
                                  CreateCalculationWithoutOutput()
                              })
-            ).SetName("Calculation without and calculation with output");
+            ).SetName("ChangeComposition Calculation without and calculation with output");
 
             yield return new TestCaseData(
                 new ChangeCompositionTestCase(new[]
@@ -158,7 +157,7 @@ namespace Ringtoets.Common.Forms.Test
                                  CreateCalculationWithOutput(),
                                  CreateCalculationWithOutput()
                              })
-            ).SetName("Two calculations with output");
+            ).SetName("ChangeComposition Two calculations with output");
 
             yield return new TestCaseData(
                 new ChangeCompositionTestCase(new[]
@@ -167,7 +166,7 @@ namespace Ringtoets.Common.Forms.Test
                                  CreateCalculationWithOutput(),
                                  CreateCalculationWithoutOutput()
                              })
-            ).SetName("Two calculations with and one calculation without output");
+            ).SetName("ChangeComposition Two calculations with and one calculation without output");
         }
 
         private static TestCalculation CreateCalculationWithoutOutput()
@@ -182,38 +181,6 @@ namespace Ringtoets.Common.Forms.Test
                 Output = new object()
             };
         }
-
-        #region Test classes
-
-        public class TestCalculation : Observable, ICalculation
-        {
-            /// <summary>
-            /// Gets or sets an object that represents some output of this calculation.
-            /// </summary>
-            public object Output { get; set; }
-
-            public bool HasOutput
-            {
-                get
-                {
-                    return Output != null;
-                }
-            }
-
-            public void ClearOutput()
-            {
-                Output = null;
-            }
-
-            #region Irrelevant for test
-
-            public string Name { get; set; }
-            public Comment Comments { get; }
-
-            #endregion
-        }
-
-        #endregion
     }
 
 }

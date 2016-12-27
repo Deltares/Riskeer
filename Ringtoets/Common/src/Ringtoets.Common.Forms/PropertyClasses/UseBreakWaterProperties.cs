@@ -19,12 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -40,16 +42,33 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private const int breakWaterTypePropertyIndex = 2;
         private const int breakWaterHeightPropertyIndex = 3;
         private readonly IUseBreakWater data;
+        private ICalculation calculationToUpdate;
 
         /// <summary>
-        /// Creates a new instance of <see cref="UseBreakWaterProperties"/>.
+        /// Creates a new instance of <see cref="UseBreakWaterProperties"/>, in which
+        /// all the properties are read only.
+        /// </summary>
+        public UseBreakWaterProperties() { }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UseBreakWaterProperties"/>in which the 
+        /// properties are editable.
         /// </summary>
         /// <param name="useBreakWaterData">The data to use for the properties.</param>
-        /// <remarks>If <paramref name="useBreakWaterData"/> is <c>null</c>, all properties 
-        /// will be set to <see cref="ReadOnlyAttribute"/>.</remarks>
-        public UseBreakWaterProperties(IUseBreakWater useBreakWaterData)
+        /// <param name="calculation">The calculationToUpdate that needs to be updated due to a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public UseBreakWaterProperties(IUseBreakWater useBreakWaterData, ICalculation calculation)
         {
+            if (useBreakWaterData == null)
+            {
+                throw new ArgumentNullException("useBreakWaterData");
+            }
+            if (calculation == null)
+            {
+                throw new ArgumentNullException("calculation");
+            }
             data = useBreakWaterData;
+            calculationToUpdate = calculation;
         }
 
         [DynamicReadOnly]

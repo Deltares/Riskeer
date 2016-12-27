@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -67,16 +68,18 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
                 }
             };
 
-            var input = new WaveConditionsInput();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
 
             // Call
-            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(input,
-                                                                               failureMechanism.ForeshoreProfiles,
-                                                                               assessmentSection);
+            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                failureMechanism.ForeshoreProfiles,
+                assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
-            Assert.AreEqual(input, context.WrappedData);
+            Assert.AreEqual(calculation.InputParameters, context.WrappedData);
             CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
             CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations, context.HydraulicBoundaryLocations);
             mocks.VerifyAll();
@@ -93,14 +96,38 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(null,
-                                                                                           failureMechanism.ForeshoreProfiles,
-                                                                                           assessmentSection);
+            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                null,
+                new TestCalculation(),
+                failureMechanism.ForeshoreProfiles,
+                assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("wrappedData", exception.ParamName);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void HydraulicBoundaryLocations_CalculationNull_ReturnEmptyCollection()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var input = new WaveConditionsInput();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                input,
+                null,
+                failureMechanism.ForeshoreProfiles,
+                assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
         }
 
         [Test]
@@ -114,9 +141,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var input = new WaveConditionsInput();
 
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(input,
-                                                                                           null,
-                                                                                           assessmentSection);
+            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                input,
+                new TestCalculation(),
+                null,
+                assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -132,9 +161,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(input,
-                                                                                           failureMechanism.ForeshoreProfiles,
-                                                                                           null);
+            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                input,
+                new TestCalculation(), 
+                failureMechanism.ForeshoreProfiles,
+                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -152,7 +183,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var input = new WaveConditionsInput();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
+            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                input,
+                new TestCalculation(),
+                failureMechanism.ForeshoreProfiles,
+                assessmentSection);
 
             // Call
             IEnumerable<HydraulicBoundaryLocation> locations = context.HydraulicBoundaryLocations;

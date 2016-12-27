@@ -68,9 +68,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var input = new WaveConditionsInput();
-            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                calculation.InputParameters, 
+                calculation,
+                failureMechanism);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -89,9 +91,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var input = new WaveConditionsInput();
-            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                failureMechanism);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -112,9 +116,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-                var input = new WaveConditionsInput();
-                var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
+                var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+                var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                    calculation.InputParameters,
+                    calculation,
+                    failureMechanism);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
