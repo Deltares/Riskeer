@@ -1764,18 +1764,17 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             calculationItem.Attach(calculationObserver);
             inputParameters.Attach(inputObserver);
 
-            Random random = new Random(22);
-            
-            // Call
-            var pipingInputContext = new PipingInputContext(inputParameters,
-                                                            calculationItem,
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<StochasticSoilModel>(),
-                                                            failureMechanism,
-                                                            assessmentSection);
+            PipingInputContextProperties properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
+                                              assessmentSection)
+            };
 
-            PipingInputContextProperties properties = new PipingInputContextProperties();
-            properties.Data = pipingInputContext;
+            // Call
             setProperty(properties);
 
             // Assert
