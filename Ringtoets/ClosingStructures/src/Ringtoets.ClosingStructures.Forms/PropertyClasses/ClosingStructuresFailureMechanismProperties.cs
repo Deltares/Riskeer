@@ -53,8 +53,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         [PropertyOrder(cPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(Resources), "ClosingStructureFailureMechanismContextProperties_C_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ClosingStructureFailureMechanismContextProperties_C_Description")]
+        [ResourcesDisplayName(typeof(Resources), "ClosingStructuresFailureMechanismContextProperties_C_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "ClosingStructuresFailureMechanismContextProperties_C_Description")]
         public RoundedDouble C
         {
             get
@@ -65,8 +65,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         [PropertyOrder(n2APropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(Resources), "ClosingStructureFailureMechanismContextProperties_N2A_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ClosingStructureFailureMechanismContextProperties_N2A_Description")]
+        [ResourcesDisplayName(typeof(Resources), "ClosingStructuresFailureMechanismContextProperties_N2A_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "ClosingStructuresFailureMechanismContextProperties_N2A_Description")]
         public int N2A
         {
             get

@@ -68,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 
             // Assert 
             CollectionAssert.AllItemsAreInstancesOfType(properties.Items, typeof(WaveConditionsOutputProperties));
-            Assert.AreEqual((int) items.Length, properties.Items.Length);
+            Assert.AreEqual(items.Length, properties.Items.Length);
 
             var firstOutput = items[0];
             var firstOutputProperties = properties.Items[0];
@@ -78,11 +78,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
             Assert.AreEqual(firstOutput.WaveAngle, firstOutputProperties.WaveAngle);
             Assert.AreEqual(firstOutput.WaveDirection, firstOutputProperties.WaveDirection);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(firstOutput.TargetProbability), firstOutputProperties.TargetProbability);
-            Assert.AreEqual((double) firstOutput.TargetReliability, (double) firstOutputProperties.TargetReliability,
-                            (double) firstOutputProperties.TargetReliability.GetAccuracy());
+            Assert.AreEqual(firstOutput.TargetReliability, firstOutputProperties.TargetReliability,
+                            firstOutputProperties.TargetReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(firstOutput.CalculatedProbability), firstOutputProperties.CalculatedProbability);
-            Assert.AreEqual((double) firstOutput.TargetReliability, (double) firstOutputProperties.TargetReliability,
-                            (double) firstOutputProperties.TargetReliability.GetAccuracy());
+            Assert.AreEqual(firstOutput.TargetReliability, firstOutputProperties.TargetReliability,
+                            firstOutputProperties.TargetReliability.GetAccuracy());
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(firstOutput.CalculationConvergence).DisplayName;
             Assert.AreEqual(convergenceValue, firstOutputProperties.Convergence);

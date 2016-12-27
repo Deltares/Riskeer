@@ -31,10 +31,9 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Views;
-using Ringtoets.DuneErosion.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.DunErosion.Plugin.Test.ViewInfos
+namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class DuneErosionFailureMechanismResultViewInfoTest
@@ -194,17 +193,17 @@ namespace Ringtoets.DunErosion.Plugin.Test.ViewInfos
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
-            var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N", "C");
+            var failureMechanismStub = mocks.Stub<FailureMechanismBase>("N", "C");
 
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                failureMechanismMock,
+                failureMechanismStub,
                 failureMechanism
             });
 
             mocks.ReplayAll();
 
-            using (var view = new DuneErosionFailureMechanismResultView())
+            using (var view = new DuneErosionFailureMechanismResultView()) 
             {
                 view.Data = failureMechanism.SectionResults;
 

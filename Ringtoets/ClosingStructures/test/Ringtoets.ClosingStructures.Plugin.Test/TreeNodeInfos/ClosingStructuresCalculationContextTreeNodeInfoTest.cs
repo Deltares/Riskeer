@@ -308,9 +308,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
+                                                                    {
+                                                                        new Point2D(0, 0)
+                                                                    }));
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
@@ -350,9 +350,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
+                                                                    {
+                                                                        new Point2D(0, 0)
+                                                                    }));
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -403,9 +403,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
+                                                                    {
+                                                                        new Point2D(0, 0)
+                                                                    }));
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
@@ -447,10 +447,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             observerMock.Expect(o => o.UpdateObserver());
 
             var section = new FailureMechanismSection("A", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
+                                                      {
+                                                          new Point2D(1, 2),
+                                                          new Point2D(3, 4)
+                                                      });
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.AddSection(section);
@@ -506,16 +506,16 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>
-                    {
-                        var msgs = messages.ToArray();
-                        Assert.AreEqual(6, msgs.Length);
-                        StringAssert.StartsWith(string.Format((string) "Validatie van '{0}' gestart om: ", (object) calculation.Name), msgs[0]);
-                        StringAssert.StartsWith(string.Format((string) "Validatie van '{0}' beëindigd om: ", (object) calculation.Name), msgs[1]);
-                        StringAssert.StartsWith(string.Format((string) "Berekening van '{0}' gestart om: ", (object) calculation.Name), msgs[2]);
-                        StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                        StringAssert.StartsWith(string.Format((string) "Berekening van '{0}' beëindigd om: ", (object) calculation.Name), msgs[4]);
-                        StringAssert.StartsWith(string.Format((string) "Uitvoeren van '{0}' is gelukt.", (object) calculation.Name), msgs[5]);
-                    });
+                                                 {
+                                                     var msgs = messages.ToArray();
+                                                     Assert.AreEqual(6, msgs.Length);
+                                                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                                                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                                                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                                                     StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
+                                                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                                                     StringAssert.StartsWith(string.Format("Uitvoeren van '{0}' is gelukt.", calculation.Name), msgs[5]);
+                                                 });
 
                     Assert.AreNotSame(initialOutput, calculation.Output);
                 }
@@ -529,10 +529,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var observerMock = mocks.StrictMock<IObserver>();
 
             var section = new FailureMechanismSection("A", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
+                                                      {
+                                                          new Point2D(1, 2),
+                                                          new Point2D(3, 4)
+                                                      });
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.AddSection(section);
@@ -578,12 +578,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>
-                    {
-                        var msgs = messages.ToArray();
-                        Assert.AreEqual(2, msgs.Length);
-                        StringAssert.StartsWith(string.Format((string) "Validatie van '{0}' gestart om: ", (object) calculation.Name), msgs[0]);
-                        StringAssert.StartsWith(string.Format((string) "Validatie van '{0}' beëindigd om: ", (object) calculation.Name), msgs[1]);
-                    });
+                                                 {
+                                                     var msgs = messages.ToArray();
+                                                     Assert.AreEqual(2, msgs.Length);
+                                                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                                                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                                                 });
                 }
             }
         }
@@ -644,9 +644,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             group.Children.Add(elementToBeRemoved);
 
             failureMechanism.AddSection(new FailureMechanismSection("section", new[]
-            {
-                new Point2D(0, 0)
-            }));
+                                                                    {
+                                                                        new Point2D(0, 0)
+                                                                    }));
 
             ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
             result.Calculation = elementToBeRemoved;

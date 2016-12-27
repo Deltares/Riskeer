@@ -368,7 +368,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateIndex];
 
                     Assert.AreEqual(RingtoetsCommonFormsResources.Calculate, contextMenuItem.Text);
-                    StringAssert.Contains(string.Format((string) RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                    StringAssert.Contains(string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
@@ -523,7 +523,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateIndex];
 
                     Assert.AreEqual(RingtoetsCommonFormsResources.Validate, contextMenuItem.Text);
-                    StringAssert.Contains(string.Format((string) RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                    StringAssert.Contains(string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }

@@ -53,6 +53,7 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
       <Project>{1D27F91F-4E62-4EAF-A0A8-A32708B9A9B1}</Project>

@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
@@ -171,7 +172,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 {
                     Locations =
                     {
-                        new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                        new TestHydraulicBoundaryLocation()
                     }
                 };
 
@@ -272,7 +273,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 {
                     Locations =
                     {
-                        new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                        new TestHydraulicBoundaryLocation()
                     }
                 };
 

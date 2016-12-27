@@ -6,8 +6,8 @@
     <ProjectGuid>{BE3C9342-EC24-4D28-B2DD-E8C752A9CB9A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.DunErosion.Plugin.Test</RootNamespace>
-    <AssemblyName>Ringtoets.DunErosion.Plugin.Test</AssemblyName>
+    <RootNamespace>Ringtoets.DuneErosion.Plugin.Test</RootNamespace>
+    <AssemblyName>Ringtoets.DuneErosion.Plugin.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

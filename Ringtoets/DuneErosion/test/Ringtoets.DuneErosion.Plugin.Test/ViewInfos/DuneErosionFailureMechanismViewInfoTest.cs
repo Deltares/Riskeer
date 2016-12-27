@@ -28,10 +28,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Views;
-using Ringtoets.DuneErosion.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.DunErosion.Plugin.Test.ViewInfos
+namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class DuneErosionFailureMechanismViewInfoTest
@@ -80,6 +79,7 @@ namespace Ringtoets.DunErosion.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.AreEqual(failureMechanism.Name, viewName);
+                mocks.VerifyAll();
             }
         }
 

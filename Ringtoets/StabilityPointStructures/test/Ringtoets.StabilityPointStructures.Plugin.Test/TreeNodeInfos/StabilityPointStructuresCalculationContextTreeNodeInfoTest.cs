@@ -507,12 +507,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     {
                         var msgs = messages.ToArray();
                         Assert.AreEqual(6, msgs.Length);
-                        StringAssert.StartsWith(string.Format((string) "Validatie van '{0}' gestart om: ", (object) calculation.Name), msgs[0]);
-                        StringAssert.StartsWith(string.Format((string) "Validatie van '{0}' beëindigd om: ", (object) calculation.Name), msgs[1]);
-                        StringAssert.StartsWith(string.Format((string) "Berekening van '{0}' gestart om: ", (object) calculation.Name), msgs[2]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                        StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
                         StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                        StringAssert.StartsWith(string.Format((string) "Berekening van '{0}' beëindigd om: ", (object) calculation.Name), msgs[4]);
-                        StringAssert.StartsWith(string.Format((string) "Uitvoeren van '{0}' is gelukt.", (object) calculation.Name), msgs[5]);
+                        StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                        StringAssert.StartsWith(string.Format("Uitvoeren van '{0}' is gelukt.", calculation.Name), msgs[5]);
                     });
 
                     Assert.AreNotSame(initialOutput, calculation.Output);
@@ -581,8 +581,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     {
                         var msgs = messages.ToArray();
                         Assert.AreEqual(2, msgs.Length);
-                        StringAssert.StartsWith(string.Format((string) "Validatie van '{0}' gestart om: ", (object) calculation.Name), msgs[0]);
-                        StringAssert.StartsWith(string.Format((string) "Validatie van '{0}' beëindigd om: ", (object) calculation.Name), msgs[1]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                     });
                 }
             }

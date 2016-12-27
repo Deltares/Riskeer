@@ -147,16 +147,16 @@
   <data name="FailureProbabilityReparation_DisplayName" xml:space="preserve">
     <value>Faalkans herstel van gefaalde situatie [1/jaar]</value>
   </data>
-  <data name="ClosingStructureFailureMechanismContextProperties_C_Description" xml:space="preserve">
+  <data name="ClosingStructuresFailureMechanismContextProperties_C_Description" xml:space="preserve">
     <value>De parameter 'C' die gebruikt wordt om het lengte-effect te berekenen.</value>
   </data>
-  <data name="ClosingStructureFailureMechanismContextProperties_C_DisplayName" xml:space="preserve">
+  <data name="ClosingStructuresFailureMechanismContextProperties_C_DisplayName" xml:space="preserve">
     <value>C [-]</value>
   </data>
-  <data name="ClosingStructureFailureMechanismContextProperties_N2A_Description" xml:space="preserve">
+  <data name="ClosingStructuresFailureMechanismContextProperties_N2A_Description" xml:space="preserve">
     <value>De parameter '2NA' die gebruikt wordt om het lengte-effect te berekenen.</value>
   </data>
-  <data name="ClosingStructureFailureMechanismContextProperties_N2A_DisplayName" xml:space="preserve">
+  <data name="ClosingStructuresFailureMechanismContextProperties_N2A_DisplayName" xml:space="preserve">
     <value>2NA [-]</value>
   </data>
 </root>

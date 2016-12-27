@@ -29,9 +29,8 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Views;
-using Ringtoets.DuneErosion.Plugin;
 
-namespace Ringtoets.DunErosion.Plugin.Test
+namespace Ringtoets.DuneErosion.Plugin.Test
 {
     [TestFixture]
     public class DuneErosionPluginTest

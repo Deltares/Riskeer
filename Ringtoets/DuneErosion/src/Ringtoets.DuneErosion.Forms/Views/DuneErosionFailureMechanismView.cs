@@ -33,6 +33,9 @@ using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources
 
 namespace Ringtoets.DuneErosion.Forms.Views
 {
+    /// <summary>
+    /// This class is a view showing map data for a dune erosion failure mechanism.
+    /// </summary>
     public partial class DuneErosionFailureMechanismView : UserControl, IMapView
     {
         private readonly Observer failureMechanismObserver;
@@ -48,6 +51,9 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         private DuneErosionFailureMechanismContext data;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="DuneErosionFailureMechanismView"/>.
+        /// </summary>
         public DuneErosionFailureMechanismView()
         {
             InitializeComponent();

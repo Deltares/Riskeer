@@ -27,9 +27,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
-using Ringtoets.DuneErosion.Plugin;
 
-namespace Ringtoets.DunErosion.Plugin.Test.PropertyInfos
+namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class DuneErosionFailureMechanismPropertyInfoTest

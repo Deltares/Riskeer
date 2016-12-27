@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -372,11 +371,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(testDataPath, testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory);
                         Assert.AreEqual(assessmentSectionStub.Id, testDesignWaterLevelCalculator.RingId);
 
-                        Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, (long) designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
+                        Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
                         var expectedProbability = assessmentSectionStub.FailureMechanismContribution.Norm
                                                   *(failureMechanism.Contribution/100)/
                                                   failureMechanism.GeneralInput.N;
-                        Assert.AreEqual((object) StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
                     }
                 }
             }
@@ -440,8 +439,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation1.DesignWaterLevel); // No result set
 
                         // Previous result not cleared
-                        Assert.AreEqual((double) designWaterLevel, (double) grassCoverErosionOutwardsHydraulicBoundaryLocation2.DesignWaterLevel,
-                                        (double) grassCoverErosionOutwardsHydraulicBoundaryLocation2.DesignWaterLevel.GetAccuracy());
+                        Assert.AreEqual(designWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation2.DesignWaterLevel,
+                                        grassCoverErosionOutwardsHydraulicBoundaryLocation2.DesignWaterLevel.GetAccuracy());
                     }
                 }
             }
@@ -505,8 +504,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                             StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is gelukt.",
                                                                                hydraulicBoundaryLocation.Name), msgs[6]);
                         });
-                        Assert.AreEqual((double) 0, (double) hydraulicBoundaryLocation.DesignWaterLevel,
-                                        (double) hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+                        Assert.AreEqual(0, hydraulicBoundaryLocation.DesignWaterLevel,
+                                        hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
                     }
                 }
@@ -559,7 +558,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         TestHelper.AssertLogMessageIsGenerated(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
 
                         var testDesignWaterLevelCalculator = testFactory.DesignWaterLevelCalculator;
-                        Assert.IsEmpty((IEnumerable) testDesignWaterLevelCalculator.ReceivedInputs);
+                        Assert.IsEmpty(testDesignWaterLevelCalculator.ReceivedInputs);
 
                         Assert.IsNullOrEmpty(testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory);
                         Assert.IsNullOrEmpty(testDesignWaterLevelCalculator.RingId);

@@ -401,11 +401,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(testDataPath, testWaveHeightCalculator.HydraulicBoundaryDatabaseDirectory);
                         Assert.AreEqual(assessmentSectionStub.Id, testWaveHeightCalculator.RingId);
 
-                        Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, (long) waveHeightCalculationInput.HydraulicBoundaryLocationId);
+                        Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                         var expectedProbability = assessmentSectionStub.FailureMechanismContribution.Norm
                                                   *(failureMechanism.Contribution/100)
                                                   /failureMechanism.GeneralInput.N;
-                        Assert.AreEqual((object) StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
                     }
                 }
             }

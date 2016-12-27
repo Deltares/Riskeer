@@ -33,10 +33,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
-using Ringtoets.DuneErosion.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.DunErosion.Plugin.Test.TreeNodeInfos
+namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class HydraulicBoundaryLocationsContextTreeNodeInfoTest

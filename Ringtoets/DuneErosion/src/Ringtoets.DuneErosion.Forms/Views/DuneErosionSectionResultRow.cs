@@ -40,7 +40,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         public DuneErosionSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
-        /// Gets the assessment layer two a of the <see cref="Ringtoets.DuneErosion.Data.DuneErosionFailureMechanismSectionResult"/>.
+        /// Gets the assessment layer two a of the <see cref="DuneErosionFailureMechanismSectionResult"/>.
         /// </summary>
         public AssessmentLayerTwoAResult AssessmentLayerTwoA
         {
