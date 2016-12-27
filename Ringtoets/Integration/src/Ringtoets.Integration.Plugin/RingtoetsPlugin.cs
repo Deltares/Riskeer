@@ -58,7 +58,6 @@ using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
-using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -609,9 +608,9 @@ namespace Ringtoets.Integration.Plugin
                                                      .Cast<object>()
                                                      .ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddDeleteChildrenItem()
-                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddDeleteChildrenItem()
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()

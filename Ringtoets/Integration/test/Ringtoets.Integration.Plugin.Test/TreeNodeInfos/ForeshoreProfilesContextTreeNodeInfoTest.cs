@@ -186,13 +186,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
 
                 var contextMenuBuilder = mocks.Stub<IContextMenuBuilder>();
-                contextMenuBuilder.Expect(b => b.AddDeleteChildrenItem()).Return(contextMenuBuilder);
-                contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);
-                contextMenuBuilder.Expect(b => b.AddImportItem()).Return(contextMenuBuilder);
-                contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);
-                contextMenuBuilder.Expect(b => b.AddCollapseAllItem()).Return(contextMenuBuilder);
-                contextMenuBuilder.Expect(b => b.AddExpandAllItem()).Return(contextMenuBuilder);
-                contextMenuBuilder.Expect(b => b.Build()).Return(null);
+                using (mocks.Ordered())
+                {
+                    contextMenuBuilder.Expect(b => b.AddImportItem()).Return(contextMenuBuilder);
+                    contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);
+                    contextMenuBuilder.Expect(b => b.AddDeleteChildrenItem()).Return(contextMenuBuilder);
+                    contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);
+                    contextMenuBuilder.Expect(b => b.AddCollapseAllItem()).Return(contextMenuBuilder);
+                    contextMenuBuilder.Expect(b => b.AddExpandAllItem()).Return(contextMenuBuilder);
+                    contextMenuBuilder.Expect(b => b.Build()).Return(null);
+                }
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(contextMenuBuilder);

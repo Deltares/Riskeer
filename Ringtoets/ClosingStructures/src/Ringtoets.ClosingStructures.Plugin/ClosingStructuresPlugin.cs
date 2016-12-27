@@ -135,12 +135,12 @@ namespace Ringtoets.ClosingStructures.Plugin
                 ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddDeleteChildrenItem()
-                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()
-                                                                                 .AddExpandAllItem()
+                                                                                 .AddDeleteChildrenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddCollapseAllItem()
+                                                                                 .AddExpandAllItem()
                                                                                  .Build()
             };
 

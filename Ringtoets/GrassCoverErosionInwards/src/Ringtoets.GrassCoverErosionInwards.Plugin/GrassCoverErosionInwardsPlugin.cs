@@ -128,9 +128,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                      .Cast<object>()
                                                      .ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddDeleteChildrenItem()
-                                                                                 .AddSeparator()
                                                                                  .AddImportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddDeleteChildrenItem()
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
