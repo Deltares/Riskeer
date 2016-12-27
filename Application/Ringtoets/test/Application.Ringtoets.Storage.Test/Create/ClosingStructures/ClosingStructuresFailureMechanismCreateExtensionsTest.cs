@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
 
-            ClosingStructureFailureMechanismMetaEntity metaEntity = entity.ClosingStructureFailureMechanismMetaEntities.First();
+            ClosingStructuresFailureMechanismMetaEntity metaEntity = entity.ClosingStructuresFailureMechanismMetaEntities.First();
             Assert.AreEqual(failureMechanism.GeneralInput.N2A, metaEntity.N2A);
         }
 

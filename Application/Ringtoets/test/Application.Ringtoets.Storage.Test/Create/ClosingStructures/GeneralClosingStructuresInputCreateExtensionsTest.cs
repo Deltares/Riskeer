@@ -41,13 +41,13 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             };
 
             // Call
-            ClosingStructureFailureMechanismMetaEntity entity = generalinput.Create();
+            ClosingStructuresFailureMechanismMetaEntity entity = generalinput.Create();
 
             // Assert
             Assert.AreEqual(generalinput.N2A, entity.N2A);
 
             Assert.IsNull(entity.FailureMechanismEntity);
-            Assert.AreEqual(0, entity.ClosingStructureFailureMechanismMetaEntityId);
+            Assert.AreEqual(0, entity.ClosingStructuresFailureMechanismMetaEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);
         }
     }

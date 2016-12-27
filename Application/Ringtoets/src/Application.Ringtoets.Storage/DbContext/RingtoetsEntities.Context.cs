@@ -39,8 +39,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<CalculationGroupEntity> CalculationGroupEntities { get; set; }
         public virtual DbSet<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }
         public virtual DbSet<ClosingStructureEntity> ClosingStructureEntities { get; set; }
-        public virtual DbSet<ClosingStructureFailureMechanismMetaEntity> ClosingStructureFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<ClosingStructuresCalculationEntity> ClosingStructuresCalculationEntities { get; set; }
+        public virtual DbSet<ClosingStructuresFailureMechanismMetaEntity> ClosingStructuresFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<ClosingStructuresOutputEntity> ClosingStructuresOutputEntities { get; set; }
         public virtual DbSet<ClosingStructuresSectionResultEntity> ClosingStructuresSectionResultEntities { get; set; }
         public virtual DbSet<DikeProfileEntity> DikeProfileEntities { get; set; }
@@ -98,7 +98,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsCalculationEntity> WaveImpactAsphaltCoverWaveConditionsCalculationEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsOutputEntity> WaveImpactAsphaltCoverWaveConditionsOutputEntities { get; set; }
-
+    
         /// <summary>
         /// This method is called in a 'code first' approach when the model for a derived <see cref="DbContext"/> has been initialized,
         /// but before the model has been locked down and used to initialize the <see cref="DbContext"/>.

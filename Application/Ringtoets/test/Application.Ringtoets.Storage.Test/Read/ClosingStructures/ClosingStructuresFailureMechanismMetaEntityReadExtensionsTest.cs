@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
         public void Read_Always_ReturnHeightStructuresGeneralInput()
         {
             // Setup
-            var entity = new ClosingStructureFailureMechanismMetaEntity
+            var entity = new ClosingStructuresFailureMechanismMetaEntity
             {
                 N2A = 3,
             };

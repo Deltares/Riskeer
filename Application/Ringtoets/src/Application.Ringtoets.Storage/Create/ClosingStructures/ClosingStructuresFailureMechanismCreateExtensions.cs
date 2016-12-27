@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
 
         private static void AddEntitiesForFailureMechanismMeta(GeneralClosingStructuresInput generalInput, FailureMechanismEntity entity)
         {
-            entity.ClosingStructureFailureMechanismMetaEntities.Add(generalInput.Create());
+            entity.ClosingStructuresFailureMechanismMetaEntities.Add(generalInput.Create());
         }
     }
 }

@@ -957,9 +957,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Order = 0
                     }
                 },
-                ClosingStructureFailureMechanismMetaEntities =
+                ClosingStructuresFailureMechanismMetaEntities =
                 {
-                    new ClosingStructureFailureMechanismMetaEntity
+                    new ClosingStructuresFailureMechanismMetaEntity
                     {
                         N2A = generalInputN2A
                     }
@@ -1005,9 +1005,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Id = "b"
                     }
                 },
-                ClosingStructureFailureMechanismMetaEntities =
+                ClosingStructuresFailureMechanismMetaEntities =
                 {
-                    new ClosingStructureFailureMechanismMetaEntity()
+                    new ClosingStructuresFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -1051,9 +1051,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                         }
                     }
                 },
-                ClosingStructureFailureMechanismMetaEntities =
+                ClosingStructuresFailureMechanismMetaEntities =
                 {
-                    new ClosingStructureFailureMechanismMetaEntity()
+                    new ClosingStructuresFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();

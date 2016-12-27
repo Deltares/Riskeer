@@ -880,9 +880,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                 InputComments = inputComments,
                 OutputComments = outputComments,
                 NotRelevantComments = notRelevantComments,
-                ClosingStructureFailureMechanismMetaEntities =
+                ClosingStructuresFailureMechanismMetaEntities =
                 {
-                    new ClosingStructureFailureMechanismMetaEntity
+                    new ClosingStructuresFailureMechanismMetaEntity
                     {
                         N2A = 3
                     }

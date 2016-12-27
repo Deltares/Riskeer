@@ -26,19 +26,19 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
 {
     /// <summary>
     /// Extension methods for <see cref="GeneralClosingStructuresInput"/> related to creating
-    /// a <see cref="ClosingStructureFailureMechanismMetaEntity"/>.
+    /// a <see cref="ClosingStructuresFailureMechanismMetaEntity"/>.
     /// </summary>
     internal static class GeneralClosingStructuresInputCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="ClosingStructureFailureMechanismMetaEntity"/> based on
+        /// Creates a <see cref="ClosingStructuresFailureMechanismMetaEntity"/> based on
         /// the information of the <see cref="GeneralClosingStructuresInput"/>.
         /// </summary>
         /// <param name="input">The general input to create a database entity for.</param>
-        /// <returns>A new <see cref="ClosingStructureFailureMechanismMetaEntity"/>.</returns>
-        internal static ClosingStructureFailureMechanismMetaEntity Create(this GeneralClosingStructuresInput input)
+        /// <returns>A new <see cref="ClosingStructuresFailureMechanismMetaEntity"/>.</returns>
+        internal static ClosingStructuresFailureMechanismMetaEntity Create(this GeneralClosingStructuresInput input)
         {
-            return new ClosingStructureFailureMechanismMetaEntity
+            return new ClosingStructuresFailureMechanismMetaEntity
             {
                 N2A = input.N2A,
             };
