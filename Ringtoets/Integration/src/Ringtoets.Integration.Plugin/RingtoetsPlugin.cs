@@ -58,6 +58,7 @@ using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using Ringtoets.DuneErosion.IO;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -1470,6 +1471,11 @@ namespace Ringtoets.Integration.Plugin
                     {
                         assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase);
                         assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
+
+                        var duneLocationsReader = new DuneLocationsReader();
+                        var duneLocations = duneLocationsReader.ReadDuneLocations();
+                        assessmentSection.DuneErosion.SetDuneLocations(assessmentSection.HydraulicBoundaryDatabase, duneLocations);
+                        assessmentSection.DuneErosion.DuneLocations.NotifyObservers();
                     }
                     log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
                                    assessmentSection.HydraulicBoundaryDatabase.FilePath);
