@@ -35,6 +35,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -54,7 +55,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         ObjectProperties<InputContextBase<TStructureInput, TCalculation, TFailureMechanism>>,
         IHasHydraulicBoundaryLocationProperty,
         IHasStructureProperty<TStructure>,
-        IHasForeshoreProfileProperty
+        IHasForeshoreProfileProperty, 
+        UseBreakWaterProperties.IChangeHandler, 
+        DistributionPropertiesBase<LogNormalDistribution>.IChangeHandler,
+        DistributionPropertiesBase<NormalDistribution>.IChangeHandler 
         where TStructure : StructureBase
         where TStructureInput : StructuresInputBase<TStructure>
         where TCalculation : ICalculation
@@ -135,7 +139,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.StandardDeviation, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.StandardDeviation, data.WrappedData, this)
                 {
                     Data = data.WrappedData.ModelFactorSuperCriticalFlow
                 };
@@ -363,7 +367,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.FlowWidthAtBottomProtection
                 };
@@ -411,7 +415,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.AllowedLevelIncreaseStorage
                 };
@@ -479,7 +483,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 return data.WrappedData.ForeshoreProfile == null ?
                            new UseBreakWaterProperties() :
-                           new UseBreakWaterProperties(data.WrappedData, data.Calculation);
+                           new UseBreakWaterProperties(data.WrappedData, this);
             }
         }
 
@@ -537,5 +541,20 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         #endregion
+
+        void UseBreakWaterProperties.IChangeHandler.PropertyChanged()
+        {
+            // TODO WTI-969/WTI-970/WTI-971
+        }
+
+        void DistributionPropertiesBase<LogNormalDistribution>.IChangeHandler.PropertyChanged()
+        {
+            // TODO WTI-973
+        }
+
+        void DistributionPropertiesBase<NormalDistribution>.IChangeHandler.PropertyChanged()
+        {
+            // TODO WTI-973
+        }
     }
 }

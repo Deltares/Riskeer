@@ -20,19 +20,15 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Common.Service;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
@@ -45,7 +41,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private const int breakWaterTypePropertyIndex = 2;
         private const int breakWaterHeightPropertyIndex = 3;
         private readonly IUseBreakWater data;
-        private ICalculation calculationToUpdate;
+        private readonly IChangeHandler changeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="UseBreakWaterProperties"/>, in which
@@ -58,20 +54,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// properties are editable.
         /// </summary>
         /// <param name="useBreakWaterData">The data to use for the properties.</param>
-        /// <param name="calculation">The calculationToUpdate that needs to be updated due to a property change.</param>
+        /// <param name="handler">The handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public UseBreakWaterProperties(IUseBreakWater useBreakWaterData, ICalculation calculation)
+        public UseBreakWaterProperties(IUseBreakWater useBreakWaterData, IChangeHandler handler)
         {
             if (useBreakWaterData == null)
             {
                 throw new ArgumentNullException("useBreakWaterData");
             }
-            if (calculation == null)
-            {
-                throw new ArgumentNullException("calculation");
-            }
             data = useBreakWaterData;
-            calculationToUpdate = calculation;
+            changeHandler = handler;
         }
 
         [DynamicReadOnly]
@@ -153,12 +145,23 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         private void NotifyPropertyChanged()
         {
-            IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculationToUpdate);
-            foreach (var calculation in affectedCalculation)
+            if (changeHandler != null)
             {
-                calculation.NotifyObservers();
+                changeHandler.PropertyChanged();
             }
             data.NotifyObservers();
+        }
+
+        /// <summary>
+        /// Interface defining the operations of handling a change of <see cref="UseBreakWaterProperties"/>.
+        /// </summary>
+        public interface IChangeHandler
+        {
+            /// <summary>
+            /// Defines the action that is executed after a property of <see cref="UseBreakWaterProperties"/>
+            /// has been changed.
+            /// </summary>
+            void PropertyChanged();
         }
     }
 }

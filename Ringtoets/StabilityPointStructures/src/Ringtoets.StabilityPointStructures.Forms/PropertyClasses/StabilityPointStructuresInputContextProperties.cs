@@ -27,6 +27,7 @@ using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -44,7 +45,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
     public class StabilityPointStructuresInputContextProperties : StructuresInputBaseProperties<StabilityPointStructure,
                                                                       StabilityPointStructuresInput,
                                                                       StructuresCalculation<StabilityPointStructuresInput>,
-                                                                      StabilityPointStructuresFailureMechanism>
+                                                                      StabilityPointStructuresFailureMechanism>,
+                                                                  DistributionPropertiesBase<NormalDistribution>.IChangeHandler,
+                                                                  DistributionPropertiesBase<LogNormalDistribution>.IChangeHandler
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int volumicWeightWaterPropertyIndex = 2;
@@ -91,23 +94,23 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         /// </summary>
         public StabilityPointStructuresInputContextProperties()
             : base(new ConstructionProperties
-            {
-                StructurePropertyIndex = structurePropertyIndex,
-                StructureLocationPropertyIndex = structureLocationPropertyIndex,
-                StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
-                FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
-                WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
-                StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
-                AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
-                CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
-                FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
-                ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
-                UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
-                UseForeshorePropertyIndex = useForeshorePropertyIndex,
-                ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
-                HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
-                StormDurationPropertyIndex = stormDurationPropertyIndex
-            }) {}
+                   {
+                       StructurePropertyIndex = structurePropertyIndex,
+                       StructureLocationPropertyIndex = structureLocationPropertyIndex,
+                       StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
+                       FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
+                       WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
+                       StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
+                       AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
+                       CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
+                       FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
+                       ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
+                       UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
+                       UseForeshorePropertyIndex = useForeshorePropertyIndex,
+                       ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
+                       HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
+                       StormDurationPropertyIndex = stormDurationPropertyIndex
+                   }) {}
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
@@ -169,6 +172,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             return data.FailureMechanism.StabilityPointStructures;
         }
 
+        void DistributionPropertiesBase<LogNormalDistribution>.IChangeHandler.PropertyChanged()
+        {
+            // TODO WTI-974
+        }
+
+        void DistributionPropertiesBase<NormalDistribution>.IChangeHandler.PropertyChanged()
+        {
+            // TODO WTI-974
+        }
+
         protected override void AfterSettingStructure()
         {
             StructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
@@ -202,7 +215,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.InsideWaterLevelFailureConstruction
                 };
@@ -218,7 +231,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.InsideWaterLevel
                 };
@@ -248,7 +261,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.StandardDeviation, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.StandardDeviation, data.WrappedData, this)
                 {
                     Data = data.WrappedData.DrainCoefficient
                 };
@@ -281,7 +294,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.FlowVelocityStructureClosable
                 };
@@ -346,7 +359,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.LevelCrestStructure
                 };
@@ -362,7 +375,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.ThresholdHeightOpenWeir
                 };
@@ -379,7 +392,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.AreaFlowApertures
                 };
@@ -560,7 +573,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.BankWidth
                 };

@@ -30,6 +30,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Properties;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -44,7 +45,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
     public class ClosingStructuresInputContextProperties : StructuresInputBaseProperties<ClosingStructure,
                                                                ClosingStructuresInput,
                                                                StructuresCalculation<ClosingStructuresInput>,
-                                                               ClosingStructuresFailureMechanism>
+                                                               ClosingStructuresFailureMechanism>,
+                                                           DistributionPropertiesBase<NormalDistribution>.IChangeHandler,
+                                                           DistributionPropertiesBase<LogNormalDistribution>.IChangeHandler
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int stormDurationPropertyIndex = 2;
@@ -77,23 +80,23 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         /// Creates a new instance of the <see cref="ClosingStructuresInputContextProperties"/> class.
         /// </summary>
         public ClosingStructuresInputContextProperties() : base(new ConstructionProperties
-        {
-            StructurePropertyIndex = structurePropertyIndex,
-            StructureLocationPropertyIndex = structureLocationPropertyIndex,
-            StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
-            FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
-            WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
-            StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
-            AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
-            CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
-            FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
-            ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
-            UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
-            UseForeshorePropertyIndex = useForeshorePropertyIndex,
-            ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
-            HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
-            StormDurationPropertyIndex = stormDurationPropertyIndex
-        }) {}
+                                                                {
+                                                                    StructurePropertyIndex = structurePropertyIndex,
+                                                                    StructureLocationPropertyIndex = structureLocationPropertyIndex,
+                                                                    StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
+                                                                    FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
+                                                                    WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
+                                                                    StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
+                                                                    AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
+                                                                    CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
+                                                                    FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
+                                                                    ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
+                                                                    UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
+                                                                    UseForeshorePropertyIndex = useForeshorePropertyIndex,
+                                                                    ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
+                                                                    HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
+                                                                    StormDurationPropertyIndex = stormDurationPropertyIndex
+                                                                }) {}
 
         #region Hydraulic data
 
@@ -107,7 +110,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.InsideWaterLevel
                 };
@@ -171,6 +174,16 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             return data.FailureMechanism.ClosingStructures;
         }
 
+        void DistributionPropertiesBase<LogNormalDistribution>.IChangeHandler.PropertyChanged()
+        {
+            // TODO WTI-973
+        }
+
+        void DistributionPropertiesBase<NormalDistribution>.IChangeHandler.PropertyChanged()
+        {
+            // TODO WTI-973
+        }
+
         protected override void AfterSettingStructure()
         {
             StructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
@@ -197,7 +210,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.StandardDeviation, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.StandardDeviation, data.WrappedData, this)
                 {
                     Data = data.WrappedData.DrainCoefficient
                 };
@@ -275,7 +288,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.ThresholdHeightOpenWeir
                 };
@@ -292,7 +305,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.AreaFlowApertures
                 };
@@ -358,7 +371,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.LevelCrestStructureNotClosing
                 };

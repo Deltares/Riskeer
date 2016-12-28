@@ -154,7 +154,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation;
-                NotifyPropertyChanged();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -172,7 +172,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.AssessmentLevel = value;
-                NotifyPropertyChanged();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -189,7 +189,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.UseAssessmentLevelManualInput = value;
-                NotifyPropertyChanged();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -207,7 +207,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.DampingFactorExit = value.Distribution;
-                NotifyPropertyChanged();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -225,7 +225,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.PhreaticLevelExit = value.Distribution;
-                NotifyPropertyChanged();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -262,7 +262,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 {
                     data.WrappedData.SurfaceLine = value;
                     PipingInputService.SetMatchingStochasticSoilModel(data.WrappedData, GetAvailableStochasticSoilModels());
-                    NotifyPropertyChanged();
+                    ClearOutputAndNotifyPropertyChanged();
                 }
             }
         }
@@ -284,7 +284,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 {
                     data.WrappedData.StochasticSoilModel = value;
                     PipingInputService.SyncStochasticSoilProfileWithStochasticSoilModel(data.WrappedData);
-                    NotifyPropertyChanged();
+                    ClearOutputAndNotifyPropertyChanged();
                 }
             }
         }
@@ -305,7 +305,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 if (!ReferenceEquals(value, data.WrappedData.StochasticSoilProfile))
                 {
                     data.WrappedData.StochasticSoilProfile = value;
-                    NotifyPropertyChanged();
+                    ClearOutputAndNotifyPropertyChanged();
                 }
             }
         }
@@ -323,7 +323,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.EntryPointL = value;
-                NotifyPropertyChanged();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -340,7 +340,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.ExitPointL = value;
-                NotifyPropertyChanged();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -437,7 +437,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #endregion
 
-        private void NotifyPropertyChanged()
+        private void ClearOutputAndNotifyPropertyChanged()
         {
             IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(data.PipingCalculation);
             foreach (var calculation in affectedCalculation)

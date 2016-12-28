@@ -41,6 +41,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private readonly bool isMeanReadOnly;
         private readonly bool isStandardDeviationReadOnly;
         private readonly IObservable observable;
+        private readonly IChangeHandler changeHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DistributionPropertiesBase{T}"/> class.
@@ -49,9 +50,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// marked as read-only.</param>
         /// <param name="observable">The object to be notified of changes to properties.
         /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
+        /// <param name="handler">The handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="observable"/>
         /// is <c>null</c> and any number of properties in this class is editable.</exception>
-        protected DistributionPropertiesBase(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable)
+        protected DistributionPropertiesBase(
+            DistributionPropertiesReadOnly propertiesReadOnly,
+            IObservable observable,
+            IChangeHandler handler)
         {
             if (observable == null && !propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.All))
             {
@@ -65,6 +70,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             standardDeviationPropertyName = TypeUtils.GetMemberName<DistributionPropertiesBase<T>>(rd => rd.StandardDeviation);
 
             this.observable = observable;
+            changeHandler = handler;
         }
 
         [PropertyOrder(1)]
@@ -88,7 +94,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     throw new ArgumentException("Mean is set to be read-only.");
                 }
                 data.Mean = value;
-                observable.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -108,7 +114,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     throw new ArgumentException("StandardDeviation is set to be read-only.");
                 }
                 data.StandardDeviation = value;
-                observable.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -131,6 +137,30 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             return data == null ? string.Empty :
                        string.Format("{0} ({1} = {2})",
                                      Mean, Resources.NormalDistribution_StandardDeviation_DisplayName, StandardDeviation);
+        }
+
+        /// <summary>
+        /// Sends notifications due to a change of a property.
+        /// </summary>
+        protected void NotifyPropertyChanged()
+        {
+            if (changeHandler != null)
+            {
+                changeHandler.PropertyChanged();
+            }
+            observable.NotifyObservers();
+        }
+
+        /// <summary>
+        /// Interface defining the operations of handling a change of <see cref="DistributionPropertiesBase{T}"/>.
+        /// </summary>
+        public interface IChangeHandler
+        {
+            /// <summary>
+            /// Defines the action that is executed after a property of <see cref="DistributionPropertiesBase{T}"/>
+            /// has been changed.
+            /// </summary>
+            void PropertyChanged();
         }
     }
 }

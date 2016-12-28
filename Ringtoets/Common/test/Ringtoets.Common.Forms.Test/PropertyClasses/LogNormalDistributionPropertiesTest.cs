@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -62,7 +61,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
+            var properties = new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock, null);
 
             // Assert
             Assert.IsNull(properties.Data);
@@ -78,74 +77,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             DistributionPropertiesReadOnly flags)
         {
             // Call
-            TestDelegate call = () => new LogNormalDistributionProperties(flags, null);
+            TestDelegate call = () => new LogNormalDistributionProperties(flags, null, null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Observable must be specified unless no property can be set.");
-        }
-
-        [Test]
-        public void SetProperties_MeanWithObserverable_ValueSetNotifyObservers()
-        {
-            // Setup
-            var observerableMock = mockRepository.StrictMock<IObservable>();
-            observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
-            var properties = new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock)
-            {
-                Data = new LogNormalDistribution(2)
-            };
-            mockRepository.ReplayAll();
-            RoundedDouble newMeanValue = new RoundedDouble(3, 20);
-
-            // Call
-            properties.Mean = newMeanValue;
-
-            // Assert
-            Assert.AreEqual(newMeanValue, properties.Mean);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(DistributionPropertiesReadOnly.All)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
-        public void SetProperties_ReadOnlyStandardDeviationWithObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
-        {
-            // Setup
-            var observerableMock = mockRepository.StrictMock<IObservable>();
-            mockRepository.ReplayAll();
-            var properties = new LogNormalDistributionProperties(propertiesReadOnly, observerableMock)
-            {
-                Data = new LogNormalDistribution(2)
-            };
-
-            // Call
-            TestDelegate test = () => properties.StandardDeviation = new RoundedDouble(2, 20);
-
-            // Assert
-            const string expectedMessage = "StandardDeviation is set to be read-only.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SetProperties_StandardDeviationWithObserverable_ValueSetNotifyObservers()
-        {
-            // Setup
-            var observerableMock = mockRepository.StrictMock<IObservable>();
-            observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
-            mockRepository.ReplayAll();
-            var properties = new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock)
-            {
-                Data = new LogNormalDistribution(2)
-            };
-            RoundedDouble newStandardDeviationValue = new RoundedDouble(3, 20);
-
-            // Call
-            properties.StandardDeviation = newStandardDeviationValue;
-
-            // Assert
-            Assert.AreEqual(newStandardDeviationValue, properties.StandardDeviation);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -156,7 +91,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
+            var properties = new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock, null);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Call
-            var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.All, null);
+            var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.All, null, null);
 
             // Assert
             Assert.IsInstanceOf<DistributionPropertiesBase<IDistribution>>(properties);
@@ -54,134 +54,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             DistributionPropertiesReadOnly flags)
         {
             // Call
-            TestDelegate call = () => new SimpleDistributionProperties(flags, null);
+            TestDelegate call = () => new SimpleDistributionProperties(flags, null, null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Observable must be specified unless no property can be set.");
-        }
-
-        [Test]
-        [TestCase(DistributionPropertiesReadOnly.All, true, true)]
-        [TestCase(DistributionPropertiesReadOnly.Mean, true, false)]
-        [TestCase(DistributionPropertiesReadOnly.None, false, false)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation, false, true)]
-        public void DynamicReadOnlyValidationMethod_VariousReadOnlySet_ExpectedValues(DistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectStandardDeviationReadOnly)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.Stub<IObservable>();
-            mocks.ReplayAll();
-
-            var properties = new SimpleDistributionProperties(propertiesReadOnly, observable);
-
-            // Call
-            bool meanIsReadOnly = properties.DynamicReadOnlyValidationMethod("Mean");
-            bool standardDeviationIsReadOnly = properties.DynamicReadOnlyValidationMethod("StandardDeviation");
-            bool doesNotExist = properties.DynamicReadOnlyValidationMethod("DoesNotExist");
-
-            // Assert
-            Assert.AreEqual(expectStandardDeviationReadOnly, standardDeviationIsReadOnly);
-            Assert.AreEqual(expectMeanReadOnly, meanIsReadOnly);
-            Assert.IsFalse(doesNotExist);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Data_SetNewDistributionContextInstance_ReturnCorrectPropertyValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.Stub<IObservable>();
-            var distribution = mocks.Stub<IDistribution>();
-            distribution.Mean = new RoundedDouble(1, 1.1);
-            distribution.StandardDeviation = new RoundedDouble(2, 2.2);
-            mocks.ReplayAll();
-
-            var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.None, observable);
-
-            // Call
-            properties.Data = distribution;
-
-            // Assert
-            Assert.AreEqual(distribution.Mean, properties.Mean);
-            Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
-            string expectedToString = string.Format("{0} ({1} = {2})",
-                                                    distribution.Mean, Resources.NormalDistribution_StandardDeviation_DisplayName, distribution.StandardDeviation);
-            Assert.AreEqual(expectedToString, properties.ToString());
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void SetProperties_MeanWithObserverable_ValueSetNotifyObservers()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observerableMock = mockRepository.StrictMock<IObservable>();
-            observerableMock.Expect(o => o.NotifyObservers());
-            var distribution = mockRepository.Stub<IDistribution>();
-            mockRepository.ReplayAll();
-
-            var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock)
-            {
-                Data = distribution
-            };
-            RoundedDouble newMeanValue = new RoundedDouble(3, 20);
-
-            // Call
-            properties.Mean = newMeanValue;
-
-            // Assert
-            Assert.AreEqual(newMeanValue, properties.Mean);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(DistributionPropertiesReadOnly.All)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
-        public void SetProperties_ReadOnlyStandardDeviationWithoutObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.Stub<IObservable>();
-            var distribution = mocks.Stub<IDistribution>();
-            mocks.ReplayAll();
-
-            var properties = new SimpleDistributionProperties(propertiesReadOnly, observable)
-            {
-                Data = distribution
-            };
-
-            // Call
-            TestDelegate test = () => properties.StandardDeviation = new RoundedDouble(2, 20);
-
-            // Assert
-            const string expectedMessage = "StandardDeviation is set to be read-only.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void SetProperties_StandardDeviationWithObserverable_ValueSetNotifyObservers()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observerableMock = mockRepository.StrictMock<IObservable>();
-            observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
-            var distribution = mockRepository.Stub<IDistribution>();
-            mockRepository.ReplayAll();
-
-            var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock)
-            {
-                Data = distribution
-            };
-            RoundedDouble newStandardDeviationValue = new RoundedDouble(3, 20);
-
-            // Call
-            properties.StandardDeviation = newStandardDeviationValue;
-
-            // Assert
-            Assert.AreEqual(newStandardDeviationValue, properties.StandardDeviation);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -198,7 +74,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new SimpleDistributionProperties(propertiesReadOnly, observable)
+            var properties = new SimpleDistributionProperties(propertiesReadOnly, observable, null)
             {
                 Data = distribution
             };
@@ -230,10 +106,173 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCase(DistributionPropertiesReadOnly.All, true, true)]
+        [TestCase(DistributionPropertiesReadOnly.Mean, true, false)]
+        [TestCase(DistributionPropertiesReadOnly.None, false, false)]
+        [TestCase(DistributionPropertiesReadOnly.StandardDeviation, false, true)]
+        public void DynamicReadOnlyValidationMethod_VariousReadOnlySet_ExpectedValues(DistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectStandardDeviationReadOnly)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observable = mocks.Stub<IObservable>();
+            mocks.ReplayAll();
+
+            var properties = new SimpleDistributionProperties(propertiesReadOnly, observable, null);
+
+            // Call
+            bool meanIsReadOnly = properties.DynamicReadOnlyValidationMethod("Mean");
+            bool standardDeviationIsReadOnly = properties.DynamicReadOnlyValidationMethod("StandardDeviation");
+            bool doesNotExist = properties.DynamicReadOnlyValidationMethod("DoesNotExist");
+
+            // Assert
+            Assert.AreEqual(expectStandardDeviationReadOnly, standardDeviationIsReadOnly);
+            Assert.AreEqual(expectMeanReadOnly, meanIsReadOnly);
+            Assert.IsFalse(doesNotExist);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Data_SetNewDistributionContextInstance_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observable = mocks.Stub<IObservable>();
+            var distribution = mocks.Stub<IDistribution>();
+            distribution.Mean = new RoundedDouble(1, 1.1);
+            distribution.StandardDeviation = new RoundedDouble(2, 2.2);
+            mocks.ReplayAll();
+
+            var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.None, observable, null);
+
+            // Call
+            properties.Data = distribution;
+
+            // Assert
+            Assert.AreEqual(distribution.Mean, properties.Mean);
+            Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
+            string expectedToString = string.Format("{0} ({1} = {2})",
+                                                    distribution.Mean, Resources.NormalDistribution_StandardDeviation_DisplayName, distribution.StandardDeviation);
+            Assert.AreEqual(expectedToString, properties.ToString());
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Mean_ReadOnlyWithObserverable_ThrowsArgumentException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observable = mocks.Stub<IObservable>();
+            var distribution = mocks.Stub<IDistribution>();
+            mocks.ReplayAll();
+
+            var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.All, observable, null)
+            {
+                Data = distribution
+            };
+
+            // Call
+            TestDelegate test = () => properties.Mean = new RoundedDouble(2, 20);
+
+            // Assert
+            const string expectedMessage = "Mean is set to be read-only.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Mean_WithObserverable_ValueSetNotifyObservers(bool withHandler)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observerableMock = mockRepository.StrictMock<IObservable>();
+            observerableMock.Expect(o => o.NotifyObservers());
+            DistributionPropertiesBase<IDistribution>.IChangeHandler handler = null;
+            if (withHandler)
+            {
+                handler = mockRepository.StrictMock<DistributionPropertiesBase<IDistribution>.IChangeHandler>();
+                handler.Expect(o => o.PropertyChanged());
+            }
+            var distribution = mockRepository.Stub<IDistribution>();
+            mockRepository.ReplayAll();
+
+            var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock, handler)
+            {
+                Data = distribution
+            };
+            RoundedDouble newMeanValue = new RoundedDouble(3, 20);
+
+            // Call
+            properties.Mean = newMeanValue;
+
+            // Assert
+            Assert.AreEqual(newMeanValue, properties.Mean);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(DistributionPropertiesReadOnly.All)]
+        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
+        public void StandardDeviation_ReadOnlyWithoutObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observable = mocks.Stub<IObservable>();
+            var distribution = mocks.Stub<IDistribution>();
+            mocks.ReplayAll();
+
+            var properties = new SimpleDistributionProperties(propertiesReadOnly, observable, null)
+            {
+                Data = distribution
+            };
+
+            // Call
+            TestDelegate test = () => properties.StandardDeviation = new RoundedDouble(2, 20);
+
+            // Assert
+            const string expectedMessage = "StandardDeviation is set to be read-only.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void StandardDeviation_WithObserverable_ValueSetNotifyObservers(bool withHandler)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observerableMock = mockRepository.StrictMock<IObservable>();
+            observerableMock.Expect(o => o.NotifyObservers());
+            DistributionPropertiesBase<IDistribution>.IChangeHandler handler = null;
+            if (withHandler)
+            {
+                handler = mockRepository.StrictMock<DistributionPropertiesBase<IDistribution>.IChangeHandler>();
+                handler.Expect(o => o.PropertyChanged());
+            }
+            var distribution = mockRepository.Stub<IDistribution>();
+            mockRepository.ReplayAll();
+
+            var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock, handler)
+            {
+                Data = distribution
+            };
+            RoundedDouble newStandardDeviationValue = new RoundedDouble(3, 20);
+
+            // Call
+            properties.StandardDeviation = newStandardDeviationValue;
+
+            // Assert
+            Assert.AreEqual(newStandardDeviationValue, properties.StandardDeviation);
+            mockRepository.VerifyAll();
+        }
+
         private class SimpleDistributionProperties : DistributionPropertiesBase<IDistribution>
         {
-            public SimpleDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable)
-                : base(propertiesReadOnly, observable) {}
+            public SimpleDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable, IChangeHandler handler)
+                : base(propertiesReadOnly, observable, handler) {}
 
             public override string DistributionType
             {

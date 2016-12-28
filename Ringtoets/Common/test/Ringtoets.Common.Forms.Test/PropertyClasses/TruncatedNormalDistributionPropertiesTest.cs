@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             DistributionPropertiesReadOnly flags)
         {
             // Call
-            TestDelegate call = () => new TruncatedNormalDistributionProperties(flags, null);
+            TestDelegate call = () => new TruncatedNormalDistributionProperties(flags, null, null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Observable must be specified unless no property can be set.");
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
+            var properties = new TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock, null);
 
             // Assert
             Assert.IsInstanceOf<DistributionPropertiesBase<TruncatedNormalDistribution>>(properties);
@@ -86,7 +86,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
+            var properties = new TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock, null);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

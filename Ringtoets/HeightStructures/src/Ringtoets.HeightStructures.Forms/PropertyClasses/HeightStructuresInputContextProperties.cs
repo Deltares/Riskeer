@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Utils;
@@ -39,7 +40,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     public class HeightStructuresInputContextProperties : StructuresInputBaseProperties<HeightStructure,
                                                               HeightStructuresInput,
                                                               StructuresCalculation<HeightStructuresInput>,
-                                                              HeightStructuresFailureMechanism>
+                                                              HeightStructuresFailureMechanism>,
+                                                          DistributionPropertiesBase<NormalDistribution>.IChangeHandler
     {
         private const int structurePropertyIndex = 1;
         private const int structureLocationPropertyIndex = 2;
@@ -61,24 +63,25 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresInputContextProperties"/> class.
         /// </summary>
-        public HeightStructuresInputContextProperties() : base(new ConstructionProperties
-        {
-            StructurePropertyIndex = structurePropertyIndex,
-            StructureLocationPropertyIndex = structureLocationPropertyIndex,
-            StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
-            FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
-            WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
-            StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
-            AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
-            CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
-            FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
-            ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
-            UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
-            UseForeshorePropertyIndex = useForeshorePropertyIndex,
-            ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
-            HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
-            StormDurationPropertyIndex = stormDurationPropertyIndex
-        }) {}
+        public HeightStructuresInputContextProperties() : base(
+            new ConstructionProperties
+            {
+                StructurePropertyIndex = structurePropertyIndex,
+                StructureLocationPropertyIndex = structureLocationPropertyIndex,
+                StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
+                FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
+                WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
+                StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
+                AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
+                CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
+                FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
+                ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
+                UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
+                UseForeshorePropertyIndex = useForeshorePropertyIndex,
+                ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
+                HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
+                StormDurationPropertyIndex = stormDurationPropertyIndex
+            }) {}
 
         #region Schematization
 
@@ -91,7 +94,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData, this)
                 {
                     Data = data.WrappedData.LevelCrestStructure
                 };
@@ -108,6 +111,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         public override IEnumerable<HeightStructure> GetAvailableStructures()
         {
             return data.FailureMechanism.HeightStructures;
+        }
+
+        void DistributionPropertiesBase<NormalDistribution>.IChangeHandler.PropertyChanged()
+        {
+            // TODO WTI-972
         }
 
         protected override void AfterSettingStructure()
