@@ -73,14 +73,14 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<HydraulicBoundaryLocationsContext>
+            yield return new TreeNodeInfo<DuneLocationsContext>
             {
                 Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ForeColor = context => context.WrappedData.Count > 0 ?
                                            Color.FromKnownColor(KnownColor.ControlText) :
                                            Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = HydraulicBoundaryLocationsContextMenuStrip
+                ContextMenuStrip = DuneLocationsContextMenuStrip
             };
         }
 
@@ -117,7 +117,7 @@ namespace Ringtoets.DuneErosion.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new HydraulicBoundaryLocationsContext(wrappedData.HydraulicBoundaryLocations, wrappedData, failureMechanismContext.Parent),
+                new DuneLocationsContext(wrappedData.DuneLocations, wrappedData, failureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -188,9 +188,9 @@ namespace Ringtoets.DuneErosion.Plugin
 
         #endregion
 
-        #region HydraulicBoundaryLocationsContext TreeNodeInfo
+        #region DuneLocationsContext TreeNodeInfo
 
-        private ContextMenuStrip HydraulicBoundaryLocationsContextMenuStrip(HydraulicBoundaryLocationsContext context, object parent, TreeViewControl treeViewControl)
+        private ContextMenuStrip DuneLocationsContextMenuStrip(DuneLocationsContext context, object parent, TreeViewControl treeViewControl)
         {
             var calculateAllItem = new StrictContextMenuItem(RingtoetsCommonFormsResources.Calculate_all,
                                                              RingtoetsCommonFormsResources.Calculate_all_ToolTip,

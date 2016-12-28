@@ -25,14 +25,13 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 
 namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationsContextTest
+    public class DuneLocationsContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -44,11 +43,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var context = new HydraulicBoundaryLocationsContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionStub);
+            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionStub);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(context);
-            Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, context.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<DuneLocation>>>(context);
+            Assert.AreSame(failureMechanism.DuneLocations, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
             mockRepository.VerifyAll();
@@ -63,11 +62,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), null, assessmentSectionStub);
+            TestDelegate call = () => new DuneLocationsContext(new ObservableList<DuneLocation>(), null, assessmentSectionStub);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationsContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, null);
+            TestDelegate call = () => new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

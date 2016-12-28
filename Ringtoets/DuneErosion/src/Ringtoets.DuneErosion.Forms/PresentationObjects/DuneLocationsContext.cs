@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 
 namespace Ringtoets.DuneErosion.Forms.PresentationObjects
@@ -31,19 +30,19 @@ namespace Ringtoets.DuneErosion.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for Hydraulic boundary locations.
     /// </summary>
-    public class HydraulicBoundaryLocationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
+    public class DuneLocationsContext : ObservableWrappedObjectContextBase<ObservableList<DuneLocation>>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationsContext"/>.
+        /// Creates a new instance of <see cref="DuneLocationsContext"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The locations from the hydraulic boundaries database made for dune erosion.</param>
+        /// <param name="duneLocations">The dune locations for dune erosion failure mechanism.</param>
         /// <param name="failureMechanism">The dune erosion failure mechanism which the locations belong to.</param>
         /// <param name="assessmentSection">The assessment section the locations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HydraulicBoundaryLocationsContext(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+        public DuneLocationsContext(ObservableList<DuneLocation> duneLocations,
                                                  DuneErosionFailureMechanism failureMechanism,
                                                  IAssessmentSection assessmentSection)
-            : base(hydraulicBoundaryLocations)
+            : base(duneLocations)
         {
             if (failureMechanism == null)
             {

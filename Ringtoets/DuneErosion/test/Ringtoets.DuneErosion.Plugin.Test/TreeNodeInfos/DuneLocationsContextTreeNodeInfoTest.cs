@@ -30,7 +30,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -38,7 +37,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationsContextTreeNodeInfoTest
+    public class DuneLocationsContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private DuneErosionPlugin plugin;
@@ -49,7 +48,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new DuneErosionPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryLocationsContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneLocationsContext));
         }
 
         [TearDown]
@@ -67,7 +66,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(HydraulicBoundaryLocationsContext), info.TagType);
+            Assert.AreEqual(typeof(DuneLocationsContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
@@ -95,7 +94,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new DuneErosionFailureMechanism();
-            var context = new HydraulicBoundaryLocationsContext(mechanism.HydraulicBoundaryLocations, mechanism, assessmentSection);
+            var context = new DuneLocationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
 
             // Call
             var text = info.Text(context);
@@ -125,7 +124,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new DuneErosionFailureMechanism();
-            var context = new HydraulicBoundaryLocationsContext(mechanism.HydraulicBoundaryLocations, mechanism, assessmentSection);
+            var context = new DuneLocationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -142,8 +141,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new DuneErosionFailureMechanism();
-            mechanism.HydraulicBoundaryLocations.Add(new TestHydraulicBoundaryLocation());
-            var context = new HydraulicBoundaryLocationsContext(mechanism.HydraulicBoundaryLocations, mechanism, assessmentSection);
+            mechanism.DuneLocations.Add(new DuneLocation(string.Empty, 0, 0, 0, 0, 0, 0));
+            var context = new DuneLocationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -160,7 +159,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var context = new HydraulicBoundaryLocationsContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionMock);
+                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionMock);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
 
@@ -197,7 +196,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var context = new HydraulicBoundaryLocationsContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionMock);
+                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionMock);
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
 
