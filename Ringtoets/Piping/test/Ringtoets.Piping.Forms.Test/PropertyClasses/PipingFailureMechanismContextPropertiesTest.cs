@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
@@ -29,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -39,31 +41,59 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
     public class PipingFailureMechanismContextPropertiesTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = CreateSimpleHandler(new MockRepository());
+            mocks.ReplayAll();
+
             // Call
-            var properties = new PipingFailureMechanismContextProperties();
+            TestDelegate test = () => new PipingFailureMechanismContextProperties(null, handler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PipingFailureMechanismContext>>(properties);
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Data_SetNewPipingFailureMechanismContextInstance_ReturnCorrectPropertyValues()
+        public void Constructor_ChangeHandlerIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new PipingFailureMechanismContextProperties(
+                new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection),
+                null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("handler", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var properties = new PipingFailureMechanismContextProperties();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                failureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = CreateSimpleHandler(new MockRepository());
             mockRepository.ReplayAll();
 
             // Call
-            properties.Data = new PipingFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var properties = new PipingFailureMechanismContextProperties(
+                new PipingFailureMechanismContext(failureMechanism, assessmentSectionStub),
+                handler);
 
             // Assert
+            Assert.IsInstanceOf<ObjectProperties<PipingFailureMechanismContext>>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
 
@@ -95,11 +125,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var failureMechanism = new PipingFailureMechanism();
 
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var handler = CreateSimpleHandler(new MockRepository());
+
+            mockRepository.ReplayAll();
+
             // Call
-            var properties = new PipingFailureMechanismContextProperties
-            {
-                Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().Stub<IAssessmentSection>())
-            };
+            var properties = new PipingFailureMechanismContextProperties(
+                new PipingFailureMechanismContext(failureMechanism, assessmentSectionStub),
+                handler);
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -230,10 +265,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var observerMock = mocks.StrictMock<IObserver>();
 
             var failureMechanism = new PipingFailureMechanism();
-            var properties = new PipingFailureMechanismContextProperties
-            {
-                Data = new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>())
-            };
+            var properties = new PipingFailureMechanismContextProperties(
+                new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>()),
+                CreateSimpleHandler(mocks));
             mocks.ReplayAll();
 
             failureMechanism.Attach(observerMock);
@@ -262,10 +296,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver());
 
             var failureMechanism = new PipingFailureMechanism();
-            var properties = new PipingFailureMechanismContextProperties
-            {
-                Data = new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>())
-            };
+            var properties = new PipingFailureMechanismContextProperties(
+                new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>()),
+                CreateSimpleHandler(mocks));
             mocks.ReplayAll();
 
             failureMechanism.Attach(observerMock);
@@ -290,10 +323,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver());
 
             var failureMechanism = new PipingFailureMechanism();
-            var properties = new PipingFailureMechanismContextProperties
-            {
-                Data = new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>())
-            };
+            var properties = new PipingFailureMechanismContextProperties(
+                new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>()),
+                CreateSimpleHandler(mocks));
             mocks.ReplayAll();
 
             failureMechanism.Attach(observerMock);
@@ -319,10 +351,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var observerMock = mocks.StrictMock<IObserver>();
 
             var failureMechanism = new PipingFailureMechanism();
-            var properties = new PipingFailureMechanismContextProperties
-            {
-                Data = new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>())
-            };
+            var properties = new PipingFailureMechanismContextProperties(
+                new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>()),
+                CreateSimpleHandler(mocks));
             mocks.ReplayAll();
 
             failureMechanism.Attach(observerMock);
@@ -333,6 +364,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde moet binnen het bereik [0, 20] liggen.");
             mocks.VerifyAll(); // Does not expect notify observers.
+        }
+
+        private IFailureMechanismPropertyChangeHandler CreateSimpleHandler(MockRepository mockRepository)
+        {
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
+            handler.Stub(h => h.ConfirmPropertyChange()).Return(true);
+            handler.Stub(h => h.PropertyChanged(Arg<PipingFailureMechanism>.Matches(z => true))).Return(Enumerable.Empty<IObservable>());
+
+            return handler;
         }
     }
 }

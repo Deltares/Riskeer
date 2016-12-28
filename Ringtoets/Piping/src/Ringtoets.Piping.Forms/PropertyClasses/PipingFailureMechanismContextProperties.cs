@@ -19,10 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -34,6 +37,29 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// </summary>
     public class PipingFailureMechanismContextProperties : ObjectProperties<PipingFailureMechanismContext>
     {
+        private readonly IFailureMechanismPropertyChangeHandler propertyChangeHandler;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingFailureMechanismContextProperties"/>.
+        /// </summary>
+        /// <param name="data">The instance to show the properties of.</param>
+        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
+        public PipingFailureMechanismContextProperties(
+            PipingFailureMechanismContext data,
+            IFailureMechanismPropertyChangeHandler handler)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException("data");
+            }
+            if (handler == null)
+            {
+                throw new ArgumentNullException("handler");
+            }
+            Data = data;
+            propertyChangeHandler = handler;
+        }
+
         #region Heave
 
         [PropertyOrder(31)]
@@ -88,8 +114,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.GeneralInput.WaterVolumetricWeight = value;
-                data.WrappedData.NotifyObservers();
+                if (propertyChangeHandler.ConfirmPropertyChange())
+                {
+                    data.WrappedData.GeneralInput.WaterVolumetricWeight = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -137,8 +166,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.PipingProbabilityAssessmentInput.A = value;
-                data.WrappedData.NotifyObservers();
+                if (propertyChangeHandler.ConfirmPropertyChange())
+                {
+                    data.WrappedData.PipingProbabilityAssessmentInput.A = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -243,5 +275,15 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         #endregion
+
+        private void OnPropertyChanged()
+        {
+            var changedObjects = propertyChangeHandler.PropertyChanged(data.WrappedData);
+            foreach (IObservable changedObject in changedObjects)
+            {
+                changedObject.NotifyObservers();
+            }
+            data.WrappedData.NotifyObservers();
+        }
     }
 }
