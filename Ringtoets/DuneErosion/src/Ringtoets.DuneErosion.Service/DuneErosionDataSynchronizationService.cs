@@ -59,16 +59,20 @@ namespace Ringtoets.DuneErosion.Service
 
             foreach (ReadDuneLocation duneLocation in duneLocations)
             {
-                if (hydraulicBoundaryDatabase.Locations.Any(hydraulicBoundaryLocation =>
-                                                                    Math2D.AreEqualPoints(hydraulicBoundaryLocation.Location, duneLocation.Location)))
+                foreach (var hydraulicBoundaryLocation in hydraulicBoundaryDatabase.Locations)
                 {
-                    failureMechanism.DuneLocations.Add(new DuneLocation(duneLocation.Name,
-                                                                        duneLocation.Location.X,
-                                                                        duneLocation.Location.Y,
-                                                                        duneLocation.CoastalAreaId,
-                                                                        duneLocation.Offset,
-                                                                        duneLocation.Orientation,
-                                                                        duneLocation.D50));
+                    if (Math2D.AreEqualPoints(hydraulicBoundaryLocation.Location, duneLocation.Location))
+                    {
+                        failureMechanism.DuneLocations.Add(new DuneLocation(hydraulicBoundaryLocation.Id,
+                                                                            duneLocation.Name,
+                                                                            duneLocation.Location.X,
+                                                                            duneLocation.Location.Y,
+                                                                            duneLocation.CoastalAreaId,
+                                                                            duneLocation.Offset,
+                                                                            duneLocation.Orientation,
+                                                                            duneLocation.D50));
+                        break;
+                    }
                 }
             }
         }

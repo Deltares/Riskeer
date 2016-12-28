@@ -31,6 +31,6 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
         /// Creates a new instance of <see cref="TestDuneLocation"/>.
         /// </summary>
         public TestDuneLocation() 
-            : base(string.Empty, 0, 0, 0, 0, 0, 0) {}
+            : base(0, string.Empty, 0, 0, 0, 0, 0, 0) {}
     }
 }
