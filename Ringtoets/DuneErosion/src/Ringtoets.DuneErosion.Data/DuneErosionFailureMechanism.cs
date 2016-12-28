@@ -42,6 +42,7 @@ namespace Ringtoets.DuneErosion.Data
             : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code)
         {
             sectionResults = new List<DuneErosionFailureMechanismSectionResult>();
+            GeneralInput = new GeneralDuneErosionInput();
             DuneLocations = new ObservableList<DuneLocation>();
         }
 
@@ -60,6 +61,11 @@ namespace Ringtoets.DuneErosion.Data
                 return sectionResults;
             }
         }
+
+        /// <summary>
+        /// Gets the general dune erosion calculation input parameters that apply to each calculation.
+        /// </summary>
+        public GeneralDuneErosionInput GeneralInput { get; private set; }
 
         /// <summary>
         /// Gets the dune locations.

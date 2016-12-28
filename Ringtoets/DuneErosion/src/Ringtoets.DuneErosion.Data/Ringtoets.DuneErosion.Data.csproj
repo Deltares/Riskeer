@@ -43,6 +43,7 @@
     <Compile Include="DuneErosionFailureMechanismExtensions.cs" />
     <Compile Include="DuneErosionFailureMechanismSectionResult.cs" />
     <Compile Include="DuneLocation.cs" />
+    <Compile Include="GeneralDuneErosionInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

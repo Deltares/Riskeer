@@ -53,6 +53,7 @@
     <Compile Include="DuneErosionFailureMechanismSectionResultTest.cs" />
     <Compile Include="DuneErosionFailureMechanismTest.cs" />
     <Compile Include="DuneLocationTest.cs" />
+    <Compile Include="GeneralDuneErosionInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

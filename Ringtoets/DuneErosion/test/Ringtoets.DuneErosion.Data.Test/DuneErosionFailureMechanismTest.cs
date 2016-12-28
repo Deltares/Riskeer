@@ -41,6 +41,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             Assert.AreEqual("DA", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
+            Assert.IsNotNull(failureMechanism.GeneralInput);
         }
 
         [Test]
