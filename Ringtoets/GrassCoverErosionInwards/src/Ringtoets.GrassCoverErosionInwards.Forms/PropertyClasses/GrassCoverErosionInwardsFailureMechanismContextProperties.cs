@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.Attributes;
@@ -49,13 +50,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismContextProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="propertyChangeHandler">Handler responsible for handling effects of a property change.</param>
+        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismContextProperties(
             GrassCoverErosionInwardsFailureMechanismContext data, 
-            IFailureMechanismPropertyChangeHandler propertyChangeHandler)
+            IFailureMechanismPropertyChangeHandler handler)
         {
+            if (data == null)
+            {
+                throw new ArgumentNullException("data");
+            }
+            if (handler == null)
+            {
+                throw new ArgumentNullException("handler");
+            }
             Data = data;
-            this.propertyChangeHandler = propertyChangeHandler;
+            propertyChangeHandler = handler;
         }
 
         #region Length effect parameters
@@ -72,7 +82,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-
                 if (propertyChangeHandler.ConfirmPropertyChange())
                 {
                     data.WrappedData.GeneralInput.N = value;

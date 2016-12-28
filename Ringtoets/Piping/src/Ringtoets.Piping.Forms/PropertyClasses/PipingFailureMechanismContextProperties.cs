@@ -44,6 +44,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public PipingFailureMechanismContextProperties(
             PipingFailureMechanismContext data,
             IFailureMechanismPropertyChangeHandler handler)

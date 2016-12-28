@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -50,6 +51,40 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void SetUp()
         {
             mockRepository = new MockRepository();
+        }
+
+        [Test]
+        public void Constructor_DataIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var handler = CreateSimpleHandler();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsFailureMechanismContextProperties(null, handler);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ChangeHandlerIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsFailureMechanismContextProperties(
+                new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection),
+                null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("handler", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
