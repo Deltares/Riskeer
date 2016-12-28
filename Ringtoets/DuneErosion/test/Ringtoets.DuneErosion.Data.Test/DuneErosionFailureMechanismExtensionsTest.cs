@@ -20,96 +20,17 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.DuneErosion.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.Data.Test
 {
     [TestFixture]
     public class DuneErosionFailureMechanismExtensionsTest
     {
-        [Test]
-        public void SetDuneLocations_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => DuneErosionFailureMechanismExtensions.SetDuneLocations(null, new HydraulicBoundaryDatabase(), Enumerable.Empty<DuneLocation>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void SetDuneLocations_Always_PreviousDuneLocationsCleared()
-        {
-            // Setup
-            var duneLocation = new TestDuneLocation();
-
-            var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.DuneLocations.Add(duneLocation);
-
-            // Precondition
-            CollectionAssert.AreEqual(new[]
-                                      {
-                                          duneLocation
-                                      }, failureMechanism.DuneLocations);
-
-            // call
-            failureMechanism.SetDuneLocations(null, Enumerable.Empty<DuneLocation>());
-
-            // Assert
-            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
-        }
-
-        [Test]
-        public void SetDuneLocations_DuneLocationMatchesWithHydraulicBoundaryLocation_DuneLocationAddedToFailureMechanism()
-        {
-            // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
-            var duneLocation = new DuneLocation("dune location 1", 1.0, 5.3, 0, 0, 0, 0);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "hydraulic location 1", 1.0, 5.3);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-
-            // Precondition
-            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
-            
-            // Call
-            failureMechanism.SetDuneLocations(hydraulicBoundaryDatabase, new [] { duneLocation });
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
-                                      {
-                                          duneLocation
-                                      }, failureMechanism.DuneLocations);
-        }
-
-        [Test]
-        public void SetDuneLocation_DuneLocationNoMatchWithHydraulicBoundaryLocation_DuneLocationNotAddedToFailureMechanism()
-        {
-            // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
-            var duneLocation = new DuneLocation("dune location 1", 1.0, 2.0, 0, 0, 0, 0);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "hydraulic location 1", 2.0, 1.0);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-
-            // Precondition
-            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
-
-            // Call
-            failureMechanism.SetDuneLocations(hydraulicBoundaryDatabase, new[] { duneLocation });
-
-            // Assert
-            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
-        }
-
         [Test]
         public void GetMechanismSpecificNorm_FailureMechanismNull_ThrowArgumentNullException()
         {

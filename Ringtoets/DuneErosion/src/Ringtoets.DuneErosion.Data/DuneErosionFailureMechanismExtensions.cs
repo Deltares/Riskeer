@@ -20,11 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data.Properties;
 
 namespace Ringtoets.DuneErosion.Data
@@ -34,39 +30,6 @@ namespace Ringtoets.DuneErosion.Data
     /// </summary>
     public static class DuneErosionFailureMechanismExtensions
     {
-        /// <summary>
-        /// Sets <see cref="DuneErosionFailureMechanism.DuneLocations"/> based upon 
-        /// the locations from the <paramref name="hydraulicBoundaryDatabase"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> to update.</param>
-        /// <param name="hydraulicBoundaryDatabase">The database to use.</param>
-        /// <param name="duneLocations">The dune locations to use.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static void SetDuneLocations(this DuneErosionFailureMechanism failureMechanism,
-                                            HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                            IEnumerable<DuneLocation> duneLocations)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException("failureMechanism");
-            }
-            failureMechanism.DuneLocations.Clear();
-
-            if (hydraulicBoundaryDatabase == null || duneLocations == null || !duneLocations.Any())
-            {
-                return;
-            }
-
-            foreach (DuneLocation duneLocation in duneLocations)
-            {
-                if (hydraulicBoundaryDatabase.Locations.Any(hydraulicBoundaryLocation =>
-                                                                    Math2D.AreEqualPoints(hydraulicBoundaryLocation.Location, duneLocation.Location)))
-                {
-                    failureMechanism.DuneLocations.Add(duneLocation);
-                }
-            }
-        }
-
         /// <summary>
         /// Gets the norm which is needed in the calculations within <see cref="DuneErosionFailureMechanism"/>.
         /// </summary>
