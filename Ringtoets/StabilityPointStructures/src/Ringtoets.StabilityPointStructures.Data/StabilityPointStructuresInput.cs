@@ -149,6 +149,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             EvaluationLevel = (RoundedDouble) 0.0;
             FailureProbabilityRepairClosure = (RoundedDouble) 0.0;
             InflowModelType = 0;
+            LoadSchematizationType = 0;
             StructureNormalOrientation = (RoundedDouble) double.NaN;
             VerticalDistance = (RoundedDouble) double.NaN;
             LevellingCount = 0;
