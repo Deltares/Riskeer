@@ -45,7 +45,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var expectedLevelCrestStructure = new NormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble)0.05
+                StandardDeviation = RoundedDouble.NaN
             };
             DistributionAssert.AreEqual(expectedLevelCrestStructure, input.LevelCrestStructure);
 
@@ -91,7 +91,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var expectedLevelCrestStructure = new NormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble)0.05
+                StandardDeviation = RoundedDouble.NaN
             };
 
             DistributionAssert.AreEqual(expectedLevelCrestStructure, input.LevelCrestStructure);

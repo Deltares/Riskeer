@@ -116,7 +116,7 @@ namespace Ringtoets.HeightStructures.Data
             LevelCrestStructure = new NormalDistribution
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.05
+                StandardDeviation = RoundedDouble.NaN
             };
 
             FailureProbabilityStructureWithErosion = 1.0;
