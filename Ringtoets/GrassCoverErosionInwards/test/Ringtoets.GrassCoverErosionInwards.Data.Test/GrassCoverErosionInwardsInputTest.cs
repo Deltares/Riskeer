@@ -65,7 +65,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
             CollectionAssert.IsEmpty(input.DikeGeometry);
-            Assert.AreEqual(new RoundedDouble(2), input.DikeHeight);
+            Assert.AreEqual(2, input.DikeHeight.NumberOfDecimalPlaces);
+            Assert.IsNaN(input.DikeHeight);
             Assert.IsNull(input.HydraulicBoundaryLocation);
             Assert.AreEqual(DikeHeightCalculationType.NoCalculation, input.DikeHeightCalculationType);
 
@@ -188,7 +189,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
             CollectionAssert.IsEmpty(input.DikeGeometry);
-            Assert.AreEqual(new RoundedDouble(0), input.DikeHeight);
+            Assert.AreEqual(2, input.DikeHeight.NumberOfDecimalPlaces);
+            Assert.IsNaN(input.DikeHeight);
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             Assert.AreEqual(originalCriticalFlowRate, input.CriticalFlowRate);
         }

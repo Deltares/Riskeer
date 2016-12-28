@@ -108,7 +108,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<UseForeshoreProperties>(properties.Foreshore);
             Assert.AreSame(inputContext, properties.DikeGeometry.Data);
             Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.0, properties.DikeHeight.Value);
+            Assert.IsNaN(properties.DikeHeight);
             Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
@@ -169,9 +169,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionInwardsInputContextProperties
             {
                 Data = new GrassCoverErosionInwardsInputContext(
-                    input, 
-                    new GrassCoverErosionInwardsCalculation(), 
-                    new GrassCoverErosionInwardsFailureMechanism(), 
+                    input,
+                    new GrassCoverErosionInwardsCalculation(),
+                    new GrassCoverErosionInwardsFailureMechanism(),
                     assessmentSectionMock)
             };
 
@@ -236,9 +236,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void SelectedHydraulicBoundaryLocation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput, 
-                properties => properties.SelectedHydraulicBoundaryLocation = 
-                    new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0,0)));
+                hasOutput,
+                properties => properties.SelectedHydraulicBoundaryLocation =
+                              new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0, 0)));
         }
 
         [Test]
@@ -247,7 +247,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void UseBreakWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(
-                hasOutput, 
+                hasOutput,
                 properties => properties.BreakWater.UseBreakWater = new Random(21).NextBoolean());
         }
 
@@ -551,7 +551,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         private void SetPropertyAndVerifyNotifcationsAndOutput(
-            bool hasOutput, 
+            bool hasOutput,
             Action<GrassCoverErosionInwardsInputContextProperties> setProperty)
         {
             // Setup

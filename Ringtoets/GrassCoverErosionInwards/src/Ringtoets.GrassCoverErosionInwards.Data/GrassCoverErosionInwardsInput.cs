@@ -182,7 +182,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 UseForeshore = false;
                 UseBreakWater = false;
                 BreakWater = GetDefaultBreakWater();
-                DikeHeight = (RoundedDouble) 0.0;
+                DikeHeight = (RoundedDouble) double.NaN;
             }
             else
             {
