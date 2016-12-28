@@ -128,6 +128,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.AreEqual(0.00025, mechanismSpecificNorm);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -156,6 +157,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
+            mocks.VerifyAll();
         }
     }
 }

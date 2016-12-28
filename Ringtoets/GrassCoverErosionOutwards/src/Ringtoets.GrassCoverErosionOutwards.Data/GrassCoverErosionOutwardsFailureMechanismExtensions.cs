@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// Gets the norm which is needed in the calculations within <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to get the failure mechanism norm for.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the assessment section norm</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the assessment section norm.</param>
         /// <returns>The value of the failure mechanism norm.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="failureMechanism"/> has no (0) contribution.</exception>

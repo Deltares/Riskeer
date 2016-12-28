@@ -23,7 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.DuneErosion.Data.Properties;
 
 namespace Ringtoets.DuneErosion.Data
 {
@@ -63,6 +65,36 @@ namespace Ringtoets.DuneErosion.Data
                     failureMechanism.DuneLocations.Add(duneLocation);
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets the norm which is needed in the calculations within <see cref="DuneErosionFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> to get the failure mechanism norm for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the assessment section norm.</param>
+        /// <returns>The value of the failure mechanism norm.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="failureMechanism"/> has no (0) contribution.</exception>
+        public static double GetMechanismSpecificNorm(this DuneErosionFailureMechanism failureMechanism,
+                                                      IAssessmentSection assessmentSection)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException("assessmentSection");
+            }
+
+            if (Math.Abs(failureMechanism.Contribution) < 1e-6)
+            {
+                throw new ArgumentException(Resources.DuneErosionFailureMechanismExtensions_GetMechanismSpecificNorm_Contribution_is_zero);
+            }
+
+            return 2.15*(failureMechanism.Contribution/100)
+                   *assessmentSection.FailureMechanismContribution.Norm
+                   /failureMechanism.GeneralInput.N;
         }
     }
 }
