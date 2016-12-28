@@ -72,31 +72,31 @@ namespace Ringtoets.Common.Data.Test.Structures
             var expectedAllowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble)0.1
+                StandardDeviation = RoundedDouble.NaN
             };
 
             var expectedStorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble)0.1
+                CoefficientOfVariation = RoundedDouble.NaN
             };
 
             var expectedFlowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble)0.05
+                StandardDeviation = RoundedDouble.NaN
             };
 
             var expectedCriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble)0.15
+                CoefficientOfVariation = RoundedDouble.NaN
             };
 
             var expectedWidthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble)0.05
+                CoefficientOfVariation = RoundedDouble.NaN
             };
 
             var expectedStormDuration = new VariationCoefficientLogNormalDistribution(2)
@@ -153,11 +153,13 @@ namespace Ringtoets.Common.Data.Test.Structures
 
             var input = new SimpleStructuresInput
             {
-                Structure = structure
+                Structure = structure,
+                FailureProbabilityStructureWithErosion = 0.99
             };
 
             VariationCoefficientLogNormalDistribution expectedStormDuraation = input.StormDuration;
             NormalDistribution expectedModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow;
+            double expectedFailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
             // Pre-condition
             Assert.AreSame(structure, input.Structure);
@@ -175,31 +177,31 @@ namespace Ringtoets.Common.Data.Test.Structures
             var expectedAllowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
+                StandardDeviation = RoundedDouble.NaN
             };
 
             var expectedStorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.1
+                CoefficientOfVariation = RoundedDouble.NaN
             };
 
             var expectedFlowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.05
+                StandardDeviation = RoundedDouble.NaN
             };
 
             var expectedCriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.15
+                CoefficientOfVariation = RoundedDouble.NaN
             };
 
             var expectedWidthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.05
+                CoefficientOfVariation = RoundedDouble.NaN
             };
 
             DistributionAssert.AreEqual(expectedAllowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
@@ -208,7 +210,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             DistributionAssert.AreEqual(expectedCriticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
             DistributionAssert.AreEqual(expectedWidthFlowApertures, input.WidthFlowApertures);
 
-            Assert.AreEqual(1.0, input.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, input.FailureProbabilityStructureWithErosion);
         }
 
         #region Model factors

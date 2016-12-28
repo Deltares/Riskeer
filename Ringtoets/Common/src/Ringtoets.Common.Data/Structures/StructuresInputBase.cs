@@ -144,33 +144,31 @@ namespace Ringtoets.Common.Data.Structures
             AllowedLevelIncreaseStorage = new LogNormalDistribution
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
+                StandardDeviation = RoundedDouble.NaN
             };
 
             StorageStructureArea = new VariationCoefficientLogNormalDistribution
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.1
+                CoefficientOfVariation = RoundedDouble.NaN
             };
 
             FlowWidthAtBottomProtection = new LogNormalDistribution
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble) 0.05
+                StandardDeviation = RoundedDouble.NaN
             };
 
             CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.15
+                CoefficientOfVariation = RoundedDouble.NaN
             };
-
-            FailureProbabilityStructureWithErosion = 1.0;
 
             WidthFlowApertures = new VariationCoefficientNormalDistribution
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.05
+                CoefficientOfVariation = RoundedDouble.NaN
             };
         }
 

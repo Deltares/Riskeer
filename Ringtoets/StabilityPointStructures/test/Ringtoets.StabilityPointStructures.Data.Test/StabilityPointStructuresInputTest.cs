@@ -192,6 +192,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             RoundedDouble expectedVolumicWeightWater = input.VolumicWeightWater;
             NormalDistribution expectedDrainCoefficient = input.DrainCoefficient;
             RoundedDouble expectedFactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure;
+            double expectedFailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
             // Pre-condition
             AssertStabilityPointStructure(structure, input);
@@ -210,6 +211,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                             input.FactorStormDurationOpenStructure.GetAccuracy());
             DistributionAssert.AreEqual(structure.FlowVelocityStructureClosable, input.FlowVelocityStructureClosable);
             DistributionAssert.AreEqual(expectedDrainCoefficient, input.DrainCoefficient);
+            Assert.AreEqual(expectedFailureProbabilityStructureWithErosion,
+                            input.FailureProbabilityStructureWithErosion);
 
             var expectedLevelCrestStructure = new NormalDistribution(2)
             {

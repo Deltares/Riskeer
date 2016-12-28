@@ -118,6 +118,8 @@ namespace Ringtoets.HeightStructures.Data
                 Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.05
             };
+
+            FailureProbabilityStructureWithErosion = 1.0;
         }
     }
 }

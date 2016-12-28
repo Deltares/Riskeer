@@ -86,6 +86,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Then
             AssertAreEqual(expectedDeviationWaveDirection, input.DeviationWaveDirection);
+            Assert.AreEqual(1.0, input.FailureProbabilityStructureWithErosion);
 
             var expectedLevelCrestStructure = new NormalDistribution(2)
             {
