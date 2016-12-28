@@ -109,25 +109,25 @@ namespace Ringtoets.ClosingStructures.Data
             ThresholdHeightOpenWeir = new NormalDistribution
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble)0.1
+                StandardDeviation = RoundedDouble.NaN
             };
 
             AreaFlowApertures = new LogNormalDistribution
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble)0.01
+                StandardDeviation = RoundedDouble.NaN
             };
 
             LevelCrestStructureNotClosing = new NormalDistribution
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble)0.05
+                StandardDeviation = RoundedDouble.NaN
             };
 
             InsideWaterLevel = new NormalDistribution
             {
                 Mean = RoundedDouble.NaN,
-                StandardDeviation = (RoundedDouble)0.1
+                StandardDeviation = RoundedDouble.NaN
             };
 
             IdenticalApertures = 0;
