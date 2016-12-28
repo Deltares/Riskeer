@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
+using Ringtoets.DuneErosion.IO;
 
 namespace Ringtoets.DuneErosion.Service.Test
 {
@@ -37,7 +38,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Call
             TestDelegate test = () => DuneErosionDataSynchronizationService.SetDuneLocations(null,
                                                                                              new HydraulicBoundaryDatabase(),
-                                                                                             Enumerable.Empty<DuneLocation>());
+                                                                                             Enumerable.Empty<ReadDuneLocation>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -60,7 +61,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                       }, failureMechanism.DuneLocations);
 
             // call
-            DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism, null, Enumerable.Empty<DuneLocation>());
+            DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism, null, Enumerable.Empty<ReadDuneLocation>());
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
@@ -71,7 +72,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var duneLocation = new DuneLocation("dune location 1", 1.0, 5.3, 0, 0, 0, 0);
+            var readDuneLocation = new ReadDuneLocation("dune location 1", 1.0, 5.3, 8, 1.1, 2.2, 3.3);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "hydraulic location 1", 1.0, 5.3);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
@@ -80,13 +81,17 @@ namespace Ringtoets.DuneErosion.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
 
             // Call
-            DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism, hydraulicBoundaryDatabase, new[] { duneLocation });
+            DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism, hydraulicBoundaryDatabase, new[] { readDuneLocation });
 
             // Assert
-            CollectionAssert.AreEqual(new[]
-                                      {
-                                          duneLocation
-                                      }, failureMechanism.DuneLocations);
+            Assert.AreEqual(1, failureMechanism.DuneLocations.Count);
+
+            DuneLocation duneLocation = failureMechanism.DuneLocations.First();
+            Assert.AreEqual(readDuneLocation.Name, duneLocation.Name);
+            Assert.AreEqual(readDuneLocation.Location, duneLocation.Location);
+            Assert.AreEqual(readDuneLocation.Offset, duneLocation.Offset);
+            Assert.AreEqual(readDuneLocation.Orientation, duneLocation.Orientation);
+            Assert.AreEqual(readDuneLocation.D50, duneLocation.D50);
         }
 
         [Test]
@@ -94,7 +99,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var duneLocation = new DuneLocation("dune location 1", 1.0, 2.0, 0, 0, 0, 0);
+            var duneLocation = new ReadDuneLocation("dune location 1", 1.0, 2.0, 0, 0, 0, 0);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "hydraulic location 1", 2.0, 1.0);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);

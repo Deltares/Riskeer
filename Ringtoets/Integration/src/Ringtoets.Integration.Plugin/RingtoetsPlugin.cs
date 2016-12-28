@@ -1474,7 +1474,7 @@ namespace Ringtoets.Integration.Plugin
                         assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
 
                         var duneLocationsReader = new DuneLocationsReader();
-                        IEnumerable<DuneLocation> duneLocations = duneLocationsReader.ReadDuneLocations();
+                        IEnumerable<ReadDuneLocation> duneLocations = duneLocationsReader.ReadDuneLocations();
                         DuneErosionDataSynchronizationService.SetDuneLocations(assessmentSection.DuneErosion,
                                                                                assessmentSection.HydraulicBoundaryDatabase,
                                                                                duneLocations);

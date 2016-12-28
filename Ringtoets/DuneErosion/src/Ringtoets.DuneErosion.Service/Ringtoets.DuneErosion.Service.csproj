@@ -63,6 +63,11 @@
       <Name>Ringtoets.DuneErosion.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.DuneErosion.IO\Ringtoets.DuneErosion.IO.csproj">
+      <Project>{EDDC30E9-D793-478A-AD37-9F257CE23A22}</Project>
+      <Name>Ringtoets.DuneErosion.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

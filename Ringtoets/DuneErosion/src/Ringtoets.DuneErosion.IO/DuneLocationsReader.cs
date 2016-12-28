@@ -27,12 +27,11 @@ using Core.Common.Base.Geometry;
 using Core.Common.Utils.IO;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Readers;
-using Ringtoets.DuneErosion.Data;
 
 namespace Ringtoets.DuneErosion.IO
 {
     /// <summary>
-    /// Shapefile reader that reads a <see cref="DuneLocation"/> based on the line feature in the file.
+    /// Shapefile reader that reads a <see cref="ReadDuneLocation"/> based on the line feature in the file.
     /// </summary>
     public class DuneLocationsReader
     {
@@ -43,10 +42,10 @@ namespace Ringtoets.DuneErosion.IO
         private const string d50Key = "Dreken";
 
         /// <summary>
-        /// Reads an <see cref="IEnumerable{T}"/> of <see cref="DuneLocation"/> from an embedded shape file containing points.
+        /// Reads an <see cref="IEnumerable{T}"/> of <see cref="ReadDuneLocation"/> from an embedded shape file containing points.
         /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="DuneLocation"/>.</returns>
-        public IEnumerable<DuneLocation> ReadDuneLocations()
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ReadDuneLocation"/>.</returns>
+        public IEnumerable<ReadDuneLocation> ReadDuneLocations()
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DuneLocationsReader).Assembly,
                                                                                    true,
@@ -67,7 +66,7 @@ namespace Ringtoets.DuneErosion.IO
             }
         }
 
-        private IEnumerable<DuneLocation> CreateDuneLocations(FeatureBasedMapData locationsData)
+        private IEnumerable<ReadDuneLocation> CreateDuneLocations(FeatureBasedMapData locationsData)
         {
             foreach (var locationData in locationsData.Features)
             {
@@ -82,7 +81,7 @@ namespace Ringtoets.DuneErosion.IO
                 double orientation = Convert.ToDouble(locationData.MetaData[orientationKey]);
                 double d50 = Convert.ToDouble(locationData.MetaData[d50Key]);
 
-                yield return  new DuneLocation(name, xCoordinate, yCoordinate, coastalAreaId, offset, orientation, d50);
+                yield return  new ReadDuneLocation(name, xCoordinate, yCoordinate, coastalAreaId, offset, orientation, d50);
             }
         }
     }

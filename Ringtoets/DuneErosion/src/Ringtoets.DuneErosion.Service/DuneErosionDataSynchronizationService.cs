@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.IO;
 
 namespace Ringtoets.DuneErosion.Service
 {
@@ -43,7 +44,7 @@ namespace Ringtoets.DuneErosion.Service
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism,
                                             HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                            IEnumerable<DuneLocation> duneLocations)
+                                            IEnumerable<ReadDuneLocation> duneLocations)
         {
             if (failureMechanism == null)
             {
@@ -56,12 +57,18 @@ namespace Ringtoets.DuneErosion.Service
                 return;
             }
 
-            foreach (DuneLocation duneLocation in duneLocations)
+            foreach (ReadDuneLocation duneLocation in duneLocations)
             {
                 if (hydraulicBoundaryDatabase.Locations.Any(hydraulicBoundaryLocation =>
                                                                     Math2D.AreEqualPoints(hydraulicBoundaryLocation.Location, duneLocation.Location)))
                 {
-                    failureMechanism.DuneLocations.Add(duneLocation);
+                    failureMechanism.DuneLocations.Add(new DuneLocation(duneLocation.Name,
+                                                                        duneLocation.Location.X,
+                                                                        duneLocation.Location.Y,
+                                                                        duneLocation.CoastalAreaId,
+                                                                        duneLocation.Offset,
+                                                                        duneLocation.Orientation,
+                                                                        duneLocation.D50));
                 }
             }
         }

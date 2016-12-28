@@ -36,11 +36,11 @@ namespace Ringtoets.DuneErosion.IO.Test
             var reader = new DuneLocationsReader();
 
             // Call
-            IEnumerable<DuneLocation> locations = reader.ReadDuneLocations();
+            IEnumerable<ReadDuneLocation> locations = reader.ReadDuneLocations();
 
             // Assert
             Assert.AreEqual(3431, locations.Count());
-            foreach (DuneLocation duneLocation in locations)
+            foreach (ReadDuneLocation duneLocation in locations)
             {
                 Assert.IsNotNullOrEmpty(duneLocation.Name);
                 Assert.IsNotNull(duneLocation.Location);
