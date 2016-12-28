@@ -34,6 +34,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
+using Ringtoets.DuneErosion.Plugin.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -192,12 +193,18 @@ namespace Ringtoets.DuneErosion.Plugin
 
         private ContextMenuStrip DuneLocationsContextMenuStrip(DuneLocationsContext context, object parent, TreeViewControl treeViewControl)
         {
+            bool locationsAvailable = context.FailureMechanism.DuneLocations.Any();
+
+            string toolTip = locationsAvailable
+                                 ? RingtoetsCommonFormsResources.Calculate_all_ToolTip
+                                 : Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_locations;
+
             var calculateAllItem = new StrictContextMenuItem(RingtoetsCommonFormsResources.Calculate_all,
-                                                             RingtoetsCommonFormsResources.Calculate_all_ToolTip,
+                                                             toolTip,
                                                              RingtoetsCommonFormsResources.CalculateAllIcon,
                                                              (sender, args) => { })
             {
-                Enabled = false
+                Enabled = locationsAvailable
             };
 
             return Gui.Get(context, treeViewControl)

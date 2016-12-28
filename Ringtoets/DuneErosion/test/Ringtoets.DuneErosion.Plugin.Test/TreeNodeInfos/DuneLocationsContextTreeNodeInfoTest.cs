@@ -190,7 +190,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_AddCustomItem()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ContextMenuStrip_Always_AddCustomItem(bool hasDuneLocations)
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -207,17 +209,26 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
+                if (hasDuneLocations)
+                {
+                    failureMechanism.DuneLocations.Add(new TestDuneLocation());
+                }
+
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     Assert.AreEqual(5, menu.Items.Count);
 
+                    var expectedMessage = hasDuneLocations
+                                              ? "Voer alle berekeningen binnen dit toetsspoor uit."
+                                              : "Er zijn geen locaties om een berekening voor uit te voeren.";
+
                     TestHelper.AssertContextMenuStripContainsItem(menu, 2,
                                                                   "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen dit toetsspoor uit.",
+                                                                  expectedMessage,
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  false);
+                                                                  hasDuneLocations);
                 }
             }
         }
