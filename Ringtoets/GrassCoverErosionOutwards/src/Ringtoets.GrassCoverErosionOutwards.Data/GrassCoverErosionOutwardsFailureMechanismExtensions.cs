@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
@@ -34,25 +36,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     {
         /// <summary>
         /// Sets <see cref="GrassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations"/> 
-        /// based upon the <paramref name="hydraulicBoundaryDatabase"/>.
+        /// based upon the <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to update.</param>
-        /// <param name="hydraulicBoundaryDatabase">The database to use.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to use.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(this GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                                  HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                                  IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException("hydraulicBoundaryLocations");
+            }
+
             failureMechanism.HydraulicBoundaryLocations.Clear();
-            if (hydraulicBoundaryDatabase == null)
+            if (!hydraulicBoundaryLocations.Any())
             {
                 return;
             }
 
-            hydraulicBoundaryDatabase.Locations
-                                     .ForEachElementDo(location => failureMechanism.HydraulicBoundaryLocations
-                                                                                   .Add(new HydraulicBoundaryLocation(location.Id,
-                                                                                                                      location.Name,
-                                                                                                                      location.Location.X,
-                                                                                                                      location.Location.Y)));
+            hydraulicBoundaryLocations.ForEachElementDo(location => failureMechanism.HydraulicBoundaryLocations
+                                                                                    .Add(new HydraulicBoundaryLocation(location.Id,
+                                                                                                                       location.Name,
+                                                                                                                       location.Location.X,
+                                                                                                                       location.Location.Y)));
         }
 
         /// <summary>

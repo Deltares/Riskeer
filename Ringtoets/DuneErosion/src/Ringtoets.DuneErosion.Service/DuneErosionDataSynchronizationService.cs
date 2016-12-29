@@ -36,30 +36,39 @@ namespace Ringtoets.DuneErosion.Service
     {
         /// <summary>
         /// Sets <see cref="DuneErosionFailureMechanism.DuneLocations"/> based upon 
-        /// the locations from the <paramref name="hydraulicBoundaryDatabase"/>.
+        /// the <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> to update.</param>
-        /// <param name="hydraulicBoundaryDatabase">The database to use.</param>
-        /// <param name="duneLocations">The dune locations to use.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary location to use.</param>
+        /// <param name="readDuneLocations">The dune locations to use.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism,
-                                            HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                            IEnumerable<ReadDuneLocation> duneLocations)
+                                            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                            IEnumerable<ReadDuneLocation> readDuneLocations)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException("hydraulicBoundaryLocations");
+            }
+            if (readDuneLocations == null)
+            {
+                throw new ArgumentNullException("readDuneLocations");
+            }
+
             failureMechanism.DuneLocations.Clear();
 
-            if (hydraulicBoundaryDatabase == null || duneLocations == null || !duneLocations.Any())
+            if (!hydraulicBoundaryLocations.Any() || !readDuneLocations.Any())
             {
                 return;
             }
 
-            foreach (ReadDuneLocation duneLocation in duneLocations)
+            foreach (ReadDuneLocation duneLocation in readDuneLocations)
             {
-                foreach (var hydraulicBoundaryLocation in hydraulicBoundaryDatabase.Locations)
+                foreach (var hydraulicBoundaryLocation in hydraulicBoundaryLocations)
                 {
                     if (Math2D.AreEqualPoints(hydraulicBoundaryLocation.Location, duneLocation.Location))
                     {

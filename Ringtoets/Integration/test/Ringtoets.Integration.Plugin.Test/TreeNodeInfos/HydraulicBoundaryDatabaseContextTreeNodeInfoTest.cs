@@ -528,7 +528,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             };
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-            assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase);
+            assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations);
 
             // Precondition
             Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);

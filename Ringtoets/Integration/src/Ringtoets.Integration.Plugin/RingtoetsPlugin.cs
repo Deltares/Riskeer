@@ -1470,13 +1470,18 @@ namespace Ringtoets.Integration.Plugin
 
                     if (!ReferenceEquals(previousHydraulicBoundaryDatabase, assessmentSection.HydraulicBoundaryDatabase))
                     {
-                        assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase);
+                        var hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase != null
+                                                             ? assessmentSection.HydraulicBoundaryDatabase.Locations
+                                                             : Enumerable.Empty<HydraulicBoundaryLocation>();
+
+                        assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
                         assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
 
                         var duneLocationsReader = new DuneLocationsReader();
-                        IEnumerable<ReadDuneLocation> duneLocations = duneLocationsReader.ReadDuneLocations();
+                        IEnumerable<ReadDuneLocation> duneLocations = duneLocationsReader.ReadDuneLocations();                        
+
                         DuneErosionDataSynchronizationService.SetDuneLocations(assessmentSection.DuneErosion,
-                                                                               assessmentSection.HydraulicBoundaryDatabase,
+                                                                               hydraulicBoundaryLocations,
                                                                                duneLocations);
                         assessmentSection.DuneErosion.DuneLocations.NotifyObservers();
                     }

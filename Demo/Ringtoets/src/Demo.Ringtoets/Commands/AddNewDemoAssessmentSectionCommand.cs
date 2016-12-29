@@ -735,7 +735,7 @@ namespace Demo.Ringtoets.Commands
             SetHydraulicBoundaryLocationDesignWaterLevelOutputValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
             SetHydraulicBoundaryLocationWaveHeightOutputValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
 
-            demoAssessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(demoAssessmentSection.HydraulicBoundaryDatabase);
+            demoAssessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
             SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelOutputValues(demoAssessmentSection.GrassCoverErosionOutwards);
             SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightOutputValues(demoAssessmentSection.GrassCoverErosionOutwards);
         }

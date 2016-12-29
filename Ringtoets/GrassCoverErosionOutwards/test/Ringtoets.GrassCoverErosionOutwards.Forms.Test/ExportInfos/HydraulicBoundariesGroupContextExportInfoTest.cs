@@ -124,13 +124,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(0, "aName", 0, 0)
-                }
-            });
+            failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(new[] { new HydraulicBoundaryLocation(0, "aName", 0, 0) });
 
             var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionMock);
 

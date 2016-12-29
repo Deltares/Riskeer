@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Common.Data.TestUtil
 {
     /// <summary>
-    /// Class which creates simple instances of <see cref="HydraulicBoundaryLocation"/>, which
+    /// Class that creates simple instances of <see cref="HydraulicBoundaryLocation"/>, which
     /// can be used during testing.
     /// </summary>
     public class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
