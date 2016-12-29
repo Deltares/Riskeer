@@ -38,9 +38,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             const double norm = 1.0/10000;
             const int sectionId = 1;
             const long hydraulicBoundaryLocationId = 1234;
+            const double orientation = 100;
 
             // Call
-            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(sectionId, hydraulicBoundaryLocationId, norm);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(sectionId, hydraulicBoundaryLocationId, norm, orientation);
 
             // Assert
             double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
@@ -58,7 +59,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             var section = dunesBoundaryConditionsCalculationInput.Section;
             Assert.AreEqual(sectionId, section.SectionId);
             Assert.IsNaN(section.SectionLength);
-            Assert.IsNaN(section.CrossSectionNormal);
+            Assert.AreEqual(orientation, section.CrossSectionNormal);
 
             HydraRingVariable[] hydraRingVariables = dunesBoundaryConditionsCalculationInput.Variables.ToArray();
             Assert.AreEqual(1, hydraRingVariables.Length);
@@ -72,7 +73,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void GetSubMechanismModelId_ReturnsExpectedValues()
         {
             // Call
-            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, 1, 2.2);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, 1, 2.2, 3.3);
 
             // Assert
             Assert.IsNull(dunesBoundaryConditionsCalculationInput.GetSubMechanismModelId(1));

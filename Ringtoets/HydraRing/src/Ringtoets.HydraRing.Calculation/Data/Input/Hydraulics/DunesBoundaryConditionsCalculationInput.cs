@@ -26,14 +26,20 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
     /// </summary>
     public class DunesBoundaryConditionsCalculationInput : AssessmentLevelCalculationInput
     {
+        private readonly HydraRingSection section;
+
         /// <summary>
         /// Creates a new instance of the <see cref="DunesBoundaryConditionsCalculationInput"/> class.
         /// </summary>
         /// <param name="sectionId">The id of the section.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="norm">The norm.</param>
-        public DunesBoundaryConditionsCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm)
-            : base(sectionId, hydraulicBoundaryLocationId, norm) {}
+        /// <param name="sectionNormal">The normal of the section</param>
+        public DunesBoundaryConditionsCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm, double sectionNormal)
+            : base(sectionId, hydraulicBoundaryLocationId, norm)
+        {
+            section = new HydraRingSection(1, double.NaN, sectionNormal);
+        }
 
         public override HydraRingFailureMechanismType FailureMechanismType
         {
@@ -48,6 +54,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             get
             {
                 return 2;
+            }
+        }
+
+        public override HydraRingSection Section
+        {
+            get
+            {
+                return section;
             }
         }
     }
