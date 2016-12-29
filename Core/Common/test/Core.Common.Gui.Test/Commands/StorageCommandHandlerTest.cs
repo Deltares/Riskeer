@@ -517,5 +517,64 @@ namespace Core.Common.Gui.Test.Commands
             string expectedMessage = string.Format("Sla wijzigingen in het project op: {0}?", projectName);
             Assert.AreEqual(expectedMessage, messageBoxText);
         }
+
+        [Test]
+        [RequiresSTA]
+        public void AskConfirmationUnsavedChanges_ProjectSetWithChangeYesFileDoesNotExist_ReturnsTrue()
+        {
+            // Setup
+            const string projectName = "Project";
+            string messageBoxText = null;
+            string someValidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui, Path.GetRandomFileName());
+            var mainWindowController = mocks.Stub<IWin32Window>();
+            var project = mocks.Stub<IProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            project.Name = projectName;
+
+            var projectStorageMock = mocks.StrictMock<IStoreProject>();
+            projectStorageMock.Expect(ps => ps.StageProject(project));
+            projectStorageMock.Stub(ps => ps.HasStagedProject).Return(true);
+            projectStorageMock.Expect(ps => ps.HasStagedProjectChanges(someValidFilePath)).Return(true);
+            projectStorageMock.Expect(ps => ps.UnstageProject());
+            projectStorageMock.Stub(ps => ps.FileFilter).Return(string.Empty);
+
+            var projectOwnerStub = mocks.Stub<IProjectOwner>();
+            projectOwnerStub.Stub(po => po.Project).Return(project);
+            projectOwnerStub.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
+
+            projectOwnerStub.Expect(po => po.SetProject(project, someValidFilePath));
+
+            projectStorageMock.Expect(p => p.SaveProjectAs(someValidFilePath));
+            mocks.ReplayAll();
+
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorageMock,
+                projectFactory,
+                projectOwnerStub,
+                mainWindowController);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                messageBoxText = messageBox.Text;
+                messageBox.SendCommand(MessageBoxTester.Command.Yes);
+
+                ModalFormHandler = (modalName, modalWnd, form) =>
+                {
+                    var saveFileDialog = new SaveFileDialogTester(modalWnd);
+                    saveFileDialog.SaveFile(someValidFilePath);
+                };
+            };
+            
+            // Call
+            bool changesHandled = storageCommandHandler.HandleUnsavedChanges();
+
+            // Assert
+            Assert.IsTrue(changesHandled);
+
+            mocks.VerifyAll();
+            string expectedMessage = string.Format("Sla wijzigingen in het project op: {0}?", projectName);
+            Assert.AreEqual(expectedMessage, messageBoxText);
+        }
     }
 }
