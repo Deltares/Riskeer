@@ -312,19 +312,22 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 messageWindow.AddMessage(Level.Warn, new DateTime(), "TestDetailedMessage");
                 messageWindow.Refresh();
 
-                var mouseController = new MouseController(gridView);
-                mouseController.Press(Keys.Control);
+                using (var mouseController = new MouseController(gridView))
+                {
+                    mouseController.Press(Keys.Control);
 
-                // Precondition
-                Assert.IsTrue(Control.ModifierKeys.HasFlag(Keys.Control));
+                    // Precondition
+                    Assert.IsTrue(Control.ModifierKeys.HasFlag(Keys.Control));
 
-                // Call
-                gridView.FireEvent("CellMouseDoubleClick", new DataGridViewCellMouseEventArgs(
-                                       0, 0, 0, 0,
-                                       new MouseEventArgs(MouseButtons.Left, 2, 0, 0, 0)));
+                    // Call
+                    gridView.FireEvent("CellMouseDoubleClick", new DataGridViewCellMouseEventArgs(
+                                           0, 0, 0, 0,
+                                           new MouseEventArgs(MouseButtons.Left, 2, 0, 0, 0)));
 
-                // Assert
-                // No dialog window shown
+                    // Assert
+                    // No dialog window shown
+                }
+                Assert.IsFalse(Control.ModifierKeys.HasFlag(Keys.Control));
             }
         }
 
