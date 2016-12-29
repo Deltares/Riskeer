@@ -45,6 +45,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         double WavePeriod { get; }
 
         /// <summary>
+        /// Gets the reliability index
+        /// </summary>
+        double ReliabilityIndex { get; }
+
+        /// <summary>
         /// Gets the temporary output directory that is generated during the Hydra-Ring calculation.
         /// </summary>
         string OutputDirectory { get; }

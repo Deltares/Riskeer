@@ -140,6 +140,48 @@ namespace Ringtoets.DuneErosion.Service.Test
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
+        {// Setup
+            const double norm = 1.0 / 200;
+            const double contribution = 10;
+            const string ringId = "1";
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = contribution
+            };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return(ringId);
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
+            {
+                failureMechanism
+            }, 1, norm));
+            mocks.ReplayAll();
+
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var testCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
+
+                var service = new DuneErosionBoundaryCalculationService();
+                testCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+
+                // Call
+                service.Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+
+                // Assert
+                Assert.IsTrue(testCalculator.IsCanceled);
+            }
+            mocks.VerifyAll();
+        }
+
         private static void AssertInput(DunesBoundaryConditionsCalculationInput expectedInput, DunesBoundaryConditionsCalculationInput actualInput)
         {
             Assert.AreEqual(expectedInput.Section.SectionId, actualInput.Section.SectionId);

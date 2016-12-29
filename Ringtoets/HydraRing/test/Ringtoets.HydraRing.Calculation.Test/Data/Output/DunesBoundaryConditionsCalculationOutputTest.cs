@@ -20,27 +20,28 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Calculator;
+using Ringtoets.HydraRing.Calculation.Data.Output;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Calculator
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
 {
     [TestFixture]
-    public class DunesBoundaryConditionsCalculatorTest
+    public class DunesBoundaryConditionsCalculationOutputTest
     {
         [Test]
-        public void DefaultConstructor_InitializesOutputWithoutValues()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            const double waterLevel = 1.1;
+            const double waveHeight = 2.2;
+            const double wavePeriod = 3.3;
+
             // Call
-            var calculator = new DunesBoundaryConditionsCalculator(string.Empty, string.Empty);
+            var output = new DunesBoundaryConditionsCalculationOutput(waterLevel, waveHeight, wavePeriod);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
-            Assert.IsInstanceOf<IDunesBoundaryConditionsCalculator>(calculator);
-            Assert.IsNaN(calculator.WaterLevel);
-            Assert.IsNaN(calculator.WaveHeight);
-            Assert.IsNaN(calculator.WavePeriod);
-            Assert.IsNaN(calculator.ReliabilityIndex);
-            Assert.IsNull(calculator.OutputDirectory);
+            Assert.AreEqual(waterLevel, output.WaterLevel);
+            Assert.AreEqual(waveHeight, output.WaveHeight);
+            Assert.AreEqual(wavePeriod, output.WavePeriod);
         }
     }
 }

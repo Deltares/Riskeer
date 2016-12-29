@@ -177,6 +177,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public double WaterLevel { get; set; }
         public double WaveHeight { get; set; }
         public double WavePeriod { get; set; }
+        public double ReliabilityIndex { get; set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
     }
