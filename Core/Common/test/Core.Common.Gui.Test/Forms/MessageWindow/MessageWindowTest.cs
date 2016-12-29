@@ -299,6 +299,36 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
+        public void ShowDetailsButton_MessageSelectedOnDoubleClickButCtrlPressed_DoNotShowMessageWindowDialog()
+        {
+            // Setup
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                var gridView = new ControlTester("messagesDataGridView");
+                messageWindow.AddMessage(Level.Warn, new DateTime(), "TestDetailedMessage");
+                messageWindow.Refresh();
+
+                var mouseController = new MouseController(gridView);
+                mouseController.Press(Keys.Control);
+
+                // Precondition
+                Assert.IsTrue(Control.ModifierKeys.HasFlag(Keys.Control));
+
+                // Call
+                gridView.FireEvent("CellMouseDoubleClick", new DataGridViewCellMouseEventArgs(
+                                       0, 0, 0, 0,
+                                       new MouseEventArgs(MouseButtons.Left, 2, 0, 0, 0)));
+
+                // Assert
+                // No dialog window shown
+            }
+        }
+
+        [Test]
         public void ShowDetailsButton_MessageSelectedOnDoubleClick_ShowMessageWindowDialogWithDetails()
         {
             // Setup
