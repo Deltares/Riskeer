@@ -43,6 +43,18 @@ namespace Ringtoets.DuneErosion.Service
         private bool canceled;
         private IDunesBoundaryConditionsCalculator calculator;
 
+        /// <summary>
+        /// Performs a dune erosion calculation based on the supplied <see cref="DuneLocation"/>
+        /// and sets the <see cref="DuneLocation.Output"/> if the calculation is successful.
+        /// Error and status information is logged during the execution of the operation.
+        /// </summary>
+        /// <param name="duneLocation">The <see cref="DuneLocation"/> that holds information required to perform the calculation.</param>
+        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> that holds information about the contribution and
+        /// the general inputs used in the calculation.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that hold information about the norm used in the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path wich points to the hydraulic boundary database file.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(DuneLocation duneLocation,
                               DuneErosionFailureMechanism failureMechanism,
                               IAssessmentSection assessmentSection,
