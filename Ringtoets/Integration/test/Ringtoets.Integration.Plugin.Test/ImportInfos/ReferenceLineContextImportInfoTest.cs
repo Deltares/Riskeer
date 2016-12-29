@@ -23,6 +23,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -37,13 +39,24 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
     [TestFixture]
     public class ReferenceLineContextImportInfoTest
     {
+        private MockRepository mocks;
         private ImportInfo importInfo;
         private RingtoetsPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new RingtoetsPlugin();
+            mocks = new MockRepository();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            mocks.ReplayAll();
+
+            plugin = new RingtoetsPlugin
+            {
+                Gui = gui
+            };
             importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(ReferenceLineContext));
         }
 
@@ -51,6 +64,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
         public void TearDown()
         {
             plugin.Dispose();
+            mocks.VerifyAll();
         }
 
         [Test]

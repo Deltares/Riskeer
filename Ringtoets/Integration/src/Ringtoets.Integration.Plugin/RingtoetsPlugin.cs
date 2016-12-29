@@ -419,7 +419,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.ReferenceLineIcon,
                 FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter,
                 CreateFileImporter = (context, filePath) => new ReferenceLineImporter(context.WrappedData,
-                                                                                      new ReferenceLineReplacementHandler(),
+                                                                                      new ReferenceLineReplacementHandler(Gui.ViewCommands),
                                                                                       filePath)
             };
 

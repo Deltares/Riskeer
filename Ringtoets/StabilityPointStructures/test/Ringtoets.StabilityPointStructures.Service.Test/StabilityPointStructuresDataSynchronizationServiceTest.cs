@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
@@ -124,8 +125,15 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Setup
             StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
+            var expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
+                                                         .Concat(failureMechanism.SectionResults)
+                                                         .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                         .Concat(failureMechanism.ForeshoreProfiles)
+                                                         .Concat(failureMechanism.StabilityPointStructures)
+                                                         .ToArray();
+
             // Call
-            IEnumerable<IObservable> observables = StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
+            ClearResults results = StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -136,12 +144,14 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.StabilityPointStructures);
 
-            IObservable[] array = observables.ToArray();
+            IObservable[] array = results.ChangedObjects.ToArray();
             Assert.AreEqual(4, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(array, failureMechanism.StabilityPointStructures);
+
+            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.DeletedObjects);
         }
 
         [Test]

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Charting.Data;
@@ -27,6 +28,7 @@ using Core.Components.Gis.Data;
 using Demo.Ringtoets.GUIs;
 using Demo.Ringtoets.Views;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Demo.Ringtoets.Test.GUIs
 {
@@ -37,13 +39,22 @@ namespace Demo.Ringtoets.Test.GUIs
         [RequiresSTA]
         public void DefaultConstructor_DefaultValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var gui = mocks.Stub<IGui>();
+            mocks.ReplayAll();
+
             // Call
-            using (var plugin = new DemoProjectPlugin())
+            using (var plugin = new DemoProjectPlugin
+            {
+                Gui = gui
+            })
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
                 Assert.IsInstanceOf<IRibbonCommandHandler>(plugin.RibbonCommandHandler);
             }
+            mocks.VerifyAll();
         }
 
         [Test]

@@ -22,6 +22,7 @@
 using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
 using Demo.Ringtoets.Commands;
 using Fluent;
@@ -35,13 +36,13 @@ namespace Demo.Ringtoets.Ribbons
     {
         private readonly ICommand addNewAssessmentSection, openMapViewCommand, openChartViewCommand;
 
-        public RingtoetsDemoProjectRibbon(IProjectOwner projectOwner, IViewController viewController)
+        public RingtoetsDemoProjectRibbon(IProjectOwner projectOwner, IViewCommands viewCommands)
         {
             InitializeComponent();
 
-            addNewAssessmentSection = new AddNewDemoAssessmentSectionCommand(projectOwner);
-            openChartViewCommand = new OpenChartViewCommand(viewController);
-            openMapViewCommand = new OpenMapViewCommand(viewController);
+            addNewAssessmentSection = new AddNewDemoAssessmentSectionCommand(projectOwner, viewCommands);
+            openChartViewCommand = new OpenChartViewCommand(viewCommands);
+            openMapViewCommand = new OpenMapViewCommand(viewCommands);
         }
 
         public Ribbon GetRibbonControl()

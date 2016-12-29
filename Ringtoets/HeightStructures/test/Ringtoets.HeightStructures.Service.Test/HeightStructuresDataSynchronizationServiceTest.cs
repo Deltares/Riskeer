@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 
@@ -277,8 +278,15 @@ namespace Ringtoets.HeightStructures.Service.Test
             // Setup
             HeightStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
+            var expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
+                                                         .Concat(failureMechanism.SectionResults)
+                                                         .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                         .Concat(failureMechanism.ForeshoreProfiles)
+                                                         .Concat(failureMechanism.HeightStructures)
+                                                         .ToArray();
+
             // Call
-            IEnumerable<IObservable> observables = HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
+            ClearResults results = HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -289,12 +297,14 @@ namespace Ringtoets.HeightStructures.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
 
-            IObservable[] array = observables.ToArray();
+            IObservable[] array = results.ChangedObjects.ToArray();
             Assert.AreEqual(4, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(array, failureMechanism.HeightStructures);
+
+            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.DeletedObjects);
         }
 
         [Test]

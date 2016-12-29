@@ -23,6 +23,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.ViewHost;
 using Demo.Ringtoets.Ribbons;
 using NUnit.Framework;
@@ -40,11 +41,11 @@ namespace Demo.Ringtoets.Test.Ribbons
             // Setup
             var mocks = new MockRepository();
             var projectOwner = mocks.Stub<IProjectOwner>();
-            var viewController = mocks.Stub<IViewController>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
-            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewController);
+            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewCommands);
 
             // Assert
             Assert.IsNotNull(ribbon);
@@ -58,16 +59,13 @@ namespace Demo.Ringtoets.Test.Ribbons
         {
             // Setup
             var mocks = new MockRepository();
-            var documentViewController = mocks.StrictMock<IDocumentViewController>();
-            documentViewController.Expect(vr => vr.OpenViewForData(null)).IgnoreArguments().Return(true);
-
             var projectOwner = mocks.Stub<IProjectOwner>();
-            var viewController = mocks.Stub<IViewController>();
-            viewController.Expect(vc => vc.DocumentViewController).Return(documentViewController);
+            var viewCommands = mocks.Stub<IViewCommands>();
+            viewCommands.Expect(vc => vc.OpenView(null)).IgnoreArguments();
 
             mocks.ReplayAll();
 
-            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewController);
+            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewCommands);
             var button = ribbon.GetRibbonControl().FindName("OpenChartViewButton") as Button;
 
             // Precondition
@@ -86,16 +84,13 @@ namespace Demo.Ringtoets.Test.Ribbons
         {
             // Setup
             var mocks = new MockRepository();
-            var documentViewController = mocks.StrictMock<IDocumentViewController>();
-            documentViewController.Expect(vr => vr.OpenViewForData(null)).IgnoreArguments().Return(true);
-
             var projectOwner = mocks.Stub<IProjectOwner>();
-            var viewController = mocks.Stub<IViewController>();
-            viewController.Expect(vc => vc.DocumentViewController).Return(documentViewController);
+            var viewCommands = mocks.Stub<IViewCommands>();
+            viewCommands.Expect(vc => vc.OpenView(null)).IgnoreArguments();
 
             mocks.ReplayAll();
 
-            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewController);
+            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewCommands);
 
             var button = ribbon.GetRibbonControl().FindName("OpenMapViewButton") as Button;
 

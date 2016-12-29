@@ -40,7 +40,7 @@ namespace Demo.Ringtoets.GUIs
         {
             get
             {
-                return new RingtoetsDemoProjectRibbon(Gui, Gui);
+                return new RingtoetsDemoProjectRibbon(Gui, Gui.ViewCommands);
             }
         }
 

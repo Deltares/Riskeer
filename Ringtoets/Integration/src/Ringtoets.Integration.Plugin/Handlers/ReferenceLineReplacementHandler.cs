@@ -19,11 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.Service;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
@@ -35,6 +38,24 @@ namespace Ringtoets.Integration.Plugin.Handlers
     /// </summary>
     public class ReferenceLineReplacementHandler : IReferenceLineReplaceHandler
     {
+        private readonly IViewCommands viewCommands;
+        private readonly Queue<object> removedObjects = new Queue<object>();
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ReferenceLineReplacementHandler"/>.
+        /// </summary>
+        /// <param name="viewCommands">The view commands used to close views for removed data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewCommands"/>
+        /// is <c>null</c>.</exception>
+        public ReferenceLineReplacementHandler(IViewCommands viewCommands)
+        {
+            if (viewCommands == null)
+            {
+                throw new ArgumentNullException("viewCommands");
+            }
+            this.viewCommands = viewCommands;
+        }
+
         public bool ConfirmReplace()
         {
             DialogResult result = MessageBox.Show(Resources.ReferenceLineReplacementHandler_Confirm_clear_referenceLine_dependent_data,
@@ -45,9 +66,24 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
         public IEnumerable<IObservable> Replace(IAssessmentSection section, ReferenceLine newReferenceLine)
         {
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearReferenceLine(section);
+            removedObjects.Clear();
+
+            ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLine(section);
+            foreach (object deletedObject in results.DeletedObjects)
+            {
+                removedObjects.Enqueue(deletedObject);
+            }
+            
             section.ReferenceLine = newReferenceLine;
-            return affectedObjects;
+            return results.ChangedObjects;
+        }
+
+        public void DoPostReplacementUpdates()
+        {
+            while (removedObjects.Count > 0)
+            {
+                viewCommands.RemoveAllViewsForItem(removedObjects.Dequeue());
+            }
         }
     }
 }

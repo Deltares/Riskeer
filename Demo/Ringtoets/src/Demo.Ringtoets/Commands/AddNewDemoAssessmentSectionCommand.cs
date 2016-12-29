@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Utils.IO;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -55,10 +56,12 @@ namespace Demo.Ringtoets.Commands
     public class AddNewDemoAssessmentSectionCommand : ICommand
     {
         private readonly IProjectOwner projectOwner;
+        private readonly IViewCommands viewCommands;
 
-        public AddNewDemoAssessmentSectionCommand(IProjectOwner projectOwner)
+        public AddNewDemoAssessmentSectionCommand(IProjectOwner projectOwner, IViewCommands viewCommands)
         {
             this.projectOwner = projectOwner;
+            this.viewCommands = viewCommands;
         }
 
         public bool Checked
@@ -109,7 +112,7 @@ namespace Demo.Ringtoets.Commands
                                                                                    "traject_6-3.shx"))
             {
                 var importer = new ReferenceLineImporter(demoAssessmentSection,
-                                                         new ReferenceLineReplacementHandler(),
+                                                         new ReferenceLineReplacementHandler(viewCommands),
                                                          Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                                       "traject_6-3.shp"));
                 importer.Import();

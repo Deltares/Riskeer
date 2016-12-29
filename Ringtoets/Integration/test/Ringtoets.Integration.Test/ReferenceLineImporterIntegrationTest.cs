@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Gui.Commands;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -44,6 +45,10 @@ namespace Ringtoets.Integration.Test
         public void GivenAssessmentSectionWithReferenceLine_WhenCancellingReferenceLineImport_ThenKeepOriginalReferenceLine()
         {
             // Given
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             var originalReferenceLine = new ReferenceLine();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -51,7 +56,7 @@ namespace Ringtoets.Integration.Test
                 ReferenceLine = originalReferenceLine
             };
 
-            var handler = new ReferenceLineReplacementHandler();
+            var handler = new ReferenceLineReplacementHandler(viewCommands);
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
@@ -77,6 +82,7 @@ namespace Ringtoets.Integration.Test
             var expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
                                Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -86,6 +92,7 @@ namespace Ringtoets.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
             var failureMechanismObserver = mocks.StrictMock<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver())
                                     .Repeat.Times(assessmentSection.GetFailureMechanisms().Count());
@@ -104,7 +111,7 @@ namespace Ringtoets.Integration.Test
 
             ReferenceLine originalReferenceLine = assessmentSection.ReferenceLine;
 
-            var handler = new ReferenceLineReplacementHandler();
+            var handler = new ReferenceLineReplacementHandler(viewCommands);
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                   Path.Combine("ReferenceLine", "traject_10-2.shp"));
 

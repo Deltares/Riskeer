@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
 
 namespace Ringtoets.ClosingStructures.Service.Test
 {
@@ -277,24 +278,31 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Setup
             ClosingStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
+            var expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
+                                                         .Concat(failureMechanism.SectionResults)
+                                                         .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                         .Concat(failureMechanism.ForeshoreProfiles)
+                                                         .Concat(failureMechanism.ClosingStructures)
+                                                         .ToArray();
+
             // Call
-            IEnumerable<IObservable> observables = ClosingStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
+            ClearResults results = ClosingStructuresDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
 
             // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.ClosingStructures);
 
-            IObservable[] array = observables.ToArray();
+            IObservable[] array = results.ChangedObjects.ToArray();
             Assert.AreEqual(4, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(array, failureMechanism.ClosingStructures);
+
+            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.DeletedObjects);
         }
 
         [Test]

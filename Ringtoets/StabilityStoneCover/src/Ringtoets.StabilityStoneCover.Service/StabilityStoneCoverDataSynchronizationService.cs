@@ -23,7 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
@@ -113,28 +115,33 @@ namespace Ringtoets.StabilityStoneCover.Service
         /// Clears all data dependent, either directly or indirectly, on the parent reference line.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to be cleared.</param>
-        /// <returns>All objects that have been changed.</returns>
+        /// <returns>The results of the clear action.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearReferenceLineDependentData(StabilityStoneCoverFailureMechanism failureMechanism)
+        public static ClearResults ClearReferenceLineDependentData(StabilityStoneCoverFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var observables = new List<IObservable>();
+            var changedObjects = new List<IObservable>();
+            var removedObjects = failureMechanism.Sections.OfType<object>()
+                                                 .Concat(failureMechanism.SectionResults)
+                                                 .Concat(failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
+                                                 .Concat(failureMechanism.ForeshoreProfiles)
+                                                 .ToArray();
 
             failureMechanism.ClearAllSections();
-            observables.Add(failureMechanism);
+            changedObjects.Add(failureMechanism);
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Clear();
-            observables.Add(failureMechanism.WaveConditionsCalculationGroup);
+            changedObjects.Add(failureMechanism.WaveConditionsCalculationGroup);
 
             failureMechanism.ForeshoreProfiles.Clear();
-            observables.Add(failureMechanism.ForeshoreProfiles);
+            changedObjects.Add(failureMechanism.ForeshoreProfiles);
 
-            return observables;
+            return new ClearResults(changedObjects, removedObjects);
         }
 
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(WaveConditionsInput input)

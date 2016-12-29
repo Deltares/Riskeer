@@ -332,7 +332,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
                                           Arg<ReferenceLine>.Is.NotNull))
                    .Return(observables);
-
+            handler.Expect(h => h.DoPostReplacementUpdates());
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -367,6 +367,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             assessmentSection.Expect(section => section.Attach(contextObserver));
 
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            handler.Expect(h => h.DoPostReplacementUpdates());
+
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
             handler.Expect(h => h.ConfirmReplace())
                    .WhenCalled(invocation => importer.Cancel())
@@ -421,6 +423,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
                                           Arg<ReferenceLine>.Is.NotNull))
                    .Return(observables);
+            handler.Expect(h => h.DoPostReplacementUpdates());
 
             mocks.ReplayAll();
 

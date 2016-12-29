@@ -25,6 +25,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
@@ -89,29 +90,37 @@ namespace Ringtoets.ClosingStructures.Service
         /// Clears all data dependent, either directly or indirectly, on the parent reference line.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to be cleared.</param>
-        /// <returns>All objects that have been changed.</returns>
-        public static IEnumerable<IObservable> ClearReferenceLineDependentData(ClosingStructuresFailureMechanism failureMechanism)
+        /// <returns>The results of the clear action.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static ClearResults ClearReferenceLineDependentData(ClosingStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var observables = new Collection<IObservable>();
+            var changedObjects = new Collection<IObservable>();
+            var removedObjects = failureMechanism.Sections.OfType<object>()
+                                                 .Concat(failureMechanism.SectionResults)
+                                                 .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                 .Concat(failureMechanism.ForeshoreProfiles)
+                                                 .Concat(failureMechanism.ClosingStructures)
+                                                 .ToArray();
 
             failureMechanism.ClearAllSections();
-            observables.Add(failureMechanism);
+            changedObjects.Add(failureMechanism);
 
             failureMechanism.CalculationsGroup.Children.Clear();
-            observables.Add(failureMechanism.CalculationsGroup);
+            changedObjects.Add(failureMechanism.CalculationsGroup);
 
             failureMechanism.ForeshoreProfiles.Clear();
-            observables.Add(failureMechanism.ForeshoreProfiles);
+            changedObjects.Add(failureMechanism.ForeshoreProfiles);
 
             failureMechanism.ClosingStructures.Clear();
-            observables.Add(failureMechanism.ClosingStructures);
+            changedObjects.Add(failureMechanism.ClosingStructures);
 
-            return observables;
+            return new ClearResults(changedObjects, removedObjects);
         }
 
         /// <summary>

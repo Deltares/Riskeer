@@ -22,8 +22,10 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.ReferenceLines;
@@ -46,14 +48,34 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineReplacementHandlerTest : NUnitFormTest
     {
+
+        [Test]
+        public void Constructor_ViewCommandsNull_ThrowArgumentNullException()
+        {
+            // Setup
+
+            // Call
+            TestDelegate call = () => new ReferenceLineReplacementHandler(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("viewCommands", paramName);
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             // Call
-            var handler = new ReferenceLineReplacementHandler();
+            var handler = new ReferenceLineReplacementHandler(viewCommands);
 
             // Assert
             Assert.IsInstanceOf<IReferenceLineReplaceHandler>(handler);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -62,6 +84,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void ConfirmReplace_ClickDialog_ReturnTrueIfOkAndFalseIfCancel(bool clickOk)
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             string dialogTitle = null, dialogMessage = null;
             DialogBoxHandler = (name, wnd) =>
             {
@@ -78,7 +104,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 }
             };
 
-            var handler = new ReferenceLineReplacementHandler();
+            var handler = new ReferenceLineReplacementHandler(viewCommands);
 
             // Call
             bool result = handler.ConfirmReplace();
@@ -91,13 +117,24 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                             Environment.NewLine +
                             "Wilt u doorgaan?",
                             dialogMessage);
+            mocks.VerifyAll();
         }
 
+
         [Test]
-        public void ClearReferenceLine_AssessmentSectionNull_ThrowArgumentNullException()
+        public void Replace_AssessmentSectionNull_ThrownArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new ReferenceLineReplacementHandler(viewCommands);
+
+            var referenceLine = new ReferenceLine();
+
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.ClearReferenceLine(null);
+            TestDelegate call = () => handler.Replace(null, referenceLine);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -105,11 +142,15 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void ClearReferenceLine_FullyConfiguredAssessmentSection_AllReferenceLineDependentDataCleared()
+        public void Replace_FullyConfiguredAssessmentSection_AllReferenceLineDependentDataCleared()
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
-            var handler = new ReferenceLineReplacementHandler();
+            var handler = new ReferenceLineReplacementHandler(viewCommands);
 
             var referenceLine = new ReferenceLine();
 
@@ -251,6 +292,75 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             Assert.AreSame(referenceLine, assessmentSection.ReferenceLine);
             CollectionAssert.Contains(observables, assessmentSection);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DoPostReplacementUpdates_NoReplaceCalled_DoNothing()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new ReferenceLineReplacementHandler(viewCommands);
+
+            // Call
+            handler.DoPostReplacementUpdates();
+
+            // Assert
+            mocks.VerifyAll(); // Expect not calls in 'viewCommands'
+        }
+
+
+        [Test]
+        public void DoPostReplacementUpdates_AfterReplacingReferenceLine_CloseViewsForRemovedData()
+        {
+            // Setup
+            const int expectedNumberOfRemovedInstances = 95;
+
+            var mocks = new MockRepository();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<object>.Is.NotNull))
+                        .Repeat.Times(expectedNumberOfRemovedInstances);
+            mocks.ReplayAll();
+
+            var handler = new ReferenceLineReplacementHandler(viewCommands);
+
+            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            handler.Replace(assessmentSection, new ReferenceLine());
+
+            // Call
+            handler.DoPostReplacementUpdates();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DoPostReplacementUpdates_CalledSecondTimeAfterReplaceAndUpdateCycle_DoNothing()
+        {
+            // Setup
+            const int expectedNumberOfRemovedInstances = 95;
+
+            var mocks = new MockRepository();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<object>.Is.NotNull))
+                        .Repeat.Times(expectedNumberOfRemovedInstances);
+            mocks.ReplayAll();
+
+            var handler = new ReferenceLineReplacementHandler(viewCommands);
+
+            AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
+            handler.Replace(assessmentSection, new ReferenceLine());
+            handler.DoPostReplacementUpdates();
+
+            // Call
+            handler.DoPostReplacementUpdates(); // Expected number should be identical to that of DoPostReplacementUpdates_AfterReplacingReferenceLine_CloseViewsForRemovedData
+
+            // Assert
+            mocks.VerifyAll();
         }
     }
 }

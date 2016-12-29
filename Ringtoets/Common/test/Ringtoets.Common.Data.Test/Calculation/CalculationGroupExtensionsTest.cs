@@ -221,5 +221,83 @@ namespace Ringtoets.Common.Data.Test.Calculation
             Assert.IsTrue(hasOutput);
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void GetAllChildrenRecursive_EmptyGroup_ReturnEmpty()
+        {
+            // Setup
+            var group = new CalculationGroup();
+
+            // Call
+            IEnumerable<ICalculationBase> children = group.GetAllChildrenRecursive();
+
+            // Assert
+            CollectionAssert.IsEmpty(children);
+        }
+
+
+        [Test]
+        public void GetAllChildrenRecursive_GroupWithNestedGroupsWithCalculations_ReturnAllNestedGroupsAndCalculations()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation1 = mocks.Stub<ICalculation>();
+            var calculation2 = mocks.Stub<ICalculation>();
+            var calculation3 = mocks.Stub<ICalculation>();
+            var calculation4 = mocks.Stub<ICalculation>();
+            mocks.ReplayAll();
+
+            var nestedChildGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation3
+                }
+            };
+
+            var childGroup1 = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation2
+                }
+            };
+            var childGroup2 = new CalculationGroup
+            {
+                Children =
+                {
+                    nestedChildGroup,
+                    calculation4
+                }
+            };
+
+            var rootGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation1,
+                    childGroup1,
+                    childGroup2
+                }
+            };
+
+            var expectedChildren = new ICalculationBase[]
+            {
+                calculation1,
+                calculation2,
+                calculation3,
+                calculation4,
+                childGroup1,
+                childGroup2,
+                nestedChildGroup
+            };
+
+            // Call
+            IEnumerable<ICalculationBase> children = rootGroup.GetAllChildrenRecursive();
+
+            // Assert
+            CollectionAssert.AreEquivalent(expectedChildren, children);
+            mocks.VerifyAll();
+        }
     }
 }

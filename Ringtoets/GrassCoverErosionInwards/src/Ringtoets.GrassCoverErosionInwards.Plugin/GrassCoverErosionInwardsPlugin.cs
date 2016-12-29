@@ -279,6 +279,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 return ReferenceEquals(view.Data, calculationContext.WrappedData);
             }
+            var calculation = o as GrassCoverErosionInwardsCalculation;
+            if (calculation != null)
+            {
+                return ReferenceEquals(view.Data, calculation);
+            }
 
             IEnumerable<GrassCoverErosionInwardsCalculation> calculations = null;
 

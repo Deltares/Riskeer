@@ -21,7 +21,7 @@
 
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
-using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
@@ -34,15 +34,15 @@ namespace Demo.Ringtoets.Commands
     /// </summary>
     public class OpenMapViewCommand : ICommand
     {
-        private readonly IViewController viewController;
+        private readonly IViewCommands viewCommands;
 
         /// <summary>
         /// Creates a new instance of <see cref="OpenMapViewCommand"/>.
         /// </summary>
-        /// <param name="viewController">The <see cref="IViewController"/> to use internally.</param>
-        public OpenMapViewCommand(IViewController viewController)
+        /// <param name="viewCommands">The <see cref="IViewCommands"/> to use internally.</param>
+        public OpenMapViewCommand(IViewCommands viewCommands)
         {
-            this.viewController = viewController;
+            this.viewCommands = viewCommands;
         }
 
         public bool Checked
@@ -198,7 +198,7 @@ namespace Demo.Ringtoets.Commands
                 })
             });
 
-            viewController.DocumentViewController.OpenViewForData(mapDataCollection);
+            viewCommands.OpenView(mapDataCollection);
         }
 
         private static MapFeature[] GetFeatureWithPoints(Point2D[] points)

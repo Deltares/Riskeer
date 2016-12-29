@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Integration.TestUtils;
@@ -179,8 +180,15 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
 
+            var expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
+                                                         .Concat(failureMechanism.SectionResults)
+                                                         .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                         .Concat(failureMechanism.StochasticSoilModels)
+                                                         .Concat(failureMechanism.SurfaceLines)
+                                                         .ToArray();
+
             // Call
-            IEnumerable<IObservable> observables = PipingDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
+            ClearResults results = PipingDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -191,12 +199,14 @@ namespace Ringtoets.Piping.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
 
-            IObservable[] array = observables.ToArray();
+            IObservable[] array = results.ChangedObjects.ToArray();
             Assert.AreEqual(4, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.StochasticSoilModels);
             CollectionAssert.Contains(array, failureMechanism.SurfaceLines);
+
+            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.DeletedObjects);
         }
 
         [Test]

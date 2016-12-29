@@ -28,6 +28,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -60,10 +61,11 @@ namespace Demo.Ringtoets.Test.Commands
             // Setup
             var mocks = new MockRepository();
             var projectOwner = mocks.Stub<IProjectOwner>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
-            var command = new AddNewDemoAssessmentSectionCommand(projectOwner);
+            var command = new AddNewDemoAssessmentSectionCommand(projectOwner, viewCommands);
 
             // Assert
             Assert.IsInstanceOf<ICommand>(command);
@@ -83,9 +85,11 @@ namespace Demo.Ringtoets.Test.Commands
 
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
+
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var command = new AddNewDemoAssessmentSectionCommand(projectOwnerStub);
+            var command = new AddNewDemoAssessmentSectionCommand(projectOwnerStub, viewCommands);
             project.Attach(observerMock);
 
             // Call

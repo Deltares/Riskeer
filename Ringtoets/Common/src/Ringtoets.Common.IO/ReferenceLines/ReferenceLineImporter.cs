@@ -87,6 +87,12 @@ namespace Ringtoets.Common.IO.ReferenceLines
             return true;
         }
 
+        public override void DoPostImportUpdates()
+        {
+            replacementHandler.DoPostReplacementUpdates();
+            base.DoPostImportUpdates();
+        }
+
         protected override IEnumerable<IObservable> AffectedNonTargetObservableInstances
         {
             get

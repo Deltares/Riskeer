@@ -19,8 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Gui;
-using Core.Common.Gui.Forms.ViewHost;
+using Core.Common.Gui.Commands;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -35,14 +34,11 @@ namespace Demo.Ringtoets.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var viewController = mocks.StrictMock<IViewController>();
-            var documentViewController = mocks.StrictMock<IDocumentViewController>();
-            viewController.Expect(g => g.DocumentViewController).Return(documentViewController);
-            documentViewController.Expect(vr => vr.OpenViewForData(null)).IgnoreArguments().Return(true);
-
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(g => g.OpenView(Arg<object>.Is.NotNull));
             mocks.ReplayAll();
 
-            var command = new OpenChartViewCommand(viewController);
+            var command = new OpenChartViewCommand(viewCommands);
 
             // Call
             command.Execute();
@@ -56,10 +52,10 @@ namespace Demo.Ringtoets.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var viewController = mocks.Stub<IViewController>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var command = new OpenChartViewCommand(viewController);
+            var command = new OpenChartViewCommand(viewCommands);
 
             // Call
             var isChecked = command.Checked;

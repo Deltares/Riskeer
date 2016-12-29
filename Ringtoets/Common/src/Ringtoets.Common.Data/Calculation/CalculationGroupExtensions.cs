@@ -31,7 +31,29 @@ namespace Ringtoets.Common.Data.Calculation
     {
         /// <summary>
         /// Recursively enumerates across the contents of a calculation group,
-        /// yielding all calculations found.
+        /// returning all children found.
+        /// </summary>
+        /// <param name="calculationGroup">The calculation group to be evaluated.</param>
+        /// <returns>Returns all contained children as an enumerable result.</returns>
+        public static IEnumerable<ICalculationBase> GetAllChildrenRecursive(this CalculationGroup calculationGroup)
+        {
+            var children = new List<ICalculationBase>();
+            foreach (ICalculationBase calculationItem in calculationGroup.Children)
+            {
+                children.Add(calculationItem);
+
+                var nestedCalculationGroup = calculationItem as CalculationGroup;
+                if (nestedCalculationGroup != null)
+                {
+                    children.AddRange(GetAllChildrenRecursive(nestedCalculationGroup));
+                }
+            }
+            return children;
+        }
+
+        /// <summary>
+        /// Recursively enumerates across the contents of a calculation group,
+        /// returning all calculations found.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to be evaluated.</param>
         /// <returns>Returns all contained calculations as an enumerable result.</returns>

@@ -26,6 +26,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -176,8 +177,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             // Setup
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
+            var expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
+                                                         .Concat(failureMechanism.SectionResults)
+                                                         .Concat(failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
+                                                         .Concat(failureMechanism.ForeshoreProfiles)
+                                                         .ToArray();
+
             // Call
-            IEnumerable<IObservable> observables = WaveImpactAsphaltCoverDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
+            ClearResults results = WaveImpactAsphaltCoverDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -187,11 +194,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
 
-            IObservable[] array = observables.ToArray();
+            IObservable[] array = results.ChangedObjects.ToArray();
             Assert.AreEqual(3, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
             CollectionAssert.Contains(array, failureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
+
+            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.DeletedObjects);
         }
 
         private static WaveImpactAsphaltCoverFailureMechanism CreateFullyConfiguredFailureMechanism()

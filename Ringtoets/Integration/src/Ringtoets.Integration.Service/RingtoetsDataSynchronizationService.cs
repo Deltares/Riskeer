@@ -213,71 +213,38 @@ namespace Ringtoets.Integration.Service
         /// Clears the reference line and all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="assessmentSection">The assessment section.</param>
-        /// <returns>All observable objects affected by this method.</returns>
+        /// <returns>The results of the clear action.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearReferenceLine(IAssessmentSection assessmentSection)
+        public static ClearResults ClearReferenceLine(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
             }
 
-            var list = new List<IObservable>();
+            var changedObjects = new List<IObservable>();
+            var removedObjects = new List<object>();
 
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
-                var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
-                var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
-                var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
-                var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
-                var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
-                var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
-                var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
-                var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
+                Func<ClearResults> clearAction = GetClearMethodForFailureMechanism(failureMechanism);
 
-                if (pipingFailureMechanism != null)
-                {
-                    list.AddRange(PipingDataSynchronizationService.ClearReferenceLineDependentData(pipingFailureMechanism));
-                }
-                else if (grassCoverErosionInwardsFailureMechanism != null)
-                {
-                    list.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearReferenceLineDependentData(grassCoverErosionInwardsFailureMechanism));
-                }
-                else if (stabilityStoneCoverFailureMechanism != null)
-                {
-                    list.AddRange(StabilityStoneCoverDataSynchronizationService.ClearReferenceLineDependentData(stabilityStoneCoverFailureMechanism));
-                }
-                else if (waveImpactAsphaltCoverFailureMechanism != null)
-                {
-                    list.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearReferenceLineDependentData(waveImpactAsphaltCoverFailureMechanism));
-                }
-                else if (grassCoverErosionOutwardsFailureMechanism != null)
-                {
-                    list.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearReferenceLineDependentData(grassCoverErosionOutwardsFailureMechanism));
-                }
-                else if (heightStructuresFailureMechanism != null)
-                {
-                    list.AddRange(HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(heightStructuresFailureMechanism));
-                }
-                else if (closingStructuresFailureMechanism != null)
-                {
-                    list.AddRange(ClosingStructuresDataSynchronizationService.ClearReferenceLineDependentData(closingStructuresFailureMechanism));
-                }
-                else if (stabilityPointStructuresFailureMechanism != null)
-                {
-                    list.AddRange(StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(stabilityPointStructuresFailureMechanism));
-                }
-                else
-                {
-                    list.AddRange(ClearReferenceLineDependentData(failureMechanism));
-                }
+                ClearResults results = clearAction();
+
+                changedObjects.AddRange(results.ChangedObjects);
+                removedObjects.AddRange(results.DeletedObjects);
             }
 
-            assessmentSection.ReferenceLine = null;
-            list.Add(assessmentSection);
+            if (assessmentSection.ReferenceLine != null)
+            {
+                removedObjects.Add(assessmentSection.ReferenceLine);
+                assessmentSection.ReferenceLine = null;
+            }
 
-            return list;
+            changedObjects.Add(assessmentSection);
+
+            return new ClearResults(changedObjects, removedObjects);
         }
 
         /// <summary>
@@ -521,13 +488,74 @@ namespace Ringtoets.Integration.Service
             return changedObservables;
         }
 
-        private static IEnumerable<IObservable> ClearReferenceLineDependentData(IFailureMechanism failureMechanism)
+        private static Func<ClearResults> GetClearMethodForFailureMechanism(IFailureMechanism failureMechanism)
         {
+            var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
+            if (pipingFailureMechanism != null)
+            {
+                return () => PipingDataSynchronizationService.ClearReferenceLineDependentData(pipingFailureMechanism);
+            }
+
+            var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
+            if (grassCoverErosionInwardsFailureMechanism != null)
+            {
+                return () => GrassCoverErosionInwardsDataSynchronizationService.ClearReferenceLineDependentData(grassCoverErosionInwardsFailureMechanism);
+            }
+
+            var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
+            if (stabilityStoneCoverFailureMechanism != null)
+            {
+                return () => StabilityStoneCoverDataSynchronizationService.ClearReferenceLineDependentData(stabilityStoneCoverFailureMechanism);
+            }
+
+            var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
+            if (waveImpactAsphaltCoverFailureMechanism != null)
+            {
+                return () => WaveImpactAsphaltCoverDataSynchronizationService.ClearReferenceLineDependentData(waveImpactAsphaltCoverFailureMechanism);
+            }
+
+            var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
+            if (grassCoverErosionOutwardsFailureMechanism != null)
+            {
+                return () => GrassCoverErosionOutwardsDataSynchronizationService.ClearReferenceLineDependentData(grassCoverErosionOutwardsFailureMechanism);
+            }
+
+            var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
+            if (heightStructuresFailureMechanism != null)
+            {
+                return () => HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(heightStructuresFailureMechanism);
+            }
+
+            var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
+            if (closingStructuresFailureMechanism != null)
+            {
+                return () => ClosingStructuresDataSynchronizationService.ClearReferenceLineDependentData(closingStructuresFailureMechanism);
+            }
+
+            var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
+            if (stabilityPointStructuresFailureMechanism != null)
+            {
+                return () => StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(stabilityPointStructuresFailureMechanism);
+            }
+            return () => ClearReferenceLineDependentData(failureMechanism);
+        }
+
+        private static ClearResults ClearReferenceLineDependentData(IFailureMechanism failureMechanism)
+        {
+            var removedObjects = new List<object>();
+            removedObjects.AddRange(failureMechanism.Sections);
+            var failureMechanismWithSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
+            if (failureMechanismWithSectionResults != null)
+            {
+                removedObjects.AddRange(failureMechanismWithSectionResults.SectionResults);
+            }
+
             failureMechanism.ClearAllSections();
-            return new[]
+
+            return new ClearResults(new[]
             {
                 failureMechanism
-            };
+            }, removedObjects);
         }
 
         private static IEnumerable<IObservable> OnWaveConditionsInputForeshoreProfileRemoved(ForeshoreProfile profile, WaveConditionsInput[] calculationInputs)

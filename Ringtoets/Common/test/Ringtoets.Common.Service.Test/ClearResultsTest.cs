@@ -19,66 +19,58 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Controls.Commands;
-using Core.Common.Gui.Commands;
-using Demo.Ringtoets.Commands;
+using System;
+using Core.Common.Base;
 using NUnit.Framework;
-using Rhino.Mocks;
 
-namespace Demo.Ringtoets.Test.Commands
+namespace Ringtoets.Common.Service.Test
 {
     [TestFixture]
-    public class OpenMapViewCommandTest
+    public class ClearResultsTest
     {
         [Test]
-        public void ParameteredConstructor_DefaultValues()
+        public void ConstructorTest_ValidArguments_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
+            var changedObjectsArray = new IObservable[0];
+            var deletedObjectsArray = new object[0];
 
             // Call
-            var command = new OpenMapViewCommand(viewCommands);
+            var results = new ClearResults(changedObjectsArray, deletedObjectsArray);
 
             // Assert
-            Assert.IsInstanceOf<ICommand>(command);
-            Assert.IsFalse(command.Checked);
-            mocks.VerifyAll();
+            Assert.AreSame(changedObjectsArray, results.ChangedObjects);
+            Assert.AreSame(deletedObjectsArray, results.DeletedObjects);
         }
 
+
         [Test]
-        public void Execute_Always_OpensViewForMapData()
+        public void Constructor_ChangedObjectsNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(g => g.OpenView(Arg<object>.Is.NotNull));
-            mocks.ReplayAll();
-
-            var command = new OpenMapViewCommand(viewCommands);
+            var deletedObjectsArray = new object[0];
 
             // Call
-            command.Execute();
+            TestDelegate call = () => new ClearResults(null, deletedObjectsArray);
 
             // Assert
-            mocks.VerifyAll();
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("changedObjects", paramName);
         }
 
+
         [Test]
-        public void Checked_Always_ReturnsFalse()
+        public void Constructor_DeletedObjectsNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
+            var changedObjectsArray = new IObservable[0];
 
             // Call
-            var command = new OpenMapViewCommand(viewCommands);
+            TestDelegate call = () => new ClearResults(changedObjectsArray, null);
 
             // Assert
-            Assert.IsFalse(command.Checked);
-            mocks.VerifyAll();
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("removedObjects", paramName);
         }
     }
 }

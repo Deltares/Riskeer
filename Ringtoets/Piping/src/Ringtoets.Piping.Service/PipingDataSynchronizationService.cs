@@ -24,7 +24,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -105,31 +107,37 @@ namespace Ringtoets.Piping.Service
         /// Clears all data dependent, either directly or indirectly, on the parent reference line.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to be cleared.</param>
-        /// <returns>All objects that have been changed.</returns>
+        /// <returns>The results of the clear action.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearReferenceLineDependentData(PipingFailureMechanism failureMechanism)
+        public static ClearResults ClearReferenceLineDependentData(PipingFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var observables = new Collection<IObservable>();
+            var changedObjects = new Collection<IObservable>();
+            var removedObjects = failureMechanism.Sections.OfType<object>()
+                                                 .Concat(failureMechanism.SectionResults)
+                                                 .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                 .Concat(failureMechanism.StochasticSoilModels)
+                                                 .Concat(failureMechanism.SurfaceLines)
+                                                 .ToArray();
 
             failureMechanism.ClearAllSections();
-            observables.Add(failureMechanism);
+            changedObjects.Add(failureMechanism);
 
             failureMechanism.CalculationsGroup.Children.Clear();
-            observables.Add(failureMechanism.CalculationsGroup);
+            changedObjects.Add(failureMechanism.CalculationsGroup);
 
             failureMechanism.StochasticSoilModels.Clear();
-            observables.Add(failureMechanism.StochasticSoilModels);
+            changedObjects.Add(failureMechanism.StochasticSoilModels);
 
             failureMechanism.SurfaceLines.Clear();
-            observables.Add(failureMechanism.SurfaceLines);
+            changedObjects.Add(failureMechanism.SurfaceLines);
 
-            return observables;
+            return new ClearResults(changedObjects, removedObjects);
         }
 
         /// <summary>

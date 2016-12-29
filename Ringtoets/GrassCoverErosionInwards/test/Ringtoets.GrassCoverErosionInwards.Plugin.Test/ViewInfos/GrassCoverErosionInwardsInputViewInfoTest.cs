@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedCalculationScenarioContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -127,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedCalculationScenarioContext_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedCalculationContext_ReturnsFalse()
         {
             // Setup
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -147,6 +147,47 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedCalculation_ReturnsTrue()
+        {
+            // Setup
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            {
+                Data = calculation
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculation);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedCalculation_ReturnsFalse()
+        {
+            // Setup
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsCalculation calculationToRemove = new GrassCoverErosionInwardsCalculation();
+
+            using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
+            {
+                Data = calculation
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationToRemove);
 
                 // Assert
                 Assert.IsFalse(closeForData);

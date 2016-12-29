@@ -23,7 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service
@@ -111,10 +113,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// Clears all data dependent, either directly or indirectly, on the parent reference line.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to be cleared.</param>
-        /// <returns>All objects that have been changed.</returns>
+        /// <returns>The results of the clear action.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearReferenceLineDependentData(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        public static ClearResults ClearReferenceLineDependentData(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -122,6 +124,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             var observables = new List<IObservable>();
+            var removedObjects = failureMechanism.Sections.OfType<object>()
+                                                 .Concat(failureMechanism.SectionResults)
+                                                 .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                 .Concat(failureMechanism.DikeProfiles)
+                                                 .ToArray();
 
             failureMechanism.ClearAllSections();
             observables.Add(failureMechanism);
@@ -132,7 +139,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             failureMechanism.DikeProfiles.Clear();
             observables.Add(failureMechanism.DikeProfiles);
 
-            return observables;
+            return new ClearResults(observables, removedObjects);
         }
 
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(GrassCoverErosionInwardsInput input)

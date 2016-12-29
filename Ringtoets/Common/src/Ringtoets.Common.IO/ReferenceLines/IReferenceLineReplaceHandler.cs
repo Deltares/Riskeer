@@ -46,5 +46,10 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <param name="newReferenceLine">The new reference line.</param>
         /// <returns>All objects that have been affected by the replacement.</returns>
         IEnumerable<IObservable> Replace(IAssessmentSection section, ReferenceLine newReferenceLine);
+
+        /// <summary>
+        /// Perform post-replacement updates.
+        /// </summary>
+        void DoPostReplacementUpdates();
     }
 }

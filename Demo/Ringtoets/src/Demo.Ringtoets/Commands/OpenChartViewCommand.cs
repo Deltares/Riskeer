@@ -23,7 +23,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
-using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using Demo.Ringtoets.Properties;
@@ -35,15 +35,15 @@ namespace Demo.Ringtoets.Commands
     /// </summary>
     public class OpenChartViewCommand : ICommand
     {
-        private readonly IViewController viewController;
+        private readonly IViewCommands viewCommands;
 
         /// <summary>
         /// Creates a new instance of <see cref="OpenChartViewCommand"/>.
         /// </summary>
-        /// <param name="viewController">The <see cref="IViewController"/> to use internally.</param>
-        public OpenChartViewCommand(IViewController viewController)
+        /// <param name="viewCommands">The <see cref="IViewCommands"/> to use internally.</param>
+        public OpenChartViewCommand(IViewCommands viewCommands)
         {
-            this.viewController = viewController;
+            this.viewCommands = viewCommands;
         }
 
         public bool Checked
@@ -252,7 +252,7 @@ namespace Demo.Ringtoets.Commands
             chartDataCollection.Add(points1);
             chartDataCollection.Add(points2);
 
-            viewController.DocumentViewController.OpenViewForData(chartDataCollection);
+            viewCommands.OpenView(chartDataCollection);
         }
     }
 }

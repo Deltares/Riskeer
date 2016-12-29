@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Service;
@@ -180,22 +181,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
+            var expectedRemovedObjectInstances = failureMechanism.Sections.OfType<object>()
+                                                                 .Concat(failureMechanism.SectionResults)
+                                                                 .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+                                                                 .Concat(failureMechanism.DikeProfiles)
+                                                                 .ToArray();
+
             // Call
-            IEnumerable<IObservable> observables = GrassCoverErosionInwardsDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
+            ClearResults result = GrassCoverErosionInwardsDataSynchronizationService.ClearReferenceLineDependentData(failureMechanism);
 
             // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.DikeProfiles);
 
-            IObservable[] array = observables.ToArray();
+            IObservable[] array = result.ChangedObjects.ToArray();
             Assert.AreEqual(3, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.DikeProfiles);
+
+            CollectionAssert.AreEquivalent(expectedRemovedObjectInstances, result.DeletedObjects);
         }
 
         private static GrassCoverErosionInwardsFailureMechanism CreateFullyConfiguredFailureMechanism()

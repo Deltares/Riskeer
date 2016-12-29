@@ -44,6 +44,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="CalculationServiceHelper.cs" />
+    <Compile Include="ClearResults.cs" />
     <Compile Include="HydraRingInputParser.cs" />
     <Compile Include="HydraRingSettingsDatabaseHelper.cs" />
     <Compile Include="HydraulicBoundaryDatabaseConnectionValidator.cs" />

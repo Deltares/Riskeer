@@ -24,7 +24,9 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
+using Core.Common.Gui.Commands;
 using Core.Common.Utils.IO;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -57,12 +59,16 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "traject_6-3.shx"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp");
+                var mocks = new MockRepository();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                mocks.ReplayAll();
                 var activity = new FileImportActivity(new ReferenceLineImporter(assessmentSection,
-                                                                                new ReferenceLineReplacementHandler(),
+                                                                                new ReferenceLineReplacementHandler(viewCommands),
                                                                                 filePath),
                                                       "ReferenceLineImporter");
                 activity.Run();
                 activity.Finish();
+                mocks.VerifyAll();
             }
         }
 
