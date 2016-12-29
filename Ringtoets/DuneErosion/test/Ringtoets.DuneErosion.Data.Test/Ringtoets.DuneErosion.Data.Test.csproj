@@ -56,6 +56,7 @@
     <Compile Include="DuneErosionFailureMechanismExtensionsTest.cs" />
     <Compile Include="DuneErosionFailureMechanismSectionResultTest.cs" />
     <Compile Include="DuneErosionFailureMechanismTest.cs" />
+    <Compile Include="DuneLocationOutputTest.cs" />
     <Compile Include="DuneLocationTest.cs" />
     <Compile Include="GeneralDuneErosionInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

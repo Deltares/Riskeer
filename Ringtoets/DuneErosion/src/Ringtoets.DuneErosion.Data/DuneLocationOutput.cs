@@ -19,9 +19,106 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Hydraulics;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+
 namespace Ringtoets.DuneErosion.Data
 {
     public class DuneLocationOutput
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationOutput"/>.
+        /// </summary>
+        /// <param name="waterLevel">The calculated water level.</param>
+        /// <param name="waveHeight">The calculated wave height.</param>
+        /// <param name="wavePeriod">The calculated wave period.</param>
+        /// <param name="targetProbability">The norm used during the calculation.</param>
+        /// <param name="targetReliability">The reliability index used during the calculation.</param>
+        /// <param name="calculatedProbability">the calculated probability.</param>
+        /// <param name="calculatedReliability">The calculated reliability.</param>
+        /// <param name="calculationConvergence">The convergence status of the calculation.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
+        /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
+        public DuneLocationOutput(double waterLevel, double waveHeight, double wavePeriod,
+            double targetProbability, double targetReliability,
+                                               double calculatedProbability, double calculatedReliability,
+                                               CalculationConvergence calculationConvergence)
+        {
+            if (!IsValidProbability(targetProbability))
+            {
+                throw new ArgumentOutOfRangeException("targetProbability", targetProbability,
+                                                      RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+            }
+            if (!IsValidProbability(calculatedProbability))
+            {
+                throw new ArgumentOutOfRangeException("calculatedProbability", calculatedProbability,
+                                                      RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+            }
+
+            WaterLevel = new RoundedDouble(2, waterLevel);
+            WaveHeight = new RoundedDouble(2, waveHeight);
+            WavePeriod = new RoundedDouble(2, wavePeriod);
+
+            TargetProbability = targetProbability;
+            TargetReliability = new RoundedDouble(5, targetReliability);
+            CalculatedProbability = calculatedProbability;
+            CalculatedReliability = new RoundedDouble(5, calculatedReliability);
+            CalculationConvergence = calculationConvergence;
+        }
+
+        /// <summary>
+        /// Gets the water level of the calculation.
+        /// [m+NAP]
+        /// </summary>
+        public RoundedDouble WaterLevel { get; private set; }
+        
+        /// <summary>
+        /// Gets the wave height of the calculation.
+        /// [m]
+        /// </summary>
+        public RoundedDouble WaveHeight { get; private set; }
+        
+        /// <summary>
+        /// Gets the wave period of the calculation.
+        /// [s]
+        /// </summary>
+        public RoundedDouble WavePeriod { get; private set; }
+
+        /// <summary>
+        /// Gets the target probability.
+        /// [1/year]
+        /// </summary>
+        public double TargetProbability { get; private set; }
+
+        /// <summary>
+        /// Gets the target beta.
+        /// [-]
+        /// </summary>
+        public RoundedDouble TargetReliability { get; private set; }
+
+        /// <summary>
+        /// Gets the calculated probability.
+        /// [1/year]
+        /// </summary>
+        public double CalculatedProbability { get; private set; }
+
+        /// <summary>
+        /// Gets the calculated reliability.
+        /// [-]
+        /// </summary>
+        public RoundedDouble CalculatedReliability { get; private set; }
+
+        /// <summary>
+        /// Gets the convergence status of the calculation.
+        /// [-]
+        /// </summary>
+        public CalculationConvergence CalculationConvergence { get; private set; }
+
+        private static bool IsValidProbability(double probability)
+        {
+            return double.IsNaN(probability) || (0.0 <= probability && probability <= 1.0);
+        }
     }
 }
