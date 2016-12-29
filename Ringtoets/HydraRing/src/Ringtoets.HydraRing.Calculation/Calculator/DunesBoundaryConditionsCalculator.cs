@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
@@ -48,7 +49,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         public double WaveHeight { get; private set; }
         public double WavePeriod { get; private set; }
 
-        public void Calculate(DunesBoundaryConditionsCalculationInput input) {}
+        public void Calculate(DunesBoundaryConditionsCalculationInput input)
+        {
+            Calculate(HydraRingUncertaintiesType.All, input);
+        }
 
         protected override void SetOutputs() {}
     }
