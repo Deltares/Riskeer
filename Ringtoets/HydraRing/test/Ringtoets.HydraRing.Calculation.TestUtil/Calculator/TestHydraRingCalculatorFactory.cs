@@ -41,6 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public readonly TestStructuresOvertoppingCalculator StructuresOvertoppingCalculator = new TestStructuresOvertoppingCalculator();
         public readonly TestStructuresClosureCalculator StructuresClosureCalculator = new TestStructuresClosureCalculator();
         public readonly TestStructuresStabilityPointCalculator StructuresStabilityPointCalculator = new TestStructuresStabilityPointCalculator();
+        public readonly TestDunesBoundaryConditionsCalculator DunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
 
         public IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string ringId)
         {
@@ -96,6 +97,13 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
             StructuresStabilityPointCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
             StructuresStabilityPointCalculator.RingId = ringId;
             return StructuresStabilityPointCalculator;
+        }
+
+        public IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory, string ringId)
+        {
+            DunesBoundaryConditionsCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
+            DunesBoundaryConditionsCalculator.RingId = ringId;
+            return DunesBoundaryConditionsCalculator;
         }
     }
 
@@ -160,6 +168,15 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     public class TestStructuresStabilityPointCalculator : TestHydraRingCalculator<StructuresStabilityPointCalculationInput>, IStructuresStabilityPointCalculator
     {
         public double ExceedanceProbabilityBeta { get; set; }
+        public string OutputDirectory { get; set; }
+        public string LastErrorFileContent { get; set; }
+    }
+
+    public class TestDunesBoundaryConditionsCalculator : TestHydraRingCalculator<DunesBoundaryConditionsCalculationInput>, IDunesBoundaryConditionsCalculator
+    {
+        public double WaterLevel { get; set; }
+        public double WaveHeight { get; set; }
+        public double WavePeriod { get; set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
     }

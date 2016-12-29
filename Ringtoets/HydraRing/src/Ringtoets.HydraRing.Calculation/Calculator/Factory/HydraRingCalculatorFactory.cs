@@ -83,5 +83,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         {
             return new StructuresStabilityPointCalculator(hlcdDirectory, ringId);
         }
+
+        public IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory, string ringId)
+        {
+            return new DunesBoundaryConditionsCalculator(hlcdDirectory, ringId);
+        }
     }
 }
