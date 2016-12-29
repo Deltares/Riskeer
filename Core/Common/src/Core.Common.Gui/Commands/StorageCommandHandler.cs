@@ -77,7 +77,6 @@ namespace Core.Common.Gui.Commands
             {
                 log.Error(e.Message, e);
                 projectPersistor.UnstageProject();
-                return false;
             }
 
             var unsavedChangesHandled = ShowSaveUnsavedChangesDialog();
@@ -175,7 +174,7 @@ namespace Core.Common.Gui.Commands
             var filePath = projectOwner.ProjectFilePath;
 
             // If filepath is not set, go to SaveAs
-            if (string.IsNullOrWhiteSpace(filePath))
+            if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
             {
                 return SaveProjectAs();
             }

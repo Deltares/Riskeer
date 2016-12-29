@@ -30,7 +30,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Integration.Data;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Application.Ringtoets.Storage.Test
 {
