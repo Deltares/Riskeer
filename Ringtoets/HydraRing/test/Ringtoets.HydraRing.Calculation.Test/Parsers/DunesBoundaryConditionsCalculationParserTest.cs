@@ -27,7 +27,7 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
     [TestFixture]
-    public class DunesBoundaryConditionsParserTest
+    public class DunesBoundaryConditionsCalculationParserTest
     {
         private const int sectionId = 1;
         private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "DunesBoundaryConditionsParser");
@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Constructor_ExpectedValues()
         {
             // Call
-            var parser = new DunesBoundaryConditionsParser();
+            var parser = new DunesBoundaryConditionsCalculationParser();
 
             // Assert
             Assert.IsInstanceOf<IHydraRingFileParser>(parser);
@@ -48,7 +48,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_NotExistingOutputFile_OutputNull()
         {
             // Setup
-            var parser = new DunesBoundaryConditionsParser();
+            var parser = new DunesBoundaryConditionsCalculationParser();
 
             // Call
             parser.Parse(testDataPath, sectionId);
@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_EmptyOutputFile_OutputNull()
         {
             // Setup
-            var parser = new DunesBoundaryConditionsParser();
+            var parser = new DunesBoundaryConditionsCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "empty");
 
             // Call
@@ -76,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_ValidHydraRingOutputFile_OutputSetWithExpectedCalculationResult()
         {
             // Setup
-            var parser = new DunesBoundaryConditionsParser();
+            var parser = new DunesBoundaryConditionsCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "valid");
 
             // Call
@@ -93,7 +93,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_InvalidHydraRingOutputFileWaterLevelMissing_OutputNull()
         {
             // Setup
-            var parser = new DunesBoundaryConditionsParser();
+            var parser = new DunesBoundaryConditionsCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "output-no-waterLevel");
 
             // Call
@@ -108,7 +108,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_InvalidHydraRingOutputFileWaveHeightMissing_OutputNull()
         {
             // Setup
-            var parser = new DunesBoundaryConditionsParser();
+            var parser = new DunesBoundaryConditionsCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "output-no-waveHeight");
 
             // Call
@@ -123,7 +123,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_InvalidHydraRingOutputFileWavePeriodMissing_OutputNull()
         {
             // Setup
-            var parser = new DunesBoundaryConditionsParser();
+            var parser = new DunesBoundaryConditionsCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "output-no-wavePeriod");
 
             // Call

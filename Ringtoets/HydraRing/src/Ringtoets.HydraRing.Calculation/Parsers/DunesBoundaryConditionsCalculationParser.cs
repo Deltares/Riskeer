@@ -30,7 +30,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// <summary>
     /// Class for parsing dunes boundary condition results from a dunes boundary conditions calculation.
     /// </summary>
-    public class DunesBoundaryConditionsParser : IHydraRingFileParser
+    public class DunesBoundaryConditionsCalculationParser : IHydraRingFileParser
     {
         private const string waterLevelText = "Considered water level";
         private const string waveHeightText = "Computed wave height";

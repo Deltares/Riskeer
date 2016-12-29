@@ -106,7 +106,7 @@
     <Compile Include="Data\Variables\TruncatedNormalHydraRingVariableTest.cs" />
     <Compile Include="Exceptions\HydraRingCalculationExceptionTest.cs" />
     <Compile Include="Exceptions\HydraRingFileParserExceptionTest.cs" />
-    <Compile Include="Parsers\DunesBoundaryConditionsParserTest.cs" />
+    <Compile Include="Parsers\DunesBoundaryConditionsCalculationParserTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\LastErrorFileParserTest.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParserTest.cs" />

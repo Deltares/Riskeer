@@ -108,7 +108,7 @@
     <Compile Include="Data\Variables\TruncatedNormalHydraRingVariable.cs" />
     <Compile Include="Exceptions\HydraRingCalculationException.cs" />
     <Compile Include="Exceptions\HydraRingFileParserException.cs" />
-    <Compile Include="Parsers\DunesBoundaryConditionsParser.cs" />
+    <Compile Include="Parsers\DunesBoundaryConditionsCalculationParser.cs" />
     <Compile Include="Parsers\LastErrorFileParser.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParser.cs" />
     <Compile Include="Parsers\WaveConditionsCalculationParser.cs" />
