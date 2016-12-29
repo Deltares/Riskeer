@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -39,6 +40,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     public class GrassCoverErosionOutwardsFailureMechanismProperties : ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsFailureMechanismProperties));
+        private readonly IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler changeHandler;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsContextProperties"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
+        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsFailureMechanismProperties(
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+            IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler changeHandler)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            if (changeHandler == null)
+            {
+                throw new ArgumentNullException("changeHandler");
+            }
+            Data = failureMechanism;
+            this.changeHandler = changeHandler;
+        }
 
         #region Length effect parameters
 
@@ -54,20 +78,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
             set
             {
-                data.GeneralInput.N = value;
-                ClearHydraulicBoundaryLocationOutput();
-                data.NotifyObservers();
+                if (changeHandler.ConfirmPropertyChange())
+                {
+                    data.GeneralInput.N = value;
+                    ClearOutputAndNotifyObservers();
+                }
             }
         }
 
         #endregion
-
-        private void ClearHydraulicBoundaryLocationOutput()
-        {
-            RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(data.HydraulicBoundaryLocations);
-            data.HydraulicBoundaryLocations.NotifyObservers();
-            log.Info(Resources.GrassCoverErosionOutwards_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
-        }
 
         #region General
 
@@ -136,5 +155,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         #endregion
+
+        private void ClearOutputAndNotifyObservers()
+        {
+            foreach (var observable in changeHandler.PropertyChanged(data))
+            {
+                observable.NotifyObservers();
+            }
+            data.NotifyObservers();
+        }
     }
 }

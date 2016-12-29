@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Gui.Converters;
@@ -36,6 +37,20 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class WaveHeightLocationsContextProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="WaveHeightLocationContextProperties"/>.
+        /// </summary>
+        /// <param name="database">The database to set as data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="database"/> is <c>null</c>.</exception>
+        public WaveHeightLocationsContextProperties(HydraulicBoundaryDatabase database)
+        {
+            if (database == null)
+            {
+                throw new ArgumentNullException("database");
+            }
+            Data = database;
+        }
+
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Locations_DisplayName")]

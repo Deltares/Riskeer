@@ -295,13 +295,23 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new PipingFailureMechanism();
-            var properties = new PipingFailureMechanismContextProperties(
-                new PipingFailureMechanismContext(failureMechanism, mocks.Stub<IAssessmentSection>()),
-                CreateSimpleHandler(mocks));
+            var observableMock = mocks.StrictMock<IObservable>();
+            observableMock.Expect(o => o.NotifyObservers());
+
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler>();
+            handler.Expect(h => h.ConfirmPropertyChange()).Return(true);
+            handler.Expect(h => h.PropertyChanged(Arg<PipingFailureMechanism>.Matches(z => true))).Return(new [] { observableMock });
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
             mocks.ReplayAll();
 
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Attach(observerMock);
+
+            var properties = new PipingFailureMechanismContextProperties(
+                new PipingFailureMechanismContext(failureMechanism, assessmentSection),
+                handler);
 
             // Call
             properties.A = value;
@@ -309,6 +319,39 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void A_SetValidValueNoConfirmation_NoValueChangeNoUpdates(int newLengthEffect)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
+
+            var changeHandler = mockRepository.StrictMock<IFailureMechanismPropertyChangeHandler>();
+            changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(false);
+
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Attach(observerMock);
+
+            var properties = new PipingFailureMechanismContextProperties(
+                new PipingFailureMechanismContext(failureMechanism, assessmentSection),
+                changeHandler);
+            var oldValue = properties.A;
+
+            // Call
+            properties.A = newLengthEffect;
+
+            // Assert
+            Assert.AreEqual(oldValue, failureMechanism.PipingProbabilityAssessmentInput.A);
+            mockRepository.VerifyAll();
         }
 
         [Test]

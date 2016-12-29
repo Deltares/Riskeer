@@ -123,29 +123,71 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(int newLengthEffect)
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
-            var handler = CreateSimpleHandler();
-            int numberOfChangedProperties = 1;
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            observerMock.Expect(o => o.UpdateObserver());
+
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            observableMock.Expect(o => o.NotifyObservers());
+
+            var changeHandler = mockRepository.StrictMock<IFailureMechanismPropertyChangeHandler>();
+            changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(true);
+            changeHandler.Expect(h => h.PropertyChanged(Arg<GrassCoverErosionInwardsFailureMechanism>.Matches(z => true))).Return(new[] { observableMock });
+
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.Attach(observerMock);
+
             var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
                 new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock),
-                handler
-            );
-            const int newLengthEffect = 10;
+                changeHandler);
 
             // Call
             properties.LengthEffect = newLengthEffect;
 
             // Assert
             Assert.AreEqual(newLengthEffect, failureMechanism.GeneralInput.N);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void LengthEffect_SetValidValueNoConfirmation_NoValueChangeNoUpdates(int newLengthEffect)
+        {
+            // Setup
+            var observerMock = mockRepository.StrictMock<IObserver>();
+
+            var changeHandler = mockRepository.StrictMock<IFailureMechanismPropertyChangeHandler>();
+            changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(false);
+
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            failureMechanism.Attach(observerMock);
+
+            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
+                new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock),
+                changeHandler);
+            var oldValue = properties.LengthEffect;
+
+            // Call
+            properties.LengthEffect = newLengthEffect;
+
+            // Assert
+            Assert.AreEqual(oldValue, failureMechanism.GeneralInput.N);
             mockRepository.VerifyAll();
         }
 

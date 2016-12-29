@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -37,6 +38,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties"/>.
+        /// </summary>
+        /// <param name="locations">The locations to show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties(ObservableList<HydraulicBoundaryLocation> locations)
+        {
+            if (locations == null)
+            {
+                throw new ArgumentNullException("locations");
+            }
+            Data = locations;
+        }
+
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DisplayName")]

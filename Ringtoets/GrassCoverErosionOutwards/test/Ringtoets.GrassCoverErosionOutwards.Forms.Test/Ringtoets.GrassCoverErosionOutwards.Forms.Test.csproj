@@ -65,6 +65,7 @@
     <Compile Include="ExportInfos\GrassCoverErosionOutwardsWaveConditionsCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\HydraulicBoundariesGroupContextExportInfoTest.cs" />
+    <Compile Include="GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandlerTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationHelperTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsFailureMechanismContextTest.cs" />

@@ -287,18 +287,14 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<ProbabilityAssessmentOutput, ProbabilityAssessmentOutputProperties>();
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>
             {
-                CreateInstance = context => new DesignWaterLevelLocationsContextProperties
-                {
-                    Data = context.WrappedData.HydraulicBoundaryDatabase
-                }
+                CreateInstance = context => new DesignWaterLevelLocationsContextProperties(
+                    context.WrappedData.HydraulicBoundaryDatabase)
             };
             yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationContextProperties>();
             yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsContextProperties>
             {
-                CreateInstance = context => new WaveHeightLocationsContextProperties
-                {
-                    Data = context.WrappedData.HydraulicBoundaryDatabase
-                }
+                CreateInstance = context => new WaveHeightLocationsContextProperties(
+                    context.WrappedData.HydraulicBoundaryDatabase)
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationContextProperties>();
             yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();

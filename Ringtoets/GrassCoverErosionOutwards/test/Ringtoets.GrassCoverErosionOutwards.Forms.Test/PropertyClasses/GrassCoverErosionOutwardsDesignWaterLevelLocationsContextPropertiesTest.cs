@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
@@ -35,50 +36,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContextPropertiesTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_WithoutLocations_ExpectedValues()
         {
             // Call
-            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties();
+            TestDelegate test = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties(null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("locations", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithLocations_ExpectedValues()
+        {
+            // Setup
+            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
+
+            // Call
+            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties(
+                hydraulicBoundaryLocations);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
-            Assert.IsNull(properties.Data);
-        }
+            Assert.AreSame(hydraulicBoundaryLocations, properties.Data);
 
-        [Test]
-        public void GetProperties_WithData_ReturnExpectedValues()
-        {
-            // Setup
-            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.2);
-
-            // Call
-            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties
-            {
-                Data = new ObservableList<HydraulicBoundaryLocation>
-                {
-                    location
-                }
-            };
-
-            // Assert
-            Assert.AreEqual(1, properties.Locations.Length);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties,
-                              ExpandableArrayConverter>(p => p.Locations));
-            GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties locationProperties = properties.Locations[0];
-            Assert.AreEqual(location.Name, locationProperties.Name);
-            Assert.AreEqual(location.Id, locationProperties.Id);
-            Assert.AreEqual(location.Location, locationProperties.Location);
-            Assert.AreEqual(location.DesignWaterLevel, locationProperties.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual("Ja", locationProperties.Convergence);
-        }
-
-        [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
-        {
-            // Call
-            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties();
-
-            // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             const string expectedLocationsDisplayName = "Locaties";
             const string expectedLocationsDescription = "Locaties uit de hydraulische randvoorwaardendatabase.";
@@ -96,6 +77,31 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedLocationsDisplayName, locationsProperty.DisplayName);
             Assert.AreEqual(expectedLocationsDescription, locationsProperty.Description);
             Assert.AreEqual(expectedLocationsCategory, locationsProperty.Category);
+        }
+
+        [Test]
+        public void GetProperties_WithData_ReturnExpectedValues()
+        {
+            // Setup
+            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.2);
+
+            // Call
+            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties(
+                new ObservableList<HydraulicBoundaryLocation>
+                {
+                    location
+                });
+
+            // Assert
+            Assert.AreEqual(1, properties.Locations.Length);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties,
+                              ExpandableArrayConverter>(p => p.Locations));
+            GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties locationProperties = properties.Locations[0];
+            Assert.AreEqual(location.Name, locationProperties.Name);
+            Assert.AreEqual(location.Id, locationProperties.Id);
+            Assert.AreEqual(location.Location, locationProperties.Location);
+            Assert.AreEqual(location.DesignWaterLevel, locationProperties.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual("Ja", locationProperties.Convergence);
         }
     }
 }

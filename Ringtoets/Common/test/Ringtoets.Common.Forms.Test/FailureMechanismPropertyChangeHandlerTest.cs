@@ -93,8 +93,8 @@ namespace Ringtoets.Common.Forms.Test
         }
 
         [Test]
-        [TestCaseSource("ChangeCompositionTestCases")]
-        public void ChangeComposition_FailureMechanismWithDifferentCalculationCollections_ReturnsCalculationsWhichHadOutput(ChangeCompositionTestCase testCase)
+        [TestCaseSource("ChangePropertyTestCases")]
+        public void ChangeComposition_FailureMechanismWithDifferentCalculationCollections_ReturnsCalculationsWhichHadOutput(ChangePropertyTestCase testCase)
         {
             // Setup
             var handler = new FailureMechanismPropertyChangeHandler();
@@ -107,9 +107,9 @@ namespace Ringtoets.Common.Forms.Test
             CollectionAssert.AreEquivalent(testCase.ExpectedAffectedCalculations, result);
         }
 
-        public class ChangeCompositionTestCase
+        public class ChangePropertyTestCase
         {
-            public ChangeCompositionTestCase(ICollection<TestCalculation> calculations)
+            public ChangePropertyTestCase(ICollection<TestCalculation> calculations)
             {
                 Calculations = calculations;
                 ExpectedAffectedCalculations = calculations.Where(c => c.HasOutput).ToArray();
@@ -119,24 +119,24 @@ namespace Ringtoets.Common.Forms.Test
             public ICollection<TestCalculation> ExpectedAffectedCalculations { get; private set; }
         }
 
-        static IEnumerable ChangeCompositionTestCases()
+        static IEnumerable ChangePropertyTestCases()
         {
             yield return new TestCaseData(
-                new ChangeCompositionTestCase(new[]
+                new ChangePropertyTestCase(new[]
                              {
                                  CreateCalculationWithOutput()
                              })
             ).SetName("ChangeComposition Single calculation with output");
 
             yield return new TestCaseData(
-                new ChangeCompositionTestCase(new[]
+                new ChangePropertyTestCase(new[]
                              {
                                  CreateCalculationWithoutOutput()
                              })
             ).SetName("ChangeComposition Single calculation without output");
 
             yield return new TestCaseData(
-                new ChangeCompositionTestCase(new[]
+                new ChangePropertyTestCase(new[]
                              {
                                  CreateCalculationWithoutOutput(),
                                  CreateCalculationWithoutOutput()
@@ -144,7 +144,7 @@ namespace Ringtoets.Common.Forms.Test
             ).SetName("ChangeComposition Two calculations without output");
 
             yield return new TestCaseData(
-                new ChangeCompositionTestCase(new[]
+                new ChangePropertyTestCase(new[]
                              {
                                  CreateCalculationWithOutput(),
                                  CreateCalculationWithoutOutput()
@@ -152,7 +152,7 @@ namespace Ringtoets.Common.Forms.Test
             ).SetName("ChangeComposition Calculation without and calculation with output");
 
             yield return new TestCaseData(
-                new ChangeCompositionTestCase(new[]
+                new ChangePropertyTestCase(new[]
                              {
                                  CreateCalculationWithOutput(),
                                  CreateCalculationWithOutput()
@@ -160,7 +160,7 @@ namespace Ringtoets.Common.Forms.Test
             ).SetName("ChangeComposition Two calculations with output");
 
             yield return new TestCaseData(
-                new ChangeCompositionTestCase(new[]
+                new ChangePropertyTestCase(new[]
                              {
                                  CreateCalculationWithOutput(),
                                  CreateCalculationWithOutput(),

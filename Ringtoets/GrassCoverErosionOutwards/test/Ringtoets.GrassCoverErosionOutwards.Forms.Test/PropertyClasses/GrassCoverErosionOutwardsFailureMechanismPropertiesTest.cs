@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
@@ -45,27 +46,48 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         private const int cPropertyIndex = 5;
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
+            // Setup
+            var mockRepository = new MockRepository();
+            var changeHandler = CreateSimpleHandler(mockRepository);
+            mockRepository.ReplayAll();
+
             // Call
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties();
+            TestDelegate test = () => new GrassCoverErosionOutwardsFailureMechanismProperties(null, changeHandler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>>(properties);
-            Assert.IsNull(properties.Data);
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
         }
 
         [Test]
-        public void Data_SetNewFailureMechanismContextInstance_ReturnCorrectPropertyValues()
+        public void Constructor_WithoutChangeHandler_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new GrassCoverErosionOutwardsFailureMechanismProperties(new GrassCoverErosionOutwardsFailureMechanism(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("changeHandler", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithFailureMechanism_ExpectedValues()
         {
             // Setup
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties();
+            var mockRepository = new MockRepository();
+            var changeHandler = CreateSimpleHandler(mockRepository);
+            mockRepository.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            properties.Data = failureMechanism;
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Assert
+            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>>(properties);
+            Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, properties.Name);
             Assert.AreEqual(Resources.GrassCoverErosionOutwardsFailureMechanism_Code, properties.Code);
             Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.A, properties.A);
@@ -75,22 +97,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(int newLengthEffect)
         {
             // Setup
             var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
-            int numberOfChangedProperties = 1;
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            observerMock.Expect(o => o.UpdateObserver());
+
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            observableMock.Expect(o => o.NotifyObservers());
+
+            var changeHandler = mockRepository.StrictMock<IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler>();
+            changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(true);
+            changeHandler.Expect(h => h.PropertyChanged(Arg<GrassCoverErosionOutwardsFailureMechanism>.Matches(z => true))).Return(new[] { observableMock });
+
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.Attach(observerMock);
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties
-            {
-                Data = failureMechanism
-            };
-            const int newLengthEffect = 10;
+
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Call
             properties.LengthEffect = newLengthEffect;
@@ -101,13 +130,46 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void LengthEffect_SetValidValueNoConfirmation_NoValueChangeNoUpdates(int newLengthEffect)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
+
+            var changeHandler = mockRepository.StrictMock<IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler>();
+            changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(false);
+
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.Attach(observerMock);
+
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
+            var oldValue = properties.LengthEffect;
+
+            // Call
+            properties.LengthEffect = newLengthEffect;
+
+            // Assert
+            Assert.AreEqual(oldValue, failureMechanism.GeneralInput.N);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
+            // Setup
+            var mockRepository = new MockRepository();
+            var changeHandler = CreateSimpleHandler(mockRepository);
+            mockRepository.ReplayAll();
+
             // Call
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties
-            {
-                Data = new GrassCoverErosionOutwardsFailureMechanism()
-            };
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(
+                new GrassCoverErosionOutwardsFailureMechanism(),
+                changeHandler);
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -158,50 +220,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Modelinstellingen", cProperty.Category);
             Assert.AreEqual("c", cProperty.DisplayName);
             Assert.AreEqual("De waarde van de parameter 'c' in de berekening voor golf condities.", cProperty.Description);
-        }
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(10)]
-        [TestCase(20)]
-        public void LengthEffect_NewValueSet_ClearHydraulicBoundaryLocationsNotifyObserversAndLog(int value)
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
-            var hydraulicLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                HydraulicBoundaryLocations =
-                {
-                    hydraulicLocation
-                }
-            };
-
-            failureMechanism.HydraulicBoundaryLocations.Attach(observerMock);
-
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties
-            {
-                Data = failureMechanism
-            };
-
-            // Call
-            Action action = () => properties.LengthEffect = value;
-
-            // Assert
-            const string expectedMessage = "De berekende waterstanden en golfhoogtes bij doorsnede-eis voor alle hydraulische randvoorwaarden locaties zijn verwijderd.";
-            TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
-            Assert.AreEqual(value, properties.LengthEffect);
-            Assert.AreEqual(value, failureMechanism.GeneralInput.N);
-            Assert.IsNaN(hydraulicLocation.DesignWaterLevel);
-            Assert.IsNaN(hydraulicLocation.WaveHeight);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicLocation.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicLocation.WaveHeightCalculationConvergence);
             mockRepository.VerifyAll();
+        }
+        
+        private IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler CreateSimpleHandler(MockRepository mockRepository)
+        {
+            var handler = mockRepository.Stub<IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler>();
+            handler.Stub(h => h.ConfirmPropertyChange()).Return(true);
+            handler.Stub(h => h.PropertyChanged(Arg<GrassCoverErosionOutwardsFailureMechanism>.Matches(z => true))).Return(Enumerable.Empty<IObservable>());
+
+            return handler;
         }
     }
 }

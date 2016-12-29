@@ -85,13 +85,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 if (propertyChangeHandler.ConfirmPropertyChange())
                 {
                     data.WrappedData.GeneralInput.N = value;
-
-                    var changedObjects = propertyChangeHandler.PropertyChanged(data.WrappedData);
-                    foreach (IObservable changedObject in changedObjects)
-                    {
-                        changedObject.NotifyObservers();
-                    }
-                    data.WrappedData.NotifyObservers();
+                    ClearOutputAndNotifyObservers();
                 }
             }
         }
@@ -193,5 +187,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         #endregion
+
+        private void ClearOutputAndNotifyObservers()
+        {
+            var changedObjects = propertyChangeHandler.PropertyChanged(data.WrappedData);
+            foreach (IObservable changedObject in changedObjects)
+            {
+                changedObject.NotifyObservers();
+            }
+            data.WrappedData.NotifyObservers();
+        }
     }
 }

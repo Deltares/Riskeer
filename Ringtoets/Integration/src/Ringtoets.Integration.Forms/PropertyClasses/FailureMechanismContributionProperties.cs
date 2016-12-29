@@ -50,6 +50,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <param name="assessmentSection">The assessment section for which the <see cref="IAssessmentSection.FailureMechanismContribution"/> properties are shown.</param>
         /// <param name="normChangeHandler">The <see cref="IFailureMechanismContributionNormChangeHandler"/> for when the norm changes.</param>
         /// <param name="compositionChangeHandler">The <see cref="IAssessmentSectionCompositionChangeHandler"/> for when the composition changes.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public FailureMechanismContributionProperties(
             FailureMechanismContribution failureMechanismContribution,
             IAssessmentSection assessmentSection,

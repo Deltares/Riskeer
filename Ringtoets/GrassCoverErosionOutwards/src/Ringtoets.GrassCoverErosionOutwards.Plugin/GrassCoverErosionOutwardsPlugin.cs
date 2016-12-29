@@ -71,24 +71,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             yield return new PropertyInfo<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismProperties
-                {
-                    Data = context.WrappedData
-                }
+                CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismProperties(
+                    context.WrappedData, 
+                    new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
             };
             yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext, GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties
-                {
-                    Data = context.WrappedData
-                }
+                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties(context.WrappedData)
             };
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightLocationsContext, GrassCoverErosionOutwardsWaveHeightLocationsContextProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationsContextProperties
-                {
-                    Data = context.WrappedData
-                }
+                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationsContextProperties(context.WrappedData)
             };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutput, GrassCoverErosionOutwardsWaveConditionsOutputProperties>();

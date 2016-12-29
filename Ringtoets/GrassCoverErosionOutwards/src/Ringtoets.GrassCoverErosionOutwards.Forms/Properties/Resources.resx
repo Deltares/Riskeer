@@ -183,4 +183,9 @@
   <data name="MetaData_WaveHeight" xml:space="preserve">
     <value>Golfhoogte bij doorsnede-eis</value>
   </data>
+  <data name="GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data" xml:space="preserve">
+    <value>Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle randvoorwaarden locaties en berekeningen in dit toetsspoor verwijderd worden.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
 </root>

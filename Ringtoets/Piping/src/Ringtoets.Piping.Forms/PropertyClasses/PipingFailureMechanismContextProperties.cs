@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
@@ -118,7 +119,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 if (propertyChangeHandler.ConfirmPropertyChange())
                 {
                     data.WrappedData.GeneralInput.WaterVolumetricWeight = value;
-                    OnPropertyChanged();
+                    ClearOutputAndNotifyObservers();
                 }
             }
         }
@@ -170,7 +171,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 if (propertyChangeHandler.ConfirmPropertyChange())
                 {
                     data.WrappedData.PipingProbabilityAssessmentInput.A = value;
-                    OnPropertyChanged();
+                    ClearOutputAndNotifyObservers();
                 }
             }
         }
@@ -277,10 +278,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #endregion
 
-        private void OnPropertyChanged()
+        private void ClearOutputAndNotifyObservers()
         {
-            var changedObjects = propertyChangeHandler.PropertyChanged(data.WrappedData);
-            foreach (IObservable changedObject in changedObjects)
+            foreach (IObservable changedObject in propertyChangeHandler.PropertyChanged(data.WrappedData))
             {
                 changedObject.NotifyObservers();
             }

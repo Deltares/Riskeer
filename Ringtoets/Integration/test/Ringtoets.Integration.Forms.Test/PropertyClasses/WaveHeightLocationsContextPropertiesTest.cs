@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Gui.Converters;
@@ -35,14 +36,27 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     public class WaveHeightLocationsContextPropertiesTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_WithoutDatabase_ExpectedValues()
         {
             // Call
-            var properties = new WaveHeightLocationsContextProperties();
+            TestDelegate test = () => new WaveHeightLocationsContextProperties(null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("database", paramName);
+        }
+        [Test]
+        public void Constructor_WithDatabase_ExpectedValues()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            var properties = new WaveHeightLocationsContextProperties(hydraulicBoundaryDatabase);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryDatabase>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(hydraulicBoundaryDatabase, properties.Data);
         }
 
         [Test]
@@ -59,10 +73,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new WaveHeightLocationsContextProperties
-            {
-                Data = hydraulicBoundaryDatabase
-            };
+            var properties = new WaveHeightLocationsContextProperties(hydraulicBoundaryDatabase);
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(WaveHeightLocationContextProperties));
@@ -81,7 +92,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new WaveHeightLocationsContextProperties();
+            var properties = new WaveHeightLocationsContextProperties(new HydraulicBoundaryDatabase());
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
