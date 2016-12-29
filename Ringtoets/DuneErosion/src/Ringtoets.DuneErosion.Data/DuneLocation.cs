@@ -91,5 +91,10 @@ namespace Ringtoets.DuneErosion.Data
         /// Gets the D50 of the dune location.
         /// </summary>
         public RoundedDouble D50 { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the output of a dune erosion calculation.
+        /// </summary>
+        public DuneLocationOutput Output { get; set; }
     }
 }

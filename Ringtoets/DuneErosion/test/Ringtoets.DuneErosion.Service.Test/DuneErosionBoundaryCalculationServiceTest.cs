@@ -32,6 +32,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.DuneErosion.Service.Test
@@ -142,7 +143,8 @@ namespace Ringtoets.DuneErosion.Service.Test
 
         [Test]
         public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
-        {// Setup
+        {
+            // Setup
             const double norm = 1.0 / 200;
             const double contribution = 10;
             const string ringId = "1";
@@ -178,6 +180,201 @@ namespace Ringtoets.DuneErosion.Service.Test
 
                 // Assert
                 Assert.IsTrue(testCalculator.IsCanceled);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            const double norm = 1.0 / 200;
+            const double contribution = 10;
+            const string ringId = "1";
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = contribution
+            };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return(ringId);
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
+            {
+                failureMechanism
+            }, 1, norm));
+            mocks.ReplayAll();
+
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
+                calculator.LastErrorFileContent = "An error occurred";
+                calculator.EndInFailure = true;
+
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new DuneErosionBoundaryCalculationService().Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+                    }
+                    catch (HydraRingFileParserException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", duneLocation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("De berekening voor duinafslag '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", duneLocation.Name), msgs[1]);
+                    StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[3]);
+                });
+                Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(duneLocation.Output);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            const double norm = 1.0 / 200;
+            const double contribution = 10;
+            const string ringId = "1";
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = contribution
+            };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return(ringId);
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
+            {
+                failureMechanism
+            }, 1, norm));
+            mocks.ReplayAll();
+
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
+                calculator.EndInFailure = true;
+
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new DuneErosionBoundaryCalculationService().Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+                    }
+                    catch (HydraRingFileParserException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", duneLocation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("De berekening voor duinafslag '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", duneLocation.Name), msgs[1]);
+                    StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[3]);
+                });
+                Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(duneLocation.Output);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            const double norm = 1.0 / 200;
+            const double contribution = 10;
+            const string ringId = "1";
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = contribution
+            };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return(ringId);
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
+            {
+                failureMechanism
+            }, 1, norm));
+            mocks.ReplayAll();
+
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
+                calculator.EndInFailure = false;
+                calculator.LastErrorFileContent = "An error occurred";
+
+                var exceptionThrown = false;
+                var exceptionMessage = string.Empty;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new DuneErosionBoundaryCalculationService().Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+                    }
+                    catch (HydraRingCalculationException e)
+                    {
+                        exceptionThrown = true;
+                        exceptionMessage = e.Message;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", duneLocation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("De berekening voor duinafslag '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
+                                                          duneLocation.Name), msgs[1]);
+                    StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[3]);
+                });
+                Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(duneLocation.Output);
+                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
             mocks.VerifyAll();
         }

@@ -25,9 +25,11 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.DuneErosion.Service
 {
@@ -54,19 +56,59 @@ namespace Ringtoets.DuneErosion.Service
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
             var exceptionThrown = false;
+            var inputValid = false;
             try
             {
                 DunesBoundaryConditionsCalculationInput calculationInput = CreateInput(duneLocation, failureMechanism, assessmentSection, hydraulicBoundaryDatabaseFilePath);
+                inputValid = true;
                 calculator.Calculate(calculationInput);
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    
+                }
+            }
+            catch (HydraRingFileParserException)
+            {
+                if (!canceled)
+                {
+                    var lastErrorContent = calculator.LastErrorFileContent;
+                    if (string.IsNullOrEmpty(lastErrorContent))
+                    {
+                        log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_no_error_report,
+                                        calculationName);
+                    }
+                    else
+                    {
+                        log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_click_details_for_last_error_report_1,
+                                        calculationName, lastErrorContent);
+                    }
+
+                    exceptionThrown = true;
+                    throw;
                 }
             }
             finally
             {
+                var lastErrorFileContent = calculator.LastErrorFileContent;
+                bool errorOccurred = CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
+                if (errorOccurred)
+                {
+                    log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_click_details_for_last_error_report_1,
+                                    calculationName, lastErrorFileContent);
+                }
+
+                if (inputValid)
+                {
+                    log.InfoFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+                }
+
                 CalculationServiceHelper.LogCalculationEndTime(calculationName);
+
+                if (errorOccurred)
+                {
+                    throw new HydraRingCalculationException(lastErrorFileContent);
+                }
+                
             }
         }
 

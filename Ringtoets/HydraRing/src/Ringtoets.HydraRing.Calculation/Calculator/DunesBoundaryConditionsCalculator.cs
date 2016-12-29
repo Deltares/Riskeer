@@ -32,6 +32,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// </summary>
     internal class DunesBoundaryConditionsCalculator : HydraRingCalculatorBase, IDunesBoundaryConditionsCalculator
     {
+        private readonly DunesBoundaryConditionsCalculationParser dunesBoundaryParser;
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
 
         /// <summary>
@@ -43,6 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         internal DunesBoundaryConditionsCalculator(string hlcdDirectory, string ringId)
             : base(hlcdDirectory, ringId)
         {
+            dunesBoundaryParser = new DunesBoundaryConditionsCalculationParser();
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
 
             WaterLevel = double.NaN;
@@ -63,6 +65,13 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
         protected override void SetOutputs()
         {
+            if (dunesBoundaryParser.Output != null)
+            {
+                WaterLevel = dunesBoundaryParser.Output.WaterLevel;
+                WaveHeight = dunesBoundaryParser.Output.WaveHeight;
+                WavePeriod = dunesBoundaryParser.Output.WavePeriod;
+            }
+
             if (targetProbabilityParser.Output != null)
             {
                 ReliabilityIndex = targetProbabilityParser.Output.CalculatedReliabilityIndex;
