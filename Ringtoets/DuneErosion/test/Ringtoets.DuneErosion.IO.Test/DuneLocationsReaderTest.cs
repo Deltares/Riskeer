@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.DuneErosion.Data;
 
 namespace Ringtoets.DuneErosion.IO.Test
 {
@@ -46,10 +45,10 @@ namespace Ringtoets.DuneErosion.IO.Test
                 Assert.IsNotNull(duneLocation.Location);
                 Assert.IsNotNull(duneLocation.Location.X);
                 Assert.IsNotNull(duneLocation.Location.Y);
-                Assert.IsNotNull(duneLocation.CoastalAreaId);
-                Assert.IsNotNull(duneLocation.Offset);
-                Assert.IsNotNull(duneLocation.Orientation);
-                Assert.IsNotNull(duneLocation.D50);
+                Assert.AreNotEqual(0, duneLocation.CoastalAreaId);
+                Assert.IsTrue(duneLocation.Offset >= 0);
+                Assert.IsTrue(duneLocation.Orientation >= 0);
+                Assert.AreNotEqual(0, duneLocation.D50);
             }
         }
     }

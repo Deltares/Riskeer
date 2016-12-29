@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Geometry;
+
 namespace Ringtoets.DuneErosion.Data.TestUtil
 {
     /// <summary>
@@ -31,6 +33,6 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
         /// Creates a new instance of <see cref="TestDuneLocation"/>.
         /// </summary>
         public TestDuneLocation() 
-            : base(0, string.Empty, 0, 0, 0, 0, 0, 0) {}
+            : base(0, string.Empty, new Point2D(0.0, 0.0), 0, 0, 0, 0) {}
     }
 }

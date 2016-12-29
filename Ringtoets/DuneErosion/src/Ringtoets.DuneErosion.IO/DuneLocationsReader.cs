@@ -31,7 +31,7 @@ using Core.Components.Gis.IO.Readers;
 namespace Ringtoets.DuneErosion.IO
 {
     /// <summary>
-    /// Shapefile reader that reads a <see cref="ReadDuneLocation"/> based on the line feature in the file.
+    /// Shapefile reader that reads a features and converts it into a collection of <see cref="ReadDuneLocation"/>.
     /// </summary>
     public class DuneLocationsReader
     {
@@ -42,7 +42,7 @@ namespace Ringtoets.DuneErosion.IO
         private const string d50Key = "Dreken";
 
         /// <summary>
-        /// Reads an <see cref="IEnumerable{T}"/> of <see cref="ReadDuneLocation"/> from an embedded shape file containing points.
+        /// Creates an <see cref="IEnumerable{T}"/> of <see cref="ReadDuneLocation"/> based on the line features within the embedded shape file.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ReadDuneLocation"/>.</returns>
         public IEnumerable<ReadDuneLocation> ReadDuneLocations()
@@ -72,16 +72,15 @@ namespace Ringtoets.DuneErosion.IO
             {
                 Point2D location = locationData.MapGeometries.First().PointCollections.First().First();
 
-                double xCoordinate = location.X;
-                double yCoordinate = location.Y;
+                var nameValue = locationData.MetaData[nameKey];
 
-                string name = locationData.MetaData[nameKey].ToString();
+                string name = nameValue != null ? nameValue.ToString() : string.Empty;
                 int coastalAreaId = Convert.ToInt32(locationData.MetaData[coastalAreaIdKey]);
                 double offset = Convert.ToDouble(locationData.MetaData[offsetKey]);
                 double orientation = Convert.ToDouble(locationData.MetaData[orientationKey]);
                 double d50 = Convert.ToDouble(locationData.MetaData[d50Key]);
 
-                yield return  new ReadDuneLocation(name, xCoordinate, yCoordinate, coastalAreaId, offset, orientation, d50);
+                yield return new ReadDuneLocation(name, location, coastalAreaId, offset, orientation, d50);
             }
         }
     }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -32,7 +33,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         public void Constructor_NameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DuneLocation(0, null, 0.0, 0.0, 0, 0.0, 0.0, 0.0);
+            TestDelegate test = () => new DuneLocation(0, null, new Point2D(0.0, 0.0), 0, 0.0, 0.0, 0.0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -45,21 +46,19 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Setup
             const long id = 0;
             const string name = "Dune location";
-            const double coordinateX = 10.0;
-            const double coordinateY = 12.0;
+            Point2D location = new Point2D(10.0, 12.0);
             const int coastalAreaId = 3;
             const double offset = 4.29;
             const double orientation = 4.2;
             const double d50 = 0.123456;
 
             // Call
-            var duneLocation = new DuneLocation(id, name, coordinateX, coordinateY, coastalAreaId, offset, orientation, d50);
+            var duneLocation = new DuneLocation(id, name, location, coastalAreaId, offset, orientation, d50);
 
             // Assert
             Assert.AreEqual(id, duneLocation.Id);
             Assert.AreEqual(name, duneLocation.Name);
-            Assert.AreEqual(coordinateX, duneLocation.Location.X);
-            Assert.AreEqual(coordinateY, duneLocation.Location.Y);
+            Assert.AreSame(location, duneLocation.Location);
             Assert.AreEqual(coastalAreaId, duneLocation.CoastalAreaId);
             Assert.AreEqual(offset, duneLocation.Offset.Value);
             Assert.AreEqual(orientation, duneLocation.Orientation.Value);
@@ -70,7 +69,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         public void Constructor_WithOffset_OffsetRounded()
         {
             // Call
-            var duneLocation = new DuneLocation(0, "dune", 0.0, 0.0, 0, 4.298, 0.0, 0.0);
+            var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0), 0, 4.298, 0.0, 0.0);
 
             // Assert
             Assert.AreEqual(2, duneLocation.Offset.NumberOfDecimalPlaces);
@@ -81,7 +80,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         public void Constructor_WithOrientation_OrientationRounded()
         {
             // Call
-            var duneLocation = new DuneLocation(0, "dune", 0.0, 0.0, 0, 0.0, 8.214, 0.0);
+            var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0), 0, 0.0, 8.214, 0.0);
 
             // Assert
             Assert.AreEqual(1, duneLocation.Orientation.NumberOfDecimalPlaces);
@@ -92,7 +91,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         public void Constructor_WithD50_D50Rounded()
         {
             // Call
-            var duneLocation = new DuneLocation(0, "dune", 0.0, 0.0, 0, 0.0, 0.0, 0.1234567);
+            var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0), 0, 0.0, 0.0, 0.1234567);
 
             // Assert
             Assert.AreEqual(6, duneLocation.D50.NumberOfDecimalPlaces);

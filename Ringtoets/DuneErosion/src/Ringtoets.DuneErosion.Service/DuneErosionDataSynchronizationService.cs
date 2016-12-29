@@ -65,8 +65,7 @@ namespace Ringtoets.DuneErosion.Service
                     {
                         failureMechanism.DuneLocations.Add(new DuneLocation(hydraulicBoundaryLocation.Id,
                                                                             duneLocation.Name,
-                                                                            duneLocation.Location.X,
-                                                                            duneLocation.Location.Y,
+                                                                            duneLocation.Location,
                                                                             duneLocation.CoastalAreaId,
                                                                             duneLocation.Offset,
                                                                             duneLocation.Orientation,
@@ -76,6 +75,5 @@ namespace Ringtoets.DuneErosion.Service
                 }
             }
         }
-
     }
 }

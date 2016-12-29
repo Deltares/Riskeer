@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
@@ -72,7 +73,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var readDuneLocation = new ReadDuneLocation("dune location 1", 1.0, 5.3, 8, 1.1, 2.2, 3.3);
+            var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, 1.1, 2.2, 3.3);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "hydraulic location 1", 1.0, 5.3);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
@@ -100,7 +101,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var duneLocation = new ReadDuneLocation("dune location 1", 1.0, 2.0, 0, 0, 0, 0);
+            var duneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 2.0), 0, 0, 0, 0);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "hydraulic location 1", 2.0, 1.0);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);

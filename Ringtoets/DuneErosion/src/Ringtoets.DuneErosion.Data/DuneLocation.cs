@@ -35,14 +35,13 @@ namespace Ringtoets.DuneErosion.Data
         /// </summary>
         /// <param name="id">Id of the <see cref="DuneLocation"/>.</param>
         /// <param name="name">Name of the <see cref="DuneLocation"/>.</param>
-        /// <param name="coordinateX">X-coordinate of the <see cref="DuneLocation"/>.</param>
-        /// <param name="coordinateY">Y-coordinate of the <see cref="DuneLocation"/>.</param>
+        /// <param name="location">The coordinate of the <see cref="DuneLocation"/>.</param>
         /// <param name="coastalAreaId">Coastal area id of the <see cref="DuneLocation"/>.</param>
         /// <param name="offset">Offset of the <see cref="DuneLocation"/>.</param>
         /// <param name="orientation">Orientation of the <see cref="DuneLocation"/>.</param>
         /// <param name="d50">D50 of the <see cref="DuneLocation"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public DuneLocation(long id, string name, double coordinateX, double coordinateY, int coastalAreaId, double offset, double orientation, double d50)
+        public DuneLocation(long id, string name, Point2D location, int coastalAreaId, double offset, double orientation, double d50)
         {
             if (name == null)
             {
@@ -51,7 +50,7 @@ namespace Ringtoets.DuneErosion.Data
 
             Id = id;
             Name = name;
-            Location = new Point2D(coordinateX, coordinateY);
+            Location = location;
             CoastalAreaId = coastalAreaId;
             Offset = new RoundedDouble(2, offset);
             Orientation = new RoundedDouble(1, orientation);
@@ -69,7 +68,7 @@ namespace Ringtoets.DuneErosion.Data
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets the location of the dune location.
+        /// Gets the coordinate of the dune location.
         /// </summary>
         public Point2D Location { get; private set; }
 
