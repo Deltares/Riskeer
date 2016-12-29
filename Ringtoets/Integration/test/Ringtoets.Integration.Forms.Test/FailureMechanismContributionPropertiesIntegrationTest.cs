@@ -141,12 +141,11 @@ namespace Ringtoets.Integration.Forms.Test
 
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserver);
 
-            var properties = new FailureMechanismContributionProperties
-            {
-                Data = failureMechanismContribution,
-                AssessmentSection = assessmentSection,
-                NormChangeHandler = new FailureMechanismContributionNormChangeHandler()
-            };
+            var properties = new FailureMechanismContributionProperties(
+                failureMechanismContribution,
+                assessmentSection,
+                new FailureMechanismContributionNormChangeHandler(),
+                new AssessmentSectionCompositionChangeHandler());
 
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
@@ -232,12 +231,11 @@ namespace Ringtoets.Integration.Forms.Test
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);
 
-            var properties = new FailureMechanismContributionProperties
-            {
-                Data = failureMechanismContribution,
-                AssessmentSection = assessmentSection,
-                NormChangeHandler = new FailureMechanismContributionNormChangeHandler()
-            };
+            var properties = new FailureMechanismContributionProperties(
+                failureMechanismContribution,
+                assessmentSection,
+                new FailureMechanismContributionNormChangeHandler(),
+                new AssessmentSectionCompositionChangeHandler());
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
 
@@ -336,12 +334,11 @@ namespace Ringtoets.Integration.Forms.Test
             grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
             heightStructuresCalculation.Attach(heightStructuresCalculationObserver);
 
-            var properties = new FailureMechanismContributionProperties
-            {
-                Data = failureMechanismContribution,
-                AssessmentSection = assessmentSection,
-                NormChangeHandler = new FailureMechanismContributionNormChangeHandler()
-            };
+            var properties = new FailureMechanismContributionProperties(
+                failureMechanismContribution,
+                assessmentSection,
+                new FailureMechanismContributionNormChangeHandler(),
+                new AssessmentSectionCompositionChangeHandler());
 
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
@@ -436,12 +433,11 @@ namespace Ringtoets.Integration.Forms.Test
             grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
             heightStructuresCalculation.Attach(heightStructuresCalculationObserver);
 
-            var properties = new FailureMechanismContributionProperties
-            {
-                Data = failureMechanismContribution,
-                AssessmentSection = assessmentSection,
-                NormChangeHandler = new FailureMechanismContributionNormChangeHandler()
-            };
+            var properties = new FailureMechanismContributionProperties(
+                failureMechanismContribution,
+                assessmentSection,
+                new FailureMechanismContributionNormChangeHandler(),
+                new AssessmentSectionCompositionChangeHandler());
 
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
@@ -511,12 +507,11 @@ namespace Ringtoets.Integration.Forms.Test
             emptyHeightStructuresCalculation.Attach(calculationObserver);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
-            var properties = new FailureMechanismContributionProperties
-            {
-                Data = failureMechanismContribution,
-                AssessmentSection = assessmentSection,
-                NormChangeHandler = new FailureMechanismContributionNormChangeHandler()
-            };
+            var properties = new FailureMechanismContributionProperties(
+                failureMechanismContribution,
+                assessmentSection,
+                new FailureMechanismContributionNormChangeHandler(),
+                new AssessmentSectionCompositionChangeHandler());
 
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);
@@ -556,12 +551,11 @@ namespace Ringtoets.Integration.Forms.Test
 
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
-            var properties = new FailureMechanismContributionProperties
-            {
-                Data = failureMechanismContribution,
-                AssessmentSection = assessmentSection,
-                NormChangeHandler = new FailureMechanismContributionNormChangeHandler()
-            };
+            var properties = new FailureMechanismContributionProperties(
+                failureMechanismContribution,
+                assessmentSection,
+                new FailureMechanismContributionNormChangeHandler(),
+                new AssessmentSectionCompositionChangeHandler());
 
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0/failureMechanismContribution.Norm);

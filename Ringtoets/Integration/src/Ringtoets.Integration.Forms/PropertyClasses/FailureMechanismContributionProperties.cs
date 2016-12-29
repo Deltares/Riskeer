@@ -27,11 +27,9 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Integration.Forms.Properties;
-using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
@@ -43,6 +41,43 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     {
         private IFailureMechanismContributionNormChangeHandler normChangeHandler;
         private IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
+        private IAssessmentSection assessmentSection;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismContributionProperties"/>.
+        /// </summary>
+        /// <param name="failureMechanismContribution">The <see cref="FailureMechanismContribution"/> for which the properties are shown.</param>
+        /// <param name="assessmentSection">The assessment section for which the <see cref="IAssessmentSection.FailureMechanismContribution"/> properties are shown.</param>
+        /// <param name="normChangeHandler">The <see cref="IFailureMechanismContributionNormChangeHandler"/> for when the norm changes.</param>
+        /// <param name="compositionChangeHandler">The <see cref="IAssessmentSectionCompositionChangeHandler"/> for when the composition changes.</param>
+        public FailureMechanismContributionProperties(
+            FailureMechanismContribution failureMechanismContribution,
+            IAssessmentSection assessmentSection,
+            IFailureMechanismContributionNormChangeHandler normChangeHandler,
+            IAssessmentSectionCompositionChangeHandler compositionChangeHandler)
+        {
+            if (failureMechanismContribution == null)
+            {
+                throw new ArgumentNullException("failureMechanismContribution");
+            }
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException("assessmentSection");
+            }
+            if (normChangeHandler == null)
+            {
+                throw new ArgumentNullException("normChangeHandler");
+            }
+            if (compositionChangeHandler == null)
+            {
+                throw new ArgumentNullException("compositionChangeHandler");
+            }
+
+            Data = failureMechanismContribution;
+            this.normChangeHandler = normChangeHandler;
+            this.compositionChangeHandler = compositionChangeHandler;
+            this.assessmentSection = assessmentSection;
+        }
 
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
@@ -52,13 +87,13 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return AssessmentSection.Composition;
+                return assessmentSection.Composition;
             }
             set
             {
                 if (compositionChangeHandler.ConfirmCompositionChange())
                 {
-                    IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(AssessmentSection, value);
+                    IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(assessmentSection, value);
                     foreach (IObservable changedObject in changedObjects)
                     {
                         changedObject.NotifyObservers();
@@ -88,70 +123,13 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 if (value != 0 && normChangeHandler.ConfirmNormChange())
                 {
                     double newNormValue = 1.0/Convert.ToInt32(value);
-                    IEnumerable<IObservable> changedObjects = normChangeHandler.ChangeNorm(AssessmentSection, newNormValue);
+                    IEnumerable<IObservable> changedObjects = normChangeHandler.ChangeNorm(assessmentSection, newNormValue);
                     foreach (IObservable changedObject in changedObjects)
                     {
                         changedObject.NotifyObservers();
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets or sets the assessment section this property control belongs to.
-        /// </summary>
-        [DynamicVisible]
-        public IAssessmentSection AssessmentSection { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="IFailureMechanismContributionNormChangeHandler"/> for when the norm changes.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <c>null</c> is set.</exception>
-        [DynamicVisible]
-        public IFailureMechanismContributionNormChangeHandler NormChangeHandler
-        {
-            get
-            {
-                return normChangeHandler;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value", @"NormChangeHandler is null");
-                }
-                normChangeHandler = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the <see cref="IAssessmentSectionCompositionChangeHandler"/> for when the norm changes.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <c>null</c> is set.</exception>
-        [DynamicVisible]
-        public IAssessmentSectionCompositionChangeHandler CompositionChangeHandler
-        {
-            get
-            {
-                return compositionChangeHandler;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value", @"CompositionChangeHandler is null");
-                }
-                compositionChangeHandler = value;
-            }
-        }
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            // Hide all the properties that are used to set the data
-            return propertyName != TypeUtils.GetMemberName<FailureMechanismContributionProperties>(p => p.AssessmentSection)
-                   && propertyName != TypeUtils.GetMemberName<FailureMechanismContributionProperties>(p => p.NormChangeHandler)
-                   && propertyName != TypeUtils.GetMemberName<FailureMechanismContributionProperties>(p => p.CompositionChangeHandler);
         }
     }
 }

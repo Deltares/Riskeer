@@ -275,13 +275,11 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
             yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>()
             {
-                CreateInstance = context => new FailureMechanismContributionProperties
-                {
-                    Data = context.WrappedData,
-                    NormChangeHandler = new FailureMechanismContributionNormChangeHandler(),
-                    CompositionChangeHandler = new AssessmentSectionCompositionChangeHandler(),
-                    AssessmentSection = context.Parent
-                }
+                CreateInstance = context => new FailureMechanismContributionProperties(
+                    context.WrappedData,
+                    context.Parent, 
+                    new FailureMechanismContributionNormChangeHandler(), 
+                    new AssessmentSectionCompositionChangeHandler())
             };
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>();
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();
