@@ -299,6 +299,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
+        [STAThread]
         public void ShowDetailsButton_MessageSelectedOnDoubleClickButCtrlPressed_DoNotShowMessageWindowDialog()
         {
             // Setup
