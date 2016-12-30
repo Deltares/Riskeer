@@ -31,7 +31,7 @@ using Core.Components.Gis.IO.Readers;
 namespace Ringtoets.DuneErosion.IO
 {
     /// <summary>
-    /// Shapefile reader that reads a features and converts it into a collection of <see cref="ReadDuneLocation"/>.
+    /// Shapefile reader that reads features and converts it into a collection of <see cref="ReadDuneLocation"/>.
     /// </summary>
     public class DuneLocationsReader
     {
@@ -73,8 +73,8 @@ namespace Ringtoets.DuneErosion.IO
                 Point2D location = locationData.MapGeometries.First().PointCollections.First().First();
 
                 var nameValue = locationData.MetaData[nameKey];
-
                 string name = nameValue != null ? nameValue.ToString() : string.Empty;
+
                 int coastalAreaId = Convert.ToInt32(locationData.MetaData[coastalAreaIdKey]);
                 double offset = Convert.ToDouble(locationData.MetaData[offsetKey]);
                 double orientation = Convert.ToDouble(locationData.MetaData[orientationKey]);
