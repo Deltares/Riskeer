@@ -69,6 +69,7 @@
     <Compile Include="PresentationObjects\FailureMechanismItemContextBase.cs" />
     <Compile Include="PropertyClasses\IDistributionPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\IFailureMechanismPropertyChangeHandler.cs" />
+    <Compile Include="PropertyClasses\IUseBreakWaterPropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\StructuresInputBaseProperties.cs" />
     <Compile Include="PresentationObjects\TreeFolderCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

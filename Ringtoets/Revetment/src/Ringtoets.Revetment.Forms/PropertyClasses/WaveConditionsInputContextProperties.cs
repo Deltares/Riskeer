@@ -51,7 +51,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     public abstract class WaveConditionsInputContextProperties<T> : ObjectProperties<T>,
                                                                     IHasHydraulicBoundaryLocationProperty,
                                                                     IHasForeshoreProfileProperty,
-                                                                    UseBreakWaterProperties.IChangeHandler
+                                                                    IUseBreakWaterPropertyChangeHandler
         where T : WaveConditionsInputContext
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
@@ -312,7 +312,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
-        void UseBreakWaterProperties.IChangeHandler.PropertyChanged()
+        void IUseBreakWaterPropertyChangeHandler.PropertyChanged()
         {
             ClearCalculationOutput();
         }

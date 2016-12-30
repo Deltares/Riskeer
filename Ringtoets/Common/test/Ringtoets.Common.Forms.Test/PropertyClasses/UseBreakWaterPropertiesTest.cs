@@ -228,7 +228,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var calculationObserver = mocks.StrictMock<IObserver>();
             var inputObserver = mocks.StrictMock<IObserver>();
             inputObserver.Expect(o => o.UpdateObserver());
-            var handler = mocks.StrictMock<UseBreakWaterProperties.IChangeHandler>();
+            var handler = mocks.StrictMock<IUseBreakWaterPropertyChangeHandler>();
             handler.Expect(o => o.PropertyChanged());
             mocks.ReplayAll();
 

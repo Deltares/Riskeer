@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private const int breakWaterTypePropertyIndex = 2;
         private const int breakWaterHeightPropertyIndex = 3;
         private readonly IUseBreakWater data;
-        private readonly IChangeHandler changeHandler;
+        private readonly IUseBreakWaterPropertyChangeHandler changeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="UseBreakWaterProperties"/>, in which
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="useBreakWaterData">The data to use for the properties.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public UseBreakWaterProperties(IUseBreakWater useBreakWaterData, IChangeHandler handler)
+        public UseBreakWaterProperties(IUseBreakWater useBreakWaterData, IUseBreakWaterPropertyChangeHandler handler)
         {
             if (useBreakWaterData == null)
             {
@@ -150,18 +150,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 changeHandler.PropertyChanged();
             }
             data.NotifyObservers();
-        }
-
-        /// <summary>
-        /// Interface defining the operations of handling a change of <see cref="UseBreakWaterProperties"/>.
-        /// </summary>
-        public interface IChangeHandler
-        {
-            /// <summary>
-            /// Defines the action that is executed after a property of <see cref="UseBreakWaterProperties"/>
-            /// has been changed.
-            /// </summary>
-            void PropertyChanged();
         }
     }
 }

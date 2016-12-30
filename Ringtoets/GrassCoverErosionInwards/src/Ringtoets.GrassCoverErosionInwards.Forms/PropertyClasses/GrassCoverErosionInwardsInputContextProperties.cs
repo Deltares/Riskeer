@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsInputContextProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>,
                                                                   IHasHydraulicBoundaryLocationProperty,
-                                                                  UseBreakWaterProperties.IChangeHandler,
+                                                                  IUseBreakWaterPropertyChangeHandler,
                                                                   IDistributionPropertyChangeHandler
     {
         private const int dikeProfilePropertyIndex = 1;
@@ -259,7 +259,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             ClearCalculationOutput();
         }
 
-        void UseBreakWaterProperties.IChangeHandler.PropertyChanged()
+        void IUseBreakWaterPropertyChangeHandler.PropertyChanged()
         {
             ClearCalculationOutput();
         }
