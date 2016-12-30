@@ -490,19 +490,17 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
-            if (!isNestedGroup)
-            {
-                builder.AddRemoveAllChildrenItem()
-                       .AddSeparator();
-            }
-
             if (isNestedGroup)
             {
-                builder.AddDeleteItem()
-                       .AddSeparator();
+                builder.AddDeleteItem();
             }
-
-            return builder.AddCollapseAllItem()
+            else
+            {
+                builder.AddRemoveAllChildrenItem();
+            }
+            
+            return builder.AddSeparator()
+                          .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()

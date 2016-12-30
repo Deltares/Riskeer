@@ -483,19 +483,17 @@ namespace Ringtoets.HeightStructures.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
-            if (!isNestedGroup)
-            {
-                builder.AddRemoveAllChildrenItem()
-                       .AddSeparator();
-            }
-
             if (isNestedGroup)
             {
-                builder.AddDeleteItem()
-                       .AddSeparator();
+                builder.AddDeleteItem();
+            }
+            else
+            {
+                builder.AddRemoveAllChildrenItem();
             }
 
-            return builder.AddCollapseAllItem()
+            return builder.AddSeparator()
+                          .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()

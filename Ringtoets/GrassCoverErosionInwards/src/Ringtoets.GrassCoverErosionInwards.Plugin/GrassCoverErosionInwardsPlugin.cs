@@ -492,26 +492,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
 
             builder.AddValidateAllCalculationsInGroupItem(
-                       context,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
+                context,
+                ValidateAll,
+                ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
-            if (!isNestedGroup)
-            {
-                builder.AddRemoveAllChildrenItem()
-                       .AddSeparator();
-            }
-
             if (isNestedGroup)
             {
-                builder.AddDeleteItem()
-                       .AddSeparator();
+                builder.AddDeleteItem();
+            }
+            else
+            {
+                builder.AddRemoveAllChildrenItem();
             }
 
-            return builder.AddCollapseAllItem()
+            return builder.AddSeparator()
+                          .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()

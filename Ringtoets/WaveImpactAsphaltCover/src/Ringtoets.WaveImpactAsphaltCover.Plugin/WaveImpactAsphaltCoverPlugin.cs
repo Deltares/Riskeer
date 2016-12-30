@@ -341,7 +341,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
 
             builder.AddExportItem()
-             .AddSeparator();
+                   .AddSeparator();
 
             if (!isNestedGroup)
             {
@@ -360,19 +360,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
-            if (!isNestedGroup)
-            {
-                builder.AddRemoveAllChildrenItem()
-                       .AddSeparator();
-            }
-
             if (isNestedGroup)
             {
-                builder.AddDeleteItem()
-                       .AddSeparator();
+                builder.AddDeleteItem();
+            }
+            else
+            {
+                builder.AddRemoveAllChildrenItem();
             }
 
-            return builder.AddCollapseAllItem()
+            return builder.AddSeparator()
+                          .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()

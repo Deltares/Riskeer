@@ -72,8 +72,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismProperties(
-                    context.WrappedData, 
-                    new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
+                                                context.WrappedData,
+                                                new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
             };
             yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext, GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties>
             {
@@ -661,19 +661,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
-            if (!isNestedGroup)
-            {
-                builder.AddRemoveAllChildrenItem()
-                       .AddSeparator();
-            }
-
             if (isNestedGroup)
             {
-                builder.AddDeleteItem()
-                       .AddSeparator();
+                builder.AddDeleteItem();
+            }
+            else
+            {
+                builder.AddRemoveAllChildrenItem();
             }
 
-            return builder.AddCollapseAllItem()
+            return builder.AddSeparator()
+                          .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
