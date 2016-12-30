@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             TestDelegate test = () => new GrassCoverErosionOutwardsFailureMechanismProperties(null, changeHandler);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -68,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             TestDelegate test = () => new GrassCoverErosionOutwardsFailureMechanismProperties(new GrassCoverErosionOutwardsFailureMechanism(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("changeHandler", paramName);
         }
 
@@ -112,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             var changeHandler = mockRepository.StrictMock<IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler>();
             changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(true);
-            changeHandler.Expect(h => h.PropertyChanged(Arg<GrassCoverErosionOutwardsFailureMechanism>.Matches(z => true))).Return(new[] { observableMock });
+            changeHandler.Expect(h => h.PropertyChanged(Arg<GrassCoverErosionOutwardsFailureMechanism>.Is.NotNull)).Return(new[] { observableMock });
 
             mockRepository.ReplayAll();
 
@@ -227,7 +227,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             var handler = mockRepository.Stub<IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler>();
             handler.Stub(h => h.ConfirmPropertyChange()).Return(true);
-            handler.Stub(h => h.PropertyChanged(Arg<GrassCoverErosionOutwardsFailureMechanism>.Matches(z => true))).Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.PropertyChanged(Arg<GrassCoverErosionOutwardsFailureMechanism>.Is.NotNull)).Return(Enumerable.Empty<IObservable>());
 
             return handler;
         }

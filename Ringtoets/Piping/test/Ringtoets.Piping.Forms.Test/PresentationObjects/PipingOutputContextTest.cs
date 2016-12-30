@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             TestDelegate test = () => new PipingOutputContext(null, new TestPipingSemiProbabilisticOutput());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("wrappedData", paramName);
         }
 
@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             TestDelegate test = () => new PipingOutputContext(new TestPipingOutput(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("semiProbabilisticOutput", paramName);
         }
 

@@ -407,7 +407,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 {
                     GeneralWaveConditionsInput generalInput = waveImpactAsphaltCoverFailureMechanism.GeneralInput;
 
-                    var input = calculation.InputParameters;
+                    WaveConditionsInput input = calculation.InputParameters;
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,

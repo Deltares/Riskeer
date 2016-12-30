@@ -37,7 +37,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HeightStructuresInputContext"/> for properties panel.
     /// </summary>
-    public class HeightStructuresInputContextProperties : StructuresInputBaseProperties<HeightStructure,
+    public class HeightStructuresInputContextProperties : StructuresInputBaseProperties<
+                                                              HeightStructure,
                                                               HeightStructuresInput,
                                                               StructuresCalculation<HeightStructuresInput>,
                                                               HeightStructuresFailureMechanism>,

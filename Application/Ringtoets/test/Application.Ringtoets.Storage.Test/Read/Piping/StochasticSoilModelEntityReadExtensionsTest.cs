@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             TestDelegate test = () => entity.Read(null);
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("collector", parameter);
         }
 

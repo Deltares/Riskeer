@@ -444,7 +444,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
                 GeneralStabilityStoneCoverWaveConditionsInput generalInput = stabilityStoneCoverFailureMechanism.GeneralInput;
 
-                var input = calculation.InputParameters;
+                WaveConditionsInput input = calculation.InputParameters;
 
                 Assert.AreEqual(testDataPath, testWaveConditionsCosineCalculator.HydraulicBoundaryDatabaseDirectory);
                 Assert.AreEqual(assessmentSectionStub.Id, testWaveConditionsCosineCalculator.RingId);

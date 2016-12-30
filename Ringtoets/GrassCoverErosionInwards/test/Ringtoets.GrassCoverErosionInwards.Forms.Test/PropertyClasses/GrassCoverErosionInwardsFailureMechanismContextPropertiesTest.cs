@@ -57,14 +57,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var handler = CreateSimpleHandler();
+            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler();
             mockRepository.ReplayAll();
 
             // Call
             TestDelegate test = () => new GrassCoverErosionInwardsFailureMechanismContextProperties(null, handler);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
             mockRepository.VerifyAll();
         }
@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("handler", paramName);
             mockRepository.VerifyAll();
         }
@@ -92,15 +92,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var handler = CreateSimpleHandler();
+            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler();
 
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
                 new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock),
-                handler
-            );
+                handler);
 
             // Assert
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, properties.Name);
@@ -137,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var changeHandler = mockRepository.StrictMock<IFailureMechanismPropertyChangeHandler>();
             changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(true);
-            changeHandler.Expect(h => h.PropertyChanged(Arg<GrassCoverErosionInwardsFailureMechanism>.Matches(z => true))).Return(new[] { observableMock });
+            changeHandler.Expect(h => h.PropertyChanged(Arg<GrassCoverErosionInwardsFailureMechanism>.Is.NotNull)).Return(new[] { observableMock });
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
 
@@ -196,7 +195,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var handler = CreateSimpleHandler();
+            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler();
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -204,8 +203,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Call
             var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
                 new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock),
-                handler
-            );
+                handler);
 
             // Assert
             var generalCategory = "Algemeen";
@@ -274,7 +272,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
             handler.Stub(h => h.ConfirmPropertyChange()).Return(true);
-            handler.Stub(h => h.PropertyChanged(Arg<GrassCoverErosionInwardsFailureMechanism>.Matches(z => true))).Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.PropertyChanged(Arg<GrassCoverErosionInwardsFailureMechanism>.Is.NotNull)).Return(Enumerable.Empty<IObservable>());
 
             return handler;
         }

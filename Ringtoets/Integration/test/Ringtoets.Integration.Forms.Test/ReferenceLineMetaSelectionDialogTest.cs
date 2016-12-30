@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Test
             TestDelegate test = () => new ReferenceLineMetaSelectionDialog(null, Enumerable.Empty<ReferenceLineMeta>());
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("dialogParent", parameter);
         }
 
@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Forms.Test
                 TestDelegate test = () => new ReferenceLineMetaSelectionDialog(viewParent, null);
 
                 // Assert
-                var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+                string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
                 Assert.AreEqual("referenceLineMetas", parameter);
             }
         }

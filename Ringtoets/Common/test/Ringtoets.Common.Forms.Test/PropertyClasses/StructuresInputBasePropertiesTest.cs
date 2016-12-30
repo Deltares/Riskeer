@@ -189,8 +189,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryDatabase.Locations
-                                         .Select(hbl =>
-                                                 new SelectableHydraulicBoundaryLocation(hbl, null))
+                                         .Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null))
                                          .OrderBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
@@ -240,9 +239,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryDatabase.Locations
-                                         .Select(hbl =>
-                                                 new SelectableHydraulicBoundaryLocation(
-                                                     hbl, calculation.InputParameters.Structure.Location))
+                                         .Select(hbl => new SelectableHydraulicBoundaryLocation(
+                                                     hbl,
+                                                     calculation.InputParameters.Structure.Location))
                                          .OrderBy(hbl => hbl.Distance)
                                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Name);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
@@ -299,8 +298,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             IEnumerable<SelectableHydraulicBoundaryLocation> expectedList =
                 hydraulicBoundaryDatabase.Locations
-                                         .Select(hbl =>
-                                                 new SelectableHydraulicBoundaryLocation(hbl, properties.StructureLocation))
+                                         .Select(hbl => new SelectableHydraulicBoundaryLocation(
+                                                     hbl,
+                                                     properties.StructureLocation))
                                          .OrderBy(hbl => hbl.Distance)
                                          .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
@@ -533,10 +533,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(
+                new Attribute[]
+                {
+                    new BrowsableAttribute(true)
+                });
             Assert.AreEqual(15, dynamicProperties.Count);
 
             PropertyDescriptor structureProperty = dynamicProperties[constructionProperties.StructurePropertyIndex];
@@ -654,24 +655,24 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var random = new Random();
             var randomObjectLookup = new[]
-            {
-                structureObject,
-                structureLocationObject,
-                structureNormalOrientationObject,
-                flowWidthAtBottomProtectionObject,
-                widthFlowAperturesObject,
-                storageStructureAreaObject,
-                allowedLevelIncreaseStorageObject,
-                criticalOvertoppingDischargeObject,
-                failureProbabilityStructureWithErosionObject,
-                foreshoreProfileObject,
-                useBreakWaterObject,
-                useForeshoreObject,
-                modelFactorSuperCriticalFlowObject,
-                hydraulicBoundaryLocationObject,
-                stormDurationObject
-            }.OrderBy(p => random.Next())
-             .ToList();
+                {
+                    structureObject,
+                    structureLocationObject,
+                    structureNormalOrientationObject,
+                    flowWidthAtBottomProtectionObject,
+                    widthFlowAperturesObject,
+                    storageStructureAreaObject,
+                    allowedLevelIncreaseStorageObject,
+                    criticalOvertoppingDischargeObject,
+                    failureProbabilityStructureWithErosionObject,
+                    foreshoreProfileObject,
+                    useBreakWaterObject,
+                    useForeshoreObject,
+                    modelFactorSuperCriticalFlowObject,
+                    hydraulicBoundaryLocationObject,
+                    stormDurationObject
+                }.OrderBy(p => random.Next())
+                 .ToList();
 
             return new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties
             {
@@ -710,7 +711,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             protected override void UpdateStructureParameters() {}
         }
 
-        private class SimpleStructuresInputProperties : StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>
+        private class SimpleStructuresInputProperties : StructuresInputBaseProperties<
+            SimpleStructure,
+            SimpleStructureInput,
+            StructuresCalculation<SimpleStructureInput>,
+            IFailureMechanism>
         {
             public SimpleStructuresInputProperties(ConstructionProperties constructionProperties) : base(constructionProperties) {}
 

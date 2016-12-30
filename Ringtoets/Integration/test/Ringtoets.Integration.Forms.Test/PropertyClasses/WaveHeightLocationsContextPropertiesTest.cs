@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestDelegate test = () => new WaveHeightLocationsContextProperties(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("database", paramName);
         }
         [Test]

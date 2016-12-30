@@ -50,6 +50,9 @@ namespace Ringtoets.Revetment.Forms.PresentationObjects
             Calculation = calculation;
         }
 
+        /// <summary>
+        /// Gets the calculation containing the wrapped <see cref="WaveConditionsInput"/>.
+        /// </summary>
         public ICalculation Calculation { get; private set; }
 
         /// <summary>

@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             failureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var input = calculation.InputParameters;
+            WaveConditionsInput input = calculation.InputParameters;
 
             // Call
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(

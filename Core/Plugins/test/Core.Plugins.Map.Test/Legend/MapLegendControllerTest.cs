@@ -103,7 +103,7 @@ namespace Core.Plugins.Map.Test.Legend
 
                 viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
                 viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-                viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as MapLegendView); });
+                viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Is.NotNull, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as MapLegendView); });
                 viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
             }
 
@@ -138,12 +138,12 @@ namespace Core.Plugins.Map.Test.Legend
             var toolViewList = new List<IView>();
             viewController.Stub(vc => vc.ViewHost).Return(viewHost);
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-            viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as MapLegendView); });
+            viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Is.NotNull, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as MapLegendView); });
             viewHost.Stub(tvc => tvc.SetImage(null, null)).IgnoreArguments();
 
             if (open)
             {
-                viewHost.Expect(p => p.Remove(Arg<MapLegendView>.Matches(c => true)));
+                viewHost.Expect(p => p.Remove(Arg<MapLegendView>.Is.NotNull));
             }
 
             mocks.ReplayAll();

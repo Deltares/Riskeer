@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.Attributes;
@@ -190,7 +191,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         private void ClearOutputAndNotifyObservers()
         {
-            var changedObjects = propertyChangeHandler.PropertyChanged(data.WrappedData);
+            IEnumerable<IObservable> changedObjects = propertyChangeHandler.PropertyChanged(data.WrappedData);
             foreach (IObservable changedObject in changedObjects)
             {
                 changedObject.NotifyObservers();

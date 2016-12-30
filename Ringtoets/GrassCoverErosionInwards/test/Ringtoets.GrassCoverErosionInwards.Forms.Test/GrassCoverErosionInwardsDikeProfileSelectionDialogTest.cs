@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
             TestDelegate test = () => new GrassCoverErosionInwardsDikeProfileSelectionDialog(null, Enumerable.Empty<DikeProfile>());
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("dialogParent", parameter);
         }
 
@@ -58,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
                 TestDelegate test = () => new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, null);
 
                 // Assert
-                var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+                string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
                 Assert.AreEqual("dikeProfiles", parameter);
             }
         }

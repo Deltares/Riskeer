@@ -567,11 +567,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+
             var calculationObserver = mocks.StrictMock<IObserver>();
-            var inputObserver = mocks.StrictMock<IObserver>();
             int numberOfChangedProperties = hasOutput ? 1 : 0;
             calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+
+            var inputObserver = mocks.StrictMock<IObserver>();
             inputObserver.Expect(o => o.UpdateObserver());
+
             mocks.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation();
@@ -579,13 +582,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 calculation.Output = new TestGrassCoverErosionInwardsOutput();
             }
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            calculation.Attach(calculationObserver);
 
             GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
-            calculation.Attach(calculationObserver);
+            inputParameters.DikeProfile = new TestDikeProfile();
             inputParameters.Attach(inputObserver);
 
-            inputParameters.DikeProfile = new TestDikeProfile();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var properties = new GrassCoverErosionInwardsInputContextProperties
             {

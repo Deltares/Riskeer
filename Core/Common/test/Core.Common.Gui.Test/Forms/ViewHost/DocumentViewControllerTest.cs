@@ -89,7 +89,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => true))).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
@@ -171,7 +171,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => true))).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
@@ -224,7 +224,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Matches(c => true))).WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
@@ -259,7 +259,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => true))).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
             mocks.ReplayAll();
 
@@ -293,7 +293,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Matches(c => true))).WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
@@ -370,7 +370,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => true))).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
@@ -412,7 +412,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => true))).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
@@ -461,7 +461,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => true))).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
@@ -510,7 +510,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Matches(c => true))).WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
@@ -579,7 +579,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.DocumentViews).Return(viewList);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => true))).WhenCalled(invocation => { viewList.Add(invocation.Arguments[0] as TestView); });
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { viewList.Add(invocation.Arguments[0] as TestView); });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
             viewHost.Expect(vh => vh.SetFocusToView(Arg<TestView>.Matches(c => c == viewList.First())));
 

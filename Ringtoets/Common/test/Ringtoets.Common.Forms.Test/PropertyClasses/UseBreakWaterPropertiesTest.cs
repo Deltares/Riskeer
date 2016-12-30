@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate test = () => new UseBreakWaterProperties(null, null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("useBreakWaterData", paramName);
         }
 

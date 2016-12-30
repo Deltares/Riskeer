@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => new PipingOutput(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("constructionProperties", paramName);
         }
 

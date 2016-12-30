@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => hydraulicBoundaryLocation.Create(null, 0);
 
             // Assert
-            var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("registry", parameterName);
         }
 
@@ -151,7 +151,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(null, 0);
 
             // Assert
-            var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("registry", parameterName);
         }
 

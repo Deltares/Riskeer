@@ -104,7 +104,7 @@ namespace Core.Common.TestUtil.Test
             TestDelegate test = () => random.NextBoolean();
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("random", paramName);
         }
 
@@ -133,7 +133,7 @@ namespace Core.Common.TestUtil.Test
             TestDelegate test = () => random.NextEnumValue<TestEnum>();
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("random", paramName);
         }
 
@@ -175,7 +175,7 @@ namespace Core.Common.TestUtil.Test
             TestDelegate test = () => random.NextRoundedDouble();
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("random", paramName);
         }
 

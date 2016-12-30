@@ -68,7 +68,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             var toolViewList = new List<IView>();
 
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true),
+            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull,
                                                  Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
                     .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
@@ -136,7 +136,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             if (isOpen)
             {
-                viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true),
+                viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull,
                                                      Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
                         .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
                 viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
@@ -172,7 +172,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             var toolViewList = new List<IView>();
 
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true),
+            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull,
                                                  Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
                     .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();

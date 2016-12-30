@@ -7,7 +7,6 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
     [TestFixture]
     public class TestCalculationTest
     {
-
         [Test]
         public void DefaultConstructor_PropertiesSet()
         {

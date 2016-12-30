@@ -199,7 +199,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var input = calculation.InputParameters;
+            StabilityPointStructuresInput input = calculation.InputParameters;
             var inputContext = new StabilityPointStructuresInputContext(input,
                                                                         calculation,
                                                                         failureMechanism,
@@ -259,7 +259,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var input = calculation.InputParameters;
+            StabilityPointStructuresInput input = calculation.InputParameters;
             var inputContext = new StabilityPointStructuresInputContext(input,
                                                                         calculation,
                                                                         failureMechanism,
@@ -293,7 +293,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var input = calculation.InputParameters;
+            StabilityPointStructuresInput input = calculation.InputParameters;
             var inputContext = new StabilityPointStructuresInputContext(input,
                                                                         calculation,
                                                                         failureMechanism,
@@ -322,7 +322,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var input = calculation.InputParameters;
+            StabilityPointStructuresInput input = calculation.InputParameters;
             var inputContext = new StabilityPointStructuresInputContext(input,
                                                                         calculation,
                                                                         failureMechanism,
@@ -353,7 +353,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var input = calculation.InputParameters;
+            StabilityPointStructuresInput input = calculation.InputParameters;
             var inputContext = new StabilityPointStructuresInputContext(input,
                                                                         calculation,
                                                                         failureMechanism,
@@ -387,7 +387,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var input = calculation.InputParameters;
+            StabilityPointStructuresInput input = calculation.InputParameters;
             var inputContext = new StabilityPointStructuresInputContext(input,
                                                                         calculation,
                                                                         failureMechanism,
@@ -416,7 +416,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var input = calculation.InputParameters;
+            StabilityPointStructuresInput input = calculation.InputParameters;
             var inputContext = new StabilityPointStructuresInputContext(input,
                                                                         calculation,
                                                                         failureMechanism,

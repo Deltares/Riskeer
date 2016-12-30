@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContextProperties(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("context", paramName);
         }
 

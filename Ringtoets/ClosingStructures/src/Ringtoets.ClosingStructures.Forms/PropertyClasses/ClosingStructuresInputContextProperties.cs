@@ -42,7 +42,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="ClosingStructuresInputContext"/> for properties panel.
     /// </summary>
-    public class ClosingStructuresInputContextProperties : StructuresInputBaseProperties<ClosingStructure,
+    public class ClosingStructuresInputContextProperties : StructuresInputBaseProperties<
+                                                               ClosingStructure,
                                                                ClosingStructuresInput,
                                                                StructuresCalculation<ClosingStructuresInput>,
                                                                ClosingStructuresFailureMechanism>,

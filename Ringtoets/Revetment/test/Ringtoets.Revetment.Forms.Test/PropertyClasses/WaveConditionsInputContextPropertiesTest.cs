@@ -32,7 +32,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
@@ -74,7 +73,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             TestDelegate test = () => new TestWaveConditionsInputContextProperties(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("context", paramName);
         }
 
@@ -300,71 +299,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            const int numberOfChangedProperties = 8;
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mockRepository.ReplayAll();
-
-            var random = new Random(21);
-            var orientation = (RoundedDouble) random.NextDouble();
-            var assessmentLevel = (RoundedDouble) random.NextDouble();
-            var newLowerBoundaryRevetment = (RoundedDouble) random.NextDouble();
-            var newLowerBoundaryWaterLevels = (RoundedDouble) random.NextDouble();
-            var newUpperBoundaryRevetment = newLowerBoundaryRevetment + (RoundedDouble) random.NextDouble();
-            var newUpperBoundaryWaterLevels = newLowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
-            var newStepSize = WaveConditionsInputStepSize.Half;
-
-            var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel);
-            var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
-
-            var input = new WaveConditionsInput();
-            input.Attach(observerMock);
-            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
-
-            var newForeshoreProfile = new ForeshoreProfile(
-                new Point2D(
-                    (RoundedDouble) random.NextDouble(),
-                    (RoundedDouble) random.NextDouble()),
-                Enumerable.Empty<Point2D>(),
-                new BreakWater(BreakWaterType.Dam, (RoundedDouble) random.NextDouble()),
-                new ForeshoreProfile.ConstructionProperties());
-
-            var properties = new TestWaveConditionsInputContextProperties(inputContext);
-
-            // Call
-            properties.ForeshoreProfile = newForeshoreProfile;
-            properties.UpperBoundaryRevetment = newUpperBoundaryRevetment;
-            properties.LowerBoundaryRevetment = newLowerBoundaryRevetment;
-            properties.UpperBoundaryWaterLevels = newUpperBoundaryWaterLevels;
-            properties.LowerBoundaryWaterLevels = newLowerBoundaryWaterLevels;
-            properties.StepSize = newStepSize;
-            properties.SelectedHydraulicBoundaryLocation = selectableHydraulicBoundaryLocation;
-            properties.Orientation = orientation;
-
-            // Assert
-            Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
-            Assert.AreEqual(input.HydraulicBoundaryLocation.DesignWaterLevel.Value, properties.AssessmentLevel.Value);
-            Assert.AreEqual(assessmentLevel - 0.01, properties.UpperBoundaryDesignWaterLevel.Value, properties.UpperBoundaryDesignWaterLevel.GetAccuracy());
-            Assert.AreEqual(2, properties.UpperBoundaryDesignWaterLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(newUpperBoundaryRevetment.Value, properties.UpperBoundaryRevetment.Value, properties.UpperBoundaryRevetment.GetAccuracy());
-            Assert.AreEqual(2, properties.UpperBoundaryRevetment.NumberOfDecimalPlaces);
-            Assert.AreEqual(newLowerBoundaryRevetment.Value, properties.LowerBoundaryRevetment.Value, properties.LowerBoundaryRevetment.GetAccuracy());
-            Assert.AreEqual(2, properties.LowerBoundaryRevetment.NumberOfDecimalPlaces);
-            Assert.AreEqual(newUpperBoundaryWaterLevels.Value, properties.UpperBoundaryWaterLevels.Value, properties.UpperBoundaryWaterLevels.GetAccuracy());
-            Assert.AreEqual(2, properties.UpperBoundaryWaterLevels.NumberOfDecimalPlaces);
-            Assert.AreEqual(newLowerBoundaryWaterLevels.Value, properties.LowerBoundaryWaterLevels.Value, properties.LowerBoundaryWaterLevels.GetAccuracy());
-            Assert.AreEqual(2, properties.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
-            Assert.AreEqual(orientation, properties.Orientation.Value, properties.Orientation.GetAccuracy());
-            Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(newStepSize, properties.StepSize);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void SelectedHydraulicBoundaryLocation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
@@ -574,11 +508,14 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+
             var calculationObserver = mocks.StrictMock<IObserver>();
-            var inputObserver = mocks.StrictMock<IObserver>();
             int numberOfChangedProperties = hasOutput ? 1 : 0;
             calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+
+            var inputObserver = mocks.StrictMock<IObserver>();
             inputObserver.Expect(o => o.UpdateObserver());
+
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
@@ -587,9 +524,9 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             {
                 calculation.Output = new object();
             }
+            calculation.Attach(calculationObserver);
 
             var input = new WaveConditionsInput();
-            calculation.Attach(calculationObserver);
             input.Attach(inputObserver);
 
             var properties = new TestWaveConditionsInputContextProperties(
@@ -617,8 +554,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                                                   IEnumerable<HydraulicBoundaryLocation> locations)
                 : base(wrappedData, calculation)
             {
-                this.ForeshoreProfiles = foreshoreProfiles;
-                this.HydraulicBoundaryLocations = locations;
+                ForeshoreProfiles = foreshoreProfiles;
+                HydraulicBoundaryLocations = locations;
             }
 
             public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; }

@@ -159,7 +159,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                 {
                     GeneralWaveConditionsInput generalInput = assessmentSection.WaveImpactAsphaltCover.GeneralInput;
 
-                    var input = calculation.InputParameters;
+                    WaveConditionsInput input = calculation.InputParameters;
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,

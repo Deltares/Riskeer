@@ -120,7 +120,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => entity.ReadAsPipingFailureMechanism(null, new ReadConversionCollector());
 
             // Assert 
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanism", parameter);
         }
 
@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => entity.ReadAsPipingFailureMechanism(new PipingFailureMechanism(), null);
 
             // Assert 
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("collector", parameter);
         }
 

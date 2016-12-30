@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 new AssessmentSectionCompositionChangeHandler());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanismContribution", paramName);
         }
 
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 new AssessmentSectionCompositionChangeHandler());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 new AssessmentSectionCompositionChangeHandler());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("normChangeHandler", paramName);
         }
 
@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("compositionChangeHandler", paramName);
         }
 

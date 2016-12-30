@@ -11,13 +11,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
         public void DefaultConstructor_PropertiesSet()
         {
             // Call
-            var result = new TestGrassCoverErosionInwardsOutput();
+            var output = new TestGrassCoverErosionInwardsOutput();
 
             // Assert
-            Assert.AreEqual(0.0, result.WaveHeight.Value);
-            Assert.IsTrue(result.IsOvertoppingDominant);
-            Assert.IsInstanceOf<ProbabilityAssessmentOutput>(result.ProbabilityAssessmentOutput);
-            Assert.IsInstanceOf<TestDikeHeightAssessmentOutput>(result.DikeHeightAssessmentOutput);
+            Assert.AreEqual(0.0, output.WaveHeight.Value);
+            Assert.IsTrue(output.IsOvertoppingDominant);
+            Assert.IsInstanceOf<ProbabilityAssessmentOutput>(output.ProbabilityAssessmentOutput);
+            Assert.IsInstanceOf<TestDikeHeightAssessmentOutput>(output.DikeHeightAssessmentOutput);
         }
     }
 }

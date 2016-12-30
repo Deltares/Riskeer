@@ -42,7 +42,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="StabilityPointStructuresInputContext"/> for properties panel.
     /// </summary>
-    public class StabilityPointStructuresInputContextProperties : StructuresInputBaseProperties<StabilityPointStructure,
+    public class StabilityPointStructuresInputContextProperties : StructuresInputBaseProperties<
+                                                                      StabilityPointStructure,
                                                                       StabilityPointStructuresInput,
                                                                       StructuresCalculation<StabilityPointStructuresInput>,
                                                                       StabilityPointStructuresFailureMechanism>,

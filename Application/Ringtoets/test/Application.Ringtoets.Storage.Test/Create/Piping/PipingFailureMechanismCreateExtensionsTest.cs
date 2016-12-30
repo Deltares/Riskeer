@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             TestDelegate test = () => failureMechanism.Create(null);
 
             // Assert
-            var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("registry", parameterName);
         }
 

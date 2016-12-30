@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate test = () => new PipingFailureMechanismContextProperties(null, handler);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
             mocks.VerifyAll();
         }
@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("handler", paramName);
             mocks.VerifyAll();
         }
@@ -300,7 +300,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler>();
             handler.Expect(h => h.ConfirmPropertyChange()).Return(true);
-            handler.Expect(h => h.PropertyChanged(Arg<PipingFailureMechanism>.Matches(z => true))).Return(new [] { observableMock });
+            handler.Expect(h => h.PropertyChanged(Arg<PipingFailureMechanism>.Is.NotNull)).Return(new [] { observableMock });
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
@@ -413,7 +413,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
             handler.Stub(h => h.ConfirmPropertyChange()).Return(true);
-            handler.Stub(h => h.PropertyChanged(Arg<PipingFailureMechanism>.Matches(z => true))).Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.PropertyChanged(Arg<PipingFailureMechanism>.Is.NotNull)).Return(Enumerable.Empty<IObservable>());
 
             return handler;
         }

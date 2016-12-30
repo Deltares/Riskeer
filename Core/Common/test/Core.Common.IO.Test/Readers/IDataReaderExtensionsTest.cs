@@ -40,7 +40,7 @@ namespace Core.Common.IO.Test.Readers
             TestDelegate test = () => ((IDataReader) null).Read<Int32>("column");
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("dataReader", paramName);
         }
 
@@ -56,7 +56,7 @@ namespace Core.Common.IO.Test.Readers
             TestDelegate test = () => dataReader.Read<Int32>(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("columnName", paramName);
 
             mockRepository.VerifyAll();

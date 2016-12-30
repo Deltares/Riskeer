@@ -89,7 +89,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
 
             if (isViewOpen)
             {
-                viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true),
+                viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull,
                                                      Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
                         .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
                 viewHost.Expect(tvc => tvc.SetImage(null, null)).IgnoreArguments();
@@ -133,7 +133,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true),
+            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull,
                                                  Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
                     .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
             viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();

@@ -164,7 +164,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             TestDelegate test = () => HydraulicDatabaseHelper.HaveEqualVersion(new HydraulicBoundaryDatabase(), null);
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("pathToDatabase", parameter);
         }
 
@@ -178,7 +178,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             TestDelegate test = () => HydraulicDatabaseHelper.HaveEqualVersion(null, validFilePath);
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("database", parameter);
         }
 

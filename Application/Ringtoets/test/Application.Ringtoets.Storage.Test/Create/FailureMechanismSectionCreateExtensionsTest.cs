@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => failureMechanismSection.Create(null);
 
             // Assert
-            var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("registry", parameterName);
         }
 

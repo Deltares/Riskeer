@@ -86,14 +86,14 @@ namespace Core.Plugins.Map.Test
 
                 gui.Stub(g => g.ViewHost).Return(viewHost);
                 viewHost.Expect(vm => vm.ToolViews).Return(new IView[0]);
-                viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
+                viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Is.NotNull, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
                 viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
                 viewHost.Expect(vm => vm.ActiveDocumentView).Return(null);
                 viewHost.Expect(vm => vm.ActiveDocumentViewChanged += null).IgnoreArguments();
                 viewHost.Expect(vm => vm.ActiveDocumentViewChanged -= null).IgnoreArguments();
                 viewHost.Expect(vm => vm.ViewOpened += null).IgnoreArguments();
                 viewHost.Expect(vm => vm.ViewOpened -= null).IgnoreArguments();
-                viewHost.Expect(vm => vm.Remove(Arg<MapLegendView>.Matches(c => true)));
+                viewHost.Expect(vm => vm.Remove(Arg<MapLegendView>.Is.NotNull));
 
                 mocks.ReplayAll();
 

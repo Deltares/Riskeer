@@ -415,7 +415,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 {
                     GeneralGrassCoverErosionOutwardsInput generalInput = grassCoverErosionOutwardsFailureMechanism.GeneralInput;
 
-                    var input = calculation.InputParameters;
+                    WaveConditionsInput input = calculation.InputParameters;
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,

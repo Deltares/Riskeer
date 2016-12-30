@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => foreshoreProfile.Create(null, 0);
 
             // Assert
-            var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("registry", parameterName);
         }
 

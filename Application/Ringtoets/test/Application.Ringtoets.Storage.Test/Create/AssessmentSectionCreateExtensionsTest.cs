@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => assessmentSection.Create(null, 0);
 
             // Assert
-            var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("registry", parameterName);
         }
 

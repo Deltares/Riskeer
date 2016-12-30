@@ -188,7 +188,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var input = calculation.InputParameters;
+            ClosingStructuresInput input = calculation.InputParameters;
             var inputContext = new ClosingStructuresInputContext(input,
                                                                  calculation,
                                                                  failureMechanism,
@@ -239,7 +239,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var input = calculation.InputParameters;
+            ClosingStructuresInput input = calculation.InputParameters;
             var inputContext = new ClosingStructuresInputContext(input,
                                                                  calculation,
                                                                  failureMechanism,
@@ -273,7 +273,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var input = calculation.InputParameters;
+            ClosingStructuresInput input = calculation.InputParameters;
             var inputContext = new ClosingStructuresInputContext(input,
                                                                  calculation,
                                                                  failureMechanism,
@@ -306,7 +306,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var input = calculation.InputParameters;
+            ClosingStructuresInput input = calculation.InputParameters;
             var inputContext = new ClosingStructuresInputContext(input,
                                                                  calculation,
                                                                  failureMechanism,
@@ -335,7 +335,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var input = calculation.InputParameters;
+            ClosingStructuresInput input = calculation.InputParameters;
             var inputContext = new ClosingStructuresInputContext(input,
                                                                  calculation,
                                                                  failureMechanism,
@@ -366,7 +366,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var input = calculation.InputParameters;
+            ClosingStructuresInput input = calculation.InputParameters;
             var inputContext = new ClosingStructuresInputContext(input,
                                                                  calculation,
                                                                  failureMechanism,
@@ -400,7 +400,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var input = calculation.InputParameters;
+            ClosingStructuresInput input = calculation.InputParameters;
             var inputContext = new ClosingStructuresInputContext(input,
                                                                  calculation,
                                                                  failureMechanism,
@@ -429,7 +429,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var input = calculation.InputParameters;
+            ClosingStructuresInput input = calculation.InputParameters;
             var inputContext = new ClosingStructuresInputContext(input,
                                                                  calculation,
                                                                  failureMechanism,
@@ -460,7 +460,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var input = calculation.InputParameters;
+            ClosingStructuresInput input = calculation.InputParameters;
             var inputContext = new ClosingStructuresInputContext(input,
                                                                  calculation,
                                                                  failureMechanism,
@@ -494,7 +494,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var input = calculation.InputParameters;
+            ClosingStructuresInput input = calculation.InputParameters;
             var inputContext = new ClosingStructuresInputContext(input,
                                                                  calculation,
                                                                  failureMechanism,
@@ -523,7 +523,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var input = calculation.InputParameters;
+            ClosingStructuresInput input = calculation.InputParameters;
             var inputContext = new ClosingStructuresInputContext(input,
                                                                  calculation,
                                                                  failureMechanism,

@@ -47,7 +47,7 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate test = () => ((WaveConditionsInputStepSize) 4).AsValue();
 
             // Assert
-            var parameter = Assert.Throws<InvalidEnumArgumentException>(test).ParamName;
+            string parameter = Assert.Throws<InvalidEnumArgumentException>(test).ParamName;
             Assert.AreEqual("stepSize", parameter);
         }
     }
