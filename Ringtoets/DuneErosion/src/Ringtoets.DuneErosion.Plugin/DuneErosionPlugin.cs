@@ -26,6 +26,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -35,6 +36,7 @@ using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.DuneErosion.Plugin.Properties;
+using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -199,10 +201,19 @@ namespace Ringtoets.DuneErosion.Plugin
                                  ? RingtoetsCommonFormsResources.Calculate_all_ToolTip
                                  : Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_locations;
 
-            var calculateAllItem = new StrictContextMenuItem(RingtoetsCommonFormsResources.Calculate_all,
-                                                             toolTip,
-                                                             RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                             (sender, args) => { })
+            var calculateAllItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_all,
+                toolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                                     context.WrappedData
+                                                            .Select(location => new DuneErosionBoundaryCalculationActivity(location,
+                                                                                                                           context.FailureMechanism,
+                                                                                                                           context.AssessmentSection)).ToArray());
+                    context.NotifyObservers();
+                })
             {
                 Enabled = locationsAvailable
             };

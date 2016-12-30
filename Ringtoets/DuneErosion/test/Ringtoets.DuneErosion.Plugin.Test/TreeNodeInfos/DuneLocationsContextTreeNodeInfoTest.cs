@@ -20,19 +20,26 @@
 // All rights reserved.
 
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
@@ -40,9 +47,13 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class DuneLocationsContextTreeNodeInfoTest
     {
+        private const int contextMenuCalculateAllIndex = 2;
+
         private MockRepository mocks;
         private DuneErosionPlugin plugin;
         private TreeNodeInfo info;
+
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         [SetUp]
         public void SetUp()
@@ -224,11 +235,84 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                               ? "Voer alle berekeningen binnen dit toetsspoor uit."
                                               : "Er zijn geen locaties om een berekening voor uit te voeren.";
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 2,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                   "Alles be&rekenen",
                                                                   expectedMessage,
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
                                                                   hasDuneLocations);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllLocationsAndNotifyObservers()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+                var failureMechanism = new DuneErosionFailureMechanism
+                {
+                    Contribution = 10
+                };
+                failureMechanism.DuneLocations.AddRange(new[]
+                                                        {
+                                                            new DuneLocation(1300001, "A", new Point2D(0, 0), 3, 0, 0, 0.000007),
+                                                            new DuneLocation(1300002, "B", new Point2D(0, 0), 3, 0, 0, 0.000007)
+                                                        });
+
+                var hydraulicBoundaryDatabaseStub = mocks.Stub<HydraulicBoundaryDatabase>();
+                hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
+
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+                assessmentSection.Stub(a => a.Id).Return("13-1");
+                assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+                                                                             {
+                                                                                 failureMechanism
+                                                                             });
+                assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
+                                                                                                                    {
+                                                                                                                        failureMechanism
+                                                                                                                    }, 1, 1.0 / 200));
+                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+
+                var builder = new CustomItemsOnlyContextMenuBuilder();
+
+                var mainWindowStub = mocks.Stub<IMainWindow>();
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+                gui.Expect(g => g.MainWindow).Return(mainWindowStub);
+                var observerMock = mocks.StrictMock<IObserver>();
+                observerMock.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                failureMechanism.DuneLocations.Attach(observerMock);
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                using (new HydraRingCalculatorFactoryConfig())
+                {
+                    // Call
+                    TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick(), messages =>
+                    {
+                        var messageList = messages.ToList();
+
+                        // Assert
+                        Assert.AreEqual(10, messageList.Count);
+                        StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[0]);
+                        Assert.AreEqual("Duinafslag berekening voor locatie 'A' is niet geconvergeerd.", messageList[1]);
+                        StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", messageList[2]);
+                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[3]);
+                        StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[4]);
+                        Assert.AreEqual("Duinafslag berekening voor locatie 'B' is niet geconvergeerd.", messageList[5]);
+                        StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", messageList[6]);
+                        StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[7]);
+                        Assert.AreEqual("Uitvoeren van 'A' is gelukt.", messageList[8]);
+                        Assert.AreEqual("Uitvoeren van 'B' is gelukt.", messageList[9]);
+                    });
                 }
             }
         }
