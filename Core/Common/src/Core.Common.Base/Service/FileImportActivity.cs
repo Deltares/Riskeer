@@ -67,7 +67,7 @@ namespace Core.Common.Base.Service
                                              currentStep, totalSteps, currentStepName);
             });
 
-            if (!fileImporter.Import())
+            if (!fileImporter.Import() && State != ActivityState.Canceled)
             {
                 State = ActivityState.Failed;
             }

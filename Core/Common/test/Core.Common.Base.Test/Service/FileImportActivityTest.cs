@@ -116,6 +116,26 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
+        public void Cancel_WhenImporting_ImportActivityStateCancelled()
+        {
+            // Setup
+            var fileImporter = new SimpleFileImporter<object>(new object());
+            var fileImportActivity = new FileImportActivity(fileImporter, "");
+            fileImportActivity.ProgressChanged += (sender, args) =>
+            {
+                if (fileImportActivity.State != ActivityState.Canceled)
+                {
+                    // Call 
+                    fileImportActivity.Cancel();
+                }
+            };
+
+            // Assert
+            fileImportActivity.Run();
+            Assert.AreEqual(ActivityState.Canceled, fileImportActivity.State);
+        }
+
+        [Test]
         public void Cancel_FileImportActivityWithFileImporter_CancelsImporter()
         {
             // Setup
