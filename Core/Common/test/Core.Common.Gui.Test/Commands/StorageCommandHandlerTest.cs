@@ -180,10 +180,10 @@ namespace Core.Common.Gui.Test.Commands
 
             var project = mocks.Stub<IProject>();
             var projectStorage = mocks.Stub<IStoreProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
                           .Throw(new StorageException(goodErrorMessageText, new Exception("H@X!")));
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
             var mainWindowController = mocks.Stub<IWin32Window>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
@@ -221,10 +221,10 @@ namespace Core.Common.Gui.Test.Commands
 
             IProject project = mocks.Stub<IProject>();
             var projectStorage = mocks.Stub<IStoreProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
                           .Return(null);
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
             var mainWindowController = mocks.Stub<IWin32Window>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
@@ -377,10 +377,12 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var mainWindowController = mocks.Stub<IWin32Window>();
-            var project = mocks.Stub<IProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
+
+            var project = mocks.Stub<IProject>();
             const string projectName = "Project";
             project.Name = projectName;
+
             var projectStorageMock = mocks.StrictMock<IStoreProject>();
             projectStorageMock.Expect(ps => ps.StageProject(project));
             projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true);
@@ -424,10 +426,12 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             var mainWindowController = mocks.Stub<IWin32Window>();
-            var project = mocks.Stub<IProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
+
+            var project = mocks.Stub<IProject>();
             const string projectName = "Project";
             project.Name = projectName;
+
             var projectStorageMock = mocks.StrictMock<IStoreProject>();
             projectStorageMock.Expect(ps => ps.StageProject(project));
             projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true);
@@ -476,8 +480,9 @@ namespace Core.Common.Gui.Test.Commands
             using (new FileDisposeHelper(someValidFilePath))
             {
                 var mainWindowController = mocks.Stub<IWin32Window>();
-                var project = mocks.Stub<IProject>();
                 var projectFactory = mocks.Stub<IProjectFactory>();
+
+                var project = mocks.Stub<IProject>();
                 project.Name = projectName;
 
                 var projectStorageMock = mocks.StrictMock<IStoreProject>();
@@ -485,12 +490,11 @@ namespace Core.Common.Gui.Test.Commands
                 projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true).Repeat.Twice();
                 projectStorageMock.Expect(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(true);
                 projectStorageMock.Expect(ps => ps.UnstageProject());
+                projectStorageMock.Expect(p => p.SaveProjectAs(someValidFilePath));
 
                 var projectOwnerStub = mocks.Stub<IProjectOwner>();
                 projectOwnerStub.Stub(po => po.Project).Return(project);
                 projectOwnerStub.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
-
-                projectStorageMock.Expect(p => p.SaveProjectAs(someValidFilePath));
                 mocks.ReplayAll();
 
                 var storageCommandHandler = new StorageCommandHandler(
@@ -526,9 +530,11 @@ namespace Core.Common.Gui.Test.Commands
             const string projectName = "Project";
             string messageBoxText = null;
             string someValidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui, Path.GetRandomFileName());
+
             var mainWindowController = mocks.Stub<IWin32Window>();
-            var project = mocks.Stub<IProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
+
+            var project = mocks.Stub<IProject>();
             project.Name = projectName;
 
             var projectStorageMock = mocks.StrictMock<IStoreProject>();
@@ -537,14 +543,12 @@ namespace Core.Common.Gui.Test.Commands
             projectStorageMock.Expect(ps => ps.HasStagedProjectChanges(someValidFilePath)).Return(true);
             projectStorageMock.Expect(ps => ps.UnstageProject());
             projectStorageMock.Stub(ps => ps.FileFilter).Return(string.Empty);
+            projectStorageMock.Expect(p => p.SaveProjectAs(someValidFilePath));
 
             var projectOwnerStub = mocks.Stub<IProjectOwner>();
             projectOwnerStub.Stub(po => po.Project).Return(project);
             projectOwnerStub.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
-
             projectOwnerStub.Expect(po => po.SetProject(project, someValidFilePath));
-
-            projectStorageMock.Expect(p => p.SaveProjectAs(someValidFilePath));
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
