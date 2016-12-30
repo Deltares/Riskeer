@@ -24,11 +24,8 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -97,68 +94,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(10)]
-        [TestCase(20)]
-        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(int newLengthEffect)
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-
-            var observableMock = mockRepository.StrictMock<IObservable>();
-            observableMock.Expect(o => o.NotifyObservers());
-
-            var changeHandler = mockRepository.StrictMock<IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler>();
-            changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(true);
-            changeHandler.Expect(h => h.PropertyChanged(Arg<GrassCoverErosionOutwardsFailureMechanism>.Is.NotNull)).Return(new[] { observableMock });
-
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.Attach(observerMock);
-
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
-
-            // Call
-            properties.LengthEffect = newLengthEffect;
-
-            // Assert
-            Assert.AreEqual(newLengthEffect, failureMechanism.GeneralInput.N);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(10)]
-        [TestCase(20)]
-        public void LengthEffect_SetValidValueNoConfirmation_NoValueChangeNoUpdates(int newLengthEffect)
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-
-            var changeHandler = mockRepository.StrictMock<IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler>();
-            changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(false);
-
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.Attach(observerMock);
-
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
-            var oldValue = properties.LengthEffect;
-
-            // Call
-            properties.LengthEffect = newLengthEffect;
-
-            // Assert
-            Assert.AreEqual(oldValue, failureMechanism.GeneralInput.N);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
@@ -174,9 +109,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                BrowsableAttribute.Yes
-            });
+                                                                                              {
+                                                                                                  BrowsableAttribute.Yes
+                                                                                              });
             Assert.AreEqual(6, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
@@ -222,7 +157,98 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual("De waarde van de parameter 'c' in de berekening voor golf condities.", cProperty.Description);
             mockRepository.VerifyAll();
         }
-        
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-20)]
+        public void LengthEffect_SetInvalidValueWithConfirmation_ThrowsArgumentOutOfRangeException(int newLengthEffect)
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
+            var changeHandler = mockRepository.StrictMock<IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler>();
+            changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(true);
+
+            mockRepository.ReplayAll();
+
+            failureMechanism.Attach(observerMock);
+
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
+
+            // Call
+            TestDelegate test = () => properties.LengthEffect = newLengthEffect;
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(test);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void LengthEffect_SetValidValueWithConfirmation_UpdateDataAndNotifyObservers(int newLengthEffect)
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            observableMock.Expect(o => o.NotifyObservers());
+
+            var changeHandler = mockRepository.StrictMock<IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler>();
+            changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(true);
+            changeHandler.Expect(h => h.PropertyChanged(failureMechanism)).Return(new[] { observableMock });
+
+            mockRepository.ReplayAll();
+
+            failureMechanism.Attach(observerMock);
+
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
+
+            // Call
+            properties.LengthEffect = newLengthEffect;
+
+            // Assert
+            Assert.AreEqual(newLengthEffect, failureMechanism.GeneralInput.N);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void LengthEffect_SetValidValueNoConfirmation_NoValueChangeNoUpdates(int newLengthEffect)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
+
+            var changeHandler = mockRepository.StrictMock<IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler>();
+            changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(false);
+
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.Attach(observerMock);
+
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
+            var oldValue = properties.LengthEffect;
+
+            // Call
+            properties.LengthEffect = newLengthEffect;
+
+            // Assert
+            Assert.AreEqual(oldValue, failureMechanism.GeneralInput.N);
+            mockRepository.VerifyAll();
+        }
+
         private IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler CreateSimpleHandler(MockRepository mockRepository)
         {
             var handler = mockRepository.Stub<IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler>();

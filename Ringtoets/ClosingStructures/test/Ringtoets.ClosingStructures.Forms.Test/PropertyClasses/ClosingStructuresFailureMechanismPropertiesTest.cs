@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
@@ -27,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 {
@@ -34,28 +37,52 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
     public class ClosingStructuresFailureMechanismPropertiesTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler(mocks);
+            mocks.ReplayAll();
+
             // Call
-            var properties = new ClosingStructuresFailureMechanismProperties();
+            TestDelegate test = () => new ClosingStructuresFailureMechanismProperties(null, handler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ClosingStructuresFailureMechanism>>(properties);
-            Assert.IsNull(properties.Data);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Data_SetNewFailureMechanismContext_ReturnCorrectPropertyValues()
+        public void Constructor_ChangeHandlerIsNull_ThrowArgumentNullException()
         {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var properties = new ClosingStructuresFailureMechanismProperties();
-
             // Call
-            properties.Data = failureMechanism;
+            TestDelegate test = () => new ClosingStructuresFailureMechanismProperties(
+                new ClosingStructuresFailureMechanism(), 
+                null);
 
             // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("handler", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidValues_ExpectedValues()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            IFailureMechanismPropertyChangeHandler changeHandler = CreateSimpleHandler(mocks);
+            mocks.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            // Call
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<ClosingStructuresFailureMechanism>>(properties);
+            Assert.AreSame(failureMechanism, properties.Data);
+
             Assert.AreEqual("Kunstwerken - Betrouwbaarheid sluiting kunstwerk",
                             properties.Name);
             Assert.AreEqual("BSKW",
@@ -76,46 +103,22 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.ModelFactorSubCriticalFlow.Mean, properties.ModelFactorSubCriticalFlow.Mean);
             Assert.AreEqual(generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation, properties.ModelFactorSubCriticalFlow.CoefficientOfVariation);
             Assert.AreEqual(generalInput.ModelFactorInflowVolume.Value, properties.ModelFactorInflowVolume.Value);
-        }
 
-        [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
-        {
-            // Setup
-            const int numberOfChangedProperties = 1;
-            var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.Attach(observerMock);
-            var properties = new ClosingStructuresFailureMechanismProperties
-            {
-                Data = failureMechanism
-            };
-
-            const int newN2A = 10;
-
-            // Call
-            properties.N2A = newN2A;
-
-            // Assert
-            Assert.AreEqual(newN2A, failureMechanism.GeneralInput.N2A);
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var mocks = new MockRepository();
+            var changeHandler = CreateSimpleHandler(mocks);
+            mocks.ReplayAll();
 
             // Call
-            var properties = new ClosingStructuresFailureMechanismProperties
-            {
-                Data = failureMechanism
-            };
+            var properties = new ClosingStructuresFailureMechanismProperties(
+                new ClosingStructuresFailureMechanism(), 
+                changeHandler);
 
             // Assert
             var generalCategory = "Algemeen";
@@ -196,6 +199,116 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor instromend volume [-]",
                                                                             "Modelfactor instromend volume.",
                                                                             true);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(-10)]
+        [TestCase(-1)]
+        [TestCase(41)]
+        [TestCase(141)]
+        public void N2A_InvalidValueWithConfirmation_UpdateDataAndNotifyObservers(int value)
+        {
+            // Setup
+
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
+
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
+            handler.Expect(h => h.ConfirmPropertyChange()).Return(true);
+
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.Attach(observerMock);
+
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, handler);
+
+            // Call
+            TestDelegate test = () => properties.N2A = value;
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(test);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(5)]
+        [TestCase(21)]
+        [TestCase(40)]
+        public void N2A_SetValidValueWithConfirmation_UpdateDataAndNotifyObservers(int value)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            observableMock.Expect(o => o.NotifyObservers());
+
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
+            handler.Expect(h => h.ConfirmPropertyChange()).Return(true);
+            handler.Expect(h => h.PropertyChanged(failureMechanism)).Return(new[] { observableMock });
+
+            mockRepository.ReplayAll();
+
+            failureMechanism.Attach(observerMock);
+
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, handler);
+
+            // Call
+            properties.N2A = value;
+
+            // Assert
+            Assert.AreEqual(value, failureMechanism.GeneralInput.N2A);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(-10)]
+        [TestCase(-1)]
+        [TestCase(41)]
+        [TestCase(141)]
+        [TestCase(0)]
+        [TestCase(5)]
+        [TestCase(21)]
+        [TestCase(40)]
+        public void N2A_SetValueWithoutConfirmation_NoValueChangeNoUpdates(int value)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
+
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
+            handler.Expect(h => h.ConfirmPropertyChange()).Return(false);
+
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.Attach(observerMock);
+
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, handler);
+
+            var oldN2A = failureMechanism.GeneralInput.N2A;
+
+            // Call
+            properties.N2A = value;
+
+            // Assert
+            Assert.AreEqual(oldN2A, failureMechanism.GeneralInput.N2A);
+            mockRepository.VerifyAll();
+        }
+
+        private IFailureMechanismPropertyChangeHandler CreateSimpleHandler(MockRepository mockRepository)
+        {
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
+            handler.Stub(h => h.ConfirmPropertyChange()).Return(true);
+            handler.Stub(h => h.PropertyChanged(Arg<ClosingStructuresFailureMechanism>.Is.NotNull)).Return(Enumerable.Empty<IObservable>());
+
+            return handler;
         }
     }
 }

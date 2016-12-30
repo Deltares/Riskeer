@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -49,6 +51,30 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         private const int modelFactorSubCriticalFlowPropertyIndex = 9;
         private const int modelFactorInflowVolumePropertyIndex = 10;
 
+        private readonly IFailureMechanismPropertyChangeHandler propertyChangeHandler;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismProperties"/>.
+        /// </summary>
+        /// <param name="data">The instance to show the properties of.</param>
+        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public ClosingStructuresFailureMechanismProperties(
+            ClosingStructuresFailureMechanism data,
+            IFailureMechanismPropertyChangeHandler handler)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException("data");
+            }
+            if (handler == null)
+            {
+                throw new ArgumentNullException("handler");
+            }
+            Data = data;
+            propertyChangeHandler = handler;
+        }
+
         #region Length effect parameters
 
         [PropertyOrder(cPropertyIndex)]
@@ -75,8 +101,11 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                data.GeneralInput.N2A = value;
-                data.NotifyObservers();
+                if (propertyChangeHandler.ConfirmPropertyChange())
+                {
+                    data.GeneralInput.N2A = value;
+                    ClearOutputAndNotifyObservers();
+                }
             }
         }
 
@@ -197,5 +226,14 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         #endregion
+
+        private void ClearOutputAndNotifyObservers()
+        {
+            foreach (IObservable changedObject in propertyChangeHandler.PropertyChanged(data))
+            {
+                changedObject.NotifyObservers();
+            }
+            data.NotifyObservers();
+        }
     }
 }

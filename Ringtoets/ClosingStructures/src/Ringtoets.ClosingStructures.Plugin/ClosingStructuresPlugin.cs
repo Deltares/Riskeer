@@ -60,10 +60,9 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             yield return new PropertyInfo<ClosingStructuresFailureMechanismContext, ClosingStructuresFailureMechanismProperties>
             {
-                CreateInstance = context => new ClosingStructuresFailureMechanismProperties
-                {
-                    Data = context.WrappedData
-                }
+                CreateInstance = context => new ClosingStructuresFailureMechanismProperties(
+                    context.WrappedData,
+                    new FailureMechanismPropertyChangeHandler())
             };
             yield return new PropertyInfo<ClosingStructure, ClosingStructureProperties>();
             yield return new PropertyInfo<ClosingStructuresInputContext, ClosingStructuresInputContextProperties>();
