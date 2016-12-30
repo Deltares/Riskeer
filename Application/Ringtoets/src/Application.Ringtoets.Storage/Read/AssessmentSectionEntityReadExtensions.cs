@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
 
@@ -67,6 +68,8 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadHydraulicDatabase(assessmentSection, collector);
             entity.ReadReferenceLine(assessmentSection);
 
+            FixMemoryLoadProblemForReadingFailureMechanisms();
+
             entity.ReadPipingFailureMechanism(assessmentSection, collector);
             entity.ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection, collector);
             entity.ReadHeightStructuresFailureMechanism(assessmentSection, collector);
@@ -87,6 +90,18 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadStabilityPointStructuresFailureMechanism(assessmentSection, collector);
 
             return assessmentSection;
+        }
+
+        /// <summary>
+        /// This method should be called after reading the <see cref="ReferenceLine"/> but
+        /// before reading any of the <see cref="IFailureMechanism"/> instances.
+        /// </summary>
+        private static void FixMemoryLoadProblemForReadingFailureMechanisms()
+        {
+            // See WTI-1049
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
         }
 
         private static void ReadReferenceLine(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
