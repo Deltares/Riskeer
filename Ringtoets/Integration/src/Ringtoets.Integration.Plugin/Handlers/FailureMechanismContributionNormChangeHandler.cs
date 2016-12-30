@@ -27,6 +27,7 @@ using Core.Common.Base;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin.Properties;
@@ -93,15 +94,20 @@ namespace Ringtoets.Integration.Plugin.Handlers
                                                                                                                    .OfType<GrassCoverErosionOutwardsFailureMechanism>()
                                                                                                                    .First();
 
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                                                       .OfType<DuneErosionFailureMechanism>()
+                                                                                       .First();
+
             IEnumerable<IObservable> hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
-                assessmentSection.HydraulicBoundaryDatabase, grassCoverErosionOutwardsFailureMechanism);
+                assessmentSection.HydraulicBoundaryDatabase, grassCoverErosionOutwardsFailureMechanism, duneErosionFailureMechanism);
             if (hydraulicBoundaryLocationAffected.Any())
             {
                 log.Info(Resources.FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared);
                 return new IObservable[]
                 {
                     grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
-                    assessmentSection.HydraulicBoundaryDatabase
+                    assessmentSection.HydraulicBoundaryDatabase,
+                    duneErosionFailureMechanism.DuneLocations
                 };
             }
             return Enumerable.Empty<IObservable>();

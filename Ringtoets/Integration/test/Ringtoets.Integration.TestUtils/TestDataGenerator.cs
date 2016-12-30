@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -80,6 +81,7 @@ namespace Ringtoets.Integration.TestUtils
             SetFullyConfiguredFailureMechanism(assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.StabilityStoneCover, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.DuneErosion, hydraulicBoundaryLocation);
 
             return assessmentSection;
         }
@@ -808,6 +810,30 @@ namespace Ringtoets.Integration.TestUtils
                     subCalculationWithHydraulicBoundaryLocation
                 }
             });
+        }
+
+        private static void SetFullyConfiguredFailureMechanism(DuneErosionFailureMechanism failureMechanism,
+                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            DuneLocation duneLocation = new DuneLocation(hydraulicBoundaryLocation.Id,
+                                                         hydraulicBoundaryLocation.Name,
+                                                         new Point2D(hydraulicBoundaryLocation.Location.X, hydraulicBoundaryLocation.Location.Y),
+                                                         7,
+                                                         20,
+                                                         180,
+                                                         0.00008)
+            {
+                Output = new DuneLocationOutput(hydraulicBoundaryLocation.DesignWaterLevel + 0.2,
+                hydraulicBoundaryLocation.WaveHeight + 0.3,
+                10,
+                double.NaN,
+                double.NaN, 
+                double.NaN,
+                double.NaN,
+                CalculationConvergence.CalculatedConverged)
+            };
+
+            failureMechanism.DuneLocations.Add(duneLocation);
         }
     }
 }

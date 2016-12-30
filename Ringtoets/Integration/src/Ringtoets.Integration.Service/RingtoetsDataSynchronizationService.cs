@@ -31,6 +31,8 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionInwards.Utils;
@@ -184,28 +186,36 @@ namespace Ringtoets.Integration.Service
 
         /// <summary>
         /// Clears the output of the hydraulic boundary locations within the <paramref name="hydraulicBoundaryDatabase"/>
-        /// and <paramref name="failureMechanism"/>.
+        /// and <paramref name="grassCoverErosionOutwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> wich contains the locations.</param>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> which contains the locations.</param>
+        /// <param name="grassCoverErosionOutwardsFailureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> which contains the locations.</param>
+        /// <param name="duneErosionFailureMechanism">The <see cref="DuneErosionFailureMechanism"/> which contains locations.</param>
         /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> 
-        /// or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// or <paramref name="grassCoverErosionOutwardsFailureMechanism"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                                                    GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+                                                                                    GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism,
+                                                                                    DuneErosionFailureMechanism duneErosionFailureMechanism)
         {
             if (hydraulicBoundaryDatabase == null)
             {
                 throw new ArgumentNullException("hydraulicBoundaryDatabase");
             }
-            if (failureMechanism == null)
+            if (grassCoverErosionOutwardsFailureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException("grassCoverErosionOutwardsFailureMechanism");
+            }
+            if (duneErosionFailureMechanism == null)
+            {
+                throw new ArgumentNullException("duneErosionFailureMechanism");
             }
 
-            return RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(failureMechanism.HydraulicBoundaryLocations)
+            return RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
                                                             .Concat(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
                                                                 hydraulicBoundaryDatabase.Locations))
+                                                            .Concat(DuneErosionDataSynchronizationService.ClearDuneLocationOutput(
+                                                                duneErosionFailureMechanism.DuneLocations))
                                                             .ToArray();
         }
 

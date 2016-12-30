@@ -28,6 +28,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin.Handlers;
@@ -182,7 +183,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                       {
                                                                           section.FailureMechanismContribution,
                                                                           section.GrassCoverErosionOutwards.HydraulicBoundaryLocations,
-                                                                          section.HydraulicBoundaryDatabase
+                                                                          section.HydraulicBoundaryDatabase,
+                                                                          section.DuneErosion.DuneLocations
                                                                       });
             foreach (HydraulicBoundaryLocation location in section.HydraulicBoundaryDatabase.Locations
                                                                   .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
@@ -191,6 +193,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 Assert.IsNaN(location.WaveHeight);
                 Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
                 Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
+            }
+            foreach (DuneLocation duneLocation in section.DuneErosion.DuneLocations)
+            {
+                Assert.IsNull(duneLocation.Output);
             }
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
@@ -224,7 +230,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                  {
                                                      section.FailureMechanismContribution,
                                                      section.GrassCoverErosionOutwards.HydraulicBoundaryLocations,
-                                                     section.HydraulicBoundaryDatabase
+                                                     section.HydraulicBoundaryDatabase,
+                                                     section.DuneErosion.DuneLocations
                                                  });
             foreach (HydraulicBoundaryLocation location in section.HydraulicBoundaryDatabase.Locations
                                                                   .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
@@ -233,6 +240,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 Assert.IsNaN(location.WaveHeight);
                 Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
                 Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
+            }
+            foreach (DuneLocation duneLocation in section.DuneErosion.DuneLocations)
+            {
+                Assert.IsNull(duneLocation.Output);
             }
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
@@ -243,11 +254,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Setup
             AssessmentSection section = TestDataGenerator.GetFullyConfiguredAssessmentSection();
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(section.HydraulicBoundaryDatabase,
-                                                                                     section.GrassCoverErosionOutwards);
+                                                                                     section.GrassCoverErosionOutwards,
+                                                                                     section.DuneErosion);
 
             // Precondition
             CollectionAssert.IsEmpty(section.HydraulicBoundaryDatabase.Locations.Where(HasCalculatedHydraulicBoundaryLocationValues));
             CollectionAssert.IsEmpty(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Where(HasCalculatedHydraulicBoundaryLocationValues));
+            CollectionAssert.IsEmpty(section.DuneErosion.DuneLocations.Where(dl => dl.Output != null));
 
             var expectedAffectedCalculations = section.GetFailureMechanisms()
                                                       .SelectMany(fm => fm.Calculations)
