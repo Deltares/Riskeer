@@ -230,6 +230,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.CalculationIcon);
 
+                TestHelper.AssertContextMenuStripContainsItem(menu, 3,
+                                                              CoreCommonGuiResources.Rename,
+                                                              CoreCommonGuiResources.Rename_ToolTip,
+                                                              CoreCommonGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                               RingtoetsCommonFormsResources.Validate_all,
                                                               "Valideer alle berekeningen binnen deze berekeningsmap.",
@@ -243,10 +247,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                               "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.ClearIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 3,
-                                                              CoreCommonGuiResources.Rename,
-                                                              CoreCommonGuiResources.Rename_ToolTip,
-                                                              CoreCommonGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, 8,
                                                               CoreCommonGuiResources.Delete,
                                                               CoreCommonGuiResources.Delete_ToolTip,

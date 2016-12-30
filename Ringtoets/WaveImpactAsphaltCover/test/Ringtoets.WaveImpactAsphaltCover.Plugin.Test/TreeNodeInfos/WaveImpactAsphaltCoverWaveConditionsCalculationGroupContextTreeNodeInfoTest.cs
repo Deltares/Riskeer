@@ -71,7 +71,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         private const int contextMenuCalculateAllIndexNestedGroup = 7;
         private const int contextMenuClearOutputIndexNestedGroup = 9;
 
-
         private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
         private TreeNodeInfo info;
@@ -257,6 +256,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.FailureMechanismIcon);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, 5,
+                                                              "&Hernoemen",
+                                                              "Wijzig de naam van dit element.",
+                                                              CoreCommonGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                               "Alles &valideren",
                                                               "Er zijn geen berekeningen om te valideren.",
@@ -273,10 +277,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.ClearIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 5,
-                                                              "&Hernoemen",
-                                                              "Wijzig de naam van dit element.",
-                                                              CoreCommonGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, 10,
                                                               "Verwij&deren...",
                                                               "Verwijder dit element uit de boom.",

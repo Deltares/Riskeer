@@ -261,6 +261,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.FailureMechanismIcon);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, 5,
+                                                              expectedTextRename,
+                                                              expectedTextRenameToolTip,
+                                                              CoreCommonGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                               "Alles &valideren",
                                                               "Er zijn geen berekeningen om te valideren.",
@@ -276,10 +281,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                               "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                               RingtoetsCommonFormsResources.ClearIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 5,
-                                                              expectedTextRename,
-                                                              expectedTextRenameToolTip,
-                                                              CoreCommonGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, 10,
                                                               expectedTextDelete,
                                                               expectedTextDeleteToolTip,

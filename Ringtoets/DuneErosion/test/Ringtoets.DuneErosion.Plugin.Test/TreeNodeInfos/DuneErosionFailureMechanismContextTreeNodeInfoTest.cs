@@ -183,8 +183,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
             }
 
-            using (
-                var treeViewControl = new TreeViewControl())
+            using (var treeViewControl = new TreeViewControl())
             {
                 guiMock.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
                 mocksRepository.ReplayAll();

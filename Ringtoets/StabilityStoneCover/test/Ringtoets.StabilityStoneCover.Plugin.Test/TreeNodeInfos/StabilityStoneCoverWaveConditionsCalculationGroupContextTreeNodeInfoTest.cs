@@ -54,23 +54,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        //        private const int contextMenuAddCalculationGroupIndexRootGroup = 3;
-        //        private const int contextMenuAddCalculationIndexRootGroup = 4;
-        //        private const int contextMenuRemoveAllChildrenIndexRootGroup = 6;
-        //        private const int contextMenuValidateAllIndexRootGroup = 8;
-        //        private const int contextMenuCalculateAllIndexRootGroup = 9;
-        //        private const int contextMenuClearOutputIndexRootGroup = 10;
-        //        private const int contextMenuExpandAllIndexRootGroup = 12;
-        //        private const int contextMenuCollapseAllIndexRootGroup = 13;
-        //        private const int contextMenuPropertiesIndexRootGroup = 15;
-        //
-        //        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 0;
-        //        private const int contextMenuAddCalculationGroupIndexNestedGroup = 2;
-        //        private const int contextMenuAddCalculationIndexNestedGroup = 3;
-        //        private const int contextMenuValidateAllIndexNestedGroup = 5;
-        //        private const int contextMenuCalculateAllIndexNestedGroup = 6;
-        //        private const int contextMenuClearOutputNestedGroupIndex = 7;
-
         private const int contextMenuAddGenerateCalculationsIndex = 2;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 4;
         private const int contextMenuAddCalculationIndexRootGroup = 5;
@@ -273,6 +256,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.FailureMechanismIcon);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, 5,
+                                                              CoreCommonGuiResources.Rename,
+                                                              CoreCommonGuiResources.Rename_ToolTip,
+                                                              CoreCommonGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                               RingtoetsCommonFormsResources.Validate_all,
                                                               "Er zijn geen berekeningen om te valideren.",
@@ -289,10 +277,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.ClearIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 5,
-                                                              CoreCommonGuiResources.Rename,
-                                                              CoreCommonGuiResources.Rename_ToolTip,
-                                                              CoreCommonGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, 10,
                                                               CoreCommonGuiResources.Delete,
                                                               CoreCommonGuiResources.Delete_ToolTip,
