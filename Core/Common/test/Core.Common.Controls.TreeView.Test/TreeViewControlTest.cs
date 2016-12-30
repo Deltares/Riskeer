@@ -652,7 +652,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var childTreeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(string),
-                    CanRemove = (o, p) => false,
+                    CanRemove = (o, p) => false
                 };
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
@@ -696,12 +696,12 @@ namespace Core.Common.Controls.TreeView.Test
                 var childStringTreeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(string),
-                    CanRemove = (o, p) => true,
+                    CanRemove = (o, p) => true
                 };
                 var childIntTreeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(int),
-                    CanRemove = (o, p) => false,
+                    CanRemove = (o, p) => false
                 };
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 treeViewControl.RegisterTreeNodeInfo(childStringTreeNodeInfo);
@@ -854,7 +854,7 @@ namespace Core.Common.Controls.TreeView.Test
             {
                 var treeNodeInfo = new TreeNodeInfo
                 {
-                    TagType = typeof(object),
+                    TagType = typeof(object)
                 };
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 var data = new object();
@@ -1750,6 +1750,51 @@ namespace Core.Common.Controls.TreeView.Test
                 {
                     WindowsFormsTestHelper.CloseAll();
                 }
+            }
+        }
+
+        [Test]
+        public void OnNodeAddedForData_TreeNodeInfoRegisteredWithExpandOnCreateNull_NodeNotExpanded()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    ExpandOnCreate = null
+                });
+
+                // Call
+                treeViewControl.Data = new object();
+
+                // Assert
+                var treeView = (System.Windows.Forms.TreeView)treeViewControl.Controls[0];
+                var treeNode = treeView.Nodes[0];
+                Assert.IsFalse(treeNode.IsExpanded);
+            }
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnNodeAddedForData_TreeNodeInfoRegisteredWithExpandOnCreateSet_NodeExpandedAccordingly(bool expandOnCreate)
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    ExpandOnCreate = o => expandOnCreate
+                });
+
+                // Call
+                treeViewControl.Data = new object();
+
+                // Assert
+                var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
+                var treeNode = treeView.Nodes[0];
+                Assert.AreEqual(expandOnCreate, treeNode.IsExpanded);
             }
         }
     }

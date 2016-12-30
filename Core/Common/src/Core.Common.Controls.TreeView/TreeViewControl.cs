@@ -564,6 +564,11 @@ namespace Core.Common.Controls.TreeView
                 }
                 treeNode.StateImageIndex = treeNode.Checked ? checkedCheckBoxStateImageIndex : uncheckedCheckBoxStateImageIndex;
             }
+
+            if (treeNodeInfo.ExpandOnCreate != null && treeNodeInfo.ExpandOnCreate(treeNode.Tag))
+            {
+                treeNode.Expand();
+            }
         }
 
         private void RefreshChildNodes(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
