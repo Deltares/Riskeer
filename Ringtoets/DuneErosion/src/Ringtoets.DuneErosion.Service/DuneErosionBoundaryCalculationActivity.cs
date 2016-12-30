@@ -35,6 +35,7 @@ namespace Ringtoets.DuneErosion.Service
         private readonly DuneLocation duneLocation;
         private readonly DuneErosionFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+        private readonly DuneErosionBoundaryCalculationService calculationService;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionBoundaryCalculationActivity"/>.
@@ -65,12 +66,23 @@ namespace Ringtoets.DuneErosion.Service
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
+            calculationService = new DuneErosionBoundaryCalculationService();
+
             Name = duneLocation.Name;
         }
 
-        protected override void PerformCalculation() {}
+        protected override void PerformCalculation()
+        {
+            calculationService.Calculate(duneLocation,
+                                         failureMechanism,
+                                         assessmentSection,
+                                         assessmentSection.HydraulicBoundaryDatabase.FilePath);
+        }
 
-        protected override void OnCancel() {}
+        protected override void OnCancel()
+        {
+            calculationService.Cancel();
+        }
 
         protected override void OnFinish() {}
     }
