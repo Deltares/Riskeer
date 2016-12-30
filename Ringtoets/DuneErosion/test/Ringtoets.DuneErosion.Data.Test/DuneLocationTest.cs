@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
@@ -56,6 +57,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             var duneLocation = new DuneLocation(id, name, location, coastalAreaId, offset, orientation, d50);
 
             // Assert
+            Assert.IsInstanceOf<Observable>(duneLocation);
             Assert.AreEqual(id, duneLocation.Id);
             Assert.AreEqual(name, duneLocation.Name);
             Assert.AreSame(location, duneLocation.Location);

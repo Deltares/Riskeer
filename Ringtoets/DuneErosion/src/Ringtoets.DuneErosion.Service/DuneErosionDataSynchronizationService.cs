@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
@@ -82,6 +83,26 @@ namespace Ringtoets.DuneErosion.Service
                         break;
                     }
                 }
+            }
+        }
+
+        public static IEnumerable<IObservable> ClearDuneLocationOutput(ObservableList<DuneLocation> locations)
+        {
+            if (locations == null)
+            {
+                throw new ArgumentNullException("locations");
+            }
+
+            return locations.SelectMany(ClearDuneLocationOutput)
+                            .ToArray();
+        }
+
+        private static IEnumerable<IObservable> ClearDuneLocationOutput(DuneLocation location)
+        {
+            if (location.Output != null)
+            {
+                location.Output = null;
+                yield return location;
             }
         }
     }

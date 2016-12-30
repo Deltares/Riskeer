@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -144,6 +146,38 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
+        }
+
+        [Test]
+        public void ClearDuneLocationOutput_locationsNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => DuneErosionDataSynchronizationService.ClearDuneLocationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("locations", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearDuneLocationOutput_LocationWithOutput_OutputClearedAndAffectedItemReturned()
+        {
+            // Setup
+            var location = new TestDuneLocation
+            {
+                Output = new DuneLocationOutput(0, 0, 0, 0, 0, 0, 0, CalculationConvergence.NotCalculated)
+            };
+
+            // Call
+            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneLocationOutput(
+                new ObservableList<DuneLocation>
+                {
+                    location
+                });
+
+            // Assert
+            Assert.IsNull(location.Output);
+            CollectionAssert.AreEqual(new[] { location }, affected);
         }
     }
 }

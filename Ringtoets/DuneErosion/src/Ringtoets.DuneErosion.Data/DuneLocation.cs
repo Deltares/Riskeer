@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
@@ -28,7 +29,7 @@ namespace Ringtoets.DuneErosion.Data
     /// <summary>
     /// Location of a dune.
     /// </summary>
-    public class DuneLocation
+    public class DuneLocation : Observable
     {
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocation"/>.
