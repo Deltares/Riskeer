@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
@@ -41,7 +42,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler(mocks);
+            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler = CreateSimpleHandler(mocks);
             mocks.ReplayAll();
 
             // Call
@@ -71,7 +72,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             MockRepository mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler changeHandler = CreateSimpleHandler(mocks);
+            IFailureMechanismPropertyChangeHandler<IFailureMechanism> changeHandler = CreateSimpleHandler(mocks);
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -214,7 +215,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
 
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             handler.Expect(h => h.ConfirmPropertyChange()).Return(true);
 
             mockRepository.ReplayAll();
@@ -249,7 +250,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var observableMock = mockRepository.StrictMock<IObservable>();
             observableMock.Expect(o => o.NotifyObservers());
 
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             handler.Expect(h => h.ConfirmPropertyChange()).Return(true);
             handler.Expect(h => h.PropertyChanged(failureMechanism)).Return(new[] { observableMock });
 
@@ -282,7 +283,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
 
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             handler.Expect(h => h.ConfirmPropertyChange()).Return(false);
 
             mockRepository.ReplayAll();
@@ -302,9 +303,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        private IFailureMechanismPropertyChangeHandler CreateSimpleHandler(MockRepository mockRepository)
+        private IFailureMechanismPropertyChangeHandler<IFailureMechanism> CreateSimpleHandler(MockRepository mockRepository)
         {
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             handler.Stub(h => h.ConfirmPropertyChange()).Return(true);
             handler.Stub(h => h.PropertyChanged(Arg<ClosingStructuresFailureMechanism>.Is.NotNull)).Return(Enumerable.Empty<IObservable>());
 

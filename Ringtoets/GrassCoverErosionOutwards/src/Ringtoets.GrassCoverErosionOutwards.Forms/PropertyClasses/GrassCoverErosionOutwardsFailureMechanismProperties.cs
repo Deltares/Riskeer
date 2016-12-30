@@ -25,6 +25,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using log4net;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -40,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     public class GrassCoverErosionOutwardsFailureMechanismProperties : ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsFailureMechanismProperties));
-        private readonly IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler changeHandler;
+        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> changeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsContextProperties"/>.
@@ -50,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsFailureMechanismProperties(
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-            IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler changeHandler)
+            IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> changeHandler)
         {
             if (failureMechanism == null)
             {

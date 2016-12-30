@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Forms;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
-using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms
 {
@@ -15,16 +14,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
     /// Class which properly handles data model changes due to a change of a
     /// grass cover erosion outwards failure mechanism property.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler : IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler
+    public class GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler : FailureMechanismPropertyChangeHandler, IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>
     {
-        private readonly FailureMechanismPropertyChangeHandler failureMechanismPropertyChangeHandler = new FailureMechanismPropertyChangeHandler();
-
-        public bool ConfirmPropertyChange()
+        protected override string ConfirmationMessage
         {
-            DialogResult result = MessageBox.Show(Resources.GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data,
-                                                  CoreCommonBaseResources.Confirm,
-                                                  MessageBoxButtons.OKCancel);
-            return result == DialogResult.OK;
+            get
+            {
+                return Resources.GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data;
+            }
         }
 
         public IEnumerable<IObservable> PropertyChanged(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
@@ -36,7 +33,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
 
             var affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
                 failureMechanism.HydraulicBoundaryLocations);
-            return affectedObjects.Concat(failureMechanismPropertyChangeHandler.PropertyChanged(failureMechanism));
+            return affectedObjects.Concat(base.PropertyChanged(failureMechanism));
         }
     }
 }

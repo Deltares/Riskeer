@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
@@ -37,7 +38,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// </summary>
     public class PipingFailureMechanismContextProperties : ObjectProperties<PipingFailureMechanismContext>
     {
-        private readonly IFailureMechanismPropertyChangeHandler propertyChangeHandler;
+        private readonly IFailureMechanismPropertyChangeHandler<IFailureMechanism> propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismContextProperties"/>.
@@ -47,7 +48,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public PipingFailureMechanismContextProperties(
             PipingFailureMechanismContext data,
-            IFailureMechanismPropertyChangeHandler handler)
+            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler)
         {
             if (data == null)
             {

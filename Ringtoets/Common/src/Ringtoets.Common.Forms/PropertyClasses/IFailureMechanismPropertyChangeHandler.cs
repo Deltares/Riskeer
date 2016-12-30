@@ -9,7 +9,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// Interface for an object that can properly handle data model changes due to a change of a
     /// failure mechanism property.
     /// </summary>
-    public interface IFailureMechanismPropertyChangeHandler
+    public interface IFailureMechanismPropertyChangeHandler<in T> where T : IFailureMechanism
     {
         /// <summary>
         /// Checks to see if the change of the failure mechanism property should occur or not.
@@ -25,6 +25,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <returns>All objects that have been affected by the change.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        IEnumerable<IObservable> PropertyChanged(IFailureMechanism failureMechanism);
+        IEnumerable<IObservable> PropertyChanged(T failureMechanism);
     }
 }

@@ -43,101 +43,121 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_WithoutFailureMechanismContribution_ThrowsArgumentNullException()
         {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismChangeHandler = mockRepository.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mockRepository.ReplayAll();
+
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
                 null,
-                new AssessmentSection(AssessmentSectionComposition.Dike),
-                new FailureMechanismContributionNormChangeHandler(), 
-                new AssessmentSectionCompositionChangeHandler());
+                assessmentSection,
+                failureMechanismChangeHandler,
+                assessmentSectionChangeHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanismContribution", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithoutAssessmentSection_ThrowsArgumentNullException()
         {
+            // Setup
+            var mockRepository = new MockRepository();
+            var failureMechanismChangeHandler = mockRepository.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), double.NaN, 0);
+
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
-                new AssessmentSection(AssessmentSectionComposition.Dike).FailureMechanismContribution,
+                failureMechanismContribution,
                 null,
-                new FailureMechanismContributionNormChangeHandler(), 
-                new AssessmentSectionCompositionChangeHandler());
+                failureMechanismChangeHandler,
+                assessmentSectionChangeHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithoutFailureMechanismContributionNormChangeHandler_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), double.NaN, 0);
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
-                assessmentSection.FailureMechanismContribution,
+                failureMechanismContribution,
                 assessmentSection,
-                null, 
-                new AssessmentSectionCompositionChangeHandler());
+                null,
+                assessmentSectionChangeHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("normChangeHandler", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithoutAssessmentSectionCompositionChangeHandler_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismChangeHandler = mockRepository.Stub<IFailureMechanismContributionNormChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), double.NaN, 0);
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
-                assessmentSection.FailureMechanismContribution,
+                failureMechanismContribution,
                 assessmentSection,
-                new FailureMechanismContributionNormChangeHandler(),
+                failureMechanismChangeHandler,
                 null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("compositionChangeHandler", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithValidParameters_DataSet()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismChangeHandler = mockRepository.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), double.NaN, 0);
 
             // Call
             var properties = new FailureMechanismContributionProperties(
-                assessmentSection.FailureMechanismContribution,
+                failureMechanismContribution,
                 assessmentSection,
-                new FailureMechanismContributionNormChangeHandler(),
-                new AssessmentSectionCompositionChangeHandler());
+                failureMechanismChangeHandler,
+                assessmentSectionChangeHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<FailureMechanismContribution>>(properties);
-            Assert.AreSame(assessmentSection.FailureMechanismContribution, properties.Data);
-        }
+            Assert.AreSame(failureMechanismContribution, properties.Data);
 
-        [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            // Call
-            var properties = new FailureMechanismContributionProperties(
-                assessmentSection.FailureMechanismContribution,
-                assessmentSection,
-                new FailureMechanismContributionNormChangeHandler(),
-                new AssessmentSectionCompositionChangeHandler());
-
-            // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
             {
@@ -169,25 +189,23 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionComposition = AssessmentSectionComposition.DikeAndDune;
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.Composition).Return(assessmentSectionComposition);
+            var failureMechanismChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
+            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             mocks.ReplayAll();
 
             int returnPeriod = 30000;
-            var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0/returnPeriod);
+            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1.1, 1.0/returnPeriod);
 
+            // Call
             var properties = new FailureMechanismContributionProperties(
                 contribution,
                 assessmentSection,
-                new FailureMechanismContributionNormChangeHandler(),
-                new AssessmentSectionCompositionChangeHandler());
-
-            // Call
-            int returnPeriodPropertyValue = properties.ReturnPeriod;
-            AssessmentSectionComposition compositionPropertyValue = properties.AssessmentSectionComposition;
+                failureMechanismChangeHandler,
+                assessmentSectionChangeHandler);
 
             // Assert
-            Assert.AreEqual(returnPeriod, returnPeriodPropertyValue);
-            Assert.AreEqual(assessmentSectionComposition, compositionPropertyValue);
+            Assert.AreEqual(returnPeriod, properties.ReturnPeriod);
+            Assert.AreEqual(assessmentSectionComposition, properties.AssessmentSectionComposition);
             mocks.VerifyAll();
         }
         

@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
@@ -57,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
             // Setup
-            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler();
+            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler = CreateSimpleHandler();
             mockRepository.ReplayAll();
 
             // Call
@@ -92,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler();
+            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler = CreateSimpleHandler();
 
             mockRepository.ReplayAll();
 
@@ -126,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler();
+            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler = CreateSimpleHandler();
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -207,7 +208,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
-            var changeHandler = mockRepository.StrictMock<IFailureMechanismPropertyChangeHandler>();
+            var changeHandler = mockRepository.StrictMock<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(true);
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -244,7 +245,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var observableMock = mockRepository.StrictMock<IObservable>();
             observableMock.Expect(o => o.NotifyObservers());
 
-            var changeHandler = mockRepository.StrictMock<IFailureMechanismPropertyChangeHandler>();
+            var changeHandler = mockRepository.StrictMock<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(true);
             changeHandler.Expect(h => h.PropertyChanged(failureMechanism)).Return(new[] { observableMock });
 
@@ -278,7 +279,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
 
-            var changeHandler = mockRepository.StrictMock<IFailureMechanismPropertyChangeHandler>();
+            var changeHandler = mockRepository.StrictMock<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(false);
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -291,7 +292,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
                 new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock),
                 changeHandler);
-            var oldValue = properties.LengthEffect;
+            int oldValue = properties.LengthEffect;
 
             // Call
             properties.LengthEffect = newLengthEffect;
@@ -301,9 +302,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        private IFailureMechanismPropertyChangeHandler CreateSimpleHandler()
+        private IFailureMechanismPropertyChangeHandler<IFailureMechanism> CreateSimpleHandler()
         {
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             handler.Stub(h => h.ConfirmPropertyChange()).Return(true);
             handler.Stub(h => h.PropertyChanged(Arg<GrassCoverErosionInwardsFailureMechanism>.Is.NotNull)).Return(Enumerable.Empty<IObservable>());
 

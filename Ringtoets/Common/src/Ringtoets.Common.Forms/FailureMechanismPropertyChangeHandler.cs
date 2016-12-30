@@ -14,17 +14,17 @@ namespace Ringtoets.Common.Forms
     /// Class which properly handles data model changes due to a change of a
     /// failure mechanism property.
     /// </summary>
-    public class FailureMechanismPropertyChangeHandler : IFailureMechanismPropertyChangeHandler
+    public class FailureMechanismPropertyChangeHandler : IFailureMechanismPropertyChangeHandler<IFailureMechanism>
     {
         public bool ConfirmPropertyChange()
         {
-            DialogResult result = MessageBox.Show(Resources.FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data,
+            DialogResult result = MessageBox.Show(ConfirmationMessage,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> PropertyChanged(IFailureMechanism failureMechanism)
+        public virtual IEnumerable<IObservable> PropertyChanged(IFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -37,6 +37,17 @@ namespace Ringtoets.Common.Forms
                 calculation.ClearOutput();
             }
             return affected;
+        }
+
+        /// <summary>
+        /// Gets the message that is shown when conformation is inquired.
+        /// </summary>
+        protected virtual string ConfirmationMessage
+        {
+            get
+            {
+                return Resources.FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data;
+            }
         }
     }
 }

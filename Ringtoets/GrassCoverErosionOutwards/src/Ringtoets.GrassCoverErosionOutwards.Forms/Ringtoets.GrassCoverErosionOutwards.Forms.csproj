@@ -47,7 +47,6 @@
     </Compile>
     <Compile Include="GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationHelper.cs" />
-    <Compile Include="IGrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler.cs" />
     <Compile Include="PresentationObjects\EmptyGrassCoverErosionOutwardsOutput.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundaryLocationContext.cs" />

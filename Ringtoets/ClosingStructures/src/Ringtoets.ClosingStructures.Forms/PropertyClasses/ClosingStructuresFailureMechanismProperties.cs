@@ -28,6 +28,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.Properties;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -51,7 +52,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         private const int modelFactorSubCriticalFlowPropertyIndex = 9;
         private const int modelFactorInflowVolumePropertyIndex = 10;
 
-        private readonly IFailureMechanismPropertyChangeHandler propertyChangeHandler;
+        private readonly IFailureMechanismPropertyChangeHandler<IFailureMechanism> propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismProperties"/>.
@@ -61,7 +62,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public ClosingStructuresFailureMechanismProperties(
             ClosingStructuresFailureMechanism data,
-            IFailureMechanismPropertyChangeHandler handler)
+            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler)
         {
             if (data == null)
             {

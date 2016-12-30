@@ -42,7 +42,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 
-namespace Ringtoets.Integration.Forms.Test
+namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class FailureMechanismContributionPropertiesIntegrationTest : NUnitFormTest

@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
@@ -45,7 +46,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler(mocks);
+            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler = CreateSimpleHandler(mocks);
             mocks.ReplayAll();
 
             // Call
@@ -84,7 +85,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler(mockRepository);
+            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler = CreateSimpleHandler(mockRepository);
             mockRepository.ReplayAll();
 
             // Call
@@ -127,7 +128,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler(mockRepository);
+            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler = CreateSimpleHandler(mockRepository);
 
             mockRepository.ReplayAll();
 
@@ -265,7 +266,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observerMock = mocks.StrictMock<IObserver>();
 
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(true);
 
             mocks.ReplayAll();
@@ -306,7 +307,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var observableMock = mocks.StrictMock<IObservable>();
             observableMock.Expect(o => o.NotifyObservers());
 
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(true);
             changeHandler.Expect(h => h.PropertyChanged(failureMechanism)).Return(new [] { observableMock });
 
@@ -342,7 +343,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
 
-            var changeHandler = mockRepository.StrictMock<IFailureMechanismPropertyChangeHandler>();
+            var changeHandler = mockRepository.StrictMock<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(false);
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -355,7 +356,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingFailureMechanismContextProperties(
                 new PipingFailureMechanismContext(failureMechanism, assessmentSection),
                 changeHandler);
-            var oldValue = properties.A;
+            double oldValue = properties.A;
 
             // Call
             properties.A = value;
@@ -379,7 +380,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var observerMock = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(true);
 
             mocks.ReplayAll();
@@ -416,7 +417,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var observableMock = mocks.StrictMock<IObservable>();
             observableMock.Expect(o => o.NotifyObservers());
 
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler>();
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             handler.Expect(h => h.ConfirmPropertyChange()).Return(true);
             handler.Expect(h => h.PropertyChanged(failureMechanism)).Return(new[] { observableMock });
 
@@ -452,7 +453,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var observerMock = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            var changeHandler = mocks.StrictMock<IFailureMechanismPropertyChangeHandler>();
+            var changeHandler = mocks.StrictMock<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             changeHandler.Expect(h => h.ConfirmPropertyChange()).Return(false);
 
             mocks.ReplayAll();
@@ -464,7 +465,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 new PipingFailureMechanismContext(failureMechanism, assessmentSection),
                 changeHandler);
 
-            var oldValue = properties.WaterVolumetricWeight;
+            RoundedDouble oldValue = properties.WaterVolumetricWeight;
 
             // Call            
             properties.WaterVolumetricWeight = (RoundedDouble) value;
@@ -474,9 +475,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-        private IFailureMechanismPropertyChangeHandler CreateSimpleHandler(MockRepository mockRepository)
+        private IFailureMechanismPropertyChangeHandler<IFailureMechanism> CreateSimpleHandler(MockRepository mockRepository)
         {
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler>();
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
             handler.Stub(h => h.ConfirmPropertyChange()).Return(true);
             handler.Stub(h => h.PropertyChanged(Arg<PipingFailureMechanism>.Is.NotNull)).Return(Enumerable.Empty<IObservable>());
 

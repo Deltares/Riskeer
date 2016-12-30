@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
@@ -38,7 +39,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismContextProperties : ObjectProperties<GrassCoverErosionInwardsFailureMechanismContext>
     {
-        private readonly IFailureMechanismPropertyChangeHandler propertyChangeHandler;
+        private readonly IFailureMechanismPropertyChangeHandler<IFailureMechanism> propertyChangeHandler;
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int lengthEffectPropertyIndex = 3;
@@ -55,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismContextProperties(
             GrassCoverErosionInwardsFailureMechanismContext data, 
-            IFailureMechanismPropertyChangeHandler handler)
+            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler)
         {
             if (data == null)
             {
