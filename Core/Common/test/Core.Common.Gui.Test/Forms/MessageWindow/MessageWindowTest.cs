@@ -247,7 +247,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 };
 
                 var gridView = new ControlTester("messagesDataGridView");
-                messageWindow.AddMessage(Level.Warn, new DateTime(), "TestDetailedMessage");
+                messageWindow.AddMessage(Level.Warn, new DateTime(), detailedMessage);
                 messageWindow.Refresh();
                 int rowHeaderColumnIndex = ((DataGridView) gridView.TheObject).Rows[0].HeaderCell.ColumnIndex;
 
