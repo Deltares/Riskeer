@@ -220,6 +220,49 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
+        public void ShowDetailsButton_DoubleClickOnRowHeader_DoesShowMessageWindowDialog()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+            const string detailedMessage = "TestDetailedMessage";
+
+            using (var form = new Form())
+            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(dialogParent))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                string dialogTitle = null;
+                string dialogText = null;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialogTester = new FormTester(name);
+                    dialogTitle = ((Form)dialogTester.TheObject).Text;
+                    var testBoxTester = new TextBoxTester("textBox");
+                    dialogText = testBoxTester.Text;
+                    dialogTester.Close();
+                };
+
+                var gridView = new ControlTester("messagesDataGridView");
+                messageWindow.AddMessage(Level.Warn, new DateTime(), "TestDetailedMessage");
+                messageWindow.Refresh();
+                int rowHeaderColumnIndex = ((DataGridView) gridView.TheObject).Rows[0].HeaderCell.ColumnIndex;
+
+                // Call
+                gridView.FireEvent("CellMouseDoubleClick", new DataGridViewCellMouseEventArgs(
+                                       rowHeaderColumnIndex, 0, 0, 0,
+                                       new MouseEventArgs(MouseButtons.Left, 2, 0, 0, 0)));
+
+                // Assert
+                Assert.AreEqual("Berichtdetails", dialogTitle);
+                Assert.AreEqual(detailedMessage, dialogText);
+            }
+        }
+
+        [Test]
         public void ShowDetailsButton_DoubleClickOnColumnHeader_DoNotShowMessageWindowDialog()
         {
             // Setup
@@ -232,36 +275,11 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 var gridView = new ControlTester("messagesDataGridView");
                 messageWindow.AddMessage(Level.Warn, new DateTime(), "TestDetailedMessage");
                 messageWindow.Refresh();
-                int columnIndex = ((DataGridView) gridView.TheObject).Rows[0].HeaderCell.ColumnIndex;
+                int columnHeaderRowIndex = ((DataGridView) gridView.TheObject).Columns[0].HeaderCell.RowIndex;
 
                 // Call
                 gridView.FireEvent("CellMouseDoubleClick", new DataGridViewCellMouseEventArgs(
-                                       columnIndex, 0, 0, 0,
-                                       new MouseEventArgs(MouseButtons.Left, 2, 0, 0, 0)));
-
-                // Assert
-                // No dialog window shown
-            }
-        }
-
-        [Test]
-        public void ShowDetailsButton_DoubleClickOnRowHeader_DoNotShowMessageWindowDialog()
-        {
-            // Setup
-            using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
-            {
-                form.Controls.Add(messageWindow);
-                form.Show();
-
-                var gridView = new ControlTester("messagesDataGridView");
-                messageWindow.AddMessage(Level.Warn, new DateTime(), "TestDetailedMessage");
-                messageWindow.Refresh();
-                int rowIndex = ((DataGridView) gridView.TheObject).Columns[0].HeaderCell.RowIndex;
-
-                // Call
-                gridView.FireEvent("CellMouseDoubleClick", new DataGridViewCellMouseEventArgs(
-                                       0, rowIndex, 0, 0,
+                                       0, columnHeaderRowIndex, 0, 0,
                                        new MouseEventArgs(MouseButtons.Left, 2, 0, 0, 0)));
 
                 // Assert

@@ -281,7 +281,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
         private void MessagesDataGridViewCellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && e.ColumnIndex > -1 && e.RowIndex > -1)
+            if (e.Button == MouseButtons.Left && e.RowIndex > -1)
             {
                 ShowMessageWindowDialog();
             }
