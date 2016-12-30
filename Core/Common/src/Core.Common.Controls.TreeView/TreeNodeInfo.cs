@@ -69,6 +69,12 @@ namespace Core.Common.Controls.TreeView
         public Func<object, object, bool> EnsureVisibleOnCreate { get; set; }
 
         /// <summary>
+        /// Gets or sets a function for determining whether or not the tree node should be expanded on creation.
+        /// The <c>object</c> parameter represents the data of the tree node.
+        /// </summary>
+        public Func<object, bool> ExpandOnCreate { get; set; }
+
+        /// <summary>
         /// Gets or sets a function for obtaining child node objects.
         /// The <c>object</c> parameter represents the data of the tree node.
         /// </summary>
@@ -207,6 +213,12 @@ namespace Core.Common.Controls.TreeView
         public Func<TData, object, bool> EnsureVisibleOnCreate { get; set; }
 
         /// <summary>
+        /// Gets or sets a function for determining whether or not the tree node should be expanded on creation.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
+        /// </summary>
+        public Func<TData, bool> ExpandOnCreate { get; set; }
+
+        /// <summary>
         /// Gets or sets a function for obtaining child node objects.
         /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// </summary>
@@ -318,6 +330,9 @@ namespace Core.Common.Controls.TreeView
                 EnsureVisibleOnCreate = treeNodeInfo.EnsureVisibleOnCreate != null
                                             ? (tag, parentTag) => treeNodeInfo.EnsureVisibleOnCreate((TData) tag, parentTag)
                                             : (Func<object, object, bool>) null,
+                ExpandOnCreate = treeNodeInfo.ExpandOnCreate != null
+                                     ? tag => treeNodeInfo.ExpandOnCreate((TData) tag)
+                                     : (Func<object, bool>) null,
                 ChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
                                        ? tag => treeNodeInfo.ChildNodeObjects((TData) tag)
                                        : (Func<object, object[]>) null,

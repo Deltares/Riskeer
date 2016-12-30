@@ -42,6 +42,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsNull(treeNodeInfo.Image);
             Assert.IsNull(treeNodeInfo.ContextMenuStrip);
             Assert.IsNull(treeNodeInfo.EnsureVisibleOnCreate);
+            Assert.IsNull(treeNodeInfo.ExpandOnCreate);
             Assert.IsNull(treeNodeInfo.ChildNodeObjects);
             Assert.IsNull(treeNodeInfo.CanRename);
             Assert.IsNull(treeNodeInfo.OnNodeRenamed);
@@ -67,6 +68,7 @@ namespace Core.Common.Controls.TreeView.Test
             Func<object, Image> image = o => new Bitmap(16, 16);
             Func<object, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (o1, o2, tvc) => new ContextMenuStrip();
             Func<object, object, bool> ensureVisibleOnCreate = (o, p) => true;
+            Func<object, bool> expandOnCreate = o => true;
             Func<object, object[]> childNodeObjects = o => new object[0];
             Func<object, object, bool> canRename = (o1, o2) => true;
             Action<object, string> onNodeRenamed = (o, newName) => { };
@@ -87,6 +89,7 @@ namespace Core.Common.Controls.TreeView.Test
             treeNodeInfo.Image = image;
             treeNodeInfo.ContextMenuStrip = contextMenuStrip;
             treeNodeInfo.EnsureVisibleOnCreate = ensureVisibleOnCreate;
+            treeNodeInfo.ExpandOnCreate = expandOnCreate;
             treeNodeInfo.ChildNodeObjects = childNodeObjects;
             treeNodeInfo.CanRename = canRename;
             treeNodeInfo.OnNodeRenamed = onNodeRenamed;
@@ -107,6 +110,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.AreEqual(image, treeNodeInfo.Image);
             Assert.AreEqual(contextMenuStrip, treeNodeInfo.ContextMenuStrip);
             Assert.AreEqual(ensureVisibleOnCreate, treeNodeInfo.EnsureVisibleOnCreate);
+            Assert.AreEqual(expandOnCreate, treeNodeInfo.ExpandOnCreate);
             Assert.AreEqual(childNodeObjects, treeNodeInfo.ChildNodeObjects);
             Assert.AreEqual(canRename, treeNodeInfo.CanRename);
             Assert.AreEqual(onNodeRenamed, treeNodeInfo.OnNodeRenamed);
@@ -134,6 +138,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsNull(treeNodeInfo.Image);
             Assert.IsNull(treeNodeInfo.ContextMenuStrip);
             Assert.IsNull(treeNodeInfo.EnsureVisibleOnCreate);
+            Assert.IsNull(treeNodeInfo.ExpandOnCreate);
             Assert.IsNull(treeNodeInfo.ChildNodeObjects);
             Assert.IsNull(treeNodeInfo.CanRename);
             Assert.IsNull(treeNodeInfo.OnNodeRenamed);
@@ -158,6 +163,7 @@ namespace Core.Common.Controls.TreeView.Test
             Func<int, Image> image = o => new Bitmap(16, 16);
             Func<int, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (o1, o2, tvc) => new ContextMenuStrip();
             Func<int, object, bool> ensureVisibleOnCreate = (o, p) => true;
+            Func<int, bool> expandOnCreate = o => true;
             Func<int, object[]> childNodeObjects = o => new object[0];
             Func<int, object, bool> canRename = (o1, o2) => true;
             Action<int, string> onNodeRenamed = (o, newName) => { };
@@ -177,6 +183,7 @@ namespace Core.Common.Controls.TreeView.Test
             treeNodeInfo.Image = image;
             treeNodeInfo.ContextMenuStrip = contextMenuStrip;
             treeNodeInfo.EnsureVisibleOnCreate = ensureVisibleOnCreate;
+            treeNodeInfo.ExpandOnCreate = expandOnCreate;
             treeNodeInfo.ChildNodeObjects = childNodeObjects;
             treeNodeInfo.CanRename = canRename;
             treeNodeInfo.OnNodeRenamed = onNodeRenamed;
@@ -197,6 +204,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.AreEqual(image, treeNodeInfo.Image);
             Assert.AreEqual(contextMenuStrip, treeNodeInfo.ContextMenuStrip);
             Assert.AreEqual(ensureVisibleOnCreate, treeNodeInfo.EnsureVisibleOnCreate);
+            Assert.AreEqual(expandOnCreate, treeNodeInfo.ExpandOnCreate);
             Assert.AreEqual(childNodeObjects, treeNodeInfo.ChildNodeObjects);
             Assert.AreEqual(canRename, treeNodeInfo.CanRename);
             Assert.AreEqual(onNodeRenamed, treeNodeInfo.OnNodeRenamed);
@@ -229,6 +237,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsNull(treeNodeInfo.Image);
             Assert.IsNull(treeNodeInfo.ContextMenuStrip);
             Assert.IsNull(treeNodeInfo.EnsureVisibleOnCreate);
+            Assert.IsNull(treeNodeInfo.ExpandOnCreate);
             Assert.IsNull(treeNodeInfo.ChildNodeObjects);
             Assert.IsNull(treeNodeInfo.CanRename);
             Assert.IsNull(treeNodeInfo.OnNodeRenamed);
@@ -265,6 +274,7 @@ namespace Core.Common.Controls.TreeView.Test
                     }
                 },
                 EnsureVisibleOnCreate = (o, p) => true,
+                ExpandOnCreate = o => true,
                 ChildNodeObjects = o => new[]
                 {
                     new object()
@@ -302,6 +312,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.AreEqual(Color.Azure, treeNodeInfo.ForeColor(0));
             Assert.AreEqual(16, treeNodeInfo.Image(0).Height);
             Assert.IsTrue(treeNodeInfo.EnsureVisibleOnCreate(0, 1));
+            Assert.IsTrue(treeNodeInfo.ExpandOnCreate(0));
             Assert.AreEqual(1, treeNodeInfo.ChildNodeObjects(0).Length);
             Assert.IsTrue(treeNodeInfo.CanRename(0, 1));
             Assert.IsTrue(treeNodeInfo.CanRemove(0, 1));
