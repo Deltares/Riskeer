@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -34,6 +35,7 @@ using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.Service.Test
 {
@@ -139,6 +141,119 @@ namespace Ringtoets.DuneErosion.Service.Test
             }
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CalculationRan_SetOutput()
+        {
+            // Setup
+            const double norm = 1.0/200;
+            const double contribution = 10;
+            const string ringId = "1";
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = contribution
+            };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return(ringId);
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+                                                                         {
+                                                                             failureMechanism
+                                                                         });
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
+                                                                                                                {
+                                                                                                                    failureMechanism
+                                                                                                                }, 1, norm));
+            mocks.ReplayAll();
+
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+
+            // Precondition
+            Assert.IsNull(duneLocation.Output);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
+                testCalculator.ReliabilityIndex = 3.27052;
+                testCalculator.WaterLevel = 4.82912;
+                testCalculator.WaveHeight = 2.88936;
+                testCalculator.WavePeriod = 10.65437;
+
+                // Call
+                Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessages(test, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", duneLocation.Name), msgs[0]);
+                    StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[2]);
+                });
+                double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+                double targetReliability = StatisticsConverter.ProbabilityToReliability(mechanismSpecificNorm);
+                double calculatedProbability = StatisticsConverter.ReliabilityToProbability(testCalculator.ReliabilityIndex);
+
+                Assert.IsNotNull(duneLocation.Output);
+                Assert.AreEqual(testCalculator.ReliabilityIndex, duneLocation.Output.CalculatedReliability.Value);
+                Assert.AreEqual(calculatedProbability, duneLocation.Output.CalculatedProbability);
+                Assert.AreEqual(mechanismSpecificNorm, duneLocation.Output.TargetProbability);
+                Assert.AreEqual(targetReliability, duneLocation.Output.TargetReliability, duneLocation.Output.TargetReliability.GetAccuracy());
+                Assert.AreEqual(testCalculator.WaterLevel, duneLocation.Output.WaterLevel, duneLocation.Output.WaterLevel.GetAccuracy());
+                Assert.AreEqual(testCalculator.WaveHeight, duneLocation.Output.WaveHeight, duneLocation.Output.WaveHeight.GetAccuracy());
+                Assert.AreEqual(testCalculator.WavePeriod, duneLocation.Output.WavePeriod, duneLocation.Output.WavePeriod.GetAccuracy());
+            }
+        }
+
+        [Test]
+        public void Calculate_CalculationRanNotConverged_LogMessage()
+        {
+            // Setup
+            const double norm = 1.0/200;
+            const double contribution = 10;
+            const string ringId = "1";
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = contribution
+            };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return(ringId);
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+                                                                         {
+                                                                             failureMechanism
+                                                                         });
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
+                                                                                                                {
+                                                                                                                    failureMechanism
+                                                                                                                }, 1, norm));
+            mocks.ReplayAll();
+
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
+                testCalculator.ReliabilityIndex = 0.01;                
+
+                // Call
+                Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessages(test, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", duneLocation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Duinafslag berekening voor locatie '{0}' is niet geconvergeerd.", duneLocation.Name), msgs[1]);
+                    StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[3]);
+                });
+            }
         }
 
         [Test]

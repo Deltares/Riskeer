@@ -111,5 +111,15 @@ namespace Ringtoets.DuneErosion.Service.Properties {
                         "on_no_error_report", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duinafslag berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
+        /// </summary>
+        internal static string DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_location_0_not_converged {
+            get {
+                return ResourceManager.GetString("DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_lo" +
+                        "cation_0_not_converged", resourceCulture);
+            }
+        }
     }
 }

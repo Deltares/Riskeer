@@ -127,4 +127,7 @@
   <data name="DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_no_error_report" xml:space="preserve">
     <value>De berekening voor duinafslag '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.</value>
   </data>
+  <data name="DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_location_0_not_converged" xml:space="preserve">
+    <value>Duinafslag berekening voor locatie '{0}' is niet geconvergeerd.</value>
+  </data>
 </root>

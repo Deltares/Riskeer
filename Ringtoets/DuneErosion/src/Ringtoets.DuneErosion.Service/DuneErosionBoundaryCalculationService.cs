@@ -21,8 +21,10 @@
 
 using System;
 using System.IO;
+using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service.Properties;
@@ -68,16 +70,24 @@ namespace Ringtoets.DuneErosion.Service
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
             var exceptionThrown = false;
-            var inputValid = false;
+            var inputValid = true;
             try
             {
-                DunesBoundaryConditionsCalculationInput calculationInput = CreateInput(duneLocation, failureMechanism, assessmentSection, hydraulicBoundaryDatabaseFilePath);
-                inputValid = true;
+                double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+                DunesBoundaryConditionsCalculationInput calculationInput = CreateInput(duneLocation, mechanismSpecificNorm, hydraulicBoundaryDatabaseFilePath);
                 calculator.Calculate(calculationInput);
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
+                    duneLocation.Output = CreateDuneLocationOutput(duneLocation.Name, calculationInput.Beta, mechanismSpecificNorm);
                 }
+            }
+            catch (ArgumentException e)
+            {
+                log.Error(e.Message);
+                exceptionThrown = true;
+                inputValid = false;
+                throw;
             }
             catch (HydraRingFileParserException)
             {
@@ -120,7 +130,6 @@ namespace Ringtoets.DuneErosion.Service
                 {
                     throw new HydraRingCalculationException(lastErrorFileContent);
                 }
-                
             }
         }
 
@@ -137,24 +146,30 @@ namespace Ringtoets.DuneErosion.Service
             canceled = true;
         }
 
+        private DuneLocationOutput CreateDuneLocationOutput(string duneLocationName, double targetReliability, double targetProbability)
+        {
+            var reliability = calculator.ReliabilityIndex;
+            var probability = StatisticsConverter.ReliabilityToProbability(reliability);
+
+            CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(
+                calculator.ReliabilityIndex, targetProbability);
+
+            if (converged != CalculationConvergence.CalculatedConverged)
+            {
+                log.WarnFormat(Resources.DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_location_0_not_converged, duneLocationName);
+            }
+
+            return new DuneLocationOutput(calculator.WaterLevel, calculator.WaveHeight,
+                                          calculator.WavePeriod, targetProbability,
+                                          targetReliability, probability,
+                                          reliability, converged);
+        }
+
         private static DunesBoundaryConditionsCalculationInput CreateInput(DuneLocation duneLocation,
-                                                                           DuneErosionFailureMechanism failureMechanism,
-                                                                           IAssessmentSection assessmentSection,
+                                                                           double norm,
                                                                            string hydraulicBoundaryDatabaseFilePath)
         {
-            double mechanismSpecificNorm;
-
-            try
-            {
-                mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
-            }
-            catch (ArgumentException e)
-            {
-                log.Error(e.Message);
-                throw;
-            }
-
-            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, mechanismSpecificNorm, duneLocation.Orientation);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, norm, duneLocation.Orientation);
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dunesBoundaryConditionsCalculationInput, hydraulicBoundaryDatabaseFilePath);
             return dunesBoundaryConditionsCalculationInput;
         }
