@@ -73,6 +73,12 @@ namespace Ringtoets.DuneErosion.Service
 
         protected override void PerformCalculation()
         {
+            if (duneLocation.Output != null)
+            {
+                State = ActivityState.Skipped;
+                return;
+            }
+
             calculationService.Calculate(duneLocation,
                                          failureMechanism,
                                          assessmentSection,

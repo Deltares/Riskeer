@@ -27,6 +27,7 @@ using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service;
@@ -84,7 +85,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
         }
 
         [Test]
-        public void Run_FailureMechanismContributionNUll_LogMessageAndActivityStateFailed()
+        public void Run_FailureMechanismContributionNull_LogMessageAndActivityStateFailed()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -151,6 +152,42 @@ namespace Ringtoets.DuneErosion.Integration.Test
 
                 // Assert
                 Assert.AreEqual(ActivityState.Failed, activity.State);
+            }
+        }
+
+        [Test]
+        public void Run_CalculationAlreadyPerformed_CalculationNotPerformedAndActivityStateSkipped()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                Id = "13-1"
+            };
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = 10
+            };
+            var initialOutput = new DuneLocationOutput(0, 0, 0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged);
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007)
+            {
+                Output = initialOutput
+            };
+
+            var activity = new DuneErosionBoundaryCalculationActivity(duneLocation, failureMechanism, assessmentSection);
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                // Call
+                activity.Run();
+
+                // Assert
+                Assert.AreEqual(ActivityState.Skipped, activity.State);
+                Assert.AreSame(initialOutput, duneLocation.Output);
             }
         }
     }
