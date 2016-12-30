@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = CreateSimpleHandler(new MockRepository());
+            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler(mocks);
             mocks.ReplayAll();
 
             // Call
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = CreateSimpleHandler(new MockRepository());
+            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler(mockRepository);
             mockRepository.ReplayAll();
 
             // Call
@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var handler = CreateSimpleHandler(new MockRepository());
+            IFailureMechanismPropertyChangeHandler handler = CreateSimpleHandler(mockRepository);
 
             mockRepository.ReplayAll();
 

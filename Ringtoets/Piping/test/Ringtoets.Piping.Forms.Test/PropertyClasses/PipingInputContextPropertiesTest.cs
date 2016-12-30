@@ -1654,7 +1654,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
+            {
+                InputParameters =
+                {
+                    UseAssessmentLevelManualInput = useCustomAssessmentLevel
+                }
+            };
+
             var context = new PipingInputContext(calculation.InputParameters, calculation,
                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                  Enumerable.Empty<StochasticSoilModel>(),
@@ -1665,7 +1673,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Data = context
             };
 
-            calculation.InputParameters.UseAssessmentLevelManualInput = useCustomAssessmentLevel;
 
             // Call
             var result = properties.DynamicReadOnlyValidationMethod("AssessmentLevel");
@@ -1698,7 +1705,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
+            {
+                InputParameters =
+                {
+                    UseAssessmentLevelManualInput = useCustomAssessmentLevel
+                }
+            };
+
             var context = new PipingInputContext(calculation.InputParameters, calculation,
                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                  Enumerable.Empty<StochasticSoilModel>(),
@@ -1709,7 +1724,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Data = context
             };
 
-            calculation.InputParameters.UseAssessmentLevelManualInput = useCustomAssessmentLevel;
 
             // Call
             var result = properties.DynamicVisibleValidationMethod("SelectedHydraulicBoundaryLocation");
@@ -1747,22 +1761,26 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+
             var calculationObserver = mocks.StrictMock<IObserver>();
-            var inputObserver = mocks.StrictMock<IObserver>();
             int numberOfChangedProperties = hasOutput ? 1 : 0;
             calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+
+            var inputObserver = mocks.StrictMock<IObserver>();
             inputObserver.Expect(o => o.UpdateObserver());
+
             mocks.ReplayAll();
-            
+
             if (hasOutput)
             {
                 calculation.Output = new TestPipingOutput();
             }
-            var failureMechanism = new PipingFailureMechanism();
+            calculation.Attach(calculationObserver);
 
             PipingInput inputParameters = calculation.InputParameters;
-            calculation.Attach(calculationObserver);
             inputParameters.Attach(inputObserver);
+
+            var failureMechanism = new PipingFailureMechanism();
 
             var properties = new PipingInputContextProperties
             {
