@@ -71,7 +71,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(DuneErosionFailureMechanismContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);

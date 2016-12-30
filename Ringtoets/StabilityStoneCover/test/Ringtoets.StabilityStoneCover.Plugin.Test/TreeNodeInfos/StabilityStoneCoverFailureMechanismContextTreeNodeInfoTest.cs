@@ -71,7 +71,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);

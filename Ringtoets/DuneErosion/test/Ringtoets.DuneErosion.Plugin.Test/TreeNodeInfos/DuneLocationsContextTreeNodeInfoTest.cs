@@ -78,7 +78,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(DuneLocationsContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);

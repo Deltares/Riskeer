@@ -84,7 +84,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);

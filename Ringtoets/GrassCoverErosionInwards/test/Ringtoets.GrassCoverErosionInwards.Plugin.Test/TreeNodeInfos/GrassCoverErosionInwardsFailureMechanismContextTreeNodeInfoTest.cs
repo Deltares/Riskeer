@@ -78,7 +78,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);

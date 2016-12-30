@@ -93,7 +93,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(StabilityPointStructuresCalculationGroupContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);

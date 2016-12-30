@@ -58,7 +58,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);

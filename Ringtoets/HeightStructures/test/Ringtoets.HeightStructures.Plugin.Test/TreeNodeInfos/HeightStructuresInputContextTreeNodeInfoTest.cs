@@ -63,7 +63,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(HeightStructuresInputContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);

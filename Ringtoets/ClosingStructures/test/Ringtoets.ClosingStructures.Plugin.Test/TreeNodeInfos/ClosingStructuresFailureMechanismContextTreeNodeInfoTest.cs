@@ -88,7 +88,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);

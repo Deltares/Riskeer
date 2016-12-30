@@ -56,7 +56,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(ReferenceLineContext), info.TagType);
                 Assert.IsNotNull(info.Text);
                 Assert.IsNotNull(info.ForeColor);
                 Assert.IsNotNull(info.Image);

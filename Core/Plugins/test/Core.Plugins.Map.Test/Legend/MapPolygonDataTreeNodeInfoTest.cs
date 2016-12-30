@@ -71,7 +71,6 @@ namespace Core.Plugins.Map.Test.Legend
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(MapPolygonData), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);

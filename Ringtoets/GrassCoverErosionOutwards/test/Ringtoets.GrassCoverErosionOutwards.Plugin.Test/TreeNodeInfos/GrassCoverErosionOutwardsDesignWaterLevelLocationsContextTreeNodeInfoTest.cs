@@ -72,7 +72,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext), info.TagType);
                 Assert.IsNotNull(info.Text);
                 Assert.IsNull(info.ForeColor);
                 Assert.IsNotNull(info.Image);

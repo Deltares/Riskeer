@@ -46,7 +46,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>), info.TagType);
                 Assert.IsNotNull(info.Text);
                 Assert.IsNull(info.ForeColor);
                 Assert.IsNotNull(info.Image);

@@ -64,7 +64,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             mockRepository.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(HydraulicBoundariesGroupContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
