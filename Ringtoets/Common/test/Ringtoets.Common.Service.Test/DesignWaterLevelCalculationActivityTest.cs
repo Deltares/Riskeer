@@ -30,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
+using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
@@ -71,7 +72,7 @@ namespace Ringtoets.Common.Service.Test
                                                                    calculationMessageProviderMock);
 
             // Assert
-            Assert.IsInstanceOf<Activity>(activity);
+            Assert.IsInstanceOf<HydraRingActivityBase>(activity);
             Assert.AreSame(activityName, activity.Name);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
