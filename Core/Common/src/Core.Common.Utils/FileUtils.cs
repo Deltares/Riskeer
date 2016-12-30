@@ -47,7 +47,7 @@ namespace Core.Common.Utils
         /// </list></remarks>
         public static void ValidateFilePath(string path)
         {
-            if (String.IsNullOrWhiteSpace(path))
+            if (string.IsNullOrWhiteSpace(path))
             {
                 var message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_be_specified);
                 throw new ArgumentException(message);

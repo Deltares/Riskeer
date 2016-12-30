@@ -165,7 +165,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Setup
             var location = new TestDuneLocation
             {
-                Output = new DuneLocationOutput(0, 0, 0, 0, 0, 0, 0, CalculationConvergence.NotCalculated)
+                Output = new TestDuneLocationOutput()
             };
 
             // Call

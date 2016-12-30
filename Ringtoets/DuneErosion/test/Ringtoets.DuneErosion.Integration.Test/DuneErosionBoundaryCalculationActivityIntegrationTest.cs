@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Service;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -173,7 +174,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
             {
                 Contribution = 10
             };
-            var initialOutput = new DuneLocationOutput(0, 0, 0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged);
+            var initialOutput = new TestDuneLocationOutput();
             var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007)
             {
                 Output = initialOutput
