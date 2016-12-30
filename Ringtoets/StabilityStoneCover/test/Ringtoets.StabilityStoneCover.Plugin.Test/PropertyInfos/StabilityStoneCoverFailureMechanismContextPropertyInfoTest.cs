@@ -67,6 +67,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.PropertyInfos
                 var objectProperties= info.CreateInstance(context);
 
                 // Assert
+                Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
             mocks.VerifyAll();

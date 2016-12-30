@@ -27,11 +27,13 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class PipingFailureMechanismContextPropertyInfoTest
+    public class PipingInputContextPropertyInfoTest
+
     {
         private PipingPlugin plugin;
         private PropertyInfo info;
@@ -40,7 +42,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingFailureMechanismContextProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingInputContextProperties));
         }
 
         [TearDown]
@@ -53,26 +55,33 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(PipingFailureMechanismContextProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(PipingInputContext), info.DataType);
+            Assert.AreEqual(typeof(PipingInputContextProperties), info.PropertyObjectType);
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithFailureMechanismContextAsData()
+        public void CreateInstance_Always_NewPropertiesWithInputContextAsData()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var scenario = new PipingCalculationScenario(new GeneralPipingInput());
+
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new PipingInputContext(
+                scenario.InputParameters,
+                scenario,
+                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                Enumerable.Empty<StochasticSoilModel>(),  
+                failureMechanism, assessmentSection);
 
             // Call
             var objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<PipingFailureMechanismContextProperties>(objectProperties);
+            Assert.IsInstanceOf<PipingInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
             mocks.VerifyAll();

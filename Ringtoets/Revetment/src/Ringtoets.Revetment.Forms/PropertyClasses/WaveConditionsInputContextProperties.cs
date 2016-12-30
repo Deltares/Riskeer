@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
@@ -35,6 +37,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.Common.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.Properties;
@@ -67,6 +70,19 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         private const int breakWaterPropertyIndex = 12;
         private const int foreshoreGeometryPropertyIndex = 13;
         private const int revetmentTypePropertyIndex = 14;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{T}"/>.
+        /// </summary>
+        /// <param name="context">The <see cref="WaveConditionsInputContext"/> for which the properties are shown.</param>
+        protected WaveConditionsInputContextProperties(T context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+            Data = context;
+        }
 
         [PropertyOrder(assessmentLevelPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
@@ -105,7 +121,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             set
             {
                 data.WrappedData.UpperBoundaryRevetment = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -122,7 +138,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             set
             {
                 data.WrappedData.LowerBoundaryRevetment = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -139,7 +155,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             set
             {
                 data.WrappedData.UpperBoundaryWaterLevels = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -156,7 +172,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             set
             {
                 data.WrappedData.LowerBoundaryWaterLevels = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -174,7 +190,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             set
             {
                 data.WrappedData.StepSize = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -219,7 +235,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             set
             {
                 data.WrappedData.Orientation = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -271,7 +287,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             set
             {
                 data.WrappedData.ForeshoreProfile = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -292,13 +308,13 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             set
             {
                 data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
         void UseBreakWaterProperties.IChangeHandler.PropertyChanged()
         {
-            // TODO WTI-969/WTI-970/WTI-971
+            ClearCalculationOutput();
         }
 
         public virtual IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
@@ -310,6 +326,21 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 data.HydraulicBoundaryLocations, WorldReferencePoint);
+        }
+
+        private void ClearOutputAndNotifyPropertyChanged()
+        {
+            ClearCalculationOutput();
+            data.WrappedData.NotifyObservers();
+        }
+
+        private void ClearCalculationOutput()
+        {
+            IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(data.Calculation);
+            foreach (var calculation in affectedCalculation)
+            {
+                calculation.NotifyObservers();
+            }
         }
     }
 }

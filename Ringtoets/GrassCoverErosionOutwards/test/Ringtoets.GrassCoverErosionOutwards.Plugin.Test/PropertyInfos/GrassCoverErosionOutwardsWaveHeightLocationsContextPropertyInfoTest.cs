@@ -28,12 +28,28 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveHeightLocationsContextPropertyInfoTest
     {
+        [Test]
+        public void Initialized_Always_ExpectedPropertiesSet()
+        {
+            // Setup
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                // Call
+                PropertyInfo info = GetInfo(plugin);
+
+                // Assert
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext), info.DataType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightLocationsContextProperties), info.PropertyObjectType);
+            }
+        }
+
         [Test]
         public void CreateInstance_Always_SetsHydraulicBoundaryLocationsAsData()
         {
@@ -49,15 +65,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 
             using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                PropertyInfo info = plugin.GetPropertyInfos().Single(pi => pi.DataType == typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext));
+                PropertyInfo info = GetInfo(plugin);
 
                 // Call
                 var objectProperties = info.CreateInstance(context);
 
                 // Assert
+                Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveHeightLocationsContextProperties>(objectProperties);
                 Assert.AreSame(hydraulicBoundaryLocations, objectProperties.Data);
             }
             mockRepository.VerifyAll();
+        }
+
+        private static PropertyInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)
+        {
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext));
         }
     }
 }

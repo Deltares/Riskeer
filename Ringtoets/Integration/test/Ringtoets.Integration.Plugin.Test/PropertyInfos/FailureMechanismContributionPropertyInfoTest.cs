@@ -75,6 +75,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             var objectProperties = info.CreateInstance(context);
 
             // Assert
+            Assert.IsInstanceOf<FailureMechanismContributionProperties>(objectProperties);
             Assert.AreSame(failureMechanismContribution, objectProperties.Data);
 
             mocks.VerifyAll();

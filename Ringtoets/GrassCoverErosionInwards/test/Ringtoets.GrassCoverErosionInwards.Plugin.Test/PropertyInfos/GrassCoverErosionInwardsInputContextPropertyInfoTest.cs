@@ -24,23 +24,23 @@ using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
-namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
+namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class PipingFailureMechanismContextPropertyInfoTest
+    public class GrassCoverErosionInwardsInputContextPropertyInfoTest
     {
-        private PipingPlugin plugin;
+        private GrassCoverErosionInwardsPlugin plugin;
         private PropertyInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new PipingPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingFailureMechanismContextProperties));
+            plugin = new GrassCoverErosionInwardsPlugin();
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(GrassCoverErosionInwardsInputContextProperties));
         }
 
         [TearDown]
@@ -53,26 +53,31 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(PipingFailureMechanismContextProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsInputContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsInputContextProperties), info.PropertyObjectType);
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithFailureMechanismContextAsData()
+        public void CreateInstance_Always_NewPropertiesWithInputContextAsData()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var context = new GrassCoverErosionInwardsInputContext(
+                calculation.InputParameters,
+                calculation,
+                failureMechanism, 
+                assessmentSection);
 
             // Call
             var objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<PipingFailureMechanismContextProperties>(objectProperties);
+            Assert.IsInstanceOf<GrassCoverErosionInwardsInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
             mocks.VerifyAll();

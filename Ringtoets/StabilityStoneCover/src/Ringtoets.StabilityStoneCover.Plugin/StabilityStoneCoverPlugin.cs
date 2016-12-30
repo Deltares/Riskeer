@@ -63,7 +63,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 }
             };
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsOutput, StabilityStoneCoverWaveConditionsOutputProperties>();
-            yield return new PropertyInfo<StabilityStoneCoverWaveConditionsInputContext, StabilityStoneCoverWaveConditionsInputContextProperties>();
+            yield return new PropertyInfo<StabilityStoneCoverWaveConditionsInputContext, StabilityStoneCoverWaveConditionsInputContextProperties>
+            {
+                CreateInstance = context => new StabilityStoneCoverWaveConditionsInputContextProperties(context)
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

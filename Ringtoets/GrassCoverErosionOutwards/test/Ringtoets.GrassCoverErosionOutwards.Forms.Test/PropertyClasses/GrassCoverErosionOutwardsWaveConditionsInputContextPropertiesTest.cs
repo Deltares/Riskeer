@@ -21,19 +21,9 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
-using Core.Common.Base;
-using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -45,246 +35,46 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsInputContextPropertiesTest
     {
-        private const int hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int assessmentLevelPropertyIndex = 1;
-        private const int upperBoundaryDesignWaterLevelPropertyIndex = 2;
-        private const int upperBoundaryRevetmentPropertyIndex = 3;
-        private const int lowerBoundaryRevetmentPropertyIndex = 4;
-        private const int upperBoundaryWaterLevelsPropertyIndex = 5;
-        private const int lowerBoundaryWaterLevelsPropertyIndex = 6;
-        private const int stepSizePropertyIndex = 7;
-        private const int waterLevelsPropertyIndex = 8;
+        [Test]
+        public void Constructor_WithoutContext_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(null);
 
-        private const int foreshoreProfilePropertyIndex = 9;
-        private const int worldReferencePointPropertyIndex = 10;
-        private const int orientationPropertyIndex = 11;
-        private const int breakWaterPropertyIndex = 12;
-        private const int foreshoreGeometryPropertyIndex = 13;
-        private const int revetmentTypePropertyIndex = 14;
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("context", paramName);
+        }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                new WaveConditionsInput(), 
+                new TestCalculation(), 
+                new GrassCoverErosionOutwardsFailureMechanism());
+
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties();
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>>(properties);
-            Assert.IsNull(properties.Data);
-        }
-
-        [Test]
-        public void Data_SetDefaultInputContextInstance_ReturnCorrectPropertyValues()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var input = calculation.InputParameters;
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                input,
-                calculation,
-                failureMechanism);
-
-            // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Assert
-            Assert.IsNaN(properties.AssessmentLevel.Value);
-            Assert.IsNaN(properties.UpperBoundaryDesignWaterLevel.Value);
-            Assert.AreEqual(2, properties.UpperBoundaryDesignWaterLevel.NumberOfDecimalPlaces);
-            Assert.IsNaN(properties.UpperBoundaryRevetment.Value);
-            Assert.AreEqual(2, properties.UpperBoundaryRevetment.NumberOfDecimalPlaces);
-            Assert.IsNaN(properties.LowerBoundaryRevetment.Value);
-            Assert.AreEqual(2, properties.LowerBoundaryRevetment.NumberOfDecimalPlaces);
-            Assert.IsNaN(properties.UpperBoundaryWaterLevels.Value);
-            Assert.AreEqual(2, properties.UpperBoundaryWaterLevels.NumberOfDecimalPlaces);
-            Assert.IsNaN(properties.LowerBoundaryWaterLevels.Value);
-            Assert.AreEqual(2, properties.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.5, properties.StepSize.AsValue());
-            CollectionAssert.AreEqual(input.WaterLevels, properties.WaterLevels);
-
-            Assert.IsNull(properties.ForeshoreProfile);
-            Assert.IsNull(properties.WorldReferencePoint);
-            Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
-            Assert.IsNaN(properties.Orientation);
-            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
-            Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
+            Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Gras", properties.RevetmentType);
         }
 
         [Test]
-        public void Data_SetNewInputContextInstanceWithForeshoreProfile_ReturnCorrectPropertyValues()
+        public void Constructor_Always_OverriddenExpectedPropertyDescriptors()
         {
             // Setup
-            var random = new Random(21);
-            var assessmentLevel = (RoundedDouble) random.NextDouble();
-            var lowerBoundaryRevetment = (RoundedDouble) random.NextDouble();
-            var lowerBoundaryWaterLevels = (RoundedDouble) random.NextDouble();
-            var upperBoundaryRevetment = lowerBoundaryRevetment + (RoundedDouble) random.NextDouble();
-            var upperBoundaryWaterLevels = lowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
-            var stepSize = WaveConditionsInputStepSize.Half;
-
-            var worldX = (RoundedDouble) random.NextDouble();
-            var worldY = (RoundedDouble) random.NextDouble();
-            var damHeight = (RoundedDouble) random.NextDouble();
-            var foreshoreProfileOrientation = (RoundedDouble) random.NextDouble();
-
-            var foreshoreProfile = new ForeshoreProfile(
-                new Point2D(worldX, worldY),
-                Enumerable.Empty<Point2D>(),
-                new BreakWater(BreakWaterType.Dam, damHeight),
-                new ForeshoreProfile.ConstructionProperties
-                {
-                    Name = string.Empty,
-                    Orientation = foreshoreProfileOrientation,
-                    X0 = -3
-                });
-            var hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel);
-
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var input = calculation.InputParameters;
-            input.ForeshoreProfile = foreshoreProfile;
-            input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-            input.UpperBoundaryRevetment = upperBoundaryRevetment;
-            input.LowerBoundaryRevetment = lowerBoundaryRevetment;
-            input.UpperBoundaryWaterLevels = upperBoundaryWaterLevels;
-            input.LowerBoundaryWaterLevels = lowerBoundaryWaterLevels;
-            input.StepSize = stepSize;
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
-            failureMechanism.ForeshoreProfiles.Add(foreshoreProfile);
-
-            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                input, 
-                calculation,
-                failureMechanism);
+            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                new WaveConditionsInput(),
+                new TestCalculation(),
+                new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Assert
-            Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
-            Assert.AreEqual(assessmentLevel.Value, properties.AssessmentLevel.Value, properties.AssessmentLevel.GetAccuracy());
-            Assert.AreSame(foreshoreProfile, properties.ForeshoreProfile);
-            Assert.AreEqual(worldX, properties.WorldReferencePoint.X, 0.5);
-            Assert.AreEqual(worldY, properties.WorldReferencePoint.Y, 0.5);
-            Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(foreshoreProfileOrientation, properties.Orientation.Value, properties.Orientation.GetAccuracy());
-            Assert.AreEqual(BreakWaterType.Dam, properties.BreakWater.BreakWaterType);
-            Assert.AreEqual(damHeight, properties.BreakWater.BreakWaterHeight.Value, properties.BreakWater.BreakWaterHeight.GetAccuracy());
-            Assert.IsEmpty(properties.ForeshoreGeometry.Coordinates);
-        }
-
-        [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            const int numberOfChangedProperties = 8;
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            mockRepository.ReplayAll();
-
-            var random = new Random(21);
-            var orientation = (RoundedDouble) random.NextDouble();
-            var assessmentLevel = (RoundedDouble) random.NextDouble();
-            var newLowerBoundaryRevetment = (RoundedDouble) random.NextDouble();
-            var newLowerBoundaryWaterLevels = (RoundedDouble) random.NextDouble();
-            var newUpperBoundaryRevetment = newLowerBoundaryRevetment + (RoundedDouble) random.NextDouble();
-            var newUpperBoundaryWaterLevels = newLowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
-            var newStepSize = WaveConditionsInputStepSize.Half;
-
-            var newHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel);
-            var newSelectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newHydraulicBoundaryLocation, null);
-
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var input = calculation.InputParameters;
-            input.Attach(observerMock);
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                input, 
-                calculation,
-                failureMechanism);
-
-            var newForeshoreProfile = new ForeshoreProfile(
-                new Point2D((RoundedDouble) random.NextDouble(),
-                            (RoundedDouble) random.NextDouble()),
-                Enumerable.Empty<Point2D>(),
-                new BreakWater(BreakWaterType.Dam, (RoundedDouble) random.NextDouble()),
-                new ForeshoreProfile.ConstructionProperties());
-
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Call
-            properties.ForeshoreProfile = newForeshoreProfile;
-            properties.UpperBoundaryRevetment = newUpperBoundaryRevetment;
-            properties.LowerBoundaryRevetment = newLowerBoundaryRevetment;
-            properties.UpperBoundaryWaterLevels = newUpperBoundaryWaterLevels;
-            properties.LowerBoundaryWaterLevels = newLowerBoundaryWaterLevels;
-            properties.StepSize = newStepSize;
-            properties.SelectedHydraulicBoundaryLocation = newSelectableHydraulicBoundaryLocation;
-            properties.Orientation = orientation;
-
-            // Assert
-            Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
-            Assert.AreEqual(input.HydraulicBoundaryLocation.DesignWaterLevel.Value, properties.AssessmentLevel.Value);
-            Assert.AreEqual(assessmentLevel - 0.01, properties.UpperBoundaryDesignWaterLevel.Value, properties.UpperBoundaryDesignWaterLevel.GetAccuracy());
-            Assert.AreEqual(2, properties.UpperBoundaryDesignWaterLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(newUpperBoundaryRevetment.Value, properties.UpperBoundaryRevetment.Value, properties.UpperBoundaryRevetment.GetAccuracy());
-            Assert.AreEqual(2, properties.UpperBoundaryRevetment.NumberOfDecimalPlaces);
-            Assert.AreEqual(newLowerBoundaryRevetment.Value, properties.LowerBoundaryRevetment.Value, properties.LowerBoundaryRevetment.GetAccuracy());
-            Assert.AreEqual(2, properties.LowerBoundaryRevetment.NumberOfDecimalPlaces);
-            Assert.AreEqual(newUpperBoundaryWaterLevels.Value, properties.UpperBoundaryWaterLevels.Value, properties.UpperBoundaryWaterLevels.GetAccuracy());
-            Assert.AreEqual(2, properties.UpperBoundaryWaterLevels.NumberOfDecimalPlaces);
-            Assert.AreEqual(newLowerBoundaryWaterLevels.Value, properties.LowerBoundaryWaterLevels.Value, properties.LowerBoundaryWaterLevels.GetAccuracy());
-            Assert.AreEqual(2, properties.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
-            Assert.AreEqual(orientation, properties.Orientation.Value, properties.Orientation.GetAccuracy());
-            Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(newStepSize, properties.StepSize);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(
-            [Values(true, false)] bool withForeshoreProfile)
-        {
-            // Setup
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var input = calculation.InputParameters;
-            var foreshoreProfile = new ForeshoreProfile(
-                new Point2D(0, 0),
-                Enumerable.Empty<Point2D>(),
-                null,
-                new ForeshoreProfile.ConstructionProperties());
-
-            if (withForeshoreProfile)
-            {
-                input.ForeshoreProfile = foreshoreProfile;
-            }
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                input,
-                calculation,
-                failureMechanism);
-
-            // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context);
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -295,116 +85,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(15, dynamicProperties.Count);
 
             var hydraulicParametersCategory = "Hydraulische gegevens";
-            var schematizationCategory = "Schematisatie";
 
-            PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
-            Assert.IsNotNull(hydraulicBoundaryLocationProperty);
-            Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, hydraulicBoundaryLocationProperty.Category);
-            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
-            Assert.AreEqual("De locatie met hydraulische randvoorwaarden.", hydraulicBoundaryLocationProperty.Description);
-
-            PropertyDescriptor assessmentLevelProperty = dynamicProperties[assessmentLevelPropertyIndex];
+            PropertyDescriptor assessmentLevelProperty = dynamicProperties[1];
             Assert.IsNotNull(assessmentLevelProperty);
             Assert.IsTrue(assessmentLevelProperty.IsReadOnly);
             Assert.AreEqual(hydraulicParametersCategory, assessmentLevelProperty.Category);
             Assert.AreEqual("Waterstand bij doorsnede-eis [m+NAP]", assessmentLevelProperty.DisplayName);
             Assert.AreEqual("Berekende waterstand bij doorsnede-eis op de geselecteerde locatie.", assessmentLevelProperty.Description);
 
-            PropertyDescriptor upperBoundaryDesignWaterLevelProperty = dynamicProperties[upperBoundaryDesignWaterLevelPropertyIndex];
+            PropertyDescriptor upperBoundaryDesignWaterLevelProperty = dynamicProperties[2];
             Assert.IsNotNull(upperBoundaryDesignWaterLevelProperty);
             Assert.IsTrue(upperBoundaryDesignWaterLevelProperty.IsReadOnly);
             Assert.AreEqual(hydraulicParametersCategory, upperBoundaryDesignWaterLevelProperty.Category);
             Assert.AreEqual("Bovengrens op basis van waterstand bij doorsnede-eis [m+NAP]", upperBoundaryDesignWaterLevelProperty.DisplayName);
             Assert.AreEqual("Bovengrens bepaald aan de hand van de waarde van de waterstand bij doorsnede-eis op de geselecteerde hydraulische locatie.", upperBoundaryDesignWaterLevelProperty.Description);
-
-            PropertyDescriptor upperBoundaryRevetmentProperty = dynamicProperties[upperBoundaryRevetmentPropertyIndex];
-            Assert.IsNotNull(upperBoundaryRevetmentProperty);
-            Assert.IsTrue(upperBoundaryDesignWaterLevelProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, upperBoundaryRevetmentProperty.Category);
-            Assert.AreEqual("Bovengrens bekleding [m+NAP]", upperBoundaryRevetmentProperty.DisplayName);
-            Assert.AreEqual("Bovengrens van de bekleding.", upperBoundaryRevetmentProperty.Description);
-
-            PropertyDescriptor lowerBoundaryRevetmentProperty = dynamicProperties[lowerBoundaryRevetmentPropertyIndex];
-            Assert.IsNotNull(lowerBoundaryRevetmentProperty);
-            Assert.IsFalse(lowerBoundaryRevetmentProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, lowerBoundaryRevetmentProperty.Category);
-            Assert.AreEqual("Ondergrens bekleding [m+NAP]", lowerBoundaryRevetmentProperty.DisplayName);
-            Assert.AreEqual("Ondergrens van de bekleding.", lowerBoundaryRevetmentProperty.Description);
-
-            PropertyDescriptor upperBoundaryWaterLevelsProperty = dynamicProperties[upperBoundaryWaterLevelsPropertyIndex];
-            Assert.IsNotNull(upperBoundaryWaterLevelsProperty);
-            Assert.IsFalse(upperBoundaryWaterLevelsProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, upperBoundaryWaterLevelsProperty.Category);
-            Assert.AreEqual("Bovengrens waterstanden [m+NAP]", upperBoundaryWaterLevelsProperty.DisplayName);
-            Assert.AreEqual("Een aangepaste bovengrens voor de waterstanden.", upperBoundaryWaterLevelsProperty.Description);
-
-            PropertyDescriptor lowerBoundaryWaterLevelsProperty = dynamicProperties[lowerBoundaryWaterLevelsPropertyIndex];
-            Assert.IsNotNull(lowerBoundaryWaterLevelsProperty);
-            Assert.IsFalse(lowerBoundaryWaterLevelsProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, lowerBoundaryWaterLevelsProperty.Category);
-            Assert.AreEqual("Ondergrens waterstanden [m+NAP]", lowerBoundaryWaterLevelsProperty.DisplayName);
-            Assert.AreEqual("Een aangepaste ondergrens voor de waterstanden.", lowerBoundaryWaterLevelsProperty.Description);
-
-            PropertyDescriptor stepSizeProperty = dynamicProperties[stepSizePropertyIndex];
-            Assert.IsNotNull(stepSizeProperty);
-            Assert.IsInstanceOf<EnumTypeConverter>(stepSizeProperty.Converter);
-            Assert.IsFalse(stepSizeProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, stepSizeProperty.Category);
-            Assert.AreEqual("Stapgrootte [m]", stepSizeProperty.DisplayName);
-            Assert.AreEqual("Grootte van de stappen waarmee de waterstanden in de berekening worden bepaald.", stepSizeProperty.Description);
-
-            PropertyDescriptor waterLevelsProperty = dynamicProperties[waterLevelsPropertyIndex];
-            Assert.IsNotNull(waterLevelsProperty);
-            Assert.IsInstanceOf<ExpandableReadOnlyArrayConverter>(waterLevelsProperty.Converter);
-            Assert.IsTrue(waterLevelsProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, waterLevelsProperty.Category);
-            Assert.AreEqual("Waterstanden in berekening [m+NAP]", waterLevelsProperty.DisplayName);
-            Assert.AreEqual("De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen, en van de stapgrootte.", waterLevelsProperty.Description);
-
-            PropertyDescriptor foreshoreProfileProperty = dynamicProperties[foreshoreProfilePropertyIndex];
-            Assert.IsNotNull(foreshoreProfileProperty);
-            Assert.IsFalse(foreshoreProfileProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, foreshoreProfileProperty.Category);
-            Assert.AreEqual("Voorlandprofiel", foreshoreProfileProperty.DisplayName);
-            Assert.AreEqual("De schematisatie van het voorlandprofiel.", foreshoreProfileProperty.Description);
-
-            PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
-            Assert.IsNotNull(worldReferencePointProperty);
-            Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, worldReferencePointProperty.Category);
-            Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
-            Assert.AreEqual("De coördinaten van de locatie van het voorlandprofiel in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
-
-            PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
-            Assert.IsNotNull(orientationProperty);
-            Assert.IsFalse(orientationProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, orientationProperty.Category);
-            Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van de dijknormaal ten opzichte van het noorden.", orientationProperty.Description);
-
-            PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
-            Assert.IsNotNull(breakWaterProperty);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(breakWaterProperty.Converter);
-            Assert.IsTrue(breakWaterProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, breakWaterProperty.Category);
-            Assert.AreEqual("Dam", breakWaterProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de dam.", breakWaterProperty.Description);
-
-            PropertyDescriptor foreshoreGeometryProperty = dynamicProperties[foreshoreGeometryPropertyIndex];
-            Assert.IsNotNull(foreshoreGeometryProperty);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(foreshoreGeometryProperty.Converter);
-            Assert.IsTrue(foreshoreGeometryProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, foreshoreGeometryProperty.Category);
-            Assert.AreEqual("Voorlandgeometrie", foreshoreGeometryProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de voorlandgeometrie.", foreshoreGeometryProperty.Description);
-
-            PropertyDescriptor revetmentTypeProperty = dynamicProperties[revetmentTypePropertyIndex];
-            Assert.IsNotNull(revetmentTypeProperty);
-            Assert.IsTrue(revetmentTypeProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, revetmentTypeProperty.Category);
-            Assert.AreEqual("Type bekleding", revetmentTypeProperty.DisplayName);
-            Assert.AreEqual("Het type van de bekleding waarvoor berekend wordt.", revetmentTypeProperty.Description);
         }
     }
 }

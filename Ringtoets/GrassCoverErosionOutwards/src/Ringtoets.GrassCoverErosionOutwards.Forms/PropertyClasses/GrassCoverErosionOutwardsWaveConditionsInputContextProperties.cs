@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Utils.Attributes;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -33,6 +34,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     public class GrassCoverErosionOutwardsWaveConditionsInputContextProperties
         : WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContextProperties"/>.
+        /// </summary>
+        /// <param name="context">The <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/> for which 
+        /// the properties are shown.</param>
+        public GrassCoverErosionOutwardsWaveConditionsInputContextProperties(GrassCoverErosionOutwardsWaveConditionsInputContext context)
+            : base(context) { }
+
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description")]
         public override RoundedDouble AssessmentLevel

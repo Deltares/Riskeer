@@ -63,7 +63,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 }
             };
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsOutput, WaveImpactAsphaltCoverWaveConditionsOutputProperties>();
-            yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsInputContext, WaveImpactAsphaltCoverWaveConditionsInputContextProperties>();
+            yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsInputContext, WaveImpactAsphaltCoverWaveConditionsInputContextProperties>
+            {
+                CreateInstance = context => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context)
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

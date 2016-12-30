@@ -31,6 +31,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
     public class WaveImpactAsphaltCoverWaveConditionsInputContextProperties
         : WaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContextProperties"/>.
+        /// </summary>
+        /// <param name="context">The <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/> for which 
+        /// the properties are shown.</param>
+        public WaveImpactAsphaltCoverWaveConditionsInputContextProperties(WaveImpactAsphaltCoverWaveConditionsInputContext context)
+            : base(context) { }
+
         public override string RevetmentType
         {
             get

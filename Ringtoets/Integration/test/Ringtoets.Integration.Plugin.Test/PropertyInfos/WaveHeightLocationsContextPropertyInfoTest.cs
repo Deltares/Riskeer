@@ -40,13 +40,12 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             // Setup
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
+                // Call
                 PropertyInfo info = GetInfo(plugin);
 
-                // Call
-                Type propertyObjectType = info.PropertyObjectType;
-
                 // Assert
-                Assert.AreEqual(typeof(WaveHeightLocationsContextProperties), propertyObjectType);
+                Assert.AreEqual(typeof(WaveHeightLocationsContext), info.DataType);
+                Assert.AreEqual(typeof(WaveHeightLocationsContextProperties), info.PropertyObjectType);
             }
         }
 
@@ -70,6 +69,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 var objectProperties = info.CreateInstance(context);
 
                 // Assert
+                Assert.IsInstanceOf<WaveHeightLocationsContextProperties>(objectProperties);
                 Assert.AreSame(hydraulicBoundaryDatabase, objectProperties.Data);
             }
             mockRepository.VerifyAll();

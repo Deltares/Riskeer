@@ -33,7 +33,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.Revetment.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
+namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsOutputPropertiesTest

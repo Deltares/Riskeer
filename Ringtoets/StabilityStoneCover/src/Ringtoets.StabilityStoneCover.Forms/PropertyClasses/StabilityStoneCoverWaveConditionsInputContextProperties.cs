@@ -31,6 +31,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
     public class StabilityStoneCoverWaveConditionsInputContextProperties
         : WaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsInputContextProperties"/>.
+        /// </summary>
+        /// <param name="context">The <see cref="StabilityStoneCoverWaveConditionsInputContext"/> for which 
+        /// the properties are shown.</param>
+        public StabilityStoneCoverWaveConditionsInputContextProperties(StabilityStoneCoverWaveConditionsInputContext context)
+            : base(context) { }
+
         public override string RevetmentType
         {
             get

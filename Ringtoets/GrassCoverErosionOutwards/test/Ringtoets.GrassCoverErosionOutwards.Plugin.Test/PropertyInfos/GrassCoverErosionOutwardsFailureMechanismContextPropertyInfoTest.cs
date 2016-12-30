@@ -67,6 +67,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 var objectProperties = info.CreateInstance(context);
 
                 // Assert
+                Assert.IsInstanceOf<GrassCoverErosionOutwardsFailureMechanismProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
             mocks.VerifyAll();
