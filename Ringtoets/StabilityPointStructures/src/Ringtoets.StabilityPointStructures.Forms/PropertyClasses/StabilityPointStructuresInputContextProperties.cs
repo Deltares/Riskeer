@@ -27,7 +27,6 @@ using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -47,8 +46,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                                                                       StabilityPointStructuresInput,
                                                                       StructuresCalculation<StabilityPointStructuresInput>,
                                                                       StabilityPointStructuresFailureMechanism>,
-                                                                  DistributionPropertiesBase<NormalDistribution>.IChangeHandler,
-                                                                  DistributionPropertiesBase<LogNormalDistribution>.IChangeHandler
+                                                                  IDistributionPropertyChangeHandler
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int volumicWeightWaterPropertyIndex = 2;
@@ -173,12 +171,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             return data.FailureMechanism.StabilityPointStructures;
         }
 
-        void DistributionPropertiesBase<LogNormalDistribution>.IChangeHandler.PropertyChanged()
-        {
-            // TODO WTI-974
-        }
-
-        void DistributionPropertiesBase<NormalDistribution>.IChangeHandler.PropertyChanged()
+        void IDistributionPropertyChangeHandler.PropertyChanged()
         {
             // TODO WTI-974
         }

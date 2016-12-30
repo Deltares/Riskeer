@@ -47,13 +47,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// marked as read-only.</param>
         /// <param name="observable">The object to be notified of changes to properties.
         /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
-        /// <param name="handler">The handler that is used to handle property changes.</param>
+        /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="observable"/>
         /// is null and any number of properties in this class is editable.</exception>
         public NormalDistributionProperties(
             DistributionPropertiesReadOnly propertiesReadOnly, 
             IObservable observable,
-            IChangeHandler handler) :
+            IDistributionPropertyChangeHandler handler) :
             base(propertiesReadOnly, observable, handler) {}
 
         public override string DistributionType

@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// properties are editable.
         /// </summary>
         /// <param name="useBreakWaterData">The data to use for the properties.</param>
-        /// <param name="handler">The handler that is used to handle property changes.</param>
+        /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public UseBreakWaterProperties(IUseBreakWater useBreakWaterData, IChangeHandler handler)
         {

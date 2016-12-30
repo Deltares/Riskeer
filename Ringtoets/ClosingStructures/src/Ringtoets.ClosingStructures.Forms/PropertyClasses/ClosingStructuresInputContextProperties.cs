@@ -30,7 +30,6 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Properties;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -47,8 +46,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                                                                ClosingStructuresInput,
                                                                StructuresCalculation<ClosingStructuresInput>,
                                                                ClosingStructuresFailureMechanism>,
-                                                           DistributionPropertiesBase<NormalDistribution>.IChangeHandler,
-                                                           DistributionPropertiesBase<LogNormalDistribution>.IChangeHandler
+                                                           IDistributionPropertyChangeHandler
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int stormDurationPropertyIndex = 2;
@@ -175,12 +173,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             return data.FailureMechanism.ClosingStructures;
         }
 
-        void DistributionPropertiesBase<LogNormalDistribution>.IChangeHandler.PropertyChanged()
-        {
-            // TODO WTI-973
-        }
-
-        void DistributionPropertiesBase<NormalDistribution>.IChangeHandler.PropertyChanged()
+        void IDistributionPropertyChangeHandler.PropertyChanged()
         {
             // TODO WTI-973
         }

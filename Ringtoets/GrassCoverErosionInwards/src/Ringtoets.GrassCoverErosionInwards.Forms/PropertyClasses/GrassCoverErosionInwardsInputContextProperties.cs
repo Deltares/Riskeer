@@ -30,7 +30,6 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -51,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     public class GrassCoverErosionInwardsInputContextProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>,
                                                                   IHasHydraulicBoundaryLocationProperty,
                                                                   UseBreakWaterProperties.IChangeHandler,
-                                                                  DistributionPropertiesBase<LogNormalDistribution>.IChangeHandler
+                                                                  IDistributionPropertyChangeHandler
     {
         private const int dikeProfilePropertyIndex = 1;
         private const int worldReferencePointPropertyIndex = 2;
@@ -255,7 +254,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 data.AvailableHydraulicBoundaryLocations, calculationLocation);
         }
 
-        void DistributionPropertiesBase<LogNormalDistribution>.IChangeHandler.PropertyChanged()
+        void IDistributionPropertyChangeHandler.PropertyChanged()
         {
             ClearCalculationOutput();
         }

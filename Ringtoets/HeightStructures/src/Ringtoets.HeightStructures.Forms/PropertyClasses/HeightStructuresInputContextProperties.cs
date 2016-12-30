@@ -24,7 +24,6 @@ using System.ComponentModel;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Utils;
@@ -42,7 +41,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
                                                               HeightStructuresInput,
                                                               StructuresCalculation<HeightStructuresInput>,
                                                               HeightStructuresFailureMechanism>,
-                                                          DistributionPropertiesBase<NormalDistribution>.IChangeHandler
+                                                          IDistributionPropertyChangeHandler
     {
         private const int structurePropertyIndex = 1;
         private const int structureLocationPropertyIndex = 2;
@@ -114,7 +113,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             return data.FailureMechanism.HeightStructures;
         }
 
-        void DistributionPropertiesBase<NormalDistribution>.IChangeHandler.PropertyChanged()
+        void IDistributionPropertyChangeHandler.PropertyChanged()
         {
             // TODO WTI-972
         }
