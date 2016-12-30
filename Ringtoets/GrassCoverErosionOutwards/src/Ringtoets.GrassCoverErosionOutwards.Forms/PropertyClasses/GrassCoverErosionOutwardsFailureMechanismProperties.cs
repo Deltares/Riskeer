@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsContextProperties"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
-        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
+        /// <param name="changeHandler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsFailureMechanismProperties(
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
