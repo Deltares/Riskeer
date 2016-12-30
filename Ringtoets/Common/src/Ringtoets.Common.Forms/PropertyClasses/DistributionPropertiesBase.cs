@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private readonly bool isMeanReadOnly;
         private readonly bool isStandardDeviationReadOnly;
         private readonly IObservable observable;
-        private readonly IDistributionPropertyChangeHandler changeHandler;
+        private readonly IPropertyChangeHandler changeHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DistributionPropertiesBase{T}"/> class.
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         protected DistributionPropertiesBase(
             DistributionPropertiesReadOnly propertiesReadOnly,
             IObservable observable,
-            IDistributionPropertyChangeHandler handler)
+            IPropertyChangeHandler handler)
         {
             if (observable == null && !propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.All))
             {

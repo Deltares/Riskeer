@@ -46,7 +46,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                                                                ClosingStructuresInput,
                                                                StructuresCalculation<ClosingStructuresInput>,
                                                                ClosingStructuresFailureMechanism>,
-                                                           IDistributionPropertyChangeHandler
+                                                           IPropertyChangeHandler
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int stormDurationPropertyIndex = 2;
@@ -173,7 +173,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             return data.FailureMechanism.ClosingStructures;
         }
 
-        void IDistributionPropertyChangeHandler.PropertyChanged()
+        public void PropertyChanged()
         {
             // TODO WTI-973
         }

@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public LogNormalDistributionProperties(
             DistributionPropertiesReadOnly propertiesReadOnly, 
             IObservable observable,
-            IDistributionPropertyChangeHandler handler)
+            IPropertyChangeHandler handler)
             : base(propertiesReadOnly, observable, handler) {}
 
         public override string DistributionType

@@ -55,8 +55,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         IHasHydraulicBoundaryLocationProperty,
         IHasStructureProperty<TStructure>,
         IHasForeshoreProfileProperty, 
-        IUseBreakWaterPropertyChangeHandler, 
-        IDistributionPropertyChangeHandler where TStructure : StructureBase
+        IPropertyChangeHandler where TStructure : StructureBase
         where TStructureInput : StructuresInputBase<TStructure>
         where TCalculation : ICalculation
         where TFailureMechanism : IFailureMechanism
@@ -539,14 +538,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         #endregion
 
-        void IUseBreakWaterPropertyChangeHandler.PropertyChanged()
+        public void PropertyChanged()
         {
-            // TODO WTI-969/WTI-970/WTI-971
-        }
-
-        void IDistributionPropertyChangeHandler.PropertyChanged()
-        {
-            // TODO WTI-973
+            // TODO WTI-969/WTI-970/WTI-971/WTI-973
         }
     }
 }

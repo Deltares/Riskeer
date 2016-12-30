@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                                                                       StabilityPointStructuresInput,
                                                                       StructuresCalculation<StabilityPointStructuresInput>,
                                                                       StabilityPointStructuresFailureMechanism>,
-                                                                  IDistributionPropertyChangeHandler
+                                                                  IPropertyChangeHandler
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int volumicWeightWaterPropertyIndex = 2;
@@ -171,7 +171,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             return data.FailureMechanism.StabilityPointStructures;
         }
 
-        void IDistributionPropertyChangeHandler.PropertyChanged()
+        public void PropertyChanged()
         {
             // TODO WTI-974
         }

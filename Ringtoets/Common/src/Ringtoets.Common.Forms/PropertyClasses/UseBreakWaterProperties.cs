@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private const int breakWaterTypePropertyIndex = 2;
         private const int breakWaterHeightPropertyIndex = 3;
         private readonly IUseBreakWater data;
-        private readonly IUseBreakWaterPropertyChangeHandler changeHandler;
+        private readonly IPropertyChangeHandler changeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="UseBreakWaterProperties"/>, in which
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="useBreakWaterData">The data to use for the properties.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public UseBreakWaterProperties(IUseBreakWater useBreakWaterData, IUseBreakWaterPropertyChangeHandler handler)
+        public UseBreakWaterProperties(IUseBreakWater useBreakWaterData, IPropertyChangeHandler handler)
         {
             if (useBreakWaterData == null)
             {

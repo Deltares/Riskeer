@@ -189,10 +189,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var observerableMock = mockRepository.StrictMock<IObservable>();
             observerableMock.Expect(o => o.NotifyObservers());
-            IDistributionPropertyChangeHandler handler = null;
+            IPropertyChangeHandler handler = null;
             if (withHandler)
             {
-                handler = mockRepository.StrictMock<IDistributionPropertyChangeHandler>();
+                handler = mockRepository.StrictMock<IPropertyChangeHandler>();
                 handler.Expect(o => o.PropertyChanged());
             }
             var distribution = mockRepository.Stub<IDistribution>();
@@ -246,10 +246,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var observerableMock = mockRepository.StrictMock<IObservable>();
             observerableMock.Expect(o => o.NotifyObservers());
-            IDistributionPropertyChangeHandler handler = null;
+            IPropertyChangeHandler handler = null;
             if (withHandler)
             {
-                handler = mockRepository.StrictMock<IDistributionPropertyChangeHandler>();
+                handler = mockRepository.StrictMock<IPropertyChangeHandler>();
                 handler.Expect(o => o.PropertyChanged());
             }
             var distribution = mockRepository.Stub<IDistribution>();
@@ -271,7 +271,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
         private class SimpleDistributionProperties : DistributionPropertiesBase<IDistribution>
         {
-            public SimpleDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable, IDistributionPropertyChangeHandler handler)
+            public SimpleDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable, IPropertyChangeHandler handler)
                 : base(propertiesReadOnly, observable, handler) {}
 
             public override string DistributionType

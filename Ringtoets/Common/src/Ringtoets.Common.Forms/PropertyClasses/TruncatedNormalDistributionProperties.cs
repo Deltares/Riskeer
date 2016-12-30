@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="observable"/>
         /// is null and any number of properties in this class is editable.</exception>
-        public TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable, IDistributionPropertyChangeHandler handler) :
+        public TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable, IPropertyChangeHandler handler) :
             base(propertiesReadOnly, observable, handler) {}
 
         public override string DistributionType

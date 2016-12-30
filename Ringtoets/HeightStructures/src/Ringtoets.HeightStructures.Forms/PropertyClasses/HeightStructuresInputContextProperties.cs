@@ -41,7 +41,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
                                                               HeightStructuresInput,
                                                               StructuresCalculation<HeightStructuresInput>,
                                                               HeightStructuresFailureMechanism>,
-                                                          IDistributionPropertyChangeHandler
+                                                          IPropertyChangeHandler
     {
         private const int structurePropertyIndex = 1;
         private const int structureLocationPropertyIndex = 2;
@@ -113,7 +113,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             return data.FailureMechanism.HeightStructures;
         }
 
-        void IDistributionPropertyChangeHandler.PropertyChanged()
+        public void PropertyChanged()
         {
             // TODO WTI-972
         }
