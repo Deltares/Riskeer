@@ -71,8 +71,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext), info.TagType);
-
+                Assert.IsNotNull(info.Text);
+                Assert.IsNull(info.ForeColor);
+                Assert.IsNotNull(info.Image);
+                Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.ExpandOnCreate);
+                Assert.IsNull(info.ChildNodeObjects);
                 Assert.IsNull(info.CanRename);
                 Assert.IsNull(info.OnNodeRenamed);
                 Assert.IsNull(info.CanRemove);
@@ -84,7 +89,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanDrop);
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
-                Assert.IsNull(info.ForeColor);
             }
         }
 

@@ -72,13 +72,21 @@ namespace Core.Plugins.Map.Test.Legend
 
             // Assert
             Assert.AreEqual(typeof(MapPolygonData), info.TagType);
+            Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.Image);
+            Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
+            Assert.IsNull(info.ExpandOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
             Assert.IsNull(info.OnNodeRemoved);
+            Assert.IsNotNull(info.CanCheck);
+            Assert.IsNotNull(info.IsChecked);
+            Assert.IsNotNull(info.OnNodeChecked);
+            Assert.IsNotNull(info.CanDrag);
             Assert.IsNull(info.CanDrop);
             Assert.IsNull(info.CanInsert);
             Assert.IsNull(info.OnDrop);

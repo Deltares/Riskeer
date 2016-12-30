@@ -64,9 +64,13 @@ namespace Core.Plugins.Chart.Test.Legend
         {
             // Assert
             Assert.AreEqual(typeof(ChartDataCollection), info.TagType);
+            Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.Image);
             Assert.IsNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
+            Assert.IsNull(info.ExpandOnCreate);
+            Assert.IsNotNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
@@ -74,6 +78,10 @@ namespace Core.Plugins.Chart.Test.Legend
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
+            Assert.IsNotNull(info.CanDrag);
+            Assert.IsNotNull(info.CanDrop);
+            Assert.IsNotNull(info.CanInsert);
+            Assert.IsNotNull(info.OnDrop);
         }
 
         [Test]

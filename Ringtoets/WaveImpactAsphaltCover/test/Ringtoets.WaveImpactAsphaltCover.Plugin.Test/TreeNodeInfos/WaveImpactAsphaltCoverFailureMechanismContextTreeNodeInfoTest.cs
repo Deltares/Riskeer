@@ -62,7 +62,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var info = GetInfo(plugin);
 
                 // Assert
+                Assert.IsNotNull(info.Text);
+                Assert.IsNotNull(info.ForeColor);
+                Assert.IsNotNull(info.Image);
+                Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.ExpandOnCreate);
+                Assert.IsNotNull(info.ChildNodeObjects);
                 Assert.IsNull(info.CanRename);
                 Assert.IsNull(info.OnNodeRenamed);
                 Assert.IsNull(info.CanRemove);

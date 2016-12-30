@@ -121,13 +121,24 @@ namespace Core.Plugins.Chart.Test.Legend
         {
             // Assert
             Assert.AreEqual(typeof(ChartDataContext), info.TagType);
+            Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.Image);
             Assert.IsNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
+            Assert.IsNull(info.ExpandOnCreate);
+            Assert.IsNotNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
             Assert.IsNull(info.OnNodeRemoved);
+            Assert.IsNotNull(info.CanCheck);
+            Assert.IsNotNull(info.IsChecked);
+            Assert.IsNotNull(info.OnNodeChecked);
+            Assert.IsNotNull(info.CanDrag);
+            Assert.IsNotNull(info.CanDrop);
+            Assert.IsNotNull(info.CanInsert);
+            Assert.IsNotNull(info.OnDrop);
         }
 
         [Test]

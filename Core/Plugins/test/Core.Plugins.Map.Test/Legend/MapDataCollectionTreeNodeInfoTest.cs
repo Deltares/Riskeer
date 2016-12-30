@@ -69,8 +69,13 @@ namespace Core.Plugins.Map.Test.Legend
 
             // Assert
             Assert.AreEqual(typeof(MapDataCollection), info.TagType);
+            Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.Image);
+            Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
+            Assert.IsNull(info.ExpandOnCreate);
+            Assert.IsNotNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
@@ -79,6 +84,9 @@ namespace Core.Plugins.Map.Test.Legend
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
             Assert.IsNull(info.CanDrag);
+            Assert.IsNotNull(info.CanDrop);
+            Assert.IsNotNull(info.CanInsert);
+            Assert.IsNotNull(info.OnDrop);
         }
 
         [Test]

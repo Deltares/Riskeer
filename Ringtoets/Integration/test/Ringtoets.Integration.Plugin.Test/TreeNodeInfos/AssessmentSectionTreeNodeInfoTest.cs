@@ -68,6 +68,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(typeof(AssessmentSection), info.TagType);
                 Assert.IsNull(info.ForeColor);
+                Assert.IsNull(info.ExpandOnCreate);
                 Assert.IsNull(info.CanCheck);
                 Assert.IsNull(info.IsChecked);
                 Assert.IsNull(info.OnNodeChecked);

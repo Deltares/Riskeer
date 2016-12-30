@@ -92,19 +92,20 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(typeof(ClosingStructuresCalculationContext), info.TagType);
             Assert.IsNotNull(info.Text);
+            Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
-            Assert.IsNotNull(info.EnsureVisibleOnCreate);
-            Assert.IsNotNull(info.ChildNodeObjects);
             Assert.IsNotNull(info.ContextMenuStrip);
+            Assert.IsNotNull(info.EnsureVisibleOnCreate);
+            Assert.IsNull(info.ExpandOnCreate);
+            Assert.IsNotNull(info.ChildNodeObjects);
             Assert.IsNotNull(info.CanRename);
             Assert.IsNotNull(info.OnNodeRenamed);
             Assert.IsNotNull(info.CanRemove);
             Assert.IsNotNull(info.OnNodeRemoved);
-            Assert.IsNotNull(info.CanDrag);
-            Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
+            Assert.IsNotNull(info.CanDrag);
             Assert.IsNull(info.CanDrop);
             Assert.IsNull(info.CanInsert);
             Assert.IsNull(info.OnDrop);
