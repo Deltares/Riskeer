@@ -53,7 +53,7 @@ namespace Ringtoets.DuneErosion.Data
             Name = name;
             Location = location;
             CoastalAreaId = coastalAreaId;
-            Offset = new RoundedDouble(2, offset);
+            Offset = new RoundedDouble(1, offset);
             Orientation = new RoundedDouble(1, orientation);
             D50 = new RoundedDouble(6, d50);
         }

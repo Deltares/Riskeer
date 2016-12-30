@@ -49,7 +49,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             const string name = "Dune location";
             Point2D location = new Point2D(10.0, 12.0);
             const int coastalAreaId = 3;
-            const double offset = 4.29;
+            const double offset = 4.2;
             const double orientation = 4.2;
             const double d50 = 0.123456;
 
@@ -75,8 +75,8 @@ namespace Ringtoets.DuneErosion.Data.Test
             var duneLocation = new DuneLocation(0, "dune", new Point2D(0.0, 0.0), 0, 4.298, 0.0, 0.0);
 
             // Assert
-            Assert.AreEqual(2, duneLocation.Offset.NumberOfDecimalPlaces);
-            Assert.AreEqual(4.30, duneLocation.Offset, duneLocation.Offset.GetAccuracy());
+            Assert.AreEqual(1, duneLocation.Offset.NumberOfDecimalPlaces);
+            Assert.AreEqual(4.3, duneLocation.Offset, duneLocation.Offset.GetAccuracy());
         }
 
         [Test]
