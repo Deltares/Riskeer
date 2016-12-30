@@ -61,8 +61,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(typeof(PipingOutputContext), info.TagType);
+            Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.Image);
+            Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
+            Assert.IsNull(info.ExpandOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);

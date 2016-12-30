@@ -69,6 +69,17 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual(typeof(WaveHeightLocationsContext), info.TagType);
+                Assert.IsNotNull(info.Text);
+                Assert.IsNotNull(info.ForeColor);
+                Assert.IsNotNull(info.Image);
+                Assert.IsNotNull(info.ContextMenuStrip);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.ExpandOnCreate);
+                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
                 Assert.IsNull(info.CanCheck);
                 Assert.IsNull(info.IsChecked);
                 Assert.IsNull(info.OnNodeChecked);
@@ -76,12 +87,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanDrop);
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
-                Assert.IsNull(info.EnsureVisibleOnCreate);
-                Assert.IsNull(info.ChildNodeObjects);
-                Assert.IsNull(info.CanRename);
-                Assert.IsNull(info.OnNodeRenamed);
-                Assert.IsNull(info.CanRemove);
-                Assert.IsNull(info.OnNodeRemoved);
             }
         }
 
