@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNotNull(info.Image);
                 Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNotNull(info.EnsureVisibleOnCreate);
-                Assert.IsNull(info.ExpandOnCreate);
+                Assert.IsNotNull(info.ExpandOnCreate);
                 Assert.IsNotNull(info.ChildNodeObjects);
                 Assert.IsNotNull(info.CanRename);
                 Assert.IsNotNull(info.OnNodeRenamed);
@@ -140,6 +140,25 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 // Call
                 var result = info.EnsureVisibleOnCreate(null, null);
+
+                // Assert
+                Assert.IsTrue(result);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ExpandOnCreate_Always_ReturnsTrue()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                // Call
+                var result = info.ExpandOnCreate(null);
 
                 // Assert
                 Assert.IsTrue(result);

@@ -507,6 +507,7 @@ namespace Ringtoets.Integration.Plugin
                 Text = assessmentSection => assessmentSection.Name,
                 Image = assessmentSection => RingtoetsFormsResources.AssessmentSectionFolderIcon,
                 EnsureVisibleOnCreate = (assessmentSection, parent) => true,
+                ExpandOnCreate = assessmentSection => true,
                 ChildNodeObjects = AssessmentSectionChildNodeObjects,
                 ContextMenuStrip = AssessmentSectionContextMenuStrip,
                 CanRename = (assessmentSection, parentData) => true,
