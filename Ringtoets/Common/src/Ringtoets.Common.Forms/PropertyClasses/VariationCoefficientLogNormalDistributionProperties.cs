@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new read-only instance of <see cref="VariationCoefficientLogNormalDistributionProperties"/>.
         /// </summary>
-        public VariationCoefficientLogNormalDistributionProperties() : this(VariationCoefficientDistributionPropertiesReadOnly.All, null) {}
+        public VariationCoefficientLogNormalDistributionProperties() : this(VariationCoefficientDistributionPropertiesReadOnly.All, null, null) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="VariationCoefficientLogNormalDistributionProperties"/>.
@@ -46,10 +46,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// marked as read-only.</param>
         /// <param name="observable">The object to be notified of changes to properties.
         /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
+        /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="observable"/>
         /// is null and any number of properties in this class is editable.</exception>
-        public VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly, IObservable observable)
-            : base(propertiesReadOnly, observable) {}
+        public VariationCoefficientLogNormalDistributionProperties(
+            VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly, 
+            IObservable observable,
+            IPropertyChangeHandler handler)
+            : base(propertiesReadOnly, observable, handler) {}
 
         public override string DistributionType
         {

@@ -403,7 +403,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientLogNormalDistributionProperties(
+                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    data.WrappedData,
+                    this)
                 {
                     Data = data.WrappedData.ConstructiveStrengthLinearLoadModel
                 };
@@ -420,7 +423,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientLogNormalDistributionProperties(
+                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    data.WrappedData,
+                    this)
                 {
                     Data = data.WrappedData.ConstructiveStrengthQuadraticLoadModel
                 };
@@ -437,7 +443,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientLogNormalDistributionProperties(
+                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    data.WrappedData,
+                    this)
                 {
                     Data = data.WrappedData.StabilityLinearLoadModel
                 };
@@ -454,7 +463,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientLogNormalDistributionProperties(
+                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    data.WrappedData,
+                    this)
                 {
                     Data = data.WrappedData.StabilityQuadraticLoadModel
                 };
@@ -474,6 +486,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.FailureProbabilityRepairClosure = parsedValue);
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -486,7 +499,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientLogNormalDistributionProperties(
+                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    data.WrappedData,
+                    this)
                 {
                     Data = data.WrappedData.FailureCollisionEnergy
                 };
@@ -502,7 +518,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientNormalDistributionProperties(
+                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    data.WrappedData,
+                    this)
                 {
                     Data = data.WrappedData.ShipMass
                 };
@@ -518,7 +537,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientNormalDistributionProperties(
+                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    data.WrappedData,
+                    this)
                 {
                     Data = data.WrappedData.ShipVelocity
                 };
@@ -555,6 +577,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.ProbabilityCollisionSecondaryStructure = parsedValue);
+                data.WrappedData.NotifyObservers();
             }
         }
 

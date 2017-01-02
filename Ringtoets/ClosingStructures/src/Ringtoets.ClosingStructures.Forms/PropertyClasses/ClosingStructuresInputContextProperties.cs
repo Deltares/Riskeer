@@ -173,11 +173,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             return data.FailureMechanism.ClosingStructures;
         }
 
-        public void PropertyChanged()
-        {
-            // TODO WTI-973
-        }
-
         protected override void AfterSettingStructure()
         {
             StructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
@@ -224,7 +219,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             set
             {
                 data.WrappedData.FactorStormDurationOpenStructure = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -268,7 +263,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             set
             {
                 data.WrappedData.InflowModelType = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -319,6 +314,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             set
             {
                 SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.FailureProbabilityOpenStructure = parsedValue);
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -335,6 +331,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             set
             {
                 SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.FailureProbabilityReparation = parsedValue);
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -351,7 +348,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             set
             {
                 data.WrappedData.IdenticalApertures = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -385,6 +382,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             set
             {
                 SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding = parsedValue);
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 

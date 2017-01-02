@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var readOnlyFlags = VariationCoefficientDistributionPropertiesReadOnly.All;
 
             // Call
-            var properties = new SimpleVariationCoefficientDistributionProperties(readOnlyFlags, null);
+            var properties = new SimpleVariationCoefficientDistributionProperties(readOnlyFlags, null, null);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IVariationCoefficientDistribution>>(properties);
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             VariationCoefficientDistributionPropertiesReadOnly flags)
         {
             // Call
-            TestDelegate call = () => new SimpleVariationCoefficientDistributionProperties(flags, null);
+            TestDelegate call = () => new SimpleVariationCoefficientDistributionProperties(flags, null, null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Observable must be specified unless no property can be set.");
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var observable = mocks.Stub<IObservable>();
             mocks.ReplayAll();
 
-            var properties = new SimpleVariationCoefficientDistributionProperties(flags, observable);
+            var properties = new SimpleVariationCoefficientDistributionProperties(flags, observable, null);
 
             // Call
             bool isMeanReadonly = properties.DynamicReadOnlyValidationMethod("Mean");
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void DynamicReadOnlyValidationMethod_AllOtherCases_ReturnFalse()
         {
             // Setup
-            var properties = new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All, null);
+            var properties = new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All, null, null);
 
             // Call
             bool isReadonly = properties.DynamicReadOnlyValidationMethod(null);
@@ -112,7 +112,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             distribution.CoefficientOfVariation = new RoundedDouble(4, 5.6789);
             mocks.ReplayAll();
 
-            var properties = new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All, null);
+            var properties = new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All, null, null);
 
             // Call
             properties.Data = distribution;
@@ -135,7 +135,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var observable = mocks.Stub<IObservable>();
             mocks.ReplayAll();
 
-            var properties = new SimpleVariationCoefficientDistributionProperties(flags, observable)
+            var properties = new SimpleVariationCoefficientDistributionProperties(flags, observable, null)
             {
                 Data = distribution
             };
@@ -150,17 +150,25 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Mean_SetValue_ValueChangedAndObservableNotifies()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Mean_SetValue_ValueChangedAndObservableNotifies(bool withHandler)
         {
             // Setup
             var mocks = new MockRepository();
+            IPropertyChangeHandler handler = null;
+            if (withHandler)
+            {
+                handler = mocks.StrictMock<IPropertyChangeHandler>();
+                handler.Expect(o => o.PropertyChanged());
+            }
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
             var properties = new SimpleVariationCoefficientDistributionProperties(
-                VariationCoefficientDistributionPropertiesReadOnly.None, observable)
+                VariationCoefficientDistributionPropertiesReadOnly.None, observable, handler)
             {
                 Data = distribution
             };
@@ -187,7 +195,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var observable = mocks.Stub<IObservable>();
             mocks.ReplayAll();
 
-            var properties = new SimpleVariationCoefficientDistributionProperties(flags, observable)
+            var properties = new SimpleVariationCoefficientDistributionProperties(flags, observable, null)
             {
                 Data = distribution
             };
@@ -202,17 +210,25 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void CoefficientOfVariation_SetValue_ValueChangedAndObservableNotifies()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CoefficientOfVariation_SetValue_ValueChangedAndObservableNotifies(Boolean withHandler)
         {
             // Setup
             var mocks = new MockRepository();
+            IPropertyChangeHandler handler = null;
+            if (withHandler)
+            {
+                handler = mocks.StrictMock<IPropertyChangeHandler>();
+                handler.Expect(o => o.PropertyChanged());
+            }
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
             var properties = new SimpleVariationCoefficientDistributionProperties(
-                VariationCoefficientDistributionPropertiesReadOnly.None, observable)
+                VariationCoefficientDistributionPropertiesReadOnly.None, observable, handler)
             {
                 Data = distribution
             };
@@ -242,7 +258,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new SimpleVariationCoefficientDistributionProperties(flags, observable)
+            var properties = new SimpleVariationCoefficientDistributionProperties(flags, observable, null)
             {
                 Data = distribution
             };
@@ -279,7 +295,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void ToString_DataIsNull_ReturnEmptyString()
         {
             // Setup
-            var properties = new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All, null);
+            var properties = new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All, null, null);
 
             // Precondition
             Assert.IsNull(properties.Data);
@@ -302,7 +318,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             distribution.CoefficientOfVariation = new RoundedDouble(2, 4.56);
             mocks.ReplayAll();
 
-            var properties = new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All, null)
+            var properties = new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All, null, null)
             {
                 Data = distribution
             };
@@ -320,7 +336,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
         private class SimpleVariationCoefficientDistributionProperties : VariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>
         {
-            public SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly, IObservable observable) : base(propertiesReadOnly, observable) {}
+            public SimpleVariationCoefficientDistributionProperties(
+                VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
+                IObservable observable,
+                IPropertyChangeHandler handler)
+                : base(propertiesReadOnly, observable, handler) {}
 
             public override string DistributionType
             {

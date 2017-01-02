@@ -40,7 +40,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private readonly string variationCoefficientDisplayName;
         private readonly bool isMeanReadOnly;
         private readonly bool isVariationCoefficientReadOnly;
-        private readonly IObservable observerable;
+        private readonly IObservable observable;
+        private readonly IPropertyChangeHandler changeHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VariationCoefficientDistributionPropertiesBase{T}"/> class.
@@ -49,10 +50,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// marked as read-only.</param>
         /// <param name="observable">The object to be notified of changes to properties.
         /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
+        /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="observable"/>
         /// is <c>null</c> and any number of properties in this class is editable.</exception>
-        protected VariationCoefficientDistributionPropertiesBase(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
-                                                                 IObservable observable)
+        protected VariationCoefficientDistributionPropertiesBase(
+            VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
+            IObservable observable,
+            IPropertyChangeHandler handler)
         {
             if (observable == null && !propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.All))
             {
@@ -65,7 +69,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             meanDisplayName = TypeUtils.GetMemberName<VariationCoefficientDistributionPropertiesBase<T>>(d => d.Mean);
             variationCoefficientDisplayName = TypeUtils.GetMemberName<VariationCoefficientDistributionPropertiesBase<T>>(d => d.CoefficientOfVariation);
 
-            observerable = observable;
+            this.observable = observable;
+            changeHandler = handler;
         }
 
         [PropertyOrder(1)]
@@ -89,7 +94,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     throw new InvalidOperationException("Mean is set to be read-only.");
                 }
                 data.Mean = value;
-                observerable.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -109,7 +114,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     throw new InvalidOperationException("CoefficientOfVariation is set to be read-only.");
                 }
                 data.CoefficientOfVariation = value;
-                observerable.NotifyObservers();
+                NotifyPropertyChanged();
             }
         }
 
@@ -132,6 +137,18 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             return data == null ? string.Empty :
                        string.Format("{0} ({1} = {2})",
                                      Mean, Resources.Distribution_VariationCoefficient_DisplayName, CoefficientOfVariation);
+        }
+
+        /// <summary>
+        /// Sends notifications due to a change of a property.
+        /// </summary>
+        protected void NotifyPropertyChanged()
+        {
+            if (changeHandler != null)
+            {
+                changeHandler.PropertyChanged();
+            }
+            observable.NotifyObservers();
         }
     }
 }

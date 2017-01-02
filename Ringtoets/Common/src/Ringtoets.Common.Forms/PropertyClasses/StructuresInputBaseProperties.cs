@@ -40,6 +40,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.Common.Service;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
@@ -174,15 +175,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// </summary>
         /// <typeparam name="T">The type of the wrapped data to set a probability value for.</typeparam>
         /// <param name="value">The probability value to set.</param>
-        /// <param name="wrappedData">The wrapped data to set a probability value for.</param>
+        /// <param name="structureInput">The wrapped data to set a probability value for.</param>
         /// <param name="setValueAction">The action that sets the probability value to a specific property of the wrapped data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> equals <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> cannot be parsed into a <c>double</c>.</exception>
-        /// <remarks>After correctly setting the <paramref name="value"/> to the wrapped data, observers will be notified.</remarks>
-        protected static void SetProbabilityValue<T>(string value,
-                                                     T wrappedData,
-                                                     Action<T, RoundedDouble> setValueAction)
-            where T : IObservable
+        protected static void SetProbabilityValue(string value,
+                                                     TStructureInput structureInput,
+                                                     Action<TStructureInput, RoundedDouble> setValueAction)
         {
             if (value == null)
             {
@@ -190,7 +189,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             try
             {
-                setValueAction(wrappedData, (RoundedDouble) double.Parse(value));
+                setValueAction(structureInput, (RoundedDouble) double.Parse(value));
             }
             catch (OverflowException)
             {
@@ -200,7 +199,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 throw new ArgumentException(Resources.FailureProbability_Could_not_parse_string_to_double_value);
             }
-            wrappedData.NotifyObservers();
         }
 
         private static string GetMemberName(Expression<Func<StructuresInputBaseProperties<TStructure, TStructureInput, TCalculation, TFailureMechanism>, object>> expression)
@@ -318,7 +316,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 data.WrappedData.Structure = value;
                 AfterSettingStructure();
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -350,7 +348,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             set
             {
                 data.WrappedData.StructureNormalOrientation = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -379,7 +377,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientNormalDistributionProperties(
+                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    data.WrappedData,
+                    this)
                 {
                     Data = data.WrappedData.WidthFlowApertures
                 };
@@ -395,7 +396,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientLogNormalDistributionProperties(
+                    VariationCoefficientDistributionPropertiesReadOnly.None, 
+                    data.WrappedData,
+                    this)
                 {
                     Data = data.WrappedData.StorageStructureArea
                 };
@@ -427,7 +431,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientLogNormalDistributionProperties(
+                    VariationCoefficientDistributionPropertiesReadOnly.None,
+                    data.WrappedData,
+                    this)
                 {
                     Data = data.WrappedData.CriticalOvertoppingDischarge
                 };
@@ -447,6 +454,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             set
             {
                 SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.FailureProbabilityStructureWithErosion = parsedValue);
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -464,7 +472,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             set
             {
                 data.WrappedData.ForeshoreProfile = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -516,7 +524,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             set
             {
                 data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -529,7 +537,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation, data.WrappedData)
+                return new VariationCoefficientLogNormalDistributionProperties(
+                    VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation,
+                    data.WrappedData,
+                    this)
                 {
                     Data = data.WrappedData.StormDuration
                 };
@@ -540,7 +551,22 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         public void PropertyChanged()
         {
-            // TODO WTI-969/WTI-970/WTI-971/WTI-973
+            ClearCalculationOutput();
+        }
+
+        protected void ClearOutputAndNotifyPropertyChanged()
+        {
+            ClearCalculationOutput();
+            data.WrappedData.NotifyObservers();
+        }
+
+        private void ClearCalculationOutput()
+        {
+            IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(data.Calculation);
+            foreach (var calculation in affectedCalculation)
+            {
+                calculation.NotifyObservers();
+            }
         }
     }
 }
