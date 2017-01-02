@@ -28,14 +28,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
-            var failureMechanism = new DuneErosionFailureMechanism();
-
+            
             var location = new TestDuneLocation();
             var items = new ObservableList<DuneLocation>
             {
                 location
             };
 
+            var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneLocationsContext(items, failureMechanism, assessmentSection);
 
             // Call
@@ -80,12 +80,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
-            var failureMechanism = new DuneErosionFailureMechanism();
-
+            
             var items = new ObservableList<DuneLocation>
             {
                 new TestDuneLocation()
             };
+            var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneLocationsContext(items, failureMechanism, assessmentSection);
 
             // Call
