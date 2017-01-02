@@ -62,6 +62,7 @@
     <Compile Include="Calculation\CalculationGroupTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileTest.cs" />
     <Compile Include="DikeProfiles\ForeshoreProfileTest.cs" />
+    <Compile Include="Hydraulics\CalculationConvergenceTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabaseTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationOutputTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationTest.cs" />

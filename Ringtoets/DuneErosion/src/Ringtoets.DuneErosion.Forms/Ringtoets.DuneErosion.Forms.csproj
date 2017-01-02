@@ -45,6 +45,7 @@
     <Compile Include="PresentationObjects\DuneLocationsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DuneErosionFailureMechanismProperties.cs" />
+    <Compile Include="PropertyClasses\DuneLocationContextProperties.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
