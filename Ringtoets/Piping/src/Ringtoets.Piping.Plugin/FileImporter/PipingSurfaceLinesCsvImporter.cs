@@ -104,11 +104,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             AddImportedDataToModel(importSurfaceLinesResult.ImportedItems, importCharacteristicPointsResult.ImportedItems);
 
-            if (Canceled)
-            {
-                Canceled = false; // Note: Adding imported data to the model cannot be canceled, so ignore any cancel request
-            }
-
             return true;
         }
 
