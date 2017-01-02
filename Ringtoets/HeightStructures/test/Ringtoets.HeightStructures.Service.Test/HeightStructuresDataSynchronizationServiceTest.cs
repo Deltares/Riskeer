@@ -304,7 +304,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(array, failureMechanism.HeightStructures);
 
-            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.DeletedObjects);
+            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
         }
 
         [Test]

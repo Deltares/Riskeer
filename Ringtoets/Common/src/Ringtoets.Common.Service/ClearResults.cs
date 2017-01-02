@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Service
             }
 
             ChangedObjects = changedObjects;
-            DeletedObjects = removedObjects;
+            RemovedObjects = removedObjects;
         }
 
         /// <summary>
@@ -59,6 +59,6 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// The removed objects.
         /// </summary>
-        public IEnumerable<object> DeletedObjects { get; private set; }
+        public IEnumerable<object> RemovedObjects { get; private set; }
     }
 }

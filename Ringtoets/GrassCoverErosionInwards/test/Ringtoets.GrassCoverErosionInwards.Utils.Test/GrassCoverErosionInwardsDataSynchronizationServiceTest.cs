@@ -202,7 +202,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.DikeProfiles);
 
-            CollectionAssert.AreEquivalent(expectedRemovedObjectInstances, result.DeletedObjects);
+            CollectionAssert.AreEquivalent(expectedRemovedObjectInstances, result.RemovedObjects);
         }
 
         private static GrassCoverErosionInwardsFailureMechanism CreateFullyConfiguredFailureMechanism()

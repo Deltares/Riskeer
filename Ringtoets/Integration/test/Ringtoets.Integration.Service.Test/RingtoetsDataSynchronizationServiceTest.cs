@@ -590,7 +590,7 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void ClearReferenceLine_FullyConfiguredAssessmentSection_ClearResultsContainAllAffectedObjectsAndAllDeletedObjects()
+        public void ClearReferenceLine_FullyConfiguredAssessmentSection_ClearResultsContainAllAffectedObjectsAndAllRemovedObjects()
         {
             // Setup
             AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
@@ -680,12 +680,12 @@ namespace Ringtoets.Integration.Service.Test
 
             CollectionAssert.Contains(changedObjects, assessmentSection);
 
-            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.DeletedObjects);
-            CollectionAssert.DoesNotContain(results.DeletedObjects, null);
+            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
+            CollectionAssert.DoesNotContain(results.RemovedObjects, null);
         }
 
         [Test]
-        public void ClearReferenceLine_FullyConfiguredAssessmentSectionWithoutReferenceLine_ClearResultsDoesNotContainReferenceLineNorNullForDeletedObjects()
+        public void ClearReferenceLine_FullyConfiguredAssessmentSectionWithoutReferenceLine_ClearResultsDoesNotContainReferenceLineNorNullForRemovedObjects()
         {
             // Setup
             AssessmentSection assessmentSection = TestDataGenerator.GetFullyConfiguredAssessmentSection();
@@ -777,9 +777,9 @@ namespace Ringtoets.Integration.Service.Test
 
             CollectionAssert.Contains(changedObjects, assessmentSection);
 
-            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.DeletedObjects);
-            CollectionAssert.DoesNotContain(results.DeletedObjects, originalReferenceLine);
-            CollectionAssert.DoesNotContain(results.DeletedObjects, null);
+            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
+            CollectionAssert.DoesNotContain(results.RemovedObjects, originalReferenceLine);
+            CollectionAssert.DoesNotContain(results.RemovedObjects, null);
         }
 
         [Test]

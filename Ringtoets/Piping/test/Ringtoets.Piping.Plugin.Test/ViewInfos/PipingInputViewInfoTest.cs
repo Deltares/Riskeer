@@ -163,6 +163,51 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CloseForData_ViewCorrespondingToRemovedPipingCalculationScenario_ReturnsTrue()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
+
+            using (var view = new PipingInputView
+            {
+                Data = pipingCalculation
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, pipingCalculation);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedPipingCalculationScenario_ReturnsFalse()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationToRemove = new PipingCalculationScenario(new GeneralPipingInput());
+
+            using (var view = new PipingInputView
+            {
+                Data = pipingCalculation
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationToRemove);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void CloseForData_ViewCorrespondingWithRemovedPipingCalculationGroupContext_ReturnsTrue()
         {
             // Setup

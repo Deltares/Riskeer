@@ -206,7 +206,7 @@ namespace Ringtoets.Piping.Service.Test
             CollectionAssert.Contains(array, failureMechanism.StochasticSoilModels);
             CollectionAssert.Contains(array, failureMechanism.SurfaceLines);
 
-            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.DeletedObjects);
+            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
         }
 
         [Test]

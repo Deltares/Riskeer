@@ -48,12 +48,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineReplacementHandlerTest : NUnitFormTest
     {
-
         [Test]
         public void Constructor_ViewCommandsNull_ThrowArgumentNullException()
         {
-            // Setup
-
             // Call
             TestDelegate call = () => new ReferenceLineReplacementHandler(null);
 
@@ -312,7 +309,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert
             mocks.VerifyAll(); // Expect not calls in 'viewCommands'
         }
-
 
         [Test]
         public void DoPostReplacementUpdates_AfterReplacingReferenceLine_CloseViewsForRemovedData()

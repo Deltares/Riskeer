@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             removedObjects.Clear();
 
             ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLine(section);
-            foreach (object deletedObject in results.DeletedObjects)
+            foreach (object deletedObject in results.RemovedObjects)
             {
                 removedObjects.Enqueue(deletedObject);
             }

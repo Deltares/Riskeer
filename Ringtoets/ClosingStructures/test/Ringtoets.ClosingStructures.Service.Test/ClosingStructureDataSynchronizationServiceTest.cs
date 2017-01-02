@@ -302,7 +302,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(array, failureMechanism.ClosingStructures);
 
-            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.DeletedObjects);
+            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
         }
 
         [Test]

@@ -33,14 +33,14 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var changedObjectsArray = new IObservable[0];
-            var deletedObjectsArray = new object[0];
+            var removedObjectsArray = new object[0];
 
             // Call
-            var results = new ClearResults(changedObjectsArray, deletedObjectsArray);
+            var results = new ClearResults(changedObjectsArray, removedObjectsArray);
 
             // Assert
             Assert.AreSame(changedObjectsArray, results.ChangedObjects);
-            Assert.AreSame(deletedObjectsArray, results.DeletedObjects);
+            Assert.AreSame(removedObjectsArray, results.RemovedObjects);
         }
 
 
@@ -48,10 +48,10 @@ namespace Ringtoets.Common.Service.Test
         public void Constructor_ChangedObjectsNull_ThrowArgumentNullException()
         {
             // Setup
-            var deletedObjectsArray = new object[0];
+            var removedObjectsArray = new object[0];
 
             // Call
-            TestDelegate call = () => new ClearResults(null, deletedObjectsArray);
+            TestDelegate call = () => new ClearResults(null, removedObjectsArray);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Service.Test
 
 
         [Test]
-        public void Constructor_DeletedObjectsNull_ThrowArgumentNullException()
+        public void Constructor_RemovedObjectsNull_ThrowArgumentNullException()
         {
             // Setup
             var changedObjectsArray = new IObservable[0];

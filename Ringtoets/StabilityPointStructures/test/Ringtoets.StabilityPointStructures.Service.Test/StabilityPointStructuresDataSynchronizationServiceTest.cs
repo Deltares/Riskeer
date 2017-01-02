@@ -151,7 +151,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(array, failureMechanism.StabilityPointStructures);
 
-            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.DeletedObjects);
+            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
         }
 
         [Test]

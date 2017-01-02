@@ -200,7 +200,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             CollectionAssert.Contains(array, failureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
 
-            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.DeletedObjects);
+            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
         }
 
         private static WaveImpactAsphaltCoverFailureMechanism CreateFullyConfiguredFailureMechanism()
