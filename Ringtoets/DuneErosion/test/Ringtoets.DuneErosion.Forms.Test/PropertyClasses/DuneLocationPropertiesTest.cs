@@ -119,19 +119,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var expectedLocation = new Point2D(x, y);
             Assert.AreEqual(expectedLocation, properties.Location);
 
-            Assert.AreEqual(2, properties.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(waterLevel, properties.WaterLevel, properties.WaterLevel.GetAccuracy());
-            Assert.AreEqual(2, properties.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(waveHeight, properties.WaveHeight, properties.WaveHeight.GetAccuracy());
-            Assert.AreEqual(2, properties.WavePeriod.NumberOfDecimalPlaces);
             Assert.AreEqual(wavePeriod, properties.WavePeriod, properties.WavePeriod.GetAccuracy());
 
             Assert.AreEqual(targetProbability, properties.TargetProbability);
-            Assert.AreEqual(5, properties.TargetReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
-
             Assert.AreEqual(calculatedProbability, properties.CalculatedProbability, properties.CalculatedProbability);
-            Assert.AreEqual(5, properties.CalculatedReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;

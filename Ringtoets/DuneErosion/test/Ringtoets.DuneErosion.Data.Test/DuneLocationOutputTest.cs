@@ -117,12 +117,17 @@ namespace Ringtoets.DuneErosion.Data.Test
                                                 convergence);
 
             // Assert
+            Assert.AreEqual(2, output.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
+            Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.AreEqual(2, output.WavePeriod.NumberOfDecimalPlaces);
             Assert.AreEqual(wavePeriod, output.WavePeriod, output.WavePeriod.GetAccuracy());
             Assert.AreEqual(targetProbability, output.TargetProbability);
+            Assert.AreEqual(5, output.TargetReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
+            Assert.AreEqual(5, output.CalculatedReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
         }
