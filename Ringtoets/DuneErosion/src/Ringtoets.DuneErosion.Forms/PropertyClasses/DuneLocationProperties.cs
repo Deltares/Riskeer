@@ -40,8 +40,8 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     public class DuneLocationProperties : ObjectProperties<DuneLocation>
     {
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "DuneLocation_Id_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DuneLocation_Id_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Id_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Id_Description")]
         public long Id
         {
             get
@@ -51,8 +51,8 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "DuneLocation_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DuneLocation_Name_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Name_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Name_Description")]
         public string Name
         {
             get
@@ -84,8 +84,8 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "DuneLocation_Location_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DuneLocation_Location_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Coordinates_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Coordinates_Description")]
         public Point2D Location
         {
             get

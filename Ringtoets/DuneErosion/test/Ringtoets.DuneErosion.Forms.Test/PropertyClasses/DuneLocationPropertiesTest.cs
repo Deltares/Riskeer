@@ -166,14 +166,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
                                                                             "Algemeen",
                                                                             "ID",
-                                                                            "ID van de hydraulische duinlocatie in de database.",
+                                                                            "ID van de hydraulische randvoorwaardenlocatie in de database.",
                                                                             true);
 
             PropertyDescriptor nameProperty = dynamicProperties[requiredNamePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             "Algemeen",
                                                                             "Naam",
-                                                                            "Naam van de hydraulische duinlocatie.",
+                                                                            "Naam van de hydraulische randvoorwaardenlocatie.",
                                                                             true);
 
             PropertyDescriptor coastalAreaIdProperty = dynamicProperties[requiredCoastalAreaIdPropertyIndex];
@@ -194,7 +194,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationProperty,
                                                                             "Algemeen",
                                                                             "Coördinaten [m]",
-                                                                            "Coördinaten van de hydraulische duinlocatie.",
+                                                                            "Coördinaten van de hydraulische randvoorwaardenlocatie.",
                                                                             true);
 
             PropertyDescriptor waterLevelProperty = dynamicProperties[requiredWaterLevelPropertyIndex];
@@ -250,7 +250,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
                                                                             "Resultaat",
                                                                             "Convergentie",
-                                                                            "Is convergentie bereikt in de duinlocatie berekening?",
+                                                                            "Is convergentie bereikt in de hydraulische randvoorwaardenlocatie berekening?",
                                                                             true);
         }
     }

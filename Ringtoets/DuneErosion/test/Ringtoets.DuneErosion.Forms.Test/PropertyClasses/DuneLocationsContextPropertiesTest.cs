@@ -97,7 +97,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             const string expectedLocationsDisplayName = "Locaties";
-            const string expectedLocationsDescription = "Locaties uit de hydraulische duinendatabase.";
+            const string expectedLocationsDescription = "Locaties uit de hydraulische randvoorwaardendatabase.";
             const string expectedLocationsCategory = "Algemeen";
 
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);

@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DuneLocationsContextProperties_Locations_Description" xml:space="preserve">
-    <value>Locaties uit de hydraulische duinendatabase.</value>
-  </data>
-  <data name="DuneLocationsContextProperties_Locations_DisplayName" xml:space="preserve">
-    <value>Locaties</value>
-  </data>
   <data name="DuneLocation_CoastalAreaId_Description" xml:space="preserve">
     <value>Nummer van het kustvak waar de locatie onderdeel van uitmaakt.</value>
   </data>
@@ -130,25 +124,7 @@
     <value>Kustvaknummer</value>
   </data>
   <data name="DuneLocation_Convergence_Description" xml:space="preserve">
-    <value>Is convergentie bereikt in de duinlocatie berekening?</value>
-  </data>
-  <data name="DuneLocation_Id_Description" xml:space="preserve">
-    <value>ID van de hydraulische duinlocatie in de database.</value>
-  </data>
-  <data name="DuneLocation_Id_DisplayName" xml:space="preserve">
-    <value>ID</value>
-  </data>
-  <data name="DuneLocation_Location_Description" xml:space="preserve">
-    <value>Coördinaten van de hydraulische duinlocatie.</value>
-  </data>
-  <data name="DuneLocation_Location_DisplayName" xml:space="preserve">
-    <value>Coördinaten [m]</value>
-  </data>
-  <data name="DuneLocation_Name_Description" xml:space="preserve">
-    <value>Naam van de hydraulische duinlocatie.</value>
-  </data>
-  <data name="DuneLocation_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
+    <value>Is convergentie bereikt in de hydraulische randvoorwaardenlocatie berekening?</value>
   </data>
   <data name="DuneLocation_Offset_Description" xml:space="preserve">
     <value>Metrering van de locatie binnen het kustvak waar het onderdeel van uitmaakt.</value>

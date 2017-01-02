@@ -25,8 +25,7 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
-using Ringtoets.DuneErosion.Forms.Properties;
-using RingtoetsCommonFormsProperties = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 {
@@ -36,9 +35,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     public class DuneLocationsContextProperties : ObjectProperties<DuneLocationsContext>
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsProperties), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "DuneLocationsContextProperties_Locations_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DuneLocationsContextProperties_Locations_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Locations_Description")]
         public DuneLocationProperties[] Locations
         {
             get

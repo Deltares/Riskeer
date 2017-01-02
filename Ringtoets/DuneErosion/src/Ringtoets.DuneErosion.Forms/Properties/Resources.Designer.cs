@@ -100,65 +100,11 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de duinlocatie berekening?.
+        ///   Looks up a localized string similar to Is convergentie bereikt in de hydraulische randvoorwaardenlocatie berekening?.
         /// </summary>
         internal static string DuneLocation_Convergence_Description {
             get {
                 return ResourceManager.GetString("DuneLocation_Convergence_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ID van de hydraulische duinlocatie in de database..
-        /// </summary>
-        internal static string DuneLocation_Id_Description {
-            get {
-                return ResourceManager.GetString("DuneLocation_Id_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ID.
-        /// </summary>
-        internal static string DuneLocation_Id_DisplayName {
-            get {
-                return ResourceManager.GetString("DuneLocation_Id_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Coördinaten van de hydraulische duinlocatie..
-        /// </summary>
-        internal static string DuneLocation_Location_Description {
-            get {
-                return ResourceManager.GetString("DuneLocation_Location_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Coördinaten [m].
-        /// </summary>
-        internal static string DuneLocation_Location_DisplayName {
-            get {
-                return ResourceManager.GetString("DuneLocation_Location_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van de hydraulische duinlocatie..
-        /// </summary>
-        internal static string DuneLocation_Name_Description {
-            get {
-                return ResourceManager.GetString("DuneLocation_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        internal static string DuneLocation_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("DuneLocation_Name_DisplayName", resourceCulture);
             }
         }
         
@@ -231,24 +177,6 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         internal static string DuneLocation_WavePeriod_DisplayName {
             get {
                 return ResourceManager.GetString("DuneLocation_WavePeriod_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locaties uit de hydraulische duinendatabase..
-        /// </summary>
-        internal static string DuneLocationsContextProperties_Locations_Description {
-            get {
-                return ResourceManager.GetString("DuneLocationsContextProperties_Locations_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locaties.
-        /// </summary>
-        internal static string DuneLocationsContextProperties_Locations_DisplayName {
-            get {
-                return ResourceManager.GetString("DuneLocationsContextProperties_Locations_DisplayName", resourceCulture);
             }
         }
     }
