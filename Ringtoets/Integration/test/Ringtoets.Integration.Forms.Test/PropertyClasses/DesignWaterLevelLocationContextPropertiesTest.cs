@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -102,11 +103,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(CalculationConvergence.CalculatedNotConverged, "Nee")]
-        [TestCase(CalculationConvergence.CalculatedConverged, "Ja")]
-        [TestCase(CalculationConvergence.NotCalculated, "")]
-        public void GetProperties_ValidDesignWaterLevel_ReturnsExpectedValues(CalculationConvergence convergence,
-                                                                              string expectedConvergedText)
+        [TestCase(CalculationConvergence.CalculatedNotConverged)]
+        [TestCase(CalculationConvergence.CalculatedConverged)]
+        [TestCase(CalculationConvergence.NotCalculated)]
+        public void GetProperties_ValidDesignWaterLevel_ReturnsExpectedValues(CalculationConvergence convergence)
         {
             // Setup
             var random = new Random();
@@ -154,7 +154,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, properties.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual(expectedConvergedText, properties.Convergence);
+
+            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+            Assert.AreEqual(convergenceValue, properties.Convergence);
         }
 
         [Test]

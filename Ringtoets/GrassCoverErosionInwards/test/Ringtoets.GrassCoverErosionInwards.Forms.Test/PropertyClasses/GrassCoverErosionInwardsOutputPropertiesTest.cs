@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -119,7 +120,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(dikeHeightCalculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
             Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
                               NoValueRoundedDoubleConverter>(p => p.CalculatedReliability));
-            Assert.AreEqual("", properties.Convergence);
+
+            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(dikeHeightConvergence).DisplayName;
+            Assert.AreEqual(convergenceValue, properties.Convergence);
         }
 
         [Test]

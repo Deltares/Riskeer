@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -59,12 +60,13 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             const double targetReliability = 3000;
             const double calculatedProbability = 0.4;
             const double calculatedReliability = 6000;
+            const CalculationConvergence convergence = CalculationConvergence.NotCalculated;
 
             // Call
             var properties = new WaveConditionsOutputProperties
             {
                 Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
-                                                targetReliability, calculatedProbability, calculatedReliability, CalculationConvergence.NotCalculated)
+                                                targetReliability, calculatedProbability, calculatedReliability, convergence)
             };
 
             // Assert
@@ -80,7 +82,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(ProbabilityFormattingHelper.Format(calculatedProbability), properties.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
 
-            Assert.AreEqual(string.Empty, properties.Convergence);
+            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+            Assert.AreEqual(convergenceValue, properties.Convergence);
         }
 
         [Test]
