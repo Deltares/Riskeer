@@ -23,8 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
+using log4net;
 using Ringtoets.DuneErosion.Data;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.IO
 {
@@ -33,6 +36,8 @@ namespace Ringtoets.DuneErosion.IO
     /// </summary>
     public class DuneLocationsExporter : IFileExporter
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(DuneLocationsExporter));
+
         private readonly IEnumerable<DuneLocation> duneLocations;
         private readonly string filePath;
 
@@ -64,6 +69,16 @@ namespace Ringtoets.DuneErosion.IO
 
         public bool Export()
         {
+            try
+            {
+                DuneLocationsWriter.WriteDuneLocations(duneLocations, filePath);
+            }
+            catch (CriticalFileWriteException e)
+            {
+                log.ErrorFormat(RingtoetsCommonIOResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
+                return false;
+            }
+
             return true;
         }
     }

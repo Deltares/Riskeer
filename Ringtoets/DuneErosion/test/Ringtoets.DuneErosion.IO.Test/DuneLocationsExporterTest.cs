@@ -22,9 +22,12 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
+using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 
@@ -87,13 +90,103 @@ namespace Ringtoets.DuneErosion.IO.Test
         }
 
         [Test]
-        public void Constructor_FilePathInvalid_ThrowArgumentException()
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase("c:\\>")]
+        public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
         {
             // Call
-            TestDelegate test = () => new DuneLocationsExporter(Enumerable.Empty<DuneLocation>(), null);
+            TestDelegate test = () => new DuneLocationsExporter(Enumerable.Empty<DuneLocation>(), filePath);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Export_ValidData_ReturnTrueAndWritesFile()
+        {
+            // Setup
+            DuneLocation[] duneLocations =
+            {
+                new DuneLocation(1, string.Empty, new Point2D(0, 0), 9, 9740, 0, 1.9583e-4)
+                {
+                    Output = new DuneLocationOutput(5.89, 8.54, 14.11, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged)
+                },
+                new DuneLocation(2, string.Empty, new Point2D(0, 0), 9, 9770, 0, 1.9561e-4)
+                {
+                    Output = new DuneLocationOutput(5.89, 8.53, 14.09, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged)
+                }
+            };
+
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.DuneErosion.IO,
+                                                              "Export_ValidData_ReturnTrue");
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.bnd");
+
+            var exporter = new DuneLocationsExporter(duneLocations, filePath);
+
+            try
+            {
+                // Call
+                bool isExported = exporter.Export();
+
+                // Assert
+                Assert.IsTrue(isExported);
+                Assert.IsTrue(File.Exists(filePath));
+                string fileContent = File.ReadAllText(filePath);
+                Assert.AreEqual("Kv\tNr\tRp\tHs\tTp\tD50\r\n" +
+                                "9\t9740.0\t5.89\t8.54\t14.11\t0.000196\r\n" +
+                                "9\t9770.0\t5.89\t8.53\t14.09\t0.000196\r\n",
+                                fileContent);
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
+        }
+
+        [Test]
+        public void Export_InvalidDirectoryRight_LogErrorAndReturnFalse()
+        {
+            // Setup
+            DuneLocation[] duneLocations =
+            {
+                new DuneLocation(1, string.Empty, new Point2D(0, 0), 9, 9740, 0, 1.9583e-4)
+                {
+                    Output = new DuneLocationOutput(5.89, 8.54, 14.11, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged)
+                },
+                new DuneLocation(2, string.Empty, new Point2D(0, 0), 9, 9770, 0, 1.9561e-4)
+                {
+                    Output = new DuneLocationOutput(5.89, 8.53, 14.09, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged)
+                }
+            };
+
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.DuneErosion.IO,
+                                                              "Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.bnd");
+
+            var exporter = new DuneLocationsExporter(duneLocations, filePath);
+
+            try
+            {
+                using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
+                {
+                    // Call
+                    bool isExported = true;
+                    Action call = () => isExported = exporter.Export();
+
+                    // Assert
+                    string expectedMessage = string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'. " +
+                                                           "Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd.", filePath);
+                    TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+                    Assert.IsFalse(isExported);
+                }
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
         }
     }
 }

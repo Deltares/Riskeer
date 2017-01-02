@@ -134,7 +134,7 @@ namespace Ringtoets.DuneErosion.IO.Test
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.DuneErosion.IO,
                                                               "WriteDuneLocations_ValidData_ValidFile");
             Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.csv");
+            string filePath = Path.Combine(directoryPath, "test.bnd");
 
             try
             {
