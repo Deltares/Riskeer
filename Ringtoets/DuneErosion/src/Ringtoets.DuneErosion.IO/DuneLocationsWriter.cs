@@ -24,8 +24,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.IO.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.IO
@@ -56,7 +58,7 @@ namespace Ringtoets.DuneErosion.IO
                 throw new ArgumentNullException("filePath");
             }
 
-            var stringBuilder = new StringBuilder("Kv\tNr\tRp\tHs\tTp\tD50" + Environment.NewLine);
+            var stringBuilder = new StringBuilder(Resources.DuneLocationsWriter_WriteDuneLocations_HeaderLine + Environment.NewLine);
 
             try
             {
@@ -75,17 +77,41 @@ namespace Ringtoets.DuneErosion.IO
 
         private static string CreateCsvLine(DuneLocation location)
         {
-            string[] stringComponents =
+            var stringComponents = new List<string>
             {
                 location.CoastalAreaId.ToString(null, CultureInfo.InvariantCulture),
-                location.Offset.ToString(null, CultureInfo.InvariantCulture),
-                location.Output.WaterLevel.ToString(null, CultureInfo.InvariantCulture),
-                location.Output.WaveHeight.ToString(null, CultureInfo.InvariantCulture),
-                location.Output.WavePeriod.ToString(null, CultureInfo.InvariantCulture),
+                location.Offset.ToString(Resources.DuneLocationsWriter_CreateCsvLine_offset_format, CultureInfo.InvariantCulture),
+                Resources.DuneLocationsWriter_CreateCsvLine_No_value,
                 location.D50.ToString(null, CultureInfo.InvariantCulture)
             };
 
+            stringComponents.InsertRange(2, GetOutputValues(location.Output));
+
             return string.Join(separator, stringComponents);
+        }
+
+        private static IEnumerable<string> GetOutputValues(DuneLocationOutput output)
+        {
+            return output == null
+                       ? new[]
+                       {
+                           Resources.DuneLocationsWriter_CreateCsvLine_No_value,
+                           Resources.DuneLocationsWriter_CreateCsvLine_No_value,
+                           Resources.DuneLocationsWriter_CreateCsvLine_No_value,
+                       }
+                       : new[]
+                       {
+                           GetOutputValue(output.WaterLevel),
+                           GetOutputValue(output.WaveHeight),
+                           GetOutputValue(output.WavePeriod)
+                       };
+        }
+
+        private static string GetOutputValue(RoundedDouble value)
+        {
+            return !double.IsNaN(value)
+                       ? value.ToString(null, CultureInfo.InvariantCulture)
+                       : Resources.DuneLocationsWriter_CreateCsvLine_No_value;
         }
     }
 }

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
@@ -47,18 +46,12 @@ namespace Ringtoets.DuneErosion.IO
         /// <param name="duneLocations">The dune locations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocations"/>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid
-        /// or an <see cref="DuneLocation.Output"/> from <paramref name="duneLocations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public DuneLocationsExporter(IEnumerable<DuneLocation> duneLocations, string filePath)
         {
             if (duneLocations == null)
             {
                 throw new ArgumentNullException("duneLocations");
-            }
-
-            if (duneLocations.Any(location => location.Output == null))
-            {
-                throw new ArgumentException("Locations should contain output");
             }
 
             FileUtils.ValidateFilePath(filePath);

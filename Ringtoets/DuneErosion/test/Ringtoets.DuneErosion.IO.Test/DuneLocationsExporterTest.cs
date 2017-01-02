@@ -29,7 +29,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.IO.Test
 {
@@ -66,30 +65,6 @@ namespace Ringtoets.DuneErosion.IO.Test
         }
 
         [Test]
-        public void Constructor_LocationWithoutOutput_ThrowArgumentException()
-        {
-            // Setup
-            var filePath = Path.Combine(testDataPath, "tets.bnd");
-
-            var location1 = new TestDuneLocation
-            {
-                Output = new TestDuneLocationOutput()
-            };
-            var location2 = new TestDuneLocation();
-
-            // Call
-            TestDelegate test = () => new DuneLocationsExporter(new[]
-                                                                {
-                                                                    location1,
-                                                                    location2
-                                                                }, filePath);
-
-            // Assert
-            var expectedMessage = "Locations should contain output";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
         [TestCase("")]
         [TestCase("   ")]
         [TestCase("c:\\>")]
@@ -112,7 +87,7 @@ namespace Ringtoets.DuneErosion.IO.Test
                 {
                     Output = new DuneLocationOutput(5.89, 8.54, 14.11, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged)
                 },
-                new DuneLocation(2, string.Empty, new Point2D(0, 0), 9, 9770, 0, 1.9561e-4)
+                new DuneLocation(2, string.Empty, new Point2D(0, 0), 9, 9770.1, 0, 1.9561e-4)
                 {
                     Output = new DuneLocationOutput(5.89, 8.53, 14.09, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged)
                 }
@@ -134,9 +109,9 @@ namespace Ringtoets.DuneErosion.IO.Test
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                Assert.AreEqual("Kv\tNr\tRp\tHs\tTp\tD50\r\n" +
-                                "9\t9740.0\t5.89\t8.54\t14.11\t0.000196\r\n" +
-                                "9\t9770.0\t5.89\t8.53\t14.09\t0.000196\r\n",
+                Assert.AreEqual("Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50\r\n" +
+                                "9\t9740\t5.89\t8.54\t14.11\t*\t0.000196\r\n" +
+                                "9\t9770.1\t5.89\t8.53\t14.09\t*\t0.000196\r\n",
                                 fileContent);
             }
             finally
