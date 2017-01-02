@@ -22,8 +22,8 @@
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Structures
 {
@@ -135,11 +135,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             public void Detach(IObserver observer) {}
 
             public void NotifyObservers() {}
-        }
-
-        private class TestStructuresOutput : ProbabilityAssessmentOutput
-        {
-            public TestStructuresOutput() : base(0, 0, 0, 0, 0) {}
         }
     }
 }

@@ -64,6 +64,7 @@
     <Compile Include="TestForeshoreProfile.cs" />
     <Compile Include="TestHydraulicBoundaryLocation.cs" />
     <Compile Include="TestHydraulicBoundaryLocationOutput.cs" />
+    <Compile Include="TestStructuresOutput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

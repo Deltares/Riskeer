@@ -45,8 +45,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                                                                ClosingStructure,
                                                                ClosingStructuresInput,
                                                                StructuresCalculation<ClosingStructuresInput>,
-                                                               ClosingStructuresFailureMechanism>,
-                                                           IPropertyChangeHandler
+                                                               ClosingStructuresFailureMechanism>
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int stormDurationPropertyIndex = 2;

@@ -45,6 +45,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -158,7 +159,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
-                Output = new TestClosingStructuresOutput()
+                Output = new TestStructuresOutput()
             };
 
             var calculationContext = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
@@ -656,11 +657,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNull(result.Calculation);
-        }
-
-        private class TestClosingStructuresOutput : ProbabilityAssessmentOutput
-        {
-            public TestClosingStructuresOutput() : base(0, 0, 0, 0, 0) {}
         }
     }
 }

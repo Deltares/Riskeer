@@ -38,6 +38,7 @@ using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
@@ -66,6 +67,319 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<StructuresInputBaseProperties<ClosingStructure, ClosingStructuresInput,
                 StructuresCalculation<ClosingStructuresInput>, ClosingStructuresFailureMechanism>>(properties);
             Assert.IsNull(properties.Data);
+        }
+
+        [Test]
+        public void Constructor_VerticalWallStructure_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestClosingStructure(ClosingStructureInflowModelType.VerticalWall)
+                }
+            };
+            var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+
+            // Call
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Assert
+            const string schematizationCategory = "Schematisatie";
+            const string modelSettingsCategory = "Modelinstellingen";
+
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+                                                                                              {
+                                                                                                  new BrowsableAttribute(true)
+                                                                                              });
+            Assert.AreEqual(22, dynamicProperties.Count);
+
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[verticalWallInflowModelTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
+            Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
+            Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
+            Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
+
+            PropertyDescriptor identicalAperturesProperty = dynamicProperties[verticalWallIdenticalAperturesPropertyIndex];
+            Assert.IsFalse(identicalAperturesProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, identicalAperturesProperty.Category);
+            Assert.AreEqual("Aantal identieke doorstroomopeningen [-]", identicalAperturesProperty.DisplayName);
+            Assert.AreEqual("Aantal identieke doorstroomopeningen.", identicalAperturesProperty.Description);
+
+            PropertyDescriptor levelCrestStructureNotClosingProperty = dynamicProperties[verticalWallLevelCrestStructureNotClosingPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureNotClosingProperty.Converter);
+            Assert.AreEqual(schematizationCategory, levelCrestStructureNotClosingProperty.Category);
+            Assert.AreEqual("Kruinhoogte niet gesloten kering [m+NAP]", levelCrestStructureNotClosingProperty.DisplayName);
+            Assert.AreEqual("Niveau kruin bij niet gesloten maximaal kerende keermiddelen.", levelCrestStructureNotClosingProperty.Description);
+
+            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[verticalWallProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
+            Assert.IsFalse(probabilityOrFrequencyOpenStructureBeforeFloodingProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Category);
+            Assert.AreEqual("Kans op open staan bij naderend hoogwater [1/jaar]", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.DisplayName);
+            Assert.AreEqual("Kans op open staan bij naderend hoogwater.", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Description);
+
+            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[verticalWallFailureProbabilityOpenStructurePropertyIndex];
+            Assert.IsFalse(failureProbabilityOpenStructureProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, failureProbabilityOpenStructureProperty.Category);
+            Assert.AreEqual("Kans mislukken sluiting [1/jaar]", failureProbabilityOpenStructureProperty.DisplayName);
+            Assert.AreEqual("Kans op mislukken sluiting van geopend kunstwerk.", failureProbabilityOpenStructureProperty.Description);
+
+            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[verticalWallFailureProbabilityReparationPropertyIndex];
+            Assert.IsFalse(failureProbabilityReparationProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, failureProbabilityReparationProperty.Category);
+            Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityReparationProperty.DisplayName);
+            Assert.AreEqual("Faalkans herstel van gefaalde situatie.", failureProbabilityReparationProperty.Description);
+
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[verticalWallFactorStormDurationOpenStructurePropertyIndex];
+            Assert.IsFalse(factorStormDurationOpenStructureProperty.IsReadOnly);
+            Assert.AreEqual(modelSettingsCategory, factorStormDurationOpenStructureProperty.Category);
+            Assert.AreEqual("Factor voor stormduur hoogwater [-]", factorStormDurationOpenStructureProperty.DisplayName);
+            Assert.AreEqual("Factor voor stormduur hoogwater gegeven geopend kunstwerk.", factorStormDurationOpenStructureProperty.Description);
+
+            // Only check the order of the base properties
+            Assert.AreEqual("Kunstwerk", dynamicProperties[verticalWallStructurePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[verticalWallStructureLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Oriëntatie [°]", dynamicProperties[verticalWallStructureNormalOrientationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[verticalWallFlowWidthAtBottomProtectionPropertyIndex].DisplayName);
+            Assert.AreEqual("Breedte van doorstroomopening [m]", dynamicProperties[verticalWallWidthFlowAperturesPropertyIndex].DisplayName);
+            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[verticalWallStorageStructureAreaPropertyIndex].DisplayName);
+            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[verticalWallAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
+            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[verticalWallCriticalOvertoppingDischargePropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[verticalWallFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[verticalWallModelFactorSuperCriticalFlowPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandprofiel", dynamicProperties[verticalWallForeshoreProfilePropertyIndex].DisplayName);
+            Assert.AreEqual("Dam", dynamicProperties[verticalWallUseBreakWaterPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[verticalWallUseForeshorePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[verticalWallHydraulicBoundaryLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stormduur [uur]", dynamicProperties[verticalWallStormDurationPropertyIndex].DisplayName);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FloodedCulvertStructure_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestClosingStructure(ClosingStructureInflowModelType.FloodedCulvert)
+                }
+            };
+            var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+
+            // Call
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Assert
+            const string schematizationCategory = "Schematisatie";
+            const string hydraulicDataCategory = "Hydraulische gegevens";
+            const string modelSettingsCategory = "Modelinstellingen";
+
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+                                                                                              {
+                                                                                                  new BrowsableAttribute(true)
+                                                                                              });
+            Assert.AreEqual(21, dynamicProperties.Count);
+
+            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[floodedCulvertInsideWaterLevelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
+            Assert.AreEqual(hydraulicDataCategory, insideWaterLevelProperty.Category);
+            Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
+            Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
+
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[floodedCulvertInflowModelTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
+            Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
+            Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
+            Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
+
+            PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[floodedCulvertAreaFlowAperturesPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(areaFlowAperturesProperty.Converter);
+            Assert.AreEqual(schematizationCategory, areaFlowAperturesProperty.Category);
+            Assert.AreEqual("Doorstroomoppervlak [m²]", areaFlowAperturesProperty.DisplayName);
+            Assert.AreEqual("Doorstroomoppervlak van doorstroomopeningen.", areaFlowAperturesProperty.Description);
+
+            PropertyDescriptor identicalAperturesProperty = dynamicProperties[floodedCulvertIdenticalAperturesPropertyIndex];
+            Assert.IsFalse(identicalAperturesProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, identicalAperturesProperty.Category);
+            Assert.AreEqual("Aantal identieke doorstroomopeningen [-]", identicalAperturesProperty.DisplayName);
+            Assert.AreEqual("Aantal identieke doorstroomopeningen.", identicalAperturesProperty.Description);
+
+            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[floodedCulvertProbabilityOpenOrFrequencyStructureBeforeFloodingPropertyIndex];
+            Assert.IsFalse(probabilityOrFrequencyOpenStructureBeforeFloodingProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Category);
+            Assert.AreEqual("Kans op open staan bij naderend hoogwater [1/jaar]", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.DisplayName);
+            Assert.AreEqual("Kans op open staan bij naderend hoogwater.", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Description);
+
+            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[floodedCulvertFailureProbabilityOpenStructurePropertyIndex];
+            Assert.IsFalse(failureProbabilityOpenStructureProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, failureProbabilityOpenStructureProperty.Category);
+            Assert.AreEqual("Kans mislukken sluiting [1/jaar]", failureProbabilityOpenStructureProperty.DisplayName);
+            Assert.AreEqual("Kans op mislukken sluiting van geopend kunstwerk.", failureProbabilityOpenStructureProperty.Description);
+
+            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[floodedCulvertFailureProbabilityReparationPropertyIndex];
+            Assert.IsFalse(failureProbabilityReparationProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, failureProbabilityReparationProperty.Category);
+            Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityReparationProperty.DisplayName);
+            Assert.AreEqual("Faalkans herstel van gefaalde situatie.", failureProbabilityReparationProperty.Description);
+
+            PropertyDescriptor drainCoefficientProperty = dynamicProperties[floodedCulvertDrainCoefficientPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
+            Assert.AreEqual(modelSettingsCategory, drainCoefficientProperty.Category);
+            Assert.AreEqual("Afvoercoëfficiënt [-]", drainCoefficientProperty.DisplayName);
+            Assert.AreEqual("Afvoercoëfficiënt.", drainCoefficientProperty.Description);
+
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[floodedCulvertFactorStormDurationOpenStructurePropertyIndex];
+            Assert.IsFalse(factorStormDurationOpenStructureProperty.IsReadOnly);
+            Assert.AreEqual(modelSettingsCategory, factorStormDurationOpenStructureProperty.Category);
+            Assert.AreEqual("Factor voor stormduur hoogwater [-]", factorStormDurationOpenStructureProperty.DisplayName);
+            Assert.AreEqual("Factor voor stormduur hoogwater gegeven geopend kunstwerk.", factorStormDurationOpenStructureProperty.Description);
+
+            // Only check the order of the base properties
+            Assert.AreEqual("Kunstwerk", dynamicProperties[floodedCulvertStructurePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[floodedCulvertStructureLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[floodedCulvertFlowWidthAtBottomProtectionPropertyIndex].DisplayName);
+            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[floodedCulvertStorageStructureAreaPropertyIndex].DisplayName);
+            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[floodedCulvertAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
+            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[floodedCulvertCriticalOvertoppingDischargePropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[floodedCulvertFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandprofiel", dynamicProperties[floodedCulvertForeshoreProfilePropertyIndex].DisplayName);
+            Assert.AreEqual("Dam", dynamicProperties[floodedCulvertUseBreakWaterPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[floodedCulvertUseForeshorePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[floodedCulvertHydraulicBoundaryLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stormduur [uur]", dynamicProperties[floodedCulvertStormDurationPropertyIndex].DisplayName);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_LowSillStructure_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestClosingStructure(ClosingStructureInflowModelType.LowSill)
+                }
+            };
+            var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+
+            // Call
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Assert
+            const string schematizationCategory = "Schematisatie";
+            const string hydraulicDataCategory = "Hydraulische gegevens";
+            const string modelSettingsCategory = "Modelinstellingen";
+
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+                                                                                              {
+                                                                                                  new BrowsableAttribute(true)
+                                                                                              });
+            Assert.AreEqual(22, dynamicProperties.Count);
+
+            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[lowSillInsideWaterLevelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
+            Assert.AreEqual(hydraulicDataCategory, insideWaterLevelProperty.Category);
+            Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
+            Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
+
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[lowSillInflowModelTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
+            Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
+            Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
+            Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
+
+            PropertyDescriptor identicalAperturesProperty = dynamicProperties[lowSillIdenticalAperturesPropertyIndex];
+            Assert.IsFalse(identicalAperturesProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, identicalAperturesProperty.Category);
+            Assert.AreEqual("Aantal identieke doorstroomopeningen [-]", identicalAperturesProperty.DisplayName);
+            Assert.AreEqual("Aantal identieke doorstroomopeningen.", identicalAperturesProperty.Description);
+
+            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[lowSillThresholdHeightOpenWeirPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
+            Assert.AreEqual(schematizationCategory, thresholdHeightOpenWeirProperty.Category);
+            Assert.AreEqual("Drempelhoogte [m+NAP]", thresholdHeightOpenWeirProperty.DisplayName);
+            Assert.AreEqual("Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.", thresholdHeightOpenWeirProperty.Description);
+
+            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[lowSillProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
+            Assert.IsFalse(probabilityOrFrequencyOpenStructureBeforeFloodingProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Category);
+            Assert.AreEqual("Kans op open staan bij naderend hoogwater [1/jaar]", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.DisplayName);
+            Assert.AreEqual("Kans op open staan bij naderend hoogwater.", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Description);
+
+            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[lowSillFailureProbabilityOpenStructurePropertyIndex];
+            Assert.IsFalse(failureProbabilityOpenStructureProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, failureProbabilityOpenStructureProperty.Category);
+            Assert.AreEqual("Kans mislukken sluiting [1/jaar]", failureProbabilityOpenStructureProperty.DisplayName);
+            Assert.AreEqual("Kans op mislukken sluiting van geopend kunstwerk.", failureProbabilityOpenStructureProperty.Description);
+
+            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[lowSillFailureProbabilityReparationPropertyIndex];
+            Assert.IsFalse(failureProbabilityReparationProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, failureProbabilityReparationProperty.Category);
+            Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityReparationProperty.DisplayName);
+            Assert.AreEqual("Faalkans herstel van gefaalde situatie.", failureProbabilityReparationProperty.Description);
+
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[lowSillFactorStormDurationOpenStructurePropertyIndex];
+            Assert.IsFalse(factorStormDurationOpenStructureProperty.IsReadOnly);
+            Assert.AreEqual(modelSettingsCategory, factorStormDurationOpenStructureProperty.Category);
+            Assert.AreEqual("Factor voor stormduur hoogwater [-]", factorStormDurationOpenStructureProperty.DisplayName);
+            Assert.AreEqual("Factor voor stormduur hoogwater gegeven geopend kunstwerk.", factorStormDurationOpenStructureProperty.Description);
+
+            // Only check the order of the base properties
+            Assert.AreEqual("Kunstwerk", dynamicProperties[lowSillStructurePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[lowSillStructureLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[lowSillFlowWidthAtBottomProtectionPropertyIndex].DisplayName);
+            Assert.AreEqual("Breedte van doorstroomopening [m]", dynamicProperties[lowSillWidthFlowAperturesPropertyIndex].DisplayName);
+            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[lowSillStorageStructureAreaPropertyIndex].DisplayName);
+            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[lowSillAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
+            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[lowSillCriticalOvertoppingDischargePropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[lowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[lowSillModelFactorSuperCriticalFlowPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandprofiel", dynamicProperties[lowSillForeshoreProfilePropertyIndex].DisplayName);
+            Assert.AreEqual("Dam", dynamicProperties[lowSillUseBreakWaterPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[lowSillUseForeshorePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[lowSillHydraulicBoundaryLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stormduur [uur]", dynamicProperties[lowSillStormDurationPropertyIndex].DisplayName);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -229,9 +543,69 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void FactorStormDurationOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput, 
+                properties => properties.FactorStormDurationOpenStructure = new Random(21).NextRoundedDouble());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void InflowModelType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput, 
+                properties => properties.InflowModelType = new Random(21).NextEnumValue<ClosingStructureInflowModelType>());
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture));
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void FailureProbabilityOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput, 
+                properties => properties.FailureProbabilityOpenStructure = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture));
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void FailureProbabilityReparation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.FailureProbabilityReparation = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture));
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IdenticalApertures_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput, 
+                properties => properties.IdenticalApertures = new Random(21).Next());
+        }
+
+        [Test]
         [TestCase(double.MinValue)]
         [TestCase(double.MaxValue)]
-        public void SetProbabilityOrFrequencyOpenStructureBeforeFlooding_InvalidDoubleValues_ThrowsArgumentException(double newValue)
+        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_InvalidDoubleValues_ThrowsArgumentException(double newValue)
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -265,7 +639,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase(double.MinValue)]
         [TestCase(double.MaxValue)]
-        public void SetProbabilityOrFrequencyOpenStructureBeforeFlooding_InvalidValues_ThrowsArgumentOutOfRangeException(double newValue)
+        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_InvalidValues_ThrowsArgumentOutOfRangeException(double newValue)
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -298,7 +672,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase("no double value")]
         [TestCase("")]
-        public void SetProbabilityOrFrequencyOpenStructureBeforeFlooding_ValuesUnableToParse_ThrowsArgumentException(string newValue)
+        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_ValuesUnableToParse_ThrowsArgumentException(string newValue)
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -327,7 +701,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProbabilityOrFrequencyOpenStructureBeforeFlooding_NullValue_ThrowsArgumentNullException()
+        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_NullValue_ThrowsArgumentNullException()
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -358,7 +732,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase(double.MinValue)]
         [TestCase(double.MaxValue)]
-        public void SetFailureProbabilityOpenStructure_InvalidValues_ThrowsArgumentException(double newValue)
+        public void FailureProbabilityOpenStructure_InvalidValues_ThrowsArgumentException(double newValue)
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -392,7 +766,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase("no double value")]
         [TestCase("")]
-        public void SetFailureProbabilityOpenStructure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
+        public void FailureProbabilityOpenStructure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -421,7 +795,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetFailureProbabilityOpenStructure_NullValue_ThrowsArgumentNullException()
+        public void FailureProbabilityOpenStructure_NullValue_ThrowsArgumentNullException()
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -452,7 +826,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase(double.MinValue)]
         [TestCase(double.MaxValue)]
-        public void SetFailureProbabilityReparation_InvalidValues_ThrowsArgumentException(double newValue)
+        public void FailureProbabilityReparation_InvalidValues_ThrowsArgumentException(double newValue)
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -486,7 +860,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase("no double value")]
         [TestCase("")]
-        public void SetFailureProbabilityReparation_ValuesUnableToParse_ThrowsArgumentException(string newValue)
+        public void FailureProbabilityReparation_ValuesUnableToParse_ThrowsArgumentException(string newValue)
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -515,7 +889,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetFailureProbabilityReparation_NullValue_ThrowsArgumentNullException()
+        public void FailureProbabilityReparation_NullValue_ThrowsArgumentNullException()
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -544,320 +918,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_VerticalWallStructure_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = new TestClosingStructure(ClosingStructureInflowModelType.VerticalWall)
-                }
-            };
-            var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSectionStub);
-
-            // Call
-            var properties = new ClosingStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Assert
-            const string schematizationCategory = "Schematisatie";
-            const string modelSettingsCategory = "Modelinstellingen";
-
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
-            Assert.AreEqual(22, dynamicProperties.Count);
-
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[verticalWallInflowModelTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
-            Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
-            Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
-            Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
-
-            PropertyDescriptor identicalAperturesProperty = dynamicProperties[verticalWallIdenticalAperturesPropertyIndex];
-            Assert.IsFalse(identicalAperturesProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, identicalAperturesProperty.Category);
-            Assert.AreEqual("Aantal identieke doorstroomopeningen [-]", identicalAperturesProperty.DisplayName);
-            Assert.AreEqual("Aantal identieke doorstroomopeningen.", identicalAperturesProperty.Description);
-
-            PropertyDescriptor levelCrestStructureNotClosingProperty = dynamicProperties[verticalWallLevelCrestStructureNotClosingPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureNotClosingProperty.Converter);
-            Assert.AreEqual(schematizationCategory, levelCrestStructureNotClosingProperty.Category);
-            Assert.AreEqual("Kruinhoogte niet gesloten kering [m+NAP]", levelCrestStructureNotClosingProperty.DisplayName);
-            Assert.AreEqual("Niveau kruin bij niet gesloten maximaal kerende keermiddelen.", levelCrestStructureNotClosingProperty.Description);
-
-            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[verticalWallProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
-            Assert.IsFalse(probabilityOrFrequencyOpenStructureBeforeFloodingProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Category);
-            Assert.AreEqual("Kans op open staan bij naderend hoogwater [1/jaar]", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.DisplayName);
-            Assert.AreEqual("Kans op open staan bij naderend hoogwater.", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Description);
-
-            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[verticalWallFailureProbabilityOpenStructurePropertyIndex];
-            Assert.IsFalse(failureProbabilityOpenStructureProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, failureProbabilityOpenStructureProperty.Category);
-            Assert.AreEqual("Kans mislukken sluiting [1/jaar]", failureProbabilityOpenStructureProperty.DisplayName);
-            Assert.AreEqual("Kans op mislukken sluiting van geopend kunstwerk.", failureProbabilityOpenStructureProperty.Description);
-
-            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[verticalWallFailureProbabilityReparationPropertyIndex];
-            Assert.IsFalse(failureProbabilityReparationProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, failureProbabilityReparationProperty.Category);
-            Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityReparationProperty.DisplayName);
-            Assert.AreEqual("Faalkans herstel van gefaalde situatie.", failureProbabilityReparationProperty.Description);
-
-            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[verticalWallFactorStormDurationOpenStructurePropertyIndex];
-            Assert.IsFalse(factorStormDurationOpenStructureProperty.IsReadOnly);
-            Assert.AreEqual(modelSettingsCategory, factorStormDurationOpenStructureProperty.Category);
-            Assert.AreEqual("Factor voor stormduur hoogwater [-]", factorStormDurationOpenStructureProperty.DisplayName);
-            Assert.AreEqual("Factor voor stormduur hoogwater gegeven geopend kunstwerk.", factorStormDurationOpenStructureProperty.Description);
-
-            // Only check the order of the base properties
-            Assert.AreEqual("Kunstwerk", dynamicProperties[verticalWallStructurePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[verticalWallStructureLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Oriëntatie [°]", dynamicProperties[verticalWallStructureNormalOrientationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[verticalWallFlowWidthAtBottomProtectionPropertyIndex].DisplayName);
-            Assert.AreEqual("Breedte van doorstroomopening [m]", dynamicProperties[verticalWallWidthFlowAperturesPropertyIndex].DisplayName);
-            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[verticalWallStorageStructureAreaPropertyIndex].DisplayName);
-            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[verticalWallAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
-            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[verticalWallCriticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[verticalWallFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[verticalWallModelFactorSuperCriticalFlowPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandprofiel", dynamicProperties[verticalWallForeshoreProfilePropertyIndex].DisplayName);
-            Assert.AreEqual("Dam", dynamicProperties[verticalWallUseBreakWaterPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[verticalWallUseForeshorePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[verticalWallHydraulicBoundaryLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stormduur [uur]", dynamicProperties[verticalWallStormDurationPropertyIndex].DisplayName);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FloodedCulvertStructure_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = new TestClosingStructure(ClosingStructureInflowModelType.FloodedCulvert)
-                }
-            };
-            var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSectionStub);
-
-            // Call
-            var properties = new ClosingStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Assert
-            const string schematizationCategory = "Schematisatie";
-            const string hydraulicDataCategory = "Hydraulische gegevens";
-            const string modelSettingsCategory = "Modelinstellingen";
-
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
-            Assert.AreEqual(21, dynamicProperties.Count);
-
-            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[floodedCulvertInsideWaterLevelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
-            Assert.AreEqual(hydraulicDataCategory, insideWaterLevelProperty.Category);
-            Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
-            Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
-
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[floodedCulvertInflowModelTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
-            Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
-            Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
-            Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
-
-            PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[floodedCulvertAreaFlowAperturesPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(areaFlowAperturesProperty.Converter);
-            Assert.AreEqual(schematizationCategory, areaFlowAperturesProperty.Category);
-            Assert.AreEqual("Doorstroomoppervlak [m²]", areaFlowAperturesProperty.DisplayName);
-            Assert.AreEqual("Doorstroomoppervlak van doorstroomopeningen.", areaFlowAperturesProperty.Description);
-
-            PropertyDescriptor identicalAperturesProperty = dynamicProperties[floodedCulvertIdenticalAperturesPropertyIndex];
-            Assert.IsFalse(identicalAperturesProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, identicalAperturesProperty.Category);
-            Assert.AreEqual("Aantal identieke doorstroomopeningen [-]", identicalAperturesProperty.DisplayName);
-            Assert.AreEqual("Aantal identieke doorstroomopeningen.", identicalAperturesProperty.Description);
-
-            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[floodedCulvertProbabilityOpenOrFrequencyStructureBeforeFloodingPropertyIndex];
-            Assert.IsFalse(probabilityOrFrequencyOpenStructureBeforeFloodingProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Category);
-            Assert.AreEqual("Kans op open staan bij naderend hoogwater [1/jaar]", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.DisplayName);
-            Assert.AreEqual("Kans op open staan bij naderend hoogwater.", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Description);
-
-            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[floodedCulvertFailureProbabilityOpenStructurePropertyIndex];
-            Assert.IsFalse(failureProbabilityOpenStructureProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, failureProbabilityOpenStructureProperty.Category);
-            Assert.AreEqual("Kans mislukken sluiting [1/jaar]", failureProbabilityOpenStructureProperty.DisplayName);
-            Assert.AreEqual("Kans op mislukken sluiting van geopend kunstwerk.", failureProbabilityOpenStructureProperty.Description);
-
-            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[floodedCulvertFailureProbabilityReparationPropertyIndex];
-            Assert.IsFalse(failureProbabilityReparationProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, failureProbabilityReparationProperty.Category);
-            Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityReparationProperty.DisplayName);
-            Assert.AreEqual("Faalkans herstel van gefaalde situatie.", failureProbabilityReparationProperty.Description);
-
-            PropertyDescriptor drainCoefficientProperty = dynamicProperties[floodedCulvertDrainCoefficientPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
-            Assert.AreEqual(modelSettingsCategory, drainCoefficientProperty.Category);
-            Assert.AreEqual("Afvoercoëfficiënt [-]", drainCoefficientProperty.DisplayName);
-            Assert.AreEqual("Afvoercoëfficiënt.", drainCoefficientProperty.Description);
-
-            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[floodedCulvertFactorStormDurationOpenStructurePropertyIndex];
-            Assert.IsFalse(factorStormDurationOpenStructureProperty.IsReadOnly);
-            Assert.AreEqual(modelSettingsCategory, factorStormDurationOpenStructureProperty.Category);
-            Assert.AreEqual("Factor voor stormduur hoogwater [-]", factorStormDurationOpenStructureProperty.DisplayName);
-            Assert.AreEqual("Factor voor stormduur hoogwater gegeven geopend kunstwerk.", factorStormDurationOpenStructureProperty.Description);
-
-            // Only check the order of the base properties
-            Assert.AreEqual("Kunstwerk", dynamicProperties[floodedCulvertStructurePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[floodedCulvertStructureLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[floodedCulvertFlowWidthAtBottomProtectionPropertyIndex].DisplayName);
-            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[floodedCulvertStorageStructureAreaPropertyIndex].DisplayName);
-            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[floodedCulvertAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
-            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[floodedCulvertCriticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[floodedCulvertFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandprofiel", dynamicProperties[floodedCulvertForeshoreProfilePropertyIndex].DisplayName);
-            Assert.AreEqual("Dam", dynamicProperties[floodedCulvertUseBreakWaterPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[floodedCulvertUseForeshorePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[floodedCulvertHydraulicBoundaryLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stormduur [uur]", dynamicProperties[floodedCulvertStormDurationPropertyIndex].DisplayName);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_LowSillStructure_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = new TestClosingStructure(ClosingStructureInflowModelType.LowSill)
-                }
-            };
-            var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSectionStub);
-
-            // Call
-            var properties = new ClosingStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Assert
-            const string schematizationCategory = "Schematisatie";
-            const string hydraulicDataCategory = "Hydraulische gegevens";
-            const string modelSettingsCategory = "Modelinstellingen";
-
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
-            Assert.AreEqual(22, dynamicProperties.Count);
-
-            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[lowSillInsideWaterLevelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
-            Assert.AreEqual(hydraulicDataCategory, insideWaterLevelProperty.Category);
-            Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
-            Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
-
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[lowSillInflowModelTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
-            Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
-            Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
-            Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
-
-            PropertyDescriptor identicalAperturesProperty = dynamicProperties[lowSillIdenticalAperturesPropertyIndex];
-            Assert.IsFalse(identicalAperturesProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, identicalAperturesProperty.Category);
-            Assert.AreEqual("Aantal identieke doorstroomopeningen [-]", identicalAperturesProperty.DisplayName);
-            Assert.AreEqual("Aantal identieke doorstroomopeningen.", identicalAperturesProperty.Description);
-
-            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[lowSillThresholdHeightOpenWeirPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
-            Assert.AreEqual(schematizationCategory, thresholdHeightOpenWeirProperty.Category);
-            Assert.AreEqual("Drempelhoogte [m+NAP]", thresholdHeightOpenWeirProperty.DisplayName);
-            Assert.AreEqual("Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.", thresholdHeightOpenWeirProperty.Description);
-
-            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[lowSillProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
-            Assert.IsFalse(probabilityOrFrequencyOpenStructureBeforeFloodingProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Category);
-            Assert.AreEqual("Kans op open staan bij naderend hoogwater [1/jaar]", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.DisplayName);
-            Assert.AreEqual("Kans op open staan bij naderend hoogwater.", probabilityOrFrequencyOpenStructureBeforeFloodingProperty.Description);
-
-            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[lowSillFailureProbabilityOpenStructurePropertyIndex];
-            Assert.IsFalse(failureProbabilityOpenStructureProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, failureProbabilityOpenStructureProperty.Category);
-            Assert.AreEqual("Kans mislukken sluiting [1/jaar]", failureProbabilityOpenStructureProperty.DisplayName);
-            Assert.AreEqual("Kans op mislukken sluiting van geopend kunstwerk.", failureProbabilityOpenStructureProperty.Description);
-
-            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[lowSillFailureProbabilityReparationPropertyIndex];
-            Assert.IsFalse(failureProbabilityReparationProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, failureProbabilityReparationProperty.Category);
-            Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityReparationProperty.DisplayName);
-            Assert.AreEqual("Faalkans herstel van gefaalde situatie.", failureProbabilityReparationProperty.Description);
-
-            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[lowSillFactorStormDurationOpenStructurePropertyIndex];
-            Assert.IsFalse(factorStormDurationOpenStructureProperty.IsReadOnly);
-            Assert.AreEqual(modelSettingsCategory, factorStormDurationOpenStructureProperty.Category);
-            Assert.AreEqual("Factor voor stormduur hoogwater [-]", factorStormDurationOpenStructureProperty.DisplayName);
-            Assert.AreEqual("Factor voor stormduur hoogwater gegeven geopend kunstwerk.", factorStormDurationOpenStructureProperty.Description);
-
-            // Only check the order of the base properties
-            Assert.AreEqual("Kunstwerk", dynamicProperties[lowSillStructurePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[lowSillStructureLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[lowSillFlowWidthAtBottomProtectionPropertyIndex].DisplayName);
-            Assert.AreEqual("Breedte van doorstroomopening [m]", dynamicProperties[lowSillWidthFlowAperturesPropertyIndex].DisplayName);
-            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[lowSillStorageStructureAreaPropertyIndex].DisplayName);
-            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[lowSillAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
-            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[lowSillCriticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[lowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[lowSillModelFactorSuperCriticalFlowPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandprofiel", dynamicProperties[lowSillForeshoreProfilePropertyIndex].DisplayName);
-            Assert.AreEqual("Dam", dynamicProperties[lowSillUseBreakWaterPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[lowSillUseForeshorePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[lowSillHydraulicBoundaryLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stormduur [uur]", dynamicProperties[lowSillStormDurationPropertyIndex].DisplayName);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SetStructure_StructureInSection_UpdateSectionResults()
+        public void Structure_StructureInSection_UpdateSectionResults()
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -1113,5 +1174,52 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         #endregion
 
         #endregion
+
+        private void SetPropertyAndVerifyNotifcationsAndOutput(
+            bool hasOutput,
+            Action<ClosingStructuresInputContextProperties> setProperty)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            int numberOfChangedProperties = hasOutput ? 1 : 0;
+            calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+
+            var inputObserver = mocks.StrictMock<IObserver>();
+            inputObserver.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+
+            if (hasOutput)
+            {
+                calculation.Output = new TestStructuresOutput();
+            }
+            calculation.Attach(calculationObserver);
+
+            ClosingStructuresInput inputParameters = calculation.InputParameters;
+            inputParameters.Attach(inputObserver);
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = new ClosingStructuresInputContext(inputParameters,
+                                              calculation,
+                                              failureMechanism,
+                                              assessmentSection)
+            };
+
+            // Call
+            setProperty(properties);
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+
+            mocks.VerifyAll();
+        }
     }
 }

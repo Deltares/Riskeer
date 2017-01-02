@@ -42,6 +42,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -147,7 +148,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new TestHeightStructuresOutput()
+                Output = new TestStructuresOutput()
             };
 
             var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
@@ -802,11 +803,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             mocks.VerifyAll();
 
             base.TearDown();
-        }
-
-        private class TestHeightStructuresOutput : ProbabilityAssessmentOutput
-        {
-            public TestHeightStructuresOutput() : base(0, 0, 0, 0, 0) {}
         }
     }
 }

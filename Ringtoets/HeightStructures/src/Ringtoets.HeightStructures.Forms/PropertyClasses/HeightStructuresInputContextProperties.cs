@@ -40,8 +40,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
                                                               HeightStructure,
                                                               HeightStructuresInput,
                                                               StructuresCalculation<HeightStructuresInput>,
-                                                              HeightStructuresFailureMechanism>,
-                                                          IPropertyChangeHandler
+                                                              HeightStructuresFailureMechanism>
     {
         private const int structurePropertyIndex = 1;
         private const int structureLocationPropertyIndex = 2;
@@ -111,11 +110,6 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         public override IEnumerable<HeightStructure> GetAvailableStructures()
         {
             return data.FailureMechanism.HeightStructures;
-        }
-
-        public void PropertyChanged()
-        {
-            // TODO WTI-972
         }
 
         protected override void AfterSettingStructure()

@@ -45,8 +45,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                                                                       StabilityPointStructure,
                                                                       StabilityPointStructuresInput,
                                                                       StructuresCalculation<StabilityPointStructuresInput>,
-                                                                      StabilityPointStructuresFailureMechanism>,
-                                                                  IPropertyChangeHandler
+                                                                      StabilityPointStructuresFailureMechanism>
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int volumicWeightWaterPropertyIndex = 2;
@@ -169,11 +168,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         public override IEnumerable<StabilityPointStructure> GetAvailableStructures()
         {
             return data.FailureMechanism.StabilityPointStructures;
-        }
-
-        public void PropertyChanged()
-        {
-            // TODO WTI-974
         }
 
         protected override void AfterSettingStructure()
