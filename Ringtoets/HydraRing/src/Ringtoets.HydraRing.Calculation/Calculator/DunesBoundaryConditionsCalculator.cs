@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Parsers;
@@ -61,6 +62,15 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         public void Calculate(DunesBoundaryConditionsCalculationInput input)
         {
             Calculate(HydraRingUncertaintiesType.All, input);
+        }
+
+        protected override IEnumerable<IHydraRingFileParser> GetParsers()
+        {
+            return new IHydraRingFileParser[]
+            {
+                dunesBoundaryParser,
+                targetProbabilityParser
+            };
         }
 
         protected override void SetOutputs()
