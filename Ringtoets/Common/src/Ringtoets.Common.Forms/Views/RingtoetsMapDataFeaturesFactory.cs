@@ -46,6 +46,29 @@ namespace Ringtoets.Common.Forms.Views
     public static class RingtoetsMapDataFeaturesFactory
     {
         /// <summary>
+        /// Create a single <see cref="MapFeature"/> representing a single line.
+        /// </summary>
+        /// <param name="points">The world map points describing the line.</param>
+        /// <returns>The created map feature.</returns>
+        /// <exception cref="ArgumentNullException ">Thrown when <paramref name="points"/>
+        /// is <c>null</c>.</exception>
+        public static MapFeature CreateSingleLineMapFeature(IEnumerable<Point2D> points)
+        {
+            if (points == null)
+            {
+                throw new ArgumentNullException("points");
+            }
+
+            return new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    points
+                })
+            });
+        }
+
+        /// <summary>
         /// Create reference line features based on the provided <paramref name="referenceLine"/>.
         /// </summary>
         /// <param name="referenceLine">The <see cref="ReferenceLine"/> to create the reference 
@@ -58,8 +81,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (referenceLine != null)
             {
-                MapFeature feature = GetAsSingleMapFeature(referenceLine.Points);
-
+                MapFeature feature = CreateSingleLineMapFeature(referenceLine.Points);
                 feature.MetaData[Resources.MetaData_ID] = id;
                 feature.MetaData[Resources.MetaData_Name] = name;
                 feature.MetaData[Resources.MetaData_Length] = new RoundedDouble(2, Math2D.Length(referenceLine.Points));
@@ -120,8 +142,8 @@ namespace Ringtoets.Common.Forms.Views
             for (int i = 0; i < hydraulicBoundaryLocations.Length; i++)
             {
                 HydraulicBoundaryLocation location = hydraulicBoundaryLocations[i];
-                var feature = GetAsSingleMapFeature(location.Location);
 
+                var feature = CreateSinglePointMapFeature(location.Location);
                 feature.MetaData[Resources.MetaData_ID] = location.Id;
                 feature.MetaData[Resources.MetaData_Name] = location.Name;
                 feature.MetaData[designWaterLevelAttributeName] = location.DesignWaterLevel;
@@ -159,7 +181,7 @@ namespace Ringtoets.Common.Forms.Views
             return sections != null && sections.Any()
                        ? new[]
                        {
-                           GetAsSingleMapFeature(sections.Select(sl => sl.GetStart()))
+                           CreateSingleLineMapFeature(sections.Select(sl => sl.GetStart()))
                        }
                        : new MapFeature[0];
         }
@@ -176,7 +198,7 @@ namespace Ringtoets.Common.Forms.Views
             return sections != null && sections.Any()
                        ? new[]
                        {
-                           GetAsSingleMapFeature(sections.Select(sl => sl.GetLast()))
+                           CreateSingleLineMapFeature(sections.Select(sl => sl.GetLast()))
                        }
                        : new MapFeature[0];
         }
@@ -189,9 +211,22 @@ namespace Ringtoets.Common.Forms.Views
         /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateDikeProfilesFeatures(IEnumerable<DikeProfile> dikeProfiles)
         {
-            return dikeProfiles != null && dikeProfiles.Any()
-                       ? dikeProfiles.Select(dikeProfile => GetAsSingleMapFeature(GetWorldPoints(dikeProfile))).ToArray()
-                       : new MapFeature[0];
+            if (dikeProfiles != null)
+            {
+                DikeProfile[] sourceDikeProfiles = dikeProfiles.ToArray();
+                var mapFeatures = new MapFeature[sourceDikeProfiles.Length];
+                for (int i = 0; i < sourceDikeProfiles.Length; i++)
+                {
+                    DikeProfile profile = sourceDikeProfiles[i];
+
+                    MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(profile));
+                    feature.MetaData[Resources.MetaData_Name] = profile.Name;
+
+                    mapFeatures[i] = feature;
+                }
+                return mapFeatures;
+            }
+            return new MapFeature[0];
         }
 
         /// <summary>
@@ -202,9 +237,22 @@ namespace Ringtoets.Common.Forms.Views
         /// is <c>null</c> or empty.</returns>
         public static MapFeature[] CreateForeshoreProfilesFeatures(IEnumerable<ForeshoreProfile> foreshoreProfiles)
         {
-            return foreshoreProfiles != null && foreshoreProfiles.Any()
-                       ? foreshoreProfiles.Select(foreshoreProfile => GetAsSingleMapFeature(GetWorldPoints(foreshoreProfile))).ToArray()
-                       : new MapFeature[0];
+            if (foreshoreProfiles != null)
+            {
+                ForeshoreProfile[] sourceForeshoreProfiles = foreshoreProfiles.ToArray();
+                var mapFeatures = new MapFeature[sourceForeshoreProfiles.Length];
+                for (int i = 0; i < sourceForeshoreProfiles.Length; i++)
+                {
+                    ForeshoreProfile profile = sourceForeshoreProfiles[i];
+
+                    MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(profile));
+                    feature.MetaData[Resources.MetaData_Name] = profile.Name;
+
+                    mapFeatures[i] = feature;
+                }
+                return mapFeatures;
+            }
+            return new MapFeature[0];
         }
 
         /// <summary>
@@ -215,9 +263,22 @@ namespace Ringtoets.Common.Forms.Views
         /// <c>null</c> or empty.</returns>
         public static MapFeature[] CreateStructuresFeatures(IEnumerable<StructureBase> structures)
         {
-            return structures != null && structures.Any()
-                       ? structures.Select(structure => GetAsSingleMapFeature(structure.Location)).ToArray()
-                       : new MapFeature[0];
+            if (structures != null)
+            {
+                StructureBase[] sourceStructures = structures.ToArray();
+                var mapFeatures = new MapFeature[sourceStructures.Length];
+                for (int i = 0; i < sourceStructures.Length; i++)
+                {
+                    StructureBase structure = sourceStructures[i];
+
+                    MapFeature feature = CreateSinglePointMapFeature(structure.Location);
+                    feature.MetaData[Resources.MetaData_Name] = structure.Name;
+
+                    mapFeatures[i] = feature;
+                }
+                return mapFeatures;
+            }
+            return new MapFeature[0];
         }
 
         /// <summary>
@@ -233,9 +294,8 @@ namespace Ringtoets.Common.Forms.Views
         {
             if ((calculations != null && calculations.Any()))
             {
-                MapCalculationData[] calculationData = calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<T, U>)
-                                                                   .Select(CreatemapCalculationData<T, U>)
-                                                                   .ToArray();
+                MapCalculationData[] calculationData = Enumerable.ToArray(calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<T, U>)
+                                                                                      .Select(CreatemapCalculationData<T, U>));
 
                 return CreateCalculationFeatures(calculationData);
             }
@@ -259,7 +319,7 @@ namespace Ringtoets.Common.Forms.Views
                 for (int i = 0; i < calculationData.Length; i++)
                 {
                     MapCalculationData calculationItem = calculationData[i];
-                    MapFeature feature = GetAsSingleMapFeature(new[]
+                    MapFeature feature = CreateSingleLineMapFeature(new[]
                     {
                         calculationItem.CalculationLocation,
                         calculationItem.HydraulicBoundaryLocation.Location
@@ -330,18 +390,7 @@ namespace Ringtoets.Common.Forms.Views
                 foreshoreProfile.Orientation);
         }
 
-        private static MapFeature GetAsSingleMapFeature(IEnumerable<Point2D> points)
-        {
-            return new MapFeature(new[]
-            {
-                new MapGeometry(new[]
-                {
-                    points
-                })
-            });
-        }
-
-        private static MapFeature GetAsSingleMapFeature(Point2D point)
+        private static MapFeature CreateSinglePointMapFeature(Point2D point)
         {
             return new MapFeature(new[]
             {

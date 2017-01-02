@@ -24,7 +24,6 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Core.Components.Gis.Geometries;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
@@ -52,15 +51,9 @@ namespace Ringtoets.Piping.Forms.Views
 
                 for (int i = 0; i < surfaceLines.Length; i++)
                 {
-                    var surfaceLine = surfaceLines[i];
-                    var feature = new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))
-                        })
-                    });
+                    RingtoetsPipingSurfaceLine surfaceLine = surfaceLines[i];
 
+                    MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(surfaceLine));
                     feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = surfaceLine.Name;
 
                     features[i] = feature;
@@ -85,15 +78,9 @@ namespace Ringtoets.Piping.Forms.Views
 
                 for (int i = 0; i < stochasticSoilModels.Length; i++)
                 {
-                    var stochasticSoilModel = stochasticSoilModels[i];
-                    var feature = new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y))
-                        })
-                    });
+                    StochasticSoilModel stochasticSoilModel = stochasticSoilModels[i];
 
+                    MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(stochasticSoilModel));
                     feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = stochasticSoilModel.Name;
 
                     features[i] = feature;
@@ -131,6 +118,16 @@ namespace Ringtoets.Piping.Forms.Views
                                        calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
             return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
+        }
+
+        private static IEnumerable<Point2D> GetWorldPoints(RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            return surfaceLine.Points.Select(p => new Point2D(p.X, p.Y));
+        }
+
+        private static IEnumerable<Point2D> GetWorldPoints(StochasticSoilModel stochasticSoilModel)
+        {
+            return stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y));
         }
     }
 }

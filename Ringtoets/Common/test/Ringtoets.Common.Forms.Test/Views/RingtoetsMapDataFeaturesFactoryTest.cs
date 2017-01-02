@@ -43,6 +43,38 @@ namespace Ringtoets.Common.Forms.Test.Views
     public class RingtoetsMapDataFeaturesFactoryTest
     {
         [Test]
+        public void CreateSingleLineMapFeature_PointsNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("points", paramName);
+        }
+
+        [Test]
+        public void CreateSingleLineMapFeature_WithPoints_ReturnMapFeatureWithLineGeometry()
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point2D(1.1, 2.2),
+                new Point2D(3.3, 4.4),
+            };
+
+            // Call
+            MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(points);
+
+            // Assert
+            Assert.AreEqual(1, feature.MapGeometries.Count());
+            Assert.AreEqual(1, feature.MapGeometries.First().PointCollections.Count());
+            CollectionAssert.AreEqual(points, feature.MapGeometries.First().PointCollections.First());
+
+            CollectionAssert.IsEmpty(feature.MetaData);
+        }
+
+        [Test]
         public void CreateReferenceLineFeatures_ReferenceLineNull_ReturnsEmptyFeaturesArray()
         {
             // Call
@@ -373,6 +405,64 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void CreateStructuresFeatures_NullStructures_ReturnsEmptyCollection()
+        {
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateStructuresFeatures_EmptyStructures_ReturnsEmptyCollection()
+        {
+            // Setup
+            var structures = Enumerable.Empty<StructureBase>();
+
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
+
+            // Assert
+            CollectionAssert.IsEmpty(features);
+        }
+
+
+        [Test]
+        public void CreateStructuresFeatures_WithStructures_ReturnsCollectionWithFeatures()
+        {
+            // Setup
+            var structure1 = new SimpleStructure(new Point2D(1.1, 2.2), "A");
+            var structure2 = new SimpleStructure(new Point2D(3.3, 4.4), "B");
+
+            var structures = new[]
+            {
+                structure1,
+                structure2
+            };
+
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
+
+            // Assert
+            Assert.AreEqual(2, features.Length);
+            Assert.AreEqual(1, features[0].MapGeometries.Count());
+            Assert.AreEqual(1, features[1].MapGeometries.Count());
+            var mapDataGeometryOne = features[0].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            var mapDataGeometryTwo = features[1].MapGeometries.ElementAt(0).PointCollections.First().ToArray();
+            Assert.AreEqual(1, mapDataGeometryOne.Length);
+            Assert.AreEqual(1, mapDataGeometryTwo.Length);
+            Assert.AreEqual(structure1.Location, mapDataGeometryOne[0]);
+            Assert.AreEqual(structure2.Location, mapDataGeometryTwo[0]);
+
+            const int expectedNumberOfMetaDataOptions = 1;
+            Assert.AreEqual(expectedNumberOfMetaDataOptions, features[0].MetaData.Count);
+            Assert.AreEqual(expectedNumberOfMetaDataOptions, features[1].MetaData.Count);
+            Assert.AreEqual(structure1.Name, features[0].MetaData["Naam"]);
+            Assert.AreEqual(structure2.Name, features[1].MetaData["Naam"]);
+        }
+
+        [Test]
         public void CreateStructureCalculationsFeatures_NullLocations_ReturnsEmptyCollection()
         {
             // Call
@@ -560,8 +650,14 @@ namespace Ringtoets.Common.Forms.Test.Views
             };
             var dikeProfiles = new[]
             {
-                new DikeProfile(new Point2D(5, 4), roughnessPointsOne, pointsOne, null, new DikeProfile.ConstructionProperties()),
-                new DikeProfile(new Point2D(2, 1), roughnessPointsTwo, Enumerable.Empty<Point2D>(), null, new DikeProfile.ConstructionProperties())
+                new DikeProfile(new Point2D(5, 4), roughnessPointsOne, pointsOne, null, new DikeProfile.ConstructionProperties
+                {
+                    Name = "A"
+                }),
+                new DikeProfile(new Point2D(2, 1), roughnessPointsTwo, Enumerable.Empty<Point2D>(), null, new DikeProfile.ConstructionProperties
+                {
+                    Name = "B"
+                })
             };
 
             // Call
@@ -586,6 +682,12 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new Point2D(2, -5.3),
                 new Point2D(2, -3.2)
             }, mapDataDikeGeometryTwo);
+
+            const int expectedNumberOfMetaDataOptions = 1;
+            Assert.AreEqual(expectedNumberOfMetaDataOptions, features[0].MetaData.Count);
+            Assert.AreEqual(expectedNumberOfMetaDataOptions, features[1].MetaData.Count);
+            Assert.AreEqual(dikeProfiles[0].Name, features[0].MetaData["Naam"]);
+            Assert.AreEqual(dikeProfiles[1].Name, features[1].MetaData["Naam"]);
         }
 
         [Test]
@@ -661,6 +763,12 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new Point2D(2, -2.2),
                 new Point2D(2, -6.7)
             }, mapDataGeometryTwo);
+
+            const int expectedNumberOfMetaDataOptions = 1;
+            Assert.AreEqual(expectedNumberOfMetaDataOptions, features[0].MetaData.Count);
+            Assert.AreEqual(expectedNumberOfMetaDataOptions, features[1].MetaData.Count);
+            Assert.AreEqual(dikeProfiles[0].Name, features[0].MetaData["Naam"]);
+            Assert.AreEqual(dikeProfiles[1].Name, features[1].MetaData["Naam"]);
         }
 
         private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
@@ -704,11 +812,11 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private class SimpleStructure : StructureBase
         {
-            public SimpleStructure(Point2D location)
+            public SimpleStructure(Point2D location, string name = "name")
                 : base(new ConstructionProperties
                 {
                     Location = location,
-                    Name = "name",
+                    Name = name,
                     Id = "id"
                 }) {}
         }
