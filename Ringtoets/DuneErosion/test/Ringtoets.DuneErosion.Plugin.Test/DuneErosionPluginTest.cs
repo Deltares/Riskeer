@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
 
 namespace Ringtoets.DuneErosion.Plugin.Test
@@ -43,6 +44,29 @@ namespace Ringtoets.DuneErosion.Plugin.Test
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
+            }
+        }
+
+        [Test]
+        public void GetPropertiesInfos_ReturnSupportedPropertyInfos()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                // Call
+                PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(2, propertyInfos.Length);
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(DuneErosionFailureMechanismContext),
+                    typeof(DuneErosionFailureMechanismProperties));
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(DuneLocationsContext),
+                    typeof(DuneLocationsContextProperties));
             }
         }
 
