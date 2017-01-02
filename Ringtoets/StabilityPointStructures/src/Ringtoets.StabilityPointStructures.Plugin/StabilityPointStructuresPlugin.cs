@@ -65,7 +65,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 }
             };
             yield return new PropertyInfo<StabilityPointStructure, StabilityPointStructureProperties>();
-            yield return new PropertyInfo<StabilityPointStructuresInputContext, StabilityPointStructuresInputContextProperties>();
+            yield return new PropertyInfo<StabilityPointStructuresInputContext, StabilityPointStructuresInputContextProperties>
+            {
+                CreateInstance = context => new StabilityPointStructuresInputContextProperties(context)
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

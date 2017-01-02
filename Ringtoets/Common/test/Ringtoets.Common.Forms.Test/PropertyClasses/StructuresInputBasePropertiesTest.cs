@@ -59,8 +59,19 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ConstructionPropertiesIsNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>();
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanismStub,
+                                                      assessmentSectionStub);
             // Call
-            TestDelegate call = () => new SimpleStructuresInputProperties(null);
+            TestDelegate call = () => new SimpleStructuresInputProperties(inputContext, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -68,20 +79,89 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DataIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var constructionProperties = GetRandomConstructionProperties();
 
             // Call
-            var properties = new SimpleStructuresInputProperties(constructionProperties);
+            TestDelegate call = () => new SimpleStructuresInputProperties(null, constructionProperties);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("data", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidValues_ExpectedValues()
+        {
+            // Setup
+            var constructionProperties = GetRandomConstructionProperties();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>();
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanismStub,
+                                                      assessmentSectionStub);
+
+            // Call
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                constructionProperties);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<InputContextBase<SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>>>(properties);
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
             Assert.IsInstanceOf<IHasStructureProperty<SimpleStructure>>(properties);
             Assert.IsInstanceOf<IHasForeshoreProfileProperty>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(inputContext, properties.Data);
+
+            SimpleStructureInput input = calculation.InputParameters;
+            var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
+
+            Assert.IsNull(properties.Structure);
+            Assert.IsNull(properties.StructureLocation);
+            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
+            Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
+            Assert.AreSame(input.AllowedLevelIncreaseStorage, properties.AllowedLevelIncreaseStorage.Data);
+            Assert.AreSame(input.StorageStructureArea, properties.StorageStructureArea.Data);
+            Assert.AreSame(input.FlowWidthAtBottomProtection, properties.FlowWidthAtBottomProtection.Data);
+            Assert.AreSame(input.WidthFlowApertures, properties.WidthFlowApertures.Data);
+            Assert.AreSame(input.CriticalOvertoppingDischarge, properties.CriticalOvertoppingDischarge.Data);
+            Assert.IsNull(properties.ForeshoreProfile);
+            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.UseBreakWater);
+            Assert.IsInstanceOf<UseForeshoreProperties>(properties.UseForeshore);
+            Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
+            Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
+            Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ValidValues_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var constructionProperties = GetRandomConstructionProperties();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>();
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanismStub,
+                                                      assessmentSectionStub);
+
+            // Call
+            var properties = new SimpleStructuresInputProperties(inputContext, constructionProperties);
+
+            // Assert
 
             const string schematizationCategory = "Schematisatie";
             const string hydraulicDataCategory = "Hydraulische gegevens";
@@ -191,48 +271,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
-
-            mockRepository.ReplayAll();
-
-            var calculation = new StructuresCalculation<SimpleStructureInput>();
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties());
-            var inputContext = new SimpleInputContext(calculation.InputParameters,
-                                                      calculation,
-                                                      failureMechanismStub,
-                                                      assessmentSectionStub);
-
-            // Call
-            properties.Data = inputContext;
-
-            // Assert
-            SimpleStructureInput input = calculation.InputParameters;
-            var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
-
-            Assert.IsNull(properties.Structure);
-            Assert.IsNull(properties.StructureLocation);
-            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
-            Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
-            Assert.AreSame(input.AllowedLevelIncreaseStorage, properties.AllowedLevelIncreaseStorage.Data);
-            Assert.AreSame(input.StorageStructureArea, properties.StorageStructureArea.Data);
-            Assert.AreSame(input.FlowWidthAtBottomProtection, properties.FlowWidthAtBottomProtection.Data);
-            Assert.AreSame(input.WidthFlowApertures, properties.WidthFlowApertures.Data);
-            Assert.AreSame(input.CriticalOvertoppingDischarge, properties.CriticalOvertoppingDischarge.Data);
-            Assert.IsNull(properties.ForeshoreProfile);
-            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.UseBreakWater);
-            Assert.IsInstanceOf<UseForeshoreProperties>(properties.UseForeshore);
-            Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
-            Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
-            Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void SelectedHydraulicBoundaryLocation_InputNoLocation_ReturnsNull()
         {
             // Setup
@@ -245,10 +283,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
-            {
-                Data = inputContext
-            };
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties());
 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
 
@@ -287,10 +324,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
-            {
-                Data = inputContext
-            };
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties());
 
             // Call
             var availableHydraulicBoundaryLocations = properties.GetSelectableHydraulicBoundaryLocations();
@@ -337,10 +373,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
-            {
-                Data = inputContext
-            };
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties());
 
             // Call
             var availableHydraulicBoundaryLocations = properties.GetSelectableHydraulicBoundaryLocations();
@@ -389,10 +424,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
-            {
-                Data = inputContext
-            };
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties());
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
                                                                                       .ToList();
@@ -440,10 +474,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
-            {
-                Data = inputContext
-            };
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties());
 
             inputContext.Attach(observerMock);
 
@@ -534,10 +567,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
-            {
-                Data = inputContext
-            };
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties());
 
             // Precondition
             Assert.IsFalse(properties.AfterSettingStructureCalled);
@@ -562,10 +594,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
-            {
-                Data = inputContext
-            };
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties());
 
             // Precondition
             Assert.IsFalse(properties.AfterSettingStructureCalled);
@@ -592,10 +623,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
-            {
-                Data = inputContext
-            };
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties());
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newValue.ToString(CultureInfo.InvariantCulture);
@@ -622,10 +652,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
-            {
-                Data = inputContext
-            };
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties());
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newValue;
@@ -650,10 +679,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
-            {
-                Data = inputContext
-            };
+            var properties = new SimpleStructuresInputProperties(
+                inputContext,
+                new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties());
 
             // Call
             TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = null;
@@ -747,7 +775,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             StructuresCalculation<SimpleStructureInput>,
             IFailureMechanism>
         {
-            public SimpleStructuresInputProperties(ConstructionProperties constructionProperties) : base(constructionProperties) {}
+            public SimpleStructuresInputProperties(SimpleInputContext context, ConstructionProperties constructionProperties) : base(context, constructionProperties) {}
 
             [Browsable(false)]
             public bool AfterSettingStructureCalled { get; private set; }
@@ -803,13 +831,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             inputParameters.Attach(inputObserver);
 
 
-            var properties = new SimpleStructuresInputProperties(GetRandomConstructionProperties())
-            {
-                Data = new SimpleInputContext(inputParameters,
-                                              calculation,
-                                              failureMechanism,
-                                              assessmentSection)
-            };
+            var properties = new SimpleStructuresInputProperties(new SimpleInputContext(inputParameters,
+                                                                                        calculation,
+                                                                                        failureMechanism,
+                                                                                        assessmentSection),
+                                                                 GetRandomConstructionProperties());
 
             // Call
             setProperty(properties);

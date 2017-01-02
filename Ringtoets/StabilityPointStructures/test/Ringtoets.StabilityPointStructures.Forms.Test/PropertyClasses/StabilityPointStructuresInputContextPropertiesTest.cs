@@ -57,18 +57,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithoutData_ExpectedValues()
         {
             // Call
-            var properties = new StabilityPointStructuresInputContextProperties();
+            TestDelegate test = () => new StabilityPointStructuresInputContextProperties(null);
 
             // Assert
-            Assert.IsInstanceOf<StructuresInputBaseProperties<StabilityPointStructure, StabilityPointStructuresInput, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>>(properties);
-            Assert.IsNull(properties.Data);
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
         }
 
         [Test]
-        public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
+        public void Constructor_WithData_ExpectedValues()
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -76,17 +76,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var properties = new StabilityPointStructuresInputContextProperties();
 
             var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
 
-            // Call
-            properties.Data = inputContext;
+            // Call            
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             // Assert
+            Assert.IsInstanceOf<StructuresInputBaseProperties<StabilityPointStructure, StabilityPointStructuresInput, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>>(properties);
+            Assert.AreSame(inputContext, properties.Data);
+
             StabilityPointStructuresInput input = calculation.InputParameters;
             var expectedFailureProbabilityRepairClosure = ProbabilityFormattingHelper.Format(input.FailureProbabilityRepairClosure);
             var expectedProbabilityCollisionSecondaryStructure = ProbabilityFormattingHelper.Format(input.ProbabilityCollisionSecondaryStructure);
@@ -122,321 +124,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetAvailableForeshoreProfiles_SetInputContextInstanceWithForeshoreProfiles_ReturnForeshoreProfiles()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism
-            {
-                ForeshoreProfiles =
-                {
-                    new TestForeshoreProfile()
-                }
-            };
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Call
-            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
-
-            // Assert
-            Assert.AreSame(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void GetAvailableStructures_SetInputContextInstanceWithStructures_ReturnStructures()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism
-            {
-                StabilityPointStructures =
-                {
-                    new TestStabilityPointStructure()
-                }
-            };
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Call
-            var availableStructures = properties.GetAvailableStructures();
-
-            // Assert
-            Assert.AreSame(failureMechanism.StabilityPointStructures, availableStructures);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
-        {
-            // Setup
-            const int numberOfChangedProperties = 9;
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            input.Attach(observerMock);
-
-            var random = new Random(100);
-            double newVolumicWeightWater = random.NextDouble();
-            double newFactorStormDurationOpenStructure = random.NextDouble();
-            var newInflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert;
-            var newLoadSchematizationType = LoadSchematizationType.Quadratic;
-            var newLevellingCount = 2;
-            double newEvaluationLevel = random.NextDouble();
-            double newVerticalDistance = random.NextDouble();
-
-            // Call
-            properties.VolumicWeightWater = (RoundedDouble) newVolumicWeightWater;
-            properties.FactorStormDurationOpenStructure = (RoundedDouble) newFactorStormDurationOpenStructure;
-            properties.InflowModelType = newInflowModelType;
-            properties.LoadSchematizationType = newLoadSchematizationType;
-            properties.FailureProbabilityRepairClosure = "1e-2";
-            properties.LevellingCount = newLevellingCount;
-            properties.ProbabilityCollisionSecondaryStructure = "1e-3";
-            properties.EvaluationLevel = (RoundedDouble) newEvaluationLevel;
-            properties.VerticalDistance = (RoundedDouble) newVerticalDistance;
-
-            // Assert
-            var expectedFailureProbabilityRepairClosure = ProbabilityFormattingHelper.Format(0.01);
-            var expectedProbabilityCollisionSecondaryStructure = ProbabilityFormattingHelper.Format(0.001);
-
-            Assert.AreEqual(newVolumicWeightWater, properties.VolumicWeightWater, properties.VolumicWeightWater.GetAccuracy());
-            Assert.AreEqual(newFactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure.GetAccuracy());
-            Assert.AreEqual(newInflowModelType, properties.InflowModelType);
-            Assert.AreEqual(newLoadSchematizationType, properties.LoadSchematizationType);
-            Assert.AreEqual(expectedFailureProbabilityRepairClosure, properties.FailureProbabilityRepairClosure);
-            Assert.AreEqual(newLevellingCount, properties.LevellingCount);
-            Assert.AreEqual(expectedProbabilityCollisionSecondaryStructure, properties.ProbabilityCollisionSecondaryStructure);
-            Assert.AreEqual(newEvaluationLevel, properties.EvaluationLevel, properties.EvaluationLevel.GetAccuracy());
-            Assert.AreEqual(newVerticalDistance, properties.VerticalDistance, properties.VerticalDistance.GetAccuracy());
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void SetFailureProbabilityRepairClosure_InvalidValues_ThrowsArgumentException(double newValue)
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityRepairClosure = newProbabilityString;
-
-            // Assert
-            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase("no double value")]
-        [TestCase("")]
-        public void SetFailureProbabilityRepairClosure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityRepairClosure = newValue;
-
-            // Assert
-            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SetFailureProbabilityRepairClosure_NullValue_ThrowsArgumentNullException()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityRepairClosure = null;
-
-            // Assert
-            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void SetProbabilityCollisionSecondaryStructure_InvalidValues_ThrowsArgumentException(double newValue)
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
-
-            // Call
-            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newProbabilityString;
-
-            // Assert
-            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase("no double value")]
-        [TestCase("")]
-        public void SetProbabilityCollisionSecondaryStructure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Call
-            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newValue;
-
-            // Assert
-            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SetProbabilityCollisionSecondaryStructure_NullValue_ThrowsArgumentNullException()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Call
-            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = null;
-
-            // Assert
-            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_LinearLowSillStructure_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
@@ -458,10 +145,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSectionStub);
 
             // Call
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             // Assert
             const string schematizationCategory = "Schematisatie";
@@ -471,9 +155,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+                                                                                              {
+                                                                                                  new BrowsableAttribute(true)
+                                                                                              });
             Assert.AreEqual(35, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[linearLowSillVolumicWeightWaterPropertyIndex];
@@ -638,10 +322,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSectionStub);
 
             // Call
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             // Assert
             const string schematizationCategory = "Schematisatie";
@@ -651,9 +332,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+                                                                                              {
+                                                                                                  new BrowsableAttribute(true)
+                                                                                              });
             Assert.AreEqual(35, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[quadraticLowSillVolumicWeightWaterPropertyIndex];
@@ -818,10 +499,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSectionStub);
 
             // Call
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             // Assert
             const string schematizationCategory = "Schematisatie";
@@ -831,9 +509,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+                                                                                              {
+                                                                                                  new BrowsableAttribute(true)
+                                                                                              });
             Assert.AreEqual(35, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[linearFloodedCulvertVolumicWeightWaterPropertyIndex];
@@ -1008,10 +686,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSectionStub);
 
             // Call
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             // Assert
             const string schematizationCategory = "Schematisatie";
@@ -1021,9 +696,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+                                                                                              {
+                                                                                                  new BrowsableAttribute(true)
+                                                                                              });
             Assert.AreEqual(35, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[quadraticFloodedCulvertVolumicWeightWaterPropertyIndex];
@@ -1177,6 +852,294 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void GetAvailableForeshoreProfiles_SetInputContextInstanceWithForeshoreProfiles_ReturnForeshoreProfiles()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            {
+                ForeshoreProfiles =
+                {
+                    new TestForeshoreProfile()
+                }
+            };
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            // Call
+            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
+
+            // Assert
+            Assert.AreSame(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetAvailableStructures_SetInputContextInstanceWithStructures_ReturnStructures()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            {
+                StabilityPointStructures =
+                {
+                    new TestStabilityPointStructure()
+                }
+            };
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            // Call
+            var availableStructures = properties.GetAvailableStructures();
+
+            // Assert
+            Assert.AreSame(failureMechanism.StabilityPointStructures, availableStructures);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        {
+            // Setup
+            const int numberOfChangedProperties = 9;
+            var observerMock = mockRepository.StrictMock<IObserver>();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            StabilityPointStructuresInput input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            input.Attach(observerMock);
+
+            var random = new Random(100);
+            double newVolumicWeightWater = random.NextDouble();
+            double newFactorStormDurationOpenStructure = random.NextDouble();
+            var newInflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert;
+            var newLoadSchematizationType = LoadSchematizationType.Quadratic;
+            var newLevellingCount = 2;
+            double newEvaluationLevel = random.NextDouble();
+            double newVerticalDistance = random.NextDouble();
+
+            // Call
+            properties.VolumicWeightWater = (RoundedDouble) newVolumicWeightWater;
+            properties.FactorStormDurationOpenStructure = (RoundedDouble) newFactorStormDurationOpenStructure;
+            properties.InflowModelType = newInflowModelType;
+            properties.LoadSchematizationType = newLoadSchematizationType;
+            properties.FailureProbabilityRepairClosure = "1e-2";
+            properties.LevellingCount = newLevellingCount;
+            properties.ProbabilityCollisionSecondaryStructure = "1e-3";
+            properties.EvaluationLevel = (RoundedDouble) newEvaluationLevel;
+            properties.VerticalDistance = (RoundedDouble) newVerticalDistance;
+
+            // Assert
+            var expectedFailureProbabilityRepairClosure = ProbabilityFormattingHelper.Format(0.01);
+            var expectedProbabilityCollisionSecondaryStructure = ProbabilityFormattingHelper.Format(0.001);
+
+            Assert.AreEqual(newVolumicWeightWater, properties.VolumicWeightWater, properties.VolumicWeightWater.GetAccuracy());
+            Assert.AreEqual(newFactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure.GetAccuracy());
+            Assert.AreEqual(newInflowModelType, properties.InflowModelType);
+            Assert.AreEqual(newLoadSchematizationType, properties.LoadSchematizationType);
+            Assert.AreEqual(expectedFailureProbabilityRepairClosure, properties.FailureProbabilityRepairClosure);
+            Assert.AreEqual(newLevellingCount, properties.LevellingCount);
+            Assert.AreEqual(expectedProbabilityCollisionSecondaryStructure, properties.ProbabilityCollisionSecondaryStructure);
+            Assert.AreEqual(newEvaluationLevel, properties.EvaluationLevel, properties.EvaluationLevel.GetAccuracy());
+            Assert.AreEqual(newVerticalDistance, properties.VerticalDistance, properties.VerticalDistance.GetAccuracy());
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.MinValue)]
+        [TestCase(double.MaxValue)]
+        public void SetFailureProbabilityRepairClosure_InvalidValues_ThrowsArgumentException(double newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            StabilityPointStructuresInput input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            const int overflow = 1;
+            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityRepairClosure = newProbabilityString;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("no double value")]
+        [TestCase("")]
+        public void SetFailureProbabilityRepairClosure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            StabilityPointStructuresInput input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityRepairClosure = newValue;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetFailureProbabilityRepairClosure_NullValue_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            StabilityPointStructuresInput input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityRepairClosure = null;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.MinValue)]
+        [TestCase(double.MaxValue)]
+        public void SetProbabilityCollisionSecondaryStructure_InvalidValues_ThrowsArgumentException(double newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            StabilityPointStructuresInput input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            const int overflow = 1;
+            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
+
+            // Call
+            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newProbabilityString;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("no double value")]
+        [TestCase("")]
+        public void SetProbabilityCollisionSecondaryStructure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            StabilityPointStructuresInput input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            // Call
+            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newValue;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetProbabilityCollisionSecondaryStructure_NullValue_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            StabilityPointStructuresInput input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
+
+            // Call
+            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = null;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void SetStructure_StructureInSection_UpdateSectionResults()
         {
             // Setup
@@ -1189,10 +1152,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
             {
@@ -1221,11 +1181,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
@@ -1258,11 +1214,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
@@ -1295,11 +1247,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             // Call & Assert
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
@@ -1332,11 +1280,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthLinearLoadModel)));
@@ -1369,11 +1313,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-
-            var properties = new StabilityPointStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new StabilityPointStructuresInputContextProperties(inputContext);
 
             // Call & Assert
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthLinearLoadModel)));

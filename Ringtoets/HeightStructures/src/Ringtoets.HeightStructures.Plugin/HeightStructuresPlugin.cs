@@ -66,7 +66,10 @@ namespace Ringtoets.HeightStructures.Plugin
                 }
             };
             yield return new PropertyInfo<HeightStructure, HeightStructureProperties>();
-            yield return new PropertyInfo<HeightStructuresInputContext, HeightStructuresInputContextProperties>();
+            yield return new PropertyInfo<HeightStructuresInputContext, HeightStructuresInputContextProperties>
+            {
+                CreateInstance = context => new HeightStructuresInputContextProperties(context)
+            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Data;
@@ -90,8 +91,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of the <see cref="StabilityPointStructuresInputContextProperties"/> class.
         /// </summary>
-        public StabilityPointStructuresInputContextProperties()
-            : base(new ConstructionProperties
+        /// <param name="data">The instance to show the properties of.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public StabilityPointStructuresInputContextProperties(StabilityPointStructuresInputContext data)
+            : base(data, new ConstructionProperties
                    {
                        StructurePropertyIndex = structurePropertyIndex,
                        StructureLocationPropertyIndex = structureLocationPropertyIndex,

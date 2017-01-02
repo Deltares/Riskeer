@@ -66,15 +66,23 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of the <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/> class.
         /// </summary>
+        /// <param name="data">The instance to show the properties of.</param>
         /// <param name="constructionProperties">The property values required to create an instance of <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="constructionProperties"/> is <c>null</c>.</exception>
-        protected StructuresInputBaseProperties(ConstructionProperties constructionProperties)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        protected StructuresInputBaseProperties(
+            InputContextBase<TStructureInput, TCalculation, TFailureMechanism> data,
+            ConstructionProperties constructionProperties)
         {
+            if (data == null)
+            {
+                throw new ArgumentNullException("data");
+            }
             if (constructionProperties == null)
             {
                 throw new ArgumentNullException("constructionProperties");
             }
 
+            Data = data;
             propertyIndexLookup = new Dictionary<string, int>
             {
                 {

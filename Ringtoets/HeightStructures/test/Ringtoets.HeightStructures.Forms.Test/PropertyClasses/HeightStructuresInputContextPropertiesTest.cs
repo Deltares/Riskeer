@@ -68,18 +68,18 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithoutData_ExpectedValues()
         {
             // Call
-            var properties = new HeightStructuresInputContextProperties();
+            TestDelegate test = () => new HeightStructuresInputContextProperties(null);
 
             // Assert
-            Assert.IsInstanceOf<StructuresInputBaseProperties<HeightStructure, HeightStructuresInput, StructuresCalculation<HeightStructuresInput>, HeightStructuresFailureMechanism>>(properties);
-            Assert.IsNull(properties.Data);
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
         }
 
         [Test]
-        public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
+        public void Constructor_WithData_ExpectedValues()
         {
             // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
@@ -87,7 +87,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var properties = new HeightStructuresInputContextProperties();
 
             var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
                                                                 calculation,
@@ -95,12 +94,67 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                 assessmentSectionStub);
 
             // Call
-            properties.Data = inputContext;
+            var properties = new HeightStructuresInputContextProperties(inputContext);
 
             // Assert
-            HeightStructuresInput input = calculation.InputParameters;
+            Assert.IsInstanceOf<StructuresInputBaseProperties<HeightStructure, HeightStructuresInput, StructuresCalculation<HeightStructuresInput>, HeightStructuresFailureMechanism>>(properties);
+            Assert.AreSame(inputContext, properties.Data);
 
+            HeightStructuresInput input = calculation.InputParameters;
             Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
+                                                                calculation,
+                                                                failureMechanism,
+                                                                assessmentSectionStub);
+
+            // Call
+            var properties = new HeightStructuresInputContextProperties(inputContext);
+
+            // Assert
+            const string schematizationCategory = "Schematisatie";
+
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+                                                                                              {
+                                                                                                  new BrowsableAttribute(true)
+                                                                                              });
+            Assert.AreEqual(16, dynamicProperties.Count);
+
+            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
+            Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
+            Assert.AreEqual("Kerende hoogte [m+NAP]", levelCrestStructureProperty.DisplayName);
+            Assert.AreEqual("Kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
+
+            // Only check the order of the base properties
+            Assert.AreEqual("Kunstwerk", dynamicProperties[structurePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[structureLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Oriëntatie [°]", dynamicProperties[structureNormalOrientationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[flowWidthAtBottomProtectionPropertyIndex].DisplayName);
+            Assert.AreEqual("Breedte van doorstroomopening [m]", dynamicProperties[widthFlowAperturesPropertyIndex].DisplayName);
+            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[storageStructureAreaPropertyIndex].DisplayName);
+            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[allowedLevelIncreaseStoragePropertyIndex].DisplayName);
+            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[criticalOvertoppingDischargePropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandprofiel", dynamicProperties[foreshoreProfilePropertyIndex].DisplayName);
+            Assert.AreEqual("Dam", dynamicProperties[useBreakWaterPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[useForeshorePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[hydraulicBoundaryLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stormduur [uur]", dynamicProperties[stormDurationPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -124,10 +178,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                 calculation,
                                                                 failureMechanism,
                                                                 assessmentSectionStub);
-            var properties = new HeightStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new HeightStructuresInputContextProperties(inputContext);
 
             // Call
             var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
@@ -156,10 +207,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                 calculation,
                                                                 failureMechanism,
                                                                 assessmentSectionStub);
-            var properties = new HeightStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new HeightStructuresInputContextProperties(inputContext);
 
             // Call
             var availableStructures = properties.GetAvailableStructures();
@@ -182,10 +230,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                 calculation,
                                                                 failureMechanism,
                                                                 assessmentSectionStub);
-            var properties = new HeightStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
+            var properties = new HeightStructuresInputContextProperties(inputContext);
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
             {
@@ -198,62 +243,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
-                                                                calculation,
-                                                                failureMechanism,
-                                                                assessmentSectionStub);
-
-            // Call
-            var properties = new HeightStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Assert
-            const string schematizationCategory = "Schematisatie";
-
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
-            Assert.AreEqual(16, dynamicProperties.Count);
-
-            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
-            Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
-            Assert.AreEqual("Kerende hoogte [m+NAP]", levelCrestStructureProperty.DisplayName);
-            Assert.AreEqual("Kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
-
-            // Only check the order of the base properties
-            Assert.AreEqual("Kunstwerk", dynamicProperties[structurePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[structureLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Oriëntatie [°]", dynamicProperties[structureNormalOrientationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[flowWidthAtBottomProtectionPropertyIndex].DisplayName);
-            Assert.AreEqual("Breedte van doorstroomopening [m]", dynamicProperties[widthFlowAperturesPropertyIndex].DisplayName);
-            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[storageStructureAreaPropertyIndex].DisplayName);
-            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[allowedLevelIncreaseStoragePropertyIndex].DisplayName);
-            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[criticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandprofiel", dynamicProperties[foreshoreProfilePropertyIndex].DisplayName);
-            Assert.AreEqual("Dam", dynamicProperties[useBreakWaterPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[useForeshorePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[hydraulicBoundaryLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stormduur [uur]", dynamicProperties[stormDurationPropertyIndex].DisplayName);
-
             mockRepository.VerifyAll();
         }
     }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Data;
@@ -42,10 +43,10 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
     /// ViewModel of <see cref="ClosingStructuresInputContext"/> for properties panel.
     /// </summary>
     public class ClosingStructuresInputContextProperties : StructuresInputBaseProperties<
-                                                               ClosingStructure,
-                                                               ClosingStructuresInput,
-                                                               StructuresCalculation<ClosingStructuresInput>,
-                                                               ClosingStructuresFailureMechanism>
+        ClosingStructure,
+        ClosingStructuresInput,
+        StructuresCalculation<ClosingStructuresInput>,
+        ClosingStructuresFailureMechanism>
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int stormDurationPropertyIndex = 2;
@@ -77,24 +78,27 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of the <see cref="ClosingStructuresInputContextProperties"/> class.
         /// </summary>
-        public ClosingStructuresInputContextProperties() : base(new ConstructionProperties
-                                                                {
-                                                                    StructurePropertyIndex = structurePropertyIndex,
-                                                                    StructureLocationPropertyIndex = structureLocationPropertyIndex,
-                                                                    StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
-                                                                    FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
-                                                                    WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
-                                                                    StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
-                                                                    AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
-                                                                    CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
-                                                                    FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
-                                                                    ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
-                                                                    UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
-                                                                    UseForeshorePropertyIndex = useForeshorePropertyIndex,
-                                                                    ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
-                                                                    HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
-                                                                    StormDurationPropertyIndex = stormDurationPropertyIndex
-                                                                }) {}
+        /// <param name="data">The instance to show the properties of.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public ClosingStructuresInputContextProperties(ClosingStructuresInputContext data) :
+            base(data, new ConstructionProperties
+                 {
+                     StructurePropertyIndex = structurePropertyIndex,
+                     StructureLocationPropertyIndex = structureLocationPropertyIndex,
+                     StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
+                     FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
+                     WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
+                     StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
+                     AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
+                     CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
+                     FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
+                     ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
+                     UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
+                     UseForeshorePropertyIndex = useForeshorePropertyIndex,
+                     ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
+                     HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
+                     StormDurationPropertyIndex = stormDurationPropertyIndex
+                 }) {}
 
         #region Hydraulic data
 

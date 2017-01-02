@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.Attributes;
@@ -37,10 +38,10 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     /// ViewModel of <see cref="HeightStructuresInputContext"/> for properties panel.
     /// </summary>
     public class HeightStructuresInputContextProperties : StructuresInputBaseProperties<
-                                                              HeightStructure,
-                                                              HeightStructuresInput,
-                                                              StructuresCalculation<HeightStructuresInput>,
-                                                              HeightStructuresFailureMechanism>
+        HeightStructure,
+        HeightStructuresInput,
+        StructuresCalculation<HeightStructuresInput>,
+        HeightStructuresFailureMechanism>
     {
         private const int structurePropertyIndex = 1;
         private const int structureLocationPropertyIndex = 2;
@@ -62,25 +63,27 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresInputContextProperties"/> class.
         /// </summary>
-        public HeightStructuresInputContextProperties() : base(
-            new ConstructionProperties
-            {
-                StructurePropertyIndex = structurePropertyIndex,
-                StructureLocationPropertyIndex = structureLocationPropertyIndex,
-                StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
-                FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
-                WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
-                StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
-                AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
-                CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
-                FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
-                ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
-                UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
-                UseForeshorePropertyIndex = useForeshorePropertyIndex,
-                ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
-                HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
-                StormDurationPropertyIndex = stormDurationPropertyIndex
-            }) {}
+        /// <param name="data">The instance to show the properties of.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public HeightStructuresInputContextProperties(HeightStructuresInputContext data)
+            : base(data, new ConstructionProperties
+                   {
+                       StructurePropertyIndex = structurePropertyIndex,
+                       StructureLocationPropertyIndex = structureLocationPropertyIndex,
+                       StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
+                       FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
+                       WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
+                       StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
+                       AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
+                       CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
+                       FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
+                       ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
+                       UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
+                       UseForeshorePropertyIndex = useForeshorePropertyIndex,
+                       ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
+                       HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
+                       StormDurationPropertyIndex = stormDurationPropertyIndex
+                   }) {}
 
         #region Schematization
 
