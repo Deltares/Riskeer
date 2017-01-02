@@ -99,11 +99,12 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
+        [TestCase(double.NaN)]
         [TestCase(101)]
         [TestCase(-1e-6)]
         [TestCase(-1)]
         [TestCase(100 + 1e-6)]
-        public void Contribution_ValueOutsideValidRegion_ThrowsArgumentException(double value)
+        public void Contribution_ValueOutsideValidRegionOrNaN_ThrowsArgumentException(double value)
         {
             // Setup
             var failureMechanism = new SimpleFailureMechanismBase();

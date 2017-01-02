@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), double.NaN, 0);
+            var failureMechanismContribution = CreateFailureMechanismContribution();
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), double.NaN, 0);
+            var failureMechanismContribution = CreateFailureMechanismContribution();
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
@@ -120,7 +120,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var failureMechanismChangeHandler = mockRepository.Stub<IFailureMechanismContributionNormChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), double.NaN, 0);
+            var failureMechanismContribution = CreateFailureMechanismContribution();
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
@@ -145,7 +145,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), double.NaN, 0);
+            var failureMechanismContribution = CreateFailureMechanismContribution();
 
             // Call
             var properties = new FailureMechanismContributionProperties(
@@ -158,11 +158,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<FailureMechanismContribution>>(properties);
             Assert.AreSame(failureMechanismContribution, properties.Data);
 
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
             Assert.AreEqual(2, dynamicProperties.Count);
 
@@ -208,7 +204,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSectionComposition, properties.AssessmentSectionComposition);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void GivenReturnPeriod_WhenConfirmingReturnPeriodValueChange_ThenReturnPeriodSetAndNotifiesObserver()
         {
@@ -389,10 +385,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             normChangeHandler.Expect(h => h.ConfirmNormChange()).Return(true);
             normChangeHandler.Expect(h => h.ChangeNorm(assessmentSection, norm))
                              .Return(new[]
-                             {
-                                 observable1,
-                                 observable2
-                             });
+                                     {
+                                         observable1,
+                                         observable2
+                                     });
             mocks.ReplayAll();
 
             var properties = new FailureMechanismContributionProperties(
@@ -463,16 +459,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                     .Return(true);
             compositionChangeHandler.Expect(h => h.ChangeComposition(assessmentSection, newComposition))
                                     .Return(new[]
-                                    {
-                                        observable1,
-                                        observable2
-                                    });
+                                            {
+                                                observable1,
+                                                observable2
+                                            });
             mocks.ReplayAll();
 
             var properties = new FailureMechanismContributionProperties(
                 assessmentSection.FailureMechanismContribution,
                 assessmentSection,
-                new FailureMechanismContributionNormChangeHandler(), 
+                new FailureMechanismContributionNormChangeHandler(),
                 compositionChangeHandler);
 
             // Call
@@ -480,6 +476,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        private static FailureMechanismContribution CreateFailureMechanismContribution()
+        {
+            return new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), new Random(21).Next(0, 100), 0);
         }
     }
 }
