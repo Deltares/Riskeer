@@ -47,8 +47,7 @@ namespace Core.Common.Base.IO
         /// Notifies all observers of <see cref="IObservable"/> instances that have been
         /// changed during the import.
         /// </summary>
-        /// <remarks>This method should be called by caller who calls <see cref="Cancel"/>
-        /// on this importer.</remarks>
+        /// <remarks>This method should also be called when the import routine was canceled.</remarks>
         void DoPostImportUpdates();
     }
 }

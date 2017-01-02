@@ -70,11 +70,6 @@ namespace Core.Common.Base.IO
 
         public virtual void DoPostImportUpdates()
         {
-            if (Canceled)
-            {
-                return;
-            }
-
             var observableTarget = ImportTarget as IObservable;
             if (observableTarget != null)
             {
