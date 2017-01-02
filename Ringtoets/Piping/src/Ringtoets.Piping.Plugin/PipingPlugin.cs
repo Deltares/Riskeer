@@ -32,6 +32,7 @@ using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -68,7 +69,7 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismContextProperties>
             {
-                CreateInstance = context => new PipingFailureMechanismContextProperties(context, new FailureMechanismPropertyChangeHandler())
+                CreateInstance = context => new PipingFailureMechanismContextProperties(context, new FailureMechanismPropertyChangeHandler<IFailureMechanism>())
             };
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>();
             yield return new PropertyInfo<PipingOutputContext, PipingOutputContextProperties>();

@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Forms.Test
                 tester.ClickOk();
             };
 
-            var handler = new FailureMechanismPropertyChangeHandler();
+            var handler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
 
             // Call
             handler.ConfirmPropertyChange();
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test
                 tester.ClickOk();
             };
 
-            var handler = new FailureMechanismPropertyChangeHandler();
+            var handler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
 
             // Call
             bool result = handler.ConfirmPropertyChange();
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Forms.Test
                 tester.ClickCancel();
             };
 
-            var handler = new FailureMechanismPropertyChangeHandler();
+            var handler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
 
             // Call
             bool result = handler.ConfirmPropertyChange();
@@ -82,7 +82,7 @@ namespace Ringtoets.Common.Forms.Test
         public void ChangeComposition_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = new FailureMechanismPropertyChangeHandler();
+            var handler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
 
             // Call
             TestDelegate test = () => handler.PropertyChanged(null);
@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Forms.Test
         public void ChangeComposition_FailureMechanismWithDifferentCalculationCollections_ReturnsCalculationsWhichHadOutput(ChangePropertyTestCase testCase)
         {
             // Setup
-            var handler = new FailureMechanismPropertyChangeHandler();
+            var handler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
             IFailureMechanism failureMechanism = new TestFailureMechanism(testCase.Calculations);
 
             // Call

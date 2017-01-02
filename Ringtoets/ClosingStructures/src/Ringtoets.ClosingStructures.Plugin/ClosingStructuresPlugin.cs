@@ -37,6 +37,7 @@ using Ringtoets.ClosingStructures.IO;
 using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
@@ -62,7 +63,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             {
                 CreateInstance = context => new ClosingStructuresFailureMechanismProperties(
                     context.WrappedData,
-                    new FailureMechanismPropertyChangeHandler())
+                    new FailureMechanismPropertyChangeHandler<IFailureMechanism>())
             };
             yield return new PropertyInfo<ClosingStructure, ClosingStructureProperties>();
             yield return new PropertyInfo<ClosingStructuresInputContext, ClosingStructuresInputContextProperties>();

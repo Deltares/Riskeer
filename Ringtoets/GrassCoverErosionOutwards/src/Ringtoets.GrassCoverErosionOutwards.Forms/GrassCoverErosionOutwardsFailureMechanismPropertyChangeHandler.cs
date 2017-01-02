@@ -14,7 +14,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
     /// Class which properly handles data model changes due to a change of a
     /// grass cover erosion outwards failure mechanism property.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler : FailureMechanismPropertyChangeHandler, IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>
+    public class GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler : FailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>
     {
         protected override string ConfirmationMessage
         {
@@ -24,7 +24,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
             }
         }
 
-        public IEnumerable<IObservable> PropertyChanged(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        public override IEnumerable<IObservable> PropertyChanged(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {

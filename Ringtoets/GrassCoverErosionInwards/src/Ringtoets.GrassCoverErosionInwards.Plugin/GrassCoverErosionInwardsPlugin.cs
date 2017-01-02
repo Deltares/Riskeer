@@ -31,6 +31,7 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
@@ -59,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             yield return new PropertyInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismContextProperties>
             {
-                CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismContextProperties(context, new FailureMechanismPropertyChangeHandler())
+                CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismContextProperties(context, new FailureMechanismPropertyChangeHandler<IFailureMechanism>())
             };
             yield return new PropertyInfo<DikeProfile, DikeProfileProperties>();
             yield return new PropertyInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInputContextProperties>();

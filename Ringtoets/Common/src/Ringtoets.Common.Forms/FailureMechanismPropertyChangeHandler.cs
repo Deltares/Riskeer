@@ -14,7 +14,7 @@ namespace Ringtoets.Common.Forms
     /// Class which properly handles data model changes due to a change of a
     /// failure mechanism property.
     /// </summary>
-    public class FailureMechanismPropertyChangeHandler : IFailureMechanismPropertyChangeHandler<IFailureMechanism>
+    public class FailureMechanismPropertyChangeHandler<T> : IFailureMechanismPropertyChangeHandler<T> where T : IFailureMechanism
     {
         public bool ConfirmPropertyChange()
         {
@@ -24,7 +24,7 @@ namespace Ringtoets.Common.Forms
             return result == DialogResult.OK;
         }
 
-        public virtual IEnumerable<IObservable> PropertyChanged(IFailureMechanism failureMechanism)
+        public virtual IEnumerable<IObservable> PropertyChanged(T failureMechanism)
         {
             if (failureMechanism == null)
             {
