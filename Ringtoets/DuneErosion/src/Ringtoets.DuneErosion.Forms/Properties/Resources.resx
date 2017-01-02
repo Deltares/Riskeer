@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DuneLocationsContextProperties_Locations_Description" xml:space="preserve">
+    <value>Locaties uit de hydraulische duinendatabase.</value>
+  </data>
+  <data name="DuneLocationsContextProperties_Locations_DisplayName" xml:space="preserve">
+    <value>Locaties</value>
+  </data>
   <data name="DuneLocation_CoastalAreaId_Description" xml:space="preserve">
     <value>Nummer van het kustvak waar de locatie onderdeel van uitmaakt.</value>
   </data>
@@ -148,7 +154,7 @@
     <value>Metrering van de locatie binnen het kustvak waar het onderdeel van uitmaakt.</value>
   </data>
   <data name="DuneLocation_Offset_DisplayName" xml:space="preserve">
-    <value>Metrering</value>
+    <value>Metrering [dam]</value>
   </data>
   <data name="DuneLocation_WaterLevel_Description" xml:space="preserve">
     <value>Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>

@@ -172,7 +172,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Metrering.
+        ///   Looks up a localized string similar to Metrering [dam].
         /// </summary>
         internal static string DuneLocation_Offset_DisplayName {
             get {
@@ -231,6 +231,24 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         internal static string DuneLocation_WavePeriod_DisplayName {
             get {
                 return ResourceManager.GetString("DuneLocation_WavePeriod_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locaties uit de hydraulische duinendatabase..
+        /// </summary>
+        internal static string DuneLocationsContextProperties_Locations_Description {
+            get {
+                return ResourceManager.GetString("DuneLocationsContextProperties_Locations_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locaties.
+        /// </summary>
+        internal static string DuneLocationsContextProperties_Locations_DisplayName {
+            get {
+                return ResourceManager.GetString("DuneLocationsContextProperties_Locations_DisplayName", resourceCulture);
             }
         }
     }

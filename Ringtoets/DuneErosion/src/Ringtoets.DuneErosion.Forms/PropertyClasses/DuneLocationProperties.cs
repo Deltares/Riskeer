@@ -33,6 +33,10 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 
 namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 {
+    /// <summary>
+    /// ViewModel of <see cref="DuneLocation"/> for the properties panel.
+    /// </summary>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class DuneLocationProperties : ObjectProperties<DuneLocation>
     {
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
@@ -196,6 +200,11 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
                                                                           ? CalculationConvergence.NotCalculated
                                                                           : data.Output.CalculationConvergence).DisplayName;
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Empty;
         }
     }
 }

@@ -45,6 +45,7 @@
     <Compile Include="PresentationObjects\DuneLocationsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DuneErosionFailureMechanismProperties.cs" />
+    <Compile Include="PropertyClasses\DuneLocationsContextProperties.cs" />
     <Compile Include="PropertyClasses\DuneLocationProperties.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

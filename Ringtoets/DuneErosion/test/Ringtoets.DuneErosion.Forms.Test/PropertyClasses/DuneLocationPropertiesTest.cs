@@ -151,7 +151,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Assert
-//            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
             var propertyBag = new DynamicPropertyBag(properties);
 
             PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]
@@ -160,7 +160,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             });
 
             Assert.AreEqual(13, dynamicProperties.Count);
-//            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptor idProperty = dynamicProperties[requiredIdPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
@@ -186,7 +186,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             PropertyDescriptor offsetProperty = dynamicProperties[requiredOffSetPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(offsetProperty,
                                                                             "Algemeen",
-                                                                            "Metrering",
+                                                                            "Metrering [dam]",
                                                                             "Metrering van de locatie binnen het kustvak waar het onderdeel van uitmaakt.",
                                                                             true);
 
