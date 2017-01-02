@@ -105,6 +105,11 @@
       <Name>Ringtoets.DuneErosion.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.DuneErosion.IO\Ringtoets.DuneErosion.IO.csproj">
+      <Project>{EDDC30E9-D793-478A-AD37-9F257CE23A22}</Project>
+      <Name>Ringtoets.DuneErosion.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.DuneErosion.Service\Ringtoets.DuneErosion.Service.csproj">
       <Project>{FDEE3429-0BB1-4AD2-813A-06FAD425EA6F}</Project>
       <Name>Ringtoets.DuneErosion.Service</Name>
@@ -115,6 +120,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

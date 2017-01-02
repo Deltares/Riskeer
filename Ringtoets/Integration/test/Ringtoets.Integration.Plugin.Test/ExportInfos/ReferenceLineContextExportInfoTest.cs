@@ -27,7 +27,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Integration.Data;
-using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ExportInfos
 {

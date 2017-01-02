@@ -90,5 +90,14 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
                         "s", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MorphAn randvoorwaarden (*.bnd)|*.bnd.
+        /// </summary>
+        internal static string DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter {
+            get {
+                return ResourceManager.GetString("DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter", resourceCulture);
+            }
+        }
     }
 }

@@ -87,5 +87,20 @@ namespace Ringtoets.DuneErosion.Plugin.Test
                     typeof(DuneErosionFailureMechanismView));
             }
         }
+
+        [Test]
+        public void GetExportInfos_ReturnSupportedExportInfo()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                // Call
+                ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, exportInfos.Length);
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(DuneLocationsContext)));
+            }
+        }
     }
 }

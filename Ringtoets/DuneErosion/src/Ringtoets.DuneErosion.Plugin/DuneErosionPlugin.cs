@@ -35,6 +35,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
+using Ringtoets.DuneErosion.IO;
 using Ringtoets.DuneErosion.Plugin.Properties;
 using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -107,6 +108,16 @@ namespace Ringtoets.DuneErosion.Plugin
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
+            };
+        }
+
+        public override IEnumerable<ExportInfo> GetExportInfos()
+        {
+            yield return new ExportInfo<DuneLocationsContext>
+            {
+                CreateFileExporter = (context, filePath) => new DuneLocationsExporter(context.WrappedData, filePath),
+                IsEnabled = context => context.WrappedData.Any(dl => dl.Output != null),
+                FileFilter = Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter
             };
         }
 
