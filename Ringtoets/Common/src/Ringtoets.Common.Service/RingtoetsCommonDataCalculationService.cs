@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Service
         /// <param name="reliabilityIndex">The resultant reliability index after a calculation.</param>
         /// <param name="norm">The norm used during the calculation.</param>
         /// <returns><c>True</c> if the solution converged, <c>false</c> if otherwise.</returns>
-        public static CalculationConvergence CalculationConverged(double reliabilityIndex, double norm)
+        public static CalculationConvergence GetCalculationConvergence(double reliabilityIndex, double norm)
         {
             return Math.Abs(reliabilityIndex - StatisticsConverter.ProbabilityToReliability(norm)) <= 1.0e-3 ?
                        CalculationConvergence.CalculatedConverged :

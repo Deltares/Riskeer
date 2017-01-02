@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -53,8 +54,21 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="duneLocation">The <see cref="DuneLocation"/> that holds information required to perform the calculation.</param>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> that holds information about the contribution and
         /// the general inputs used in the calculation.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that hold information about the norm used in the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path wich points to the hydraulic boundary database file.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
+        /// <item>The contribution of the failure mechanism is zero.</item>
+        /// </list></exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(DuneLocation duneLocation,
@@ -69,11 +83,11 @@ namespace Ringtoets.DuneErosion.Service
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
+            var mechanismSpecificNorm = GetFailureMechanismSpecificNorm(failureMechanism, assessmentSection, calculationName);
+
             var exceptionThrown = false;
-            var inputValid = true;
             try
             {
-                double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
                 DunesBoundaryConditionsCalculationInput calculationInput = CreateInput(duneLocation, mechanismSpecificNorm, hydraulicBoundaryDatabaseFilePath);
                 calculator.Calculate(calculationInput);
 
@@ -82,18 +96,11 @@ namespace Ringtoets.DuneErosion.Service
                     duneLocation.Output = CreateDuneLocationOutput(duneLocation.Name, calculationInput.Beta, mechanismSpecificNorm);
                 }
             }
-            catch (ArgumentException e)
-            {
-                log.Error(e.Message);
-                exceptionThrown = true;
-                inputValid = false;
-                throw;
-            }
             catch (HydraRingFileParserException)
             {
                 if (!canceled)
                 {
-                    var lastErrorContent = calculator.LastErrorFileContent;
+                    string lastErrorContent = calculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorContent))
                     {
                         log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_no_error_report,
@@ -111,22 +118,17 @@ namespace Ringtoets.DuneErosion.Service
             }
             finally
             {
-                var lastErrorFileContent = calculator.LastErrorFileContent;
-                bool errorOccurred = CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
-                if (errorOccurred)
+                string lastErrorFileContent = calculator.LastErrorFileContent;
+                bool hasErrorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
+                if (hasErrorOccurred)
                 {
                     log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_click_details_for_last_error_report_1,
                                     calculationName, lastErrorFileContent);
                 }
+        
+                FinalizeCalculation(calculationName, true);
 
-                if (inputValid)
-                {
-                    log.InfoFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
-                }
-
-                CalculationServiceHelper.LogCalculationEndTime(calculationName);
-
-                if (errorOccurred)
+                if (hasErrorOccurred)
                 {
                     throw new HydraRingCalculationException(lastErrorFileContent);
                 }
@@ -134,7 +136,37 @@ namespace Ringtoets.DuneErosion.Service
         }
 
         /// <summary>
-        /// Cancels any ongoing structures stability point calculation.
+        /// Get the specific norm of the <see cref="DuneErosionFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to get the norm for.</param>
+        /// <param name="assessmentSection">The assessment section to get the norm fequency from.</param>
+        /// <param name="calculationName">The name of the calculation.</param>
+        /// <returns>The failure mechanism specific norm.</returns>
+        /// <exception cref="ArgumentException">Thrown when the contribution of the failure mechanism is zero.</exception>
+        private double GetFailureMechanismSpecificNorm(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection, string calculationName)
+        {
+            if (Math.Abs(failureMechanism.Contribution) < 1e-6)
+            {
+                string errorMessage = Resources.DuneErosionBoundaryCalculationService_Calculate_Contribution_is_zero;
+                log.Error(errorMessage);
+                FinalizeCalculation(calculationName, false);
+                throw new ArgumentException(errorMessage);
+            }
+
+            return failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+        }
+
+        private void FinalizeCalculation(string calculationName, bool calculationExecuted)
+        {
+            if (calculationExecuted)
+            {
+                log.InfoFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+            }
+            CalculationServiceHelper.LogCalculationEndTime(calculationName);
+        }
+
+        /// <summary>
+        /// Cancels any ongoing dune erosion calculation.
         /// </summary>
         public void Cancel()
         {
@@ -148,10 +180,10 @@ namespace Ringtoets.DuneErosion.Service
 
         private DuneLocationOutput CreateDuneLocationOutput(string duneLocationName, double targetReliability, double targetProbability)
         {
-            var reliability = calculator.ReliabilityIndex;
-            var probability = StatisticsConverter.ReliabilityToProbability(reliability);
+            double reliability = calculator.ReliabilityIndex;
+            double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(
+            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(
                 calculator.ReliabilityIndex, targetProbability);
 
             if (converged != CalculationConvergence.CalculatedConverged)
@@ -165,6 +197,23 @@ namespace Ringtoets.DuneErosion.Service
                                           reliability, converged);
         }
 
+        /// <summary>
+        /// Creates the input used in the calculation.
+        /// </summary>
+        /// <param name="duneLocation">The <see cref="DuneLocation"/> to create the input for.</param>
+        /// <param name="norm">The norm of the failure mechanism to use.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The filepath to the hydraulic boundary database.</param>
+        /// <returns>A <see cref="DunesBoundaryConditionsCalculationInput"/> with all needed input data.</returns>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// contains invalid characters.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
         private static DunesBoundaryConditionsCalculationInput CreateInput(DuneLocation duneLocation,
                                                                            double norm,
                                                                            string hydraulicBoundaryDatabaseFilePath)

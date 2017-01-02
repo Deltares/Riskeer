@@ -123,7 +123,4 @@
   <data name="DuneErosionFailureMechanism_DisplayName" xml:space="preserve">
     <value>Duinwaterkering - Duinafslag</value>
   </data>
-  <data name="DuneErosionFailureMechanismExtensions_GetMechanismSpecificNorm_Contribution_is_zero" xml:space="preserve">
-    <value>De bijdrage van dit toetsspoor is nul. Daardoor kunnen de berekeningen niet worden uitgevoerd.</value>
-  </data>
 </root>

@@ -21,7 +21,6 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.DuneErosion.Data.Properties;
 
 namespace Ringtoets.DuneErosion.Data
 {
@@ -48,11 +47,6 @@ namespace Ringtoets.DuneErosion.Data
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
-            }
-
-            if (Math.Abs(failureMechanism.Contribution) < 1e-6)
-            {
-                throw new ArgumentException(Resources.DuneErosionFailureMechanismExtensions_GetMechanismSpecificNorm_Contribution_is_zero);
             }
 
             return 2.15*(failureMechanism.Contribution/100)

@@ -266,7 +266,7 @@ namespace Ringtoets.Revetment.Service
             finally
             {
                 var lastErrorFileContent = calculator.LastErrorFileContent;
-                bool errorOccurred = CalculationServiceHelper.ErrorOccurred(Canceled, exceptionThrown, lastErrorFileContent);
+                bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(Canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
                     log.ErrorFormat(CultureInfo.CurrentCulture,

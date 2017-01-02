@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Service
         /// <param name="lastErrorFileContent">The contents of the last error file.</param>
         /// <returns><c>true</c> when a calculation isn't canceled, has not already thrown an exception and 
         /// <paramref name="lastErrorFileContent"/> is set. <c>false</c> otherwise.</returns>
-        public static bool ErrorOccurred(bool canceled, bool exceptionThrown, string lastErrorFileContent)
+        public static bool HasErrorOccurred(bool canceled, bool exceptionThrown, string lastErrorFileContent)
         {
             return !canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorFileContent);
         }

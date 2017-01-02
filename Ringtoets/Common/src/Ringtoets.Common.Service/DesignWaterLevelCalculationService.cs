@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Service
             finally
             {
                 var lastErrorFileContent = calculator.LastErrorFileContent;
-                bool errorOccurred = CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
+                bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
                     log.Error(messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorFileContent));
@@ -157,7 +157,7 @@ namespace Ringtoets.Common.Service
             var reliability = calculator.ReliabilityIndex;
             var probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(
+            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(
                 calculator.ReliabilityIndex, targetProbability);
 
             if (converged != CalculationConvergence.CalculatedConverged)

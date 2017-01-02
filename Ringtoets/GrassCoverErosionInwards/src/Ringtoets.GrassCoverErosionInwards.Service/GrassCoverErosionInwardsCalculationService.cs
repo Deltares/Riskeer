@@ -183,7 +183,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             var reliability = dikeHeightCalculator.ReliabilityIndex;
             var probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.CalculationConverged(
+            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(
                 reliability, targetProbability);
 
             if (converged != CalculationConvergence.CalculatedConverged)
@@ -244,7 +244,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             finally
             {
                 var lastErrorFileContent = overtoppingCalculator.LastErrorFileContent;
-                bool errorOccurred = CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
+                bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
                     log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1, calculationName, lastErrorFileContent);
@@ -289,7 +289,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 finally
                 {
                     var lastErrorFileContent = dikeHeightCalculator.LastErrorFileContent;
-                    if (CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, lastErrorFileContent))
+                    if (CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent))
                     {
                         log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_report_1, calculationName, lastErrorFileContent);
                     }

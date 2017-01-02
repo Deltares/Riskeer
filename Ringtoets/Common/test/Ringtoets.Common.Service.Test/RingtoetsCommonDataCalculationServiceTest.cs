@@ -31,28 +31,28 @@ namespace Ringtoets.Common.Service.Test
     public class RingtoetsCommonDataCalculationServiceTest
     {
         [Test]
-        public void CalculationConverged_WithConvergedResults_CalculationConvergedTrue()
+        public void GetCalculationConvergence_WithConvergedResults_CalculationConvergedTrue()
         {
             // Setup
             const double norm = 0.05;
             double reliabilityIndex = StatisticsConverter.ProbabilityToReliability(norm);
 
             // Call
-            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.CalculationConverged(reliabilityIndex, norm);
+            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(reliabilityIndex, norm);
 
             // Assert
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, calculationConverged);
         }
 
         [Test]
-        public void CalculationConverged_WithoutConvergedResults_CalculationConvergedFalse()
+        public void GetCalculationConvergence_WithoutConvergedResults_CalculationConvergedFalse()
         {
             // Setup
             var output = new ReliabilityIndexCalculationOutput(5.0e-3, 5.0e-3);
             const double norm = 1;
 
             // Call
-            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.CalculationConverged(output.CalculatedReliabilityIndex, norm);
+            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(output.CalculatedReliabilityIndex, norm);
 
             // Assert
             Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, calculationConverged);

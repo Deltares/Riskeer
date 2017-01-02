@@ -139,10 +139,10 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ErrorOccurred_CalculationNotCanceledOrExceptionThrownLastErrorSet_ReturnTrue()
+        public void HasErrorOccurred_CalculationNotCanceledOrExceptionThrownLastErrorSet_ReturnTrue()
         {
             // Call
-            bool errorOccurred = CalculationServiceHelper.ErrorOccurred(false, false, "An error has occurred.");
+            bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(false, false, "An error has occurred.");
 
             // Assert
             Assert.IsTrue(errorOccurred);
@@ -151,10 +151,10 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void ErrorOccurred_CalculationNotCanceledOrExceptionThrownLastErrorNotSet_ReturnFalse(string errorContent)
+        public void HasErrorOccurred_CalculationNotCanceledOrExceptionThrownLastErrorNotSet_ReturnFalse(string errorContent)
         {
             // Call
-            bool errorOccurred = CalculationServiceHelper.ErrorOccurred(false, false, errorContent);
+            bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(false, false, errorContent);
 
             // Assert
             Assert.IsFalse(errorOccurred);
@@ -167,10 +167,10 @@ namespace Ringtoets.Common.Service.Test
         [TestCase(true, true, "")]
         [TestCase(true, false, "")]
         [TestCase(false, true, "")]
-        public void ErrorOccurred_LastErrorSetCalculationCanceledOrExceptionThrown_ReturnFalse(bool canceled, bool exceptionThrown, string errorContent)
+        public void HasErrorOccurred_LastErrorSetCalculationCanceledOrExceptionThrown_ReturnFalse(bool canceled, bool exceptionThrown, string errorContent)
         {
             // Call
-            bool errorOccurred = CalculationServiceHelper.ErrorOccurred(canceled, exceptionThrown, errorContent);
+            bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, errorContent);
 
             // Assert
             Assert.IsFalse(errorOccurred);

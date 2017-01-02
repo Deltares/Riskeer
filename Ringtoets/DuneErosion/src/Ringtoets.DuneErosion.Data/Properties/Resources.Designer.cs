@@ -98,15 +98,5 @@ namespace Ringtoets.DuneErosion.Data.Properties {
                 return ResourceManager.GetString("DuneErosionFailureMechanism_DisplayName", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De bijdrage van dit toetsspoor is nul. Daardoor kunnen de berekeningen niet worden uitgevoerd..
-        /// </summary>
-        public static string DuneErosionFailureMechanismExtensions_GetMechanismSpecificNorm_Contribution_is_zero {
-            get {
-                return ResourceManager.GetString("DuneErosionFailureMechanismExtensions_GetMechanismSpecificNorm_Contribution_is_ze" +
-                        "ro", resourceCulture);
-            }
-        }
     }
 }

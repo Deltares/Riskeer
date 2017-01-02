@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -60,36 +59,6 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void GetMechanismSpecificNorm_WithZeroContributionForFailureMechanism_ThrowsArgumentException()
-        {
-            // Setup
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 0
-            };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
-            {
-                failureMechanism
-            }, 1, 1.0 / 300));
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate action = () => failureMechanism.GetMechanismSpecificNorm(assessmentSection);
-
-            // Assert
-            const string expectedMessage = "De bijdrage van dit toetsspoor is nul. Daardoor kunnen de berekeningen niet worden uitgevoerd.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(action, expectedMessage);
-            mocks.VerifyAll();
         }
 
         [Test]

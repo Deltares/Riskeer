@@ -51,7 +51,7 @@ namespace Ringtoets.Revetment.Service
 
             double calculatedProbability = StatisticsConverter.ReliabilityToProbability(calculatedReliability);
 
-            CalculationConvergence convergence = RingtoetsCommonDataCalculationService.CalculationConverged(calculatedReliability, norm);
+            CalculationConvergence convergence = RingtoetsCommonDataCalculationService.GetCalculationConvergence(calculatedReliability, norm);
 
             return new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
                                             targetReliability, calculatedProbability, calculatedReliability, convergence);
