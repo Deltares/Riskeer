@@ -1159,6 +1159,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 new Point2D(-10.0, -10.0),
                 new Point2D(10.0, 10.0)
             }));
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             // Call
             properties.Structure = new TestStabilityPointStructure();

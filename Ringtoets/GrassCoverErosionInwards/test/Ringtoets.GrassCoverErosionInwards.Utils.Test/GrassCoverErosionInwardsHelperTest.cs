@@ -203,60 +203,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         }
 
         [Test]
-        public void Update_SectionResultsNull_ThrowsArgumentNullException()
+        public void UpdateCalculationToSectionResultAssignments_SectionResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => GrassCoverErosionInwardsHelper.Update(
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                 null,
-                calculationInSectionA);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("sectionResults", exception.ParamName);
-        }
-
-        [Test]
-        public void Update_SectionResultElementsNull_ThrowsArgumentException()
-        {
-            // Call
-            TestDelegate test = () => GrassCoverErosionInwardsHelper.Update(
-                new GrassCoverErosionInwardsFailureMechanismSectionResult[]
-                {
-                    null,
-                    null
-                },
-                calculationInSectionA);
-
-            // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                test, "SectionResults contains an entry without value.");
-            Assert.AreEqual("sectionResults", exception.ParamName);
-        }
-
-        [Test]
-        public void Update_SectionResultWithoutCalculationAndValidCalculation_UpdatesSectionResult()
-        {
-            // Setup
-            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(
-                failureMechanismSectionA);
-
-            // Call
-            GrassCoverErosionInwardsHelper.Update(new[]
-            {
-                failureMechanismSectionResult
-            }, calculationInSectionA);
-
-            // Assert
-            Assert.AreSame(calculationInSectionA, failureMechanismSectionResult.Calculation);
-        }
-
-        [Test]
-        public void Delete_SectionResultsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => GrassCoverErosionInwardsHelper.Delete(
-                null,
-                calculationInSectionA,
                 new[]
                 {
                     calculationInSectionB
@@ -268,16 +219,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         }
 
         [Test]
-        public void Delete_SectionResultElementsNull_ThrowsArgumentException()
+        public void UpdateCalculationToSectionResultAssignments_SectionResultElementsNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => GrassCoverErosionInwardsHelper.Delete(
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                 new GrassCoverErosionInwardsFailureMechanismSectionResult[]
                 {
                     null,
                     null
                 },
-                calculationInSectionA,
                 new[]
                 {
                     calculationInSectionB
@@ -290,35 +240,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         }
 
         [Test]
-        public void Delete_CalculationNull_ThrowsArgumentNullException()
+        public void UpdateCalculationToSectionResultAssignments_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => GrassCoverErosionInwardsHelper.Delete(
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                 new[]
                 {
                     sectionResult
                 },
-                null,
-                new[]
-                {
-                    calculationInSectionA
-                });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
-        public void Delete_CalculationsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => GrassCoverErosionInwardsHelper.Delete(
-                new[]
-                {
-                    sectionResult
-                },
-                calculationInSectionA,
                 null);
 
             // Assert
@@ -327,15 +256,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         }
 
         [Test]
-        public void Delete_CalculationsElementNull_ThrowsArgumentNullException()
+        public void UpdateCalculationToSectionResultAssignments_CalculationsElementNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => GrassCoverErosionInwardsHelper.Delete(
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                 new[]
                 {
                     sectionResult
                 },
-                calculationInSectionA,
                 new GrassCoverErosionInwardsCalculation[]
                 {
                     null
@@ -347,7 +275,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         }
 
         [Test]
-        public void Delete_SectionResultWithCalculationNoRemainingCalculations_SectionResultCalculationIsNull()
+        public void UpdateCalculationToSectionResultAssignments_SectionResultWithCalculationNoRemainingCalculations_SectionResultCalculationIsNull()
         {
             // Setup
             var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(
@@ -357,12 +285,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             };
 
             // Call
-            GrassCoverErosionInwardsHelper.Delete(
+            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                 new[]
                 {
                     failureMechanismSectionResult
                 },
-                calculationInSectionA,
                 Enumerable.Empty<GrassCoverErosionInwardsCalculation>());
 
             // Assert
@@ -370,7 +297,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         }
 
         [Test]
-        public void Delete_SectionResultWithCalculationWithRemainingCalculations_SectionResultCalculationSetToRemainingCalculation()
+        public void UpdateCalculationToSectionResultAssignments_SectionResultWithCalculationWithRemainingCalculations_SectionResultCalculationSetToRemainingCalculation()
         {
             // Setup
             var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(
@@ -380,12 +307,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             };
 
             // Call
-            GrassCoverErosionInwardsHelper.Delete(
+            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                 new[]
                 {
                     failureMechanismSectionResult
                 },
-                calculationInSectionA,
                 new[]
                 {
                     calculationInSectionB

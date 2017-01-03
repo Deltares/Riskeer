@@ -76,50 +76,25 @@ namespace Ringtoets.Common.Utils
         }
 
         /// <summary>
-        /// Updates the <see cref="StructuresFailureMechanismSectionResult{T}.Calculation"/> for each element of <see cref="sectionResults"/> that have the
-        /// <paramref name="calculation"/> assigned, or should have the <paramref name="calculation"/> assigned.
+        /// Updates the <see cref="StructuresFailureMechanismSectionResult{T}.Calculation"/> for each element
+        /// of <see cref="sectionResults"/> if required due to a change.
         /// </summary>
-        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="StructuresFailureMechanismSectionResult{T}"/> to iterate while 
-        /// possibly updating the <see cref="StructuresCalculation{T}"/> assigned to it.</param>
-        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> which has a location that has been updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResults"/> is <c>null</c></exception>
-        /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
-        /// <c>null</c>.</exception>
-        public static void Update<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
-                                     StructuresCalculation<T> calculation) where T : IStructuresCalculationInput<StructureBase>, new()
-        {
-            ValidateSectionResults(sectionResults);
-
-            CalculationWithLocation calculationWithLocation = AsCalculationWithLocation(calculation);
-            if (calculationWithLocation != null)
-            {
-                AssignUnassignCalculations.Update(sectionResults.Select(AsCalculationAssignment), calculationWithLocation);
-            }
-        }
-
-        /// <summary>
-        /// Removed the <see cref="StructuresFailureMechanismSectionResult{T}.Calculation"/> for each 
-        /// element of <see cref="sectionResults"/> that have the <paramref name="calculation"/> assigned.
-        /// </summary>
-        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="StructuresFailureMechanismSectionResult{T}"/> to iterate while 
-        /// removing the reference to the <paramref name="calculation"/> if present.</param>
-        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> which has a location that has been updated.</param>
-        /// <param name="calculations">The <see cref="IEnumerable{T}"/> of <see cref="StructuresCalculation{T}"/> that were left after removing
-        /// <paramref name="calculation"/>.</param>
+        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="StructuresFailureMechanismSectionResult{T}"/>
+        /// to possibly reassign a calculation to.</param>
+        /// <param name="calculations">The <see cref="IEnumerable{T}"/> of <see cref="StructuresCalculation{T}"/> to try 
+        /// and match with the <paramref name="sectionResults"/>.</param>
         /// <returns>All affected objects by the deletion.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c> or when an element 
         /// in <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
-        public static IEnumerable<StructuresFailureMechanismSectionResult<T>> Delete<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
-                                                                                        StructuresCalculation<T> calculation,
+        public static IEnumerable<StructuresFailureMechanismSectionResult<T>> UpdateCalculationToSectionResultAssignments<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
                                                                                         IEnumerable<StructuresCalculation<T>> calculations) where T : IStructuresCalculationInput<StructureBase>, new()
         {
             ValidateSectionResults(sectionResults);
 
-            return AssignUnassignCalculations.Delete(
+            return AssignUnassignCalculations.Update(
                 sectionResults.Select(AsCalculationAssignment),
-                calculation,
                 AsCalculationsWithLocations(calculations))
                                              .Cast<StructuresFailureMechanismSectionResult<T>>()
                                              .ToArray();

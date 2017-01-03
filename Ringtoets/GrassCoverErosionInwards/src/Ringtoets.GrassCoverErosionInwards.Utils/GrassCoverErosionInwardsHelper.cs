@@ -79,50 +79,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         }
 
         /// <summary>
-        /// Updates the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult.Calculation"/> for each element of <see cref="sectionResults"/> that have the
-        /// <paramref name="calculation"/> assigned, or should have the <paramref name="calculation"/> assigned.
-        /// </summary>
-        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> to iterate while 
-        /// possibly updating the <see cref="GrassCoverErosionInwardsCalculation"/> assigned to it.</param>
-        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> which has a location that has been updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResults"/> is <c>null</c></exception>
-        /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
-        /// <c>null</c>.</exception>
-        public static void Update(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
-                                  GrassCoverErosionInwardsCalculation calculation)
-        {
-            ValidateSectionResults(sectionResults);
-
-            CalculationWithLocation calculationWithLocation = AsCalculationWithLocation(calculation);
-            if (calculationWithLocation != null)
-            {
-                AssignUnassignCalculations.Update(sectionResults.Select(AsCalculationAssignment), calculationWithLocation);
-            }
-        }
-
-        /// <summary>
         /// Removed the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult.Calculation"/> for each 
-        /// element of <see cref="sectionResults"/> that have the <paramref name="calculation"/> assigned.
+        /// element of <see cref="sectionResults"/> if required due to a change.
         /// </summary>
-        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> to iterate while 
-        /// removing the reference to the <paramref name="calculation"/> if present.</param>
-        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> which has a location that has been updated.</param>
-        /// <param name="calculations">The <see cref="IEnumerable{T}"/> of <see cref="GrassCoverErosionInwardsCalculation"/> that were left after removing
-        /// <paramref name="calculation"/>.</param>
+        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>
+        /// to possibly reassign a calculation to.</param>
+        /// <param name="calculations">The <see cref="IEnumerable{T}"/> of <see cref="GrassCoverErosionInwardsCalculation"/> to try 
+        /// and match with the <paramref name="sectionResults"/>.</param>
         /// <returns>All section results affected by the deletion.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c> or when an element 
         /// in <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
-        public static IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> Delete(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
-                                                                                                GrassCoverErosionInwardsCalculation calculation,
+        public static IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> UpdateCalculationToSectionResultAssignments(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
                                                                                                 IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             ValidateSectionResults(sectionResults);
 
-            return AssignUnassignCalculations.Delete(
+            return AssignUnassignCalculations.Update(
                 sectionResults.Select(AsCalculationAssignment),
-                calculation,
                 CalculationsToCalculationsWithLocations(calculations))
                                              .Cast<GrassCoverErosionInwardsFailureMechanismSectionResult>()
                                              .ToArray();

@@ -83,16 +83,16 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
 
             yield return new ViewInfo<
-                FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
-                IEnumerable<ClosingStructuresFailureMechanismSectionResult>,
-                ClosingStructuresFailureMechanismResultView>
-            {
-                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
-            };
+                    FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
+                    IEnumerable<ClosingStructuresFailureMechanismSectionResult>,
+                    ClosingStructuresFailureMechanismResultView>
+                {
+                    GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                    Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                    CloseForData = CloseFailureMechanismResultViewForData,
+                    GetViewData = context => context.WrappedData,
+                    AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+                };
 
             yield return new ViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>
             {
@@ -455,9 +455,9 @@ namespace Ringtoets.ClosingStructures.Plugin
                 builder.AddRenameItem();
             }
             builder.AddValidateAllCalculationsInGroupItem(
-                context,
-                ValidateAll,
-                ValidateAllDataAvailableAndGetErrorMessage)
+                       context,
+                       ValidateAll,
+                       ValidateAllDataAvailableAndGetErrorMessage)
                    .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
@@ -526,8 +526,8 @@ namespace Ringtoets.ClosingStructures.Plugin
                     }
                 };
                 calculations.Add(calculation);
-                StructuresHelper.Update(sectionResults, calculation);
             }
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(sectionResults, calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
         }
 
         private static void ValidateAll(ClosingStructuresCalculationGroupContext context)
@@ -561,12 +561,9 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             var closingStructuresCalculations = context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>().ToArray();
-            foreach (var calculation in context.WrappedData.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>())
-            {
-                StructuresHelper.Delete(context.FailureMechanism.SectionResults,
-                                        calculation,
-                                        closingStructuresCalculations);
-            }
+
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism.SectionResults,
+                                                                         closingStructuresCalculations);
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             parentGroupContext.NotifyObservers();
@@ -647,9 +644,8 @@ namespace Ringtoets.ClosingStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                StructuresHelper.Delete(context.FailureMechanism.SectionResults,
-                                        context.WrappedData,
-                                        context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
+                StructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism.SectionResults,
+                                                                             context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
             }
         }

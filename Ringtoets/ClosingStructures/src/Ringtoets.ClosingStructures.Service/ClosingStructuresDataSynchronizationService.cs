@@ -142,14 +142,15 @@ namespace Ringtoets.ClosingStructures.Service
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedClosingStructure)
             {
                 calculation.InputParameters.Structure = null;
-
-                IEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> affectedSectionResults =
-                    StructuresHelper.Delete(failureMechanism.SectionResults, calculation, closingStructureCalculations);
-                foreach (StructuresFailureMechanismSectionResult<ClosingStructuresInput> result in affectedSectionResults)
-                {
-                    changedObservables.Add(result);
-                }
                 changedObservables.Add(calculation.InputParameters);
+            }
+
+            IEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> affectedSectionResults =
+                StructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults, closingStructureCalculations);
+
+            foreach (StructuresFailureMechanismSectionResult<ClosingStructuresInput> result in affectedSectionResults)
+            {
+                changedObservables.Add(result);
             }
 
             failureMechanism.ClosingStructures.Remove(structure);

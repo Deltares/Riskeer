@@ -36,55 +36,30 @@ namespace Ringtoets.Common.Utils
     public static class AssignUnassignCalculations
     {
         /// <summary>
-        /// Update <see cref="FailureMechanismSectionResult"/> objects which used or can use the <see cref="ICalculation"/>.
+        /// Update <see cref="FailureMechanismSectionResult"/> objects with the <paramref name="calculations"/>.
         /// </summary>
         /// <param name="sectionResults">The <see cref="SectionResultWithCalculationAssignment"/> objects which contain the
         /// information about assigning calculations to sections.</param>
-        /// <param name="calculation">The <see cref="CalculationWithLocation"/> which's location is used to match with the
-        /// location of the section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="sectionResults"/> contains a <c>null</c> element.</exception>
-        public static void Update(IEnumerable<SectionResultWithCalculationAssignment> sectionResults, CalculationWithLocation calculation)
-        {
-            ValidateSectionResults(sectionResults);
-            ValidateCalculationWithLocation(calculation);
-
-            var sectionResultsArray = sectionResults.ToArray();
-
-            FailureMechanismSection failureMechanismSectionContainingCalculation =
-                FailureMechanismSectionForCalculation(sectionResultsArray.Select(sr => sr.Result.Section), calculation);
-
-            UnassignCalculationInSectionResultsNotContainingCalculation(calculation, sectionResultsArray, failureMechanismSectionContainingCalculation);
-
-            AssignCalculationIfContainingSectionResultHasNoCalculationAssigned(calculation, sectionResultsArray, failureMechanismSectionContainingCalculation);
-        }
-
-        /// <summary>
-        /// Update <see cref="FailureMechanismSectionResult"/> objects which use the deleted <see cref="ICalculation"/>.
-        /// </summary>
-        /// <param name="sectionResults">The <see cref="SectionResultWithCalculationAssignment"/> objects which contain the
-        /// information about assigning calculations to sections.</param>
-        /// <param name="calculation">The <see cref="ICalculation"/> that was removed.</param>
-        /// <param name="calculations">All the remaining calculations after deletion of the <paramref name="calculation"/>.</param>
-        /// <returns>All affected objects by the deletion.</returns>
+        /// <param name="calculations">All the currently known calculations to try and match with section results.</param>
+        /// <returns>All affected objects by the update.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="sectionResults"/> or <paramref name="calculations"/>
         /// contains a <c>null</c> element.</exception>
-        public static IEnumerable<FailureMechanismSectionResult> Delete(
+        public static IEnumerable<FailureMechanismSectionResult> Update(
             IEnumerable<SectionResultWithCalculationAssignment> sectionResults,
-            ICalculation calculation,
             IEnumerable<CalculationWithLocation> calculations)
         {
             ValidateSectionResults(sectionResults);
             ValidateCalculations(calculations);
-            ValidateCalculation(calculation);
 
             var sectionResultsArray = sectionResults.ToArray();
 
             Dictionary<string, IList<ICalculation>> calculationsPerSegmentName =
                 CollectCalculationsPerSection(sectionResultsArray.Select(sr => sr.Result.Section), calculations);
 
-            return UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(sectionResultsArray, calculation, calculationsPerSegmentName);
+            return UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
+                sectionResultsArray, 
+                calculationsPerSegmentName);
         }
 
         /// <summary>
@@ -147,56 +122,38 @@ namespace Ringtoets.Common.Utils
 
         private static IEnumerable<FailureMechanismSectionResult> UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
             IEnumerable<SectionResultWithCalculationAssignment> sectionResults,
-            ICalculation calculation, Dictionary<string, IList<ICalculation>> calculationsPerSegmentName)
+            Dictionary<string, IList<ICalculation>> calculationsPerSegmentName)
         {
-            IEnumerable<SectionResultWithCalculationAssignment> sectionResultsUsingCalculation =
-                sectionResults.Where(sr => sr.Calculation != null && ReferenceEquals(sr.Calculation, calculation));
-
             var affectedObjects = new Collection<FailureMechanismSectionResult>();
-            foreach (SectionResultWithCalculationAssignment sectionResult in sectionResultsUsingCalculation)
+            foreach (SectionResultWithCalculationAssignment sectionResult in sectionResults)
             {
                 string sectionName = sectionResult.Result.Section.Name;
-                if (calculationsPerSegmentName.ContainsKey(sectionName) && calculationsPerSegmentName[sectionName].Count == 1)
-                {
-                    sectionResult.Calculation = calculationsPerSegmentName[sectionName].Single();
-                }
-                else
+                var affected = false;
+                if (!calculationsPerSegmentName.ContainsKey(sectionName))
                 {
                     sectionResult.Calculation = null;
+                    affected = true;
                 }
-                affectedObjects.Add(sectionResult.Result);
+                if (calculationsPerSegmentName.ContainsKey(sectionName))
+                {
+                    var calculationsInCurrentSection = calculationsPerSegmentName[sectionName];
+                    if (!calculationsInCurrentSection.Contains(sectionResult.Calculation))
+                    {
+                        sectionResult.Calculation = null;
+                        affected = true;
+                    }
+                    if (sectionResult.Calculation == null && calculationsInCurrentSection.Count == 1)
+                    {
+                        sectionResult.Calculation = calculationsInCurrentSection.Single();
+                        affected = true;
+                    }
+                }
+                if (affected)
+                {
+                    affectedObjects.Add(sectionResult.Result);
+                }
             }
             return affectedObjects;
-        }
-
-        private static void AssignCalculationIfContainingSectionResultHasNoCalculationAssigned(
-            CalculationWithLocation calculationWithLocation,
-            IEnumerable<SectionResultWithCalculationAssignment> sectionResults,
-            FailureMechanismSection failureMechanismSection)
-        {
-            foreach (var sectionResult in sectionResults)
-            {
-                if (ReferenceEquals(sectionResult.Result.Section, failureMechanismSection) && sectionResult.Calculation == null)
-                {
-                    sectionResult.Calculation = calculationWithLocation.Calculation;
-                }
-            }
-        }
-
-        private static void UnassignCalculationInSectionResultsNotContainingCalculation(
-            CalculationWithLocation calculationWithLocation,
-            IEnumerable<SectionResultWithCalculationAssignment> sectionResults,
-            FailureMechanismSection failureMechanismSection)
-        {
-            IEnumerable<SectionResultWithCalculationAssignment> sectionResultsUsingCalculation =
-                sectionResults.Where(sr => sr.Calculation != null && ReferenceEquals(sr.Calculation, calculationWithLocation.Calculation));
-            foreach (var sectionResult in sectionResultsUsingCalculation)
-            {
-                if (!ReferenceEquals(sectionResult.Result.Section, failureMechanismSection))
-                {
-                    sectionResult.Calculation = null;
-                }
-            }
         }
 
         private static FailureMechanismSection FindSectionAtLocation(IEnumerable<SectionSegments> sectionSegmentsCollection,
@@ -226,14 +183,6 @@ namespace Ringtoets.Common.Utils
             if (sections.Any(s => s == null))
             {
                 throw new ArgumentException(@"Sections contains an entry without value.", "sections");
-            }
-        }
-
-        private static void ValidateCalculation(ICalculation calculation)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException("calculation");
             }
         }
 

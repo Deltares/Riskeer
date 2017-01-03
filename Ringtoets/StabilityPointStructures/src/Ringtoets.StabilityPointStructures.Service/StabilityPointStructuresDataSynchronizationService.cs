@@ -144,14 +144,14 @@ namespace Ringtoets.StabilityPointStructures.Service
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedStabilityPointStructure)
             {
                 calculation.InputParameters.Structure = null;
-
-                IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> affectedSectionResults =
-                    StructuresHelper.Delete(failureMechanism.SectionResults, calculation, stabilityPointStructureCalculations);
-                foreach (StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> result in affectedSectionResults)
-                {
-                    changedObservables.Add(result);
-                }
                 changedObservables.Add(calculation.InputParameters);
+            }
+
+            IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> affectedSectionResults =
+                StructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults, stabilityPointStructureCalculations);
+            foreach (StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> result in affectedSectionResults)
+            {
+                changedObservables.Add(result);
             }
 
             failureMechanism.StabilityPointStructures.Remove(structure);

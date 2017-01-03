@@ -82,16 +82,16 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             };
 
             yield return new ViewInfo<
-                FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,
-                IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
-                StabilityPointStructuresFailureMechanismResultView>
-            {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
-                GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
-            };
+                    FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,
+                    IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
+                    StabilityPointStructuresFailureMechanismResultView>
+                {
+                    GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                    Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                    CloseForData = CloseFailureMechanismResultViewForData,
+                    GetViewData = context => context.WrappedData,
+                    AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+                };
 
             yield return new ViewInfo<StabilityPointStructuresScenariosContext, CalculationGroup, StabilityPointStructuresScenariosView>
             {
@@ -290,10 +290,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              calculations.Select(calc => new StabilityPointStructuresCalculationActivity(
-                                                                             calc,
-                                                                             assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                             failureMechanism,
-                                                                             assessmentSection)).ToArray());
+                                                                     calc,
+                                                                     assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                     failureMechanism,
+                                                                     assessmentSection)).ToArray());
         }
 
         #endregion
@@ -501,7 +501,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             {
                 builder.AddRemoveAllChildrenItem();
             }
-            
+
             return builder.AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -558,8 +558,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                     }
                 };
                 calculations.Add(calculation);
-                StructuresHelper.Update(sectionResults, calculation);
             }
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                sectionResults,
+                calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
         }
 
         private static void CalculationGroupContextOnNodeRemoved(StabilityPointStructuresCalculationGroupContext context, object parentNodeData)
@@ -568,12 +570,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             var stabilityPointStructuresCalculations = context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
-            foreach (var calculation in context.WrappedData.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>())
-            {
-                StructuresHelper.Delete(context.FailureMechanism.SectionResults,
-                                        calculation,
-                                        stabilityPointStructuresCalculations);
-            }
+
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism.SectionResults,
+                                                                         stabilityPointStructuresCalculations);
+
             parentGroupContext.NotifyObservers();
         }
 
@@ -675,9 +675,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                StructuresHelper.Delete(
+                StructuresHelper.UpdateCalculationToSectionResultAssignments(
                     context.FailureMechanism.SectionResults,
-                    context.WrappedData,
                     context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
             }

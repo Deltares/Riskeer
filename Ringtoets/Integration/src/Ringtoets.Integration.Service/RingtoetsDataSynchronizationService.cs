@@ -481,13 +481,14 @@ namespace Ringtoets.Integration.Service
             foreach (GrassCoverErosionInwardsCalculation calculation in calculationWithRemovedDikeProfile)
             {
                 calculation.InputParameters.DikeProfile = null;
-                IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> changedSectionResults =
-                    GrassCoverErosionInwardsHelper.Delete(failureMechanism.SectionResults, calculation, calculations);
-                foreach (GrassCoverErosionInwardsFailureMechanismSectionResult result in changedSectionResults)
-                {
-                    changedObservables.Add(result);
-                }
                 changedObservables.Add(calculation.InputParameters);
+            }
+
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> changedSectionResults =
+                GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults, calculations);
+            foreach (GrassCoverErosionInwardsFailureMechanismSectionResult result in changedSectionResults)
+            {
+                changedObservables.Add(result);
             }
 
             failureMechanism.DikeProfiles.Remove(profile);

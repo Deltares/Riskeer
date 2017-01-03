@@ -201,7 +201,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     Children =
                     {
                         calculation1,
-                        calculation2
+                        calculation2,
+                        calculation3
                     }
                 }
             };

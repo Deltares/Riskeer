@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -76,7 +77,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             set
             {
                 data.WrappedData.DikeProfile = value;
-                GrassCoverErosionInwardsHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
+                GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
+                    data.FailureMechanism.SectionResults, 
+                    data.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
                 ClearOutputAndNotifyPropertyChanged();
             }
         }

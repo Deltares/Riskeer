@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
@@ -175,7 +176,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         protected override void AfterSettingStructure()
         {
-            StructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                data.FailureMechanism.SectionResults,
+                data.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
         }
 
         #region Hydraulic data

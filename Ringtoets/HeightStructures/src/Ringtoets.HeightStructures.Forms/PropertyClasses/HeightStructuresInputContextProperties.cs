@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -117,7 +118,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         protected override void AfterSettingStructure()
         {
-            StructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                data.FailureMechanism.SectionResults,
+                data.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
         }
     }
 }

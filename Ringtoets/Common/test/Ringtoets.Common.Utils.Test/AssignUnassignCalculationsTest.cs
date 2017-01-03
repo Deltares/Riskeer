@@ -60,14 +60,30 @@ namespace Ringtoets.Common.Utils.Test
         };
 
         [Test]
+        public void Update_NullSectionResults_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => AssignUnassignCalculations.Update(
+                null,
+                Enumerable.Empty<CalculationWithLocation>());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("sectionResults", paramName);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Update_NullSectionResultsElement_ThrowsArgumentException()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var calculation = mockRepository.Stub<ICalculation>();
             mockRepository.ReplayAll();
-
-            var calculationWithLocation = new CalculationWithLocation(calculation, new Point2D(0, 0));
 
             // Call
             TestDelegate call = () => AssignUnassignCalculations.Update(
@@ -75,169 +91,6 @@ namespace Ringtoets.Common.Utils.Test
                 {
                     null
                 },
-                calculationWithLocation);
-
-            // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "SectionResults contains an entry without value.");
-            Assert.AreEqual("sectionResults", exception.ParamName);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Update_NullCalculation_ThrowsArgumentNullException()
-        {
-            // Setup
-            var sectionResults = Enumerable.Empty<SectionResultWithCalculationAssignment>();
-
-            // Call
-            TestDelegate call = () => AssignUnassignCalculations.Update(sectionResults, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("calculation", paramName);
-        }
-
-        [Test]
-        public void Update_NullSectionResults_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var calculation = mockRepository.Stub<ICalculation>();
-            mockRepository.ReplayAll();
-
-            var calculationWithLocation = new CalculationWithLocation(calculation, new Point2D(0, 0));
-
-            // Call
-            TestDelegate call = () => AssignUnassignCalculations.Update(null, calculationWithLocation);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("sectionResults", paramName);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Update_CalculationLocationChangedToMatchOtherSectionAndOtherSectionWithoutCalculation_FirstSectionResultCalculationNullSecondSectionResultCalculationSet()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var calculation = mockRepository.Stub<ICalculation>();
-            mockRepository.ReplayAll();
-
-            var calculationLocation = new Point2D(1.51, 1.51);
-
-            var sectionA = new FailureMechanismSection("firstSection", new List<Point2D>
-            {
-                new Point2D(0.0, 0.0), new Point2D(1.1, 1.1)
-            });
-            var sectionB = new FailureMechanismSection("secondSection", new List<Point2D>
-            {
-                new Point2D(1.1, 1.1), new Point2D(2.2, 2.2)
-            });
-
-            var sectionResultA = new FailureMechanismSectionResultWithCalculation(sectionA);
-            var sectionResultB = new FailureMechanismSectionResultWithCalculation(sectionB);
-
-            var sectionResults = new List<SectionResultWithCalculationAssignment>
-            {
-                new SectionResultWithCalculationAssignment(sectionResultA,
-                                                           r => ((FailureMechanismSectionResultWithCalculation) r).Calculation,
-                                                           (r, c) => ((FailureMechanismSectionResultWithCalculation) r).Calculation = c),
-                new SectionResultWithCalculationAssignment(sectionResultB,
-                                                           r => ((FailureMechanismSectionResultWithCalculation) r).Calculation,
-                                                           (r, c) => ((FailureMechanismSectionResultWithCalculation) r).Calculation = c)
-            };
-            sectionResultA.Calculation = calculation;
-
-            // Call
-            AssignUnassignCalculations.Update(sectionResults, new CalculationWithLocation(calculation, calculationLocation));
-
-            // Assert
-            Assert.IsNull(sectionResultA.Calculation);
-            Assert.AreSame(calculation, sectionResultB.Calculation);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Update_CalculationLocationChangedToMatchOtherSectionAndOtherSectionHasCalculation_FirstSectionResultCalculationNullSecondSectionResultCalculationUnchanged()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var calculationA = mockRepository.Stub<ICalculation>();
-            var calculationB = mockRepository.Stub<ICalculation>();
-            mockRepository.ReplayAll();
-
-            var locationB = new Point2D(1.51, 1.51);
-
-            var sectionA = new FailureMechanismSection("firstSection", new List<Point2D>
-            {
-                new Point2D(0.0, 0.0), new Point2D(1.1, 1.1)
-            });
-            var sectionB = new FailureMechanismSection("secondSection", new List<Point2D>
-            {
-                new Point2D(1.1, 1.1), new Point2D(2.2, 2.2)
-            });
-
-            var sectionResultA = new FailureMechanismSectionResultWithCalculation(sectionA);
-            var sectionResultB = new FailureMechanismSectionResultWithCalculation(sectionB);
-
-            var sectionResults = new List<SectionResultWithCalculationAssignment>
-            {
-                new SectionResultWithCalculationAssignment(sectionResultA,
-                                                           r => ((FailureMechanismSectionResultWithCalculation) r).Calculation,
-                                                           (r, c) => ((FailureMechanismSectionResultWithCalculation) r).Calculation = c),
-                new SectionResultWithCalculationAssignment(sectionResultB,
-                                                           r => ((FailureMechanismSectionResultWithCalculation) r).Calculation,
-                                                           (r, c) => ((FailureMechanismSectionResultWithCalculation) r).Calculation = c)
-            };
-            sectionResultA.Calculation = calculationA;
-            sectionResultB.Calculation = calculationB;
-
-            // Call
-            AssignUnassignCalculations.Update(sectionResults, new CalculationWithLocation(calculationA, locationB));
-
-            // Assert
-            Assert.IsNull(sectionResultA.Calculation);
-            Assert.AreSame(calculationB, sectionResultB.Calculation);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Delete_NullSectionResults_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var calculation = mockRepository.Stub<ICalculation>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate call = () => AssignUnassignCalculations.Delete(
-                null,
-                calculation,
-                Enumerable.Empty<CalculationWithLocation>());
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("sectionResults", paramName);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Delete_NullSectionResultsElement_ThrowsArgumentException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var calculation = mockRepository.Stub<ICalculation>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate call = () => AssignUnassignCalculations.Delete(
-                new SectionResultWithCalculationAssignment[]
-                {
-                    null
-                },
-                calculation,
                 Enumerable.Empty<CalculationWithLocation>());
 
             // Assert
@@ -248,31 +101,15 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Delete_NullCalculation_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => AssignUnassignCalculations.Delete(
-                Enumerable.Empty<SectionResultWithCalculationAssignment>(),
-                null,
-                Enumerable.Empty<CalculationWithLocation>());
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("calculation", paramName);
-        }
-
-        [Test]
-        public void Delete_NullCalculations_ThrowsArgumentNullException()
+        public void Update_NullCalculations_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var calculation = mockRepository.Stub<ICalculation>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => AssignUnassignCalculations.Delete(
+            TestDelegate call = () => AssignUnassignCalculations.Update(
                 Enumerable.Empty<SectionResultWithCalculationAssignment>(),
-                calculation,
                 null);
 
             // Assert
@@ -283,17 +120,15 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Delete_NullCalculationsElement_ThrowsArgumentException()
+        public void Update_NullCalculationsElement_ThrowsArgumentException()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var calculation = mockRepository.Stub<ICalculation>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => AssignUnassignCalculations.Delete(
+            TestDelegate call = () => AssignUnassignCalculations.Update(
                 Enumerable.Empty<SectionResultWithCalculationAssignment>(),
-                calculation,
                 new CalculationWithLocation[]
                 {
                     null
@@ -307,7 +142,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Delete_RemoveCalculationAssignedToSectionResult_SectionResultCalculationNull()
+        public void Update_RemoveCalculationAssignedToSectionResult_SectionResultCalculationNull()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -330,14 +165,14 @@ namespace Ringtoets.Common.Utils.Test
             sectionResult.Calculation = calculation;
 
             // Call
-            AssignUnassignCalculations.Delete(sectionResults, calculation, Enumerable.Empty<CalculationWithLocation>());
+            AssignUnassignCalculations.Update(sectionResults, Enumerable.Empty<CalculationWithLocation>());
 
             // Assert
             Assert.IsNull(sectionResult.Calculation);
         }
 
         [Test]
-        public void Delete_RemoveCalculationAssignedToSectionResult_SingleRemainingCalculationAssignedToSectionResult()
+        public void Update_RemoveCalculationAssignedToSectionResult_SingleRemainingCalculationAssignedToSectionResult()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -363,7 +198,7 @@ namespace Ringtoets.Common.Utils.Test
             sectionResult.Calculation = calculationA;
 
             // Call
-            AssignUnassignCalculations.Delete(sectionResults, calculationA, new[]
+            AssignUnassignCalculations.Update(sectionResults, new[]
             {
                 new CalculationWithLocation(calculationB, location),
             });

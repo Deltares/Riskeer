@@ -140,14 +140,14 @@ namespace Ringtoets.HeightStructures.Service
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedHeightStructure)
             {
                 calculation.InputParameters.Structure = null;
-
-                IEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> affectedSectionResults =
-                    StructuresHelper.Delete(failureMechanism.SectionResults, calculation, heightStructureCalculations);
-                foreach (StructuresFailureMechanismSectionResult<HeightStructuresInput> result in affectedSectionResults)
-                {
-                    changedObservables.Add(result);
-                }
                 changedObservables.Add(calculation.InputParameters);
+            }
+
+            IEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> affectedSectionResults =
+                StructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults, heightStructureCalculations);
+            foreach (StructuresFailureMechanismSectionResult<HeightStructuresInput> result in affectedSectionResults)
+            {
+                changedObservables.Add(result);
             }
 
             failureMechanism.HeightStructures.Remove(structure);

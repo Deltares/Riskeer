@@ -193,60 +193,11 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Update_SectionResultsNull_ThrowsArgumentNullException()
+        public void UpdateCalculationToSectionResultAssignments_SectionResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => StructuresHelper.Update(
+            TestDelegate test = () => StructuresHelper.UpdateCalculationToSectionResultAssignments(
                 null,
-                calculationInSectionA);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("sectionResults", exception.ParamName);
-        }
-
-        [Test]
-        public void Update_SectionResultElementsNull_ThrowsArgumentException()
-        {
-            // Call
-            TestDelegate test = () => StructuresHelper.Update(
-                new TestStructuresFailureMechanismSectionResult[]
-                {
-                    null,
-                    null
-                },
-                calculationInSectionA);
-
-            // Assert
-            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                test, "SectionResults contains an entry without value.");
-            Assert.AreEqual("sectionResults", exception.ParamName);
-        }
-
-        [Test]
-        public void Update_SectionResultWithoutCalculationAndValidCalculation_UpdatesSectionResult()
-        {
-            // Setup
-            var failureMechanismSectionResult = new TestStructuresFailureMechanismSectionResult(
-                failureMechanismSectionA);
-
-            // Call
-            StructuresHelper.Update(new[]
-            {
-                failureMechanismSectionResult
-            }, calculationInSectionA);
-
-            // Assert
-            Assert.AreSame(calculationInSectionA, failureMechanismSectionResult.Calculation);
-        }
-
-        [Test]
-        public void Delete_SectionResultsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => StructuresHelper.Delete(
-                null,
-                calculationInSectionA,
                 new[]
                 {
                     calculationInSectionB
@@ -258,16 +209,15 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Delete_SectionResultElementsNull_ThrowsArgumentException()
+        public void UpdateCalculationToSectionResultAssignments_SectionResultElementsNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => StructuresHelper.Delete(
+            TestDelegate test = () => StructuresHelper.UpdateCalculationToSectionResultAssignments(
                 new TestStructuresFailureMechanismSectionResult[]
                 {
                     null,
                     null
                 },
-                calculationInSectionA,
                 new[]
                 {
                     calculationInSectionB
@@ -280,35 +230,14 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Delete_CalculationNull_ThrowsArgumentNullException()
+        public void UpdateCalculationToSectionResultAssignments_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => StructuresHelper.Delete(
+            TestDelegate test = () => StructuresHelper.UpdateCalculationToSectionResultAssignments(
                 new[]
                 {
                     sectionResult
                 },
-                null,
-                new[]
-                {
-                    calculationInSectionA
-                });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
-        public void Delete_CalculationsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => StructuresHelper.Delete(
-                new[]
-                {
-                    sectionResult
-                },
-                calculationInSectionA,
                 null);
 
             // Assert
@@ -317,15 +246,14 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Delete_CalculationsElementNull_ThrowsArgumentNullException()
+        public void UpdateCalculationToSectionResultAssignments_CalculationsElementNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => StructuresHelper.Delete(
+            TestDelegate test = () => StructuresHelper.UpdateCalculationToSectionResultAssignments(
                 new[]
                 {
                     sectionResult
                 },
-                calculationInSectionA,
                 new StructuresCalculation<TestStructuresInput>[]
                 {
                     null
@@ -337,7 +265,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Delete_SectionResultWithCalculationNoRemainingCalculations_SectionResultCalculationIsNull()
+        public void UpdateCalculationToSectionResultAssignments_SectionResultWithCalculationNoRemainingCalculations_SectionResultCalculationIsNull()
         {
             // Setup
             var failureMechanismSectionResult = new TestStructuresFailureMechanismSectionResult(
@@ -347,12 +275,11 @@ namespace Ringtoets.Common.Utils.Test
             };
 
             // Call
-            StructuresHelper.Delete(
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(
                 new[]
                 {
                     failureMechanismSectionResult
                 },
-                calculationInSectionA,
                 Enumerable.Empty<StructuresCalculation<TestStructuresInput>>());
 
             // Assert
@@ -360,7 +287,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Delete_SectionResultWithCalculationWithRemainingCalculations_SectionResultCalculationSetToRemainingCalculation()
+        public void UpdateCalculationToSectionResultAssignments_SectionResultWithCalculationWithRemainingCalculations_SectionResultCalculationSetToRemainingCalculation()
         {
             // Setup
             var failureMechanismSectionResult = new TestStructuresFailureMechanismSectionResult(
@@ -370,12 +297,11 @@ namespace Ringtoets.Common.Utils.Test
             };
 
             // Call
-            StructuresHelper.Delete(
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(
                 new[]
                 {
                     failureMechanismSectionResult
                 },
-                calculationInSectionA,
                 new[]
                 {
                     calculationInSectionB
