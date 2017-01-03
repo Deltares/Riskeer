@@ -57,7 +57,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
             var waveHeight = random.NextDouble();
 
             // Call
-            TestDuneLocationOutput output = TestDuneLocationOutput.CreateTestDuneLocationOutputForExport(waterLevel, wavePeriod, waveHeight);
+            TestDuneLocationOutput output = TestDuneLocationOutput.CreateDuneLocationOutputForExport(waterLevel, wavePeriod, waveHeight);
 
             // Assert
             Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());

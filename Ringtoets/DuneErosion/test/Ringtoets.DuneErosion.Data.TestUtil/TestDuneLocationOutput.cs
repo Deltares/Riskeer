@@ -55,7 +55,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
         /// <param name="waveHeight">The wave height.</param>
         /// <returns>A <see cref="TestDuneLocation"/>
         /// with values that are relevant for the export.</returns>
-        public static TestDuneLocationOutput CreateTestDuneLocationOutputForExport(double waterLevel, double wavePeriod, double waveHeight)
+        public static TestDuneLocationOutput CreateDuneLocationOutputForExport(double waterLevel, double wavePeriod, double waveHeight)
         {
             return new TestDuneLocationOutput(waterLevel, wavePeriod, waveHeight);
         }

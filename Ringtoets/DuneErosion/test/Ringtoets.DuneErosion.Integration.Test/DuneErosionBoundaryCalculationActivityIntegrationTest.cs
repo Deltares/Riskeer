@@ -192,13 +192,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
                 Contribution = 10
             };
             var initialOutput = new TestDuneLocationOutput();
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                                                {
-                                                    CoastalAreaId = 3,
-                                                    Offset = 0,
-                                                    Orientation = 0,
-                                                    D50 = 0.000007
-                                                })
+            var duneLocation = new TestDuneLocation
             {
                 Output = initialOutput
             };
