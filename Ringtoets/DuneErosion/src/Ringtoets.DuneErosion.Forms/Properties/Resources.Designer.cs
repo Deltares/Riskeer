@@ -100,7 +100,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de hydraulische randvoorwaardenlocatie berekening?.
+        ///   Looks up a localized string similar to Is convergentie bereikt in de berekening voor de hydraulische randvoorwaarden van de duinlocatie?.
         /// </summary>
         internal static string DuneLocation_Convergence_Description {
             get {

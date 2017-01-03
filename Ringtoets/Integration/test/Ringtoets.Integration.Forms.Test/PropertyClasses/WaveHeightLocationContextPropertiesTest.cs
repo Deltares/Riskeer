@@ -116,7 +116,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             double waveHeight = random.NextDouble();
-            var convergence = random.NextEnumValue<CalculationConvergence>();
+            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {

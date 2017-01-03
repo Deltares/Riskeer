@@ -139,6 +139,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(Resources), "DuneLocation_D50_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DuneLocation_D50_Description")]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble D50
         {
             get
