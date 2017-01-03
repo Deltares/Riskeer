@@ -45,13 +45,13 @@ namespace Ringtoets.DuneErosion.IO
         /// </summary>
         /// <param name="duneLocations">The dune locations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocations"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public DuneLocationsExporter(IEnumerable<DuneLocation> duneLocations, string filePath)
         {
             if (duneLocations == null)
             {
-                throw new ArgumentNullException("duneLocations");
+                throw new ArgumentNullException(nameof(duneLocations));
             }
 
             FileUtils.ValidateFilePath(filePath);

@@ -82,20 +82,20 @@ namespace Ringtoets.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *.
+        ///   Looks up a localized string similar to 0.#.
         /// </summary>
-        internal static string DuneLocationsWriter_CreateCsvLine_No_value {
+        internal static string DuneLocationsWriter_CreateCsvLine_Offset_format {
             get {
-                return ResourceManager.GetString("DuneLocationsWriter_CreateCsvLine_No_value", resourceCulture);
+                return ResourceManager.GetString("DuneLocationsWriter_CreateCsvLine_Offset_format", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0.#.
+        ///   Looks up a localized string similar to *.
         /// </summary>
-        internal static string DuneLocationsWriter_CreateCsvLine_offset_format {
+        internal static string DuneLocationsWriter_CreateCsvLine_Parameter_without_value {
             get {
-                return ResourceManager.GetString("DuneLocationsWriter_CreateCsvLine_offset_format", resourceCulture);
+                return ResourceManager.GetString("DuneLocationsWriter_CreateCsvLine_Parameter_without_value", resourceCulture);
             }
         }
         

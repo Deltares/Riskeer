@@ -98,13 +98,13 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-  <data name="DuneLocationsWriter_CreateCsvLine_No_value" xml:space="preserve">
+  <data name="DuneLocationsWriter_CreateCsvLine_Parameter_without_value" xml:space="preserve">
     <value>*</value>
   </data>
   <data name="DuneLocationsWriter_WriteDuneLocations_HeaderLine" xml:space="preserve">
     <value>Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50</value>
   </data>
-  <data name="DuneLocationsWriter_CreateCsvLine_offset_format" xml:space="preserve">
+  <data name="DuneLocationsWriter_CreateCsvLine_Offset_format" xml:space="preserve">
     <value>0.#</value>
   </data>
 </root>
