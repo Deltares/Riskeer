@@ -183,10 +183,19 @@ namespace Ringtoets.Common.Service.Test
                     ForeshoreProfile = foreshoreProfileToBeRemoved
                 }
             };
+            var calculation3 = new StructuresCalculation<SimpleStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = foreshoreProfileToBeRemoved
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
             var calculations = new[]
             {
                 calculation1,
-                calculation2
+                calculation2,
+                calculation3
             };
 
             // Call
@@ -195,12 +204,15 @@ namespace Ringtoets.Common.Service.Test
 
             // Assert
             Assert.IsNull(calculation2.InputParameters.ForeshoreProfile);
+            Assert.IsNull(calculation3.InputParameters.ForeshoreProfile);
+            Assert.IsFalse(calculation3.HasOutput);
             Assert.IsNotNull(calculation1.InputParameters.ForeshoreProfile);
 
             CollectionAssert.AreEqual(new IObservable[]
             {
-                calculation2,
-                calculation2.InputParameters
+                calculation2.InputParameters,
+                calculation3,
+                calculation3.InputParameters
             }, affectedObjects);
         }
 

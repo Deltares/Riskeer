@@ -481,8 +481,10 @@ namespace Ringtoets.Integration.Service
                 .ToArray();
             foreach (GrassCoverErosionInwardsCalculation calculation in calculationWithRemovedDikeProfile)
             {
-                RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation);
-                changedObservables.Add(calculation);
+                foreach (var calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
+                {
+                    changedObservables.Add(calculationWithRemovedOutput);
+                }
 
                 calculation.InputParameters.DikeProfile = null;
                 changedObservables.Add(calculation.InputParameters);
@@ -576,8 +578,10 @@ namespace Ringtoets.Integration.Service
             var changedObservables = new List<IObservable>();
             foreach (Tuple<ICalculation, WaveConditionsInput> input in calculationInputs.Where(input => ReferenceEquals(input.Item2.ForeshoreProfile, profile)))
             {
-                RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(input.Item1);
-                changedObservables.Add(input.Item1);
+                foreach (var calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(input.Item1))
+                {
+                    changedObservables.Add(calculationWithRemovedOutput);
+                }
 
                 input.Item2.ForeshoreProfile = null;
                 changedObservables.Add(input.Item2);

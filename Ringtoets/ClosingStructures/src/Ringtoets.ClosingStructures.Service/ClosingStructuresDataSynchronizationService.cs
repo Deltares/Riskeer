@@ -141,6 +141,11 @@ namespace Ringtoets.ClosingStructures.Service
                 .ToArray();
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedClosingStructure)
             {
+                foreach (var calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
+                {
+                    changedObservables.Add(calculationWithRemovedOutput);
+                }
+
                 calculation.InputParameters.Structure = null;
                 changedObservables.Add(calculation.InputParameters);
             }

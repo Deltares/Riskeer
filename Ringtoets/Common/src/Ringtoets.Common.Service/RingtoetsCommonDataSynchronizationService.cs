@@ -93,8 +93,10 @@ namespace Ringtoets.Common.Service
             var affectedObjects = new Collection<IObservable>();
             foreach (StructuresCalculation<TStructureInput> calculation in calculations.Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile)))
             {
-                ClearCalculationOutput(calculation);
-                affectedObjects.Add(calculation);
+                foreach (var calculationWithRemovedOutput in ClearCalculationOutput(calculation))
+                {
+                    affectedObjects.Add(calculationWithRemovedOutput);
+                }
 
                 calculation.InputParameters.ForeshoreProfile = null;
                 affectedObjects.Add(calculation.InputParameters);
