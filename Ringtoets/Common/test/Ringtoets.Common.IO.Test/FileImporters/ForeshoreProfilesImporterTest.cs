@@ -184,7 +184,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
-            string expectedMessage = "Een profiellocatie met ID 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
+            string expectedMessage = "Fout bij het lezen van profiellocatie 5. De profiellocatie met " +
+                                     "ID 'profiel005' ligt niet op de referentielijn. " +
+                                     "Dit profiel wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             Assert.IsTrue(importResult);
             Assert.AreEqual(4, foreshoreProfiles.Count);

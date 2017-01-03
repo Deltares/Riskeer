@@ -757,16 +757,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een profiellocatie met ID &apos;{0}&apos; ligt niet op de referentielijn. Locatie wordt overgeslagen..
-        /// </summary>
-        public static string ProfilesImporter_AddNextProfileLocation_0_skipping_location_outside_referenceline {
-            get {
-                return ResourceManager.GetString("ProfilesImporter_AddNextProfileLocation_0_skipping_location_outside_referenceline" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Profiellocatie met ID &apos;{0}&apos; is opnieuw ingelezen..
         /// </summary>
         public static string ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read {
@@ -776,7 +766,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout bij het lezen van profiel op regel {0}. {1} Dit profiel wordt overgeslagen..
+        ///   Looks up a localized string similar to De profiellocatie met ID &apos;{0}&apos; ligt niet op de referentielijn..
+        /// </summary>
+        public static string ProfilesImporter_AddNextProfileLocation_Location_with_id_0_outside_referenceline {
+            get {
+                return ResourceManager.GetString("ProfilesImporter_AddNextProfileLocation_Location_with_id_0_outside_referenceline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout bij het lezen van profiellocatie {0}. {1} Dit profiel wordt overgeslagen..
         /// </summary>
         public static string ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped {
             get {

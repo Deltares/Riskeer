@@ -218,6 +218,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <exception cref="LineParseException"><list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
+        /// <item>The read <see cref="ProfileLocation"/> is outside the reference line.</item>
         /// </list></exception>
         private void AddNextProfileLocation(ProfileLocationReader profileLocationReader, ICollection<ProfileLocation> profileLocations)
         {
@@ -225,8 +226,7 @@ namespace Ringtoets.Common.IO.FileImporters
             double distanceToReferenceLine = GetDistanceToReferenceLine(profileLocation.Point);
             if (distanceToReferenceLine > 1.0)
             {
-                Log.ErrorFormat(Resources.ProfilesImporter_AddNextProfileLocation_0_skipping_location_outside_referenceline, profileLocation.Id);
-                return;
+                throw new LineParseException(string.Format(Resources.ProfilesImporter_AddNextProfileLocation_Location_with_id_0_outside_referenceline, profileLocation.Id));
             }
             if (profileLocations.Any(dpl => dpl.Id.Equals(profileLocation.Id)))
             {
@@ -246,6 +246,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
             var dikeProfileData = new Collection<DikeProfileData>();
             var dikeProfileDataReader = new DikeProfileDataReader();
+            var errorOccured = false;
 
             for (int i = 0; i < totalNumberOfSteps; i++)
             {
@@ -269,7 +270,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
                     if (data.SheetPileType != SheetPileType.Coordinates)
                     {
-                        Log.Error(String.Format(Resources.ProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_, prflFilePath));
+                        Log.Error(string.Format(Resources.ProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_, prflFilePath));
                         continue;
                     }
 
@@ -282,18 +283,20 @@ namespace Ringtoets.Common.IO.FileImporters
                         dikeProfileData.Add(data);
                     }
                 }
-                    // No need to catch ArgumentException, as prflFilePaths are valid by construction.
+                // No need to catch ArgumentException, as prflFilePaths are valid by construction.
                 catch (CriticalFileReadException exception)
                 {
                     Log.Error(exception.Message);
-                    return new ReadResult<DikeProfileData>(true);
+                    errorOccured = true;
                 }
             }
 
-            return new ReadResult<DikeProfileData>(false)
-            {
-                ImportedItems = dikeProfileData
-            };
+            return errorOccured && !dikeProfileData.Any()
+                       ? new ReadResult<DikeProfileData>(true)
+                       : new ReadResult<DikeProfileData>(false)
+                       {
+                           ImportedItems = dikeProfileData
+                       };
         }
 
         private void LogDuplicate(DikeProfileData data, string prflFilePath)

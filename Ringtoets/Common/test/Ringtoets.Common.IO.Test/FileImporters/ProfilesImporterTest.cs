@@ -237,7 +237,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string expectedMessage = "Fout bij het lezen van profiel op regel 1. De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan. Dit profiel wordt overgeslagen.";
+                string expectedMessage = "Fout bij het lezen van profiellocatie 1. De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan. Dit profiel wordt overgeslagen.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
             Assert.IsTrue(importResult);
@@ -261,9 +261,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string message1 = "Fout bij het lezen van profiel op regel 1. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
-                string message2 = "Fout bij het lezen van profiel op regel 2. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
-                string message3 = "Fout bij het lezen van profiel op regel 4. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
+                string message1 = "Fout bij het lezen van profiellocatie 1. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
+                string message2 = "Fout bij het lezen van profiellocatie 2. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
+                string message3 = "Fout bij het lezen van profiellocatie 4. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
                 Assert.AreEqual(message1, messageArray[0]);
                 Assert.AreEqual(message2, messageArray[1]);
                 Assert.AreEqual(message3, messageArray[2]);
@@ -289,7 +289,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string expectedMessage = "Fout bij het lezen van profiel op regel 1. Het profiel heeft geen geldige waarde voor attribuut 'X0'. Dit profiel wordt overgeslagen.";
+                string expectedMessage = "Fout bij het lezen van profiellocatie 1. Het profiel heeft geen geldige waarde voor attribuut 'X0'. Dit profiel wordt overgeslagen.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
             Assert.IsTrue(importResult);
@@ -319,13 +319,15 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testProfilesImporter.Import();
 
             // Assert
-            var expectedMessages = Enumerable.Repeat("Een profiellocatie met ID 'profiel001' ligt niet op de referentielijn. Locatie wordt overgeslagen.", 5).ToArray();
+            var expectedMessages = Enumerable.Repeat("Fout bij het lezen van profiellocatie 1. " +
+                                                     "De profiellocatie met ID 'profiel001' ligt niet op de referentielijn. " +
+                                                     "Dit profiel wordt overgeslagen.", 5).ToArray();
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, expectedMessages.Length);
             Assert.IsTrue(importResult);
         }
 
         [Test]
-        public void Import_InvalidDamType_FalseAndLogMessage()
+        public void Import_InvalidDamType_TrueAndLogMessage()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
@@ -345,7 +347,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);
-            Assert.IsFalse(importResult);
+            Assert.IsTrue(importResult);
         }
 
         [Test]
@@ -533,6 +535,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             }
         }
 
-        private class TestProfile {};
+        private class TestProfile {}
     }
 }
