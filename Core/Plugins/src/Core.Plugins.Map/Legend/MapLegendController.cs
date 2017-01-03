@@ -21,11 +21,10 @@
 
 using System;
 using System.Linq;
-using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ViewHost;
-using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms;
 using Core.Plugins.Map.Properties;
 
 namespace Core.Plugins.Map.Legend
@@ -43,7 +42,7 @@ namespace Core.Plugins.Map.Legend
         /// </summary>
         public EventHandler<EventArgs> OnOpenLegend;
 
-        private IView legendView;
+        private MapLegendView legendView;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapLegendController"/>.
@@ -56,11 +55,13 @@ namespace Core.Plugins.Map.Legend
         {
             if (viewController == null)
             {
-                throw new ArgumentNullException("viewController", @"Cannot create a MapLegendController when the view controller is null.");
+                throw new ArgumentNullException(nameof(viewController),
+                                                $"Cannot create a {typeof(MapLegendController).Name} when the view controller is null.");
             }
             if (contextMenuBuilderProvider == null)
             {
-                throw new ArgumentNullException("contextMenuBuilderProvider", @"Cannot create a MapLegendController when the context menu builder provider is null.");
+                throw new ArgumentNullException(nameof(contextMenuBuilderProvider),
+                                                $"Cannot create a {typeof(MapLegendController).Name} when the context menu builder provider is null.");
             }
             this.viewController = viewController;
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
@@ -95,13 +96,14 @@ namespace Core.Plugins.Map.Legend
         /// <summary>
         /// Updates the data for the <see cref="MapLegendView"/> if it is open.
         /// </summary>
-        /// <param name="data">The <see cref="MapData"/> to show. If <c>null</c> the data 
+        /// <param name="mapControl">The <see cref="IMapControl"/> being shown, for which
+        /// the legend view should to show its contents. If <c>null</c>, the legend view
         /// will be cleared.</param>
-        public void Update(MapData data)
+        public void Update(IMapControl mapControl)
         {
             if (IsMapLegendViewOpen)
             {
-                legendView.Data = data;
+                legendView.MapControl = mapControl;
             }
         }
 
@@ -120,10 +122,7 @@ namespace Core.Plugins.Map.Legend
             viewController.ViewHost.AddToolView(legendView, ToolViewLocation.Left);
             viewController.ViewHost.SetImage(legendView, Resources.MapIcon);
 
-            if (OnOpenLegend != null)
-            {
-                OnOpenLegend(this, EventArgs.Empty);
-            }
+            OnOpenLegend?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -132,6 +131,7 @@ namespace Core.Plugins.Map.Legend
         private void CloseLegendView()
         {
             viewController.ViewHost.Remove(legendView);
+            legendView.Dispose();
             legendView = null;
         }
     }

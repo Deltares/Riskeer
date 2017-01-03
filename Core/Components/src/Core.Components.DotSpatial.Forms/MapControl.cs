@@ -92,10 +92,15 @@ namespace Core.Components.DotSpatial.Forms
 
         public void ZoomToAllVisibleLayers()
         {
-            IEnvelope envelope = CreateEnvelopeForAllVisibleLayers();
+            ZoomToAllVisibleLayers(Data);
+        }
+
+        public void ZoomToAllVisibleLayers(MapData layerData)
+        {
+            IEnvelope envelope = CreateEnvelopeForAllVisibleLayers(layerData);
             if (!envelope.IsNull)
             {
-                var extent = envelope.ToExtent();
+                Extent extent = envelope.ToExtent();
                 AddPadding(extent);
                 map.ViewExtents = extent;
             }
@@ -151,14 +156,56 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        private IEnvelope CreateEnvelopeForAllVisibleLayers()
+        /// <summary>
+        /// Defines the area taken up by the visible map-data based on the provided map-data.
+        /// </summary>
+        /// <param name="mapData">The data to determine the visible extent for.</param>
+        /// <returns>The area definition.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> is
+        /// not part of the drawn map features.</exception>
+        private IEnvelope CreateEnvelopeForAllVisibleLayers(MapData mapData)
         {
-            IEnvelope envelope = new Envelope();
-            foreach (IMapLayer layer in map.Layers.Where(layer => layer.IsVisible && !layer.Extent.IsEmpty()))
+            var collection = mapData as MapDataCollection;
+            if (collection != null)
             {
-                envelope.ExpandToInclude(layer.Extent.ToEnvelope());
+                return CreateEnvelopeForAllVisibleLayers(collection);
+            }
+
+            DrawnMapData drawnMapData = drawnMapDataList.FirstOrDefault(dmd => dmd.FeatureBasedMapData.Equals(mapData));
+            if (drawnMapData == null)
+            {
+                throw new ArgumentException($"Can only zoom to {typeof(MapData).Name} that is part of this {typeof(MapControl).Name}s drawn mapdata.",
+                                            nameof(mapData));
+            }
+
+            IEnvelope envelope = new Envelope();
+            if (LayerHasVisibleExtent(drawnMapData.FeatureBasedMapDataLayer))
+            {
+                envelope.ExpandToInclude(drawnMapData.FeatureBasedMapDataLayer.Extent.ToEnvelope());
             }
             return envelope;
+        }
+
+        /// <summary>
+        /// Defines the area taken up by the visible map-data based on the provided map-data.
+        /// </summary>
+        /// <param name="mapData">The data to determine the visible extent for.</param>
+        /// <returns>The area definition.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> or
+        /// any of it's children is not part of the drawn map features.</exception>
+        private IEnvelope CreateEnvelopeForAllVisibleLayers(MapDataCollection mapData)
+        {
+            IEnvelope envelope = new Envelope();
+            foreach (MapData childMapData in mapData.Collection)
+            {
+                envelope.ExpandToInclude(CreateEnvelopeForAllVisibleLayers(childMapData));
+            }
+            return envelope;
+        }
+
+        private static bool LayerHasVisibleExtent(IMapLayer layer)
+        {
+            return layer.IsVisible && !layer.Extent.IsEmpty();
         }
 
         private void ResetDefaultInteraction()
@@ -199,7 +246,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private void DrawInitialMapData()
         {
-            foreach (var featureBasedMapData in GetFeatureBasedMapDataRecursively(Data))
+            foreach (FeatureBasedMapData featureBasedMapData in GetFeatureBasedMapDataRecursively(Data))
             {
                 DrawMapData(featureBasedMapData);
             }

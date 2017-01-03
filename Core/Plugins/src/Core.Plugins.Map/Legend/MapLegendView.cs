@@ -25,19 +25,20 @@ using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
-using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms;
 using MapResources = Core.Plugins.Map.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Core.Plugins.Map.Legend
 {
     /// <summary>
-    /// The view which shows the data that is added to a <see cref="MapControl"/>.
+    /// The view which shows the data that is added to a <see cref="Components.DotSpatial.Forms.MapControl"/>.
     /// </summary>
     public sealed partial class MapLegendView : UserControl, ISelectionProvider
     {
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
+        private IMapControl mapControl;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -50,7 +51,8 @@ namespace Core.Plugins.Map.Legend
         {
             if (contextMenuBuilderProvider == null)
             {
-                throw new ArgumentNullException("contextMenuBuilderProvider", @"Cannot create a MapLegendView when the context menu builder provider is null.");
+                throw new ArgumentNullException(nameof(contextMenuBuilderProvider),
+                                                $"Cannot create a {typeof(MapLegendView).Name} when the context menu builder provider is null.");
             }
 
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
@@ -60,6 +62,23 @@ namespace Core.Plugins.Map.Legend
             RegisterTreeNodeInfos();
 
             treeViewControl.SelectedDataChanged += TreeViewControlSelectedDataChanged;
+        }
+
+        /// <summary>
+        /// Gets or sets the <see cref="IMapControl"/> for which this legend view is configured
+        /// to show the internal map data for.
+        /// </summary>
+        public IMapControl MapControl
+        {
+            get
+            {
+                return mapControl;
+            }
+            set
+            {
+                mapControl = value;
+                Data = value?.Data;
+            }
         }
 
         public object Data
@@ -84,10 +103,7 @@ namespace Core.Plugins.Map.Legend
 
         private void TreeViewControlSelectedDataChanged(object sender, EventArgs e)
         {
-            if (SelectionChanged != null)
-            {
-                SelectionChanged(this, new EventArgs());
-            }
+            SelectionChanged?.Invoke(this, new EventArgs());
         }
 
         private void RegisterTreeNodeInfos()
@@ -97,6 +113,8 @@ namespace Core.Plugins.Map.Legend
                 Text = mapPointData => mapPointData.Name,
                 Image = mapPointData => MapResources.PointsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
+                                                                                                 .AddCustomItem(CreateZoomToExtentsItem(nodeData))
+                                                                                                 .AddSeparator()
                                                                                                  .AddPropertiesItem()
                                                                                                  .Build(),
                 CanDrag = (mapPointData, parentData) => true,
@@ -110,6 +128,8 @@ namespace Core.Plugins.Map.Legend
                 Text = mapLineData => mapLineData.Name,
                 Image = mapLineData => MapResources.LineIcon,
                 ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
+                                                                                                 .AddCustomItem(CreateZoomToExtentsItem(nodeData))
+                                                                                                 .AddSeparator()
                                                                                                  .AddPropertiesItem()
                                                                                                  .Build(),
                 CanDrag = (mapLineData, parentData) => true,
@@ -123,6 +143,8 @@ namespace Core.Plugins.Map.Legend
                 Text = mapPolygonData => mapPolygonData.Name,
                 Image = mapPolygonData => MapResources.AreaIcon,
                 ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
+                                                                                                 .AddCustomItem(CreateZoomToExtentsItem(nodeData))
+                                                                                                 .AddSeparator()
                                                                                                  .AddPropertiesItem()
                                                                                                  .Build(),
                 CanDrag = (mapPolygonData, parentData) => true,
@@ -141,13 +163,28 @@ namespace Core.Plugins.Map.Legend
                 OnDrop = MapControlOnDrop,
                 ContextMenuStrip = (mapDataCollection, parentData, treeView) => contextMenuBuilderProvider.Get(mapDataCollection, treeView)
                                                                                                           .AddCustomImportItem(
-                                                                                                          MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer,
-                                                                                                          MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
-                                                                                                          MapResources.MapPlusIcon)
+                                                                                                              MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer,
+                                                                                                              MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
+                                                                                                              MapResources.MapPlusIcon)
+                                                                                                          .AddSeparator()
+                                                                                                          .AddCustomItem(CreateZoomToExtentsItem(mapDataCollection))
                                                                                                           .AddSeparator()
                                                                                                           .AddPropertiesItem()
                                                                                                           .Build()
             });
+        }
+
+        private StrictContextMenuItem CreateZoomToExtentsItem(MapData nodeData)
+        {
+            return new StrictContextMenuItem($"&{MapResources.Ribbon_ZoomToAll}",
+                                             nodeData.IsVisible ?
+                                                 MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip :
+                                                 MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip,
+                                             MapResources.ZoomToAllIcon,
+                                             (sender, args) => { MapControl?.ZoomToAllVisibleLayers(nodeData); })
+            {
+                Enabled = nodeData.IsVisible
+            };
         }
 
         #region MapData

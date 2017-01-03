@@ -27,9 +27,11 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.Properties;
 using NUnit.Extensions.Forms;
@@ -42,6 +44,10 @@ namespace Core.Plugins.Map.Test.Legend
     [TestFixture]
     public class MapDataCollectionTreeNodeInfoTest : NUnitFormTest
     {
+        private const int contextMenuAddMapLayerIndex = 0;
+        private const int contextMenuZoomToAllIndex = 2;
+        private const int contextMenuPropertiesIndex = 4;
+
         private MockRepository mocks;
         private MapLegendView mapLegendView;
         private TreeNodeInfo info;
@@ -268,10 +274,13 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_VisibleMapDataCollection_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mapDataCollection = new MapDataCollection("test data");
+            var mapDataCollection = new MapDataCollection("test data")
+            {
+                IsVisible = true
+            };
 
             var applicationFeatureCommandsStub = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
@@ -297,13 +306,18 @@ namespace Core.Plugins.Map.Test.Legend
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(3, contextMenu.Items.Count);
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0,
+                    Assert.AreEqual(5, contextMenu.Items.Count);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuAddMapLayerIndex,
                                                                   "&Voeg kaartlaag toe...",
                                                                   "Importeer een nieuwe kaartlaag en voeg deze toe.",
                                                                   Resources.MapPlusIcon);
 
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2,
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                                                                  "&Zoom naar alles",
+                                                                  "Zet het zoomniveau van de kaart dusdanig dat alle zichtbare elementen van deze laag precies in het beeld passen.",
+                                                                  Resources.ZoomToAllIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuPropertiesIndex,
                                                                   "Ei&genschappen",
                                                                   "Toon de eigenschappen in het Eigenschappenpaneel.",
                                                                   GuiResources.PropertiesHS,
@@ -311,9 +325,124 @@ namespace Core.Plugins.Map.Test.Legend
 
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
                                                                 {
-                                                                    contextMenu.Items[1]
+                                                                    contextMenu.Items[1],
+                                                                    contextMenu.Items[3]
                                                                 }, typeof(ToolStripSeparator));
                 }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_InvisibleMapDataCollection_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var mapDataCollection = new MapDataCollection("test data")
+            {
+                IsVisible = false
+            };
+
+            var applicationFeatureCommandsStub = mocks.Stub<IApplicationFeatureCommands>();
+            var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
+            importCommandHandlerMock.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
+            var exportCommandHandlerMock = mocks.Stub<IExportCommandHandler>();
+            var viewCommandsMock = mocks.Stub<IViewCommands>();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Call
+                var builder = new ContextMenuBuilder(applicationFeatureCommandsStub,
+                                                     importCommandHandlerMock,
+                                                     exportCommandHandlerMock,
+                                                     viewCommandsMock,
+                                                     mapDataCollection,
+                                                     treeViewControl);
+
+                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(builder);
+
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControl))
+                {
+                    // Assert
+                    Assert.AreEqual(5, contextMenu.Items.Count);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuAddMapLayerIndex,
+                                                                  "&Voeg kaartlaag toe...",
+                                                                  "Importeer een nieuwe kaartlaag en voeg deze toe.",
+                                                                  Resources.MapPlusIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                                                                  "&Zoom naar alles",
+                                                                  "Om het zoomniveau aan te passen moet de laag zichtbaar zijn.",
+                                                                  Resources.ZoomToAllIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuPropertiesIndex,
+                                                                  "Ei&genschappen",
+                                                                  "Toon de eigenschappen in het Eigenschappenpaneel.",
+                                                                  GuiResources.PropertiesHS,
+                                                                  false);
+
+                    CollectionAssert.AllItemsAreInstancesOfType(new[]
+                                                                {
+                                                                    contextMenu.Items[1],
+                                                                    contextMenu.Items[3]
+                                                                }, typeof(ToolStripSeparator));
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_MapLegendViewHasMapControlAndClickZoomToAll_DoZoomToAllVisibleLayersForMapData()
+        {
+            // Setup
+            var mapData = new MapDataCollection("A")
+            {
+                IsVisible = true
+            };
+
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+
+            var mapControl = mocks.Stub<IMapControl>();
+            mapControl.Expect(c => c.ZoomToAllVisibleLayers(mapData));
+            mocks.ReplayAll();
+
+            mapLegendView.MapControl = mapControl;
+
+            using (var contextMenu = info.ContextMenuStrip(mapData, null, null))
+            {
+                // Call
+                contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
+
+                // Assert
+                // Assert expectancies are called in TearDown()
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_MapLegendViewWithoutMapControlAndClickZoomToAll_DoNothing()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+
+            mocks.ReplayAll();
+
+            mapLegendView.MapControl = null;
+
+            var mapData = new MapDataCollection("A")
+            {
+                IsVisible = true
+            };
+
+            using (var contextMenu = info.ContextMenuStrip(mapData, null, null))
+            {
+                // Call
+                TestDelegate call = () => contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
+
+                // Assert
+                Assert.DoesNotThrow(call);
             }
         }
 

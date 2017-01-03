@@ -250,4 +250,10 @@
   <data name="MapPlugin_GetImportInfos_MapDataCollection_filefilter" xml:space="preserve">
     <value>Shapebestand (*.shp)|*.shp</value>
   </data>
+  <data name="MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip" xml:space="preserve">
+    <value>Zet het zoomniveau van de kaart dusdanig dat alle zichtbare elementen van deze laag precies in het beeld passen.</value>
+  </data>
+  <data name="MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip" xml:space="preserve">
+    <value>Om het zoomniveau aan te passen moet de laag zichtbaar zijn.</value>
+  </data>
 </root>

@@ -42,18 +42,18 @@ All rights reserved.
 
         <fluent:RibbonTabItem Header="{x:Static common:Resources.Ribbon_TabItem_View}" fluent:KeyTip.Keys="B">
             <fluent:RibbonGroupBox Header="{x:Static common:Resources.Ribbon_GroupBox_Show_Hide}" fluent:KeyTip.Keys="G">
-                <fluent:ToggleButton Name="ToggleLegendViewButton" Header="{x:Static p:Resources.Ribbon_Toggle_Legend}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Legend_ToolTip}" Icon="{Binding Source={x:Static p:Resources.MapIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleLegend_Click"/>
+                <fluent:ToggleButton x:Name="ToggleLegendViewButton" Header="{x:Static p:Resources.Ribbon_Toggle_Legend}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Legend_ToolTip}" Icon="{Binding Source={x:Static p:Resources.MapIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleLegend_Click"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
 
         <fluent:RibbonTabItem Header="{x:Static p:Resources.General_Map}" Group="{Binding Source={x:Reference MapContextualGroup}}" fluent:KeyTip.Keys="K">
             <fluent:RibbonGroupBox Header="{x:Static p:Resources.Ribbon_GroupBox_Navigation}">
-                <fluent:ToggleButton Name="TogglePanningButton" Header="{x:Static p:Resources.Ribbon_Toggle_Panning}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Panning_ToolTip}"  SizeDefinition="Middle"  Icon="{Binding Source={x:Static p:Resources.PanIcon}, Converter={StaticResource IconConverter}}" Click="ButtonTogglePanning_Click" fluent:KeyTip.Keys="P" />
+                <fluent:ToggleButton x:Name="TogglePanningButton" Header="{x:Static p:Resources.Ribbon_Toggle_Panning}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Panning_ToolTip}"  SizeDefinition="Middle"  Icon="{Binding Source={x:Static p:Resources.PanIcon}, Converter={StaticResource IconConverter}}" Click="ButtonTogglePanning_Click" fluent:KeyTip.Keys="P" />
                 <fluent:ToggleButton x:Name="ToggleRectangleZoomingButton" Header="{x:Static p:Resources.Ribbon_Toggle_RectangleZooming}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_RectangleZooming_ToolTip}" Icon="{Binding Source={x:Static p:Resources.RectangleZoomIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleRectangleZooming_Click" fluent:KeyTip.Keys="Z"/>
                 <fluent:Button x:Name="ZoomToAllButton" Header="{x:Static p:Resources.Ribbon_ZoomToAll}" ToolTip="{x:Static p:Resources.Ribbon_ZoomToAll_ToolTip}" Icon="{Binding Source={x:Static p:Resources.ZoomToAllIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonZoomToAll_Click" fluent:KeyTip.Keys="A"/>
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="{x:Static p:Resources.Ribbon_GroupBox_Tools}">
-                <fluent:ToggleButton Name="ToggleMouseCoordinatesButton" Header="{x:Static p:Resources.Ribbon_Toggle_Coordinates}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Coordinates_ToolTip}" SizeDefinition="Middle" Icon="{Binding Source={x:Static p:Resources.MapPointIcon}, Converter={StaticResource IconConverter}}" Click="ButtonToggleMouseCoordinates_Click" fluent:KeyTip.Keys="C" />
+                <fluent:ToggleButton x:Name="ToggleMouseCoordinatesButton" Header="{x:Static p:Resources.Ribbon_Toggle_Coordinates}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Coordinates_ToolTip}" SizeDefinition="Middle" Icon="{Binding Source={x:Static p:Resources.MapPointIcon}, Converter={StaticResource IconConverter}}" Click="ButtonToggleMouseCoordinates_Click" fluent:KeyTip.Keys="C" />
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>

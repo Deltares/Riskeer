@@ -30,6 +30,7 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.Properties;
@@ -189,6 +190,49 @@ namespace Core.Plugins.Map.Test.Legend
 
                 // Assert
                 Assert.Throws<InvalidCastException>(test);
+            }
+        }
+
+
+        [Test]
+        public void MapControl_MapControlHasMapWithData_DataReturnsMapDataOfMap()
+        {
+            // Setup
+            var mapData = new MapDataCollection("A");
+
+            var mockRepository = new MockRepository();
+            var mapControl = mockRepository.Stub<IMapControl>();
+            mapControl.Data = mapData;
+            mockRepository.ReplayAll();
+
+            using (var view = new MapLegendView(contextMenuBuilderProvider)
+            {
+                Data = new MapDataCollection("A")
+            })
+            {
+                // Call
+                view.MapControl = mapControl;
+
+                // Assert
+                Assert.AreSame(mapData, view.Data);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void MapControl_DataSetAndThenMapControlSetToNull_DataSetToNull()
+        {
+            // Setup
+            using (var view = new MapLegendView(contextMenuBuilderProvider)
+            {
+                Data = new MapDataCollection("A")
+            })
+            {
+                // Call
+                view.MapControl = null;
+
+                // Assert
+                Assert.IsNull(view.Data);
             }
         }
 

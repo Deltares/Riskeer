@@ -91,10 +91,7 @@ namespace Core.Plugins.Map
                 Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
                 Gui.ViewHost.ViewOpened -= OnViewOpened;
             }
-            if (mapLegendController != null)
-            {
-                mapLegendController.Dispose();
-            }
+            mapLegendController?.Dispose();
 
             base.Dispose();
         }
@@ -103,7 +100,8 @@ namespace Core.Plugins.Map
         {
             if (viewController == null)
             {
-                throw new ArgumentNullException("viewController", @"Cannot create a MapLegendController when the view controller is null");
+                throw new ArgumentNullException(nameof(viewController),
+                                                $"Cannot create a {typeof(MapLegendController).Name} when the view controller is null");
             }
 
             var controller = new MapLegendController(viewController, Gui);
@@ -127,29 +125,19 @@ namespace Core.Plugins.Map
         private static void OnViewOpened(object sender, ViewChangeEventArgs e)
         {
             var view = e.View as IMapView;
-            if (view != null)
-            {
-                view.Map.ZoomToAllVisibleLayers();
-            }
+            view?.Map.ZoomToAllVisibleLayers();
         }
 
         /// <summary>
-        /// Updates the components which the <see cref="MapPlugin"/> knows about so that it reflects
-        /// the currently active view.
+        /// Updates the components which the <see cref="MapPlugin"/> knows about so that
+        /// it reflects the currently active view.
         /// </summary>
         private void UpdateComponentsForActiveDocumentView()
         {
             var mapView = Gui.ViewHost.ActiveDocumentView as IMapView;
-            if (mapView != null)
-            {
-                mapRibbon.Map = mapView.Map;
-                mapLegendController.Update(mapView.Map.Data);
-            }
-            else
-            {
-                mapRibbon.Map = null;
-                mapLegendController.Update(null);
-            }
+            IMapControl mapControl = mapView?.Map;
+            mapLegendController.Update(mapControl);
+            mapRibbon.Map = mapControl;
         }
     }
 }

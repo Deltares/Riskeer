@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Components.Gis.Data;
 
 namespace Core.Components.Gis.Forms
@@ -52,6 +53,14 @@ namespace Core.Components.Gis.Forms
         /// Zooms to a level so that all visible layers are in view.
         /// </summary>
         void ZoomToAllVisibleLayers();
+
+        /// <summary>
+        /// Zooms to a level such that the given map data is in view.
+        /// </summary>
+        /// <param name="layerData">The data to zoom to.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="layerData"/>
+        /// is not part of <see cref="Data"/>.</exception>
+        void ZoomToAllVisibleLayers(MapData layerData);
 
         /// <summary>
         /// Toggles panning of the <see cref="IMapControl"/>. Panning is invoked by clicking the left mouse-button.

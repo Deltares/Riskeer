@@ -21,12 +21,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.Properties;
 using NUnit.Framework;
@@ -37,6 +40,8 @@ namespace Core.Plugins.Map.Test.Legend
     [TestFixture]
     public class MapPointDataTreeNodeInfoTest
     {
+        private const int contextMenuZoomToAllIndex = 0;
+
         private TreeNodeInfo info;
         private MockRepository mocks;
         private MapLegendView mapLegendView;
@@ -122,19 +127,130 @@ namespace Core.Plugins.Map.Test.Legend
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-
-            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(menuBuilderMock);
+            var builder = mocks.StrictMock<IContextMenuBuilder>();
+            using (mocks.Ordered())
+            {
+                builder.Expect(mb => mb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull)).Return(builder);
+                builder.Expect(mb => mb.AddSeparator()).Return(builder);
+                builder.Expect(mb => mb.AddPropertiesItem()).Return(builder);
+                builder.Expect(mb => mb.Build()).Return(null);
+            }
+            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
 
             mocks.ReplayAll();
 
+            var mapData = new MapPointData("A");
+
             // Call
-            info.ContextMenuStrip(null, null, null);
+            info.ContextMenuStrip(mapData, null, null);
 
             // Assert
             // Assert expectancies are called in TearDown()
+        }
+
+        [Test]
+        public void ContextMenuStrip_VisibleMapData_ZoomToAllItemEnabled()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+
+            mocks.ReplayAll();
+
+            var mapData = new MapPointData("A")
+            {
+                IsVisible = true
+            };
+
+            // Call
+            using (var contextMenu = info.ContextMenuStrip(mapData, null, null))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                                                              "&Zoom naar alles",
+                                                              "Zet het zoomniveau van de kaart dusdanig dat alle zichtbare elementen van deze laag precies in het beeld passen.",
+                                                              Resources.ZoomToAllIcon);
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_InvisibleMapData_ZoomToAllItemDisabled()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+
+            mocks.ReplayAll();
+
+            var mapData = new MapPointData("A")
+            {
+                IsVisible = false
+            };
+
+            // Call
+            using (var contextMenu = info.ContextMenuStrip(mapData, null, null))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                                                              "&Zoom naar alles",
+                                                              "Om het zoomniveau aan te passen moet de laag zichtbaar zijn.",
+                                                              Resources.ZoomToAllIcon,
+                                                              false);
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_MapLegendViewHasMapControlAndClickZoomToAll_DoZoomToAllVisibleLayersForMapData()
+        {
+            // Setup
+            var mapData = new MapPointData("A")
+            {
+                IsVisible = true
+            };
+
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+
+            var mapControl = mocks.Stub<IMapControl>();
+            mapControl.Expect(c => c.ZoomToAllVisibleLayers(mapData));
+            mocks.ReplayAll();
+
+            mapLegendView.MapControl = mapControl;
+
+            using (var contextMenu = info.ContextMenuStrip(mapData, null, null))
+            {
+                // Call
+                contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
+
+                // Assert
+                // Assert expectancies are called in TearDown()
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_MapLegendViewWithoutMapControlAndClickZoomToAll_DoNothing()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+
+            mocks.ReplayAll();
+
+            mapLegendView.MapControl = null;
+
+            var mapData = new MapPointData("A")
+            {
+                IsVisible = true
+            };
+
+            using (var contextMenu = info.ContextMenuStrip(mapData, null, null))
+            {
+                // Call
+                TestDelegate call = () => contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
+
+                // Assert
+                Assert.DoesNotThrow(call);
+            }
         }
 
         [Test]
