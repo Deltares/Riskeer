@@ -31,40 +31,26 @@ namespace Ringtoets.DuneErosion.Data
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationOutput"/>.
         /// </summary>
-        /// <param name="waterLevel">The calculated water level.</param>
-        /// <param name="waveHeight">The calculated wave height.</param>
-        /// <param name="wavePeriod">The calculated wave period.</param>
-        /// <param name="targetProbability">The norm used during the calculation.</param>
-        /// <param name="targetReliability">The reliability index used during the calculation.</param>
-        /// <param name="calculatedProbability">the calculated probability.</param>
-        /// <param name="calculatedReliability">The calculated reliability.</param>
         /// <param name="calculationConvergence">The convergence status of the calculation.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
-        /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        public DuneLocationOutput(double waterLevel, double waveHeight, double wavePeriod,
-            double targetProbability, double targetReliability,
-                                               double calculatedProbability, double calculatedReliability,
-                                               CalculationConvergence calculationConvergence)
+        /// <param name="constructionProperties">The container for the properties for the <see cref="DuneLocationOutput"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="constructionProperties"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <see cref="ConstructionProperties.TargetProbability"/> 
+        /// or <see cref="ConstructionProperties.CalculatedProbability"/> falls outside the [0.0, 1.0] range.</exception>
+        public DuneLocationOutput(CalculationConvergence calculationConvergence, ConstructionProperties constructionProperties)
         {
-            if (!IsValidProbability(targetProbability))
+            if (constructionProperties == null)
             {
-                throw new ArgumentOutOfRangeException("targetProbability", targetProbability,
-                                                      RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
-            }
-            if (!IsValidProbability(calculatedProbability))
-            {
-                throw new ArgumentOutOfRangeException("calculatedProbability", calculatedProbability,
-                                                      RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+                throw new ArgumentNullException(nameof(constructionProperties));
             }
 
-            WaterLevel = new RoundedDouble(2, waterLevel);
-            WaveHeight = new RoundedDouble(2, waveHeight);
-            WavePeriod = new RoundedDouble(2, wavePeriod);
+            WaterLevel = new RoundedDouble(2, constructionProperties.WaterLevel);
+            WaveHeight = new RoundedDouble(2, constructionProperties.WaveHeight);
+            WavePeriod = new RoundedDouble(2, constructionProperties.WavePeriod);
 
-            TargetProbability = targetProbability;
-            TargetReliability = new RoundedDouble(5, targetReliability);
-            CalculatedProbability = calculatedProbability;
-            CalculatedReliability = new RoundedDouble(5, calculatedReliability);
+            TargetProbability = constructionProperties.TargetProbability;
+            TargetReliability = new RoundedDouble(5, constructionProperties.TargetReliability);
+            CalculatedProbability = constructionProperties.CalculatedProbability;
+            CalculatedReliability = new RoundedDouble(5, constructionProperties.CalculatedReliability);
             CalculationConvergence = calculationConvergence;
         }
 
@@ -73,13 +59,13 @@ namespace Ringtoets.DuneErosion.Data
         /// [m+NAP]
         /// </summary>
         public RoundedDouble WaterLevel { get; private set; }
-        
+
         /// <summary>
         /// Gets the wave height of the calculation.
         /// [m]
         /// </summary>
         public RoundedDouble WaveHeight { get; private set; }
-        
+
         /// <summary>
         /// Gets the wave period of the calculation.
         /// [s]
@@ -119,6 +105,96 @@ namespace Ringtoets.DuneErosion.Data
         private static bool IsValidProbability(double probability)
         {
             return double.IsNaN(probability) || (0.0 <= probability && probability <= 1.0);
+        }
+
+        /// <summary>
+        /// Container for properties for constructing a <see cref="DuneLocationOutput"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            private double calculatedProbability;
+            private double targetProbability;
+
+            /// <summary>
+            /// Creates a new instance of <see cref="ConstructionProperties"/>.
+            /// </summary>
+            public ConstructionProperties()
+            {
+                WaterLevel = double.NaN;
+                WaveHeight = double.NaN;
+                WavePeriod = double.NaN;
+                TargetProbability = double.NaN;
+                TargetReliability = double.NaN;
+                CalculatedProbability = double.NaN;
+                CalculatedReliability = double.NaN;
+            }
+
+            /// <summary>
+            /// Gets the water level of the calculation.
+            /// </summary>
+            public double WaterLevel { internal get; set; }
+
+            /// <summary>
+            /// Gets the wave height of the calculation.
+            /// </summary>
+            public double WaveHeight { internal get; set; }
+
+            /// <summary>
+            /// Gets the wave period of the calculation.
+            /// </summary>
+            public double WavePeriod { internal get; set; }
+
+            /// <summary>
+            /// Gets the target probability.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">Thrown when the value falls outside the [0.0, 1.0] range.</exception>
+            public double TargetProbability
+            {
+                internal get
+                {
+                    return targetProbability;
+                }
+                set
+                {
+                    if (!IsValidProbability(value))
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(TargetProbability), value,
+                                                              RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+                    }
+                    targetProbability = value;
+                }
+            }
+
+            /// <summary>
+            /// Gets the target beta.
+            /// </summary>
+            public double TargetReliability { internal get; set; }
+
+            /// <summary>
+            /// Gets the calculated probability.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">Thrown when the value falls outside the [0.0, 1.0] range.</exception>
+            public double CalculatedProbability
+            {
+                internal get
+                {
+                    return calculatedProbability;
+                }
+                set
+                {
+                    if (!IsValidProbability(value))
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(CalculatedProbability), value,
+                                                              RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
+                    }
+                    calculatedProbability = value;
+                }
+            }
+
+            /// <summary>
+            /// Gets the calculated reliability.
+            /// </summary>
+            public double CalculatedReliability { internal get; set; }
         }
     }
 }

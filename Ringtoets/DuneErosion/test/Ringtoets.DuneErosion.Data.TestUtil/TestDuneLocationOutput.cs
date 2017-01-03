@@ -33,6 +33,15 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
         /// Creates a new instance of <see cref="TestDuneLocationOutput"/>.
         /// </summary>
         public TestDuneLocationOutput()
-            : base(0, 0, 0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged) {}
+            : base(CalculationConvergence.CalculatedConverged, new ConstructionProperties
+                   {
+                       WaterLevel = 0,
+                       WavePeriod = 0,
+                       WaveHeight = 0,
+                       TargetProbability = 0,
+                       CalculatedReliability = 0,
+                       TargetReliability = 0,
+                       CalculatedProbability = 0
+                   }) {}
     }
 }

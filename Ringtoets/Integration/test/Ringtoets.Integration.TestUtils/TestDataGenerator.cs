@@ -826,14 +826,12 @@ namespace Ringtoets.Integration.TestUtils
                                                              D50 = 0.00008
                                                          })
             {
-                Output = new DuneLocationOutput(hydraulicBoundaryLocation.DesignWaterLevel + 0.2,
-                                                hydraulicBoundaryLocation.WaveHeight + 0.3,
-                                                10,
-                                                double.NaN,
-                                                double.NaN,
-                                                double.NaN,
-                                                double.NaN,
-                                                CalculationConvergence.CalculatedConverged)
+                Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                                                {
+                                                    WaterLevel = hydraulicBoundaryLocation.DesignWaterLevel + 0.2,
+                                                    WaveHeight = hydraulicBoundaryLocation.WaveHeight + 0.3,
+                                                    WavePeriod = 10
+                                                })
             };
 
             failureMechanism.DuneLocations.Add(duneLocation);

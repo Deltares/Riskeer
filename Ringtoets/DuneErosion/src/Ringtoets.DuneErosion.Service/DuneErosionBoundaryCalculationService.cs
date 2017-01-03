@@ -205,10 +205,16 @@ namespace Ringtoets.DuneErosion.Service
                 log.WarnFormat(Resources.DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_location_0_not_converged, duneLocationName);
             }
 
-            return new DuneLocationOutput(calculator.WaterLevel, calculator.WaveHeight,
-                                          calculator.WavePeriod, targetProbability,
-                                          targetReliability, probability,
-                                          reliability, converged);
+            return new DuneLocationOutput(converged, new DuneLocationOutput.ConstructionProperties
+                                          {
+                                              WaterLevel = calculator.WaterLevel,
+                                              WaveHeight = calculator.WaveHeight,
+                                              WavePeriod = calculator.WavePeriod,
+                                              TargetProbability = targetProbability,
+                                              TargetReliability = targetReliability,
+                                              CalculatedProbability = probability,
+                                              CalculatedReliability = reliability
+                                          });
         }
 
         /// <summary>

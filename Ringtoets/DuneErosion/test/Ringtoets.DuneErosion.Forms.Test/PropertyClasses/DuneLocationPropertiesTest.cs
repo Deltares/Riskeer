@@ -118,8 +118,16 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
 
-            var output = new DuneLocationOutput(waterLevel, waveHeight, wavePeriod, targetProbability, targetReliability,
-                                                calculatedProbability, calculatedReliability, convergence);
+            var output = new DuneLocationOutput(convergence, new DuneLocationOutput.ConstructionProperties
+                                                {
+                                                    WaterLevel = waterLevel,
+                                                    WaveHeight = waveHeight,
+                                                    WavePeriod = wavePeriod,
+                                                    TargetProbability = targetProbability,
+                                                    TargetReliability = targetReliability,
+                                                    CalculatedProbability = calculatedProbability,
+                                                    CalculatedReliability = calculatedReliability,
+                                                });
             var location = new DuneLocation(id, name, new Point2D(x, y), new DuneLocation.ConstructionProperties
                                             {
                                                 CoastalAreaId = coastalAreaId,

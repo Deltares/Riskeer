@@ -37,20 +37,19 @@ namespace Ringtoets.DuneErosion.Data
         /// <param name="id">Id of the <see cref="DuneLocation"/>.</param>
         /// <param name="name">Name of the <see cref="DuneLocation"/>.</param>
         /// <param name="location">The coordinate of the <see cref="DuneLocation"/>.</param>
-        /// <param name="coastalAreaId">Coastal area id of the <see cref="DuneLocation"/>.</param>
-        /// <param name="offset">Offset of the <see cref="DuneLocation"/>.</param>
-        /// <param name="orientation">Orientation of the <see cref="DuneLocation"/>.</param>
-        /// <param name="d50">D50 of the <see cref="DuneLocation"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public DuneLocation(long id, string name, Point2D location, ConstructionProperties properties) // int coastalAreaId, double offset, double orientation, double d50)
+        /// <param name="properties">The container of the properties for the
+        /// <see cref="DuneLocation"/></param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// or <paramref name="properties"/> is <c>null</c>.</exception>
+        public DuneLocation(long id, string name, Point2D location, ConstructionProperties properties)
         {
             if (name == null)
             {
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
             }
             if (properties == null)
             {
-                throw new ArgumentNullException("properties");
+                throw new ArgumentNullException(nameof(properties));
             }
 
             Id = id;
@@ -110,22 +109,22 @@ namespace Ringtoets.DuneErosion.Data
             /// <summary>
             /// Gets the coastal area id of the dune location.
             /// </summary>
-            public int CoastalAreaId { get; set; }
+            public int CoastalAreaId { internal get; set; }
 
             /// <summary>
             /// Gets the offset of the dune location.
             /// </summary>
-            public double Offset { get; set; }
+            public double Offset { internal get; set; }
 
             /// <summary>
             /// Gets the orientation of the dune location.
             /// </summary>
-            public double Orientation { get; set; }
+            public double Orientation { internal get; set; }
 
             /// <summary>
             /// Gets the D50 of the dune location.
             /// </summary>
-            public double D50 { get; set; }
+            public double D50 { internal get; set; }
         }
     }
 }

@@ -31,8 +31,19 @@ namespace Ringtoets.DuneErosion.Data.Test
     public class DuneLocationOutputTest
     {
         [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new DuneLocationOutput(CalculationConvergence.CalculatedConverged, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
+        }
+
+        [Test]
         [TestCase(-1e-6)]
-        [TestCase(1.0+1e-6)]
+        [TestCase(1.0 + 1e-6)]
         public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
         {
             // Setup
@@ -46,18 +57,21 @@ namespace Ringtoets.DuneErosion.Data.Test
             CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new DuneLocationOutput(waterLevel,
-                                                             waveHeight,
-                                                             wavePeriod,
-                                                             targetProbability,
-                                                             targetReliability,
-                                                             calculatedProbability,
-                                                             calculatedReliability,
-                                                             convergence);
+            TestDelegate call = () => new DuneLocationOutput(convergence,
+                                                             new DuneLocationOutput.ConstructionProperties
+                                                             {
+                                                                 WaterLevel = waterLevel,
+                                                                 WaveHeight = waveHeight,
+                                                                 WavePeriod = wavePeriod,
+                                                                 TargetProbability = targetProbability,
+                                                                 TargetReliability = targetReliability,
+                                                                 CalculatedProbability = calculatedProbability,
+                                                                 CalculatedReliability = calculatedReliability,
+                                                             });
 
             // Assert
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
-            Assert.AreEqual("targetProbability", exception.ParamName);
+            Assert.AreEqual("TargetProbability", exception.ParamName);
             StringAssert.Contains("Kans moet in het bereik [0, 1] liggen.", exception.Message);
         }
 
@@ -77,18 +91,21 @@ namespace Ringtoets.DuneErosion.Data.Test
             CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new DuneLocationOutput(waterLevel,
-                                                             waveHeight,
-                                                             wavePeriod,
-                                                             targetProbability,
-                                                             targetReliability,
-                                                             calculatedProbability,
-                                                             calculatedReliability,
-                                                             convergence);
+            TestDelegate call = () => new DuneLocationOutput(convergence,
+                                                             new DuneLocationOutput.ConstructionProperties
+                                                             {
+                                                                 WaterLevel = waterLevel,
+                                                                 WaveHeight = waveHeight,
+                                                                 WavePeriod = wavePeriod,
+                                                                 TargetProbability = targetProbability,
+                                                                 TargetReliability = targetReliability,
+                                                                 CalculatedProbability = calculatedProbability,
+                                                                 CalculatedReliability = calculatedReliability,
+                                                             });
 
             // Assert
             ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
-            Assert.AreEqual("calculatedProbability", exception.ParamName);
+            Assert.AreEqual("CalculatedProbability", exception.ParamName);
             StringAssert.Contains("Kans moet in het bereik [0, 1] liggen.", exception.Message);
         }
 
@@ -107,14 +124,17 @@ namespace Ringtoets.DuneErosion.Data.Test
             CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            var output = new DuneLocationOutput(waterLevel,
-                                                waveHeight,
-                                                wavePeriod,
-                                                targetProbability,
-                                                targetReliability,
-                                                calculatedProbability,
-                                                calculatedReliability,
-                                                convergence);
+            var output = new DuneLocationOutput(convergence,
+                                                new DuneLocationOutput.ConstructionProperties
+                                                {
+                                                    WaterLevel = waterLevel,
+                                                    WaveHeight = waveHeight,
+                                                    WavePeriod = wavePeriod,
+                                                    TargetProbability = targetProbability,
+                                                    TargetReliability = targetReliability,
+                                                    CalculatedProbability = calculatedProbability,
+                                                    CalculatedReliability = calculatedReliability,
+                                                });
 
             // Assert
             Assert.AreEqual(2, output.WaterLevel.NumberOfDecimalPlaces);
@@ -130,6 +150,23 @@ namespace Ringtoets.DuneErosion.Data.Test
             Assert.AreEqual(5, output.CalculatedReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
+        }
+
+        [Test]
+        public void Constructor_EmptyConstructionProperties_DefaultValues()
+        {
+            // Call
+            var output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, 
+                                                new DuneLocationOutput.ConstructionProperties());
+
+            // Assert
+            Assert.IsNaN(output.WaterLevel);
+            Assert.IsNaN(output.WaveHeight);
+            Assert.IsNaN(output.WavePeriod);
+            Assert.IsNaN(output.CalculatedProbability);
+            Assert.IsNaN(output.TargetProbability);
+            Assert.IsNaN(output.CalculatedReliability);
+            Assert.IsNaN(output.CalculatedProbability);
         }
     }
 }

@@ -129,7 +129,16 @@ namespace Ringtoets.DuneErosion.IO.Test
                                      D50 = 1.9583e-4
                                  })
                 {
-                    Output = new DuneLocationOutput(5.89, 8.54, 14.11, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged)
+                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                                                    {
+                                                        WaterLevel = 5.89,
+                                                        WaveHeight = 8.54,
+                                                        WavePeriod = 14.11,
+                                                        TargetProbability = 0,
+                                                        TargetReliability = 0,
+                                                        CalculatedProbability = 0,
+                                                        CalculatedReliability = 0
+                                                    })
                 },
                 new DuneLocation(2, string.Empty, new Point2D(0, 0), new DuneLocation.ConstructionProperties
                                  {
@@ -139,7 +148,16 @@ namespace Ringtoets.DuneErosion.IO.Test
                                      D50 = 1.9583e-4
                                  })
                 {
-                    Output = new DuneLocationOutput(5.89, 8.53, 14.09, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged)
+                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                                                    {
+                                                        WaterLevel = 5.89,
+                                                        WaveHeight = 8.53,
+                                                        WavePeriod = 14.09,
+                                                        TargetProbability = 0,
+                                                        TargetReliability = 0,
+                                                        CalculatedProbability = 0,
+                                                        CalculatedReliability = 0
+                                                    })
                 }
             };
 
