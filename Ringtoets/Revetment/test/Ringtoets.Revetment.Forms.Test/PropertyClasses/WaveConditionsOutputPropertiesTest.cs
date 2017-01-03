@@ -60,7 +60,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             const double targetReliability = 3000;
             const double calculatedProbability = 0.4;
             const double calculatedReliability = 6000;
-            const CalculationConvergence convergence = CalculationConvergence.NotCalculated;
+            CalculationConvergence convergence = new Random().NextEnumValue<CalculationConvergence>();
 
             // Call
             var properties = new WaveConditionsOutputProperties

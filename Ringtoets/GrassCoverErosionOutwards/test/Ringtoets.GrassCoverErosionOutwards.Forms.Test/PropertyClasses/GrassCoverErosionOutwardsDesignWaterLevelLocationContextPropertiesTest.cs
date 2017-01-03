@@ -100,10 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(CalculationConvergence.CalculatedConverged)]
-        [TestCase(CalculationConvergence.CalculatedNotConverged)]
-        [TestCase(CalculationConvergence.NotCalculated)]
-        public void GetProperties_FullyConfiguredLocation_ReturnsExpected(CalculationConvergence convergence)
+        public void GetProperties_FullyConfiguredLocation_ReturnsExpected()
         {
             // Setup
             var random = new Random();
@@ -117,6 +114,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             double designWaterLevel = random.NextDouble();
+            CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {

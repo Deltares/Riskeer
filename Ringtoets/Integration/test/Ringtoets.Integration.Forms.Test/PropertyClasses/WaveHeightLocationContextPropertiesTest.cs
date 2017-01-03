@@ -102,10 +102,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(CalculationConvergence.CalculatedNotConverged)]
-        [TestCase(CalculationConvergence.CalculatedConverged)]
-        [TestCase(CalculationConvergence.NotCalculated)]
-        public void GetProperties_ValidWaveHeight_ReturnsExpectedValues(CalculationConvergence convergence)
+        public void GetProperties_ValidWaveHeight_ReturnsExpectedValues()
         {
             // Setup
             var random = new Random();
@@ -119,6 +116,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             double waveHeight = random.NextDouble();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {

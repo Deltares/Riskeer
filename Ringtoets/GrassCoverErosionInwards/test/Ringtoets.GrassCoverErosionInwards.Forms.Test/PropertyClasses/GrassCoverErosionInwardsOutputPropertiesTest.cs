@@ -69,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var random = new Random(21);
+            var random = new Random();
             double waveHeight = random.NextDouble();
             bool isOvertoppingDominant = Convert.ToBoolean(random.Next(0, 2));
             double requiredProbability = random.NextDouble();
@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             double dikeHeightTargetReliability = random.NextDouble();
             double dikeHeightCalculatedProbability = random.NextDouble();
             double dikeHeightCalculatedReliability = random.NextDouble();
-            var dikeHeightConvergence = CalculationConvergence.NotCalculated;
+            var dikeHeightConvergence = random.NextEnumValue<CalculationConvergence>();
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
             var dikeHeightAssessmentOutput = new DikeHeightAssessmentOutput(dikeHeight, dikeHeightTargetProbability, dikeHeightTargetReliability, dikeHeightCalculatedProbability, dikeHeightCalculatedReliability, dikeHeightConvergence);
             var output = new GrassCoverErosionInwardsOutput(waveHeight, isOvertoppingDominant, probabilityAssessmentOutput, dikeHeightAssessmentOutput);
