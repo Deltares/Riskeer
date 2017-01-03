@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -71,7 +72,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 {
                     affectedObjects.AddRange(affectedCalculations);
                     log.InfoFormat(Resources.ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared,
-                                   affectedObjects.Count);
+                                   affectedObjects.OfType<ICalculation>().Count());
                 }
             }
             return affectedObjects;

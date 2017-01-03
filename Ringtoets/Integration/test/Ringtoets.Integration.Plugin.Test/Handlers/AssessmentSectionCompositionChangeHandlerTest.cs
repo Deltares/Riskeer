@@ -164,7 +164,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
-            string expectedMessage = "De resultaten van 51 berekeningen zijn verwijderd.";
+            string expectedMessage = "De resultaten van 32 berekeningen zijn verwijderd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);

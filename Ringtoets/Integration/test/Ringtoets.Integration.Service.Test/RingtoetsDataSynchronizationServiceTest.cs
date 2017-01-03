@@ -1232,11 +1232,13 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            Assert.AreEqual(1 + calculations.Length + sectionResults.Length, array.Length);
+            Assert.AreEqual(1 + (calculations.Length * 2) + sectionResults.Length, array.Length);
             CollectionAssert.Contains(array, failureMechanism.DikeProfiles);
             foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
             {
+                CollectionAssert.Contains(array, calculation);
                 CollectionAssert.Contains(array, calculation.InputParameters);
+                Assert.IsFalse(calculation.HasOutput);
             }
             foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {

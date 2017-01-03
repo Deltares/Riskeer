@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -78,7 +79,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             if (affectedObjects.Count > 0)
             {
                 log.InfoFormat(Resources.ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared,
-                               affectedObjects.Count);
+                               affectedObjects.OfType<ICalculation>().Count());
             }
 
             if (assessmentSection.HydraulicBoundaryDatabase != null)

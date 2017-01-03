@@ -480,6 +480,9 @@ namespace Ringtoets.Integration.Service
                 .ToArray();
             foreach (GrassCoverErosionInwardsCalculation calculation in calculationWithRemovedDikeProfile)
             {
+                RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation);
+                changedObservables.Add(calculation);
+
                 calculation.InputParameters.DikeProfile = null;
                 changedObservables.Add(calculation.InputParameters);
             }
