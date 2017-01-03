@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Globalization;
 using System.IO;
 using Ringtoets.HydraRing.Calculation.Data.Output;
@@ -41,6 +42,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private double? waterLevel;
         private double? waveHeight;
         private double? wavePeriod;
+        
         /// <summary>
         /// Gets the output that was parsed from the output file.
         /// </summary>
@@ -71,6 +73,20 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
         }
 
+        /// <summary>
+        /// Opens and reads the file at <paramref name="filePath"/>.
+        /// </summary>
+        /// <param name="filePath">The path to the output file.</param>
+        /// <exception cref="ArgumentException">Thrown when the stream does not support reading.</exception>
+        /// <exception cref="PathTooLongException">Thrown when <paramref name="filePath"/> is too long.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when the file can't be opened due to missing
+        /// the required persmissions.</exception>
+        /// <exception cref="IOException">Thrown when an I/O error occurred while opening the file.</exception>
+        /// <exception cref="FormatException">Thrown when the string that is tried to parse
+        /// does not represent a number in a valid format.</exception>
+        /// <exception cref="OverflowException">Thrown when the string that is tried to parse
+        /// represents a number that is less than <see cref="double.MinValue"/> 
+        /// or greater than <see cref="double.MaxValue"/>.</exception>
         private void ReadFile(string filePath)
         {
             if (File.Exists(filePath))
@@ -89,6 +105,17 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
         }
 
+        /// <summary>
+        /// Tries to parse the water level from the given <paramref name="line"/>.
+        /// </summary>
+        /// <param name="line">The line to parse.</param>
+        /// <returns>When the line contains the water level a numeric value that represents the water level.
+        /// <c>null</c> otherwise.</returns>
+        /// <exception cref="FormatException">Thrown when <paramref name="line"/> 
+        /// does not represent a number in a valid format.</exception>
+        /// <exception cref="OverflowException">Thrown when <paramref name="line"/> 
+        /// represents a number that is less than <see cref="double.MinValue"/> 
+        /// or greater than <see cref="double.MaxValue"/>.</exception>
         private static double? TryParseWaterLevel(string line)
         {
             if (line.Contains(waterLevelText))
@@ -99,6 +126,17 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             return null;
         }
 
+        /// <summary>
+        /// Tries to parse the wave height from the given <paramref name="line"/>.
+        /// </summary>
+        /// <param name="line">The line to parse.</param>
+        /// <returns>When the line contains the wave height a numeric value that represents the wave height.
+        /// <c>null</c> otherwise.</returns>
+        /// <exception cref="FormatException">Thrown when <paramref name="line"/> 
+        /// does not represent a number in a valid format.</exception>
+        /// <exception cref="OverflowException">Thrown when <paramref name="line"/> 
+        /// represents a number that is less than <see cref="double.MinValue"/> 
+        /// or greater than <see cref="double.MaxValue"/>.</exception>
         private static double? TryParseWaveHeight(string line)
         {
             if (line.Contains(waveHeightText))
@@ -109,6 +147,17 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             return null;
         }
 
+        /// <summary>
+        /// Tries to parse the wave period from the given <paramref name="line"/>.
+        /// </summary>
+        /// <param name="line">The line to parse.</param>
+        /// <returns>When the line contains the wave period a numeric value that represents the wave period.
+        /// <c>null</c> otherwise.</returns>
+        /// <exception cref="FormatException">Thrown when <paramref name="line"/> 
+        /// does not represent a number in a valid format.</exception>
+        /// <exception cref="OverflowException">Thrown when <paramref name="line"/> 
+        /// represents a number that is less than <see cref="double.MinValue"/> 
+        /// or greater than <see cref="double.MaxValue"/>.</exception>
         private static double? TryParseWavePeriod(string line)
         {
             if (line.Contains(wavePeriodText))
@@ -119,6 +168,16 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             return null;
         }
 
+        /// <summary>
+        /// Parses the <paramref name="resultAsString"/> to a <see cref="double"/>.
+        /// </summary>
+        /// <param name="resultAsString">The result to parse.</param>
+        /// <returns>The parsed number.</returns>
+        /// <exception cref="FormatException">Thrown when <paramref name="resultAsString"/> 
+        /// does not represent a number in a valid format.</exception>
+        /// <exception cref="OverflowException">Thrown when <paramref name="resultAsString"/> 
+        /// represents a number that is less than <see cref="double.MinValue"/> 
+        /// or greater than <see cref="double.MaxValue"/>.</exception>
         private static double ParseStringResult(string resultAsString)
         {
             return double.Parse(resultAsString, CultureInfo.InvariantCulture);

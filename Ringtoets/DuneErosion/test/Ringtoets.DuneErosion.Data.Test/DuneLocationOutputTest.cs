@@ -31,8 +31,8 @@ namespace Ringtoets.DuneErosion.Data.Test
     public class DuneLocationOutputTest
     {
         [Test]
-        [TestCase(-0.01)]
-        [TestCase(1.01)]
+        [TestCase(-1e-6)]
+        [TestCase(1.0+1e-6)]
         public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
         {
             // Setup

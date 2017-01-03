@@ -1465,9 +1465,9 @@ namespace Ringtoets.Integration.Plugin
 
                     if (!ReferenceEquals(previousHydraulicBoundaryDatabase, assessmentSection.HydraulicBoundaryDatabase))
                     {
-                        var hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase != null
-                                                             ? assessmentSection.HydraulicBoundaryDatabase.Locations
-                                                             : Enumerable.Empty<HydraulicBoundaryLocation>();
+                        HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase != null
+                                                                                         ? assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray()
+                                                                                         : new HydraulicBoundaryLocation[0];
 
                         assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
                         assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
@@ -1477,7 +1477,7 @@ namespace Ringtoets.Integration.Plugin
 
                         DuneErosionDataSynchronizationService.SetDuneLocations(assessmentSection.DuneErosion,
                                                                                hydraulicBoundaryLocations,
-                                                                               duneLocations);
+                                                                               duneLocations.ToArray());
                         assessmentSection.DuneErosion.DuneLocations.NotifyObservers();
                     }
                     log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,

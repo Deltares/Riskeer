@@ -41,11 +41,11 @@ namespace Ringtoets.DuneErosion.Service
         /// </summary>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> to update.</param>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary location to use.</param>
-        /// <param name="readDuneLocations">The dune locations to use.</param>
+        /// <param name="duneLocations">The dune locations to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism,
-                                            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                            IEnumerable<ReadDuneLocation> readDuneLocations)
+                                            HydraulicBoundaryLocation[] hydraulicBoundaryLocations,
+                                            ReadDuneLocation[] duneLocations)
         {
             if (failureMechanism == null)
             {
@@ -55,19 +55,19 @@ namespace Ringtoets.DuneErosion.Service
             {
                 throw new ArgumentNullException("hydraulicBoundaryLocations");
             }
-            if (readDuneLocations == null)
+            if (duneLocations == null)
             {
-                throw new ArgumentNullException("readDuneLocations");
+                throw new ArgumentNullException("duneLocations");
             }
 
             failureMechanism.DuneLocations.Clear();
 
-            if (!hydraulicBoundaryLocations.Any() || !readDuneLocations.Any())
+            if (!hydraulicBoundaryLocations.Any() || !duneLocations.Any())
             {
                 return;
             }
 
-            foreach (ReadDuneLocation duneLocation in readDuneLocations)
+            foreach (ReadDuneLocation duneLocation in duneLocations)
             {
                 foreach (var hydraulicBoundaryLocation in hydraulicBoundaryLocations)
                 {
@@ -86,6 +86,12 @@ namespace Ringtoets.DuneErosion.Service
             }
         }
 
+        /// <summary>
+        /// Clears the output of the dune locations within the collection.
+        /// </summary>
+        /// <param name="locations">The locations for which the output needs to be cleared.</param>
+        /// <returns>All objects changed during the clear.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearDuneLocationOutput(ObservableList<DuneLocation> locations)
         {
             if (locations == null)

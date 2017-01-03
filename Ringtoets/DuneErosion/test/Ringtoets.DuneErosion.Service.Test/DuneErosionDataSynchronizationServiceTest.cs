@@ -40,8 +40,8 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Call
             TestDelegate test = () => DuneErosionDataSynchronizationService.SetDuneLocations(null,
-                                                                                             Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                             Enumerable.Empty<ReadDuneLocation>());
+                                                                                             new HydraulicBoundaryLocation[0],
+                                                                                             new ReadDuneLocation[0]);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -57,7 +57,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Call
             TestDelegate test = () => DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
                                                                                              null,
-                                                                                             Enumerable.Empty<ReadDuneLocation>());
+                                                                                             new ReadDuneLocation[0]);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -72,12 +72,12 @@ namespace Ringtoets.DuneErosion.Service.Test
             
             // Call
             TestDelegate test = () => DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
-                                                                                             Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                             new HydraulicBoundaryLocation[0],
                                                                                              null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("readDuneLocations", exception.ParamName);
+            Assert.AreEqual("duneLocations", exception.ParamName);
         }
 
         [Test]
@@ -97,8 +97,8 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             // call
             DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
-                                                                   Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                   Enumerable.Empty<ReadDuneLocation>());
+                                                                   new HydraulicBoundaryLocation[0],
+                                                                   new ReadDuneLocation[0]);
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
