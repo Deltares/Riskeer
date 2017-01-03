@@ -42,11 +42,12 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
-        public void GetMechanismSpecificNorm_WithValidData_ReturnMechanismSpecificNorm()
+        [TestCase(0, 0.005, 0)]
+        [TestCase(10, 0.005, 0.0005375)]
+        [TestCase(10, 0, 0)]
+        public void GetMechanismSpecificNorm_WithValidData_ReturnMechanismSpecificNorm(double contribution, double norm, double expectedNorm)
         {
             // Setup
-            const double norm = 1.0 / 200;
-            const double contribution = 10;
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = contribution
@@ -68,7 +69,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
 
             // Assert
-            Assert.AreEqual(0.0005375, mechanismSpecificNorm);
+            Assert.AreEqual(expectedNorm, mechanismSpecificNorm);
             mocks.VerifyAll();
         }
     }
