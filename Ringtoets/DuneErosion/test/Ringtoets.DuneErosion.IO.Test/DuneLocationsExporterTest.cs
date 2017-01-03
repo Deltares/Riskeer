@@ -42,7 +42,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var filePath = Path.Combine(testDataPath, "tets.bnd");
+            var filePath = Path.Combine(testDataPath, "test.bnd");
 
             // Call
             var exporter = new DuneLocationsExporter(Enumerable.Empty<DuneLocation>(), filePath);
@@ -55,7 +55,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void Constructor_LocationsNull_ThrowArgumentNullException()
         {
             // Setup
-            var filePath = Path.Combine(testDataPath, "tets.bnd");
+            var filePath = Path.Combine(testDataPath, "test.bnd");
 
             // Call
             TestDelegate test = () => new DuneLocationsExporter(null, filePath);
@@ -152,7 +152,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         }
 
         [Test]
-        public void Export_InvalidDirectoryRight_LogErrorAndReturnFalse()
+        public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
         {
             // Setup
             DuneLocation[] duneLocations =
