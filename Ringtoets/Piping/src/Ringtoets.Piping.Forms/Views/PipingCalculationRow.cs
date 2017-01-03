@@ -20,10 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -92,7 +95,7 @@ namespace Ringtoets.Piping.Forms.Views
                 pipingCalculation.InputParameters.StochasticSoilModel = value != null
                                                                             ? value.WrappedObject
                                                                             : null;
-                pipingCalculation.InputParameters.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -111,7 +114,7 @@ namespace Ringtoets.Piping.Forms.Views
                                                                               ? value.WrappedObject
                                                                               : null;
 
-                pipingCalculation.InputParameters.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -152,7 +155,7 @@ namespace Ringtoets.Piping.Forms.Views
                                                                                   ? null
                                                                                   : value.WrappedObject.HydraulicBoundaryLocation;
 
-                pipingCalculation.InputParameters.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -169,7 +172,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 pipingCalculation.InputParameters.DampingFactorExit.Mean = value;
 
-                pipingCalculation.InputParameters.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -186,7 +189,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 pipingCalculation.InputParameters.PhreaticLevelExit.Mean = value;
 
-                pipingCalculation.InputParameters.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -203,7 +206,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 pipingCalculation.InputParameters.EntryPointL = value;
 
-                pipingCalculation.InputParameters.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -219,9 +222,18 @@ namespace Ringtoets.Piping.Forms.Views
             set
             {
                 pipingCalculation.InputParameters.ExitPointL = value;
-
-                pipingCalculation.InputParameters.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
+        }
+
+        private void ClearOutputAndNotifyPropertyChanged()
+        {
+            IEnumerable<IObservable> affectedCalculation = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculation);
+            foreach (var calculation in affectedCalculation)
+            {
+                calculation.NotifyObservers();
+            }
+            pipingCalculation.InputParameters.NotifyObservers();
         }
     }
 }

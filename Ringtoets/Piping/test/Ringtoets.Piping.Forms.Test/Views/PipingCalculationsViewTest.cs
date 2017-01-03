@@ -39,6 +39,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
@@ -1011,29 +1012,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(nameColumnIndex, "New name", true, false)]
-        [TestCase(stochasticSoilProfilesColumnIndex, null, false, true)]
-        [TestCase(selectableHydraulicBoundaryLocationsColumnIndex, null, false, true)]
-        [TestCase(dampingFactorExitMeanColumnIndex, 1.1, false, true)]
-        [TestCase(phreaticLevelExitMeanColumnIndex, 1.1, false, true)]
-        [TestCase(entryPointLColumnIndex, 1.1, false, true)]
-        [TestCase(exitPointLColumnIndex, 5.5, false, true)]
-        public void PipingCalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue, bool expectPipingCalculationNotify, bool expectPipingCalculationInputNotify)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void PipingCalculationsView_EditingNameViaDataGridView_ObserversCorrectlyNotified(bool useCalculationWithOutput)
         {
             // Setup
             var mocks = new MockRepository();
             var pipingCalculationObserver = mocks.StrictMock<IObserver>();
             var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
 
-            if (expectPipingCalculationNotify)
-            {
-                pipingCalculationObserver.Expect(o => o.UpdateObserver());
-            }
-
-            if (expectPipingCalculationInputNotify)
-            {
-                pipingCalculationInputObserver.Expect(o => o.UpdateObserver());
-            }
+            pipingCalculationObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
@@ -1045,6 +1033,70 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var data = (CalculationGroup) pipingCalculationView.Data;
                 var pipingCalculation = (PipingCalculationScenario) data.Children.First();
 
+                if (useCalculationWithOutput)
+                {
+                    pipingCalculation.Output = new TestPipingOutput();
+                }
+
+                pipingCalculation.Attach(pipingCalculationObserver);
+                pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Call
+                dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
+
+                // Assert
+                pipingCalculation.Output = null;
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(stochasticSoilProfilesColumnIndex, null, true)]
+        [TestCase(stochasticSoilProfilesColumnIndex, null, false)]
+        [TestCase(selectableHydraulicBoundaryLocationsColumnIndex, null, true)]
+        [TestCase(selectableHydraulicBoundaryLocationsColumnIndex, null, false)]
+        [TestCase(dampingFactorExitMeanColumnIndex, 1.1, true)]
+        [TestCase(dampingFactorExitMeanColumnIndex, 1.1, false)]
+        [TestCase(phreaticLevelExitMeanColumnIndex, 1.1, true)]
+        [TestCase(phreaticLevelExitMeanColumnIndex, 1.1, false)]
+        [TestCase(entryPointLColumnIndex, 1.1, true)]
+        [TestCase(entryPointLColumnIndex, 1.1, false)]
+        [TestCase(exitPointLColumnIndex, 5.5, true)]
+        [TestCase(exitPointLColumnIndex, 5.5, false)]
+        public void PipingCalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(
+            int cellIndex, 
+            object newValue, 
+            bool useCalculationWithOutput)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var pipingCalculationObserver = mocks.StrictMock<IObserver>();
+            var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
+
+            if (useCalculationWithOutput)
+            {
+                pipingCalculationObserver.Expect(o => o.UpdateObserver());
+            }
+
+            pipingCalculationInputObserver.Expect(o => o.UpdateObserver());
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+                assessmentSection, hydraulicBoundaryDatabase))
+            {
+                mocks.ReplayAll();
+
+                var data = (CalculationGroup) pipingCalculationView.Data;
+                var pipingCalculation = (PipingCalculationScenario) data.Children.First();
+
+                if (useCalculationWithOutput)
+                {
+                    pipingCalculation.Output = new TestPipingOutput();
+                }
+
                 pipingCalculation.Attach(pipingCalculationObserver);
                 pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
 
@@ -1052,8 +1104,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Call
                 dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double ? (RoundedDouble) (double) newValue : newValue;
+                
+                // Assert
+                pipingCalculation.Output = null;
             }
-            // Assert
             mocks.VerifyAll();
         }
 
