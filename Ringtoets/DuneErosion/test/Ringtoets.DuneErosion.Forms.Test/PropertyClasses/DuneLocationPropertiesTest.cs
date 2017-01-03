@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
@@ -84,11 +83,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             const double x = 567.0;
             const double y = 890.0;
             const string name = "<some name>";
-            const int coastalAreaId = 1337;
-
+            
             var random = new Random();
+            int coastalAreaId = random.Next();
             double offset = random.NextDouble();
             double orientation = random.NextDouble();
+            double d50 = random.NextDouble();
             double waterLevel = random.NextDouble();
             double waveHeight = random.NextDouble();
             double wavePeriod = random.NextDouble();
@@ -99,7 +99,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             var output = new DuneLocationOutput(waterLevel, waveHeight, wavePeriod, targetProbability, targetReliability,
                                                 calculatedProbability, calculatedReliability, convergence);
-            var location = new DuneLocation(id, name, new Point2D(x, y), coastalAreaId, offset, orientation, random.NextDouble())
+            var location = new DuneLocation(id, name, new Point2D(x, y), coastalAreaId, offset, orientation, d50)
             {
                 Output = output
             };
@@ -114,8 +114,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
             Assert.AreEqual(coastalAreaId, properties.CoastalAreaId);
-            Assert.AreEqual(1, location.Offset.NumberOfDecimalPlaces);
-            Assert.AreEqual(location.Offset, properties.Offset);
+            Assert.AreEqual(location.Offset, properties.Offset, properties.Offset.GetAccuracy());
             var expectedLocation = new Point2D(x, y);
             Assert.AreEqual(expectedLocation, properties.Location);
 
@@ -146,13 +145,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            var propertyBag = new DynamicPropertyBag(properties);
-
-            PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
-
+            
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(13, dynamicProperties.Count);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 

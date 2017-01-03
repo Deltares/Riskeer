@@ -97,6 +97,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(Resources), "DuneLocation_WaterLevel_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DuneLocation_WaterLevel_Description")]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WaterLevel
         {
             get
@@ -110,6 +111,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(Resources), "DuneLocation_WaveHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DuneLocation_WaveHeight_Description")]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WaveHeight
         {
             get
@@ -123,6 +125,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(Resources), "DuneLocation_WavePeriod_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DuneLocation_WavePeriod_Description")]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WavePeriod
         {
             get
@@ -204,7 +207,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return string.Empty;
+             return string.Format("{0} {1}", Name, Location);
         }
     }
 }
