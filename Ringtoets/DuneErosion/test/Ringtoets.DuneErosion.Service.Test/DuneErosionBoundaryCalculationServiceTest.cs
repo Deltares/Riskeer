@@ -75,7 +75,11 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 try
                 {
-                    new DuneErosionBoundaryCalculationService().Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+                    new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
+                                                                          failureMechanism,
+                                                                          assessmentSection.Id,
+                                                                          assessmentSection.FailureMechanismContribution.Norm,
+                                                                          validFilePath);
                 }
                 catch (Exception)
                 {
@@ -129,13 +133,17 @@ namespace Ringtoets.DuneErosion.Service.Test
                 var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
 
                 // Call
-                new DuneErosionBoundaryCalculationService().Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+                new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
+                                                                      failureMechanism,
+                                                                      assessmentSection.Id,
+                                                                      assessmentSection.FailureMechanismContribution.Norm,
+                                                                      validFilePath);
 
                 // Assert
                 Assert.AreEqual(testDataPath, testCalculator.HydraulicBoundaryDatabaseDirectory);
                 Assert.AreEqual(ringId, testCalculator.RingId);
 
-                var expectedInput = CreateInput(duneLocation, failureMechanism.GetMechanismSpecificNorm(assessmentSection));
+                var expectedInput = CreateInput(duneLocation, failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm));
                 AssertInput(expectedInput, testCalculator.ReceivedInputs.First());
                 Assert.IsFalse(testCalculator.IsCanceled);
             }
@@ -182,7 +190,11 @@ namespace Ringtoets.DuneErosion.Service.Test
                 testCalculator.WavePeriod = 10.65437;
 
                 // Call
-                Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+                Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
+                                                                                          failureMechanism,
+                                                                                          assessmentSection.Id,
+                                                                                          assessmentSection.FailureMechanismContribution.Norm,
+                                                                                          validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(test, messages =>
@@ -193,7 +205,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                     StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[2]);
                 });
-                double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+                double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
                 double targetReliability = StatisticsConverter.ProbabilityToReliability(mechanismSpecificNorm);
                 double calculatedProbability = StatisticsConverter.ReliabilityToProbability(testCalculator.ReliabilityIndex);
 
@@ -241,7 +253,11 @@ namespace Ringtoets.DuneErosion.Service.Test
                 testCalculator.ReliabilityIndex = 0.01;                
 
                 // Call
-                Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+                Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
+                                                                                          failureMechanism,
+                                                                                          assessmentSection.Id,
+                                                                                          assessmentSection.FailureMechanismContribution.Norm,
+                                                                                          validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(test, messages =>
@@ -291,7 +307,11 @@ namespace Ringtoets.DuneErosion.Service.Test
                 testCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
-                service.Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+                service.Calculate(duneLocation,
+                                  failureMechanism,
+                                  assessmentSection.Id,
+                                  assessmentSection.FailureMechanismContribution.Norm,
+                                  validFilePath);
 
                 // Assert
                 Assert.IsTrue(testCalculator.IsCanceled);
@@ -339,7 +359,11 @@ namespace Ringtoets.DuneErosion.Service.Test
                 {
                     try
                     {
-                        new DuneErosionBoundaryCalculationService().Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+                        new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
+                                                                              failureMechanism,
+                                                                              assessmentSection.Id,
+                                                                              assessmentSection.FailureMechanismContribution.Norm,
+                                                                              validFilePath);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -402,7 +426,11 @@ namespace Ringtoets.DuneErosion.Service.Test
                 {
                     try
                     {
-                        new DuneErosionBoundaryCalculationService().Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+                        new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
+                                                                              failureMechanism,
+                                                                              assessmentSection.Id,
+                                                                              assessmentSection.FailureMechanismContribution.Norm,
+                                                                              validFilePath);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -467,7 +495,11 @@ namespace Ringtoets.DuneErosion.Service.Test
                 {
                     try
                     {
-                        new DuneErosionBoundaryCalculationService().Calculate(duneLocation, failureMechanism, assessmentSection, validFilePath);
+                        new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
+                                                                              failureMechanism,
+                                                                              assessmentSection.Id,
+                                                                              assessmentSection.FailureMechanismContribution.Norm,
+                                                                              validFilePath);
                     }
                     catch (HydraRingCalculationException e)
                     {

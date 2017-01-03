@@ -24,7 +24,6 @@ using System.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
@@ -52,14 +51,16 @@ namespace Ringtoets.DuneErosion.Service
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="duneLocation">The <see cref="DuneLocation"/> that holds information required to perform the calculation.</param>
-        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> that holds information about the contribution and
+        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> that holds information about the contribution and 
         /// the general inputs used in the calculation.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
+        /// <param name="ringId">The id of the assessment section.</param>
+        /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item>The <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
         /// <item>The contribution of the failure mechanism is zero.</item>
+        /// <item>The target propability or the calculated propability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
         /// </list></exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
@@ -73,17 +74,18 @@ namespace Ringtoets.DuneErosion.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(DuneLocation duneLocation,
                               DuneErosionFailureMechanism failureMechanism,
-                              IAssessmentSection assessmentSection,
+                              string ringId,
+                              double norm,
                               string hydraulicBoundaryDatabaseFilePath)
         {
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(hlcdDirectory, assessmentSection.Id);
+            calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(hlcdDirectory, ringId);
 
             string calculationName = duneLocation.Name;
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
-            var mechanismSpecificNorm = GetFailureMechanismSpecificNorm(failureMechanism, assessmentSection, calculationName);
+            var mechanismSpecificNorm = GetFailureMechanismSpecificNorm(failureMechanism, norm, calculationName);
 
             var exceptionThrown = false;
             try
@@ -125,7 +127,7 @@ namespace Ringtoets.DuneErosion.Service
                     log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_click_details_for_last_error_report_1,
                                     calculationName, lastErrorFileContent);
                 }
-        
+
                 FinalizeCalculation(calculationName, true);
 
                 if (hasErrorOccurred)
@@ -133,36 +135,6 @@ namespace Ringtoets.DuneErosion.Service
                     throw new HydraRingCalculationException(lastErrorFileContent);
                 }
             }
-        }
-
-        /// <summary>
-        /// Get the specific norm of the <see cref="DuneErosionFailureMechanism"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to get the norm for.</param>
-        /// <param name="assessmentSection">The assessment section to get the norm fequency from.</param>
-        /// <param name="calculationName">The name of the calculation.</param>
-        /// <returns>The failure mechanism specific norm.</returns>
-        /// <exception cref="ArgumentException">Thrown when the contribution of the failure mechanism is zero.</exception>
-        private double GetFailureMechanismSpecificNorm(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection, string calculationName)
-        {
-            if (Math.Abs(failureMechanism.Contribution) < 1e-6)
-            {
-                string errorMessage = Resources.DuneErosionBoundaryCalculationService_Calculate_Contribution_is_zero;
-                log.Error(errorMessage);
-                FinalizeCalculation(calculationName, false);
-                throw new ArgumentException(errorMessage);
-            }
-
-            return failureMechanism.GetMechanismSpecificNorm(assessmentSection);
-        }
-
-        private void FinalizeCalculation(string calculationName, bool calculationExecuted)
-        {
-            if (calculationExecuted)
-            {
-                log.InfoFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
-            }
-            CalculationServiceHelper.LogCalculationEndTime(calculationName);
         }
 
         /// <summary>
@@ -178,6 +150,48 @@ namespace Ringtoets.DuneErosion.Service
             canceled = true;
         }
 
+        /// <summary>
+        /// Get the specific norm of the <see cref="DuneErosionFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to get the norm for.</param>
+        /// <param name="assessmentSectionNorm">The assessment section norm.</param>
+        /// <param name="calculationName">The name of the calculation.</param>
+        /// <returns>The failure mechanism specific norm.</returns>
+        /// <exception cref="ArgumentException">Thrown when the contribution of the failure mechanism is zero.</exception>
+        private double GetFailureMechanismSpecificNorm(DuneErosionFailureMechanism failureMechanism,
+                                                       double assessmentSectionNorm,
+                                                       string calculationName)
+        {
+            if (Math.Abs(failureMechanism.Contribution) < 1e-6)
+            {
+                string errorMessage = Resources.DuneErosionBoundaryCalculationService_Calculate_Contribution_is_zero;
+                log.Error(errorMessage);
+                FinalizeCalculation(calculationName, false);
+                throw new ArgumentException(errorMessage);
+            }
+
+            return failureMechanism.GetMechanismSpecificNorm(assessmentSectionNorm);
+        }
+
+        private void FinalizeCalculation(string calculationName, bool calculationExecuted)
+        {
+            if (calculationExecuted)
+            {
+                log.InfoFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
+                               calculator.OutputDirectory);
+            }
+            CalculationServiceHelper.LogCalculationEndTime(calculationName);
+        }
+
+        /// <summary>
+        /// Create the output of the calculation.
+        /// </summary>
+        /// <param name="duneLocationName">The name of the location.</param>
+        /// <param name="targetReliability">The target reliability for the calculation.</param>
+        /// <param name="targetProbability">The target probability for the calculation.</param>
+        /// <returns>A <see cref="DuneLocationOutput"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
+        /// or the calculated propability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         private DuneLocationOutput CreateDuneLocationOutput(string duneLocationName, double targetReliability, double targetProbability)
         {
             double reliability = calculator.ReliabilityIndex;

@@ -33,32 +33,12 @@ namespace Ringtoets.DuneErosion.Data.Test
         [Test]
         public void GetMechanismSpecificNorm_FailureMechanismNull_ThrowArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            TestDelegate test = () => DuneErosionFailureMechanismExtensions.GetMechanismSpecificNorm(null, assessmentSection);
+            TestDelegate test = () => DuneErosionFailureMechanismExtensions.GetMechanismSpecificNorm(null, 0.5);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetMechanismSpecificNorm_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
-
-            // Call
-            TestDelegate test = () => failureMechanism.GetMechanismSpecificNorm(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -85,7 +65,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             mocks.ReplayAll();
 
             // Call
-            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection);
+            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
 
             // Assert
             Assert.AreEqual(0.0005375, mechanismSpecificNorm);

@@ -81,7 +81,8 @@ namespace Ringtoets.DuneErosion.Service
 
             calculationService.Calculate(duneLocation,
                                          failureMechanism,
-                                         assessmentSection,
+                                         assessmentSection.Id,
+                                         assessmentSection.FailureMechanismContribution.Norm,
                                          assessmentSection.HydraulicBoundaryDatabase.FilePath);
         }
 
