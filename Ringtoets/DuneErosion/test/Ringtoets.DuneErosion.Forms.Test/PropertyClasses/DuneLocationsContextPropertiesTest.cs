@@ -2,7 +2,7 @@
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
@@ -28,7 +28,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
-            
+
             var location = new TestDuneLocation();
             var items = new ObservableList<DuneLocation>
             {
@@ -50,7 +50,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationsContextProperties,
                               ExpandableArrayConverter>(p => p.Locations));
 
-            DuneLocationProperties duneLocationProperties= properties.Locations.First();
+            DuneLocationProperties duneLocationProperties = properties.Locations.First();
             Assert.AreEqual(location.Id, duneLocationProperties.Id);
             Assert.AreEqual(location.Name, duneLocationProperties.Name);
             Assert.AreEqual(location.CoastalAreaId, duneLocationProperties.CoastalAreaId);
@@ -63,7 +63,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             Assert.IsNaN(duneLocationProperties.TargetProbability);
             Assert.IsNaN(duneLocationProperties.TargetReliability);
-            
             Assert.IsNaN(duneLocationProperties.CalculatedProbability);
             Assert.IsNaN(duneLocationProperties.CalculatedReliability);
 
@@ -80,13 +79,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
-            
-            var items = new ObservableList<DuneLocation>
-            {
-                new TestDuneLocation()
-            };
+
             var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneLocationsContext(items, failureMechanism, assessmentSection);
+            failureMechanism.DuneLocations.Add(new TestDuneLocation());
+            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             // Call
             var properties = new DuneLocationsContextProperties
@@ -95,23 +91,19 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            const string expectedLocationsDisplayName = "Locaties";
-            const string expectedLocationsDescription = "Locaties uit de hydraulische randvoorwaardendatabase.";
-            const string expectedLocationsCategory = "Algemeen";
-
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
             Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
 
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
+
             PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
-            Assert.IsNotNull(locationsProperty);
             Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
-            Assert.IsTrue(locationsProperty.IsReadOnly);
-            Assert.IsTrue(locationsProperty.IsBrowsable);
-            Assert.AreEqual(expectedLocationsDisplayName, locationsProperty.DisplayName);
-            Assert.AreEqual(expectedLocationsDescription, locationsProperty.Description);
-            Assert.AreEqual(expectedLocationsCategory, locationsProperty.Category);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
+                                                                            "Algemeen",
+                                                                            "Locaties",
+                                                                            "Locaties uit de hydraulische randvoorwaardendatabase.",
+                                                                            true);
         }
     }
 }

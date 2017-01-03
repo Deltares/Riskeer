@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -35,6 +36,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class WaveHeightLocationsContextPropertiesTest
     {
+        private const int requiredLocationsPropertyIndex = 0;
+
         [Test]
         public void Constructor_WithoutDatabase_ExpectedValues()
         {
@@ -45,6 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("database", paramName);
         }
+
         [Test]
         public void Constructor_WithDatabase_ExpectedValues()
         {
@@ -95,22 +99,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new WaveHeightLocationsContextProperties(new HydraulicBoundaryDatabase());
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            const string expectedLocationsDisplayName = "Locaties";
-            const string expectedLocationsDescription = "Locaties uit de hydraulische randvoorwaardendatabase.";
-            const string expectedLocationsCategory = "Algemeen";
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            PropertyDescriptor locationsProperty = dynamicProperties.Find("Locations", false);
-
             Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
-            Assert.IsNotNull(locationsProperty);
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
+
+            PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
             Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
-            Assert.IsTrue(locationsProperty.IsReadOnly);
-            Assert.IsTrue(locationsProperty.IsBrowsable);
-            Assert.AreEqual(expectedLocationsDisplayName, locationsProperty.DisplayName);
-            Assert.AreEqual(expectedLocationsDescription, locationsProperty.Description);
-            Assert.AreEqual(expectedLocationsCategory, locationsProperty.Category);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
+                                                                            "Algemeen",
+                                                                            "Locaties",
+                                                                            "Locaties uit de hydraulische randvoorwaardendatabase.",
+                                                                            true);
         }
     }
 }
