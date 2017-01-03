@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Hydraulics
@@ -45,12 +46,12 @@ namespace Ringtoets.Common.Data.Hydraulics
                                                double calculatedProbability, double calculatedReliability,
                                                CalculationConvergence calculationConvergence)
         {
-            if (!IsValidProbability(targetProbability))
+            if (!ProbabilityHelper.IsValidProbability(targetProbability))
             {
                 throw new ArgumentOutOfRangeException("targetProbability", targetProbability,
                                                       Resources.Probability_Must_be_in_range_zero_to_one);
             }
-            if (!IsValidProbability(calculatedProbability))
+            if (!ProbabilityHelper.IsValidProbability(calculatedProbability))
             {
                 throw new ArgumentOutOfRangeException("calculatedProbability", calculatedProbability,
                                                       Resources.Probability_Must_be_in_range_zero_to_one);
@@ -99,10 +100,5 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// [-]
         /// </summary>
         public CalculationConvergence CalculationConvergence { get; private set; }
-
-        private static bool IsValidProbability(double probability)
-        {
-            return double.IsNaN(probability) || (0.0 <= probability && probability <= 1.0);
-        }
     }
 }

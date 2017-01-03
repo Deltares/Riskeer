@@ -84,6 +84,7 @@
     <Compile Include="Probabilistics\LogNormalDistributionTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionTest.cs" />
+    <Compile Include="Probability\ProbabilityHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DikeProfiles\RoughnessPointTest.cs" />
     <Compile Include="StructureBaseTest.cs" />

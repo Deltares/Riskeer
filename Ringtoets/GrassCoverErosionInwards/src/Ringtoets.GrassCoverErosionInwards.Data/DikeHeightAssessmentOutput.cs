@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probability;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
@@ -46,12 +47,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                                           double calculatedProbability, double calculatedReliability,
                                           CalculationConvergence calculationConvergence)
         {
-            if (!IsValidProbability(targetProbability))
+            if (!ProbabilityHelper.IsValidProbability(targetProbability))
             {
                 throw new ArgumentOutOfRangeException("targetProbability", targetProbability,
                                                       RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
             }
-            if (!IsValidProbability(calculatedProbability))
+            if (!ProbabilityHelper.IsValidProbability(calculatedProbability))
             {
                 throw new ArgumentOutOfRangeException("calculatedProbability", calculatedProbability,
                                                       RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
@@ -100,10 +101,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// [-]
         /// </summary>
         public CalculationConvergence CalculationConvergence { get; private set; }
-
-        private static bool IsValidProbability(double probability)
-        {
-            return double.IsNaN(probability) || (0.0 <= probability && probability <= 1.0);
-        }
     }
 }

@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probability;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Data
@@ -102,11 +103,6 @@ namespace Ringtoets.DuneErosion.Data
         /// </summary>
         public CalculationConvergence CalculationConvergence { get; private set; }
 
-        private static bool IsValidProbability(double probability)
-        {
-            return double.IsNaN(probability) || (0.0 <= probability && probability <= 1.0);
-        }
-
         /// <summary>
         /// Container for properties for constructing a <see cref="DuneLocationOutput"/>.
         /// </summary>
@@ -156,7 +152,7 @@ namespace Ringtoets.DuneErosion.Data
                 }
                 set
                 {
-                    if (!IsValidProbability(value))
+                    if (!ProbabilityHelper.IsValidProbability(value))
                     {
                         throw new ArgumentOutOfRangeException(nameof(TargetProbability), value,
                                                               RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
@@ -182,7 +178,7 @@ namespace Ringtoets.DuneErosion.Data
                 }
                 set
                 {
-                    if (!IsValidProbability(value))
+                    if (!ProbabilityHelper.IsValidProbability(value))
                     {
                         throw new ArgumentOutOfRangeException(nameof(CalculatedProbability), value,
                                                               RingtoetsCommonDataResources.Probability_Must_be_in_range_zero_to_one);
