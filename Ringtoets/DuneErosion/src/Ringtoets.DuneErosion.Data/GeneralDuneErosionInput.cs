@@ -28,6 +28,16 @@ namespace Ringtoets.DuneErosion.Data
     /// </summary>
     public class GeneralDuneErosionInput
     {
+        private readonly RoundedDouble n;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GeneralDuneErosionInput"/>.
+        /// </summary>
+        public GeneralDuneErosionInput()
+        {
+            n = new RoundedDouble(2, 2);
+        }
+
         #region Length effect parameters
 
         /// <summary>
@@ -37,7 +47,7 @@ namespace Ringtoets.DuneErosion.Data
         {
             get
             {
-                return new RoundedDouble(1, 2);
+                return n;
             }
         }
 
