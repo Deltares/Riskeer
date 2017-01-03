@@ -129,7 +129,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                       }, 1, norm));
             mocks.ReplayAll();
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = 0,
+                                                    Offset = 0,
+                                                    Orientation = 0,
+                                                    D50 = 0.000007
+                                                });
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -183,7 +189,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                       }, 1, norm));
             mocks.ReplayAll();
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = 0,
+                                                    Offset = 0,
+                                                    Orientation = 0,
+                                                    D50 = 0.000007
+                                                });
 
             // Precondition
             Assert.IsNull(duneLocation.Output);
@@ -209,9 +221,9 @@ namespace Ringtoets.DuneErosion.Service.Test
                                              {
                                                  var msgs = messages.ToArray();
                                                  Assert.AreEqual(3, msgs.Length);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", duneLocation.Name), msgs[0]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' gestart om: ", msgs[0]);
                                                  StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[2]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' beëindigd om: ", msgs[2]);
                                              });
                 double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
                 double targetReliability = StatisticsConverter.ProbabilityToReliability(mechanismSpecificNorm);
@@ -255,7 +267,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                       }, 1, norm));
             mocks.ReplayAll();
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = 0,
+                                                    Offset = 0,
+                                                    Orientation = 0,
+                                                    D50 = 0.000007
+                                                });
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -275,10 +293,10 @@ namespace Ringtoets.DuneErosion.Service.Test
                                              {
                                                  var msgs = messages.ToArray();
                                                  Assert.AreEqual(4, msgs.Length);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", duneLocation.Name), msgs[0]);
-                                                 StringAssert.StartsWith(string.Format("Duinafslag berekening voor locatie '{0}' is niet geconvergeerd.", duneLocation.Name), msgs[1]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' gestart om: ", msgs[0]);
+                                                 StringAssert.StartsWith($"Duinafslag berekening voor locatie '{duneLocation.Name}' is niet geconvergeerd.", msgs[1]);
                                                  StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[3]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' beëindigd om: ", msgs[3]);
                                              });
             }
         }
@@ -309,7 +327,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                       }, 1, norm));
             mocks.ReplayAll();
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = 0,
+                                                    Offset = 0,
+                                                    Orientation = 0,
+                                                    D50 = 0.000007
+                                                });
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -358,7 +382,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                       }, 1, norm));
             mocks.ReplayAll();
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = 0,
+                                                    Offset = 0,
+                                                    Orientation = 0,
+                                                    D50 = 0.000007
+                                                });
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -391,10 +421,10 @@ namespace Ringtoets.DuneErosion.Service.Test
                                              {
                                                  var msgs = messages.ToArray();
                                                  Assert.AreEqual(4, msgs.Length);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", duneLocation.Name), msgs[0]);
-                                                 StringAssert.StartsWith(string.Format("De berekening voor duinafslag '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", duneLocation.Name), msgs[1]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' gestart om: ", msgs[0]);
+                                                 StringAssert.StartsWith($"De berekening voor duinafslag '{duneLocation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                                                  StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[3]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' beëindigd om: ", msgs[3]);
                                              });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(duneLocation.Output);
@@ -428,7 +458,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                       }, 1, norm));
             mocks.ReplayAll();
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = 0,
+                                                    Offset = 0,
+                                                    Orientation = 0,
+                                                    D50 = 0.000007
+                                                });
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -460,10 +496,10 @@ namespace Ringtoets.DuneErosion.Service.Test
                                              {
                                                  var msgs = messages.ToArray();
                                                  Assert.AreEqual(4, msgs.Length);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", duneLocation.Name), msgs[0]);
-                                                 StringAssert.StartsWith(string.Format("De berekening voor duinafslag '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", duneLocation.Name), msgs[1]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' gestart om: ", msgs[0]);
+                                                 StringAssert.StartsWith($"De berekening voor duinafslag '{duneLocation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
                                                  StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[3]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' beëindigd om: ", msgs[3]);
                                              });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(duneLocation.Output);
@@ -497,7 +533,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                       }, 1, norm));
             mocks.ReplayAll();
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = 0,
+                                                    Offset = 0,
+                                                    Orientation = 0,
+                                                    D50 = 0.000007
+                                                });
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -532,11 +574,10 @@ namespace Ringtoets.DuneErosion.Service.Test
                                              {
                                                  var msgs = messages.ToArray();
                                                  Assert.AreEqual(4, msgs.Length);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", duneLocation.Name), msgs[0]);
-                                                 StringAssert.StartsWith(string.Format("De berekening voor duinafslag '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
-                                                                                       duneLocation.Name), msgs[1]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' gestart om: ", msgs[0]);
+                                                 StringAssert.StartsWith($"De berekening voor duinafslag '{duneLocation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                                                  StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[3]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' beëindigd om: ", msgs[3]);
                                              });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(duneLocation.Output);

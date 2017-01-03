@@ -68,7 +68,7 @@ namespace Ringtoets.DuneErosion.IO.Test
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.AreEqual(string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.", filePath), exception.Message);
+            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
 
@@ -83,7 +83,7 @@ namespace Ringtoets.DuneErosion.IO.Test
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.AreEqual(string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.", filePath), exception.Message);
+            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
             Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
         }
 
@@ -105,7 +105,7 @@ namespace Ringtoets.DuneErosion.IO.Test
                 {
                     // Assert
                     var exception = Assert.Throws<CriticalFileWriteException>(call);
-                    Assert.AreEqual(string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.", filePath), exception.Message);
+                    Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
                     Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
                 }
             }
@@ -121,11 +121,23 @@ namespace Ringtoets.DuneErosion.IO.Test
             // Setup
             DuneLocation[] duneLocations =
             {
-                new DuneLocation(1, string.Empty, new Point2D(0, 0), 9, 9740, 0, 1.9583e-4)
+                new DuneLocation(1, string.Empty, new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                 {
+                                     CoastalAreaId = 9,
+                                     Offset = 9740,
+                                     Orientation = 0,
+                                     D50 = 1.9583e-4
+                                 })
                 {
                     Output = new DuneLocationOutput(5.89, 8.54, 14.11, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged)
                 },
-                new DuneLocation(2, string.Empty, new Point2D(0, 0), 9, 9770.1, 0, 1.9561e-4)
+                new DuneLocation(2, string.Empty, new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                 {
+                                     CoastalAreaId = 9,
+                                     Offset = 9770.1,
+                                     Orientation = 0,
+                                     D50 = 1.9583e-4
+                                 })
                 {
                     Output = new DuneLocationOutput(5.89, 8.53, 14.09, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged)
                 }

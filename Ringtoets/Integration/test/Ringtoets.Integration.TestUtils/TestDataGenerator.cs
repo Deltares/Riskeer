@@ -286,15 +286,15 @@ namespace Ringtoets.Integration.TestUtils
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
+                                                            {
+                                                                Children =
+                                                                {
+                                                                    subCalculation,
+                                                                    subCalculationWithOutput,
+                                                                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                                                                    subCalculationWithHydraulicBoundaryLocation
+                                                                }
+                                                            });
 
             var section1 = new FailureMechanismSection("1",
                                                        new[]
@@ -481,15 +481,15 @@ namespace Ringtoets.Integration.TestUtils
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
+                                                            {
+                                                                Children =
+                                                                {
+                                                                    subCalculation,
+                                                                    subCalculationWithOutput,
+                                                                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                                                                    subCalculationWithHydraulicBoundaryLocation
+                                                                }
+                                                            });
         }
 
         private static void SetFullyConfiguredFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism,
@@ -586,15 +586,15 @@ namespace Ringtoets.Integration.TestUtils
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
+                                                                         {
+                                                                             Children =
+                                                                             {
+                                                                                 subCalculation,
+                                                                                 subCalculationWithOutput,
+                                                                                 subCalculationWithOutputAndHydraulicBoundaryLocation,
+                                                                                 subCalculationWithHydraulicBoundaryLocation
+                                                                             }
+                                                                         });
         }
 
         private static void SetFullyConfiguredFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
@@ -687,15 +687,15 @@ namespace Ringtoets.Integration.TestUtils
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
+                                                                         {
+                                                                             Children =
+                                                                             {
+                                                                                 subCalculation,
+                                                                                 subCalculationWithOutput,
+                                                                                 subCalculationWithOutputAndHydraulicBoundaryLocation,
+                                                                                 subCalculationWithHydraulicBoundaryLocation
+                                                                             }
+                                                                         });
         }
 
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
@@ -801,15 +801,15 @@ namespace Ringtoets.Integration.TestUtils
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutput,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocation
-                }
-            });
+                                                                         {
+                                                                             Children =
+                                                                             {
+                                                                                 subCalculation,
+                                                                                 subCalculationWithOutput,
+                                                                                 subCalculationWithOutputAndHydraulicBoundaryLocation,
+                                                                                 subCalculationWithHydraulicBoundaryLocation
+                                                                             }
+                                                                         });
         }
 
         private static void SetFullyConfiguredFailureMechanism(DuneErosionFailureMechanism failureMechanism,
@@ -818,19 +818,22 @@ namespace Ringtoets.Integration.TestUtils
             DuneLocation duneLocation = new DuneLocation(hydraulicBoundaryLocation.Id,
                                                          hydraulicBoundaryLocation.Name,
                                                          new Point2D(hydraulicBoundaryLocation.Location.X, hydraulicBoundaryLocation.Location.Y),
-                                                         7,
-                                                         20,
-                                                         180,
-                                                         0.00008)
+                                                         new DuneLocation.ConstructionProperties
+                                                         {
+                                                             CoastalAreaId = 7,
+                                                             Offset = 20,
+                                                             Orientation = 180,
+                                                             D50 = 0.00008
+                                                         })
             {
                 Output = new DuneLocationOutput(hydraulicBoundaryLocation.DesignWaterLevel + 0.2,
-                hydraulicBoundaryLocation.WaveHeight + 0.3,
-                10,
-                double.NaN,
-                double.NaN, 
-                double.NaN,
-                double.NaN,
-                CalculationConvergence.CalculatedConverged)
+                                                hydraulicBoundaryLocation.WaveHeight + 0.3,
+                                                10,
+                                                double.NaN,
+                                                double.NaN,
+                                                double.NaN,
+                                                double.NaN,
+                                                CalculationConvergence.CalculatedConverged)
             };
 
             failureMechanism.DuneLocations.Add(duneLocation);

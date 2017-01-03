@@ -258,8 +258,20 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 };
                 failureMechanism.DuneLocations.AddRange(new[]
                                                         {
-                                                            new DuneLocation(1300001, "A", new Point2D(0, 0), 3, 0, 0, 0.000007),
-                                                            new DuneLocation(1300002, "B", new Point2D(0, 0), 3, 0, 0, 0.000007)
+                                                            new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                                             {
+                                                                                 CoastalAreaId = 0,
+                                                                                 Offset = 0,
+                                                                                 Orientation = 0,
+                                                                                 D50 = 0.000007
+                                                                             }),
+                                                            new DuneLocation(1300002, "B", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                                             {
+                                                                                 CoastalAreaId = 0,
+                                                                                 Offset = 0,
+                                                                                 Orientation = 0,
+                                                                                 D50 = 0.000007
+                                                                             })
                                                         });
 
                 var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase

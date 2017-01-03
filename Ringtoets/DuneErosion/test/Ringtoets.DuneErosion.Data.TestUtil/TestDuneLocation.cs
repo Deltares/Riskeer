@@ -32,7 +32,13 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestDuneLocation"/>.
         /// </summary>
-        public TestDuneLocation() 
-            : base(0, string.Empty, new Point2D(0.0, 0.0), 0, 0, 0, 0) {}
+        public TestDuneLocation()
+            : base(0, string.Empty, new Point2D(0.0, 0.0), new ConstructionProperties
+                   {
+                       Offset = 0,
+                       Orientation = 0,
+                       CoastalAreaId = 0,
+                       D50 = 0
+                   }) {}
     }
 }

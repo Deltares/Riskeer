@@ -49,15 +49,15 @@ namespace Ringtoets.DuneErosion.Service
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             if (hydraulicBoundaryLocations == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryLocations");
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
             if (duneLocations == null)
             {
-                throw new ArgumentNullException("duneLocations");
+                throw new ArgumentNullException(nameof(duneLocations));
             }
 
             failureMechanism.DuneLocations.Clear();
@@ -76,10 +76,13 @@ namespace Ringtoets.DuneErosion.Service
                         failureMechanism.DuneLocations.Add(new DuneLocation(hydraulicBoundaryLocation.Id,
                                                                             duneLocation.Name,
                                                                             duneLocation.Location,
-                                                                            duneLocation.CoastalAreaId,
-                                                                            duneLocation.Offset,
-                                                                            duneLocation.Orientation,
-                                                                            duneLocation.D50));
+                                                                            new DuneLocation.ConstructionProperties
+                                                                            {
+                                                                                CoastalAreaId = duneLocation.CoastalAreaId,
+                                                                                Offset = duneLocation.Offset,
+                                                                                Orientation = duneLocation.Orientation,
+                                                                                D50 = duneLocation.D50
+                                                                            }));
                         break;
                     }
                 }
@@ -96,7 +99,7 @@ namespace Ringtoets.DuneErosion.Service
         {
             if (locations == null)
             {
-                throw new ArgumentNullException("locations");
+                throw new ArgumentNullException(nameof(locations));
             }
 
             return locations.SelectMany(ClearDuneLocationOutput)

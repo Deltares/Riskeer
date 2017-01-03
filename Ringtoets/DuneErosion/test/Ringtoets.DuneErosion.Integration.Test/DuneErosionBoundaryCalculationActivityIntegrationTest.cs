@@ -61,7 +61,13 @@ namespace Ringtoets.DuneErosion.Integration.Test
             {
                 Contribution = 10
             };
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = 3,
+                                                    Offset = 0,
+                                                    Orientation = 0,
+                                                    D50 = 0.000007
+                                                });
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
@@ -74,10 +80,10 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                              {
                                                  var msgs = messages.ToArray();
                                                  Assert.AreEqual(4, msgs.Length);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", duneLocation.Name), msgs[0]);
-                                                 Assert.AreEqual(string.Format("Duinafslag berekening voor locatie '{0}' is niet geconvergeerd.", duneLocation.Name), msgs[1]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' gestart om: ", msgs[0]);
+                                                 Assert.AreEqual($"Duinafslag berekening voor locatie '{duneLocation.Name}' is niet geconvergeerd.", msgs[1]);
                                                  StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[3]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' beëindigd om: ", msgs[3]);
                                              });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
@@ -98,7 +104,13 @@ namespace Ringtoets.DuneErosion.Integration.Test
             }
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = 3,
+                                                    Offset = 0,
+                                                    Orientation = 0,
+                                                    D50 = 0.000007
+                                                });
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
@@ -111,9 +123,9 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                              {
                                                  var msgs = messages.ToArray();
                                                  Assert.AreEqual(3, msgs.Length);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", duneLocation.Name), msgs[0]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' gestart om: ", msgs[0]);
                                                  Assert.AreEqual("De bijdrage van dit toetsspoor is nul. Daardoor kunnen de berekeningen niet worden uitgevoerd.", msgs[1]);
-                                                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", duneLocation.Name), msgs[2]);
+                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' beëindigd om: ", msgs[2]);
                                              });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
@@ -137,12 +149,18 @@ namespace Ringtoets.DuneErosion.Integration.Test
             }
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007);
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = 3,
+                                                    Offset = 0,
+                                                    Orientation = 0,
+                                                    D50 = 0.000007
+                                                });
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
-                TestDunesBoundaryConditionsCalculator calculator = 
+                TestDunesBoundaryConditionsCalculator calculator =
                     ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
                 calculator.EndInFailure = endInFailure;
                 calculator.LastErrorFileContent = lastErrorFileContent;
@@ -174,7 +192,13 @@ namespace Ringtoets.DuneErosion.Integration.Test
                 Contribution = 10
             };
             var initialOutput = new TestDuneLocationOutput();
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), 3, 0, 0, 0.000007)
+            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = 3,
+                                                    Offset = 0,
+                                                    Orientation = 0,
+                                                    D50 = 0.000007
+                                                })
             {
                 Output = initialOutput
             };

@@ -118,7 +118,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             var output = new DuneLocationOutput(waterLevel, waveHeight, wavePeriod, targetProbability, targetReliability,
                                                 calculatedProbability, calculatedReliability, convergence);
-            var location = new DuneLocation(id, name, new Point2D(x, y), coastalAreaId, offset, orientation, d50)
+            var location = new DuneLocation(id, name, new Point2D(x, y), new DuneLocation.ConstructionProperties
+                                            {
+                                                CoastalAreaId = coastalAreaId,
+                                                Offset = offset,
+                                                Orientation = orientation,
+                                                D50 = d50
+                                            })
             {
                 Output = output
             };
