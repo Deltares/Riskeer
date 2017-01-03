@@ -32,16 +32,32 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestDuneLocationOutput"/>.
         /// </summary>
-        public TestDuneLocationOutput()
+        public TestDuneLocationOutput() : this(0, 0, 0) {}
+
+        private TestDuneLocationOutput(double waterLevel, double wavePeriod, double waveHeight)
             : base(CalculationConvergence.CalculatedConverged, new ConstructionProperties
-                   {
-                       WaterLevel = 0,
-                       WavePeriod = 0,
-                       WaveHeight = 0,
-                       TargetProbability = 0,
-                       CalculatedReliability = 0,
-                       TargetReliability = 0,
-                       CalculatedProbability = 0
-                   }) {}
+            {
+                WaterLevel = waterLevel,
+                WavePeriod = wavePeriod,
+                WaveHeight = waveHeight,
+                TargetProbability = 0,
+                TargetReliability = 0,
+                CalculatedProbability = 0,
+                CalculatedReliability = 0
+            }) {}
+
+        /// <summary>
+        /// Creates a <see cref="TestDuneLocationOutput"/> with desired values 
+        /// that are relevant when exporting a <see cref="DuneLocationOutput"/>.
+        /// </summary>
+        /// <param name="waterLevel">The water level.</param>
+        /// <param name="wavePeriod">The wave period.</param>
+        /// <param name="waveHeight">The wave height.</param>
+        /// <returns>A <see cref="TestDuneLocation"/>
+        /// with values that are relevant for the export.</returns>
+        public static TestDuneLocationOutput CreateTestDuneLocationOutputForExport(double waterLevel, double wavePeriod, double waveHeight)
+        {
+            return new TestDuneLocationOutput(waterLevel, wavePeriod, waveHeight);
+        }
     }
 }

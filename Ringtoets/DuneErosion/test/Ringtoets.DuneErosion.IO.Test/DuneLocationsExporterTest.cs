@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.IO.Test
 {
@@ -156,43 +157,13 @@ namespace Ringtoets.DuneErosion.IO.Test
             // Setup
             DuneLocation[] duneLocations =
             {
-                new DuneLocation(1, string.Empty, new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                                 {
-                                     CoastalAreaId = 9,
-                                     Offset = 9740,
-                                     Orientation = 0,
-                                     D50 = 1.9583e-4
-                                 })
+                new TestDuneLocation
                 {
-                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
-                                                    {
-                                                        WaterLevel = 5.89,
-                                                        WaveHeight = 8.54,
-                                                        WavePeriod = 14.11,
-                                                        TargetProbability = 0,
-                                                        TargetReliability = 0,
-                                                        CalculatedProbability = 0,
-                                                        CalculatedReliability = 0
-                                                    })
+                    Output = null
                 },
-                new DuneLocation(2, string.Empty, new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                                 {
-                                     CoastalAreaId = 9,
-                                     Offset = 9770,
-                                     Orientation = 0,
-                                     D50 = 1.9583e-4
-                                 })
+                new TestDuneLocation
                 {
-                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
-                                                    {
-                                                        WaterLevel = 5.89,
-                                                        WaveHeight = 8.53,
-                                                        WavePeriod = 14.09,
-                                                        TargetProbability = 0,
-                                                        TargetReliability = 0,
-                                                        CalculatedProbability = 0,
-                                                        CalculatedReliability = 0
-                                                    })
+                    Output = new TestDuneLocationOutput()
                 }
             };
 
