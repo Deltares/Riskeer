@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -370,11 +371,11 @@ namespace Ringtoets.Integration.Service
             }
 
             var changedObservables = new List<IObservable>();
-            WaveConditionsInput[] calculationInputs = failureMechanism.Calculations
+            Tuple<ICalculation, WaveConditionsInput>[] calculationsWithInput = failureMechanism.Calculations
                                                                       .Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                                                      .Select(c => c.InputParameters)
+                                                                      .Select(c => Tuple.Create<ICalculation, WaveConditionsInput>(c, c.InputParameters))
                                                                       .ToArray();
-            changedObservables.AddRange(OnWaveConditionsInputForeshoreProfileRemoved(profile, calculationInputs));
+            changedObservables.AddRange(OnWaveConditionsInputForeshoreProfileRemoved(profile, calculationsWithInput));
 
             failureMechanism.ForeshoreProfiles.Remove(profile);
             changedObservables.Add(failureMechanism.ForeshoreProfiles);
@@ -404,11 +405,11 @@ namespace Ringtoets.Integration.Service
             }
 
             var changedObservables = new List<IObservable>();
-            WaveConditionsInput[] calculationInputs = failureMechanism.Calculations
+            Tuple<ICalculation, WaveConditionsInput>[] calculationsWithInput = failureMechanism.Calculations
                                                                       .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                                      .Select(c => c.InputParameters)
+                                                                      .Select(c => Tuple.Create<ICalculation, WaveConditionsInput>(c, c.InputParameters))
                                                                       .ToArray();
-            changedObservables.AddRange(OnWaveConditionsInputForeshoreProfileRemoved(profile, calculationInputs));
+            changedObservables.AddRange(OnWaveConditionsInputForeshoreProfileRemoved(profile, calculationsWithInput));
 
             failureMechanism.ForeshoreProfiles.Remove(profile);
             changedObservables.Add(failureMechanism.ForeshoreProfiles);
@@ -438,11 +439,11 @@ namespace Ringtoets.Integration.Service
             }
 
             var changedObservables = new List<IObservable>();
-            WaveConditionsInput[] calculationInputs = failureMechanism.Calculations
+            Tuple<ICalculation, WaveConditionsInput>[] calculationsWithInput = failureMechanism.Calculations
                                                                       .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                                      .Select(c => c.InputParameters)
+                                                                      .Select(c => Tuple.Create<ICalculation, WaveConditionsInput>(c, c.InputParameters))
                                                                       .ToArray();
-            changedObservables.AddRange(OnWaveConditionsInputForeshoreProfileRemoved(profile, calculationInputs));
+            changedObservables.AddRange(OnWaveConditionsInputForeshoreProfileRemoved(profile, calculationsWithInput));
 
             failureMechanism.ForeshoreProfiles.Remove(profile);
             changedObservables.Add(failureMechanism.ForeshoreProfiles);
@@ -570,13 +571,16 @@ namespace Ringtoets.Integration.Service
             }, removedObjects);
         }
 
-        private static IEnumerable<IObservable> OnWaveConditionsInputForeshoreProfileRemoved(ForeshoreProfile profile, WaveConditionsInput[] calculationInputs)
+        private static IEnumerable<IObservable> OnWaveConditionsInputForeshoreProfileRemoved(ForeshoreProfile profile, Tuple<ICalculation, WaveConditionsInput>[] calculationInputs)
         {
             var changedObservables = new List<IObservable>();
-            foreach (WaveConditionsInput input in calculationInputs.Where(input => ReferenceEquals(input.ForeshoreProfile, profile)))
+            foreach (Tuple<ICalculation, WaveConditionsInput> input in calculationInputs.Where(input => ReferenceEquals(input.Item2.ForeshoreProfile, profile)))
             {
-                input.ForeshoreProfile = null;
-                changedObservables.Add(input);
+                RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(input.Item1);
+                changedObservables.Add(input.Item1);
+
+                input.Item2.ForeshoreProfile = null;
+                changedObservables.Add(input.Item2);
             }
             return changedObservables;
         }

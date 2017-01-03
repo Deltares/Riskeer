@@ -838,10 +838,13 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            Assert.AreEqual(1 + calculations.Length, array.Length);
+            Assert.AreEqual(1 + calculations.Length * 2, array.Length);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
+
                 CollectionAssert.Contains(array, calculation.InputParameters);
             }
         }
@@ -902,10 +905,13 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            Assert.AreEqual(1 + calculations.Length, array.Length);
+            Assert.AreEqual(1 + calculations.Length * 2, array.Length);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
+
                 CollectionAssert.Contains(array, calculation.InputParameters);
             }
         }
@@ -966,10 +972,14 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            Assert.AreEqual(1 + calculations.Length, array.Length);
+            Assert.AreEqual(1 + calculations.Length * 2, array.Length);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
             {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
+                
+                Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
                 CollectionAssert.Contains(array, calculation.InputParameters);
             }
         }
@@ -1030,10 +1040,13 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            Assert.AreEqual(1 + calculations.Length, array.Length);
+            Assert.AreEqual(1 + calculations.Length * 2, array.Length);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculations)
             {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
+
                 CollectionAssert.Contains(array, calculation.InputParameters);
             }
         }
@@ -1094,10 +1107,13 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            Assert.AreEqual(1 + calculations.Length, array.Length);
+            Assert.AreEqual(1 + calculations.Length * 2, array.Length);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculations)
             {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
+
                 Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
                 CollectionAssert.Contains(array, calculation.InputParameters);
             }
@@ -1159,10 +1175,13 @@ namespace Ringtoets.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            Assert.AreEqual(1 + calculations.Length, array.Length);
+            Assert.AreEqual(1 + calculations.Length * 2, array.Length);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculations)
             {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
+
                 CollectionAssert.Contains(array, calculation.InputParameters);
             }
         }

@@ -197,8 +197,9 @@ namespace Ringtoets.Common.Service.Test
             Assert.IsNull(calculation2.InputParameters.ForeshoreProfile);
             Assert.IsNotNull(calculation1.InputParameters.ForeshoreProfile);
 
-            CollectionAssert.AreEqual(new[]
+            CollectionAssert.AreEqual(new IObservable[]
             {
+                calculation2,
                 calculation2.InputParameters
             }, affectedObjects);
         }
