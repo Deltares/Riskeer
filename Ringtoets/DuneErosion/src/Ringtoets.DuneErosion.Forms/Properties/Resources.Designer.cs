@@ -109,6 +109,24 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen..
+        /// </summary>
+        internal static string DuneLocation_D50_Description {
+            get {
+                return ResourceManager.GetString("DuneLocation_D50_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to d50 [m].
+        /// </summary>
+        internal static string DuneLocation_D50_DisplayName {
+            get {
+                return ResourceManager.GetString("DuneLocation_D50_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Metrering van de locatie binnen het kustvak waar het onderdeel van uitmaakt..
         /// </summary>
         internal static string DuneLocation_Offset_Description {

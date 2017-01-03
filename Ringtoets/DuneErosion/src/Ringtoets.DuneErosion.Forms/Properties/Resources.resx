@@ -126,6 +126,12 @@
   <data name="DuneLocation_Convergence_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de hydraulische randvoorwaardenlocatie berekening?</value>
   </data>
+  <data name="DuneLocation_D50_Description" xml:space="preserve">
+    <value>Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>
+  </data>
+  <data name="DuneLocation_D50_DisplayName" xml:space="preserve">
+    <value>d50 [m]</value>
+  </data>
   <data name="DuneLocation_Offset_Description" xml:space="preserve">
     <value>Metrering van de locatie binnen het kustvak waar het onderdeel van uitmaakt.</value>
   </data>

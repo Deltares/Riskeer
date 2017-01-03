@@ -137,6 +137,17 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "DuneLocation_D50_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "DuneLocation_D50_Description")]
+        public RoundedDouble D50
+        {
+            get
+            {
+                return data.D50;
+            }
+        }
+
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetProbability_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "CalculationOutput_TargetProbability_Description")]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
@@ -207,7 +218,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 
         public override string ToString()
         {
-             return string.Format("{0} {1}", Name, Location);
+            return string.Format("{0} {1}", Name, Location);
         }
     }
 }

@@ -43,14 +43,16 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         private const int requiredCoastalAreaIdPropertyIndex = 2;
         private const int requiredOffSetPropertyIndex = 3;
         private const int requiredLocationPropertyIndex = 4;
+        
         private const int requiredWaterLevelPropertyIndex = 5;
         private const int requiredWaveHeightPropertyIndex = 6;
         private const int requiredWavePeriodPropertyIndex = 7;
-        private const int requiredTargetProbabilityPropertyIndex = 8;
-        private const int requiredTargetReliabilityPropertyIndex = 9;
-        private const int requiredCalculatedProbabilityPropertyIndex = 10;
-        private const int requiredCalculatedReliabilityPropertyIndex = 11;
-        private const int requiredConvergencePropertyIndex = 12;
+        private const int requiredD50PropertyIndex = 8;
+        private const int requiredTargetProbabilityPropertyIndex = 9;
+        private const int requiredTargetReliabilityPropertyIndex = 10;
+        private const int requiredCalculatedProbabilityPropertyIndex = 11;
+        private const int requiredCalculatedReliabilityPropertyIndex = 12;
+        private const int requiredConvergencePropertyIndex = 13;
 
         [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
@@ -101,7 +103,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             const double x = 567.0;
             const double y = 890.0;
             const string name = "<some name>";
-            
+
             var random = new Random();
             int coastalAreaId = random.Next();
             CalculationConvergence convergence = random.NextEnumValue<CalculationConvergence>();
@@ -142,10 +144,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(location.Offset, properties.Offset, properties.Offset.GetAccuracy());
             var expectedLocation = new Point2D(x, y);
             Assert.AreEqual(expectedLocation, properties.Location);
-
+            
             Assert.AreEqual(waterLevel, properties.WaterLevel, properties.WaterLevel.GetAccuracy());
             Assert.AreEqual(waveHeight, properties.WaveHeight, properties.WaveHeight.GetAccuracy());
             Assert.AreEqual(wavePeriod, properties.WavePeriod, properties.WavePeriod.GetAccuracy());
+            Assert.AreEqual(d50, properties.D50, properties.D50.GetAccuracy());
 
             Assert.AreEqual(targetProbability, properties.TargetProbability);
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
@@ -170,9 +173,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            
+
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(13, dynamicProperties.Count);
+            Assert.AreEqual(14, dynamicProperties.Count);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptor idProperty = dynamicProperties[requiredIdPropertyIndex];
@@ -229,6 +232,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Resultaat",
                                                                             "Tp [s]",
                                                                             "Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.",
+                                                                            true);
+
+            PropertyDescriptor d50Property = dynamicProperties[requiredD50PropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(d50Property,
+                                                                            "Resultaat",
+                                                                            "d50 [m]",
+                                                                            "Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.",
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[requiredTargetProbabilityPropertyIndex];

@@ -21,7 +21,6 @@
 
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
@@ -73,10 +72,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(location.CoastalAreaId, duneLocationProperties.CoastalAreaId);
             Assert.AreEqual(location.Offset, duneLocationProperties.Offset);
             Assert.AreEqual(location.Location, duneLocationProperties.Location);
-
+            
             Assert.IsNaN(duneLocationProperties.WaterLevel);
             Assert.IsNaN(duneLocationProperties.WaveHeight);
             Assert.IsNaN(duneLocationProperties.WavePeriod);
+            Assert.AreEqual(location.D50, duneLocationProperties.D50);
 
             Assert.IsNaN(duneLocationProperties.TargetProbability);
             Assert.IsNaN(duneLocationProperties.TargetReliability);
