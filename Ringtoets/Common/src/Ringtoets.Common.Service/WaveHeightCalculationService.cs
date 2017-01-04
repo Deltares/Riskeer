@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
@@ -77,6 +79,20 @@ namespace Ringtoets.Common.Service
         /// <param name="ringId">The id of the assessment section.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when 
+        /// <list type="bullet">
+        /// <item><paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
+        /// <item>The target propability or the calculated propability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
+        /// </list></exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation,
@@ -85,6 +101,11 @@ namespace Ringtoets.Common.Service
                               double norm,
                               ICalculationMessageProvider messageProvider)
         {
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+            }
+
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             string calculationName = messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name);
 
@@ -142,13 +163,20 @@ namespace Ringtoets.Common.Service
         /// </summary>
         public void Cancel()
         {
-            if (calculator != null)
-            {
-                calculator.Cancel();
-                canceled = true;
-            }
+            calculator?.Cancel();
+            canceled = true;
         }
 
+        /// <summary>
+        /// Creates the output of the calculation.
+        /// </summary>
+        /// <param name="messageProvider">The object which is used to build log messages.</param>
+        /// <param name="hydraulicBoundaryLocationName">The name of the hydraulic boundary location.</param>
+        /// <param name="targetReliability">The target reliability for the calculation.</param>
+        /// <param name="targetProbability">The target probability for the calculation.</param>
+        /// <returns>A <see cref="HydraulicBoundaryLocationOutput"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
+        /// or the calculated propability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(ICalculationMessageProvider messageProvider,
                                                                                       string hydraulicBoundaryLocationName,
                                                                                       double targetReliability,
@@ -171,6 +199,23 @@ namespace Ringtoets.Common.Service
                                                        converged);
         }
 
+        /// <summary>
+        /// Creates the input for an wave height calculation.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to create the input from.</param>
+        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The filepath to the hydraulic boundary database.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// contains invalid characters.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
         private static WaveHeightCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                               double norm,
                                                               string hydraulicBoundaryDatabaseFilePath)

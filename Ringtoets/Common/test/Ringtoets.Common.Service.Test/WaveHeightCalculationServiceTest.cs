@@ -62,8 +62,8 @@ namespace Ringtoets.Common.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
+                StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[1]);
             });
             Assert.IsTrue(valid);
             mockRepository.VerifyAll();
@@ -90,9 +90,9 @@ namespace Ringtoets.Common.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(valid);
             mockRepository.VerifyAll();
@@ -119,12 +119,28 @@ namespace Ringtoets.Common.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(valid);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_HydraulicBoundaryLocationNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var calculationMessageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new WaveHeightCalculationService().Calculate(null, string.Empty, string.Empty, 1, calculationMessageProviderStub);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
         }
 
         [Test]
@@ -175,7 +191,7 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             var mockRepository = new MockRepository();
-            var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
+            var calculationMessageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "punt_flw_ 1", 0, 0);
@@ -193,7 +209,7 @@ namespace Ringtoets.Common.Service.Test
                                   validFilePath,
                                   "ringId",
                                   norm,
-                                  calculationMessageProviderMock);
+                                  calculationMessageProviderStub);
 
                 // Assert
                 Assert.IsTrue(testCalculator.IsCanceled);
@@ -250,10 +266,10 @@ namespace Ringtoets.Common.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[0]);
+                    StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith(calculationFailedMessage, msgs[1]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[3]);
+                    StringAssert.StartsWith($"Berekening van '{calculationName}' beëindigd om: ", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
@@ -309,10 +325,10 @@ namespace Ringtoets.Common.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[0]);
+                    StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith(calculationFailedMessage, msgs[1]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[3]);
+                    StringAssert.StartsWith($"Berekening van '{calculationName}' beëindigd om: ", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
@@ -371,10 +387,10 @@ namespace Ringtoets.Common.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[0]);
+                    StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith(calculationFailedMessage, msgs[1]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[3]);
+                    StringAssert.StartsWith($"Berekening van '{calculationName}' beëindigd om: ", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
