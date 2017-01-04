@@ -26,7 +26,9 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -116,7 +118,10 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                SetPropertyValueAfterConfirmation(() => data.WrappedData.GeneralInput.WaterVolumetricWeight = value);
+                propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data.WrappedData,
+                    value, 
+                    (f,v) => f.GeneralInput.WaterVolumetricWeight = v);
             }
         }
 
@@ -164,7 +169,10 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                SetPropertyValueAfterConfirmation(() => data.WrappedData.PipingProbabilityAssessmentInput.A = value);
+                propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data.WrappedData, 
+                    value, 
+                    (f, v) => f.PipingProbabilityAssessmentInput.A = v);
             }
         }
 
@@ -270,29 +278,5 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #endregion
 
-        private void SetPropertyValueAfterConfirmation(Action setPropertyAction)
-        {
-            if (propertyChangeHandler.RequiresConfirmation(data.WrappedData))
-            {
-                if (propertyChangeHandler.ConfirmPropertyChange())
-                {
-                    setPropertyAction();
-                    ClearOutputAndNotifyObservers();
-                }
-            }
-            else
-            {
-                setPropertyAction();
-            }
-        }
-
-        private void ClearOutputAndNotifyObservers()
-        {
-            foreach (IObservable changedObject in propertyChangeHandler.PropertyChanged(data.WrappedData))
-            {
-                changedObject.NotifyObservers();
-            }
-            data.WrappedData.NotifyObservers();
-        }
     }
 }
