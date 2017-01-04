@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Service.Properties;
@@ -63,6 +65,18 @@ namespace Ringtoets.ClosingStructures.Service
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> that holds the information about the contribution 
         /// and the general inputs used in the calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or <paramref name="assessmentSection"/>
+        /// or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// contains invalid characters.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
         /// <see cref="ClosingStructureInflowModelType"/>.</exception>
@@ -73,6 +87,18 @@ namespace Ringtoets.ClosingStructures.Service
                               ClosingStructuresFailureMechanism failureMechanism,
                               string hydraulicBoundaryDatabaseFilePath)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
             var calculationName = calculation.Name;
 
             FailureMechanismSection failureMechanismSection = StructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections,
@@ -148,11 +174,7 @@ namespace Ringtoets.ClosingStructures.Service
         /// </summary>
         public void Cancel()
         {
-            if (calculator != null)
-            {
-                calculator.Cancel();
-            }
-
+            calculator?.Cancel();
             canceled = true;
         }
 
@@ -163,8 +185,19 @@ namespace Ringtoets.ClosingStructures.Service
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> for which to validate the values.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>true</c> if <paramref name="calculation"/> has no validation errors; <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
+        /// <see cref="ClosingStructureInflowModelType"/>.</exception>
         public static bool Validate(StructuresCalculation<ClosingStructuresInput> calculation, IAssessmentSection assessmentSection)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
             var messages = ValidateInput(calculation.InputParameters, assessmentSection);
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
@@ -173,6 +206,27 @@ namespace Ringtoets.ClosingStructures.Service
             return !messages.Any();
         }
 
+        /// <summary>
+        /// Creates the input for the calculation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to create the input for.</param>
+        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> that holds the information about the contribution 
+        /// and the general inputs used in the calculation.</param>
+        /// <param name="failureMechanismSection">The section to use in the calcluation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The filepath to the hydraulic boundary database.</param>
+        /// <returns></returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
+        /// <see cref="ClosingStructureInflowModelType"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// contains invalid characters.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
         private static StructuresClosureCalculationInput CreateStructuresClosureCalculationInput(
             StructuresCalculation<ClosingStructuresInput> calculation,
             ClosingStructuresFailureMechanism failureMechanism,
@@ -183,29 +237,30 @@ namespace Ringtoets.ClosingStructures.Service
             switch (calculation.InputParameters.InflowModelType)
             {
                 case ClosingStructureInflowModelType.VerticalWall:
-                    input = CreateClosureVerticalWallCalculationInput(calculation, failureMechanismSection, failureMechanism.GeneralInput, hydraulicBoundaryDatabaseFilePath);
+                    input = CreateClosureVerticalWallCalculationInput(calculation, failureMechanismSection, failureMechanism.GeneralInput);
                     break;
                 case ClosingStructureInflowModelType.LowSill:
-                    input = CreateLowSillCalculationInput(calculation, failureMechanismSection, failureMechanism.GeneralInput, hydraulicBoundaryDatabaseFilePath);
+                    input = CreateLowSillCalculationInput(calculation, failureMechanismSection, failureMechanism.GeneralInput);
                     break;
                 case ClosingStructureInflowModelType.FloodedCulvert:
-                    input = CreateFloodedCulvertCalculationInput(calculation, failureMechanismSection, failureMechanism.GeneralInput, hydraulicBoundaryDatabaseFilePath);
+                    input = CreateFloodedCulvertCalculationInput(calculation, failureMechanismSection, failureMechanism.GeneralInput);
                     break;
                 default:
                     throw new InvalidEnumArgumentException("calculation",
                                                            (int) calculation.InputParameters.InflowModelType,
                                                            typeof(ClosingStructureInflowModelType));
             }
+
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath);
             return input;
         }
 
         private static StructuresClosureVerticalWallCalculationInput CreateClosureVerticalWallCalculationInput(
             StructuresCalculation<ClosingStructuresInput> calculation,
             FailureMechanismSection failureMechanismSection,
-            GeneralClosingStructuresInput generalInput,
-            string hydraulicBoundaryDatabaseFilePath)
+            GeneralClosingStructuresInput generalInput)
         {
-            var structuresClosureVerticalWallCalculationInput = new StructuresClosureVerticalWallCalculationInput(
+            return new StructuresClosureVerticalWallCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
                 HydraRingInputParser.ParseForeshore(calculation.InputParameters),
@@ -230,19 +285,14 @@ namespace Ringtoets.ClosingStructures.Service
                 calculation.InputParameters.LevelCrestStructureNotClosing.Mean, calculation.InputParameters.LevelCrestStructureNotClosing.StandardDeviation,
                 calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation,
                 calculation.InputParameters.DeviationWaveDirection);
-
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresClosureVerticalWallCalculationInput, hydraulicBoundaryDatabaseFilePath);
-
-            return structuresClosureVerticalWallCalculationInput;
         }
 
         private static StructuresClosureLowSillCalculationInput CreateLowSillCalculationInput(
             StructuresCalculation<ClosingStructuresInput> calculation,
             FailureMechanismSection failureMechanismSection,
-            GeneralClosingStructuresInput generalInput,
-            string hydraulicBoundaryDatabaseFilePath)
+            GeneralClosingStructuresInput generalInput)
         {
-            var structuresClosureLowSillCalculationInput = new StructuresClosureLowSillCalculationInput(
+            return new StructuresClosureLowSillCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
                 HydraRingInputParser.ParseForeshore(calculation.InputParameters),
@@ -266,19 +316,14 @@ namespace Ringtoets.ClosingStructures.Service
                 calculation.InputParameters.ThresholdHeightOpenWeir.Mean, calculation.InputParameters.ThresholdHeightOpenWeir.StandardDeviation,
                 calculation.InputParameters.InsideWaterLevel.Mean, calculation.InputParameters.InsideWaterLevel.StandardDeviation,
                 calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation);
-
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresClosureLowSillCalculationInput, hydraulicBoundaryDatabaseFilePath);
-
-            return structuresClosureLowSillCalculationInput;
         }
 
         private static StructuresClosureFloodedCulvertCalculationInput CreateFloodedCulvertCalculationInput(
             StructuresCalculation<ClosingStructuresInput> calculation,
             FailureMechanismSection failureMechanismSection,
-            GeneralClosingStructuresInput generalInput,
-            string hydraulicBoundaryDatabaseFilePath)
+            GeneralClosingStructuresInput generalInput)
         {
-            var structuresClosureFloodedCulvertCalculationInput = new StructuresClosureFloodedCulvertCalculationInput(
+            return new StructuresClosureFloodedCulvertCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
                 HydraRingInputParser.ParseForeshore(calculation.InputParameters),
@@ -300,10 +345,6 @@ namespace Ringtoets.ClosingStructures.Service
                 calculation.InputParameters.DrainCoefficient.Mean, calculation.InputParameters.DrainCoefficient.StandardDeviation,
                 calculation.InputParameters.AreaFlowApertures.Mean, calculation.InputParameters.AreaFlowApertures.StandardDeviation,
                 calculation.InputParameters.InsideWaterLevel.Mean, calculation.InputParameters.InsideWaterLevel.StandardDeviation);
-
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresClosureFloodedCulvertCalculationInput, hydraulicBoundaryDatabaseFilePath);
-
-            return structuresClosureFloodedCulvertCalculationInput;
         }
 
         private static string[] ValidateInput(ClosingStructuresInput inputParameters, IAssessmentSection assessmentSection)

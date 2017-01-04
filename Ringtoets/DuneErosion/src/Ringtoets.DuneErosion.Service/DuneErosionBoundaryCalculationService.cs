@@ -56,6 +56,8 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="ringId">The id of the assessment section.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> or <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item>The <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
@@ -78,6 +80,15 @@ namespace Ringtoets.DuneErosion.Service
                               double norm,
                               string hydraulicBoundaryDatabaseFilePath)
         {
+            if (duneLocation == null)
+            {
+                throw new ArgumentNullException(nameof(duneLocation));
+            }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(hlcdDirectory, ringId);
 

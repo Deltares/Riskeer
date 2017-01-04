@@ -46,6 +46,36 @@ namespace Ringtoets.DuneErosion.Service.Test
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
+        public void Calculate_DuneLocationNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new DuneErosionBoundaryCalculationService().Calculate(null,
+                                                                                            new DuneErosionFailureMechanism(),
+                                                                                            "1",
+                                                                                            1,
+                                                                                            validFilePath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("duneLocation", exception.ParamName);
+        }
+
+        [Test]
+        public void Calculate_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new DuneErosionBoundaryCalculationService().Calculate(new TestDuneLocation(), 
+                                                                                            null,
+                                                                                            "1",
+                                                                                            1,
+                                                                                            validFilePath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
         public void Calculate_WithZeroContributionForFailureMechanism_LogErrorAndThrowException()
         {
             // Setup
