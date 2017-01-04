@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.Data.TestUtil.Test
 {
@@ -40,30 +38,6 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
             Assert.AreEqual(0, output.WaterLevel.Value);
             Assert.AreEqual(0, output.WaveHeight.Value);
             Assert.AreEqual(0, output.WavePeriod.Value);
-            Assert.AreEqual(0, output.TargetReliability.Value);
-            Assert.AreEqual(0, output.TargetProbability);
-            Assert.AreEqual(0, output.CalculatedReliability.Value);
-            Assert.AreEqual(0, output.CalculatedProbability);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, output.CalculationConvergence);
-        }
-
-        [Test]
-        public void CreateTestDuneLocationOutputForExport_WithParameters_ReturnsWithCorrectValues()
-        {
-            // Setup
-            var random = new Random(21);
-            var waterLevel = random.NextDouble();
-            var wavePeriod = random.NextDouble();
-            var waveHeight = random.NextDouble();
-
-            // Call
-            TestDuneLocationOutput output = TestDuneLocationOutput.CreateDuneLocationOutputForExport(waterLevel, wavePeriod, waveHeight);
-
-            // Assert
-            Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
-            Assert.AreEqual(wavePeriod, output.WavePeriod, output.WavePeriod.GetAccuracy());
-            Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
-
             Assert.AreEqual(0, output.TargetReliability.Value);
             Assert.AreEqual(0, output.TargetProbability);
             Assert.AreEqual(0, output.CalculatedReliability.Value);

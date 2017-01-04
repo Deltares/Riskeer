@@ -32,29 +32,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestDuneLocation"/>.
         /// </summary>
-        public TestDuneLocation(): this(0, 0, 0) {}
-
-        private TestDuneLocation(int coastalAreaId, double offset, double d50)
-            : base(0, string.Empty, new Point2D(0.0, 0.0), new ConstructionProperties
-            {
-                CoastalAreaId = coastalAreaId,
-                Offset = offset,
-                D50 = d50,
-                Orientation = 0
-            }) {}
-
-        /// <summary>
-        /// Creates a <see cref="TestDuneLocation"/> with desired values 
-        /// that are relevant when exporting a <see cref="DuneLocation"/>.
-        /// </summary>
-        /// <param name="coastalAreaId">The coastal area id.</param>
-        /// <param name="offset">The offset.</param>
-        /// <param name="d50">The D50.</param>
-        /// <returns>A <see cref="TestDuneLocation"/> with values
-        /// that are relevant when exporting.</returns>
-        public static TestDuneLocation CreateDuneLocationForExport(int coastalAreaId, double offset, double d50)
-        {
-            return new TestDuneLocation(coastalAreaId, offset, d50);
-        }
+        public TestDuneLocation() : base(0, string.Empty, new Point2D(0.0, 0.0),
+                                         new ConstructionProperties()) {}
     }
 }

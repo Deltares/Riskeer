@@ -36,24 +36,7 @@ namespace Ringtoets.Revetment.TestUtil
 
         private TestWaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod,
                                          double waveAngle, double waveDirection) :
-                                             base(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection,
-                                                  0.1, 1.282, 0.4, 0.253, CalculationConvergence.CalculatedConverged) {}
-
-        /// <summary>
-        /// Creates a <see cref="TestWaveConditionsOutput"/> with desired values 
-        /// that are relevant for the export of a <see cref="WaveConditionsOutput"/>.
-        /// </summary>
-        /// <param name="waterLevel">The water level.</param>
-        /// <param name="waveHeight">The wave height.</param>
-        /// <param name="wavePeakPeriod">The wave peak period.</param>
-        /// <param name="waveAngle">The wave angle with respect to the dike normal.</param>
-        /// <param name="waveDirection">The wave direction with respect to North.</param>
-        /// <returns>A <see cref="TestWaveConditionsOutput"/> with desired values that are relevant 
-        /// when exporting.</returns>
-        public static TestWaveConditionsOutput CreateWaveConditionsOutputForExport(double waterLevel, double waveHeight,
-                                                                                   double wavePeakPeriod, double waveAngle, double waveDirection)
-        {
-            return new TestWaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection);
-        }
+            base(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection,
+                 0.1, 1.282, 0.4, 0.253, CalculationConvergence.CalculatedConverged) {}
     }
 }

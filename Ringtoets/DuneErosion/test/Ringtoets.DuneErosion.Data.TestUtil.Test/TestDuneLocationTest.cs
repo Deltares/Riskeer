@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.Data.TestUtil.Test
 {
@@ -44,31 +42,6 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
             Assert.AreEqual(0, testLocation.D50.Value);
 
             Assert.IsNull(testLocation.Output);
-        }
-
-        [Test]
-        public void CreateTestDuneLocationForExport_WithParameters_ReturnsWithExpectedValues()
-        {
-            // Setup 
-            var random = new Random(21);
-            int coastalAreaId = random.Next();
-            double offset = random.NextDouble();
-            double d50 = random.NextDouble();
-
-            // Call 
-            TestDuneLocation location = TestDuneLocation.CreateDuneLocationForExport(coastalAreaId, offset, d50);
-
-            // Assert
-            Assert.AreEqual(coastalAreaId, location.CoastalAreaId);
-            Assert.AreEqual(offset, location.Offset, location.Offset.GetAccuracy());
-            Assert.AreEqual(d50, location.D50, location.D50.GetAccuracy());
-
-            Assert.AreEqual(string.Empty, location.Name);
-            Assert.AreEqual(0, location.Location.X);
-            Assert.AreEqual(0, location.Location.Y);
-            Assert.AreEqual(0, location.Orientation.Value);
-
-            Assert.IsNull(location.Output);
         }
     }
 }

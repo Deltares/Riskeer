@@ -23,9 +23,11 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
+using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 
@@ -80,13 +82,13 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            var locationNoOutput = TestDuneLocation.CreateDuneLocationForExport(9, 9740, 1.9583e-4);
+            var locationNoOutput = CreateDuneLocationForExport(9, 9740, 1.9583e-4);
 
-            var locationUncalculatedOutput = TestDuneLocation.CreateDuneLocationForExport(10, 9770.1, 1.9583e-4);
-            locationUncalculatedOutput.Output = TestDuneLocationOutput.CreateDuneLocationOutputForExport(double.NaN, double.NaN, double.NaN);
+            var locationUncalculatedOutput = CreateDuneLocationForExport(10, 9770.1, 1.9583e-4);
+            locationUncalculatedOutput.Output = CreateDuneLocationOutputForExport(double.NaN, double.NaN, double.NaN);
 
-            var locationCalculatedOutput = TestDuneLocation.CreateDuneLocationForExport(11, 9771.34, 1.337e-4);
-            locationCalculatedOutput.Output = TestDuneLocationOutput.CreateDuneLocationOutputForExport(5.89, 14.11, 8.53);
+            var locationCalculatedOutput = CreateDuneLocationForExport(11, 9771.34, 1.337e-4);
+            locationCalculatedOutput.Output = CreateDuneLocationOutputForExport(5.89, 14.11, 8.53);
 
             DuneLocation[] duneLocations =
             {
@@ -112,7 +114,7 @@ namespace Ringtoets.DuneErosion.IO.Test
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
                 Assert.AreEqual("Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50\r\n" +
-                                 "9\t9740\t*\t*\t*\t*\t0.000196\r\n" +
+                                "9\t9740\t*\t*\t*\t*\t0.000196\r\n" +
                                 "10\t9770.1\t*\t*\t*\t*\t0.000196\r\n" +
                                 "11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134\r\n",
                                 fileContent);
@@ -165,6 +167,26 @@ namespace Ringtoets.DuneErosion.IO.Test
             {
                 Directory.Delete(directoryPath, true);
             }
+        }
+
+        private static DuneLocationOutput CreateDuneLocationOutputForExport(double waterLevel, double wavePeriod, double waveHeight)
+        {
+            return new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+            {
+                WaterLevel = waterLevel,
+                WavePeriod = wavePeriod,
+                WaveHeight = waveHeight
+            });
+        }
+
+        private static DuneLocation CreateDuneLocationForExport(int coastalAreaId, double offset, double d50)
+        {
+            return new DuneLocation(0, string.Empty, new Point2D(0.0, 0.0), new DuneLocation.ConstructionProperties
+            {
+                CoastalAreaId = coastalAreaId,
+                Offset = offset,
+                D50 = d50
+            });
         }
     }
 }

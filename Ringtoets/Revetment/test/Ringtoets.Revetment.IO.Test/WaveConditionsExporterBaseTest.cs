@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.Revetment.IO.Test
 {
@@ -120,7 +119,7 @@ namespace Ringtoets.Revetment.IO.Test
             // Setup
             ExportableWaveConditions[] exportableWaveConditions =
             {
-                new ExportableWaveConditions("blocksName", new WaveConditionsInput()
+                new ExportableWaveConditions("blocksName", new WaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                     {
@@ -131,8 +130,8 @@ namespace Ringtoets.Revetment.IO.Test
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 2.689,
                     UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247
-                }, TestWaveConditionsOutput.CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks),
-                new ExportableWaveConditions("columnsName", new WaveConditionsInput()
+                }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks),
+                new ExportableWaveConditions("columnsName", new WaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
                     {
@@ -143,7 +142,7 @@ namespace Ringtoets.Revetment.IO.Test
                     StepSize = WaveConditionsInputStepSize.Half,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                     UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
-                },TestWaveConditionsOutput.CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns)
+                }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns)
             };
 
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
@@ -173,6 +172,15 @@ namespace Ringtoets.Revetment.IO.Test
         private class TestWaveConditionsExporter : WaveConditionsExporterBase
         {
             public TestWaveConditionsExporter(IEnumerable<ExportableWaveConditions> exportableWaveConditionsCollection, string filePath) : base(exportableWaveConditionsCollection, filePath) {}
+        }
+
+        private static WaveConditionsOutput CreateWaveConditionsOutputForExport(double waterLevel, double waveHeight,
+                                                                                double wavePeakPeriod, double waveAngle,
+                                                                                double waveDirection)
+        {
+            return new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle,
+                                            waveDirection, double.NaN, double.NaN, double.NaN,
+                                            double.NaN, CalculationConvergence.CalculatedConverged);
         }
     }
 }
