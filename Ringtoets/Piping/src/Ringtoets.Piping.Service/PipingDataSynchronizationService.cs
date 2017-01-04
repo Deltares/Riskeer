@@ -162,12 +162,16 @@ namespace Ringtoets.Piping.Service
             }
 
             var changedObservables = new List<IObservable>();
-            foreach (PipingCalculation pipingCalculationScenario in failureMechanism.Calculations.Cast<PipingCalculation>())
+
+            IEnumerable<PipingCalculation> pipingCalculationScenarios =
+                failureMechanism.Calculations
+                                .Cast<PipingCalculation>()
+                                .Where(pcs => ReferenceEquals(pcs.InputParameters.SurfaceLine, surfaceLine));
+
+            foreach (PipingCalculation pipingCalculationScenario in pipingCalculationScenarios)
             {
-                if (ReferenceEquals(pipingCalculationScenario.InputParameters.SurfaceLine, surfaceLine))
-                {
-                    changedObservables.AddRange(ClearSurfaceLine(pipingCalculationScenario.InputParameters));
-                }
+                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
+                changedObservables.AddRange(ClearSurfaceLine(pipingCalculationScenario.InputParameters));
             }
 
             failureMechanism.SurfaceLines.Remove(surfaceLine);
@@ -198,12 +202,16 @@ namespace Ringtoets.Piping.Service
             }
 
             var changedObservables = new List<IObservable>();
-            foreach (PipingCalculation pipingCalculationScenario in failureMechanism.Calculations.Cast<PipingCalculation>())
+
+            IEnumerable<PipingCalculation> pipingCalculationScenarios =
+                failureMechanism.Calculations
+                                .Cast<PipingCalculation>()
+                                .Where(pcs => ReferenceEquals(pcs.InputParameters.StochasticSoilModel, soilModel));
+
+            foreach (PipingCalculation pipingCalculationScenario in pipingCalculationScenarios)
             {
-                if (ReferenceEquals(pipingCalculationScenario.InputParameters.StochasticSoilModel, soilModel))
-                {
-                    changedObservables.AddRange(ClearStochasticSoilModel(pipingCalculationScenario.InputParameters));
-                }
+                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
+                changedObservables.AddRange(ClearStochasticSoilModel(pipingCalculationScenario.InputParameters));
             }
 
             failureMechanism.StochasticSoilModels.Remove(soilModel);

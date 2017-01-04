@@ -245,12 +245,14 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
             RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines[0];
-            PipingCalculation[] calculations = failureMechanism.Calculations.Cast<PipingCalculation>()
+            PipingCalculation[] calculationsWithSurfaceLine = failureMechanism.Calculations.Cast<PipingCalculation>()
                                                                .Where(c => ReferenceEquals(c.InputParameters.SurfaceLine, surfaceLine))
+                                                               .ToArray();
+            PipingCalculation[] calculationsWithOutput = calculationsWithSurfaceLine.Where(c => c.HasOutput)
                                                                .ToArray();
 
             // Precondition
-            CollectionAssert.IsNotEmpty(calculations);
+            CollectionAssert.IsNotEmpty(calculationsWithSurfaceLine);
 
             // Call
             IEnumerable<IObservable> observables = PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
@@ -259,17 +261,24 @@ namespace Ringtoets.Piping.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.SurfaceLines, surfaceLine);
-            foreach (PipingCalculation calculation in calculations)
+            foreach (PipingCalculation calculation in calculationsWithSurfaceLine)
             {
                 Assert.IsNull(calculation.InputParameters.SurfaceLine);
             }
 
             IObservable[] array = observables.ToArray();
-            Assert.AreEqual(1 + calculations.Length, array.Length);
+            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSurfaceLine.Length;
+            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
+
             CollectionAssert.Contains(array, failureMechanism.SurfaceLines);
-            foreach (PipingCalculation calculation in calculations)
+            foreach (PipingCalculation calculation in calculationsWithSurfaceLine)
             {
                 CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+            foreach (PipingCalculation calculation in calculationsWithOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
             }
         }
 
@@ -309,12 +318,14 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
             StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[1];
-            PipingCalculation[] calculations = failureMechanism.Calculations.Cast<PipingCalculation>()
+            PipingCalculation[] calculationsWithSoilModel = failureMechanism.Calculations.Cast<PipingCalculation>()
                                                                .Where(c => ReferenceEquals(c.InputParameters.StochasticSoilModel, soilModel))
+                                                               .ToArray();
+            PipingCalculation[] calculationsWithOutput = calculationsWithSoilModel.Where(c => c.HasOutput)
                                                                .ToArray();
 
             // Precondition
-            CollectionAssert.IsNotEmpty(calculations);
+            CollectionAssert.IsNotEmpty(calculationsWithSoilModel);
 
             // Call
             IEnumerable<IObservable> observables = PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel);
@@ -323,18 +334,24 @@ namespace Ringtoets.Piping.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.StochasticSoilModels, soilModel);
-            foreach (PipingCalculation calculation in calculations)
+            foreach (PipingCalculation calculation in calculationsWithSoilModel)
             {
                 Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
             }
 
             IObservable[] array = observables.ToArray();
-            Assert.AreEqual(1 + calculations.Length, array.Length);
+            var expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSoilModel.Length;
+            Assert.AreEqual(expectedAffectedObjectCount, array.Length);
 
             CollectionAssert.Contains(array, failureMechanism.StochasticSoilModels);
-            foreach (PipingCalculation calculation in calculations)
+            foreach (PipingCalculation calculation in calculationsWithSoilModel)
             {
                 CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+            foreach (PipingCalculation calculation in calculationsWithOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+                CollectionAssert.Contains(array, calculation);
             }
         }
     }

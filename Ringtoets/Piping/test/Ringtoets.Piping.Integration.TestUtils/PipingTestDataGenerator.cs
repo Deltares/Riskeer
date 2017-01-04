@@ -120,6 +120,15 @@ namespace Ringtoets.Piping.Integration.TestUtils
                 Output = new TestPipingOutput(),
                 SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
+            var calculationWithSurfaceLineAndSoilModel = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    SurfaceLine = surfaceline1,
+                    StochasticSoilModel = stochasticSoilModel1
+                }
+            };
             var calculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
@@ -172,6 +181,7 @@ namespace Ringtoets.Piping.Integration.TestUtils
 
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithSurfaceLineAndSoilModel);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
