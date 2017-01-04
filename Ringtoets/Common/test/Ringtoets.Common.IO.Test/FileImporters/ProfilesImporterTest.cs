@@ -272,6 +272,24 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void Import_FromFileWithUnrelatedInvalidPrflFilesInSameFolder_TrueAndIgnoresUnrelatedFiles()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "OkTestDataWithUnrelatedPrfl", "Voorland 12-2.shp"));
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Call
+            var importResult = true;
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
         public void Import_FromFileWithEmptyEntryForX0_TrueAndLogError()
         {
             // Setup

@@ -32,6 +32,7 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.DikeProfiles;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.FileImporters
@@ -58,7 +59,7 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             if (referenceLine == null)
             {
-                throw new ArgumentNullException("referenceLine");
+                throw new ArgumentNullException(nameof(referenceLine));
             }
 
             this.referenceLine = referenceLine;
@@ -79,7 +80,8 @@ namespace Ringtoets.Common.IO.FileImporters
             }
 
             string folderPath = Path.GetDirectoryName(FilePath);
-            ReadResult<DikeProfileData> importDikeProfileDataResult = ReadDikeProfileData(folderPath);
+            IEnumerable<string> acceptedIds = importDikeProfilesResult.ImportedItems.Select(dp => dp.Id);
+            ReadResult<DikeProfileData> importDikeProfileDataResult = ReadDikeProfileData(folderPath, acceptedIds);
             if (importDikeProfileDataResult.CriticalErrorOccurred)
             {
                 return false;
@@ -235,7 +237,7 @@ namespace Ringtoets.Common.IO.FileImporters
             profileLocations.Add(profileLocation);
         }
 
-        private ReadResult<DikeProfileData> ReadDikeProfileData(string folderPath)
+        private ReadResult<DikeProfileData> ReadDikeProfileData(string folderPath, IEnumerable<string> acceptedIds)
         {
             NotifyProgress(Resources.ProfilesImporter_ReadDikeProfileData_reading_profile_data, 1, 1);
 
@@ -245,7 +247,7 @@ namespace Ringtoets.Common.IO.FileImporters
             int totalNumberOfSteps = prflFilePaths.Length;
 
             var dikeProfileData = new Collection<DikeProfileData>();
-            var dikeProfileDataReader = new DikeProfileDataReader();
+            var dikeProfileDataReader = new DikeProfileDataReader(acceptedIds);
             var errorOccured = false;
 
             for (int i = 0; i < totalNumberOfSteps; i++)
@@ -288,6 +290,10 @@ namespace Ringtoets.Common.IO.FileImporters
                 {
                     Log.Error(exception.Message);
                     errorOccured = true;
+                }
+                catch (CriticalFileValidationException)
+                {
+                    // Ignore file
                 }
             }
 

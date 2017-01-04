@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -29,6 +30,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
@@ -56,8 +58,24 @@ namespace Ringtoets.Common.IO.DikeProfiles
             MEMO = 512,
         }
 
+        private readonly IEnumerable<string> acceptedIds;
+
         private string fileBeingRead;
         private Keywords readKeywords;
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="DikeProfileDataReader"/>.
+        /// </summary>
+        /// <param name="acceptedIds">The accepted ids the file id must have to pass validation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="acceptedIds"/> is <c>null</c>.</exception>
+        public DikeProfileDataReader(IEnumerable<string> acceptedIds)
+        {
+            if (acceptedIds == null)
+            {
+                throw new ArgumentNullException(nameof(acceptedIds));
+            }
+            this.acceptedIds = acceptedIds;
+        }
 
         /// <summary>
         /// Reads a *.prfl file containing dike profile data.
@@ -77,6 +95,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// increasing X-coordinates.</item>
         /// <item>An unexpected piece of text has been encountered in the file.</item>
         /// </list></exception>
+        /// <exception cref="CriticalFileValidationException">Thrown when the read id is not an accepted id.</exception>
         public DikeProfileData ReadDikeProfileData(string filePath)
         {
             FileUtils.ValidateFilePath(filePath);
@@ -271,6 +290,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="lineNumber">The line number.</param>
         /// <exception cref="CriticalFileReadException">Thrown when <paramref name="id"/> is not
         /// present or has a whitespace.</exception>
+        /// <exception cref="CriticalFileValidationException">Thrown when <paramref name="id"/> is not an accepted id.</exception>
         private void ValidateId(string id, int lineNumber)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -285,6 +305,13 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 string message = string.Format(Resources.DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space,
                                                id);
                 throw CreateCriticalFileReadException(lineNumber, message);
+            }
+
+            if (!acceptedIds.Any(ai => ai.Equals(id)))
+            {
+                string message = string.Format(Resources.DikeProfileDataReader_ValidateId_Id_0_not_valid,
+                                               id);
+                throw new CriticalFileValidationException(message);
             }
         }
 
