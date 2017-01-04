@@ -16,6 +16,15 @@ namespace Ringtoets.Common.Forms
     /// </summary>
     public class FailureMechanismPropertyChangeHandler<T> : IFailureMechanismPropertyChangeHandler<T> where T : IFailureMechanism
     {
+        public bool RequiresConfirmation(T failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+            return failureMechanism.Calculations.Any(c => c.HasOutput);
+        }
+
         public bool ConfirmPropertyChange()
         {
             DialogResult result = MessageBox.Show(ConfirmationMessage,
@@ -28,7 +37,7 @@ namespace Ringtoets.Common.Forms
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
             var affected = new List<IObservable>();
             foreach (var calculation in failureMechanism.Calculations.Where(c => c.HasOutput))

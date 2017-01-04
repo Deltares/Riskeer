@@ -116,11 +116,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                if (propertyChangeHandler.ConfirmPropertyChange())
-                {
-                    data.WrappedData.GeneralInput.WaterVolumetricWeight = value;
-                    ClearOutputAndNotifyObservers();
-                }
+                SetPropertyValueAfterConfirmation(() => data.WrappedData.GeneralInput.WaterVolumetricWeight = value);
             }
         }
 
@@ -168,11 +164,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                if (propertyChangeHandler.ConfirmPropertyChange())
-                {
-                    data.WrappedData.PipingProbabilityAssessmentInput.A = value;
-                    ClearOutputAndNotifyObservers();
-                }
+                SetPropertyValueAfterConfirmation(() => data.WrappedData.PipingProbabilityAssessmentInput.A = value);
             }
         }
 
@@ -277,6 +269,22 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         #endregion
+
+        private void SetPropertyValueAfterConfirmation(Action setPropertyAction)
+        {
+            if (propertyChangeHandler.RequiresConfirmation(data.WrappedData))
+            {
+                if (propertyChangeHandler.ConfirmPropertyChange())
+                {
+                    setPropertyAction();
+                    ClearOutputAndNotifyObservers();
+                }
+            }
+            else
+            {
+                setPropertyAction();
+            }
+        }
 
         private void ClearOutputAndNotifyObservers()
         {
