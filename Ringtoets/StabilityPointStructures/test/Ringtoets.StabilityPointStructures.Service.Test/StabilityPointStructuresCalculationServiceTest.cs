@@ -50,6 +50,37 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
+        public void Validate_CalculationNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => StabilityPointStructuresCalculationService.Validate(null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_AssessmentSectionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculation = new TestStabilityPointStructuresCalculation();
+
+            // Call
+            TestDelegate test = () => StabilityPointStructuresCalculationService.Validate(calculation, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
         {
             // Setup
@@ -72,9 +103,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 var name = calculation.Name;
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -104,9 +135,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 var name = calculation.Name;
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -146,9 +177,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -193,9 +224,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -245,9 +276,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen geldige damhoogte ingevoerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -293,49 +324,49 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(43, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", volumicWeightWaterParameterName), msgs[1]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", stormDurationParameterName), msgs[2]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", stormDurationParameterName), msgs[3]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", insideWaterLevelParameterName), msgs[4]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", insideWaterLevelParameterName), msgs[5]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", insideWaterLevelFailureConstructionParameterName), msgs[6]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", insideWaterLevelFailureConstructionParameterName), msgs[7]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", flowVelocityStructureClosableParameterName), msgs[8]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowVelocityStructureClosableParameterName), msgs[9]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", modelFactorSuperCriticalFlowParameterName), msgs[10]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", modelFactorSuperCriticalFlowParameterName), msgs[11]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", factorStormDurationOpenStructureParameterName), msgs[12]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", structureNormalOrientationParameterName), msgs[13]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", widthFlowAperturesParameterName), msgs[14]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", widthFlowAperturesParameterName), msgs[15]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", flowWidthAtBottomProtectionParameterName), msgs[16]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowWidthAtBottomProtectionParameterName), msgs[17]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", storageStructureAreaParameterName), msgs[18]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", storageStructureAreaParameterName), msgs[19]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", allowedLevelIncreaseStorageParameterName), msgs[20]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", allowedLevelIncreaseStorageParameterName), msgs[21]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", levelCrestStructureParameterName), msgs[22]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", levelCrestStructureParameterName), msgs[23]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", thresholdHeightOpenWeirParameterName), msgs[24]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", thresholdHeightOpenWeirParameterName), msgs[25]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", criticalOvertoppingDischargeParameterName), msgs[26]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", criticalOvertoppingDischargeParameterName), msgs[27]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", constructiveStrengthLinearLoadModelParameterName), msgs[28]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", constructiveStrengthLinearLoadModelParameterName), msgs[29]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", bankWidthParameterName), msgs[30]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", bankWidthParameterName), msgs[31]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", evaluationLevelParameterName), msgs[32]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", verticalDistanceParameterName), msgs[33]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", failureCollisionEnergyParameterName), msgs[34]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", failureCollisionEnergyParameterName), msgs[35]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", shipMassParameterName), msgs[36]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", shipMassParameterName), msgs[37]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", shipVelocityParameterName), msgs[38]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", shipVelocityParameterName), msgs[39]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", stabilityLinearLoadModelParameterName), msgs[40]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", stabilityLinearLoadModelParameterName), msgs[41]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[42]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{volumicWeightWaterParameterName}'.", msgs[1]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDurationParameterName}' moet een positief getal zijn.", msgs[2]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stormDurationParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[3]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{insideWaterLevelParameterName}' moet een concreet getal zijn.", msgs[4]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{insideWaterLevelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[5]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{insideWaterLevelFailureConstructionParameterName}' moet een concreet getal zijn.", msgs[6]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{insideWaterLevelFailureConstructionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[7]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowVelocityStructureClosableParameterName}' moet een concreet getal zijn.", msgs[8]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{flowVelocityStructureClosableParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[9]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{modelFactorSuperCriticalFlowParameterName}' moet een concreet getal zijn.", msgs[10]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{modelFactorSuperCriticalFlowParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[11]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{factorStormDurationOpenStructureParameterName}'.", msgs[12]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{structureNormalOrientationParameterName}'.", msgs[13]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{widthFlowAperturesParameterName}' moet een concreet getal zijn.", msgs[14]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{widthFlowAperturesParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[15]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowWidthAtBottomProtectionParameterName}' moet een positief getal zijn.", msgs[16]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{flowWidthAtBottomProtectionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[17]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{storageStructureAreaParameterName}' moet een positief getal zijn.", msgs[18]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{storageStructureAreaParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[19]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{allowedLevelIncreaseStorageParameterName}' moet een positief getal zijn.", msgs[20]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{allowedLevelIncreaseStorageParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[21]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{levelCrestStructureParameterName}' moet een concreet getal zijn.", msgs[22]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{levelCrestStructureParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[23]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{thresholdHeightOpenWeirParameterName}' moet een concreet getal zijn.", msgs[24]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{thresholdHeightOpenWeirParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[25]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{criticalOvertoppingDischargeParameterName}' moet een positief getal zijn.", msgs[26]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{criticalOvertoppingDischargeParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[27]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{constructiveStrengthLinearLoadModelParameterName}' moet een positief getal zijn.", msgs[28]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{constructiveStrengthLinearLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[29]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{bankWidthParameterName}' moet een concreet getal zijn.", msgs[30]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{bankWidthParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[31]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{evaluationLevelParameterName}'.", msgs[32]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{verticalDistanceParameterName}'.", msgs[33]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{failureCollisionEnergyParameterName}' moet een positief getal zijn.", msgs[34]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{failureCollisionEnergyParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[35]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{shipMassParameterName}' moet een concreet getal zijn.", msgs[36]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{shipMassParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[37]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{shipVelocityParameterName}' moet een concreet getal zijn.", msgs[38]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{shipVelocityParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[39]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stabilityLinearLoadModelParameterName}' moet een positief getal zijn.", msgs[40]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stabilityLinearLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[41]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[42]);
             });
         }
 
@@ -378,49 +409,49 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(43, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", volumicWeightWaterParameterName), msgs[1]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", stormDurationParameterName), msgs[2]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", stormDurationParameterName), msgs[3]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", insideWaterLevelParameterName), msgs[4]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", insideWaterLevelParameterName), msgs[5]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", insideWaterLevelFailureConstructionParameterName), msgs[6]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", insideWaterLevelFailureConstructionParameterName), msgs[7]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", flowVelocityStructureClosableParameterName), msgs[8]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowVelocityStructureClosableParameterName), msgs[9]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", modelFactorSuperCriticalFlowParameterName), msgs[10]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", modelFactorSuperCriticalFlowParameterName), msgs[11]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", factorStormDurationOpenStructureParameterName), msgs[12]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", structureNormalOrientationParameterName), msgs[13]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", widthFlowAperturesParameterName), msgs[14]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", widthFlowAperturesParameterName), msgs[15]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", flowWidthAtBottomProtectionParameterName), msgs[16]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowWidthAtBottomProtectionParameterName), msgs[17]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", storageStructureAreaParameterName), msgs[18]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", storageStructureAreaParameterName), msgs[19]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", allowedLevelIncreaseStorageParameterName), msgs[20]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", allowedLevelIncreaseStorageParameterName), msgs[21]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", levelCrestStructureParameterName), msgs[22]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", levelCrestStructureParameterName), msgs[23]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", thresholdHeightOpenWeirParameterName), msgs[24]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", thresholdHeightOpenWeirParameterName), msgs[25]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", criticalOvertoppingDischargeParameterName), msgs[26]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", criticalOvertoppingDischargeParameterName), msgs[27]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", constructiveStrengthQuadraticLoadModelParameterName), msgs[28]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", constructiveStrengthQuadraticLoadModelParameterName), msgs[29]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", bankWidthParameterName), msgs[30]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", bankWidthParameterName), msgs[31]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", evaluationLevelParameterName), msgs[32]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", verticalDistanceParameterName), msgs[33]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", failureCollisionEnergyParameterName), msgs[34]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", failureCollisionEnergyParameterName), msgs[35]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", shipMassParameterName), msgs[36]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", shipMassParameterName), msgs[37]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", shipVelocityParameterName), msgs[38]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", shipVelocityParameterName), msgs[39]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", stabilityQuadraticLoadModelParameterName), msgs[40]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", stabilityQuadraticLoadModelParameterName), msgs[41]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[42]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{volumicWeightWaterParameterName}'.", msgs[1]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDurationParameterName}' moet een positief getal zijn.", msgs[2]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stormDurationParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[3]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{insideWaterLevelParameterName}' moet een concreet getal zijn.", msgs[4]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{insideWaterLevelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[5]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{insideWaterLevelFailureConstructionParameterName}' moet een concreet getal zijn.", msgs[6]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{insideWaterLevelFailureConstructionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[7]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowVelocityStructureClosableParameterName}' moet een concreet getal zijn.", msgs[8]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{flowVelocityStructureClosableParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[9]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{modelFactorSuperCriticalFlowParameterName}' moet een concreet getal zijn.", msgs[10]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{modelFactorSuperCriticalFlowParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[11]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{factorStormDurationOpenStructureParameterName}'.", msgs[12]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{structureNormalOrientationParameterName}'.", msgs[13]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{widthFlowAperturesParameterName}' moet een concreet getal zijn.", msgs[14]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{widthFlowAperturesParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[15]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowWidthAtBottomProtectionParameterName}' moet een positief getal zijn.", msgs[16]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{flowWidthAtBottomProtectionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[17]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{storageStructureAreaParameterName}' moet een positief getal zijn.", msgs[18]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{storageStructureAreaParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[19]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{allowedLevelIncreaseStorageParameterName}' moet een positief getal zijn.", msgs[20]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{allowedLevelIncreaseStorageParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[21]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{levelCrestStructureParameterName}' moet een concreet getal zijn.", msgs[22]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{levelCrestStructureParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[23]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{thresholdHeightOpenWeirParameterName}' moet een concreet getal zijn.", msgs[24]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{thresholdHeightOpenWeirParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[25]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{criticalOvertoppingDischargeParameterName}' moet een positief getal zijn.", msgs[26]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{criticalOvertoppingDischargeParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[27]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{constructiveStrengthQuadraticLoadModelParameterName}' moet een positief getal zijn.", msgs[28]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{constructiveStrengthQuadraticLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[29]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{bankWidthParameterName}' moet een concreet getal zijn.", msgs[30]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{bankWidthParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[31]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{evaluationLevelParameterName}'.", msgs[32]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{verticalDistanceParameterName}'.", msgs[33]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{failureCollisionEnergyParameterName}' moet een positief getal zijn.", msgs[34]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{failureCollisionEnergyParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[35]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{shipMassParameterName}' moet een concreet getal zijn.", msgs[36]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{shipMassParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[37]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{shipVelocityParameterName}' moet een concreet getal zijn.", msgs[38]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{shipVelocityParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[39]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stabilityQuadraticLoadModelParameterName}' moet een positief getal zijn.", msgs[40]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stabilityQuadraticLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[41]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[42]);
             });
         }
 
@@ -463,49 +494,49 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(43, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", volumicWeightWaterParameterName), msgs[1]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", stormDurationParameterName), msgs[2]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", stormDurationParameterName), msgs[3]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", insideWaterLevelParameterName), msgs[4]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", insideWaterLevelParameterName), msgs[5]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", insideWaterLevelFailureConstructionParameterName), msgs[6]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", insideWaterLevelFailureConstructionParameterName), msgs[7]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", flowVelocityStructureClosableParameterName), msgs[8]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowVelocityStructureClosableParameterName), msgs[9]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", drainCoefficientParameterName), msgs[10]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", drainCoefficientParameterName), msgs[11]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", factorStormDurationOpenStructureParameterName), msgs[12]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", structureNormalOrientationParameterName), msgs[13]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", areaFlowAperturesParameterName), msgs[14]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", areaFlowAperturesParameterName), msgs[15]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", flowWidthAtBottomProtectionParameterName), msgs[16]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowWidthAtBottomProtectionParameterName), msgs[17]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", storageStructureAreaParameterName), msgs[18]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", storageStructureAreaParameterName), msgs[19]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", allowedLevelIncreaseStorageParameterName), msgs[20]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", allowedLevelIncreaseStorageParameterName), msgs[21]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", levelCrestStructureParameterName), msgs[22]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", levelCrestStructureParameterName), msgs[23]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", thresholdHeightOpenWeirParameterName), msgs[24]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", thresholdHeightOpenWeirParameterName), msgs[25]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", criticalOvertoppingDischargeParameterName), msgs[26]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", criticalOvertoppingDischargeParameterName), msgs[27]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", constructiveStrengthLinearLoadModelParameterName), msgs[28]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", constructiveStrengthLinearLoadModelParameterName), msgs[29]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", bankWidthParameterName), msgs[30]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", bankWidthParameterName), msgs[31]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", evaluationLevelParameterName), msgs[32]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", verticalDistanceParameterName), msgs[33]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", failureCollisionEnergyParameterName), msgs[34]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", failureCollisionEnergyParameterName), msgs[35]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", shipMassParameterName), msgs[36]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", shipMassParameterName), msgs[37]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", shipVelocityParameterName), msgs[38]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", shipVelocityParameterName), msgs[39]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", stabilityLinearLoadModelParameterName), msgs[40]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", stabilityLinearLoadModelParameterName), msgs[41]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[42]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{volumicWeightWaterParameterName}'.", msgs[1]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDurationParameterName}' moet een positief getal zijn.", msgs[2]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stormDurationParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[3]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{insideWaterLevelParameterName}' moet een concreet getal zijn.", msgs[4]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{insideWaterLevelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[5]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{insideWaterLevelFailureConstructionParameterName}' moet een concreet getal zijn.", msgs[6]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{insideWaterLevelFailureConstructionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[7]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowVelocityStructureClosableParameterName}' moet een concreet getal zijn.", msgs[8]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{flowVelocityStructureClosableParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[9]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{drainCoefficientParameterName}' moet een concreet getal zijn.", msgs[10]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{drainCoefficientParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[11]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{factorStormDurationOpenStructureParameterName}'.", msgs[12]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{structureNormalOrientationParameterName}'.", msgs[13]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{areaFlowAperturesParameterName}' moet een positief getal zijn.", msgs[14]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{areaFlowAperturesParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[15]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowWidthAtBottomProtectionParameterName}' moet een positief getal zijn.", msgs[16]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{flowWidthAtBottomProtectionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[17]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{storageStructureAreaParameterName}' moet een positief getal zijn.", msgs[18]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{storageStructureAreaParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[19]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{allowedLevelIncreaseStorageParameterName}' moet een positief getal zijn.", msgs[20]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{allowedLevelIncreaseStorageParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[21]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{levelCrestStructureParameterName}' moet een concreet getal zijn.", msgs[22]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{levelCrestStructureParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[23]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{thresholdHeightOpenWeirParameterName}' moet een concreet getal zijn.", msgs[24]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{thresholdHeightOpenWeirParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[25]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{criticalOvertoppingDischargeParameterName}' moet een positief getal zijn.", msgs[26]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{criticalOvertoppingDischargeParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[27]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{constructiveStrengthLinearLoadModelParameterName}' moet een positief getal zijn.", msgs[28]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{constructiveStrengthLinearLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[29]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{bankWidthParameterName}' moet een concreet getal zijn.", msgs[30]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{bankWidthParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[31]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{evaluationLevelParameterName}'.", msgs[32]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{verticalDistanceParameterName}'.", msgs[33]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{failureCollisionEnergyParameterName}' moet een positief getal zijn.", msgs[34]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{failureCollisionEnergyParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[35]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{shipMassParameterName}' moet een concreet getal zijn.", msgs[36]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{shipMassParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[37]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{shipVelocityParameterName}' moet een concreet getal zijn.", msgs[38]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{shipVelocityParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[39]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stabilityLinearLoadModelParameterName}' moet een positief getal zijn.", msgs[40]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stabilityLinearLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[41]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[42]);
             });
         }
 
@@ -548,49 +579,49 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(43, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", volumicWeightWaterParameterName), msgs[1]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", stormDurationParameterName), msgs[2]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", stormDurationParameterName), msgs[3]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", insideWaterLevelParameterName), msgs[4]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", insideWaterLevelParameterName), msgs[5]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", insideWaterLevelFailureConstructionParameterName), msgs[6]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", insideWaterLevelFailureConstructionParameterName), msgs[7]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", flowVelocityStructureClosableParameterName), msgs[8]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowVelocityStructureClosableParameterName), msgs[9]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", drainCoefficientParameterName), msgs[10]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", drainCoefficientParameterName), msgs[11]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", factorStormDurationOpenStructureParameterName), msgs[12]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", structureNormalOrientationParameterName), msgs[13]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", areaFlowAperturesParameterName), msgs[14]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", areaFlowAperturesParameterName), msgs[15]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", flowWidthAtBottomProtectionParameterName), msgs[16]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", flowWidthAtBottomProtectionParameterName), msgs[17]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", storageStructureAreaParameterName), msgs[18]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", storageStructureAreaParameterName), msgs[19]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", allowedLevelIncreaseStorageParameterName), msgs[20]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", allowedLevelIncreaseStorageParameterName), msgs[21]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", levelCrestStructureParameterName), msgs[22]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", levelCrestStructureParameterName), msgs[23]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", thresholdHeightOpenWeirParameterName), msgs[24]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", thresholdHeightOpenWeirParameterName), msgs[25]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", criticalOvertoppingDischargeParameterName), msgs[26]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", criticalOvertoppingDischargeParameterName), msgs[27]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", constructiveStrengthQuadraticLoadModelParameterName), msgs[28]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", constructiveStrengthQuadraticLoadModelParameterName), msgs[29]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", bankWidthParameterName), msgs[30]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", bankWidthParameterName), msgs[31]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", evaluationLevelParameterName), msgs[32]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", verticalDistanceParameterName), msgs[33]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", failureCollisionEnergyParameterName), msgs[34]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", failureCollisionEnergyParameterName), msgs[35]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", shipMassParameterName), msgs[36]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", shipMassParameterName), msgs[37]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", shipVelocityParameterName), msgs[38]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", shipVelocityParameterName), msgs[39]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", stabilityQuadraticLoadModelParameterName), msgs[40]);
-                Assert.AreEqual(string.Format("Validatie mislukt: De variatiecoëfficiënt voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", stabilityQuadraticLoadModelParameterName), msgs[41]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[42]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{volumicWeightWaterParameterName}'.", msgs[1]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDurationParameterName}' moet een positief getal zijn.", msgs[2]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stormDurationParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[3]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{insideWaterLevelParameterName}' moet een concreet getal zijn.", msgs[4]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{insideWaterLevelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[5]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{insideWaterLevelFailureConstructionParameterName}' moet een concreet getal zijn.", msgs[6]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{insideWaterLevelFailureConstructionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[7]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowVelocityStructureClosableParameterName}' moet een concreet getal zijn.", msgs[8]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{flowVelocityStructureClosableParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[9]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{drainCoefficientParameterName}' moet een concreet getal zijn.", msgs[10]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{drainCoefficientParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[11]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{factorStormDurationOpenStructureParameterName}'.", msgs[12]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{structureNormalOrientationParameterName}'.", msgs[13]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{areaFlowAperturesParameterName}' moet een positief getal zijn.", msgs[14]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{areaFlowAperturesParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[15]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{flowWidthAtBottomProtectionParameterName}' moet een positief getal zijn.", msgs[16]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{flowWidthAtBottomProtectionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[17]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{storageStructureAreaParameterName}' moet een positief getal zijn.", msgs[18]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{storageStructureAreaParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[19]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{allowedLevelIncreaseStorageParameterName}' moet een positief getal zijn.", msgs[20]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{allowedLevelIncreaseStorageParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[21]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{levelCrestStructureParameterName}' moet een concreet getal zijn.", msgs[22]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{levelCrestStructureParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[23]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{thresholdHeightOpenWeirParameterName}' moet een concreet getal zijn.", msgs[24]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{thresholdHeightOpenWeirParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[25]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{criticalOvertoppingDischargeParameterName}' moet een positief getal zijn.", msgs[26]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{criticalOvertoppingDischargeParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[27]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{constructiveStrengthQuadraticLoadModelParameterName}' moet een positief getal zijn.", msgs[28]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{constructiveStrengthQuadraticLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[29]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{bankWidthParameterName}' moet een concreet getal zijn.", msgs[30]);
+                Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{bankWidthParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[31]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{evaluationLevelParameterName}'.", msgs[32]);
+                Assert.AreEqual($"Validatie mislukt: Er is geen concreet getal ingevoerd voor '{verticalDistanceParameterName}'.", msgs[33]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{failureCollisionEnergyParameterName}' moet een positief getal zijn.", msgs[34]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{failureCollisionEnergyParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[35]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{shipMassParameterName}' moet een concreet getal zijn.", msgs[36]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{shipMassParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[37]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{shipVelocityParameterName}' moet een concreet getal zijn.", msgs[38]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{shipVelocityParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[39]);
+                Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stabilityQuadraticLoadModelParameterName}' moet een positief getal zijn.", msgs[40]);
+                Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stabilityQuadraticLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[41]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[42]);
             });
         }
 
@@ -671,10 +702,72 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen belastingschematisering geselecteerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
+        }
+
+        [Test]
+        public void Calculate_CalculationNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            TestDelegate test = () => new StabilityPointStructuresCalculationService().Calculate(null,
+                                                                                         assessmentSection,
+                                                                                         failureMechanism,
+                                                                                         string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_AssessmentSectionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculation = new TestStabilityPointStructuresCalculation();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            TestDelegate test = () => new StabilityPointStructuresCalculationService().Calculate(calculation,
+                                                                                         null,
+                                                                                         failureMechanism,
+                                                                                         string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Calculate_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new TestStabilityPointStructuresCalculation();
+
+            // Call
+            TestDelegate test = () => new StabilityPointStructuresCalculationService().Calculate(calculation,
+                                                                                         assessmentSection,
+                                                                                         null,
+                                                                                         string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -1335,9 +1428,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[2]);
                 });
                 Assert.IsNotNull(calculation.Output);
             }
@@ -1442,10 +1535,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor kunstwerk puntconstructies '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -1505,10 +1598,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor kunstwerk puntconstructies '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
                     StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -1571,11 +1664,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
-                                                          calculation.Name), msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor kunstwerk puntconstructies '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
