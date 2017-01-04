@@ -32,6 +32,8 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
+using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
@@ -101,6 +103,11 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
 
             AddImportedDataToModel(importSurfaceLinesResult.ImportedItems, importCharacteristicPointsResult.ImportedItems);
+
+            if (Canceled)
+            {
+                Canceled = false; // Note: Adding imported data to the model cannot be canceled, so ignore any cancel request
+            }
 
             return true;
         }

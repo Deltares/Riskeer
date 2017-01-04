@@ -113,14 +113,12 @@ namespace Core.Common.Base.Test.IO
         }
 
         [Test]
-        public void DoPostImportUpdates_ImportCancelled_NotifyObservers()
+        public void DoPostImportUpdates_ImportCancelled_NoNotifyObserversCalled()
         {
             // Setup
             var mocks = new MockRepository();
             var observableInstance = mocks.StrictMock<IObservable>();
             var observableTarget = mocks.StrictMock<IObservable>();
-            observableInstance.Expect(o => o.NotifyObservers());
-            observableTarget.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
             var simpleImporter = new SimpleFileImporter<IObservable>(observableTarget)
@@ -136,7 +134,7 @@ namespace Core.Common.Base.Test.IO
             simpleImporter.DoPostImportUpdates();
 
             // Assert
-            mocks.VerifyAll(); // Assert NotifyObservers is called
+            mocks.VerifyAll(); // Assert no NotifyObservers were called
         }
 
         [Test]

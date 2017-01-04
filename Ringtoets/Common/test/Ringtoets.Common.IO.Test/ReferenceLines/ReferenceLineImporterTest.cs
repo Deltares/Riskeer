@@ -354,7 +354,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
-        public void DoPostImportUpdates_CancellingImport_NotifyObservers()
+        public void DoPostImportUpdates_CancellingImport_DoNotNotifyObservers()
         {
             // Setup
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
@@ -365,7 +365,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
             assessmentSection.Expect(section => section.Attach(contextObserver));
-            assessmentSection.Expect(section => section.NotifyObservers());
 
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
             handler.Expect(h => h.DoPostReplacementUpdates());
@@ -390,7 +389,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             importer.DoPostImportUpdates();
 
             // Assert
-            mocks.VerifyAll(); // Expect NotifyObservers call
+            mocks.VerifyAll(); // Expect no NotifyObserver calls
         }
 
         [Test]
