@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var points = new[]
             {
                 new Point2D(1.1, 2.2),
-                new Point2D(3.3, 4.4),
+                new Point2D(3.3, 4.4)
             };
 
             // Call
@@ -427,7 +427,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             CollectionAssert.IsEmpty(features);
         }
 
-
         [Test]
         public void CreateStructuresFeatures_WithStructures_ReturnsCollectionWithFeatures()
         {
@@ -735,14 +734,20 @@ namespace Ringtoets.Common.Forms.Test.Views
                 pointE,
                 pointF
             };
-            var dikeProfiles = new[]
+            var foreshoreProfiles = new[]
             {
-                new ForeshoreProfile(new Point2D(5, 4), pointsOne, null, new ForeshoreProfile.ConstructionProperties()),
-                new ForeshoreProfile(new Point2D(2, 1), pointsTwo, null, new ForeshoreProfile.ConstructionProperties())
+                new ForeshoreProfile(new Point2D(5, 4), pointsOne, null, new ForeshoreProfile.ConstructionProperties
+                {
+                    Name = "A"
+                }),
+                new ForeshoreProfile(new Point2D(2, 1), pointsTwo, null, new ForeshoreProfile.ConstructionProperties
+                {
+                    Name = "B"
+                })
             };
 
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(dikeProfiles);
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
 
             // Assert
             Assert.AreEqual(2, features.Length);
@@ -767,8 +772,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             const int expectedNumberOfMetaDataOptions = 1;
             Assert.AreEqual(expectedNumberOfMetaDataOptions, features[0].MetaData.Count);
             Assert.AreEqual(expectedNumberOfMetaDataOptions, features[1].MetaData.Count);
-            Assert.AreEqual(dikeProfiles[0].Name, features[0].MetaData["Naam"]);
-            Assert.AreEqual(dikeProfiles[1].Name, features[1].MetaData["Naam"]);
+            Assert.AreEqual(foreshoreProfiles[0].Name, features[0].MetaData["Naam"]);
+            Assert.AreEqual(foreshoreProfiles[1].Name, features[1].MetaData["Naam"]);
         }
 
         private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)

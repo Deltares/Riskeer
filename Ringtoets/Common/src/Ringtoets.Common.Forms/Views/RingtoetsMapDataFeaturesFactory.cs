@@ -213,16 +213,17 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (dikeProfiles != null)
             {
-                DikeProfile[] sourceDikeProfiles = dikeProfiles.ToArray();
-                var mapFeatures = new MapFeature[sourceDikeProfiles.Length];
-                for (int i = 0; i < sourceDikeProfiles.Length; i++)
-                {
-                    DikeProfile profile = sourceDikeProfiles[i];
+                int nrOfElements = dikeProfiles.Count();
+                var mapFeatures = new MapFeature[nrOfElements];
 
-                    MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(profile));
-                    feature.MetaData[Resources.MetaData_Name] = profile.Name;
+                int i = 0;
+                foreach (DikeProfile dikeProfile in dikeProfiles)
+                {
+                    MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(dikeProfile));
+                    feature.MetaData[Resources.MetaData_Name] = dikeProfile.Name;
 
                     mapFeatures[i] = feature;
+                    i++;
                 }
                 return mapFeatures;
             }
@@ -239,16 +240,17 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (foreshoreProfiles != null)
             {
-                ForeshoreProfile[] sourceForeshoreProfiles = foreshoreProfiles.ToArray();
-                var mapFeatures = new MapFeature[sourceForeshoreProfiles.Length];
-                for (int i = 0; i < sourceForeshoreProfiles.Length; i++)
-                {
-                    ForeshoreProfile profile = sourceForeshoreProfiles[i];
+                int nrOfElements = foreshoreProfiles.Count();
+                var mapFeatures = new MapFeature[nrOfElements];
 
-                    MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(profile));
-                    feature.MetaData[Resources.MetaData_Name] = profile.Name;
+                int i = 0;
+                foreach (ForeshoreProfile foreshoreProfile in foreshoreProfiles)
+                {
+                    MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(foreshoreProfile));
+                    feature.MetaData[Resources.MetaData_Name] = foreshoreProfile.Name;
 
                     mapFeatures[i] = feature;
+                    i++;
                 }
                 return mapFeatures;
             }
@@ -265,16 +267,17 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (structures != null)
             {
-                StructureBase[] sourceStructures = structures.ToArray();
-                var mapFeatures = new MapFeature[sourceStructures.Length];
-                for (int i = 0; i < sourceStructures.Length; i++)
-                {
-                    StructureBase structure = sourceStructures[i];
+                int nrOfElements = structures.Count();
+                var mapFeatures = new MapFeature[nrOfElements];
 
+                int i = 0;
+                foreach (StructureBase structure in structures)
+                {
                     MapFeature feature = CreateSinglePointMapFeature(structure.Location);
                     feature.MetaData[Resources.MetaData_Name] = structure.Name;
 
                     mapFeatures[i] = feature;
+                    i++;
                 }
                 return mapFeatures;
             }
