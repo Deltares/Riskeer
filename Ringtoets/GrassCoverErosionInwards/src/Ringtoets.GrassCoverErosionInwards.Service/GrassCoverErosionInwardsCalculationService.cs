@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -80,14 +82,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </summary>
         public void Cancel()
         {
-            if (overtoppingCalculator != null)
-            {
-                overtoppingCalculator.Cancel();
-            }
-            if (dikeHeightCalculator != null)
-            {
-                dikeHeightCalculator.Cancel();
-            }
+            overtoppingCalculator?.Cancel();
+            dikeHeightCalculator?.Cancel();
             canceled = true;
         }
 
@@ -102,6 +98,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <exception cref="ArgumentNullException">Thrown when one of the following parameter is <c>null</c>:
+        /// <list type="bullet">
+        /// <item><paramref name="calculation"/></item>
+        /// <item><paramref name="assessmentSection"/></item>
+        /// <item><paramref name="failureMechanismSection"/></item>
+        /// <item><paramref name="generalInput"/></item>
+        /// </list></exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
+        /// <item>The contribution of the failure mechanism is zero.</item>
+        /// <item>The target propability or the calculated propability of a dike height calculation falls outside 
+        /// the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
+        /// </list></exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         internal void Calculate(GrassCoverErosionInwardsCalculation calculation,
@@ -111,6 +129,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                 double failureMechanismContribution,
                                 string hydraulicBoundaryDatabaseFilePath)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+            if (failureMechanismSection == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSection));
+            }
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             var calculateDikeHeight = calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation;
             var totalSteps = calculateDikeHeight ? 2 : 1;
@@ -175,6 +209,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
+        /// <summary>
+        /// Create the output of a dike height calculation.
+        /// </summary>
+        /// <param name="calculationName">The name of the calculation.</param>
+        /// <param name="targetReliability">The target reliability for the calculation.</param>
+        /// <param name="targetProbability">The target probability for the calculation.</param>
+        /// <returns>A <see cref="DikeHeightAssessmentOutput"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
+        /// or the calculated propability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         private DikeHeightAssessmentOutput CreateDikeHeightAssessmentOutput(string calculationName,
                                                                             double targetReliability,
                                                                             double targetProbability)
@@ -209,10 +252,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private void NotifyProgress(string stepName, int currentStepNumber, int totalStepNumber)
         {
-            if (OnProgress != null)
-            {
-                OnProgress(stepName, currentStepNumber, totalStepNumber);
-            }
+            OnProgress?.Invoke(stepName, currentStepNumber, totalStepNumber);
         }
 
         private void CalculateOvertopping(OvertoppingCalculationInput overtoppingCalculationInput, string calculationName)
@@ -304,6 +344,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             return dikeHeightCalculated;
         }
 
+        /// <summary>
+        /// Creates the input for an overtopping calculation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
+        /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
+        /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
+        /// <returns>An <see cref="OvertoppingCalculationInput"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// contains invalid characters.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
         private static OvertoppingCalculationInput CreateOvertoppingInput(GrassCoverErosionInwardsCalculation calculation,
                                                                           FailureMechanismSection failureMechanismSection,
                                                                           GeneralGrassCoverErosionInwardsInput generalInput,
@@ -341,6 +399,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             return overtoppingCalculationInput;
         }
 
+        /// <summary>
+        /// Creates the input for a dike height calculation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
+        /// <param name="norm">The norm to use in the calculation.</param>
+        /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
+        /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
+        /// <returns>A <see cref="DikeHeightCalculationInput"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// contains invalid characters.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
         private static DikeHeightCalculationInput CreateDikeHeightInput(GrassCoverErosionInwardsCalculation calculation,
                                                                         double norm,
                                                                         FailureMechanismSection failureMechanismSection,

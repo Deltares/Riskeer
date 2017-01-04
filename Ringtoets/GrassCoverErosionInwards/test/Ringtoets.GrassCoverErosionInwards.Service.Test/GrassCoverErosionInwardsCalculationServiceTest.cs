@@ -78,9 +78,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -122,9 +122,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -166,9 +166,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -208,9 +208,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen dijkprofiel geselecteerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -246,9 +246,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen geldige damhoogte ingevoerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -292,9 +292,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'oriëntatie'.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -332,8 +332,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
             });
             Assert.IsTrue(isValid);
 
@@ -373,11 +373,106 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
             });
             Assert.IsTrue(isValid);
 
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CalculationNull_ThrowArgumentNullException()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
+            AddSectionToFailureMechanism(failureMechanism);
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(null,
+                                                                                                 assessmentSectionStub,
+                                                                                                 failureMechanism.Sections.First(),
+                                                                                                 failureMechanism.GeneralInput,
+                                                                                                 failureMechanism.Contribution,
+                                                                                                 string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_AssessmentSectionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
+            AddSectionToFailureMechanism(failureMechanism);
+
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                                                 null,
+                                                                                                 failureMechanism.Sections.First(),
+                                                                                                 failureMechanism.GeneralInput,
+                                                                                                 failureMechanism.Contribution,
+                                                                                                 string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+        [Test]
+        public void Calculate_FailureMechanismSectionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                                                 assessmentSectionStub,
+                                                                                                 null,
+                                                                                                 failureMechanism.GeneralInput,
+                                                                                                 failureMechanism.Contribution,
+                                                                                                 string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanismSection", exception.ParamName);
+            mockRepository.VerifyAll();
+        }
+        [Test]
+        public void Calculate_GeneralinputNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
+            AddSectionToFailureMechanism(failureMechanism);
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                                                 assessmentSectionStub,
+                                                                                                 failureMechanism.Sections.First(),
+                                                                                                 null,
+                                                                                                 failureMechanism.Contribution,
+                                                                                                 string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("generalInput", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
@@ -510,11 +605,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[2]);
+                StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt.", msgs[2]);
                 StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
             });
             Assert.IsFalse(expectedExceptionThrown);
             Assert.IsNotNull(calculation.Output);
@@ -704,10 +799,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[3]);
                 });
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(exceptionThrown);
@@ -774,10 +869,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -847,11 +942,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
-                                                          calculation.Name), msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
@@ -918,11 +1012,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[2]);
                     StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);
@@ -986,11 +1080,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[2]);
                     StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);
@@ -1055,11 +1149,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
                     StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[2]);
                     StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
                     Assert.AreEqual(5, msgs.Length);
                 });
                 Assert.IsNotNull(calculation.Output);
