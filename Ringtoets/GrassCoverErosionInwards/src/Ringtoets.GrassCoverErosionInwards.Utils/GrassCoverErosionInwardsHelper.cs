@@ -92,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
         public static IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> UpdateCalculationToSectionResultAssignments(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
-                                                                                                IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+                                                                                                                                     IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             ValidateSectionResults(sectionResults);
 
@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         {
             if (calculations == null)
             {
-                throw new ArgumentNullException("calculations");
+                throw new ArgumentNullException(nameof(calculations));
             }
             return calculations.Select(AsCalculationWithLocation).Where(c => c != null);
         }
@@ -125,11 +125,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         {
             if (sectionResults == null)
             {
-                throw new ArgumentNullException("sectionResults");
+                throw new ArgumentNullException(nameof(sectionResults));
             }
             if (sectionResults.Any(sr => sr == null))
             {
-                throw new ArgumentException("SectionResults contains an entry without value.", "sectionResults");
+                throw new ArgumentException("SectionResults contains an entry without value.", nameof(sectionResults));
             }
         }
 
@@ -143,7 +143,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
             if (calculation.InputParameters.DikeProfile == null)
             {

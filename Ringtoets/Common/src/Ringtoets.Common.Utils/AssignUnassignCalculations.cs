@@ -136,7 +136,7 @@ namespace Ringtoets.Common.Utils
                 }
                 if (calculationsPerSegmentName.ContainsKey(sectionName))
                 {
-                    var calculationsInCurrentSection = calculationsPerSegmentName[sectionName];
+                    IList<ICalculation> calculationsInCurrentSection = calculationsPerSegmentName[sectionName];
                     if (!calculationsInCurrentSection.Contains(sectionResult.Calculation))
                     {
                         sectionResult.Calculation = null;
@@ -178,11 +178,11 @@ namespace Ringtoets.Common.Utils
         {
             if (sections == null)
             {
-                throw new ArgumentNullException("sections");
+                throw new ArgumentNullException(nameof(sections));
             }
             if (sections.Any(s => s == null))
             {
-                throw new ArgumentException(@"Sections contains an entry without value.", "sections");
+                throw new ArgumentException(@"Sections contains an entry without value.", nameof(sections));
             }
         }
 
@@ -190,7 +190,7 @@ namespace Ringtoets.Common.Utils
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
         }
 
@@ -198,11 +198,11 @@ namespace Ringtoets.Common.Utils
         {
             if (calculations == null)
             {
-                throw new ArgumentNullException("calculations");
+                throw new ArgumentNullException(nameof(calculations));
             }
             if (calculations.Any(s => s == null))
             {
-                throw new ArgumentException(@"Calculations contains an entry without value.", "calculations");
+                throw new ArgumentException(@"Calculations contains an entry without value.", nameof(calculations));
             }
         }
 
@@ -210,11 +210,11 @@ namespace Ringtoets.Common.Utils
         {
             if (sectionResults == null)
             {
-                throw new ArgumentNullException("sectionResults");
+                throw new ArgumentNullException(nameof(sectionResults));
             }
             if (sectionResults.Any(s => s == null))
             {
-                throw new ArgumentException(@"SectionResults contains an entry without value.", "sectionResults");
+                throw new ArgumentException(@"SectionResults contains an entry without value.", nameof(sectionResults));
             }
         }
 

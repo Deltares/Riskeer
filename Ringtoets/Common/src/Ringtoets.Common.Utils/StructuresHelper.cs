@@ -49,7 +49,8 @@ namespace Ringtoets.Common.Utils
         /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is 
         /// <c>null</c>.</exception>
         public static Dictionary<string, IList<ICalculation>> CollectCalculationsPerSection<T>(IEnumerable<FailureMechanismSection> sections,
-                                                                                               IEnumerable<StructuresCalculation<T>> calculations) where T : IStructuresCalculationInput<StructureBase>, new()
+                                                                                               IEnumerable<StructuresCalculation<T>> calculations)
+            where T : IStructuresCalculationInput<StructureBase>, new()
         {
             return AssignUnassignCalculations.CollectCalculationsPerSection(sections, AsCalculationsWithLocations(calculations));
         }
@@ -65,7 +66,8 @@ namespace Ringtoets.Common.Utils
         /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is <c>null</c>.
         /// </exception>
         public static FailureMechanismSection FailureMechanismSectionForCalculation<T>(IEnumerable<FailureMechanismSection> sections,
-                                                                                       StructuresCalculation<T> calculation) where T : IStructuresCalculationInput<StructureBase>, new()
+                                                                                       StructuresCalculation<T> calculation)
+            where T : IStructuresCalculationInput<StructureBase>, new()
         {
             CalculationWithLocation calculationWithLocation = AsCalculationWithLocation(calculation);
             if (calculationWithLocation != null)
@@ -89,7 +91,8 @@ namespace Ringtoets.Common.Utils
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
         public static IEnumerable<StructuresFailureMechanismSectionResult<T>> UpdateCalculationToSectionResultAssignments<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
-                                                                                        IEnumerable<StructuresCalculation<T>> calculations) where T : IStructuresCalculationInput<StructureBase>, new()
+                                                                                                                             IEnumerable<StructuresCalculation<T>> calculations)
+            where T : IStructuresCalculationInput<StructureBase>, new()
         {
             ValidateSectionResults(sectionResults);
 
@@ -108,32 +111,35 @@ namespace Ringtoets.Common.Utils
         /// <returns>A collection of <see cref="CalculationWithLocation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c> or when
         /// an element in <paramref name="calculations"/> is <c>null</c>.</exception>
-        private static IEnumerable<CalculationWithLocation> AsCalculationsWithLocations<T>(IEnumerable<StructuresCalculation<T>> calculations) where T : IStructuresCalculationInput<StructureBase>, new()
+        private static IEnumerable<CalculationWithLocation> AsCalculationsWithLocations<T>(IEnumerable<StructuresCalculation<T>> calculations)
+            where T : IStructuresCalculationInput<StructureBase>, new()
         {
             if (calculations == null)
             {
-                throw new ArgumentNullException("calculations");
+                throw new ArgumentNullException(nameof(calculations));
             }
             return calculations.Select(AsCalculationWithLocation).Where(c => c != null);
         }
 
-        private static void ValidateSectionResults<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults) where T : IStructuresCalculationInput<StructureBase>, new()
+        private static void ValidateSectionResults<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults)
+            where T : IStructuresCalculationInput<StructureBase>, new()
         {
             if (sectionResults == null)
             {
-                throw new ArgumentNullException("sectionResults");
+                throw new ArgumentNullException(nameof(sectionResults));
             }
             if (sectionResults.Any(sr => sr == null))
             {
-                throw new ArgumentException(@"SectionResults contains an entry without value.", "sectionResults");
+                throw new ArgumentException(@"SectionResults contains an entry without value.", nameof(sectionResults));
             }
         }
 
-        private static CalculationWithLocation AsCalculationWithLocation<T>(StructuresCalculation<T> calculation) where T : IStructuresCalculationInput<StructureBase>, new()
+        private static CalculationWithLocation AsCalculationWithLocation<T>(StructuresCalculation<T> calculation)
+            where T : IStructuresCalculationInput<StructureBase>, new()
         {
             if (calculation == null)
             {
-                throw new ArgumentNullException("calculation");
+                throw new ArgumentNullException(nameof(calculation));
             }
             if (calculation.InputParameters.Structure == null)
             {
@@ -142,7 +148,8 @@ namespace Ringtoets.Common.Utils
             return new CalculationWithLocation(calculation, calculation.InputParameters.Structure.Location);
         }
 
-        private static SectionResultWithCalculationAssignment AsCalculationAssignment<T>(StructuresFailureMechanismSectionResult<T> failureMechanismSectionResult) where T : IStructuresCalculationInput<StructureBase>, new()
+        private static SectionResultWithCalculationAssignment AsCalculationAssignment<T>(StructuresFailureMechanismSectionResult<T> failureMechanismSectionResult)
+            where T : IStructuresCalculationInput<StructureBase>, new()
         {
             return new SectionResultWithCalculationAssignment(
                 failureMechanismSectionResult,

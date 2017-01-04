@@ -78,28 +78,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
 
             yield return new ViewInfo<
-                    GrassCoverErosionInwardsScenariosContext,
-                    CalculationGroup,
-                    GrassCoverErosionInwardsScenariosView>
-                {
-                    GetViewData = context => context.WrappedData,
-                    GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
-                    AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
-                    CloseForData = CloseScenariosViewForData,
-                    Image = RingtoetsCommonFormsResources.ScenariosIcon
-                };
+                GrassCoverErosionInwardsScenariosContext,
+                CalculationGroup,
+                GrassCoverErosionInwardsScenariosView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
+                CloseForData = CloseScenariosViewForData,
+                Image = RingtoetsCommonFormsResources.ScenariosIcon
+            };
 
             yield return new ViewInfo<
-                    FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>,
-                    IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
-                    GrassCoverErosionInwardsFailureMechanismResultView>
-                {
-                    GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                    Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                    CloseForData = CloseFailureMechanismResultViewForData,
-                    GetViewData = context => context.WrappedData,
-                    AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
-                };
+                FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>,
+                IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
+                GrassCoverErosionInwardsFailureMechanismResultView>
+            {
+                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseFailureMechanismResultViewForData,
+                GetViewData = context => context.WrappedData,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
 
             yield return new ViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInputView>
             {
@@ -192,11 +192,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
                 calculations.Select(calc =>
-                                        new GrassCoverErosionInwardsCalculationActivity(
-                                            calc,
-                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            failureMechanism,
-                                            assessmentSection)).ToArray());
+                                    new GrassCoverErosionInwardsCalculationActivity(
+                                        calc,
+                                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                        failureMechanism,
+                                        assessmentSection)).ToArray());
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, GrassCoverErosionInwardsFailureMechanism failureMechanism)
@@ -496,9 +496,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
 
             builder.AddValidateAllCalculationsInGroupItem(
-                       context,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
+                context,
+                ValidateAll,
+                ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
