@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -45,8 +46,14 @@ namespace Ringtoets.Piping.Service
         /// </summary>
         /// <param name="calculation">The <see cref="PipingCalculation"/> for which to validate the values.</param>
         /// <returns><c>False</c> if <paramref name="calculation"/> contains validation errors; <c>True</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public static bool Validate(PipingCalculation calculation)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
             CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters).ToArray());
 
@@ -73,9 +80,15 @@ namespace Ringtoets.Piping.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="PipingCalculation"/> to base the input for the calculation upon.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
         public static void Calculate(PipingCalculation calculation)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+
             CalculationServiceHelper.LogCalculationBeginTime(calculation.Name);
 
             try
@@ -367,7 +380,7 @@ namespace Ringtoets.Piping.Service
                     BeddingAngle = inputParameters.BeddingAngle,
                     ExitPointXCoordinate = inputParameters.ExitPointL,
                     SurfaceLine = inputParameters.SurfaceLine,
-                    SoilProfile = inputParameters.StochasticSoilProfile == null ? null : inputParameters.StochasticSoilProfile.SoilProfile
+                    SoilProfile = inputParameters.StochasticSoilProfile?.SoilProfile
                 });
         }
     }
