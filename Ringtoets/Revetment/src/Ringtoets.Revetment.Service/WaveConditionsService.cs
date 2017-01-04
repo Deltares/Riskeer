@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Utils;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
@@ -42,6 +43,8 @@ namespace Ringtoets.Revetment.Service
         /// <param name="norm">The target norm to calculate for.</param>
         /// <param name="calculatedReliability">The calculated reliability.</param>
         /// <returns>The calculated <see cref="WaveConditionsOutput"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability or 
+        /// calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         public static WaveConditionsOutput Calculate(double waterLevel, double waveHeight, double wavePeakPeriod,
                                                      double waveAngle, double waveDirection,
                                                      double norm, double calculatedReliability)

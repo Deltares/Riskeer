@@ -44,6 +44,23 @@ namespace Ringtoets.Revetment.Service.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [Test]
+        public void Validate_InputNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+
+            // Call
+            TestDelegate action = () => new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(null,
+                                                                                                                 "test",
+                                                                                                                 dbFilePath,
+                                                                                                                 string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(action);
+            Assert.AreEqual("waveConditionsInput", exception.ParamName);
+        }
+        
+        [Test]
         public void Validate_DesignWaterLevelNameNull_ThrowArgumentNullException()
         {
             // Setup 
@@ -82,9 +99,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand '': bestandspad mag niet leeg of ongedefinieerd zijn.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -99,16 +116,16 @@ namespace Ringtoets.Revetment.Service.Test
             var dbFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(null, name, dbFilePath, string.Empty);
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(), name, dbFilePath, string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                Assert.AreEqual(string.Format("Validatie mislukt: Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", dbFilePath), msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie mislukt: Fout bij het lezen van bestand '{dbFilePath}': het bestand bestaat niet.", msgs[1]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -123,16 +140,16 @@ namespace Ringtoets.Revetment.Service.Test
             var dbFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(null, name, dbFilePath, string.Empty);
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(), name, dbFilePath, string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -156,9 +173,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -186,16 +203,15 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                      designWaterLevelName);
 
             // Assert
-            string expectedMessage = string.Format("Validatie mislukt: Kan {0} niet afleiden op basis van de invoer",
-                                                   designWaterLevelName);
+            string expectedMessage = $"Validatie mislukt: Kan {designWaterLevelName} niet afleiden op basis van de invoer";
 
             TestHelper.AssertLogMessages(action, messages =>
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith(expectedMessage, msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -235,9 +251,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Kan geen waterstanden afleiden op basis van de invoer. Controleer de opgegeven boven- en ondergrenzen.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -270,9 +286,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen geldige damhoogte ingevoerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -305,8 +321,8 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
             });
 
             Assert.IsTrue(isValid);
@@ -353,8 +369,8 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
             });
 
             Assert.IsTrue(isValid);
@@ -383,12 +399,33 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'oriëntatie'.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Calculate_InputNull_ThrowArgumentNullException()
+        {
+            // Setup
+            RoundedDouble a = (RoundedDouble)1.0;
+            RoundedDouble b = (RoundedDouble)0.8;
+            RoundedDouble c = (RoundedDouble)0.4;
+            const double norm = 0.2;
+
+            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+            string ringId = "11-1";
+            string calculationName = "test";
+
+            // Call
+            TestDelegate test = () => new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, null, hcldFilePath, ringId, calculationName);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("waveConditionsInput", exception.ParamName);
         }
 
         [Test]
@@ -483,10 +520,10 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculationName, waterLevel), msgs[0]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculationName, waterLevel), msgs[1]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevel}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevel}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculationName, waterLevel), msgs[3]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevel}' beëindigd.", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
             }

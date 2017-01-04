@@ -26,6 +26,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
@@ -57,10 +58,7 @@ namespace Ringtoets.Revetment.Service
         /// </summary>
         public void Cancel()
         {
-            if (calculator != null)
-            {
-                calculator.Cancel();
-            }
+            calculator?.Cancel();
             Canceled = true;
         }
 
@@ -78,15 +76,20 @@ namespace Ringtoets.Revetment.Service
         /// <param name="hydraulicBoundaryDatabaseFilePath">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <param name="designWaterLevelName">The name of the design water level property.</param>
         /// <returns><c>True</c> if <paramref name="waveConditionsInput"/> has no validation errors; <c>False</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelName"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>
+        /// or <paramref name="designWaterLevelName"/> is <c>null</c>.</exception>
         protected static bool ValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,
                                                           string name,
                                                           string hydraulicBoundaryDatabaseFilePath,
                                                           string designWaterLevelName)
         {
+            if (waveConditionsInput == null)
+            {
+                throw new ArgumentNullException(nameof(waveConditionsInput));
+            }
             if (designWaterLevelName == null)
             {
-                throw new ArgumentNullException("designWaterLevelName");
+                throw new ArgumentNullException(nameof(designWaterLevelName));
             }
 
             CalculationServiceHelper.LogValidationBeginTime(name);
@@ -113,6 +116,19 @@ namespace Ringtoets.Revetment.Service
         /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
         /// <param name="hrdFilePath">The filepath of the hydraulic boundary database.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hrdFilePath"/> 
+        /// contains invalid characters.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hrdFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability or 
+        /// calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         protected IEnumerable<WaveConditionsOutput> CalculateWaveConditions(string calculationName,
@@ -124,6 +140,11 @@ namespace Ringtoets.Revetment.Service
                                                                             string ringId,
                                                                             string hrdFilePath)
         {
+            if (waveConditionsInput == null)
+            {
+                throw new ArgumentNullException(nameof(waveConditionsInput));
+            }
+
             var outputs = new List<WaveConditionsOutput>();
 
             var waterLevels = waveConditionsInput.WaterLevels.ToArray();
@@ -187,11 +208,8 @@ namespace Ringtoets.Revetment.Service
 
         private void NotifyProgress(RoundedDouble waterLevel, int currentStepNumber, int totalStepsNumber)
         {
-            if (OnProgress != null)
-            {
-                var message = string.Format(Resources.WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_, waterLevel);
-                OnProgress(message, currentStepNumber, totalStepsNumber);
-            }
+            var message = string.Format(Resources.WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_, waterLevel);
+            OnProgress?.Invoke(message, currentStepNumber, totalStepsNumber);
         }
 
         /// <summary>
@@ -207,6 +225,18 @@ namespace Ringtoets.Revetment.Service
         /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
         /// <param name="name">The name used for logging.</param>
         /// <returns>A <see cref="WaveConditionsOutput"/> if the calculation was successful; or <c>null</c> if it was canceled.</returns>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// contains invalid characters.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability or 
+        /// calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         private WaveConditionsOutput CalculateWaterLevel(RoundedDouble waterLevel,
@@ -285,6 +315,27 @@ namespace Ringtoets.Revetment.Service
             }
         }
 
+        /// <summary>
+        /// Creates the input for a calculation for the given <paramref name="waterLevel"/>.
+        /// </summary>
+        /// <param name="waterLevel">The level of the water.</param>
+        /// <param name="a">The 'a' factor decided on failure mechanism level.</param>
+        /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
+        /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
+        /// <param name="norm">The norm to use as the target.</param>
+        /// <param name="input">The input that is different per calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
+        /// <returns>A <see cref="WaveConditionsCalculationInput"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// contains invalid characters.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
         private static WaveConditionsCosineCalculationInput CreateInput(RoundedDouble waterLevel,
                                                                         RoundedDouble a,
                                                                         RoundedDouble b,

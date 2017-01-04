@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
@@ -47,8 +49,14 @@ namespace Ringtoets.StabilityStoneCover.Service
         /// <param name="calculation">The <see cref="StabilityStoneCoverWaveConditionsCalculation"/> for which to validate the values.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
         /// <returns><c>True</c> if there were no validation errors; <c>False</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public static bool Validate(StabilityStoneCoverWaveConditionsCalculation calculation, string hydraulicBoundaryDatabaseFilePath)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+
             return ValidateWaveConditionsInput(
                 calculation.InputParameters,
                 calculation.Name,
@@ -66,6 +74,19 @@ namespace Ringtoets.StabilityStoneCover.Service
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="generalWaveConditionsInput">Calculation input parameters that apply to all <see cref="StabilityStoneCoverWaveConditionsCalculation"/> instances.</param>
         /// <param name="hlcdFilePath">The path of the HLCD file that should be used for performing the calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="assessmentSection"/>
+        /// or <paramref name="generalWaveConditionsInput"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hlcdFilePath"/> contains invalid characters.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hlcdFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability or 
+        /// calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(StabilityStoneCoverWaveConditionsCalculation calculation,
@@ -73,6 +94,19 @@ namespace Ringtoets.StabilityStoneCover.Service
                               GeneralStabilityStoneCoverWaveConditionsInput generalWaveConditionsInput,
                               string hlcdFilePath)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+            if (generalWaveConditionsInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalWaveConditionsInput));
+            }
+
             string calculationName = calculation.Name;
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);

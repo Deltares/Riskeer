@@ -19,14 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
+using Core.Common.IO.Exceptions;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Service;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service
 {
@@ -42,8 +43,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// <param name="calculation">The <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> for which to validate the values.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
         /// <returns><c>True</c> if there were no validation errors; <c>False</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public static bool Validate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation, string hydraulicBoundaryDatabaseFilePath)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+
             return ValidateWaveConditionsInput(
                 calculation.InputParameters,
                 calculation.Name,
@@ -62,6 +69,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// <param name="failureMechanism">The grass cover erosion outwards failure mechanism, which contains general parameters that apply to all 
         /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> instances.</param>
         /// <param name="hlcdFilePath">The path of the HLCD file that should be used for performing the calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="failureMechanism"/>
+        /// or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="hlcdFilePath"/> contains invalid characters.</item>
+        /// <item><paramref name="failureMechanism"/> has no (0) contribution.</item>
+        /// </list></exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hlcdFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability or 
+        /// calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(
@@ -70,6 +94,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             IAssessmentSection assessmentSection,
             string hlcdFilePath)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             string calculationName = calculation.Name;
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
