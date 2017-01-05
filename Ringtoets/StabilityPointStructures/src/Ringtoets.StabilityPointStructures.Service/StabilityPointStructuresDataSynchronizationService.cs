@@ -143,6 +143,11 @@ namespace Ringtoets.StabilityPointStructures.Service
                 .ToArray();
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedStabilityPointStructure)
             {
+                foreach (var calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
+                {
+                    changedObservables.Add(calculationWithRemovedOutput);
+                }
+
                 calculation.InputParameters.Structure = null;
                 changedObservables.Add(calculation.InputParameters);
             }

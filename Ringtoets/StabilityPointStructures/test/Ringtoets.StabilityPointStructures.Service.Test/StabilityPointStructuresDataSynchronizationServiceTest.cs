@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
@@ -167,6 +168,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             StabilityPointStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
                                                                                                                   .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
                                                                                                                   .ToArray();
+            StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithOutput = calculationsWithStructure.Where(c => c.HasOutput)
+                                                                                                             .ToArray();
 
             int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
             StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
@@ -174,6 +177,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                      .ToArray();
 
             // Precondition
+            CollectionAssert.IsNotEmpty(calculationsWithOutput);
             CollectionAssert.IsNotEmpty(calculationsWithStructure);
             CollectionAssert.IsNotEmpty(sectionResultsWithStructure);
 
@@ -188,18 +192,26 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 Assert.IsNull(calculation.InputParameters.Structure);
             }
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationsWithOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+            }
             foreach (StabilityPointStructuresFailureMechanismSectionResult sectionResult in sectionResultsWithStructure)
             {
                 Assert.IsNull(sectionResult.Calculation);
             }
 
             IObservable[] array = affectedObjects.ToArray();
-            Assert.AreEqual(1 + calculationsWithStructure.Length + sectionResultsWithStructure.Length,
+            Assert.AreEqual(1 + calculationsWithOutput.Length + calculationsWithStructure.Length + sectionResultsWithStructure.Length,
                             array.Length);
             CollectionAssert.Contains(array, failureMechanism.StabilityPointStructures);
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationsWithStructure)
             {
                 CollectionAssert.Contains(array, calculation.InputParameters);
+            }
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationsWithOutput)
+            {
+                CollectionAssert.Contains(array, calculation);
             }
             foreach (StabilityPointStructuresFailureMechanismSectionResult result in sectionResultsWithStructure)
             {
@@ -230,7 +242,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 {
                     ForeshoreProfile = profile,
                     Structure = structure1
-                }
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
             StructuresCalculation<StabilityPointStructuresInput> calculation2 = new TestStabilityPointStructuresCalculation
             {
