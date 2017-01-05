@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
@@ -32,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -267,8 +266,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var observableMock = mocks.StrictMock<IObservable>();
 
-            var changeHandler = CreateStubChangeHandler(
-                mocks,
+            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, double>(
                 failureMechanism,
                 value,
                 new[]
@@ -290,7 +288,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
             Assert.AreEqual("De waarde moet in het bereik [0, 1] liggen.", exception.Message);
-            Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, properties.A);
+            Assert.IsTrue(changeHandler.Called);
             mocks.VerifyAll();
         }
 
@@ -309,8 +307,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var observableMock = mocks.StrictMock<IObservable>();
             observableMock.Expect(o => o.NotifyObservers());
 
-            var changeHandler = CreateStubChangeHandler(
-                mocks,
+            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, double>(
                 failureMechanism,
                 value,
                 new[]
@@ -331,6 +328,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
+            Assert.IsTrue(changeHandler.Called);
             mocks.VerifyAll();
         }
 
@@ -350,8 +348,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var observableMock = mocks.StrictMock<IObservable>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            var changeHandler = CreateStubChangeHandler(
-                mocks,
+            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, RoundedDouble>(
                 failureMechanism,
                 roundedValue,
                 new[]
@@ -360,7 +357,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 });
 
             mocks.ReplayAll();
-            
+
             var properties = new PipingFailureMechanismContextProperties(
                 new PipingFailureMechanismContext(failureMechanism, assessmentSection),
                 changeHandler);
@@ -370,6 +367,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde moet binnen het bereik [0, 20] liggen.");
+            Assert.IsTrue(changeHandler.Called);
             mocks.VerifyAll(); // Does not expect notify observers.
         }
 
@@ -381,7 +379,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var roundedValue = (RoundedDouble)value;
+            var roundedValue = (RoundedDouble) value;
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -389,8 +387,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var observableMock = mocks.StrictMock<IObservable>();
             observableMock.Expect(o => o.NotifyObservers());
 
-            var changeHandler = CreateStubChangeHandler(
-                mocks,
+            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, RoundedDouble>(
                 failureMechanism,
                 roundedValue,
                 new[]
@@ -409,29 +406,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.GeneralInput.WaterVolumetricWeight.Value, failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
+            Assert.IsTrue(changeHandler.Called);
             mocks.VerifyAll();
-        }
-        
-        private static IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> CreateStubChangeHandler<T>(
-            MockRepository mocks,
-            PipingFailureMechanism failureMechanism,
-            T value,
-            IEnumerable<IObservable> affectedObjects)
-        {
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
-            changeHandler.Expect(h => h.SetPropertyValueAfterConfirmation(
-                                     Arg<PipingFailureMechanism>.Is.Same(failureMechanism),
-                                     Arg<T>.Is.Equal(value),
-                                     Arg<SetFailureMechanismPropertyValueDelegate<PipingFailureMechanism, T>>.Is.NotNull))
-                         .WhenCalled(m =>
-                                     {
-                                         var action = (SetFailureMechanismPropertyValueDelegate<PipingFailureMechanism, T>) m.Arguments[2];
-                                         var fm = (PipingFailureMechanism) m.Arguments[0];
-                                         var v = (T) m.Arguments[1];
-                                         action(fm, v);
-                                     })
-                         .Return(affectedObjects);
-            return changeHandler;
         }
     }
 }
