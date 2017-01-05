@@ -15,99 +15,6 @@ namespace Ringtoets.Common.Forms.Test
     public class FailureMechanismPropertyChangeHandlerTest : NUnitFormTest
     {
         [Test]
-        public void ConfirmPropertyChange_Always_ShowMessageBox()
-        {
-            // Setup
-            string title = "";
-            string message = "";
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                title = tester.Title;
-                message = tester.Text;
-
-                tester.ClickOk();
-            };
-
-            var handler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
-
-            // Call
-            handler.ConfirmPropertyChange();
-
-            // Assert
-            Assert.AreEqual("Bevestigen", title);
-            string expectedMessage = "Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden." + Environment.NewLine +
-                                     Environment.NewLine +
-                                     "Weet u zeker dat u wilt doorgaan?";
-            Assert.AreEqual(expectedMessage, message);
-        }
-
-        [Test]
-        public void ConfirmPropertyChange_MessageBoxOk_ReturnTrue()
-        {
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickOk();
-            };
-
-            var handler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
-
-            // Call
-            bool result = handler.ConfirmPropertyChange();
-
-            // Assert
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        public void ConfirmPropertyChange_MessageBoxCancel_ReturnFalse()
-        {
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickCancel();
-            };
-
-            var handler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
-
-            // Call
-            bool result = handler.ConfirmPropertyChange();
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void PropertyChanged_WithoutFailureMechanism_ThrowsArgumentNullException()
-        {
-            // Setup
-            var handler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
-
-            // Call
-            TestDelegate test = () => handler.PropertyChanged(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
-        }
-
-        [Test]
-        [TestCaseSource("ChangePropertyTestCases")]
-        public void PropertyChanged_FailureMechanismWithDifferentCalculationCollections_ReturnsCalculationsWhichHadOutput(ChangePropertyTestCase testCase)
-        {
-            // Setup
-            var handler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
-            IFailureMechanism failureMechanism = new TestFailureMechanism(testCase.Calculations);
-
-            // Call
-            IEnumerable<IObservable> result = handler.PropertyChanged(failureMechanism);
-
-            // Assert
-            CollectionAssert.AreEquivalent(testCase.ExpectedAffectedCalculations, result);
-        }
-
-        [Test]
         public void SetPropertyValueAfterConfirmation_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Setup
@@ -163,11 +70,18 @@ namespace Ringtoets.Common.Forms.Test
         public void SetPropertyValueAfterConfirmation_IfConfirmationRequiredThenGiven_SetValueCalledAffectedObjectsReturned(ChangePropertyTestCase testCase)
         {
             // Setup
-            if (testCase.ExpectedAffectedCalculations.Any())
+            var dialogBoxWillBeShown = testCase.ExpectedAffectedCalculations.Any();
+
+            string title = "";
+            string message = "";
+            if (dialogBoxWillBeShown)
             {
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var tester = new MessageBoxTester(wnd);
+                    title = tester.Title;
+                    message = tester.Text;
+
                     tester.ClickOk();
                 };
             }
@@ -184,6 +98,14 @@ namespace Ringtoets.Common.Forms.Test
                 (f, v) => propertySet++);
 
             // Assert
+            if (dialogBoxWillBeShown)
+            {
+                Assert.AreEqual("Bevestigen", title);
+                string expectedMessage = "Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden." + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedMessage, message);
+            }
             Assert.AreEqual(1, propertySet);
             var expectedAffectedObjects = new List<IObservable>(testCase.ExpectedAffectedCalculations);
             expectedAffectedObjects.Add(testFailureMechanism);

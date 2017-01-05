@@ -16,58 +16,6 @@ namespace Ringtoets.Common.Forms
     /// </summary>
     public class FailureMechanismPropertyChangeHandler<T> : IFailureMechanismPropertyChangeHandler<T> where T : IFailureMechanism
     {
-        /// <summary>
-        /// Checks whether a call to <see cref="PropertyChanged"/> would have any effect in the given
-        /// <paramref name="failureMechanism"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to check for.</param>
-        /// <returns><c>true</c> if <see cref="PropertyChanged"/> would result in changes, 
-        /// <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// is <c>null</c>.</exception>
-        private bool RequiresConfirmation(T failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-            return failureMechanism.Calculations.Any(c => c.HasOutput);
-        }
-
-        public bool ConfirmPropertyChange()
-        {
-            DialogResult result = MessageBox.Show(ConfirmationMessage,
-                                                  CoreCommonBaseResources.Confirm,
-                                                  MessageBoxButtons.OKCancel);
-            return result == DialogResult.OK;
-        }
-
-        public virtual IEnumerable<IObservable> PropertyChanged(T failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-            var affected = new List<IObservable>();
-            foreach (var calculation in failureMechanism.Calculations.Where(c => c.HasOutput))
-            {
-                affected.Add(calculation);
-                calculation.ClearOutput();
-            }
-            return affected;
-        }
-
-        /// <summary>
-        /// Gets the message that is shown when conformation is inquired.
-        /// </summary>
-        protected virtual string ConfirmationMessage
-        {
-            get
-            {
-                return Resources.FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data;
-            }
-        }
-
         public IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TValue>(
             T failureMechanism,
             TValue value, SetFailureMechanismPropertyValueDelegate<T, TValue> setValue)
@@ -103,6 +51,70 @@ namespace Ringtoets.Common.Forms
             }
 
             return changedObjects;
+        }
+
+        /// <summary>
+        /// Gets the message that is shown when conformation is inquired.
+        /// </summary>
+        protected virtual string ConfirmationMessage
+        {
+            get
+            {
+                return Resources.FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data;
+            }
+        }
+
+        /// <summary>
+        /// Checks whether a call to <see cref="PropertyChanged"/> would have any effect in the given
+        /// <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to check for.</param>
+        /// <returns><c>true</c> if <see cref="PropertyChanged"/> would result in changes, 
+        /// <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        protected virtual bool RequiresConfirmation(T failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+            return failureMechanism.Calculations.Any(c => c.HasOutput);
+        }
+
+        /// <summary>
+        /// Propagates the necessary changes to underlying data structure when a property has 
+        /// been changed for a failure mechanism.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to be updated.</param>
+        /// <returns>All objects that have been affected by the change.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        protected virtual IEnumerable<IObservable> PropertyChanged(T failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+            var affected = new List<IObservable>();
+            foreach (var calculation in failureMechanism.Calculations.Where(c => c.HasOutput))
+            {
+                affected.Add(calculation);
+                calculation.ClearOutput();
+            }
+            return affected;
+        }
+
+        /// <summary>
+        /// Checks to see if the change of the failure mechanism property should occur or not.
+        /// </summary>
+        /// <returns><c>true</c> if the change should occur, <c>false</c> otherwise.</returns>
+        private bool ConfirmPropertyChange()
+        {
+            DialogResult result = MessageBox.Show(ConfirmationMessage,
+                                                  CoreCommonBaseResources.Confirm,
+                                                  MessageBoxButtons.OKCancel);
+            return result == DialogResult.OK;
         }
     }
 }

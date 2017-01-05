@@ -53,11 +53,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             if (data == null)
             {
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             }
             if (handler == null)
             {
-                throw new ArgumentNullException("handler");
+                throw new ArgumentNullException(nameof(handler));
             }
             Data = data;
             propertyChangeHandler = handler;

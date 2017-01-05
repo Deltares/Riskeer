@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
@@ -29,8 +28,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 {
@@ -42,11 +41,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler = CreateSimpleHandler(mocks);
+            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler = 
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ClosingStructuresFailureMechanismProperties(null, handler);
+            TestDelegate test = () => new ClosingStructuresFailureMechanismProperties(null, changeHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -72,7 +72,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             MockRepository mocks = new MockRepository();
-            IFailureMechanismPropertyChangeHandler<IFailureMechanism> changeHandler = CreateSimpleHandler(mocks);
+            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler =
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -113,7 +114,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var changeHandler = CreateSimpleHandler(mocks);
+            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> changeHandler =
+                mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
             mocks.ReplayAll();
 
             // Call
@@ -211,19 +213,21 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         public void N2A_InvalidValueWithConfirmation_UpdateDataAndNotifyObservers(int value)
         {
             // Setup
-
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
-            handler.Expect(h => h.ConfirmPropertyChange()).Return(true);
-
+            var observableMock = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.Attach(observerMock);
 
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, handler);
+            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<ClosingStructuresFailureMechanism, double>(
+                failureMechanism,
+                value,
+                new[]
+                {
+                    observableMock
+                });
+
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Call
             TestDelegate test = () => properties.N2A = value;
@@ -244,21 +248,19 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-
             var observableMock = mockRepository.StrictMock<IObservable>();
             observableMock.Expect(o => o.NotifyObservers());
-
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
-            handler.Expect(h => h.ConfirmPropertyChange()).Return(true);
-            handler.Expect(h => h.PropertyChanged(failureMechanism)).Return(new[] { observableMock });
-
             mockRepository.ReplayAll();
 
-            failureMechanism.Attach(observerMock);
+            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<ClosingStructuresFailureMechanism, double>(
+                failureMechanism,
+                value,
+                new[]
+                {
+                    observableMock
+                });
 
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, handler);
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Call
             properties.N2A = value;
@@ -266,50 +268,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(value, failureMechanism.GeneralInput.N2A);
             mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(-10)]
-        [TestCase(-1)]
-        [TestCase(41)]
-        [TestCase(141)]
-        [TestCase(0)]
-        [TestCase(5)]
-        [TestCase(21)]
-        [TestCase(40)]
-        public void N2A_SetValueWithoutConfirmation_NoValueChangeNoUpdates(int value)
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
-            handler.Expect(h => h.ConfirmPropertyChange()).Return(false);
-
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.Attach(observerMock);
-
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, handler);
-
-            var oldN2A = failureMechanism.GeneralInput.N2A;
-
-            // Call
-            properties.N2A = value;
-
-            // Assert
-            Assert.AreEqual(oldN2A, failureMechanism.GeneralInput.N2A);
-            mockRepository.VerifyAll();
-        }
-
-        private IFailureMechanismPropertyChangeHandler<IFailureMechanism> CreateSimpleHandler(MockRepository mockRepository)
-        {
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<IFailureMechanism>>();
-            handler.Stub(h => h.ConfirmPropertyChange()).Return(true);
-            handler.Stub(h => h.PropertyChanged(Arg<ClosingStructuresFailureMechanism>.Is.NotNull)).Return(Enumerable.Empty<IObservable>());
-
-            return handler;
         }
     }
 }

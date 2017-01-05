@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -52,7 +53,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         private const int modelFactorSubCriticalFlowPropertyIndex = 9;
         private const int modelFactorInflowVolumePropertyIndex = 10;
 
-        private readonly IFailureMechanismPropertyChangeHandler<IFailureMechanism> propertyChangeHandler;
+        private readonly IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismProperties"/>.
@@ -62,15 +63,15 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public ClosingStructuresFailureMechanismProperties(
             ClosingStructuresFailureMechanism data,
-            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler)
+            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> handler)
         {
             if (data == null)
             {
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             }
             if (handler == null)
             {
-                throw new ArgumentNullException("handler");
+                throw new ArgumentNullException(nameof(handler));
             }
             Data = data;
             propertyChangeHandler = handler;
@@ -102,11 +103,12 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                if (propertyChangeHandler.ConfirmPropertyChange())
-                {
-                    data.GeneralInput.N2A = value;
-                    ClearOutputAndNotifyObservers();
-                }
+                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data,
+                    value,
+                    (f, v) => f.GeneralInput.N2A = v);
+
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 
@@ -228,13 +230,12 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         #endregion
 
-        private void ClearOutputAndNotifyObservers()
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
-            foreach (IObservable changedObject in propertyChangeHandler.PropertyChanged(data))
+            foreach (var affectedObject in affectedObjects)
             {
-                changedObject.NotifyObservers();
+                affectedObject.NotifyObservers();
             }
-            data.NotifyObservers();
         }
     }
 }

@@ -7,7 +7,6 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
 
@@ -17,89 +16,77 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
     public class GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandlerTest : NUnitFormTest
     {
         [Test]
-        public void ConfirmPropertyChange_Always_ShowMessageBox()
+        public void SetPropertyValueAfterConfirmation_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Setup
-            string title = "";
-            string message = "";
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                title = tester.Title;
-                message = tester.Text;
-
-                tester.ClickOk();
-            };
-
-            var handler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
+            var changeHandler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
 
             // Call
-            handler.ConfirmPropertyChange();
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation<int>(
+                null,
+                3,
+                (f, v) => { });
 
             // Assert
-            Assert.AreEqual("Bevestigen", title);
-            string expectedMessage = "Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle randvoorwaarden locaties en berekeningen in dit toetsspoor verwijderd worden." + Environment.NewLine +
-                                     Environment.NewLine +
-                                     "Weet u zeker dat u wilt doorgaan?";
-            Assert.AreEqual(expectedMessage, message);
-        }
-
-        [Test]
-        public void ConfirmPropertyChange_MessageBoxOk_ReturnTrue()
-        {
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickOk();
-            };
-
-            var handler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
-
-            // Call
-            bool result = handler.ConfirmPropertyChange();
-
-            // Assert
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        public void ConfirmPropertyChange_MessageBoxCancel_ReturnFalse()
-        {
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickCancel();
-            };
-
-            var handler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
-
-            // Call
-            bool result = handler.ConfirmPropertyChange();
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void ChangeComposition_WithoutFailureMechanism_ThrowsArgumentNullException()
-        {
-            // Setup
-            var handler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
-
-            // Call
-            TestDelegate test = () => handler.PropertyChanged(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
         [Test]
-        [TestCaseSource("ChangePropertyTestCases")]
-        public void ChangeComposition_FailureMechanismWithDifferentCalculationCollections_ReturnsCalculationsWhichHadOutput(ChangePropertyTestCase testCase)
+        public void SetPropertyValueAfterConfirmation_WithoutValue_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
+            var changeHandler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
+
+            // Call
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation<int?>(
+                new GrassCoverErosionOutwardsFailureMechanism(), 
+                null,
+                (f, v) => { });
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("value", paramName);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_WithoutSetProperty_ThrowsArgumentNullException()
+        {
+            // Setup
+            var changeHandler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
+
+            // Call
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
+                new GrassCoverErosionOutwardsFailureMechanism(), 
+                3,
+                null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("setValue", paramName);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ChangePropertyTestCases))]
+        public void SetPropertyValueAfterConfirmation_IfConfirmationRequiredThenGiven_MessageDialogShownSetValueCalledAffectedObjectsReturned(ChangePropertyTestCase testCase)
+        {
+            // Setup
+            var dialogBoxWillBeShown = testCase.ExpectedAffectedCalculations.Any() || testCase.ExpectedAffectedLocations.Any();
+
+            string title = "";
+            string message = "";
+            if (dialogBoxWillBeShown)
+            {
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var tester = new MessageBoxTester(wnd);
+                    title = tester.Title;
+                    message = tester.Text;
+
+                    tester.ClickOk();
+                };
+            }
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             foreach (var calculation in testCase.Calculations)
             {
@@ -107,11 +94,62 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
             }
             failureMechanism.HydraulicBoundaryLocations.AddRange(testCase.Locations);
 
+            var propertySet = 0;
+
+            var changeHandler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
+
             // Call
-            IEnumerable<IObservable> result = handler.PropertyChanged(failureMechanism);
+            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+                failureMechanism,
+                3,
+                (f, v) => propertySet++);
 
             // Assert
-            CollectionAssert.AreEquivalent(testCase.ExpectedAffectedCalculations.Concat(testCase.ExpectedAffectedLocations), result);
+            if (dialogBoxWillBeShown)
+            {
+                Assert.AreEqual("Bevestigen", title);
+                string expectedMessage = "Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle randvoorwaarden locaties en berekeningen in dit toetsspoor verwijderd worden." + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedMessage, message);
+            }
+            Assert.AreEqual(1, propertySet);
+            var expectedAffectedObjects = new List<IObservable>(testCase.ExpectedAffectedLocations);
+            expectedAffectedObjects.AddRange(testCase.ExpectedAffectedCalculations);
+            expectedAffectedObjects.Add(failureMechanism);
+            CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_ConfirmationRequiredButNotGiven_SetValueNotCalledNoAffectedObjectsReturned()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickCancel();
+            };
+
+            var calculationWithOutput = CreateCalculationWithOutput();
+            var calculationWithoutOutput = CreateCalculationWithoutOutput();
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithoutOutput);
+
+            var propertySet = 0;
+
+            var changeHandler = new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler();
+
+            // Call
+            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
+                failureMechanism,
+                3,
+                (f, v) => propertySet++);
+
+            // Assert
+            Assert.AreEqual(0, propertySet);
+            CollectionAssert.IsEmpty(affectedObjects);
         }
 
         public class ChangePropertyTestCase

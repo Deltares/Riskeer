@@ -22,22 +22,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     public interface IFailureMechanismPropertyChangeHandler<T> where T : IFailureMechanism
     {
         /// <summary>
-        /// Checks to see if the change of the failure mechanism property should occur or not.
-        /// </summary>
-        /// <returns><c>true</c> if the change should occur, <c>false</c> otherwise.</returns>
-        bool ConfirmPropertyChange();
-
-        /// <summary>
-        /// Propagates the necessary changes to underlying data structure when a property has 
-        /// been changed for a failure mechanism.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to be updated.</param>
-        /// <returns>All objects that have been affected by the change.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// is <c>null</c>.</exception>
-        IEnumerable<IObservable> PropertyChanged(T failureMechanism);
-
-        /// <summary>
         /// Find out whether the property can be updated with or without confirmation. If confirmation is required, 
         /// the confirmation is obtained, after which the property is set if confirmation is given. If no confirmation
         /// was required, then the value will be set for the property.

@@ -20,16 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using log4net;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsRevetmentFormsResources = Ringtoets.Revetment.Forms.Properties.Resources;
 
@@ -40,29 +39,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismProperties : ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsFailureMechanismProperties));
-        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> changeHandler;
+        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsContextProperties"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
-        /// <param name="changeHandler">Handler responsible for handling effects of a property change.</param>
+        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsFailureMechanismProperties(
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-            IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> changeHandler)
+            IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> handler)
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
-            if (changeHandler == null)
+            if (handler == null)
             {
-                throw new ArgumentNullException("changeHandler");
+                throw new ArgumentNullException(nameof(handler));
             }
             Data = failureMechanism;
-            this.changeHandler = changeHandler;
+            propertyChangeHandler = handler;
         }
 
         #region Length effect parameters
@@ -79,11 +77,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
             set
             {
-                if (changeHandler.ConfirmPropertyChange())
-                {
-                    data.GeneralInput.N = value;
-                    ClearOutputAndNotifyObservers();
-                }
+                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data,
+                    value,
+                    (f, v) => f.GeneralInput.N = v);
+
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 
@@ -157,13 +156,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 
         #endregion
 
-        private void ClearOutputAndNotifyObservers()
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
-            foreach (var observable in changeHandler.PropertyChanged(data))
+            foreach (var affectedObject in affectedObjects)
             {
-                observable.NotifyObservers();
+                affectedObject.NotifyObservers();
             }
-            data.NotifyObservers();
         }
     }
 }

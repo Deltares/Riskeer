@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Forms;
-using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
@@ -16,6 +15,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler : FailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>
     {
+        protected override bool RequiresConfirmation(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            return base.RequiresConfirmation(failureMechanism) || 
+                failureMechanism.HydraulicBoundaryLocations.Any(c => c.WaveHeightOutput != null || c.DesignWaterLevelOutput != null);
+        }
+
         protected override string ConfirmationMessage
         {
             get
@@ -24,11 +29,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
             }
         }
 
-        public override IEnumerable<IObservable> PropertyChanged(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        protected override IEnumerable<IObservable> PropertyChanged(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism");
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             var affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(

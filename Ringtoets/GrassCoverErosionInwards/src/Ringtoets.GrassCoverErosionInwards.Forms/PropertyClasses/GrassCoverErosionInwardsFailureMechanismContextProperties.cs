@@ -28,6 +28,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -39,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismContextProperties : ObjectProperties<GrassCoverErosionInwardsFailureMechanismContext>
     {
-        private readonly IFailureMechanismPropertyChangeHandler<IFailureMechanism> propertyChangeHandler;
+        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> propertyChangeHandler;
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int lengthEffectPropertyIndex = 3;
@@ -56,15 +57,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismContextProperties(
             GrassCoverErosionInwardsFailureMechanismContext data, 
-            IFailureMechanismPropertyChangeHandler<IFailureMechanism> handler)
+            IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> handler)
         {
             if (data == null)
             {
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             }
             if (handler == null)
             {
-                throw new ArgumentNullException("handler");
+                throw new ArgumentNullException(nameof(handler));
             }
             Data = data;
             propertyChangeHandler = handler;
@@ -84,11 +85,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                if (propertyChangeHandler.ConfirmPropertyChange())
-                {
-                    data.WrappedData.GeneralInput.N = value;
-                    ClearOutputAndNotifyObservers();
-                }
+                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data.WrappedData,
+                    value,
+                    (f, v) => f.GeneralInput.N = v);
+
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 
@@ -190,14 +192,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         #endregion
 
-        private void ClearOutputAndNotifyObservers()
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
-            IEnumerable<IObservable> changedObjects = propertyChangeHandler.PropertyChanged(data.WrappedData);
-            foreach (IObservable changedObject in changedObjects)
+            foreach (var affectedObject in affectedObjects)
             {
-                changedObject.NotifyObservers();
+                affectedObject.NotifyObservers();
             }
-            data.WrappedData.NotifyObservers();
         }
     }
 }
