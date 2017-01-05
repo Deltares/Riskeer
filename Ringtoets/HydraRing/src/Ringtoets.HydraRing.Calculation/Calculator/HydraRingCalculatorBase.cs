@@ -21,10 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Security;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.Services;
 
@@ -100,6 +103,19 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// </summary>
         /// <param name="uncertaintiesType">The uncertainty type used in the calculation.</param>
         /// <param name="hydraRingCalculationInput">The object containing input data.</param>
+        /// <exception cref="SecurityException">Thrown when the temporary path can't be accessed due to missing permissions.</exception>
+        /// <exception cref="IOException">Thrown when the specified path is not valid or the network name is not known 
+        /// or an I/O error occurred while opening the file</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when the directory can't be created due to missing
+        /// the required persmissions.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="hydraRingCalculationInput"/> is not unique.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="HydraRingCalculationInput.FailureMechanismType"/>
+        /// is not the same with already added input.</exception>
+        /// <exception cref="Win32Exception">Thrown when there was an error in opening the associated file
+        /// or the wait setting could not be accessed.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when the process object has already been disposed.</exception>
+        /// <exception cref="HydraRingFileParserException">Thrown when the HydraRing file parser 
+        /// encounters an error while parsing HydraRing output.</exception>
         protected void Calculate(
             HydraRingUncertaintiesType uncertaintiesType,
             HydraRingCalculationInput hydraRingCalculationInput)
@@ -119,12 +135,26 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             ExecuteCustomParsers(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
         }
 
+        /// <summary>
+        /// Executes the generic parsers of the calculation.
+        /// </summary>
+        /// <param name="hydraRingInitializationService">The <see cref="HydraRingInitializationService"/> to get the directory from.</param>
+        /// <param name="sectionId">The id of the section of the calculation.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when the HydraRing file parser 
+        /// encounters an error while parsing HydraRing output.</exception>
         private void ExecuteGenericParsers(HydraRingInitializationService hydraRingInitializationService, int sectionId)
         {
             lastErrorFileParser.Parse(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
             LastErrorFileContent = lastErrorFileParser.ErrorFileContent;
         }
 
+        /// <summary>
+        /// Executes the custom parsers of the calculation.
+        /// </summary>
+        /// <param name="temporaryWorkingDirectory">The temporary directory of the calculation output files.</param>
+        /// <param name="sectionId">The id of the section of the calculation.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when the HydraRing file parser 
+        /// encounters an error while parsing HydraRing output.</exception>
         private void ExecuteCustomParsers(string temporaryWorkingDirectory, int sectionId)
         {
             foreach (var parser in GetParsers())
@@ -135,6 +165,14 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             SetOutputs();
         }
 
+        /// <summary>
+        /// Performs the calculation by starting a Hydra-Ring process.
+        /// </summary>
+        /// <param name="workingDirectory">The directory of the process.</param>
+        /// <param name="hydraRingInitializationService">The <see cref="HydraRingConfigurationService"/>.</param>
+        /// <exception cref="Win32Exception">Thrown when there was an error in opening the associated file
+        /// or the wait setting could not be accessed.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when the process object has already been disposed.</exception>
         private void PerformCalculation(string workingDirectory, HydraRingInitializationService hydraRingInitializationService)
         {
             hydraRingProcess = HydraRingProcessFactory.Create(
@@ -145,6 +183,14 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             hydraRingProcess.WaitForExit();
         }
 
+        /// <summary>
+        /// Creates the working directory of the calculation.
+        /// </summary>
+        /// <returns>The created working directory.</returns>
+        /// <exception cref="SecurityException">Thrown when the temporary path can't be accessed due to missing permissions.</exception>
+        /// <exception cref="IOException">Thrown when the specified path is not valid or the network name is not known.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when the directory can't be created due to missing
+        /// the required persmissions.</exception>
         private static string CreateWorkingDirectory()
         {
             var workingDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());

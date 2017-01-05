@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Security;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Providers;
 using Ringtoets.HydraRing.IO;
@@ -159,6 +160,9 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// Generates the initialization script necessary for performing Hydra-Ring calculations.
         /// </summary>
         /// <returns>The initialization script.</returns>
+        /// <exception cref="IOException">Thrown when an I/O error occurred while opening the file.</exception>
+        /// <exception cref="SecurityException">Thrown when the path can't be accessed due to missing permissions.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when the path can't be accessed due to missing permissions.</exception>
         public void WriteInitializationScript()
         {
             var initializationFileContent = string.Join(Environment.NewLine,

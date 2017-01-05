@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Security;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
@@ -38,6 +40,7 @@ using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -111,6 +114,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <item>The contribution of the failure mechanism is zero.</item>
         /// <item>The target propability or the calculated propability of a dike height calculation falls outside 
         /// the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
+        /// <item>The given <see cref="HydraRingCalculationInput"/> is not unique.</item>
         /// </list></exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
@@ -118,8 +122,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
-        /// </list>
-        /// </exception>
+        /// </list></exception>
+        /// <exception cref="SecurityException">Thrown when the temporary working directory can't be accessed due to missing permissions.</exception>
+        /// <exception cref="IOException">Thrown when the specified path is not valid or the network name is not known 
+        /// or an I/O error occurred while opening the file</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when the directory can't be created due to missing
+        /// the required persmissions.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="HydraRingCalculationInput.FailureMechanismType"/>
+        /// is not the same with already added input.</exception>
+        /// <exception cref="Win32Exception">Thrown when there was an error in opening the associated file
+        /// or the wait setting could not be accessed.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when the process object has already been disposed.</exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         internal void Calculate(GrassCoverErosionInwardsCalculation calculation,
@@ -255,6 +268,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             OnProgress?.Invoke(stepName, currentStepNumber, totalStepNumber);
         }
 
+        /// <summary>
+        /// Performs an overtopping calculation.
+        /// </summary>
+        /// <param name="overtoppingCalculationInput">The input of the calculation.</param>
+        /// <param name="calculationName">The name of the calculation.</param>
+        /// <exception cref="SecurityException">Thrown when the temporary working directory can't be accessed due to missing permissions.</exception>
+        /// <exception cref="IOException">Thrown when the specified path is not valid or the network name is not known 
+        /// or an I/O error occurred while opening the file</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when the directory can't be created due to missing
+        /// the required persmissions.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="HydraRingCalculationInput.FailureMechanismType"/>
+        /// is not the same with already added input.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="overtoppingCalculationInput"/> is not unique.</exception>
+        /// <exception cref="Win32Exception">Thrown when there was an error in opening the associated file
+        /// or the wait setting could not be accessed.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when the process object has already been disposed.</exception>
+        /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         private void CalculateOvertopping(OvertoppingCalculationInput overtoppingCalculationInput, string calculationName)
         {
             var exceptionThrown = false;
@@ -299,6 +330,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
+        /// <summary>
+        /// Performs the dike height calculation.
+        /// </summary>
+        /// <param name="dikeHeightCalculationInput">The input of the dike height calculation.</param>
+        /// <param name="calculationName">The name of the calculation.</param>
+        /// <returns><c>True</c> when the calculation was successful. <c>False</c> otherwise.</returns>
+        /// <exception cref="SecurityException">Thrown when the temporary path can't be accessed due to missing permissions.</exception>
+        /// <exception cref="IOException">Thrown when the specified path is not valid or the network name is not known 
+        /// or an I/O error occurred while opening the file</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when the directory can't be created due to missing
+        /// the required persmissions.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="dikeHeightCalculationInput"/> is not unique.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="HydraRingCalculationInput.FailureMechanismType"/>
+        /// is not the same with already added input.</exception>
+        /// <exception cref="Win32Exception">Thrown when there was an error in opening the associated file
+        /// or the wait setting could not be accessed.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when the process object has already been disposed.</exception>
         private bool CalculateDikeHeight(DikeHeightCalculationInput dikeHeightCalculationInput, string calculationName)
         {
             var exceptionThrown = false;

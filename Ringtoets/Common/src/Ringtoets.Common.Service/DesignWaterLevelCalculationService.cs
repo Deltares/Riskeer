@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Security;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
@@ -32,6 +34,7 @@ using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 
@@ -84,6 +87,7 @@ namespace Ringtoets.Common.Service
         /// <list type="bullet">
         /// <item><paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
         /// <item>The target propability or the calculated propability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
+        /// <item>The given <see cref="HydraRingCalculationInput"/> is not unique.</item>
         /// </list></exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
@@ -91,8 +95,17 @@ namespace Ringtoets.Common.Service
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
-        /// </list>
-        /// </exception>
+        /// </list></exception>
+        /// <exception cref="SecurityException">Thrown when the temporary working directory can't be accessed due to missing permissions.</exception>
+        /// <exception cref="IOException">Thrown when the specified path is not valid or the network name is not known 
+        /// or an I/O error occurred while opening the file</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when the directory can't be created due to missing
+        /// the required persmissions.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="HydraRingCalculationInput.FailureMechanismType"/>
+        /// is not the same with already added input.</exception>
+        /// <exception cref="Win32Exception">Thrown when there was an error in opening the associated file
+        /// or the wait setting could not be accessed.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when the process object has already been disposed.</exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation,

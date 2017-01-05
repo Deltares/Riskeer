@@ -19,7 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Security;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
@@ -49,6 +55,19 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// </summary>
         /// <param name="input">The <see cref="StructuresClosureCalculationInput"/> which contains all the necessary input
         /// for the calculation.</param>
+        /// <exception cref="SecurityException">Thrown when the temporary path can't be accessed due to missing permissions.</exception>
+        /// <exception cref="IOException">Thrown when the specified path is not valid or the network name is not known 
+        /// or an I/O error occurred while opening the file</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when the directory can't be created due to missing
+        /// the required persmissions.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="input"/> is not unique.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="HydraRingCalculationInput.FailureMechanismType"/>
+        /// is not the same with already added input.</exception>
+        /// <exception cref="Win32Exception">Thrown when there was an error in opening the associated file
+        /// or the wait setting could not be accessed.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when the process object has already been disposed.</exception>
+        /// <exception cref="HydraRingFileParserException">Thrown when the HydraRing file parser 
+        /// encounters an error while parsing HydraRing output.</exception>
         void Calculate(StructuresClosureCalculationInput input);
 
         /// <summary>

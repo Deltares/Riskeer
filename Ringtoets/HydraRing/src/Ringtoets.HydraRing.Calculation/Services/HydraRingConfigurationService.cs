@@ -25,6 +25,7 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Defaults;
 using Ringtoets.HydraRing.Calculation.Data.Input;
@@ -108,6 +109,9 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="input">The calculation input to add to the configuration.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="input"/> with 
         /// the same <see cref="HydraRingSection.SectionId"/> has already been added.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="input"/> is not unique.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="HydraRingCalculationInput.FailureMechanismType"/>
+        /// is not the same with already added input.</exception>
         public void AddHydraRingCalculationInput(HydraRingCalculationInput input)
         {
             if (hydraRingInputs.Any(h => h.Section.SectionId == input.Section.SectionId))
@@ -127,6 +131,9 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// Writes the database creation script necessary for performing Hydra-Ring calculations.
         /// </summary>
         /// <param name="databaseFilePath">The file path to write the database creation script to.</param>
+        /// <exception cref="IOException">Thrown when an I/O error occurred while opening the file.</exception>
+        /// <exception cref="SecurityException">Thrown when the path can't be accessed due to missing permissions.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown when the path can't be accessed due to missing permissions.</exception>
         public void WriteDatabaseCreationScript(string databaseFilePath)
         {
             var configurationDictionary = new Dictionary<string, IList<OrderedDictionary>>();
