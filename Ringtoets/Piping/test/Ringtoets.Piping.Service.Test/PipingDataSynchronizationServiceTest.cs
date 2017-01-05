@@ -68,9 +68,9 @@ namespace Ringtoets.Piping.Service.Test
             Assert.IsNull(calculation.SemiProbabilisticOutput);
 
             CollectionAssert.AreEqual(new[]
-            {
-                calculation
-            }, changedObjects);
+                                      {
+                                          calculation
+                                      }, changedObjects);
         }
 
         [Test]
@@ -245,11 +245,12 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
             RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines[0];
-            PipingCalculation[] calculationsWithSurfaceLine = failureMechanism.Calculations.Cast<PipingCalculation>()
-                                                               .Where(c => ReferenceEquals(c.InputParameters.SurfaceLine, surfaceLine))
-                                                               .ToArray();
+            PipingCalculation[] calculationsWithSurfaceLine = failureMechanism.Calculations
+                                                                              .Cast<PipingCalculation>()
+                                                                              .Where(c => ReferenceEquals(c.InputParameters.SurfaceLine, surfaceLine))
+                                                                              .ToArray();
             PipingCalculation[] calculationsWithOutput = calculationsWithSurfaceLine.Where(c => c.HasOutput)
-                                                               .ToArray();
+                                                                                    .ToArray();
 
             // Precondition
             CollectionAssert.IsNotEmpty(calculationsWithSurfaceLine);
@@ -318,11 +319,12 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetFullyConfiguredPipingFailureMechanism();
             StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[1];
-            PipingCalculation[] calculationsWithSoilModel = failureMechanism.Calculations.Cast<PipingCalculation>()
-                                                               .Where(c => ReferenceEquals(c.InputParameters.StochasticSoilModel, soilModel))
-                                                               .ToArray();
+            PipingCalculation[] calculationsWithSoilModel = failureMechanism.Calculations
+                                                                            .Cast<PipingCalculation>()
+                                                                            .Where(c => ReferenceEquals(c.InputParameters.StochasticSoilModel, soilModel))
+                                                                            .ToArray();
             PipingCalculation[] calculationsWithOutput = calculationsWithSoilModel.Where(c => c.HasOutput)
-                                                               .ToArray();
+                                                                                  .ToArray();
 
             // Precondition
             CollectionAssert.IsNotEmpty(calculationsWithSoilModel);

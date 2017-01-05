@@ -57,8 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var handler = 
-                mockRepository.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
+            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
             mockRepository.ReplayAll();
 
             // Call

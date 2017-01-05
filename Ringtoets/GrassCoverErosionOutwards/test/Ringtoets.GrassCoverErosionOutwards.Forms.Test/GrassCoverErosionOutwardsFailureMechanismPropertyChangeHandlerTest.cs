@@ -173,6 +173,26 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
         static IEnumerable ChangePropertyTestCases()
         {
             yield return new TestCaseData(
+                new ChangePropertyTestCase(new TestHydraulicBoundaryLocation[0],
+                                           new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
+            ).SetName("SetPropertyValueAfterConfirmation No locations, no calculations");
+
+            yield return new TestCaseData(
+                new ChangePropertyTestCase(new[]
+                                           {
+                                               CreateHydraulicBoundaryLocationWithoutOutput()
+                                           }, new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
+            ).SetName("SetPropertyValueAfterConfirmation Single location without output, no calculations");
+
+            yield return new TestCaseData(
+                new ChangePropertyTestCase(new TestHydraulicBoundaryLocation[0],
+                                           new[]
+                                           {
+                                               CreateCalculationWithOutput()
+                                           })
+            ).SetName("SetPropertyValueAfterConfirmation Calculation with output, no locations");
+
+            yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                                            {
                                                CreateHydraulicBoundaryLocationWithoutOutput()
@@ -180,7 +200,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                                            {
                                                CreateCalculationWithOutput()
                                            })
-            ).SetName("ChangeComposition Single location without output, calculation with output");
+            ).SetName("SetPropertyValueAfterConfirmation Single location without output, calculation with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -191,7 +211,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                                            {
                                                CreateCalculationWithoutOutput()
                                            })
-            ).SetName("ChangeComposition Single location with output, single calculation without output");
+            ).SetName("SetPropertyValueAfterConfirmation Single location with output, single calculation without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -204,7 +224,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                                                CreateCalculationWithoutOutput(),
                                                CreateCalculationWithoutOutput()
                                            })
-            ).SetName("ChangeComposition Two locations without output, calculations without output");
+            ).SetName("SetPropertyValueAfterConfirmation Two locations without output, calculations without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -217,7 +237,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                                                CreateCalculationWithOutput(),
                                                CreateCalculationWithoutOutput()
                                            })
-            ).SetName("ChangeComposition Location with, location without, calculation without and calculation with output");
+            ).SetName("SetPropertyValueAfterConfirmation Location with, location without, calculation without and calculation with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -230,7 +250,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                                                CreateCalculationWithOutput(),
                                                CreateCalculationWithOutput()
                                            })
-            ).SetName("ChangeComposition Two locations with output, two calculations with output");
+            ).SetName("SetPropertyValueAfterConfirmation Two locations with output, two calculations with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -245,7 +265,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                                                CreateCalculationWithOutput(),
                                                CreateCalculationWithoutOutput()
                                            })
-            ).SetName("ChangeComposition Two locations with, one location without, two calculations with and one calculation without output");
+            ).SetName("SetPropertyValueAfterConfirmation Two locations with, one location without, two calculations with and one calculation without output");
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation CreateCalculationWithoutOutput()

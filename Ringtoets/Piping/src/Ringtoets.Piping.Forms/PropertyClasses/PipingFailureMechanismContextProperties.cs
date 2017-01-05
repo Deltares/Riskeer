@@ -117,40 +117,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
-                    data.WrappedData,
-                    value, 
-                    (f,v) => f.GeneralInput.WaterVolumetricWeight = v);
-
-                NotifyAffectedObjects(affectedObjects);
-            }
-        }
-
-        #endregion
-
-        #region Model factors
-
-        [PropertyOrder(11)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_UpliftModelFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_UpliftModelFactor_Description")]
-        public double UpliftModelFactor
-        {
-            get
-            {
-                return data.WrappedData.GeneralInput.UpliftModelFactor;
-            }
-        }
-
-        [PropertyOrder(12)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_SellmeijerModelFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_SellmeijerModelFactor_Description")]
-        public double SellmeijerModelFactor
-        {
-            get
-            {
-                return data.WrappedData.GeneralInput.SellmeijerModelFactor;
+                ChangePropertyValueAndNotifyAffectedObjects((f, v) => f.GeneralInput.WaterVolumetricWeight = v, value);
             }
         }
 
@@ -170,12 +137,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
-                    data.WrappedData, 
-                    value, 
-                    (f, v) => f.PipingProbabilityAssessmentInput.A = v);
-
-                NotifyAffectedObjects(affectedObjects);
+                ChangePropertyValueAndNotifyAffectedObjects((f, v) => f.PipingProbabilityAssessmentInput.A = v, value);
             }
         }
 
@@ -280,6 +242,46 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         #endregion
+
+        #region Model factors
+
+        [PropertyOrder(11)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_UpliftModelFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_UpliftModelFactor_Description")]
+        public double UpliftModelFactor
+        {
+            get
+            {
+                return data.WrappedData.GeneralInput.UpliftModelFactor;
+            }
+        }
+
+        [PropertyOrder(12)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_SellmeijerModelFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_SellmeijerModelFactor_Description")]
+        public double SellmeijerModelFactor
+        {
+            get
+            {
+                return data.WrappedData.GeneralInput.SellmeijerModelFactor;
+            }
+        }
+
+        #endregion
+
+        private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
+            SetFailureMechanismPropertyValueDelegate<PipingFailureMechanism, TValue> setPropertyValue,
+            TValue value)
+        {
+            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                data.WrappedData,
+                value,
+                setPropertyValue);
+
+            NotifyAffectedObjects(affectedObjects);
+        }
 
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {

@@ -12,6 +12,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <typeparam name="TValue">The type of the value that is set on a property of the failure mechanism.</typeparam>
     /// <param name="failureMechanism">The failure mechanism for which the property will be set.</param>
     /// <param name="value">The new value of the failure mechanism property.</param>
+    /// <exception cref="Exception">Thrown when setting the property value results in an exception being thrown.</exception>
     public delegate void SetFailureMechanismPropertyValueDelegate<in TFailureMechanism, in TValue>(TFailureMechanism failureMechanism, TValue value)
         where TFailureMechanism : IFailureMechanism;
 
@@ -32,8 +33,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="setValue">The operation which is performed to set the new property <paramref name="value"/>
         /// on the <paramref name="failureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        /// <remarks>Let <paramref name="setValue"/> throw an <see cref="Exception"/> when the 
-        /// <see cref="FailureMechanismPropertyChangeHandler{T}"/> should not process the results of that operation.</remarks>
+        /// <exception cref="Exception">Thrown when calling <paramref name="setValue"/> results in an exception being
+        /// thrown.</exception>
         IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TValue>(
             T failureMechanism,
             TValue value,

@@ -231,18 +231,23 @@ namespace Ringtoets.Common.Forms.Test
         static IEnumerable ChangePropertyTestCases()
         {
             yield return new TestCaseData(
+                new ChangePropertyTestCase(new TestCalculation[0])
+
+            ).SetName("SetPropertyValueAfterConfirmation No calculations");
+
+            yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                              {
                                  CreateCalculationWithOutput()
                              })
-            ).SetName("ChangeComposition Single calculation with output");
+            ).SetName("SetPropertyValueAfterConfirmation Single calculation with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                              {
                                  CreateCalculationWithoutOutput()
                              })
-            ).SetName("ChangeComposition Single calculation without output");
+            ).SetName("SetPropertyValueAfterConfirmation Single calculation without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -250,7 +255,7 @@ namespace Ringtoets.Common.Forms.Test
                                  CreateCalculationWithoutOutput(),
                                  CreateCalculationWithoutOutput()
                              })
-            ).SetName("ChangeComposition Two calculations without output");
+            ).SetName("SetPropertyValueAfterConfirmation Two calculations without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -258,7 +263,7 @@ namespace Ringtoets.Common.Forms.Test
                                  CreateCalculationWithOutput(),
                                  CreateCalculationWithoutOutput()
                              })
-            ).SetName("ChangeComposition Calculation without and calculation with output");
+            ).SetName("SetPropertyValueAfterConfirmation Calculation without and calculation with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -266,7 +271,7 @@ namespace Ringtoets.Common.Forms.Test
                                  CreateCalculationWithOutput(),
                                  CreateCalculationWithOutput()
                              })
-            ).SetName("ChangeComposition Two calculations with output");
+            ).SetName("SetPropertyValueAfterConfirmation Two calculations with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
@@ -275,7 +280,7 @@ namespace Ringtoets.Common.Forms.Test
                                  CreateCalculationWithOutput(),
                                  CreateCalculationWithoutOutput()
                              })
-            ).SetName("ChangeComposition Two calculations with and one calculation without output");
+            ).SetName("SetPropertyValueAfterConfirmation Two calculations with and one calculation without output");
         }
 
         private static TestCalculation CreateCalculationWithoutOutput()

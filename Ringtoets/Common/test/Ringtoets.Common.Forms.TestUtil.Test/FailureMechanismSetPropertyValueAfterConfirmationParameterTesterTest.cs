@@ -36,8 +36,8 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void Constructructed_Always_PropertiesSet()
         {
             // Setup
+            const double value = 3.0;
             var testFailureMechanism = new TestFailureMechanism();
-            var value = 3.0;
             var returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
             // Call
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void SetPropertyValueAfterConfirmation_FailureMechanismPassedNotSame_ThrowsAssertionException()
         {
             // Setup
-            var value = 3.0;
+            const double value = 3.0;
 
             var expectedFailureMechanism = new TestFailureMechanism();
             var passedFailureMechanism = new TestFailureMechanism();
@@ -76,10 +76,10 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void SetPropertyValueAfterConfirmation_ValuePassedNotEqual_ThrowsAssertionException()
         {
             // Setup
-            var expectedFailureMechanism = new TestFailureMechanism();
+            const double expectedValue = 3.0;
+            const double passedValue = 2.0;
 
-            var expectedValue = 3.0;
-            var passedValue = 2.0;
+            var expectedFailureMechanism = new TestFailureMechanism();
 
             var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism,double?>(
                 expectedFailureMechanism, expectedValue, Enumerable.Empty<IObservable>());
@@ -96,9 +96,10 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void SetPropertyValueAfterConfirmation_ParametersAreSameAndEqual_SetValueCalledReturnsGivenAffectedObjects()
         {
             // Setup
+            const double value = 3.0;
+
             var returnedAffectedObjects = Enumerable.Empty<IObservable>();
             var testFailureMechanism = new TestFailureMechanism();
-            var value = 3.0;
             var called = 0;
 
             var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism,double?>(
@@ -117,8 +118,8 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void SetPropertyValueAfterConfirmation_SetValueThrowsException_BubblesException()
         {
             // Setup
+            const double value = 3.0;
             var testFailureMechanism = new TestFailureMechanism();
-            var value = 3.0;
 
             var tester = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<IFailureMechanism,double?>(
                 testFailureMechanism, value, Enumerable.Empty<IObservable>());

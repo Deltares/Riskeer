@@ -70,17 +70,10 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// </summary>
         public IEnumerable<IObservable> ReturnedAffectedObjects { get; }
 
-        public bool ConfirmPropertyChange()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<IObservable> PropertyChanged(TFailureMechanism failureMechanism)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TValue>(TFailureMechanism failureMechanism, TValue value, SetFailureMechanismPropertyValueDelegate<TFailureMechanism, TValue> setValue)
+        public IEnumerable<IObservable> SetPropertyValueAfterConfirmation<TValue>(
+            TFailureMechanism failureMechanism,
+            TValue value,
+            SetFailureMechanismPropertyValueDelegate<TFailureMechanism, TValue> setValue)
         {
             Called = true;
             Assert.AreSame(ExpectedFailureMechanism, failureMechanism);
