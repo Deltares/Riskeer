@@ -49,7 +49,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void Constructor_EmptyAcceptedIds_SuccesfullyInitialzed()
         {
             // Call
-            TestDelegate call = () => new DikeProfileDataReader(Enumerable.Empty<string>());
+            TestDelegate call = () => new DikeProfileDataReader(new string[0]);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Setup
-            var reader = new DikeProfileDataReader(Enumerable.Empty<string>());
+            var reader = new DikeProfileDataReader(new string[0]);
 
             // Call
             TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
                                                               Path.Combine("DikeProfiles", "profiel001 - Ringtoets.prfl"));
             string invalidFilePath = validFilePath.Replace("-", invalidFileNameChars[3].ToString());
 
-            var reader = new DikeProfileDataReader(Enumerable.Empty<string>());
+            var reader = new DikeProfileDataReader(new string[0]);
 
             // Call
             TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 Path.DirectorySeparatorChar.ToString());
 
-            var reader = new DikeProfileDataReader(Enumerable.Empty<string>());
+            var reader = new DikeProfileDataReader(new string[0]);
 
             // Call
             TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);

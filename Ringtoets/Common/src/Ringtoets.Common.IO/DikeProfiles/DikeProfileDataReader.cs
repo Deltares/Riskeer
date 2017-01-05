@@ -58,7 +58,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
             MEMO = 512,
         }
 
-        private readonly IEnumerable<string> acceptedIds;
+        private readonly string[] acceptedIds;
 
         private string fileBeingRead;
         private Keywords readKeywords;
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="acceptedIds">The accepted ids the file id must have to pass validation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="acceptedIds"/> is <c>null</c>.</exception>
-        public DikeProfileDataReader(IEnumerable<string> acceptedIds)
+        public DikeProfileDataReader(string[] acceptedIds)
         {
             if (acceptedIds == null)
             {
@@ -307,7 +307,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 throw CreateCriticalFileReadException(lineNumber, message);
             }
 
-            if (!acceptedIds.Any(ai => ai.Equals(id)))
+            if (!acceptedIds.Contains(id))
             {
                 string message = string.Format(Resources.DikeProfileDataReader_ValidateId_Id_0_not_valid,
                                                id);
