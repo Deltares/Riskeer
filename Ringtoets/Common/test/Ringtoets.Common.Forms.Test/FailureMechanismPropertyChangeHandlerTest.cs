@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Forms.Test
         }
 
         [Test]
-        public void ChangeComposition_WithoutFailureMechanism_ThrowsArgumentNullException()
+        public void PropertyChanged_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Setup
             var handler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Forms.Test
 
         [Test]
         [TestCaseSource("ChangePropertyTestCases")]
-        public void ChangeComposition_FailureMechanismWithDifferentCalculationCollections_ReturnsCalculationsWhichHadOutput(ChangePropertyTestCase testCase)
+        public void PropertyChanged_FailureMechanismWithDifferentCalculationCollections_ReturnsCalculationsWhichHadOutput(ChangePropertyTestCase testCase)
         {
             // Setup
             var handler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
@@ -159,24 +159,20 @@ namespace Ringtoets.Common.Forms.Test
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_ConfirmationRequiredAndGiven_SetValueCalledAffectedObjectsReturned()
+        [TestCaseSource(nameof(ChangePropertyTestCases))]
+        public void SetPropertyValueAfterConfirmation_IfConfirmationRequiredThenGiven_SetValueCalledAffectedObjectsReturned(ChangePropertyTestCase testCase)
         {
             // Setup
-            DialogBoxHandler = (name, wnd) =>
+            if (testCase.ExpectedAffectedCalculations.Any())
             {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickOk();
-            };
-
-            var calculationWithOutput = CreateCalculationWithOutput();
-            var calculationWithoutOutput = CreateCalculationWithoutOutput();
-
-            var testFailureMechanism = new TestFailureMechanism(
-                new []
+                DialogBoxHandler = (name, wnd) =>
                 {
-                    calculationWithOutput,
-                    calculationWithoutOutput
-                });
+                    var tester = new MessageBoxTester(wnd);
+                    tester.ClickOk();
+                };
+            }
+
+            var testFailureMechanism = new TestFailureMechanism(testCase.Calculations);
             var propertySet = 0;
 
             var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
@@ -189,27 +185,9 @@ namespace Ringtoets.Common.Forms.Test
 
             // Assert
             Assert.AreEqual(1, propertySet);
-            CollectionAssert.AreEqual(new IObservable[] { calculationWithOutput, testFailureMechanism }, affectedObjects);
-        }
-
-        [Test]
-        public void SetPropertyValueAfterConfirmation_ConfirmationNotRequired_SetValueCalledAffectedObjectsReturned()
-        {
-            // Setup
-            var testFailureMechanism = new TestFailureMechanism();
-            var propertySet = 0;
-
-            var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
-
-            // Call
-            var affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
-                testFailureMechanism,
-                3,
-                (f, v) => propertySet++);
-
-            // Assert
-            Assert.AreEqual(1, propertySet);
-            CollectionAssert.AreEqual(new IObservable[] { testFailureMechanism }, affectedObjects);
+            var expectedAffectedObjects = new List<IObservable>(testCase.ExpectedAffectedCalculations);
+            expectedAffectedObjects.Add(testFailureMechanism);
+            CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
         }
 
         [Test]
@@ -247,7 +225,7 @@ namespace Ringtoets.Common.Forms.Test
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_ExceptionInSetValueAfterConfirmation_ExceptionBubbled()
+        public void SetPropertyValueAfterConfirmation_ConfirmationRequiredAndGivenExceptionInSetValue_ExceptionBubbled()
         {
             // Setup
             DialogBoxHandler = (name, wnd) =>
