@@ -199,40 +199,40 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "Orientation_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "Orientation_WithoutOutput_InputNotified")]
         public void Orientation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.Orientation = new Random(21).NextRoundedDouble());
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "DikeHeight_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "DikeHeight_WithoutOutput_InputNotified")]
         public void DikeHeight_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.DikeHeight = new Random(21).NextRoundedDouble());
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "DikeHeightCalculationType_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "DikeHeightCalculationType_WithoutOutput_InputNotified")]
         public void DikeHeightCalculationType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.DikeHeightCalculationType = new Random(21).NextEnumValue<DikeHeightCalculationType>());
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "DikeProfile_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "DikeProfile_WithoutOutput_InputNotified")]
         public void DikeProfile_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(hasOutput, properties => properties.DikeProfile = new TestDikeProfile());
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "SelectedHydraulicBoundaryLocation_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "SelectedHydraulicBoundaryLocation_WithoutOutput_InputNotified")]
         public void SelectedHydraulicBoundaryLocation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -242,8 +242,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "BreakWater_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "BreakWater_WithoutOutput_InputNotified")]
         public void BreakWater_UseBreakWaterChangedWithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -252,8 +252,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "CriticalFlowRate_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "CriticalFlowRate_WithoutOutput_InputNotified")]
         public void CriticalFlowRate_MeanChangedWithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(

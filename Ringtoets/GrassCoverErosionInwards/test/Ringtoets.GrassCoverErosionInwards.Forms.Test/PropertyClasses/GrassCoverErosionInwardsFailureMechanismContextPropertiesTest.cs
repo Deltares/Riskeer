@@ -201,9 +201,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(0)]
-        [TestCase(-1)]
-        [TestCase(-20)]
+        [TestCase(0, TestName = "LenghtEffect_InvalidValueWithConfirmation_ArgumentOutOfRangeException(0)")]
+        [TestCase(-1, TestName = "LenghtEffect_InvalidValueWithConfirmation_ArgumentOutOfRangeException(-1)")]
+        [TestCase(-20, TestName = "LenghtEffect_InvalidValueWithConfirmation_ArgumentOutOfRangeException(-20)")]
         public void LengthEffect_SetInvalidValueWithConfirmation_ThrowsArgumentOutOfRangeException(int newLengthEffect)
         {
             // Setup

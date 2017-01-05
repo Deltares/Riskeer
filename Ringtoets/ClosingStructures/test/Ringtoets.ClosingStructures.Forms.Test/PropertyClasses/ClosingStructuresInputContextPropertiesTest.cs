@@ -532,8 +532,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "FactorStormDurationOpenStructure_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "FactorStormDurationOpenStructure_WithoutOutput_InputNotified")]
         public void FactorStormDurationOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -542,8 +542,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "InflowModelType_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "InflowModelType_WithoutOutput_InputNotified")]
         public void InflowModelType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -552,8 +552,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "ProbabilityOrFrequencyOpenStructureBeforeFlooding_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "ProbabilityOrFrequencyOpenStructureBeforeFlooding_WithoutOutput_InputNotified")]
         public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -562,8 +562,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "FailureProbabilityOpenStructure_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "FailureProbabilityOpenStructure_WithoutOutput_InputNotified")]
         public void FailureProbabilityOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -572,8 +572,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "FailureProbabilityReparation_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "FailureProbabilityReparation_WithoutOutput_InputNotified")]
         public void FailureProbabilityReparation_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(
@@ -582,8 +582,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "IdenticalApertures_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "IdenticalApertures_WithoutOutput_InputNotified")]
         public void IdenticalApertures_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
         {
             SetPropertyAndVerifyNotifcationsAndOutput(
