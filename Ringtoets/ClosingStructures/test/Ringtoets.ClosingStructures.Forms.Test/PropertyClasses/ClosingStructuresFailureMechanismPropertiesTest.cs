@@ -210,7 +210,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [TestCase(-1)]
         [TestCase(41)]
         [TestCase(141)]
-        public void N2A_InvalidValueWithConfirmation_UpdateDataAndNotifyObservers(int value)
+        public void N2A_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifcations(int value)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -243,7 +243,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [TestCase(5)]
         [TestCase(21)]
         [TestCase(40)]
-        public void N2A_SetValidValueWithConfirmation_UpdateDataAndNotifyObservers(int value)
+        public void N2A_SetValidValue_UpdateDataAndNotifyObservers(int value)
         {
             // Setup
             var mockRepository = new MockRepository();

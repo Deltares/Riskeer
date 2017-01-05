@@ -258,7 +258,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         [TestCase(-0.1)]
         [TestCase(1.1)]
         [TestCase(8)]
-        public void A_SetInvalidValue_ThrowsArgumentException(double value)
+        public void A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifcations(double value)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();

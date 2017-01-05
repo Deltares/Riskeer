@@ -196,7 +196,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-20)]
-        public void LengthEffect_InvalidValueWithConfirmation_UpdateDataAndNotifyObservers(int value)
+        public void LengthEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifcations(int value)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -228,7 +228,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         [TestCase(1)]
         [TestCase(10)]
         [TestCase(20)]
-        public void LengthEffect_SetValidValueWithConfirmation_UpdateDataAndNotifyObservers(int value)
+        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(int value)
         {
             // Setup
             var mockRepository = new MockRepository();

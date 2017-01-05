@@ -201,10 +201,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(0, TestName = "LenghtEffect_InvalidValueWithConfirmation_ArgumentOutOfRangeException(0)")]
-        [TestCase(-1, TestName = "LenghtEffect_InvalidValueWithConfirmation_ArgumentOutOfRangeException(-1)")]
-        [TestCase(-20, TestName = "LenghtEffect_InvalidValueWithConfirmation_ArgumentOutOfRangeException(-20)")]
-        public void LengthEffect_SetInvalidValueWithConfirmation_ThrowsArgumentOutOfRangeException(int newLengthEffect)
+        [TestCase(0, TestName = "LenghtEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifcations(0)")]
+        [TestCase(-1, TestName = "LenghtEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifcations(-1)")]
+        [TestCase(-20, TestName = "LenghtEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifcations(-20)")]
+        public void LengthEffect_SetInvalidValue_ThrowsThrowsArgumentOutOfRangeExceptionNoNotifcations(int newLengthEffect)
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -237,7 +237,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [TestCase(1)]
         [TestCase(10)]
         [TestCase(20)]
-        public void LengthEffect_SetValidValueWithConfirmation_UpdateDataAndNotifyObservers(int newLengthEffect)
+        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(int newLengthEffect)
         {
             // Setup
             var observableMock = mockRepository.StrictMock<IObservable>();

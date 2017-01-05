@@ -163,7 +163,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-20)]
-        public void LengthEffect_SetInvalidValueWithConfirmation_ThrowsArgumentOutOfRangeException(int newLengthEffect)
+        public void LengthEffect_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifcations(int newLengthEffect)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -178,7 +178,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 {
                     observableMock
                 });
-
 
             var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
 
@@ -195,7 +194,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [TestCase(1)]
         [TestCase(10)]
         [TestCase(20)]
-        public void LengthEffect_SetValidValueWithConfirmation_UpdateDataAndNotifyObservers(int newLengthEffect)
+        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(int newLengthEffect)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -211,7 +210,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 {
                     observableMock
                 });
-
 
             var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
 
