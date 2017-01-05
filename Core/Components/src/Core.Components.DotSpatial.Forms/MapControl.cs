@@ -174,7 +174,7 @@ namespace Core.Components.DotSpatial.Forms
             DrawnMapData drawnMapData = drawnMapDataList.FirstOrDefault(dmd => dmd.FeatureBasedMapData.Equals(mapData));
             if (drawnMapData == null)
             {
-                throw new ArgumentException($"Can only zoom to {typeof(MapData).Name} that is part of this {typeof(MapControl).Name}s drawn mapdata.",
+                throw new ArgumentException($@"Can only zoom to {typeof(MapData).Name} that is part of this {typeof(MapControl).Name}s drawn {nameof(mapData)}.",
                                             nameof(mapData));
             }
 
@@ -192,7 +192,7 @@ namespace Core.Components.DotSpatial.Forms
         /// <param name="mapData">The data to determine the visible extent for.</param>
         /// <returns>The area definition.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> or
-        /// any of it's children is not part of the drawn map features.</exception>
+        /// any of its children is not part of the drawn map features.</exception>
         private IEnvelope CreateEnvelopeForAllVisibleLayers(MapDataCollection mapData)
         {
             IEnvelope envelope = new Envelope();

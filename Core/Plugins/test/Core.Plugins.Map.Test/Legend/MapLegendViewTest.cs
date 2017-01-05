@@ -193,7 +193,6 @@ namespace Core.Plugins.Map.Test.Legend
             }
         }
 
-
         [Test]
         public void MapControl_MapControlHasMapWithData_DataReturnsMapDataOfMap()
         {

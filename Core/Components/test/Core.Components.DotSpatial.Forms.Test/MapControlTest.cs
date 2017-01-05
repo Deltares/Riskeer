@@ -415,7 +415,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         [TestCase(5.0, 5.0)]
         [TestCase(5.0, 1.0)]
         [TestCase(1.0, 5.0)]
-        [TestCase(double.MaxValue*0.96, double.MaxValue*0.96)]
+        [TestCase(double.MaxValue * 0.96, double.MaxValue * 0.96)]
         [TestCase(double.MaxValue, double.MaxValue)]
         public void ZoomToAllVisibleLayers_LayersOfVariousDimensions_ZoomToVisibleLayersExtent(double xMax, double yMax)
         {
@@ -473,7 +473,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl
             {
                 Data = mapDataCollection
-        })
+            })
             {
                 var mapData = new MapPointData("Test data");
 
@@ -583,7 +583,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.Data = dataCollection;
 
                 MapData mapData = dataCollection.Collection.ElementAt(0);
-                var expectedExtent = GetExpectedExtent((FeatureBasedMapData)mapData);
+                var expectedExtent = GetExpectedExtent((FeatureBasedMapData) mapData);
                 ExtendWithExpectedMargin(expectedExtent);
 
                 // Precondition
@@ -610,13 +610,13 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.Data = dataCollection;
 
                 MapData mapData = dataCollection.Collection.ElementAt(2);
-                Extent expectedExtent = GetExpectedExtent((FeatureBasedMapData)mapData);
+                Extent expectedExtent = GetExpectedExtent((FeatureBasedMapData) mapData);
                 ExtendWithExpectedMargin(expectedExtent);
 
                 // Precondition
                 Assert.IsFalse(mapData.IsVisible);
 
-                var originalViewExtents = (Extent)mapView.ViewExtents.Clone();
+                var originalViewExtents = (Extent) mapView.ViewExtents.Clone();
 
                 // Call
                 map.ZoomToAllVisibleLayers(mapData);
@@ -640,7 +640,6 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 var mapView = map.Controls.OfType<Map>().First();
-                
 
                 MapData mapData = new MapPointData("Test data")
                 {

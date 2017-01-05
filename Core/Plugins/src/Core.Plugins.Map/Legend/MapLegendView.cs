@@ -52,7 +52,7 @@ namespace Core.Plugins.Map.Legend
             if (contextMenuBuilderProvider == null)
             {
                 throw new ArgumentNullException(nameof(contextMenuBuilderProvider),
-                                                $"Cannot create a {typeof(MapLegendView).Name} when the context menu builder provider is null.");
+                                                $@"Cannot create a {typeof(MapLegendView).Name} when the context menu builder provider is null.");
             }
 
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
