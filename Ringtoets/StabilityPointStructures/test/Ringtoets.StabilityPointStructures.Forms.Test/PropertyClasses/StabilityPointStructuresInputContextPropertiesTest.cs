@@ -971,6 +971,96 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [TestCase(true, TestName = "VolumicWeightWater_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "VolumicWeightWater_WithoutOutput_InputNotified")]
+        public void VolumicWeightWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.VolumicWeightWater = new Random(21).NextRoundedDouble());
+        }
+
+        [Test]
+        [TestCase(true, TestName = "FactorStormDurationOpenStructure_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "FactorStormDurationOpenStructure_WithoutOutput_InputNotified")]
+        public void FactorStormDurationOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.FactorStormDurationOpenStructure = new Random(21).NextRoundedDouble());
+        }
+
+        [Test]
+        [TestCase(true, TestName = "InflowModelType_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "InflowModelType_WithoutOutput_InputNotified")]
+        public void InflowModelType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.InflowModelType = new Random(21).NextEnumValue<StabilityPointStructureInflowModelType>());
+        }
+
+        [Test]
+        [TestCase(true, TestName = "LoadSchematizationType_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "LoadSchematizationType_WithoutOutput_InputNotified")]
+        public void FailureProbabilityOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.LoadSchematizationType = new Random(21).NextEnumValue<LoadSchematizationType>());
+        }
+
+        [Test]
+        [TestCase(true, TestName = "FailureProbabilityRepairClosure_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "FailureProbabilityRepairClosure_WithoutOutput_InputNotified")]
+        public void FailureProbabilityRepairClosure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.FailureProbabilityRepairClosure = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture));
+        }
+
+        [Test]
+        [TestCase(true, TestName = "LevellingCount_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "LevellingCount_WithoutOutput_InputNotified")]
+        public void LevellingCount_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.LevellingCount = new Random(21).Next());
+        }
+
+        [Test]
+        [TestCase(true, TestName = "ProbabilityCollisionSecondaryStructure_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "ProbabilityCollisionSecondaryStructure_WithoutOutput_InputNotified")]
+        public void ProbabilityCollisionSecondaryStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.ProbabilityCollisionSecondaryStructure = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture));
+        }
+
+        [Test]
+        [TestCase(true, TestName = "EvaluationLevel_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "EvaluationLevel_WithoutOutput_InputNotified")]
+        public void EvaluationLevel_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.EvaluationLevel = new Random(21).NextRoundedDouble());
+        }
+
+        [Test]
+        [TestCase(true, TestName = "VerticalDistance_WithOutput_InputAndCalculationNotified")]
+        [TestCase(false, TestName = "VerticalDistance_WithoutOutput_InputNotified")]
+        public void VerticalDistance_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(bool hasOutput)
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(
+                hasOutput,
+                properties => properties.VerticalDistance = new Random(21).NextRoundedDouble());
+        }
+
+        [Test]
         [TestCase(double.MinValue)]
         [TestCase(double.MaxValue)]
         public void SetFailureProbabilityRepairClosure_InvalidValues_ThrowsArgumentException(double newValue)
@@ -1485,5 +1575,50 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int quadraticFloodedCulvertUseForeshorePropertyIndex = 34;
 
         #endregion
+
+        private void SetPropertyAndVerifyNotifcationsAndOutput(
+            bool hasOutput,
+            Action<StabilityPointStructuresInputContextProperties> setProperty)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            int numberOfChangedProperties = hasOutput ? 1 : 0;
+            calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+
+            var inputObserver = mocks.StrictMock<IObserver>();
+            inputObserver.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+
+            if (hasOutput)
+            {
+                calculation.Output = new TestStructuresOutput();
+            }
+            calculation.Attach(calculationObserver);
+
+            StabilityPointStructuresInput inputParameters = calculation.InputParameters;
+            inputParameters.Attach(inputObserver);
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var properties = new StabilityPointStructuresInputContextProperties(new StabilityPointStructuresInputContext(inputParameters,
+                                              calculation,
+                                              failureMechanism,
+                                              assessmentSection)
+            );
+
+            // Call
+            setProperty(properties);
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+
+            mocks.VerifyAll();
+        }
     }
 }

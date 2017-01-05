@@ -196,7 +196,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 data.WrappedData.VolumicWeightWater = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -275,7 +275,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 data.WrappedData.FactorStormDurationOpenStructure = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -322,7 +322,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 data.WrappedData.InflowModelType = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -340,7 +340,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 data.WrappedData.LoadSchematizationType = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -486,7 +486,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.FailureProbabilityRepairClosure = parsedValue);
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -560,7 +560,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 data.WrappedData.LevellingCount = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -577,7 +577,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.ProbabilityCollisionSecondaryStructure = parsedValue);
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -610,7 +610,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 data.WrappedData.EvaluationLevel = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
@@ -627,7 +627,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             set
             {
                 data.WrappedData.VerticalDistance = value;
-                data.WrappedData.NotifyObservers();
+                ClearOutputAndNotifyPropertyChanged();
             }
         }
 
